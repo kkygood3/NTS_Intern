@@ -1,4 +1,4 @@
-package com.nts;
+package main.java.com.nts;
 
 public class Helloworld {
 	public static void main(String[] args) {
