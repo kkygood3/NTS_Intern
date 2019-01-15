@@ -6,7 +6,7 @@ body {
 	justify-content: center;
 }
 
-#goToMain {
+.go_main {
 	position: absolute;
 	top: 0;
 	left: 0;

@@ -1,33 +1,38 @@
 @charset "UTF-8";
 
-#mainContent{
-	display:block;
+.main_content {
+	display: block;
 	background-color: #FFF;
 	margin: 0 auto;
 	padding: 80px 10px;
 }
-#mainContent>*{
+
+.main_content>* {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
-#name{
+
+.name {
 	margin: 0;
 }
-#introduce{
+
+.introduce {
 	text-align: center;
 }
-#mainContent>img{
-	max-width:1000px;
+
+.main_content>img {
+	max-width: 1000px;
 	display: block;
 	margin: 0px auto;
 }
 
-#buttonList{
+.buttonList {
 	list-style: none;
 	padding: 0;
 }
-.btnKategorie{
+
+.btnKategorie {
 	width: 100px;
 	height: 100px;
 	display: inline-block;
@@ -35,11 +40,12 @@
 	background-color: #ABF200;
 	box-shadow: 3px 3px 3px #aaa;
 }
-.btnKategorie>a{
+
+.btnKategorie>a {
 	text-decoration: none;
 	width: 100%;
 	height: 100%;
-	display:flex;
-	align-items:center;
-	justify-content:center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

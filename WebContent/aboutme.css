@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#mainContent {
+.main_content {
 	display: block;
 	background-color: #FFF;
 	margin: 0 auto;
@@ -10,7 +10,7 @@
 .content {
 	height: 150px;
 	margin: 20px;
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }

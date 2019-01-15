@@ -1,23 +1,25 @@
 @charset "UTF-8";
 
-#mainContent {
+.main_content {
 	display: block;
 	background-color: #FFF;
 	margin: 0 auto;
 	padding: 80px 10px;
 }
 
-.photoContent {
+.photo_content {
 	height: 300px;
 	margin: 20px;
 	display: flex;
 	align-items: center;
 }
-.photo{
+
+.photo {
 	width: 250px;
 	max-height: 250px;
 	border: 5px solid #555;
 }
-.explanation{
+
+.explanation {
 	padding-left: 50px;
 }
