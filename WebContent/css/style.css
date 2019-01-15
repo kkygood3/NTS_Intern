@@ -5,6 +5,10 @@ nav {
 	text-align:right;
 }
 
+button {
+	cursor: pointer;
+}
+
 .button_nav {
 	background-color: lightblue;
 	color: purple;
