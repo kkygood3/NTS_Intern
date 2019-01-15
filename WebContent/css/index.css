@@ -9,12 +9,15 @@ p {
 	padding: 0;
 }
 
+.index_content_menu{
+    display: table;
+    margin: 0 auto 10px auto;
+    position: relative;
+}
 .index_content_button {
-	width: 7.5em;
-	height: 7.5em;
-	color: rgb(255, 255, 255);
-	text-decoration: none;
-	margin-bottom: 25px;
+	width: 5em;
+	height: 5em;
+	margin: 10px;
 }
 
 .index_contentButton>a {
