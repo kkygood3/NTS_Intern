@@ -3,24 +3,29 @@
 section {
 	text-align: center;
 	padding: 20px;
-	overflow:hidden;
 }
+
 #section-ul li {
 	width: 100px;
-	float: right;
 	margin: 20px 10px;
 	background-color: #00ff92;
 	padding: 30px;
+	display: inline-block;
 }
 
 #section-ul {
-	margin-right: 40%;
+	margin-right: auto;
+	margin-left: auto;
 }
 
-#section-ul li a:link {
+#section-ul li a {
 	font-size: 20px;
 	color: #fff;
 	text-decoration: none;
+}
+
+#section-ul li a:hover {
+	color: #caad18;
 }
 
 #my-location {
