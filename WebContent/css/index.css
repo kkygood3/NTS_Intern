@@ -1,9 +1,7 @@
 @charset "UTF-8";
-
-p {
-	text-align: center;
+p{
+	text-align: center;	
 }
-
 .index_content_paragraph {
 	margin: 0;
 	padding: 0;
@@ -18,10 +16,7 @@ p {
 	width: 5em;
 	height: 5em;
 	margin: 10px;
-}
-
-.index_contentButton>a {
-	text-decoration: none;
 	color: white;
 	font-size: 1.5em;
 }
+

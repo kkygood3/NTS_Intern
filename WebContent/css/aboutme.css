@@ -5,10 +5,8 @@ p {
 }
 
 .about_me_section {
-	display: flex;
-	flex-direction: column;
-	justify-content: left;
-	align-items: flex-start;
+	float:left;
+	display:block;
 }
 
 .about_me_article {

@@ -22,6 +22,9 @@ p strong {
 	font: 2em bold;
 	margin: 0;
 }
+p#footer_paragraph{
+	text-align: center;	
+}
 
 a {
 	width: 100%;
