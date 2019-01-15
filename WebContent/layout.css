@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 body {
-	background-color: #8EC7D0;
+	background-color: #8ec7d0;
 }
 
 nav {
 	height: 100px;
-	background-color: #FFF;
+	background-color: #fff;
 	margin: 10px auto;
 	display: flex;
 	align-items: center;
@@ -23,7 +23,7 @@ nav {
 	width: 100px;
 	height: 50px;
 	display: inline-block;
-	background-color: #ABF200;
+	background-color: #abf200;
 	box-shadow: 3px 3px 3px #aaa;
 	display: inline-block;
 }
@@ -39,7 +39,7 @@ nav {
 
 .footer {
 	height: 100px;
-	background-color: #FFF;
+	background-color: #fff;
 	margin: 10px auto;
 	padding: 5px;
 	display: flex;
