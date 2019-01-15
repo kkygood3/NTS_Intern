@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+body {
+	background-color: #8EC7D0;
+}
+
+nav {
+	height: 100px;
+	background-color: #FFF;
+	margin: 10px auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+#navList {
+	list-style: none;
+	text-align: right;
+	padding: 10px;
+}
+
+.kategorie {
+	width: 100px;
+	height: 50px; display : inline-block;
+	background-color: #ABF200;
+	box-shadow: 3px 3px 3px #aaa;
+	display: inline-block;
+}
+
+.kategorie>a {
+	text-decoration: none;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#footer {
+	height: 100px;
+	background-color: #FFF;
+	margin: 10px auto;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
