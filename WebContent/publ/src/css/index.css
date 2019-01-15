@@ -1,5 +1,27 @@
 @charset "UTF-8";
 
-body{
-	background-color : red;
+section {
+	overflow: hidden;
+}
+
+#section-ul li {
+	width: 100px;
+	float: right;
+	margin: 20px 10px;
+	background-color: #00ff92;
+	padding: 30px;
+}
+
+#section-ul {
+	margin-right: 40%;
+}
+
+#section-ul li a:link {
+	font-size: 20px;
+	color: #fff;
+	text-decoration: none;
+}
+
+#my-location {
+	clear: both;
 }
