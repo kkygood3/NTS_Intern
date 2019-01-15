@@ -55,7 +55,7 @@ span {
 	height: auto;
 }
 
-section ul {
+section > ul {
 	padding : 0px;
 }
 
@@ -74,14 +74,34 @@ section ul {
 	margin : 10px 0px;
 }
 
-.introduce {
+.content-list {
 	text-align : center;
 	width : 100%;
 }
 
-.introduce-item {
-	display : block;
+.content {
+	display : inline-block;
 	text-align : left;
 	width : 80%;
-	margin : 70px auto;
+	padding : 50px;
+}
+
+.photo {
+	width : 400px;
+	border : 10px solid #abcdef;
+	align : left;
+	margin-right : 50px;
+}
+
+.photo-caption > span {
+	margin : 10px 0px;
+	font-size : 20px;
+}
+
+#photo-section .content {
+	border-bottom : 1px solid grey;
+}
+
+#photo-section .content:nth-last-of-type(1) {
+	border-bottom : 0px;
 }
