@@ -1,0 +1,87 @@
+body {
+	background-color : #abcdef;
+}
+
+header, section, footer {
+	background-color : white;
+	margin : 20px;
+}
+
+section {
+	padding : 20px;
+	text-align : center;
+}
+
+footer {
+	height : 100px;
+	line-height : 116px;
+	text-align : center;
+}
+
+#web {
+	display : inline-block;
+	line-height : 20px;
+}
+
+span {
+	display : block;
+}
+
+.menu {
+	margin : 0px;
+	padding : 0px 10px;
+	height : 100px;
+	line-height : 100px;
+	list-style : none;
+	text-align : right;
+}
+
+.menu-item {
+	display : inline-block;
+	width : 150px;
+	height : 50px;
+	line-height : 50px;
+	text-align : center;
+	background-color : #abcdef;
+	margin : 0px 10px;
+}
+
+.square-box {
+	box-shadow : 2px 2px 1px 0px gray;
+}
+
+.map {
+	width : 800px;
+	height: auto;
+}
+
+section ul {
+	padding : 0px;
+}
+
+.caption {
+	display : inline-block;
+	background-color : #abcdef;
+	width : 100px;
+	height : 100px;
+	line-height : 100px;
+	margin : 0px 15px;
+}
+
+.title {
+	font-size : 32px;
+	font-weight : bold;
+	margin : 10px 0px;
+}
+
+.introduce {
+	text-align : center;
+	width : 100%;
+}
+
+.introduce-item {
+	display : block;
+	text-align : left;
+	width : 80%;
+	margin : 70px auto;
+}
