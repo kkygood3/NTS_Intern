@@ -3,14 +3,14 @@
 body {
 	background-color: #42e5b1;
 	font-family: 'Nanum Gothic', sans-serif;
+	display: block;
 }
 
 img {
 	display: block;
 	object-fit: contain;
-	margin-left: auto;
-	margin-right: auto;
-	width: 80%;
+	margin:0 auto;
+	width: 60%;
 }
 
 p {
@@ -32,9 +32,14 @@ a {
 }
 
 nav {
-	display: inline-block;
-	position: relative;
-	left: 220px;
+	
+	float: right;
+	  padding: 10px;
+	  overflow: auto;
+}
+#navbar{
+	display: flow-root;
+    width: auto;
 }
 
 ul {
