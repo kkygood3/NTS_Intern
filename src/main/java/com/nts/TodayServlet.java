@@ -40,7 +40,7 @@ public class TodayServlet extends HttpServlet {
 		String customTime = time.format(timeFormat);
 
 		PrintWriter out = response.getWriter();
-		out.print("<link rel='stylesheet' type='text/css' href='today.css'>"
+		out.print("<link rel='stylesheet' type='text/css' href='css/today.css'>"
 			+ "<a href='index.html' class='go_main'>메인화면</a>"
 			+ "<h1> 현재시간 : " + customTime + "</h1>");
 	}
