@@ -1,0 +1,22 @@
+@charset "EUC-KR";
+
+p {
+	text-align: left;
+	margin:0;
+}
+strong{
+	font-size: 2em;
+	font-weight:800;	
+}
+.aboutMeSection{
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	align-items: flex-start;
+}
+
+.aboutMeArticle{
+	margin:10px;
+	margin-right: 10em;
+	margin-left: 10em;
+} 

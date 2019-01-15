@@ -1,0 +1,35 @@
+@charset "EUC-KR";
+
+p {
+	line-height: 2
+}
+
+img {
+	border: solid;
+	border-width: 10px;
+	border-color: #333333;
+}
+
+.photoArticle {
+	display: flex;
+	align-items: flex-start;
+	margin: 20px;
+	margin-right: 10em;
+	margin-left: 10em;
+	width: 50em;
+}
+
+.photoImg {
+	width: 20em;
+	margin-right: 3em;
+	margin-top: 0px;
+	border: solid;
+	border-color: #666666
+}
+
+.photoContent {
+	display: flex;
+	align-items: flex-start;
+	width: 60em;
+	margin-top: 0px;
+}

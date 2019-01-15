@@ -1,0 +1,19 @@
+@charset "EUC-KR";
+
+p {
+	text-align: center;
+}
+
+.contentButton {
+	width: 10em;
+	height: 10em;
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+	margin-bottom: 25px;
+}
+
+.contentButton>a {
+	text-decoration: none;
+	color: white;
+	font-size: 1.5em;
+}

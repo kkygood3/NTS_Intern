@@ -1,0 +1,68 @@
+@charset "EUC-KR";
+body {
+	background-color: #42e5b1;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+img {
+	display: inline-block;
+	object-fit: contain;
+}
+
+h1 {
+	margin: 0px;
+	font-weight: 800;
+	font-size:2em;
+}
+
+p {
+	line-height:2
+}
+
+#footerParagraph{
+	margin : 0px;
+}
+.sections {
+	background-color: white;
+	margin-top: 10px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.sections#navbar {
+	align-items: flex-end;
+}
+
+ul#navMenu {
+	padding: 0px;
+	margin: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+ul#navMenu li {
+	display: inline;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.button {
+	background-color: #2fa8a0;
+	border-radius: 0.5em;
+	box-shadow: 0.5em 0.5em #888888;
+}
+
+.navButton {
+	width: 10em;
+	height: 3em;
+}
+
+.navButton>a {
+	text-decoration: none;
+}
