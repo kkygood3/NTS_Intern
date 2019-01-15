@@ -17,6 +17,16 @@ div {
 	background-color: white;
 }
 
+.float-container {
+	overflow: auto;
+}
+
+.float-container img {
+	float: left;
+	width: 200px;
+	margin: 20px;
+}
+
 button {
 	cursor: pointer;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
