@@ -1,7 +1,12 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 
 p {
 	text-align: center;
+}
+
+.indexContentParagraph {
+	margin: 0;
+	padding: 0;
 }
 
 .contentButton {
