@@ -1,9 +1,10 @@
 @charset "UTF-8";
 
 section {
-	overflow: hidden;
+	text-align: center;
+	padding: 20px;
+	overflow:hidden;
 }
-
 #section-ul li {
 	width: 100px;
 	float: right;

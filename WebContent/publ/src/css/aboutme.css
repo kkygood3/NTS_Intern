@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+section {
+	padding: 20px;
+}
+
+section div{
+	margin-left: 10%;
+}
+
+section div:nth-child(2n){
+	margin-top:4%;
+	margin-bottom:4%;
+}
