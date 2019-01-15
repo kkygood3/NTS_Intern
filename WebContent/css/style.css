@@ -1,0 +1,36 @@
+
+@charset "UTF-8";
+
+nav {
+	text-align:right;
+}
+
+.button_nav {
+	background-color: lightblue;
+	color: purple;
+	font-size: 15px;
+	font-weight: bold;
+	height: 40px;
+	width: 100px;
+}
+
+.button_square {
+	background-color: lightblue;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	height: 200px;
+	width: 200px;
+}
+
+footer {
+	text-align:center;
+}
+
+hr {
+	height: 10px;
+	background-color: lightblue;
+	border-color: white;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
