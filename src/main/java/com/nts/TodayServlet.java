@@ -41,8 +41,10 @@ public class TodayServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.print("<link rel='stylesheet' type='text/css' href='css/today.css'>"
+			+ "<body class='servlet_body'>"
 			+ "<a href='index.html' class='go_main'>메인화면</a>"
-			+ "<h1> 현재시간 : " + customTime + "</h1>");
+			+ "<h1> 현재시간 : " + customTime + "</h1>"
+			+ "</body>");
 	}
 
 }

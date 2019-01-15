@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body {
+.servlet_body {
 	display: flex;
 	align-items: center;
 	justify-content: center;

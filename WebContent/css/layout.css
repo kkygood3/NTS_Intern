@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
-body {
+.colored_bg {
 	background-color: #8ec7d0;
 }
 
-nav {
+.kategorie_section {
 	height: 100px;
 	background-color: #fff;
 	margin: 10px auto;
