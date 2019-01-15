@@ -1,0 +1,17 @@
+.content {
+	text-align: left;
+	padding: 10px 80px;
+}
+
+article {
+	height: 180px;
+	margin-bottom: 20px;
+}
+
+.title{
+	margin: 10px 0;
+}
+
+.description_holder {
+	margin-bottom: 10px;
+}
