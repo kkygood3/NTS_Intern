@@ -4,11 +4,11 @@ section {
 	padding: 20px;
 }
 
-section div{
+section div {
 	margin-left: 10%;
 }
 
-section div:nth-child(2n){
-	margin-top:4%;
-	margin-bottom:4%;
+section div:nth-child(2n) {
+	margin-top: 4%;
+	margin-bottom: 4%;
 }

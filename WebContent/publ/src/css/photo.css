@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+section {
+	padding: 20px;
+}
+
+section>div {
+	margin-top: 30px;
+	margin-bottom: 80px;
+	border-bottom: 1px solid gray;
+}
+
+.my-pic {
+	width: 11%;
+	height: 5%;
+	border: 5px solid gray;
+	margin-bottom: 3%;
+}
+
+.pic-info {
+	position: absolute;
+	margin-left: 4%;
+	line-height: 3;
+}
+
+section>div:last-child {
+	border-bottom: 0;
+}
