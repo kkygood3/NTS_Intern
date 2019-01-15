@@ -4,13 +4,13 @@ p {
 	text-align: left;
 }
 
-.aboutMeSection {
+.about_me_section {
 	display: flex;
 	flex-direction: column;
 	justify-content: left;
 	align-items: flex-start;
 }
 
-.aboutMeArticle {
+.about_me_article {
 	margin: 10px 10em 10px 10em;
 }

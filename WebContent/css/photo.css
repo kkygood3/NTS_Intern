@@ -11,20 +11,20 @@ hr {
 	opacity: 0.5;
 }
 
-.photoArticle {
+.photo_article {
 	display: flex;
 	align-items: flex-start;
 	margin: 20px 10em 20px 10em;
 	width: 50em;
 }
 
-.photoImg {
+.photo_img {
 	width: 20em;
 	margin: 0 3em 0 0;
 	border: solid #666666;
 }
 
-.photoContent {
+.photo_content {
 	display: flex;
 	align-items: flex-start;
 	width: 60em;
