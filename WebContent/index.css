@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+section {
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0;
+}
+
+.greeting, .description, .profile_list, .map_image_container {
+	margin: 15px auto;
+}
+
+.greeting {
+	text-align: center;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.description {
+	text-align: center;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.profile_list {
+	list-style-type: none;
+}
+
+.profile_list_item {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin: 0 8px;
+	background-color: #11af58;
+	box-shadow: 3px 3px 1.5px 1.5px gray;
+	display: flex;
+}
+
+.profile_list_item > p {
+	margin: auto;
+	color: white;
+}
+
+.profile_list_item > p:hover {
+	color: gray;	
+}

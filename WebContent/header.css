@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+header > nav {
+	overflow: hidden;
+}
+
+.nav_list {
+	float: right;
+	width: 50%;
+	padding-right: 1%;
+	list-style-type: none;
+}
+
+.nav_item {
+	float: left;
+	background-color: #11af58;
+	margin: 1%;
+	width: 23%;
+	display: flex;
+	box-shadow: 3px 3px 1.5px 1.5px gray;
+}
+
+.nav_item > a {
+	margin: 10px auto;
+	text-decoration: none;
+}
+

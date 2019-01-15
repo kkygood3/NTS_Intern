@@ -1,0 +1,9 @@
+body {
+	margin: 0;
+	background-color: #6bba75;
+}
+
+header, footer, section {
+	background-color: white;
+	margin: 10px;
+}
