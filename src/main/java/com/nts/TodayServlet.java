@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,17 +27,34 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private static DateTimeFormatter DATE_FORMAT;
+	
 	/**
-	 * @param HttpServletRequest,HttpServletResponse
-	 * @desc 현재 시간 나타내는 메소드
-	 * @method GET
+	 * @throws ServletException
 	 */
+	@Override
+	public void init() throws ServletException {
+		
+		String pattern = "yyyy/MM/dd HH:mm";
+		
+		// DateTimeFormatter 초기 한번 셋팅
+		DATE_FORMAT = new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter();
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
 		// 현재 시간
-		String nowDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+		String nowDate = LocalDateTime.now().format(DATE_FORMAT);
 
 		// response setting
 		response.setContentType("text/html");
