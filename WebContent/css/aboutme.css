@@ -1,13 +1,14 @@
 @charset "UTF-8";
 
-p {
-	text-align: left;
+h1 {
+	font-size: 2em; 
+	margin : 0;
+	line-height: 2;
+	margin: 0;
 }
 
-.about_me_article {
-	margin: 10px 10em 10px 10em;
-}
-
-hr{
-	width:0;
+.aboutme_content_article {
+	margin: 0 10% 0 10%;
+	height:33%;
+	padding: 10px;
 }

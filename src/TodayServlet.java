@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "test", urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -36,25 +39,26 @@ public class TodayServlet extends HttpServlet {
 		// Page character encoding to UTF-8 to serve Korean characters
 		response.setCharacterEncoding("UTF-8");
 		// Refreshing page every 1 second, for real-time update of the time shown
-		response.setIntHeader("Refresh", 1);
+		response.setIntHeader("Refresh", 5);
 
 		// outstream of response
 		PrintWriter out = response.getWriter();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
 
 		//html response structure
-		String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
-		out.println(docType
-			+ "<html>\n" + "<head><title> 현재시간 서블릿 페이지 입니다</title></head>\n"
-			+ "<h1>"
-			+ "<a href = \"/aboutme/index.html\">메인화면</a>"
-			+ "</h1>"
-			+ "<body bgcolor = \"#f0f0f0\">\n"
-			+ "<h1 align = \"center\">"
-			+ "현재시간 : " + LocalDateTime.now().format(formatter).toString()
-			+ "</h1>\n"
-			+ "</h2>\n" + "</body>" + "</html>");
-		out.close();
+		out.println(docType+
+			"<html>\n" + "<head><title> 현재시간 서블릿 페이지 입니다</title></head>\n"+
+				"<body bgcolor = \"#f0f0f0\">\n"+
+					"<h1 style=\"position: fixed;top: 10px;left: 10px;margin: 0px;\"><a href=\"/aboutme/index.html\">메인화면</a></h1>"+
+					"<h1 style=\"\r\n" + 
+					"    position: relative;\r\n" + 
+					"    float: left;\r\n" + 
+					"    top: 50%;\r\n" + 
+					"    left: 50%;\r\n" + 
+					"    transform: translate(-50%, -50%);\r\n" + 
+					"\">현재시간 : " + LocalDateTime.now().format(formatter).toString() + "</h1>"+ 
+				"</body>" + 
+			"</html>");
 	}
 
 }

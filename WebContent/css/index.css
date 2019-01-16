@@ -1,17 +1,20 @@
 @charset "UTF-8";
-p{
-	text-align: center;	
-}
-.index_content_paragraph {
-	margin: 0;
-	padding: 0;
+
+p {
+	text-align: center;
 }
 
-.index_content_menu{
-    display: table;
-    margin: 0 auto 10px auto;
-    position: relative;
+h1 {
+	text-align: center;
+	margin: 0;
+	line-height: 2;
 }
+
+.index_content_menu {
+	display: table;
+	margin: 0 auto 10px auto;
+}
+
 .index_content_button {
 	width: 5em;
 	height: 5em;
@@ -19,4 +22,3 @@ p{
 	color: white;
 	font-size: 1.5em;
 }
-
