@@ -4,7 +4,7 @@ section {
 	padding: 20px;
 }
 
-section>div {
+.photozone {
 	margin-top: 30px;
 	margin-bottom: 80px;
 	border-bottom: 1px solid gray;
@@ -24,6 +24,6 @@ section>div {
 	line-height: 3;
 }
 
-section>div:last-child {
+.photozone:last-child {
 	border-bottom: 0;
 }

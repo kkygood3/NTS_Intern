@@ -60,10 +60,8 @@ public class TodayServlet extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
 
-		// 출력 객체
 		PrintWriter out = response.getWriter();
 
-		// 출력
 		out.println("<html>");
 		out.println("<head><title>자기소개 page</title></head>");
 		out.println("<body>");
@@ -72,7 +70,6 @@ public class TodayServlet extends HttpServlet {
 		out.println("</body>");
 		out.println("</html>");
 		
-		// PrintWriter 버퍼 지우기
 		out.flush();
 	}
 

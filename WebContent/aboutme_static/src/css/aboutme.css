@@ -4,11 +4,16 @@ section {
 	padding: 20px;
 }
 
-section div {
+.my-info {
 	margin-left: 10%;
 }
 
-section div:nth-child(2n) {
+.my-info:nth-child(2n) {
 	margin-top: 4%;
 	margin-bottom: 4%;
+}
+
+.title {
+	font-size: 30px;
+	font-weight: bold;
 }
