@@ -1,0 +1,107 @@
+@charset "UTF-8";
+.body_background{
+		background: #A4C6B6;
+	}
+
+	.content_background {
+		background: white;
+		margin-bottom: 5px;
+		padding: 10px;
+	}
+
+	.footer{
+		padding: 20px;
+	}
+
+	.wrap{
+	/* 여백, 뒷배경색 */
+		margin-right: 10%;
+		margin-left: 10%;
+	}
+
+
+	.right{
+		float: right;
+		margin-bottom: 50px;
+	}
+
+	.left{
+		float:left;
+	}
+
+	a:link{
+		text-decoration: none;
+	}
+
+
+	.clear{
+		clear:both;
+	}
+
+	.nav{
+		padding: 10px;
+		padding-top: 0px;
+		text-align:right;
+		margin-bottom: 5px;
+	}
+
+	.nav_box li{
+		display: inline-block;
+		list-style-type: none;
+	}
+
+	.nav_box li > a{
+		margin-right: 5px;
+		text-align: center;
+		display: block;
+		background-color: #8CBBC6;
+		box-shadow: 5px 5px 5px grey;
+		height: 30px;
+		width: 150px;
+		padding-top: 10px;
+	}
+
+	.content_box{
+	/* 색, 그림자, 정렬 */
+		display: inline-block;
+	}
+
+	.content_box > a{
+		background-color: #8CBBC6;
+		display: block;
+		color: white;
+		height: 45px;
+		width: 75px;
+		box-shadow: 5px 5px 5px grey;
+		margin: 5px;
+		padding-top: 25px;
+	}
+	.center{
+		text-align: center;
+	}
+
+	.paragraph h2{
+		margin-bottom: 0px;
+	}
+
+	.paragraph p{
+		margin-top: 0px;
+	}
+
+	.image_border{
+		border: 5px solid #707575;
+		width: 300px;
+	}
+
+	.photo_post{
+		margin: 20px;
+	}
+
+	.photo_post img{
+		margin: 20px;
+	}
+
+	.photo_post p{
+		line-height: 2;
+		width: 700px;
+	}
