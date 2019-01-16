@@ -1,4 +1,4 @@
-package PJT1;
+package main.java.com.nts;
 import java.io.PrintWriter;
 
 import java.io.IOException;
