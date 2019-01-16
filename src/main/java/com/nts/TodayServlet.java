@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class TodayServlet
- */
-/**
+ * 
  * Copyright 2015 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -27,7 +26,6 @@ public class TodayServlet extends HttpServlet {
 	 */
 	public TodayServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,7 +33,6 @@ public class TodayServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 
 		LocalDateTime currentTime = LocalDateTime.now();
