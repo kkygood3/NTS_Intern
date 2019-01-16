@@ -1,3 +1,13 @@
+/** 
+ ￿* ￿Copyright￿ 2019 ￿Naver￿Corp. ￿All ￿rights ￿Reserved. 
+ ￿* ￿Naver ￿PROPRIETARY/CONFIDENTIAL. ￿Use￿ is ￿subject ￿to ￿license ￿terms.
+ ￿*
+ * @file   Test.java
+ * @package   com.nts
+ * @desc   현재 시간 Servlet
+ * @author   전연빈
+ * @date  2019. 1. 16. 오전 11:15:39
+ **/
 package com.nts;
 
 import java.io.IOException;
@@ -11,20 +21,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @desc today servlet
- * @author jyb5858
- */
+
 @WebServlet("/aboutme/today")
 public class TodayServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public TodayServlet() {
-		super();
-	}
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param HttpServletRequest,HttpServletResponse
@@ -52,6 +53,9 @@ public class TodayServlet extends HttpServlet {
 		out.println("<div style='text-align: center; font-size: 100px;'>현재시간 : " + nowDate + "</div>");
 		out.println("</body>");
 		out.println("</html>");
+		
+		// PrintWriter 버퍼 지우기
+		out.flush();
 	}
 
 }
