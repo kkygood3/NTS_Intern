@@ -43,8 +43,6 @@ public class TodayServlet extends HttpServlet {
 		out.println("</body>");
 		out.println("</html>");
 
-		// 통로 반환
-		out.close();
 	}
 
 }
