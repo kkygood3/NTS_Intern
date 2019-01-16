@@ -17,18 +17,7 @@ import java.time.LocalDateTime;
 @WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public today() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
@@ -37,8 +26,8 @@ public class today extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		out.print("<meta charset='utf-8'>");
-		out.print("<link rel='stylesheet' href='./layout.css'>");
-		out.print("<link rel='stylesheet' href='./today.css'>");
+		out.print("<link rel='stylesheet' href='./css/layout.css'>");
+		out.print("<link rel='stylesheet' href='./css/today.css'>");
 
 		out.print("<!doctype html>");
 		out.print("<html>");
