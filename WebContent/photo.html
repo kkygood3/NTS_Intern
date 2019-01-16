@@ -1,126 +1,77 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		
-		<title>PHOTO 페이지 입니다</title>
-		
-		<!-- External Style Sheet and font 나눔고딕 -->
-		<link 
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800">
-			
-		<link rel="stylesheet" href="css/base.css">
-		
-		<link rel="stylesheet" href="css/photo.css">
-		
-	</head>
-	
-	<body>
-	
-		<!-- Common header -->
-		<header class='sections'>
-			
-				<ul class="nav_menu">
-				
-					<li class="button nav_button">
-						<a href="/aboutme/index.html">홈</a>
-					</li>
-					
-					<li class="button nav_button">
-						<a href="/aboutme/aboutme.html">자기소개</a>
-					</li>
-					
-					<li class="button nav_button">
-						<a href="/aboutme/photo.html">내사진</a>
-					</li>
-					
-					<li class="button nav_button">
-						<a href="/aboutme/today">몇시에요</a>
-					</li>
-					
-				</ul>
-							
-		</header>
-		
-		<!---------------------------------------->
-		
-		<!-- photo page body -->
-		
-		<section class='sections'>
-		
-			<table class='photo_article'>
-				<tr>
-					<td>
-					
-						<img class='photo_img' src="./img/photo1.jpg" alt="photo1"></img>
-						
-					</td>
-					
-					<td>
-					
-						<p>
-							2001.03.11<br> 
-							제가 크롱일때 찍은 사진입니다.<br> 
-							이때는 뽀로로의 집에서 신나게 놀던때입니다.<br>
-							
-						</p>
-						
-					</td>
-					
-				</tr>
-				
-			</table>
-			
-			<hr></hr>
-			
-			<table class='photo_article'>
-			
-				<tr>
-				
-					<td>
-					
-						<img class='photo_img' src="./img/photo2.jpg" alt="photo2"></img>
-						
-					</td>
-					
-					<td>
-					
-						<p>
-							2001.03.11<br> 
-							결혼한 후에는 이런 모습이네요..@.@<br> 
-							건강한 모습을 유지하고있습니다.<br> 
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-							aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-							laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-							dolor in reprehenderit in voluptate velit esse cillum dolore eu
-							fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est
-							laborum.
-						</p>
-						
-					</td>
-				
-				</tr>
-				
-			</table>
+<head>
+<meta charset="utf-8">
 
-		</section>
-		
-		<!---------------------------------------->
-		
-		<!-- Common footer -->
-		
-		<footer class='sections'>
-		
-			<p id='footer_paragraph'>
-				lee.jaewon@nts-corp.com<br>
-				https://github.com/wodnjs6512
-			</p>
-			
-		</footer>
-		
-		<!---------------------------------------->
-	</body>
+<title>이재원 PHOTO 페이지 입니다</title>
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800">
+<link rel="stylesheet" href="css/base.css">
+
+</head>
+
+<body>
+
+	<header>
+		<ul class="float_right">
+			<li class="button nav_button"><a href="/aboutme/index.html">홈</a>
+			</li>
+			<li class="button nav_button"><a href="/aboutme/aboutme.html">자기소개</a>
+			</li>
+			<li class="button nav_button"><a href="/aboutme/photo.html">내사진</a>
+			</li>
+			<li class="button nav_button"><a href="/aboutme/today">몇시에요</a>
+			</li>
+		</ul>
+	</header>
+
+	<section>
+		<article>
+			<table>
+				<tr>
+					<td><img class="photo_img" src="./img/photo1.jpg" alt="photo1"></img>
+					</td>
+					<td>
+						<p>
+							2001.03.11<br> 제가 크롱일때 찍은 사진입니다.<br> 이때는 뽀로로의 집에서 신나게
+							놀던때입니다.<br>
+						</p>
+					</td>
+				</tr>
+			</table>
+		</article>
+
+		<hr>
+
+		<article>
+			<table>
+				<tr>
+					<td><img class="photo_img" src="./img/photo2.jpg" alt="photo2"></img>
+					</td>
+					<td>
+						<p>
+							2001.03.11<br> 결혼한 후에는 이런 모습이네요..@.@<br> 건강한 모습을
+							유지하고있습니다.<br> Lorem ipsum dolor sit amet, consectetur
+							adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+							exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate
+							velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+							occaecat cupidatat non proident, sunt in culpa qui officia
+							deserunt mollit anim id est laborum.
+						</p>
+					</td>
+				</tr>
+			</table>
+		</article>
+	</section>
+
+	<footer>
+		<p>
+			lee.jaewon@nts-corp.com<br> https://github.com/wodnjs6512
+		</p>
+	</footer>
+
+</body>
 </html>
