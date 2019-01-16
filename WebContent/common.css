@@ -3,7 +3,7 @@ body {
 	background-color: #6bba75;
 }
 
-header, footer, section {
+.header, .footer, .section {
 	background-color: white;
 	margin: 10px;
 }
