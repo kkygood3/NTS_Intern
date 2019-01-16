@@ -1,30 +1,47 @@
 @charset "utf-8";
 
 body {
-	align: center;
 	text-align: center;
 	background-color: MediumAquamarine;
 }
 
 .container {
-	margin: 10px;
+	margin: 25px;
 	border-color: blue;
 	background-color: white;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
-#nav-menu {
-	//float: right;
+.container:after {
+	content: "";
+	clear: both;
+	display:block;
 }
 
 li {
-	//float: left;
-	list-style: none;
 	margin: 10px;
-	display: block;
 	background: DeepSkyBlue;
 	color: white;
 	font-family: "돋움";
 	box-shadow:0 0 3px 3px #999;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	padding: 0 0 0 0;
+	float: left;
+}
+
+ul#menu {
+	width: 700px;
+	margin-right: 0px;
+	margin-left: auto;
 }
 
 li#menu {
@@ -32,6 +49,12 @@ li#menu {
 	height: 30px;
 	font-size: 12px;
 	line-height: 30px;
+}
+
+ul#content {
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 li#content {
