@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 @WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private static final LocalDateTime now = LocalDateTime.now();;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		LocalDateTime now = LocalDateTime.now();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
