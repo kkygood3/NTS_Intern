@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // 현재 시간을 출력하는 Servlet
+
 @WebServlet("/aboutme/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
