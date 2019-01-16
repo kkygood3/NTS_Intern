@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DateTimeFormatter timeFormatter;
+	private DateTimeFormatter timeFormatter;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,28 +60,33 @@ public class TodayServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		// html response structure with in-line style
-		out.println("<html>\n" +
-
-			"<head>" +
-			"<title> 현재시간 서블릿 페이지 입니다</title>" +
-			"</head>\n" +
-
-			"<body bgcolor = '#f0f0f0'>\n" +
-
-			"<h1 style= 'position: fixed; top: 10px; left: 10px; margin: 0px;'>" +
-			"<a href='/aboutme/index.html'>메인화면</a>" +
-			"</h1>" +
-
-			"<h1 style='" +
-			"position: relative;" +
-			"float: left;" +
-			"top: 50%;" +
-			"left: 50%;" +
-			"transform: translate(-50%, -50%);'>" +
-			"현재시간 : " + LocalDateTime.now().format(timeFormatter) +
-			"</h1>" +
-
-			"</body>" +
+		out.println(
+			"<html>\n" +
+		
+				"<head>" +
+					"<title> 현재시간 서블릿 페이지 입니다</title>" +
+				"</head>\n" +
+	
+				"<body bgcolor = '#f0f0f0'>\n" +
+	
+					"<h1 style='"+
+						"position: fixed;"+
+						" top: 10px;"+
+						" left: 10px;"+
+						" margin: 0px;'>" +
+						"<a href='/aboutme/index.html'>메인화면</a>" +
+					"</h1>" +
+		
+					"<h1 style='" +
+						"position: relative;" +
+						"float: left;" +
+						"top: 50%;" +
+						"left: 50%;" +
+						"transform: translate(-50%, -50%);'>" +
+						"현재시간 : " + LocalDateTime.now().format(timeFormatter) +
+					"</h1>" +
+	
+				"</body>" +
 
 			"</html>");
 		// html output EOL
