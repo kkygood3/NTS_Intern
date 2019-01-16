@@ -1,8 +1,19 @@
 @charset "utf-8";
 
 body {
-	text-align: center;
 	background-color: MediumAquamarine;
+}
+
+#nav-menu {
+	text-align: center;
+}
+
+#nav-index {
+	text-align: center;
+}
+
+#nav-profile {
+	text-align: center;
 }
 
 .container {
@@ -11,6 +22,7 @@ body {
 	background-color: white;
 	padding-top: 20px;
 	padding-bottom: 20px;
+	padding-left: 50px;
 }
 
 .container:after {
@@ -19,7 +31,17 @@ body {
 	display:block;
 }
 
-li {
+#horizon {
+	content: "";
+	clear: both;
+	display:block;	
+}
+
+.paragraph {
+	margin-top: 100px;
+}
+
+.button {
 	margin: 10px;
 	background: DeepSkyBlue;
 	color: white;
@@ -63,4 +85,12 @@ li#content {
 	font-size: 20px;
 	font-weight: bold;
 	line-height: 145px;
+}
+
+.paragraph-photo {
+	margin: 30px;
+}
+
+img#photo {
+	border: 3px solid #000000;
 }
