@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,15 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/today")
 public class TimeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private DateTimeFormatter formatter;
 
 	public TimeServlet() {}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		formatter = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm");
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
 		LocalDateTime currentTime = LocalDateTime.now();
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm");
 
 		String currentTimeStr = "현재시간 : " + currentTime.format(formatter);
 
