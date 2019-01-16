@@ -1,9 +1,17 @@
 @charset "UTF-8";
 
 .servlet_body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: table;
+}
+.time_area{
+	display: table-cell;
+	width: 100vw;
+	height: 100vh;
+	vertical-align: middle;
+}
+
+.system_time {
+	text-align: center;
 }
 
 .go_main {

@@ -7,45 +7,40 @@
 	padding: 80px 10px;
 }
 
-.content_area>* {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .name {
-	margin: 0;
+	text-align: center;
 }
 
 .introduce {
 	text-align: center;
 }
 
-.content_area>img {
+.main_image {
 	max-width: 1000px;
 	display: block;
 	margin: 0px auto;
 }
 
-.button_list {
+.link_section {
+	text-align: center;
+}
+
+.link_list {
 	list-style: none;
 	padding: 0;
 }
 
-.btn_kategorie {
+.link_kategorie {
 	width: 100px;
 	height: 100px;
-	display: inline-block;
+	display: inline-table;
 	margin: 10px;
 	background-color: #abf200;
 	box-shadow: 3px 3px 3px #aaa;
 }
 
-.btn_kategorie>a {
+.link {
 	text-decoration: none;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: table-cell;
+	vertical-align: middle;
 }

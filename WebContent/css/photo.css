@@ -7,19 +7,26 @@
 	padding: 80px 10px;
 }
 
-.photo_content {
+.each_content {
+	width: 100%;
 	height: 300px;
 	margin: 20px;
-	display: flex;
-	align-items: center;
+	display: table;
+}
+
+.photo_content{
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .photo {
 	width: 250px;
 	max-height: 250px;
 	border: 5px solid #555;
+	margin-right: 50px;
+	vertical-align: middle;
 }
 
-.explanation {
-	padding-left: 50px;
+.explanation{
+	display: inline-block;
 }

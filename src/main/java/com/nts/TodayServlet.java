@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TodayServlet
  */
+/**
+ * Copyright 2015 NaverCorp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 @WebServlet(name = "today", urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,11 +44,13 @@ public class TodayServlet extends HttpServlet {
 		String customTime = time.format(timeFormat);
 
 		PrintWriter out = response.getWriter();
-		out.print("<link rel='stylesheet' type='text/css' href='css/today.css'>"
-			+ "<body class='servlet_body'>"
-			+ "<a href='index.html' class='go_main'>메인화면</a>"
-			+ "<h1> 현재시간 : " + customTime + "</h1>"
-			+ "</body>");
+		out.println("<link rel='stylesheet' type='text/css' href='css/today.css'>"
+				+ "<body class='servlet_body'>"
+					+ "<a href='index.html' class='go_main'>메인화면</a>"
+					+ "<div class='time_area'>"
+						+ "<h1 class='system_time'> 현재시간 : " + customTime + "</h1>"
+					+ "</div>"
+				+ "</body>");
 	}
 
 }
