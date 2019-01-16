@@ -1,5 +1,4 @@
-package src.main.java.com.nts;
-
+package main.java.com.nts;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 /**
  * Servlet implementation class TimeServlet
  */
-@WebServlet("/time")
+@WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,6 +38,7 @@ public class today extends HttpServlet {
 		
 		out.print("<meta charset='utf-8'>");
 		out.print("<link rel='stylesheet' href='./layout.css'>");
+		out.print("<link rel='stylesheet' href='./today.css'>");
 
 		out.print("<!doctype html>");
 		out.print("<html>");
@@ -49,10 +49,10 @@ public class today extends HttpServlet {
 		out.print("<body>");
 		out.print("	<header>");
 		out.print("		<ul>");
-		out.print("			<li><a href='./index.html'><div>홈</div></a></li>");
-		out.print("			<li><a href='./aboutme.html'><div>자기소개</div></a></li>");
-		out.print("			<li><a href='./photo.html'><div>내사진</div></a></li>");
-		out.print("			<li><a href='./get_time'><div>몇시에요</div></a></ul>");
+		out.print("			<li><a href='./index.html'>홈</a></li>");
+		out.print("			<li><a href='./aboutme.html'>자기소개</a></li>");
+		out.print("			<li><a href='./photo.html'>내사진</a></li>");
+		out.print("			<li><a href='./today'>몇시에요</a></ul>");
 		out.print("		</ul>");
 		out.print("	</header>");
 		out.print("	<div class='content'>");
