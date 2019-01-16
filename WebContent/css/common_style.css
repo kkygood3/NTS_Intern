@@ -1,0 +1,44 @@
+/*전 페이지 공통*/
+@charset "UTF-8";
+
+html {
+	min-width:680px;
+}
+
+body, header, section, footer {
+	border: 5px solid #a4c6b6;
+}
+
+header {
+	text-align: right;
+	padding: 10px;
+	overflow: auto;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	display: inline-block;
+}
+
+li {
+	box-shadow: 3px 3px 3px #aaaaaa;
+	width: 100px;
+	background-color: #8cbbc6;
+	text-decoration: none;
+	text-align: center;
+}
+
+section {
+	padding: 20px;
+}
+
+footer {
+	border-bottom: 30px solid #a4c6b6;
+	padding: 10px;
+	color: green;
+	text-align: center;
+}

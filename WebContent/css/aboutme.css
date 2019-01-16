@@ -1,0 +1,13 @@
+/*개별 페이지 스타일*/
+h2 {
+	margin: 0;
+}
+
+p {
+	margin-top: 0;
+}
+
+.container>div {
+	text-align: left;
+	padding: 10px 50px;
+}
