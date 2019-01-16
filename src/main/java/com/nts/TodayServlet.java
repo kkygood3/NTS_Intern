@@ -38,19 +38,19 @@ public class TodayServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
 
-		LocalDateTime time = LocalDateTime.now();
+		LocalDateTime currentTime = LocalDateTime.now();
 
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm");
-		String customTime = time.format(timeFormat);
+		String formattedTime = currentTime.format(timeFormat);
 
 		PrintWriter out = response.getWriter();
-		out.println("<link rel='stylesheet' type='text/css' href='css/today.css'>"
-				+ "<body class='servlet_body'>"
-					+ "<a href='index.html' class='go_main'>메인화면</a>"
-					+ "<div class='time_area'>"
-						+ "<h1 class='system_time'> 현재시간 : " + customTime + "</h1>"
-					+ "</div>"
-				+ "</body>");
+		out.println("<link rel='stylesheet' type='text/css' href='css/layout.css'>"
+			+ "<body class='servlet_body'>"
+			+ "<a href='index.html'>메인화면</a>"
+			+ "<div>"
+			+ "<h1 class='current_time'> 현재시간 : " + formattedTime + "</h1>"
+			+ "</div>"
+			+ "</body>");
 	}
 
 }

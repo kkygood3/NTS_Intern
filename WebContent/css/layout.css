@@ -4,7 +4,7 @@
 	background-color: #8ec7d0;
 }
 
-.kategorie_section {
+.category_section {
 	width: 95%;
 	height: 100px;
 	background-color: #fff;
@@ -15,12 +15,12 @@
 	justify-content: flex-end;
 }
 
-.nav_list {
+.category_section>ul {
 	list-style: none;
 	padding: 10px;
 }
 
-.kategorie_list {
+.category {
 	width: 100px;
 	height: 50px;
 	display: inline-table;
@@ -29,14 +29,14 @@
 	box-shadow: 3px 3px 3px #aaa;
 }
 
-.kategorie {
+.category>a {
 	text-decoration: none;
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 }
 
-.footer {
+.footer_section {
 	width: 95%;
 	height: 100px;
 	background-color: #fff;
@@ -45,4 +45,24 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.servlet_body {
+	display: table;
+}
+.servlet_body>div {
+	display: table-cell;
+	width: 100vw;
+	height: 100vh;
+	vertical-align: middle;
+}
+
+.servlet_body>a {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.current_time {
+	text-align: center;
 }
