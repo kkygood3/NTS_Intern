@@ -23,21 +23,27 @@ public class TodayServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public TodayServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		
 		PrintWriter out = response.getWriter();
+		out.println("<a href=\"index.html\">메인화면</a>");
+
+		out.println(
+				"<style type=\"text/css\"> #center { position: absolute; top:50%; left: 50%; margin-left: -300px; } </style>");
+
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d hh:mm");
 		String dateTimeString = dateTime.format(dateTimeFormatter);
-		out.print("현재시간 : "+dateTimeString);
+		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + dateTimeString + "</font></nav>");
 		out.close();
 	}
 
