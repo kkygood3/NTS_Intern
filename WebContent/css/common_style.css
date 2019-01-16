@@ -1,6 +1,10 @@
 /*전 페이지 공통*/
 @charset "UTF-8";
 
+html {
+	min-width:680px;
+}
+
 body, header, section, footer {
 	border: 5px solid #a4c6b6;
 }
