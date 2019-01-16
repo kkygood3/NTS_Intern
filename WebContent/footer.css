@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.footer {
+footer {
 	display: flex;
 	padding: 15px 0;
 }

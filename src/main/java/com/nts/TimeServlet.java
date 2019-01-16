@@ -20,14 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/today")
 public class TimeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DateTimeFormatter formatter;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm");
 
 	public TimeServlet() {}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		formatter = DateTimeFormatter.ofPattern("yyyy/M/d HH:mm");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,8 +36,7 @@ public class TimeServlet extends HttpServlet {
 
 		String currentTimeStr = "현재시간 : " + currentTime.format(formatter);
 
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
 		PrintWriter out = response.getWriter();
 
@@ -48,7 +46,14 @@ public class TimeServlet extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 		out.println("<a href=\"index.html\">메인화면으로</a>");
-		out.println("<h1>" + currentTimeStr + "</h1>");
+		out.println("<h1 style='"
+						+ " position: absolute;"
+						+ "left: 50%;"
+						+ "top: 50%;"
+						+ "transform: translate(-50%, -50%);"
+						+ "font-size: 40px;'"
+						+ "\">"
+						+ currentTimeStr + "</h1>");
 		out.println("</body>");
 		out.println("</html>");
 
