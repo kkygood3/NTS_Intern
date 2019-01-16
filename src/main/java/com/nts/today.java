@@ -56,7 +56,7 @@ public class today extends HttpServlet {
 		out.print("		</ul>");
 		out.print("	</header>");
 		out.print("	<div class='content'>");
-		out.print(String.format("현재시간 : %d/%d/%d %d:%d", now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute()));
+		out.print(String.format("<h1>현재시간 : %d/%d/%d %d:%d<h1>", now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute()));
 		out.print("	</div>");
 		out.print("	<footer>");
 		out.print("		<p>crong@codesdj.fff</p>");

@@ -1,12 +1,4 @@
 body {
-    height: 100%;
-    margin: 0;
-}
-html {
-    margin: 0;
-    min-height: 100%;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
     position: relative;
 }
 
@@ -15,6 +7,23 @@ footer {
     bottom: 5px;
     left: 0;
     right: 0;
-    background-color: red;
     margin-bottom: 0;
+}
+
+.content {
+    position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+    top: 100px;
+    bottom: 100px;
+	background-color: transparent;
+	min-height: 300px;
+}
+
+h1 {   
+	position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
