@@ -20,6 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private DateTimeFormatter dateTimeFormatter;
+
+	@Override
+	public void init() throws ServletException {
+		// 날짜, 시간을 일정한 포맷으로 변환시켜주는 dateTimeFormatter 객체 생성
+		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	}
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
@@ -28,7 +37,7 @@ public class TodayServlet extends HttpServlet {
 		LocalDateTime localDateTime = LocalDateTime.now();
 
 		// 날짜, 시간을 특정 포맷의 문자열로 변환
-		String datetime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+		String datetime = localDateTime.format(dateTimeFormatter);
 
 		PrintWriter out = response.getWriter();
 
