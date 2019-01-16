@@ -27,13 +27,12 @@ public class TodayServlet extends HttpServlet {
 		// 현재 날짜, 시간 획득
 		LocalDateTime localDateTime = LocalDateTime.now();
 
-		// 날짜, 시간을 특정 포맷으로 변환
+		// 날짜, 시간을 특정 포맷의 문자열로 변환
 		String datetime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 
-		// 출력 통로 획득
 		PrintWriter out = response.getWriter();
 
-		// html 코드 출력
+		// 현재 시간을 출력하는 html 문서 print
 		out.println("<html>");
 		out.println("<body>");
 		out.println("<a href='/index.html'>메인화면</a>");
