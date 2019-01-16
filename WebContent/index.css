@@ -24,13 +24,16 @@ section {
 
 .profile_list {
 	list-style-type: none;
+	width: 250px;
+	display: flex;
+	flex-direction: row;
+	padding: 0;
 }
 
 .profile_list_item {
-	float: left;
 	width: 100px;
 	height: 100px;
-	margin: 0 8px;
+	margin: 0 auto;
 	background-color: #11af58;
 	box-shadow: 3px 3px 1.5px 1.5px gray;
 	display: flex;
@@ -39,8 +42,16 @@ section {
 .profile_list_item > p {
 	margin: auto;
 	color: white;
+	height: 40px;
+	line-height: 40px;
 }
 
 .profile_list_item > p:hover {
 	color: gray;	
+}
+
+.map_image_container {
+	width: 800px;
+	height: 450px;
+	overflow: hidden;
 }
