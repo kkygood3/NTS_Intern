@@ -5,10 +5,12 @@
 }
 
 .kategorie_section {
+	width: 95%;
 	height: 100px;
 	background-color: #fff;
 	display: flex;
 	margin: 10px auto;
+	padding: 0 40px;
 	align-items: center;
 	justify-content: flex-end;
 }
@@ -35,10 +37,11 @@
 }
 
 .footer {
+	width: 95%;
 	height: 100px;
 	background-color: #fff;
 	margin: 10px auto;
-	padding: 5px;
+	padding: 5px 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
