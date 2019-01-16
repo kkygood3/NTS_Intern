@@ -14,21 +14,39 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class TodayServlet
  * Author : Jaewon Lee, lee.jaewon@nts-corp.com
  */
+
+
 @WebServlet(name = "test", urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	DateTimeFormatter timeFormatter;
-
+	
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	
 	// we are NOT using constructor
 	// 1. first you cannot declare constructors on interface in Java
 	// 2. Servlets are not directly instantiated by Java code, instead container create there instance and keep them in pool
 	
+	public TodayServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public void init() {
+		/**
+	     * @see  DateTimeFormatter#ofPattern();
+	     * 파라미터값에 의거하여 LocalDateTime 클래스의 값을 String으로 변환 시켜주는 포맷을 리턴한다.
+	     */
 		this.timeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		// Response content type setting
