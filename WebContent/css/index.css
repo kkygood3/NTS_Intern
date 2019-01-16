@@ -27,3 +27,7 @@ img {
 .content a {
 	color: #FFF;
 }
+
+.content a:hover {
+	color: #BD9;
+}

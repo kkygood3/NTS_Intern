@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javafx.util.converter.LocalDateTimeStringConverter;
 
 import java.time.LocalDateTime;
-/**
- * Servlet implementation class TimeServlet
- */
+
 @WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
