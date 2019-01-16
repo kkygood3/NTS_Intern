@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Author : Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-@WebServlet(name = "test", urlPatterns = {"/today"})
+@WebServlet(name = "Today", urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,7 @@ public class TodayServlet extends HttpServlet {
 		this.timeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
