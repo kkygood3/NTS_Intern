@@ -66,7 +66,7 @@ public class TodayServlet extends HttpServlet {
 				"</body>" +
 
 				"</html>");
-
+		out.close();
 	}
 
 }
