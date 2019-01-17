@@ -8,25 +8,25 @@
 	padding: 80px 40px;
 }
 
-.main_section>h1 {
+.main_section > h1 {
 	text-align: center;
 }
 
-.main_section>p {
+.main_section > p {
 	text-align: center;
 }
 
-.main_section>img {
+.main_section > img {
 	max-width: 1000px;
 	display: block;
-	margin: 0px auto;
+	margin: 0 auto;
 }
 
 .link_category {
 	text-align: center;
 }
 
-.link_category>ul {
+.link_category > ul {
 	list-style: none;
 	padding: 0;
 }
@@ -62,7 +62,7 @@
 	position: relative;
 }
 
-.content>article {
+.content > article {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -84,7 +84,7 @@
 	position: relative;
 }
 
-.photo_content>article {
+.photo_content > article {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
