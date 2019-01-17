@@ -10,7 +10,6 @@ img {
 	display: block;
 	margin: 0 auto;
 	width: 60%;
-	float: none;
 }
 
 p {
@@ -106,8 +105,7 @@ article {
 }
 
 .photo_img {
-	border: solid 10px #333333;
 	width: 20em;
 	margin: 0 3em 0 0;
-	border: solid #666666;
+	border: solid 10px #666666;
 }
