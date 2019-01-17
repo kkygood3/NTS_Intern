@@ -26,5 +26,6 @@ article .photo {
 article .photo_info {
 	text-align: left;
 	padding-left: 30px;
+	width: calc(100% - 330px);
 	
 }
