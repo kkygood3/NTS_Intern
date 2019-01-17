@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DateTimeFormatter dateTimeformatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	public TodayServlet() {}
 
@@ -29,7 +29,7 @@ public class TodayServlet extends HttpServlet {
 
 		// 시간 설정 및 출력
 		LocalDateTime localDateTime = LocalDateTime.now();
-		String currentTime = "현재시간 : " + localDateTime.format(dateTimeformatter);
+		String currentTime = "현재시간 : " + localDateTime.format(dateTimeFormatter);
 		writer.print("<h1 style='text-align: center;'>" + currentTime + "</h1>");
 	}
 }
