@@ -33,7 +33,7 @@ header > nav {
 	margin: 1%;
 	width: 23%;
 	height: 40px;
-	box-shadow: 3px 3px 1.5px 1.5px gray;
+	box-shadow: 3px 3px 2px 2px gray;
 }
 
 .nav_item > a {
@@ -96,7 +96,7 @@ section > p {
 	height: 100px;
 	margin: 0 15px;
 	background-color: #11af58;
-	box-shadow: 3px 3px 1.5px 1.5px gray;
+	box-shadow: 3px 3px 2px 2px gray;
 	float: left;
 }
 
