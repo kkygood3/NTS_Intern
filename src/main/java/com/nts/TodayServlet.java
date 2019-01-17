@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *  /aboutme/today url로 접근시 현재 시간이 출력되는 페이지를 반환하는 Servlet
+ *  /aboutme/today url로 접근시 현재 시간이 출력되는 페이지를 응답하는 Servlet
  *   
  *	TODO dateTimeFormat을 다양하게 써야할 경우 enum으로 분리하여 사용하는 방법이 좋아보임.
  */
