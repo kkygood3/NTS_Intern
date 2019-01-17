@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.aboutme;
 
 import java.io.IOException;
@@ -11,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 브라우저화면에 현재 시간을 나타내주는 서블릿 클래스
+ * @author 배진우
+ */
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +39,7 @@ public class TodayServlet extends HttpServlet {
 		out.close();
 	}
 
-	public String getToday() {
+	private String getToday() {
 		LocalDateTime time = LocalDateTime.now();
 		String formatTimeString = time.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
 		return formatTimeString;
