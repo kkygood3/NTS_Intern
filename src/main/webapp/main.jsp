@@ -12,7 +12,7 @@
 			<h1>
 				나의 해야 할 일들
 			</h1>
-			<button class="add_btn">새로운 TODO 등록</button>
+			<a class="add_btn">새로운 TODO 등록</a>
 			<div class="todo_list_container">
 				<ul>
 					<li class="todo_cell todo_category">TODO</li>
