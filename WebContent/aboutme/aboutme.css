@@ -3,24 +3,11 @@
 #text-list {
 	margin-left: 100px;
 	margin-right: 150px;
+	text-align: left;
 }
 
 ul a {
 	text-decoration: none;
-}
-
-.btn {
-	color: #6f4591;
-	font-weight: bold;
-	font-size: 1.3em;
-	text-align: center;
-	float: right;
-	padding: 15px 15px;
-	width: 10%;
-	margin-right: 20px;
-	margin-top: 20px;
-	box-shadow: 2px 2px 10px 1px gray;
-	background: #8cbac7;
 }
 
 .title {
@@ -31,26 +18,4 @@ ul a {
 .contents {
 	font-size: 1.3em;
 	margin-bottom: 40px;
-}
-
-body {
-	border: 2px solid #e1e3e9;
-}
-
-header {
-	height: 130px;
-	border-top: 1px solid #e1e3e9;
-	border-bottom: 10px solid #e1e3e9;
-}
-
-section {
-	
-}
-
-footer {
-	color: #a0a0a0;
-	text-align: center;
-	margin-top: 30px;
-	padding-bottom: 30px;
-	border-bottom: 100px solid #e1e3e9;
 }
