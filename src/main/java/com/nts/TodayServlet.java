@@ -35,7 +35,7 @@ public class TodayServlet extends HttpServlet {
 		String formattedTime = currentTime.format(timeFormat);
 
 		PrintWriter out = response.getWriter();
-		out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/layout.css\">"
+		out.println("<link rel=\"stylesheet\" href=\"css/layout.css\">"
 			+ "<body class=\"servlet_body\">"
 			+ "<a href=\"index.html\">메인화면</a>"
 			+ "<h1 class=\"current_time\"> 현재시간 : " + formattedTime + "</h1>"
