@@ -33,13 +33,10 @@ public class TimeServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		LocalDateTime currentTime = LocalDateTime.now();
-
 		String currentTimeStr = "현재시간 : " + currentTime.format(formatter);
 
 		response.setContentType("text/html;charset=UTF-8");
-
 		PrintWriter out = response.getWriter();
-
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<title>시간을 알려드립니다.</title>");
@@ -56,7 +53,6 @@ public class TimeServlet extends HttpServlet {
 			+ currentTimeStr + "</h1>");
 		out.println("</body>");
 		out.println("</html>");
-
 		out.close();
 	}
 
