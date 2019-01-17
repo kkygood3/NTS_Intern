@@ -1,7 +1,6 @@
-/** 
- ￿* ￿Copyright￿ 2019 ￿Naver￿Corp. ￿All ￿rights ￿Reserved. 
- ￿* ￿Naver ￿PROPRIETARY/CONFIDENTIAL. ￿Use￿ is ￿subject ￿to ￿license ￿terms.
- ￿*
+/**
+ * Copyright 2019 NaverCorp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  **/
 package com.nts;
 
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @desc 현재 시간 알려주는 servlet
+ * @author 전연빈
  */
 @WebServlet("/aboutme/today")
 public class TodayServlet extends HttpServlet {
