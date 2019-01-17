@@ -1,4 +1,6 @@
 /**
+ * FileName : ${file_name}
+ * @author  : 김기용
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
@@ -15,6 +17,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 시간 출력을 담당하는 Today 클래스입니다.
+ * @author  : 김기용
+ */
 @WebServlet("/today")
 public class Today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +29,10 @@ public class Today extends HttpServlet {
 
 	public Today() {}
 
-	// HTML 시간 출력 부분
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * html코드로 현재시간 출력
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
