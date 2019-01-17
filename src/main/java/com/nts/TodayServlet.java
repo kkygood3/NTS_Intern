@@ -1,3 +1,8 @@
+/**
+ * Copyright 2015 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
 package main.java.com.nts;
 
 import java.io.IOException;
@@ -35,7 +40,7 @@ public class TodayServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		out.println("<a href=\"index.html\">¸ŞÀÎÈ­¸é</a>");
+		out.println("<a href=\"index.html\">ë©”ì¸í™”ë©´</a>");
 
 		out.println(
 				"<style type=\"text/css\"> #center { position: absolute; top:50%; left: 50%; margin-left: -300px; } </style>");
@@ -43,7 +48,7 @@ public class TodayServlet extends HttpServlet {
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d hh:mm");
 		String dateTimeString = dateTime.format(dateTimeFormatter);
-		out.println("<nav id=\"center\"><font size=\"10\">ÇöÀç½Ã°£ : " + dateTimeString + "</font></nav>");
+		out.println("<nav id=\"center\"><font size=\"10\">í˜„ì¬ì‹œê°„ : " + dateTimeString + "</font></nav>");
 		out.close();
 	}
 
