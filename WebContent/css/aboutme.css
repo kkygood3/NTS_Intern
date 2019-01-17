@@ -6,8 +6,11 @@ h2 {
 p {
 	margin-top: 0;
 }
+a {
+	margin:
+}
 
-.container>div {
+.container>article {
 	text-align: left;
-	padding: 10px 50px;
+	margin: 10px 10%;
 }
