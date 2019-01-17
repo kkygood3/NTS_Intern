@@ -6,6 +6,7 @@
 ### 개요
 해야 할 일, 하고 있는 일, 한 일을 웹 브라우저에서 확인할 수 있는 웹 애플리케이션 제작하기.
 페이지 구성은 메인화면(등록된 할일 관리)과 할일 등록 화면으로 나눈다.
+총 4개의 서블릿(MainServlet, TodoFormServlet, TodoAddServlet, TodoTypeServlet) 1개의 Dao 클래스(TodoDao), 2개의 jsp(main.jsp, todoForm.jsp)로 구성.
 
 ### 요구사항
 ##### 1. 메인 페이지
@@ -31,3 +32,11 @@
 - 내용 지우기를 누르면 모든 내용 초기화
 - 이전을 누르면 메인화면으로 리다이렉트
 - 3가지 항목은 모두 필수로 입력되어야함. (빈칸 일 시, Input 태그 속성을 이용하여 빈값임을 확인시켜줌.)
+
+##### 3. 웹 백엔드 요구 사항
+
+- MainServlet은 TodoDao를 이용하여 결과를 조회 후 main.jsp에 전달
+- main.jsp에서 전달 받은 결과를 JSTL과 EL로 출력
+- 새로운 todo 등록 버튼 클릭 시 TodoFormServlet이 실행 되고 TodoFormServlet은 todoForm.jsp로 포워딩
+- 할일 등록 폼에서 제출 시 POST 방식으로 TodoAddServlet에 값 전달 TodoAddServlet은 TodoDao를 이용하여 테이블 저장 후 메인화면으로 리다이렉트
+- 메인 화면에서 화살표 버튼 클릭 시 TodoTypeServlet에 Todo의 Id 값과 상태 값이 전달되어 다음 상태로 변경
