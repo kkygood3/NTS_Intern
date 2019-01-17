@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * @desc 현재 시간 알려주는 servlet
+ */
 @WebServlet("/aboutme/today")
 public class TodayServlet extends HttpServlet {
 
@@ -25,7 +28,7 @@ public class TodayServlet extends HttpServlet {
 	private static final DateTimeFormatter YYYYMMDDHHMM = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	
 	/**
-	 * @desc 현재 시간 알려주는 페이지
+	 * @desc 현재 시간 클라이언트에게 html형식 출력
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -50,7 +53,6 @@ public class TodayServlet extends HttpServlet {
 		out.println("</body>");
 		out.println("</html>");
 		
-		out.flush();
 	}
 
 }
