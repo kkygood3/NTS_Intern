@@ -3,7 +3,6 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package com.nts;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -52,10 +51,4 @@ public class TodayServlet extends HttpServlet {
 
 		out.close();
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }
