@@ -56,7 +56,7 @@ public class TodayServlet extends HttpServlet {
 	/**
 	 * 지정된 시간을 String으로 반환
 	 * 
-	 * @param	LocalDataTime 
+	 * @param	LocalDateTime 
 	*/
 	private String getNow(LocalDateTime localDateTime) {
 		return localDateTime.format(dateTimeFormatter);
