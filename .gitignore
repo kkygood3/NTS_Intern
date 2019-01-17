@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/java,eclipse,intellij,java-web
 # Edit at https://www.gitignore.io/?templates=java,eclipse,intellij,java-web
 
+.idea/
+*.iml
+
 ### Eclipse ###
 
 .metadata
