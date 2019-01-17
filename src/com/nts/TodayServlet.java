@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package main.java.com.nts;
+package com.nts;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static LocalDateTime now;
 	/*
 	 * 현재 시간을 표시
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -27,10 +26,7 @@ public class TodayServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		now = LocalDateTime.now();
 		
-
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
@@ -54,7 +50,7 @@ public class TodayServlet extends HttpServlet {
 		out.print("		</ul>");
 		out.print("	</header>");
 		out.print("	<div class='content'>");
-		out.print(now.format(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")));
+		out.print(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")));
 		out.print("	</div>");
 		out.print("	<footer>");
 		out.print("		<p>crong@codesdj.fff</p>");
