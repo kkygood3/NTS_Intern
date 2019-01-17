@@ -25,7 +25,7 @@ public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 현재시간이 노출되도록 간단히 페이지에 출력해주는 서블릿 메소드
+	 * 현재시간을 간단히 페이지에 출력해주는 서블릿 메소드
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
