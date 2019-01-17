@@ -17,12 +17,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 브라우저화면에 현재 시간을 나타내주는 서블릿 클래스
- * @author 배진우
+ * @author jinwoo.bae
  */
+
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 현재시간이 노출되도록 간단히 페이지에 출력해주는 서블릿 메소드
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
