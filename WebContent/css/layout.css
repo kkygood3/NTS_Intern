@@ -59,3 +59,7 @@ a:hover {
 	color: #BD9;
 }
 
+.clear {
+	clear: both;
+}
+
