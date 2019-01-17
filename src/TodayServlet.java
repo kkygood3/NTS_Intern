@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	DateTimeFormatter dateTimeFormatter;
 
 	public TodayServlet() {}
+
+	@Override
+	public void init() {
+		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	}
 
 	protected void doGet(HttpServletResponse response)
 		throws IOException {
@@ -32,4 +37,5 @@ public class TodayServlet extends HttpServlet {
 		String currentTime = "현재시간 : " + localDateTime.format(dateTimeFormatter);
 		writer.print("<h1 style='text-align: center;'>" + currentTime + "</h1>");
 	}
+
 }
