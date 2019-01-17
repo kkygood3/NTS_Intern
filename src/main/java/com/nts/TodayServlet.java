@@ -7,6 +7,8 @@ package main.java.com.nts;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.time.LocalDateTime;
-
 @WebServlet("/today")
-public class today extends HttpServlet {
+public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static LocalDateTime now;
 	/*
@@ -29,6 +29,8 @@ public class today extends HttpServlet {
 			throws ServletException, IOException {
 
 		now = LocalDateTime.now();
+		
+
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
@@ -52,8 +54,7 @@ public class today extends HttpServlet {
 		out.print("		</ul>");
 		out.print("	</header>");
 		out.print("	<div class='content'>");
-		out.print(String.format("<h1>현재시간 : %d/%d/%d %d:%d<h1>", now.getYear(), now.getMonthValue(),
-				now.getDayOfMonth(), now.getHour(), now.getMinute()));
+		out.print(now.format(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")));
 		out.print("	</div>");
 		out.print("	<footer>");
 		out.print("		<p>crong@codesdj.fff</p>");
