@@ -47,13 +47,13 @@ public class TimeServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("<a href=\"index.html\">메인화면으로</a>");
 		out.println("<h1 style='"
-						+ " position: absolute;"
-						+ "left: 50%;"
-						+ "top: 50%;"
-						+ "transform: translate(-50%, -50%);"
-						+ "font-size: 40px;'"
-						+ "\">"
-						+ currentTimeStr + "</h1>");
+			+ " position: absolute;"
+			+ "left: 50%;"
+			+ "top: 50%;"
+			+ "transform: translate(-50%, -50%);"
+			+ "font-size: 40px;'"
+			+ ">"
+			+ currentTimeStr + "</h1>");
 		out.println("</body>");
 		out.println("</html>");
 
