@@ -2,6 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
+
 package today;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +19,18 @@ import javax.servlet.http.HttpServletResponse;
 public class Today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Default constructor.
-	 */
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
 	public Today() {}
 
 	// HTML 시간 출력 부분
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+		throws IOException {
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		Date time = new Date();
+		Date currentTime = new Date();
 
-		String time_show = format.format(time);
+		String timeShow = dateFormat.format(currentTime);
 
 		response.setContentType("text/html;charset=utf-8;");
 		PrintWriter out = response.getWriter();
@@ -48,7 +46,7 @@ public class Today extends HttpServlet {
 		out.println("</header>");
 		out.println("<div align=\"center\">" +
 			"  <h1>현재시간 : ");
-		out.println(time_show);
+		out.println(timeShow);
 		out.println("</h1></div>");
 		out.println("</body>");
 		out.println("</html>");
