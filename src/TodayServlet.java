@@ -1,4 +1,8 @@
 
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -6,11 +10,13 @@ import java.time.format.DateTimeFormatter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Copyright 2019 Naver Corp. All rights Reserved.
- * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * 현재 시간을 출력해주는 Class
+ * 
+ * @author yongjoon.park
  */
 
 @WebServlet(name = "today", urlPatterns = {"/today"})
@@ -19,14 +25,19 @@ public class TodayServlet extends HttpServlet {
 
 	private DateTimeFormatter dateTimeFormatter;
 
-	public TodayServlet() {}
-
+	/**
+	 * 재사용을 고려하여 처음 servlet 호출 시에만 formatter를 작성
+	 */
 	@Override
 	public void init() {
 		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	}
 
-	protected void doGet(HttpServletResponse response)
+	/**
+	 * 현재 시간과 그에 해당하는 간단한 페이지 출력
+	 */
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
 
 		// 기본 설정
@@ -41,7 +52,12 @@ public class TodayServlet extends HttpServlet {
 		LocalDateTime now = LocalDateTime.now();
 		writer.print("<h1 style='text-align: center;'>현재시간 : " + getNow(now) + "</h1>");
 	}
-	
+
+	/**
+	 * 지정된 시간을 String으로 반환
+	 * 
+	 * @param	LocalDataTime 
+	*/
 	private String getNow(LocalDateTime localDateTime) {
 		return localDateTime.format(dateTimeFormatter);
 	}
