@@ -1,4 +1,5 @@
 package main.java.com.nts;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,14 +16,15 @@ import java.time.LocalDateTime;
 @WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		LocalDateTime now = LocalDateTime.now();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		out.print("<meta charset='utf-8'>");
 		out.print("<link rel='stylesheet' href='./css/layout.css'>");
 		out.print("<link rel='stylesheet' href='./css/today.css'>");
@@ -43,7 +45,8 @@ public class today extends HttpServlet {
 		out.print("		</ul>");
 		out.print("	</header>");
 		out.print("	<div class='content'>");
-		out.print(String.format("<h1>현재시간 : %d/%d/%d %d:%d<h1>", now.getYear(), now.getMonthValue(), now.getDayOfMonth(), now.getHour(), now.getMinute()));
+		out.print(String.format("<h1>현재시간 : %d/%d/%d %d:%d<h1>", now.getYear(), now.getMonthValue(),
+				now.getDayOfMonth(), now.getHour(), now.getMinute()));
 		out.print("	</div>");
 		out.print("	<footer>");
 		out.print("		<p>crong@codesdj.fff</p>");
