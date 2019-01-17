@@ -14,10 +14,9 @@
 	vertical-align: middle;
 	display: inline-block;
 	width: 100px;
-	height: 20px;
+	height: 80px;
 	background-color: #75B6D7;
 	box-shadow: 3px 3px 3px #aaa;
-	padding: 30px 0;
 }
 
 img {
@@ -30,4 +29,8 @@ img {
 
 .content a:hover {
 	color: #BD9;
+}
+
+a > p {
+	padding: 30px 0;
 }
