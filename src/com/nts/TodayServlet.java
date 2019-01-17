@@ -35,12 +35,12 @@ public class TodayServlet extends HttpServlet {
 		out.print("<!doctype html>");
 		out.print("<html>");
 		out.print("<head>");
-		out.print("<meta charset='utf-8'>");
-		out.print("<link rel='stylesheet' href='./css/today.css'>");
+		out.print("<meta charset=\"utf-8\">");
+		out.print("<link rel=\"stylesheet\" href=\"./css/today.css\">");
 		out.print("<title>now time</title>");
 		out.print("</head>");
 		out.print("<body>");
-		out.print("<a href='./index.html'>메인으로</a>");
+		out.print("<a href=\"./index.html\">메인으로</a>");
 		out.print("<h1><center>현재시간 : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")) + "<center><h1>");
 		out.print("</body>");
 		out.print("</html>");
