@@ -21,8 +21,9 @@ public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static LocalDateTime now;
 	/*
-	 * (non-Javadoc)
+	 * 현재 시간을 표시
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
