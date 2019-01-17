@@ -1,0 +1,196 @@
+@charset "UTF-8";
+
+/*
+	공통 영역 css.
+*/
+body {
+	margin: 0;
+	background-color: #6bba75;
+}
+
+header, footer, section {
+	background-color: white;
+	margin: 10px;
+}
+
+/*
+	header css
+*/
+header > nav {
+	overflow: hidden;
+}
+
+.nav_list {
+	float: right;
+	width: 50%;
+	padding-right: 1%;
+	list-style-type: none;
+}
+
+.nav_item {
+	float: left;
+	background-color: #11af58;
+	margin: 1%;
+	width: 23%;
+	height: 40px;
+	box-shadow: 3px 3px 1.5px 1.5px gray;
+}
+
+.nav_item > a {
+	text-decoration: none;
+	cursor: pointer;
+	text-align: center;
+	display: inline-block;
+	line-height: 40px;
+	width: 100%;
+}
+
+/*
+	footer css
+*/
+footer {
+	padding: 15px 0;
+}
+
+.footer_text_container {
+	margin: auto;
+}
+
+.footer_text_container > p {
+	text-align: center;
+	color: #6bba75;
+}
+
+/*
+	index.html section css
+*/
+section {
+	padding: 10px 0;
+}
+
+section > h1, section > p, .profile_list, .map_image_container {
+	margin: 15px auto;
+}
+
+section > h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+section > p {
+	text-align: center;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.profile_list {
+	list-style-type: none;
+	width: 260px;
+	height: 100px;
+	padding: 0;
+}
+
+.profile_list_item {
+	width: 100px;
+	height: 100px;
+	margin: 0 15px;
+	background-color: #11af58;
+	box-shadow: 3px 3px 1.5px 1.5px gray;
+	float: left;
+}
+
+
+.profile_list_item > a {
+	color: white;
+	width: 100px;
+	line-height: 100px;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.profile_list_item > a:hover {
+	color: gray;	
+}
+
+.map_image_container {
+	width: 800px;
+	height: 450px;
+	overflow: hidden;
+}
+
+/*
+	aboutme.html css
+*/
+@charset "UTF-8";
+
+.content_list {
+	list-style-type: none;
+	padding: 0;
+	display: inline-block;
+}
+
+.content_item {
+	width: 80%;
+	margin: 15px auto;
+}
+
+.content_item > h1 {
+	margin: 2px 0;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.content_item > p {
+	font-size: 15px;
+	margin: 2px 0;
+}
+
+.content_item > a {
+	font-size: 15px;
+	text-decoration: none;
+}
+
+/*
+	photo.html css
+*/
+.diary_list {
+	list-style-type: none;
+	padding: 0;
+}
+
+.diary_item {
+	overflow: hidden;
+	position: relative;
+}
+
+.diary_item > img {
+	width: 200px;
+	height: 200px;
+	border: 15px solid gray;
+	float: left;
+	margin: 40px 50px;
+}
+
+.diary_item > p {
+	margin: 40px 20px;
+	line-height: 35px;
+	float: left;
+}
+
+.diary_item:after {
+	display: block;
+	width: 98%;
+	border-bottom: 3px solid gray;
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.diary_item:last-child:after {
+	border: none;
+}
