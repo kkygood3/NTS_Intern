@@ -37,7 +37,7 @@ public class TodayServlet extends HttpServlet {
     /**
      * @description : 출력할 HTML Frame 생성 및 구조 정의
      * @method Name : init
-     * @input : ServletConfig
+     * @param : config
      * @return : void
      * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
      */
@@ -53,7 +53,10 @@ public class TodayServlet extends HttpServlet {
 	/**
 	 * @description : HttpServletResponse에 현재 시간을 HTML로 출력
 	 * @method Name : doGet
-	 * @input : HttpServletRequest, HttpServletResponse
+	 * @param : request
+	 * @param : response
+	 * @throws : ServletException
+	 * @throws : IOException
 	 * @return : void
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
