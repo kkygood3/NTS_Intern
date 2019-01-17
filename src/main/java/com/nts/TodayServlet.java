@@ -49,7 +49,7 @@ public class TodayServlet extends HttpServlet {
 		out.println("<head><title>자기소개 page</title></head>");
 		out.println("<body>");
 		out.println("<div style='font-size: 20px; margin-bottom:30px;'><a href='/aboutme/index.html'>메인화면</a></div>");
-		out.println("<div style='text-align: center; font-size: 100px;'>현재시간 : " + nowDate + "</div>");
+		out.println("<div style='text-align: center; font-size: 100px; line-height:8;'>현재시간 : " + nowDate + "</div>");
 		out.println("</body>");
 		out.println("</html>");
 		
