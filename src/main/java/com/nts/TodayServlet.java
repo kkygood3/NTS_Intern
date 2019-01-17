@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter;
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private DateTimeFormatter dateTimeFormatter;
 
 	public void init() {
@@ -31,6 +31,7 @@ public class TodayServlet extends HttpServlet {
 
 	/**
 	 * 현재 시간을 화면에 출력
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -42,9 +43,8 @@ public class TodayServlet extends HttpServlet {
 		out.println(
 				"<style type=\"text/css\"> #center { position: absolute; top:50%; left: 50%; margin-left: -300px; } </style>");
 
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		String currentDateTimeString = currentDateTime.format(dateTimeFormatter);
-		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + currentDateTimeString + "</font></nav>");
+		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + LocalDateTime.now().format(dateTimeFormatter)
+				+ "</font></nav>");
 		out.close();
 	}
 
