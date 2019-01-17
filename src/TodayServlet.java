@@ -8,11 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
 @WebServlet(name = "today", urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	DateTimeFormatter dateTimeFormatter;
+	private DateTimeFormatter dateTimeFormatter;
 
 	public TodayServlet() {}
 
@@ -33,9 +38,12 @@ public class TodayServlet extends HttpServlet {
 		writer.print("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
 
 		// 시간 설정 및 출력
-		LocalDateTime localDateTime = LocalDateTime.now();
-		String currentTime = "현재시간 : " + localDateTime.format(dateTimeFormatter);
-		writer.print("<h1 style='text-align: center;'>" + currentTime + "</h1>");
+		LocalDateTime now = LocalDateTime.now();
+		writer.print("<h1 style='text-align: center;'>현재시간 : " + getNow(now) + "</h1>");
+	}
+	
+	private String getNow(LocalDateTime localDateTime) {
+		return localDateTime.format(dateTimeFormatter);
 	}
 
 }
