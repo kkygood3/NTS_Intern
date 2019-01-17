@@ -7,8 +7,8 @@ package today;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,18 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 public class Today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	public Today() {}
 
 	// HTML 시간 출력 부분
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
 
-		Date currentTime = new Date();
-
-		String timeShow = dateFormat.format(currentTime);
+		String currentTimeShow = dateTimeFormatter.format(LocalDateTime.now());
 
 		response.setContentType("text/html;charset=utf-8;");
 		PrintWriter out = response.getWriter();
@@ -46,7 +44,7 @@ public class Today extends HttpServlet {
 		out.println("</header>");
 		out.println("<div align=\"center\">" +
 			"  <h1>현재시간 : ");
-		out.println(timeShow);
+		out.println(currentTimeShow);
 		out.println("</h1></div>");
 		out.println("</body>");
 		out.println("</html>");
