@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Naver Corp. All rights Reserved.
+ * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
@@ -17,7 +17,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Servlet implementation class TodayServlet
+ * TodayServlet.java
+ * @Author Duik Park, duik.park@nts-corp.com
  */
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
@@ -25,6 +26,7 @@ public class TodayServlet extends HttpServlet {
 
 	private DateTimeFormatter dateTimeFormatter;
 
+	@Override
 	public void init() {
 		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	}
