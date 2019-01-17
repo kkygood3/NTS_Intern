@@ -1,5 +1,14 @@
-2019년 1st NTS 인턴
-======================
+# 2019년 1st NTS 인턴_PJT1
 
-https://gitlab.com/n_tech_service/2019_1st_intern/wikis/home
+부스트코스 웹프로그래밍 PJT1 과제입니다.
+
+
+## Getting Started
+
+3개의 html과 1개의 servlet으로 구성되어있으며, 상단 네비게이션으로 각 페이지간 이동 가능합니다.<br>
+[홈]에는 메인 정보<br>
+[자기소개]에는 간단한 소개<br>
+[내사진]에는 사진 및 설명<br>
+[몇시에요]에는 화면 중앙에 현재 시간이 표시됨
+
 
