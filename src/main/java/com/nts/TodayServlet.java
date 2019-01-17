@@ -22,8 +22,8 @@ import java.time.format.DateTimeFormatter;
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	DateTimeFormatter dateTimeFormatter;
+	
+	private DateTimeFormatter dateTimeFormatter;
 
 	public void init() {
 		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
@@ -43,8 +43,8 @@ public class TodayServlet extends HttpServlet {
 				"<style type=\"text/css\"> #center { position: absolute; top:50%; left: 50%; margin-left: -300px; } </style>");
 
 		LocalDateTime currentDateTime = LocalDateTime.now();
-		String dateTimeString = currentDateTime.format(dateTimeFormatter);
-		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + dateTimeString + "</font></nav>");
+		String currentDateTimeString = currentDateTime.format(dateTimeFormatter);
+		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + currentDateTimeString + "</font></nav>");
 		out.close();
 	}
 
