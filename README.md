@@ -1,7 +1,7 @@
 2019년 1st NTS 인턴
 ======================
 
-# PJT.1 Project
+## PJT.1 Project
 
 ### 개요
 소개하는 웹페이지를 3개의 HTML(index.html, aboutme.html, photo.html)과 한개의 서블릿(TimeServlet)으로 Tomcat 서버 위에 구동하도록 구현.
