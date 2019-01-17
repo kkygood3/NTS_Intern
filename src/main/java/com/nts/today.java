@@ -1,3 +1,8 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
 package main.java.com.nts;
 
 import java.io.IOException;
@@ -14,11 +19,15 @@ import java.time.LocalDateTime;
 @WebServlet("/today")
 public class today extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static LocalDateTime now;
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		LocalDateTime now = LocalDateTime.now();
+		now = LocalDateTime.now();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
