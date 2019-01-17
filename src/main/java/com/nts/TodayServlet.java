@@ -2,11 +2,6 @@
  ￿* ￿Copyright￿ 2019 ￿Naver￿Corp. ￿All ￿rights ￿Reserved. 
  ￿* ￿Naver ￿PROPRIETARY/CONFIDENTIAL. ￿Use￿ is ￿subject ￿to ￿license ￿terms.
  ￿*
- * @file   Test.java
- * @package   com.nts
- * @desc   현재 시간 Servlet
- * @author   전연빈
- * @date  2019. 1. 16. 오전 11:15:39
  **/
 package com.nts;
 
@@ -14,7 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,22 +22,10 @@ public class TodayServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static DateTimeFormatter DATE_FORMAT;
+	private static final DateTimeFormatter YYYYMMDDHHMM = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	
 	/**
-	 * @throws ServletException
-	 */
-	@Override
-	public void init() throws ServletException {
-		
-		String pattern = "yyyy/MM/dd HH:mm";
-		
-		// DateTimeFormatter 초기 한번 셋팅
-		DATE_FORMAT = new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter();
-	}
-	
-	/**
-	 * 
+	 * @desc 현재 시간 알려주는 페이지
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -53,12 +35,10 @@ public class TodayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		// 현재 시간
-		String nowDate = LocalDateTime.now().format(DATE_FORMAT);
-
-		// response setting
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
+
+		String nowDate = LocalDateTime.now().format(YYYYMMDDHHMM);
 
 		PrintWriter out = response.getWriter();
 

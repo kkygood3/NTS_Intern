@@ -27,7 +27,7 @@ section {
 	text-decoration: none;
 }
 
-#section-ul li a:hover {
+#section-ul li:hover {
 	color: #caad18;
 }
 
@@ -38,4 +38,8 @@ section {
 #title {
 	font-size: 30px;
 	font-weight: bold;
+}
+
+#my-home {
+	width: 900px;
 }

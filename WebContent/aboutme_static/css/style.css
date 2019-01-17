@@ -35,7 +35,7 @@ header, footer, section {
 	text-decoration: none;
 }
 
-#header-ul li a:hover {
+#header-ul li:hover {
 	color: #caad18;
 }
 
