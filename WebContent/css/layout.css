@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+.colored_bg {
+	background-color: #8ec7d0;
+}
+
+.category_section {
+	width: 95%;
+	height: 100px;
+	background-color: #fff;
+	display: flex;
+	margin: 10px auto;
+	padding: 0 40px;
+	align-items: center;
+	text-align: center;
+	justify-content: flex-end;
+}
+
+.category_section > ul {
+	list-style: none;
+	padding: 10px;
+}
+
+.category {
+	display: inline-block;
+	margin: 10px;
+	background-color: #abf200;
+	box-shadow: 3px 3px 3px #aaa;
+}
+
+.category > a {
+	text-decoration: none;
+	display: block;
+	width: 100px;
+	height: 50px;
+	position: relative;
+}
+
+.category span {
+	display: inline-block;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.footer_section {
+	width: 95%;
+	height: 100px;
+	background-color: #fff;
+	margin: 10px auto;
+	padding: 5px 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.servlet_body {
+	position: relative;
+}
+
+.servlet_body > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.current_time {
+	margin: 0;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
