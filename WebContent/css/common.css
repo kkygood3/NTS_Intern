@@ -1,91 +1,97 @@
 #background {
-	background-color : #abcdef;
+	background-color: #abcdef;
 }
 
 header, section, footer {
-	position : relative;
-	background-color : white;
-	margin : 20px;
+	position: relative;
+	background-color: white;
+	margin: 20px;
 }
 
 header {
-	height : 100px;
+	height: 100px;
 }
 
 section {
-	padding : 20px;
-	text-align : center;
+	padding: 20px;
+	text-align: center;
 }
 
 footer {
-	height : 100px;
-	text-align : center;
+	height: 100px;
+	text-align: center;
 }
 
 .menu {
-	position : relative;
-	list-style : none;
+	position: relative;
+	list-style: none;
 }
 
 .menu-nav {
-	position : absolute;
-	right : 0%;
-	top : 50%;
-	transform:translate(0%, -50%);
-	margin : 0px;
-	padding : 0px 10px;
+	position: absolute;
+	right: 0%;
+	top: 50%;
+	transform: translate(0%, -50%);
+	margin: 0px;
+	padding: 0px 10px;
 }
 
 .menu-item {
-	display : inline-block;
-	width : 150px;
-	height : 50px;
-	line-height : 50px;
-	text-align : center;
-	background-color : #abcdef;
-	margin : 0px 10px;
+	width: 150px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #abcdef;
+	margin: 0px 10px;
 }
 
 .square-box {
-	box-shadow : 2px 2px 1px 0px gray;
+	box-shadow: 2px 2px 1px 0px gray;
 }
 
 .title {
-	font-size : 32px;
-	font-weight : bold;
-	margin : 10px 0px;
+	font-size: 32px;
+	font-weight: bold;
+	margin: 10px 0px;
 }
 
-#web-address {
-	position : absolute;
-	top : 50%;
-	left : 50%;
-	transform:translate(-50%, -50%);
-	display : inline-block;
-	line-height : 20px;
+.center {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0px;
 }
 
-.content-list {
-	padding : 0px;
+.horizontal-list {
+	padding: 0px;
+}
+
+.horizontal-list li {
+	display: inline-block;
+}
+
+.horizontal-list a:hover {
+	color: white;
 }
 
 .link-content {
-	display : inline-block;
-	background-color : #abcdef;
-	width : 100px;
-	height : 100px;
-	line-height : 100px;
-	margin : 0px 15px;
+	background-color: #abcdef;
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	margin: 0px 15px;
 }
 
 .content {
-	display : inline-block;
-	text-align : left;
-	width : 80%;
-	padding : 50px;
+	display: inline-block;
+	text-align: left;
+	width: 80%;
+	padding: 50px;
 }
 
 .map {
-	width : 800px;
+	width: 800px;
 	height: auto;
 }

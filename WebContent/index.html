@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
+		<link rel="stylesheet" type="text/css" href="/css/common.css"/>
 		<meta charset="UTF-8">
 		<title>메인 화면</title>
 	</head>
-	<link rel="stylesheet" type="text/css" href="./css/common.css"/>
 	<body id="background">
+	
 		<header>
 			<nav class="menu-nav">
-				<ul class="menu">
-					<a href="/index.html"><li class="menu-item square-box">홈</li></a>
-					<a href="/aboutme.html"><li class="menu-item square-box">자기소개</li></a>
-					<a href="/photo.html"><li class="menu-item square-box">내사진</li></a>
-					<a href="/aboutme/today"><li class="menu-item square-box">몇시에요</li></a>
+				<ul class="menu horizontal-list">
+					<a href="/index.html"><li class="menu-item square-box hover-box">홈</li></a>
+					<a href="/aboutme.html"><li class="menu-item square-box hover-box">자기소개</li></a>
+					<a href="/photo.html"><li class="menu-item square-box hover-box">내사진</li></a>
+					<a href="/aboutme/today"><li class="menu-item square-box hover-box">몇시에요</li></a>
 				</ul>
 			</nav>
 		</header>
+		
 		<section>
-			<div class="title">웹프론트엔드 개발자~!</div>
-			<div>함께 개발하고 같이 성장하고 싶어요</div>
-			<div>경기도 성남시 분당구 어딘가 살고 있어요!</div>
-			<ul class="content-list">
-				<a href="/aboutme.html"><li class="link-content square-box">자기소개</li></a>
-				<a href="/photo.html"><li class="link-content square-box">내사진</li></a>
+			<h1 class="title">웹프론트엔드 개발자~!</h1>
+			<p>
+				함께 개발하고 같이 성장하고 싶어요<br>
+				경기도 성남시 분당구 어딘가 살고 있어요!
+			</p>
+			<ul class="horizontal-list">
+				<a href="/aboutme.html"><li class="link-content square-box hover-box">자기소개</li></a>
+				<a href="/photo.html"><li class="link-content square-box hover-box">내사진</li></a>
 			</ul>
-			<img class="map" src="./img/map.PNG"/>
+			<img alt="서현역 지도" class="map" src="/img/map.PNG"/>
 		</section>
+		
 		<footer>
-			<div id="web-address">
-				<div>life4lord93@nts-corp.com</div>
-				<div>https://gitlab.com/n_tech_service/2019_1st_intern</div>
-			</div>
+			<p class="center">
+				life4lord93@nts-corp.com<br>
+				https://gitlab.com/n_tech_service/2019_1st_intern
+			</p>
 		</footer>
+		
 	</body>
 </html>

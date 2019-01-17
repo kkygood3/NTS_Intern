@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
+		<link rel="stylesheet" type="text/css" href="/css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/photo.css"/>
 		<meta charset="UTF-8">
 		<title>사진</title>
 	</head>
-	<link rel="stylesheet" type="text/css" href="./css/common.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/photo.css"/>
 	<body id="background">
+	
 		<header>
 			<nav class="menu-nav">
-				<ul class="menu">
+				<ul class="menu horizontal-list">
 					<a href="/index.html"><li class="menu-item square-box">홈</li></a>
 					<a href="/aboutme.html"><li class="menu-item square-box">자기소개</li></a>
 					<a href="/photo.html"><li class="menu-item square-box">내사진</li></a>
@@ -17,31 +18,34 @@
 				</ul>
 			</nav>
 		</header>
+		
 		<section id="photo-section">
-			<ul class="content-list">
+			<ul>
 				<li class="content">
-					<img class="photo" src="./img/yesterday.jpg" align="left"/>
-					<div class="photo-caption">
-						<div>2019년 1월 14일</div>
-						<div>활기차게</div>
-						<div>시작</div>
-					</div>
+					<img alt="yesterday" class="photo" src="/img/yesterday.jpg"/>
+					<p class="photo-caption">
+						2019년 1월 14일<br>
+						활기차게<br>
+						시작
+					</p>
 				</li>
 				<li class="content">
-					<img class="photo" src="./img/today.JPG" align="left"/>
-					<div class="photo-caption">
-						<div>2019년 1월 15일</div>
-						<div>도대체</div>
-						<div>뭐가 문제냐</div>
-					</div>
+					<img alt="today" class="photo" src="/img/today.JPG"/>
+					<p class="photo-caption">
+						2019년 1월 15일<br>
+						도대체<br>
+						뭐가 문제냐
+					</p>
 				</li>
 			</ul>
 		</section>
+		
 		<footer>
-			<div id="web-address">
-				<div>life4lord93@nts-corp.com</div>
-				<div>https://gitlab.com/n_tech_service/2019_1st_intern</div>
-			</div>
+			<p class="center">
+				life4lord93@nts-corp.com<br>
+				https://gitlab.com/n_tech_service/2019_1st_intern
+			</p>
 		</footer>
+		
 	</body>
 </html>

@@ -1,19 +1,18 @@
 .photo {
-	float : left;
-	width : 400px;
-	border : 10px solid #abcdef;
-	margin-right : 50px;
+	float: left;
+	width: 400px;
+	border: 10px solid #abcdef;
+	margin-right: 50px;
 }
 
-.photo-caption > div {
-	margin : 10px 0px;
-	font-size : 20px;
+.photo-caption {
+	font-size: 20px;
 }
 
 #photo-section .content {
-	border-bottom : 1px solid grey;
+	border-bottom: 1px solid grey;
 }
 
 #photo-section .content:nth-last-of-type(1) {
-	border-bottom : 0px;
+	border-bottom: 0px;
 }
