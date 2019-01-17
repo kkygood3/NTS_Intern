@@ -1,0 +1,102 @@
+@charset "UTF-8";
+
+html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+}
+
+
+/*
+	main.jsp css
+*/
+.container {
+	width: 100%;
+	height: 100%;
+}
+.container > h1 {
+	margin: 5px 5px;
+	font-size: 50px;
+	transform-origin: 100% 0;
+	transform: rotate(-18deg);
+	color: #3F6173;
+	display: inline-block;
+}
+.add_btn {
+	position: absolute;
+	right: 20px;
+	top: 30px;
+	background-color: #20ADEE;
+	color: white;
+	border: none;
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	padding: 0 30px;
+	font-size: 30px;
+	line-height: 70px;
+}
+.todo_list_container {
+	display: inline-block;
+	position: absolute;
+	right: 10px;
+	top: 130px;
+}
+.todo_list_container > ul {
+	float: left;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.todo_cell {
+	width: 300px;
+	padding: 0 15px;
+	margin: 20px 10px;
+}
+.todo_category {
+	background-color: #345461;
+	
+	font-size: 30px;
+	line-height: 60px;
+	color: white;
+	font-weight: bold;
+}
+.todo_content {
+	background-color: #CDE4EE;
+	position: relative;
+	height: 84px;
+}
+.todo_content > h1 {
+	font-size: 25px;
+	line-height: 55px;
+	margin: 0;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.todo_content > h5 {
+	font-size: 14px;
+	margin: 0;
+	display: block;
+	font-weight: normal;
+	width:265px;
+	line-height: 14px;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.todo_content > button {
+	margin: 0;
+	position: absolute;
+	font-size: 19px;
+	right: 8px;
+	bottom: 8px;
+	cursor: pointer;
+}
