@@ -18,6 +18,14 @@ public class TodoDto {
 		this.sequence = sequence;
 	}
 
+	public TodoDto(Long id, String title, String name, int sequence, String type) {
+		this.id = id;
+		this.title = title;
+		this.name = name;
+		this.sequence = sequence;
+		this.type = type;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -68,7 +76,8 @@ public class TodoDto {
 
 	@Override
 	public String toString() {
-		return "Todo [Id=" + id + ", title=" + title + ", name=" + name + ", sequence=" + sequence + "]";
+		return "Todo [Id=" + id + ", title=" + title + ", name=" + name + ", sequence=" + sequence + ", type=" + type
+			+ "]";
 	}
 
 }

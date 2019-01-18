@@ -16,12 +16,15 @@
 	<ul class="todo">
 	<c:forEach items="${todos}" var="todo">
 		<li>
-			<div>
+			<form action="nextStep" method="POST">
+				<input type="hidden" name="id" value="${todo.getId()}">
 				<p>${todo.getTitle()}</p>
 				<p>${todo.getRegdate()}</p>
 				<p>${todo.getName()}</p>
 				<p>우선순위 : ${todo.getSequence()}</p>
-			</div>
+				<input type="hidden" name="type" value="${todo.getType()}">
+				<input type="submit" value="→">
+			</form>
 		</li>
 	</c:forEach>
 	</ul>

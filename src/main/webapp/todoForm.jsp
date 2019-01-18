@@ -10,18 +10,18 @@
 	<h1>할일 등록</h1>
 	<form action="todoAdd" method="POST">
 		<p>어떤일인가요?</p>
-		<input type="text" name="title" placeholder="swift 공부하기(24자까지)" maxlength="24">
+		<input type="text" name="title" placeholder="swift 공부하기(24자까지)" maxlength="24" required>
 		<p>누가 할일인가요?</p>
-		<input type="text" name="owner" placeholder="홍길동">
+		<input type="text" name="owner" placeholder="홍길동" required>
 		<section id="radio_section">
 			<p>우선순위</p>
-			<input type="radio" name="priority" value="1" id="more_important">
+			<input type="radio" name="priority" value="1" id="more_important" required>
 			<label for="more_important">1순위</label>
 			
-			<input type="radio" name="priority" value="2" id="important">
+			<input type="radio" name="priority" value="2" id="important" required>
 			<label for="important">2순위</label>
 			
-			<input type="radio" name="priority" value="3" id="less_important">
+			<input type="radio" name="priority" value="3" id="less_important" required>
 			<label for="less_important">3순위</label>
 		</section>
 		<a href="main">&lt;이전</a>

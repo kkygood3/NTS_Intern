@@ -52,15 +52,17 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "SELECT id, title, name, sequence FROM todo order by id desc";
+		String sql = "SELECT * FROM todo order by sequence, id";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			try (ResultSet resultsSet = preparedStatement.executeQuery()) {
 				while (resultsSet.next()) {
+					Long id = resultsSet.getLong("id");
 					String title = resultsSet.getString("title");
 					String name = resultsSet.getString("name");
 					int sequence = resultsSet.getInt("sequence");
-					TodoDto todo = new TodoDto(title, name, sequence);
+					String type = resultsSet.getString("type");
+					TodoDto todo = new TodoDto(id, title, name, sequence, type);
 					todos.add(todo);
 				}
 			} catch (Exception e) {
@@ -73,7 +75,27 @@ public class TodoDao {
 		return todos;
 	}
 
-	public int updateTodo(TodoDao todo) {
-		return 0;
+	public int updateTodo(TodoDto todo) {
+		int updateCount = 0;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		String sql = "update todo set type = ? where id = ?";
+		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+			preparedStatement.setString(1, todo.getType());
+			preparedStatement.setLong(2, todo.getId());
+
+			updateCount = preparedStatement.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return updateCount;
 	}
 }
