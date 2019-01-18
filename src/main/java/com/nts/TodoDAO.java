@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class TodoDAO {
 	private static String dburl = "jdbc:mysql://localhost:3306/pjt2?autoReconnect=true&useSSL=false";
@@ -21,33 +19,39 @@ public class TodoDAO {
 		super();
 	}
 
-	/*
-	 * @getList()	
-	 * returns JSON ARRAY generated from SQL QUERY execution.
-	 */
+	public static List<List<TodoDTO>> getToDoList() throws Exception {
 
-	public static JSONArray getList() throws Exception {
-		JSONArray jsonArray;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		List<List<TodoDTO>> result = new ArrayList<>();
+		List<TodoDTO> list_todo = new ArrayList<>();
+		List<TodoDTO> list_doing = new ArrayList<>();
+		List<TodoDTO> list_done = new ArrayList<>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-			String sql = "select * from todo order by sequence desc, regdate desc, id desc";
+			String sql = "select id, title, name, sequence, type, regdate from todo order by sequence asc, regdate desc, id desc";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
-			jsonArray = new JSONArray();
 
 			while (rs.next()) {
-				JSONObject jsonObject = new JSONObject();
-				ResultSetMetaData rmd = rs.getMetaData();
-
-				for (int i = 1; i <= rmd.getColumnCount(); i++) {
-					jsonObject.put(rmd.getColumnName(i), rs.getString(rmd.getColumnName(i)));
+				System.out.println(rs.getString("id"));
+				TodoDTO dto = new TodoDTO();
+				dto.setName(rs.getString("id"));
+				dto.setTitle(rs.getString("title"));
+				dto.setName(rs.getString("name"));
+				dto.setSequence(rs.getInt("sequence"));
+				dto.setType(rs.getString("type"));
+				dto.setRegdate(rs.getDate("regdate"));
+				if (dto.getType().equals("TODO")) {
+					list_todo.add(dto);
+				} else if (dto.getType().equals("DOING")) {
+					list_doing.add(dto);
+				} else if (dto.getType().equals("DONE")) {
+					list_done.add(dto);
 				}
-				jsonArray.put(jsonObject);
 			}
 
 		} finally {
@@ -74,7 +78,11 @@ public class TodoDAO {
 			}
 		}
 
-		return jsonArray;
+		result.add(list_todo);
+		result.add(list_doing);
+		result.add(list_done);
+
+		return result;
 	}
 
 	/*

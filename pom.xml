@@ -45,14 +45,6 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.4</version>
 		</dependency>
-		
-		<!-- JSON In Java » version : 20180813 , https://mvnrepository.com/artifact/org.json/json 
-			https://mvnrepository.com/artifact/org.json/json/20180813 -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20180813</version>
-		</dependency>
 
 	</dependencies>
 

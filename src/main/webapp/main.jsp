@@ -3,8 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import="org.json.*"%>
-
 
 <!DOCTYPE html>
 <html lang=ko>
@@ -25,59 +23,54 @@
 	<section>
 		<table>
 			<tr>
-				<th>TODO</th>
+				<th>TODO ${todoList.size()}</th>
 				<th>DOING</th>
 				<th>DONE</th>
 			</tr>
 			<tr>
 				<td>
 					<ul>
-						<c:if test="${todoList.length() ne 0}">
-							<c:forEach begin="0" end="${todoList.length() -1}" var="index">
-								<li>
-									<h3 class="content_title">${todoList.getJSONObject(index).get("title")}</h3>
-									<p>
-										등록날짜 : ${todoList.getJSONObject(index).get("regdate")},
-										${todoList.getJSONObject(index).get("name")} 우선순위
-										${todoList.getJSONObject(index).get("sequence")}
-										<button class="content_move_button">-></button>
-									</p>
-								</li>
-							</c:forEach>
-						</c:if>
+						<c:forEach items="${todoList}" var="item">
+							<li id="todo_${item.getId()}">
+								<h3 class="content_title">${item.getTitle()}</h3>
+								<p>
+									등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
+									${item.getSequence()}
+									<button class="content_move_button">-></button>
+								</p>
+							</li>
+						</c:forEach>
+
 					</ul>
 				</td>
 				<td>
 					<ul>
-						<c:if test="${doingList.length() ne 0}">
-							<c:forEach begin="0" end="${doingList.length() -1}" var="index">
-								<li>
-									<h3 class="content_title">${doingList.getJSONObject(index).get("title")}</h3>
-									<p>
-										등록날짜 : ${doingList.getJSONObject(index).get("regdate")},
-										${doingList.getJSONObject(index).get("name")} 우선순위
-										${doingList.getJSONObject(index).get("sequence")}
-										<button class="content_move_button">-></button>
-									</p>
-								</li>
-							</c:forEach>
-						</c:if>
+						<c:forEach items="${doingList}" var="item">
+							<li id="todo_${item.getId()}">
+								<h3 class="content_title">${item.getTitle()}</h3>
+								<p>
+									등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
+									${item.getSequence()}
+									<button class="content_move_button">-></button>
+								</p>
+							</li>
+						</c:forEach>
 					</ul>
 				</td>
 				<td>
 					<ul>
-						<c:if test="${doneList.length() ne 0}">
-							<c:forEach begin="0" end="${doneList.length() -1}" var="index">
-								<li>
-									<h3 class="content_title">${doneList.getJSONObject(index).get("title")}</h3>
-									<p>
-										등록날짜 : ${doneList.getJSONObject(index).get("regdate")},
-										${doneList.getJSONObject(index).get("name")} 우선순위
-										${doneList.getJSONObject(index).get("sequence")}
-									</p>
-								</li>
-							</c:forEach>
-						</c:if>
+
+						<c:forEach items="${doneList}" var="item">
+							<li id="todo_${item.getId()}">
+								<h3 class="content_title">${item.getTitle()}</h3>
+								<p>
+									등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
+									${item.getSequence()}
+									<button class="content_move_button">-></button>
+								</p>
+							</li>
+						</c:forEach>
+
 
 					</ul>
 				</td>
