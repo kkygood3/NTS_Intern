@@ -48,21 +48,6 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("DoingList", doingList);
 		request.setAttribute("DoneList", doneList);
 
-		System.out.println("Todolist 시작");
-		for (Todo todo : todoList) {
-			System.out.println(todo.getTitle());
-		}
-		System.out.println("");
-		System.out.println("DoingList 시작");
-		for (Todo todo : doingList) {
-			System.out.println(todo.getTitle());
-		}
-		System.out.println("");
-		System.out.println("DoneList 시작");
-		for (Todo todo : doneList) {
-			System.out.println(todo.getTitle());
-		}
-
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 		requestDispatcher.forward(request, response);
 	}
