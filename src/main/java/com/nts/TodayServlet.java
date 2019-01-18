@@ -4,11 +4,11 @@
  */
 
 package main.java.com.nts;
+
 import java.io.PrintWriter;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,36 +23,35 @@ import java.time.format.DateTimeFormatter;
  * @description : 현재 시간을 알려주는 Servlet Class
  * @filename : TodayServlet.java
  * @package : main.java.com.nts
- * 
  * @author : Seokhyeon Choi
- * @date : 2019. 1. 17.
+ * @method : void doGet(HttpServletRequest request, HttpServletResponse response)
  */
 @WebServlet("/aboutme/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	  
-	private String htmlSendFrame;
-	private DateTimeFormatter dtFormatter;
+	private static final DateTimeFormatter YMDHM = DateTimeFormatter.ofPattern("y/M/d H:m");
+	
+    private static final String HTML_CURRENT_TIME_PREFIX = 
+    		 	"<html>"
+    		+	"<head><title>Today</title></head>"
+    		+	"<body>"
+    		+		"<div style = \"height:10%\">"
+    		+			"<a href=\"/aboutme/index.html\">"
+    		+				"<h2>메인화면</h2>"
+    		+			"</a>"
+    		+		"</div>"
+    		+		"<div style = \"display:table; height:80%; width:100%;\">"
+    		+			"<p style = \"font-weight: bold; font-size: 3em; display:table-cell; text-align: center; vertical-align:middle; \">"
+    		+				"현재시간 : ";
+    private static final String HTML_CURRENT_TIME_SUFFIX = 
+    					"</p>"
+    		+		"</div>"
+    		+	"</body>"
+    		+	"</html>";
     
-    /**
-     * @description : 출력할 HTML Frame 생성 및 구조 정의
-     * @method Name : init
-     * @param : config
-     * @return : void
-     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
-     */
-    public void init(ServletConfig config)throws ServletException{
-    	htmlSendFrame = new String();
-    	htmlSendFrame += "<a href=\"/2019_1st_intern/aboutme/index.html\"><h2>메인화면</h2></a>\n";
-    	htmlSendFrame += "<h1 style=\"text-align:center; margin-top:150px;\">";
-    	htmlSendFrame += "현재시간 : ";
-		
-    	dtFormatter = DateTimeFormatter.ofPattern("y/M/d H:m");
-    }
-     
 	/**
 	 * @description : HttpServletResponse에 현재 시간을 HTML로 출력
-	 * @method Name : doGet
 	 * @param : request
 	 * @param : response
 	 * @throws : ServletException
@@ -63,12 +62,9 @@ public class TodayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8;");
 		
-		String htmlSend = new String(htmlSendFrame);
-		htmlSend += LocalDateTime.now().format(dtFormatter);
-		htmlSend += "</h1>\n";
-		
 		PrintWriter out = response.getWriter();
-		out.print(htmlSend);
-		out.close();
+		out.println(HTML_CURRENT_TIME_PREFIX);
+		out.println(LocalDateTime.now().format(YMDHM));
+		out.println(HTML_CURRENT_TIME_SUFFIX);
 	}
 }
