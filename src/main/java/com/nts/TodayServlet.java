@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * TodayServlet.java
+ * 
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @WebServlet("/today")
@@ -41,12 +42,10 @@ public class TodayServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println("<a href=\"index.html\">메인화면</a>");
-
-		out.println(
-				"<style type=\"text/css\"> #center { position: absolute; top:50%; left: 50%; margin-left: -300px; } </style>");
-
-		out.println("<nav id=\"center\"><font size=\"10\">현재시간 : " + LocalDateTime.now().format(dateTimeFormatter)
-				+ "</font></nav>");
+		out.println("<br><br><br><br><br>");
+		out.println("<style type=\"text/css\"> .align-center { text-align: center; } </style>");
+		out.println("<div class=\"align-center\"><font size=\"10\">현재시간 : "
+				+ LocalDateTime.now().format(dateTimeFormatter) + "</font></div>");
 		out.close();
 	}
 

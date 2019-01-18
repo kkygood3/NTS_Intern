@@ -5,52 +5,45 @@
 <link rel="stylesheet" type="text/css" href="css/base.css" />
 <title>내사진</title>
 </head>
-<body>
-	<header>
-		<section id="nav-menu">
-			<nav class="container">
-				<ul id="menu">
-					<li id="menu" class="button"><a href="index.html"
-						style="text-decoration: none">홈</a></li>
-					<li id="menu" class="button"><a href="aboutme.html"
-						style="text-decoration: none">자기소개</a></li>
-					<li id="menu" class="button"><a href="photo.html"
-						style="text-decoration: none">내사진</a></li>
-					<li id="menu" class="button"><a
-						href="today"
-						style="text-decoration: none">몇시예요</a></li>
-				</ul>
-			</nav>
+<body class="body-aqua">
+	<header class="container-white">
+		<section class="overflow-auto">
+			<ul>
+				<li class="li-button float-right"><a href="today">몇시예요</a></li>
+				<li class="li-button float-right"><a href="photo.html">내사진</a></li>
+				<li class="li-button float-right"><a href="aboutme.html">자기소개</a></li>
+				<li class="li-button float-right"><a href="index.html">홈</a></li>
+			</ul>
 		</section>
 	</header>
-
-	<section id="nav-photo">
-		<nav class="container">
-			<ul>
-				<li><img src="img/crong.jpg" alt="크롱" id="photo"
-					class="paragraph-photo"></li>
-				<li class="paragraph-photo">2001.03.11 <br>제가 크롱일때 찍은
-					사진입니다. <br>이때는 뽀로로의 집에서 신나게 놀던 때입니다.
-				</li>
+	<section id="section-photo" class="container-white padding-20px">
+		<article class="article-photo overflow-auto">
+			<div class="div-img">
+				<img src="img/crong.jpg" alt="크롱" class="imgblock">
+			</div>
+			<div class="div-paragraph">
+				2001.03.11 <br>제가 크롱일때 찍은 사진입니다. <br>이때는 뽀로로의 집에서 신나게 놀던
+				때입니다.
+			</div>
+		</article>
+		<hr id="hr-photo">
+		<article class="article-photo overflow-auto">
+			<div class="div-img">
+				<img src="img/simpson.jpg" alt="심슨" class="imgblock">
+			</div>
+			<div class="div-paragraph">
+				2001.03.11 <br>결혼한 후에는 이런 모습이네요. @.@ <br>건강한 모습을 유지하고
+				있습니다.
+			</div>
 			</ul>
-			<hr id=horizon width=80%>
-			<ul>
-				<li><img src="img/simpson.jpg" alt="심슨" id="photo"
-					class="paragraph-photo"></li>
-				<li class="paragraph-photo">2001.03.11 <br>결혼한 후에는 이런
-					모습이네요. @.@ <br>건강한 모습을 유지하고 있습니다.
-				</li>
-			</ul>
-		</nav>
+		</article>
 	</section>
-	<footer>
-		<section id="nav-profile">
-			<nav class="container">
-				<ul>
-					duik.park@nts-corp.com
-					<br> https://gitlab.com/duik.park
-				</ul>
-			</nav>
+	<footer class="container-white">
+		<section class="profile">
+			<ul>
+				duik.park@nts-corp.com
+				<br> https://gitlab.com/duik.park
+			</ul>
 		</section>
 	</footer>
 </body>
