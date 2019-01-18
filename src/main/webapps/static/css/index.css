@@ -4,39 +4,51 @@ header {
 	margin-bottom: 5%;
 }
 
-#my-todo {
+#my_todo {
 	font-size: 30px;
 	color: #2984cc;
 	transform-origin: 10% 15%;
 	transform: rotate(-35deg);
 }
 
-#new-todo-btn {
+#new_todo_btn {
 	float: right;
 	padding: 20px;
-	background-color: blue;
+	background-color: #3F51B5;
 	margin-right: 5%;
 	position: relative;
+	box-shadow: 1px 1px 1px 1px grey;
+}
+
+.link_color_white{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+#new_todo_btn a:hover {
+	text-decoration: none;
+	color: yellow;
 }
 
 section {
-	text-align: center;
+	margin-left: 15%;
 }
 
 .progress {
 	text-decoration: none;
-	display: inline-block;
-	position: relative;
 	padding: 0px;
 	list-style: none;
+	float: left;
+	margin-left: 0.3%;
 }
 
 .progress li {
-	width: 300px;
+	width: 400px;
 	padding: 10px;
 	background-color: #ffa2005e;
 	margin: 1%;
-	text-align:left;
+	text-align: left;
 }
 
 .progress li.title {
@@ -44,6 +56,14 @@ section {
 	background: #2984cc;
 }
 
-.content{
-	margin-left:10px;
+.title h1 {
+	margin-left: 10px;
+}
+
+.content {
+	margin-left: 10px;
+}
+
+button {
+	float: right;
 }
