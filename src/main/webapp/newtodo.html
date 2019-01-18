@@ -2,52 +2,20 @@
 <html lang="ko">
 	<head>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="/css/newtodo.css" />
 		<title>Insert title here</title>
-		<style>
-			.new_todo_section{
-				position: relative;
-				left: 50%;
-				transform: translate(-50%, 0%);
-				padding: 10px;
-				width: 600px;
-				height: 400px;
-				background-color: #eaf3f7;
-			}
-			
-			.text_box{
-				width: 440px;
-				height: 40px;
-				font-size: 18px;
-			}
-			.title{
-				font-size: 2em;
-				text-align: center;
-			}
-			
-			.input_area{
-				margin: 10px;
-			}
-			
-			.btn{
-				width: 80px;
-				height: 40px;
-				background-color: skyblue;
-				border: 0px;
-				cursor: pointer;
-			}
-		</style>
 	</head>
 	<body>
 		<section class="new_todo_section">
-			<h1 class="title">제목</h1>
+			<h1 class="title">할일 등록</h1>
 			<form>
 				<p class="input_area">
 					어떤일인가요?<br>
-					<input class="text_box" type="text" placeholder="최대 24글자" maxlength="24" required/>
+					<input class="text_box" type="text" name="" placeholder="최대 24글자" maxlength="24" required/>
 				</p>
 				<p class="input_area">
 					누가 할일인가요?<br>
-					<input class="text_box" type="text" placeholder="최대 24글자" maxlength="24" required/>
+					<input class="text_box" type="text" name="name" placeholder="홍길동" maxlength="24" required/>
 				</p>
 				
 				<p class="input_area">
@@ -58,9 +26,11 @@
 				</p>
 				
 				<p></p>
-				<button class="btn">&lt이전</button>
-				<input class="btn" type="submit">
-				<input class="btn" type="reset">
+				<a class="btn" href="/main.html">&lt이전</a>
+				<span class="right">
+					<input class="btn" type="submit" value="제출">
+					<input class="btn" type="reset" value="내용지우기">
+				</span>
 			</form>
 		</section>
 	</body>

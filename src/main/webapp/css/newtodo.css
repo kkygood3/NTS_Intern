@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.new_todo_section {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	padding: 30px;
+	width: 500px;
+	background-color: #eaf3f7;
+}
+
+.text_box {
+	width: 440px;
+	height: 40px;
+	font-size: 18px;
+}
+
+.title {
+	font-size: 40px;
+	text-align: center;
+}
+
+.input_area {
+	font-size: 18px;
+	margin: 10px;
+}
+
+a.btn {
+	display: inline-block;
+	line-height: 40px;
+	text-align: center;
+	text-decoration:none;
+}
+
+.btn {
+	width: 80px;
+	height: 40px;
+	background-color: skyblue;
+	border: 0px;
+	cursor: pointer;
+	color: white;
+}
+
+.right {
+	position: absolute;
+	right: 5%;
+}
