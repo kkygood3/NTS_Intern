@@ -19,7 +19,28 @@ public class TodoDao {
 	private String connectionPassword = "!@#123";
 
 	public int addTodo(TodoDto todo) {
-		return 0;
+		int insertCount = 0;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
+		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
+			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+			preparedStatement.setString(1, todo.getTitle());
+			preparedStatement.setString(2, todo.getName());
+			preparedStatement.setInt(3, todo.getSequence());
+
+			insertCount = preparedStatement.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return insertCount;
 	}
 
 	public List<TodoDto> getTodos() {
@@ -36,11 +57,10 @@ public class TodoDao {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			try (ResultSet resultsSet = preparedStatement.executeQuery()) {
 				while (resultsSet.next()) {
-					Long id = resultsSet.getLong("id");
 					String title = resultsSet.getString("title");
 					String name = resultsSet.getString("name");
 					int sequence = resultsSet.getInt("sequence");
-					TodoDto todo = new TodoDto(id, title, name, sequence);
+					TodoDto todo = new TodoDto(title, name, sequence);
 					todos.add(todo);
 				}
 			} catch (Exception e) {
