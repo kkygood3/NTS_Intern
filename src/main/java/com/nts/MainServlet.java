@@ -3,6 +3,7 @@ package com.nts;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,9 +27,10 @@ public class MainServlet extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		TodoDao todo = new TodoDao();
-		List<TodoDto> todos = todo.getTodos();
-
-		response.sendRedirect("main.jsp");
+		TodoDao todoDao = new TodoDao();
+		List<TodoDto> todos = todoDao.getTodos();
+		request.setAttribute("todos", todos);
+		RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
+		rd.forward(request, response);
 	}
 }
