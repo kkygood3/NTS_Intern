@@ -25,7 +25,7 @@
 					<input type="radio" id="todo_sequence_third" name="todo_sequence" value=3>
 					<label for="todo_sequence_third">3순위</label>
 				</div>
-				<a class="back_btn">&lt; 이전</a>
+				<a class="back_btn" href="./main">&lt; 이전</a>
 				<button class="submit_btn">제출</button>
 				<button class="reset_btn">내용지우기</button>
 			</form>
