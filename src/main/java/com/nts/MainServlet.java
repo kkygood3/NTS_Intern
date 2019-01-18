@@ -6,6 +6,9 @@
 package com.nts;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +16,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.jdbc.dao.TodoDao;
+import com.nts.jdbc.dto.Todo;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -23,8 +29,55 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
+		boolean success = false;
+		List<Todo> todoList = new ArrayList<>();
+		List<Todo> doingList = new ArrayList<>();
+		List<Todo> doneList = new ArrayList<>();
+		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+
+		try {
+			List<Todo> list = todoDao.getAllTodos();
+			divideTodoList(list, todoList, doingList, doneList);
+			success = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		request.setAttribute("Success", success);
+		request.setAttribute("TodoList", todoList);
+		request.setAttribute("DoingList", doingList);
+		request.setAttribute("DoneList", doneList);
+
+		System.out.println("Todolist 시작");
+		for (Todo todo : todoList) {
+			System.out.println(todo.getTitle());
+		}
+		System.out.println("");
+		System.out.println("DoingList 시작");
+		for (Todo todo : doingList) {
+			System.out.println(todo.getTitle());
+		}
+		System.out.println("");
+		System.out.println("DoneList 시작");
+		for (Todo todo : doneList) {
+			System.out.println(todo.getTitle());
+		}
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 		requestDispatcher.forward(request, response);
+	}
+
+	void divideTodoList(List<Todo> originList, List<Todo> todoList, List<Todo> doingList, List<Todo> doneList) {
+
+		for (Todo todo : originList) {
+			if (todo.getType().equals(TodoTag.TODO.getTodoTag())) {
+				todoList.add(todo);
+			} else if (todo.getType().equals(TodoTag.DOING.getTodoTag())) {
+				doingList.add(todo);
+			} else {
+				doneList.add(todo);
+			}
+		}
 	}
 
 }
