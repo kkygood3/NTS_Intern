@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+body {
+	background-color: #09e088;
+}
+
+header, footer, section {
+	background-color: #fff;
+	margin: 10px 10px;
+}
+
+#header-ul li {
+	list-style: none;
+	box-shadow: 3px 3px 3px gray;
+	text-align: center;
+}
+
+#header-ul {
+	margin-left: 60%;
+	margin-bottom: 15px;
+}
+
+#header-ul li {
+	display: inline-block; width : 100px;
+	background-color: #00ff92;
+	padding: 20px 20px;
+	margin: 20px 10px;
+	text-align: center;
+	width: 100px;
+	width: 100px
+}
+
+#header-ul li a:link {
+	color: #8c24ad;
+	text-decoration: none;
+}
+
+#header-ul li:hover {
+	color: #caad18;
+}
+
+footer {
+	text-align: center;
+}
+
+.footer-info {
+	color: #8c24ad;
+}
+
+#email {
+	padding-top: 15px;
+}
+
+#blog-url {
+	padding-bottom: 15px;
+}

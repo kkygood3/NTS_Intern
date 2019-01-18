@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+section {
+	padding: 20px;
+}
+
+.my-info {
+	margin-left: 10%;
+}
+
+.my-info:nth-child(2n) {
+	margin-top: 4%;
+	margin-bottom: 4%;
+}
+
