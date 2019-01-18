@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+body {
+	background-color: #b5dbee
+}
+
+nav {
+	text-align: right;
+	padding: 15px;
+	margin-bottom: 15px;
+	background-color: white;
+}
+
+div {
+	padding: 10px;
+	background-color: white;
+}
+
+.float-container {
+	overflow: auto;
+}
+
+.float-container img {
+	float: left;
+	width: 200px;
+	margin: 20px;
+	border: 6px solid #808080;
+}
+
+.float-container p {
+	line-height: 200%;
+}
+
+button {
+	cursor: pointer;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.button_nav {
+	background-color: lightblue;
+	color: purple;
+	font-size: 15px;
+	font-weight: bold;
+	height: 40px;
+	width: 100px;
+}
+
+.button_nav:active {
+	color: #ee114e;
+}
+
+.button_square {
+	background-color: lightblue;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	height: 150px;
+	width: 150px;
+}
+
+.button_square:hover {
+	color: #d8d58d;
+}
+
+footer {
+	text-align: center;
+	padding: 15px;
+	margin-top: 15px;
+	background-color: white;
+}
+
+#today {
+	font-size: 40px;
+	font-weight: bold;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0px;
+}
+
+#index_main {
+	text-align: center;
+}
+
+#aboutme {
+	
+}
+
+#aboutme .title {
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-left: 100px;
+	margin-right: 100px;
+	display: block;
+}
+
+#aboutme p {
+	margin-top: 0px;
+	margin-bottom: 20px;
+	margin-left: 100px;
+	margin-right: 100px;
+}
