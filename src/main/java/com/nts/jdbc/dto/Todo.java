@@ -15,6 +15,15 @@ public class Todo {
 	private String type;
 	private Date regDate;
 
+	public Todo(int id, String title, String name, int sequence, String type, Date regDate) {
+		this.id = id;
+		this.title = title;
+		this.name = name;
+		this.sequence = sequence;
+		this.type = type;
+		this.regDate = regDate;
+	}
+
 	public int getId() {
 		return id;
 	}
