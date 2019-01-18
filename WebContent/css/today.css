@@ -1,5 +1,13 @@
 /*개별 페이지 스타일*/
-section {
+.date_container {
 	padding-top: 400px;
 	text-align: center;
+}
+
+.date {
+    font-size: 2em;
+    position: absolute;
+    top: 60%;
+    left: 45%;
+    margin: -150px;
 }
