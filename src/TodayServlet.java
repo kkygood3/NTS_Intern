@@ -49,17 +49,14 @@ public class TodayServlet extends HttpServlet {
 		writer.print("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
 
 		// 시간 설정 및 출력
-		LocalDateTime now = LocalDateTime.now();
-		writer.print("<h1 style='text-align: center;'>현재시간 : " + getNow(now) + "</h1>");
+		writer.print("<h1 style='text-align: center;'>현재시간 : " + getNow() + "</h1>");
 	}
 
 	/**
 	 * 지정된 시간을 String으로 반환
-	 * 
-	 * @param	LocalDateTime 
 	*/
-	private String getNow(LocalDateTime localDateTime) {
-		return localDateTime.format(dateTimeFormatter);
+	private String getNow() {
+		LocalDateTime now = LocalDateTime.now();
+		return now.format(dateTimeFormatter);
 	}
-
 }
