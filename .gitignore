@@ -7,11 +7,12 @@ tmp/
 *.bak
 *.swp
 *~.nib
+
 local.properties
 .settings/
 .loadpath
 .recommenders
-
+.src/main/resources/
 # External tool builders
 .externalToolBuilders/
 
