@@ -25,11 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DateTimeFormatter yyyyMMddHHmmFormatter;
+	private final DateTimeFormatter YYYYMMDD_HHMM;
 
-	@Override
-	public void init() throws ServletException {
-		yyyyMMddHHmmFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	public TodayServlet() {
+		YYYYMMDD_HHMM = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 	}
 
 	@Override
@@ -38,9 +37,8 @@ public class TodayServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		LocalDateTime nowDateTime = LocalDateTime.now();
-
 		// yyyy/MM/dd HH:mm 형식
-		String datetime = nowDateTime.format(yyyyMMddHHmmFormatter);
+		String datetime = nowDateTime.format(YYYYMMDD_HHMM);
 
 		PrintWriter out = response.getWriter();
 
