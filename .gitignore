@@ -12,7 +12,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-.src/main/resources/
+src/resources/
 # External tool builders
 .externalToolBuilders/
 
