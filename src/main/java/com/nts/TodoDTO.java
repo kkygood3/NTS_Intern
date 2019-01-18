@@ -2,7 +2,7 @@ package com.nts;
 
 import java.util.Date;
 
-public class Todo {
+public class TodoDTO {
 	//	"select id, title, name, sequence, type, regdate from todo "
 	//		+ "order by regdate desc"
 	private int id;
@@ -28,7 +28,7 @@ public class Todo {
 		this.sequence = sequence;
 	}
 
-	public Date getDate() {
+	public Date getRegdate() {
 		return regdate;
 	}
 
