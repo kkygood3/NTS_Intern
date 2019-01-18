@@ -33,10 +33,11 @@ public class TodayServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<head>");
 		out.println("<link rel='stylesheet' href='./css/style.css'>");
+		out.println("<link rel='stylesheet' href='./css/today.css'>");
 		out.println("</head>");
 		out.println("<body style='background-color: white'>");
 		out.println("<a href='index.html'>메인화면</a>");
-		out.println("<p id='today'>");
+		out.println("<p>");
 		out.println("현재시간 : " + getToday());
 		out.println("</p>");
 		out.println("</body>");
