@@ -17,24 +17,25 @@ import javax.servlet.http.HttpServletResponse;
  * @author 전연빈
  */
 @WebServlet("/newtodo")
-public class TodoAddServlet extends HttpServlet{
+public class TodoAddServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * @desc newtodo.jsp 파일로 포워딩
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		RequestDispatcher rd= request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
 		rd.forward(request, response);
 	}
-	
+
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {}
+
 }

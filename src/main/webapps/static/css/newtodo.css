@@ -9,32 +9,24 @@ body {
 	margin-top: 5%;
 }
 
-#send_reset {
-	display: inline-block;
-	margin-left: 5%;
-}
-
-#send_reset li {
-	display: inline-block;
-	background-color: #00d3ff;
-	color: white;
-	box-shadow: 1px 1px 1px grey;
-	width: 100px;
-	padding: 30px;
-	text-align: center;
-	font-size: 18px;
-	margin-left: 30px;
-	cursor: pointer;
-}
-
-#back_page a{
-	padding: 30px;
-	font-size: 18px;
-	border: 1px solid black;
-}
-
 input[type="text"] {
 	width: 300px;
 	height: 40px;
 	font-size: 20px;
+}
+
+button {
+	width: 124px;
+	background: white;
+	height: 60px;
+	font-size: 20px;
+}
+
+.blue-btn {
+	background: #10a7c1;
+	color: white;
+}
+
+.blue-btn:nth-child(2) {
+	margin-left: 100px;
 }
