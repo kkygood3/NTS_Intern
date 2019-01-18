@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+.my_photo_list{
+	text-align: left;
+	margin-top: 75px;
+	padding-bottom: 75px;
+	border-bottom: 1px solid lightgray; 
+	margin-right: 5%;
+}
+
+.my_photo_list:last-child{
+	border-bottom:0;
+}
+
+.my_photo{
+	width: 20%;
+}
+
+.contents {
+	line-height: 200%;
+	display: inline-block;
+	margin-left: 5%;
+}
+

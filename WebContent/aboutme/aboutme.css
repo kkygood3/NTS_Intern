@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+#introduce {
+	margin-left: 100px;
+	margin-right: 150px;
+	text-align: left;
+}
+
+#my_page {
+	text-decoration: none;
+	color:blue;
+}
+
+
+.title {
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+.contents {
+	font-size: 1.3em;
+	margin-bottom: 20px;
+}

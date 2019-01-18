@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+#index_button_align {
+	text-align: center;
+	margin-right: 50px;
+}
+
+#map {
+	margin: 0 auto;
+	margin-top: 100px;
+	display: block;
+	width: 50%;
+}
+
+#title {
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+#contents {
+	font-size: 1.3em;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.index_button {
+	color: #ffffff;
+	font-weight: bold;
+	background: #8cbac7;
+	box-shadow: 2px 2px 10px 1px gray;
+	font-size: 1.5em;
+	width: 200px;
+	height: 200px;
+	margin-left: 20px;
+	margin-right: -10px;
+	display: inline-block;
+	text-align: center;
+	line-height: 200px;
+}
+
+.index_button:hover {
+	color: #eecbb0;
+}
