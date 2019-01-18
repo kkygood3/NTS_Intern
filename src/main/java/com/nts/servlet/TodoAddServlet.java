@@ -29,13 +29,22 @@ public class TodoAddServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
 		rd.forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {}
+		throws ServletException, IOException {
+		// 내용 dto로 삽입
+		
+		// dao에게 전달
+		
+		// insert후 성공값 가져옴
+		
+		// 성공 값에 따라 결과값 json return
+	
+	}
 
 }

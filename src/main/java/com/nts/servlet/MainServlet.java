@@ -29,9 +29,9 @@ public class MainServlet extends HttpServlet {
 		throws IOException, ServletException {
 
 		// 데이터 가져오기
-
+		
 		// 데이터 request에 setting
-		request.setAttribute("hello", "hello");
+		
 		// 메인 페이지로 이동
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		rd.forward(request, response);
@@ -40,6 +40,13 @@ public class MainServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
+		// todo 내용 셋팅
+		
+		// todo update
+		
+		// update 결과 값을 가지고 request담기
+		
+		// 결과값 전달
 	}
 }
