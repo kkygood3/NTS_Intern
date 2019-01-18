@@ -1,0 +1,18 @@
+.photo {
+	float: left;
+	width: 400px;
+	border: 10px solid #abcdef;
+	margin-right: 50px;
+}
+
+.photo-caption {
+	font-size: 20px;
+}
+
+#photo-section .content {
+	border-bottom: 1px solid grey;
+}
+
+#photo-section .content:nth-last-of-type(1) {
+	border-bottom: 0px;
+}
