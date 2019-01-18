@@ -78,7 +78,7 @@ public class TodoDao {
 	public List<Todo> getAllTodos() throws SQLException {
 
 		List<Todo> result = new ArrayList<>();
-		String sql = "select id, title, name, sequence, type, regdate from todo";
+		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
 		PreparedStatement preparedStatement = null;
 
 		if (dbConnection == null) {
