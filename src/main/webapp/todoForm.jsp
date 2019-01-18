@@ -4,14 +4,14 @@
 <!doctype html>
 <html lang="ko">
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>ToDo List Web</title>
 		<link rel="stylesheet" href="./css/index.css">
 	</head>
 	<body>
 		<div class="todo_page_container">
 			<h1>할일 등록</h1>
-			<form class="todo_form">
+			<form class="todo_form" action="./addtodo" method="post" accept-charset="UTF-8">
 				<label for="todo_title_input">어떤일인가요?</label>
 				<input type="text" id="todo_title_input" name="todo_title" placeholder="swift 공부하기(24글자까지)" maxlength="24" required>
 				<label for="todo_name_input">누가 할일인가요?</label>
