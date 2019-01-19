@@ -61,9 +61,8 @@ public class TodoAddServlet extends HttpServlet {
 		todoDto.setTitle((String) request.getParameter("title"));
 		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
 
-		TodoDao todoDao = new TodoDao();
-
 		try {
+			TodoDao todoDao = new TodoDao();
 			todoDao.insertTodo(todoDto);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

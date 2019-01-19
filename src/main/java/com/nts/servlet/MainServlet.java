@@ -17,6 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		System.out.println("init");
+	}
 
 	/**
 	 * @param request
@@ -27,6 +34,8 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
+		
+		System.out.println("메인페이지");
 
 		// 데이터 가져오기
 		
