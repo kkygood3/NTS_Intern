@@ -4,13 +4,17 @@
  **/
 package com.nts.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import com.nts.dto.TodoDto;
+import com.nts.util.DBUtil;
 
 /**
- * @desc TodoDao 
+ * @desc TodoDao
  * @author 전연빈
  */
 public class TodoDao {
@@ -42,8 +46,8 @@ public class TodoDao {
 	 */
 	public int updateTypeTodo(long id, String type) {
 
-		// psmt 셋팅 
-		
+		// psmt 셋팅
+
 		// id 있는지 먼저체크
 
 		// type이 todo doing done이 맞는지 체크
@@ -58,10 +62,27 @@ public class TodoDao {
 	 * @desc todo 내용 삽입
 	 * @param todoDto
 	 * @return result
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
-	public int insertTodo(TodoDto todoDto) {
+	public int insertTodo(TodoDto todoDto) throws ClassNotFoundException, SQLException {
 
-		return 0;
+		Connection conn = DBUtil.getConnection();
+
+		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
+		try (PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
+
+			preparedStatment.setString(1, todoDto.getTitle());
+			preparedStatment.setString(2, todoDto.getPersonName());
+			preparedStatment.setInt(3, todoDto.getSequence());
+
+			return preparedStatment.executeUpdate();
+
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return 0;
+		}
 
 	}
 }

@@ -5,6 +5,7 @@
 package com.nts.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.dao.TodoDao;
+import com.nts.dto.TodoDto;
+import com.nts.type.TodoType;
 
 /**
  * @author 전연빈
@@ -23,28 +28,49 @@ public class TodoAddServlet extends HttpServlet {
 
 	/**
 	 * @desc newtodo.jsp 파일로 포워딩
+	 * @param request
+	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		
+			throws ServletException, IOException {
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
 		rd.forward(request, response);
 	}
 
+	/**
+	 * @desc 새로운 todo 등록
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		// 내용 dto로 삽입
+			throws ServletException, IOException {
+
 		
-		// dao에게 전달
+		request.setCharacterEncoding("utf-8");
 		
-		// insert후 성공값 가져옴
-		
-		// 성공 값에 따라 결과값 json return
-	
+		TodoDto todoDto = new TodoDto();
+
+		todoDto.setPersonName((String) request.getParameter("personName"));
+		todoDto.setTitle((String) request.getParameter("title"));
+		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
+
+		TodoDao todoDao = new TodoDao();
+
+		try {
+			todoDao.insertTodo(todoDto);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		// 성공할시엔 redirect 실패시엔 에러 throws
+		response.sendRedirect("/main");
 	}
 
 }
