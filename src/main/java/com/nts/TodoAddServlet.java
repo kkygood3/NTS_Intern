@@ -6,12 +6,15 @@
 package com.nts;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.jdbc.dao.TodoDao;
 
 /**
  * Servlet implementation class TodoAddServlet
@@ -20,18 +23,49 @@ import javax.servlet.http.HttpServletResponse;
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public TodoAddServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
+		
+		String title = request.getParameter("todo_title");
+		String name = request.getParameter("todo_name");
+		int sequence = Integer.parseInt(request.getParameter("todo_sequence"));
+		
+		if (!isValidRequestParams(title, name, sequence)) {
+			response.sendError(response.SC_BAD_REQUEST, "잘못 된 값을 전송하였습니다.");
+		}
+		
+		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		
+		try {
+			todoDao.addTodo(title, name, sequence);
+			response.sendRedirect("./main");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response.sendError(response.SC_BAD_REQUEST, e.getMessage());
+		}
 	}
 
+	private boolean isValidRequestParams(String title, String name, int sequence) {
+		title = title.trim();
+		name = name.trim();
+		
+		if (title.length() == 0 || title.length() > 24) {
+			return false;
+		}
+		
+		if (name.length() == 0) {
+			return false;
+		}
+		
+		if (sequence < 1 || sequence > 3) {
+			return false;
+		}
+		
+		return true;
+	}
 }
