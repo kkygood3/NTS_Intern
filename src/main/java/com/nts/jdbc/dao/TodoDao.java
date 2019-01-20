@@ -64,7 +64,7 @@ public class TodoDao {
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null) {
+		if (dbConnection == null || !dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 
@@ -81,7 +81,7 @@ public class TodoDao {
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null) {
+		if (dbConnection == null || !dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 
@@ -114,7 +114,7 @@ public class TodoDao {
 		String sql = "update todo set type = ? where id = ? and type = ?;";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null) {
+		if (dbConnection == null || !dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 
