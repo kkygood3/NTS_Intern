@@ -36,7 +36,7 @@ public class MainServlet extends HttpServlet {
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
 
 		try {
-			List<Todo> list = todoDao.getAllTodos();
+			List<Todo> list = todoDao.getTodos();
 			divideTodoList(list, todoList, doingList, doneList);
 			success = true;
 		} catch (SQLException e) {
