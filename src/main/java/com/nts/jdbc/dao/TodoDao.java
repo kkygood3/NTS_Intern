@@ -59,7 +59,7 @@ public class TodoDao {
 		}
 	}
 
-	public void registerTodo(String title, String name, int sequence) throws SQLException {
+	public void addTodo(String title, String name, int sequence) throws SQLException {
 
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
@@ -75,7 +75,7 @@ public class TodoDao {
 		preparedStatement.executeUpdate();
 	}
 
-	public List<Todo> getAllTodos() throws SQLException {
+	public List<Todo> getTodos() throws SQLException {
 
 		List<Todo> result = new ArrayList<>();
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
@@ -99,7 +99,7 @@ public class TodoDao {
 		return result;
 	}
 
-	public void updateTodoType(int id, String type) throws SQLException {
+	public void updateTodo(int id, String type) throws SQLException {
 
 		String nextType = "";
 
