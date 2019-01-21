@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.dao;
 
 import java.sql.Connection;
@@ -15,12 +19,11 @@ import com.nts.dto.TodoDto;
  * @author 박우성
  */
 public class TodoDao {
-	private static String dburl = "jdbc:mysql://localhost:3306/connectdb?serverTimezone=Asia/Seoul";
-	private static String dbUser = "connectuser";
-	private static String dbpasswd = "connect123!@#";
+	private static String dburl = "jdbc:mysql://10.113.116.52:13306/user4?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf-8";
+	private static String dbUser = "user4";
+	private static String dbpasswd = "user4";
 
 	public int addTodo(TodoDto todo) {
-		//todo를 DB에 추가
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -97,7 +100,6 @@ public class TodoDao {
 					rs.close();
 				if (ps != null)
 					ps.close();
-
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
