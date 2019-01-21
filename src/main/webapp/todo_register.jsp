@@ -13,22 +13,27 @@
 	<h2>할일 등록</h2>
 	<section>
 		<form action="register_ok" method="post">
-			어떤일인가요?<br> <input type="text" placeholder="swift 공부하기(24자까지)"
-				maxlength=24 class="whatdo_area" name="whatdo"></input> <br> <br> 누가 할일인가요?<br> <input
-				type="text" placeholder="홍길동" maxlength=10 class="name_area" name="wname"></input> <br> <br>
-			우선순위를 선택하세요<br>
+			어떤일인가요?
+			<br>
+			<input type="text" placeholder="swift 공부하기(24자까지)" maxlength=24 class="whatdo_area" name="whatdo"></input>
+			<br><br>
+			누가 할일인가요?
+			<br>
+			<input type="text" placeholder="홍길동" maxlength=10 class="name_area" name="wname"></input>
+			<br><br>
+			우선순위를 선택하세요
+			<br>
 			<input type="radio" name="priority" value="1" checked>1순위</input>
 			<input type="radio" name="priority" value="2">2순위</input>
 			<input type="radio" name="priority" value="3">3순위</input>
-			<br>
-			<br>
-			<br>
+			<br><br><br>
 			<button type="button" class="btn_before">< 이전</button>
 			<button type="button" class="btn_reset">내용지우기</button>
 			<button type="button" class="btn_submit">제출</button>
 		</form>
 	</section>
 </body>
+
 <script>
 	var whatdo = document.getElementsByClassName("whatdo_area")[0];
 	var wname = document.getElementsByClassName("name_area")[0];

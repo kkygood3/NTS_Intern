@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.api;
 
 import java.io.IOException;
@@ -19,7 +23,6 @@ public class RegisterOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//데이터 등록
 		String whatdo = request.getParameter("whatdo");
 		String name = request.getParameter("wname");
 		int priority = new Integer(request.getParameter("priority"));
@@ -27,10 +30,6 @@ public class RegisterOkServlet extends HttpServlet {
 		TodoDao dao = new TodoDao();
 		dao.addTodo(new TodoDto(whatdo,name,priority));
 		
-		//main.jsp로 리다이렉트
 		response.sendRedirect("main");
-		
-		
-		
 	}
 }
