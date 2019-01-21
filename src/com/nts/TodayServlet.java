@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	/**
 	 * 현재 시간을 화면에 출력
@@ -39,7 +39,7 @@ public class TodayServlet extends HttpServlet {
 		writer.println("<br><br><br><br><br>");
 		writer.println("<style type=\"text/css\"> .align-center { text-align: center; } </style>");
 		writer.println("<div class=\"align-center\"><font size=\"10\">현재시간 : "
-				+ LocalDateTime.now().format(dateTimeFormatter) + "</font></div>");
+				+ LocalDateTime.now().format(DATE_TIME_FORMATTER) + "</font></div>");
 		writer.close();
 	}
 

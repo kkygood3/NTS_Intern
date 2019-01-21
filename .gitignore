@@ -5,7 +5,7 @@
 /build/
 
 /WebContent/META-INF/
-.pom.xml
+/pom.xml
 
 .idea/
 *.iml
