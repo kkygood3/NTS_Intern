@@ -1,11 +1,9 @@
-var submits = document.getElementsByClassName("submit");
-var ids = document.getElementsByClassName("id");
-var event = [];
-
-for(var i = 0; i < submits.length; i++){
-	event[i] = submitIdAndType.bind(undefined, ids[i]);
-	submits[i].addEventListener("click", event[i]);
-}
+var todos = document.querySelector('.todos');
+todos.addEventListener('click', function(event) {
+	if(event.target.textContent==="→"){
+		submitIdAndType(event.target.parentNode);
+	}
+});
 
 var httpRequest = null;
 function getXMLHttpRequest() {
@@ -28,8 +26,9 @@ function getXMLHttpRequest() {
 	}
 }
 
-function submitIdAndType(id) {
-	var type = id.nextSibling.nextSibling;
+function submitIdAndType(todo) {
+	var id = todo.dataset.todo_id;
+	var type = todo.dataset.todo_type;
 	var data;
 	var targetElement;
 	
@@ -37,29 +36,21 @@ function submitIdAndType(id) {
 	
 	httpRequest.onreadystatechange = function() {  
 	    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-	    	for(var i = 0; i < submits.length; i++){
-	    		submits[i].removeEventListener("click", event[i]);
-	    	}
-	    	id.parentElement.remove();
+	    	todo.remove();
 
-	    	if(type.value==="TODO"){
+	    	if(type==="TODO"){
 	    		targetElement = document.getElementById("doing");
 	    		targetElement.insertAdjacentHTML("beforeend", httpRequest.responseText);
 	    	}
-	    	else if(type.value==="DOING"){
+	    	else if(type==="DOING"){
 	    		targetElement = document.getElementById("done");
 	    		targetElement.insertAdjacentHTML("beforeend", httpRequest.responseText);
-	    	}
-	    	
-	    	for(var i = 0; i < submits.length; i++){
-	    		event[i] = submitIdAndType.bind(undefined, ids[i]);
-	    		submits[i].addEventListener("click", event[i]);
 	    	}
 	    }
 	}
 	
 	httpRequest.open("POST","nextStep",true);
 	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	data = "id=" + id.value + "&type=" + type.value;
+	data = "id=" + id + "&type=" + type;
 	httpRequest.send(data);
 }

@@ -50,7 +50,7 @@ public class TodoTypeServlet extends HttpServlet {
 	}
 
 	private String makeResponseContent(TodoDto todo) {
-		String responseContent = "<li>"
+		String responseContent = "<li data-todo_id = \"" + todo.getId() + "\" data-todo_type = \"" + todo.getType() + "\">"
 			+ "<input type=\"hidden\" class=\"id\" value=" + todo.getId() + ">\r\n"
 			+ "<input type=\"hidden\" class=\"type\" value=" + todo.getType() + ">\r\n"
 			+ "<p>" + todo.getTitle() + "</p>\r\n"
