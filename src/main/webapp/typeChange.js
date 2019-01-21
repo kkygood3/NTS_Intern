@@ -29,6 +29,11 @@ function getXMLHttpRequest() {
 function submitIdAndType(todo) {
 	var id = todo.dataset.todo_id;
 	var type = todo.dataset.todo_type;
+	var title = todo.getElementsByClassName("title")[0].textContent;
+	var name = todo.getElementsByClassName("name")[0].textContent;
+	var sequence = todo.getElementsByClassName("sequence")[0].textContent;
+	var regdate = todo.getElementsByClassName("regdate")[0].textContent;
+	
 	var data;
 	var targetElement;
 	
@@ -39,12 +44,10 @@ function submitIdAndType(todo) {
 	    	todo.remove();
 
 	    	if(type==="TODO"){
-	    		targetElement = document.getElementById("doing");
-	    		targetElement.insertAdjacentHTML("beforeend", httpRequest.responseText);
+	    		moveTodo(id, "DOING", title, regdate, name, sequence);
 	    	}
 	    	else if(type==="DOING"){
-	    		targetElement = document.getElementById("done");
-	    		targetElement.insertAdjacentHTML("beforeend", httpRequest.responseText);
+	    		moveTodo(id, "DONE", title, regdate, name, sequence);
 	    	}
 	    }
 	}
@@ -53,4 +56,42 @@ function submitIdAndType(todo) {
 	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	data = "id=" + id + "&type=" + type;
 	httpRequest.send(data);
+}
+
+function moveTodo(id, type, title, regdate, name, sequence){
+	var targetElement = document.getElementById(type.toLowerCase());
+	
+	var movedTodo = document.createElement("li");
+	movedTodo.setAttribute("data-todo_id", id);
+	movedTodo.setAttribute("data-todo_type", type);
+	
+	var titleElement = document.createElement("p");
+	titleElement.setAttribute("class", "title");
+	titleElement.innerHTML = title;
+
+	var regdateElement = document.createElement("p");
+	regdateElement.setAttribute("class", "regdate");
+	regdateElement.innerHTML = regdate;
+
+	var nameElement = document.createElement("p");
+	nameElement.setAttribute("class", "name");
+	nameElement.innerHTML = name;
+	
+	var sequenceElement = document.createElement("p");
+	sequenceElement.setAttribute("class", "sequence");
+	sequenceElement.innerHTML = sequence;
+	
+	movedTodo.append(titleElement);
+	movedTodo.append(regdateElement);
+	movedTodo.append(nameElement);
+	movedTodo.append(sequenceElement);
+	
+	if(type==="DOING"){
+		var nextElement = document.createElement("p");
+		nextElement.innerHTML = "→";
+		
+		movedTodo.append(nextElement);
+	}
+	
+	targetElement.append(movedTodo);
 }

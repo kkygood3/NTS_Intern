@@ -28,35 +28,16 @@ public class TodoTypeServlet extends HttpServlet {
 		TodoDao todoDao = new TodoDao();
 		List<TodoDto> todos = todoDao.getTodos();
 
-		String responseContent = "";
-
 		for (TodoDto todo : todos) {
 			if (todo.getId() == id) {
 				if (type.equals("TODO")) {
 					todo.setType("DOING");
-					responseContent = makeResponseContent(todo);
-					responseContent += "<p class=\"submit\">→</p>";
 				} else {
 					todo.setType("DONE");
-					responseContent = makeResponseContent(todo);
 				}
-				responseContent += "</li>";
 				todoDao.updateTodo(todo);
 			}
 		}
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/x-www-form-urlencoded");
-		response.getWriter().write(responseContent);
-	}
-
-	private String makeResponseContent(TodoDto todo) {
-		String responseContent = "<li data-todo_id = \"" + todo.getId() + "\" data-todo_type = \"" + todo.getType() + "\">"
-			+ "<input type=\"hidden\" class=\"id\" value=" + todo.getId() + ">\r\n"
-			+ "<input type=\"hidden\" class=\"type\" value=" + todo.getType() + ">\r\n"
-			+ "<p>" + todo.getTitle() + "</p>\r\n"
-			+ "<p>" + todo.getRegdate() + "</p>\r\n"
-			+ "<p>" + todo.getName() + "</p>\r\n"
-			+ "<p>우선순위 : " + todo.getSequence() + "</p>\r\n";
-		return responseContent;
+		response.getWriter().write("success");
 	}
 }
