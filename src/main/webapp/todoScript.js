@@ -56,7 +56,7 @@ function update(item_id, nextType) {
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				alert("Successfully Updated" + id_extracted);
+				alert("Successfully Updated");
 
 				var target = document.querySelector("#" + nextType);
 				var element = document.getElementById("todo_" + id_extracted);

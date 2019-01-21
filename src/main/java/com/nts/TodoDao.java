@@ -41,7 +41,7 @@ public class TodoDao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-			String sql = "select id, title, name, sequence, type, regdate from todo order by regdate desc, id desc";
+			String sql = "select id, title, name, sequence, type, regdate from todo order by regdate asc, id asc";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 
