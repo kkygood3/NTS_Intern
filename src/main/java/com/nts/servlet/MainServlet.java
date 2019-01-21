@@ -49,10 +49,4 @@ public class MainServlet extends HttpServlet {
 
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("type"));
-	}
 }

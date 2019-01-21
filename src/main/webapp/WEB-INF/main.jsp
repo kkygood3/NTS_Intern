@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>​
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,38 +24,43 @@
 				<h1>TODO</h1>
 			</li>
 			<c:forEach	var="item" items="${result.todoList }">
-				<li id="${item.id }">
+				<fmt:parseDate var="regDate" value="${item.regdate }" pattern="yyyy-MM-dd HH:mm:ss.s"/>
+				<li data-id="${item.id }" data-date="${item.regdate }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
-						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
+						등록날짜: <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />  우선순위 ${item.sequence }
 						<button type="button" class="next_btn">→</button>
 					</p>
 				</li>
 			</c:forEach>
 		</ul>
+
 		<ul id="doing" class="progress">
 			<li class="title">
 				<h1>DOING</h1>
 			</li>
 			<c:forEach	var="item" items="${result.doingList }">
-				<li id="${item.id }">
+				<fmt:parseDate var="regDate" value="${item.regdate }" pattern="yyyy-MM-dd HH:mm:ss.s"/>
+				<li data-id="${item.id }" data-date="${item.regdate }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
-						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence } 
+						등록날짜: <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />  우선순위 ${item.sequence }
 						<button type="button" class="next_btn">→</button>
 					</p>
 				</li>
 			</c:forEach>
 		</ul>
+		
 		<ul id="done" class="progress">
 			<li class="title">
 				<h1>DONE</h1>
 			</li>
 			<c:forEach	var="item" items="${result.doneList }">
-				<li id="${item.id }">
+				<fmt:parseDate var="regDate" value="${item.regdate }" pattern="yyyy-MM-dd HH:mm:ss.s"/>
+				<li data-id="${item.id }" data-date="${item.regdate }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
-						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
+						등록날짜: <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />  우선순위 ${item.sequence }
 					</p>
 				</li>
 			</c:forEach>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.dao.TodoDao;
+import com.nts.service.TodoService;
 
 @WebServlet("/changeTodoType")
 public class TodoTypeServlet extends HttpServlet {
@@ -30,15 +30,15 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		TodoDao todoDao = new TodoDao();
-
 		int id = Integer.parseInt(request.getParameter("id"));
 		String type = request.getParameter("type");
 
 		PrintWriter out = response.getWriter();
 
 		try {
-			todoDao.updateTodoType(id, type);
+			TodoService todoService = new TodoService();
+			todoService.updateTodo(id, type);
+
 			out.write("success");
 		} catch (SQLException e) {
 			out.write("fail");

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,23 +41,22 @@ public class TodoDao {
 				List<TodoDto> todoList = new ArrayList<>();
 
 				while (resultSet.next()) {
-
+					
 					TodoDto todoDto = new TodoDto();
-
+						
 					todoDto.setId(resultSet.getLong("id"));
 					todoDto.setName(resultSet.getString("name"));
-					todoDto.setRegDate(resultSet.getDate("regdate"));
+					todoDto.setRegdate(resultSet.getString("regdate"));
 					todoDto.setSequence(resultSet.getInt("sequence"));
 					todoDto.setTitle(resultSet.getString("title"));
 					todoDto.setType(resultSet.getString("type"));
 
 					todoList.add(todoDto);
-					return todoList;
 				}
 
+				return todoList;
 			}
 		}
-		return null;
 
 	}
 
@@ -73,6 +73,12 @@ public class TodoDao {
 
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
+
+			if (type.equals("TODO"))
+				type = "DOING";
+			else if (type.equals("DOING"))
+				type = "DONE";
+			
 			preparedStatment.setString(1, type);
 			preparedStatment.setLong(2, id);
 

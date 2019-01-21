@@ -4,8 +4,6 @@
  **/
 package com.nts.dto;
 
-import java.util.Date;
-
 /**
  * @author 전연빈
  */
@@ -13,7 +11,7 @@ public class TodoDto {
 
 	private long id; // 등록 ID
 	private String name; // 등록자 이름
-	private Date regDate; // 등록 일시
+	private String regdate; // 등록 일시
 	private int sequence; // 우선 순위
 	private String title; // todo 제목
 	private String type; // type ( todo, doing, done ) 대문자 형식
@@ -26,7 +24,6 @@ public class TodoDto {
 		this.name = name;
 	}
 
-
 	public long getId() {
 		return id;
 	}
@@ -35,12 +32,12 @@ public class TodoDto {
 		this.id = id;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public String getRegdate() {
+		return regdate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
 
 	public int getSequence() {
@@ -69,10 +66,9 @@ public class TodoDto {
 
 	@Override
 	public String toString() {
-		return "TodoDto [id=" + id + ", name=" + name + ", regDate=" + regDate + ", sequence=" + sequence
+		return "TodoDto [id=" + id + ", name=" + name + ", regDate=" + regdate + ", sequence=" + sequence
 			+ ", title="
 			+ title + ", type=" + type + "]";
 	}
-
 
 }
