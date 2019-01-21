@@ -1,3 +1,7 @@
+/**
+ * Copyright 2015 NaverCorp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.todo.dao;
 
 import java.sql.Connection;
@@ -9,10 +13,6 @@ import java.util.List;
 
 import com.nts.todo.dto.TodoDto;
 
-/**
- * Copyright 2015 NaverCorp. All rights Reserved.
- * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 public class TodoDao {
 	private String connectionUrl = "jdbc:mysql://localhost:3306/todo?serverTimezone=Asia/Seoul";
 	private String connectionUser = "root";

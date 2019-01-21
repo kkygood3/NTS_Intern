@@ -1,9 +1,9 @@
-package com.nts.todo.dto;
-
 /**
  * Copyright 2015 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
+package com.nts.todo.dto;
+
 public class TodoDto {
 	private Long id;
 	private String name;
