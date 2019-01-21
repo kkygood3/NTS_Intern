@@ -12,6 +12,14 @@ public class TodoDto{
 	private String type;
 	private String regdate;
 
+	
+	/**Dummy Constuctor
+	 * 
+	 */
+	public TodoDto() {
+		
+	}
+
 	public TodoDto(Integer id, String title, String name, int sequence, String type, String regdate) {
 		super();
 		this.id = id;
