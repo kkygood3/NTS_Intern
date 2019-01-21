@@ -4,8 +4,8 @@ function removeTodoCell(id, type) {
     for(var i = 0; i < cells.length; i++){
         var cell = cells[i];
         if(cell.dataset.todoId == id && cell.dataset.todoType == type){
-            var title = cell.getElementsByTagName("h1")[0].innerHTML;
-            var content = cell.getElementsByTagName("h5")[0].innerHTML;
+            var title = cell.querySelector("h1").innerHTML;
+            var content = cell.querySelector("h5").innerHTML;
             column.removeChild(cell);
             return {
                 id: id,
@@ -56,7 +56,7 @@ function addClickListener(todoCell){
 	        type: todoCell.dataset.todoType
 	    };
 
-	    var nextTypeButton = todoCell.getElementsByTagName("button")[0];
+	    var nextTypeButton = todoCell.querySelector("button");
 	    if(nextTypeButton == undefined){
 	    	return;
 	    }
