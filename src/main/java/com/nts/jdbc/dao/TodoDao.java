@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +24,7 @@ import com.nts.jdbc.dto.Todo;
 
 public class TodoDao {
 	private Connection dbConnection = null;
+	DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
 	public TodoDao() {
 
@@ -94,7 +97,7 @@ public class TodoDao {
 			int sequence = resultSet.getInt("sequence");
 			String type = resultSet.getString("type");
 			Date regdate = resultSet.getDate("regdate");
-			result.add(new Todo(id, title, name, sequence, type, regdate));
+			result.add(new Todo(id, title, name, sequence, type, dateFormat.format(regdate)));
 		}
 		return result;
 	}

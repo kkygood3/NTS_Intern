@@ -30,17 +30,17 @@ public class TodoAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String title = request.getParameter("todo_title");
 		String name = request.getParameter("todo_name");
 		int sequence = Integer.parseInt(request.getParameter("todo_sequence"));
-		
+
 		if (!isValidRequestParams(title, name, sequence)) {
 			response.sendError(response.SC_BAD_REQUEST, "잘못 된 값을 전송하였습니다.");
 		}
-		
+
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
-		
+
 		try {
 			todoDao.addTodo(title, name, sequence);
 			response.sendRedirect("./main");
@@ -53,19 +53,19 @@ public class TodoAddServlet extends HttpServlet {
 	private boolean isValidRequestParams(String title, String name, int sequence) {
 		title = title.trim();
 		name = name.trim();
-		
+
 		if (title.length() == 0 || title.length() > 24) {
 			return false;
 		}
-		
+
 		if (name.length() == 0) {
 			return false;
 		}
-		
+
 		if (sequence < 1 || sequence > 3) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }

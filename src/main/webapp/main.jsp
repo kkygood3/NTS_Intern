@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="ko">
 	<head>
@@ -16,47 +18,47 @@
 			<div class="todo_list_container">
 				<ul>
 					<li class="todo_cell todo_category">TODO</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
+					<c:forEach items="${TodoList}" var="item">
+						<li class="todo_cell todo_content">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
+					</c:forEach>
 				</ul>	
 				<ul>
 					<li class="todo_cell todo_category">DOING</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
+					<c:forEach items="${DoingList}" var="item">
+						<li class="todo_cell todo_content">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
+					</c:forEach>
+					<c:forEach items="${DoingList}" var="item">
+						<li class="todo_cell todo_content">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
+					</c:forEach>
+					<c:forEach items="${DoingList}" var="item">
+						<li class="todo_cell todo_content">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
+					</c:forEach>
 				</ul>
 				<ul>
 					<li class="todo_cell todo_category">DONE</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
-					<li class="todo_cell todo_content">
-						<h1>자바스크립트 공부하기</h1>
-						<h5>등록날짜:2019.01.17, 홍길동, 우선순위 1</h5>
-						<button class="next_btn">&rarr;</button>
-					</li>
+					<c:forEach items="${DoneList}" var="item">
+						<li class="todo_cell todo_content">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>

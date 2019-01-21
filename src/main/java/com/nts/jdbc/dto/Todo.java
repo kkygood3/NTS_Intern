@@ -5,17 +5,15 @@
 
 package com.nts.jdbc.dto;
 
-import java.util.Date;
-
 public class Todo {
 	private int id;
 	private String title;
 	private String name;
 	private int sequence;
 	private String type;
-	private Date regDate;
+	private String regDate;
 
-	public Todo(int id, String title, String name, int sequence, String type, Date regDate) {
+	public Todo(int id, String title, String name, int sequence, String type, String regDate) {
 		this.id = id;
 		this.title = title;
 		this.name = name;
@@ -64,12 +62,11 @@ public class Todo {
 		this.type = type;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-
 }
