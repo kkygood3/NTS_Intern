@@ -46,7 +46,7 @@
 }
 
 #list_board > .container > .card {
-	padding: 15px 20px;
+	padding: 15px 0px 15px 20px;
 	margin-top: 10px;
 	background-color: #99deff;
 	font-size: 12px;
@@ -56,4 +56,9 @@
 	font-weight: bold;
 	font-size: 18px;
 	display: block;
+}
+
+#list_board > .container > .card button {
+	float: right;
+	margin-right: 10px;
 }

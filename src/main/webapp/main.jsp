@@ -46,7 +46,6 @@
 						<span class="title">${todo.title }</span><br/>
 						<span>
 							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
-							<button>→</button>
 						</span>
 					</div>
 				</c:forEach>
