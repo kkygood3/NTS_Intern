@@ -18,13 +18,6 @@ public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-		System.out.println("init");
-	}
-
 	/**
 	 * @param request
 	 * @param response

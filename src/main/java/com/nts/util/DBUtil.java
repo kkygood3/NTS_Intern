@@ -24,11 +24,19 @@ public class DBUtil {
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
-	public static Connection getConnection() throws NamingException, SQLException {
+	public static Connection getConnection() throws SQLException {
 
-		Context context = new InitialContext();
-		Context envContext = (Context) context.lookup("java:comp/env");
-		DataSource dataSource = (DataSource) envContext.lookup("jdbc/mysql");
+		DataSource dataSource = null;
+		
+		try {
+			Context context = new InitialContext();
+			Context envContext = (Context) context.lookup("java:comp/env");
+			dataSource = (DataSource) envContext.lookup("jdbc/mysql/todo_db");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return dataSource.getConnection();
 	}
 }

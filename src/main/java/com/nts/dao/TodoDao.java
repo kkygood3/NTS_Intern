@@ -31,13 +31,7 @@ public class TodoDao {
 	 */
 	public Map<String, List<TodoDto>> selectTodoListAll() throws ClassNotFoundException, SQLException {
 
-		Connection conn = null;
-		try {
-			conn = DBUtil.getConnection();
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		Connection conn = DBUtil.getConnection();
 
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT id,title,name,sequence,type,TO_CHAR(regdate)");
@@ -99,17 +93,11 @@ public class TodoDao {
 	 */
 	public int insertTodo(TodoDto todoDto) throws ClassNotFoundException, SQLException {
 
-		Connection conn = null;
-		try {
-			conn = DBUtil.getConnection();
-		} catch (NamingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
+		Connection conn = DBUtil.getConnection();
+		
 		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
+		
 		try (PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
-
 			preparedStatment.setString(1, todoDto.getTitle());
 			preparedStatment.setString(2, todoDto.getPersonName());
 			preparedStatment.setInt(3, todoDto.getSequence());

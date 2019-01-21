@@ -11,12 +11,12 @@ import com.nts.type.TodoType;
  */
 public class TodoDto {
 
-	private long id; 			// 등록 ID
-	private String personName; 	// 등록자 이름
-	private String regDate; 	// 등록 일시
-	private int sequence; 		// 우선 순위
-	private String title;		// todo 제목
-	private TodoType type; 		// type ( todo, doing, done ) 대문자 형식
+	private long id; // 등록 ID
+	private String personName; // 등록자 이름
+	private String regDate; // 등록 일시
+	private int sequence; // 우선 순위
+	private String title; // todo 제목
+	private String type; // type ( todo, doing, done ) 대문자 형식
 
 	public long getId() {
 		return id;
@@ -25,7 +25,6 @@ public class TodoDto {
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public String getRegDate() {
 		return regDate;
@@ -51,17 +50,18 @@ public class TodoDto {
 		this.title = title;
 	}
 
-	public TodoType getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(TodoType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "TodoDto [id=" + id + ", personName=" + personName + ", regDate=" + regDate + ", sequence=" + sequence + ", title="
+		return "TodoDto [id=" + id + ", personName=" + personName + ", regDate=" + regDate + ", sequence=" + sequence
+			+ ", title="
 			+ title + ", type=" + type + "]";
 	}
 

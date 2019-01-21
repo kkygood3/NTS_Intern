@@ -35,7 +35,7 @@ public class TodoAddServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
 		rd.forward(request, response);
@@ -50,15 +50,14 @@ public class TodoAddServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		throws ServletException, IOException {
 
-		
 		request.setCharacterEncoding("utf-8");
-		
+
 		TodoDto todoDto = new TodoDto();
 
-		todoDto.setPersonName((String) request.getParameter("personName"));
-		todoDto.setTitle((String) request.getParameter("title"));
+		todoDto.setPersonName((String)request.getParameter("personName"));
+		todoDto.setTitle((String)request.getParameter("title"));
 		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
 
 		try {

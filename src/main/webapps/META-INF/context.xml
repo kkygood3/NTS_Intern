@@ -25,5 +25,14 @@
     <!--
     <Manager pathname="" />
     -->
-    <ResourceLink global="jdbc/mysql" name="jdbc/mysql" type="javax.sql.DataSource"/>
+    <Resource name="jdbc/mysql/todo_db" 
+			  auth="Container"
+			  type="javax.sql.DataSource" 
+			  maxActive="100" 
+			  maxIdle="30"
+			  maxWait="10000" 
+			  username="root" 
+			  password="1234"
+			  driverClassName="com.mysql.jdbc.Driver"
+			  url="jdbc:mysql://localhost:3306/todo_db?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
 </Context>
