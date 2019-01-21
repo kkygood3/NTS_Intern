@@ -6,7 +6,10 @@ package com.nts.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.dto.TodoDto;
@@ -33,18 +36,63 @@ public class TodoDao {
 		return conn;
 	}
 
-	// TODO: Todo 테이블에 값 Insert 구현
 	public int addTodo(TodoDto todoDto) {
-		return 0;
+		int insertCount = 0;
+		try {
+			Connection conn = getConn();
+			String sql = "insert into todo(title, name, sequence) values(?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, todoDto.getTitle());
+			pstmt.setString(2, todoDto.getName());
+			pstmt.setInt(3, todoDto.getSequence());
+			insertCount = pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return insertCount;
 	}
 
-	// TODO: Todo 테이블 값들 가져오기 구현
 	public List<TodoDto> getTodos() {
-		return null;
+		List<TodoDto> todoList = new ArrayList<TodoDto>();
+		try {
+			Connection conn = getConn();
+			String sql = "select * from todo";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				TodoDto todo = new TodoDto();
+				todo.setId(rs.getLong("id"));
+				todo.setName(rs.getString("name"));
+				todo.setRegdate(rs.getString("regdate"));
+				todo.setSequence(rs.getInt("sequence"));
+				todo.setTitle(rs.getString("title"));
+				todo.setType(rs.getString("type"));
+				todoList.add(todo);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return todoList;
 	}
 
-	// TODO: Todo 테이블 값 Update 구현
 	public int updateTodo(TodoDto todoDto) {
-		return 0;
+		int updateCount = 0;
+		try {
+			Connection conn = getConn();
+			String sql = "update todo set type = ? where id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, todoDto.getType());
+			pstmt.setLong(2, todoDto.getId());
+			updateCount = pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return updateCount;
 	}
 }
