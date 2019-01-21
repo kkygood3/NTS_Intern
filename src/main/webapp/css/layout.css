@@ -1,0 +1,11 @@
+body {
+	background-color: #e9e8ff;
+}
+
+.content {
+	max-width: 1024px;
+	min-height: 768px;
+	background-color: white;
+	box-sizing: border-box;
+	margin: auto;
+}
