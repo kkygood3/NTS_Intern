@@ -14,10 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
-import com.nts.type.TodoType;
-
+import com.nts.service.TodoService;
+	
 /**
  * @author 전연빈
  */
@@ -56,13 +55,13 @@ public class TodoAddServlet extends HttpServlet {
 
 		TodoDto todoDto = new TodoDto();
 
-		todoDto.setPersonName((String)request.getParameter("personName"));
+		todoDto.setName((String)request.getParameter("personName"));
 		todoDto.setTitle((String)request.getParameter("title"));
 		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
 
 		try {
-			TodoDao todoDao = new TodoDao();
-			todoDao.insertTodo(todoDto);
+			TodoService todoService = new TodoService();
+			todoService.addTodo(todoDto);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

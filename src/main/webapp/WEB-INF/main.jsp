@@ -24,7 +24,7 @@
 				<h1>TODO</h1>
 			</li>
 			<c:forEach	var="item" items="${result.todoList }">
-				<li>
+				<li id="${item.id }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
 						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
@@ -38,7 +38,7 @@
 				<h1>DOING</h1>
 			</li>
 			<c:forEach	var="item" items="${result.doingList }">
-				<li>
+				<li id="${item.id }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
 						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence } 
@@ -52,7 +52,7 @@
 				<h1>DONE</h1>
 			</li>
 			<c:forEach	var="item" items="${result.doneList }">
-				<li>
+				<li id="${item.id }">
 					<h3 class="content">${item.title }</h3>
 					<p class="content">
 						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
@@ -60,7 +60,8 @@
 				</li>
 			</c:forEach>
 		</ul>
-	</section>
-
+	</section>	
+	<script src="/static/js/main.js" charset="utf-8"></script>
+	
 </body>
 </html>

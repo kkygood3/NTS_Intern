@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.service.TodoService;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -33,12 +33,11 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
-
-		TodoDao todoDao = new TodoDao();
 		
 		try {
+			TodoService todoService = new TodoService();
 			// keys : todoList, doingList, doneList
-			Map<String, List<TodoDto>> result = todoDao.selectTodoListAll();
+			Map<String, List<TodoDto>> result = todoService.getTodos();
 			request.setAttribute("result", result);
 	
 		} catch (SQLException e) {
@@ -51,14 +50,9 @@ public class MainServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		// todo 내용 셋팅
-
-		// todo update
-
-		// update 결과 값을 가지고 request담기
-
-		// 결과값 전달
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println(request.getParameter("id"));
+		System.out.println(request.getParameter("type"));
 	}
 }
