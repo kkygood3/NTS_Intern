@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 시간 출력을 담당하는 Today 클래스입니다.
+ * 시간 출력을 담당하는 TodayServlet 클래스입니다.
  * @author  : kkygood3
  */
 @WebServlet("/today")
