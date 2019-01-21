@@ -4,30 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-
-/* 이름 수정 (index꺼 갖다 쓴거임)*/
-.register_button {
-	color: #fff;
-	background: #20ADEE;
-	padding: 6px 20px;
-	font-size: 12px;
-	margin: 30px 0 0 0;
-	display: inline-block;
-	border: 0px;
-}
-
-.previous_button {
-	border: 1px solid #000;
-	padding: 5px 15px;
-	color: #000;
-	font-size: 12px;
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 <meta charset="UTF-8">
 <title>register</title>
 </head>
 <body>
+<section class="register_content">
 	<h2>할 일 등록</h2>
 
 	<form class="" action="" method="">
@@ -41,14 +23,15 @@
 		<br>
 
 		<!-- label(for) - input(id) 매칭 -->
-		<label for="">우선순위를 선택하세요</label> <br> <input type="radio"
+		<label for="">우선순위를 선택하세요!</label> <br> <input type="radio"
 			name="sequence" value="" required> <label for="">1순위</label>
-		<input type="radio" name="sequence" value=""> <label for="">1순위</label>
-		<input type="radio" name="sequence" value=""> <label for="">1순위</label>
+		<input type="radio" name="sequence" value=""> <label for="">2순위</label>
+		<input type="radio" name="sequence" value=""> <label for="">3순위</label>
 		<br><br>
 		<a href="index.jsp" class="previous_button">< 이전</a>
 		<input type="submit" name="" value="제출" class="register_button">
 		<input type="reset" name="" value="내용지우기" class="register_button">
 	</form>
+</section>
 </body>
 </html>

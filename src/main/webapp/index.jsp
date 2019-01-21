@@ -10,11 +10,11 @@
 </head>
 <body>
 
-	<div class="container">
+	<div class="content">
 		<header class="header_wrap">
-			<h2 class="rotate">나의 해야할 일들</h2>
+			<h2 class="rotated_title">나의 해야할 일들</h2>
 
-			<a href="register.jsp" class="register_button">새로운 TODO등록</a>
+			<a href="register.jsp" class="go_register_button">새로운 TODO등록</a>
 		</header>
 
 		<section class="content_main">
