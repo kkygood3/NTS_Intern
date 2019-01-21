@@ -21,7 +21,34 @@ public class TodoDao {
 
 	public int addTodo(TodoDto todo) {
 		//todo를 DB에 추가
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
+			
+			String sql = "insert into todo(title, name, sequence) values('"+todo.getTitle()+"', '"+todo.getName()+"', "+todo.getSequence()+")";
+			ps = conn.prepareStatement(sql);
+			ps.execute();
+			
+		} catch (Exception e) {
+
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (ps != null)
+					ps.close();
+
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 		
