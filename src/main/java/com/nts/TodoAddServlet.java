@@ -23,9 +23,7 @@ import com.nts.jdbc.dao.TodoDao;
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public TodoAddServlet() {
-		super();
-	}
+	public TodoAddServlet() {}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
@@ -37,6 +35,7 @@ public class TodoAddServlet extends HttpServlet {
 
 		if (!isValidRequestParams(title, name, sequence)) {
 			response.sendError(response.SC_BAD_REQUEST, "잘못 된 값을 전송하였습니다.");
+			return;
 		}
 
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
