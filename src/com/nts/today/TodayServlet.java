@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +33,7 @@ public class TodayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
 
-		String currentTime = dateTimeFormatter.format(LocalDateTime.now());
+		String currentTime = DATE_TIME_FORMATTER.format(LocalDateTime.now());
 
 		response.setContentType("text/html;charset=utf-8;");
 		PrintWriter out = response.getWriter();
