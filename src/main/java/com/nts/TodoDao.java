@@ -45,12 +45,13 @@ public class TodoDao {
 
 			try (ResultSet rs = ps.executeQuery();) {
 				while (rs.next()) {
-					result.add(new TodoDto(rs.getLong("id"),
-						rs.getString("title"),
-						rs.getString("name"),
-						rs.getInt("sequence"),
-						rs.getString("type"),
-						rs.getString("regdate").split(" ")[0]));
+					result.add(
+						new TodoDto(rs.getLong("id"),
+							rs.getString("title"),
+							rs.getString("name"),
+							rs.getInt("sequence"),
+							rs.getString("regdate").split(" ")[0],
+							rs.getString("type")));
 				}
 				rs.close();
 				ps.close();
