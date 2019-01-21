@@ -46,13 +46,9 @@ public class MainServlet extends HttpServlet {
 					doneList.add(item);
 				}
 			}
-			List<Todo> result = new ArrayList();
-			result.addAll(todoList);
-			request.setAttribute("DoingStart", result.size());
-			result.addAll(doingList);
-			request.setAttribute("DoneStart", result.size());
-			result.addAll(doneList);
-			request.setAttribute("TodoList", result);
+			request.setAttribute("TodoList", todoList);
+			request.setAttribute("DoingList", doingList);
+			request.setAttribute("DoneList", doneList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_BAD_REQUEST, e.getMessage());
