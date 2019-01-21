@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width">
 <title>할일등록 화면</title>
 <link rel="stylesheet" href="./css/layout.css">
-<link rel="stylesheet" href="./css/newtodo.css">
+<link rel="stylesheet" href="./css/todoForm.css">
 </head>
 <body>
 	<div class="content">
