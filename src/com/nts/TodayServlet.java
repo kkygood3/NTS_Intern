@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package main.java.com.nts;
+package com.nts;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,20 +17,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * TodayServlet.java
- * 
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @WebServlet("/today")
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DateTimeFormatter dateTimeFormatter;
-
-	@Override
-	public void init() {
-		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-	}
+	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	/**
 	 * 현재 시간을 화면에 출력
@@ -40,13 +33,13 @@ public class TodayServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.println("<a href=\"index.html\">메인화면</a>");
-		out.println("<br><br><br><br><br>");
-		out.println("<style type=\"text/css\"> .align-center { text-align: center; } </style>");
-		out.println("<div class=\"align-center\"><font size=\"10\">현재시간 : "
+		PrintWriter writer = response.getWriter();
+		writer.println("<a href=\"index.html\">메인화면</a>");
+		writer.println("<br><br><br><br><br>");
+		writer.println("<style type=\"text/css\"> .align-center { text-align: center; } </style>");
+		writer.println("<div class=\"align-center\"><font size=\"10\">현재시간 : "
 				+ LocalDateTime.now().format(dateTimeFormatter) + "</font></div>");
-		out.close();
+		writer.close();
 	}
 
 }
