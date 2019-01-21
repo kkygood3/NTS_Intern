@@ -4,6 +4,9 @@
 /.settings/
 /build/
 
+/WebContent/META-INF/
+.pom.xml
+
 .idea/
 *.iml
 
