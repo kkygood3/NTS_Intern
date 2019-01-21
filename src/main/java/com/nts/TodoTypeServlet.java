@@ -41,18 +41,18 @@ public class TodoTypeServlet extends HttpServlet {
 		String temp = null;
 		String todo_info = "";
 
-		//request receiving through InputStream
-		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		while ((temp = br.readLine()) != null) {
-			todo_info += temp;
-		}
-		br.close();
-
 		try {
+			//request receiving through InputStream
+			BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+			while ((temp = br.readLine()) != null) {
+				todo_info += temp;
+			}
+			br.close();
+
 			//parsing data and mapping through jackson-bind to DTO
 			TodoDto todo = new ObjectMapper().readValue(todo_info, TodoDto.class);
 
-			if (TodoDao.updateTodo(todo) == 0) {
+			if (new TodoDao().updateTodo(todo) == 0) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			}
 

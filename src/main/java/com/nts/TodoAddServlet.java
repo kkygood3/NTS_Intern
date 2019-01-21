@@ -8,7 +8,6 @@ package com.nts;
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -38,15 +37,10 @@ public class TodoAddServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
-			if (TodoDao.addTodo(request) > 0) {
+			if (new TodoDao().addTodo(request) > 0) {
 				response.sendRedirect("/jaewonlee/main");
 			} else {
-				PrintWriter out = response.getWriter();
-				out.println("<script>"
-					+ "alert('새로운 TODO를 넣는데에 실패했습니다.');"
-					+ "history.back();"
-					+ "</script>");
-				out.close();
+				response.sendRedirect("javascript:history.back()");
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

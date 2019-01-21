@@ -58,9 +58,16 @@ function update(item_id, nextType) {
 			if (xhr.status === 200) {
 				alert("Successfully Updated");
 
-				var target = document.querySelector("#" + nextType);
+				// var target = document.querySelector("#" + nextType);
 				var element = document.getElementById("todo_" + id_extracted);
-				target.appendChild(element);
+				var target = findHtmlInsertSpot(nextType, item_id);
+
+				if (target == null) {
+					document.querySelector("#" + nextType).appendChild(element);
+				} else {
+					document.querySelector("#" + target).prepend(element);
+				}
+
 				if (nextType == "DONE") {
 					element.getElementsByTagName("button")[0].remove();
 				}
@@ -70,4 +77,15 @@ function update(item_id, nextType) {
 		}
 	};
 	xhr.send(json);
+}
+
+function findHtmlInsertSpot(type, currentId) {
+	var htmlList = document.querySelectorAll("#" + type + ">li");
+	var targetToAppend = null;
+	for ( var item in htmlList) {
+		if (htmlList[item].id > currentId) {
+			targetToAppend = htmlList[item].id;
+		}
+	}
+	return targetToAppend;
 }

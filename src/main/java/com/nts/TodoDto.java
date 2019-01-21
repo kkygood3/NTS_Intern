@@ -19,6 +19,15 @@ public class TodoDto {
 	private String regdate;
 	private String type;
 
+	public TodoDto(long id, String title, String name, int sequence, String regdate, String type) {
+		this.id = id;
+		this.title = title;
+		this.name = name;
+		this.sequence = sequence;
+		this.regdate = regdate;
+		this.type = type;
+	}
+
 	public String getType() {
 		return type;
 	}

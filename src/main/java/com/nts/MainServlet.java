@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String todo = "TODO";
+	private static final String doing = "DOING";
+	private static final String done = "DONE";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,17 +35,17 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 
 		try {
-			List<TodoDto> list_all = TodoDao.getTodos();
+			List<TodoDto> list_all = new TodoDao().getTodos();
 			List<TodoDto> todoList = new ArrayList<>();
 			List<TodoDto> doingList = new ArrayList<>();
 			List<TodoDto> doneList = new ArrayList<>();
 
 			for (TodoDto item : list_all) {
-				if (item.getType().equals("TODO")) {
+				if (todo.equals(item.getType())) {
 					todoList.add(item);
-				} else if (item.getType().equals("DOING")) {
+				} else if (doing.equals(item.getType())) {
 					doingList.add(item);
-				} else if (item.getType().equals("DONE")) {
+				} else if (done.equals(item.getType())) {
 					doneList.add(item);
 				}
 			}

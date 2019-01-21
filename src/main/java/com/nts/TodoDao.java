@@ -31,11 +31,10 @@ public class TodoDao {
 	 * @getTodos()
 	 * returns all rows in todo table through sql query
 	 */
-	public static List<TodoDto> getTodos() throws Exception {
+	public List<TodoDto> getTodos() throws Exception {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		List<TodoDto> result = new ArrayList<>();
 
 		try {
@@ -43,41 +42,23 @@ public class TodoDao {
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "select id, title, name, sequence, type, regdate from todo order by regdate asc, id asc";
 			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
 
-			while (rs.next()) {
-				TodoDto dto = new TodoDto();
-				dto.setId(rs.getLong("id"));
-				dto.setTitle(rs.getString("title"));
-				dto.setName(rs.getString("name"));
-				dto.setSequence(rs.getInt("sequence"));
-				dto.setType(rs.getString("type"));
-				dto.setRegdate(rs.getString("regdate").split(" ")[0]);
-				result.add(dto);
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					result.add(new TodoDto(rs.getLong("id"),
+						rs.getString("title"),
+						rs.getString("name"),
+						rs.getInt("sequence"),
+						rs.getString("type"),
+						rs.getString("regdate").split(" ")[0]));
+				}
+				rs.close();
+				ps.close();
+				conn.close();
 			}
 
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return result;
@@ -87,17 +68,15 @@ public class TodoDao {
 	 * @addTodo()	
 	 * add single todo item into db
 	 */
-	public static int addTodo(HttpServletRequest request) throws ClassNotFoundException, SQLException {
+	public int addTodo(HttpServletRequest request) throws ClassNotFoundException, SQLException {
 
 		//variable status to get the execution state;
 		int status = 0;
 
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "insert into todo(title, name, sequence) values(?,?,?)";
 			ps = conn.prepareStatement(sql);
@@ -108,35 +87,12 @@ public class TodoDao {
 
 			status = ps.executeUpdate();
 
-			if (status > 0) {
-				System.out.println("삽입");
-			} else {
-				System.out.println("실패");
-			}
-
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		return status;
 	}
 
@@ -144,15 +100,12 @@ public class TodoDao {
 	 * @updateTodo()	
 	 * update type of todo item in db
 	 */
-	public static int updateTodo(TodoDto todo) throws ClassNotFoundException, SQLException {
+	public int updateTodo(TodoDto todo) throws ClassNotFoundException, SQLException {
 		int status = 0;
-		//update todo set type = 'DOING' where id = 1;
 		Connection conn = null;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "update todo set type = ? where id = ?";
 			ps = conn.prepareStatement(sql);
@@ -161,35 +114,12 @@ public class TodoDao {
 			ps.setLong(2, todo.getId());
 			status = ps.executeUpdate();
 
-			if (status > 0) {
-				System.out.println("수정");
-			} else {
-				System.out.println("실패");
-			}
-
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		return status;
 	}
 }
