@@ -18,37 +18,31 @@
 			<div class="todo_list_container">
 				<ul id="todo_list_type_todo_column">
 					<li class="todo_cell todo_category">TODO</li>
-					<c:forEach items="${TodoList}" var="item">
-						<c:if test="${item.getType().equals('TODO')}">
-							<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
-								<h1>${item.getTitle()}</h1>
-								<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
-								<button class="next_btn">&rarr;</button>
-							</li>
-						</c:if>
+					<c:forEach items="${TodoList}" var="item" end="${DoingStart -1}">
+						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
 					</c:forEach>
 				</ul>	
 				<ul id="todo_list_type_doing_column">
 					<li class="todo_cell todo_category">DOING</li>
-					<c:forEach items="${TodoList}" var="item">
-						<c:if test="${item.getType().equals('DOING')}">
-							<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
-								<h1>${item.getTitle()}</h1>
-								<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
-								<button class="next_btn">&rarr;</button>
-							</li>
-						</c:if>
+					<c:forEach items="${TodoList}" var="item" begin="${DoingStart}" end="${DoneStart -1}">
+						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+							<button class="next_btn">&rarr;</button>
+						</li>
 					</c:forEach>
 				</ul>
 				<ul id="todo_list_type_done_column">
 					<li class="todo_cell todo_category">DONE</li>
-					<c:forEach items="${TodoList}" var="item">
-						<c:if test="${item.getType().equals('DONE')}">
-							<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
-								<h1>${item.getTitle()}</h1>
-								<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
-							</li>
-						</c:if>
+					<c:forEach items="${TodoList}" var="item" begin="${DoneStart}">
+						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
+							<h1>${item.getTitle()}</h1>
+							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
