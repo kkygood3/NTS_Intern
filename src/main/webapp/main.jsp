@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>TODO LIST</title>
+<link rel="stylesheet" href="css/todo.css">
 </head>
 <body>
 	<h1 id="main_title">나의 해야할 일들</h1>
@@ -21,7 +22,7 @@
 							<p class="regdate">${todo.getRegdate()}</p>
 							<p class="name">${todo.getName()}</p>
 							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<p class="submit" id="${todo.getId()}">→</p>
+							<p>→</p>
 						</li>
 					</c:if>
 				</c:forEach>
@@ -37,7 +38,7 @@
 							<p class="regdate">${todo.getRegdate()}</p>
 							<p class="name">${todo.getName()}</p>
 							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<p class="submit">→</p>
+							<p>→</p>
 						</li>
 					</c:if>
 				</c:forEach>
@@ -60,5 +61,5 @@
 		</div>
 	</div>
 </body>
-<script src="typeChange.js"></script> 
+<script src="js/typeChange.js"></script> 
 </html>
