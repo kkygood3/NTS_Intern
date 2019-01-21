@@ -26,7 +26,9 @@ import com.nts.dto.TodoDto;
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// TODO: 일정을 불러온다음 결과를 main.jsp로 포워딩하는것을 구현
+	/**
+	 * 일정을 모두 불러온다음 상태값에 따라 리스트로 나눈후 리스트들을 main.jsp로 포워딩해줌
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		TodoDao todoDao = new TodoDao();
