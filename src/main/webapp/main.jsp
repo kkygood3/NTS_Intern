@@ -126,7 +126,7 @@ th {
 	<br>
 	<br>
 	<span class="title_tag">나의 해야할 일들</span>
-	<a href="" class="add_new_do">새로운 TODO 등록</a>
+	<a href="register" class="add_new_do">새로운 TODO 등록</a>
 	<br>
 	<section class="art_container">
 		<table>
