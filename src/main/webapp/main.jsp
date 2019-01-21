@@ -9,28 +9,55 @@
 <title>TODO LIST</title>
 </head>
 <body>
-
-	<h1>나의 해야할 일들</h1>
+<h1>나의 해야할 일들</h1>
 	<a href="todoForm">새로운 TODO 등록</a>
 	<p> TODO </p>
-	<ul class="todo">
-	<c:forEach items="${todos}" var="todo">
-		<li>
-			<form action="nextStep" method="POST">
-				<input type="hidden" name="id" value="${todo.getId()}">
-				<p>${todo.getTitle()}</p>
-				<p>${todo.getRegdate()}</p>
-				<p>${todo.getName()}</p>
-				<p>우선순위 : ${todo.getSequence()}</p>
-				<input type="hidden" name="type" value="${todo.getType()}">
-				<input type="submit" value="→">
-			</form>
-		</li>
-	</c:forEach>
+	<ul id="todo">
+		<c:forEach items="${todos}" var="todo">
+			<c:if test="${todo.getType()==\"TODO\"}">
+				<li>
+					<input type="hidden" class="id" value="${todo.getId()}">
+					<input type="hidden" class="type" value="${todo.getType()}">
+					<p>${todo.getTitle()}</p>
+					<p>${todo.getRegdate()}</p>
+					<p>${todo.getName()}</p>
+					<p>우선순위 : ${todo.getSequence()}</p>
+					<p class="submit" id="${todo.getId()}">→</p>
+				</li>
+			</c:if>
+		</c:forEach>
 	</ul>
 	<p> DOING </p>
-	<ul class="doing"></ul>
+	<ul id="doing">
+		<c:forEach items="${todos}" var="todo">
+			<c:if test="${todo.getType()==\"DOING\"}">
+				<li>
+					<input type="hidden" class="id" value="${todo.getId()}">
+					<input type="hidden" class="type" value="${todo.getType()}">
+					<p>${todo.getTitle()}</p>
+					<p>${todo.getRegdate()}</p>
+					<p>${todo.getName()}</p>
+					<p>우선순위 : ${todo.getSequence()}</p>
+					<p class="submit">→</p>
+				</li>
+			</c:if>
+		</c:forEach>
+	</ul>
 	<p> DONE </p>
-	<ul class="done"></ul>
+	<ul id="done">
+		<c:forEach items="${todos}" var="todo">
+			<c:if test="${todo.getType()==\"DONE\"}">
+				<li>
+					<input type="hidden" class="id" value="${todo.getId()}">
+					<input type="hidden" class="type" value="${todo.getType()}">
+					<p>${todo.getTitle()}</p>
+					<p>${todo.getRegdate()}</p>
+					<p>${todo.getName()}</p>
+					<p>우선순위 : ${todo.getSequence()}</p>
+				</li>
+			</c:if>
+		</c:forEach>
+	</ul>
 </body>
+<script src="typeChange.js"></script> 
 </html>

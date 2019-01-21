@@ -25,10 +25,13 @@ public class TodoAddServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 
 		String title = request.getParameter("title");
 		String name = request.getParameter("owner");
 		int sequence = Integer.parseInt(request.getParameter("priority"));
+
+		System.out.println(title);
 
 		TodoDto todo = new TodoDto(title, name, sequence);
 
