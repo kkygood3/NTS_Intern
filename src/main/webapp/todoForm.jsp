@@ -44,7 +44,6 @@
 			</tr>
 
 		</table>
-		
 			<input class="addTodo_button" type="button" value="&lt;이전" onclick="history.back()" /> 
 			<input class="addTodo_button" type="submit"value="제출" /> 
 			<input class="addTodo_button" type="reset" value="내용지우기" />

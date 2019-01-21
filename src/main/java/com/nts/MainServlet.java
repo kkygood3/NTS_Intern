@@ -1,5 +1,11 @@
 package com.nts;
 
+/*
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +28,15 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 
 		try {
-			List<List<TodoDTO>> list_all = TodoDAO.getToDoList();
+
+			/*
+			 * order in list by type:
+			 * index 0 : todo;
+			 * index 1 : doing;
+			 * index 2 : done; 
+			 */
+
+			List<List<TodoDto>> list_all = TodoDao.getTodos();
 			request.setAttribute("todoList", list_all.get(0));
 			request.setAttribute("doingList", list_all.get(1));
 			request.setAttribute("doneList", list_all.get(2));

@@ -1,15 +1,19 @@
 package com.nts;
 
-import java.util.Date;
+/*
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 
-public class TodoDTO {
-	//	"select id, title, name, sequence, type, regdate from todo "
-	//		+ "order by regdate desc"
-	private int id;
+public class TodoDto {
+
+	private Long id;
 	private String title;
 	private String name;
 	private int sequence;
-	private java.sql.Date regdate;
+	private String regdate;
 	private String type;
 
 	public String getType() {
@@ -28,19 +32,19 @@ public class TodoDTO {
 		this.sequence = sequence;
 	}
 
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(java.sql.Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
