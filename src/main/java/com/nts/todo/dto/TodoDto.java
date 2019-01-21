@@ -18,12 +18,13 @@ public class TodoDto {
 		this.sequence = sequence;
 	}
 
-	public TodoDto(Long id, String title, String name, int sequence, String type) {
+	public TodoDto(Long id, String title, String name, int sequence, String type, String regdate) {
 		this.id = id;
 		this.title = title;
 		this.name = name;
 		this.sequence = sequence;
 		this.type = type;
+		this.regdate = regdate;
 	}
 
 	public Long getId() {

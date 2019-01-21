@@ -52,7 +52,7 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "SELECT * FROM todo order by sequence, id";
+		String sql = "SELECT * FROM todo order by id";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			try (ResultSet resultsSet = preparedStatement.executeQuery()) {
@@ -62,7 +62,8 @@ public class TodoDao {
 					String name = resultsSet.getString("name");
 					int sequence = resultsSet.getInt("sequence");
 					String type = resultsSet.getString("type");
-					TodoDto todo = new TodoDto(id, title, name, sequence, type);
+					String regdate = resultsSet.getString("regdate");
+					TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
 					todos.add(todo);
 				}
 			} catch (Exception e) {
