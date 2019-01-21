@@ -1,3 +1,4 @@
+package com.nts;
 
 /**
  * Copyright 2019 Naver Corp. All rights Reserved.
@@ -19,19 +20,11 @@ import javax.servlet.http.HttpServletResponse;
  * @author yongjoon.park
  */
 
-@WebServlet(name = "today", urlPatterns = {"/today"})
+@WebServlet(urlPatterns = {"/today"})
 public class TodayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private DateTimeFormatter dateTimeFormatter;
-
-	/**
-	 * 재사용을 고려하여 처음 servlet 호출 시에만 formatter를 작성
-	 */
-	@Override
-	public void init() {
-		dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-	}
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
 	/**
 	 * 현재 시간과 그에 해당하는 간단한 페이지 출력
@@ -40,23 +33,22 @@ public class TodayServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
 
-		// 기본 설정
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 
 		PrintWriter writer = response.getWriter();
-		writer.print("<a href='view/index.html'>메인화면</a>");
+		writer.print("<!DOCTYPE html>");
+		writer.print("<html>");
+		writer.print("<head>");
+		writer.print("<meta charset=\"UTF-8\">");
+		writer.print("<title>현재 시간</title>");
+		writer.print("</head>");
+		writer.print("<body>");
+		writer.print("<a href='index.html'>메인화면</a>");
 		writer.print("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>");
-
-		// 시간 설정 및 출력
-		writer.print("<h1 style='text-align: center;'>현재시간 : " + getNow() + "</h1>");
-	}
-
-	/**
-	 * 지정된 시간을 String으로 반환
-	*/
-	private String getNow() {
-		LocalDateTime now = LocalDateTime.now();
-		return now.format(dateTimeFormatter);
+		writer.print("<h1 style='text-align: center;'>현재시간 : " +
+			LocalDateTime.now().format(DATE_TIME_FORMATTER) + "</h1>");
+		writer.print("</body>");
+		writer.print("</html>");
 	}
 }
