@@ -13,19 +13,19 @@
 	<div class="content">
 		<div id="header">할일 등록</div>
 		<form>
-			어떤일인가요?<br>
-			<input type="text" name="title"><br>
-			누가 할일인가요?<br>
-			<input type="text" name="name"><br>
-			우선순위를 선택하세요<br>
-			<input type="radio" name="sequence" value=1>1순위
-			<input type="radio" name="sequence" value=2>2순위
-			<input type="radio" name="sequence" value=3>3순위<br>
-			
-			<input type="submit" value="< 이전">
-			<input type="submit" value="제출">
-			<input type="submit" value="내용지우기">
-			
+			<label>어떤일인가요?</label><br>
+			<input type="text" name="title" maxlength="24"
+				placeholder="swift 공부하기(24자까지)"/><br>
+			<label>누가 할일인가요?</label><br>
+			<input type="text" name="name"
+				placeholder="홍길동"><br>
+			<label>우선순위를 선택하세요</label><br>
+			<input type="radio" name="sequence" value=1> 1순위  　
+			<input type="radio" name="sequence" value=2> 2순위  　
+			<input type="radio" name="sequence" value=3> 3순위<br>
+			<button name="back">&lt 이전</button>
+			<button>내용지우기</button>
+			<button type="submit">제출</button>
 		</form>
 	</div>
 </body>
