@@ -52,7 +52,7 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "SELECT * FROM todo order by id";
+		String sql = "SELECT id, title, name, sequence, type, regdate FROM todo order by regdate";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 			try (ResultSet resultsSet = preparedStatement.executeQuery()) {

@@ -12,21 +12,21 @@
 		<p>어떤일인가요?</p>
 		<input type="text" name="title" placeholder="swift 공부하기(24자까지)" maxlength="24" required>
 		<p>누가 할일인가요?</p>
-		<input type="text" name="owner" placeholder="홍길동" required>
+		<input type="text" name="name" placeholder="홍길동" required>
 		<section id="radio_section">
 			<p>우선순위</p>
-			<input type="radio" name="priority" value="1" id="more_important" required>
+			<input type="radio" name="sequence" value="1" id="more_important" required>
 			<label for="more_important">1순위</label>
 			
-			<input type="radio" name="priority" value="2" id="important" required>
+			<input type="radio" name="sequence" value="2" id="important" required>
 			<label for="important">2순위</label>
 			
-			<input type="radio" name="priority" value="3" id="less_important" required>
+			<input type="radio" name="sequence" value="3" id="less_important" required>
 			<label for="less_important">3순위</label>
 		</section>
 		<a href="main">&lt;이전</a>
 		<input type="submit">
-		<button>내용지우기</button>
+		<input type="reset" value="내용지우기">
 	</form>
 </body>
 </html>

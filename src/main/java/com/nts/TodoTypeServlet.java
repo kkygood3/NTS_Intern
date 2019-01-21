@@ -32,35 +32,35 @@ public class TodoTypeServlet extends HttpServlet {
 		TodoDao todoDao = new TodoDao();
 		List<TodoDto> todos = todoDao.getTodos();
 
-		String responseParams = "";
+		String responseContent = "";
 
 		for (TodoDto todo : todos) {
 			if (todo.getId() == id) {
-				switch (type) {
-					case "TODO":
-						todo.setType("DOING");
-						break;
-					case "DOING":
-						todo.setType("DONE");
-						break;
-					default:
-						break;
+				if (type.equals("TODO")) {
+					todo.setType("DOING");
+					responseContent = makeResponseContent(todo);
+					responseContent += "<p class=\"submit\">→</p>";
+				} else {
+					todo.setType("DONE");
+					responseContent = makeResponseContent(todo);
 				}
-				responseParams = "<li>"
-					+ "<input type=\"hidden\" class=\"id\" value=" + id + ">\r\n"
-					+ "<input type=\"hidden\" class=\"type\" value=" + todo.getType() + ">\r\n"
-					+ "<p>" + todo.getTitle() + "</p>\r\n"
-					+ "<p>" + todo.getRegdate() + "</p>\r\n"
-					+ "<p>" + todo.getName() + "</p>\r\n"
-					+ "<p>우선순위 : " + todo.getSequence() + "</p>\r\n";
-				if (!todo.getType().equals("DONE"))
-					responseParams += "<p class=\"submit\">→</p>";
-				responseParams += "</li>";
+				responseContent += "</li>";
 				todoDao.updateTodo(todo);
 			}
 		}
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/x-www-form-urlencoded");
-		response.getWriter().write(responseParams);
+		response.getWriter().write(responseContent);
+	}
+
+	private String makeResponseContent(TodoDto todo) {
+		String responseContent = "<li>"
+			+ "<input type=\"hidden\" class=\"id\" value=" + todo.getId() + ">\r\n"
+			+ "<input type=\"hidden\" class=\"type\" value=" + todo.getType() + ">\r\n"
+			+ "<p>" + todo.getTitle() + "</p>\r\n"
+			+ "<p>" + todo.getRegdate() + "</p>\r\n"
+			+ "<p>" + todo.getName() + "</p>\r\n"
+			+ "<p>우선순위 : " + todo.getSequence() + "</p>\r\n";
+		return responseContent;
 	}
 }
