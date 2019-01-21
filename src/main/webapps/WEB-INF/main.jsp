@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,50 +23,42 @@
 			<li class="title">
 				<h1>TODO</h1>
 			</li>
-			<li>
-				<h3 class="content">자바스크립트 공부하기</h3>
-				<p class="content">
-					등록날짜:2019.01.18 전연빈 우선순위 1 
-					<button type="button" >→</button>
-				</p>
-			</li>
-			<li>
-				<h3 class="content">자바스크립트 공부하기</h3>
-				<p class="content">
-					등록날짜:2019.01.18 전연빈 우선순위 1 
-					<button type="button" >→</button>
-				</p>
-			</li>
-			<li>
-				<h3 class="content">자바스크립트 공부하기</h3>
-				<p class="content">
-					등록날짜:2019.01.18 전연빈 우선순위 1 
-					<button type="button" >→</button>
-				</p>
-			</li>
+			<c:forEach	var="item" items="${result.todoList }">
+				<li>
+					<h3 class="content">${item.title }</h3>
+					<p class="content">
+						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
+						<button type="button" class="next_btn">→</button>
+					</p>
+				</li>
+			</c:forEach>
 		</ul>
 		<ul id="doing" class="progress">
 			<li class="title">
 				<h1>DOING</h1>
 			</li>
-			<li>
-				<h3 class="content">데모페이지 개발</h3>
-				<p class="content">
-					등록날짜:2019.01.18 전연빈 우선순위 1 
-					<button >→</button>
-				</p>
-			</li>
+			<c:forEach	var="item" items="${result.doingList }">
+				<li>
+					<h3 class="content">${item.title }</h3>
+					<p class="content">
+						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence } 
+						<button type="button" class="next_btn">→</button>
+					</p>
+				</li>
+			</c:forEach>
 		</ul>
 		<ul id="done" class="progress">
 			<li class="title">
 				<h1>DONE</h1>
 			</li>
-			<li>
-				<h3 class="content">CSS 학습</h3>
-				<p class="content">
-					등록날짜:2019.01.18 전연빈 우선순위 1 
-				</p>
-			</li>
+			<c:forEach	var="item" items="${result.doneList }">
+				<li>
+					<h3 class="content">${item.title }</h3>
+					<p class="content">
+						등록날짜:<fmt:formatDate value="${item.regDate}" pattern="yyyy.MM.dd"/> ${item.personName } 우선순위 ${item.sequence }
+					</p>
+				</li>
+			</c:forEach>
 		</ul>
 	</section>
 

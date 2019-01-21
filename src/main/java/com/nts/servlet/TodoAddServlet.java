@@ -63,7 +63,7 @@ public class TodoAddServlet extends HttpServlet {
 		try {
 			TodoDao todoDao = new TodoDao();
 			todoDao.insertTodo(todoDto);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 

@@ -5,6 +5,9 @@
 package com.nts.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,11 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.dao.TodoDao;
+import com.nts.dto.TodoDto;
+
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * @param request
 	 * @param response
@@ -27,14 +33,18 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
-		
-		System.out.println("메인페이지");
 
-		// 데이터 가져오기
+		TodoDao todoDao = new TodoDao();
 		
-		// 데이터 request에 setting
+		try {
+			// keys : todoList, doingList, doneList
+			Map<String, List<TodoDto>> result = todoDao.selectTodoListAll();
+			request.setAttribute("result", result);
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		// 메인 페이지로 이동
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		rd.forward(request, response);
 
@@ -42,13 +52,13 @@ public class MainServlet extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		// todo 내용 셋팅
-		
+
 		// todo update
-		
+
 		// update 결과 값을 가지고 request담기
-		
+
 		// 결과값 전달
 	}
 }
