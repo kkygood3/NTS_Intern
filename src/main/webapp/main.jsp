@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,21 +17,39 @@
 		<div id="list_board">
 			<div class="container">
 				<span class="title">TODO</span>
-				<!-- card 샘플 
-				<div class="card">
-					<span class="title">테스트1</span><br/>
-					<span>
-						등록날자 0000.00.00 배진우 우선순위1
-						<button>→</button>
-					</span>
-				</div>
-				 -->
+				<c:forEach var="todo" items="${todoList }">
+					<div class="card">
+						<span class="title">${todo.title }</span><br/>
+						<span>
+							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							<button>→</button>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 			<div class="container">
 				<span class="title">DOING</span>
+				<c:forEach var="todo" items="${doingList }">
+					<div class="card">
+						<span class="title">${todo.title }</span><br/>
+						<span>
+							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							<button>→</button>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 			<div class="container">
 				<span class="title">DONE</span>
+				<c:forEach var="todo" items="${doneList }">
+					<div class="card">
+						<span class="title">${todo.title }</span><br/>
+						<span>
+							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							<button>→</button>
+						</span>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

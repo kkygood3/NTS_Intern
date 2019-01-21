@@ -5,11 +5,18 @@
 package com.nts.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.dao.TodoDao;
+import com.nts.dto.TodoDto;
 
 /**
  * 메인화면을 보여주기 위한 서블릿
@@ -22,6 +29,36 @@ public class MainServlet extends HttpServlet {
 	// TODO: 일정을 불러온다음 결과를 main.jsp로 포워딩하는것을 구현
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TodoDao todoDao = new TodoDao();
+		List<TodoDto> todos = todoDao.getTodos();
+		List<TodoDto> todoList = new ArrayList<TodoDto>();
+		List<TodoDto> doingList = new ArrayList<TodoDto>();
+		List<TodoDto> doneList = new ArrayList<TodoDto>();
+
+		for (TodoDto todo : todos) {
+			/**
+			 * 날짜 포맷 변경
+			 * yyyy-mm-dd hh:mm:ss -> yyyy-mm-dd
+			 */
+			if (todo.getRegdate().length() > 10) {
+				todo.setRegdate(todo.getRegdate().substring(0, 10));
+			}
+
+			if (todo.getType().equals("TODO")) {
+				todoList.add(todo);
+			} else if (todo.getType().equals("DOING")) {
+				doingList.add(todo);
+			} else if (todo.getType().equals("DONE")) {
+				doneList.add(todo);
+			}
+		}
+
+		req.setAttribute("todoList", todoList);
+		req.setAttribute("doingList", doingList);
+		req.setAttribute("doneList", doneList);
+
+		RequestDispatcher rd = req.getRequestDispatcher("/main.jsp");
+		rd.forward(req, resp);
 	}
 
 }
