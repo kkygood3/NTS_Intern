@@ -11,14 +11,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<%!public int max(int left, int right) {
-		if (left > right)
-			return left;
-		else
-			return right;
-	}
-
-	final String[] todoLabel = {"TODO", "DOING", "DONE"};%>
+<%!final String[] todoLabel = {"Todo", "Doing", "Done"};%>
 <head>
 <meta charset="utf-8">
 <title>JS Bin</title>
@@ -51,6 +44,7 @@ li {
 section {
 	margin-top: 50px;
 	margin-left: 50px;
+	padding: 0px;
 	text-align: left;
 }
 
@@ -77,9 +71,9 @@ section {
 
 .art_container>article {
 	display: inline-block;
-	background: skyblue;
-	width: 250px;
-	margin: 20px;
+	width: 30%;
+	float: left;
+	margin-left: 5px;
 }
 
 table {
@@ -96,16 +90,6 @@ table {
 	background: #cee5ef;
 }
 
-.do_noitem {
-	background: whilte;
-}
-
-button {
-	float: right;
-	margin-right: 10px;
-	height: 23px;
-}
-
 th {
 	height: 75px;
 	width: 200px;
@@ -115,9 +99,39 @@ th {
 	padding-left: 20px;
 }
 
+.do_name {
+	font-weight: bold;
+}
+
 .do_description {
 	font-weight: lighter;
 	font-size: 0.8em;
+}
+
+div {
+	padding: 17px;
+	margin-top: 6px;
+}
+
+.div_title {
+	background: #345461;
+	height: 35px;
+	font-weight: bold;
+	color: white;
+	font-size: 1.6em;
+}
+
+p {
+	padding: 17px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	background: #cee5ef;
+	padding-right: 5px;
+}
+
+button {
+	height: 23px;
+	float: right;
 }
 </style>
 </head>
@@ -129,62 +143,75 @@ th {
 	<a href="register" class="add_new_do">새로운 TODO 등록</a>
 	<br>
 	<section class="art_container">
-		<table>
-			<tr class="do_title">
-				<th>TODO</th>
-				<th>DOING</th>
-				<th>DONE</th>
-			</tr>
-			<%
-				ArrayList<TodoDto>[] todoSeqence = new ArrayList[todoLabel.length];
-				for (int i = 0; i < todoSeqence.length; i++)
-					todoSeqence[i] = new ArrayList<TodoDto>();
+		<%
+			ArrayList<TodoDto>[] todoSeqence = new ArrayList[todoLabel.length];
+			for (int i = 0; i < todoSeqence.length; i++)
+				todoSeqence[i] = new ArrayList<TodoDto>();
 
-				request.setCharacterEncoding("utf-8");
-				String jsonText = (String)request.getAttribute("json");
+			request.setCharacterEncoding("utf-8");
+			String jsonText = (String) request.getAttribute("json");
 
-				ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = new ObjectMapper();
 
-				List<TodoDto> jsonItems = mapper.readValue(jsonText,
+			List<TodoDto> jsonItems = mapper.readValue(jsonText,
 					mapper.getTypeFactory().constructCollectionType(List.class, TodoDto.class));
 
-				for (TodoDto item : jsonItems) {
-					for (int seqIdx = 0; seqIdx < todoLabel.length; seqIdx++) {
-						if (todoLabel[seqIdx].equals(item.getType())) {
-							todoSeqence[seqIdx].add(item);
-							break;
+			for (int labelIdx = 0; labelIdx < todoLabel.length; labelIdx++) {
+				out.print("<article class='art_" + todoLabel[labelIdx] + "'><div class='div_title'>"
+						+ todoLabel[labelIdx] + "</div>");
+				for (TodoDto target : jsonItems) {
+					if (target.getType().equalsIgnoreCase(todoLabel[labelIdx])) {
+						String description = "등록날짜:" + target.getRegdate().split(" ")[0].replace('-', '/') + ". "
+								+ target.getName() + ". " + "우선순위 " + target.getSequence();
+						out.print("<p>");
+						out.print("<span class='do_name'>");
+						out.print(target.getTitle());
+						out.print("</span><br>");
+						out.print("<span class='do_description'>");
+						out.print(description);
+						out.print("</span>");
+
+						//버튼
+						if (labelIdx != todoLabel.length - 1) {
+							String btnValue = target.getType() + "|" + target.getTitle() + "|" + description;
+							out.print("<button>→</button>");
 						}
+						out.print("</p>");
 					}
 				}
-
-				int maxArraySize = todoSeqence[0].size();
-				for (int seqIdx = 1; seqIdx < todoSeqence.length; seqIdx++) {
-					maxArraySize = max(maxArraySize, todoSeqence[seqIdx].size());
-				}
-
-				for (int i = 0; i < maxArraySize; i++) {
-					out.print("<tr>");
-					for (int seqIdx = 0; seqIdx < todoSeqence.length; seqIdx++) {
-						if (i < todoSeqence[seqIdx].size()) {
-							TodoDto target = todoSeqence[seqIdx].get(i);
-							String formatDate = target.getRegdate().split(" ")[0].replace('-', '/');
-
-							out.print("<th class=\"do_item\"><span class=\"do_name\">" + target.getTitle() +
-								"</span><br><span class=\"do_description\">등록날짜:" + formatDate +
-								". " + target.getName() +
-								". 우선순위 " + target.getSequence() + "</span>");
-
-							if (seqIdx != todoSeqence.length - 1)
-								out.print("<button>→</button>");
-							out.print("</th>");
-						} else {
-							out.print("<th class=\"do_noitem\"></th>");
-						}
-					}
-					out.print("</tr>");
-				}
-			%>
-		</table>
+				out.print("</article>");
+			}
+		%>
 	</section>
+	<script>
+	function clickEvent(event){
+		var type = event.target.parentElement.parentElement.getElementsByTagName('div')[0].innerText;
+		
+		if(type ==='Todo'){
+			var artDoing = document.getElementsByClassName('art_Doing')[0];
+			var clickedTag = event.target.parentElement;
+			artDoing.innerHTML += "<p>"+clickedTag.innerHTML+"</p>";
+			clickedTag.remove();
+			
+			var btns = document.getElementsByTagName('button');
+
+			for(var i = 0; i < btns.length; i++)
+				btns[i].addEventListener('click',clickEvent);
+		}else{
+			var artDone = document.getElementsByClassName('art_Done')[0];
+			var clickedTag = event.target.parentElement;
+			artDone.innerHTML += "<p>"+clickedTag.innerHTML+"</p>";
+			clickedTag.remove();
+			
+			var pTags = document.getElementsByClassName("art_Done")[0].getElementsByTagName("p");
+			pTags[pTags.length-1].getElementsByTagName('button')[0].remove();
+		}
+	}
+	
+	var btns = document.getElementsByTagName('button');
+
+	for(var i = 0; i < btns.length; i++)
+		btns[i].addEventListener('click',clickEvent);
+	</script>
 </body>
 </html>
