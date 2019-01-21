@@ -32,7 +32,7 @@ function submitIdAndType(todo) {
 	var title = todo.getElementsByClassName("title")[0].textContent;
 	var name = todo.getElementsByClassName("name")[0].textContent;
 	var sequence = todo.getElementsByClassName("sequence")[0].textContent;
-	var regdate = todo.getElementsByClassName("regdate")[0].textContent;
+	var regdate = todo.getElementsByClassName("regdate")[0].textContent.split(" ")[0];
 	
 	var data;
 	var targetElement;
@@ -71,7 +71,7 @@ function moveTodo(id, type, title, regdate, name, sequence){
 
 	var regdateElement = document.createElement("p");
 	regdateElement.setAttribute("class", "regdate");
-	regdateElement.innerHTML = regdate;
+	regdateElement.innerHTML = "등록날짜 : " + regdate;
 
 	var nameElement = document.createElement("p");
 	nameElement.setAttribute("class", "name");
@@ -87,7 +87,8 @@ function moveTodo(id, type, title, regdate, name, sequence){
 	movedTodo.append(sequenceElement);
 	
 	if(type==="DOING"){
-		var nextElement = document.createElement("p");
+		var nextElement = document.createElement("button");
+		nextElement.setAttribute("class", "go_next");
 		nextElement.innerHTML = "→";
 		
 		movedTodo.append(nextElement);

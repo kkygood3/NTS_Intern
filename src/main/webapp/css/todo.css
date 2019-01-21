@@ -47,9 +47,9 @@
 }
 
 .todos li {
-	height : 100px;
 	background-color : #D4F4FA;
 	margin: 15px auto;
+	padding : 20px;
 }
 
 .todos li > * {
@@ -57,5 +57,24 @@
 }
 
 .title {
-	text-align : center;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.go_next {
+	width : 25px;
+	height : 25px;
+	float : right;
+}
+
+.regdate {
+	display : inline;
+}
+
+.name {
+	display : inline;
+}
+
+.sequence {
+	display : inline;
 }

@@ -19,10 +19,10 @@
 					<c:if test="${todo.getType()==\"TODO\"}">
 						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
 							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">${todo.getRegdate()}</p>
+							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
 							<p class="name">${todo.getName()}</p>
 							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<p>→</p>
+							<button class="go_next">→</button>
 						</li>
 					</c:if>
 				</c:forEach>
@@ -35,10 +35,10 @@
 					<c:if test="${todo.getType()==\"DOING\"}">
 						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
 							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">${todo.getRegdate()}</p>
+							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
 							<p class="name">${todo.getName()}</p>
 							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<p>→</p>
+							<button class="go_next">→</button>
 						</li>
 					</c:if>
 				</c:forEach>
@@ -51,7 +51,7 @@
 					<c:if test="${todo.getType()==\"DONE\"}">
 						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
 							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">${todo.getRegdate()}</p>
+							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
 							<p class="name">${todo.getName()}</p>
 							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
 						</li>
