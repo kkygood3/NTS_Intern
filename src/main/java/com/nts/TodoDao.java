@@ -1,6 +1,6 @@
 package com.nts;
 
-/*
+/**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
@@ -17,24 +17,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * TodoDao implementation
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
+
 public class TodoDao {
 	private static String dburl = "jdbc:mysql://localhost:3306/pjt2?autoReconnect=true&useSSL=false";
 	private static String dbUser = "root";
 	private static String dbpasswd = "root";
 
-	/*
+	/**
 	 * @getTodos()
-	 * pjt2 데이터베이스의 todo table을 전부 가져와서 3가지 TYPE에 따라서 분류된 리스트를 리퀘스트 스코프에 저장
+	 * returns all rows in todo table through sql query
 	 */
-	public static List<List<TodoDto>> getTodos() throws Exception {
+	public static List<TodoDto> getTodos() throws Exception {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<List<TodoDto>> result = new ArrayList<>();
-		List<TodoDto> list_todo = new ArrayList<>();
-		List<TodoDto> list_doing = new ArrayList<>();
-		List<TodoDto> list_done = new ArrayList<>();
+		List<TodoDto> result = new ArrayList<>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -50,15 +52,9 @@ public class TodoDao {
 				dto.setName(rs.getString("name"));
 				dto.setSequence(rs.getInt("sequence"));
 				dto.setType(rs.getString("type"));
-				dto.setRegdate(rs.getString("regdate"));
+				dto.setRegdate(rs.getString("regdate").split(" ")[0]);
+				result.add(dto);
 
-				if (dto.getType().equals("TODO")) {
-					list_todo.add(dto);
-				} else if (dto.getType().equals("DOING")) {
-					list_doing.add(dto);
-				} else if (dto.getType().equals("DONE")) {
-					list_done.add(dto);
-				}
 			}
 
 		} finally {
@@ -85,14 +81,10 @@ public class TodoDao {
 			}
 		}
 
-		result.add(list_todo);
-		result.add(list_doing);
-		result.add(list_done);
-
 		return result;
 	}
 
-	/*
+	/**
 	 * @addTodo()	
 	 * add single todo item into db
 	 */
@@ -149,8 +141,8 @@ public class TodoDao {
 		return status;
 	}
 
-	/*
-	 * @addTodo()	
+	/**
+	 * @updateTodo()	
 	 * update type of todo item in db
 	 */
 	public static int updateTodo(TodoDto todo) throws ClassNotFoundException, SQLException {

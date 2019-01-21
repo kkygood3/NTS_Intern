@@ -1,12 +1,14 @@
 package com.nts;
 
-/*
+/**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TodoServlet
+ * MainServlet implementation
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
+
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,18 +32,24 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 
 		try {
+			List<TodoDto> list_all = TodoDao.getTodos();
+			List<TodoDto> todoList = new ArrayList<>();
+			List<TodoDto> doingList = new ArrayList<>();
+			List<TodoDto> doneList = new ArrayList<>();
+			for (TodoDto item : list_all) {
+				if (item.getType().equals("TODO")) {
+					todoList.add(item);
+				} else if (item.getType().equals("DOING")) {
+					doingList.add(item);
+				} else if (item.getType().equals("DONE")) {
+					doneList.add(item);
+				}
+			}
 
-			/*
-			 * order in list by type:
-			 * index 0 : todo;
-			 * index 1 : doing;
-			 * index 2 : done; 
-			 */
+			request.setAttribute("todoList", todoList);
+			request.setAttribute("doingList", doingList);
+			request.setAttribute("doneList", doneList);
 
-			List<List<TodoDto>> list_all = TodoDao.getTodos();
-			request.setAttribute("todoList", list_all.get(0));
-			request.setAttribute("doingList", list_all.get(1));
-			request.setAttribute("doneList", list_all.get(2));
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();

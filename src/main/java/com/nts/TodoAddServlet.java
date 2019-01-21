@@ -1,6 +1,6 @@
 package com.nts;
 
-/*
+/**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
@@ -18,16 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TodoAddServlet
+ * TodoAddServlet implementation
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
+
 @WebServlet("/todoadd")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
+	/**
 	 * @doPost(request,response)
 	 * add todo에 대한 request를 받아서 처리함.
-	 * 실패시에 alert 프린트.
+	 * 실패시에 alert 창 팝업.
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +43,7 @@ public class TodoAddServlet extends HttpServlet {
 			} else {
 				PrintWriter out = response.getWriter();
 				out.println("<script>"
-					+ "alert('새로운 TODO를 넣는데에 성공했습니다.');"
+					+ "alert('새로운 TODO를 넣는데에 실패했습니다.');"
 					+ "history.back();"
 					+ "</script>");
 				out.close();

@@ -1,6 +1,6 @@
 package com.nts;
 
-/*
+/**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
@@ -19,11 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * TodoTypeServlet implementation
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
+
 @WebServlet("/updateTodo")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/*
+	/**
 	 * @doPut(request,response)
 	 * todo type변경에 대한 메소드, 실패시에 http status : SC_FORBIDDEN, 403	
 	 */
@@ -36,9 +41,8 @@ public class TodoTypeServlet extends HttpServlet {
 		String temp = null;
 		String todo_info = "";
 
-		//request receiving buffered reader
+		//request receiving through InputStream
 		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-
 		while ((temp = br.readLine()) != null) {
 			todo_info += temp;
 		}

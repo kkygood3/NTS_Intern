@@ -3,6 +3,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- 
+	main.jsp implementation
+	Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ -->
+
 <!DOCTYPE html>
 <html lang=ko>
 <head>
@@ -14,12 +19,13 @@
 <body onload="init()">
 	<header>
 		<p class="header_left_text">나의 해야할 일들</p>
-		<div class="header_button">
+		<div class="header_button_wrapper">
 			<a href="/jaewonlee/todoform" id="generate_todo"
 				class="header_button_inner">새로운 TODO 등록</a>
 		</div>
+
 	</header>
-	<section>
+	<section class="section_main">
 		<table>
 			<tr>
 				<th>TODO</th>
@@ -30,12 +36,12 @@
 				<td>
 					<ul id="TODO">
 						<c:forEach items="${todoList}" var="item">
-							<li id="${item.getId()}">
+							<li id="todo_${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>
 								<p>
 									등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
 									${item.getSequence()}
-									<button class="content_move_button">-></button>
+									<button class="content_move_button">&rarr;</button>
 								</p>
 							</li>
 						</c:forEach>
@@ -44,12 +50,12 @@
 				<td>
 					<ul id="DOING">
 						<c:forEach items="${doingList}" var="item">
-							<li id="${item.getId()}">
+							<li id="todo_${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>
 								<p>
 									등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
 									${item.getSequence()}
-									<button class="content_move_button">-></button>
+									<button class="content_move_button">&rarr;</button>
 								</p>
 							</li>
 						</c:forEach>
@@ -58,7 +64,7 @@
 				<td>
 					<ul id="DONE">
 						<c:forEach items="${doneList}" var="item">
-							<li id="${item.getId()}">
+							<li id="todo_${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>
 								<p>등록날짜 : ${item.getRegdate()}, ${item.getName()} 우선순위
 									${item.getSequence()}</p>

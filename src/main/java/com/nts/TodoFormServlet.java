@@ -1,6 +1,6 @@
 package com.nts;
 
-/*
+/**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
@@ -14,6 +14,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+/**
+ * TodoForm implementation class TodoServlet
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 
 @WebServlet("/todoform")
 public class TodoFormServlet extends HttpServlet {

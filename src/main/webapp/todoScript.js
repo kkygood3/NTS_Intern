@@ -1,10 +1,12 @@
 /**
- * todoScript Author : Jaewon Lee, lee.jaewon@nts-corp.com
+ * todoScript implementation 
+ * Author : Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-/*
- * @init(item_id,nextType) this function searches for buttons in todo element,
- * and adds event-listener to each
+/**
+ * @init() This function searches for buttons in todo element, and adds
+ *         event-listener to each. Collects variable by traversing html file
+ *         structure to parent node.
  */
 function init() {
 
@@ -31,15 +33,18 @@ function init() {
 	});
 }
 
-/*
- * @update(item_id,nextType) this function sends XmlHttpRequest(abbr. xhr) to
- * server, and receives http Status for the result. Accordingly, this method
- * will move the todo element to next category Also Removes arrow button when
- * the TODO element reaches DONE Category
+/**
+ * @update(item_id,nextType)
+ * 
+ * This function sends XmlHttpRequest(abbr. xhr) to server, and receives http
+ * Status for the result. Accordingly, this method will move the todo element to
+ * next category. Also Removes arrow button when the Todo element reaches DONE
+ * Category
  */
 function update(item_id, nextType) {
+	var id_extracted = item_id.split("_")[1];
 	var todo_info = {};
-	todo_info.id = item_id;
+	todo_info.id = id_extracted;
 	todo_info.type = nextType;
 
 	var json = JSON.stringify(todo_info);
@@ -49,12 +54,12 @@ function update(item_id, nextType) {
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 
 	xhr.onreadystatechange = function(aEvt) {
-		console.log('DONE: ', xhr.status);
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				alert("Successfully Updated");
+				alert("Successfully Updated" + id_extracted);
+
 				var target = document.querySelector("#" + nextType);
-				var element = document.getElementById(item_id);
+				var element = document.getElementById("todo_" + id_extracted);
 				target.appendChild(element);
 				if (nextType == "DONE") {
 					element.getElementsByTagName("button")[0].remove();
