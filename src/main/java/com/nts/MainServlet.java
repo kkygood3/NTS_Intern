@@ -36,6 +36,7 @@ public class MainServlet extends HttpServlet {
 			List<TodoDto> todoList = new ArrayList<>();
 			List<TodoDto> doingList = new ArrayList<>();
 			List<TodoDto> doneList = new ArrayList<>();
+
 			for (TodoDto item : list_all) {
 				if (item.getType().equals("TODO")) {
 					todoList.add(item);

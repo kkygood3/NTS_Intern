@@ -23,8 +23,8 @@
 			<a href="/jaewonlee/todoform" id="generate_todo"
 				class="header_button_inner">새로운 TODO 등록</a>
 		</div>
-
 	</header>
+	
 	<section class="section_main">
 		<table>
 			<tr>
@@ -47,6 +47,7 @@
 						</c:forEach>
 					</ul>
 				</td>
+				
 				<td>
 					<ul id="DOING">
 						<c:forEach items="${doingList}" var="item">
@@ -61,6 +62,7 @@
 						</c:forEach>
 					</ul>
 				</td>
+				
 				<td>
 					<ul id="DONE">
 						<c:forEach items="${doneList}" var="item">

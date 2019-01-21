@@ -54,7 +54,6 @@ public class TodoDao {
 				dto.setType(rs.getString("type"));
 				dto.setRegdate(rs.getString("regdate").split(" ")[0]);
 				result.add(dto);
-
 			}
 
 		} finally {
