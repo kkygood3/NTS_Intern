@@ -25,14 +25,14 @@ public class TodoTypeServlet extends HttpServlet {
 		Long id = Long.parseLong(request.getParameter("id"));
 		String requestType = request.getParameter("type");
 
-		Type type = Type.valueOf(requestType);
+		Type currentType = Type.valueOf(requestType);
 
 		TodoDao todoDao = new TodoDao();
 		List<TodoDto> todos = todoDao.getTodos();
 
 		for (TodoDto todo : todos) {
 			if (todo.getId() == id) {
-				todo.setType(type.next());
+				todo.setType(currentType.next());
 				todoDao.updateTodo(todo);
 			}
 		}

@@ -78,5 +78,4 @@ public class TodoDto {
 		return "Todo [Id=" + id + ", title=" + title + ", name=" + name + ", sequence=" + sequence + ", type=" + type
 			+ "]";
 	}
-
 }

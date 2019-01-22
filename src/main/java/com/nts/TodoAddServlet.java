@@ -26,9 +26,9 @@ public class TodoAddServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String name = request.getParameter("name");
 		int sequence = Integer.parseInt(request.getParameter("sequence"));
-		TodoDto todo = new TodoDto(title, name, sequence);
+		TodoDto newTodo = new TodoDto(title, name, sequence);
 		TodoDao todoDao = new TodoDao();
-		todoDao.addTodo(todo);
+		todoDao.addTodo(newTodo);
 
 		response.sendRedirect("main");
 	}

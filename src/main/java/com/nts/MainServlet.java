@@ -41,7 +41,8 @@ public class MainServlet extends HttpServlet {
 				case "DONE":
 					dones.add(todo);
 					break;
-
+				default:
+					break;
 			}
 		}
 

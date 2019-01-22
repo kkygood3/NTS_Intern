@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>TODO LIST</title>
+<link rel="stylesheet" href="css/todo.css">
 </head>
 <body>
 	<h1>할일 등록</h1>
@@ -25,7 +26,7 @@
 			<label for="less_important">3순위</label>
 		</section>
 		<a href="main">&lt;이전</a>
-		<input type="submit">
+		<input type="submit" value="제출">
 		<input type="reset" value="내용지우기">
 	</form>
 </body>
