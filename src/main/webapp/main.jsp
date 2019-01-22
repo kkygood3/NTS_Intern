@@ -48,7 +48,6 @@
 			
 		%>
 		<c:set var="length" scope="request" value="2"/>
-		
 		<c:forEach var="labelIdx" begin="0" end="${length}">
 			<c:set var="curLabel" value="${todoLabel[labelIdx]}"/>
 			<article class='art_${curLabel }'>
@@ -61,7 +60,7 @@
 							등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
 						</span>
 						<c:if test="${labelIdx != length}">
-							<button>→</button>
+							<button name="${target.id}">→</button>
 						</c:if>
 					</p>
 				</c:if>
@@ -74,12 +73,22 @@
 
 <script>
 	function clickEvent(event) {
-		var type = event.target.parentElement.parentElement
+		var btn = event.target;
+		var type = btn.parentElement.parentElement
 				.getElementsByTagName('div')[0].innerText;
-
+		
+			
+		var oReq = new XMLHttpRequest();
+		oReq.addEventListener("load",function(){
+			console.log("success");
+		})
+		oReq.open("get","update?id="+btn.getAttribute("name")+"&type="+type);
+		oReq.send();
+		
+		
 		if (type === 'TODO') {
 			var artDoing = document.getElementsByClassName('art_DOING')[0];
-			var clickedTag = event.target.parentElement;
+			var clickedTag = btn.parentElement;
 			artDoing.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
 			clickedTag.remove();
 
@@ -89,7 +98,7 @@
 				btns[i].addEventListener('click', clickEvent);
 		} else {
 			var artDone = document.getElementsByClassName('art_DONE')[0];
-			var clickedTag = event.target.parentElement;
+			var clickedTag = btn.parentElement;
 			artDone.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
 			clickedTag.remove();
 

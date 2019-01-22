@@ -5,6 +5,8 @@
 package com.nts.api;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,13 +25,17 @@ public class RegisterOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String whatdo = request.getParameter("whatdo");
-		String name = request.getParameter("wname");
+		String whatdo = decodeUTF8(request.getParameter("wname"));
+		String name = decodeUTF8(request.getParameter("wname"));
 		int priority = new Integer(request.getParameter("priority"));
 		
 		TodoDao dao = new TodoDao();
 		dao.addTodo(new TodoDto(whatdo,name,priority));
 		
 		response.sendRedirect("main");
+	}
+
+	private String decodeUTF8(String str) throws UnsupportedEncodingException{
+		return new String(str.getBytes("8859_1"),"utf-8");
 	}
 }

@@ -24,12 +24,26 @@ public class TodoDto{
 		
 	}
 
+	/**type UPDATE 수행을 위한 생성자
+	 * 
+	 */
+	public TodoDto(Integer id, String type) {
+		this.id = id;
+		this.type = type;
+	}
+	
+	/**INSERT 수행을 위한 생성자
+	 * 
+	 */
 	public TodoDto(String title, String name, int sequence) {
 		this.title = title;
 		this.name = name;
 		this.sequence = sequence;
 	}
 	
+	/**getTodo를 위한 생성자
+	 * 
+	 */
 	public TodoDto(Integer id, String title, String name, int sequence, String type, String regdate) {
 		super();
 		this.id = id;
