@@ -5,11 +5,16 @@
 package com.nts.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.dao.TodoDao;
+import com.nts.dto.TodoDto;
 
 /**
  * Todo type 변경처리를 위한 서블릿
@@ -19,9 +24,34 @@ import javax.servlet.http.HttpServletResponse;
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// TODO: id값을 받아 해당 todo의 type을 변경하는것을 구현
+	/**
+	 * id와 type값을 받아 해당 todo 데이터의 type값을 다음상태값으로 변경
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.service(req, resp);
+		String id = (String)req.getParameter("id");
+		String type = (String)req.getParameter("type");
+
+		if (id == null || type.isEmpty()) {
+			throw new NullPointerException();
+		}
+
+		// 현재상태값을 다음상태값으로 변경
+		if (type.equals("TODO")) {
+			type = "DOING";
+		} else if (type.equals("DOING")) {
+			type = "DONE";
+		}
+
+		TodoDto todoDto = new TodoDto();
+		todoDto.setId(Long.parseLong(id));
+		todoDto.setType(type);
+
+		TodoDao todoDao = new TodoDao();
+		int updateCount = todoDao.updateTodo(todoDto);
+
+		PrintWriter out = resp.getWriter();
+		out.println(updateCount);
+		out.close();
 	}
 }
