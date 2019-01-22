@@ -25,7 +25,7 @@ public class RegisterOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String whatdo = decodeUTF8(request.getParameter("wname"));
+		String whatdo = decodeUTF8(request.getParameter("whatdo"));
 		String name = decodeUTF8(request.getParameter("wname"));
 		int priority = new Integer(request.getParameter("priority"));
 		
