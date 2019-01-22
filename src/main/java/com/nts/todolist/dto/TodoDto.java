@@ -6,8 +6,8 @@ package com.nts.todolist.dto;
 
 /**
  * @author yongjoon.Park
-*/
-public class Todo {
+ */
+public class TodoDto {
 	private long id;
 	private String title;
 	private String name;
@@ -15,9 +15,9 @@ public class Todo {
 	private String type;
 	private String regdate;
 
-	public Todo() {}
+	public TodoDto() {}
 
-	public Todo(long id, String title, String name, int sequence, String type, String regdate) {
+	public TodoDto(long id, String title, String name, int sequence, String type, String regdate) {
 		this.id = id;
 		this.title = title;
 		this.name = name;
