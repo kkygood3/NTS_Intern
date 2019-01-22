@@ -27,7 +27,7 @@
 			<input type="radio" name="priority" value="2">2순위</input>
 			<input type="radio" name="priority" value="3">3순위</input>
 			<br><br><br>
-			<button type="button" class="btn_before">< 이전</button>
+			<button type="button" class="btn_before">&lt; 이전</button>
 			<button type="button" class="btn_reset">내용지우기</button>
 			<button type="button" class="btn_submit">제출</button>
 		</form>
