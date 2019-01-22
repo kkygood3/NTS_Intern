@@ -1,7 +1,7 @@
 var todos = document.querySelector('.todos');
 todos.addEventListener('click', function(event) {
 	if(event.target.textContent==="→"){
-		submitIdAndType(event.target.parentNode);
+		updateType(event.target.parentNode);
 	}
 });
 
@@ -26,7 +26,7 @@ function getXMLHttpRequest() {
 	}
 }
 
-function submitIdAndType(todo) {
+function updateType(todo) {
 	var id = todo.dataset.todo_id;
 	var type = todo.dataset.todo_type;
 	var title = todo.getElementsByClassName("title")[0].textContent;
@@ -41,7 +41,7 @@ function submitIdAndType(todo) {
 	
 	httpRequest.onreadystatechange = function() {  
 	    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-	    	todo.remove();
+	    	todo.parentNode.removeChild(todo);
 
 	    	if(type==="TODO"){
 	    		moveTodo(id, "DOING", title, regdate, name, sequence);
@@ -81,18 +81,18 @@ function moveTodo(id, type, title, regdate, name, sequence){
 	sequenceElement.setAttribute("class", "sequence");
 	sequenceElement.innerHTML = sequence;
 	
-	movedTodo.append(titleElement);
-	movedTodo.append(regdateElement);
-	movedTodo.append(nameElement);
-	movedTodo.append(sequenceElement);
+	movedTodo.appendChild(titleElement);
+	movedTodo.appendChild(regdateElement);
+	movedTodo.appendChild(nameElement);
+	movedTodo.appendChild(sequenceElement);
 	
 	if(type==="DOING"){
 		var nextElement = document.createElement("button");
 		nextElement.setAttribute("class", "go_next");
 		nextElement.innerHTML = "→";
 		
-		movedTodo.append(nextElement);
+		movedTodo.appendChild(nextElement);
 	}
 	
-	targetElement.append(movedTodo);
+	targetElement.appendChild(movedTodo);
 }
