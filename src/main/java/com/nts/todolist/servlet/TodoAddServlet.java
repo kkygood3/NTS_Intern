@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 
+/**
+ * 입력받은 todo (title, name, sequence)를 Database에 추가시키는 servlet
+ * @author yongjoon.Park
+ *
+ */
 @WebServlet("/todoAdd")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

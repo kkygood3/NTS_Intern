@@ -20,6 +20,7 @@ import com.nts.todolist.dto.TodoDto;
 
 /**
  * main.jsp에 todo list를 조회 후 출력해주는 servlet
+ * @author yongjoon.Park
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
