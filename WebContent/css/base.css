@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+#hr-photo {
+	width: 80%;
+}
+
+.body-aqua {
+	background-color: MediumAquamarine;
+}
+
+.container-white {
+	margin: 20px;
+	background-color: white;
+}
+
+.profile {
+	text-align: center;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+.padding-20px {
+	padding: 20px;
+}
+
+.li-button {
+	display: inline-block;
+	width: 100px;
+	height: 50px;
+	margin: 10px 10px 10px 10px;
+	text-align: center;
+	font-family: "dotum";
+	background: DeepSkyBlue;
+	box-shadow: 0 0 5px 5px gray;
+	line-height: 50px;
+}
+
+.float-right {
+	float: right;
+}
+
+#section-index {
+	text-align: center;
+}
+
+#section-aboutme {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+#section-photo {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+.article-aboutme {
+	margin-bottom: 50px;
+}
+
+.div-img {
+	float: left;
+	margin: 10px 50px 10px 0;
+}
+
+.imgblock {
+	border: 5px solid #000000;
+}
+
+.div-paragraph {
+	float: left;
+	margin: 10px 50px 10px 0;
+	text-align: left;
+}
