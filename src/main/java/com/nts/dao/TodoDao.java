@@ -41,7 +41,9 @@ public class TodoDao {
 		try (
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();) {
+
 			todos = resultSetToMap(resultSet);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,6 +54,7 @@ public class TodoDao {
 		String query = "insert into todo(title, name, sequence) values(?, ?, ?)";
 		try (
 			PreparedStatement statement = connection.prepareStatement(query);) {
+
 			statement.setString(1, todo.getTitle());
 			statement.setString(2, todo.getName());
 			statement.setInt(3, todo.getSequence());
@@ -66,12 +69,6 @@ public class TodoDao {
 		String query = "update todo set type=? where id=?";
 		try (
 			PreparedStatement statement = connection.prepareStatement(query);) {
-
-			if (todo.getType().equals("TODO")) {
-				todo.setType("DOING");
-			} else if (todo.getType().equals("DOING")) {
-				todo.setType("DONE");
-			}
 
 			statement.setString(1, todo.getType());
 			statement.setLong(2, todo.getId());

@@ -17,16 +17,16 @@
 		
 			<article class="todo">
 				<div class="title-item">TODO</div>
-				<ul class="item_list">
+				<ul id="todo_list" class="item_list">
 					<c:forEach var="todo" items="${todos['TODO']}">
-						<li id="todo_list_${todo.id}" class="item">
+						<li id="todo_item_${todo.id}" class="item" data-next-type="doing" data-datetime="${todo.regdate}">
 							<h2>${todo.title}</h2>
 							<fmt:parseDate var="regDate" value="${todo.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 							<span>
 							등록 날짜 : <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />,
 							${todo.name}, 우선순위 : ${todo.sequence}
 							</span>
-							<button class="move" onclick="changeTodoType(${todo.id},'TODO')">➜</button>
+							<button class="move" onclick="changeTodoType(${todo.id})">➜</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -36,14 +36,14 @@
 				<div class="title-item">DOING</div>
 				<ul id="doing_list" class="item_list">
 					<c:forEach var="todo" items="${todos['DOING']}">
-						<li id="todo_list_${todo.id}" class="item">
+						<li id="todo_item_${todo.id}" class="item" data-next-Type="done" data-datetime="${todo.regdate}">
 							<h2>${todo.title}</h2>
 							<fmt:parseDate var="regDate" value="${todo.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 							<span>
 							등록 날짜 : <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />,
 							${todo.name}, 우선순위 : ${todo.sequence}
 							</span>
-							<button class="move" onclick="changeTodoType(${todo.id},'DOING')">➜</button>
+							<button class="move" onclick="changeTodoType(${todo.id})">➜</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -53,7 +53,7 @@
 				<div class="title-item">DONE</div>
 				<ul id="done_list" class="item_list">
 					<c:forEach var="todo" items="${todos['DONE']}">
-						<li id="todo_list_${todo.id}" class="item">
+						<li id="todo_item_${todo.id}" class="item" data-datetime="${todo.regdate}">
 							<h2>${todo.title}</h2>
 							<fmt:parseDate var="regDate" value="${todo.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 							<span>
