@@ -1,6 +1,6 @@
 var todos = document.querySelector('.todos');
 todos.addEventListener('click', function(event) {
-	if(event.target.textContent==="→"){
+	if(event.target.className==="go_next"){
 		updateType(event.target.parentNode);
 	}
 });
@@ -43,13 +43,13 @@ function updateType(todo) {
 	if(httpRequest!=null){
 		httpRequest.onreadystatechange = function() {  
 		    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-		    	var newType = types[types.indexOf(type)+1];
-		    	var targetElement = document.getElementById(newType.toLowerCase());
+		    	var changedType = types[types.indexOf(type)+1];
+		    	var targetElement = document.getElementById(changedType.toLowerCase());
 		    	
 		    	targetElement.appendChild(todo);
-		    	todo.dataset.todo_type = newType;
+		    	todo.dataset.todo_type = changedType;
 		    	
-		    	if(newType==="DONE"){
+		    	if(changed==="DONE"){
 		    		todo.removeChild(todo.getElementsByClassName("go_next")[0]);
 		    	}
 		    }
