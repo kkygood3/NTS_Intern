@@ -20,9 +20,9 @@ import com.nts.dto.TodoDto;
  */
 
 public class TodoDao {
-	private String url = "jdbc:mysql://localhost:3306/todo";
-	private String id = "root";
-	private String pw = "1234";
+	private String url = "jdbc:mysql://10.113.116.52:13306/user5";
+	private String id = "user5";
+	private String pw = "wlsdn123";
 
 	/**
 	 * DB 커넥션을 가져와주는 메소드
