@@ -19,9 +19,9 @@ import com.nts.todo.dto.TodoDto;
 * @date    : 2019. 1. 22.
 */
 public class TodoDao {
-	private String connectionUrl = "jdbc:mysql://localhost:3306/todo?serverTimezone=Asia/Seoul";
-	private String connectionUser = "root";
-	private String connectionPassword = "!@#123";
+	private String connectionUrl = "jdbc:mysql://10.113.116.52:13306/user8?serverTimezone=Asia/Seoul";
+	private String connectionUser = "user8";
+	private String connectionPassword = "user8";
 
 	public int addTodo(TodoDto todo) {
 		int insertCount = 0;
