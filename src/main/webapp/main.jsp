@@ -16,46 +16,40 @@
 			<p> TODO </p>
 			<ul id="todo">
 				<c:forEach items="${todos}" var="todo">
-					<c:if test="${todo.getType()==\"TODO\"}">
-						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
-							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
-							<p class="name">${todo.getName()}</p>
-							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<button class="go_next">→</button>
-						</li>
-					</c:if>
+					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+						<p class="title">${todo.getTitle()}</p>
+						<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
+						<p class="name">${todo.getName()}</p>
+						<p class="sequence">우선순위 : ${todo.getSequence()}</p>
+						<button class="go_next">→</button>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>
 		<div>
 			<p> DOING </p>
 			<ul id="doing">
-				<c:forEach items="${todos}" var="todo">
-					<c:if test="${todo.getType()==\"DOING\"}">
-						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
-							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
-							<p class="name">${todo.getName()}</p>
-							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-							<button class="go_next">→</button>
-						</li>
-					</c:if>
+				<c:forEach items="${doings}" var="todo">
+					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+						<p class="title">${todo.getTitle()}</p>
+						<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
+						<p class="name">${todo.getName()}</p>
+						<p class="sequence">우선순위 : ${todo.getSequence()}</p>
+						<button class="go_next">→</button>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>
 		<div>
 			<p> DONE </p>
 			<ul id="done">
-				<c:forEach items="${todos}" var="todo">
-					<c:if test="${todo.getType()==\"DONE\"}">
-						<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
-							<p class="title">${todo.getTitle()}</p>
-							<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
-							<p class="name">${todo.getName()}</p>
-							<p class="sequence">우선순위 : ${todo.getSequence()}</p>
-						</li>
-					</c:if>
+				<c:forEach items="${dones}" var="todo">
+					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+						<p class="title">${todo.getTitle()}</p>
+						<p class="regdate">등록날짜 : ${todo.getRegdate().split(" ")[0]}</p>
+						<p class="name">${todo.getName()}</p>
+						<p class="sequence">우선순위 : ${todo.getSequence()}</p>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>

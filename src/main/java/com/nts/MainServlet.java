@@ -5,6 +5,7 @@
 package com.nts;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -24,8 +25,29 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		TodoDao todoDao = new TodoDao();
-		List<TodoDto> todos = todoDao.getTodos();
+		List<TodoDto> totalTodo = todoDao.getTodos();
+		List<TodoDto> todos = new ArrayList<>();
+		List<TodoDto> doings = new ArrayList<>();
+		List<TodoDto> dones = new ArrayList<>();
+
+		for (TodoDto todo : totalTodo) {
+			switch (todo.getType()) {
+				case "TODO":
+					todos.add(todo);
+					break;
+				case "DOING":
+					doings.add(todo);
+					break;
+				case "DONE":
+					dones.add(todo);
+					break;
+
+			}
+		}
+
 		request.setAttribute("todos", todos);
+		request.setAttribute("doings", doings);
+		request.setAttribute("dones", dones);
 
 		RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
 		rd.forward(request, response);
