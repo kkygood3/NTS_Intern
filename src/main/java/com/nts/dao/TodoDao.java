@@ -21,13 +21,12 @@ import com.nts.model.TodoDto;
 public class TodoDao {
 
 	public List<TodoDto> getTodos() {
-		List<TodoDto> todoList = null;
+		List<TodoDto> todoList = new ArrayList<>();
 		String query = "select id, title, name, sequence, type, regdate from todo order by regdate desc";
 		try (
 			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();) {
-			todoList = new ArrayList<>();
 			while (resultSet.next()) {
 				TodoDto todo = new TodoDto();
 				todo.setId(resultSet.getLong("id"));
