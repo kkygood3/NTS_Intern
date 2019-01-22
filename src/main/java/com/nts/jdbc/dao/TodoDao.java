@@ -122,20 +122,18 @@ public class TodoDao {
 		return result;
 	}
 
-	public void updateTodo(TodoDto todoDto) throws SQLException {
+	public int updateTodo(TodoDto todoDto) throws SQLException {
 
-		String sql = "update todo set type = ? where id = ? and type = ?;";
+		String sql = "update todo set type = ? where id = ?;";
 		PreparedStatement preparedStatement = null;
 
 		if (dbConnection == null || !dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
-
 		preparedStatement = dbConnection.prepareStatement(sql);
 		preparedStatement.setString(1, todoDto.getType());
 		preparedStatement.setInt(2, todoDto.getId());
-		preparedStatement.setString(3, todoDto.getType());
 
-		preparedStatement.executeUpdate();
+		return preparedStatement.executeUpdate();
 	}
 }
