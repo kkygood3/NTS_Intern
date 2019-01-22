@@ -45,7 +45,13 @@ public class TodoTypeServlet extends HttpServlet {
 		private static Type[] types = values();
 
 		public String next() {
-			return types[this.ordinal() + 1].toString();
+			String type = "";
+			if (this.ordinal() + 1 == types.length) {
+				type = types[this.ordinal()].toString();
+			} else {
+				type = types[this.ordinal() + 1].toString();
+			}
+			return type;
 		}
 	}
 }
