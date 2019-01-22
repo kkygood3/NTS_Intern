@@ -41,7 +41,7 @@ public class MainServlet extends HttpServlet {
 	}
 
 	/**
-	 * todo list를 type기준 map으로 변환
+	 * Todo list를 Todo의 type을 기준으로 분류한 리스트를 map으로 반환
 	 */
 	private Map<String, List<TodoDto>> todoListToMap(List<TodoDto> todoList) {
 		Map<String, List<TodoDto>> todoMap = new HashMap<>();
