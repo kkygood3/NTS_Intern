@@ -36,7 +36,10 @@ public class TodoTypeServlet extends HttpServlet {
 		response.setContentType("text/plain;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		if (!isValidRequestParams(type)) {
+		try {
+			TodoTag.valueOf(type);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
 			response.setStatus(response.SC_BAD_REQUEST);
 			out.append("잘못 된 값을 전송하였습니다.");
 			out.close();
@@ -63,13 +66,4 @@ public class TodoTypeServlet extends HttpServlet {
 		}
 		out.close();
 	}
-
-	private boolean isValidRequestParams(String type) {
-		if (TodoTag.TODO.getTodoTag().equals(type) || TodoTag.DOING.getTodoTag().equals(type)
-			|| TodoTag.DONE.getTodoTag().equals(type)) {
-			return true;
-		}
-		return false;
-	}
-
 }
