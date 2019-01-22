@@ -66,6 +66,6 @@
 			</article>
 			
 		</section>
+		<script type="text/javascript" src="/js/updatetodo.js"></script>
 	</body>
-	<script type="text/javascript" src="/js/updatetodo.js"></script>
 </html>
