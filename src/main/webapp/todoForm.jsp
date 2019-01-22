@@ -25,7 +25,7 @@
 			<input type="radio" name="sequence" value="3" id="less_important" required>
 			<label for="less_important">3순위</label>
 		</section>
-		<a href="main">&lt;이전</a>
+		<a href="main" class="previous_page">&lt;이전</a>
 		<input type="submit" value="제출">
 		<input type="reset" value="내용지우기">
 	</form>
