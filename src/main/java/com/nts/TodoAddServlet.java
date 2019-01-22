@@ -28,8 +28,8 @@ public class TodoAddServlet extends HttpServlet {
 		throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String title = request.getParameter("todo_title");
-		String name = request.getParameter("todo_name");
+		String title = request.getParameter("todo_title").trim();
+		String name = request.getParameter("todo_name").trim();
 		int sequence = Integer.parseInt(request.getParameter("todo_sequence"));
 
 		if (!isValidRequestParams(title, name, sequence)) {
@@ -49,8 +49,6 @@ public class TodoAddServlet extends HttpServlet {
 	}
 
 	private boolean isValidRequestParams(String title, String name, int sequence) {
-		title = title.trim();
-		name = name.trim();
 
 		if (title.length() == 0 || title.length() > 24) {
 			return false;
