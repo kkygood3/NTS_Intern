@@ -116,8 +116,16 @@ public class TodoDao {
 			String name = resultSet.getString("name");
 			int sequence = resultSet.getInt("sequence");
 			String type = resultSet.getString("type");
-			Date regdate = resultSet.getDate("regdate");
-			result.add(new TodoDto(id, title, name, sequence, type, dateFormat.format(regdate)));
+			Date regDate = resultSet.getDate("regdate");
+			TodoDto todoDto = new TodoDto.Builder()
+				.id(id)
+				.title(title)
+				.name(name)
+				.sequence(sequence)
+				.type(type)
+				.regDate(dateFormat.format(regDate))
+				.build();
+			result.add(todoDto);
 		}
 		return result;
 	}

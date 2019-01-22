@@ -13,26 +13,13 @@ public class TodoDto {
 	private String type;
 	private String regDate;
 
-	public TodoDto(int id, String title, String name, int sequence, String type, String regDate) {
-		this.id = id;
-		this.title = title;
-		this.name = name;
-		this.sequence = sequence;
-		this.type = type;
-		this.regDate = regDate;
-	}
-
-	public TodoDto(String title, String name, int sequence) {
-		super();
-		this.title = title;
-		this.name = name;
-		this.sequence = sequence;
-	}
-
-	public TodoDto(int id, String type) {
-		super();
-		this.id = id;
-		this.type = type;
+	private TodoDto(Builder builder) {
+		this.id = builder.id;
+		this.title = builder.title;
+		this.name = builder.name;
+		this.sequence = builder.sequence;
+		this.type = builder.type;
+		this.regDate = builder.regDate;
 	}
 
 	public int getId() {
@@ -81,5 +68,50 @@ public class TodoDto {
 
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+	}
+
+	public static class Builder {
+		private int id;
+		private String title;
+		private String name;
+		private int sequence;
+		private String type;
+		private String regDate;
+
+		public Builder() {}
+
+		public Builder id(int id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder sequence(int sequence) {
+			this.sequence = sequence;
+			return this;
+		}
+
+		public Builder type(String type) {
+			this.type = type;
+			return this;
+		}
+
+		public Builder regDate(String regDate) {
+			this.regDate = regDate;
+			return this;
+		}
+
+		public TodoDto build() {
+			return new TodoDto(this);
+		}
 	}
 }

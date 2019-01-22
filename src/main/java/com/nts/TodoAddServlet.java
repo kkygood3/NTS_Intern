@@ -40,7 +40,7 @@ public class TodoAddServlet extends HttpServlet {
 		}
 
 		TodoDao todoDao = TodoDao.getInstance();
-		TodoDto newTodoDto = new TodoDto(title, name, sequence);
+		TodoDto newTodoDto = new TodoDto.Builder().title(title).name(name).sequence(sequence).build();
 		try {
 			todoDao.addTodo(newTodoDto);
 			response.sendRedirect("./main");

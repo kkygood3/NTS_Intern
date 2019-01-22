@@ -53,7 +53,7 @@ public class TodoTypeServlet extends HttpServlet {
 			nextType = TodoTag.DONE.getTodoTag();
 		}
 
-		TodoDto targetTodoDto = new TodoDto(id, nextType);
+		TodoDto targetTodoDto = new TodoDto.Builder().id(id).type(nextType).build();
 		TodoDao todoDao = TodoDao.getInstance();
 		try {
 			todoDao.updateTodo(targetTodoDto);
