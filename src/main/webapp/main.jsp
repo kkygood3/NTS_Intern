@@ -26,35 +26,13 @@
 	<span class="title_tag">나의 해야할 일들</span>
 	<a href="register" class="add_new_do">새로운 TODO 등록</a>
 	<br>
-	<section class="art_container">
-		<%!
-			final String[] todoLabel = {"TODO", "DOING", "DONE"};
-		%>
-		
-		<%
-			ArrayList<TodoDto>[] todoSeqence = new ArrayList[todoLabel.length];
-			
-			for (int i = 0; i < todoSeqence.length; i++)
-				todoSeqence[i] = new ArrayList<TodoDto>();
-
-			request.setCharacterEncoding("utf-8");
-			String jsonText = (String) request.getAttribute("json");
-
-			ObjectMapper mapper = new ObjectMapper();
-
-			List<TodoDto> jsonItems = mapper.readValue(jsonText,
-					mapper.getTypeFactory().constructCollectionType(List.class, TodoDto.class));
-			
-			request.setAttribute("jsonItmes", jsonItems);
-			request.setAttribute("todoLabel",todoLabel);
-		%>
-		
+	<section class="art_container">		
 		<c:set var="length" scope="request" value="${fn:length(todoLabel)-1}"/>
 		<c:forEach var="labelIdx" begin="0" end="${length}">
 			<c:set var="curLabel" value="${todoLabel[labelIdx]}"/>
 			<article class='art_${curLabel}'>
 			<div class='div_title'>${curLabel}</div>
-			<c:forEach var="target" items="${jsonItmes }">
+			<c:forEach var="target" items="${todoList}">
 				<c:if test="${target.type == curLabel}">
 					<p>
 						<span class='do_name'>

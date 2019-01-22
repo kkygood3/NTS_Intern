@@ -29,20 +29,20 @@ import com.nts.dao.*;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String[] todoLabel = {"TODO", "DOING", "DONE"};
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+		
 		response.setHeader("Content-Type", "application/json");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
 
 		TodoDao dao = new TodoDao();
 		List<TodoDto> list = dao.getTodos();
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(list);
 		
-		request.setAttribute("json", json);
+		request.setAttribute("todoList", list);
+		request.setAttribute("todoLabel", todoLabel);
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);
