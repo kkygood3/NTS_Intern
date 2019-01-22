@@ -9,17 +9,17 @@ package com.nts.dto;
  * @author jinwoo.bae
  */
 public class TodoDto {
-	Long id;
+	long id;
 	String name;
 	String regdate;
 	int sequence;
 	String title;
 	String type;
 	
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
