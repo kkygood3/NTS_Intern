@@ -12,15 +12,16 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import com.nts.todolist.dto.Todo;
+import com.nts.todolist.dto.TodoDto;
 
 /**
  * Todo Data Access Object
  * @author yongjoon.Park
 */
 public class TodoDao {
-	private static String DB_URL = "jdbc:mysql://10.113.116.52:13306/todolist?serverTimezone=Asia/Seoul&useSSL=false";
+	private static String DB_URL = "jdbc:mysql://10.113.116.52:13306/user3?serverTimezone=Asia/Seoul&useSSL=false";
 	private static String DB_USER = "user3";
 	private static String DB_PASSWORD = "user3";
 	private static String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -28,13 +29,22 @@ public class TodoDao {
 	private static final SimpleDateFormat SIMEPLE_DATA_FORMAT = new SimpleDateFormat("yyyy. MM. dd. ");
 
 	/**
+	 * 새로운 todo 추가
+	 * @author yongjoon.Park
+	 */
+	public int addTodo(TodoDto todoDto) {
+		int result = 0;
+
+		return result;
+	}
+
+	/**
 	 * get all todo list
 	 * @author yongjoon.Park
-	 * @return 조회된 모든 todo의 ArrayList<Todo>
-	 * @throws ClassNotFoundException, SQLEception
+	 * @return 조회된 모든 todo의 List<Todo>
 	 */
-	public ArrayList<Todo> getTodoList() {
-		ArrayList<Todo> todoList = new ArrayList<>();
+	public List<TodoDto> getTodos() {
+		List<TodoDto> todoList = new ArrayList<>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -45,24 +55,22 @@ public class TodoDao {
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
 			// query 
-			String sql = "SELECT * FROM TODO WHERE TYPE = ?";
+			String sql = "SELECT id, title, name, sequence, type, regdate " +
+				"FROM todo " +
+				"ORDER BY sequence, regdate DESC";
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, "TODO");
 
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				int id = resultSet.getInt(1);
+				long id = resultSet.getLong(1);
 				String title = resultSet.getString(2);
 				String name = resultSet.getString(3);
 				int sequence = resultSet.getInt(4);
 				String type = resultSet.getString(5);
 				Date regdate = resultSet.getDate(6);
-				// TODO java.util.Date vs. java.sql.Date
-				// sql 쪽은 시, 분, 초가 없다고 함
 
-				Todo todo = new Todo(id, title, name, sequence, type, SIMEPLE_DATA_FORMAT.format(regdate));
-				
+				TodoDto todo = new TodoDto(id, title, name, sequence, type, SIMEPLE_DATA_FORMAT.format(regdate));
 				todoList.add(todo);
 			}
 
@@ -95,7 +103,16 @@ public class TodoDao {
 				}
 			}
 		}
-
 		return todoList;
+	}
+
+	/**
+	 * Todo의 type을 변경
+	 * ex) todo -> doing, doing -> done
+	 * @author yongjoon.Park
+	 */
+	public int updateTodo(TodoDto todoDto) {
+
+		return 0;
 	}
 }

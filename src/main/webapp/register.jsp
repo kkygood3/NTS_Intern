@@ -28,7 +28,7 @@
 		<input type="radio" name="sequence" value=""> <label for="">2순위</label>
 		<input type="radio" name="sequence" value=""> <label for="">3순위</label>
 		<br><br>
-		<a href="index.jsp" class="previous_button">< 이전</a>
+		<a href="/main.jsp" class="previous_button">< 이전</a>
 		<input type="submit" name="" value="제출" class="register_button">
 		<input type="reset" name="" value="내용지우기" class="register_button">
 	</form>
