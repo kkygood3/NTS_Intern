@@ -61,6 +61,14 @@ public class TodoDao {
 		}
 	}
 
+	public void disconnectDatabase() {
+		try {
+			dbConnection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public int addTodo(TodoDto todoDto) throws SQLException {
 
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
