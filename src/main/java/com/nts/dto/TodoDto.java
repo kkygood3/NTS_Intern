@@ -16,24 +16,16 @@ public class TodoDto{
 	private String type;
 	private String regdate;
 
-	
-	/**ObjectMapper사용을 위한 Dummy Constuctor
-	 * 
-	 */
-	public TodoDto() {
-		
-	}
-
-	/**type UPDATE 수행을 위한 생성자
-	 * 
+	/**
+	 * type UPDATE 수행을 위한 생성자
 	 */
 	public TodoDto(Integer id, String type) {
 		this.id = id;
 		this.type = type;
 	}
 	
-	/**INSERT 수행을 위한 생성자
-	 * 
+	/**
+	 * INSERT 수행을 위한 생성자
 	 */
 	public TodoDto(String title, String name, int sequence) {
 		this.title = title;
@@ -41,8 +33,8 @@ public class TodoDto{
 		this.sequence = sequence;
 	}
 	
-	/**getTodo를 위한 생성자
-	 * 
+	/**
+	 * getTodo를 위한 생성자
 	 */
 	public TodoDto(Integer id, String title, String name, int sequence, String type, String regdate) {
 		super();

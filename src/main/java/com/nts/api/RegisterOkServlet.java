@@ -35,8 +35,8 @@ public class RegisterOkServlet extends HttpServlet {
 		response.sendRedirect("main");
 	}
 	
-	/**form에서 Post로 값을 전송한 패러미터를 받기위해 필요한 한글 디코딩
-	 * 
+	/**
+	 * form에서 Post로 값을 전송한 패러미터를 받기위해 필요한 한글 디코딩
 	 */
 	private String decodeUTF8(String str) throws UnsupportedEncodingException{
 		return new String(str.getBytes("8859_1"),"utf-8");
