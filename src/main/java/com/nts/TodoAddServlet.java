@@ -45,7 +45,7 @@ public class TodoAddServlet extends HttpServlet {
 			response.sendRedirect("./main");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendError(response.SC_BAD_REQUEST, e.getMessage());
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 	}
 
