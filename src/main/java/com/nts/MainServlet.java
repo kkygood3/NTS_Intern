@@ -46,9 +46,9 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> doneList = new ArrayList();
 
 		for (TodoDto item : list) {
-			if (item.getType().equals("TODO")) {
+			if ("TODO".equals(item.getType())) {
 				todoList.add(item);
-			} else if (item.getType().equals("DOING")) {
+			} else if ("DOING".equals(item.getType())) {
 				doingList.add(item);
 			} else {
 				doneList.add(item);

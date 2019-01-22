@@ -45,10 +45,12 @@ public class TodoTypeServlet extends HttpServlet {
 		}
 
 		String nextType = "";
-		if (type.equals(TodoTag.TODO.getTodoTag())) {
-			nextType = TodoTag.DOING.getTodoTag();
-		} else if (type.equals(TodoTag.DOING.getTodoTag())) {
-			nextType = TodoTag.DONE.getTodoTag();
+		if ("TODO".equals(type)) {
+			nextType = "DOING";
+		} else if ("DOING".equals(type)) {
+			nextType = "DONE";
+		} else {
+			nextType = "DONE";
 		}
 
 		TodoDto targetTodoDto = new TodoDto.Builder().id(id).type(nextType).build();
