@@ -39,22 +39,16 @@ public class TodoService {
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
-		try {
+		for (TodoDto todoDto : list) {
+			String type = todoDto.getType();
 
-			for (TodoDto todoDto : list) {
-				String type = todoDto.getType();
-				
-				if (type.equals("TODO")) {
-					todoList.add(todoDto);
-				} else if (type.equals("DOING")) {
-					doingList.add(todoDto);
-				} else if (type.equals("DONE")) {
-					doneList.add(todoDto);
-				}
+			if (type.equals("TODO")) {
+				todoList.add(todoDto);
+			} else if (type.equals("DOING")) {
+				doingList.add(todoDto);
+			} else if (type.equals("DONE")) {
+				doneList.add(todoDto);
 			}
-
-		} catch (NullPointerException e) {
-			return null;
 		}
 
 		Map<String, List<TodoDto>> todoMap = new HashMap<>();

@@ -33,17 +33,17 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
-		
+
 		try {
 			TodoService todoService = new TodoService();
 			// keys : todoList, doingList, doneList
 			Map<String, List<TodoDto>> result = todoService.getTodos();
 			request.setAttribute("result", result);
-	
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		rd.forward(request, response);
 

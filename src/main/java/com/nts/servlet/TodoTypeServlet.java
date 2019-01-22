@@ -38,7 +38,7 @@ public class TodoTypeServlet extends HttpServlet {
 		try {
 			TodoService todoService = new TodoService();
 			todoService.updateTodo(id, type);
-
+			
 			out.write("success");
 		} catch (SQLException e) {
 			out.write("fail");

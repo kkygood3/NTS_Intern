@@ -63,7 +63,7 @@ public class TodoAddServlet extends HttpServlet {
 			TodoService todoService = new TodoService();
 			todoService.addTodo(todoDto);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 		}
 
 		// 성공할시엔 redirect 실패시엔 에러 throws

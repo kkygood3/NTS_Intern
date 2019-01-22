@@ -1,57 +1,54 @@
 
 /**
- * 
+ * @desc 다음요소로 전달
+ * @params changingElement (바뀔 요소)
+ * @parmas nextElementUl (changingElement가 이동할 요소 ul)
  * @returns
  */
-function changeToNext(){
+function changeToNext(changingElement, nextElementUl){
 	
+	var changingLi = changingElement.li;
+	var nextElements = document.querySelectorAll(nextElementUl+' li');
+	var changeElementRegDate = changingLi.getAttribute('data-date');
+	
+	// 날짜를 비교해서 들어갈 요소 찾기
+	for(var i = 0,nextElementsLength = nextElements.length; i< nextElementsLength; i++){
+		var regDate = nextElements[i].getAttribute('data-date');
+
+		if(regDate < changeElementRegDate){
+			changingLi.parentNode.removeChild(changingLi);
+			
+			document.querySelector(nextElementUl).insertBefore(changingLi,nextElements[i]);
+			return;
+		}
+	}
+	
+	document.querySelector(nextElementUl).appendChild(changingLi);
 }
 /**
  * @desc next버튼을 누를시에 DB 변경
  * @param id
  * @param type
  */
-function updateItemToNext(id,type,changingElement) {
+function updateItemToNext(changingElement) {
 	var xhr = new XMLHttpRequest();
 	
 	xhr.open('POST', '/changeTodoType', true);
 	xhr.onreadystatechange = function() {
 		
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			if(type == 'TODO'){
-				
-				var doingElements = document.querySelectorAll('#doing li');
-				var changeElementRegDate = changingElement.getAttribute('data-date');
-				var isChanged = false;
-				
-				doingElements.forEach(function(element){
-					var regDate = element.getAttribute('data-date');
-					
-					console.log('regDate : '+regDate);
-					console.log('changedDate :' + changeElementRegDate);
-					if(regDate < changeElementRegDate){
-						// 여기서 추가
-						console.log(changingElement.parentElement);
-						changingElement.parentElement.removeChild(changingElement);
-						alert('이전껄로');
-						isChanged = true;
-						return true;
-					}
-				});
-				// 여기서 추가
-				//if(isChanged == false) doingElements.appendChild();
-				
-			}else if(type == 'DOING'){
-				alert("DOING TO DONE");
+		if (xhr.readyState === 4 && xhr.status === 200 && xhr.response === 'success') {
+			if(changingElement.type == 'TODO'){
+				changeToNext(changingElement,'#doing');
+			}else if(changingElement.type == 'DOING'){
+				changingElement.li.querySelector('.next_btn').remove();
+				changeToNext(changingElement,'#done');
 			}
-			
 		}
-		
 	}
 	
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	
-	var xhrData = "id="+id+"&type="+type;
+	var xhrData = "id="+changingElement.id+"&type="+changingElement.type;
 	xhr.send(xhrData);
 }
 
@@ -67,11 +64,15 @@ function nextBtnEvent(){
 		btn.addEventListener('click',function(){
 			
 			var li = this.parentNode.parentNode;
-			
-			
 			var type = li.parentNode.id.toUpperCase();
 			var id = li.getAttribute('data-id');
-			updateItemToNext(id,type,li);
+			
+			var changingElement = {
+					id : id,
+					type : type,
+					li : li,
+			}
+			updateItemToNext(changingElement);
 		});
 	});
 }
