@@ -30,9 +30,9 @@ function moveTodoCell(id, type, title, content) {
     var column = document.getElementById("todo_list_type_"+ nextType.toLowerCase() + "_column");
     var newCell = document.createElement("li");
     newCell.setAttribute("class", "todo_cell todo_content");
-    newCell.setAttribute("data-todo-type", nextType);
-    newCell.setAttribute("data-todo-id", id);
-    
+    newCell.dataset.todoType= nextType;
+    newCell.dataset.todoId= id;
+
     var titleElement = document.createElement("h1");
     titleElement.innerHTML = title;
 
