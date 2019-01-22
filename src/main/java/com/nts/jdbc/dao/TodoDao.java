@@ -55,7 +55,6 @@ public class TodoDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -67,9 +66,6 @@ public class TodoDao {
 
 	public void disconnectDatabase() {
 		try {
-			if (dbConnection == null || dbConnection.isClosed()) {
-				return;
-			}
 			dbConnection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +77,7 @@ public class TodoDao {
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null || !dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 
@@ -99,7 +95,7 @@ public class TodoDao {
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null || !dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 
@@ -130,7 +126,7 @@ public class TodoDao {
 		String sql = "update todo set type = ? where id = ?;";
 		PreparedStatement preparedStatement = null;
 
-		if (dbConnection == null || !dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(3000)) {
 			connectDatabase();
 		}
 		preparedStatement = dbConnection.prepareStatement(sql);
