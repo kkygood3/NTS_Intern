@@ -12,11 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.dao.TodoDao;
 import com.nts.model.TodoDto;
 
+/**
+ * @author 임상현, life4lord93@nts-corp.com
+ * 새로운 할일을 등록하는 Servlet
+ */
 @WebServlet("/newtodo")
 public class TodoAddServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	/* 
+	 * Todo의 내용을 입력할 수 있는 form을 가지는 jsp 페이지로 forward
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
@@ -25,6 +32,9 @@ public class TodoAddServlet extends HttpServlet {
 		requestDispatcher.forward(request, response);
 	}
 
+	/* 
+	 * Todo의 데이터를 DB에 저장
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {

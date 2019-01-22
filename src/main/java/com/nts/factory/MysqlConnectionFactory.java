@@ -21,7 +21,7 @@ public class MysqlConnectionFactory {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Class Load error"); // log 파일에 남기도록 변경해야함.
 		}
 		return connection;
 	}

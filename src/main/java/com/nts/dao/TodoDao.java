@@ -14,6 +14,10 @@ import java.util.List;
 import com.nts.factory.MysqlConnectionFactory;
 import com.nts.model.TodoDto;
 
+/**
+ * @author 임상현, life4lord93@nts-corp.com
+ * DB에서 Todo Data를 삽입, 수정, 조회 하는 기능
+ */
 public class TodoDao {
 
 	public List<TodoDto> getTodos() {

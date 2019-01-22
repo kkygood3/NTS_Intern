@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.dao.TodoDao;
 import com.nts.model.TodoDto;
 
+/**
+ * @author 임상현, life4lord93@nts-corp.com
+ * Todo의 상태를 변환하는 Servlet
+ */
 @WebServlet("/todo/*")
 public class TodoTypeServlet extends HttpServlet {
 
