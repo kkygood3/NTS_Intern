@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
+import com.nts.todolist.util.Type;
 
 /**
  * main.jsp에 todo list를 조회 후 출력해주는 servlet
@@ -40,9 +41,9 @@ public class MainServlet extends HttpServlet {
 		for (int i = 0; i < listLength; i++) {
 			TodoDto todo = allTodoList.get(i);
 
-			if (todo.getType().equals("TODO")) {
+			if (Type.TODO.toString().equals(todo.getType())) {
 				todoList.add(todo);
-			} else if (todo.getType().equals("DOING")) {
+			} else if (Type.DOING.toString().equals(todo.getType())) {
 				doingList.add(todo);
 			} else {
 				doneList.add(todo);

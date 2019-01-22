@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.nts.todolist.dto.TodoDto;
+import com.nts.todolist.util.Type;
 
 /**
  * Todo Data Access Object
@@ -27,8 +28,6 @@ public class TodoDao {
 	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final SimpleDateFormat SIMEPLE_DATA_FORMAT = new SimpleDateFormat("yyyy. MM. dd. ");
-
-	// TODO todo, doing, done -> ENUM?
 
 	/**
 	 * 새로운 todo 추가
@@ -54,14 +53,30 @@ public class TodoDao {
 			insertCount = preparedStatement.executeUpdate();
 
 			if (insertCount > 0) {
-				// TODO insert 성공 시 필요한 동작이 있을까?
+				// TODO add 성공 시 필요한 동작
 			} else {
-				// TODO insert 실패 시 
+				// TODO add 실패 시 
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return insertCount;
@@ -139,6 +154,7 @@ public class TodoDao {
 	 * Todo를 조회 후 type을 변경
 	 * ex) todo -> doing, doing -> done
 	 * @author yongjoon.Park
+	 * @param update될 todo의 현재 id와 type값
 	 */
 	public int updateTodo(int id, String type) {
 		int insertCount = 0;
@@ -151,10 +167,10 @@ public class TodoDao {
 
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-			if (type.equals("TODO")) {
-				type = "DOING";
-			} else if (type.equals("DOING")) {
-				type = "DONE";
+			if (Type.TODO.toString().equals(type)) {
+				type = Type.DOING.toString();
+			} else if (Type.DOING.toString().equals(type)) {
+				type = Type.DONE.toString();
 			} else {
 				// TODO : ERROR
 			}
@@ -165,14 +181,30 @@ public class TodoDao {
 			insertCount = preparedStatement.executeUpdate();
 
 			if (insertCount > 0) {
-				// TODO insert 성공 시 필요한 동작이 있을까?
+				// TODO update 성공 시 필요한 동작
 			} else {
-				// TODO insert 실패 시 
+				// TODO update 실패 시 
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (preparedStatement != null) {
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return insertCount;
