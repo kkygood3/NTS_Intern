@@ -60,10 +60,10 @@ public class TodoTypeServlet extends HttpServlet {
 			todoDao.updateTodo(targetTodoDto);
 			out.append("Success");
 
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
-			out.append("서버 갱신 오류.");
+			out.append("서버 내부 에러 발생");
 		}
 		out.close();
 	}

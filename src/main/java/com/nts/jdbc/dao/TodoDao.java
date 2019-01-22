@@ -39,7 +39,7 @@ public class TodoDao {
 		return instance;
 	}
 
-	public void connectDatabase() {
+	public void connectDatabase() throws SQLException, ClassNotFoundException {
 
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("db.properties");
 		Properties dbProperties = new Properties();
@@ -52,16 +52,8 @@ public class TodoDao {
 		String dbUsername = dbProperties.getProperty("db.username");
 		String dbPassword = dbProperties.getProperty("db.password");
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			dbConnection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		dbConnection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
 	}
 
 	public void disconnectDatabase() {
@@ -72,7 +64,7 @@ public class TodoDao {
 		}
 	}
 
-	public int addTodo(TodoDto todoDto) throws SQLException {
+	public int addTodo(TodoDto todoDto) throws SQLException, ClassNotFoundException {
 
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
@@ -89,7 +81,7 @@ public class TodoDao {
 		return result;
 	}
 
-	public List<TodoDto> getTodos() throws SQLException {
+	public List<TodoDto> getTodos() throws SQLException, ClassNotFoundException {
 
 		List<TodoDto> result = new ArrayList<>();
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
@@ -121,7 +113,7 @@ public class TodoDao {
 		return result;
 	}
 
-	public int updateTodo(TodoDto todoDto) throws SQLException {
+	public int updateTodo(TodoDto todoDto) throws SQLException, ClassNotFoundException {
 
 		String sql = "update todo set type = ? where id = ?;";
 		PreparedStatement preparedStatement = null;

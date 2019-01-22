@@ -37,7 +37,7 @@ public class MainServlet extends HttpServlet {
 		try {
 			list = todoDao.getTodos();
 
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}

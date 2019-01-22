@@ -43,7 +43,7 @@ public class TodoAddServlet extends HttpServlet {
 		try {
 			todoDao.addTodo(newTodoDto);
 			response.sendRedirect("./main");
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
