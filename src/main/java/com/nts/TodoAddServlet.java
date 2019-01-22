@@ -24,8 +24,6 @@ import com.nts.jdbc.dto.TodoDto;
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public TodoAddServlet() {}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

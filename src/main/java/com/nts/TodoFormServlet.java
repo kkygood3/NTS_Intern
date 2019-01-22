@@ -21,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 public class TodoFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public TodoFormServlet() {}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/todoForm.jsp");
