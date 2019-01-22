@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.type.TodoType;
 
 public class TodoService {
 
@@ -21,8 +22,8 @@ public class TodoService {
 	 * @param type
 	 * @throws SQLException
 	 */
-	public int updateTodo(long id, String type) throws SQLException {
-		return new TodoDao().updateTodo(id, type);
+	public int updateTodo(TodoDto todoDto) throws SQLException {
+		return new TodoDao().updateTodo(todoDto);
 	}
 
 	/**
@@ -42,11 +43,11 @@ public class TodoService {
 		for (TodoDto todoDto : list) {
 			String type = todoDto.getType();
 
-			if (type.equals("TODO")) {
+			if (TodoType.TODO.equals(type)) {
 				todoList.add(todoDto);
-			} else if (type.equals("DOING")) {
+			} else if (TodoType.DOING.equals(type)) {
 				doingList.add(todoDto);
-			} else if (type.equals("DONE")) {
+			} else if (TodoType.DONE.equals(type)) {
 				doneList.add(todoDto);
 			}
 		}

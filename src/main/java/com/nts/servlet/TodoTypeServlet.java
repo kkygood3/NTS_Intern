@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.dto.TodoDto;
 import com.nts.service.TodoService;
 
 @WebServlet("/changeTodoType")
@@ -30,14 +31,19 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
+		long id = Long.parseLong(request.getParameter("id"));
 		String type = request.getParameter("type");
 
 		PrintWriter out = response.getWriter();
 
 		try {
 			TodoService todoService = new TodoService();
-			todoService.updateTodo(id, type);
+			
+			TodoDto todoDto = new TodoDto();
+			todoDto.setId(id);
+			todoDto.setType(type);
+			
+			todoService.updateTodo(todoDto);
 			
 			out.write("success");
 		} catch (SQLException e) {

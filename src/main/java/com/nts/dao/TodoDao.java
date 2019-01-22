@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.dto.TodoDto;
+import com.nts.type.TodoType;
 import com.nts.util.DBUtil;
 
 /**
@@ -67,20 +68,20 @@ public class TodoDao {
 	 * @return result
 	 * @throws SQLException 
 	 */
-	public int updateTodo(long id, String type) throws SQLException {
+	public int updateTodo(TodoDto todoDto) throws SQLException {
 
 		String sql = "UPDATE todo SET TYPE = ? WHERE id = ?;";
 
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
 
-			if (type.equals("TODO"))
-				type = "DOING";
-			else if (type.equals("DOING"))
-				type = "DONE";
+			if (TodoType.TODO.equals(todoDto.getType()))
+				todoDto.setType(TodoType.DOING);
+			else if (TodoType.DOING.equals(todoDto.getType()))
+				todoDto.setType(TodoType.DONE);
 			
-			preparedStatment.setString(1, type);
-			preparedStatment.setLong(2, id);
+			preparedStatment.setString(1, todoDto.getType());
+			preparedStatment.setLong(2, todoDto.getId());
 
 			return preparedStatment.executeUpdate();
 		}

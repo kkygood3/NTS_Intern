@@ -33,7 +33,8 @@ public class DBUtil {
 			Context envContext = (Context) context.lookup("java:comp/env");
 			dataSource = (DataSource) envContext.lookup("jdbc/mysql/todo_db");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
+			
+			// 여기 처리를 어떻게 하는게 좋을지 잘모르겠습니다.
 			e.printStackTrace();
 		}
 		

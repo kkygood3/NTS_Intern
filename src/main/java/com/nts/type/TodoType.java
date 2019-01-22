@@ -1,7 +1,6 @@
 package com.nts.type;
 
 /**
- * @desc TodoType에 대한 내용
  * @author 전연빈
  */
 public class TodoType {

@@ -36,6 +36,7 @@ public class MainServlet extends HttpServlet {
 
 		try {
 			TodoService todoService = new TodoService();
+			
 			// keys : todoList, doingList, doneList
 			Map<String, List<TodoDto>> result = todoService.getTodos();
 			request.setAttribute("result", result);
