@@ -52,11 +52,12 @@ section {
 	height: 30px;
 	padding-top: 5px;
 	float: right;
+	margin-right: 2.5%;	
 }
 
 .art_container>article {
 	display: inline-block;
-	width: 30%;
+	width: 32%;
 	float: left;
 	margin-left: 5px;
 }
