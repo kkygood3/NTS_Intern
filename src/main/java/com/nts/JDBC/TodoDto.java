@@ -1,4 +1,4 @@
-package com.nts;
+package com.nts.JDBC;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -19,7 +19,7 @@ public class TodoDto {
 	private String regdate;
 	private String type;
 
-	public TodoDto(long id, String title, String name, int sequence, String regdate, String type) {
+	public TodoDto(Long id, String title, String name, int sequence, String regdate, String type) {
 		this.id = id;
 		this.title = title;
 		this.name = name;

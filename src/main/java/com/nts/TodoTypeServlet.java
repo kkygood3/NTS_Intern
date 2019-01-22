@@ -10,6 +10,9 @@ package com.nts;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nts.JDBC.TodoDao;
+import com.nts.JDBC.TodoDto;
 
 /**
  * TodoTypeServlet implementation
@@ -35,9 +40,6 @@ public class TodoTypeServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
-
 		String temp = null;
 		String todo_info = "";
 
@@ -49,15 +51,17 @@ public class TodoTypeServlet extends HttpServlet {
 			}
 			br.close();
 
-			//parsing data and mapping through jackson-bind to DTO
-			TodoDto todo = new ObjectMapper().readValue(todo_info, TodoDto.class);
+			//parsing data and mapping through jackson-bind to Map
+			Map<String, String> myMap = new HashMap<String, String>();
+			myMap = new ObjectMapper().readValue(todo_info, HashMap.class);
+			TodoDto todo = new TodoDto(Long.valueOf(myMap.get("id")), null, null, 0, null, myMap.get("type"));
 
 			if (new TodoDao().updateTodo(todo) == 0) {
-				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				throw new SQLException();
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}
 	}
 }

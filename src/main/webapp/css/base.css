@@ -143,4 +143,5 @@ input[type=reset] {
 
 .content_move_button {
 	margin: 0 auto;
+	float: right;
 }

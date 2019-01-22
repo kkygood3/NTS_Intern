@@ -1,12 +1,5 @@
 package com.nts;
 
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.nts.JDBC.TodoDao;
+import com.nts.JDBC.TodoDto;
 
 /**
  * MainServlet implementation
@@ -32,32 +28,34 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
+
+		List<TodoDto> todoList = new ArrayList<>();
+		List<TodoDto> doingList = new ArrayList<>();
+		List<TodoDto> doneList = new ArrayList<>();
+
+		List<TodoDto> todoListAll = null;
 
 		try {
-			List<TodoDto> list_all = new TodoDao().getTodos();
-			List<TodoDto> todoList = new ArrayList<>();
-			List<TodoDto> doingList = new ArrayList<>();
-			List<TodoDto> doneList = new ArrayList<>();
-
-			for (TodoDto item : list_all) {
-				if (todo.equals(item.getType())) {
-					todoList.add(item);
-				} else if (doing.equals(item.getType())) {
-					doingList.add(item);
-				} else if (done.equals(item.getType())) {
-					doneList.add(item);
-				}
-			}
-
-			request.setAttribute("todoList", todoList);
-			request.setAttribute("doingList", doingList);
-			request.setAttribute("doneList", doneList);
-
-			request.getRequestDispatcher("/main.jsp").forward(request, response);
+			todoListAll = new TodoDao().getTodos();
 		} catch (Exception e) {
-			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+
+		for (TodoDto item : todoListAll) {
+			if (todo.toString().equals(item.getType())) {
+				todoList.add(item);
+			} else if (doing.toString().equals(item.getType())) {
+				doingList.add(item);
+			} else if (done.toString().equals(item.getType())) {
+				doneList.add(item);
+			}
+		}
+
+		request.setAttribute("todoList", todoList);
+		request.setAttribute("doingList", doingList);
+		request.setAttribute("doneList", doneList);
+
+		request.getRequestDispatcher("/main.jsp").forward(request, response);
 
 	}
 }
