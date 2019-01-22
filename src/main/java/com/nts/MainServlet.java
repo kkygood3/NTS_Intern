@@ -37,7 +37,7 @@ public class MainServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendError(response.SC_BAD_REQUEST, e.getMessage());
+			response.sendError(response.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
 		List<Todo> todoList = new ArrayList();
