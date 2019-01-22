@@ -24,26 +24,10 @@ public class TodoDao {
 	private String connectionPassword = "user8";
 
 	public int addTodo(TodoDto todo) {
-		int insertCount = 0;
-
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
 		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
-		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+		Object[] params = {todo.getTitle(), todo.getName(), todo.getSequence()};
 
-			preparedStatement.setString(1, todo.getTitle());
-			preparedStatement.setString(2, todo.getName());
-			preparedStatement.setInt(3, todo.getSequence());
-
-			insertCount = preparedStatement.executeUpdate();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		int insertCount = excuteQuery(sql, params);
 
 		return insertCount;
 	}
@@ -79,7 +63,16 @@ public class TodoDao {
 	}
 
 	public int updateTodo(TodoDto todo) {
-		int updateCount = 0;
+		String sql = "update todo set type = ? where id = ?";
+		Object[] params = {todo.getType(), todo.getId()};
+
+		int updateCount = excuteQuery(sql, params);
+
+		return updateCount;
+	}
+
+	public int excuteQuery(String sql, Object[] params) {
+		int resultCount = 0;
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -87,18 +80,18 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "update todo set type = ? where id = ?";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-			preparedStatement.setString(1, todo.getType());
-			preparedStatement.setLong(2, todo.getId());
+			for (int i = 0; i < params.length; i++) {
+				preparedStatement.setObject(i + 1, params[i]);
+			}
 
-			updateCount = preparedStatement.executeUpdate();
+			resultCount = preparedStatement.executeUpdate();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return updateCount;
+		return resultCount;
 	}
 }
