@@ -16,13 +16,11 @@ public class MysqlConnectionFactory {
 		String password = "user!@10";
 		Connection connection = null;
 		try {
-			Class.forName("org.gjt.mm.mysql.Driver");
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class Load error"); // log 파일에 남기도록 변경해야함.
 		}
 		return connection;
 	}
+
 }
