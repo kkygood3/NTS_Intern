@@ -5,6 +5,9 @@
 
 package com.nts.jdbc.dto;
 
+/**
+ * @author 육성렬
+ */
 public class TodoDto {
 	private int id;
 	private String title;

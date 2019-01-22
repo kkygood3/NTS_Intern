@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TodoFormServlet
+ * @author 육성렬
  */
 @WebServlet("/todoform")
 public class TodoFormServlet extends HttpServlet {

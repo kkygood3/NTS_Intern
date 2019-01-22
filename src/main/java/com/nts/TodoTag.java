@@ -5,6 +5,9 @@
 
 package com.nts;
 
+/**
+ * @author 육성렬
+ */
 public enum TodoTag {
 	TODO("TODO"),
 	DOING("DOING"),

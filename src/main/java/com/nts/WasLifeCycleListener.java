@@ -1,3 +1,10 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package com.nts;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -5,10 +12,8 @@ import javax.servlet.annotation.WebListener;
 import com.nts.jdbc.dao.TodoDao;
 
 /**
- * Copyright 2019 Naver Corp. All rights Reserved.
- * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * @author 육성렬
  */
-
 @WebListener
 public class WasLifeCycleListener implements ServletContextListener {
 

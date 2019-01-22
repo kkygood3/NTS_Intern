@@ -18,7 +18,7 @@ import com.nts.jdbc.dao.TodoDao;
 import com.nts.jdbc.dto.TodoDto;
 
 /**
- * Servlet implementation class TodoAddServlet
+ * @author 육성렬
  */
 @WebServlet("/addtodo")
 public class TodoAddServlet extends HttpServlet {

@@ -19,7 +19,7 @@ import com.nts.jdbc.dao.TodoDao;
 import com.nts.jdbc.dto.TodoDto;
 
 /**
- * Servlet implementation class TodoTypeServlet
+ * @author 육성렬
  */
 @WebServlet("/todo-type")
 public class TodoTypeServlet extends HttpServlet {

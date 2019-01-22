@@ -21,6 +21,9 @@ import java.util.Properties;
 
 import com.nts.jdbc.dto.TodoDto;
 
+/**
+ * @author 육성렬
+ */
 public class TodoDao {
 	private Connection dbConnection = null;
 	DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
