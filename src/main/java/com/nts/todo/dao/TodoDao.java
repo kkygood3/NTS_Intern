@@ -54,20 +54,17 @@ public class TodoDao {
 
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
-			PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-			try (ResultSet resultsSet = preparedStatement.executeQuery()) {
-				while (resultsSet.next()) {
-					Long id = resultsSet.getLong("id");
-					String title = resultsSet.getString("title");
-					String name = resultsSet.getString("name");
-					int sequence = resultsSet.getInt("sequence");
-					String type = resultsSet.getString("type");
-					String regdate = resultsSet.getString("regdate");
-					TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
-					todos.add(todo);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			ResultSet resultsSet = preparedStatement.executeQuery()) {
+			while (resultsSet.next()) {
+				Long id = resultsSet.getLong("id");
+				String title = resultsSet.getString("title");
+				String name = resultsSet.getString("name");
+				int sequence = resultsSet.getInt("sequence");
+				String type = resultsSet.getString("type");
+				String regdate = resultsSet.getString("regdate");
+				TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
+				todos.add(todo);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
