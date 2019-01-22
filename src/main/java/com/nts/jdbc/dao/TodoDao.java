@@ -25,6 +25,8 @@ public class TodoDao {
 	private Connection dbConnection = null;
 	DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
+	private static TodoDao instance;
+
 	public TodoDao() {
 
 		init();
@@ -33,6 +35,13 @@ public class TodoDao {
 	private void init() {
 
 		connectDatabase();
+	}
+
+	public static synchronized TodoDao getInstance() {
+		if (instance == null) {
+			instance = new TodoDao();
+		}
+		return instance;
 	}
 
 	private void connectDatabase() {
@@ -63,6 +72,9 @@ public class TodoDao {
 
 	public void disconnectDatabase() {
 		try {
+			if (dbConnection == null || dbConnection.isClosed()) {
+				return;
+			}
 			dbConnection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

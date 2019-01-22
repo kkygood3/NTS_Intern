@@ -2,7 +2,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.nts.TodoDaoProvider;
 import com.nts.jdbc.dao.TodoDao;
 
 /**
@@ -16,7 +15,7 @@ public class WasLifeCycleListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {}
 
 	public void contextDestroyed(ServletContextEvent event) {
-		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		TodoDao todoDao = TodoDao.getInstance();
 		todoDao.disconnectDatabase();
 	}
 }

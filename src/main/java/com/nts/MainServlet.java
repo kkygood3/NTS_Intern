@@ -29,7 +29,7 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		TodoDao todoDao = TodoDao.getInstance();
 		List<TodoDto> list = null;
 
 		try {

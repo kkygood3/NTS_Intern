@@ -39,7 +39,7 @@ public class TodoAddServlet extends HttpServlet {
 			return;
 		}
 
-		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		TodoDao todoDao = TodoDao.getInstance();
 		TodoDto newTodoDto = new TodoDto(title, name, sequence);
 		try {
 			todoDao.addTodo(newTodoDto);

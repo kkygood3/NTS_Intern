@@ -51,7 +51,7 @@ public class TodoTypeServlet extends HttpServlet {
 		}
 
 		TodoDto targetTodoDto = new TodoDto(id, nextType);
-		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		TodoDao todoDao = TodoDao.getInstance();
 		try {
 			todoDao.updateTodo(targetTodoDto);
 			out.append("Success");
