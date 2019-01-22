@@ -17,10 +17,12 @@ function removeTodoCell(id, type) {
     }
 }
 function getNextType(currentType) {
-    if(currentType == "TODO"){
-        return "DOING"
-    }else if(currentType == "DOING"){
-        return "DONE"
+    if (currentType == "TODO") {
+        return "DOING";
+    } else if(currentType == "DOING") {
+        return "DONE";
+    }else {
+    	return "DONE";
     }
 }
 function moveTodoCell(id, type, title, content) {
