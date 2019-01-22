@@ -5,7 +5,6 @@
 package com.nts.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,31 +13,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.nts.factory.MysqlConnectionFactory;
 import com.nts.model.Todo;
 
 public class TodoDao {
-
-	Connection connection;
-
-	public TodoDao() {
-		String url = "jdbc:mysql://localhost:3306/todo";
-		String user = "root";
-		String password = "root!@#123"; // TODO db 사용자 생성해서 하기
-
-		try {
-			Class.forName("org.gjt.mm.mysql.Driver");
-			connection = DriverManager.getConnection(url, user, password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public Map<String, List<Todo>> getTodos() {
 		Map<String, List<Todo>> todos = null;
 		String query = "select * from todo order by regdate desc";
 		try (
+			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();) {
 
@@ -53,6 +37,7 @@ public class TodoDao {
 	public void addTodo(Todo todo) {
 		String query = "insert into todo(title, name, sequence) values(?, ?, ?)";
 		try (
+			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query);) {
 
 			statement.setString(1, todo.getTitle());
@@ -68,6 +53,7 @@ public class TodoDao {
 	public void updateTodo(Todo todo) {
 		String query = "update todo set type=? where id=?";
 		try (
+			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query);) {
 
 			statement.setString(1, todo.getType());
@@ -79,6 +65,9 @@ public class TodoDao {
 		}
 	}
 
+	/**
+	 * ResultSet -> Map 오브젝트로 변환 하는 메서드
+	 */
 	private Map<String, List<Todo>> resultSetToMap(ResultSet resultSet)
 		throws SQLException {
 		Map<String, List<Todo>> todos = new HashMap<>();
