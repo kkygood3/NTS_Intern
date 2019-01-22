@@ -6,12 +6,12 @@ package com.nts.model;
 
 public class Todo {
 
-	long id;
-	String name;
-	String regdate;
-	int sequence;
-	String title;
-	String type;
+	private long id;
+	private String name;
+	private String regdate;
+	private int sequence;
+	private String title;
+	private String type;
 
 	@Override
 	public String toString() {
