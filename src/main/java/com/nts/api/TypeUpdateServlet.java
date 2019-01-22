@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.api;
 
 import java.io.IOException;
@@ -11,7 +15,8 @@ import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
 /**
- * Servlet implementation class TypeUpdateServlet
+ * 메인페이지에서 화살표를 눌렀을 때 비동기로 DB갱신을 위해 호출하는 서블렛
+ * @author 박우성
  */
 @WebServlet("/update/*")
 public class TypeUpdateServlet extends HttpServlet {

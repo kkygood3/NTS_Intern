@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>JS Bin</title>
+<title>할일 등록</title>
 <link rel="stylesheet" type="text/css" href="css/todo_register.css">
 </head>
 <body>
