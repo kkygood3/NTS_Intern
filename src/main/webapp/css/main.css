@@ -30,6 +30,7 @@
 
 #list_board > .container {
 	margin: 1px;
+	margin-bottom: 30px;
 	width: 290px;
 	display: inline-block;
 	text-align: left;
