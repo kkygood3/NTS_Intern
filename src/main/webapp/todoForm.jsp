@@ -18,11 +18,11 @@
 				<input type="text" id="todo_name_input" name="todo_name" placeholder="홍길동" required>
 				<label>우선순위를 선택하세요.</label>
 				<div class="radio_group">
-					<input type="radio" id="todo_sequence_first" name="todo_sequence" value=1 checked>
+					<input type="radio" id="todo_sequence_first" name="todo_sequence" value="1" checked>
 					<label for="todo_sequence_first">1순위</label>
-					<input type="radio" id="todo_sequence_second" name="todo_sequence" value=2>
+					<input type="radio" id="todo_sequence_second" name="todo_sequence" value="2">
 					<label for="todo_sequence_second">2순위</label>
-					<input type="radio" id="todo_sequence_third" name="todo_sequence" value=3>
+					<input type="radio" id="todo_sequence_third" name="todo_sequence" value="3">
 					<label for="todo_sequence_third">3순위</label>
 				</div>
 				<a class="back_btn" href="./main">&lt; 이전</a>
