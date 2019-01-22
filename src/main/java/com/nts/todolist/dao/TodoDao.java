@@ -27,7 +27,7 @@ public class TodoDao {
 	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final SimpleDateFormat SIMEPLE_DATA_FORMAT = new SimpleDateFormat("yyyy. MM. dd. ");
-	
+
 	// TODO todo, doing, done -> ENUM?
 
 	/**
@@ -36,13 +36,13 @@ public class TodoDao {
 	 */
 	public int addTodo(TodoDto todoDto) {
 		int insertCount = 0;
-		
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
 			Class.forName(DB_DRIVER);
-			
+
 			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
 			String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
@@ -50,12 +50,12 @@ public class TodoDao {
 			preparedStatement.setString(1, todoDto.getTitle());
 			preparedStatement.setString(2, todoDto.getName());
 			preparedStatement.setInt(3, todoDto.getSequence());
-			
+
 			insertCount = preparedStatement.executeUpdate();
-			
-			if(insertCount > 0) {
+
+			if (insertCount > 0) {
 				// TODO insert 성공 시 필요한 동작이 있을까?
-			}else {
+			} else {
 				// TODO insert 실패 시 
 			}
 		} catch (ClassNotFoundException e) {
@@ -63,7 +63,7 @@ public class TodoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return insertCount;
 	}
 
@@ -136,12 +136,45 @@ public class TodoDao {
 	}
 
 	/**
-	 * Todo의 type을 변경
+	 * Todo를 조회 후 type을 변경
 	 * ex) todo -> doing, doing -> done
 	 * @author yongjoon.Park
 	 */
-	public int updateTodo(int id) {
+	public int updateTodo(int id, String type) {
+		int insertCount = 0;
 
-		return 0;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			Class.forName(DB_DRIVER);
+
+			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+			if (type.equals("TODO")) {
+				type = "DOING";
+			} else if (type.equals("DOING")) {
+				type = "DONE";
+			} else {
+				// TODO : ERROR
+			}
+			String sql = "UPDATE todo SET TYPE = '" + type + "' WHERE id = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+
+			insertCount = preparedStatement.executeUpdate();
+
+			if (insertCount > 0) {
+				// TODO insert 성공 시 필요한 동작이 있을까?
+			} else {
+				// TODO insert 실패 시 
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return insertCount;
 	}
 }

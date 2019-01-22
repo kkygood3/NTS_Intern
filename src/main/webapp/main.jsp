@@ -26,7 +26,11 @@
 					<article class="card">
 						<h3>${ todoList.title }</h3>
 						등록날짜: ${ todoList.regdate }, ${ todoList.name }, ${ todoList.sequence }
-						<button>→</button>
+						<form class="type_change_button" method="POST" action="/changeType" >
+							<input type="hidden" name ="id" value="${ todoList.id }">
+							<input type="hidden" name ="type" value="${ todoList.type }">
+							<input type="submit" value="→">
+						</form>
 					</article>
 				</c:forEach>
 				
@@ -40,7 +44,11 @@
 					<article class="card">
 						<h3>${ doingList.title }</h3>
 						등록날짜: ${ doingList.regdate }, ${ doingList.name }, ${ doingList.sequence }
-						<button>→</button>
+						<form method="POST" action="/changeType" class="type_change_button">
+							<input type="hidden" name ="id" value="${ doingList.id }">
+							<input type="hidden" name ="type" value="${ doingList.type }">
+							<input type="submit" value="→">
+						</form>
 					</article>
 				</c:forEach>
 			</aside>
@@ -52,7 +60,6 @@
 					<article class="card">
 						<h3>${ doneList.title }</h3>
 						등록날짜: ${ doneList.regdate }, ${ doneList.name }, ${ doneList.sequence }
-						<button>→</button>
 					</article>
 				</c:forEach>
 			</aside>

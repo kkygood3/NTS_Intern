@@ -33,7 +33,7 @@ a:link {
 	width: 55%;
 	margin: auto;
 	background: white;
-	padding: 50px 100px; 
+	padding: 50px 100px;
 }
 
 .content_main {
@@ -66,12 +66,17 @@ a:link {
 	margin: 0 0 5px 0;
 }
 
+.type_change_button {
+	float: right;
+	display: inline-block;
+}
+
 /* register.jsp */
 .register_content {
 	width: 30%;
 	margin: auto;
 	background: white;
-	padding: 50px 100px; 
+	padding: 50px 100px;
 }
 
 .register_button {
