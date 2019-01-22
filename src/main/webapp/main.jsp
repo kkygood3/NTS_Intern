@@ -9,6 +9,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,11 +27,12 @@
 	<br>
 	<section class="art_container">
 		<%!
-			final String[] todoLabel = {"Todo", "Doing", "Done"};
+			final String[] todoLabel = {"TODO", "DOING", "DONE"};
 		%>
 		
 		<%
 			ArrayList<TodoDto>[] todoSeqence = new ArrayList[todoLabel.length];
+			request.setAttribute("todoLabel",todoLabel);
 			for (int i = 0; i < todoSeqence.length; i++)
 				todoSeqence[i] = new ArrayList<TodoDto>();
 
@@ -40,32 +43,32 @@
 
 			List<TodoDto> jsonItems = mapper.readValue(jsonText,
 					mapper.getTypeFactory().constructCollectionType(List.class, TodoDto.class));
-
-			for (int labelIdx = 0; labelIdx < todoLabel.length; labelIdx++) {
-				out.print("<article class='art_" + todoLabel[labelIdx] + "'><div class='div_title'>"
-						+ todoLabel[labelIdx] + "</div>");
-				
-				for (TodoDto target : jsonItems) {
-					if (target.getType().equalsIgnoreCase(todoLabel[labelIdx])) {
-						String description = "등록날짜:" + target.getRegdate().split(" ")[0].replace('-', '/') + ". " + target.getName() + ". " + "우선순위 " + target.getSequence();
-						out.print("<p>");
-						out.print("<span class='do_name'>");
-						out.print(target.getTitle());
-						out.print("</span><br>");
-						out.print("<span class='do_description'>");
-						out.print(description);
-						out.print("</span>");
-
-						//버튼
-						if (labelIdx != todoLabel.length - 1)
-							out.print("<button>→</button>");
-						
-						out.print("</p>");
-					}
-				}
-				out.print("</article>");
-			}
+			
+			request.setAttribute("jsonItmes", jsonItems);
+			
 		%>
+		<c:set var="length" scope="request" value="2"/>
+		
+		<c:forEach var="labelIdx" begin="0" end="${length}">
+			<c:set var="curLabel" value="${todoLabel[labelIdx]}"/>
+			<article class='art_${curLabel }'>
+			<div class='div_title'>${curLabel}</div>
+			<c:forEach var="target" items="${jsonItmes }">
+				<c:if test="${target.type == curLabel}">
+					<p>
+						<span class='do_name'>${target.title}</span><br>
+						<span class='do_description'>
+							등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+						</span>
+						<c:if test="${labelIdx != length}">
+							<button>→</button>
+						</c:if>
+					</p>
+				</c:if>
+			</c:forEach>
+			</article>
+			<h1></h1>
+		</c:forEach>
 	</section>
 </body>
 
@@ -74,8 +77,8 @@
 		var type = event.target.parentElement.parentElement
 				.getElementsByTagName('div')[0].innerText;
 
-		if (type === 'Todo') {
-			var artDoing = document.getElementsByClassName('art_Doing')[0];
+		if (type === 'TODO') {
+			var artDoing = document.getElementsByClassName('art_DOING')[0];
 			var clickedTag = event.target.parentElement;
 			artDoing.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
 			clickedTag.remove();
@@ -85,12 +88,12 @@
 			for (var i = 0; i < btns.length; i++)
 				btns[i].addEventListener('click', clickEvent);
 		} else {
-			var artDone = document.getElementsByClassName('art_Done')[0];
+			var artDone = document.getElementsByClassName('art_DONE')[0];
 			var clickedTag = event.target.parentElement;
 			artDone.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
 			clickedTag.remove();
 
-			var pTags = document.getElementsByClassName("art_Done")[0]
+			var pTags = document.getElementsByClassName("art_DONE")[0]
 					.getElementsByTagName("p");
 			pTags[pTags.length - 1].getElementsByTagName('button')[0]
 					.remove();

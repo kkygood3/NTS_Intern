@@ -90,6 +90,8 @@ public class TodoDao {
 				String type = rs.getString(5);
 				String regdate = rs.getString(6);
 				
+				regdate = regdate.split(" ")[0].replace('-', '.');
+				
 				roles.add(new TodoDto(id,title,name,sequence,type,regdate));
 			}
 		} catch (Exception e) {
