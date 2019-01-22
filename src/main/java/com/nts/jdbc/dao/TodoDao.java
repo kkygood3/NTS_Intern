@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import com.nts.TodoTag;
 import com.nts.jdbc.dto.Todo;
 
 public class TodoDao {
@@ -104,16 +103,6 @@ public class TodoDao {
 
 	public void updateTodo(int id, String type) throws SQLException {
 
-		String nextType = "";
-
-		if (type.equals(TodoTag.TODO.getTodoTag())) {
-			nextType = TodoTag.DOING.getTodoTag();
-		} else if (type.equals(TodoTag.DOING.getTodoTag())) {
-			nextType = TodoTag.DONE.getTodoTag();
-		} else {
-			return;
-		}
-
 		String sql = "update todo set type = ? where id = ? and type = ?;";
 		PreparedStatement preparedStatement = null;
 
@@ -122,7 +111,7 @@ public class TodoDao {
 		}
 
 		preparedStatement = dbConnection.prepareStatement(sql);
-		preparedStatement.setString(1, nextType);
+		preparedStatement.setString(1, type);
 		preparedStatement.setInt(2, id);
 		preparedStatement.setString(3, type);
 

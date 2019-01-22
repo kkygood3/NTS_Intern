@@ -42,9 +42,16 @@ public class TodoTypeServlet extends HttpServlet {
 			return;
 		}
 
+		String nextType = "";
+		if (type.equals(TodoTag.TODO.getTodoTag())) {
+			nextType = TodoTag.DOING.getTodoTag();
+		} else if (type.equals(TodoTag.DOING.getTodoTag())) {
+			nextType = TodoTag.DONE.getTodoTag();
+		}
+
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
 		try {
-			todoDao.updateTodo(id, type);
+			todoDao.updateTodo(id, nextType);
 			out.append("Success");
 
 		} catch (SQLException e) {
