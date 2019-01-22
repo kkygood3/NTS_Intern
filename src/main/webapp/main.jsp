@@ -13,7 +13,7 @@
 <body>
 	<div class="content">
 		<div id="header">나의 해야할 일들</div>
-		<button class="button_todo">새로운 TODO 등록</button>
+		<button class="button_todo" onclick="location.href='./newTodo'">새로운 TODO 등록</button>
 		<div id="list_board">
 			<div class="container">
 				<span class="title">TODO</span>

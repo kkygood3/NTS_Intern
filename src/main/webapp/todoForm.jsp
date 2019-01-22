@@ -12,7 +12,7 @@
 <body>
 	<div class="content">
 		<div id="header">할일 등록</div>
-		<form>
+		<form action="./newTodo" method="post">
 			<label>어떤일인가요?</label><br>
 			<input type="text" name="title" maxlength="24"
 				placeholder="swift 공부하기(24자까지)"/><br>
@@ -23,8 +23,8 @@
 			<input type="radio" name="sequence" value=1> 1순위  　
 			<input type="radio" name="sequence" value=2> 2순위  　
 			<input type="radio" name="sequence" value=3> 3순위<br>
-			<button name="back">&lt 이전</button>
-			<button>내용지우기</button>
+			<button name="back" onClick="history.back(); return false;">&lt 이전</button>
+			<button type="reset">내용지우기</button>
 			<button type="submit">제출</button>
 		</form>
 	</div>
