@@ -15,6 +15,8 @@ function requestNextType(node) {
             updateTodoCell(node);
         }else if(this.status == 400){
             alert(this.responseText);
+        }else if(this.status == 500){
+        	alert(this.responseText);
         }
     });
     var data = "id=" + encodeURIComponent(id) + "&type=" + encodeURIComponent(type);
