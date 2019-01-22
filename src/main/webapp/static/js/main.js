@@ -66,7 +66,7 @@ function nextBtnEvent() {
 			var type = li.parentNode.id.toUpperCase(); // TODO , DOING , DONE
 			var id = li.getAttribute('data-id');
 
-			var changingElement = {
+			var changingElement = {	
 				id : id,
 				type : type,
 				li : li,
@@ -77,4 +77,6 @@ function nextBtnEvent() {
 	});
 }
 
-nextBtnEvent();
+document.addEventListener("DOMContentLoaded", function(){
+	nextBtnEvent();
+});
