@@ -20,7 +20,7 @@ body {
 section {
 	display: inline-block;
 	text-align: left;
-	width: 50%;
+	width: 60%;
 }
 
 button {
@@ -41,4 +41,17 @@ button {
 	margin-left: 10px;
 	color: white;
 	background: #22aded;
+}
+
+.whatdo_area, .name_area {
+    font-size: 1.2em;
+}
+
+.whatdo_area {
+    width: 98%;
+}
+
+input {
+    padding: 5px;
+    margin-top: 8px;
 }
