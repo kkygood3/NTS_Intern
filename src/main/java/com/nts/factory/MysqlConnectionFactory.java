@@ -9,11 +9,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MysqlConnectionFactory {
+	private static final String url = "jdbc:mysql://10.113.116.52:13306/user10";
+	private static final String user = "user10";
+	private static final String password = "user!@10";
 
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://10.113.116.52:13306/user10";
-		String user = "user10";
-		String password = "user!@10";
+
 		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection(url, user, password);
