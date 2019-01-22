@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.weblistener;
+package com.nts.contextlistener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebListener;
  * tomcat 실행, 종료시 호출 
  */
 @WebListener
-public class InitializeListener implements ServletContextListener {
+public class DatabaseDriverListener implements ServletContextListener {
 
 	/* 
 	 * tomcat 실행시 jdbc Driver를 Memory에 load
