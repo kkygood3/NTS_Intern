@@ -42,9 +42,9 @@ public class TodoDao {
 				List<TodoDto> todoList = new ArrayList<>();
 
 				while (resultSet.next()) {
-					
+
 					TodoDto todoDto = new TodoDto();
-						
+
 					todoDto.setId(resultSet.getLong("id"));
 					todoDto.setName(resultSet.getString("name"));
 					todoDto.setRegdate(resultSet.getString("regdate"));
@@ -75,11 +75,12 @@ public class TodoDao {
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
 
-			if (TodoType.TODO.equals(todoDto.getType()))
-				todoDto.setType(TodoType.DOING);
-			else if (TodoType.DOING.equals(todoDto.getType()))
-				todoDto.setType(TodoType.DONE);
-			
+			if (TodoType.TODO.toString().equals(todoDto.getType())) {
+				todoDto.setType(TodoType.DOING.toString());
+			} else if (TodoType.DOING.toString().equals(todoDto.getType())) {
+				todoDto.setType(TodoType.DONE.toString());
+			}
+
 			preparedStatment.setString(1, todoDto.getType());
 			preparedStatment.setLong(2, todoDto.getId());
 

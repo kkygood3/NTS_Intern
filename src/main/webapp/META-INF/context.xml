@@ -31,8 +31,8 @@
 			  maxActive="100" 
 			  maxIdle="30"
 			  maxWait="10000" 
-			  username="root" 
+			  username="user11" 
 			  password="1234"
 			  driverClassName="com.mysql.jdbc.Driver"
-			  url="jdbc:mysql://localhost:3306/todo_db?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
+			  url="jdbc:mysql://10.113.116.52:13306/user11?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true" />
 </Context>
