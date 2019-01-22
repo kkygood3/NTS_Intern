@@ -12,7 +12,7 @@
 <body>
 	<h2>할일 등록</h2>
 	<section>
-		<form action="register_ok" method="post">
+		<form action="register" method="post">
 			어떤일인가요?
 			<br>
 			<input type="text" placeholder="swift 공부하기(24자까지)" maxlength=24 class="whatdo_area" name="whatdo"></input>
