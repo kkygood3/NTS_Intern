@@ -27,7 +27,7 @@ public class TodoDao {
 
 	private static TodoDao instance;
 
-	public TodoDao() {
+	private TodoDao() {
 
 		init();
 	}
