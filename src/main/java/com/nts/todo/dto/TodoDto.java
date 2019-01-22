@@ -4,6 +4,11 @@
  */
 package com.nts.todo.dto;
 
+/**
+* FileName : TodoDto.java
+* @author  : 이승수
+* @date    : 2019. 1. 22.
+*/
 public class TodoDto {
 	private Long id;
 	private String name;

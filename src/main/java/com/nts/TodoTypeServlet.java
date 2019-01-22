@@ -16,10 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.todo.dao.TodoDao;
 import com.nts.todo.dto.TodoDto;
 
+/**
+* FileName : TodoTypeServlet.java
+* @author  : 이승수
+* @date    : 2019. 1. 22.
+*/
 @WebServlet("/nextStep")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
@@ -34,6 +40,7 @@ public class TodoTypeServlet extends HttpServlet {
 			if (todo.getId() == id) {
 				todo.setType(currentType.next());
 				todoDao.updateTodo(todo);
+				break;
 			}
 		}
 		response.getWriter().write("success");

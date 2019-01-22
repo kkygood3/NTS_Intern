@@ -15,10 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.todo.dao.TodoDao;
 import com.nts.todo.dto.TodoDto;
 
+/**
+* FileName : TodoAddServlet.java
+* @author  : 이승수
+* @date    : 2019. 1. 22.
+*/
 @WebServlet("/todoAdd")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");

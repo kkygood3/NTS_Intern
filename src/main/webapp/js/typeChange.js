@@ -49,7 +49,7 @@ function updateType(todo) {
 		    	targetElement.appendChild(todo);
 		    	todo.dataset.todo_type = changedType;
 		    	
-		    	if(changed==="DONE"){
+		    	if(changedType==="DONE"){
 		    		todo.removeChild(todo.getElementsByClassName("go_next")[0]);
 		    	}
 		    }

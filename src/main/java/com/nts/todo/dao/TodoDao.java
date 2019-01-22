@@ -13,6 +13,11 @@ import java.util.List;
 
 import com.nts.todo.dto.TodoDto;
 
+/**
+* FileName : TodoDao.java
+* @author  : 이승수
+* @date    : 2019. 1. 22.
+*/
 public class TodoDao {
 	private String connectionUrl = "jdbc:mysql://localhost:3306/todo?serverTimezone=Asia/Seoul";
 	private String connectionUser = "root";

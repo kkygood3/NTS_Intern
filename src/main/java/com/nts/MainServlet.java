@@ -18,10 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.todo.dao.TodoDao;
 import com.nts.todo.dto.TodoDto;
 
+/**
+* FileName : MainServlet.java
+* @author  : 이승수
+* @date    : 2019. 1. 22.
+*/
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		TodoDao todoDao = new TodoDao();
