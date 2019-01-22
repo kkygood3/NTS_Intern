@@ -40,18 +40,20 @@ function updateType(todo) {
 	
 	httpRequest = getXMLHttpRequest();
 	
-	httpRequest.onreadystatechange = function() {  
-	    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-	    	todo.parentNode.removeChild(todo);
-
-	    	moveTodo(id, types[types.indexOf(type)+1], title, regdate, name, sequence);
-	    }
-	}
+	if(httpRequest!=null){
+		httpRequest.onreadystatechange = function() {  
+		    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+		    	todo.parentNode.removeChild(todo);
 	
-	httpRequest.open("POST","nextStep",true);
-	httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	data = "id=" + id + "&type=" + type;
-	httpRequest.send(data);
+		    	moveTodo(id, types[types.indexOf(type)+1], title, regdate, name, sequence);
+		    }
+		}
+		
+		httpRequest.open("POST","nextStep",true);
+		httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		data = "id=" + id + "&type=" + type;
+		httpRequest.send(data);
+	}
 }
 
 function moveTodo(id, type, title, regdate, name, sequence){
