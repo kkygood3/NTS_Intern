@@ -44,9 +44,9 @@ public class TodoAddServlet extends HttpServlet {
 		String title = (String)req.getParameter("title");
 		String name = (String)req.getParameter("name");
 		String sequence = (String)req.getParameter("sequence");
-		
+
 		// TODO: null입력 에외처리 구현
-		if (title.isEmpty()  || name.isEmpty() || sequence == null) {
+		if (title.isEmpty() || name.isEmpty() || sequence == null) {
 			throw new NullPointerException();
 		}
 
