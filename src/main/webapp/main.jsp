@@ -26,7 +26,7 @@
 							등록 날짜 : <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />,
 							${todo.name}, 우선순위 : ${todo.sequence}
 							</span>
-							<button class="move" onclick="changeTodoType(${todo.id})">➜</button>
+							<button class="move_btn" onclick="changeTodoType(${todo.id})">➜</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -43,7 +43,7 @@
 							등록 날짜 : <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd" />,
 							${todo.name}, 우선순위 : ${todo.sequence}
 							</span>
-							<button class="move" onclick="changeTodoType(${todo.id})">➜</button>
+							<button class="move_btn" onclick="changeTodoType(${todo.id})">➜</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -67,5 +67,5 @@
 			
 		</section>
 	</body>
-	<script type="text/javascript" src="/js/move.js"></script>
+	<script type="text/javascript" src="/js/updatetodo.js"></script>
 </html>
