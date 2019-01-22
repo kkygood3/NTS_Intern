@@ -8,9 +8,16 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+/**
+ * @author 임상현, life4lord93@nts-corp.com
+ * tomcat 실행, 종료시 호출 
+ */
 @WebListener
 public class InitializeListener implements ServletContextListener {
 
+	/* 
+	 * tomcat 실행시 jdbc Driver를 Memory에 load
+	 */
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
@@ -21,8 +28,6 @@ public class InitializeListener implements ServletContextListener {
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-
-	}
+	public void contextDestroyed(ServletContextEvent sce) {}
 
 }
