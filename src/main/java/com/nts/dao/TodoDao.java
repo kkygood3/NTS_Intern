@@ -20,7 +20,7 @@ public class TodoDao {
 
 	public Map<String, List<Todo>> getTodos() {
 		Map<String, List<Todo>> todos = null;
-		String query = "select * from todo order by regdate desc";
+		String query = "select id, title, name, sequence, type, regdate from todo order by regdate desc";
 		try (
 			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(query);
