@@ -19,6 +19,7 @@ public class TodoTypeServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+
 		String pathInfo = request.getPathInfo();
 		String[] pathParts = pathInfo.split("/");
 
