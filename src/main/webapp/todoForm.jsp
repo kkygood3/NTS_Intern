@@ -24,7 +24,7 @@
 					<td>
 						<p>
 							<strong>어떤 일인가요?</strong> <br> 
-							<input class="text_input" type="text" placeholder="swift 공부하기(24자까지)" maxlength="24" name="title">
+							<input class="text_input" type="text" placeholder="swift 공부하기(24자까지)" maxlength="24" name="title" autofocus required>
 						</p>
 					</td>
 				</tr>
@@ -33,7 +33,7 @@
 					<td>
 						<p>
 							<strong>누가 할 일인가요?</strong> <br> 
-							<input class="text_input" type="text" placeholder="홍길동" name="name">
+							<input class="text_input" type="text" placeholder="홍길동" name="name" required>
 						</p>
 					</td>
 				</tr>

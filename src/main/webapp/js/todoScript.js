@@ -8,16 +8,18 @@
  *         event-listener to each. Collects variable by traversing html file
  *         structure to parent node.
  */
-function init() {
+var init = () => {
 
 	var todoItem = document.querySelectorAll(".todoItem");
 
 	todoItem.forEach((item) => {
 		var id = item.dataset.id;
-		var section = item.parentNode.id;
+		var section = item.parentNode.dataset.section;
 		var button = item.querySelector("button.content_move_button");
 		if(button!=null){
-			button.addEventListener("click", ()=>update(id,section));
+			button.addEventListener("click", ()=>{ 
+				update(id,section) 
+			});
 		}
 		
 	});
@@ -31,40 +33,43 @@ function init() {
  * next category. Also Removes arrow button when the Todo element reaches DONE
  * Category
  */
-function update(item_id, currentSection) {
+var update = (item_id, currentSection) => {
 	var todo_info = {};
 	todo_info.id = item_id;
 	todo_info.type = currentSection;
-
+	console.log(todo_info);
+	
 	var json = JSON.stringify(todo_info);
-
+	
 	var xhr = new XMLHttpRequest();
-	xhr.open("PUT", "/jaewonlee/updateTodo", true);
+	xhr.open("PUT", "/jaewonlee/updatetodo", true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	
-	 xhr.onreadystatechange = function(aEvt) {
+	xhr.onreadystatechange = function(aEvt) {
 		 if (xhr.readyState === XMLHttpRequest.DONE) {
 			 if (xhr.status === 200) {
 				 
 				alert("Successfully Updated");
-				var nextType = "DOING";
+				
+				var next_type = "DOING";
 				if (currentSection == "DOING") {
-					nextType = "DONE"
+					next_type = "DONE"
 				}
-			
+				
 				/**
 				 * if there is any element that has higher id which means
 				 * generated after the element we are dealing with. Therefore,
 				 * if there is one, we are inserting before the element. if
 				 * findHtmlInsertSpot = -1, simply append in the section
 				 */
-				var element = document.querySelector("[data-id='"+item_id+"']");
-				var target = findHtmlInsertSpot(nextType, item_id);
-				if (target == -1) {
-					document.querySelector("#" + nextType).appendChild(element);
+				var element = document.querySelector("[data-id = '"+item_id+"']");
+				var target_item_id = findHtmlInsertSpot(next_type, item_id);
+				var target_section = document.querySelector("ul[data-section ='"+next_type+"']");
+				if (target_section == -1) {
+					target_section.appendChild(element);
 				} else {
-					document.querySelector("#" + nextType).insertBefore(element,
-							document.querySelector("[data-id='"+target+"']"));
+					target_section.insertBefore(element,
+							document.querySelector("[data-id = '"+target_item_id+"']"));
 				}
 			
 				if (currentSection == "DOING") {
@@ -86,12 +91,11 @@ function update(item_id, currentSection) {
  * @returns proper id in section to insert the element according to the id of
  *          element. If -1, there is no id found
  */
-function findHtmlInsertSpot(type, currentId) {
-	var htmlList = document.querySelectorAll("#" + type + ">li");
-	for ( var index =0; index<htmlList.length;index++) {
+var findHtmlInsertSpot = (type, currentId) => {
+	var htmlList = document.querySelectorAll("#" + type + "> li");
+	for (var index =0; index<htmlList.length; index++) {
 		if (htmlList[index].dataset.id > currentId) {
 			return htmlList[index].dataset.id;
-			break;
 		}
 	}
 	return -1;

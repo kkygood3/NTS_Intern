@@ -1,17 +1,20 @@
 package com.nts;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.JDBC.TodoDao;
-import com.nts.JDBC.TodoDto;
+import com.nts.todo.dao.TodoDao;
+import com.nts.todo.dto.TodoDto;
+import com.nts.todo.dto.TodoDto.TodoType;
 
 /**
  * MainServlet implementation
@@ -21,32 +24,30 @@ import com.nts.JDBC.TodoDto;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String todo = "TODO";
-	private static final String doing = "DOING";
-	private static final String done = "DONE";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
+		List<TodoDto> todoListAll = new ArrayList<>();
+
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
-		List<TodoDto> todoListAll = null;
-
 		try {
 			todoListAll = new TodoDao().getTodos();
-		} catch (Exception e) {
+		} catch (SQLException | ClassNotFoundException | NamingException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 
 		for (TodoDto item : todoListAll) {
-			if (todo.toString().equals(item.getType())) {
+			String type = item.getType();
+			if (TodoType.TODO.toString().equals(type)) {
 				todoList.add(item);
-			} else if (doing.toString().equals(item.getType())) {
+			} else if (TodoType.DOING.toString().equals(type)) {
 				doingList.add(item);
-			} else if (done.toString().equals(item.getType())) {
+			} else if (TodoType.DONE.toString().equals(type)) {
 				doneList.add(item);
 			}
 		}

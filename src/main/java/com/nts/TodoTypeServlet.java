@@ -1,18 +1,8 @@
 package com.nts;
 
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,15 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nts.JDBC.TodoDao;
-import com.nts.JDBC.TodoDto;
+import com.nts.todo.dao.TodoDao;
+import com.nts.todo.dto.TodoDto;
+import com.nts.todo.dto.TodoDto.TodoType;
 
 /**
  * TodoTypeServlet implementation
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-@WebServlet("/updateTodo")
+@WebServlet("/updatetodo")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,28 +31,36 @@ public class TodoTypeServlet extends HttpServlet {
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		String temp = null;
-		String todo_info = "";
+		String temp = "";
+		String todoInfo = "";
+
+		//request receiving through InputStream
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));) {
+			while ((temp = br.readLine()) != null) {
+				todoInfo += temp;
+			}
+		} catch (IOException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 
 		try {
-			//request receiving through InputStream
-			BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-			while ((temp = br.readLine()) != null) {
-				todo_info += temp;
-			}
-			br.close();
-
 			//parsing data and mapping through jackson-bind to Map
-			Map<String, String> myMap = new HashMap<String, String>();
-			myMap = new ObjectMapper().readValue(todo_info, HashMap.class);
-			TodoDto todo = new TodoDto(Long.valueOf(myMap.get("id")), null, null, 0, null, myMap.get("type"));
+			TodoDto todo = new ObjectMapper().readValue(todoInfo, TodoDto.class);
+
+			//replace the type to nextType;
+			String currentType = todo.getType();
+			String nextType = TodoType.getNextType(currentType);
+
+			todo.setType(nextType);
 
 			if (new TodoDao().updateTodo(todo) == 0) {
-				throw new SQLException();
+				response.sendError(HttpServletResponse.SC_NO_CONTENT);
+			} else {
+				response.getWriter().write("SUCCESS");
 			}
 
 		} catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 }

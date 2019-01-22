@@ -15,7 +15,7 @@
 <title>이재원 TO-DO INDEX 페이지 입니다</title>
 <link rel="stylesheet" href="/jaewonlee/css/base.css">
 </head>
-<script type="text/javascript" src="script/todoScript.js"></script>
+<script type="text/javascript" src="js/todoScript.js"></script>
 <body onload="init()">
 	<header>
 		<p class="header_left_text">나의 해야할 일들</p>
@@ -34,7 +34,7 @@
 			</tr>
 			<tr>
 				<td>
-					<ul id="TODO">
+					<ul data-section="TODO">
 						<c:forEach items="${todoList}" var="item">
 							<li class="todoItem" data-id="${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>
@@ -49,7 +49,7 @@
 				</td>
 				
 				<td>
-					<ul id="DOING">
+					<ul data-section="DOING">
 						<c:forEach items="${doingList}" var="item">
 							<li class="todoItem" data-id="${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>
@@ -64,7 +64,7 @@
 				</td>
 				
 				<td>
-					<ul id="DONE">
+					<ul data-section="DONE">
 						<c:forEach items="${doneList}" var="item">
 							<li class="todoItem" data-id="${item.getId()}">
 								<h3 class="content_title">${item.getTitle()}</h3>

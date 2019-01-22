@@ -1,4 +1,4 @@
-package com.nts.JDBC;
+package com.nts.todo.dao;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -19,12 +19,18 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.nts.todo.dto.TodoDto;
+
 public class TodoDao {
 	private static DataSource dataSource = null;
 
 	/**
+	 * @throws NamingException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @getDBConnection()
 	 * returns connection to db, if there is no DataSource, init data source first
+	 * infos in context.xml in META-INF
 	 */
 	private Connection getDBConnection() throws SQLException, NamingException,
 		ClassNotFoundException {
@@ -36,32 +42,31 @@ public class TodoDao {
 	}
 
 	/**
+	 * @throws NamingException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @getTodos()
 	 * returns all rows in todo table through sql query
 	 */
-	public List<TodoDto> getTodos() throws ClassNotFoundException, SQLException, NamingException {
+	public List<TodoDto> getTodos() throws ClassNotFoundException, NamingException, SQLException {
 
 		List<TodoDto> result = new ArrayList<>();
-
-		Connection conn = getDBConnection();
-		String sql = "select id, title, name, sequence, type, DATE_FORMAT(regdate , '%Y-%d-%m %e') as regdate from todo order by regdate asc, id asc";
-		PreparedStatement ps = conn.prepareStatement(sql);
-
-		try (ResultSet rs = ps.executeQuery()) {
+		String sql = "SELECT id, title, name, sequence, type, DATE_FORMAT(regdate , '%Y-%d-%m %e') AS regdate FROM todo ORDER BY regdate ASC, id ASC";
+		try (Connection conn = getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
-				result.add(
-					new TodoDto(rs.getLong("id"),
-						rs.getString("title"),
-						rs.getString("name"),
-						rs.getInt("sequence"),
-						rs.getString("regdate"),
-						rs.getString("type")));
+				TodoDto dto = new TodoDto();
+				dto.setId(rs.getLong("id"));
+				dto.setTitle(rs.getString("title"));
+				dto.setName(rs.getString("name"));
+				dto.setSequence(rs.getInt("sequence"));
+				dto.setRegdate(rs.getString("regdate"));
+				dto.setType(rs.getString("type"));
+				result.add(dto);
 			}
-			rs.close();
-			ps.close();
-			conn.close();
-		}
 
+		}
 		return result;
 	}
 
@@ -72,48 +77,40 @@ public class TodoDao {
 	 * @addTodo()	
 	 * add single todo item into db
 	 */
-	public int addTodo(TodoDto dto) throws ClassNotFoundException, SQLException, NamingException {
+	public int addTodo(TodoDto dto) throws ClassNotFoundException, NamingException, SQLException {
 
 		//variable status to get the execution state;
 		int status = 0;
-		Connection conn = getDBConnection();
 		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
-		PreparedStatement ps = conn.prepareStatement(sql);
 
-		ps.setString(1, dto.getTitle());
-		ps.setString(2, dto.getName());
-		ps.setInt(3, dto.getSequence());
-
-		status = ps.executeUpdate();
-
-		ps.close();
-		conn.close();
+		try (Connection conn = getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);) {
+			ps.setString(1, dto.getTitle());
+			ps.setString(2, dto.getName());
+			ps.setInt(3, dto.getSequence());
+			status = ps.executeUpdate();
+		}
 
 		return status;
 	}
 
 	/**
 	 * @throws NamingException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @updateTodo()	
 	 * update type of todo item in db
 	 */
-	public int updateTodo(TodoDto todo) throws ClassNotFoundException, SQLException, NamingException {
+	public int updateTodo(TodoDto todo) throws ClassNotFoundException, NamingException, SQLException {
 		int status = 0;
-
-		String nextType = "DOING";
-		if (todo.getType().equals("DOING")) {
-			nextType = "DONE";
-		}
-		Connection conn = getDBConnection();
 		String sql = "update todo set type = ? where id = ?";
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, nextType);
-		ps.setLong(2, todo.getId());
 
-		status = ps.executeUpdate();
-
-		ps.close();
-		conn.close();
+		try (Connection conn = getDBConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);) {
+			ps.setString(1, todo.getType());
+			ps.setLong(2, todo.getId());
+			status = ps.executeUpdate();
+		}
 
 		return status;
 	}

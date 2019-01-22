@@ -1,4 +1,4 @@
-package com.nts.JDBC;
+package com.nts.todo.dto;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -18,15 +18,6 @@ public class TodoDto {
 	private int sequence;
 	private String regdate;
 	private String type;
-
-	public TodoDto(Long id, String title, String name, int sequence, String regdate, String type) {
-		this.id = id;
-		this.title = title;
-		this.name = name;
-		this.sequence = sequence;
-		this.regdate = regdate;
-		this.type = type;
-	}
 
 	public String getType() {
 		return type;
@@ -74,5 +65,36 @@ public class TodoDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public enum TodoType {
+		TODO,
+		DOING,
+		DONE;
+
+		@Override
+		public String toString() {
+			switch (this) {
+				case TODO:
+					return "TODO";
+				case DOING:
+					return "DOING";
+				case DONE:
+					return "DONE";
+			}
+			return null;
+		}
+
+		public static String getNextType(String type) {
+			switch (type) {
+				case "TODO":
+					return "TODO";
+				case "DOING":
+					return "DOING";
+				case "DONE":
+					return "DONE";
+			}
+			return type;
+		}
 	}
 }
