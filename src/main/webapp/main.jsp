@@ -17,11 +17,11 @@
 		<div id="list_board">
 			<div class="container">
 				<span class="title">TODO</span>
-				<c:forEach var="todo" items="${todoList }">
+				<c:forEach var="todo" items="${todoList}">
 					<div class="card">
-						<span class="title">${todo.title }</span><br/>
+						<span class="title">${todo.title}</span><br/>
 						<span>
-							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
 							<button>→</button>
 						</span>
 					</div>
@@ -29,11 +29,11 @@
 			</div>
 			<div class="container">
 				<span class="title">DOING</span>
-				<c:forEach var="todo" items="${doingList }">
+				<c:forEach var="todo" items="${doingList}">
 					<div class="card">
-						<span class="title">${todo.title }</span><br/>
+						<span class="title">${todo.title}</span><br/>
 						<span>
-							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
 							<button>→</button>
 						</span>
 					</div>
@@ -41,11 +41,11 @@
 			</div>
 			<div class="container">
 				<span class="title">DONE</span>
-				<c:forEach var="todo" items="${doneList }">
+				<c:forEach var="todo" items="${doneList}">
 					<div class="card">
-						<span class="title">${todo.title }</span><br/>
+						<span class="title">${todo.title}</span><br/>
 						<span>
-							등록날짜 ${todo.regdate } ${todo.name } 우선순위 ${todo.sequence }
+							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
 						</span>
 					</div>
 				</c:forEach>
