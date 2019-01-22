@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
-import com.nts.model.Todo;
+import com.nts.model.TodoDto;
 
 @WebServlet("/newtodo")
 public class TodoAddServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class TodoAddServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		int sequence = Integer.parseInt(request.getParameter("sequence"));
 
-		Todo todo = new Todo();
+		TodoDto todo = new TodoDto();
 		todo.setTitle(title);
 		todo.setName(name);
 		todo.setSequence(sequence);

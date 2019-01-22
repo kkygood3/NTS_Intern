@@ -4,7 +4,7 @@
  */
 package com.nts.model;
 
-public class Todo {
+public class TodoDto {
 
 	private long id;
 	private String name;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
-import com.nts.model.Todo;
+import com.nts.model.TodoDto;
 
 @WebServlet("/todo/*")
 public class TodoTypeServlet extends HttpServlet {
@@ -27,7 +27,7 @@ public class TodoTypeServlet extends HttpServlet {
 			long id = Long.parseLong(pathParts[1]);
 			String type = pathParts[2];
 
-			Todo todo = new Todo();
+			TodoDto todo = new TodoDto();
 			todo.setId(id);
 			todo.setType(type);
 
