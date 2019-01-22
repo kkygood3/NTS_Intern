@@ -25,29 +25,30 @@ public class TodoDao {
 	private String pw = "wlsdn123";
 
 	/**
-	 * DB 커넥션을 가져와주는 메소드
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * mysql.jdbc.Driver를 DriverManager에 한번만 등록 
 	 */
-	private Connection getConn() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Connection getConnection() throws SQLException {
 		Connection conn = DriverManager.getConnection(url, id, pw);
 		return conn;
 	}
 
 	public int addTodo(TodoDto todoDto) {
 		int insertCount = 0;
-		try {
-			Connection conn = getConn();
-			String sql = "insert into todo(title, name, sequence) values(?,?,?)";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
+		try (Connection conn = getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, todoDto.getTitle());
 			pstmt.setString(2, todoDto.getName());
 			pstmt.setInt(3, todoDto.getSequence());
 			insertCount = pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,11 +57,10 @@ public class TodoDao {
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<TodoDto>();
-		try {
-			Connection conn = getConn();
-			String sql = "select * from todo";
+		String sql = "select id, name, regdate, sequence, title, type from todo";
+		try (Connection conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();) {
 			while (rs.next()) {
 				TodoDto todo = new TodoDto();
 				todo.setId(rs.getLong("id"));
@@ -71,8 +71,6 @@ public class TodoDao {
 				todo.setType(rs.getString("type"));
 				todoList.add(todo);
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,15 +79,12 @@ public class TodoDao {
 
 	public int updateTodo(TodoDto todoDto) {
 		int updateCount = 0;
-		try {
-			Connection conn = getConn();
-			String sql = "update todo set type = ? where id = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		String sql = "update todo set type = ? where id = ?";
+		try (Connection conn = getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, todoDto.getType());
 			pstmt.setLong(2, todoDto.getId());
 			updateCount = pstmt.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
