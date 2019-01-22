@@ -3,6 +3,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- Copyright 2019 NAVER Corp.
+All rights reserved.
+Except in the case of internal use for NAVER,
+unauthorized use of redistribution of this software are strongly prohibited. -->
+
 <!-- 
 	main.jsp implementation
 	Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -15,8 +20,9 @@
 <title>이재원 TO-DO INDEX 페이지 입니다</title>
 <link rel="stylesheet" href="/jaewonlee/css/base.css">
 </head>
-<script type="text/javascript" src="js/todoScript.js"></script>
+
 <body onload="init()">
+
 	<header>
 		<p class="header_left_text">나의 해야할 일들</p>
 		<div class="header_button_wrapper">
@@ -24,7 +30,7 @@
 				class="header_button_inner">새로운 TODO 등록</a>
 		</div>
 	</header>
-	
+
 	<section class="section_main">
 		<table>
 			<tr>
@@ -47,7 +53,7 @@
 						</c:forEach>
 					</ul>
 				</td>
-				
+
 				<td>
 					<ul data-section="DOING">
 						<c:forEach items="${doingList}" var="item">
@@ -62,7 +68,7 @@
 						</c:forEach>
 					</ul>
 				</td>
-				
+
 				<td>
 					<ul data-section="DONE">
 						<c:forEach items="${doneList}" var="item">
@@ -77,6 +83,8 @@
 			</tr>
 		</table>
 	</section>
-
+	
+	<script type="text/javascript" src="js/todoScript.js"></script>
+	
 </body>
 </html>

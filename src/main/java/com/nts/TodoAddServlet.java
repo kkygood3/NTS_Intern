@@ -1,5 +1,12 @@
 package com.nts;
 
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -24,6 +31,7 @@ public class TodoAddServlet extends HttpServlet {
 
 	/**
 	 * @throws IOException 
+	 * @throws ServletException 
 	 * @doPost(request,response)
 	 * add todo에 대한 request를 받아서 처리함.
 	 * 실패시에 alert 창 팝업.
@@ -33,10 +41,11 @@ public class TodoAddServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		try {
-			TodoDto dto = new TodoDto();
-			dto.setTitle(request.getParameter("title"));
-			dto.setName(request.getParameter("name"));
-			dto.setSequence(Integer.valueOf(request.getParameter("sequence")));
+			TodoDto dto = new TodoDto.Builder()
+				.title(request.getParameter("title"))
+				.name(request.getParameter("name"))
+				.sequence(Integer.valueOf(request.getParameter("sequence")))
+				.build();
 
 			if (new TodoDao().addTodo(dto) > 0) {
 				response.sendRedirect("/jaewonlee/main");

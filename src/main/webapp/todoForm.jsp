@@ -3,6 +3,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- Copyright 2019 NAVER Corp.
+All rights reserved.
+Except in the case of internal use for NAVER,
+unauthorized use of redistribution of this software are strongly prohibited. -->
+
 <!-- 
 	todoForm.jsp implementation
 	Author: Jaewon Lee, lee.jaewon@nts-corp.com

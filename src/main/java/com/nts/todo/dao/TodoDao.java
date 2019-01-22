@@ -56,16 +56,16 @@ public class TodoDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
-				TodoDto dto = new TodoDto();
-				dto.setId(rs.getLong("id"));
-				dto.setTitle(rs.getString("title"));
-				dto.setName(rs.getString("name"));
-				dto.setSequence(rs.getInt("sequence"));
-				dto.setRegdate(rs.getString("regdate"));
-				dto.setType(rs.getString("type"));
+				TodoDto dto = new TodoDto.Builder()
+					.id(rs.getLong("id"))
+					.title(rs.getString("title"))
+					.name(rs.getString("name"))
+					.sequence(rs.getInt("sequence"))
+					.regdate(rs.getString("regdate"))
+					.type(rs.getString("type"))
+					.build();
 				result.add(dto);
 			}
-
 		}
 		return result;
 	}

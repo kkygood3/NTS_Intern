@@ -1,5 +1,12 @@
 package com.nts;
 
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +28,12 @@ import com.nts.todo.dto.TodoDto.TodoType;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
+/**
+ * @throws IOException 
+ * @throws ServletException 
+ * @doGet(request,response)
+ * todo item 을 전부 retrieve 해온다음 데이터를 client로 forward한다.
+ */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,11 +56,11 @@ public class MainServlet extends HttpServlet {
 
 		for (TodoDto item : todoListAll) {
 			String type = item.getType();
-			if (TodoType.TODO.toString().equals(type)) {
+			if (TodoType.TODO.equals(type)) {
 				todoList.add(item);
-			} else if (TodoType.DOING.toString().equals(type)) {
+			} else if (TodoType.DOING.equals(type)) {
 				doingList.add(item);
-			} else if (TodoType.DONE.toString().equals(type)) {
+			} else if (TodoType.DONE.equals(type)) {
 				doneList.add(item);
 			}
 		}

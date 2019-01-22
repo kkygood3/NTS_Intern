@@ -1,5 +1,11 @@
 package com.nts;
 
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -50,13 +56,12 @@ public class TodoTypeServlet extends HttpServlet {
 			//replace the type to nextType;
 			String currentType = todo.getType();
 			String nextType = TodoType.getNextType(currentType);
-
 			todo.setType(nextType);
 
-			if (new TodoDao().updateTodo(todo) == 0) {
-				response.sendError(HttpServletResponse.SC_NO_CONTENT);
-			} else {
+			if (new TodoDao().updateTodo(todo) > 0) {
 				response.getWriter().write("SUCCESS");
+			} else {
+				response.sendError(HttpServletResponse.SC_NO_CONTENT);
 			}
 
 		} catch (Exception e) {
