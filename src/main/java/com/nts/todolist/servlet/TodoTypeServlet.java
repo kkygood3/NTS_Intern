@@ -36,7 +36,7 @@ public class TodoTypeServlet extends HttpServlet {
 		if (insertCount > 0) {
 			response.getWriter().write("success");
 		} else {
-			// TODO ERROR
+			// TODO AJAX 실패 시
 			response.getWriter().write("fail");
 		}
 	}

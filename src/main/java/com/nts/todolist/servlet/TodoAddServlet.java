@@ -6,7 +6,6 @@ package com.nts.todolist.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class TodoAddServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+		throws IOException {
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -40,7 +39,7 @@ public class TodoAddServlet extends HttpServlet {
 		if (insertCount > 0) {
 			response.sendRedirect("/main");
 		} else {
-			// TODO Error 시 표기
+			// TODO insert 실패 시 표기 (servlet)
 		}
 	}
 
