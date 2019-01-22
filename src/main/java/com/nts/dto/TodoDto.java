@@ -9,12 +9,12 @@ package com.nts.dto;
  */
 public class TodoDto {
 
-	private long id; // 등록 ID
-	private String name; // 등록자 이름
+	private long id; 		// 등록 ID
+	private String name; 	// 등록자 이름
 	private String regdate; // 등록 일시
-	private int sequence; // 우선 순위
-	private String title; // todo 제목
-	private String type; // type ( todo, doing, done ) 대문자 형식
+	private int sequence; 	// 우선 순위
+	private String title; 	// todo 제목
+	private String type; 	// type ( todo, doing, done ) 대문자 형식
 
 	public String getName() {
 		return name;
