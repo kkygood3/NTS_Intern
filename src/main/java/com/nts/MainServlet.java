@@ -30,29 +30,33 @@ public class MainServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
+		List<Todo> list = null;
 
 		try {
-			List<Todo> list = todoDao.getTodos();
-			List<Todo> todoList = new ArrayList();
-			List<Todo> doingList = new ArrayList();
-			List<Todo> doneList = new ArrayList();
+			list = todoDao.getTodos();
 
-			for (Todo item : list) {
-				if (item.getType().equals(TodoTag.TODO.getTodoTag())) {
-					todoList.add(item);
-				} else if (item.getType().equals(TodoTag.DOING.getTodoTag())) {
-					doingList.add(item);
-				} else {
-					doneList.add(item);
-				}
-			}
-			request.setAttribute("TodoList", todoList);
-			request.setAttribute("DoingList", doingList);
-			request.setAttribute("DoneList", doneList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(response.SC_BAD_REQUEST, e.getMessage());
 		}
+
+		List<Todo> todoList = new ArrayList();
+		List<Todo> doingList = new ArrayList();
+		List<Todo> doneList = new ArrayList();
+
+		for (Todo item : list) {
+			if (item.getType().equals("TODO")) {
+				todoList.add(item);
+			} else if (item.getType().equals("DOING")) {
+				doingList.add(item);
+			} else {
+				doneList.add(item);
+			}
+		}
+		request.setAttribute("TodoList", todoList);
+		request.setAttribute("DoingList", doingList);
+		request.setAttribute("DoneList", doneList);
+
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 		requestDispatcher.forward(request, response);
 	}
