@@ -78,6 +78,7 @@ public class TodoDao {
 		preparedStatement.setString(2, todoDto.getName());
 		preparedStatement.setInt(3, todoDto.getSequence());
 		int result = preparedStatement.executeUpdate();
+		preparedStatement.close();
 		return result;
 	}
 
@@ -110,6 +111,7 @@ public class TodoDao {
 				.build();
 			result.add(todoDto);
 		}
+		preparedStatement.close();
 		return result;
 	}
 
@@ -124,7 +126,8 @@ public class TodoDao {
 		preparedStatement = dbConnection.prepareStatement(sql);
 		preparedStatement.setString(1, todoDto.getType());
 		preparedStatement.setInt(2, todoDto.getId());
-
-		return preparedStatement.executeUpdate();
+		int result = preparedStatement.executeUpdate();
+		preparedStatement.close();
+		return result;
 	}
 }
