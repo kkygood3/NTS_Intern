@@ -5,7 +5,7 @@
 
 package com.nts.jdbc.dto;
 
-public class Todo {
+public class TodoDto {
 	private int id;
 	private String title;
 	private String name;
@@ -13,13 +13,26 @@ public class Todo {
 	private String type;
 	private String regDate;
 
-	public Todo(int id, String title, String name, int sequence, String type, String regDate) {
+	public TodoDto(int id, String title, String name, int sequence, String type, String regDate) {
 		this.id = id;
 		this.title = title;
 		this.name = name;
 		this.sequence = sequence;
 		this.type = type;
 		this.regDate = regDate;
+	}
+
+	public TodoDto(String title, String name, int sequence) {
+		super();
+		this.title = title;
+		this.name = name;
+		this.sequence = sequence;
+	}
+
+	public TodoDto(int id, String type) {
+		super();
+		this.id = id;
+		this.type = type;
 	}
 
 	public int getId() {

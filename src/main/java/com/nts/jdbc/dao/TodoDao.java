@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-import com.nts.jdbc.dto.Todo;
+import com.nts.jdbc.dto.TodoDto;
 
 public class TodoDao {
 	private Connection dbConnection = null;
@@ -61,7 +61,7 @@ public class TodoDao {
 		}
 	}
 
-	public void addTodo(String title, String name, int sequence) throws SQLException {
+	public int addTodo(TodoDto todoDto) throws SQLException {
 
 		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
@@ -71,15 +71,16 @@ public class TodoDao {
 		}
 
 		preparedStatement = dbConnection.prepareStatement(sql);
-		preparedStatement.setString(1, title);
-		preparedStatement.setString(2, name);
-		preparedStatement.setInt(3, sequence);
-		preparedStatement.executeUpdate();
+		preparedStatement.setString(1, todoDto.getTitle());
+		preparedStatement.setString(2, todoDto.getName());
+		preparedStatement.setInt(3, todoDto.getSequence());
+		int result = preparedStatement.executeUpdate();
+		return result;
 	}
 
-	public List<Todo> getTodos() throws SQLException {
+	public List<TodoDto> getTodos() throws SQLException {
 
-		List<Todo> result = new ArrayList<>();
+		List<TodoDto> result = new ArrayList<>();
 		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
 		PreparedStatement preparedStatement = null;
 
@@ -96,12 +97,12 @@ public class TodoDao {
 			int sequence = resultSet.getInt("sequence");
 			String type = resultSet.getString("type");
 			Date regdate = resultSet.getDate("regdate");
-			result.add(new Todo(id, title, name, sequence, type, dateFormat.format(regdate)));
+			result.add(new TodoDto(id, title, name, sequence, type, dateFormat.format(regdate)));
 		}
 		return result;
 	}
 
-	public void updateTodo(int id, String type) throws SQLException {
+	public void updateTodo(TodoDto todoDto) throws SQLException {
 
 		String sql = "update todo set type = ? where id = ? and type = ?;";
 		PreparedStatement preparedStatement = null;
@@ -111,9 +112,9 @@ public class TodoDao {
 		}
 
 		preparedStatement = dbConnection.prepareStatement(sql);
-		preparedStatement.setString(1, type);
-		preparedStatement.setInt(2, id);
-		preparedStatement.setString(3, type);
+		preparedStatement.setString(1, todoDto.getType());
+		preparedStatement.setInt(2, todoDto.getId());
+		preparedStatement.setString(3, todoDto.getType());
 
 		preparedStatement.executeUpdate();
 	}

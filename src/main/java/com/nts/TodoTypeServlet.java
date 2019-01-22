@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.jdbc.dao.TodoDao;
+import com.nts.jdbc.dto.TodoDto;
 
 /**
  * Servlet implementation class TodoTypeServlet
@@ -49,14 +50,15 @@ public class TodoTypeServlet extends HttpServlet {
 			nextType = TodoTag.DONE.getTodoTag();
 		}
 
+		TodoDto targetTodoDto = new TodoDto(id, nextType);
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
 		try {
-			todoDao.updateTodo(id, nextType);
+			todoDao.updateTodo(targetTodoDto);
 			out.append("Success");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.setStatus(response.SC_BAD_REQUEST);
+			response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
 			out.append("서버 갱신 오류.");
 		}
 		out.close();

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.jdbc.dao.TodoDao;
-import com.nts.jdbc.dto.Todo;
+import com.nts.jdbc.dto.TodoDto;
 
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -30,7 +30,7 @@ public class MainServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
-		List<Todo> list = null;
+		List<TodoDto> list = null;
 
 		try {
 			list = todoDao.getTodos();
@@ -40,11 +40,11 @@ public class MainServlet extends HttpServlet {
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
-		List<Todo> todoList = new ArrayList();
-		List<Todo> doingList = new ArrayList();
-		List<Todo> doneList = new ArrayList();
+		List<TodoDto> todoList = new ArrayList();
+		List<TodoDto> doingList = new ArrayList();
+		List<TodoDto> doneList = new ArrayList();
 
-		for (Todo item : list) {
+		for (TodoDto item : list) {
 			if (item.getType().equals("TODO")) {
 				todoList.add(item);
 			} else if (item.getType().equals("DOING")) {

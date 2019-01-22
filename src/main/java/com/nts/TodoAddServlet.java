@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.jdbc.dao.TodoDao;
+import com.nts.jdbc.dto.TodoDto;
 
 /**
  * Servlet implementation class TodoAddServlet
@@ -39,9 +40,9 @@ public class TodoAddServlet extends HttpServlet {
 		}
 
 		TodoDao todoDao = TodoDaoProvider.getTodoDaoInstance();
-
+		TodoDto newTodoDto = new TodoDto(title, name, sequence);
 		try {
-			todoDao.addTodo(title, name, sequence);
+			todoDao.addTodo(newTodoDto);
 			response.sendRedirect("./main");
 		} catch (SQLException e) {
 			e.printStackTrace();
