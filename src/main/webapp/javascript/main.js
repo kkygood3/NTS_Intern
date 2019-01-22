@@ -13,10 +13,8 @@ function requestNextType(node) {
     request.addEventListener("load", function() {
         if(this.status == 200){
             updateTodoCell(node);
-        }else if(this.status == 400){
+        }else{
             alert(this.responseText);
-        }else if(this.status == 500){
-        	alert(this.responseText);
         }
     });
     var data = "id=" + encodeURIComponent(id) + "&type=" + encodeURIComponent(type);
