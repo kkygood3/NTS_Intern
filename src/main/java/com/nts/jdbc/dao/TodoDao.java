@@ -30,15 +30,7 @@ public class TodoDao {
 
 	private static TodoDao instance;
 
-	private TodoDao() {
-
-		init();
-	}
-
-	private void init() {
-
-		connectDatabase();
-	}
+	private TodoDao() {}
 
 	public static synchronized TodoDao getInstance() {
 		if (instance == null) {
@@ -47,7 +39,7 @@ public class TodoDao {
 		return instance;
 	}
 
-	private void connectDatabase() {
+	public void connectDatabase() {
 
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("db.properties");
 		Properties dbProperties = new Properties();
