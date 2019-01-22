@@ -20,7 +20,7 @@ import com.nts.jdbc.dao.TodoDao;
 /**
  * Servlet implementation class TodoTypeServlet
  */
-@WebServlet("/todotype")
+@WebServlet("/todo-type")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
