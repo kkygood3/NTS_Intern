@@ -23,97 +23,35 @@ public class TodoDao {
 	private static String dbUser = "user4";
 	private static String dbpasswd = "user4";
 
-	public int addTodo(TodoDto todo) {
+	private List executeQuery(String query) {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
-			
-			String sql = "insert into todo(title, name, sequence) values('"+todo.getTitle()+"', '"+todo.getName()+"', "+todo.getSequence()+")";
-			ps = conn.prepareStatement(sql);
-			ps.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return 0;
-	}
-	
-	public int updateTodo(TodoDto todo) {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		String nextType = "DOING";
-		if(todo.getType().equals("DOING"))
-			nextType = "DONE";
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
-			
-			String sql = "update todo set type = '"+nextType+"' where id = "+todo.getId();
-			ps = conn.prepareStatement(sql);
-			ps.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return 0;
-	}
-	
-	public List getTodos() {
 		ArrayList<TodoDto> roles = new ArrayList();
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
-			
-			String sql = "SELECT * FROM todo";
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				int id = rs.getInt(1);
-				String title = rs.getString(2);
-				String name = rs.getString(3);
-				int sequence = rs.getInt(4);
-				String type = rs.getString(5);
-				String regdate = rs.getString(6);
-				
-				regdate = regdate.split(" ")[0].replace('-', '.');
-				
-				roles.add(new TodoDto(id,title,name,sequence,type,regdate));
+			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
+			ps = conn.prepareStatement(query);
+
+			if (query.substring(0, 6).equals("SELECT")) {
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					int id = rs.getInt(1);
+					String title = rs.getString(2);
+					String name = rs.getString(3);
+					int sequence = rs.getInt(4);
+					String type = rs.getString(5);
+					String regdate = rs.getString(6);
+
+					regdate = regdate.split(" ")[0].replace('-', '.');
+
+					roles.add(new TodoDto(id, title, name, sequence, type, regdate));
+				}
+			} else {
+				ps.execute();
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		} finally {
 			try {
 				if (rs != null)
@@ -128,5 +66,25 @@ public class TodoDao {
 		}
 
 		return roles;
+	}
+
+	public void addTodo(TodoDto todo) {
+		String sql = "insert into todo(title, name, sequence) values('" + todo.getTitle() + "', '" + todo.getName() + "', " + todo.getSequence() + ")";
+		executeQuery(sql);
+	}
+
+	public void updateTodo(TodoDto todo) {
+		String nextType = "DOING";
+		if (todo.getType().equals("DOING"))
+			nextType = "DONE";
+
+		String sql = "update todo set type = '" + nextType + "' where id = " + todo.getId();
+		executeQuery(sql);
+	}
+
+	public List getTodos() {
+		String sql = "SELECT * FROM todo";
+		ResultSet rs = null;
+		return executeQuery(sql);
 	}
 }
