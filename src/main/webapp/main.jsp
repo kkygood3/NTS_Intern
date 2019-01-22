@@ -96,7 +96,8 @@
 		oReq.addEventListener("load", function() {
 			console.log("success");
 		})
-		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type="+ type);
+		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type="
+				+ type);
 		oReq.send();
 
 		if (type === 'TODO') {

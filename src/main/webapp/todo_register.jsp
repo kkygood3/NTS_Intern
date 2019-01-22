@@ -37,25 +37,28 @@
 <script>
 	var whatdo = document.getElementsByClassName("whatdo_area")[0];
 	var wname = document.getElementsByClassName("name_area")[0];
-	
-	document.getElementsByClassName("btn_submit")[0].addEventListener("click",function(){
-		if(whatdo.value.length === 0){
-	        alert("어떤 일인지 써주세요");
-	    }else if(wname.value.length === 0){
-	        alert("누가 할일인지 써주세요");
-	    }else{
-	    	document.querySelector("form").submit();
-	    }
-	})
-	
-	document.getElementsByClassName("btn_reset")[0].addEventListener("click",function(){
-		whatdo.value = '';
-		wname.value = '';
-	})
-	
-	document.getElementsByClassName("btn_before")[0].addEventListener("click",function(){
-		window.location.href = "main";
-	})
+
+	document.getElementsByClassName("btn_submit")[0].addEventListener("click",
+			function() {
+				if (whatdo.value.length === 0) {
+					alert("어떤 일인지 써주세요");
+				} else if (wname.value.length === 0) {
+					alert("누가 할일인지 써주세요");
+				} else {
+					document.querySelector("form").submit();
+				}
+			})
+
+	document.getElementsByClassName("btn_reset")[0].addEventListener("click",
+			function() {
+				whatdo.value = '';
+				wname.value = '';
+			})
+
+	document.getElementsByClassName("btn_before")[0].addEventListener("click",
+			function() {
+				window.location.href = "main";
+			})
 </script>
 
 </html>
