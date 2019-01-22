@@ -66,17 +66,21 @@
 </body>
 
 <script>
+	function updateRequest(btn, type) {
+		var oReq = new XMLHttpRequest();
+		oReq.addEventListener("load",function(e){
+			if (e.target.response != "success"){
+				alert('Update fail');
+			}
+		});
+		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type=" + type);
+		oReq.send();
+	}
+
 	function clickEvent(event) {
 		var btn = event.target;
 		var type = btn.parentElement.parentElement.getElementsByTagName('div')[0].innerText;
-
-		var oReq = new XMLHttpRequest();
-		oReq.addEventListener("load", function() {
-			console.log("success");
-		})
-		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type="
-				+ type);
-		oReq.send();
+		updateRequest(btn, type)
 
 		if (type === 'TODO') {
 			//TODO에 있는 버튼을 눌렀을 때

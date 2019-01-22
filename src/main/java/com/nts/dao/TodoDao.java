@@ -49,6 +49,7 @@ public class TodoDao {
 				}
 			} else {
 				ps.execute();
+				roles = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,22 +65,23 @@ public class TodoDao {
 				e.printStackTrace();
 			}
 		}
-
 		return roles;
 	}
 
-	public void addTodo(TodoDto todo) {
+	public boolean addTodo(TodoDto todo) {
 		String sql = "insert into todo(title, name, sequence) values('" + todo.getTitle() + "', '" + todo.getName() + "', " + todo.getSequence() + ")";
-		executeQuery(sql);
+		List<TodoDto> result = executeQuery(sql);
+		return (result==null);
 	}
 
-	public void updateTodo(TodoDto todo) {
+	public boolean updateTodo(TodoDto todo) {
 		String nextType = "DOING";
 		if (todo.getType().equals("DOING"))
 			nextType = "DONE";
 
 		String sql = "update todo set type = '" + nextType + "' where id = " + todo.getId();
-		executeQuery(sql);
+		List<TodoDto> result = executeQuery(sql);
+		return (result==null);
 	}
 
 	public List getTodos() {
