@@ -19,7 +19,7 @@
 				<div class="title-item">TODO</div>
 				<ul id="todo_list" class="item_list">
 					<c:forEach var="todo" items="${todos['TODO']}">
-						<li id="todo_item_${todo.id}" class="item" data-next-type="doing" data-datetime="${todo.regdate}">
+						<li id="todo_item_${todo.id}" class="item" data-datetime="${todo.regdate}">
 							<h2>${todo.title}</h2>
 							<fmt:parseDate var="regDate" value="${todo.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 							<span>
@@ -36,7 +36,7 @@
 				<div class="title-item">DOING</div>
 				<ul id="doing_list" class="item_list">
 					<c:forEach var="todo" items="${todos['DOING']}">
-						<li id="todo_item_${todo.id}" class="item" data-next-Type="done" data-datetime="${todo.regdate}">
+						<li id="todo_item_${todo.id}" class="item" data-datetime="${todo.regdate}">
 							<h2>${todo.title}</h2>
 							<fmt:parseDate var="regDate" value="${todo.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 							<span>

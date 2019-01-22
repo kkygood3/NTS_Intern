@@ -22,15 +22,20 @@ public class TodoTypeServlet extends HttpServlet {
 		String pathInfo = request.getPathInfo();
 		String[] pathParts = pathInfo.split("/");
 
-		long id = Long.parseLong(pathParts[1]);
-		String type = pathParts[2];
+		if (pathParts.length == 3) {
+			long id = Long.parseLong(pathParts[1]);
+			String type = pathParts[2];
 
-		Todo todo = new Todo();
-		todo.setId(id);
-		todo.setType(type);
+			Todo todo = new Todo();
+			todo.setId(id);
+			todo.setType(type);
 
-		TodoDao todoDao = new TodoDao();
-		todoDao.updateTodo(todo);
+			TodoDao todoDao = new TodoDao();
+			todoDao.updateTodo(todo);
+			response.setStatus(HttpServletResponse.SC_OK);
+		} else {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
 
 	}
 

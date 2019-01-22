@@ -1,16 +1,19 @@
 function changeTodoType(id) {
 
 	var todo = document.querySelector("#todo_item_" + id);
-	var changeType = todo.dataset.nextType;
-	var xmlHttpRequest = new XMLHttpRequest();
+	var type = todo.parentElement.id.split("_")[0];
+	var changeType;
+	if(type === "todo"){
+		changeType = "doing";
+	}else if(type === "doing"){
+		changeType = "done";
+	}
 	
+	var xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.addEventListener("load", function() {
 		if(this.status == 200){
 			
-			if(changeType === 'doing'){
-				todo.dataset.nextType = 'done'
-			}else if(changeType === 'done'){
-				todo.dataset.nextType = '';
+			if(changeType === "done"){
 				var moveBtn = todo.querySelector(".move");
 				todo.removeChild(moveBtn);
 			}
