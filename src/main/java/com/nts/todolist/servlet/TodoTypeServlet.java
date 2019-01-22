@@ -26,21 +26,18 @@ public class TodoTypeServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		
+		response.setContentType("text/html;charset=UTF-8");
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String type = request.getParameter("type");
 		int insertCount = new TodoDao().updateTodo(id, type);
-		
-		if(insertCount > 0) {
-			response.sendRedirect("/main");
-		}else {
+
+		if (insertCount > 0) {
+			response.getWriter().write("success");
+		} else {
 			// TODO ERROR
+			response.getWriter().write("fail");
 		}
 	}
-
 }
