@@ -29,6 +29,7 @@ function getXMLHttpRequest() {
 function updateType(todo) {
 	var id = todo.dataset.todo_id;
 	var type = todo.dataset.todo_type;
+	var types = ["TODO", "DOING", "DONE"];
 	var title = todo.getElementsByClassName("title")[0].textContent;
 	var name = todo.getElementsByClassName("name")[0].textContent;
 	var sequence = todo.getElementsByClassName("sequence")[0].textContent;
@@ -43,12 +44,7 @@ function updateType(todo) {
 	    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
 	    	todo.parentNode.removeChild(todo);
 
-	    	if(type==="TODO"){
-	    		moveTodo(id, "DOING", title, regdate, name, sequence);
-	    	}
-	    	else if(type==="DOING"){
-	    		moveTodo(id, "DONE", title, regdate, name, sequence);
-	    	}
+	    	moveTodo(id, types[types.indexOf(type)+1], title, regdate, name, sequence);
 	    }
 	}
 	

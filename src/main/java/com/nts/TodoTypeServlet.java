@@ -23,21 +23,29 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		String type = request.getParameter("type");
+		String requestType = request.getParameter("type");
+
+		Type type = Type.valueOf(requestType);
 
 		TodoDao todoDao = new TodoDao();
 		List<TodoDto> todos = todoDao.getTodos();
 
 		for (TodoDto todo : todos) {
 			if (todo.getId() == id) {
-				if (type.equals("TODO")) {
-					todo.setType("DOING");
-				} else {
-					todo.setType("DONE");
-				}
+				todo.setType(type.next());
 				todoDao.updateTodo(todo);
 			}
 		}
 		response.getWriter().write("success");
+	}
+
+	private enum Type {
+		TODO, DOING, DONE;
+
+		private static Type[] types = values();
+
+		public String next() {
+			return types[this.ordinal() + 1].toString();
+		}
 	}
 }
