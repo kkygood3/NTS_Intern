@@ -11,9 +11,9 @@ import java.sql.SQLException;
 public class MysqlConnectionFactory {
 
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/todo";
-		String user = "root";
-		String password = "root!@#123"; // TODO db 사용자 생성해서 하기
+		String url = "jdbc:mysql://10.113.116.52:13306/user10";
+		String user = "user10";
+		String password = "user!@10";
 		Connection connection = null;
 		try {
 			Class.forName("org.gjt.mm.mysql.Driver");
