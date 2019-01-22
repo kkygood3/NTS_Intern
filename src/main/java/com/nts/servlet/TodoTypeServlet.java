@@ -33,6 +33,7 @@ public class TodoTypeServlet extends HttpServlet {
 		String id = (String)req.getParameter("id");
 		String type = (String)req.getParameter("type");
 
+		// TODO: null입력 에외처리 구현
 		if (id == null || type.isEmpty()) {
 			throw new NullPointerException();
 		}

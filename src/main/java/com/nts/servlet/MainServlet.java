@@ -52,7 +52,7 @@ public class MainServlet extends HttpServlet {
 		req.setAttribute("doingList", doingList);
 		req.setAttribute("doneList", doneList);
 
-		RequestDispatcher rd = req.getRequestDispatcher("/main.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("./main.jsp");
 		rd.forward(req, resp);
 	}
 
