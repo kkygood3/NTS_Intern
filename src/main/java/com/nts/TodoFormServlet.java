@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author 육성렬
  */
-@WebServlet("/todoform")
+@WebServlet("/todo-form")
 public class TodoFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -20,7 +20,7 @@ function requestNextType(node) {
         }
     });
     var data = "id=" + encodeURIComponent(id) + "&type=" + encodeURIComponent(type);
-    request.open("POST","http://localhost:8080/2019_1st_intern/todo-type");
+    request.open("POST","/2019_1st_intern/todo-type");
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded; charset=utf-8");
     request.send(data);
 }
