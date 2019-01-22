@@ -57,7 +57,7 @@ public class TodoDao {
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<TodoDto>();
-		String sql = "select id, name, regdate, sequence, title, type from todo";
+		String sql = "select id, name, date_format(regdate, \"%Y.%m.%d\") as regdate, sequence, title, type from todo";
 		try (Connection conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();) {

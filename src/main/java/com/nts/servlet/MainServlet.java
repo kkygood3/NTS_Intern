@@ -38,14 +38,6 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> doneList = new ArrayList<TodoDto>();
 
 		for (TodoDto todo : todos) {
-			/**
-			 * 날짜 포맷 변경
-			 * yyyy-mm-dd hh:mm:ss -> yyyy-mm-dd
-			 */
-			if (todo.getRegdate().length() > 10) {
-				todo.setRegdate(todo.getRegdate().substring(0, 10));
-			}
-
 			if (todo.getType().equals("TODO")) {
 				todoList.add(todo);
 			} else if (todo.getType().equals("DOING")) {
