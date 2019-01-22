@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDto.Type;
 
 /**
  * 메인화면을 보여주기 위한 서블릿
@@ -38,11 +39,11 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> doneList = new ArrayList<TodoDto>();
 
 		for (TodoDto todo : todos) {
-			if (todo.getType().equals("TODO")) {
+			if (todo.getType() == Type.TODO) {
 				todoList.add(todo);
-			} else if (todo.getType().equals("DOING")) {
+			} else if (todo.getType() == Type.DOING) {
 				doingList.add(todo);
-			} else if (todo.getType().equals("DONE")) {
+			} else if (todo.getType() == Type.DONE) {
 				doneList.add(todo);
 			}
 		}

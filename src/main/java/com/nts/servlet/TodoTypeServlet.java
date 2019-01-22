@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDto.Type;
 
 /**
  * Todo type 변경처리를 위한 서블릿
@@ -36,16 +37,9 @@ public class TodoTypeServlet extends HttpServlet {
 			throw new NullPointerException();
 		}
 
-		// 현재상태값을 다음상태값으로 변경
-		if (type.equals("TODO")) {
-			type = "DOING";
-		} else if (type.equals("DOING")) {
-			type = "DONE";
-		}
-
 		TodoDto todoDto = new TodoDto();
 		todoDto.setId(Long.parseLong(id));
-		todoDto.setType(type);
+		todoDto.setType(Type.valueOf(type).getNext());
 
 		TodoDao todoDao = new TodoDao();
 		int updateCount = todoDao.updateTodo(todoDto);

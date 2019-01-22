@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDto.Type;
 
 /**
  * DB Todo 테이블에 접근하여 조회 및 조작하는 클래스
@@ -68,7 +69,7 @@ public class TodoDao {
 				todo.setRegdate(rs.getString("regdate"));
 				todo.setSequence(rs.getInt("sequence"));
 				todo.setTitle(rs.getString("title"));
-				todo.setType(rs.getString("type"));
+				todo.setType(Type.valueOf(rs.getString("type")));
 				todoList.add(todo);
 			}
 		} catch (SQLException e) {
@@ -82,7 +83,7 @@ public class TodoDao {
 		String sql = "update todo set type = ? where id = ?";
 		try (Connection conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setString(1, todoDto.getType());
+			pstmt.setString(1, todoDto.getType().name());
 			pstmt.setLong(2, todoDto.getId());
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
