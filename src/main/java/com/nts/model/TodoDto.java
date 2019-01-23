@@ -4,6 +4,8 @@
  */
 package com.nts.model;
 
+import com.nts.enums.TodoType;
+
 public class TodoDto {
 
 	private long id;
@@ -13,9 +15,13 @@ public class TodoDto {
 	private String title;
 	private String type;
 
+	public void changeTypeToNext() {
+		this.type = TodoType.valueOf(this.type).getNext();
+	}
+
 	@Override
 	public String toString() {
-		return "Todo [id=" + id + ", name=" + name + ", regdate=" + regdate + ", sequence=" + sequence + ", title="
+		return "TodoDto [id=" + id + ", name=" + name + ", regdate=" + regdate + ", sequence=" + sequence + ", title="
 			+ title + ", type=" + type + "]";
 	}
 
