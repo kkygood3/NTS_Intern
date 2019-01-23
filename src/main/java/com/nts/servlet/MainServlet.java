@@ -5,10 +5,9 @@
 package com.nts.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -39,14 +38,10 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> todos = todoDao.getTodos();
 		Map<Type, List<TodoDto>> todosPerType = todos.stream()
 			.collect(Collectors.groupingBy(TodoDto::getType));
-
-		List<TodoDto> todoList = todosPerType.get(Type.TODO);
-		List<TodoDto> doingList = todosPerType.get(Type.DOING);
-		List<TodoDto> doneList = todosPerType.get(Type.DONE);
-
-		req.setAttribute("todoList", todoList);
-		req.setAttribute("doingList", doingList);
-		req.setAttribute("doneList", doneList);
+		
+		for (Type key : todosPerType.keySet()) {
+			req.setAttribute(key.name().toLowerCase() + "List", todosPerType.get(key));
+		}
 
 		RequestDispatcher rd = req.getRequestDispatcher("./main.jsp");
 		rd.forward(req, resp);
