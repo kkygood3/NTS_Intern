@@ -28,18 +28,10 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
-		
-		if (request.getPathInfo() != null) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			return;
-		}
+
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setCharacterEncoding("utf-8");
-//		response.setContentType("application/json");
-		List<TodoDto> todos = new TodoDao().getTodos();
+		List<TodoDto> todos = TodoDao.getInstance().getTodos();
 			if (Const.DEBUG) {
 				System.out.println("//// start do get ////");
 				for (int i = 0; i < todos.size(); i++) {

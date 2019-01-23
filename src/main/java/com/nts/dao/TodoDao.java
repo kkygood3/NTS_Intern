@@ -25,6 +25,9 @@ public class TodoDao {
 		}
 	}
 
+
+
+
 	public int addTodo(TodoDto todo) {
 
 		final String sql = "insert into todo(title, name, sequence) values(?, ?, ?)";
@@ -83,4 +86,13 @@ public class TodoDao {
 		}
 		return result;
 	}
+	
+	
+    private static class Holder {
+        public static final TodoDao INSTANCE = new TodoDao();
+    }
+ 
+    public static TodoDao getInstance() {
+        return Holder.INSTANCE;
+    }
 }
