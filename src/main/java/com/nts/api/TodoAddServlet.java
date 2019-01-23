@@ -32,6 +32,8 @@ public class TodoAddServlet extends HttpServlet {
 		String name = request.getParameter(Const.NAME);
 		int sequence = Integer.parseInt(request.getParameter(Const.SQQUENCE));
 		
+		
+		
 		if (isValidInput(title, sequence)) {
 			TodoDao.getInstance().addTodo(new TodoDto(name, sequence, title));
 		}

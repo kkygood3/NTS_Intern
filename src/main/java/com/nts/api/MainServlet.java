@@ -34,7 +34,6 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
 
-		
 		Map<String, List<TodoDto>> groupedTodos = todos.stream().collect(Collectors.groupingBy(TodoDto::getType));
 		request.setAttribute("todo", groupedTodos.get(Const.TODO));
 		request.setAttribute("doing", groupedTodos.get(Const.DOING));

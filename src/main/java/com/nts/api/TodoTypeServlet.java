@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.StringUtils;
+import com.nts.Const;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
@@ -16,7 +18,7 @@ import com.nts.dto.TodoDto;
  * @author 시윤
  * Servlet implementation class TodoTypeServlet
  */
-@WebServlet("/todo/*")
+@WebServlet("/todo/update")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,44 +29,36 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Long id = getId(request.getPathInfo());
-		if (id == -1) {
-			response.sendRedirect("./todos");
-			return;
-		}
-		TodoDto todo = new TodoDto();
-		todo.setId(id);
-		if (TodoDao.getInstance().updateTodo(todo) == 1) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		} else {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+		request.setCharacterEncoding("UTF-8");
+
+		Long id = getId(request.getParameter(Const.ID));
+		String type = (String)request.getParameter(Const.TYPE);
+
+		if (id > -1 && !StringUtils.isNullOrEmpty(type)) {
+			System.out.println("!!!");
+			TodoDto todo = new TodoDto();
+			todo.setId(id);
+			todo.setType(type);
+			if (TodoDao.getInstance().updateTodo(todo) == 1) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			}
 		}
 	}
 
 	/*
-	 * 잘못된요청 - main page로 reidrect
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		response.sendRedirect("./todos");
-	}
-
-	/*
-	 * path가 유효하면 id를 return
+	 * id가 유효하면 id를 return
 	 * 유효하지 않으면 -1을 return
 	 */
-	private Long getId(String path) {
-		String[] pathParts = path.split("/");
-		if (pathParts.length != 2) {
-			return (long)-1;
-		}
-		Long id;
+	private Long getId(String id) {
+		Long longId;
 		try {
-			id = Long.parseLong(pathParts[1]);
+			longId = Long.parseLong(id);
 		} catch (NumberFormatException e) {
-			return (long)-1;
+			longId = (long)-1;
 		}
-		return id;
+		return longId;
 	}
 }

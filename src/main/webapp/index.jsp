@@ -57,8 +57,12 @@
  			if(!httpRequest) {
  				return false;
  			}
+ 			id = e.target.parentElement.id,
+ 			type = e.target.parentElement.parentElement.id
+
+ 			httpRequest.open("PUT", "./todo/update?id=" + id + "&type=" + type);
+ 			httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
  			httpRequest.onreadystatechange = alertContents(e);
- 			httpRequest.open("PUT", "./todo/" + e.target.parentElement.id);
  			httpRequest.send();
 		}
 		function alertContents(e) {
