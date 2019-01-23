@@ -82,22 +82,37 @@
 			xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
 			xhr.send();
 
-			xhr.addEventListener("load", function() {
-				// 다음 상태값으로 변경
-				if (type === "TODO") {
-					type = "DOING"
-				} else if (type === "DOING") {
-					type = "DONE"
-					// 마지막 상태값 DONE이 될경우 타입변경 버튼제거
-					var button = card.getElementsByClassName(".typeNextButton")[0];
-					card.removeChild(button);
-				}
-				card.setAttribute("type", type);
-				
-				// Todo Card를 타입에 맞게 컨테이너 div로 옮겨줌
-				var container = document.getElementById(type.toLowerCase());
-				container.appendChild(card)
+			xhr.addEventListener("load", function(e) {
+				type = nextType(type);
+				changeCardToContainer(type, card);
 			});
+			
+			xhr.addEventListener("error", function(e) {
+				alert("An error occurred while transferring the file.");
+			});
+		}
+		
+		// 다음 상태값으로 변경
+		function nextType(type) {
+			if (type === "TODO") {
+				type = "DOING"
+			} else if (type === "DOING") {
+				type = "DONE"
+			}
+			return type;
+			
+		}
+
+		// Todo Card를 지정된 Type 컨테이너div로 옮겨줍니다.
+		function changeCardToContainer(type, card) {
+			// 마지막 상태값 DONE인 경우 타입변경 버튼제거
+			if (type === "DONE") {
+				var button = card.getElementsByClassName("typeNextButton")[0];
+				card.removeChild(button);
+			}
+			card.setAttribute("type", type);
+			var container = document.getElementById(type.toLowerCase());
+			container.appendChild(card)
 		}
 	</script>
 </body>
