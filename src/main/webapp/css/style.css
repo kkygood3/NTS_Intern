@@ -26,24 +26,57 @@ body {
 	border: 0px;
 }
 
+#content {
+	padding-top: 50px;
+	padding-left: 20%;
+}
+
+.todo {
+	display: inline-block;
+	font-size: 20px;
+	width: 30%;
+	font-weight: 900;
+	color: white;
+}
+
+.title {
+	color: white;
+	background: #000081;
+	margin-bottom: 10px;
+	height: 60px;
+	padding-top: 25px;
+	font-size: 25px;
+	font-weight: 900;
+	padding-left: 20px;
+}
+
+.list {
+	background: #3DB7CC;
+	margin-bottom: 10px;
+	height: 80px;
+	font-weight: 900;
+	padding-left: 20px;
+	color: black;
+}
+
+.list-one {
+	font-size: 20px;
+	font-weight: 800;
+	padding-top: 10px;
+}
+
+.list-two {
+	font-size: 13px;
+	font-weight: 400;
+	padding-top: 10px;
+	width: 90%;
+}
+
+
 #top {
 	padding-top: 50px;
 	display: inline-flex;
 	padding-left: 80px;
-}
-
-.todo-box {
-	margin-right: 10px;
-	height: 60px;
-	width: 250px;
-	text-align: left;
-	font-size: 20px;
-	padding-top: 30px;
-	list-style-type: none;
-	padding-left: 70px;
-	font-weight: 900;
-	background: #000081;
-	color: white;
 }
 
 #corner {

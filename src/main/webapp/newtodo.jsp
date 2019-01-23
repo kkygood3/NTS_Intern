@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-		response.sendRedirect("/newtodo.html");
-	%>
+	<h1>할 일 등록 페이지</h1>
 </body>
 </html>
