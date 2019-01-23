@@ -5,9 +5,11 @@
 package com.nts.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,19 +37,12 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		TodoDao todoDao = TodoDao.getInstance();
 		List<TodoDto> todos = todoDao.getTodos();
-		List<TodoDto> todoList = new ArrayList<TodoDto>();
-		List<TodoDto> doingList = new ArrayList<TodoDto>();
-		List<TodoDto> doneList = new ArrayList<TodoDto>();
+		Map<Type, List<TodoDto>> todosPerType = todos.stream()
+			.collect(Collectors.groupingBy(TodoDto::getType));
 
-		for (TodoDto todo : todos) {
-			if (todo.getType() == Type.TODO) {
-				todoList.add(todo);
-			} else if (todo.getType() == Type.DOING) {
-				doingList.add(todo);
-			} else if (todo.getType() == Type.DONE) {
-				doneList.add(todo);
-			}
-		}
+		List<TodoDto> todoList = todosPerType.get(Type.TODO);
+		List<TodoDto> doingList = todosPerType.get(Type.DOING);
+		List<TodoDto> doneList = todosPerType.get(Type.DONE);
 
 		req.setAttribute("todoList", todoList);
 		req.setAttribute("doingList", doingList);
