@@ -23,7 +23,7 @@ import com.nts.dto.TodoDto;
  * @author 박우성
  */
 @WebServlet("/register")
-public class RegisterServlet extends HttpServlet {
+public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

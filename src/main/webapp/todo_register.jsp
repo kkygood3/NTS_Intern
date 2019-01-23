@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>할일 등록</title>
 <link rel="stylesheet" type="text/css" href="css/todo_register.css">
 </head>
+
 <body>
 	<h2>할일 등록</h2>
 	<section>
@@ -60,5 +60,4 @@
 				window.location.href = "main";
 			})
 </script>
-
 </html>

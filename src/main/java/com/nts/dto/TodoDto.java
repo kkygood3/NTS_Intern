@@ -8,7 +8,7 @@ package com.nts.dto;
  * todo table의 정보와 대응하는 컨테이너 클래스 dto
  * @author 박우성
  */
-public class TodoDto{
+public class TodoDto {
 	private Integer id;
 	private String title;
 	private String name;
@@ -23,7 +23,7 @@ public class TodoDto{
 		this.id = id;
 		this.type = type;
 	}
-	
+
 	/**
 	 * INSERT 수행을 위한 생성자
 	 */
@@ -32,7 +32,7 @@ public class TodoDto{
 		this.name = name;
 		this.sequence = sequence;
 	}
-	
+
 	/**
 	 * getTodo를 위한 생성자
 	 */

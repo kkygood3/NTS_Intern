@@ -30,8 +30,13 @@ public class TypeUpdateServlet extends HttpServlet {
 		try {
 			Integer targetID = new Integer(request.getParameter("id"));
 			String targetType = request.getParameter("type");
+
+			boolean invalidTagName = !("TODO".equals(targetType) || "DOING".equals(targetType) || "DONE".equals(targetType));
+			if (invalidTagName)
+				throw new Exception();
+
 			TodoDao dao = TodoDao.getInstance();
-			
+
 			if (dao.updateTodo(new TodoDto(targetID, targetType)))
 				out.print("success");
 			else
@@ -39,7 +44,7 @@ public class TypeUpdateServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect("error/invalid_access.jsp");
-		} finally{
+		} finally {
 			out.close();
 		}
 	}

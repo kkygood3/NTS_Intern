@@ -5,7 +5,6 @@
 package com.nts.api;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,11 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
-
-import com.nts.dao.*;
 
 /**
  * main.jsp를 로드할때 마다 DB의 현재 값을 가져오는 서블렛
@@ -32,7 +28,7 @@ import com.nts.dao.*;
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String[] todoLabel = {"TODO", "DOING", "DONE"};
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
@@ -40,11 +36,11 @@ public class MainServlet extends HttpServlet {
 
 		TodoDao dao = TodoDao.getInstance();
 		List<TodoDto> list = dao.getTodos();
-		
+
 		Map<String, List<TodoDto>> groupedList = list.stream().collect(Collectors.groupingBy(TodoDto::getType));
-		for(int i = 0 ; i < todoLabel.length; i++)
-			request.setAttribute(todoLabel[i]+"list",groupedList.get(todoLabel[i]));
-		
+		for (int i = 0; i < todoLabel.length; i++)
+			request.setAttribute(todoLabel[i] + "list", groupedList.get(todoLabel[i]));
+
 		request.setAttribute("todoLabel", todoLabel);
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher("/main.jsp");
