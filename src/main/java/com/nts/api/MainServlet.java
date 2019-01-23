@@ -39,11 +39,12 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> todo = todos.parallelStream().filter(t -> t.getType().equals(Const.TODO))
 			.collect(Collectors.toList());
 		request.setAttribute("todo", todo);
+	
 		
 		List<TodoDto> doing = todos.parallelStream().filter(t -> t.getType().equals(Const.DOING))
 			.collect(Collectors.toList());
 		request.setAttribute("doing", doing);
-		
+
 		List<TodoDto> done = todos.parallelStream().filter(t -> t.getType().equals(Const.DONE))
 			.collect(Collectors.toList());
 		request.setAttribute("done", done);
@@ -51,5 +52,4 @@ public class MainServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
 		requestDispatcher.forward(request, response);
 	}
-
 }
