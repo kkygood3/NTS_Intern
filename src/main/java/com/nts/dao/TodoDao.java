@@ -25,7 +25,6 @@ public class TodoDao {
 	}
 
 	public List<TodoDto> getTodos() {
-
 		List<TodoDto> todos = new ArrayList<TodoDto>();
 		try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(DBQuery.SELECT_SQL);
 			ResultSet rs = ps.executeQuery()) {
