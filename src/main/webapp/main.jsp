@@ -36,23 +36,10 @@
 				<c:if test="${target.type == curLabel}">
 					<p>
 						<span class='do_name'>
-							<!-- 너무 긴 문자는 생략 -->
-							<c:if test="${fn:length(target.title)>17}">
-								${fn:substring(target.title,0,17)}...	
-							</c:if>
-							<c:if test="${fn:length(target.title)<=17}">
-								${target.title}
-							</c:if>
+							${target.title}
 						</span><br>
 						<span class='do_description'>
-							등록날짜:${target.regdate}. 
-							<c:if test="${fn:length(target.name)>6}">
-								${fn:substring(target.name,0,6)}...	
-							</c:if>
-							<c:if test="${fn:length(target.name)<=6}">
-								${target.name}.
-							</c:if>
-							 우선순위 ${target.sequence}
+							등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
 						</span>
 						<c:if test="${labelIdx != length}">
 							<button name="${target.id}">→</button>
