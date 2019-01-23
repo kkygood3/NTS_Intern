@@ -24,7 +24,7 @@ public class TodoDao {
 	private static final String connectionPassword = "user8";
 
 	public int addTodo(TodoDto todo) {
-		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
+		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?,?,?)";
 		Object[] params = {todo.getTitle(), todo.getName(), todo.getSequence()};
 
 		int insertCount = queryForObject(sql, params);
@@ -41,7 +41,10 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String sql = "select id, title, name, sequence, type, date_format(regdate, \"%Y.%m.%d\") as regdate from todo order by regdate";
+		String sql = "SELECT id, title, name, sequence, type, date_format(regdate, \"%Y.%m.%d\") as regdate\n"
+			+ "FROM todo\n"
+			+ "WHERE type in (\"TODO\", \"DOING\", \"DONE\")\n"
+			+ "ORDER BY regdate";
 		try (Connection conn = DriverManager.getConnection(connectionUrl, connectionUser, connectionPassword);
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			ResultSet resultsSet = preparedStatement.executeQuery()) {
@@ -64,7 +67,7 @@ public class TodoDao {
 	}
 
 	public int updateTodo(TodoDto todo) {
-		String sql = "update todo set type = ? where id = ?";
+		String sql = "UPDATE todo SET type = ? WHERE id = ?";
 		Object[] params = {todo.getType(), todo.getId()};
 
 		int updateCount = queryForObject(sql, params);
