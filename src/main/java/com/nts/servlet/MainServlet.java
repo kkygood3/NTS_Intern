@@ -5,7 +5,6 @@
 package com.nts.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dto.TodoDtoList;
+import com.nts.exception.ServerError500Exception;
 import com.nts.service.TodoService;
 
 /**
@@ -40,8 +40,8 @@ public class MainServlet extends HttpServlet {
 			TodoDtoList result = todoService.getTodos();
 			request.setAttribute("result", result);
 
-		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		} catch (ServerError500Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
 		}
 
 		request.getRequestDispatcher("/WEB-INF/main.jsp")

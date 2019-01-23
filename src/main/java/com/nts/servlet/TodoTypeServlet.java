@@ -6,7 +6,6 @@ package com.nts.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dto.TodoDto;
+import com.nts.exception.ServerError500Exception;
 import com.nts.service.TodoService;
 
 /**
@@ -48,7 +48,7 @@ public class TodoTypeServlet extends HttpServlet {
 			todoService.updateTodo(todoDto);
 			
 			out.write("success");
-		} catch (SQLException e) {
+		} catch (ServerError500Exception e) {
 			out.write("fail");
 		}
 	}

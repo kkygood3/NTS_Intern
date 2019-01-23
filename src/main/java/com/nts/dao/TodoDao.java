@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.dto.TodoDto;
-import com.nts.type.TodoType;
+import com.nts.exception.ServerError500Exception;
 import com.nts.util.DBUtil;
 
 /**
@@ -39,9 +39,9 @@ public class TodoDao {
 	/**
 	 * @desc todoList 가져오기
 	 * @return todoMap key -> ( todoList, doingList, doneList)
-	 * @throws SQLException 
+	 * @throws ServerError500Exception 
 	 */
-	public List<TodoDto> getTodos() throws SQLException {
+	public List<TodoDto> getTodos() throws ServerError500Exception {
 
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(GET_TODOS);
@@ -64,6 +64,10 @@ public class TodoDao {
 			}
 
 			return todoList;
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+			throw new ServerError500Exception("Server Error");
 		}
 	}
 
@@ -71,10 +75,10 @@ public class TodoDao {
 	 * @desc todo type 변경
 	 * @param id
 	 * @param type
+	 * @throws ServerError500Exception 
 	 * @return result
-	 * @throws SQLException 
 	 */
-	public int updateTodo(TodoDto todoDto) throws SQLException {
+	public int updateTodo(TodoDto todoDto) throws ServerError500Exception {
 
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(UPDATE_TODO)) {
@@ -83,6 +87,10 @@ public class TodoDao {
 			preparedStatment.setLong(2, todoDto.getId());
 
 			return preparedStatment.executeUpdate();
+		} catch(SQLException e) {
+			
+			System.out.println(e.getMessage());
+			throw new ServerError500Exception("Server Error");
 		}
 
 	}
@@ -91,9 +99,9 @@ public class TodoDao {
 	 * @desc todo 내용 삽입
 	 * @param todoDto
 	 * @return result
-	 * @throws SQLException
+	 * @throws ServerError500Exception 
 	 */
-	public int addTodo(TodoDto todoDto) throws SQLException {
+	public int addTodo(TodoDto todoDto) throws ServerError500Exception {
 
 		try (Connection conn = DBUtil.getConnection();
 			PreparedStatement preparedStatment = conn.prepareStatement(ADD_TODO)) {
@@ -104,6 +112,10 @@ public class TodoDao {
 
 			return preparedStatment.executeUpdate();
 
+		} catch(SQLException e) {
+			
+			System.out.println(e.getMessage());
+			throw new ServerError500Exception("Server Error");
 		}
 	}
 }

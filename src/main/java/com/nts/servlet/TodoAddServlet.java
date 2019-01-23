@@ -5,7 +5,6 @@
 package com.nts.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dto.TodoDto;
+import com.nts.exception.ServerError500Exception;
 import com.nts.service.TodoService;
-	
+
 /**
  * @desc todo 등록 서블릿
  * @author 전연빈
@@ -37,7 +37,7 @@ public class TodoAddServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		request.getRequestDispatcher("/WEB-INF/newtodo.jsp")
-			   .forward(request, response);
+			.forward(request, response);
 	}
 
 	/**
@@ -57,13 +57,19 @@ public class TodoAddServlet extends HttpServlet {
 
 		todoDto.setName(request.getParameter("personName"));
 		todoDto.setTitle(request.getParameter("title"));
-		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
+
+		try {
+			todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청을 보냈습니다.");
+		}
 
 		try {
 			TodoService todoService = TodoService.getInstance();
 			todoService.addTodo(todoDto);
-		} catch (SQLException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		} catch (ServerError500Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 
 		response.sendRedirect("/main");

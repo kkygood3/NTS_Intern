@@ -11,6 +11,7 @@ import java.util.List;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoDtoList;
+import com.nts.exception.ServerError500Exception;
 import com.nts.type.TodoType;
 
 /**
@@ -36,7 +37,7 @@ public class TodoService {
 	 * @param type
 	 * @throws SQLException
 	 */
-	public int updateTodo(TodoDto todoDto) throws SQLException {
+	public int updateTodo(TodoDto todoDto) throws ServerError500Exception {
 
 		if (TodoType.TODO.toString().equals(todoDto.getType())) {
 			todoDto.setType(TodoType.DOING.toString());
@@ -50,9 +51,9 @@ public class TodoService {
 	/**
 	 * @desc type에 맞게끔 map에 키 밸류 형태로 넣어줌 
 	 * @return todoList
-	 * @throws SQLException
+	 * @throws ServerError500Exception 
 	 */
-	public TodoDtoList getTodos() throws SQLException {
+	public TodoDtoList getTodos() throws ServerError500Exception {
 
 		TodoDao todoDao = TodoDao.getInstance();
 		List<TodoDto> list = todoDao.getTodos();
@@ -82,7 +83,7 @@ public class TodoService {
 	 * @return result
 	 * @throws SQLException
 	 */
-	public int addTodo(TodoDto todoDto) throws SQLException {
+	public int addTodo(TodoDto todoDto) throws ServerError500Exception {
 		return TodoDao.getInstance().addTodo(todoDto);
 	}
 

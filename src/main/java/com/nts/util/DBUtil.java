@@ -31,7 +31,7 @@ public class DBUtil {
 			Context envContext = (Context) context.lookup("java:comp/env");
 			dataSource = (DataSource) envContext.lookup("jdbc/mysql/todo_db");
 		} catch (NamingException e) {
-			throw new SQLException();
+			e.printStackTrace();
 		}
 		
 		return dataSource.getConnection();

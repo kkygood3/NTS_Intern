@@ -2,7 +2,6 @@
  * @desc 다음요소로 전달 (날짜 정렬)
  * @params changingElement (바뀔 요소)
  * @parmas nextElementUl (changingElement가 이동할 요소 ul)
- * @returns
  */
 function changeToNext(changingElement, nextElementUl) {
 
@@ -54,15 +53,14 @@ function updateItemToNext(changingElement) {
 
 /**
  * @desc next btn 이벤트리스너
- * @returns
  */	
-function nextBtnEvent() {
-	var nextButtons = document.querySelectorAll('.next_btn');
-
-	nextButtons.forEach(function(btn) {
-		btn.addEventListener('click', function() {
-
-			var li = this.parentNode.parentNode;
+function nextBtnEvent(){
+	
+	 document.querySelector('section').addEventListener('click',function(e){
+		if(e.target.className === 'next_btn'){
+			var nextBtn = e.target;
+			
+			var li = nextBtn.parentNode.parentNode;
 			var type = li.parentNode.id.toUpperCase(); // TODO , DOING , DONE
 			var id = li.getAttribute('data-id');
 
@@ -73,7 +71,7 @@ function nextBtnEvent() {
 			};
 			
 			updateItemToNext(changingElement);
-		});
+		}
 	});
 }
 
