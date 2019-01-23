@@ -13,7 +13,6 @@ import com.nts.dto.TodoDto;
 import com.nts.dto.TodoDtoList;
 import com.nts.exception.ServerError500Exception;
 import com.nts.type.TodoType;
-
 /**
  * @author 전연빈
  */
@@ -22,7 +21,6 @@ public class TodoService {
 	private TodoService() {
 
 	}
-
 	private static class TodoServiceLazyHolder {
 		public static final TodoService INSTANCE = new TodoService();
 	}
@@ -56,8 +54,7 @@ public class TodoService {
 	public TodoDtoList getTodos() throws ServerError500Exception {
 
 		TodoDao todoDao = TodoDao.getInstance();
-		List<TodoDto> list = todoDao.getTodos();
-
+		
 		TodoDtoList todoDtoList = new TodoDtoList();
 
 		List<TodoDto> todoList = new ArrayList<>();
@@ -68,10 +65,9 @@ public class TodoService {
 		todoDtoList.setDoingList(doingList);
 		todoDtoList.setDoneList(doneList);
 
+		List<TodoDto> list = todoDao.getTodos();
 		for (TodoDto todoDto : list) {
-			String type = todoDto.getType();
-
-			TodoType.valueOf(type).addList(todoDtoList, todoDto);
+			TodoType.valueOf(todoDto.getType()).addList(todoDtoList, todoDto);
 		}
 
 		return todoDtoList;

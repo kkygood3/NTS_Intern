@@ -31,6 +31,5 @@ public enum TodoType {
 		}
 	};
 	
-	
 	public abstract void addList(TodoDtoList todoDtoList,TodoDto todoDto);
 }
