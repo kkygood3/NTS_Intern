@@ -76,12 +76,12 @@
 <script>
 	function updateRequest(btn, type) {
 		var oReq = new XMLHttpRequest();
-		oReq.addEventListener("load",function(e){
-			if (e.target.response != "success"){
+		oReq.addEventListener("load", function(e) {
+			if (e.target.response != "success") {
 				alert('Update fail');
 			}
 		});
-		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type=" + type);
+		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type="+ type);
 		oReq.send();
 	}
 
@@ -94,8 +94,7 @@
 			//TODO에 있는 버튼을 눌렀을 때
 			var artDoing = document.getElementsByClassName('art_DOING')[0];
 			var clickedTag = btn.parentElement;
-			artDoing.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
-			clickedTag.remove();
+			artDoing.appendChild(clickedTag);
 
 			var btns = document.getElementsByTagName('button');
 
@@ -105,11 +104,9 @@
 			//DOING에 있는 버튼을 눌렀을 때
 			var artDone = document.getElementsByClassName('art_DONE')[0];
 			var clickedTag = btn.parentElement;
-			artDone.innerHTML += "<p>" + clickedTag.innerHTML + "</p>";
-			clickedTag.remove();
+			artDone.appendChild(clickedTag)
 
-			var pTags = document.getElementsByClassName("art_DONE")[0]
-					.getElementsByTagName("p");
+			var pTags = document.getElementsByClassName("art_DONE")[0].getElementsByTagName("p");
 			pTags[pTags.length - 1].getElementsByTagName('button')[0].remove();
 		}
 	}
