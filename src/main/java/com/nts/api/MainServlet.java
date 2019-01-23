@@ -30,20 +30,18 @@ public class MainServlet extends HttpServlet {
 	public static final String[] todoLabel = {"TODO", "DOING", "DONE"};
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-
+		throws ServletException, IOException {		
 		TodoDao dao = TodoDao.getInstance();
 		List<TodoDto> list = dao.getTodos();
 
 		Map<String, List<TodoDto>> groupedList = list.stream().collect(Collectors.groupingBy(TodoDto::getType));
-		for (int i = 0; i < todoLabel.length; i++)
-			request.setAttribute(todoLabel[i] + "list", groupedList.get(todoLabel[i]));
+		request.setAttribute("TODO", groupedList.get("TODO"));
+		request.setAttribute("DOING", groupedList.get("DOING"));
+		request.setAttribute("DONE", groupedList.get("DONE"));
 
 		request.setAttribute("todoLabel", todoLabel);
-		ServletContext context = getServletContext();
-		RequestDispatcher dispatcher = context.getRequestDispatcher("/main.jsp");
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
 		dispatcher.forward(request, response);
 	}
 }

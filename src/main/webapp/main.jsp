@@ -1,14 +1,4 @@
-<%@page import="com.nts.dao.TodoDao"%>
-<%@page import="javax.swing.text.Document"%>
-<%@page import="java.util.List"%>
-<%@page import="com.fasterxml.jackson.core.type.TypeReference"%>
-<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
-<%@page import="com.fasterxml.jackson.core.JsonParser"%>
-<%@page import="com.mysql.cj.xdevapi.DbDoc"%>
-<%@page import="com.nts.dto.*"%>
-<%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -29,7 +19,7 @@
 	<section class="art_container">		
 		<article class='art_TODO'>
 			<div class='div_title'>TODO</div>
-			<c:forEach var="target" items="${TODOlist}">
+			<c:forEach var="target" items="${TODO}">
 				<p>
 					<span class='do_name'>
 						${target.title}
@@ -44,7 +34,7 @@
 		
 		<article class='art_DOING'>
 			<div class='div_title'>DOING</div>
-			<c:forEach var="target" items="${DOINGlist}">
+			<c:forEach var="target" items="${DOING}">
 				<p>
 					<span class='do_name'>
 						${target.title}
@@ -59,7 +49,7 @@
 		
 		<article class='art_DONE'>
 			<div class='div_title'>DONE</div>
-			<c:forEach var="target" items="${DONElist}">
+			<c:forEach var="target" items="${DONE}">
 				<p>
 					<span class='do_name'>
 						${target.title}
