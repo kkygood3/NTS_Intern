@@ -25,18 +25,9 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String[] pathParts = request.getPathInfo().split("/");
-		for (String pp : pathParts)
-			System.out.println(pp);
-		if (pathParts.length != 2) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			return;
-		}
-		Long id;
-		try {
-			id = Long.parseLong(pathParts[1]);
-		} catch (NumberFormatException e) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		Long id = getId(request.getPathInfo());
+		if (id == -1) {
+			response.sendRedirect("./todos");
 			return;
 		}
 		TodoDto todo = new TodoDto();
@@ -47,12 +38,27 @@ public class TodoTypeServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
 	}
-	
+
 	/*
 	 * 잘못된요청 - main page로 reidrect
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
 		response.sendRedirect("./todos");
+	}
+
+	private Long getId(String path) {
+		String[] pathParts = path.split("/");
+		if (pathParts.length != 2) {
+			return (long)-1;
+		}
+		Long id;
+		try {
+			id = Long.parseLong(pathParts[1]);
+		} catch (NumberFormatException e) {
+			return (long)-1;
+		}
+		return id;
 	}
 }
