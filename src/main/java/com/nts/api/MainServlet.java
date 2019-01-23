@@ -32,13 +32,7 @@ public class MainServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setCharacterEncoding("utf-8");
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
-			if (Const.DEBUG) {
-				System.out.println("//// start do get ////");
-				for (int i = 0; i < todos.size(); i++) {
-					System.out.println(todos.get(i));
-				}
-				System.out.println("//// end do get ////");
-			}
+
 		request.setAttribute("todos", todos);
 		
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");

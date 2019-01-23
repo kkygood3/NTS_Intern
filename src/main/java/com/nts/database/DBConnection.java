@@ -22,5 +22,4 @@ public abstract class DBConnection implements java.lang.AutoCloseable {
 		return dbConnection;
 	}
 
-
 }

@@ -26,9 +26,6 @@ public class TodoDao {
 		}
 	}
 
-
-
-
 	public int addTodo(TodoDto todo) {
 		int result = 0;
 		try (PreparedStatement ps = (PreparedStatement)conn.prepareStatement(DBQuery.INSERT_SQL)) {
@@ -78,13 +75,12 @@ public class TodoDao {
 		}
 		return result;
 	}
-	
-	
-    private static class Holder {
-        public static final TodoDao INSTANCE = new TodoDao();
-    }
- 
-    public static TodoDao getInstance() {
-        return Holder.INSTANCE;
-    }
+
+	private static class Holder {
+		public static final TodoDao INSTANCE = new TodoDao();
+	}
+
+	public static TodoDao getInstance() {
+		return Holder.INSTANCE;
+	}
 }
