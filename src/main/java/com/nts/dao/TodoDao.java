@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.nts.Const;
 import com.nts.database.DBConnection;
+import com.nts.database.DBQuery;
 import com.nts.dto.TodoDto;
 
 public class TodoDao {
@@ -29,11 +30,8 @@ public class TodoDao {
 
 
 	public int addTodo(TodoDto todo) {
-
-		final String sql = "insert into todo(title, name, sequence) values(?, ?, ?)";
 		int result = 0;
-		try (
-			PreparedStatement ps = (PreparedStatement)conn.prepareStatement(sql)) {
+		try (PreparedStatement ps = (PreparedStatement)conn.prepareStatement(DBQuery.INSERT_SQL)) {
 			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
@@ -47,14 +45,11 @@ public class TodoDao {
 	public List<TodoDto> getTodos() {
 
 		List<TodoDto> todos = new ArrayList<TodoDto>();
-
-		final String sql = "select id, title, name, sequence, type, DATE_FORMAT(regdate, '%Y.%m.%d') as regdate from todo order by regdate desc";
-		try (
-			PreparedStatement ps = (PreparedStatement)conn.prepareStatement(sql);
+		try (PreparedStatement ps = (PreparedStatement)conn.prepareStatement(DBQuery.SELECT_SQL);
 			ResultSet rs = ps.executeQuery()) {
 			rs.beforeFirst();
 			while (rs.next()) {
-				todos.add(new TodoDto(rs.getLong("id"),
+				todos.add(new TodoDto(rs.getLong(Const.ID),
 					rs.getString(Const.NAME),
 					rs.getString(Const.REGDATE),
 					rs.getInt(Const.SQQUENCE),
@@ -69,10 +64,7 @@ public class TodoDao {
 
 	public int updateTodo(TodoDto todo) {
 		int result = 0;
-		final String sql = "update todo set type = ? where id = ? and type = ?";
-		try (
-			PreparedStatement ps = conn.prepareStatement(sql);) {
-
+		try (PreparedStatement ps = conn.prepareStatement(DBQuery.UPDATE_DQL);) {
 			ps.setString(1, Const.DOING);
 			ps.setLong(2, todo.getId());
 			ps.setString(3, Const.TODO);
