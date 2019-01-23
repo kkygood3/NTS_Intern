@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.todo.dao.TodoDao;
 import com.nts.todo.dto.TodoDto;
+import com.nts.todo.dto.Type;
 
 /**
 * FileName : TodoTypeServlet.java
@@ -36,21 +37,5 @@ public class TodoTypeServlet extends HttpServlet {
 		todoDao.updateTodo(todo);
 
 		response.getWriter().write("success");
-	}
-
-	private enum Type {
-		TODO, DOING, DONE;
-
-		private static Type[] types = values();
-
-		public String next() {
-			String type = "";
-			if (this.ordinal() + 1 == types.length) {
-				type = types[this.ordinal()].toString();
-			} else {
-				type = types[this.ordinal() + 1].toString();
-			}
-			return type;
-		}
 	}
 }

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.todo.dao.TodoDao;
 import com.nts.todo.dto.TodoDto;
+import com.nts.todo.dto.Type;
 
 /**
 * FileName : MainServlet.java
@@ -31,23 +32,21 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		TodoDao todoDao = new TodoDao();
-		List<TodoDto> totalTodo = todoDao.getTodos();
+		List<TodoDto> totalTodos = todoDao.getTodos();
 		List<TodoDto> todos = new ArrayList<>();
 		List<TodoDto> doings = new ArrayList<>();
 		List<TodoDto> dones = new ArrayList<>();
 
-		for (TodoDto todo : totalTodo) {
-			switch (todo.getType()) {
-				case "TODO":
+		for (TodoDto todo : totalTodos) {
+			switch (Type.valueOf(todo.getType())) {
+				case TODO:
 					todos.add(todo);
 					break;
-				case "DOING":
+				case DOING:
 					doings.add(todo);
 					break;
-				case "DONE":
+				case DONE:
 					dones.add(todo);
-					break;
-				default:
 					break;
 			}
 		}
