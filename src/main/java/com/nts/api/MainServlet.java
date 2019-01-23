@@ -16,7 +16,7 @@ import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
 /**
- * todo 등록, 수정, 조회
+ * todo전체 조회
  * @author 시윤
  * Servlet implementation class TodoServlet
  */

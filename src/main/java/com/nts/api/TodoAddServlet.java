@@ -15,6 +15,8 @@ import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
 /**
+ * todo 등록
+ * @author 시윤
  * Servlet implementation class TodoAddServlet
  */
 @WebServlet("/todo")
@@ -46,6 +48,9 @@ public class TodoAddServlet extends HttpServlet {
 		response.sendRedirect("./todos");
 	}
 	
+	/*
+	 * 입력값이 유효한지 검사
+	 */
 	private boolean isValidInput(String title, int sequence) {
 		if (title.length() > 24) return false;
 		if (sequence > 3 || sequence < 1) return false;

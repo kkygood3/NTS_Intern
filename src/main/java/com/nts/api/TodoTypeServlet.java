@@ -12,7 +12,9 @@ import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
 /**
- * Servlet implementation class TodoTypeServle
+ * todo type 수정
+ * @author 시윤
+ * Servlet implementation class TodoTypeServlet
  */
 @WebServlet("/todo/*")
 public class TodoTypeServlet extends HttpServlet {
@@ -48,6 +50,10 @@ public class TodoTypeServlet extends HttpServlet {
 		response.sendRedirect("./todos");
 	}
 
+	/*
+	 * path가 유효하면 id를 return
+	 * 유효하지 않으면 -1을 return
+	 */
 	private Long getId(String path) {
 		String[] pathParts = path.split("/");
 		if (pathParts.length != 2) {
