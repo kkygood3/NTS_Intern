@@ -14,7 +14,7 @@
 			<h1>
 				나의 해야 할 일들
 			</h1>
-			<a class="add_btn" href="./todo-form">새로운 TODO 등록</a>
+			<a class="add_btn" href="./todoForm">새로운 TODO 등록</a>
 			<div class="todo_list_container">
 				<ul id="todo_list_type_todo_column">
 					<li class="todo_cell todo_category">TODO</li>

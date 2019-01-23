@@ -11,7 +11,7 @@
 	<body>
 		<div class="todo_page_container">
 			<h1>할일 등록</h1>
-			<form class="todo_form" action="./add-todo" method="post" accept-charset="UTF-8">
+			<form class="todo_form" action="./addTodo" method="post" accept-charset="UTF-8">
 				<label for="todo_title_input">어떤일인가요?</label>
 				<input type="text" id="todo_title_input" name="todo_title" placeholder="swift 공부하기(24글자까지)" maxlength="24" required>
 				<label for="todo_name_input">누가 할일인가요?</label>
