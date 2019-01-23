@@ -5,7 +5,6 @@
 package com.nts;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,21 +27,14 @@ public class TodoTypeServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		String requestType = request.getParameter("type");
-
-		Type currentType = Type.valueOf(requestType);
+		TodoDto todo = new TodoDto();
+		todo.setId(Long.parseLong(request.getParameter("id")));
+		Type currentType = Type.valueOf(request.getParameter("type"));
+		todo.setType(currentType.next());
 
 		TodoDao todoDao = new TodoDao();
-		List<TodoDto> todos = todoDao.getTodos();
+		todoDao.updateTodo(todo);
 
-		for (TodoDto todo : todos) {
-			if (todo.getId() == id) {
-				todo.setType(currentType.next());
-				todoDao.updateTodo(todo);
-				break;
-			}
-		}
 		response.getWriter().write("success");
 	}
 

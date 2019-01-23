@@ -46,13 +46,14 @@ public class TodoDao {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			ResultSet resultsSet = preparedStatement.executeQuery()) {
 			while (resultsSet.next()) {
-				Long id = resultsSet.getLong("id");
-				String title = resultsSet.getString("title");
-				String name = resultsSet.getString("name");
-				int sequence = resultsSet.getInt("sequence");
-				String type = resultsSet.getString("type");
-				String regdate = resultsSet.getString("regdate");
-				TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
+				TodoDto todo = new TodoDto();
+				todo.setId(resultsSet.getLong("id"));
+				todo.setTitle(resultsSet.getString("title"));
+				todo.setName(resultsSet.getString("name"));
+				todo.setSequence(resultsSet.getInt("sequence"));
+				todo.setType(resultsSet.getString("type"));
+				todo.setRegdate(resultsSet.getString("regdate"));
+
 				todos.add(todo);
 			}
 		} catch (Exception ex) {

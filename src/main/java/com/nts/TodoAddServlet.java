@@ -29,10 +29,11 @@ public class TodoAddServlet extends HttpServlet {
 		throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
-		String title = request.getParameter("title");
-		String name = request.getParameter("name");
-		int sequence = Integer.parseInt(request.getParameter("sequence"));
-		TodoDto newTodo = new TodoDto(title, name, sequence);
+		TodoDto newTodo = new TodoDto();
+		newTodo.setTitle(request.getParameter("title"));
+		newTodo.setName(request.getParameter("name"));
+		newTodo.setSequence(Integer.parseInt(request.getParameter("sequence")));
+
 		TodoDao todoDao = new TodoDao();
 		todoDao.addTodo(newTodo);
 
