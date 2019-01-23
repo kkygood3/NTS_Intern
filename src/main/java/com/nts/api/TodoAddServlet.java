@@ -41,25 +41,20 @@ public class TodoAddServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		String whatdo = decodeUTF8(request.getParameter("whatdo"));
-		String name = decodeUTF8(request.getParameter("wname"));
-		boolean invalidInput = whatdo.length() > 24 || whatdo.length() < 1 || name.length() > 10 || name.length() < 1;
+		request.setCharacterEncoding("utf-8");
+		
+		String todoTitle = request.getParameter("todo_title");
+		String todoName = request.getParameter("todo_name");
+		boolean invalidInput = todoTitle.length() > 24 || todoTitle.length() < 1 || todoName.length() > 10 || todoName.length() < 1;
 		if (invalidInput) {
 			response.sendRedirect("error/invalid_access.jsp");
 		} else {
 			int priority = new Integer(request.getParameter("priority"));
 
 			TodoDao dao = TodoDao.getInstance();
-			dao.addTodo(new TodoDto(whatdo, name, priority));
+			dao.addTodo(new TodoDto(todoTitle, todoName, priority));
 
 			response.sendRedirect("main");
 		}
-	}
-
-	/**
-	 * form에서 Post로 값을 전송한 패러미터를 받기위해 필요한 한글 디코딩
-	 */
-	private String decodeUTF8(String str) throws UnsupportedEncodingException {
-		return new String(str.getBytes("8859_1"), "utf-8");
 	}
 }

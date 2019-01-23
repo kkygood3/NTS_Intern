@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoType;
 import com.nts.mysql.MysqlConnector;
 
 /**
@@ -42,7 +43,7 @@ public class TodoDao {
 					String title = rs.getString(2);
 					String name = rs.getString(3);
 					int sequence = rs.getInt(4);
-					String type = rs.getString(5);
+					TodoType type = TodoType.valueOf(rs.getString(5));
 					String regdate = rs.getString(6);
 
 					todo.add(new TodoDto(id, title, name, sequence, type, regdate));
@@ -83,7 +84,7 @@ public class TodoDao {
 
 	public boolean updateTodo(TodoDto todo) {
 		List<TodoDto> result = null;
-
+		
 		String nextType = "DOING";
 		if (todo.getType().equals("DOING"))
 			nextType = "DONE";

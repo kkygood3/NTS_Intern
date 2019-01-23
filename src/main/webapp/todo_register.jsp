@@ -15,11 +15,11 @@
 		<form action="register" method="post">
 			어떤일인가요?
 			<br>
-			<input type="text" placeholder="swift 공부하기(24자까지)" maxlength=24 class="whatdo_area" name="whatdo"></input>
+			<input type="text" placeholder="swift 공부하기(24자까지)" maxlength=24 class="whatdo_area" name="todo_title"></input>
 			<br><br>
 			누가 할일인가요?
 			<br>
-			<input type="text" placeholder="홍길동" maxlength=10 class="name_area" name="wname"></input>
+			<input type="text" placeholder="홍길동" maxlength=10 class="name_area" name="todo_name"></input>
 			<br><br>
 			우선순위를 선택하세요
 			<br>

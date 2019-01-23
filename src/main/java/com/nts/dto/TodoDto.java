@@ -13,15 +13,15 @@ public class TodoDto {
 	private String title;
 	private String name;
 	private int sequence;
-	private String type;
+	private TodoType type;
 	private String regdate;
 
 	/**
 	 * type UPDATE 수행을 위한 생성자
 	 */
-	public TodoDto(Integer id, String type) {
+	public TodoDto(Integer id, TodoType targetType) {
 		this.id = id;
-		this.type = type;
+		this.type = targetType;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class TodoDto {
 	/**
 	 * getTodo를 위한 생성자
 	 */
-	public TodoDto(Integer id, String title, String name, int sequence, String type, String regdate) {
+	public TodoDto(Integer id, String title, String name, int sequence, TodoType type, String regdate) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -78,11 +78,11 @@ public class TodoDto {
 		this.sequence = sequence;
 	}
 
-	public String getType() {
+	public TodoType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(TodoType type) {
 		this.type = type;
 	}
 

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoType;
 
 /**
  * main.jsp를 로드할때 마다 DB의 현재 값을 가져오는 서블렛
@@ -27,19 +28,16 @@ import com.nts.dto.TodoDto;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String[] todoLabel = {"TODO", "DOING", "DONE"};
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {		
 		TodoDao dao = TodoDao.getInstance();
 		List<TodoDto> list = dao.getTodos();
 
-		Map<String, List<TodoDto>> groupedList = list.stream().collect(Collectors.groupingBy(TodoDto::getType));
-		request.setAttribute("TODO", groupedList.get("TODO"));
-		request.setAttribute("DOING", groupedList.get("DOING"));
-		request.setAttribute("DONE", groupedList.get("DONE"));
-
-		request.setAttribute("todoLabel", todoLabel);
+		Map<TodoType, List<TodoDto>> groupedList = list.stream().collect(Collectors.groupingBy(TodoDto::getType));
+		request.setAttribute("TODO", groupedList.get(TodoType.TODO));
+		request.setAttribute("DOING", groupedList.get(TodoType.DOING));
+		request.setAttribute("DONE", groupedList.get(TodoType.DONE));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
 		dispatcher.forward(request, response);
