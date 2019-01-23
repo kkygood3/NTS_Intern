@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.dto.TodoDto;
 import com.nts.service.TodoService;
 
+/**
+ * @author 전연빈
+ */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 

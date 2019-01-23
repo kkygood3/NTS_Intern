@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.dto.TodoDto;
 import com.nts.service.TodoService;
 
+/**
+ * @desc type 변경 서블릿
+ * @author 전연빈
+ */
 @WebServlet("/changeTodoType")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -19,7 +19,6 @@ import javax.sql.DataSource;
 public class DBUtil {
 
 	/**
-	 * @desc db connection 얻어오기
 	 * @return conn
 	 * @throws SQLException
 	 */

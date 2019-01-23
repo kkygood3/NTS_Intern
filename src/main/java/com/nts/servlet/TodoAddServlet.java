@@ -18,6 +18,7 @@ import com.nts.dto.TodoDto;
 import com.nts.service.TodoService;
 	
 /**
+ * @desc todo 등록 서블릿
  * @author 전연빈
  */
 @WebServlet("/newtodo")
@@ -66,7 +67,6 @@ public class TodoAddServlet extends HttpServlet {
 			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
 		}
 
-		// 성공할시엔 redirect 실패시엔 에러 throws
 		response.sendRedirect("/main");
 	}
 

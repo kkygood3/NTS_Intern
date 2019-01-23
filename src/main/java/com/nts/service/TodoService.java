@@ -14,6 +14,10 @@ import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 import com.nts.type.TodoType;
 
+/**
+ * @desc Todo Business layer
+ * @author 전연빈
+ */
 public class TodoService {
 
 	/**
