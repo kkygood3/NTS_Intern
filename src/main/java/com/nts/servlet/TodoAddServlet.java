@@ -54,7 +54,7 @@ public class TodoAddServlet extends HttpServlet {
 		try {
 			todoDao.addTodo(todo);
 		} catch (IllegalStateException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "server error, sorry");
 		}
 
 		response.sendRedirect("/main");

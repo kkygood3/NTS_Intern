@@ -40,7 +40,7 @@ public class MainServlet extends HttpServlet {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 			requestDispatcher.forward(request, response);
 		} catch (IllegalStateException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "server error, sorry");
 		}
 
 	}

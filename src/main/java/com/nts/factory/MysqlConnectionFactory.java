@@ -13,14 +13,8 @@ public class MysqlConnectionFactory {
 	private static final String user = "user10";
 	private static final String password = "user!@10";
 
-	public static Connection getConnection() {
-
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(url, user, password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public static Connection getConnection() throws SQLException {
+		Connection connection = DriverManager.getConnection(url, user, password);
 		return connection;
 	}
 

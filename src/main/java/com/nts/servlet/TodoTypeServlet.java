@@ -40,7 +40,7 @@ public class TodoTypeServlet extends HttpServlet {
 				todoDao.updateTodo(todo);
 				response.setStatus(HttpServletResponse.SC_OK);
 			} catch (IllegalStateException e) {
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "server error, sorry");
 			}
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
