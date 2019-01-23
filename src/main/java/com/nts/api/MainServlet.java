@@ -2,6 +2,7 @@ package com.nts.api;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -30,21 +31,14 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setCharacterEncoding("utf-8");
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
 
-		List<TodoDto> todo = todos.parallelStream().filter(t -> t.getType().equals(Const.TODO))
-			.collect(Collectors.toList());
-		request.setAttribute("todo", todo);
-	
-		List<TodoDto> doing = todos.parallelStream().filter(t -> t.getType().equals(Const.DOING))
-			.collect(Collectors.toList());
-		request.setAttribute("doing", doing);
-
-		List<TodoDto> done = todos.parallelStream().filter(t -> t.getType().equals(Const.DONE))
-			.collect(Collectors.toList());
-		request.setAttribute("done", done);
+		
+		Map<String, List<TodoDto>> groupedTodos = todos.stream().collect(Collectors.groupingBy(TodoDto::getType));
+		request.setAttribute("todo", groupedTodos.get(Const.TODO));
+		request.setAttribute("doing", groupedTodos.get(Const.DOING));
+		request.setAttribute("done", groupedTodos.get(Const.DONE));
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
 		requestDispatcher.forward(request, response);
