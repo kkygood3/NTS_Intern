@@ -36,8 +36,12 @@ public class TodoTypeServlet extends HttpServlet {
 			todo.setType(type);
 
 			TodoDao todoDao = new TodoDao();
-			todoDao.updateTodo(todo);
-			response.setStatus(HttpServletResponse.SC_OK);
+			try {
+				todoDao.updateTodo(todo);
+				response.setStatus(HttpServletResponse.SC_OK);
+			} catch (IllegalStateException e) {
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			}
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}

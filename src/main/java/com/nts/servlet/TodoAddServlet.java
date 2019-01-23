@@ -51,7 +51,11 @@ public class TodoAddServlet extends HttpServlet {
 		todo.setSequence(sequence);
 
 		TodoDao todoDao = new TodoDao();
-		todoDao.addTodo(todo);
+		try {
+			todoDao.addTodo(todo);
+		} catch (IllegalStateException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 
 		response.sendRedirect("/main");
 	}

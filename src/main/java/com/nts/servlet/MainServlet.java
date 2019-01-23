@@ -32,12 +32,17 @@ public class MainServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		TodoDao todoDao = new TodoDao();
-		List<TodoDto> todoList = todoDao.getTodos();
-		Map<String, List<TodoDto>> todos = todoListToMap(todoList);
+		List<TodoDto> todoList;
+		try {
+			todoList = todoDao.getTodos();
+			Map<String, List<TodoDto>> todos = todoListToMap(todoList);
+			request.setAttribute("todos", todos);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
+			requestDispatcher.forward(request, response);
+		} catch (IllegalStateException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 
-		request.setAttribute("todos", todos);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
-		requestDispatcher.forward(request, response);
 	}
 
 	/**

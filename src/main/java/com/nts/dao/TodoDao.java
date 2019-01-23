@@ -39,7 +39,8 @@ public class TodoDao {
 				todoList.add(todo);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// log 
+			throw new IllegalStateException();
 		}
 		return todoList;
 	}
@@ -56,7 +57,8 @@ public class TodoDao {
 
 			statement.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// log 
+			throw new IllegalStateException();
 		}
 	}
 
@@ -71,7 +73,8 @@ public class TodoDao {
 
 			statement.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			// log 
+			throw new IllegalStateException();
 		}
 	}
 
