@@ -2,15 +2,15 @@ package com.nts.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.dao.TodoDao;
+import com.nts.exception.ServerErrorException;
 import com.nts.model.TodoDto;
+import com.nts.service.TodoService;
 
 /**
  * @author 임상현, life4lord93@nts-corp.com
@@ -27,9 +27,7 @@ public class TodoAddServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newtodo.jsp");
-		requestDispatcher.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/newtodo.jsp").forward(request, response);
 	}
 
 	/* 
@@ -41,20 +39,23 @@ public class TodoAddServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		String title = request.getParameter("title");
-		String name = request.getParameter("name");
-		int sequence = Integer.parseInt(request.getParameter("sequence"));
-
+		// sequence parameter값이 정수형으로 변환불가능한 형일경우 400(Bad Request) 반환
 		TodoDto todo = new TodoDto();
-		todo.setTitle(title);
-		todo.setName(name);
-		todo.setSequence(sequence);
-
-		TodoDao todoDao = new TodoDao();
 		try {
-			todoDao.addTodo(todo);
-		} catch (IllegalStateException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "server error, sorry");
+			todo.setTitle(request.getParameter("title"));
+			todo.setName(request.getParameter("name"));
+			todo.setSequence(Integer.parseInt(request.getParameter("sequence")));
+		} catch (NumberFormatException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request Parameter value is wrong");
+			return;
+		}
+
+		TodoService todoService = TodoService.getInstance();
+		try {
+			todoService.addTodo(todo);
+		} catch (ServerErrorException e) {
+			response.sendError(e.getERROR_CODE(), e.getMessage());
+			return;
 		}
 
 		response.sendRedirect("/main");
