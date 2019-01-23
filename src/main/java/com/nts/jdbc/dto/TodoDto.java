@@ -49,6 +49,12 @@ public class TodoDto {
 		return regDate;
 	}
 
+	@Override
+	public String toString() {
+		return "id: " + id + " 타이틀: " + title + " 이름: " + name + " 우선순위: " + sequence + " 상태: " + type + " 등록날짜 : "
+			+ regDate;
+	}
+
 	public static class Builder {
 		private int id = -1;
 		private String title = "";
