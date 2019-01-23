@@ -16,7 +16,7 @@
 			<p> TODO </p>
 			<ul id="todo">
 				<c:forEach items="${todos}" var="todo">
-					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+					<li data-todo-id = "${todo.getId()}" data-todo-type = "${todo.getType()}">
 						<p class="title">${todo.getTitle()}</p>
 						<p class="regdate">등록날짜 : ${todo.getRegdate()}</p>
 						<p class="name">${todo.getName()}</p>
@@ -30,7 +30,7 @@
 			<p> DOING </p>
 			<ul id="doing">
 				<c:forEach items="${doings}" var="todo">
-					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+					<li data-todo-id = "${todo.getId()}" data-todo-type = "${todo.getType()}">
 						<p class="title">${todo.getTitle()}</p>
 						<p class="regdate">등록날짜 : ${todo.getRegdate()}</p>
 						<p class="name">${todo.getName()}</p>
@@ -44,7 +44,7 @@
 			<p> DONE </p>
 			<ul id="done">
 				<c:forEach items="${dones}" var="todo">
-					<li data-todo_id = "${todo.getId()}" data-todo_type = "${todo.getType()}">
+					<li data-todo-id = "${todo.getId()}" data-todo-type = "${todo.getType()}">
 						<p class="title">${todo.getTitle()}</p>
 						<p class="regdate">등록날짜 : ${todo.getRegdate()}</p>
 						<p class="name">${todo.getName()}</p>

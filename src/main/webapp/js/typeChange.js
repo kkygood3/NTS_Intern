@@ -6,8 +6,8 @@ todos.addEventListener('click', function(event) {
 });
 
 function updateType(todo) {
-	var id = todo.dataset.todo_id;
-	var type = todo.dataset.todo_type;
+	var id = todo.dataset.todoId;
+	var type = todo.dataset.todoType;
 	var types = ["TODO", "DOING", "DONE"];
 	
 	if (window.XMLHttpRequest) {
@@ -19,7 +19,7 @@ function updateType(todo) {
 		    	var targetElement = document.getElementById(changedType.toLowerCase());
 		    	
 		    	targetElement.appendChild(todo);
-		    	todo.dataset.todo_type = changedType;
+		    	todo.dataset.todoType = changedType;
 		    	
 		    	if(changedType==="DONE"){
 		    		todo.removeChild(todo.getElementsByClassName("go_next")[0]);
