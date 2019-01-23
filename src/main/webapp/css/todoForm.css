@@ -13,10 +13,10 @@ form {
 	margin: 20px 200px;
 }
 
-form > label {
+form>label {
 	font-size: 20px;
 	margin-bottom: 10px;
-	display:inline-block;
+	display: inline-block;
 }
 
 input {

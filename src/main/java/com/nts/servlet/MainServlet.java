@@ -5,7 +5,6 @@
 package com.nts.servlet;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,7 +37,6 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> todos = todoDao.getTodos();
 		Map<Type, List<TodoDto>> todosPerType = todos.stream()
 			.collect(Collectors.groupingBy(TodoDto::getType));
-		
 		for (Type key : todosPerType.keySet()) {
 			req.setAttribute(key.name().toLowerCase() + "List", todosPerType.get(key));
 		}

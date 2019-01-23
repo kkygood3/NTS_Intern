@@ -13,10 +13,11 @@
 
 .button_todo {
 	position: relative;
-	display: block;	
+	display: block;
 	border: none;
 	top: 20px;
-	margin-left:auto; margin-right:20px;
+	margin-left: auto;
+	margin-right: 20px;
 	padding: 8px 40px;
 	background-color: #0080ff;
 	font-size: 15px;
@@ -28,7 +29,7 @@
 	text-align: right;
 }
 
-#list_board > .container {
+#list_board>.container {
 	margin: 1px;
 	margin-bottom: 30px;
 	width: 290px;
@@ -37,7 +38,7 @@
 	vertical-align: top;
 }
 
-#list_board > .container > .title {
+#list_board>.container>.title {
 	padding: 15px 20px;
 	display: block;
 	background-color: #004975;
@@ -46,20 +47,20 @@
 	color: white;
 }
 
-#list_board > .container > .card {
+#list_board>.container>.card {
 	padding: 15px 0px 15px 20px;
 	margin-top: 10px;
 	background-color: #99deff;
 	font-size: 12px;
 }
 
-#list_board > .container > .card > .title {
+#list_board>.container>.card>.title {
 	font-weight: bold;
 	font-size: 18px;
 	display: block;
 }
 
-#list_board > .container > .card > span {
+#list_board>.container>.card>span {
 	display: inline-block;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -68,7 +69,7 @@
 	width: 230px;
 }
 
-#list_board > .container > .card button {
+#list_board>.container>.card button {
 	float: right;
 	margin-right: 10px;
 }

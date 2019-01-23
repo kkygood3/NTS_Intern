@@ -60,7 +60,7 @@
 
 		// addEventListener로 모든 타입변경버튼들 클릭이벤트 등록
 		var typeNextButtons = document.querySelectorAll(".typeNextButton");
-		for (var i =0; i < typeNextButtons.length; i++) {
+		for (var i = 0; i < typeNextButtons.length; i++) {
 			typeNextButtons[i].addEventListener("click", function(event) {
 				updateTodoType(event.target.parentNode);
 			});
@@ -79,19 +79,20 @@
 
 			var params = "id=" + id + "&type=" + type;
 			xhr.open("PUT", url + '?' + params);
-			xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+			xhr.setRequestHeader('Content-type',
+					'application/json; charset=utf-8');
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
 				type = nextType(type);
 				changeCardToContainer(type, card);
 			});
-			
+
 			xhr.addEventListener("error", function(e) {
 				alert("An error occurred while transferring the file.");
 			});
 		}
-		
+
 		// 다음 상태값으로 변경
 		function nextType(type) {
 			if (type === "TODO") {
@@ -100,7 +101,7 @@
 				type = "DONE"
 			}
 			return type;
-			
+
 		}
 
 		// Todo Card를 지정된 Type 컨테이너div로 옮겨줍니다.
