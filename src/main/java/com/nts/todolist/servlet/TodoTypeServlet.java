@@ -6,7 +6,6 @@ package com.nts.todolist.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,8 @@ public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+		throws IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
 

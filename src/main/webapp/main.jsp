@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <meta charset="UTF-8">
 <title>Todo List</title>
 </head>
@@ -64,58 +64,5 @@
 		<div style="clear: both;"></div>
 	</div>
 </body>
-
-<script>
-
-function change_type(){
-	var parent_element = event.srcElement.parentElement;	// button의 parent
-	var id = parent_element.id;
-	var type = parent_element.children[2].value;
-	
-	// Ajax
-	var httpRequest = new XMLHttpRequest();
-	httpRequest.addEventListener("load", function(){
-		var result = this.responseText;
-		if(result == "success"){
-			
-			if(type == "TODO"){
-				var doing_aside = document.getElementById("doing");
-				var doing_aside_childNodes_length = doing_aside.childNodes.length;
-				
-				// change type
-				parent_element.children[2].value = "DOING"
-				
-				// move next aside
-				if(doing_aside_childNodes_length > 0){
-					doing_aside.insertBefore(parent_element, doing_aside.childNodes[doing_aside_childNodes_length-1].nextSibling);
-				}else{
-					doing_aside.insertBefore(parent_element, doing_aside.children[0]);
-				}
-				
-			}else if(type == "DOING"){
-				var done_aside = document.getElementById("done");
-				var done_aside_childNodes_length = done_aside.childNodes.length;
-				
-				// change type
-				parent_element.children[2].value = "DONE"
-				
-				// remove button
-				parent_element.removeChild(parent_element.childNodes[7]);
-				
-				// move next aside
-				if(done_aside_childNodes_length > 0){
-					done_aside.insertBefore(parent_element, done_aside.childNodes[done_aside_childNodes_length - 1].nextSibling);
-				}else{
-					done_aside.insertBefore(parent_element, done_aside.children[0]);
-				}
-			}
-		}else{
-			alert("ERROR");
-		}
-		
-	});
-	httpRequest.open("GET", "/changeType?id=" + id + "&type=" + type);
-	httpRequest.send();
-}
-</script>
+<script src="/javascript/script.js"></script>
 </html>
