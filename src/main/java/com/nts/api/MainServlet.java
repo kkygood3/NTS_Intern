@@ -30,17 +30,14 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setCharacterEncoding("utf-8");
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
-
 
 		List<TodoDto> todo = todos.parallelStream().filter(t -> t.getType().equals(Const.TODO))
 			.collect(Collectors.toList());
 		request.setAttribute("todo", todo);
 	
-		
 		List<TodoDto> doing = todos.parallelStream().filter(t -> t.getType().equals(Const.DOING))
 			.collect(Collectors.toList());
 		request.setAttribute("doing", doing);
