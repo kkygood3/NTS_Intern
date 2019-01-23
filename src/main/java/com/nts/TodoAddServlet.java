@@ -30,22 +30,21 @@ public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * add todo에 대한 request를 받아서 처리함.
+	 * 실패시에 alert 창 팝업.
 	 * @throws IOException 
 	 * @throws ServletException 
 	 * @doPost(request,response)
-	 * add todo에 대한 request를 받아서 처리함.
-	 * 실패시에 alert 창 팝업.
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
 		try {
-			TodoDto dto = new TodoDto.Builder()
-				.title(request.getParameter("title"))
-				.name(request.getParameter("name"))
-				.sequence(Integer.valueOf(request.getParameter("sequence")))
-				.build();
+			TodoDto dto = new TodoDto();
+			dto.setTitle(request.getParameter("title"));
+			dto.setName(request.getParameter("name"));
+			dto.setSequence(Integer.valueOf(request.getParameter("sequence")));
 
 			if (new TodoDao().addTodo(dto) > 0) {
 				response.sendRedirect("/jaewonlee/main");

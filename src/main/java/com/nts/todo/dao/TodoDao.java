@@ -25,12 +25,12 @@ public class TodoDao {
 	private static DataSource dataSource = null;
 
 	/**
+	 * returns connection to db, if there is no DataSource, init data source first
+	 * infos in context.xml in META-INF
 	 * @throws NamingException 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 * @getDBConnection()
-	 * returns connection to db, if there is no DataSource, init data source first
-	 * infos in context.xml in META-INF
 	 */
 	private Connection getDBConnection() throws SQLException, NamingException,
 		ClassNotFoundException {
@@ -42,11 +42,11 @@ public class TodoDao {
 	}
 
 	/**
+	 * returns all rows in todo table through sql query
 	 * @throws NamingException 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 * @getTodos()
-	 * returns all rows in todo table through sql query
 	 */
 	public List<TodoDto> getTodos() throws ClassNotFoundException, NamingException, SQLException {
 
@@ -56,14 +56,13 @@ public class TodoDao {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery()) {
 			while (rs.next()) {
-				TodoDto dto = new TodoDto.Builder()
-					.id(rs.getLong("id"))
-					.title(rs.getString("title"))
-					.name(rs.getString("name"))
-					.sequence(rs.getInt("sequence"))
-					.regdate(rs.getString("regdate"))
-					.type(rs.getString("type"))
-					.build();
+				TodoDto dto = new TodoDto();
+					dto.setId(rs.getLong("id"));
+					dto.setTitle(rs.getString("title"));
+					dto.setName(rs.getString("name"));
+					dto.setSequence(rs.getInt("sequence"));
+					dto.setRegdate(rs.getString("regdate"));
+					dto.setType(rs.getString("type"));
 				result.add(dto);
 			}
 		}
@@ -71,11 +70,11 @@ public class TodoDao {
 	}
 
 	/**
+	 * add single todo item into db
 	 * @throws NamingException 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 * @addTodo()	
-	 * add single todo item into db
 	 */
 	public int addTodo(TodoDto dto) throws ClassNotFoundException, NamingException, SQLException {
 
@@ -95,16 +94,15 @@ public class TodoDao {
 	}
 
 	/**
+	 * update type of todo item in db
 	 * @throws NamingException 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 * @updateTodo()	
-	 * update type of todo item in db
 	 */
 	public int updateTodo(TodoDto todo) throws ClassNotFoundException, NamingException, SQLException {
 		int status = 0;
 		String sql = "update todo set type = ? where id = ?";
-
 		try (Connection conn = getDBConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setString(1, todo.getType());

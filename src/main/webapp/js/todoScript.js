@@ -12,9 +12,10 @@
  */
 
 /**
- * @init() This function searches for buttons in todo element, and adds
- *         event-listener to each. Collects variable by traversing html file
- *         structure to parent node.
+ * This function searches for buttons in todo element, and adds
+ * event-listener to each. Collects variable by traversing html file
+ * structure to parent node.
+ * @init() 
  */
 var init = () => {
 
@@ -34,12 +35,11 @@ var init = () => {
 }
 
 /**
- * @update(item_id,nextType)
- * 
  * This function sends XmlHttpRequest(abbr. xhr) to server, and receives http
  * Status for the result. Accordingly, this method will move the todo element to
  * next category. Also Removes arrow button when the Todo element reaches DONE
  * Category
+ * @update(item_id,nextType)
  */
 var update = (itemId, currentSection) => {
 	var todoInfo = {};
@@ -61,7 +61,7 @@ var update = (itemId, currentSection) => {
 				var nextType = "DOING";
 				console.log(currentSection);
 				if (currentSection == "DOING") {
-					next_type = "DONE"
+					nextType = "DONE"
 				}
 				
 				/**
@@ -80,12 +80,13 @@ var update = (itemId, currentSection) => {
 				if (targetSection == -1) {
 					targetSection.appendChild(toBeMoved);
 				} else {
-					target_section.insertBefore(toBeMoved,
+					targetSection.insertBefore(toBeMoved,
 							document.querySelector("[data-id = '"+targetItemId+"']"));
 				}
 				
-				if (current_section == "DOING") {
-					element.getElementsByTagName("button")[0].remove();
+				//if todo item is moving to DONE, remove button
+				if (currentSection == "DOING") {
+					toBeMoved.getElementsByTagName("button")[0].remove();
 				}
 			 } else {
 				 alert("Error");
@@ -104,7 +105,8 @@ var update = (itemId, currentSection) => {
  *          element. If -1, there is no id found
  */
 var findHtmlInsertSpot = (type, currentId) => {
-	var htmlList = document.querySelectorAll("#" + type + "> li");
+	var htmlList = document.querySelectorAll("ul[data-section ='"+type+"'] > li");
+	console.log(htmlList);
 	for (var index =0; index<htmlList.length; index++) {
 		if (htmlList[index].dataset.id > currentId) {
 			return htmlList[index].dataset.id;

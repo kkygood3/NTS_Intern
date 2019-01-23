@@ -29,10 +29,10 @@ import com.nts.todo.dto.TodoDto.TodoType;
  */
 
 /**
+ * todo item 을 전부 retrieve 해온다음 데이터를 client로 forward한다.
  * @throws IOException 
  * @throws ServletException 
  * @doGet(request,response)
- * todo item 을 전부 retrieve 해온다음 데이터를 client로 forward한다.
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {

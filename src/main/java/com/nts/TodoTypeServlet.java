@@ -31,8 +31,10 @@ public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @doPut(request,response)
 	 * todo type변경에 대한 메소드, 실패시에 http status : SC_FORBIDDEN, 403	
+	 * @throws IOException 
+	 * @throws ServletException 
+	 * @doPut(request,response)
 	 */
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
