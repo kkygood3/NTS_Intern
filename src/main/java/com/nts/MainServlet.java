@@ -33,7 +33,7 @@ public class MainServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		TodoDao todoDao = TodoDao.getInstance();
-		List<TodoDto> list = Collections.EMPTY_LIST;
+		List<TodoDto> list = Collections.emptyList();
 
 		try {
 			list = todoDao.getTodos();
