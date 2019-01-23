@@ -1,5 +1,7 @@
 package com.nts.dto;
 
+import com.nts.Const;
+
 public class TodoDto {
 	private Long id;
 	private String name;
@@ -66,6 +68,7 @@ public class TodoDto {
 	}
 
 	public String getType() {
+		if (type == null) return Const.UNKNOWN;
 		return type;
 	}
 

@@ -13,5 +13,6 @@ public class Const {
 	public static final String TODO = "TODO";
 	public static final String DOING = "DOING";
 	public static final String DONE = "DONE";
+	public static final String UNKNOWN = "UNKNOWN";
 
 }

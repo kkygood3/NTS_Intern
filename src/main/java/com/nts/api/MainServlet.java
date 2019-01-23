@@ -2,6 +2,7 @@ package com.nts.api;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,16 +28,28 @@ public class MainServlet extends HttpServlet {
 	 * todo 전체 조회
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setCharacterEncoding("utf-8");
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
 
-		request.setAttribute("todos", todos);
+
+		List<TodoDto> todo = todos.parallelStream().filter(t -> t.getType().equals(Const.TODO))
+			.collect(Collectors.toList());
+		request.setAttribute("todo", todo);
 		
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
-        requestDispatcher.forward(request, response);
+		List<TodoDto> doing = todos.parallelStream().filter(t -> t.getType().equals(Const.DOING))
+			.collect(Collectors.toList());
+		request.setAttribute("doing", doing);
+		
+		List<TodoDto> done = todos.parallelStream().filter(t -> t.getType().equals(Const.DONE))
+			.collect(Collectors.toList());
+		request.setAttribute("done", done);
+
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 }
