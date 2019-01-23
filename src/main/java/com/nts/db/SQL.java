@@ -4,6 +4,11 @@
  */
 package com.nts.db;
 
+/**
+ * SQL문만 따로 모아놓은 클래스
+ * @author jinwoo.bae
+ *
+ */
 public class SQL {
 	public static final String ADD_TODO = "insert into todo(title, name, sequence) values(?,?,?)";
 	public static final String GET_TODOS = "select id, name, date_format(regdate, \"%Y.%m.%d\") as regdate, sequence, title, type from todo";

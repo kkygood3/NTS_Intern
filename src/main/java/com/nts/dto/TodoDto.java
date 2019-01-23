@@ -13,8 +13,11 @@ public class TodoDto {
 	public enum Type {
 		TODO, DOING, DONE;
 
+		/**
+		 * 다음상태값으로 변경 마지막 상태값인경우 넘어가지않음 
+		 */
 		public Type getNext() {
-			if (ordinal() + 1 >= values().length) // 마지막 enum인경우 다음값으로 넘어가지않음 
+			if (ordinal() + 1 >= values().length)
 				return this;
 			return values()[ordinal() + 1];
 		}

@@ -9,8 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ * MySql 커넥션을 맺어주는 클래스
  * @author jinwoo.bae
- *
  */
 public class MysqlConnector {
 	private static String url = "jdbc:mysql://10.113.116.52:13306/user5";
@@ -18,7 +18,7 @@ public class MysqlConnector {
 	private static String pw = "wlsdn123";
 
 	/**
-	 * mysql.jdbc.Driver를 DriverManager에 한번만 등록 
+	 * 클래스가 로드될때 mysql.jdbc.Driver를 DriverManager에 한번만 등록 
 	 */
 	static {
 		try {
