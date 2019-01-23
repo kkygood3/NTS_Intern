@@ -42,6 +42,7 @@ public class MainServlet extends HttpServlet {
 
 		} catch (ServerError500Exception e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
+			return;
 		}
 
 		request.getRequestDispatcher("/WEB-INF/main.jsp")

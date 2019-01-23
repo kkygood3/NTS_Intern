@@ -7,6 +7,6 @@
 <title>Error Page</title>
 </head>
 <body>
-	잘못된 요청입니다. 다시 돌아가주세요
+	${requestScope['javax.servlet.error.message']}
 </body>
 </html>

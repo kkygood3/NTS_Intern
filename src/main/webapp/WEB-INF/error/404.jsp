@@ -8,5 +8,6 @@
 </head>
 <body>
 	404 Not Found
+	${requestScope['javax.servlet.error.message']}
 </body>
 </html>

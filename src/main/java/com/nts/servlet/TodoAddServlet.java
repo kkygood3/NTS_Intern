@@ -63,6 +63,7 @@ public class TodoAddServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청을 보냈습니다.");
+			return;
 		}
 
 		try {
@@ -70,6 +71,7 @@ public class TodoAddServlet extends HttpServlet {
 			todoService.addTodo(todoDto);
 		} catch (ServerError500Exception e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+			return;
 		}
 
 		response.sendRedirect("/main");
