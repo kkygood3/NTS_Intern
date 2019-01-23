@@ -1,9 +1,7 @@
 package com.nts.api;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,14 +35,6 @@ public class TodoAddServlet extends HttpServlet {
 		if (isValidInput(title, sequence)) {
 			TodoDao.getInstance().addTodo(new TodoDto(name, sequence, title));
 		}
-		response.sendRedirect("./todos");
-	}
-	
-	/*
-	 * 잘못된요청 - main page로 reidrect
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.sendRedirect("./todos");
 	}
 	
