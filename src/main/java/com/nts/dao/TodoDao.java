@@ -28,7 +28,7 @@ public class TodoDao {
 
 	public int addTodo(TodoDto todo) {
 		int result = 0;
-		try (PreparedStatement ps = (PreparedStatement)conn.prepareStatement(DBQuery.INSERT_SQL)) {
+		try (PreparedStatement ps = conn.prepareStatement(DBQuery.INSERT_SQL)) {
 			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
@@ -42,7 +42,7 @@ public class TodoDao {
 	public List<TodoDto> getTodos() {
 
 		List<TodoDto> todos = new ArrayList<TodoDto>();
-		try (PreparedStatement ps = (PreparedStatement)conn.prepareStatement(DBQuery.SELECT_SQL);
+		try (PreparedStatement ps = conn.prepareStatement(DBQuery.SELECT_SQL);
 			ResultSet rs = ps.executeQuery()) {
 			rs.beforeFirst();
 			while (rs.next()) {
