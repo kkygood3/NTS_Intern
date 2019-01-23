@@ -15,7 +15,7 @@ import com.nts.dto.TodoDto;
 public class TodoDao {
 	Connection conn = null;
 
-	public TodoDao() {
+	private TodoDao() {
 		try {
 			conn = DBConnection.getConnection();
 		} catch (ClassNotFoundException e) {
