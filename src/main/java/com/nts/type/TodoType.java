@@ -4,12 +4,33 @@
  **/
 package com.nts.type;
 
+import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDtoList;
 /**
  * @desc TodoType 상수 관리
  * @author 전연빈
  */
-public class TodoType {
-	public static final String TODO = "TODO";
-	public static final String DOING = "DOING";
-	public static final String DONE = "DONE";
+public enum TodoType {
+	
+	TODO {
+		@Override
+		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
+			todoDtoList.getTodoList().add(todoDto);
+		}
+	},
+	DOING {
+		@Override
+		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
+			todoDtoList.getDoingList().add(todoDto);
+		}
+	},
+	DONE {
+		@Override
+		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
+			todoDtoList.getDoneList().add(todoDto);
+		}
+	};
+	
+	
+	public abstract void addList(TodoDtoList todoDtoList,TodoDto todoDto);
 }

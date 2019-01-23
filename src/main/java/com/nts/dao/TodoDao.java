@@ -20,43 +20,51 @@ import com.nts.util.DBUtil;
  */
 public class TodoDao {
 
+	private static final String GET_TODOS = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY regdate DESC";
+	private static final String UPDATE_TODO = "UPDATE todo SET type = ? WHERE id = ?";
+	private static final String ADD_TODO = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
+
+	private TodoDao() {
+
+	}
+
+	private static class TodoDaoLazyHolder {
+		public static final TodoDao INSTANCE = new TodoDao();
+	}
+
+	public static TodoDao getInstance() {
+		return TodoDaoLazyHolder.INSTANCE;
+	}
+
 	/**
 	 * @desc todoList 가져오기
 	 * @return todoMap key -> ( todoList, doingList, doneList)
 	 * @throws SQLException 
 	 */
-	@SuppressWarnings("unlikely-arg-type")
 	public List<TodoDto> getTodos() throws SQLException {
 
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT id, title, name, sequence, type, regdate ");
-		sql.append("FROM todo ");
-		sql.append("ORDER BY sequence,regdate DESC");
-
 		try (Connection conn = DBUtil.getConnection();
-			PreparedStatement preparedStatment = conn.prepareStatement(sql.toString())) {
-			try (ResultSet resultSet = preparedStatment.executeQuery()) {
+			PreparedStatement preparedStatment = conn.prepareStatement(GET_TODOS);
+			ResultSet resultSet = preparedStatment.executeQuery()) {
 
-				List<TodoDto> todoList = new ArrayList<>();
+			List<TodoDto> todoList = new ArrayList<>();
 
-				while (resultSet.next()) {
+			while (resultSet.next()) {
 
-					TodoDto todoDto = new TodoDto();
+				TodoDto todoDto = new TodoDto();
 
-					todoDto.setId(resultSet.getLong("id"));
-					todoDto.setName(resultSet.getString("name"));
-					todoDto.setRegdate(resultSet.getString("regdate"));
-					todoDto.setSequence(resultSet.getInt("sequence"));
-					todoDto.setTitle(resultSet.getString("title"));
-					todoDto.setType(resultSet.getString("type"));
+				todoDto.setId(resultSet.getLong("id"));
+				todoDto.setName(resultSet.getString("name"));
+				todoDto.setRegdate(resultSet.getString("regdate"));
+				todoDto.setSequence(resultSet.getInt("sequence"));
+				todoDto.setTitle(resultSet.getString("title"));
+				todoDto.setType(resultSet.getString("type"));
 
-					todoList.add(todoDto);
-				}
-
-				return todoList;
+				todoList.add(todoDto);
 			}
-		}
 
+			return todoList;
+		}
 	}
 
 	/**
@@ -68,16 +76,8 @@ public class TodoDao {
 	 */
 	public int updateTodo(TodoDto todoDto) throws SQLException {
 
-		String sql = "UPDATE todo SET TYPE = ? WHERE id = ?;";
-
 		try (Connection conn = DBUtil.getConnection();
-			PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
-
-			if (TodoType.TODO.toString().equals(todoDto.getType())) {
-				todoDto.setType(TodoType.DOING.toString());
-			} else if (TodoType.DOING.toString().equals(todoDto.getType())) {
-				todoDto.setType(TodoType.DONE.toString());
-			}
+			PreparedStatement preparedStatment = conn.prepareStatement(UPDATE_TODO)) {
 
 			preparedStatment.setString(1, todoDto.getType());
 			preparedStatment.setLong(2, todoDto.getId());
@@ -95,10 +95,9 @@ public class TodoDao {
 	 */
 	public int addTodo(TodoDto todoDto) throws SQLException {
 
-		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
-
 		try (Connection conn = DBUtil.getConnection();
-			PreparedStatement preparedStatment = conn.prepareStatement(sql)) {
+			PreparedStatement preparedStatment = conn.prepareStatement(ADD_TODO)) {
+
 			preparedStatment.setString(1, todoDto.getTitle());
 			preparedStatment.setString(2, todoDto.getName());
 			preparedStatment.setInt(3, todoDto.getSequence());

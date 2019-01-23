@@ -18,7 +18,6 @@ import com.nts.dto.TodoDto;
 import com.nts.service.TodoService;
 
 /**
- * @desc type 변경 서블릿
  * @author 전연빈
  */
 @WebServlet("/changeTodoType")
@@ -41,12 +40,11 @@ public class TodoTypeServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		try {
-			TodoService todoService = new TodoService();
-			
 			TodoDto todoDto = new TodoDto();
 			todoDto.setId(id);
 			todoDto.setType(type);
 			
+			TodoService todoService = TodoService.getInstance();
 			todoService.updateTodo(todoDto);
 			
 			out.write("success");

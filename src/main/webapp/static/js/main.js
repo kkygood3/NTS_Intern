@@ -35,11 +35,11 @@ function updateItemToNext(changingElement) {
 	xhr.open('POST', '/changeTodoType', true);
 	xhr.onreadystatechange = function() {
 
-		if (xhr.readyState === 4 && xhr.status === 200
+		if (xhr.readyState === xhr.DONE && xhr.status === 200
 				&& xhr.response === 'success') {
-			if (changingElement.type == 'TODO') {
+			if (changingElement.type === 'TODO') {
 				changeToNext(changingElement, '#doing');
-			} else if (changingElement.type == 'DOING') {
+			} else if (changingElement.type === 'DOING') {
 				changingElement.li.querySelector('.next_btn').remove();
 				changeToNext(changingElement, '#done');
 			}

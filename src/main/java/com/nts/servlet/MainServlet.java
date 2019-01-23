@@ -6,17 +6,14 @@ package com.nts.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDtoList;
 import com.nts.service.TodoService;
 
 /**
@@ -38,18 +35,17 @@ public class MainServlet extends HttpServlet {
 		throws IOException, ServletException {
 
 		try {
-			TodoService todoService = new TodoService();
-			
-			// keys : todoList, doingList, doneList
-			Map<String, List<TodoDto>> result = todoService.getTodos();
+			TodoService todoService = TodoService.getInstance();
+
+			TodoDtoList result = todoService.getTodos();
 			request.setAttribute("result", result);
 
 		} catch (SQLException e) {
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/main.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/main.jsp")
+			   .forward(request, response);
 
 	}
 

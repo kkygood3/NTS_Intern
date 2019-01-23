@@ -7,7 +7,6 @@ package com.nts.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,8 +36,8 @@ public class TodoAddServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/newtodo.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/newtodo.jsp")
+			   .forward(request, response);
 	}
 
 	/**
@@ -56,15 +55,15 @@ public class TodoAddServlet extends HttpServlet {
 
 		TodoDto todoDto = new TodoDto();
 
-		todoDto.setName((String)request.getParameter("personName"));
-		todoDto.setTitle((String)request.getParameter("title"));
+		todoDto.setName(request.getParameter("personName"));
+		todoDto.setTitle(request.getParameter("title"));
 		todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
 
 		try {
-			TodoService todoService = new TodoService();
+			TodoService todoService = TodoService.getInstance();
 			todoService.addTodo(todoDto);
 		} catch (SQLException e) {
-			response.sendError(response.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 
 		response.sendRedirect("/main");

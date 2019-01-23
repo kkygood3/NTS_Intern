@@ -6,19 +6,29 @@ package com.nts.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoDtoList;
 import com.nts.type.TodoType;
 
 /**
- * @desc Todo Business layer
  * @author 전연빈
  */
 public class TodoService {
+
+	private TodoService() {
+
+	}
+
+	private static class TodoServiceLazyHolder {
+		public static final TodoService INSTANCE = new TodoService();
+	}
+
+	public static TodoService getInstance() {
+		return TodoServiceLazyHolder.INSTANCE;
+	}
 
 	/**
 	 * @desc todo type 변경
@@ -27,42 +37,43 @@ public class TodoService {
 	 * @throws SQLException
 	 */
 	public int updateTodo(TodoDto todoDto) throws SQLException {
-		return new TodoDao().updateTodo(todoDto);
+
+		if (TodoType.TODO.toString().equals(todoDto.getType())) {
+			todoDto.setType(TodoType.DOING.toString());
+		} else if (TodoType.DOING.toString().equals(todoDto.getType())) {
+			todoDto.setType(TodoType.DONE.toString());
+		}
+
+		return TodoDao.getInstance().updateTodo(todoDto);
 	}
 
 	/**
 	 * @desc type에 맞게끔 map에 키 밸류 형태로 넣어줌 
-	 * @return todoMap (key -> todoList, doingList, doneList)
+	 * @return todoList
 	 * @throws SQLException
 	 */
-	public Map<String, List<TodoDto>> getTodos() throws SQLException {
+	public TodoDtoList getTodos() throws SQLException {
 
-		TodoDao todoDao = new TodoDao();
+		TodoDao todoDao = TodoDao.getInstance();
 		List<TodoDto> list = todoDao.getTodos();
+
+		TodoDtoList todoDtoList = new TodoDtoList();
 
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
+		todoDtoList.setTodoList(todoList);
+		todoDtoList.setDoingList(doingList);
+		todoDtoList.setDoneList(doneList);
+
 		for (TodoDto todoDto : list) {
 			String type = todoDto.getType();
 
-			if (TodoType.TODO.equals(type)) {
-				todoList.add(todoDto);
-			} else if (TodoType.DOING.equals(type)) {
-				doingList.add(todoDto);
-			} else if (TodoType.DONE.equals(type)) {
-				doneList.add(todoDto);
-			}
+			TodoType.valueOf(type).addList(todoDtoList, todoDto);
 		}
 
-		Map<String, List<TodoDto>> todoMap = new HashMap<>();
-
-		todoMap.put("todoList", todoList);
-		todoMap.put("doingList", doingList);
-		todoMap.put("doneList", doneList);
-
-		return todoMap;
+		return todoDtoList;
 	}
 
 	/**
@@ -72,7 +83,7 @@ public class TodoService {
 	 * @throws SQLException
 	 */
 	public int addTodo(TodoDto todoDto) throws SQLException {
-		return new TodoDao().addTodo(todoDto);
+		return TodoDao.getInstance().addTodo(todoDto);
 	}
 
 }
