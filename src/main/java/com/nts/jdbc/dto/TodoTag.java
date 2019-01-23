@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts;
+package com.nts.jdbc.dto;
 
 /**
  * @author 육성렬
