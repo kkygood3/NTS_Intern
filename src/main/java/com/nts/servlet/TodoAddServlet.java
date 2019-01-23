@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.StringUtils;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 
@@ -45,9 +46,10 @@ public class TodoAddServlet extends HttpServlet {
 		String name = (String)req.getParameter("name");
 		String sequence = (String)req.getParameter("sequence");
 
-		// TODO: null입력 에외처리 구현
-		if (title.isEmpty() || name.isEmpty() || sequence == null) {
-			throw new NullPointerException();
+		if (StringUtils.isNullOrEmpty(title) || title.length() > 24
+			|| StringUtils.isNullOrEmpty(name) || StringUtils.isNullOrEmpty(sequence)) {
+			ErrorHandler.alertMessage("값을 제대로 입력해주세요.", resp);
+			return;
 		}
 
 		TodoDto todoDto = new TodoDto();
@@ -60,5 +62,4 @@ public class TodoAddServlet extends HttpServlet {
 
 		resp.sendRedirect("./main");
 	}
-
 }

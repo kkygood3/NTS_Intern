@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.StringUtils;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoDto.Type;
@@ -29,13 +30,14 @@ public class TodoTypeServlet extends HttpServlet {
 	 * id와 type값을 받아 해당 todo 데이터의 type값을 다음상태값으로 변경
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = (String)req.getParameter("id");
 		String type = (String)req.getParameter("type");
+		System.out.println(id + type);
 
-		// TODO: null입력 에외처리 구현
-		if (id == null || type.isEmpty()) {
-			throw new NullPointerException();
+		if (StringUtils.isNullOrEmpty(id) || StringUtils.isNullOrEmpty(type)) {
+			ErrorHandler.alertMessage("값을 제대로 입력해주세요.", resp);
+			return;
 		}
 
 		TodoDto todoDto = new TodoDto();
