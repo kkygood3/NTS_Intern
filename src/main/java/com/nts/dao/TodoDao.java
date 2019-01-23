@@ -14,11 +14,36 @@ import com.nts.dto.TodoDto;
 
 public class TodoDao {
 	private static Connection dbConnection;
-	
+
+	private TodoDao() {}
+
+	private static class TodoDaoHolder {
+		public static final TodoDao INSTANCE = new TodoDao();
+	}
+
+	public static TodoDao getInstance() {
+		return TodoDaoHolder.INSTANCE;
+	}
+
+	private Connection getConnection() {
+		if (dbConnection == null) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				dbConnection = DriverManager.getConnection(DBInfo.DB_URL, DBInfo.DB_USER, DBInfo.DB_PASSWORD);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return dbConnection;
+	}
+
 	public int addTodo(TodoDto todo) {
 		int result = 0;
 		try (PreparedStatement ps = getConnection().prepareStatement(DBQuery.INSERT_SQL)) {
-			ps.setString(1, todo.getTitle());	
+			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
 			result = ps.executeUpdate();
@@ -64,24 +89,9 @@ public class TodoDao {
 		return result;
 	}
 
-	
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		if (dbConnection == null) {
-			final String DB_URL = "jdbc:mysql://10.113.116.52:13306/user6?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
-			final String DB_USER = "user6";
-			final String DB_PASSWORD = "user6";
-
-			Class.forName("com.mysql.jdbc.Driver");
-			dbConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		}
-		return dbConnection;
-	}
-	
-	private static class Holder {
-		public static final TodoDao INSTANCE = new TodoDao();
-	}
-
-	public static TodoDao getInstance() {
-		return Holder.INSTANCE;
+	private static class DBInfo {
+		static final String DB_URL = "jdbc:mysql://10.113.116.52:13306/user6?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
+		static final String DB_USER = "user6";
+		static final String DB_PASSWORD = "user6";
 	}
 }
