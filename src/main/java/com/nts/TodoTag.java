@@ -22,4 +22,12 @@ public enum TodoTag {
 	public String getTodoTag() {
 		return tag;
 	}
+
+	public String getNext() {
+		if (this == TODO) {
+			return DOING.tag;
+		} else {
+			return DONE.tag;
+		}
+	}
 }

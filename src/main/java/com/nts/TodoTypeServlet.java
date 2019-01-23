@@ -35,23 +35,15 @@ public class TodoTypeServlet extends HttpServlet {
 		response.setContentType("text/plain;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
+		String nextType = "";
 		try {
-			TodoTag.valueOf(type);
+			nextType = TodoTag.valueOf(type).getNext();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			response.setStatus(response.SC_BAD_REQUEST);
 			out.append("잘못 된 값을 전송하였습니다.");
 			out.close();
 			return;
-		}
-
-		String nextType = "";
-		if ("TODO".equals(type)) {
-			nextType = "DOING";
-		} else if ("DOING".equals(type)) {
-			nextType = "DONE";
-		} else {
-			nextType = "DONE";
 		}
 
 		TodoDto targetTodoDto = new TodoDto.Builder().id(id).type(nextType).build();
