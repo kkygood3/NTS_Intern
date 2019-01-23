@@ -59,6 +59,15 @@
 	display: block;
 }
 
+#list_board > .container > .card > span {
+	display: inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+	overflow: hidden;
+	width: 230px;
+}
+
 #list_board > .container > .card button {
 	float: right;
 	margin-right: 10px;

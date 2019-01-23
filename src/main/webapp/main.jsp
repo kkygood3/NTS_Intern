@@ -55,7 +55,7 @@
 	<script>
 		// empty, null, undefined 체크 
 		function isEmpty(str) {
-		    return (!str || 0 === str.length);
+			return (!str || 0 === str.length);
 		}
 
 		// addEventListener로 모든 타입변경버튼들 클릭이벤트 등록
