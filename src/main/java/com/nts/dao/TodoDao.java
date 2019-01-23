@@ -1,10 +1,7 @@
 package com.nts.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,21 +11,9 @@ import com.nts.database.DBQuery;
 import com.nts.dto.TodoDto;
 
 public class TodoDao {
-	private Connection conn = null;
-
-	private TodoDao() {
-		try {
-			conn = DBConnection.getConnection();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public int addTodo(TodoDto todo) {
 		int result = 0;
-		try (PreparedStatement ps = conn.prepareStatement(DBQuery.INSERT_SQL)) {
+		try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(DBQuery.INSERT_SQL)) {
 			ps.setString(1, todo.getTitle());	
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
@@ -42,7 +27,7 @@ public class TodoDao {
 	public List<TodoDto> getTodos() {
 
 		List<TodoDto> todos = new ArrayList<TodoDto>();
-		try (PreparedStatement ps = conn.prepareStatement(DBQuery.SELECT_SQL);
+		try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(DBQuery.SELECT_SQL);
 			ResultSet rs = ps.executeQuery()) {
 			rs.beforeFirst();
 			while (rs.next()) {
@@ -61,7 +46,7 @@ public class TodoDao {
 
 	public int updateTodo(TodoDto todo) {
 		int result = 0;
-		try (PreparedStatement ps = conn.prepareStatement(DBQuery.UPDATE_DQL);) {
+		try (PreparedStatement ps = DBConnection.getConnection().prepareStatement(DBQuery.UPDATE_DQL);) {
 			ps.setString(1, Const.DOING);
 			ps.setLong(2, todo.getId());
 			ps.setString(3, Const.TODO);
