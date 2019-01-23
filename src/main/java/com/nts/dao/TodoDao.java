@@ -5,13 +5,14 @@
 package com.nts.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nts.db.MysqlConnector;
+import com.nts.db.SQL;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoDto.Type;
 
@@ -21,31 +22,20 @@ import com.nts.dto.TodoDto.Type;
  */
 
 public class TodoDao {
-	private String url = "jdbc:mysql://10.113.116.52:13306/user5";
-	private String id = "user5";
-	private String pw = "wlsdn123";
+	private TodoDao() {};
 
-	/**
-	 * mysql.jdbc.Driver를 DriverManager에 한번만 등록 
-	 */
-	static {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	private static class LazyHolder {
+		static final TodoDao INSTANCE = new TodoDao();
 	}
 
-	private Connection getConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(url, id, pw);
-		return conn;
+	public static TodoDao getInstance() {
+		return LazyHolder.INSTANCE;
 	}
 
 	public int addTodo(TodoDto todoDto) {
 		int insertCount = 0;
-		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
-		try (Connection conn = getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try (Connection conn = MysqlConnector.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(SQL.ADD_TODO);) {
 			pstmt.setString(1, todoDto.getTitle());
 			pstmt.setString(2, todoDto.getName());
 			pstmt.setInt(3, todoDto.getSequence());
@@ -58,9 +48,8 @@ public class TodoDao {
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<TodoDto>();
-		String sql = "select id, name, date_format(regdate, \"%Y.%m.%d\") as regdate, sequence, title, type from todo";
-		try (Connection conn = getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+		try (Connection conn = MysqlConnector.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(SQL.GET_TODOS);
 			ResultSet rs = pstmt.executeQuery();) {
 			while (rs.next()) {
 				TodoDto todo = new TodoDto();
@@ -80,9 +69,8 @@ public class TodoDao {
 
 	public int updateTodo(TodoDto todoDto) {
 		int updateCount = 0;
-		String sql = "update todo set type = ? where id = ?";
-		try (Connection conn = getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try (Connection conn = MysqlConnector.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(SQL.UPDATE_TODO);) {
 			pstmt.setString(1, todoDto.getType().name());
 			pstmt.setLong(2, todoDto.getId());
 			updateCount = pstmt.executeUpdate();

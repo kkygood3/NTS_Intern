@@ -42,7 +42,7 @@ public class TodoTypeServlet extends HttpServlet {
 		todoDto.setId(Long.parseLong(id));
 		todoDto.setType(Type.valueOf(type).getNext());
 
-		TodoDao todoDao = new TodoDao();
+		TodoDao todoDao = TodoDao.getInstance();
 		int updateCount = todoDao.updateTodo(todoDto);
 
 		PrintWriter out = resp.getWriter();
