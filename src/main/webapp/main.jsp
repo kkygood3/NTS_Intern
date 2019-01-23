@@ -27,28 +27,49 @@
 	<a href="register" class="add_new_do">새로운 TODO 등록</a>
 	<br>
 	<section class="art_container">		
-		<c:set var="length" scope="request" value="${fn:length(todoLabel)-1}"/>
-		<c:forEach var="labelIdx" begin="0" end="${length}">
-			<c:set var="curLabel" value="${todoLabel[labelIdx]}"/>
-			<article class='art_${curLabel}'>
-			<div class='div_title'>${curLabel}</div>
-			<c:forEach var="target" items="${todoList}">
-				<c:if test="${target.type == curLabel}">
-					<p>
-						<span class='do_name'>
-							${target.title}
-						</span><br>
-						<span class='do_description'>
-							등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
-						</span>
-						<c:if test="${labelIdx != length}">
-							<button name="${target.id}">→</button>
-						</c:if>
-					</p>
-				</c:if>
+		<article class='art_TODO'>
+			<div class='div_title'>TODO</div>
+			<c:forEach var="target" items="${TODOlist}">
+				<p>
+					<span class='do_name'>
+						${target.title}
+					</span><br>
+					<span class='do_description'>
+						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+					</span>
+					<button name="${target.id}">→</button>
+				</p>
 			</c:forEach>
-			</article>
-		</c:forEach>
+		</article>
+		
+		<article class='art_DOING'>
+			<div class='div_title'>DOING</div>
+			<c:forEach var="target" items="${DOINGlist}">
+				<p>
+					<span class='do_name'>
+						${target.title}
+					</span><br>
+					<span class='do_description'>
+						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+					</span>
+					<button name="${target.id}">→</button>
+				</p>
+			</c:forEach>
+		</article>
+		
+		<article class='art_DONE'>
+			<div class='div_title'>DONE</div>
+			<c:forEach var="target" items="${DONElist}">
+				<p>
+					<span class='do_name'>
+						${target.title}
+					</span><br>
+					<span class='do_description'>
+						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+					</span>
+				</p>
+			</c:forEach>
+		</article>
 	</section>
 </body>
 

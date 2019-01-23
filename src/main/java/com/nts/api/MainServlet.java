@@ -7,6 +7,8 @@ package com.nts.api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -33,15 +35,16 @@ public class MainServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		
-		response.setHeader("Content-Type", "application/json");
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
 
 		TodoDao dao = TodoDao.getInstance();
 		List<TodoDto> list = dao.getTodos();
 		
-		request.setAttribute("todoList", list);
+		Map<String, List<TodoDto>> groupedList = list.stream().collect(Collectors.groupingBy(TodoDto::getType));
+		for(int i = 0 ; i < todoLabel.length; i++)
+			request.setAttribute(todoLabel[i]+"list",groupedList.get(todoLabel[i]));
+		
 		request.setAttribute("todoLabel", todoLabel);
 		ServletContext context = getServletContext();
 		RequestDispatcher dispatcher = context.getRequestDispatcher("/main.jsp");
