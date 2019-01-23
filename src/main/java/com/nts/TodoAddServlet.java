@@ -20,7 +20,7 @@ import com.nts.jdbc.dto.TodoDto;
 /**
  * @author 육성렬
  */
-@WebServlet("/add-todo")
+@WebServlet("/addTodo")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

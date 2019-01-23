@@ -8,6 +8,7 @@ package com.nts;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +33,7 @@ public class MainServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		TodoDao todoDao = TodoDao.getInstance();
-		List<TodoDto> list = null;
+		List<TodoDto> list = Collections.EMPTY_LIST;
 
 		try {
 			list = todoDao.getTodos();
