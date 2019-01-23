@@ -19,15 +19,15 @@ import com.nts.todo.dto.TodoDto;
 * @date    : 2019. 1. 22.
 */
 public class TodoDao {
-	private String connectionUrl = "jdbc:mysql://10.113.116.52:13306/user8?serverTimezone=Asia/Seoul";
-	private String connectionUser = "user8";
-	private String connectionPassword = "user8";
+	private static final String connectionUrl = "jdbc:mysql://10.113.116.52:13306/user8?serverTimezone=Asia/Seoul";
+	private static final String connectionUser = "user8";
+	private static final String connectionPassword = "user8";
 
 	public int addTodo(TodoDto todo) {
 		String sql = "insert into todo(title, name, sequence) values(?,?,?)";
 		Object[] params = {todo.getTitle(), todo.getName(), todo.getSequence()};
 
-		int insertCount = excuteQuery(sql, params);
+		int insertCount = queryForObject(sql, params);
 
 		return insertCount;
 	}
@@ -66,12 +66,15 @@ public class TodoDao {
 		String sql = "update todo set type = ? where id = ?";
 		Object[] params = {todo.getType(), todo.getId()};
 
-		int updateCount = excuteQuery(sql, params);
+		int updateCount = queryForObject(sql, params);
 
 		return updateCount;
 	}
 
-	public int excuteQuery(String sql, Object[] params) {
+	/*
+	 * INSERT, UPDATE, DELETE문에 한해 사용할 수 있습니다.
+	 */
+	private int queryForObject(String sql, Object[] params) {
 		int resultCount = 0;
 
 		try {
