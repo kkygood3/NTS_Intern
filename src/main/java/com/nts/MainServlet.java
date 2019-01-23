@@ -56,9 +56,9 @@ public class MainServlet extends HttpServlet {
 				doneList.add(item);
 			}
 		}
-		request.setAttribute("TodoList", todoList);
-		request.setAttribute("DoingList", doingList);
-		request.setAttribute("DoneList", doneList);
+		request.setAttribute("todoList", todoList);
+		request.setAttribute("doingList", doingList);
+		request.setAttribute("doneList", doneList);
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 		requestDispatcher.forward(request, response);

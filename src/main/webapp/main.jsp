@@ -18,7 +18,7 @@
 			<div class="todo_list_container">
 				<ul id="todo_list_type_todo_column">
 					<li class="todo_cell todo_category">TODO</li>
-					<c:forEach items="${TodoList}" var="item">
+					<c:forEach items="${todoList}" var="item">
 						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
 							<h1>${item.getTitle()}</h1>
 							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
@@ -28,7 +28,7 @@
 				</ul>	
 				<ul id="todo_list_type_doing_column">
 					<li class="todo_cell todo_category">DOING</li>
-					<c:forEach items="${DoingList}" var="item">
+					<c:forEach items="${doingList}" var="item">
 						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
 							<h1>${item.getTitle()}</h1>
 							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
@@ -38,7 +38,7 @@
 				</ul>
 				<ul id="todo_list_type_done_column">
 					<li class="todo_cell todo_category">DONE</li>
-					<c:forEach items="${DoneList}" var="item">
+					<c:forEach items="${doneList}" var="item">
 						<li class="todo_cell todo_content" data-todo-type="${item.getType()}" data-todo-id="${item.getId()}">
 							<h1>${item.getTitle()}</h1>
 							<h5>등록날짜:${item.getRegDate()}, ${item.getName()}, 우선순위 ${item.getSequence()}</h5>
