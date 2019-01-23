@@ -28,11 +28,13 @@ public class TodoAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		TodoDto todo = new TodoDto();
-		todo.setTitle(request.getParameter(Const.TITLE));
-		todo.setName(request.getParameter(Const.NAME));
-		todo.setSequence(Integer.parseInt(request.getParameter(Const.SQQUENCE)));
-		TodoDao.getInstance().addTodo(todo);
+		String title = request.getParameter(Const.TITLE);
+		String name = request.getParameter(Const.NAME);
+		int sequence = Integer.parseInt(request.getParameter(Const.SQQUENCE));
+		
+		if (isValidInput(title, sequence)) {
+			TodoDao.getInstance().addTodo(new TodoDto(name, sequence, title));
+		}
 		response.sendRedirect("./todos");
 	}
 	
@@ -42,5 +44,11 @@ public class TodoAddServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.sendRedirect("./todos");
+	}
+	
+	private boolean isValidInput(String title, int sequence) {
+		if (title.length() > 24) return false;
+		if (sequence > 3 || sequence < 1) return false;
+		return true;
 	}
 }
