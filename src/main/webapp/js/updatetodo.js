@@ -33,6 +33,9 @@ function changeTodoType(id) {
 
 }
 
+/*
+ * list를 날짜기준으로 출력하므로, 이동시 맨마지막에 넣으면 새로고침했을때의 화면과 다를 수 있기때문에 사용자 UX를 고려하여, 정렬해서 삽입하도록 변경
+ */
 function sortInsert(nowList, nextList, todo) {
 	var nextListChild = nextList.firstElementChild;
 	while (nextListChild !== null

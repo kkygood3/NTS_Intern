@@ -13,7 +13,7 @@ public class TodoDto {
 	private String regdate;
 	private int sequence;
 	private String title;
-	private String type;
+	private String type; // TodoType enum을 사용하는편이 더 명확하고 효율적으로 생각하지만, 요구사항명세가 String형으로 되어있음. 차후 수정하면 좋을듯..
 
 	public void changeTypeToNext() {
 		this.type = TodoType.valueOf(this.type).getNext();
