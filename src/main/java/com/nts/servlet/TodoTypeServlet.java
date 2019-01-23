@@ -50,6 +50,7 @@ public class TodoTypeServlet extends HttpServlet {
 			response.getWriter().append("success");
 		} catch (ServerErrorException e) {
 			response.sendError(e.getERROR_CODE(), e.getMessage());
+			return;
 		}
 
 	}
