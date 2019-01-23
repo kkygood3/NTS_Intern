@@ -22,11 +22,11 @@ var init = () => {
 
 	todoItem.forEach((item) => {
 		var id = item.dataset.id;
-		var section = item.parentNode.dataset.section;
 		var button = item.querySelector("button.content_move_button");
 		if(button!=null){
-			button.addEventListener("click", ()=>{ 
-				update(id,section) 
+			button.addEventListener("click", ()=>{
+				// item.parentNode.dataset.section is the target section;
+				update(id,item.parentNode.dataset.section) 
 			});
 		}
 		
@@ -41,10 +41,10 @@ var init = () => {
  * next category. Also Removes arrow button when the Todo element reaches DONE
  * Category
  */
-var update = (item_id, currentSection) => {
+var update = (item_id, current_section) => {
 	var todo_info = {};
 	todo_info.id = item_id;
-	todo_info.type = currentSection;
+	todo_info.type = current_section;
 	console.log(todo_info);
 	
 	var json = JSON.stringify(todo_info);
@@ -60,7 +60,8 @@ var update = (item_id, currentSection) => {
 				alert("Successfully Updated");
 				
 				var next_type = "DOING";
-				if (currentSection == "DOING") {
+				console.log(current_section);
+				if (current_section == "DOING") {
 					next_type = "DONE"
 				}
 				
@@ -79,8 +80,8 @@ var update = (item_id, currentSection) => {
 					target_section.insertBefore(element,
 							document.querySelector("[data-id = '"+target_item_id+"']"));
 				}
-			
-				if (currentSection == "DOING") {
+				
+				if (current_section == "DOING") {
 					element.getElementsByTagName("button")[0].remove();
 				}
 			 } else {

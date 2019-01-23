@@ -18,7 +18,10 @@ public class TodoDto {
 	private int sequence;
 	private String regdate;
 	private String type;
-
+	
+	private TodoDto() {
+		
+	}
 	private TodoDto(Builder builder) {
 		this.id = builder.id;
 		this.title = builder.title;

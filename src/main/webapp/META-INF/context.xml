@@ -19,8 +19,8 @@
 	<Resource name="jdbc/DevelopmentDB" auth="Container"
 		type="javax.sql.DataSource"
 		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
-		driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/pjt2?autoReconnect=true&amp;useSSL=false"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/pjt2?useUnicode=true&amp;autoReconnect=true&amp;useSSL=false&amp;serverTimezone=UTC" 
 		username="root" 
 		password="root" 
 		maxActive="100" 
@@ -31,5 +31,5 @@
 		type="javax.sql.DataSource" />
 
 	<!-- Uncomment this to disable session persistence across Tomcat restarts -->
-	<Manager pathname="" />
+	<!-- <Manager pathname="" /> -->
 </Context>
