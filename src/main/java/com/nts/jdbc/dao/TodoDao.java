@@ -66,7 +66,7 @@ public class TodoDao {
 
 	public int addTodo(TodoDto todoDto) throws SQLException, ClassNotFoundException {
 
-		String sql = "insert into todo(title, name, sequence) values(?, ?, ?);";
+		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
 
 		if (!dbConnection.isValid(3000)) {
@@ -85,7 +85,7 @@ public class TodoDao {
 	public List<TodoDto> getTodos() throws SQLException, ClassNotFoundException {
 
 		List<TodoDto> result = new ArrayList<>();
-		String sql = "select id, title, name, sequence, type, regdate from todo order by regdate";
+		String sql = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY regdate";
 		PreparedStatement preparedStatement = null;
 
 		if (!dbConnection.isValid(3000)) {
@@ -117,7 +117,7 @@ public class TodoDao {
 
 	public int updateTodo(TodoDto todoDto) throws SQLException, ClassNotFoundException {
 
-		String sql = "update todo set type = ? where id = ?;";
+		String sql = "UPDATE todo SET type = ? WHERE id = ?;";
 		PreparedStatement preparedStatement = null;
 
 		if (!dbConnection.isValid(3000)) {
