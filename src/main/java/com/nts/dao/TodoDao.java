@@ -4,6 +4,14 @@
  */
 package com.nts.dao;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +20,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.xdevapi.DbDoc;
+import com.mysql.cj.xdevapi.JsonParser;
 import com.nts.dto.TodoDto;
 
 /**
@@ -19,21 +29,62 @@ import com.nts.dto.TodoDto;
  * @author 박우성
  */
 public class TodoDao {
-	private static String dburl = "jdbc:mysql://10.113.116.52:13306/user4?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
-	private static String dbUser = "user4";
-	private static String dbpasswd = "user4";
+	private static String dburl = null;
+	private static String dbUser = null;
+	private static String dbpasswd = null;
+	private static Connection conn = null;
+	private static PreparedStatement ps = null;
+	private static ResultSet rs = null;
+	
+	private static TodoDao instance = null;
+	
+	private TodoDao() {}
+	
+	private static void init() {
+		instance = new TodoDao();
 
-	private List executeQuery(String query) {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		ArrayList<TodoDto> roles = new ArrayList();
 		try {
+			dburl = DbAccount.dburl;
+			dbUser = DbAccount.dbUser;
+			dbpasswd = DbAccount.dbpasswd;
+			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			//TODO: Exception 세분화 할 필요 있음
+			e.printStackTrace();
+		}
+	}
+	
+	public static TodoDao getInstance() {
+		if(instance == null)
+			init();
+		
+		return instance;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		try {
+			if (rs != null)
+				rs.close();
+			if (ps != null)
+				ps.close();
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private List executeQuery(String query) {
+		ArrayList<TodoDto> roles = new ArrayList();
+		try {
 			ps = conn.prepareStatement(query);
 
-			if (query.substring(0, 6).equals("SELECT")) {
+			if (query.charAt(0)=='s') {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					int id = rs.getInt(1);
@@ -42,8 +93,6 @@ public class TodoDao {
 					int sequence = rs.getInt(4);
 					String type = rs.getString(5);
 					String regdate = rs.getString(6);
-
-					regdate = regdate.split(" ")[0].replace('-', '.');
 
 					roles.add(new TodoDto(id, title, name, sequence, type, regdate));
 				}
@@ -54,16 +103,6 @@ public class TodoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (ps != null)
-					ps.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return roles;
 	}
@@ -85,7 +124,7 @@ public class TodoDao {
 	}
 
 	public List getTodos() {
-		String sql = "SELECT * FROM todo";
+		String sql = "select id, title, name, sequence, type, DATE_FORMAT(regdate,'%Y.%m.%d') as regdate from todo";
 		ResultSet rs = null;
 		return executeQuery(sql);
 	}

@@ -38,7 +38,7 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
 
-		TodoDao dao = new TodoDao();
+		TodoDao dao = TodoDao.getInstance();
 		List<TodoDto> list = dao.getTodos();
 		
 		request.setAttribute("todoList", list);

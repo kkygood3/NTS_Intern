@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 		String name = decodeUTF8(request.getParameter("wname"));
 		int priority = new Integer(request.getParameter("priority"));
 		
-		TodoDao dao = new TodoDao();
+		TodoDao dao = TodoDao.getInstance();
 		dao.addTodo(new TodoDto(whatdo,name,priority));
 		
 		response.sendRedirect("main");

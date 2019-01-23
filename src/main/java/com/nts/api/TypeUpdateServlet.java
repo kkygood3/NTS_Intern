@@ -29,7 +29,7 @@ public class TypeUpdateServlet extends HttpServlet {
 		
 		Integer targetID = new Integer(request.getParameter("id"));
 		String targetType = request.getParameter("type");
-		TodoDao dao = new TodoDao();
+		TodoDao dao = TodoDao.getInstance();
 		if(dao.updateTodo(new TodoDto(targetID,targetType))) {
 			out.print("success");
 		}
