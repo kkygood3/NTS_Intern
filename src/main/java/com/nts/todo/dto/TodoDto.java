@@ -18,10 +18,12 @@ public class TodoDto {
 	private int sequence;
 	private String regdate;
 	private String type;
-	
-	private TodoDto() {
-		
+
+	//empty constructor for jackson-bind usage
+	public TodoDto() {
 	}
+	
+	// Removed unused setters to reduce lines, only setType exists
 	private TodoDto(Builder builder) {
 		this.id = builder.id;
 		this.title = builder.title;
@@ -43,40 +45,20 @@ public class TodoDto {
 		return sequence;
 	}
 
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
-
 	public String getRegdate() {
 		return regdate;
-	}
-
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public static class Builder {
@@ -126,19 +108,6 @@ public class TodoDto {
 		TODO,
 		DOING,
 		DONE;
-
-		@Override
-		public String toString() {
-			switch (this) {
-				case TODO:
-					return "TODO";
-				case DOING:
-					return "DOING";
-				case DONE:
-					return "DONE";
-			}
-			return null;
-		}
 
 		public boolean equals(String type) {
 			switch (this) {

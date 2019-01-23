@@ -70,6 +70,5 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("doneList", doneList);
 
 		request.getRequestDispatcher("/main.jsp").forward(request, response);
-
 	}
 }

@@ -46,7 +46,7 @@ public class TodoTypeServlet extends HttpServlet {
 				todoInfo += temp;
 			}
 		} catch (IOException e) {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
 
 		try {
@@ -55,8 +55,7 @@ public class TodoTypeServlet extends HttpServlet {
 
 			//replace the type to nextType;
 			String currentType = todo.getType();
-			String nextType = TodoType.getNextType(currentType);
-			todo.setType(nextType);
+			todo.setType(TodoType.getNextType(currentType));
 
 			if (new TodoDao().updateTodo(todo) > 0) {
 				response.getWriter().write("SUCCESS");

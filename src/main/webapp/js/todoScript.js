@@ -41,13 +41,12 @@ var init = () => {
  * next category. Also Removes arrow button when the Todo element reaches DONE
  * Category
  */
-var update = (item_id, current_section) => {
-	var todo_info = {};
-	todo_info.id = item_id;
-	todo_info.type = current_section;
-	console.log(todo_info);
+var update = (itemId, currentSection) => {
+	var todoInfo = {};
+	todoInfo.id = itemId;
+	todoInfo.type = currentSection;
 	
-	var json = JSON.stringify(todo_info);
+	var json = JSON.stringify(todoInfo);
 	
 	var xhr = new XMLHttpRequest();
 	xhr.open("PUT", "/jaewonlee/updatetodo", true);
@@ -59,9 +58,9 @@ var update = (item_id, current_section) => {
 				 
 				alert("Successfully Updated");
 				
-				var next_type = "DOING";
-				console.log(current_section);
-				if (current_section == "DOING") {
+				var nextType = "DOING";
+				console.log(currentSection);
+				if (currentSection == "DOING") {
 					next_type = "DONE"
 				}
 				
@@ -70,15 +69,19 @@ var update = (item_id, current_section) => {
 				 * generated after the element we are dealing with. Therefore,
 				 * if there is one, we are inserting before the element. if
 				 * findHtmlInsertSpot = -1, simply append in the section
+				 * var toBeMoved = html Dom Element Node, which refers the item to be moved to left
+				 * var targetItemId = html Dom Element Node, which refers the item that has to be under the Node toBeMoved
+				 * var targetSection = refers html DOME Element Node in ul tag of 3 sections, todo, doing, done.
 				 */
-				var element = document.querySelector("[data-id = '"+item_id+"']");
-				var target_item_id = findHtmlInsertSpot(next_type, item_id);
-				var target_section = document.querySelector("ul[data-section ='"+next_type+"']");
-				if (target_section == -1) {
-					target_section.appendChild(element);
+				var toBeMoved = document.querySelector("[data-id = '"+itemId+"']");
+				var targetItemId = findHtmlInsertSpot(nextType, itemId);
+				var targetSection = document.querySelector("ul[data-section ='"+nextType+"']");
+				
+				if (targetSection == -1) {
+					targetSection.appendChild(toBeMoved);
 				} else {
-					target_section.insertBefore(element,
-							document.querySelector("[data-id = '"+target_item_id+"']"));
+					target_section.insertBefore(toBeMoved,
+							document.querySelector("[data-id = '"+targetItemId+"']"));
 				}
 				
 				if (current_section == "DOING") {
