@@ -14,7 +14,7 @@ import com.nts.database.DBQuery;
 import com.nts.dto.TodoDto;
 
 public class TodoDao {
-	Connection conn = null;
+	private Connection conn = null;
 
 	private TodoDao() {
 		try {
@@ -29,7 +29,7 @@ public class TodoDao {
 	public int addTodo(TodoDto todo) {
 		int result = 0;
 		try (PreparedStatement ps = conn.prepareStatement(DBQuery.INSERT_SQL)) {
-			ps.setString(1, todo.getTitle());
+			ps.setString(1, todo.getTitle());	
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
 			result = ps.executeUpdate();
