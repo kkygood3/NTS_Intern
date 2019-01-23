@@ -1,6 +1,6 @@
 .container {
-	
 	max-width: 800px;
+	min-width: 600px;
 	padding: 40px;
 }
 .content {
@@ -14,7 +14,7 @@ header {
 
 header h1 {
 	display: inline-block;
-    transform: rotate(340deg);
+    transform: rotate(350deg);
     color: #345461;
 }
 
