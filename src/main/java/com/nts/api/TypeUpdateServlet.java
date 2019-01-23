@@ -23,17 +23,25 @@ import com.nts.dto.TodoDto;
 @WebServlet("/update/*")
 public class TypeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		
-		Integer targetID = new Integer(request.getParameter("id"));
-		String targetType = request.getParameter("type");
-		TodoDao dao = TodoDao.getInstance();
-		if(dao.updateTodo(new TodoDto(targetID,targetType))) {
-			out.print("success");
+		try {
+			Integer targetID = new Integer(request.getParameter("id"));
+			String targetType = request.getParameter("type");
+			TodoDao dao = TodoDao.getInstance();
+			
+			if (dao.updateTodo(new TodoDto(targetID, targetType)))
+				out.print("success");
+			else
+				throw new Exception();
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendRedirect("error/invalid_access.jsp");
+		} finally{
+			out.close();
 		}
-		out.close();
 	}
 
 }

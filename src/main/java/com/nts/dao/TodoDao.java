@@ -97,8 +97,8 @@ public class TodoDao {
 					roles.add(new TodoDto(id, title, name, sequence, type, regdate));
 				}
 			} else {
-				ps.execute();
-				roles = null;
+				if(ps.executeUpdate() != 0);
+					roles = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
