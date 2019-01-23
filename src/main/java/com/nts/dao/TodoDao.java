@@ -4,87 +4,38 @@
  */
 package com.nts.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.xdevapi.DbDoc;
-import com.mysql.cj.xdevapi.JsonParser;
 import com.nts.dto.TodoDto;
+import com.nts.mysql.MysqlConnector;
 
 /**
- * DB에서 데이터를 가져오는 Dao클래스
+ * DB에 쿼리를 전송하는 DAO 클래스
  * @author 박우성
  */
-public class TodoDao {
-	private static String dburl = null;
-	private static String dbUser = null;
-	private static String dbpasswd = null;
-	private static Connection conn = null;
-	private static PreparedStatement ps = null;
-	private static ResultSet rs = null;
-	
+public class TodoDao {	
 	private static TodoDao instance = null;
 	
 	private TodoDao() {}
 	
-	private static void init() {
-		instance = new TodoDao();
-
-		try {
-			dburl = DbAccount.dburl;
-			dbUser = DbAccount.dbUser;
-			dbpasswd = DbAccount.dbpasswd;
-			
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			//TODO: Exception 세분화 할 필요 있음
-			e.printStackTrace();
-		}
-	}
-	
 	public static TodoDao getInstance() {
 		if(instance == null)
-			init();
+			instance = new TodoDao();
 		
 		return instance;
 	}
-	
-	@Override
-	protected void finalize() throws Throwable {
-		try {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			if (conn != null)
-				conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
-	private List executeQuery(String query) {
+	private List executeQuery(PreparedStatement ps) {
 		ArrayList<TodoDto> roles = new ArrayList();
+		ResultSet rs = null;
 		try {
-			ps = conn.prepareStatement(query);
-
-			if (query.charAt(0)=='s') {
+			String psStr = ps.toString();
+			char queryFirstChar =  psStr.charAt(psStr.indexOf(' ')+1);
+			if (queryFirstChar == 's' || queryFirstChar == 'S') {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					int id = rs.getInt(1);
@@ -103,29 +54,60 @@ public class TodoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return roles;
 	}
 
-	public boolean addTodo(TodoDto todo) {
-		String sql = "insert into todo(title, name, sequence) values('" + todo.getTitle() + "', '" + todo.getName() + "', " + todo.getSequence() + ")";
-		List<TodoDto> result = executeQuery(sql);
+	public boolean addTodo(TodoDto todo){
+		List<TodoDto> result = null;
+		
+		try(PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.INSERT_QUERY)) {
+			ps.setString(1, todo.getTitle());
+			ps.setString(2, todo.getName());
+			ps.setInt(3, todo.getSequence());
+			
+			result = executeQuery(ps);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return (result==null);
 	}
 
-	public boolean updateTodo(TodoDto todo) {
+	public boolean updateTodo(TodoDto todo){
+		List<TodoDto> result = null;
+		
 		String nextType = "DOING";
 		if (todo.getType().equals("DOING"))
 			nextType = "DONE";
-
-		String sql = "update todo set type = '" + nextType + "' where id = " + todo.getId();
-		List<TodoDto> result = executeQuery(sql);
+		
+		try(PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.UPDATE_QUERY);) {
+			ps.setString(1, nextType);
+			ps.setInt(2, todo.getId());
+			
+			result = executeQuery(ps);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return (result==null);
 	}
 
-	public List getTodos() {
-		String sql = "select id, title, name, sequence, type, DATE_FORMAT(regdate,'%Y.%m.%d') as regdate from todo";
-		ResultSet rs = null;
-		return executeQuery(sql);
+	public List getTodos(){
+		List<TodoDto> result = null;
+		
+		try(PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.SELECT_QUERY);) {			
+			result = executeQuery(ps);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
