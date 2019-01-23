@@ -25,6 +25,7 @@ import com.nts.jdbc.dto.TodoDto;
  * @author 육성렬
  */
 public class TodoDao {
+	private static final int DB_VALID_TIMEOUT = 3000;
 	private Connection dbConnection = null;
 	DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
@@ -69,7 +70,7 @@ public class TodoDao {
 		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?);";
 		PreparedStatement preparedStatement = null;
 
-		if (!dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(DB_VALID_TIMEOUT)) {
 			connectDatabase();
 		}
 
@@ -88,7 +89,7 @@ public class TodoDao {
 		String sql = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY regdate";
 		PreparedStatement preparedStatement = null;
 
-		if (!dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(DB_VALID_TIMEOUT)) {
 			connectDatabase();
 		}
 
@@ -120,7 +121,7 @@ public class TodoDao {
 		String sql = "UPDATE todo SET type = ? WHERE id = ?;";
 		PreparedStatement preparedStatement = null;
 
-		if (!dbConnection.isValid(3000)) {
+		if (!dbConnection.isValid(DB_VALID_TIMEOUT)) {
 			connectDatabase();
 		}
 		preparedStatement = dbConnection.prepareStatement(sql);
