@@ -73,8 +73,7 @@ public class TodoDao {
 
 	/**
 	 * @desc todo type 변경
-	 * @param id
-	 * @param type
+	 * @param todoDto
 	 * @throws ServerError500Exception 
 	 * @return result
 	 */
