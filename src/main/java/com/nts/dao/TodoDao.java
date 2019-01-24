@@ -90,7 +90,7 @@ public class TodoDao {
 	}
 
 	public int updateTodo(TodoDto todoDto) {
-		int updateCount = 0;
+		int updateCount = -1;
 		try (Connection conn = MysqlConnector.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(SQL.UPDATE_TODO);) {
 			pstmt.setString(1, todoDto.getType().name());

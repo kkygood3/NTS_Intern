@@ -33,16 +33,17 @@ public class MainServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		TodoDao todoDao = TodoDao.getInstance();
-		List<TodoDto> todos = todoDao.getTodos();
-		Map<Type, List<TodoDto>> todosPerType = todos.stream()
-			.collect(Collectors.groupingBy(TodoDto::getType));
+		Map<Type, List<TodoDto>> todosPerType = getTodosPerType();
 		for (Type key : todosPerType.keySet()) {
 			req.setAttribute(key.name().toLowerCase() + "List", todosPerType.get(key));
 		}
-
 		RequestDispatcher rd = req.getRequestDispatcher("./main.jsp");
 		rd.forward(req, resp);
 	}
 
+	private Map<Type, List<TodoDto>> getTodosPerType() {
+		TodoDao todoDao = TodoDao.getInstance();
+		List<TodoDto> todos = todoDao.getTodos();
+		return todos.stream().collect(Collectors.groupingBy(TodoDto::getType));
+	}
 }
