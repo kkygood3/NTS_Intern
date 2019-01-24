@@ -65,44 +65,35 @@
 <script>
 	function updateRequest(btn, type) {
 		var oReq = new XMLHttpRequest();
-		oReq.addEventListener("load", function(e) {
-			if (e.target.response != "success") {
+		oReq.addEventListener('load', function(e) {
+			if (e.target.response != 'success') {
 				alert('Update fail');
 			}
 		});
-		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type=" + type);
+		oReq.open('get', 'update?id=' + btn.getAttribute('name') + '&type=' + type);
 		oReq.send();
 	}
 
 	function clickEvent(event) {
-		var clickedBtn = event.target;
-		var parentPTag = clickedBtn.parentElement;
-		var type = parentPTag.parentElement.getElementsByTagName('div')[0].innerText;
+		if (event.target.tagName === 'BUTTON') {
+			var clickedBtn = event.target;
+			var parentPTag = clickedBtn.parentElement;
+			var type = parentPTag.parentElement.querySelector('div').innerText;
 
-		updateRequest(clickedBtn, type)
+			updateRequest(clickedBtn, type)
 
-		if (type === 'TODO') {
-			//TODO에 있는 버튼을 눌렀을 때
-			var artDoing = document.getElementsByClassName('art_DOING')[0];
-			artDoing.appendChild(parentPTag);
-
-			var btns = document.getElementsByTagName('button');
-
-			for (var i = 0; i < btns.length; i++)
-				btns[i].addEventListener('click', clickEvent);
-		} else {
-			//DOING에 있는 버튼을 눌렀을 때
-			var artDone = document.getElementsByClassName('art_DONE')[0];
-			artDone.appendChild(parentPTag)
-
-			var pTags = document.getElementsByClassName("art_DONE")[0].getElementsByTagName("p");
-			pTags[pTags.length - 1].getElementsByTagName('button')[0].remove();
+			if (type === 'TODO') {
+				var artDoing = document.querySelector('.art_DOING');
+				artDoing.appendChild(parentPTag);
+			} else {
+				var artDone = document.querySelector('.art_DONE');
+				artDone.appendChild(parentPTag)
+				event.target.remove();
+			}
 		}
 	}
 
-	var btns = document.getElementsByTagName('button');
-
-	for (var i = 0; i < btns.length; i++)
-		btns[i].addEventListener('click', clickEvent);
+	var artContainer = document.querySelector('.art_container');
+	artContainer.addEventListener('click', clickEvent);
 </script>
 </html>
