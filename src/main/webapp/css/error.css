@@ -1,0 +1,18 @@
+.container {
+	width: 400px;
+    padding: 100px 200px 100px 200px;
+    text-align: center;
+}
+
+h1 {
+	margin-bottom: 100px;
+}
+
+button {
+	background-color: #20ADEE;
+	border: 1px solid #CCC;
+	color: #FFF;
+	width: 160px;
+	padding: 10px;
+	margin: 20px;
+}
