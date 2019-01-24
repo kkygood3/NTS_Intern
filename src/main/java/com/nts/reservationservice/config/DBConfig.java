@@ -35,7 +35,9 @@ public class DBConfig implements TransactionManagementConfigurer {
 	private String username;
 	private String password;
 
-	public DBConfig() {
+	@Bean
+	public DataSource dataSource() {
+
 		Resource resource = resourceLoader.getResource("classpath:application.properties");
 		try {
 			InputStream inputStream = resource.getInputStream();
@@ -48,10 +50,7 @@ public class DBConfig implements TransactionManagementConfigurer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
 
-	@Bean
-	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(url);
