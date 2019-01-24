@@ -16,14 +16,12 @@ body {
 	text-align: right;
 }
 
-#todo-btn {
-	width: 200px;
-	height: 40px;
-	font-size: 16px;
-	font-weight: 600;
-	color: white;
-	background: #00C6ED;
-	border: 0px;
+#todo-register input {
+	margin-right: 7%;
+}
+
+button {
+	float: right;
 }
 
 #content {
@@ -33,10 +31,17 @@ body {
 
 .todo {
 	display: inline-block;
+	vertical-align: text-top;
 	font-size: 20px;
 	width: 30%;
 	font-weight: 900;
 	color: white;
+}
+
+.todo-register input {
+	width: 100px;
+	color: white;
+	background: #20ADEE;
 }
 
 .title {
@@ -72,6 +77,74 @@ body {
 	width: 90%;
 }
 
+.change-btn {
+	float: right;
+	font-size: 13px;
+	font-weight: 400;
+	background: white;
+}
+
+#reg-section {
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 10px;
+	text-align: center;
+	background: white;
+}
+
+#reg-section h1 {
+	padding-top: 50px;
+}
+
+#reg-section article {
+	padding-left: 20%;
+	padding-right: 20%;
+	text-align: left;
+	font-size: 18px;
+	font-weight: 400;
+	color: gray;
+}
+
+input {
+	margin-top: 10px;
+	height: auto; /* 높이 초기화 */
+	line-height: normal; /* line-height 초기화 */
+	padding: .8em .5em; /* 여백 설정 */
+}
+
+input[name="input-title"] {
+	width: 80%;
+}
+
+input[name="input-name"] {
+	width: 40%;
+}
+
+input[name="back-btn"] {
+	width: 100px;
+	color: black;
+	background: white; border : 1px solid black;
+	text-decoration: underline;
+	border: 1px solid black;
+}
+
+input[name="submit-todo"] {
+	float: right;
+	width: 100px;
+	color: white;
+	background: #20ADEE;
+	margin-right: 10px;
+	width: 100px;
+	color: white;
+	background: #20ADEE;
+}
+
+input[name="clear-todo"] {
+	float: right;
+	width: 100px;
+	color: white;
+	background: #20ADEE;
+}
 
 #top {
 	padding-top: 50px;

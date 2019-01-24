@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,73 +14,49 @@
 	<section id="main">
 		<div id="corner">나의 해야할 일들</div>
 		<div id="todo-register">
-			<form method="get" action="/exchange">
-				<input type="submit" value="새로운 TODO 등록" name="todo-btn"
-					id="todo-btn">
-			</form>
+			<input type="button" value="새로운 TODO 등록" onClick="location.href='/newtodo'"/>
 		</div>
 
 		<div id="content">
-			<section class="todo">
+			<section class="todo" id="zone-todo">
 				<article class="title">TODO</article>
-				<article class="list">
-					<div class="list-one">자바스크립트 공부하기</div>
-					<div class="list-two">등록날짜 ~~~~~~~~~~~~~~~~~~~~~</div>
-				</article>
+				<c:forEach var="todoDto" items="${todoList}">
+					<article class="list">
+						<div class="list-one">${todoDto.getTitle() }</div>
+						<div class="list-two">
+							등록날짜:${todoDto.getRegdate() }, ${todoDto.getName() }, 우선순위
+							${todoDto.getSequence() }
+							<button name="${todoDto.getId() }">→</button>
+						</div>
+					</article>
+				</c:forEach>
 			</section>
-			<section class="todo">
+			<section class="todo" id="zone-doing">
 				<article class="title">DOING</article>
-				<article class="list">
-					<div class="list-one">자바스크립트 공부하기</div>
-					<div class="list-two">등록날짜 ~~~~~~~~~~~~~~~~~~~~~</div>
-				</article>
+				<c:forEach var="todoDto" items="${doingList}">
+					<article class="list">
+						<div class="list-one">${todoDto.getTitle() }</div>
+						<div class="list-two">
+							등록날짜:${todoDto.getRegdate() }, ${todoDto.getName() }, 우선순위
+							${todoDto.getSequence() }
+							<button name="${todoDto.getId() }">→</button>
+						</div>
+					</article>
+				</c:forEach>
 			</section>
-			<section class="todo">
+			<section class="todo" id="zone-done">
 				<article class="title">DONE</article>
-				<article class="list">
-					<div class="list-one">자바스크립트 공부하기</div>
-					<div class="list-two">등록날짜 ~~~~~~~~~~~~~~~~~~~~~</div>
-				</article>
+				<c:forEach var="todoDto" items="${doneList}">
+					<article class="list">
+						<div class="list-one">${todoDto.getTitle() }</div>
+						<div class="list-two">등록날짜:${todoDto.getRegdate() },
+							${todoDto.getName() }, 우선순위 ${todoDto.getSequence() }</div>
+					</article>
+				</c:forEach>
 			</section>
 
 		</div>
-		<!-- <ul id=top>
-			<li class="todo-box">TODO</li>
-			<li class="todo-box">DOING</li>
-			<li class="todo-box">DONE</li>
-		</ul> -->
 	</section>
-	<%
-		List<TodoDto> todoList = (List<TodoDto>)request.getAttribute("todoList");
-
-		for (TodoDto todoDto : todoList) {
-	%>
-	<%=todoDto.getTitle()%><br>
-	<%
-		}
-	%>
-	<br>
-	<br>
-	<%
-		List<TodoDto> doingList = (List<TodoDto>)request.getAttribute("doingList");
-
-		for (TodoDto todoDto : doingList) {
-	%>
-	<%=todoDto.getTitle()%><br>
-	<%
-		}
-	%>
-	<br>
-	<br>
-	<%
-		List<TodoDto> doneList = (List<TodoDto>)request.getAttribute("doneList");
-
-		for (TodoDto todoDto : doneList) {
-	%>
-	<%=todoDto.getTitle()%><br>
-	<%
-		}
-	%>
-
+<script type="text/javascript" src="./js/typeup.js" ></script>
 </body>
 </html>

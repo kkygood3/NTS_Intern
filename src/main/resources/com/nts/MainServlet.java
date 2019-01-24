@@ -20,7 +20,7 @@ import com.nts.dto.TodoDto;
 
 /**
  * 메인화면으로 넘어가는 MainServlet 클래스입니다.
- * @author  : kkygood3
+ * @author kkygood3
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
@@ -31,9 +31,10 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json");
+		response.setContentType("text/html");
 
 		TodoDao todoDao = new TodoDao();
 
@@ -61,12 +62,6 @@ public class MainServlet extends HttpServlet {
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
 		requestDispatcher.forward(request, response);
-
-		/*ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(list);
-		PrintWriter out = response.getWriter();
-		out.println(json);
-		out.close();*/
 	}
 
 }

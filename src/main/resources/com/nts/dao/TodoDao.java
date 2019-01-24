@@ -33,7 +33,7 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 
-		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo order by regdate desc";
+		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
 		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery)) {
 
@@ -71,15 +71,13 @@ public class TodoDao {
 
 			connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 
-			String mySqlQuery = "INSERT INTO todo (title, name, sequence, type, regdate) VALUES ( ?, ?, ?, ?, ? )";
+			String mySqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
 
 			preparedStatement = connection.prepareStatement(mySqlQuery);
 
 			preparedStatement.setString(1, todo.getTitle());
 			preparedStatement.setString(2, todo.getName());
 			preparedStatement.setInt(3, todo.getSequence());
-			preparedStatement.setString(4, todo.getType());
-			preparedStatement.setString(5, todo.getRegdate());
 
 			insertCount = preparedStatement.executeUpdate();
 
@@ -101,7 +99,7 @@ public class TodoDao {
 		return insertCount;
 	}
 
-	public int updateTodo(TodoDto todo) {
+	public int updateTodo(Long id, String type) {
 		int updateCount = 0;
 
 		Connection connection = null;
@@ -116,8 +114,8 @@ public class TodoDao {
 
 			preparedStatement = connection.prepareStatement(mySqlQuery);
 
-			preparedStatement.setString(1, todo.getType());
-			preparedStatement.setLong(2, todo.getId());
+			preparedStatement.setString(1, type);
+			preparedStatement.setLong(2, id);
 
 			updateCount = preparedStatement.executeUpdate();
 
