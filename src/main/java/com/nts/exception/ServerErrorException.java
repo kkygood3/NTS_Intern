@@ -6,19 +6,11 @@ package com.nts.exception;
 
 public class ServerErrorException extends Exception {
 
-	private final int ERROR_CODE;
-	private final String MESSAGE;
-
-	public ServerErrorException() {
-		super();
-		this.ERROR_CODE = 500;
-		this.MESSAGE = "server error, sorry";
-	}
+	private final int ERROR_CODE = 500;
+	private final String MESSAGE = "server error, sorry";
 
 	public ServerErrorException(Exception e) {
 		super(e);
-		this.ERROR_CODE = 500;
-		this.MESSAGE = "server error, sorry";
 	}
 
 	public int getERROR_CODE() {
