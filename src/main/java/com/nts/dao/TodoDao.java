@@ -4,6 +4,7 @@
  */
 package com.nts.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -72,7 +73,7 @@ public class TodoDao {
 	public boolean addTodo(TodoDto todo) {
 		List<TodoDto> result = null;
 
-		try (PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.INSERT_QUERY)) {
+		try (Connection conn = MysqlConnector.getConnection(); PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.INSERT_QUERY)) {
 			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
@@ -92,12 +93,13 @@ public class TodoDao {
 		List<TodoDto> result = null;
 		
 		String nextType = "DOING";
-		if (todo.getType().equals("DOING"))
+		if (todo.getType().equals(TodoType.DOING))
 			nextType = "DONE";
 
-		try (PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.UPDATE_QUERY);) {
+		try (Connection conn = MysqlConnector.getConnection(); PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.UPDATE_QUERY);) {
 			ps.setString(1, nextType);
 			ps.setInt(2, todo.getId());
+			ps.setString(3, todo.getType().toString());
 
 			result = executeQuery(ps);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -113,7 +115,7 @@ public class TodoDao {
 	public List getTodos() {
 		List<TodoDto> result = null;
 
-		try (PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.SELECT_QUERY);) {
+		try (Connection conn = MysqlConnector.getConnection(); PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.SELECT_QUERY);) {
 			result = executeQuery(ps);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -125,11 +127,14 @@ public class TodoDao {
 	/**
 	 * @return contains the TODO : true 
 	 */
-	public boolean verifyTodo(TodoDto todoDto) {
+	public boolean verifyTodo(TodoDto todo) {
 		boolean isContain = false;
 		List<TodoDto> result = null;
 
-		try (PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.VERIFY_QUERY);) {
+		try (Connection conn = MysqlConnector.getConnection(); PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.VERIFY_QUERY);) {
+			ps.setInt(1, todo.getId());
+			ps.setString(2, todo.getType().toString());
+			
 			result = executeQuery(ps);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
