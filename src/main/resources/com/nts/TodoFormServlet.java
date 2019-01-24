@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 페이지를 이동하는 ExchangeServlet 클래스입니다.
+ * 페이지를 이동하는 TodoFormServlet 클래스입니다.
  * @author  : kkygood3
  */
-@WebServlet("/exchange")
-public class ExchangeServlet extends HttpServlet {
+@WebServlet("/newtodo")
+public class TodoFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
