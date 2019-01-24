@@ -1,0 +1,97 @@
+/*
+ * Copyright 2019 by NAVER Corp. All rights reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package com.nts;
+
+/**
+*
+* @description : Todo List DTO
+* @filename : TodoDto.java
+* @package : com.nts
+* @author : Seokhyeon Choi
+*/
+public class TodoDto {
+	private Long id;
+	private String name;
+	private String regDate;
+	private int sequence;
+	private String title;
+	private String type;
+
+	public TodoDto(Long id, String name, String regDate, int sequence, String title, String type) {
+		this.id = id;
+		this.name = name;
+		this.regDate = regDate;
+		this.sequence = sequence;
+		this.title = title;
+		this.type = type;
+	}
+	
+	public TodoDto(String name, String title, int sequence) {
+		this.id = 0L;
+		this.name = name;
+		this.regDate = "";
+		this.sequence = sequence;
+		this.title = title;
+		this.type = "";
+	}
+	
+	public TodoDto(Long id, String type) {
+		this.id = id;
+		this.name = "";
+		this.regDate = "";
+		this.sequence = 0;
+		this.title = "";
+		this.type = type;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setRegdate(String regDate) {
+		this.regDate = regDate;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+}
