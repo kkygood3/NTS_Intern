@@ -23,6 +23,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
 		registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/").setCachePeriod(31556926);
+		registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
 	}
 
@@ -34,7 +35,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		System.out.println("addViewControllers가 호출됩니다. ");
 		registry.addViewController("/").setViewName("mainPage");
 	}
 
