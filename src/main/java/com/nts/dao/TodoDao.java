@@ -67,6 +67,26 @@ public class TodoDao {
 		return todoList;
 	}
 
+	public TodoDto getTodo(long id) {
+		TodoDto todoDto = null;
+		try (Connection conn = MysqlConnector.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(SQL.GET_TODOS);
+			ResultSet rs = pstmt.executeQuery();) {
+			if (rs.next()) {
+				todoDto = new TodoDto();
+				todoDto.setId(rs.getLong("id"));
+				todoDto.setName(rs.getString("name"));
+				todoDto.setRegdate(rs.getString("regdate"));
+				todoDto.setSequence(rs.getInt("sequence"));
+				todoDto.setTitle(rs.getString("title"));
+				todoDto.setType(Type.valueOf(rs.getString("type")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return todoDto;
+	}
+
 	public int updateTodo(TodoDto todoDto) {
 		int updateCount = 0;
 		try (Connection conn = MysqlConnector.getConnection();

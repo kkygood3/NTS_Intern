@@ -31,20 +31,25 @@ public class TodoTypeServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
+		String idString = req.getParameter("id");
 		String type = req.getParameter("type");
-		System.out.println(id + type);
 
-		if (StringUtils.isNullOrEmpty(id) || StringUtils.isNullOrEmpty(type)) {
+		if (StringUtils.isNullOrEmpty(idString) || StringUtils.isNullOrEmpty(type)) {
 			ErrorHandler.alertMessage("값을 제대로 입력해주세요.", resp);
 			return;
 		}
-
-		TodoDto todoDto = new TodoDto();
-		todoDto.setId(Long.parseLong(id));
-		todoDto.setType(Type.valueOf(type).getNext());
-
+		long id = Long.parseLong(idString);
 		TodoDao todoDao = TodoDao.getInstance();
+		TodoDto todoDto = todoDao.getTodo(id);
+
+		/**
+		 * 입력한 type이 DB에있는 type과 다른지 검사
+		 */
+		if (todoDto == null || todoDto.getType().name() != type) {
+			ErrorHandler.alertMessage("잘못된 타입을 입력하셨습니다.", resp);
+			return;
+		}
+		todoDto.setType(Type.valueOf(type).getNext());
 		int updateCount = todoDao.updateTodo(todoDto);
 
 		PrintWriter out = resp.getWriter();

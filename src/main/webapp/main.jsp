@@ -84,8 +84,13 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				type = nextType(type);
-				changeCardToContainer(type, card);
+				// 서버에서 update가 반영됬는지 체크
+				if (e.target.responseText == 1) {
+					type = nextType(type);
+					changeCardToContainer(type, card);
+				} else {
+					alert(e.target.responseText);
+				}
 			});
 
 			xhr.addEventListener("error", function(e) {
