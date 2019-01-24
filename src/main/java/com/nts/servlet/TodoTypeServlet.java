@@ -31,6 +31,7 @@ public class TodoTypeServlet extends HttpServlet {
 		// 요청된 uri가 의도한 형태와 다를경우(ex : /todo/1 or /todo/1/done/dummy ...) 404(Not Found) 반환 
 		if (pathParts.length != 3) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
 		}
 
 		// id parameter값이 long형으로 변환불가능한 형일경우 400(Bad Request) 반환
