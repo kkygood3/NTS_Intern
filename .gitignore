@@ -18,7 +18,7 @@ local.properties
 /src/main/resources/application.properties
 /src/main/webapp/img/
 /src/main/webapp/img_map/
-
+/src/main/java/com/nts/reservationservice/Test.java
 # External tool builders
 .externalToolBuilders/
 
