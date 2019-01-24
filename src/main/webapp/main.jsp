@@ -17,7 +17,7 @@
 			<a href="/todoForm" id="regTodo">새로운 TODO 등록</a>
 		</section>
 	</header>
-	<section id="content">
+	<section>
 		<div id="content">
 			<article class="article-list">
 				<ul id="ul-done" class="ul-list">
