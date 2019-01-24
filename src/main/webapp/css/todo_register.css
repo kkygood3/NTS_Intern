@@ -1,0 +1,58 @@
+@charset "UTF-8";
+html {
+	min-width: 803px;
+	min-height: 620px;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	background: #ebeded;
+}
+
+body {
+	background: white;
+	width: 80%;
+	height: 70%;
+	padding: 20px;
+	display: inline-block;
+	text-align: center;
+	overflow: auto;
+}
+
+section {
+	display: inline-block;
+	text-align: left;
+	width: 60%;
+}
+
+button {
+	width: 100px;
+	height: 40px;
+	border: solid thin;
+}
+
+.btn_before {
+	float: left;
+	font-size: 1.05em;
+	text-decoration: underline;
+	background: white;
+}
+
+.btn_submit, .btn_reset {
+	float: right;
+	margin-left: 10px;
+	color: white;
+	background: #22aded;
+}
+
+.whatdo_area, .name_area {
+    font-size: 1.2em;
+}
+
+.whatdo_area {
+    width: 98%;
+}
+
+input {
+    padding: 5px;
+    margin-top: 8px;
+}
