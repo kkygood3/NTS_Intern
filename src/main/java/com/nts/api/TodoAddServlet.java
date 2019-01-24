@@ -49,8 +49,10 @@ public class TodoAddServlet extends HttpServlet {
 
 		if (isValidInput(title, sequence)) {
 			TodoDao.getInstance().addTodo(new TodoDto(name, sequence, title));
+			response.sendRedirect("./todos");
+		} else {
+			response.sendRedirect("./error");
 		}
-		response.sendRedirect("./todos");
 	}
 
 	/*

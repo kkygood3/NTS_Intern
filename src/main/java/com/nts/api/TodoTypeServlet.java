@@ -40,10 +40,8 @@ public class TodoTypeServlet extends HttpServlet {
 			TodoDto todo = new TodoDto();
 			todo.setId(id);
 			todo.setType(type);
-			if (TodoDao.getInstance().updateTodo(todo) == 1) {
-				response.setStatus(HttpServletResponse.SC_OK);
-			} else {
-				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			if (TodoDao.getInstance().updateTodo(todo) != 1) {
+				response.sendRedirect("./error");
 			}
 		}
 	}
