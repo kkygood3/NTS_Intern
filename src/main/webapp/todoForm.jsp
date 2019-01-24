@@ -20,9 +20,11 @@ unauthorized use of redistribution of this software are strongly prohibited. -->
 <title>이재원 ADD TO-DO 페이지 입니다</title>
 <link rel="stylesheet" href="/jaewonlee/css/base.css">
 </head>
+
 <body>
 	<section>
 		<h1>할일 등록</h1>
+		
 		<form action="/jaewonlee/todoadd"  method="post">
 			<table>
 				<tr>
