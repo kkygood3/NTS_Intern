@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class ProductDto {
 	private long id;
-	private long category_id;
+	private int categoryId;
 	private String description;
 	private String content;
 	private String event;
@@ -24,12 +24,12 @@ public class ProductDto {
 		this.id = id;
 	}
 
-	public long getCategory_id() {
-		return category_id;
+	public long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory_id(long category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getDescription() {
@@ -74,7 +74,7 @@ public class ProductDto {
 
 	@Override
 	public String toString() {
-		return "ProductDto [id=" + id + ", category_id=" + category_id + ", description=" + description + ", content="
+		return "ProductDto [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
 			+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 
