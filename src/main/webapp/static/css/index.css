@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+header {
+	margin-bottom: 5%;
+}
+
+#my_todo {
+	font-size: 30px;
+	color: #2984cc;
+	transform-origin: 10% 15%;
+	transform: rotate(-35deg);
+}
+
+#new_todo_btn {
+	float: right;
+	padding: 20px;
+	background-color: #3F51B5;
+	margin-right: 5%;
+	position: relative;
+	box-shadow: 1px 1px 1px 1px grey;
+}
+
+.link_color_white{
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+
+#new_todo_btn a:hover {
+	text-decoration: none;
+	color: yellow;
+}
+
+section {
+	margin-left: 15%;
+}
+
+.progress {
+	text-decoration: none;
+	padding: 0px;
+	list-style: none;
+	float: left;
+	margin-left: 0.3%;
+}
+
+.progress li {
+	width: 400px;
+	padding: 10px;
+	background-color: #ffa2005e;
+	margin: 1%;
+	text-align: left;
+}
+
+.progress li.title {
+	color: white;
+	background: #2984cc;
+}
+
+.title h1 {
+	margin-left: 10px;
+}
+
+.margin10 {
+	margin-left: 10px;
+}
+
+button {
+	float: right;
+}
