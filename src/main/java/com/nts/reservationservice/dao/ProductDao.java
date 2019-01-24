@@ -5,6 +5,18 @@
 
 package com.nts.reservationservice.dao;
 
+import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT;
+import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
+import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_PRODUCT_PAGING;
+import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_PRODUCT_PAGING_BY_CATEGORY;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,4 +28,33 @@ import com.nts.reservationservice.dto.ProductDto;
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<ProductDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductDto.class);
+
+	public ProductDao(DataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	}
+
+	public List<ProductDto> selectProduct(int start, int limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_PRODUCT_PAGING, params, rowMapper);
+	}
+
+	public List<ProductDto> selectProductByCategory(int category, int start, int limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("category", category);
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_PRODUCT_PAGING_BY_CATEGORY, params, rowMapper);
+	}
+
+	public int countAll() {
+		return jdbc.queryForObject(SELECT_COUNT_PRODUCT, Collections.emptyMap(), Integer.class);
+	}
+
+	public int countByCategory(int category) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("category", category);
+		return jdbc.queryForObject(SELECT_COUNT_PRODUCT_BY_CATEGORY, params, Integer.class);
+	}
 }
