@@ -7,7 +7,6 @@ package com.nts.service;
 import java.util.List;
 
 import com.nts.dao.TodoDao;
-import com.nts.enums.TodoType;
 import com.nts.exception.ServerErrorException;
 import com.nts.model.TodoDto;
 import com.nts.model.TodosDto;
@@ -23,7 +22,7 @@ public class TodoService {
 		List<TodoDto> todoList = todoDao.getTodos();
 		TodosDto todos = new TodosDto();
 		for (TodoDto todo : todoList) {
-			TodoType.valueOf(todo.getType()).addTodo(todos, todo);
+			todos.addTodo(todo);
 		}
 		return todos;
 	}
