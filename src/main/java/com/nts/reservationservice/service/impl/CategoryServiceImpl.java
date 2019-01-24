@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservationservice.dao.CategoryDao;
 import com.nts.reservationservice.dto.CategoryDto;
@@ -21,6 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryDao categoryDao;
 
 	@Override
+	@Transactional
 	public List<CategoryDto> getCategorys() {
 		List<CategoryDto> list = categoryDao.selectCategory();
 		return list;
