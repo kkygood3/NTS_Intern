@@ -5,81 +5,56 @@
 package com.nts.todolist.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 
+import com.nts.todolist.common.JDBCConnection;
+import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dto.TodoDto;
-import com.nts.todolist.util.Type;
 
 /**
  * Todo Data Access Object
  * @author yongjoon.Park
 */
 public class TodoDao {
-	private static final String DB_URL = "jdbc:mysql://10.113.116.52:13306/user3?serverTimezone=Asia/Seoul&useSSL=false";
-	private static final String DB_USER = "user3";
-	private static final String DB_PASSWORD = "user3";
-	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	private static final SimpleDateFormat SIMEPLE_DATA_FORMAT = new SimpleDateFormat("yyyy. MM. dd. ");
+	private TodoDao() {}
+
+	private static class TodoDaoHolder {
+		private static final TodoDao INSTANCE = new TodoDao();
+	}
+
+	public static TodoDao getInstance() {
+		return TodoDaoHolder.INSTANCE;
+	}
 
 	/**
 	 * 새로운 todo 추가
 	 * @author yongjoon.Park
 	 */
 	public int addTodo(TodoDto todoDto) {
-		int insertCount = 0;
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
 
-		try {
-			Class.forName(DB_DRIVER);
+		try (Connection connection = JDBCConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+			int index = 1;
+			preparedStatement.setString(index++, todoDto.getTitle());
+			preparedStatement.setString(index++, todoDto.getName());
+			preparedStatement.setInt(index++, todoDto.getSequence());
 
-			String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, todoDto.getTitle());
-			preparedStatement.setString(2, todoDto.getName());
-			preparedStatement.setInt(3, todoDto.getSequence());
-
-			insertCount = preparedStatement.executeUpdate();
-
-			if (insertCount > 0) {
-				// TODO add 성공 시 필요한 동작
-			} else {
-				// TODO add 실패 시 
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			//TODO return이 많으면 안 좋은 코드인지? / int result를 만들어서 사용하는게 낫나?
+			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			System.out.printf("SQLException : 입력 정보가 양식과 다릅니다. \t입력된 정보 :(%s, %s, %d)\n", todoDto.getTitle(), todoDto.getName(), todoDto.getSequence());
 		}
 
-		return insertCount;
+		return -1;
 	}
 
 	/**
@@ -90,64 +65,32 @@ public class TodoDao {
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<>();
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		String sql = "SELECT id, title, name, sequence, type, DATE_FORMAT(regdate, '%Y. %m. %d. ') " +
+			"FROM todo " +
+			"ORDER BY regdate";
 
-		try {
-			Class.forName(DB_DRIVER);
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-			// query 
-			String sql = "SELECT id, title, name, sequence, type, regdate " +
-				"FROM todo " +
-				"ORDER BY sequence, regdate DESC";
-			preparedStatement = connection.prepareStatement(sql);
-
-			resultSet = preparedStatement.executeQuery();
+		try (Connection connection = JDBCConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();) {
 
 			while (resultSet.next()) {
-				long id = resultSet.getLong(1);
-				String title = resultSet.getString(2);
-				String name = resultSet.getString(3);
-				int sequence = resultSet.getInt(4);
-				String type = resultSet.getString(5);
-				Date regdate = resultSet.getDate(6);
+				int index = 1;
+				long id = resultSet.getLong(index++);
+				String title = resultSet.getString(index++);
+				String name = resultSet.getString(index++);
+				int sequence = resultSet.getInt(index++);
+				String type = resultSet.getString(index++);
+				String regdate = resultSet.getString(index++);
 
-				TodoDto todo = new TodoDto(id, title, name, sequence, type, SIMEPLE_DATA_FORMAT.format(regdate));
+				TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
 				todoList.add(todo);
 			}
+			return todoList;
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (resultSet != null) {
-				try {
-					resultSet.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			System.out.println("SQLException : " + e.getMessage());
 		}
-		return todoList;
+		return Collections.emptyList();
 	}
 
 	/**
@@ -156,57 +99,22 @@ public class TodoDao {
 	 * @author yongjoon.Park
 	 * @param update될 todo의 현재 id와 type값
 	 */
-	public int updateTodo(int id, String type) {
-		int insertCount = 0;
+	public int updateTodo(int id, TodoStatus type) {
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		String sql = "UPDATE todo SET TYPE = ? WHERE id = ?";
 
-		try {
-			Class.forName(DB_DRIVER);
+		try (Connection connection = JDBCConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
-			connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+			int index = 1;
+			preparedStatement.setString(index++, type.changNextStatus());
+			preparedStatement.setInt(index++, id);
 
-			if (Type.TODO.toString().equals(type)) {
-				type = Type.DOING.toString();
-			} else if (Type.DOING.toString().equals(type)) {
-				type = Type.DONE.toString();
-			} else {
-				// TODO : ERROR
-			}
-			String sql = "UPDATE todo SET TYPE = '" + type + "' WHERE id = ?";
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, id);
-
-			insertCount = preparedStatement.executeUpdate();
-
-			if (insertCount > 0) {
-				// TODO update 성공 시 필요한 동작
-			} else {
-				// TODO update 실패 시 
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-
-			if (preparedStatement != null) {
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			System.out.printf("입력된 정보가 양식과 다릅니다. \t입력된 정보 : (%d, %s)", id, type);
 		}
 
-		return insertCount;
+		return -1;
 	}
 }

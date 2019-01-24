@@ -36,7 +36,7 @@ public class TodoTypeServlet extends HttpServlet {
 		if (updateResult == 1) {
 			response.getWriter().write("success");
 		} else {
-			// TODO LOG - AJAX 실패 시 id, todoStatus 출력하고 뭐가 문젠지 log로 출력?
+			System.out.printf("실패! 입력된 정보를 확인 (%d, %s)", id, todoStatus.getValue());
 			response.getWriter().write("fail");
 		}
 	}
