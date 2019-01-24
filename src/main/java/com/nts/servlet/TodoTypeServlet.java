@@ -45,7 +45,7 @@ public class TodoTypeServlet extends HttpServlet {
 		/**
 		 * 입력한 type이 DB에있는 type과 다른지 검사
 		 */
-		if (todoDto == null || type.equals(todoDto.getType().name())) {
+		if (todoDto == null || !type.equals(todoDto.getType().name())) {
 			ErrorHandler.alertMessage("잘못된 타입을 입력하셨습니다.", resp);
 			return;
 		}
