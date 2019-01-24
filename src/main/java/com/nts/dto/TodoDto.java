@@ -14,11 +14,12 @@ public class TodoDto {
 		TODO, DOING, DONE;
 
 		/**
-		 * 다음상태값으로 변경 마지막 상태값인경우 넘어가지않음 
+		 * 다음상태값으로 변경, 마지막 상태값인경우 변경하지않음 
 		 */
 		public Type getNext() {
-			if (ordinal() + 1 >= values().length)
+			if (ordinal() + 1 >= values().length) {
 				return this;
+			}
 			return values()[ordinal() + 1];
 		}
 	}
