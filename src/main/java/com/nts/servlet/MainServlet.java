@@ -35,7 +35,6 @@ public class MainServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
 		} catch (ServerErrorException e) {
 			response.sendError(e.getERROR_CODE(), e.getMessage());
-			return;
 		}
 
 	}
