@@ -30,8 +30,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public List<ProductDto> getProducts(int start, int category) {
-		List<ProductDto> result = productDao.selectProductByCategory(category, start, ProductService.LIMIT);
+	public List<ProductDto> getProducts(int start, int categoryId) {
+		List<ProductDto> result = productDao.selectProductByCategory(start, ProductService.LIMIT, categoryId);
 		return result;
 	}
 
@@ -43,8 +43,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public int getCount(int category) {
-		return productDao.countByCategory(category);
+	public int getCount(int categoryId) {
+		return productDao.countByCategory(categoryId);
 	}
 
 }
