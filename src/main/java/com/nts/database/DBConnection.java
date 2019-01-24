@@ -9,7 +9,7 @@ public class DBConnection {
 	final static private String DB_URL = "jdbc:mysql://10.113.116.52:13306/user6?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
 	final static private String DB_USER = "user6";
 	final static private String DB_PASSWORD = "user6";
-	
+
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

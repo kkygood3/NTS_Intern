@@ -61,7 +61,6 @@
  			type = e.target.parentElement.parentElement.id
 
  			httpRequest.open("PUT", "./todo/update?id=" + id + "&type=" + type);
- 			httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
  			httpRequest.onreadystatechange = alertContents(e);
  			httpRequest.send();
 		}

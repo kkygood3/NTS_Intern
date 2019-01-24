@@ -2,7 +2,7 @@ body {
 	background-color: #ECF0EE;
 }
 
-body > * {
+body>* {
 	background-color: #fff;
 	margin: 0 auto;
 }

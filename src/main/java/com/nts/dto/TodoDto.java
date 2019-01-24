@@ -9,7 +9,7 @@ public class TodoDto {
 	private int sequence;
 	private String title;
 	private String type;
-	
+
 	public TodoDto(Long id, String name, String regdate, int sequence, String title, String type) {
 		this.id = id;
 		this.name = name;
@@ -18,11 +18,13 @@ public class TodoDto {
 		this.title = title;
 		this.type = type;
 	}
+
 	public TodoDto(String name, int sequence, String title) {
 		this.name = name;
 		this.sequence = sequence;
 		this.title = title;
 	}
+
 	public TodoDto() {
 		// TODO Auto-generated constructor stub
 	}
@@ -68,24 +70,18 @@ public class TodoDto {
 	}
 
 	public String getType() {
-		if (type == null) return Const.UNKNOWN;
+		if (type == null)
+			return Const.UNKNOWN;
 		return type;
 	}
 
 	public void setType(String type) {
 		this.type = type;
 	}
-//
-//	@Override
-//	public String toString() {
-//		return "TodoDto [id=" + id + ", name=" + name + ", regdate=" + regdate + ", sequence=" + sequence + ", title="
-//				+ title + ", type=" + type + "]";
-//	}
 
 	@Override
 	public String toString() {
 		return String.format("등록날짜:%s, %s, 우선순위 %d", regdate, name, sequence);
 	}
-	
-	
+
 }

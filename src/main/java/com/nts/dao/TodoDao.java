@@ -1,7 +1,6 @@
 package com.nts.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,8 +12,7 @@ import com.nts.database.DBQuery;
 import com.nts.dto.TodoDto;
 
 public class TodoDao {
-	private TodoDao() {
-	}
+	private TodoDao() {}
 
 	private static class TodoDaoLazyHolder {
 		public static final TodoDao INSTANCE = new TodoDao();
@@ -71,7 +69,7 @@ public class TodoDao {
 		}
 		return result;
 	}
-	
+
 	private String getNextType(String type) {
 		type = type.toUpperCase();
 		switch (type) {

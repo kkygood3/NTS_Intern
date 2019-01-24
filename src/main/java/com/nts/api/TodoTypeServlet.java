@@ -36,14 +36,14 @@ public class TodoTypeServlet extends HttpServlet {
 		String type = (String)request.getParameter(Const.TYPE);
 
 		if (id > -1 && !StringUtils.isNullOrEmpty(type)) {
-			System.out.println("!!!");
 			TodoDto todo = new TodoDto();
 			todo.setId(id);
 			todo.setType(type);
-			if (TodoDao.getInstance().updateTodo(todo) != 1) {
-				response.sendRedirect("./error");
+			if (TodoDao.getInstance().updateTodo(todo) == 1) {
+				return;
 			}
 		}
+		response.sendRedirect("./error");
 	}
 
 	/*
