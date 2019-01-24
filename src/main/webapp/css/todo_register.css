@@ -1,6 +1,7 @@
 @charset "UTF-8";
 html {
 	min-width: 803px;
+	min-height: 620px;
 	height: 100%;
 	width: 100%;
 	text-align: center;

@@ -9,23 +9,16 @@ import java.sql.SQLException;
  * @author 박우성
  */
 public class MysqlConnector {
-	private static Connection connection = null;
-
-	private MysqlConnector() {}
-
-	/**
-	 * @return Mysql Connection
-	 */
-	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		if (connection == null) {
+	static {
+		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(MysqlAccount.DBURL, MysqlAccount.DBUSER, MysqlAccount.DBPASSWD);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		return connection;
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		connection.close();
+	public static Connection getConnection() throws SQLException, ClassNotFoundException {
+		Connection connection = DriverManager.getConnection(MysqlAccount.DBURL, MysqlAccount.DBUSER, MysqlAccount.DBPASSWD);
+		return connection;
 	}
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,20 +70,21 @@
 				alert('Update fail');
 			}
 		});
-		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type="+ type);
+		oReq.open("get", "update?id=" + btn.getAttribute("name") + "&type=" + type);
 		oReq.send();
 	}
 
 	function clickEvent(event) {
-		var btn = event.target;
-		var type = btn.parentElement.parentElement.getElementsByTagName('div')[0].innerText;
-		updateRequest(btn, type)
+		var clickedBtn = event.target;
+		var parentPTag = clickedBtn.parentElement;
+		var type = parentPTag.parentElement.getElementsByTagName('div')[0].innerText;
+
+		updateRequest(clickedBtn, type)
 
 		if (type === 'TODO') {
 			//TODO에 있는 버튼을 눌렀을 때
 			var artDoing = document.getElementsByClassName('art_DOING')[0];
-			var clickedTag = btn.parentElement;
-			artDoing.appendChild(clickedTag);
+			artDoing.appendChild(parentPTag);
 
 			var btns = document.getElementsByTagName('button');
 
@@ -93,8 +93,7 @@
 		} else {
 			//DOING에 있는 버튼을 눌렀을 때
 			var artDone = document.getElementsByClassName('art_DONE')[0];
-			var clickedTag = btn.parentElement;
-			artDone.appendChild(clickedTag)
+			artDone.appendChild(parentPTag)
 
 			var pTags = document.getElementsByClassName("art_DONE")[0].getElementsByTagName("p");
 			pTags[pTags.length - 1].getElementsByTagName('button')[0].remove();

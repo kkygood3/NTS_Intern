@@ -5,7 +5,6 @@
 package com.nts.api;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -42,7 +41,7 @@ public class TodoAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		String todoTitle = request.getParameter("todo_title");
 		String todoName = request.getParameter("todo_name");
 		boolean invalidInput = todoTitle.length() > 24 || todoTitle.length() < 1 || todoName.length() > 10 || todoName.length() < 1;

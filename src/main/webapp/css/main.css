@@ -2,10 +2,12 @@
 
 html {
 	min-width: 1492px;
+	max-width: 1492px;
 	height: 100%;
 	width: 100%;
 	text-align: center;
 	background: #ebeded;
+	margin: auto;
 }
 
 body {
@@ -52,7 +54,7 @@ section {
 	height: 30px;
 	padding-top: 5px;
 	float: right;
-	margin-right: 2.5%;	
+	margin-right: 30px;	
 }
 
 .art_container>article {

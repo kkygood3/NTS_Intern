@@ -4,7 +4,6 @@
  */
 package com.nts.api;
 
-import java.awt.Checkbox;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -28,17 +27,17 @@ public class TypeUpdateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		
-		try(PrintWriter out = response.getWriter()) {
+
+		try (PrintWriter out = response.getWriter()) {
 			Integer targetID = new Integer(request.getParameter("id"));
 			TodoType targetType = TodoType.valueOf(request.getParameter("type"));
-			
+
 			TodoDao dao = TodoDao.getInstance();
-			
-			TodoDto targetTodo = new TodoDto(targetID,targetType);
-			
-			//존재하지 않는 튜플이라면
-			if(!dao.verifyTodo(targetTodo))
+
+			TodoDto targetTodo = new TodoDto(targetID, targetType);
+
+			//존재하지 않는 튜플이라면 throw
+			if (!dao.verifyTodo(targetTodo))
 				throw new Exception();
 
 			if (dao.updateTodo(targetTodo))
