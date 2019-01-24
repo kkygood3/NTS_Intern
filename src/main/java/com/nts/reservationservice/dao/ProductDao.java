@@ -5,6 +5,15 @@
 
 package com.nts.reservationservice.dao;
 
-public class ProductDao {
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import com.nts.reservationservice.dto.ProductDto;
+
+@Repository
+public class ProductDao {
+	private NamedParameterJdbcTemplate jdbc;
+	private RowMapper<ProductDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductDto.class);
 }
