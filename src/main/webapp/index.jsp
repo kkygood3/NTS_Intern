@@ -18,10 +18,10 @@
 	<div class="content">
 		<ul class="list" id="done">
 			<li class="list_header">DONE</li>
-			<c:forEach items="${doneList}" var="item">
-				<li class="list_item" id="${item.getId()}">
-					<p class="title">${item.getTitle()}</p>
-					<p class="discription">${item}</p>
+			<c:forEach items="${doneList}" var="done">
+				<li class="list_item" id="${done.getId()}">
+					<p class="title">${done.getTitle()}</p>
+					<p class="discription">${done}</p>
 					<button onclick="button_clicked(event)">→</button>
 				</li>
 			</c:forEach>
@@ -29,20 +29,20 @@
 		<ul class="list" id="doing">
 			<li class="list_header">DOING</li>
 			
-			<c:forEach items="${doingList}" var="item">
-				<li class="list_item" id="${item.getId()}">
-					<p class="title">${item.getTitle()}</p>
-					<p class="discription">${item}</p>
+			<c:forEach items="${doingList}" var="doing">
+				<li class="list_item" id="${doing.getId()}">
+					<p class="title">${doing.getTitle()}</p>
+					<p class="discription">${doing}</p>
 					<button onclick="button_clicked(event)">→</button>
 				</li>
 			</c:forEach>
 		</ul>
 		<ul class="list" id="todo">
 			<li class="list_header">TODO</li>
-			<c:forEach items="${todoList}" var="item">
-				<li class="list_item" id="${item.getId()}">
-					<p class="title">${item.getTitle()}</p>
-					<p class="discription">${item}</p>
+			<c:forEach items="${todoList}" var="todo">
+				<li class="list_item" id="${todo.getId()}">
+					<p class="title">${todo.getTitle()}</p>
+					<p class="discription">${todo}</p>
 					<button onclick="button_clicked(event)">→</button>
 				</li>
 			</c:forEach>
