@@ -18,43 +18,43 @@
 	<section class="art_container">		
 		<article class='art_TODO'>
 			<div class='div_title'>TODO</div>
-			<c:forEach var="target" items="${TODO}">
+			<c:forEach var="todo" items="${todoList}">
 				<p>
 					<span class='do_name'>
-						${target.title}
+						${todo.title}
 					</span><br>
 					<span class='do_description'>
-						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+						등록날짜:${todo.regdate}. ${todo.name}. 우선순위 ${todo.sequence}
 					</span>
-					<button name="${target.id}">→</button>
+					<button name="${todo.id}">→</button>
 				</p>
 			</c:forEach>
 		</article>
 		
 		<article class='art_DOING'>
 			<div class='div_title'>DOING</div>
-			<c:forEach var="target" items="${DOING}">
+			<c:forEach var="doing" items="${doingList}">
 				<p>
 					<span class='do_name'>
-						${target.title}
+						${doing.title}
 					</span><br>
 					<span class='do_description'>
-						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+						등록날짜:${doing.regdate}. ${doing.name}. 우선순위 ${doing.sequence}
 					</span>
-					<button name="${target.id}">→</button>
+					<button name="${doing.id}">→</button>
 				</p>
 			</c:forEach>
 		</article>
 		
 		<article class='art_DONE'>
 			<div class='div_title'>DONE</div>
-			<c:forEach var="target" items="${DONE}">
+			<c:forEach var="done" items="${doneList}">
 				<p>
 					<span class='do_name'>
-						${target.title}
+						${done.title}
 					</span><br>
 					<span class='do_description'>
-						등록날짜:${target.regdate}. ${target.name}. 우선순위 ${target.sequence}
+						등록날짜:${done.regdate}. ${done.name}. 우선순위 ${done.sequence}
 					</span>
 				</p>
 			</c:forEach>

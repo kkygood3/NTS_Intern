@@ -18,7 +18,6 @@ public class MysqlConnector {
 	}
 
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
-		Connection connection = DriverManager.getConnection(MysqlAccount.DBURL, MysqlAccount.DBUSER, MysqlAccount.DBPASSWD);
-		return connection;
+		return DriverManager.getConnection(MysqlAccount.DBURL, MysqlAccount.DBUSER, MysqlAccount.DBPASSWD);
 	}
 }
