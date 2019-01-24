@@ -32,7 +32,7 @@ public class TodoAddServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/newtodo.html");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./newtodo.html");
 		requestDispatcher.forward(request, response);
 	}
 
