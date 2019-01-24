@@ -30,6 +30,6 @@ public class ErrorHandler extends HttpServlet {
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.println("<script>alert('" + msg + "'); history.back();</script>");
-		out.flush();
+		out.close();
 	}
 }
