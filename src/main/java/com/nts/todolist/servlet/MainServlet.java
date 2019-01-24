@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
-import com.nts.todolist.util.Type;
 
 /**
  * main.jsp에 todo list를 조회 후 출력해주는 servlet
@@ -25,36 +25,42 @@ import com.nts.todolist.util.Type;
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
+	// TODO serialVersionUID 의 사용법과 존재 유무, 1L로 놔도 되는지?
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		List<TodoDto> allTodoList = new TodoDao().getTodos();
-		int listLength = allTodoList.size();
+		List<TodoDto> includeAllType = TodoDao.getInstance().getTodos();
 
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
-		for (int i = 0; i < listLength; i++) {
-			TodoDto todo = allTodoList.get(i);
+		groupingList(includeAllType, todoList, doingList, doneList);
 
-			if (Type.TODO.toString().equals(todo.getType())) {
+		request.setAttribute("todoList", todoList);
+		request.setAttribute("doingList", doingList);
+		request.setAttribute("doneList", doneList);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	private void groupingList(List<TodoDto> includeAllType, List<TodoDto> todoList, List<TodoDto> doingList,
+		List<TodoDto> doneList) {
+		
+		// TODO if문을 깔끔하게 처리할 수 있을까?
+		for (TodoDto todo : includeAllType) {
+			String type = todo.getType();
+			if (TodoStatus.TODO.getValue().equals(type)) {
 				todoList.add(todo);
-			} else if (Type.DOING.toString().equals(todo.getType())) {
+			} else if (TodoStatus.DOING.getValue().equals(type)) {
 				doingList.add(todo);
 			} else {
 				doneList.add(todo);
 			}
 		}
-
-		request.setAttribute("todoList", todoList);
-		request.setAttribute("doingList", doingList);
-		request.setAttribute("doneList", doneList);
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
-		requestDispatcher.forward(request, response);
 	}
 
 }

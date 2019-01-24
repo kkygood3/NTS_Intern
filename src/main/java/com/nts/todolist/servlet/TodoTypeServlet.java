@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dao.TodoDao;
 
 /**
@@ -29,13 +30,13 @@ public class TodoTypeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		int id = Integer.parseInt(request.getParameter("id"));
-		String type = request.getParameter("type");
-		int insertCount = new TodoDao().updateTodo(id, type);
+		TodoStatus todoStatus = TodoStatus.valueOf(request.getParameter("type"));
+		int updateResult = TodoDao.getInstance().updateTodo(id, todoStatus);
 
-		if (insertCount > 0) {
+		if (updateResult == 1) {
 			response.getWriter().write("success");
 		} else {
-			// TODO AJAX 실패 시
+			// TODO LOG - AJAX 실패 시 id, todoStatus 출력하고 뭐가 문젠지 log로 출력?
 			response.getWriter().write("fail");
 		}
 	}
