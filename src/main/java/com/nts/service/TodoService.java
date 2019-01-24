@@ -34,7 +34,7 @@ public class TodoService {
 	/**
 	 * @desc todo type 변경
 	 * @param todoDto
-	 * @throws SQLException
+	 * @throws ServerError500Exception
 	 */
 	public int updateTodo(TodoDto todoDto) throws ServerError500Exception {
 
