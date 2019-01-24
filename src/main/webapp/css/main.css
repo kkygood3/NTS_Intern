@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+#header {
+	transform: rotate(-30deg);
+	position: relative;
+	left: 10px;
+	top: 55px;
+	font-weight: bold;
+	font-size: 25px;
+	color: #004080;
+	display: inline-block;
+}
+
+.button_todo {
+	position: relative;
+	display: block;
+	border: none;
+	top: 20px;
+	margin-left: auto;
+	margin-right: 20px;
+	padding: 8px 40px;
+	background-color: #0080ff;
+	font-size: 15px;
+	color: white;
+}
+
+#list_board {
+	margin: 50px 20px;
+	text-align: right;
+}
+
+#list_board>.container {
+	margin: 1px;
+	margin-bottom: 30px;
+	width: 290px;
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+}
+
+#list_board>.container>.title {
+	padding: 15px 20px;
+	display: block;
+	background-color: #004975;
+	font-weight: bold;
+	font-size: 22px;
+	color: white;
+}
+
+#list_board>.container>.card {
+	padding: 15px 0px 15px 20px;
+	margin-top: 10px;
+	background-color: #99deff;
+	font-size: 12px;
+}
+
+#list_board>.container>.card>.title {
+	font-weight: bold;
+	font-size: 18px;
+	display: block;
+}
+
+#list_board>.container>.card>span {
+	display: inline-block;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+	overflow: hidden;
+	width: 230px;
+}
+
+#list_board>.container>.card button {
+	float: right;
+	margin-right: 10px;
+}
