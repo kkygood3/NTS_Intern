@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.Const;
+import com.nts.database.DBConnection;
 import com.nts.database.DBQuery;
 import com.nts.dto.TodoDto;
 
@@ -44,7 +45,7 @@ public class TodoDao {
 
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todos = new ArrayList<TodoDto>();
-		try (Connection dbConnection = DriverManager.getConnection(DBInfo.DB_URL, DBInfo.DB_USER, DBInfo.DB_PASSWORD);
+		try (Connection dbConnection = DBConnection.getConnection();
 			PreparedStatement ps = dbConnection.prepareStatement(DBQuery.SELECT_SQL);
 			ResultSet rs = ps.executeQuery()) {
 			rs.beforeFirst();
