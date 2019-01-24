@@ -65,7 +65,7 @@ public class TodoDao {
 	public int updateTodo(TodoDto todo) {
 		int result = 0;
 		try (Connection dbConnection = DriverManager.getConnection(DBInfo.DB_URL, DBInfo.DB_USER, DBInfo.DB_PASSWORD);
-			PreparedStatement ps = dbConnection.prepareStatement(DBQuery.UPDATE_DQL);) {
+			PreparedStatement ps = dbConnection.prepareStatement(DBQuery.UPDATE_DQL)) {
 			ps.setString(1, getNextType(todo.getType()));
 			ps.setLong(2, todo.getId());
 			ps.setString(3, todo.getType());
