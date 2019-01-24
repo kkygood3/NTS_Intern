@@ -41,7 +41,7 @@ public enum TodoType {
 
 		@Override
 		public String getNextType() {
-			return null;
+			return DONE.toString();
 		}
 	};
 	
