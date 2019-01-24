@@ -12,10 +12,10 @@
  */
 
 /**
- * This function searches for buttons in todo element, and adds
- * event-listener to each. Collects variable by traversing html file
- * structure to parent node.
- * @init() 
+ * This function searches for buttons in todo element, and adds event-listener
+ * to each. Collects variable by traversing html file structure to parent node.
+ * 
+ * @init()
  */
 var init = () => {
 
@@ -26,7 +26,11 @@ var init = () => {
 		var button = item.querySelector("button.content_move_button");
 		if(button!=null){
 			button.addEventListener("click", ()=>{
-				// item.parentNode.dataset.section is the target section;
+				/**
+				 * item.parentNode.dataset.section is the target section; this
+				 * is used as a variable, since declaration of the variable of
+				 * this element will make element to stick with current variable
+				 */
 				update(id,item.parentNode.dataset.section) 
 			});
 		}
@@ -39,6 +43,7 @@ var init = () => {
  * Status for the result. Accordingly, this method will move the todo element to
  * next category. Also Removes arrow button when the Todo element reaches DONE
  * Category
+ * 
  * @update(item_id,nextType)
  */
 var update = (itemId, currentSection) => {
@@ -68,10 +73,12 @@ var update = (itemId, currentSection) => {
 				 * if there is any element that has higher id which means
 				 * generated after the element we are dealing with. Therefore,
 				 * if there is one, we are inserting before the element. if
-				 * findHtmlInsertSpot = -1, simply append in the section
-				 * var toBeMoved = html Dom Element Node, which refers the item to be moved to left
-				 * var targetItemId = html Dom Element Node, which refers the item that has to be under the Node toBeMoved
-				 * var targetSection = refers html DOME Element Node in ul tag of 3 sections, todo, doing, done.
+				 * findHtmlInsertSpot = -1, simply append in the section var
+				 * toBeMoved = html Dom Element Node, which refers the item to
+				 * be moved to left var targetItemId = html Dom Element Node,
+				 * which refers the item that has to be under the Node toBeMoved
+				 * var targetSection = refers html DOME Element Node in ul tag
+				 * of 3 sections, todo, doing, done.
 				 */
 				var toBeMoved = document.querySelector("[data-id = '"+itemId+"']");
 				var targetItemId = findHtmlInsertSpot(nextType, itemId);
@@ -84,7 +91,7 @@ var update = (itemId, currentSection) => {
 							document.querySelector("[data-id = '"+targetItemId+"']"));
 				}
 				
-				//if todo item is moving to DONE, remove button
+				// if todo item is moving to DONE, remove button
 				if (currentSection == "DOING") {
 					toBeMoved.getElementsByTagName("button")[0].remove();
 				}
