@@ -93,7 +93,7 @@ var update = (itemId, currentSection) => {
 				
 				// if todo item is moving to DONE, remove button
 				if (currentSection == "DOING") {
-					toBeMoved.getElementsByTagName("button")[0].remove();
+					toBeMoved.getElementsByTagName("p")[0].removeChild(toBeMoved.getElementsByTagName("button")[0]);
 				}
 			 } else {
 				 alert("Error");
