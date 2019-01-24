@@ -31,7 +31,6 @@ public class DBConnection {
 	 * @return 생성된 Connection객체
 	 */
 	public static Connection getConnection() throws SQLException {
-		Connection dbConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		return dbConnection;
+		return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 	}
 }
