@@ -1,11 +1,12 @@
 function changeTodoType(id) {
-
+	const HTTP_STATUS_OK = 200;
+	const HTTP_STATUS_NOT_FOUND;
 	var todo = document.querySelector("#todo_item_" + id);
 	var type = todo.parentElement.id.split("_")[0];
 
 	var xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.addEventListener("load", function() {
-		if (this.status == 200) {
+		if (this.status === HTTP_STATUS_OK) {
 
 			var changeType;
 			if (type === "todo") {
@@ -23,8 +24,8 @@ function changeTodoType(id) {
 			
 			sortInsert(nowList, nextList, todo);
 			
-		} else if (this.status == 404) {
-
+		} else if (this.status === HTTP_STATUS_NOT_FOUND) {
+			alert("type change fail");
 		}
 	});
 	console.log(type);

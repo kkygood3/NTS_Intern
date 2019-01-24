@@ -4,46 +4,31 @@
  */
 package com.nts.enums;
 
-import com.nts.model.TodoDto;
-import com.nts.model.TodosDto;
-
 /**
  * @author 임상현, life4lord93@nts-corp.com
  * Todo의 Type
  */
 public enum TodoType {
 
-	TODO("DOING") {
+	TODO {
 		@Override
-		public void addTodo(TodosDto todos, TodoDto todo) {
-			todos.addTodo(todo);
+		public String getNextType() {
+			return "DOING";
 		}
 	},
-	DOING("DONE") {
+	DOING {
 		@Override
-		public void addTodo(TodosDto todos, TodoDto todo) {
-			todos.addDoing(todo);
+		public String getNextType() {
+			return "DONE";
 		}
 	},
-	DONE("DONE") {
+	DONE {
 		@Override
-		public void addTodo(TodosDto todos, TodoDto todo) {
-			todos.addDone(todo);
+		public String getNextType() {
+			return "DONE";
 		}
 	};
 
-	private String nextType;
+	public abstract String getNextType();
 
-	private TodoType(String nextType) {
-		this.nextType = nextType;
-	}
-
-	public String getNext() {
-		return nextType;
-	}
-
-	/**
-	 * list 분류용
-	 */
-	public abstract void addTodo(TodosDto todos, TodoDto todo);
 }
