@@ -16,6 +16,8 @@ local.properties
 .loadpath
 .recommenders
 /src/main/resources/application.properties
+/src/main/webapp/img/
+/src/main/webapp/img_map/
 
 # External tool builders
 .externalToolBuilders/
