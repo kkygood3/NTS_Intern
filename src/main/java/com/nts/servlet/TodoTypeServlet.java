@@ -31,8 +31,8 @@ public class TodoTypeServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = (String)req.getParameter("id");
-		String type = (String)req.getParameter("type");
+		String id = req.getParameter("id");
+		String type = req.getParameter("type");
 		System.out.println(id + type);
 
 		if (StringUtils.isNullOrEmpty(id) || StringUtils.isNullOrEmpty(type)) {

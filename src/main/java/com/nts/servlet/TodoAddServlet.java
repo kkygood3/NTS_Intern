@@ -42,9 +42,9 @@ public class TodoAddServlet extends HttpServlet {
 		// Form의 Parameter들을 지정한 문자코드로 인코딩한다.
 		req.setCharacterEncoding("UTF-8");
 
-		String title = (String)req.getParameter("title");
-		String name = (String)req.getParameter("name");
-		String sequence = (String)req.getParameter("sequence");
+		String title = req.getParameter("title");
+		String name = req.getParameter("name");
+		String sequence = req.getParameter("sequence");
 
 		if (StringUtils.isNullOrEmpty(title) || title.length() > 24
 			|| StringUtils.isNullOrEmpty(name) || StringUtils.isNullOrEmpty(sequence)) {
