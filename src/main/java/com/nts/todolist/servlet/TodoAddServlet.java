@@ -5,11 +5,13 @@
 package com.nts.todolist.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.soap.AddressingFeature.Responses;
 
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
@@ -26,21 +28,30 @@ public class TodoAddServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws IOException {
-		
+
 		request.setCharacterEncoding("utf-8");
-		
-		String title = (String)request.getParameter("title");
-		String name = (String)request.getParameter("name");
+
+		String title = (String)request.getParameter("title").trim();
+		String name = (String)request.getParameter("name").trim();
 		int sequence = Integer.parseInt((String)request.getParameter("sequence"));
 
-		TodoDto newTodo = new TodoDto(title, name, sequence);
-
-		int insertCount = new TodoDao().addTodo(newTodo);
-		if (insertCount > 0) {
-			response.sendRedirect("/main");
+		if (title.length() == 0 || name.length() == 0) {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter printWriter = response.getWriter();
+			printWriter.write("<script>");
+			printWriter.println("alert('알맞은 값을 입력하십시오.');");
+			printWriter.write("</script>");
+			printWriter.flush();
+			printWriter.close();
+			// XXX error
+			response.sendRedirect("/todoForm");
 		} else {
-			// TODO insert 실패 시 표기 (servlet)
+			TodoDto newTodo = new TodoDto(title, name, sequence);
+
+			int result = TodoDao.getInstance().addTodo(newTodo);
+			if (result == 1) {
+				response.sendRedirect("/main");
+			}
 		}
 	}
-
 }
