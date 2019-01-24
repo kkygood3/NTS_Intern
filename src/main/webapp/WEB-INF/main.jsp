@@ -28,7 +28,7 @@
 						등록날짜: ${ todoList.regdate }, ${ todoList.name }, ${ todoList.sequence }
 						<input type="hidden" name="id" value="${ todoList.id }">
 						<input type="hidden" name="type" value="${ todoList.type }">
-						<button class="type_change_button" onclick="change_type()">→</button>
+						<button class="type_change_button" onclick="changeType()">→</button>
 					</article>
 				</c:forEach>
 				
@@ -44,7 +44,7 @@
 						등록날짜: ${ doingList.regdate }, ${ doingList.name }, ${ doingList.sequence }
 						<input type="hidden" name="id" value="${ doingList.id }">
 						<input type="hidden" name="type" value="${ doingList.type }">
-						<button class="type_change_button" onclick="change_type()">→</button>
+						<button class="type_change_button" onclick="changeType()">→</button>
 					</article>
 				</c:forEach>
 			</aside>
