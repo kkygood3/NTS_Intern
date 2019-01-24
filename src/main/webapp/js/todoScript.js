@@ -26,12 +26,7 @@ var init = () => {
 		var button = item.querySelector("button.content_move_button");
 		if(button!=null){
 			button.addEventListener("click", ()=>{
-				/**
-				 * item.parentNode.dataset.section is the target section; this
-				 * is used as a variable, since declaration of the variable of
-				 * this element will make element to stick with current variable
-				 */
-				update(id,item.parentNode.dataset.section) 
+				update(id,item.closest("ul")) 
 			});
 		}
 		
@@ -49,7 +44,7 @@ var init = () => {
 var update = (itemId, currentSection) => {
 	var todoInfo = {};
 	todoInfo.id = itemId;
-	todoInfo.type = currentSection;
+	todoInfo.type = currentSection.dataset.section;
 	
 	var json = JSON.stringify(todoInfo);
 	
