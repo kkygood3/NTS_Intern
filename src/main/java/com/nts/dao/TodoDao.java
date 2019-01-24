@@ -65,7 +65,10 @@ public class TodoDao {
 		}
 		return todo;
 	}
-
+	
+	/**
+	 * @return Insert query success : true 
+	 */
 	public boolean addTodo(TodoDto todo) {
 		List<TodoDto> result = null;
 
@@ -82,6 +85,9 @@ public class TodoDao {
 		return (result == null);
 	}
 
+	/**
+	 * @return Update query success : true 
+	 */
 	public boolean updateTodo(TodoDto todo) {
 		List<TodoDto> result = null;
 		
@@ -101,6 +107,9 @@ public class TodoDao {
 		return (result == null);
 	}
 
+	/**
+	 * @return Select result(List) 
+	 */
 	public List getTodos() {
 		List<TodoDto> result = null;
 
@@ -111,5 +120,24 @@ public class TodoDao {
 		}
 
 		return result;
+	}
+
+	/**
+	 * @return contains the TODO : true 
+	 */
+	public boolean verifyTodo(TodoDto todoDto) {
+		boolean isContain = false;
+		List<TodoDto> result = null;
+
+		try (PreparedStatement ps = MysqlConnector.getConnection().prepareStatement(TodoDaoQuery.VERIFY_QUERY);) {
+			result = executeQuery(ps);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result.size() == 1)  
+			isContain = true;
+		
+		return isContain;
 	}
 }
