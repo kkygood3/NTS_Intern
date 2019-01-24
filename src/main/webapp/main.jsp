@@ -18,7 +18,7 @@
 			<div class="container" id="todo">
 				<span class="title">TODO</span>
 				<c:forEach var="todo" items="${todoList}">
-					<div class="card" id="${todo.id}" type="${todo.type}">
+					<div class="card" id="todo_${todo.id}" todo-type="${todo.type}">
 						<span class="title">${todo.title}</span><br/>
 						<span>
 							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
@@ -30,7 +30,7 @@
 			<div class="container" id="doing">
 				<span class="title">DOING</span>
 				<c:forEach var="todo" items="${doingList}">
-					<div class="card" id="${todo.id}" type="${todo.type}">
+					<div class="card" id="todo_${todo.id}" todo-type="${todo.type}">
 						<span class="title">${todo.title}</span><br/>
 						<span>
 							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
@@ -42,7 +42,7 @@
 			<div class="container" id="done">
 				<span class="title">DONE</span>
 				<c:forEach var="todo" items="${doneList}">
-					<div class="card" id="${todo.id}" type="${todo.type}">
+					<div class="card" id="todo_${todo.id}" todo-type="${todo.type}">
 						<span class="title">${todo.title}</span><br/>
 						<span>
 							등록날짜 ${todo.regdate} ${todo.name} 우선순위 ${todo.sequence}
@@ -69,8 +69,8 @@
 		function updateTodoType(card) {
 			var xhr = new XMLHttpRequest();
 			var url = "./updateTodo";
-			var id = card.getAttribute("id");
-			var type = card.getAttribute("type");
+			var id = card.getAttribute("id").substr(5); // todo_id -> id
+			var type = card.getAttribute("todo-type");
 
 			if (isEmpty(id) || isEmpty(type)) {
 				alert("데이터를 확인해주세요");
@@ -116,7 +116,7 @@
 				var button = card.getElementsByClassName("typeNextButton")[0];
 				card.removeChild(button);
 			}
-			card.setAttribute("type", type);
+			card.setAttribute("todo-type", type);
 			var container = document.getElementById(type.toLowerCase());
 			container.appendChild(card)
 		}
