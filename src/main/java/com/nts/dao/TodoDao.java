@@ -83,6 +83,7 @@ public class TodoDao {
 	}
 	
 	private String getNextType(String type) {
+		type = type.toUpperCase();
 		switch (type) {
 			case Const.TODO:
 				return Const.DOING;
