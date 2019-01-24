@@ -48,12 +48,16 @@ public class TodoAddServlet extends HttpServlet {
 		if (invalidInput) {
 			response.sendRedirect("error/invalid_access.jsp");
 		} else {
-			int priority = new Integer(request.getParameter("priority"));
+			try {
+				int priority = new Integer(request.getParameter("priority"));
+				TodoDao dao = TodoDao.getInstance();
+				dao.addTodo(new TodoDto(todoTitle, todoName, priority));
 
-			TodoDao dao = TodoDao.getInstance();
-			dao.addTodo(new TodoDto(todoTitle, todoName, priority));
-
-			response.sendRedirect("main");
+				response.sendRedirect("main");
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				response.sendRedirect("error/invalid_access.jsp");
+			}
 		}
 	}
 }
