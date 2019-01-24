@@ -1,4 +1,4 @@
-package com.nts;
+package com.nts.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.dto.TodoDto;
+import com.nts.exception.DataAccessException;
+import com.nts.service.TodoService;
 
 /**
-*
-* @description : 수신된 id의 DTO type을 update
-* @filename : TodoTypeServlet.java
-* @package : com.nts
-* @author : Seokhyeon Choi
-* @method : void doPost(HttpServletRequest request, HttpServletResponse response)
-*/
+ *
+ * @description : 수신된 id의 DTO type을 update
+ * @filename : TodoTypeServlet.java
+ * @package : com.nts.servlet
+ * @author : Seokhyeon Choi
+ * @method : void doPost(HttpServletRequest request, HttpServletResponse
+ *         response)
+ */
 @WebServlet("/todo-type")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,10 +37,12 @@ public class TodoTypeServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		TodoDto todoDto = new TodoDto(id, type);
 
-		int updateCount = TodoService.getInstance().updateTodo(todoDto);
-
-		if (updateCount == 1) {
+		
+		try {
+			TodoService.getInstance().updateTodo(todoDto);
 			out.write("success");
+		} catch (DataAccessException e) {
+			response.sendError(500, e.getErrorMessage());
 		}
 	}
 }

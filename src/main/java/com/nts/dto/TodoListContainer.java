@@ -2,17 +2,19 @@
  * Copyright 2019 by NAVER Corp. All rights reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts;
+package com.nts.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.nts.type.TodoType;
 
 
 /**
 *
 * @description : TodoList Model
 * @filename : TodoListContainer.java
-* @package : com.nts
+* @package : com.nts.dto
 * @author : Seokhyeon Choi
 */
 public class TodoListContainer {

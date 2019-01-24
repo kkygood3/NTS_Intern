@@ -1,13 +1,20 @@
+
+/**
+ * @description : 모든 button에 click event 추가
+ */
 function addEvents() {
 	var buttons = document.querySelectorAll("button");
 	
 	for (var i = 0; i < buttons.length; i++) {
-		buttons[i].addEventListener("click", sendRequest);
+		buttons[i].addEventListener("click", sendTodoInfo);
 	}
 	
 }
 
-function sendRequest(event) {
+/**
+ * @description : XMLHttpRequest를 통해 id와 type 전송
+ */
+function sendTodoInfo(event) {
 	var id = event.target.parentElement.getAttribute("id");
 	var type = event.target.parentElement.parentElement.getAttribute("id").toUpperCase().toString();
 
@@ -24,6 +31,10 @@ function sendRequest(event) {
 	xhr.send("id=" + id + "&type=" + type);
 }
 
+
+/**
+ * @description : 버튼을 누르면 오른쪽으로 동적인 페이징
+ */
 function shift(event, type) {
 	var ul;
 	var li;
@@ -43,7 +54,7 @@ function shift(event, type) {
 	li = document.querySelectorAll(ul + " .todo_list_block");
 	ul = document.querySelector(ul);
 	
-	for (var i = 1, len = li.length; i < len; i++) {
+	for (var i = 0, len = li.length; i < len; i++) {
 		if (clickedElement.getAttribute("id") < li[i].getAttribute("id")) {
 			ul.insertBefore(clickedElement, li[i]);
 			return;

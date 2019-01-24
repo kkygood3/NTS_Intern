@@ -3,15 +3,15 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts;
+package com.nts.dto;
 
 /**
-*
-* @description : Todo List DTO
-* @filename : TodoDto.java
-* @package : com.nts
-* @author : Seokhyeon Choi
-*/
+ *
+ * @description : Todo List DTO
+ * @filename : TodoDto.java
+ * @package : com.nts.dto
+ * @author : Seokhyeon Choi
+ */
 public class TodoDto {
 	private Long id;
 	private String name;
@@ -28,7 +28,7 @@ public class TodoDto {
 		this.title = title;
 		this.type = type;
 	}
-	
+
 	public TodoDto(String name, String title, int sequence) {
 		this.id = 0L;
 		this.name = name;
@@ -37,7 +37,7 @@ public class TodoDto {
 		this.title = title;
 		this.type = "";
 	}
-	
+
 	public TodoDto(Long id, String type) {
 		this.id = id;
 		this.name = "";
@@ -46,7 +46,7 @@ public class TodoDto {
 		this.title = "";
 		this.type = type;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
