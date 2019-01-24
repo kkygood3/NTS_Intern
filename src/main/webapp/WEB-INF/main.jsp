@@ -23,7 +23,7 @@
 			<li class="title">
 				<h1>TODO</h1>
 			</li>
-			<c:forEach var="item" items="${result.todoList}">
+			<c:forEach var="item" items="${todos.todoList}">
 				<fmt:parseDate var="regDate" value="${item.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 				<li data-id="${item.id}" data-date="${item.regdate}">
 					<h3 class="margin10">${item.title}</h3>
@@ -39,7 +39,7 @@
 			<li class="title">
 				<h1>DOING</h1>
 			</li>
-			<c:forEach var="item" items="${result.doingList}">
+			<c:forEach var="item" items="${todos.doingList}">
 				<fmt:parseDate var="regDate" value="${item.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
 				<li data-id="${item.id}" data-date="${item.regdate}">
 					<h3 class="margin10">${item.title}</h3>
@@ -55,9 +55,9 @@
 			<li class="title">
 				<h1>DONE</h1>
 			</li>
-			<c:forEach var="item" items="${result.doneList}">
+			<c:forEach var="item" items="${todos.doneList}">
 				<fmt:parseDate var="regDate" value="${item.regdate}" pattern="yyyy-MM-dd HH:mm:ss.s"/>
-				<li data-id="${item.id }" data-date="${item.regdate}">
+				<li data-id="${item.id }" datSa-date="${item.regdate}">
 					<h3 class="margin10">${item.title}</h3>
 					<p class="margin10">
 						등록날짜: <fmt:formatDate value="${regDate}" pattern="yyyy.MM.dd"/> ${item.name} 우선순위 ${item.sequence}

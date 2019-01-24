@@ -29,7 +29,7 @@ public class TodoDao {
 	}
 
 	private static class TodoDaoLazyHolder {
-		public static final TodoDao INSTANCE = new TodoDao();
+		private static final TodoDao INSTANCE = new TodoDao();
 	}
 
 	public static TodoDao getInstance() {
@@ -38,7 +38,7 @@ public class TodoDao {
 
 	/**
 	 * @desc todoList 가져오기
-	 * @return todoMap key -> ( todoList, doingList, doneList)
+	 * @return todoList
 	 * @throws ServerError500Exception 
 	 */
 	public List<TodoDto> getTodos() throws ServerError500Exception {

@@ -13,6 +13,7 @@ import com.nts.dto.TodoDto;
 import com.nts.dto.TodoDtoList;
 import com.nts.exception.ServerError500Exception;
 import com.nts.type.TodoType;
+
 /**
  * @author 전연빈
  */
@@ -21,8 +22,9 @@ public class TodoService {
 	private TodoService() {
 
 	}
+
 	private static class TodoServiceLazyHolder {
-		public static final TodoService INSTANCE = new TodoService();
+		private static final TodoService INSTANCE = new TodoService();
 	}
 
 	public static TodoService getInstance() {
@@ -31,42 +33,25 @@ public class TodoService {
 
 	/**
 	 * @desc todo type 변경
-	 * @param id
-	 * @param type
+	 * @param todoDto
 	 * @throws SQLException
 	 */
 	public int updateTodo(TodoDto todoDto) throws ServerError500Exception {
 
-		if (TodoType.TODO.toString().equals(todoDto.getType())) {
-			todoDto.setType(TodoType.DOING.toString());
-		} else if (TodoType.DOING.toString().equals(todoDto.getType())) {
-			todoDto.setType(TodoType.DONE.toString());
-		}
-
+		todoDto.setType(TodoType.valueOf(todoDto.getType()).getNextType());
 		return TodoDao.getInstance().updateTodo(todoDto);
 	}
 
 	/**
-	 * @desc type에 맞게끔 map에 키 밸류 형태로 넣어줌 
-	 * @return todoList
+	 * @desc todoList 가져오기
+	 * @return todoDtoList
 	 * @throws ServerError500Exception 
 	 */
 	public TodoDtoList getTodos() throws ServerError500Exception {
 
-		TodoDao todoDao = TodoDao.getInstance();
-		
 		TodoDtoList todoDtoList = new TodoDtoList();
 
-		List<TodoDto> todoList = new ArrayList<>();
-		List<TodoDto> doingList = new ArrayList<>();
-		List<TodoDto> doneList = new ArrayList<>();
-
-		todoDtoList.setTodoList(todoList);
-		todoDtoList.setDoingList(doingList);
-		todoDtoList.setDoneList(doneList);
-
-		List<TodoDto> list = todoDao.getTodos();
-		for (TodoDto todoDto : list) {
+		for (TodoDto todoDto : TodoDao.getInstance().getTodos()) {
 			TodoType.valueOf(todoDto.getType()).addList(todoDtoList, todoDto);
 		}
 
@@ -76,8 +61,7 @@ public class TodoService {
 	/**
 	 * @desc todo 내용 삽입
 	 * @param todoDto
-	 * @return result
-	 * @throws SQLException
+	 * @throws ServerError500Exception
 	 */
 	public int addTodo(TodoDto todoDto) throws ServerError500Exception {
 		return TodoDao.getInstance().addTodo(todoDto);

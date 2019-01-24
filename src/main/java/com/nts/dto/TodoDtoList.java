@@ -4,6 +4,7 @@
  **/
 package com.nts.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,27 +16,23 @@ public class TodoDtoList {
 	private List<TodoDto> doneList;
 
 	public List<TodoDto> getTodoList() {
+		if(todoList == null) {
+			todoList = new ArrayList<>();
+		}
 		return todoList;
 	}
 
-	public void setTodoList(List<TodoDto> todoList) {
-		this.todoList = todoList;
-	}
-
 	public List<TodoDto> getDoingList() {
+		if(doingList == null) {
+			doingList = new ArrayList<>();
+		}
 		return doingList;
 	}
 
-	public void setDoingList(List<TodoDto> doingList) {
-		this.doingList = doingList;
-	}
-
 	public List<TodoDto> getDoneList() {
+		if(doneList == null) {
+			doneList = new ArrayList<>();
+		}
 		return doneList;
 	}
-
-	public void setDoneList(List<TodoDto> doneList) {
-		this.doneList = doneList;
-	}
-
 }

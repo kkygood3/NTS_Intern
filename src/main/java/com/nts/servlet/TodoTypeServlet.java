@@ -34,21 +34,33 @@ public class TodoTypeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		long id = Long.parseLong(request.getParameter("id"));
 		String type = request.getParameter("type");
-
-		PrintWriter out = response.getWriter();
+		long id = 0;
 
 		try {
+			
+			id = Long.parseLong(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청을 보냈습니다.");
+			return;
+		}
+
+		PrintWriter out = response.getWriter();
+		try {
+			
 			TodoDto todoDto = new TodoDto();
 			todoDto.setId(id);
 			todoDto.setType(type);
-			
+
 			TodoService todoService = TodoService.getInstance();
 			todoService.updateTodo(todoDto);
-			
+
 			out.write("success");
 		} catch (ServerError500Exception e) {
+			
+			System.out.println(e.getMessage());
 			out.write("fail");
 		}
 	}

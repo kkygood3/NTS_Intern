@@ -17,19 +17,34 @@ public enum TodoType {
 		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
 			todoDtoList.getTodoList().add(todoDto);
 		}
+
+		@Override
+		public String getNextType() {
+			return DOING.toString();
+		}
 	},
 	DOING {
 		@Override
 		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
 			todoDtoList.getDoingList().add(todoDto);
 		}
+
+		@Override
+		public String getNextType() {
+			return DONE.toString();
+		}
 	},
 	DONE {
-		@Override
 		public void addList(TodoDtoList todoDtoList, TodoDto todoDto) {
 			todoDtoList.getDoneList().add(todoDto);
 		}
+
+		@Override
+		public String getNextType() {
+			return null;
+		}
 	};
 	
+	public abstract String getNextType();
 	public abstract void addList(TodoDtoList todoDtoList,TodoDto todoDto);
 }

@@ -35,12 +35,13 @@ public class MainServlet extends HttpServlet {
 		throws IOException, ServletException {
 
 		try {
+			
 			TodoService todoService = TodoService.getInstance();
 
-			TodoDtoList result = todoService.getTodos();
-			request.setAttribute("result", result);
-
+			TodoDtoList todos = todoService.getTodos();
+			request.setAttribute("todos", todos);
 		} catch (ServerError500Exception e) {
+			
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,e.getMessage());
 			return;
 		}

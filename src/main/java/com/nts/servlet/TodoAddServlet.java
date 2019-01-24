@@ -37,7 +37,7 @@ public class TodoAddServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		request.getRequestDispatcher("/WEB-INF/newtodo.jsp")
-			.forward(request, response);
+			   .forward(request, response);
 	}
 
 	/**
@@ -59,17 +59,21 @@ public class TodoAddServlet extends HttpServlet {
 		todoDto.setTitle(request.getParameter("title"));
 
 		try {
+
 			todoDto.setSequence(Integer.parseInt(request.getParameter("sequence")));
 		} catch (NumberFormatException e) {
+
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "잘못된 요청을 보냈습니다.");
 			return;
 		}
 
 		try {
+
 			TodoService todoService = TodoService.getInstance();
 			todoService.addTodo(todoDto);
 		} catch (ServerError500Exception e) {
+
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
 			return;
 		}
