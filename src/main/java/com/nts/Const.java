@@ -1,5 +1,9 @@
 package com.nts;
 
+/*
+ * 사용되는 상수를 관리하는 클래스
+ * @author 시윤
+ */
 public class Const {
 	// DB column 관리를 위한 변수들
 	public static final String ID = "id";

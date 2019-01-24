@@ -2,6 +2,10 @@ package com.nts.dto;
 
 import com.nts.Const;
 
+/*
+ * todo data를 저장하는 클래스
+ * @author 시윤
+ */
 public class TodoDto {
 	private Long id;
 	private String name;

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 에러페이지
+ * @author 시윤
  * Servlet implementation class TodoErrorServlet
  */
 @WebServlet("/error")
@@ -17,6 +19,7 @@ public class TodoErrorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * error.html로 forwarding
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
