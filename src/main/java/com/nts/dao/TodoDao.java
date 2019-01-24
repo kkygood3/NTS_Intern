@@ -31,84 +31,95 @@ public class TodoDao {
 		return instance;
 	}
 
-	private List executeQuery(PreparedStatement ps) {
+	private List executeSelectQuery(PreparedStatement ps) {
 		ArrayList<TodoDto> todo = new ArrayList();
-		ResultSet rs = null;
-		try {
-			String psStr = ps.toString();
-			char queryFirstChar = psStr.charAt(psStr.indexOf(' ') + 1);
-			if (queryFirstChar == 's' || queryFirstChar == 'S') {
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					int id = rs.getInt(1);
-					String title = rs.getString(2);
-					String name = rs.getString(3);
-					int sequence = rs.getInt(4);
-					TodoType type = TodoType.valueOf(rs.getString(5));
-					String regdate = rs.getString(6);
 
-					todo.add(new TodoDto(id, title, name, sequence, type, regdate));
-				}
-			} else {
-				if (ps.executeUpdate() != 0)
-					;
-				todo = null;
+		try (ResultSet rs = ps.executeQuery()) {
+			
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String title = rs.getString(2);
+				String name = rs.getString(3);
+				int sequence = rs.getInt(4);
+				TodoType type = TodoType.valueOf(rs.getString(5));
+				String regdate = rs.getString(6);
+
+				todo.add(new TodoDto(id, title, name, sequence, type, regdate));
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
+
 		return todo;
+	}
+
+	private boolean executeUpdateQuery(PreparedStatement ps) {
+		boolean executeSuccess = false;
+
+		try {
+			if (ps.executeUpdate() != 0) {
+				executeSuccess = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return executeSuccess;
 	}
 
 	/**
 	 * @return Insert query success : true 
 	 */
 	public boolean addTodo(TodoDto todo) {
-		List<TodoDto> result = null;
+		boolean executeSuccess = false;
 
 		try (Connection conn = MysqlConnector.getConnection();
 			PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.INSERT_QUERY)) {
+
 			ps.setString(1, todo.getTitle());
 			ps.setString(2, todo.getName());
 			ps.setInt(3, todo.getSequence());
 
-			result = executeQuery(ps);
+			executeSuccess = executeUpdateQuery(ps);
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
-		return (result == null);
+		return executeSuccess;
 	}
 
 	/**
 	 * @return Update query success : true 
 	 */
 	public boolean updateTodo(TodoDto todo) {
-		List<TodoDto> result = null;
+		boolean executeSuccess = false;
 
-		String nextType = "DOING";
-		if (todo.getType().equals(TodoType.DOING))
-			nextType = "DONE";
+		String nextType = "";
 
-		try (Connection conn = MysqlConnector.getConnection();
-			PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.UPDATE_QUERY);) {
-			ps.setString(1, nextType);
-			ps.setInt(2, todo.getId());
-			ps.setString(3, todo.getType().toString());
+		if (!(todo.getType().equals(TodoType.DONE))) {
+			try (Connection conn = MysqlConnector.getConnection();
+				PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.UPDATE_QUERY);) {
 
-			result = executeQuery(ps);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+				if (todo.getType().equals(TodoType.TODO)) {
+					nextType = "DOING";
+				} else {
+					nextType = "DONE";
+				}
+
+				ps.setString(1, nextType);
+				ps.setInt(2, todo.getId());
+				ps.setString(3, todo.getType().toString());
+
+				executeSuccess = executeUpdateQuery(ps);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		return (result == null);
+		return executeSuccess;
 	}
 
 	/**
@@ -119,34 +130,13 @@ public class TodoDao {
 
 		try (Connection conn = MysqlConnector.getConnection();
 			PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.SELECT_QUERY);) {
-			result = executeQuery(ps);
+
+			result = executeSelectQuery(ps);
+
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
 		return result;
-	}
-
-	/**
-	 * @return contains the TODO : true 
-	 */
-	public boolean verifyTodo(TodoDto todo) {
-		boolean isContain = false;
-		List<TodoDto> result = null;
-
-		try (Connection conn = MysqlConnector.getConnection();
-			PreparedStatement ps = conn.prepareStatement(TodoDaoQuery.VERIFY_QUERY);) {
-			ps.setInt(1, todo.getId());
-			ps.setString(2, todo.getType().toString());
-
-			result = executeQuery(ps);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-		if (result.size() == 1)
-			isContain = true;
-
-		return isContain;
 	}
 }

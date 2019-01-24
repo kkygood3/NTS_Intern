@@ -36,10 +36,6 @@ public class TypeUpdateServlet extends HttpServlet {
 
 			TodoDto targetTodo = new TodoDto(targetID, targetType);
 
-			//존재하지 않는 튜플이라면 throw
-			if (!dao.verifyTodo(targetTodo))
-				throw new Exception();
-
 			if (dao.updateTodo(targetTodo))
 				out.print("success");
 			else
