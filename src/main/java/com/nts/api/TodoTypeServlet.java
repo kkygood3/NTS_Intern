@@ -34,7 +34,9 @@ public class TodoTypeServlet extends HttpServlet {
 
 		Long id = getId(request.getParameter(Const.ID));
 		String type = (String)request.getParameter(Const.TYPE);
-
+		
+		type = type.toUpperCase();
+		
 		if (id > -1 && (Const.TODO.equals(type) || Const.DOING.equals(type))) {
 			TodoDto todo = new TodoDto();
 			todo.setId(id);
