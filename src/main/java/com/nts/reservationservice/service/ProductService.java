@@ -5,6 +5,18 @@
 
 package com.nts.reservationservice.service;
 
-public interface ProductService {
+import java.util.List;
 
+import com.nts.reservationservice.dto.ProductDto;
+
+public interface ProductService {
+	public static final Integer LIMIT = 4;
+
+	public List<ProductDto> getProducts(int start);
+
+	public List<ProductDto> getProducts(int start, int category);
+
+	public int getCount();
+
+	public int getCount(int category);
 }
