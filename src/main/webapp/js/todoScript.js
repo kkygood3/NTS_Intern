@@ -23,12 +23,11 @@ var init = () => {
 
 	todoItem.forEach((item) => {
 		var id = item.dataset.id;
-		var button = item.querySelector("button.content_move_button");
-		if(button!=null){
-			button.addEventListener("click", ()=>{
-				update(id,item.closest("ul")) 
-			});
-		}
+		item.addEventListener("click",(e)=>{
+			if(e.target.tagName == "BUTTON"){
+				update(id,item.closest("ul"));
+			}
+		});
 		
 	});
 }
@@ -59,10 +58,10 @@ var update = (itemId, currentSection) => {
 				alert("Successfully Updated");
 				
 				var nextType = "DOING";
-				console.log(currentSection);
-				if (currentSection == "DOING") {
+				if (currentSection.dataset.section == "DOING") {
 					nextType = "DONE"
 				}
+
 				
 				/**
 				 * if there is any element that has higher id which means
@@ -108,7 +107,6 @@ var update = (itemId, currentSection) => {
  */
 var findHtmlInsertSpot = (type, currentId) => {
 	var htmlList = document.querySelectorAll("ul[data-section ='"+type+"'] > li");
-	console.log(htmlList);
 	for (var index =0; index<htmlList.length; index++) {
 		if (htmlList[index].dataset.id > currentId) {
 			return htmlList[index].dataset.id;
