@@ -24,12 +24,12 @@ public class TodoDto {
 		}
 	}
 
-	long id;
-	String name;
-	String regdate;
-	int sequence;
-	String title;
-	Type type;
+	private long id;
+	private String name;
+	private String regdate;
+	private int sequence;
+	private String title;
+	private Type type;
 
 	public long getId() {
 		return id;
