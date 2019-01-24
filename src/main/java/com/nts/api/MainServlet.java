@@ -35,9 +35,9 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> todos = TodoDao.getInstance().getTodos();
 
 		Map<String, List<TodoDto>> groupedTodos = todos.stream().collect(Collectors.groupingBy(TodoDto::getType));
-		request.setAttribute("todo", groupedTodos.get(Const.TODO));
-		request.setAttribute("doing", groupedTodos.get(Const.DOING));
-		request.setAttribute("done", groupedTodos.get(Const.DONE));
+		request.setAttribute("todoList", groupedTodos.get(Const.TODO));
+		request.setAttribute("doingList", groupedTodos.get(Const.DOING));
+		request.setAttribute("doneList", groupedTodos.get(Const.DONE));
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
 		requestDispatcher.forward(request, response);

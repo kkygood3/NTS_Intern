@@ -18,7 +18,7 @@
 	<div class="content">
 		<ul class="list" id="done">
 			<li class="list_header">DONE</li>
-			<c:forEach items="${done}" var="item">
+			<c:forEach items="${doneList}" var="item">
 				<li class="list_item" id="${item.getId()}">
 					<p class="title">${item.getTitle()}</p>
 					<p class="discription">${item}</p>
@@ -29,7 +29,7 @@
 		<ul class="list" id="doing">
 			<li class="list_header">DOING</li>
 			
-			<c:forEach items="${doing}" var="item">
+			<c:forEach items="${doingList}" var="item">
 				<li class="list_item" id="${item.getId()}">
 					<p class="title">${item.getTitle()}</p>
 					<p class="discription">${item}</p>
@@ -39,7 +39,7 @@
 		</ul>
 		<ul class="list" id="todo">
 			<li class="list_header">TODO</li>
-			<c:forEach items="${todo}" var="item">
+			<c:forEach items="${todoList}" var="item">
 				<li class="list_item" id="${item.getId()}">
 					<p class="title">${item.getTitle()}</p>
 					<p class="discription">${item}</p>
