@@ -24,7 +24,7 @@ public class TodoFormServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/todoForm.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/todoForm.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

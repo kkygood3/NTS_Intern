@@ -25,7 +25,6 @@ import com.nts.todolist.dto.TodoDto;
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
-	// TODO serialVersionUID 의 사용법과 존재 유무, 1L로 놔도 되는지?
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -50,9 +49,9 @@ public class MainServlet extends HttpServlet {
 	private void groupingList(List<TodoDto> includeAllType, List<TodoDto> todoList, List<TodoDto> doingList,
 		List<TodoDto> doneList) {
 		
-		// TODO if문을 깔끔하게 처리할 수 있을까?
 		for (TodoDto todo : includeAllType) {
 			String type = todo.getType();
+			
 			if (TodoStatus.TODO.getValue().equals(type)) {
 				todoList.add(todo);
 			} else if (TodoStatus.DOING.getValue().equals(type)) {
