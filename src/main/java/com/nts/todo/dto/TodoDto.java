@@ -19,10 +19,6 @@ public class TodoDto {
 	private String regdate;
 	private String type;
 
-	//empty constructor for jackson-bind usage and java beans pattern
-	public TodoDto() {
-	}
-	
 	public String getType() {
 		return type;
 	}
@@ -34,7 +30,7 @@ public class TodoDto {
 	public int getSequence() {
 		return sequence;
 	}
-	
+
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
 	}
@@ -42,15 +38,15 @@ public class TodoDto {
 	public String getRegdate() {
 		return regdate;
 	}
-	
+
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -58,11 +54,11 @@ public class TodoDto {
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -70,17 +66,18 @@ public class TodoDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public enum TodoType {
-		TODO("TODO","DOING"),DOING("DOING","DONE"),DONE("DONE","DONE");
-		
+		TODO("TODO", "DOING"), DOING("DOING", "DONE"), DONE("DONE", "DONE");
+
 		String nextType;
 		String inString;
+
 		TodoType(String inString, String nextValue) {
 			this.inString = inString;
-			this.nextType= nextValue;
+			this.nextType = nextValue;
 		}
-		
+
 		public boolean equals(String type) {
 			return this.toString().equals(type);
 		}
