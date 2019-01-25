@@ -33,7 +33,7 @@ public class TodoTypeServlet extends HttpServlet {
 
 		try (PrintWriter printWriter = response.getWriter()) {
 			String type = request.getParameter("type");
-			Long id = new Long(request.getParameter("id"));
+			Long id = Long.parseLong(request.getParameter("id"));
 
 			TodoDao todoDao = new TodoDao();
 
