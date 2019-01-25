@@ -38,6 +38,22 @@ public class TodoAddServlet extends HttpServlet {
 		String name = request.getParameter("input-name");
 		Integer sequence = 0;
 
+		sequence = divSequence(request, sequence);
+
+		TodoDto todoDto = new TodoDto(title, name, sequence);
+		TodoDao todoDao = new TodoDao();
+
+		if (todoDao.addTodo(todoDto) == 1) {
+			System.out.println("Insert complete");
+		} else {
+			System.out.println("Insert fail");
+		}
+
+		response.sendRedirect("/main");
+
+	}
+
+	private Integer divSequence(HttpServletRequest request, Integer sequence) {
 		TodoSequence todoSequence = TodoSequence.valueOf(request.getParameter("input-sequence"));
 
 		switch (todoSequence) {
@@ -51,18 +67,7 @@ public class TodoAddServlet extends HttpServlet {
 				sequence = 3;
 				break;
 		}
-
-		TodoDto todoDto = new TodoDto(title, name, sequence);
-		TodoDao todoDao = new TodoDao();
-
-		if (todoDao.addTodo(todoDto) == 1) {
-			System.out.println("Insert complete");
-		} else {
-			System.out.println("Insert fail");
-		}
-
-		response.sendRedirect("/main");
-
+		return sequence;
 	}
 
 }
