@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservationservice.dto.ProductDto;
-import com.nts.reservationservice.service.DisplayInfoService;
-import com.nts.reservationservice.service.FileInfoService;
-import com.nts.reservationservice.service.ProductImageService;
 import com.nts.reservationservice.service.ProductService;
 
 @RestController
@@ -27,12 +24,6 @@ import com.nts.reservationservice.service.ProductService;
 public class ProductApiController {
 	@Autowired
 	ProductService productService;
-	@Autowired
-	DisplayInfoService displayInfoService;
-	@Autowired
-	ProductImageService productImageService;
-	@Autowired
-	FileInfoService fileInfoService;
 
 	@GetMapping
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
