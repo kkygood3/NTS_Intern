@@ -61,9 +61,10 @@
 				<ul id="ul-todo" class="ul-list">
 					<li class="li-title"><h1>TODO</h1></li>
 					<c:forEach var="todo" items="${ todos }">
-						<li id="${ todo.getId() }" class="li-content">
+						<li class="li-content">
 							<h3>${ todo.getTitle() }</h3>
 							<p>등록날짜: ${ todo.getRegdate() }, ${ todo.getName() }, ${ todo.getSequence() }</p>
+							<button name="${ todoDto.getId() }">→</button>
 						</li>
 					</c:forEach>
 				</ul>
@@ -71,4 +72,5 @@
 		</div>
 	</section>
 </body>
+<script type="text/javascript" src="/js/typeUpdate.js" ></script>
 </html>
