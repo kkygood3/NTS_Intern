@@ -16,7 +16,7 @@ public interface ProductService {
 
 	public List<ProductDto> getProducts(int start, int categoryId);
 
-	public ProductDto getProduct(Long id);
+	public List<ProductDto> getPromotionProducts();
 
 	public int getCount();
 

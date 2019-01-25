@@ -49,8 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public ProductDto getProduct(Long id) {
-
-		return productDao.selectProductById(id);
+	public List<ProductDto> getPromotionProducts() {
+		return productDao.selectPromotionProduct();
 	}
 }
