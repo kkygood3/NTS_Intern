@@ -5,77 +5,67 @@
 
 package com.nts.reservationservice.dto;
 
-import java.util.Date;
-
 public class ProductDto {
-	private long id;
-	private int categoryId;
-	private String description;
-	private String content;
-	private String event;
-	private Date createDate;
-	private Date modifyDate;
+	Long displayInfoId;
+	Long productId;
+	String placeName;
+	String productContent;
+	String productDescription;
+	String productImageUrl;
 
-	public long getId() {
-		return id;
+	public Long getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setDisplayInfoId(Long displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
-	public long getCategoryId() {
-		return categoryId;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPlaceName() {
+		return placeName;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
 	}
 
-	public String getContent() {
-		return content;
+	public String getProductContent() {
+		return productContent;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
 	}
 
-	public String getEvent() {
-		return event;
+	public String getProductDescription() {
+		return productDescription;
 	}
 
-	public void setEvent(String event) {
-		this.event = event;
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public String getProductImageUrl() {
+		return productImageUrl;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductDto [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-			+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+		return "ProductDto [displayInfoId=" + displayInfoId + ", productId=" + productId + ", placeName=" + placeName
+			+ ", productContent=" + productContent + ", productDescription=" + productDescription + ", productImageUrl="
+			+ productImageUrl + "]";
 	}
 
 }
