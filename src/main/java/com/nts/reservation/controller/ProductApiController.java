@@ -8,16 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.Product;
+import com.nts.reservation.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/promotions")
-public class PromotionApiController {
+public class ProductApiController {
 	@Autowired
-	Product product;
+	ProductService productService;
 
 	@GetMapping
-	public List<Product> productGet() {
-		return null;
+	public List<Product> promotionList() {
+		System.out.println(productService.getPromotions());
+		return productService.getPromotions();
 	}
 
 }

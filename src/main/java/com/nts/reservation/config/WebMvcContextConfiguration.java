@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"layeredexam.controller"})
+@ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
