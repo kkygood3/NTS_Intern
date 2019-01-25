@@ -64,16 +64,14 @@ public class TodoDao {
 			preparedStatement.setString(2, todo.getName());
 			preparedStatement.setInt(3, todo.getSequence());
 
-			if (preparedStatement.executeUpdate() == 1) {
-				return 1;
-			}
+			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
 
-		return 0;
+		return -1;
 	}
 
 	public int updateTodo(Long id, String type) {
@@ -85,15 +83,14 @@ public class TodoDao {
 			preparedStatement.setString(1, type);
 			preparedStatement.setLong(2, id);
 
-			if (preparedStatement.executeUpdate() == 1) {
-				return 1;
-			}
+			return preparedStatement.executeUpdate();
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
-		return 0;
+
+		return -1;
 	}
 
 }
