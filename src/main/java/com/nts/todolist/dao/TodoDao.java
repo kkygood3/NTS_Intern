@@ -21,6 +21,7 @@ public class TodoDao {
 	private static final String URL = "jdbc:mysql://10.113.116.52:13306/user2?serverTimezone=Asia/Seoul&useSSL=false";
 	private static final String USER = "user2";
 	private static final String PASSWORD = "1234";
+	private static final String DIVICE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo";
 	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
@@ -33,16 +34,14 @@ public class TodoDao {
 		ResultSet resultSet = null;
 
 		List<TodoDto> todos = new ArrayList<>();
-
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(DIVICE_DRIVER);
 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(SQL_SELECT);
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-
 				TodoDto todo = new TodoDto();
 
 				todo.setId(resultSet.getLong("id"));
@@ -72,7 +71,7 @@ public class TodoDao {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(DIVICE_DRIVER);
 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(SQL_INSERT);
@@ -84,6 +83,7 @@ public class TodoDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (Exception e) {
+			System.out.println("printStackTrace] TodoDao.java");
 			e.printStackTrace();
 		}
 
@@ -99,14 +99,16 @@ public class TodoDao {
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(SQL_UPDATE);
 
+			System.out.println(todoDto.getId());
+			System.out.println(todoDto.getType());
 			preparedStatement.setString(1, todoDto.getType());
 			preparedStatement.setLong(2, todoDto.getId());
 
 			return preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("UpdateTodo 메서드 실패");
+			e.printStackTrace();
 		}
-
 		return 0;
 
 	}

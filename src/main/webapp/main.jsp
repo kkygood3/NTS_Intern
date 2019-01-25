@@ -17,54 +17,45 @@
 			<a href="/todoForm" id="regTodo">새로운 TODO 등록</a>
 		</section>
 	</header>
-	<section>
+	<section id="section-content-main">
 		<div id="content">
 			<article class="article-list">
-				<ul id="ul-done" class="ul-list">
+				<ul id="ul-DONE" class="ul-list">
 					<li class="li-title"><h1>DONE</h1></li>
-					<li class="li-content">
-						<h3>title 7</h3>
-						<p>regdate, name, sequence</p>
-					</li>
-					<li class="li-content">
-						<h3>title 8</h3>
-						<p>regdate, name, sequence</p>
-					</li>
-					<li class="li-content">
-						<h3>title 9</h3>
-						<p>regdate, name, sequence</p>
-					</li>
+					<c:forEach var="todoDto" items="${ doneList }">
+						<li id="li-content-${ todoDto.getId() }" class="li-content">
+							<h3>${ todoDto.getTitle() }</h3>
+							<span class="span-content">
+								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+							</span>
+						</li>
+					</c:forEach>
 				</ul>
 			</article>
 			<article class="article-list">
-				<ul id="ul-doing" class="ul-list">
+				<ul id="ul-DOING" class="ul-list">
 					<li class="li-title"><h1>DOING</h1></li>
-					<li class="li-content">
-						<h3>title 3</h3>
-						<p>regdate, name, sequence</p>
-					</li>
-					<li class="li-content">
-						<h3>title 4</h3>
-						<p>regdate, name, sequence</p>
-					</li>
-					<li class="li-content">
-						<h3>title 5</h3>
-						<p>regdate, name, sequence</p>
-					</li>
-					<li class="li-content">
-						<h3>title 6</h3>
-						<p>regdate, name, sequence</p>
-					</li>
+					<c:forEach var="todoDto" items="${ doingList }">
+						<li id="li-content-${ todoDto.getId() }" class="li-content">
+							<h3>${ todoDto.getTitle() }</h3>
+							<span class="span-content">
+								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+								<button class="updateButton">→</button>
+							</span>
+						</li>
+					</c:forEach>
 				</ul>
 			</article>
 			<article class="article-list">
-				<ul id="ul-todo" class="ul-list">
+				<ul id="ul-TODO" class="ul-list">
 					<li class="li-title"><h1>TODO</h1></li>
-					<c:forEach var="todo" items="${ todos }">
-						<li class="li-content">
-							<h3>${ todo.getTitle() }</h3>
-							<p>등록날짜: ${ todo.getRegdate() }, ${ todo.getName() }, ${ todo.getSequence() }</p>
-							<button name="${ todoDto.getId() }">→</button>
+					<c:forEach var="todoDto" items="${ todoList }">
+						<li id="li-content-${ todoDto.getId() }" class="li-content">
+							<h3>${ todoDto.getTitle() }</h3>
+							<span class="span-content">
+								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+								<button class="updateButton">→</button>
+							</span>
 						</li>
 					</c:forEach>
 				</ul>
@@ -72,5 +63,5 @@
 		</div>
 	</section>
 </body>
-<script type="text/javascript" src="/js/typeUpdate.js" ></script>
+<script type="text/javascript" src="/js/updateType.js" ></script>
 </html>

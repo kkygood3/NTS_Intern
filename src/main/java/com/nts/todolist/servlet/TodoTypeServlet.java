@@ -14,7 +14,7 @@ import com.nts.todolist.dto.TodoDto;
 /**
  * Servlet implementation class TodoTypeServlet
  */
-@WebServlet("/todoUpdate")
+@WebServlet("/todoUpdate/*")
 public class TodoTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,10 +27,13 @@ public class TodoTypeServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 
+		//System.out.println("id : " + request.getParameter("id"));
+		//System.out.println("type : " + request.getParameter("type"));
 		Long id = Long.parseLong(request.getParameter("id"));
 		String type = request.getParameter("type");
 		String updateType = "";
 		if (type.equals("TODO")) {
+			//System.out.println("DEBUG : type.equals into");
 			updateType = "DOING";
 		} else if (type.equals("DOING")) {
 			updateType = "DONE";
