@@ -7,7 +7,7 @@ package com.nts.reservationservice.dto;
 
 import java.util.Date;
 
-public class fileInfo {
+public class FileInfoDto {
 	long id;
 	String fileName;
 	String saveFileName;
