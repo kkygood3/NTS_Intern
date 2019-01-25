@@ -6,5 +6,5 @@
 package com.nts.reservationservice.dao;
 
 public class DisplayInfoDaoSqls {
-	public static final String SELECT_DISPLAYINFO_BY_PRODUCT_ID = "SELECT id, product_id, opening_hours, place_name, place_lot, place_street, tel, homepage, email, create_date, modify_date FROM display_info WHERE product_id = :id";
+	public static final String SELECT_DISPLAY_INFO_BY_PRODUCT_ID = "SELECT id, product_id, opening_hours, place_name, place_lot, place_street, tel, homepage, email, create_date, modify_date FROM display_info WHERE product_id = :id";
 }

@@ -5,7 +5,7 @@
 
 package com.nts.reservationservice.dao;
 
-import static com.nts.reservationservice.dao.DisplayInfoDaoSqls.SELECT_DISPLAYINFO_BY_PRODUCT_ID;
+import static com.nts.reservationservice.dao.DisplayInfoDaoSqls.SELECT_DISPLAY_INFO_BY_PRODUCT_ID;
 
 import java.util.Collections;
 import java.util.Map;
@@ -30,6 +30,6 @@ public class DisplayInfoDao {
 
 	public DisplayInfoDto selectDisplayInfoByProductId(Long productId) {
 		Map<String, ?> params = Collections.singletonMap("id", productId);
-		return jdbc.queryForObject(SELECT_DISPLAYINFO_BY_PRODUCT_ID, params, rowMapper);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO_BY_PRODUCT_ID, params, rowMapper);
 	}
 }
