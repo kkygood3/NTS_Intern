@@ -23,7 +23,7 @@ public class TodoDao {
 	private static final String PASSWORD = "1234";
 	private static final String DIVICE_DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo";
+	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY sequence, regdate";
 	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
 	private static final String SQL_UPDATE = "UPDATE todo SET TYPE = ? WHERE id = ?";
 
@@ -50,10 +50,11 @@ public class TodoDao {
 				todo.setSequence(resultSet.getInt("sequence"));
 				todo.setType(resultSet.getString("type"));
 
-				String dateSubstring = resultSet.getString("regdate").substring(0, 10);
+				/*String dateSubstring = resultSet.getString("regdate").substring(0, 10);
 				String[] dateSplitArray = dateSubstring.split("-");
 				String dateSplit = dateSplitArray[0] + "." + dateSplitArray[1] + "." + dateSplitArray[2];
-				todo.setRegdate(dateSplit);
+				todo.setRegdate(dateSplit);*/
+				todo.setRegdate(resultSet.getString("regdate"));
 
 				todos.add(todo);
 			}
