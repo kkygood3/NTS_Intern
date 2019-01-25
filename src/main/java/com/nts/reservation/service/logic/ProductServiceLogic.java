@@ -19,7 +19,7 @@ public class ProductServiceLogic implements ProductService {
 	private ProductDao productDao;
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProductResponse getProductResponse(int categoryId, int start) {
 		return new ProductResponse(productDao.getProductList(categoryId, start),
 			productDao.getCategoryProductsCount(categoryId));
