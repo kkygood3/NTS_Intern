@@ -8,7 +8,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.nts.config.ApplicationConfig
+		<param-value>com.nts.reservation.config.ApplicationConfig
 		</param-value>
 	</context-param>
 	<listener>
@@ -27,7 +27,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>com.nts.config.WebMvcContextConfiguration
+			<param-value>com.nts.reservation.config.WebMvcContextConfiguration
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
