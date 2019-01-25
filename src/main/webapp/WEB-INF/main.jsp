@@ -63,6 +63,6 @@
 
 		<div style="clear: both;"></div>
 	</div>
+	<script src="/javascript/script.js"></script>
 </body>
-<script src="/javascript/script.js"></script>
 </html>

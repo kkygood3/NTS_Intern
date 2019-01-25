@@ -65,3 +65,20 @@ function moveNext(type, buttonParent) {
 	}
 
 }
+
+/**
+ * form에 빈 값이 있는지 확인하는 function
+ * @returns 1개라도 빈 값이 있다면 false를 반환
+ */
+
+function isValueEmpty() {
+	let title = document.getElementById("title").value.trim();
+	let name = document.getElementById("name").value.trim();
+	let sequence = document.querySelector('input[name="sequence"]:checked').value;
+
+	if (!title || !name || !sequence) {
+		alert("양식을 확인하십시오.")
+		return false;
+	}
+	return true;
+}
