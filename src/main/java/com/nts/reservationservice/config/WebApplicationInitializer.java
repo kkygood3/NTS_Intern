@@ -14,6 +14,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+/*
+ * @author 육성렬
+ */
 public class WebApplicationInitializer implements org.springframework.web.WebApplicationInitializer {
 
 	private static final String DISPATCHER_SERVLET_NAME = "dispatcher";

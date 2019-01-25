@@ -22,6 +22,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/*
+ * @author 육성렬
+ */
 @Configuration
 @EnableTransactionManagement
 public class DBConfig implements TransactionManagementConfigurer {

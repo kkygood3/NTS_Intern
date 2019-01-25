@@ -9,6 +9,9 @@ import java.util.List;
 
 import com.nts.reservationservice.dto.ProductDto;
 
+/*
+ * @author 육성렬
+ */
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 

@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservationservice.dto.CategoryDto;
 
+/*
+ * @author 육성렬
+ */
 @Repository
 public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;

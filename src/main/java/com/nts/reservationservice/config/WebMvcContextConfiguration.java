@@ -15,6 +15,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/*
+ * @author 육성렬
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.nts.reservationservice.controller"})

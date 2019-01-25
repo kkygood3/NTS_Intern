@@ -5,6 +5,9 @@
 
 package com.nts.reservationservice.dao;
 
+/*
+ * @author 육성렬
+ */
 public class CategoryDaoSqls {
 	public static final String SELECT_CATEGORY = "SELECT id, name"
 		+ ", (SELECT COUNT(*) FROM product RIGHT JOIN display_info ON product.id = display_info.product_id WHERE product.category_id = category.id)"

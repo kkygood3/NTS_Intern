@@ -9,6 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/*
+ * @author 육성렬
+ */
 @Configuration
 @ComponentScan(basePackages = {"com.nts.reservationservice.dao", "com.nts.reservationservice.service"})
 @Import({DBConfig.class})

@@ -15,6 +15,9 @@ import com.nts.reservationservice.dao.CategoryDao;
 import com.nts.reservationservice.dto.CategoryDto;
 import com.nts.reservationservice.service.CategoryService;
 
+/*
+ * @author 육성렬
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 

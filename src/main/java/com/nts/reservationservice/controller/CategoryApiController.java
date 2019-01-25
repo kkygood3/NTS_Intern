@@ -18,6 +18,9 @@ import com.nts.reservationservice.dto.CategoryDto;
 import com.nts.reservationservice.service.CategoryService;
 import com.nts.reservationservice.service.ProductService;
 
+/*
+ * @author 육성렬
+ */
 @RestController
 @RequestMapping(path = "/api/categories")
 public class CategoryApiController {

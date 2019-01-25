@@ -9,6 +9,9 @@ import java.util.List;
 
 import com.nts.reservationservice.dto.CategoryDto;
 
+/*
+ * @author 육성렬
+ */
 public interface CategoryService {
 	public List<CategoryDto> getCategorys();
 }

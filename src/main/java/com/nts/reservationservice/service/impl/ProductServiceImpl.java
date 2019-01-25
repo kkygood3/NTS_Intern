@@ -15,6 +15,9 @@ import com.nts.reservationservice.dao.ProductDao;
 import com.nts.reservationservice.dto.ProductDto;
 import com.nts.reservationservice.service.ProductService;
 
+/*
+ * @author 육성렬
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
 

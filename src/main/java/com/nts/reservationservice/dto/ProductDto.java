@@ -5,6 +5,9 @@
 
 package com.nts.reservationservice.dto;
 
+/*
+ * @author 육성렬
+ */
 public class ProductDto {
 	private Long displayInfoId;
 	private Long productId;

@@ -5,6 +5,9 @@
 
 package com.nts.reservationservice.dao;
 
+/*
+ * @author 육성렬
+ */
 public class ProductDaoSqls {
 	public static final String SELECT_PRODUCT = "SELECT display_info.id AS display_info_id, product.id AS product_id"
 		+ ", product.content AS product_content, product.description AS product_description"

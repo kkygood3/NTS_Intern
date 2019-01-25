@@ -25,6 +25,9 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservationservice.dto.ProductDto;
 
+/*
+ * @author 육성렬
+ */
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;

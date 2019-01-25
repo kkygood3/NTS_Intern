@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservationservice.dto.ProductDto;
 import com.nts.reservationservice.service.ProductService;
 
+/*
+ * @author 육성렬
+ */
 @RestController
 @RequestMapping(path = "/api/promotions")
 public class PromotionApiController {
