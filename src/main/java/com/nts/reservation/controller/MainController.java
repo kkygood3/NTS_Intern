@@ -17,9 +17,9 @@ public class MainController {
 	ProductService productService;
 
 	@GetMapping(path = "/")
-	public String test(ModelMap model) {
+	public String countItem(ModelMap model) {
 		int count = productService.getCount();
-		model.addAttribute("countTest", count);
+		model.addAttribute("countItem", count);
 		return "mainpage";
 	}
 }

@@ -80,7 +80,7 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${countTest}</span> 개 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${countItem}</span>개 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
@@ -150,6 +150,8 @@
         </div>
     </footer>
 
+
+	<script src="js/common.js"></script>
 
     <script type="rv-template" id="promotionItem">
     <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
