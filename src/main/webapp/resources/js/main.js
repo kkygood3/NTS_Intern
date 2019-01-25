@@ -52,8 +52,6 @@ function updateCategories(categories) {
     eventListText.textContent = sum + "개";   
 
     addCategoryEventListner();
-
-    
 }
 
 function addCategoryEventListner() {
@@ -81,6 +79,11 @@ function addCategoryEventListner() {
             var eventListText = document.querySelector(".event_lst_txt > span");
             eventListText.textContent = liElement.dataset.totalCount + "개";
             container.dataset.currentCount = 0;
+
+            var productContainers = document.getElementsByClassName("lst_event_box");
+            for(var i = 0; i < productContainers.length; i++){
+                productContainers[i].innerHTML = "";
+            }
             requestProducts(0, container.dataset.selected == 0 ? null : container.dataset.selected);
         }
     }, false);
@@ -96,14 +99,28 @@ function requestProducts(start, categoryId) {
     sendGet("/reservation-service/api/products",params, function(response) {
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
-            console.log(data);
+            updateProductList(data.items, data.totalCount);
         }else {
             alert("상품 목록을 불러오는데 실패했습니다.");
         }
     })
 }
-function updateProductList(products){
-    
+function updateProductList(products, totalCount){
+    var tabContainer = document.querySelector(".event_tab_lst");
+    tabContainer.dataset.currentTotalCount = totalCount;
+    tabContainer.dataset.currentCount = products.length;
+
+    var containers = document.getElementsByClassName("lst_event_box");
+    var template = document.querySelector("#itemList").innerHTML;
+    var resultTemplate = ["", ""];
+    for(var i = 0; i < products.length; i++){
+        var product = products[i];
+        resultTemplate[i%2] += template.replace("{id}", product.displayInfoId).replace("{description}", product.productDescription)
+                                    .replace("{image_url}", product.productImageUrl).replace("{placeName}", product.placeName)
+                                    .replace("{content}", product.productContent).replace("{description}", product.productDescription);
+    }
+    containers[0].innerHTML += resultTemplate[0];
+    containers[1].innerHTML += resultTemplate[1];
 }
 
 
