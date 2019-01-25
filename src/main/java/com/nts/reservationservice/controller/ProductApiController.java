@@ -56,7 +56,7 @@ public class ProductApiController {
 
 		List<Map<String, Object>> items = new ArrayList();
 		for (ProductDto product : list) {
-			DisplayInfoDto displayInfo = displayInfoService.getDisplayInfoByProductId(product.getId());
+			DisplayInfoDto displayInfo = displayInfoService.getDisplayInfoByProductId(product.getId()).get(0);
 			ProductImageDto productImage = productImageService.getProductImageByProductIdAndType(product.getId(), "th");
 			FileInfoDto fileInfo = fileInfoService.getFileInfoById(productImage.getFileId());
 			Map<String, Object> item = combineDataForGetResult(product, displayInfo, fileInfo);
