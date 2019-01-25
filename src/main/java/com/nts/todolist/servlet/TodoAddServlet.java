@@ -33,10 +33,10 @@ public class TodoAddServlet extends HttpServlet {
 		TodoDao todoDao = new TodoDao();
 
 		if (todoDao.addTodo(todoDto) != 0) {
-			System.out.println("��� ����");
+			System.out.println("등록 성공");
 			response.sendRedirect("/main");
 		} else {
-			System.out.println("��� ����");
+			System.out.println("등록 실패");
 		}
 	}
 

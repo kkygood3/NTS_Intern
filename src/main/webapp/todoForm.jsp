@@ -39,4 +39,5 @@
         </form>
     </section>
 </body>
+<script type="text/javascript" src="js/typeUpdate.js" ></script>
 </html>
