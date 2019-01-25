@@ -41,6 +41,9 @@
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
                                 <ul class="visual_img">
+                                	<li class="slide_img"><img src="img/1_th_1.png"></li>
+                                	<li class="next_img"><img src="img/2_th_3.png"></li>
+                                	<li class="waiting"><img src="img/17_th_42.png"></li>
                                 </ul>
                             </div>
                             <span class="nxt_fix" style="display:none;"></span>

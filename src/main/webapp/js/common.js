@@ -1,3 +1,34 @@
+document.addEventListener("DOMContentLoaded", function() {
+	slideImage();
+});
+
+// 이미지 슬라이드 : TODO css transform 속성으로 수정
+var slides = document.querySelectorAll(".visual_img li");
+var currentSlide = 0;
+var nextSlide = 1;
+
+var left = 0;
+const imgWidth = slides[nextSlide].clientWidth;
+slides[currentSlide].style.left = "0px";
+slides[nextSlide].style.left = imgWidth + "px";
+function slideImage() {
+	left -= 30;
+	slides[currentSlide].style.left = left + "px";
+	slides[nextSlide].style.left = imgWidth + left + "px";
+	if(slides[nextSlide].offsetLeft <= 0) {
+		left = 0;
+		slides[currentSlide].style.left = imgWidth + "px";
+		slides[currentSlide].className = "waiting";
+		currentSlide = nextSlide;
+		nextSlide = (nextSlide + 1) % slides.length;
+		slides[currentSlide].className = "slide_img";
+		slides[nextSlide].className = "next_img";
+	}
+	requestAnimationFrame(slideImage);
+}
+
+
+// 탭 메뉴 : TODO 이벤트위임 방식으로 수정
 let nowCatagoryId = 0;
 
 var tab = document.querySelector(".section_event_tab").querySelectorAll(".anchor");
