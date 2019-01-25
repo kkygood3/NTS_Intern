@@ -5,7 +5,7 @@
 
 package com.nts.reservationservice.dto;
 
-public class productImageDto {
+public class ProductImageDto {
 	long id;
 	long productId;
 	String type;
