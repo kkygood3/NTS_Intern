@@ -25,19 +25,19 @@ public class JDBCConnection {
 	 */
 	public static Properties getProperties() {
 		String propertiesPath = JDBCConnection.class.getResource("").getPath();
-
-		try (FileReader fileReader = new FileReader(propertiesPath + "driver.properties");) {
-			Properties properties = new Properties();
+		Properties properties = null;
+		
+		try (FileReader fileReader = new FileReader(propertiesPath + "jdbc.properties");) {
+			properties = new Properties();
 			properties.load(fileReader);
 
-			return properties;
 		} catch (FileNotFoundException e) {
 			System.out.println("FileNotFoundException : file이 존재하지 않음");
 		} catch (IOException e) {
 			System.out.println("IOException : file을 load할 수 없음");
 		}
 
-		return null;
+		return properties;
 	}
 
 	/**

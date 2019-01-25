@@ -48,7 +48,6 @@ public class TodoDao {
 			preparedStatement.setString(index++, todoDto.getName());
 			preparedStatement.setInt(index++, todoDto.getSequence());
 
-			//TODO return이 많으면 안 좋은 코드인지? / int result를 만들어서 사용하는게 낫나?
 			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.printf("SQLException : 입력 정보가 양식과 다릅니다. \t입력된 정보 :(%s, %s, %d)\n", todoDto.getTitle(), todoDto.getName(), todoDto.getSequence());
@@ -112,7 +111,7 @@ public class TodoDao {
 
 			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.printf("입력된 정보가 양식과 다릅니다. \t입력된 정보 : (%d, %s)", id, type);
+			System.out.printf("입력된 정보가 양식과 다릅니다. \t입력된 정보 : (%d, %s)\n", id, type);
 		}
 
 		return -1;
