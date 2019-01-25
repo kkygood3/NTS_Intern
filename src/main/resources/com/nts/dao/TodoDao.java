@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoType;
@@ -39,34 +39,41 @@ public class TodoDao {
 		}
 	}
 
+	/**
+	 * todo 테이블에 있는 정보를 가져오는 메소드입니다.
+	 */
 	public List<TodoDto> getTodos() {
-		List<TodoDto> todoList = new ArrayList<>();
-		Properties properties = new Properties();
+
 		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
 		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery);
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
+			List<TodoDto> todoList = new ArrayList<>();
 
-				while (resultSet.next()) {
-					Long id = resultSet.getLong("id");
-					String title = resultSet.getString("title");
-					String name = resultSet.getString("name");
-					int sequence = resultSet.getInt("sequence");
-					TodoType type = TodoType.valueOf(resultSet.getString("type"));
-					LocalDate regDate = resultSet.getDate("regdate").toLocalDate();
-					String toStringRegDate = DATE_TIME_FORMAT.format(regDate);
-					TodoDto todo = new TodoDto(id, title, name, sequence, type, toStringRegDate);
-					todoList.add(todo);
-				}
+			while (resultSet.next()) {
+				Long id = resultSet.getLong("id");
+				String title = resultSet.getString("title");
+				String name = resultSet.getString("name");
+				int sequence = resultSet.getInt("sequence");
+				TodoType type = TodoType.valueOf(resultSet.getString("type"));
+				LocalDate regDate = resultSet.getDate("regdate").toLocalDate();
+				String toStringRegDate = DATE_TIME_FORMAT.format(regDate);
+				TodoDto todo = new TodoDto(id, title, name, sequence, type, toStringRegDate);
+				todoList.add(todo);
+			}
+			return todoList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
 
-		return todoList;
+		return Collections.emptyList();
 	}
 
+	/**
+	 * todo 테이블에 정보를 추가하는 메소드입니다.
+	 */
 	public int addTodo(TodoDto todo) {
 
 		String mySqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
@@ -87,6 +94,9 @@ public class TodoDao {
 		return -1;
 	}
 
+	/**
+	 * todo 테이블에 있는 정보를 수정하는 메소드입니다.
+	 */
 	public int updateTodo(Long id, String type) {
 
 		String mySqlQuery = "update todo set type = ? where id = ?";
