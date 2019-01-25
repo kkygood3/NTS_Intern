@@ -90,9 +90,8 @@ public class TodoDao {
 		return 0;
 	}
 
-	public int updateTodo(TodoDto todoDto) {
+	/*	public int updateTodo(TodoDto todoDto) {
 
-		return 0;
-	}
+		}*/
 
 }
