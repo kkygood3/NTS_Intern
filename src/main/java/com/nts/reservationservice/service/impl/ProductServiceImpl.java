@@ -47,4 +47,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.countByCategory(categoryId);
 	}
 
+	@Override
+	@Transactional
+	public ProductDto getProduct(Long id) {
+
+		return productDao.selectProductById(id);
+	}
 }
