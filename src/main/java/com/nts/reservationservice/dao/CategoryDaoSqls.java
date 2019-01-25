@@ -6,5 +6,7 @@
 package com.nts.reservationservice.dao;
 
 public class CategoryDaoSqls {
-	public static final String SELECT_CATEGORY = "SELECT id, name FROM category ORDER BY id";
+	public static final String SELECT_CATEGORY = "SELECT id, name"
+		+ ", (SELECT COUNT(*) FROM product RIGHT JOIN display_info ON product.id = display_info.product_id WHERE product.category_id = category.id)"
+		+ " as count FROM category ORDER BY id";
 }

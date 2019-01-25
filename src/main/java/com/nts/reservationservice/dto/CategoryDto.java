@@ -6,14 +6,15 @@
 package com.nts.reservationservice.dto;
 
 public class CategoryDto {
-	int id;
-	String name;
+	private Integer id;
+	private String name;
+	private Integer count;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -25,8 +26,16 @@ public class CategoryDto {
 		this.name = name;
 	}
 
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
-		return "CategoryDto [id=" + id + ", name=" + name + "]";
+		return "CategoryDto [id=" + id + ", name=" + name + ", count=" + count + "]";
 	}
 }

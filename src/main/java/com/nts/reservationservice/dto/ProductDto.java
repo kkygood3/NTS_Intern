@@ -6,12 +6,12 @@
 package com.nts.reservationservice.dto;
 
 public class ProductDto {
-	Long displayInfoId;
-	Long productId;
-	String placeName;
-	String productContent;
-	String productDescription;
-	String productImageUrl;
+	private Long displayInfoId;
+	private Long productId;
+	private String placeName;
+	private String productContent;
+	private String productDescription;
+	private String productImageUrl;
 
 	public Long getDisplayInfoId() {
 		return displayInfoId;
