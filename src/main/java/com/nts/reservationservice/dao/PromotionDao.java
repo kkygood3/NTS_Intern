@@ -17,18 +17,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservationservice.dto.CategoryDto;
+import com.nts.reservationservice.dto.PromotionDto;
 
 @Repository
 public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<CategoryDto> rowMapper = BeanPropertyRowMapper.newInstance(CategoryDto.class);
+	private RowMapper<PromotionDto> rowMapper = BeanPropertyRowMapper.newInstance(PromotionDto.class);
 
 	public PromotionDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<CategoryDto> selectCategory() {
+	public List<PromotionDto> selectPromotions() {
 		return jdbc.query(SELECT_PROMOTION, Collections.emptyMap(), rowMapper);
 	}
 }
