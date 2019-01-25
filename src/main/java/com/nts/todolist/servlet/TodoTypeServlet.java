@@ -43,12 +43,16 @@ public class TodoTypeServlet extends HttpServlet {
 
 		int typeUpdateState = 0;
 
-		if (type.equals("TODO")) {} else if (type.equals("DOING")) {}
+		if (type.equals("TODO")) {
+			typeUpdateState = todoDao.updateTodo(todoDto);
+		} else if (type.equals("DOING")) {
+			typeUpdateState = todoDao.updateTodo(todoDto);
+		}
 
 		if (typeUpdateState == 1) {
-			System.out.println("TodoTypeServlet ����");
+			System.out.println("TodoTypeServlet 성공");
 		} else {
-			System.out.println("TodoTypeServlet ����");
+			System.out.println("TodoTypeServlet 실패");
 		}
 	}
 

@@ -90,8 +90,25 @@ public class TodoDao {
 		return 0;
 	}
 
-	/*	public int updateTodo(TodoDto todoDto) {
+	public int updateTodo(TodoDto todoDto) {
 
-		}*/
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(SQL_UPDATE);
+
+			preparedStatement.setString(1, todoDto.getType());
+			preparedStatement.setLong(2, todoDto.getId());
+
+			return preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("UpdateTodo 메서드 실패");
+		}
+
+		return 0;
+
+	}
 
 }
