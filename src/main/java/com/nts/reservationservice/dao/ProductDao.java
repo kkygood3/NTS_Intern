@@ -58,8 +58,7 @@ public class ProductDao {
 	}
 
 	public int countByCategory(int categoryId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("category", categoryId);
+		Map<String, Integer> params = Collections.singletonMap("category", categoryId);
 		return jdbc.queryForObject(SELECT_COUNT_PRODUCT_BY_CATEGORY, params, Integer.class);
 	}
 }
