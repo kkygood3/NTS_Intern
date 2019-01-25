@@ -6,7 +6,7 @@ function init() {
 }
 
 /**
- * @desc categories 셋팅
+ * @desc Categories 셋팅
  */
 function setCategories(){
 	
@@ -15,14 +15,16 @@ function setCategories(){
 		uri : '/api/category'
 	};
 	
-	// categoryMap => key -> 'categories', value -> category list ( id,name) 
-	sendAjax(categorySendHeader, '', function(categoryMap) {
+	// categoryResponse => key -> 'items', value -> category list ( id,name) 
+	sendAjax(categorySendHeader, '', function(categoryResponse) {
 		var categoryTemplate = document.querySelector('#categories-template').content;
-		var categories = categoryMap.categories;
+		var items = categoryResponse.items;
 		
-		categories.forEach(function(category) {
+		items.forEach(function(category) {
+			var itemQuerySelector = categoryTemplate.querySelector('.item');
 			
-			categoryTemplate.querySelector('.item').dataset.category = category.id;
+			itemQuerySelector.dataset.category = category.id;
+			itemQuerySelector.dataset.count = category.count;
 			categoryTemplate.querySelector('span').innerText = category.name;
 			
 			var categoryLi = document.importNode(categoryTemplate, true);

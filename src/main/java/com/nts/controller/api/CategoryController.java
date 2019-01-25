@@ -4,14 +4,12 @@
  **/
 package com.nts.controller.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.layer.category.dto.CategoryResponse;
 import com.nts.layer.category.service.CategoryService;
 
 /**
@@ -29,11 +27,7 @@ public class CategoryController {
 	 * @return categories -> 카테고리들
 	 */
 	@GetMapping
-	public Map<String, Object> getCategorys() {
-
-		Map<String, Object> categoryMap = new HashMap<>();
-
-		categoryMap.put("categories", categoryService.selectCategories());
-		return categoryMap;
+	public CategoryResponse getCategorys() {
+		return categoryService.selectCategories();
 	}
 }

@@ -6,17 +6,14 @@ package com.nts.layer.product.dao;
 
 import java.util.Collections;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.layer.product.dto.ProductDto;
+import com.nts.layer.product.dto.Product;
 import static com.nts.layer.product.sqls.ProductSqls.*;
-
 
 /**
  * @author 전연빈
@@ -26,9 +23,8 @@ public class ProductDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
-	private RowMapper<ProductDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductDto.class);
 
+	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
 	/**
 	 * @desc product 전체 갯수 가져오기

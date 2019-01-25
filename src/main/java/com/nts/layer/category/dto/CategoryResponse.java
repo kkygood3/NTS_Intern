@@ -19,4 +19,8 @@ public class CategoryResponse {
 	public void setItems(List<Category> items) {
 		this.items = items;
 	}
+
+	public CategoryResponse(List<Category> items) {
+		this.items = items;
+	}
 }

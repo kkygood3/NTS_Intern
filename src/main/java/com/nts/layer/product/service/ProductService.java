@@ -8,5 +8,5 @@ package com.nts.layer.product.service;
  * @author 전연빈
  */
 public interface ProductService {
-	public int selectProductAllCount();
+	public static final int PAGE =4;
 }

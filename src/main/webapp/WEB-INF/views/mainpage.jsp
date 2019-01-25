@@ -53,15 +53,6 @@
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
-                    <!-- li class="item" data-category="7">
-                        <a class="anchor"> <span>클래스</span> </a>
-                    </li>
-                    <li class="item" data-category="8">
-                        <a class="anchor"> <span>체험</span> </a>
-                    </li>
-                    <li class="item" data-category="9">
-                        <a class="anchor last"> <span>키즈</span> </a>
-                    </li -->
                 </ul>
             </div>
             <div class="section_event_lst">
@@ -163,7 +154,7 @@
         </li>
     </script>
     <template id="categories-template">
-		 <li class="item" data-category="${id}">
+		 <li class="item" data-category="${id}" data-count="${count}">
              <a class="anchor"> <span>${name}</span> </a>
          </li>
 	</template>
