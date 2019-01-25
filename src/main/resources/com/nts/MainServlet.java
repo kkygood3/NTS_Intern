@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoType;
 
 /**
  * 메인화면으로 넘어가는 MainServlet 클래스입니다.
@@ -26,8 +27,23 @@ import com.nts.dto.TodoDto;
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final TodoDao TODODAO = new TodoDao();
+
 	/**
-	 * 전체 List를 가지고 와서 각 단계별 List로 나누어 forward방식으로 main.jsp에 넘기는 메소드입니다.
+	 * 처음 생성될때 드라이버를 찾습니다.
+	 */
+	@Override
+	public void init() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
+		}
+	}
+
+	/**
+	 * 전체 List를 가지고 와서 divList를 사용해 각 list를 forward방식으로 main.jsp에 넘기는 메소드입니다.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
@@ -36,32 +52,39 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 
-		TodoDao todoDao = new TodoDao();
-
-		List<TodoDto> totalList = todoDao.getTodos();
+		List<TodoDto> totalList = TODODAO.getTodos();
 		List<TodoDto> todoList = new ArrayList<TodoDto>();
 		List<TodoDto> doingList = new ArrayList<TodoDto>();
 		List<TodoDto> doneList = new ArrayList<TodoDto>();
 
-		//Type별로 각 리스트에 저장
-		for (TodoDto todoDto : totalList) {
-			if (todoDto.getType().equals("TODO")) {
-				todoList.add(todoDto);
-			}
-			if (todoDto.getType().equals("DOING")) {
-				doingList.add(todoDto);
-			}
-			if (todoDto.getType().equals("DONE")) {
-				doneList.add(todoDto);
-			}
-		}
+		divList(totalList, todoList, doingList, doneList);
 
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("doingList", doingList);
 		request.setAttribute("doneList", doneList);
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		requestDispatcher.forward(request, response);
+	}
+
+	/**
+	 * totalList를 각 리스트로 분류하는 메소드입니다.
+	 */
+	private void divList(List<TodoDto> totalList, List<TodoDto> todoList, List<TodoDto> doingList,
+		List<TodoDto> doneList) {
+		for (TodoDto todoDto : totalList) {
+
+			if (todoDto.getType() == TodoType.TODO) {
+				todoList.add(todoDto);
+			}
+			if (todoDto.getType() == TodoType.DOING) {
+				doingList.add(todoDto);
+			}
+			if (todoDto.getType() == TodoType.DONE) {
+				doneList.add(todoDto);
+			}
+
+		}
 	}
 
 }

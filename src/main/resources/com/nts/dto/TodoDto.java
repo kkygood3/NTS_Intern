@@ -10,7 +10,7 @@ public class TodoDto {
 	private String title;
 	private String name;
 	private int sequence;
-	private String type;
+	private TodoType type;
 	private String regdate;
 
 	public TodoDto(String title, String name, int sequence) {
@@ -19,7 +19,7 @@ public class TodoDto {
 		this.sequence = sequence;
 	}
 
-	public TodoDto(Long id, String title, String name, int sequence, String type, String regdate) {
+	public TodoDto(Long id, String title, String name, int sequence, TodoType type, String regdate) {
 		this.id = id;
 		this.title = title;
 		this.name = name;
@@ -68,11 +68,11 @@ public class TodoDto {
 		this.title = title;
 	}
 
-	public String getType() {
+	public TodoType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(TodoType type) {
 		this.type = type;
 	}
 

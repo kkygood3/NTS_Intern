@@ -19,8 +19,7 @@ function clickEvent(event) {
 	var btn = event.target;
 	var type = btn.parentElement.parentElement.parentElement
 			.getElementsByClassName('title')[0].innerText;
-	var movedCard = btn.parentElement.parentElement;
-	
+	var movedCard = btn.parentElement.parentElement;	
 	
 	if (type === 'TODO') {
 		// TODO -> DOING
