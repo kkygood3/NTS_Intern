@@ -14,9 +14,9 @@ import org.springframework.context.annotation.PropertySource;
  * @author 전연빈
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nts.layer.*"})
-@Import({DBConfig.class, TransactionManagementConfig.class})
+@ComponentScan(basePackages = {"com.nts.layer"})
 @PropertySource(value = {"classpath:/application.properties"})
+@Import({DBConfig.class, TransactionManagementConfig.class})
 public class ApplicationConfig {
 
 }

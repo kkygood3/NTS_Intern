@@ -22,7 +22,7 @@ public class DBConfig {
 
 	@Bean
 	public DataSource dataSource() {
-
+		
 		BasicDataSource dataSource = new BasicDataSource();
 
 		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));

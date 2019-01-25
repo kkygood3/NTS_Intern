@@ -7,6 +7,7 @@ package com.nts.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
@@ -14,12 +15,15 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 public class TransactionManagementConfig implements TransactionManagementConfigurer {
 
 	@Autowired
-	private static DataSource dataSource;
+	private DataSource dataSource;
 	
-	private static final PlatformTransactionManager TRANSACTION_MANAGER = new DataSourceTransactionManager(dataSource);
-
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return this.TRANSACTION_MANAGER;
+		return this.transactionManager();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		return new DataSourceTransactionManager(dataSource);
 	}
 }
