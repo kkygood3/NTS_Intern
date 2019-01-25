@@ -6,11 +6,20 @@ package com.nts.layer.category.dto;
 
 /**
  * @author 전연빈
- * TODO 필드 내용 주석
  */
-public class CategoryDto {
-	private int id;
-	private String name;
+public class Category {
+	
+	private int id;			// Category id
+	private String name;	// Category name
+	private int count;		// Category에 포함된 전시 상품
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 	public int getId() {
 		return id;

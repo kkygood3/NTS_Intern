@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.layer.category.dao.CategoryDao;
-import com.nts.layer.category.dto.CategoryDto;
+import com.nts.layer.category.dto.Category;
 import com.nts.layer.category.service.CategoryService;
 
 /**
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService{
 	 * @return categories
 	 */
 	@Override
-	public List<CategoryDto> selectCategories() {
+	public List<Category> selectCategories() {
 		return categoryDao.selectCategories();
 	}
 

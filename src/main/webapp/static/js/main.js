@@ -7,7 +7,6 @@ function init() {
 
 /**
  * @desc categories 셋팅
- * @returns
  */
 function setCategories(){
 	
@@ -54,6 +53,27 @@ function sendAjax(sendHeader, sendData, callback) {
 	}
 }
 
+/**
+ * @desc category li click event 걸어주기
+ * @returns
+ */
+function categoryClickEvent(){
+	document.querySelector('.event_tab_lst.tab_lst_min').addEventListener('click',function(e){
+		
+		var target = e.target;
+		if(target.tagName.toLowerCase() == 'a'){
+			var categoryAnchorTag = e.currentTarget.querySelectorAll('.anchor');
+			
+			categoryAnchorTag.forEach(function(ele){
+				ele.className ="anchor";
+			});
+			
+			target.className = "anchor active";
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	init();
+	categoryClickEvent();
 });

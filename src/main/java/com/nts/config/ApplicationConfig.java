@@ -16,7 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan(basePackages = {"com.nts.layer.*"})
 @PropertySource(value = {"classpath:/application.properties"})
-@Import({DBConfig.class, TransactionManagementConfig.class})
+@Import({DBConfig.class, TransactionManagementConfig.class,JdbcTemplateConfig.class})
 public class ApplicationConfig {
 
 }

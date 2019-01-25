@@ -6,14 +6,14 @@ package com.nts.layer.category.dao;
 
 import java.util.Collections;
 import java.util.List;
-import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.layer.category.dto.CategoryDto;
+import com.nts.layer.category.dto.Category;
 
 import static com.nts.layer.category.sqls.CategorySqls.*;
 
@@ -22,18 +22,16 @@ import static com.nts.layer.category.sqls.CategorySqls.*;
  */
 @Repository
 public class CategoryDao {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	private RowMapper<CategoryDto> rowMapper = BeanPropertyRowMapper.newInstance(CategoryDto.class);
 
-	public CategoryDao(DataSource dataSource) {
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-	}
+	@Autowired
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
 	/**
 	 * @desc 카테고리들 가져오기
 	 * @return categories
 	 */
-	public List<CategoryDto> selectCategories() {
+	public List<Category> selectCategories() {
 		return namedParameterJdbcTemplate.query(SELECT_CATEGORIES, Collections.emptyMap(), rowMapper);
 	}
 }
