@@ -22,6 +22,10 @@ public class TodoDao {
 	private static final String USER = "user2";
 	private static final String PASSWORD = "1234";
 
+	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo";
+	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
+	private static final String SQL_UPDATE = "UPDATE todo SET TYPE = ? WHERE id = ?";
+
 	public List<TodoDto> getTodos() {
 
 		Connection connection = null;
@@ -29,13 +33,12 @@ public class TodoDao {
 		ResultSet resultSet = null;
 
 		List<TodoDto> todos = new ArrayList<>();
-		String query = "SELECT id, title, name, sequence, type, regdate FROM todo";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			preparedStatement = connection.prepareStatement(query);
+			preparedStatement = connection.prepareStatement(SQL_SELECT);
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
@@ -47,7 +50,11 @@ public class TodoDao {
 				todo.setName(resultSet.getString("name"));
 				todo.setSequence(resultSet.getInt("sequence"));
 				todo.setType(resultSet.getString("type"));
-				todo.setRegdate(resultSet.getString("regdate"));
+
+				String dateSubstring = resultSet.getString("regdate").substring(0, 10);
+				String[] dateSplitArray = dateSubstring.split("-");
+				String dateSplit = dateSplitArray[0] + "." + dateSplitArray[1] + "." + dateSplitArray[2];
+				todo.setRegdate(dateSplit);
 
 				todos.add(todo);
 			}
@@ -57,6 +64,35 @@ public class TodoDao {
 			e.printStackTrace();
 		}
 		return Collections.emptyList();
+	}
+
+	public int addTodo(TodoDto todoDto) {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(SQL_INSERT);
+
+			preparedStatement.setString(1, todoDto.getTitle());
+			preparedStatement.setString(2, todoDto.getName());
+			preparedStatement.setInt(3, todoDto.getSequence());
+
+			return preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public int updateTodo(TodoDto todoDto) {
+
+		return 0;
 	}
 
 }
