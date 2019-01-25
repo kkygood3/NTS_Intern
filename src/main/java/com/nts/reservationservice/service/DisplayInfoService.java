@@ -5,8 +5,10 @@
 
 package com.nts.reservationservice.service;
 
+import java.util.List;
+
 import com.nts.reservationservice.dto.DisplayInfoDto;
 
 public interface DisplayInfoService {
-	public DisplayInfoDto getDisplayInfoByProductId(Long productId);
+	public List<DisplayInfoDto> getDisplayInfoByProductId(Long productId);
 }
