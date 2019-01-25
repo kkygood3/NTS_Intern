@@ -20,7 +20,7 @@ import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 
 /**
- * main.jsp에 todo list를 조회 후 출력해주는 servlet
+ * DB에서 todo list를 조회 후 main.jsp에 출력해주는 servlet
  * @author yongjoon.Park
  */
 @WebServlet("/main")
@@ -46,6 +46,10 @@ public class MainServlet extends HttpServlet {
 		requestDispatcher.forward(request, response);
 	}
 
+	/**
+	 * DB에서 받아온 모든 list(includeAllType)를 각각 todo, doing, done 상태에 맞게 분류
+	 * @author yongjoon.Park
+	 */
 	private void groupingList(List<TodoDto> includeAllType, List<TodoDto> todoList, List<TodoDto> doingList,
 		List<TodoDto> doneList) {
 		

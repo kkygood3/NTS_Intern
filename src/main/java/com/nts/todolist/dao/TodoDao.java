@@ -17,7 +17,7 @@ import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dto.TodoDto;
 
 /**
- * Todo Data Access Object
+ * Todo Data Access Object (Singleton)
  * @author yongjoon.Park
 */
 public class TodoDao {
@@ -33,7 +33,7 @@ public class TodoDao {
 	}
 
 	/**
-	 * 새로운 todo 추가
+	 * 새로운 todo를 DB에 추가
 	 * @author yongjoon.Park
 	 */
 	public int addTodo(TodoDto todoDto) {
@@ -58,7 +58,7 @@ public class TodoDao {
 	}
 
 	/**
-	 * get all todo list
+	 * DB에 입력된 모든 todo를 list에 담에 return
 	 * @author yongjoon.Park
 	 * @return 조회된 모든 todo의 List<Todo>
 	 */
@@ -94,7 +94,7 @@ public class TodoDao {
 	}
 
 	/**
-	 * Todo를 조회 후 type을 변경
+	 * Todo의 id, type값을 받아 다음 상태의 type으로 변경
 	 * ex) todo -> doing, doing -> done
 	 * @author yongjoon.Park
 	 * @param update될 todo의 현재 id와 type값

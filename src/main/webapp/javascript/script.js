@@ -2,6 +2,9 @@ const TODO = "TODO";
 const DOING = "DOING";
 const DONE = "DONE";
 
+/**
+ * 버튼의 DOM위치를 기반으로 id, type을 알아내어 DB와 연동(AJAX) 후 moveNext() 함수 실행
+ */
 function buttonToAjax() {
 
 	let buttonParent = event.srcElement.parentElement; // button의 parent
@@ -23,6 +26,12 @@ function buttonToAjax() {
 	httpRequest.send();
 }
 
+/**
+ * 입력받은 type을 다음 상태의 type으로 변경 후 return
+ * ex)todo -> doing, doing -> done
+ * @param 현재 상태의 type
+ * @returns 다음 상태의 type
+ */
 function changeType(type) {
 	if (type === TODO) {
 		type = DOING;
@@ -32,6 +41,10 @@ function changeType(type) {
 	return type;
 }
 
+/**
+ * 1개의 todo 다음 상태의 todo list로 이동
+ * @author yongjoon.Park
+ */
 function moveNext(type, buttonParent) {
 
 	let nextType = changeType(type);

@@ -12,8 +12,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * JDBC의 Connection을 간소화시키는 class 
+ * @author yongjoon.Park
+ *
+ */
 public class JDBCConnection {
 
+	/**
+	 * Properties를 load하여 적용시키는 method
+	 * @author yongjoon.Park
+	 */
 	public static Properties getProperties() {
 		String propertiesPath = JDBCConnection.class.getResource("").getPath();
 
@@ -31,6 +40,11 @@ public class JDBCConnection {
 		return null;
 	}
 
+	/**
+	 * 불러온 Properties를 driver에 저장하고
+	 * connection 연결 후, 연결된 connection을 return
+	 * @author yongjoon.Park
+	 */
 	public static Connection getConnection() {
 
 		Properties properties = getProperties();

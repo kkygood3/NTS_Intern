@@ -5,6 +5,7 @@
 package com.nts.todolist.dto;
 
 /**
+ * Data Transfer Object
  * @author yongjoon.Park
  */
 public class TodoDto {

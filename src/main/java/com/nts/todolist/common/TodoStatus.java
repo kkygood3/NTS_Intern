@@ -4,6 +4,10 @@
  */
 package com.nts.todolist.common;
 
+/**
+ * Todo의 type에 대한 enum class
+ * @author yongjoon.Park
+ */
 public enum TodoStatus {
 
 	TODO("TODO"),
