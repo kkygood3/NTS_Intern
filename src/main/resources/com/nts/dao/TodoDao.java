@@ -55,7 +55,6 @@ public class TodoDao {
 	}
 
 	public int addTodo(TodoDto todo) {
-		int insertCount = 0;
 
 		String mySqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
 		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
@@ -65,18 +64,19 @@ public class TodoDao {
 			preparedStatement.setString(2, todo.getName());
 			preparedStatement.setInt(3, todo.getSequence());
 
-			insertCount = preparedStatement.executeUpdate();
+			if (preparedStatement.executeUpdate() == 1) {
+				return 1;
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
 
-		return insertCount;
+		return 0;
 	}
 
 	public int updateTodo(Long id, String type) {
-		int updateCount = 0;
 
 		String mySqlQuery = "update todo set type = ? where id = ?";
 		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
@@ -85,13 +85,15 @@ public class TodoDao {
 			preparedStatement.setString(1, type);
 			preparedStatement.setLong(2, id);
 
-			updateCount = preparedStatement.executeUpdate();
+			if (preparedStatement.executeUpdate() == 1) {
+				return 1;
+			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
-		return updateCount;
+		return 0;
 	}
 
 }

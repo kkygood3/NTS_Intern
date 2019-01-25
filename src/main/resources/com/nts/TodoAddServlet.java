@@ -33,11 +33,9 @@ public class TodoAddServlet extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("utf-8");
 
-		String title = request.getParameter("input-title");
-		String name = request.getParameter("input-name");
-		//		System.out.println(request.getParameter("input-sequence"));
-		//		Integer sequence = 1;
 		try {
+			String title = request.getParameter("input-title");
+			String name = request.getParameter("input-name");
 			Integer sequence = Integer.parseInt(request.getParameter("input-sequence"));
 
 			TodoDto todoDto = new TodoDto(title, name, sequence);

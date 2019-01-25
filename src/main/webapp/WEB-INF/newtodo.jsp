@@ -31,7 +31,7 @@
 			<br><br>
 			<article>
 				<input type="button" name="back-btn"value="< 이전" onClick="location.href='/main'">
-				<input type="button" name="clear-todo" value="내용지우기">
+				<input type="reset" name="clear-todo" value="내용지우기">
 				<input type="submit" name="submit-todo" value="제출">
 			</article>
 			<br><br>
