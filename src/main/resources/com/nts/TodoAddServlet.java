@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
+import com.nts.dto.TodoSequence;
 
 /**
  * post방식으로 요청을 가져와 DB에 Insert시키는 서블릿입니다.
@@ -33,24 +34,35 @@ public class TodoAddServlet extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("utf-8");
 
-		try {
-			String title = request.getParameter("input-title");
-			String name = request.getParameter("input-name");
-			Integer sequence = Integer.parseInt(request.getParameter("input-sequence"));
+		String title = request.getParameter("input-title");
+		String name = request.getParameter("input-name");
+		Integer sequence = 0;
 
-			TodoDto todoDto = new TodoDto(title, name, sequence);
-			TodoDao todoDao = new TodoDao();
+		TodoSequence todoSequence = TodoSequence.valueOf(request.getParameter("input-sequence"));
 
-			if (todoDao.addTodo(todoDto) == 1) {
-				System.out.println("Insert complete");
-			} else {
-				System.out.println("Insert fail");
-			}
-		} catch (NullPointerException e) {
-			System.out.println("radio 형변환 부분 에러");
+		switch (todoSequence) {
+			case FIRST:
+				sequence = 1;
+				break;
+			case SECOND:
+				sequence = 2;
+				break;
+			case THIRD:
+				sequence = 3;
+				break;
+		}
+
+		TodoDto todoDto = new TodoDto(title, name, sequence);
+		TodoDao todoDao = new TodoDao();
+
+		if (todoDao.addTodo(todoDto) == 1) {
+			System.out.println("Insert complete");
+		} else {
+			System.out.println("Insert fail");
 		}
 
 		response.sendRedirect("/main");
+
 	}
 
 }

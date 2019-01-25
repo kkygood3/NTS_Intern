@@ -14,7 +14,7 @@
 			<article>어떤일인가요?</article>
 			<article>
 				<input type="text" name="input-title"
-					placeholder="swift 공부하기(24자까지)" required>
+					placeholder="swift 공부하기(24자까지)" required maxlength="24">
 			</article>
 			<br><br>
 			<article>누가 할일인가요?</article>
@@ -24,9 +24,9 @@
 			<br><br>
 			<article>우선순위를 선택하세요.</article>
 			<article>
-				<input type="radio" name="input-sequence" value="1" required>1순위
-				<input type="radio" name="input-sequence" value="2" required>2순위
-				<input type="radio" name="input-sequence" value="3" required>3순위
+				<input type="radio" name="input-sequence" value="FIRST" required>1순위
+				<input type="radio" name="input-sequence" value="SECOND" required>2순위
+				<input type="radio" name="input-sequence" value="THIRD" required>3순위
 			</article>
 			<br><br>
 			<article>

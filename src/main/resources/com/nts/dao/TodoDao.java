@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoType;
@@ -26,9 +27,21 @@ public class TodoDao {
 	private static String dbUser = "user1";
 	private static String dbPasswd = "user1";
 
+	/**
+	 * 처음 TodoDao 객체가 생성될때 드라이버를 찾습니다.
+	 */
+	public TodoDao() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
+		}
+	}
+
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<>();
-
+		Properties properties = new Properties();
 		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
 		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery);

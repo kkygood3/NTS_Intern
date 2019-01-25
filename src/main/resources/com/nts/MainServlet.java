@@ -30,19 +30,6 @@ public class MainServlet extends HttpServlet {
 	private static final TodoDao TODODAO = new TodoDao();
 
 	/**
-	 * 처음 생성될때 드라이버를 찾습니다.
-	 */
-	@Override
-	public void init() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
-		}
-	}
-
-	/**
 	 * 전체 List를 가지고 와서 divList를 사용해 각 list를 forward방식으로 main.jsp에 넘기는 메소드입니다.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
