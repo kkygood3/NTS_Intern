@@ -4,6 +4,12 @@
  */
 package com.nts.reservation.service;
 
+import java.util.List;
+
+import com.nts.reservation.dto.Product;
+
 public interface ProductService {
 	public int getCount();
+
+	public List<Product> getProduct(int categoryId);
 }
