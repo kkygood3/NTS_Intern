@@ -2,20 +2,20 @@
  * Copyright 2019 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  **/
-package com.nts.layer.dao;
-
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
-
-import com.nts.dto.ProductDto;
-import static com.nts.layer.sqls.ProductSqls.*;
+package com.nts.layer.product.dao;
 
 import java.util.Collections;
 
 import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.nts.layer.product.dto.ProductDto;
+import static com.nts.layer.product.sqls.ProductSqls.*;
+
 
 /**
  * @author 전연빈

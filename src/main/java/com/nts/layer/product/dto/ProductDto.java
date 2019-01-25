@@ -2,7 +2,7 @@
  * Copyright 2019 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  **/
-package com.nts.dto;
+package com.nts.layer.product.dto;
 
 import java.util.Date;
 

@@ -53,21 +53,6 @@
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
-                    <li class="item" data-category="1">
-                        <a class="anchor"> <span>전시</span> </a>
-                    </li>
-                    <li class="item" data-category="2">
-                        <a class="anchor"> <span>뮤지컬</span> </a>
-                    </li>
-                    <li class="item" data-category="3">
-                        <a class="anchor"> <span>콘서트</span> </a>
-                    </li>
-                    <li class="item" data-category="4">
-                        <a class="anchor"> <span>클래식</span> </a>
-                    </li>
-                    <li class="item" data-category="5">
-                        <a class="anchor"> <span>연극</span> </a>
-                    </li>
                     <!-- li class="item" data-category="7">
                         <a class="anchor"> <span>클래스</span> </a>
                     </li>
@@ -177,6 +162,12 @@
             </a>
         </li>
     </script>
+    <template id="categories-template">
+		 <li class="item" data-category="${id}">
+             <a class="anchor"> <span>${name}</span> </a>
+         </li>
+	</template>
+    <script type="text/javascript" src="/static/js/main.js"></script>
 </body>
 
 </html>

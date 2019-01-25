@@ -12,6 +12,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+ * @author 전연빈
+ */
 public class TransactionManagementConfig implements TransactionManagementConfigurer {
 
 	@Autowired
