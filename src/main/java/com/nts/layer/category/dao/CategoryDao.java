@@ -5,6 +5,7 @@
 package com.nts.layer.category.dao;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,7 +14,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.layer.category.dto.Category;
-import com.nts.layer.category.dto.CategoryResponse;
 
 import static com.nts.layer.category.sqls.CategorySqls.*;
 
@@ -31,7 +31,7 @@ public class CategoryDao {
 	 * @desc 카테고리들 가져오기
 	 * @return categories
 	 */
-	public CategoryResponse selectCategories() {
-		return new CategoryResponse(namedParameterJdbcTemplate.query(SELECT_CATEGORIES, Collections.emptyMap(), rowMapper));
+	public List<Category> selectCategories() {
+		return namedParameterJdbcTemplate.query(SELECT_CATEGORIES, Collections.emptyMap(), rowMapper);
 	}
 }

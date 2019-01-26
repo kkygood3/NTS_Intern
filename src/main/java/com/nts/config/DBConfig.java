@@ -18,7 +18,7 @@ import org.springframework.core.env.Environment;
 public class DBConfig {
 
 	@Autowired
-	Environment env;
+	private Environment env;
 
 	@Bean
 	public DataSource dataSource() {

@@ -4,9 +4,11 @@
  **/
 package com.nts.layer.product.service;
 
+import com.nts.layer.product.dto.ProductResponse;
+
 /**
  * @author 전연빈
  */
 public interface ProductService {
-	public static final int PAGE =4;
+	public ProductResponse getProductsByCategory(String categoryId, int start);
 }

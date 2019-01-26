@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public CategoryResponse selectCategories() {
-		return categoryDao.selectCategories();
+		return new CategoryResponse(categoryDao.selectCategories());
 	}
 
 }
