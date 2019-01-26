@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+/**
+ * @desc NameParameterJdbcTemplate Bean 등록
+ * @author 전연빈
+ */
 public class JdbcTemplateConfig {
 
 	@Autowired

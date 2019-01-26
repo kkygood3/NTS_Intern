@@ -3,6 +3,8 @@
  */
 function init() {
 	setCategories();
+	setPromotions();
+	setProducts({start: 0,categoryId : ''});
 }
 
 /**
@@ -12,10 +14,10 @@ function setCategories(){
 	
 	var categorySendHeader = {
 		method : 'GET',
-		uri : '/api/category'
+		uri : '/api/categories'
 	};
 	
-	// categoryResponse => key -> 'items', value -> category list ( id,name) 
+	// categoryResponse => key : {'items', value -> category list ( id,name) }, { totalCount , value->총 개수 }
 	sendAjax(categorySendHeader, '', function(categoryResponse) {
 		var categoryTemplate = document.querySelector('#categories-template').content;
 		var items = categoryResponse.items;
@@ -29,6 +31,73 @@ function setCategories(){
 			
 			var categoryLi = document.importNode(categoryTemplate, true);
 			document.querySelector('.event_tab_lst.tab_lst_min').appendChild(categoryLi);
+		});
+	});
+}
+
+/**
+ * @desc Products 셋팅
+ * @params sendProductData { start, categoryId } 
+ */
+function setProducts(sendProductData) {
+	
+	var productSendHeader = {
+		method : 'GET',
+		uri : '/api/products?start='+sendProductData.start+'&categoryId='+sendProductData.categoryId
+	};
+	
+	// productResponse => { items : productList , totalCount : 카테고리별 총 갯수)
+	sendAjax(productSendHeader, '', function(productResponse) {
+		
+		var productTemplate = document.querySelector('#products-template').content;
+		var productUl = document.querySelector('.lst_event_box');
+		var items = productResponse.items;
+		
+		items.forEach(function(product) {
+			
+			productTemplate.querySelector('.item_book').href = '/' + product.displayInfoId;
+			
+			var img = productTemplate.querySelector('img');
+			img.src = '/static/' + product.productImageUrl;
+			img.alt = product.productDescription;
+			
+			productTemplate.querySelector('.event_txt_tit > span').innerText = product.productDescription;
+			productTemplate.querySelector('.sm').innerText = product.placeName;
+			productTemplate.querySelector('.event_txt_dsc').innerText = product.productContent;
+			
+			var productLi = document.importNode(productTemplate,true);
+			productUl.appendChild(productLi);
+			
+		});
+	});
+}
+
+/**
+ * @desc Promotions 셋팅
+ */
+function setPromotions(){
+
+	var promotionSendHeader = {
+		method : 'GET',
+		uri : '/api/promotions'
+	};
+	
+	// promotionResponse => {items : {id, productId, productImageUrl}}
+	sendAjax(promotionSendHeader,'',function(promotionResponse){
+		
+		console.log(promotionResponse);
+		var promotionTemplate = document.querySelector('#promotions-template').content;
+		var promotionUl = document.querySelector('.visual_img');
+		
+		var items = promotionResponse.items;
+		
+		items.forEach(function(promotion){
+			
+			console.log()
+			promotionTemplate.querySelector('.item').style.backgroundImage = 'url("/static/'+promotion.productImageUrl+'")';
+			
+			var promotionLi = document.importNode(promotionTemplate,true);
+			promotionUl.appendChild(promotionLi);
 		});
 	});
 }
@@ -57,7 +126,6 @@ function sendAjax(sendHeader, sendData, callback) {
 
 /**
  * @desc category li click event 걸어주기
- * @returns
  */
 function categoryClickEvent(){
 	document.querySelector('.event_tab_lst.tab_lst_min').addEventListener('click',function(e){

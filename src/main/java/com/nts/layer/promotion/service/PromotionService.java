@@ -11,5 +11,5 @@ import com.nts.layer.promotion.dto.PromotionResponse;
  * @author 전연빈
  */
 public interface PromotionService {
-	public PromotionResponse selectPromotionAll();
+	public PromotionResponse getPromotionAll();
 }

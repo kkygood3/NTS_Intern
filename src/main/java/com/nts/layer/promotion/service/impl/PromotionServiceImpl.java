@@ -21,7 +21,7 @@ public class PromotionServiceImpl implements PromotionService {
 	private PromotionDao promotionDao;
 
 	@Override
-	public PromotionResponse selectPromotionAll() {
+	public PromotionResponse getPromotionAll() {
 		return new PromotionResponse(promotionDao.selectCategories());
 	}
 

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.layer.promotion.dto.PromotionResponse;
 import com.nts.layer.promotion.service.PromotionService;
 
+/**
+ * @author 전연빈
+ */
 @RestController
 @RequestMapping("/api/promotions")
 public class PromotionController {
@@ -20,7 +23,7 @@ public class PromotionController {
 	private PromotionService promotionService;
 
 	@GetMapping
-	public PromotionResponse selectPromotions() {
-		return promotionService.selectPromotionAll();
+	public PromotionResponse getPromotionsAll() {
+		return promotionService.getPromotionAll();
 	}
 }

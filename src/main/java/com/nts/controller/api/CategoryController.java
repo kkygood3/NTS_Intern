@@ -16,16 +16,12 @@ import com.nts.layer.category.service.CategoryService;
  * @author 전연빈
  */
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
 
-	/**
-	 * @desc category 리스트 
-	 * @return categories -> 카테고리들
-	 */
 	@GetMapping
 	public CategoryResponse getCategorys() {
 		return categoryService.selectCategories();

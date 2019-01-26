@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.layer.product.dto.ProductResponse;
 import com.nts.layer.product.service.ProductService;
 
+/**
+ * @author 전연빈
+ */
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -30,6 +33,8 @@ public class ProductController {
 	public ProductResponse getProductsByCategory(@RequestParam(name = "categoryId", required = false)String categoryId,
 		@RequestParam(name = "start", required = true)int start) {
 		
+		System.out.println(categoryId);
+		System.out.println(start);
 		return productService.getProductsByCategory(categoryId, start);
 	}
 }
