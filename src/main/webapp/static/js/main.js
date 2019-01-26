@@ -4,7 +4,7 @@
 function init() {
 	setCategories();
 	setPromotions();
-	setProducts({start: 0,categoryId : ''});
+	setProducts({start: 0,categoryId : '',isCategoryClicked: false});
 }
 
 /**
@@ -19,6 +19,7 @@ function setCategories(){
 	
 	// categoryResponse => key : {'items', value -> category list ( id,name) }, { totalCount , value->총 개수 }
 	sendAjax(categorySendHeader, '', function(categoryResponse) {
+		
 		var categoryTemplate = document.querySelector('#categories-template').content;
 		var items = categoryResponse.items;
 		
@@ -32,12 +33,13 @@ function setCategories(){
 			var categoryLi = document.importNode(categoryTemplate, true);
 			document.querySelector('.event_tab_lst.tab_lst_min').appendChild(categoryLi);
 		});
+		
 	});
 }
 
 /**
  * @desc Products 셋팅
- * @params sendProductData { start, categoryId } 
+ * @params sendProductData { start, categoryId ,isCategoryClicked} 
  */
 function setProducts(sendProductData) {
 	
@@ -49,8 +51,17 @@ function setProducts(sendProductData) {
 	// productResponse => { items : productList , totalCount : 카테고리별 총 갯수)
 	sendAjax(productSendHeader, '', function(productResponse) {
 		
-		var productTemplate = document.querySelector('#products-template').content;
+		document.querySelector('.pink').innerText = productResponse.totalCount+'개';
+		
 		var productUl = document.querySelector('.lst_event_box');
+		
+		if(sendProductData.isCategoryClicked) {
+			while(productUl.hasChildNodes()){
+				productUl.removeChild(productUl.firstChild);
+			}
+		}
+		
+		var productTemplate = document.querySelector('#products-template').content;
 		var items = productResponse.items;
 		
 		items.forEach(function(product) {
@@ -139,6 +150,8 @@ function categoryClickEvent(){
 			});
 			
 			target.className = "anchor active";
+			
+			setProducts({start: 0,categoryId : target.parentNode.dataset.category, isCategoryClicked : true});
 		}
 	});
 }

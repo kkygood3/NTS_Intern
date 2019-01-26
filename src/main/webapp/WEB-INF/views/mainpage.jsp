@@ -63,14 +63,16 @@
             </div>
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
-                    <li class="item" data-category="0">
+                    <li class="item" data-category="">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
+                    
                     <template id="categories-template">
 						 <li class="item" data-category="${id}" data-count="${count}">
 				             <a class="anchor"> <span>${name}</span> </a>
 				         </li>
 					</template>
+					
                 </ul>
             </div>
             <div class="section_event_lst">
@@ -79,25 +81,25 @@
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
                     
-                        <template id="products-template">
-					    	<li class="item">
-					            <a href="/?id={displayInfoId}" class="item_book">
-					                <div class="item_preview">
-					                    <img alt="{productDescription}" class="img_thumb" src="/static/{productImageUrl}">
-					                    <span class="img_border"></span>
-					                </div>
-					                <div class="event_txt">
-					                    <h4 class="event_txt_tit"> <span>{productDescription}</span> <small class="sm">{placeName}</small> </h4>
-					                    <p class="event_txt_dsc">{productContent}</p>
-					                </div>
-					            </a>
-					        </li>
-					    </template>
 					    
                     </ul>
+                    <template id="products-template">
+						<li class="item">
+							<a href="/?id={displayInfoId}" class="item_book">
+					        	<div class="item_preview">
+					            	<img alt="{productDescription}" class="img_thumb" src="/static/{productImageUrl}">
+					                <span class="img_border"></span>
+					            </div>
+					         	<div class="event_txt">
+					            	<h4 class="event_txt_tit"> <span>{productDescription}</span> <small class="sm">{placeName}</small> </h4>
+					                <p class="event_txt_dsc">{productContent}</p>
+					            </div>
+					         </a>
+					     </li>
+					 </template>
                     <!-- 더보기 -->
                     <div class="more">
-                        <button class="btn"><span>더보기</span></button>
+                        <button class="btn" data-start="0"><span>더보기</span></button>
                     </div>
                 </div>
             </div>
