@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     requestCategories();
     requestProducts();
+    requestPromotions();
 })
 
 function sendGet(path, params, onCallback) {
@@ -119,8 +120,9 @@ function updateProductList(products, totalCount){
                                     .replace("{image_url}", product.productImageUrl).replace("{placeName}", product.placeName)
                                     .replace("{content}", product.productContent).replace("{description}", product.productDescription);
     }
-    containers[0].innerHTML += resultTemplate[0];
-    containers[1].innerHTML += resultTemplate[1];
+    for(var i = 0; i < containers.length; i++){
+        containers[i].innerHTML += resultTemplate[i];
+    }
 }
 
 
@@ -129,8 +131,49 @@ function requestPromotions() {
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
             console.log(data);
+            updatePromtions(data.items);
         }else {
             alert("프로모션 상품들을 불러오는데 실패했습니다.");
         }
     })
+}
+
+function updatePromtions(promotions) {
+    console.log(promotions);
+    var promotionContainer = document.querySelector(".visual_img");
+    var template = document.querySelector("#promotionItem").innerHTML;
+    var resultTemplate = "";
+    for(var i = 0; i < promotions.length; i++){
+        var promotion = promotions[i];
+        resultTemplate += template.replace("{image_url}", promotion.productImageUrl)
+                                    .replace("{index}", i);
+    }
+    promotionContainer.innerHTML = resultTemplate;
+    
+    promotionContainer.dataset.current = 0;
+    initPromotionStyle(promotionContainer);
+    setInterval(function() {
+        var target = document.querySelector(".visual_img");
+        updatePromotionAnimation(target);
+    }, 3000);
+}
+function initPromotionStyle(container){
+    var childNodes = container.children;
+    childNodes[0].className = "item current_promotion";
+    for(var i = 1; i < childNodes.length; i++){
+        childNodes[i].className = "item prev_promotion";
+    }
+}
+function updatePromotionAnimation(container){
+    var childNodes = container.children;
+    var length = childNodes.length;
+    var current = Number(container.dataset.current);
+    var next = (current + 1) % childNodes.length;
+    var prev = (current - 1 + childNodes.length) % childNodes.length;
+    
+    childNodes[current].className = "item next_promotion";
+    childNodes[next].className = "item current_promotion";
+    childNodes[prev].className = "item prev_promotion";
+
+    container.dataset.current = next;
 }

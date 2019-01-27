@@ -95,8 +95,8 @@
 			</div>
 		</footer>
 		<script type="rv-template" id="promotionItem">
-    		<li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
-        		<a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+    		<li class="item" style="background-image: url({image_url});" data-index="{index}">
+        		<a href="#">
             		<div class="event_txt">
                 		<h4 class="event_txt_tit"></h4>
                 		<p class="event_txt_adr"></p>
