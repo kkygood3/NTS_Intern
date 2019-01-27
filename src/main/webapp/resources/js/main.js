@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     requestCategories();
     requestProducts();
     requestPromotions();
+    initMoreBtn();
 })
 
 function sendGet(path, params, onCallback) {
@@ -109,7 +110,9 @@ function requestProducts(start, categoryId) {
 function updateProductList(products, totalCount){
     var tabContainer = document.querySelector(".event_tab_lst");
     tabContainer.dataset.currentTotalCount = totalCount;
-    tabContainer.dataset.currentCount = products.length;
+    tabContainer.dataset.currentCount = Number(tabContainer.dataset.currentCount) + products.length;
+    var moreBtn = document.querySelector(".btn");
+    moreBtn.hidden = Number(tabContainer.dataset.currentTotalCount) <= Number(tabContainer.dataset.currentCount);
 
     var containers = document.getElementsByClassName("lst_event_box");
     var template = document.querySelector("#itemList").innerHTML;
@@ -130,7 +133,6 @@ function requestPromotions() {
     sendGet("/reservation-service/api/promotions", null, function(response){
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
-            console.log(data);
             updatePromtions(data.items);
         }else {
             alert("프로모션 상품들을 불러오는데 실패했습니다.");
@@ -139,7 +141,6 @@ function requestPromotions() {
 }
 
 function updatePromtions(promotions) {
-    console.log(promotions);
     var promotionContainer = document.querySelector(".visual_img");
     var template = document.querySelector("#promotionItem").innerHTML;
     var resultTemplate = "";
@@ -176,4 +177,11 @@ function updatePromotionAnimation(container){
     childNodes[prev].className = "item prev_promotion";
 
     container.dataset.current = next;
+}
+function initMoreBtn() {
+    var moreBtn = document.querySelector(".btn");
+    moreBtn.addEventListener("click", function() {
+        var container = document.querySelector(".event_tab_lst");
+        requestProducts(container.dataset.currentCount, container.dataset.selected == 0 ? null : container.dataset.selected);
+    })
 }
