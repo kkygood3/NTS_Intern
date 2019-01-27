@@ -3,24 +3,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/base.css">
 <meta charset="UTF-8">
 <title>할일 등록</title>
-<link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
-    <section>
+    <section id="content-todoForm">
         <form action="/todoAdd" method="post">
-            <article id="title">
-                    <h1>할일 등록</h1>
+            <article>
+                <p id="title">할일 등록</p>
             </article>
             <article>
                 <div>
                     <p>어떤일인가요?</p>
-                    <input type="text" name="title" maxlength="24" value="swift 공부하기(24자까지)">
+                    <input type="text" name="title" maxlength="24" value="swift 공부하기(24자까지)" id="work" class="input-todoForm">
                 </div>
                 <div>
                     <p>누가 할일인가요?</p>
-                    <input type="text" name="name" maxlength="50" value="홍길동">
+                    <input type="text" name="name" maxlength="50" value="홍길동" class="input-todoForm">
                 </div>
                 <div>
                     <p>우선순위를 선택하세요</p>
@@ -29,15 +29,14 @@
                     <input type="radio" name="sequence" value="3">3순위
                 </div>
             </article>
-            <article>
-                <div><a href="/main">이전</a></div>
-                <ul>
-                    <input type="submit" value="제출">
-                    <input type="reset" value="내용지우기">
-                </ul>
+            <article id="command">
+                <div id="button-left"><a href="/main">< 이전</a></div>
+                <div id="button-right">
+                    <input type="submit" value="제출" class="buttonBlue">
+                    <input type="reset" value="내용지우기" class="buttonBlue">
+                </div>
             </article>
         </form>
     </section>
 </body>
-<script type="text/javascript" src="js/typeUpdate.js" ></script>
 </html>

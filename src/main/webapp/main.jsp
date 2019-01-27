@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,43 +18,46 @@
 			<a href="/todoForm" id="regTodo">새로운 TODO 등록</a>
 		</section>
 	</header>
-	<section id="section-content-main">
+	<section id="content-main">
 		<div id="content">
-			<article id="article-3" class="article-list">
+			<article class="article-list">
 				<ul id="ul-DONE" class="ul-list">
-					<li id="test3" class="li-title"><h1>DONE</h1></li>
+					<li id="li-DONE" class="li-title"><h1>DONE</h1></li>
 					<c:forEach var="todoDto" items="${ doneList }">
 						<li id="li-content-${ todoDto.getId() }" class="li-content" data-regdate="${ todoDto.getRegdate() }">
 							<h3>${ todoDto.getTitle() }</h3>
 							<span class="span-content">
-								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+							<fmt:parseDate var="regDate" value="${ todoDto.getRegdate() }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								등록날짜: <fmt:formatDate value="${ regDate }" pattern="yyyy.MM.dd"/>, ${ todoDto.getName() }, ${ todoDto.getSequence() }
 							</span>
 						</li>
 					</c:forEach>
 				</ul>
 			</article>
-			<article id="article-2" class="article-list">
+			<article class="article-list">
 				<ul id="ul-DOING" class="ul-list">
-					<li id="test2" class="li-title"><h1>DOING</h1></li>
+					<li id="li-DOING" class="li-title"><h1>DOING</h1></li>
 					<c:forEach var="todoDto" items="${ doingList }">
 						<li id="li-content-${ todoDto.getId() }" class="li-content" data-regdate="${ todoDto.getRegdate() }">
 							<h3>${ todoDto.getTitle() }</h3>
 							<span class="span-content">
-								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+							<fmt:parseDate var="regDate" value="${ todoDto.getRegdate() }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								등록날짜: <fmt:formatDate value="${ regDate }" pattern="yyyy.MM.dd"/>, ${ todoDto.getName() },  ${ todoDto.getSequence() }
 								<button class="updateButton">→</button>
 							</span>
 						</li>
 					</c:forEach>
 				</ul>
 			</article>
-			<article id="article-1" class="article-list">
+			<article class="article-list">
 				<ul id="ul-TODO" class="ul-list">
-					<li id="test1" class="li-title"><h1>TODO</h1></li>
+					<li id="li-TODO" class="li-title"><h1>TODO</h1></li>
 					<c:forEach var="todoDto" items="${ todoList }">
 						<li id="li-content-${ todoDto.getId() }" class="li-content" data-regdate="${ todoDto.getRegdate() }">
 							<h3>${ todoDto.getTitle() }</h3>
 							<span class="span-content">
-								등록날짜: ${ todoDto.getRegdate() }, ${ todoDto.getName() }, ${ todoDto.getSequence() }
+							<fmt:parseDate var="regDate" value="${ todoDto.getRegdate() }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								등록날짜: <fmt:formatDate value="${ regDate }" pattern="yyyy.MM.dd"/>, ${ todoDto.getName() }, ${ todoDto.getSequence() }
 								<button class="updateButton">→</button>
 							</span>
 						</li>

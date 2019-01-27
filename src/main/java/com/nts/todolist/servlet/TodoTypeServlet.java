@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.todolist.servlet;
 
 import java.io.IOException;
@@ -12,12 +16,11 @@ import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 
 /**
- * Servlet implementation class TodoTypeServlet
+ * @Author Duik Park, duik.park@nts-corp.com
  */
 @WebServlet("/todoUpdate/*")
 public class TodoTypeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
@@ -27,13 +30,10 @@ public class TodoTypeServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 
-		//System.out.println("id : " + request.getParameter("id"));
-		//System.out.println("type : " + request.getParameter("type"));
 		Long id = Long.parseLong(request.getParameter("id"));
 		String type = request.getParameter("type");
 		String updateType = "";
 		if (type.equals("TODO")) {
-			//System.out.println("DEBUG : type.equals into");
 			updateType = "DOING";
 		} else if (type.equals("DOING")) {
 			updateType = "DONE";

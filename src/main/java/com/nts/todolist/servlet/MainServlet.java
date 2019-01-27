@@ -23,7 +23,6 @@ import com.nts.todolist.dto.TodoDto;
  */
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

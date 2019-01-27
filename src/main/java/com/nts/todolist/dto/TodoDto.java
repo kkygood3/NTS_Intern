@@ -68,24 +68,4 @@ public class TodoDto {
 		return "TodoDto [id=" + id + ", name=" + name + ", regdate=" + regdate + ", sequence=" + sequence + ", title="
 			+ title + ", type=" + type + "]";
 	}
-
-	public TodoDto() {
-
-	}
-
-	public TodoDto(String title, String name, int sequence) {
-		this.title = title;
-		this.name = name;
-		this.sequence = sequence;
-	}
-
-	public TodoDto(Long id, String title, String name, int sequence, String type, String regdate) {
-		this.id = id;
-		this.title = title;
-		this.name = name;
-		this.sequence = sequence;
-		this.type = type;
-		this.regdate = regdate;
-	}
-
 }

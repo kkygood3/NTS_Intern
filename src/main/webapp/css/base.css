@@ -1,10 +1,5 @@
 @charset "UTF-8";
 
-a:link {
-	color: white;
-	text-decoration: none;
-}
-
 section#menu {
 	height: 130px;
 }
@@ -26,6 +21,7 @@ a#regTodo {
 	text-align: center;
 	line-height: 50px;
 	margin: 50px 20px 0 0;
+	text-decoration: none;
 	color: white;
 	font-family: "dotum";
 	font-weight: bold;
@@ -65,5 +61,60 @@ div#content {
 
 .span-content {
 	display: block;
-	height: 60px;
+	height: 40px;
+}
+
+.updateButton {
+	float: right;
+}
+
+section#content-todoForm {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+}
+
+article#command {
+	padding-top: 40px;
+}
+
+p#title {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+div#button-left {
+	float: left;
+	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 25px;
+	text-align: center;
+	border: 2px solid gray;
+}
+
+div#button-right {
+	display: block;
+	float: right;
+}
+
+.buttonBlue {
+	width: 100px;
+	height: 35px;
+	color: white;
+	background-color: DeepSkyBlue;
+}
+
+.input-todoForm {
+	height: 30px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	font-weight: bold;
+	color: gray;
+}
+
+input#work {
+	width: 100%;
 }
