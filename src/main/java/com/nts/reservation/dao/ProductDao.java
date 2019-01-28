@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.dao;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +30,21 @@ public class ProductDao {
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 
+		if (categoryId == 0) {
+			params.put("categoryId", "");
+		}
+
 		return jdbcTemplate.query(ProductQuerys.SELECT_PRODUCT_LIST, params, productMapper);
 	}
 
 	public Integer getCategoryProductsCount(int categoryId) {
-		Map<String, ?> params = Collections.singletonMap("categoryId", categoryId);
+		Map<String, Object> params = new HashMap<>();
+		params.put("categoryId", categoryId);
+
+		if (categoryId == 0) {
+			params.put("categoryId", "");
+		}
+
 		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_CATEGORY_PRODUCTS_COUNT, params,
 			Integer.class);
 	}
