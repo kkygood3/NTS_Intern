@@ -19,13 +19,13 @@ import com.nts.reservation.service.CategoryService;
  * @author 육성렬
  */
 @Service
+@Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
 
 	@Override
-	@Transactional
 	public List<CategoryDto> getCategorys() {
 		List<CategoryDto> list = categoryDao.selectCategory();
 		return list;

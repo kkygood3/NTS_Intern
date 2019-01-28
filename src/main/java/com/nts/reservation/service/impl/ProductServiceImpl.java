@@ -19,39 +19,35 @@ import com.nts.reservation.service.ProductService;
  * @author 육성렬
  */
 @Service
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao productDao;
 
 	@Override
-	@Transactional
 	public List<ProductDto> getProducts(int start) {
 		List<ProductDto> result = productDao.selectProduct(start, ProductService.LIMIT);
 		return result;
 	}
 
 	@Override
-	@Transactional
 	public List<ProductDto> getProducts(int start, int categoryId) {
 		List<ProductDto> result = productDao.selectProductByCategory(start, ProductService.LIMIT, categoryId);
 		return result;
 	}
 
 	@Override
-	@Transactional
 	public int getCount() {
 		return productDao.countAll();
 	}
 
 	@Override
-	@Transactional
 	public int getCount(int categoryId) {
 		return productDao.countByCategory(categoryId);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductDto> getPromotionProducts() {
 		return productDao.selectPromotionProduct();
 	}
