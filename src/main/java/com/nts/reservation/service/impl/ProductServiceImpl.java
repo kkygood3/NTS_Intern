@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public int getCount() {
+	public int getCountAllProducts() {
 		return productDao.selectAll();
 	}
 

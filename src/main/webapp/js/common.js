@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+	getProductsByCategory(0);
 	slideImage();
 });
 
@@ -39,36 +40,44 @@ for(var i = 0; i < tab.length; i++){
 		this.className += " active";
 		nowCatagoryId = this.parentNode.dataset.category;
 		console.log(nowCatagoryId);
-		categoryChange(nowCatagoryId);
+		getProductsByCategory(nowCatagoryId);
 	});
 }
 
-
-//var productTemplate = document.querySelector("#itemList").textContent;
-//var id = 1;
-//var description = "test1";
-//var placeName = "test2";
-//var content = "test3";
-
-//ul[0].innerHTML = eval("`"+productTemplate+"`");
-//ul[1].innerHTML = eval("`"+productTemplate+"`");
-
-var ul = document.querySelectorAll(".lst_event_box");
-function categoryChange(categoryId) {
+var productContainer = document.querySelectorAll(".lst_event_box");
+function getProductsByCategory(categoryId) {
 	
 	if (window.XMLHttpRequest) {
 		var httpRequest =  new XMLHttpRequest();
 		
 		httpRequest.onreadystatechange = function() {  
 		    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-		    	var targetElement = ul[0];
-		    	targetElement.innerHTML += "test<br>";
+		    	var jsonResponse = JSON.parse(httpRequest.responseText);
+
+		    	var countProduct = document.querySelector(".event_lst_txt span");
+		    	countProduct.innerHTML = jsonResponse["totalCount"];
+		    	
+		    	var productTemplate = document.querySelector("#itemList").textContent;
+		    	
+		    	productContainer[0].innerHTML = "";
+		    	productContainer[1].innerHTML = "";
+		    	
+		    	for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
+		    		var id = jsonResponse["items"][i]["productId"];
+			    	var description = jsonResponse["items"][i]["productDescription"];
+			    	var placeName = jsonResponse["items"][i]["placeName"];
+			    	var content = jsonResponse["items"][i]["productContent"];
+			    	var imgUrl = jsonResponse["items"][i]["productImageUrl"];
+			    	
+			    	var targetElement = productContainer[i % 2];
+			    	targetElement.innerHTML += eval("`"+productTemplate+"`");
+		    	}
 		    }
 		}
 		
-		httpRequest.open("POST", "category", true);
-		httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		var data = "id=" + categoryId;
-		httpRequest.send(data);
+		var url = "./api/products?categoryId=" + categoryId;
+		httpRequest.open("GET", url);
+		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+		httpRequest.send();
 	}
 }

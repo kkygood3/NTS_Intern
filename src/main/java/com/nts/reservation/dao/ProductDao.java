@@ -6,6 +6,7 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.ProductDaoSqls.COUNT_BY_CATEGORY_ID;
 import static com.nts.reservation.dao.ProductDaoSqls.GET_PRODUCTS;
+import static com.nts.reservation.dao.ProductDaoSqls.GET_PRODUCTS_BY_CATEGORY_ID;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_ALL;
 
 import java.util.Collections;
@@ -42,8 +43,11 @@ public class ProductDao {
 
 	public List<Product> getProducts(int categoryId, int start) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", categoryId);
 		params.put("start", start);
+		if (categoryId != 0) {
+			params.put("categoryId", categoryId);
+			return jdbc.query(GET_PRODUCTS_BY_CATEGORY_ID, params, rowMapper);
+		}
 		return jdbc.query(GET_PRODUCTS, params, rowMapper);
 	}
 }

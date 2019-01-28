@@ -29,10 +29,15 @@ public class ReservationApiController {
 	ProductService productService;
 
 	@GetMapping(path = "/products")
-	public Map<String, Object> test(@RequestParam(name = "categoryId", required = true) int categoryId,
+	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = true) int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
 		List<Product> products = productService.getProducts(categoryId, start);
-		int countProducts = productService.getCount(categoryId);
+		int countProducts = 0;
+		if (categoryId == 0) {
+			countProducts = productService.getCountAllProducts();
+		} else {
+			countProducts = productService.getCount(categoryId);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", products);

@@ -9,9 +9,9 @@ import java.util.List;
 import com.nts.reservation.dto.Product;
 
 public interface ProductService {
-	public int getCount();
-
-	public List<Product> getProducts(int categoryId, int start);
+	public int getCountAllProducts();
 
 	public int getCount(int categoryId);
+
+	public List<Product> getProducts(int categoryId, int start);
 }

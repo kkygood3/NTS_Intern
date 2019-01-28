@@ -83,7 +83,7 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">${countItem}</span>개 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink"></span>개 있습니다</p>
                 <div class="wrap_event_box">
                     <ul class="lst_event_box"></ul>
                     <ul class="lst_event_box"></ul>
@@ -121,7 +121,7 @@
         <li class="item">
             <a href="detail.jsp?id=\${id}" class="item_book">
                 <div class="item_preview">
-                    <img alt="\${description}" class="img_thumb" src="http://211.249.62.123/productImages/\${id}?type=th">
+                    <img alt="\${description}" class="img_thumb" src="\${imgUrl}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
