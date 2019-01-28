@@ -13,7 +13,7 @@
 <link href="resources/css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="init()">
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
@@ -52,7 +52,7 @@
 							<div class="container_visual">
 								<!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
 								<ul class="visual_img">
-									
+
 								</ul>
 							</div>
 							<span class="nxt_fix" style="display: none;"></span>
@@ -209,10 +209,8 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
-
-
 	<script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
+    <li class="item" style="background-image: url('{promotionImageUrl}');width: 100%;">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit"></h4>
@@ -237,5 +235,7 @@
             </a>
         </li>
     </script>
+
+	<script type="text/javascript" src="resources/js/mainpage_script.js"></script>
 </body>
 </html>

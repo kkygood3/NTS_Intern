@@ -35,7 +35,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
-		</dependency>		
+		</dependency>
 
 		<!-- MYSQL -->
 
@@ -83,6 +83,14 @@
 			<artifactId>jackson-datatype-jdk8</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
+
+		<!-- JSON in JAVA -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>reservation</finalName>

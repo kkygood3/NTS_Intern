@@ -1,7 +1,6 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_BY_ID;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PAGING_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION;
 
 import java.util.HashMap;
@@ -10,36 +9,33 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.Promotion;
 
 @Repository
 public class ProductDao {
 	@Autowired
-	private JdbcTemplate jdbc;
+	private NamedParameterJdbcTemplate jdbc;
 
 	private SimpleJdbcInsert insertAction;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
-	public List<Product> getPromotions() {
-		return jdbc.query(SELECT_PROMOTION, rowMapper);
+	public List<Promotion> getPromotions() {
+		return jdbc.query(SELECT_PROMOTION, BeanPropertyRowMapper.newInstance(Promotion.class));
 	}
 
-	public List<Product> getProductsByCategory(Integer start, Integer limit) {
+	public List<Product> getProducts() {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("start", start);
-		params.put("limit", limit);
-		return jdbc.query(SELECT_PAGING_BY_CATEGORY, rowMapper, params);
+		return jdbc.query(SELECT_ALL_PRODUCTS, params, rowMapper);
 	}
 
-	public List<Product> getProductsById(Integer id) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("id", id);
-		return jdbc.query(SELECT_BY_ID, rowMapper, params);
+	public Long getProductsCount() {
+		return null;
 	}
 
 	//	public Long insert(Product product) {

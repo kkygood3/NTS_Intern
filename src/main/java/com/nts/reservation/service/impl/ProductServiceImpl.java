@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.ProductService;
 
 @Service
@@ -17,9 +18,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProducts(Integer start) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> getProducts() {
+		return productDao.getProducts();
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public List<Product> getPromotions() {
+	public List<Promotion> getPromotions() {
 		return productDao.getPromotions();
 	}
 
