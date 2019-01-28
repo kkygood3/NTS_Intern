@@ -13,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Properties 메소드와 tryConnection 메소드를 위한 DBConnection 클래스입니다.
+ */
 public class DBConnection {
 
 	public static Properties getProperties() {
