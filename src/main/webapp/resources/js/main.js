@@ -4,7 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
     requestPromotions();
     initMoreBtn();
 })
-
+var promotionAnimationRequestId;
+window.addEventListener("blur", function(){
+    cancelAnimationFrame(promotionAnimationRequestId);
+})
+window.addEventListener("focus", function(){
+    requestAnimationFrame(updatePromotionAnimation);
+})
 function sendGet(path, params, onCallback) {
     var data = "";
     if(params){
@@ -152,11 +158,10 @@ function updatePromtions(promotions) {
     promotionContainer.innerHTML = resultTemplate;
     
     promotionContainer.dataset.current = 0;
+
     initPromotionStyle(promotionContainer);
-    setInterval(function() {
-        var target = document.querySelector(".visual_img");
-        updatePromotionAnimation(target);
-    }, 3000);
+    executionTime = new Date().getTime();
+    updatePromotionAnimation()
 }
 function initPromotionStyle(container){
     var childNodes = container.children;
@@ -165,18 +170,29 @@ function initPromotionStyle(container){
         childNodes[i].className = "item prev_promotion";
     }
 }
-function updatePromotionAnimation(container){
-    var childNodes = container.children;
-    var length = childNodes.length;
-    var current = Number(container.dataset.current);
-    var next = (current + 1) % childNodes.length;
-    var prev = (current - 1 + childNodes.length) % childNodes.length;
-    
-    childNodes[current].className = "item next_promotion";
-    childNodes[next].className = "item current_promotion";
-    childNodes[prev].className = "item prev_promotion";
 
-    container.dataset.current = next;
+var executionTime;
+function updatePromotionAnimation(){
+    var now = new Date().getTime();
+    
+    if((now - executionTime) >= 3000){
+        var container = document.querySelector(".visual_img");
+        var childNodes = container.children;
+        var length = childNodes.length;
+        var current = Number(container.dataset.current);
+        var next = (current + 1) % childNodes.length;
+        var prev = (current - 1 + childNodes.length) % childNodes.length;
+        
+        childNodes[current].className = "item next_promotion";
+        childNodes[next].className = "item current_promotion";
+        childNodes[prev].className = "item prev_promotion";
+
+        container.dataset.current = next;
+
+        executionTime = new Date().getTime();
+    }
+
+    promotionAnimationRequestId = requestAnimationFrame(updatePromotionAnimation);
 }
 function initMoreBtn() {
     var moreBtn = document.querySelector(".btn");
