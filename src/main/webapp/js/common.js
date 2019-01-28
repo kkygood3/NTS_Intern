@@ -30,54 +30,70 @@ function slideImage() {
 
 
 // 탭 메뉴 : TODO 이벤트위임 방식으로 수정
-let nowCatagoryId = 0;
+var productContainer = document.querySelectorAll(".lst_event_box");
+var countProduct = document.querySelector(".event_lst_txt span");
+var showMoreButton = document.querySelector(".more");
+let nowCategoryId = 0;
+let start = 0;
+let displayedProduct = 0;
 
 var tab = document.querySelector(".section_event_tab").querySelectorAll(".anchor");
 for(var i = 0; i < tab.length; i++){
 	tab[i].addEventListener("click", function(){
-		var nowActive = this.parentNode.parentNode.querySelector("[data-category='"+nowCatagoryId+"']").firstElementChild;
+		var nowActive = this.parentNode.parentNode.querySelector("[data-category='"+nowCategoryId+"']").firstElementChild;
 		nowActive.className = "anchor";
 		this.className += " active";
-		nowCatagoryId = this.parentNode.dataset.category;
-		console.log(nowCatagoryId);
-		getProductsByCategory(nowCatagoryId);
+		nowCategoryId = this.parentNode.dataset.category;
+		productContainer[0].innerHTML = "";
+		productContainer[1].innerHTML = "";
+		start = 0;
+		displayedProduct = 0;
+		showMoreButton.hidden = false;
+		getProductsByCategory(nowCategoryId, start);
 	});
 }
 
-var productContainer = document.querySelectorAll(".lst_event_box");
-function getProductsByCategory(categoryId) {
+function getProductsByCategory(categoryId, start = 0) {
 	
 	if (window.XMLHttpRequest) {
 		var httpRequest =  new XMLHttpRequest();
 		
 		httpRequest.onreadystatechange = function() {  
-		    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-		    	var jsonResponse = JSON.parse(httpRequest.responseText);
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				var jsonResponse = JSON.parse(httpRequest.responseText);
 
-		    	var countProduct = document.querySelector(".event_lst_txt span");
-		    	countProduct.innerHTML = jsonResponse["totalCount"];
-		    	
-		    	var productTemplate = document.querySelector("#itemList").textContent;
-		    	
-		    	productContainer[0].innerHTML = "";
-		    	productContainer[1].innerHTML = "";
-		    	
-		    	for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
-		    		var id = jsonResponse["items"][i]["productId"];
-			    	var description = jsonResponse["items"][i]["productDescription"];
-			    	var placeName = jsonResponse["items"][i]["placeName"];
-			    	var content = jsonResponse["items"][i]["productContent"];
-			    	var imgUrl = jsonResponse["items"][i]["productImageUrl"];
-			    	
-			    	var targetElement = productContainer[i % 2];
-			    	targetElement.innerHTML += eval("`"+productTemplate+"`");
-		    	}
-		    }
+				countProduct.innerHTML = jsonResponse["totalCount"];
+				displayedProduct += jsonResponse["items"].length;
+				
+				var productTemplate = document.querySelector("#itemList").textContent;
+				
+				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
+					var id = jsonResponse["items"][i]["productId"];
+					var description = jsonResponse["items"][i]["productDescription"];
+					var placeName = jsonResponse["items"][i]["placeName"];
+					var content = jsonResponse["items"][i]["productContent"];
+					var imgUrl = jsonResponse["items"][i]["productImageUrl"];
+					
+					var targetElement = productContainer[i % 2];
+					targetElement.innerHTML += eval("`"+productTemplate+"`");
+				}
+				
+				if(displayedProduct >= jsonResponse["totalCount"]){
+					showMoreButton.hidden = true;
+				}
+			}
 		}
 		
-		var url = "./api/products?categoryId=" + categoryId;
+		var url = "./api/products?categoryId=" + categoryId + "&start=" + start;
 		httpRequest.open("GET", url);
 		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 		httpRequest.send();
 	}
 }
+
+const productsPerPage = 4;
+
+showMoreButton.addEventListener("click", function(event){
+	start += productsPerPage;
+	getProductsByCategory(nowCategoryId, start);
+});
