@@ -5,23 +5,14 @@
 package com.nts.service;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.CategoryDao;
-import com.nts.dto.CategoryDto;
-
 /**
- * 카테고리에 대한 서비스로직
+ * 카테고리에 대한 서비스 인터페이스
  * @author jinwoo.bae
  */
-@Service
-public class CategoryService {
-	@Autowired
-	CategoryDao categoryDao;
-
-	public List<CategoryDto> getCategories() {
-		return categoryDao.selectAll();
-	}
+public interface CategoryService {
+	public List<Map<String, Object>> getCategoriesWithProductCount();
 }

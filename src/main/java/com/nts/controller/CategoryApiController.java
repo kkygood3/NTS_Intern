@@ -4,14 +4,15 @@
  */
 package com.nts.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.CategoryDto;
 import com.nts.service.CategoryService;
 
 /**
@@ -28,7 +29,12 @@ public class CategoryApiController {
 	 * 모든 카테고리 정보들을 json형태로 반환해준다 
 	 */
 	@GetMapping
-	public List<CategoryDto> list() {
-		return categoryService.getCategories();
+	public Map<String, Object> list() {
+		List<Map<String, Object>> list = categoryService.getCategoriesWithProductCount();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("items", list);
+
+		return map;
 	}
 }
