@@ -5,8 +5,10 @@
 package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.ProductDaoSqls.COUNT_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.ProductDaoSqls.COUNT_PROMOTION;
 import static com.nts.reservation.dao.ProductDaoSqls.GET_PRODUCTS;
 import static com.nts.reservation.dao.ProductDaoSqls.GET_PRODUCTS_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.ProductDaoSqls.GET_PROMOTION_PRODUCTS;
 import static com.nts.reservation.dao.ProductDaoSqls.LIMIT;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_ALL;
 
@@ -50,5 +52,13 @@ public class ProductDao {
 			return jdbc.query(GET_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);
 		}
 		return jdbc.query(GET_PRODUCTS + LIMIT, params, rowMapper);
+	}
+
+	public List<Product> getPromotions() {
+		return jdbc.query(GET_PROMOTION_PRODUCTS, rowMapper);
+	}
+
+	public int getCountPromotions() {
+		return jdbc.queryForObject(COUNT_PROMOTION, Collections.emptyMap(), Integer.class);
 	}
 }

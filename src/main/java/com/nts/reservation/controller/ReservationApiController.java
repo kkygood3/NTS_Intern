@@ -45,4 +45,16 @@ public class ReservationApiController {
 
 		return map;
 	}
+
+	@GetMapping(path = "/promotions")
+	public Map<String, Object> getPromotions() {
+		List<Product> promotions = productService.getPromotions();
+		int countProducts = productService.getCountPromotions();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("items", promotions);
+		map.put("totalCount", countProducts);
+
+		return map;
+	}
 }

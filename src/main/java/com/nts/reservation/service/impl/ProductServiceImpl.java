@@ -32,4 +32,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> getProducts(int categoryId, int start) {
 		return productDao.getProducts(categoryId, start);
 	}
+
+	@Override
+	public List<Product> getPromotions() {
+		return productDao.getPromotions();
+	}
+
+	@Override
+	public int getCountPromotions() {
+		return productDao.getCountPromotions();
+	}
 }

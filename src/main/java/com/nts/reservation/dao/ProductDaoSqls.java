@@ -23,7 +23,10 @@ public class ProductDaoSqls {
 	public static final String COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "and category_id = :categoryId";
 
 	public static final String GET_PRODUCTS = PRODUCT_COULMN + "FROM " + PRODUCT_TABLE;
-	public static final String GET_PROMOTION_PRODUCTS = PRODUCT_COULMN + "FROM promotion, " + PRODUCT_TABLE;
-
 	public static final String GET_PRODUCTS_BY_CATEGORY_ID = GET_PRODUCTS + "and category_id = :categoryId ";
+
+	public static final String GET_PROMOTION_PRODUCTS = PRODUCT_COULMN + "FROM promotion, " + PRODUCT_TABLE
+		+ "and promotion.product_id = product.id ";
+	public static final String COUNT_PROMOTION = "SELECT count(*) FROM promotion";
+
 }
