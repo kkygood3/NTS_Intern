@@ -93,7 +93,7 @@ function getPromotion() {
 					promotionContainer.innerHTML += eval("`"+promotionTemplate+"`");
 				}
 				executeAnimationTime = performance.now();
-				setTimeout(slideImage, 100);
+				slideImage();
 			}
 		}
 
@@ -106,6 +106,7 @@ function getPromotion() {
 let slideFirst = 0;
 let slideMiddle = 1;
 let slideLast = 2;
+const animationTime = 5000;
 function slideImage(){
 	var now = performance.now();
 	var slides = document.querySelectorAll(".visual_img li");
@@ -118,7 +119,7 @@ function slideImage(){
 	slides[slideLast].style.left = promotionWidth * 2 + "px";
 	slides[slideLast].className = "item slide_last";
 	
-	if(now - executeAnimationTime > 5000) {
+	if(now - executeAnimationTime > animationTime) {
 		slides[slideFirst].className = "item waiting";
 		slideFirst = slideMiddle;
 		slideMiddle = slideLast;
