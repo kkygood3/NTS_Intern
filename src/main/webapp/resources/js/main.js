@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     categoryObj.requestCategories();
     productObj.requestProducts();
     promotionObj.requestPromotions();
-    initMoreBtn();
+    moreBtnObj.initMoreBtn();
 })
 
 var productObj = {
@@ -14,7 +14,7 @@ var productObj = {
         if(categoryId) {
             params.categoryId = categoryId;
         }
-        sendGet("/reservation-service/api/products",params, function(response) {
+        httpRequestObj.sendGet("/reservation-service/api/products",params, function(response) {
             if(response.status == 200){
                 var data = JSON.parse(response.responseText);
                 this.updateProductList(data.items, data.totalCount);
@@ -47,7 +47,7 @@ var productObj = {
 
 var categoryObj = {
     requestCategories : function() {
-        sendGet("/reservation-service/api/categories", null, function(response){
+        httpRequestObj.sendGet("/reservation-service/api/categories", null, function(response){
             if(response.status == 200){
                 var data = JSON.parse(response.responseText);
                 this.updateCategories(data.items);
@@ -115,7 +115,7 @@ var categoryObj = {
 
 var promotionObj = {
     requestPromotions: function () {
-        sendGet("/reservation-service/api/promotions", null, function(response){
+        httpRequestObj.sendGet("/reservation-service/api/promotions", null, function(response){
             if(response.status == 200){
                 var data = JSON.parse(response.responseText);
                 this.updatePromtions(data.items);
@@ -137,74 +137,86 @@ var promotionObj = {
         
         promotionContainer.dataset.current = 0;
     
-        initPromotionStyle(promotionContainer);
-        executionTime = new Date().getTime();
-        updatePromotionAnimation()
+        this.initPromotionStyle(promotionContainer);
+        promotionAnimationObj.setExecutionTime(new Date().getTime());
+        promotionAnimationObj.updatePromotionAnimation();
     },
-    
-
-}
-var promotionAnimationRequestId;
-window.addEventListener("blur", function(){
-    cancelAnimationFrame(promotionAnimationRequestId);
-})
-window.addEventListener("focus", function(){
-    promotionAnimationRequestId = requestAnimationFrame(updatePromotionAnimation);
-})
-
-function sendGet(path, params, onCallback) {
-    var data = "";
-    if(params){
-        data = Object.keys(params).map(function(key){
-            return key + "=" + encodeURIComponent(params[key]);
-        }).join("&");
-    }
-    var request = new XMLHttpRequest();
-    request.addEventListener("load", function(event){
-        onCallback(event.target);
-    });
-
-    var url = path + (data.length == 0 ? "" : "?") + data;
-    request.open("GET", url);
-    request.setRequestHeader("Content-type","charset=utf-8");
-    request.send();
-}
-
-function initPromotionStyle(container){
-    var childNodes = container.children;
-    childNodes[0].className = "item current_promotion";
-    for(var i = 1; i < childNodes.length; i++){
-        childNodes[i].className = "item prev_promotion";
-    }
-}
-
-var executionTime;
-function updatePromotionAnimation(){
-    var now = new Date().getTime();
-    
-    if((now - executionTime) >= 3000){
-        var container = document.querySelector(".visual_img");
+    initPromotionStyle: function (container){
         var childNodes = container.children;
-        var length = childNodes.length;
-        var current = Number(container.dataset.current);
-        var next = (current + 1) % childNodes.length;
-        var prev = (current - 1 + childNodes.length) % childNodes.length;
-        
-        childNodes[current].className = "item next_promotion";
-        childNodes[next].className = "item current_promotion";
-        childNodes[prev].className = "item prev_promotion";
-
-        container.dataset.current = next;
-
-        executionTime = new Date().getTime();
+        childNodes[0].className = "item current_promotion";
+        for(var i = 1; i < childNodes.length; i++){
+            childNodes[i].className = "item prev_promotion";
+        }
     }
 
-    promotionAnimationRequestId = requestAnimationFrame(updatePromotionAnimation);
 }
-function initMoreBtn() {
-    var moreBtn = document.querySelector(".btn");
-    moreBtn.addEventListener("click", function() {
-        var container = document.querySelector(".event_tab_lst");
-        productObj.requestProducts(container.dataset.currentCount, container.dataset.selected == 0 ? null : container.dataset.selected);
-    })
+var promotionAnimationObj = {
+    test: "test msg",
+    executionTime: 0,
+    promotionAnimationRequestId: 0,
+    setExecutionTime: function(time) {
+        this.executionTime = time;
+    },
+    updatePromotionAnimation: function (){
+        var now = new Date().getTime();
+        
+        if((now - this.executionTime) >= 3000){
+            var container = document.querySelector(".visual_img");
+            var childNodes = container.children;
+            var length = childNodes.length;
+            var current = Number(container.dataset.current);
+            var next = (current + 1) % childNodes.length;
+            var prev = (current - 1 + childNodes.length) % childNodes.length;
+            
+            childNodes[current].className = "item next_promotion";
+            childNodes[next].className = "item current_promotion";
+            childNodes[prev].className = "item prev_promotion";
+    
+            container.dataset.current = next;
+    
+            this.executionTime = new Date().getTime();
+        }
+    
+        this.promotionAnimationRequestId = requestAnimationFrame(function() {
+            this.updatePromotionAnimation()
+        }.bind(this));
+    }
+}
+window.addEventListener("blur", function(){
+    cancelAnimationFrame(this.promotionAnimationRequestId);
+}.bind(promotionAnimationObj))
+window.addEventListener("focus", function(){
+    this.promotionAnimationRequestId = requestAnimationFrame(function() {
+        this.updatePromotionAnimation()
+    }.bind(this));
+}.bind(promotionAnimationObj))
+
+var httpRequestObj = {
+    sendGet: function (path, params, onCallback) {
+        var data = "";
+        if(params){
+            data = Object.keys(params).map(function(key){
+                return key + "=" + encodeURIComponent(params[key]);
+            }).join("&");
+        }
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", function(event){
+            onCallback(event.target);
+        });
+    
+        var url = path + (data.length == 0 ? "" : "?") + data;
+        request.open("GET", url);
+        request.setRequestHeader("Content-type","charset=utf-8");
+        request.send();
+    }
+}
+
+var moreBtnObj = {
+    initMoreBtn: function() {
+        var moreBtn = document.querySelector(".btn");
+        moreBtn.addEventListener("click", function() {
+            var container = document.querySelector(".event_tab_lst");
+            productObj.requestProducts(container.dataset.currentCount, container.dataset.selected == 0 ? null : container.dataset.selected);
+        })
+    }
 }
