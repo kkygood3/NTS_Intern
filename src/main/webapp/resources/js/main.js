@@ -195,8 +195,8 @@ var mainPage = {
                 aElement = event.target;
                 liElement = event.target.parentNode;
             }else if(event.target.tagName == "SPAN"){
-                var aElement = event.target.parentNode;
-                var liElement = aElement.parentNode;
+                aElement = event.target.parentNode;
+                liElement = aElement.parentNode;
             }else{
                 return;
             }
