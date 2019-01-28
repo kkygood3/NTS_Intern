@@ -8,8 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,11 +18,11 @@ import com.nts.todolist.dto.TodoDto;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class TodoDao {
-	private static final String URL = "jdbc:mysql://localhost:3306/user2?serverTimezone=Asia/Seoul&useSSL=false";
+	private static final String URL = "jdbc:mysql://10.113.116.52:13306/user2?serverTimezone=Asia/Seoul&useSSL=false";
 	private static final String USER = "user2";
 	private static final String PASSWORD = "1234";
 	private static final String DIVICE_DRIVER = "com.mysql.cj.jdbc.Driver";
-	
+
 	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY sequence, regdate";
 	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
 	private static final String SQL_UPDATE = "UPDATE todo SET TYPE = ? WHERE id = ?";
@@ -45,23 +43,18 @@ public class TodoDao {
 
 			while (resultSet.next()) {
 				TodoDto todo = new TodoDto();
-				
+
 				todo.setId(resultSet.getLong("id"));
 				todo.setTitle(resultSet.getString("title"));
 				todo.setName(resultSet.getString("name"));
 				todo.setSequence(resultSet.getInt("sequence"));
 				todo.setType(resultSet.getString("type"));
-				/*
-				 * LocalDate localDate =
-				 * LocalDate.parse(resultSet.getString("regdate").substring(0, 10));
-				 * todo.setRegdate(localDate.toString());
-				 */
 				todo.setRegdate(resultSet.getString("regdate"));
-				
+
 				todos.add(todo);
 			}
 			return todos;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,7 +97,7 @@ public class TodoDao {
 			preparedStatement.setLong(2, todoDto.getId());
 
 			return preparedStatement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,4 +105,3 @@ public class TodoDao {
 	}
 
 }
-

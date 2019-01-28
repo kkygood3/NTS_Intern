@@ -18,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/todoForm")
 public class TodoFormServlet extends HttpServlet {
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/todoForm.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/todoForm.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

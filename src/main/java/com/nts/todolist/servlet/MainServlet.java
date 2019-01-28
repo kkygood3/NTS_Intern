@@ -63,7 +63,7 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("doingList", doingList);
 		request.setAttribute("doneList", doneList);
 
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/main.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		requestDispatcher.forward(request, response);
 
 	}
