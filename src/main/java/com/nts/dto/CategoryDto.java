@@ -9,8 +9,17 @@ package com.nts.dto;
  * @author jinwoo.bae
  */
 public class CategoryDto {
+	private int count;
 	private int id;
 	private String name;
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 
 	public int getId() {
 		return id;
@@ -30,7 +39,7 @@ public class CategoryDto {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
+		return "CategoryDto [count=" + count + ", id=" + id + ", name=" + name + "]";
 	}
 
 }

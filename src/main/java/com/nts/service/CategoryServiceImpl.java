@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.CategoryDao;
+import com.nts.dto.CategoryDto;
 
 /**
  * 카테고리 서비스 인터페이스 구현로직
@@ -22,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryDao categoryDao;
 
 	@Override
-	public List<Map<String, Object>> getCategoriesWithProductCount() {
+	public List<CategoryDto> getCategoriesWithProductCount() {
 		return categoryDao.selectAllWithProductCount();
 	}
 }
