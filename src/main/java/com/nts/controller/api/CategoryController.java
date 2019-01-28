@@ -22,6 +22,10 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
+	/**
+	 * @desc 카테고리 전체 불러오기
+	 * @return items { 카테고리 리스트}
+	 */
 	@GetMapping
 	public CategoryResponse getCategorys() {
 		return categoryService.selectCategories();

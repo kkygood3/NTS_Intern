@@ -33,8 +33,6 @@ public class ProductController {
 	public ProductResponse getProductsByCategory(@RequestParam(name = "categoryId", required = false)String categoryId,
 		@RequestParam(name = "start", required = true)int start) {
 		
-		System.out.println(categoryId);
-		System.out.println(start);
 		return productService.getProductsByCategory(categoryId, start);
 	}
 }

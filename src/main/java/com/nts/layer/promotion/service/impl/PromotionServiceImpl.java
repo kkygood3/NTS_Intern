@@ -20,6 +20,10 @@ public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;
 
+	/**
+	 * @desc 프로모션 전체 불러오기
+	 * @return promotionResponse { items: promotionList }
+	 */
 	@Override
 	public PromotionResponse getPromotionAll() {
 		return new PromotionResponse(promotionDao.selectCategories());

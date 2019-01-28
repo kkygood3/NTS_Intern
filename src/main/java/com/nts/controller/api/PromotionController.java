@@ -22,6 +22,10 @@ public class PromotionController {
 	@Autowired
 	private PromotionService promotionService;
 
+	/**
+	 * @desc 프로모션 전체 불러오기
+	 * @return promotionResponse { items: promotion List } 
+	 */
 	@GetMapping
 	public PromotionResponse getPromotionsAll() {
 		return promotionService.getPromotionAll();

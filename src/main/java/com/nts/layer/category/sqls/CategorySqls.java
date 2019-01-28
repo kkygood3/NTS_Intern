@@ -4,6 +4,9 @@
  **/
 package com.nts.layer.category.sqls;
 
+/**
+ * @author 전연빈
+ */
 public class CategorySqls {
 	public static final String SELECT_CATEGORIES = 
 		"SELECT c.id AS id, c.name AS name,COUNT(c.id) AS count " + 

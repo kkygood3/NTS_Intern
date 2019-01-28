@@ -4,6 +4,9 @@
  **/
 package com.nts.layer.promotion.sqls;
 
+/**
+ * @author 전연빈
+ */
 public class PromotionSqls {
 	public static final String SELECT_PROMOTIONS =
 		"SELECT pr.id AS id,pr.product_id AS product_id, f.save_file_name AS product_image_url " + 
