@@ -10,18 +10,20 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
+@PropertySource(value= {"classpath:application.properties"})
 public class DBConfig {
-	@Value("${datasource.driver-class-name}")
+	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
-	@Value("${datasource.url}")
+	@Value("${spring.datasource.url}")
 	private String url;
-	@Value("${datasource.username}")
+	@Value("${spring.datasource.username}")
 	private String id;
-	@Value("${datasource.password}")
+	@Value("${spring.datasource.password}")
 	private String pw;
 
 	@Bean
