@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.ProductService;
 
@@ -17,6 +18,9 @@ import com.nts.reservation.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDao;
+
+	@Autowired
+	PromotionDao promotionDao;
 
 	@Override
 	public int getCountAllProducts() {
@@ -35,11 +39,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getPromotions() {
-		return productDao.getPromotions();
+		return promotionDao.getPromotions();
 	}
 
 	@Override
 	public int getCountPromotions() {
-		return productDao.getCountPromotions();
+		return promotionDao.getCountPromotions();
 	}
 }

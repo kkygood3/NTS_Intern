@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao;
 
-public class ProductDaoSqls {
+public class ReservationSqls {
 	private static final String PRODUCT_TABLE = "product, display_info, product_image, file_info "
 		+ "WHERE product.id = display_info.product_id "
 		+ "and product.id = product_image.product_id "
