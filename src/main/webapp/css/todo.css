@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+#main_title {
+	display: inline-block;
+	padding-top: 45px;
+	padding-right: 45px;
+	margin-left: -25px;
+	-webkit-transform: rotate(-30deg); 
+	-ms-transform: rotate(-30deg);
+	color: #008299;
+}
+
+.todos {
+	display: table;
+	margin-top: 50px;
+	margin-left: 200px;
+	width: 80%;
+}
+
+#new_todo {
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	background-color: #5CD1E5;
+	color: #fff;
+	
+}
+
+.todos > div {
+	display: table-cell;
+	width: 30%;
+	padding: 0 5px;
+}
+
+.todos ul {
+	list-style: none;
+	padding: 0;
+}
+
+.todos > div > p {
+	margin: 0;
+	padding: 20px 10px;
+	background-color: #056;
+	color: #fff;
+}
+
+.todos li {
+	background-color: #D4F4FA;
+	margin: 15px auto;
+	padding: 20px;
+}
+
+.todos li > * {
+	margin: 0;
+}
+
+.title {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.go_next {
+	width: 25px;
+	height: 25px;
+	float: right;
+	cursor: pointer;
+}
+
+.regdate {
+	display: inline;
+}
+
+.name {
+	display: inline;
+}
+
+.sequence {
+	display: inline;
+}
+
+h1 {
+	text-align: center;	
+}
+
+form {
+	width:70%;
+	margin: 0 auto;
+	position: absoulte;
+}
+
+input[name="title"] {
+	width: 800px;
+	height: 40px;
+}
+
+input[name="name"] {
+	width: 400px;
+	height: 40px;
+}
+
+#radio_section {
+	margin-bottom: 30px;
+}
+
+.previous_page {
+	display: inline-block;
+	width: 100px;
+	padding: 15px 0;
+	text-align: center;
+	border: 1px solid #000;
+	color: #000;
+}
+
+input[type="submit"] {
+	position: relative;
+	left: 80%;
+	width: 100px;
+	height: 50px;
+	background-color: #6698cb;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+input[type="reset"] {
+	position: relative;
+	left: 80%;
+	width: 100px;
+	height: 50px;
+	background-color: #6698cb;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+}
