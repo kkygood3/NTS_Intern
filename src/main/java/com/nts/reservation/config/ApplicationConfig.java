@@ -7,12 +7,10 @@ package com.nts.reservation.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ComponentScan(basePackages = {"com.nts.reservation"})
-@Import({DatabaseConfig.class, JdbcConfig.class, TransactionConfig.class})
-@PropertySource(value = {"classpath:application.properties"})
+@Import({DatabaseConfig.class, JdbcConfig.class, TransactionConfig.class, MapperConfig.class})
 public class ApplicationConfig {
 
 }
