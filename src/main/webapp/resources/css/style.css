@@ -3825,20 +3825,20 @@ button {
 
 
 .current_promotion {
-	left: 0;
-    transition: left 1s ease 2s;
+	transform: translateX(0);
+    transition: transform 1s ease 2s;
     z-index: 20;
     visibility: visible;
 }
 .next_promotion {
-	left: -100%;
-    transition: left 1s ease 2s;
+	transform: translateX(-100%);
+    transition: transform 1s ease 2s;
     z-index: 20;
     visibility: visible;
 }
 .prev_promotion {
-	left: 100%;
-	transition: left 1s ease 2s;
+	transform: translateX(100%);
+	transition: transform 1s ease 2s;
 	z-index: 10;
 	visibility: hidden;
 }
