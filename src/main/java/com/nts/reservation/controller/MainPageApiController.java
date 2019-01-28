@@ -35,6 +35,12 @@ public class MainPageApiController {
 	@Autowired
 	private ProductService productService;
 
+	/*
+	 * @desc 카테고리 별 프로덕트 리스트 요청하는 Api
+	 * @param start - 요구하는 상품의 시작 순번
+	 * @param categoryId - 요청하는 카테고리의 id
+	 * @return ProductResponseDto(items [프로덕트 리스트] , totalCount [카테고리 별 총 갯수 ] )
+	 */
 	@GetMapping("/products")
 	public ProductResponseDto getProductList(
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
@@ -54,6 +60,10 @@ public class MainPageApiController {
 		return new ProductResponseDto(items, count);
 	}
 
+	/*
+	 * @desc 프로모션 리스트를 요청하는 Api
+	 * @return PromotionResponseDto(items [프로모션 리스트] , totalCount [프로모션 갯수] )
+	 */
 	@GetMapping("/promotions")
 	public PromotionResponseDto getPromotionList() {
 
@@ -61,6 +71,10 @@ public class MainPageApiController {
 		return new PromotionResponseDto(items, items.size());
 	}
 
+	/*
+	 * @desc 카테고리 정보를 요청하는 Api
+	 * @return CategoryResponseDto(items [카테고리 리스트])
+	 */
 	@GetMapping("/categories")
 	public CategoryResponseDto getCategoryList() {
 
