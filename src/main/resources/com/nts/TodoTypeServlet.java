@@ -37,18 +37,30 @@ public class TodoTypeServlet extends HttpServlet {
 
 			TodoDao todoDao = new TodoDao();
 
-			if (type.equals("TODO")) {
-				todoDao.updateTodo(id, "DOING");
-			}
-			if (type.equals("DOING")) {
-				todoDao.updateTodo(id, "DONE");
+			type = moveNextType(type);
+
+			if (todoDao.updateTodo(id, type) == -1) {
+				printWriter.print("error");
+			} else {
+				printWriter.print("success");
 			}
 
-			printWriter.print("success");
 		} catch (NullPointerException e) {
 			System.out.println("type을 Long으로 형변환 중 에러가 발생했습니다.");
 		}
 
+	}
+
+	private String moveNextType(String type) {
+		switch (type) {
+			case "TODO":
+				type = "DOING";
+				break;
+			case "DOING":
+				type = "DONE";
+				break;
+		}
+		return type;
 	}
 
 }

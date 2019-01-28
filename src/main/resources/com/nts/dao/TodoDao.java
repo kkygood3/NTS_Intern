@@ -108,8 +108,8 @@ public class TodoDao {
 
 			return preparedStatement.executeUpdate();
 
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 		}
 

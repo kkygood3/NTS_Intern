@@ -4,6 +4,7 @@ for (var i = 0; i < btns.length; ++i) {
 	btns[i].addEventListener('click', clickEvent);
 }
 
+//GET 방식으로 DB변경을 요청
 function updateRequest(btn, type) {
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", function(e) {
