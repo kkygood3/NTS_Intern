@@ -20,7 +20,7 @@ import java.util.Properties;
 public class JDBCConnection {
 
 	/**
-	 * Properties를 load하여 적용시키는 method
+	 * Properties를 load하는 method
 	 * @author yongjoon.Park
 	 */
 	public static Properties getProperties() {
@@ -41,7 +41,7 @@ public class JDBCConnection {
 	}
 
 	/**
-	 * 불러온 Properties를 driver에 저장하고
+	 * 불러온 Properties를 가져와
 	 * connection 연결 후, 연결된 connection을 return
 	 * @author yongjoon.Park
 	 */

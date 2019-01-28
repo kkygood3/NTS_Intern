@@ -44,6 +44,7 @@ public class TodoAddServlet extends HttpServlet {
 		String name = request.getParameter("name").trim();
 		String sequence = request.getParameter("sequence");
 
+		// 비어있거나, 알맞은 패턴이 아닐 경우
 		if (isValueEmpty(title, name, sequence) || !Pattern.matches(PATTERN, sequence)) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter printWriter = response.getWriter();
