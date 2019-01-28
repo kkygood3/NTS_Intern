@@ -4,7 +4,8 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.ProductDaoSqls.COUNT_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.ProductDaoSqls.GET_PRODUCTS;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_ALL;
 
 import java.util.Collections;
@@ -34,9 +35,15 @@ public class ProductDao {
 		return jdbc.queryForObject(SELECT_COUNT_ALL, Collections.emptyMap(), Integer.class);
 	}
 
-	public List<Product> selectByCategoryId(Integer categoryId) {
+	public int selectByCategory(int categoryId) {
+		Map<String, Integer> param = Collections.singletonMap("categoryId", categoryId);
+		return jdbc.queryForObject(COUNT_BY_CATEGORY_ID, param, Integer.class);
+	}
+
+	public List<Product> getProducts(int categoryId, int start) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("id", categoryId);
-		return jdbc.query(SELECT_BY_CATEGORY_ID, params, rowMapper);
+		params.put("categoryId", categoryId);
+		params.put("start", start);
+		return jdbc.query(GET_PRODUCTS, params, rowMapper);
 	}
 }

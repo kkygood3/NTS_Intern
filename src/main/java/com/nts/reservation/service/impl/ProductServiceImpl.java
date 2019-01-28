@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dto.Product;
@@ -25,9 +24,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	@Transactional
-	public List<Product> getProduct(int categoryId) {
-		return productDao.selectByCategoryId(categoryId);
+	public int getCount(int categoryId) {
+		return productDao.selectByCategory(categoryId);
 	}
 
+	@Override
+	public List<Product> getProducts(int categoryId, int start) {
+		return productDao.getProducts(categoryId, start);
+	}
 }
