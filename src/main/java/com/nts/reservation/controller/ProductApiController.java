@@ -26,7 +26,7 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/api/products")
 public class ProductApiController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@GetMapping
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,

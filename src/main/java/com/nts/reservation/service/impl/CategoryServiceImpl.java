@@ -22,7 +22,7 @@ import com.nts.reservation.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	CategoryDao categoryDao;
+	private CategoryDao categoryDao;
 
 	@Override
 	@Transactional

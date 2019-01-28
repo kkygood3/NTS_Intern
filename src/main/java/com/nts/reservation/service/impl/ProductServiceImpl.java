@@ -22,7 +22,7 @@ import com.nts.reservation.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
 	@Transactional

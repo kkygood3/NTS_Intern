@@ -25,7 +25,7 @@ import com.nts.reservation.service.ProductService;
 public class PromotionApiController {
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@GetMapping
 	public Map<String, Object> list() {

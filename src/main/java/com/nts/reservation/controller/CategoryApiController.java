@@ -26,10 +26,10 @@ import com.nts.reservation.service.ProductService;
 public class CategoryApiController {
 
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@GetMapping
 	public Map<String, Object> list() {
