@@ -21,6 +21,7 @@ import com.nts.todolist.dto.TodoDto;
 public class TodoAddServlet extends HttpServlet {
 
 	/**
+	 * 입력받은 title, name, sequence 속성값을 갖는 TodoDto 객체를 데이터베이스에 삽입 후, main으로 이동합니다.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override

@@ -23,6 +23,7 @@ import com.nts.todolist.dto.TodoDto;
 public class TodoTypeServlet extends HttpServlet {
 
 	/**
+	 * TodoDto 객체와 관련된 데이터베이스의 type 속성값을 갱신합니다. (TODO에서 DOING으로, DOING에서 DONE으로)
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	@Override

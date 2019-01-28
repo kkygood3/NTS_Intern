@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TodoFormServlet extends HttpServlet {
 
 	/**
+	 * todoForm으로 이동합니다.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
