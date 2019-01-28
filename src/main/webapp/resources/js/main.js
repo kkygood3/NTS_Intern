@@ -34,15 +34,11 @@ var mainPage = {
         if(categoryId) {
             params.categoryId = categoryId;
         }
-        console.log("test 2");
-        console.log(this);
         this.httpMethod.sendGet("/reservation-service/api/products",params, function(response) {
             this.responseProduct(response);
         }.bind(this))
     },
     requestCategories : function() {
-        console.log("test");
-        console.log(this);
         this.httpMethod.sendGet("/reservation-service/api/categories", null, function(response){
             this.responseCategories(response);
         }.bind(this))
@@ -53,8 +49,6 @@ var mainPage = {
         }.bind(this))
     },
     responseProduct: function (response) {
-        console.log("check point 00");
-        console.log(this);
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
             this.updateProductList(data.items, data.totalCount);
@@ -63,8 +57,6 @@ var mainPage = {
         }
     },
     responseCategories: function (response){
-        console.log("check point 01");
-        console.log(this);
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
             this.updateCategories(data.items);
@@ -204,8 +196,6 @@ var mainPage = {
             if(tabContainer.dataset.selected == liElement.dataset.category){
                 return;
             }else{
-                console.log("check point 02")
-                console.log(this);
                 tabContainer.dataset.selected = liElement.dataset.category;
                 var deselectedElement = tabContainer.querySelector(".active");
                 deselectedElement.classList.remove("active");
@@ -225,16 +215,10 @@ var mainPage = {
 }
 
 window.addEventListener("blur", function(){
-    console.log("check point blur")
-    console.log(this)
-    console.log(this.promotionAnimationRequestId);
     cancelAnimationFrame(this.values.promotionAnimationRequestId);
 }.bind(mainPage))
 
 window.addEventListener("focus", function(){
-    console.log("check point focus")
-    console.log(this)
-    console.log(this.promotionAnimationRequestId);
     this.values.promotionAnimationRequestId = requestAnimationFrame(function() {
         this.updatePromotionAnimation()
     }.bind(this));
