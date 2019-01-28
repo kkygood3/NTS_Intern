@@ -1,0 +1,79 @@
+package com.nts.dto;
+
+public class ProductApiView {
+	private long categoryId;
+	private long displayInfoId;
+	private String placeName;
+	private String productContent;
+	private String productDescription;
+	private long productId;
+	private String productImageUrl;
+
+	public ProductApiView() {
+		super();
+	}
+
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public long getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(long displayInfoId) {
+		this.displayInfoId = displayInfoId;
+	}
+
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getProductContent() {
+		return productContent;
+	}
+
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductApiView [categoryId=" + categoryId + ", displayInfoId=" + displayInfoId + ", placeName="
+			+ placeName + ", productContent=" + productContent + ", productDescription=" + productDescription
+			+ ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
+	}
+
+}
