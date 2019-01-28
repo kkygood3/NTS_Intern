@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.nts.todolist.common.JDBCConnection;
-import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dto.TodoDto;
 
 /**
@@ -98,7 +97,7 @@ public class TodoDao {
 	 * @author yongjoon.Park
 	 * @param update될 todo의 현재 id와 type값
 	 */
-	public int updateTodo(int id, TodoStatus type) {
+	public int updateTodo(int id, String type) {
 
 		String sql = "UPDATE todo SET TYPE = ? WHERE id = ?";
 
@@ -106,7 +105,7 @@ public class TodoDao {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
 			int index = 1;
-			preparedStatement.setString(index++, type.changNextStatus());
+			preparedStatement.setString(index++, type);
 			preparedStatement.setInt(index++, id);
 
 			return preparedStatement.executeUpdate();
