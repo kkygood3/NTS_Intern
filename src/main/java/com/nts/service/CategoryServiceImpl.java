@@ -21,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	CategoryDao categoryDao;
 
+	@Override
 	public List<Map<String, Object>> getCategoriesWithProductCount() {
 		return categoryDao.selectAllWithProductCount();
 	}
