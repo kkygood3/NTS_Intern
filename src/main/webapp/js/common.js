@@ -1,34 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 	getPromotion();
 	getProductsByCategory(0);
-//	slideImage();
 });
-
-// 이미지 슬라이드 : TODO css transform 속성으로 수정
-//var slides = document.querySelectorAll(".visual_img li");
-//var currentSlide = 0;
-//var nextSlide = 1;
-//
-//var left = 0;
-//const imgWidth = slides[nextSlide].clientWidth;
-//slides[currentSlide].style.left = "0px";
-//slides[nextSlide].style.left = imgWidth + "px";
-//function slideImage() {
-//	left -= 30;
-//	slides[currentSlide].style.left = left + "px";
-//	slides[nextSlide].style.left = imgWidth + left + "px";
-//	if(slides[nextSlide].offsetLeft <= 0) {
-//		left = 0;
-//		slides[currentSlide].style.left = imgWidth + "px";
-//		slides[currentSlide].className = "waiting";
-//		currentSlide = nextSlide;
-//		nextSlide = (nextSlide + 1) % slides.length;
-//		slides[currentSlide].className = "slide_img";
-//		slides[nextSlide].className = "next_img";
-//	}
-//	requestAnimationFrame(slideImage);
-//}
-
 
 // 탭 메뉴 : TODO 이벤트위임 방식으로 수정
 var productContainer = document.querySelectorAll(".lst_event_box");
@@ -99,31 +72,59 @@ showMoreButton.addEventListener("click", function(event){
 	getProductsByCategory(nowCategoryId, start);
 });
 
-
+let executeAnimationTime;
 function getPromotion() {
 	if (window.XMLHttpRequest) {
 		var httpRequest =  new XMLHttpRequest();
 
- 		httpRequest.onreadystatechange = function() {  
-		    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-		    	var jsonResponse = JSON.parse(httpRequest.responseText);
+		httpRequest.onreadystatechange = function() {  
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				var jsonResponse = JSON.parse(httpRequest.responseText);
 
- 		    	var promotionTemplate = document.querySelector("#promotionItem").textContent;
+				var promotionTemplate = document.querySelector("#promotionItem").textContent;
 
- 		    	for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
-		    		var imgUrl = jsonResponse["items"][i]["productImageUrl"];
-			    	var description = jsonResponse["items"][i]["productDescription"];
-			    	var placeName = jsonResponse["items"][i]["placeName"];
-			    	var content = jsonResponse["items"][i]["productContent"];
+				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
+					var imgUrl = jsonResponse["items"][i]["productImageUrl"];
+					var description = jsonResponse["items"][i]["productDescription"];
+					var placeName = jsonResponse["items"][i]["placeName"];
+					var content = jsonResponse["items"][i]["productContent"];
 
- 			    	var promotionContainer = document.querySelector(".visual_img");
-			    	promotionContainer.innerHTML += eval("`"+promotionTemplate+"`");
-		    	}
-		    }
+					var promotionContainer = document.querySelector(".visual_img");
+					promotionContainer.innerHTML += eval("`"+promotionTemplate+"`");
+				}
+				executeAnimationTime = performance.now();
+				setTimeout(slideImage, 100);
+			}
 		}
 
- 		httpRequest.open("GET", "./api/promotions");
+		httpRequest.open("GET", "./api/promotions");
 		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 		httpRequest.send();
 	}
-} 
+}
+
+let slideFirst = 0;
+let slideMiddle = 1;
+let slideLast = 2;
+function slideImage(){
+	var now = performance.now();
+	var slides = document.querySelectorAll(".visual_img li");
+	const promotionWidth = slides[slideFirst].clientWidth;
+
+	slides[slideFirst].style.left = "0";
+	slides[slideFirst].className = "item slide_first";
+	slides[slideMiddle].style.left = promotionWidth + "px";
+	slides[slideMiddle].className = "item slide_middle";
+	slides[slideLast].style.left = promotionWidth * 2 + "px";
+	slides[slideLast].className = "item slide_last";
+	
+	if(now - executeAnimationTime > 5000) {
+		slides[slideFirst].className = "item waiting";
+		slideFirst = slideMiddle;
+		slideMiddle = slideLast;
+		slideLast = (slideLast + 1) % slides.length;
+		executeAnimationTime = performance.now();
+	}
+	
+	requestAnimationFrame(slideImage);
+}
