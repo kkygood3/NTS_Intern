@@ -4,26 +4,33 @@
  */
 package com.nts.reservation.dto;
 
+/**
+* FileName : Product.java
+* @author  : 이승수
+* @date    : 2019. 1. 28.
+*/
 public class Product {
-	private int id;
-	private String description;
+	private Long displayInfoId;
+	private Long productId;
 	private String placeName;
-	private String content;
+	private String productContent;
+	private String productDescription;
+	private String productImageUrl;
 
-	public int getId() {
-		return id;
+	public Long getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDisplayInfoId(Long displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
-	public String getDescription() {
-		return description;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getPlaceName() {
@@ -34,11 +41,28 @@ public class Product {
 		this.placeName = placeName;
 	}
 
-	public String getContent() {
-		return content;
+	public String getProductContent() {
+		return productContent;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
 	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
+
 }
