@@ -41,9 +41,6 @@
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
                                 <ul class="visual_img">
-                                	<li class="slide_img"><img src="img/1_th_1.png"></li>
-                                	<li class="next_img"><img src="img/2_th_3.png"></li>
-                                	<li class="waiting"><img src="img/17_th_42.png"></li>
                                 </ul>
                             </div>
                             <span class="nxt_fix" style="display:none;"></span>
@@ -106,12 +103,12 @@
     </footer>
 
     <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
+    <li class="item" style="background-image: url(\${imgUrl});">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
-                <h4 class="event_txt_tit"></h4>
-                <p class="event_txt_adr"></p>
-                <p class="event_txt_dsc"></p>
+                <h4 class="event_txt_tit">\${description}</h4>
+                <p class="event_txt_adr">\${placeName}</p>
+                <p class="event_txt_dsc">\${content}</p>
             </div>
         </a>
     </li>
@@ -126,7 +123,7 @@
                 </div>
                 <div class="event_txt">
                     <h4 class="event_txt_tit"> <span>\${description}</span> <small class="sm">\${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
+                    <p class="event_txt_dsc">\${content}</p>
                 </div>
             </a>
         </li>
