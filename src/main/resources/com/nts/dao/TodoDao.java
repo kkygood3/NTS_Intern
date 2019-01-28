@@ -6,7 +6,6 @@
 package com.nts.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
+import com.nts.config.DBConnection;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoType;
 
@@ -31,8 +32,9 @@ public class TodoDao {
 	 * 처음 TodoDao 객체가 생성될때 드라이버를 찾습니다.
 	 */
 	public TodoDao() {
+		Properties properties = DBConnection.getProperties();
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(properties.getProperty("driver"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
@@ -45,7 +47,7 @@ public class TodoDao {
 	public List<TodoDto> getTodos() {
 
 		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
-		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
+		try (Connection connection = DBConnection.tryConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery);
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -77,7 +79,7 @@ public class TodoDao {
 	public int addTodo(TodoDto todo) {
 
 		String mySqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
-		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
+		try (Connection connection = DBConnection.tryConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery)) {
 
 			preparedStatement.setString(1, todo.getTitle());
@@ -100,7 +102,7 @@ public class TodoDao {
 	public int updateTodo(Long id, String type) {
 
 		String mySqlQuery = "update todo set type = ? where id = ?";
-		try (Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
+		try (Connection connection = DBConnection.tryConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery)) {
 
 			preparedStatement.setString(1, type);
