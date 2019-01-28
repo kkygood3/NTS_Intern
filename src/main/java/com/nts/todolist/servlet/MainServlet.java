@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.todolist.common.TodoType;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 
@@ -43,11 +44,11 @@ public class MainServlet extends HttpServlet {
 		for (int i = 0; i < allTypeList.size(); i++) {
 			String type = allTypeList.get(i).getType();
 
-			if (type.equals("TODO")) {
+			if (TodoType.TODO.getValue().equals(type)) {
 				todoList.add(allTypeList.get(i));
-			} else if (type.equals("DOING")) {
+			} else if (TodoType.DOING.getValue().equals(type)) {
 				doingList.add(allTypeList.get(i));
-			} else if (type.equals("DONE")) {
+			} else if (TodoType.DONE.getValue().equals(type)) {
 				doneList.add(allTypeList.get(i));
 			}
 		}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.todolist.common.TodoType;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 
@@ -20,7 +21,7 @@ import com.nts.todolist.dto.TodoDto;
  */
 @WebServlet("/todoUpdate/*")
 public class TodoTypeServlet extends HttpServlet {
-	
+
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
@@ -31,24 +32,20 @@ public class TodoTypeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		Long id = Long.parseLong(request.getParameter("id"));
-		String type = request.getParameter("type");
-		String updateType = "";
-		if (type.equals("TODO")) {
-			updateType = "DOING";
-		} else if (type.equals("DOING")) {
-			updateType = "DONE";
-		}
+		TodoType currentType = TodoType.valueOf(request.getParameter("type"));
+		String afterType = currentType.getAfterType();
 
 		TodoDao todoDao = new TodoDao();
+
 		TodoDto todoDto = new TodoDto();
 		todoDto.setId(id);
-		todoDto.setType(updateType);
+		todoDto.setType(afterType);
 
 		int typeUpdateState = 0;
 
-		if (type.equals("TODO")) {
+		if (TodoType.TODO.getValue().equals(currentType)) {
 			typeUpdateState = todoDao.updateTodo(todoDto);
-		} else if (type.equals("DOING")) {
+		} else if (TodoType.DOING.getValue().equals(currentType)) {
 			typeUpdateState = todoDao.updateTodo(todoDto);
 		}
 
