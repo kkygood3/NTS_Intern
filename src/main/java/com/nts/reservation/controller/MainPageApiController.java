@@ -6,9 +6,7 @@
 package com.nts.reservation.controller;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.CategoryResponseDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.dto.ProductResponseDto;
+import com.nts.reservation.dto.PromotionResponseDto;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.ProductService;
 
@@ -35,11 +36,10 @@ public class MainPageApiController {
 	private ProductService productService;
 
 	@GetMapping("/products")
-	public Map<String, Object> getProductList(
+	public ProductResponseDto getProductList(
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
 		@RequestParam(name = "categoryId", required = false) Integer categoryId) {
 
-		Map<String, Object> map = new HashMap<>();
 		List<ProductDto> items = Collections.emptyList();
 		int count = 0;
 
@@ -51,27 +51,20 @@ public class MainPageApiController {
 			count = productService.getCount(categoryId);
 		}
 
-		map.put("items", items);
-		map.put("totalCount", count);
-		return map;
+		return new ProductResponseDto(items, count);
 	}
 
 	@GetMapping("/promotions")
-	public Map<String, Object> getPromotionList() {
+	public PromotionResponseDto getPromotionList() {
 
-		Map<String, Object> map = new HashMap();
 		List<ProductDto> items = productService.getPromotionProducts();
-		map.put("items", items);
-		map.put("totalCount", items.size());
-		return map;
+		return new PromotionResponseDto(items, items.size());
 	}
 
 	@GetMapping("/categories")
-	public Map<String, Object> getCategoryList() {
+	public CategoryResponseDto getCategoryList() {
 
-		Map<String, Object> map = new HashMap<>();
 		List<CategoryDto> items = categoryService.getCategorys();
-		map.put("items", items);
-		return map;
+		return new CategoryResponseDto(items);
 	}
 }
