@@ -21,7 +21,7 @@ public class TodoDao {
 	private static final String URL = "jdbc:mysql://10.113.116.52:13306/user2?serverTimezone=Asia/Seoul&useSSL=false";
 	private static final String USER = "user2";
 	private static final String PASSWORD = "1234";
-	private static final String DIVICE_DRIVER = "com.mysql.cj.jdbc.Driver";
+	private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 
 	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY sequence, regdate";
 	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
@@ -35,9 +35,9 @@ public class TodoDao {
 
 		List<TodoDto> todos = new ArrayList<>();
 		try {
-			Class.forName(DIVICE_DRIVER);
-
+			Class.forName(DB_DRIVER);
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
 			preparedStatement = connection.prepareStatement(SQL_SELECT);
 			resultSet = preparedStatement.executeQuery();
 
@@ -67,9 +67,9 @@ public class TodoDao {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			Class.forName(DIVICE_DRIVER);
-
+			Class.forName(DB_DRIVER);
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
 			preparedStatement = connection.prepareStatement(SQL_INSERT);
 
 			preparedStatement.setString(1, todoDto.getTitle());
@@ -90,7 +90,9 @@ public class TodoDao {
 		PreparedStatement preparedStatement = null;
 
 		try {
+			Class.forName(DB_DRIVER);
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
 			preparedStatement = connection.prepareStatement(SQL_UPDATE);
 
 			preparedStatement.setString(1, todoDto.getType());

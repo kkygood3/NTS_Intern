@@ -42,22 +42,15 @@ public class MainServlet extends HttpServlet {
 		int allTypeListSize = allTypeList.size();
 		for (int i = 0; i < allTypeList.size(); i++) {
 			String type = allTypeList.get(i).getType();
-			System.out.println("type : " + type);
 
 			if (type.equals("TODO")) {
-				System.out.println("TODO");
 				todoList.add(allTypeList.get(i));
 			} else if (type.equals("DOING")) {
-				System.out.println("DOING");
 				doingList.add(allTypeList.get(i));
 			} else if (type.equals("DONE")) {
-				System.out.println("DONE");
 				doneList.add(allTypeList.get(i));
 			}
 		}
-		System.out.println("todoListSize : " + todoList.size());
-		System.out.println("doingListSize : " + doingList.size());
-		System.out.println("doneListSize : " + doneList.size());
 
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("doingList", doingList);
