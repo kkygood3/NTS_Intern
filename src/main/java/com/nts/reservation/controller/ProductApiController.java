@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.controller;
+package com.nts.reservation.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservationservice.dto.ProductDto;
-import com.nts.reservationservice.service.ProductService;
+import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.service.ProductService;
 
 /*
  * @author 육성렬

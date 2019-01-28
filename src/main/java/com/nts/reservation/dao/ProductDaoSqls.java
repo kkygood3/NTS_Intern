@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.dao;
+package com.nts.reservation.dao;
 
 /*
  * @author 육성렬

@@ -3,13 +3,13 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.dao;
+package com.nts.reservation.dao;
 
-import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT;
-import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_PRODUCT;
-import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservationservice.dao.ProductDaoSqls.SELECT_PROMOTION_PRODUCT;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION_PRODUCT;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservationservice.dto.ProductDto;
+import com.nts.reservation.dto.ProductDto;
 
 /*
  * @author 육성렬

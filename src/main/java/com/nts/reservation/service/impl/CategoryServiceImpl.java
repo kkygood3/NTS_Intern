@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.service.impl;
+package com.nts.reservation.service.impl;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservationservice.dao.CategoryDao;
-import com.nts.reservationservice.dto.CategoryDto;
-import com.nts.reservationservice.service.CategoryService;
+import com.nts.reservation.dao.CategoryDao;
+import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.service.CategoryService;
 
 /*
  * @author 육성렬

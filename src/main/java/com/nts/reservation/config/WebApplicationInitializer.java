@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.config;
+package com.nts.reservation.config;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;

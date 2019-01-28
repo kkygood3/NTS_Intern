@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.config;
+package com.nts.reservation.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 public class DBConfig implements TransactionManagementConfigurer {
 
 	@Autowired
-	ResourceLoader resourceLoader;
+	private ResourceLoader resourceLoader;
 
 	private String driverClassName;
 	private String url;

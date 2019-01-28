@@ -3,9 +3,9 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.dao;
+package com.nts.reservation.dao;
 
-import static com.nts.reservationservice.dao.CategoryDaoSqls.SELECT_CATEGORY;
+import static com.nts.reservation.dao.CategoryDaoSqls.SELECT_CATEGORY;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservationservice.dto.CategoryDto;
+import com.nts.reservation.dto.CategoryDto;
 
 /*
  * @author 육성렬

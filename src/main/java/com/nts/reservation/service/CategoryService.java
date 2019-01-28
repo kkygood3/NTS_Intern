@@ -3,11 +3,11 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.service;
+package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservationservice.dto.CategoryDto;
+import com.nts.reservation.dto.CategoryDto;
 
 /*
  * @author 육성렬
