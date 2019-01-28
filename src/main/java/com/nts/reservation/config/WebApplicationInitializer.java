@@ -42,7 +42,7 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
 	private AnnotationConfigWebApplicationContext createContext(final Class<?>... annotatedClasses) {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(annotatedClasses);
-		context.setConfigLocation("com.nts.reservationservice.config");
+		context.setConfigLocation("com.nts.reservation.config");
 		return context;
 	}
 
