@@ -16,20 +16,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.CategoryDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.ProductService;
 
 /*
  * @author 육성렬
  */
 @RestController
-@RequestMapping(path = "/api/products")
-public class ProductApiController {
+@RequestMapping(path = "/api")
+public class MainPageApiController {
+
+	@Autowired
+	private CategoryService categoryService;
+
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping
-	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
+	@GetMapping("/products")
+	public Map<String, Object> getProductList(
+		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
 		@RequestParam(name = "categoryId", required = false) Integer categoryId) {
 
 		Map<String, Object> map = new HashMap<>();
@@ -46,6 +53,25 @@ public class ProductApiController {
 
 		map.put("items", items);
 		map.put("totalCount", count);
+		return map;
+	}
+
+	@GetMapping("/promotions")
+	public Map<String, Object> getPromotionList() {
+
+		Map<String, Object> map = new HashMap();
+		List<ProductDto> items = productService.getPromotionProducts();
+		map.put("items", items);
+		map.put("totalCount", items.size());
+		return map;
+	}
+
+	@GetMapping("/categories")
+	public Map<String, Object> getCategoryList() {
+
+		Map<String, Object> map = new HashMap<>();
+		List<CategoryDto> items = categoryService.getCategorys();
+		map.put("items", items);
 		return map;
 	}
 }
