@@ -39,17 +39,15 @@ public class MainServlet extends HttpServlet {
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
-		System.out.println("all size : " + allTypeList.size());
-		int allTypeListSize = allTypeList.size();
-		for (int i = 0; i < allTypeList.size(); i++) {
-			String type = allTypeList.get(i).getType();
+		for (TodoDto todoDto : allTypeList) {
+			String type = todoDto.getType();
 
 			if (TodoType.TODO.getValue().equals(type)) {
-				todoList.add(allTypeList.get(i));
+				todoList.add(todoDto);
 			} else if (TodoType.DOING.getValue().equals(type)) {
-				doingList.add(allTypeList.get(i));
+				doingList.add(todoDto);
 			} else if (TodoType.DONE.getValue().equals(type)) {
-				doneList.add(allTypeList.get(i));
+				doneList.add(todoDto);
 			}
 		}
 

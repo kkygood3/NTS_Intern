@@ -18,11 +18,6 @@ import com.nts.todolist.dto.TodoDto;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class TodoDao {
-	/*	private static final String URL = "jdbc:mysql://10.113.116.52:13306/user2?serverTimezone=Asia/Seoul&useSSL=false";
-		private static final String USER = "user2";
-		private static final String PASSWORD = "1234";
-		private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";*/
-
 	private static final String SQL_SELECT = "SELECT id, title, name, sequence, type, regdate FROM todo ORDER BY sequence, regdate";
 	private static final String SQL_INSERT = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
 	private static final String SQL_UPDATE = "UPDATE todo SET TYPE = ? WHERE id = ?";
@@ -31,8 +26,6 @@ public class TodoDao {
 		List<TodoDto> todos = new ArrayList<>();
 
 		try {
-			/*Class.forName(DB_DRIVER);
-			connection = DriverManager.getConnection(URL, USER, PASSWORD);*/
 			Connection connection = DBConnect.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(SQL_SELECT);
 			ResultSet resultSet = preparedStatement.executeQuery();
