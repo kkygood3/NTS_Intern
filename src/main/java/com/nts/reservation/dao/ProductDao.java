@@ -5,11 +5,7 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION_PRODUCT;
+import static com.nts.reservation.dao.ProductDaoSqls.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,7 +30,7 @@ public class ProductDao {
 	private RowMapper<ProductDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductDto.class);
 
 	public ProductDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public List<ProductDto> selectProduct(int start, int limit) {

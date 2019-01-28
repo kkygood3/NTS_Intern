@@ -5,7 +5,7 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.CategoryDaoSqls.SELECT_CATEGORY;
+import static com.nts.reservation.dao.CategoryDaoSqls.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,7 @@ public class CategoryDao {
 	private RowMapper<CategoryDto> rowMapper = BeanPropertyRowMapper.newInstance(CategoryDto.class);
 
 	public CategoryDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	public List<CategoryDto> selectCategory() {
