@@ -41,7 +41,7 @@ public class MainPageApiController {
 
 		Map<String, Object> map = new HashMap<>();
 		List<ProductDto> items = Collections.emptyList();
-		int count = -1;
+		int count = 0;
 
 		if (categoryId == null) {
 			items = productService.getProducts(start);

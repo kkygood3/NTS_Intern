@@ -120,7 +120,7 @@ function updateProductList(products, totalCount){
     for(var i = 0; i < products.length; i++){
         var product = products[i];
         resultTemplate[i%2] += template.replace("{id}", product.displayInfoId).replace("{description}", product.productDescription)
-                                    .replace("{image_url}", product.productImageUrl).replace("{placeName}", product.placeName)
+                                    .replace("{image_url}", "./" + product.productImageUrl).replace("{placeName}", product.placeName)
                                     .replace("{content}", product.productContent).replace("{description}", product.productDescription);
     }
     for(var i = 0; i < containers.length; i++){
@@ -146,7 +146,7 @@ function updatePromtions(promotions) {
     var resultTemplate = "";
     for(var i = 0; i < promotions.length; i++){
         var promotion = promotions[i];
-        resultTemplate += template.replace("{image_url}", promotion.productImageUrl)
+        resultTemplate += template.replace("{image_url}", "./" + promotion.productImageUrl)
                                     .replace("{index}", i);
     }
     promotionContainer.innerHTML = resultTemplate;

@@ -61,7 +61,7 @@ public class ProductDto {
 	}
 
 	public void setProductImageUrl(String productImageUrl) {
-		this.productImageUrl = "./" + productImageUrl;
+		this.productImageUrl = productImageUrl;
 	}
 
 	@Override
