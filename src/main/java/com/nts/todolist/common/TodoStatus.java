@@ -24,7 +24,7 @@ public enum TodoStatus {
 		return todoStatus;
 	}
 
-	public String changNextStatus() {
+	public String changeNextStatus() {
 		return TODO.equals(this) ? DOING.getValue() : DONE.getValue();
 	}
 	

@@ -31,12 +31,12 @@ public class TodoTypeServlet extends HttpServlet {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 		TodoStatus todoStatus = TodoStatus.valueOf(request.getParameter("type"));
-		int updateResult = TodoDao.getInstance().updateTodo(id, todoStatus);
+		int updateResult = TodoDao.getInstance().updateTodo(id, todoStatus.changeNextStatus());
 
 		if (updateResult == 1) {
 			response.getWriter().write("success");
 		} else {
-			System.out.printf("실패! 입력된 정보를 확인 (%d, %s)", id, todoStatus.getValue());
+			System.out.printf("실패! 입력된 정보를 확인 : (%d, %s)\n", id, todoStatus.getValue());
 			response.getWriter().write("fail");
 		}
 	}
