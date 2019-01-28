@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.dto.ProductDto;
-import com.nts.service.CategoryService;
 import com.nts.service.ProductService;
 
 /**

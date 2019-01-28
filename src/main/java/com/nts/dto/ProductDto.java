@@ -5,78 +5,69 @@
 package com.nts.dto;
 
 /**
- * 상품 테이블 정보를 담는 클래스
+ * 상품 정보를 담는 클래스
  * @author jinwoo.bae
  */
 public class ProductDto {
-	private int id;
-	private int categoryId;
-	private String description;
-	private String content;
-	private String event;
-	private String createDate;
-	private String modifyDate;
+	private int displayInfoId;
+	private String placeName;
+	private String productContent;
+	private String productDescription;
+	private int productId;
+	private String productImageUrl;
 
-	public int getId() {
-		return id;
+	public int getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
-	public int getCategoryId() {
-		return categoryId;
+	public String getPlaceName() {
+		return placeName;
 	}
 
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getProductContent() {
+		return productContent;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
 	}
 
-	public String getContent() {
-		return content;
+	public String getProductDescription() {
+		return productDescription;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
 	}
 
-	public String getEvent() {
-		return event;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setEvent(String event) {
-		this.event = event;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
-	public String getCreateDate() {
-		return createDate;
+	public String getProductImageUrl() {
+		return productImageUrl;
 	}
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductDto [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-			+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+		return "ProductDto [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
+			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
+			+ ", productImageUrl=" + productImageUrl + "]";
 	}
-
 }
