@@ -18,14 +18,13 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProducts() {
-		return productDao.getProducts();
-	}
+	public List<Product> getProducts(Integer start, Integer category) {
+		if (category == 0) {
+			return productDao.getProducts(start, LIMIT);
+		} else {
+			return productDao.getProductsByCategory(start, category, LIMIT);
+		}
 
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -35,9 +34,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int getPromotionCount() {
-		//return productDao.getPromotionCount();
-		return 0;
+	public Long getProductsCount() {
+		return productDao.getProductsCount();
 	}
 
 }

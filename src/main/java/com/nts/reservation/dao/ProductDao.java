@@ -1,8 +1,11 @@
 package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +32,26 @@ public class ProductDao {
 		return jdbc.query(SELECT_PROMOTION, BeanPropertyRowMapper.newInstance(Promotion.class));
 	}
 
-	public List<Product> getProducts() {
+	public List<Product> getProducts(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
 		return jdbc.query(SELECT_ALL_PRODUCTS, params, rowMapper);
+
+	}
+
+	public List<Product> getProductsByCategory(int start, int category, int limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		params.put("category_id", category);
+		return jdbc.query(SELECT_ALL_PRODUCTS_BY_CATEGORY, params, rowMapper);
+
 	}
 
 	public Long getProductsCount() {
-		return null;
+
+		return jdbc.queryForObject(SELECT_PRODUCTS_COUNT, Collections.emptyMap(), Long.class);
 	}
 
 	//	public Long insert(Product product) {
