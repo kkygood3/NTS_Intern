@@ -28,12 +28,27 @@ public class ProductApiController {
 	ProductService productService;
 
 	/**
+	 * 상품정보들과 총개수를 가져와 json으로 리턴해준다.
+	 */
+	@GetMapping(params = {"start"})
+	public Map<String, Object> list(@RequestParam(name = "start", defaultValue = "0") int start) {
+		List<ProductDto> list = productService.getProducts(start);
+		int count = productService.getCount();
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("totalCount", count);
+		map.put("items", list);
+
+		return map;
+	}
+
+	/**
 	 * 특정카테고리의 상품들을 start번째 부터 limit 범위만큼 가져와주고 
 	 * 해당카테고리에 몇개의 상품이 있는지도 계산하여 가져온후 json으로 리턴해준다.
 	 */
-	@GetMapping
-	public Map<String, Object> list(@RequestParam(name="categoryId", required=false, defaultValue="1") int categoryId,
-		@RequestParam(name="start", required=false, defaultValue="0") int start) {
+	@GetMapping(params = {"categoryId", "start"})
+	public Map<String, Object> list(@RequestParam(required = true) int categoryId,
+		@RequestParam(required = false, defaultValue = "0") int start) {
 		List<ProductDto> list = productService.getProductsByCategoryId(categoryId, start);
 		int count = productService.getCountByCategoryId(categoryId);
 

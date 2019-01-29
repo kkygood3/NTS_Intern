@@ -34,6 +34,16 @@ public class ProductDao {
 	}
 
 	/**
+	 * 모든 카테고리의 상품들을 가져온다 
+	 */
+	public List<ProductDto> selectAll(int start, Integer limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbcTemplate.query(SELECT_ALL, params, rowMapper);
+	}
+
+	/**
 	 * 특정 카테고리의 상품들을 가져온다.
 	 */
 	public List<ProductDto> selectByCategoryId(int categoryId, int start, Integer limit) {
@@ -42,6 +52,13 @@ public class ProductDao {
 		params.put("start", start);
 		params.put("limit", limit);
 		return jdbcTemplate.query(SELECT_BY_CATEGORY_ID, params, rowMapper);
+	}
+
+	/**
+	 * 모든상품의 총 개수를 가져온다 
+	 */
+	public int selectCount() {
+		return jdbcTemplate.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 	/**

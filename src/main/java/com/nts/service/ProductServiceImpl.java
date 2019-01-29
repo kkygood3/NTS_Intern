@@ -17,14 +17,25 @@ import com.nts.dto.ProductDto;
  * @author jinwoo.bae
  */
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDao;
+
+	@Override
+	public List<ProductDto> getProducts(int start) {
+		List<ProductDto> list = productDao.selectAll(start, ProductService.LIMIT);
+		return list;
+	}
 
 	@Override
 	public List<ProductDto> getProductsByCategoryId(int categoryId, int start) {
 		List<ProductDto> list = productDao.selectByCategoryId(categoryId, start, ProductService.LIMIT);
 		return list;
+	}
+
+	@Override
+	public int getCount() {
+		return productDao.selectCount();
 	}
 
 	@Override

@@ -14,6 +14,8 @@ import com.nts.dto.ProductDto;
  */
 public interface ProductService {
 	public static final Integer LIMIT = 4;
+	List<ProductDto> getProducts(int start);
 	List<ProductDto> getProductsByCategoryId(int categoryId, int start);
+	int getCount();
 	int getCountByCategoryId(int categoryId);
 }
