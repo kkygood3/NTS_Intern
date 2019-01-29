@@ -25,18 +25,16 @@ public class ReservationSqls {
 	public static final String LIMIT = "limit :start, 4 ";
 
 	public static final String SELECT_COUNT_ALL = "SELECT count(*) FROM " + PRODUCT_TABLE
-		+ "GROUP BY type "
-		+ "HAVING type = 'th'";
+		+ "WHERE type = 'th'";
 	public static final String COUNT_BY_CATEGORY_ID = "SELECT count(*) FROM " + PRODUCT_TABLE
-		+ "GROUP BY type, category_id "
-		+ "HAVING type = 'th' "
-		+ "and category_id = :categoryId";
+		+ "WHERE type = 'th' "
+		+ "and category_id = :categoryId ";
 
 	public static final String GET_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "GROUP BY display_info.id ";
 	public static final String GET_PRODUCTS_BY_CATEGORY_ID = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
-		+ "GROUP BY display_info.id, category_id "
-		+ "HAVING category_id = :categoryId ";
+		+ "WHERE category_id = :categoryId "
+		+ "GROUP BY display_info.id ";
 
 	public static final String GET_PROMOTION_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "INNER JOIN promotion "
@@ -50,5 +48,5 @@ public class ReservationSqls {
 		+ "ON category.id = product.category_id "
 		+ "INNER JOIN display_info "
 		+ "ON product.id = display_info.product_id "
-		+ "GROUP BY category.id";
+		+ "GROUP BY category.id ";
 }
