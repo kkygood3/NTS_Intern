@@ -1,3 +1,9 @@
+/src/main/resources/application.properties
+target
+.classpath
+.project
+.settings
+
 # Created by https://www.gitignore.io/api/java,maven,windows,eclipse,database
 # Edit at https://www.gitignore.io/?templates=java,maven,windows,eclipse,database
 
