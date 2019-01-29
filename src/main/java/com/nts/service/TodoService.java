@@ -7,7 +7,6 @@ package com.nts.service;
 import java.util.List;
 
 import com.nts.dao.TodoDao;
-import com.nts.exception.ServerErrorException;
 import com.nts.model.TodoDto;
 import com.nts.model.TodosDto;
 
@@ -18,7 +17,7 @@ import com.nts.model.TodosDto;
 public class TodoService {
 	private TodoDao todoDao;
 
-	public TodosDto getTodos() throws ServerErrorException {
+	public TodosDto getTodos() throws RuntimeException {
 		List<TodoDto> todoList = todoDao.getTodos();
 		TodosDto todos = new TodosDto();
 		for (TodoDto todo : todoList) {
@@ -27,11 +26,11 @@ public class TodoService {
 		return todos;
 	}
 
-	public void addTodo(TodoDto todo) throws ServerErrorException {
+	public void addTodo(TodoDto todo) throws RuntimeException {
 		todoDao.addTodo(todo);
 	}
 
-	public void changeTypeToNext(TodoDto todo) throws ServerErrorException {
+	public void changeTypeToNext(TodoDto todo) throws RuntimeException {
 		todo.changeTypeToNext();
 		todoDao.updateTodo(todo);
 	}

@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nts.exception.ServerErrorException;
 import com.nts.factory.MysqlConnectionFactory;
 import com.nts.model.TodoDto;
 
@@ -35,7 +34,7 @@ public class TodoDao {
 		return TodoDaoHolder.TODODAO_INSTANCE;
 	}
 
-	public List<TodoDto> getTodos() throws ServerErrorException {
+	public List<TodoDto> getTodos() throws RuntimeException {
 		List<TodoDto> todoList = new ArrayList<>();
 		try (
 			Connection connection = MysqlConnectionFactory.getConnection();
@@ -54,12 +53,12 @@ public class TodoDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // 콘솔 출력 -> log file 출력으로 ..
-			throw new ServerErrorException(e);
+			throw new RuntimeException(e);
 		}
 		return todoList;
 	}
 
-	public int addTodo(TodoDto todo) throws ServerErrorException {
+	public int addTodo(TodoDto todo) throws RuntimeException {
 		try (
 			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(INSERT_TODO);) {
@@ -71,11 +70,11 @@ public class TodoDao {
 			return statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // 콘솔 출력 -> log file 출력으로 ..
-			throw new ServerErrorException(e);
+			throw new RuntimeException(e);
 		}
 	}
 
-	public int updateTodo(TodoDto todo) throws ServerErrorException {
+	public int updateTodo(TodoDto todo) throws RuntimeException {
 		try (
 			Connection connection = MysqlConnectionFactory.getConnection();
 			PreparedStatement statement = connection.prepareStatement(CHANGE_TYPE_TODO);) {
@@ -86,7 +85,7 @@ public class TodoDao {
 			return statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // 콘솔 출력 -> log file 출력으로 ..
-			throw new ServerErrorException(e);
+			throw new RuntimeException(e);
 		}
 	}
 

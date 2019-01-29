@@ -13,6 +13,10 @@ public class ServerErrorException extends Exception {
 		super(e);
 	}
 
+	public ServerErrorException() {
+		super();
+	}
+
 	public int getERROR_CODE() {
 		return ERROR_CODE;
 	}

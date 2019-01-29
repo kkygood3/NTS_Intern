@@ -53,8 +53,9 @@ public class TodoAddServlet extends HttpServlet {
 		TodoService todoService = TodoService.getInstance();
 		try {
 			todoService.addTodo(todo);
-		} catch (ServerErrorException e) {
-			response.sendError(e.getERROR_CODE(), e.getMessage());
+		} catch (RuntimeException e) {
+			ServerErrorException serverErrorException = new ServerErrorException(e);
+			response.sendError(serverErrorException.getERROR_CODE(), serverErrorException.getMessage());
 			return;
 		}
 

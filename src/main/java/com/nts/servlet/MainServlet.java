@@ -33,8 +33,9 @@ public class MainServlet extends HttpServlet {
 
 			request.setAttribute("todos", todos);
 			request.getRequestDispatcher("/WEB-INF/jsp/main.jsp").forward(request, response);
-		} catch (ServerErrorException e) {
-			response.sendError(e.getERROR_CODE(), e.getMessage());
+		} catch (RuntimeException e) {
+			ServerErrorException serverErrorException = new ServerErrorException(e);
+			response.sendError(serverErrorException.getERROR_CODE(), serverErrorException.getMessage());
 		}
 
 	}

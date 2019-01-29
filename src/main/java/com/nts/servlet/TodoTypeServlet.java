@@ -49,8 +49,9 @@ public class TodoTypeServlet extends HttpServlet {
 			todoService.changeTypeToNext(todo);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().append("success");
-		} catch (ServerErrorException e) {
-			response.sendError(e.getERROR_CODE(), e.getMessage());
+		} catch (RuntimeException e) {
+			ServerErrorException serverErrorException = new ServerErrorException(e);
+			response.sendError(serverErrorException.getERROR_CODE(), serverErrorException.getMessage());
 		}
 
 	}
