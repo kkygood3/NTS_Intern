@@ -12,14 +12,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 
-import com.nts.reservation.controller.ProductApiController;
-
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
 @Configuration
-//@ComponentScan(basePackages = {"com.nts.reservation.dao" , "com.nts.reservation.service" })
 @ComponentScan(basePackages = {"com.nts.reservation"}, 
     excludeFilters = @Filter(
             type = FilterType.REGEX,
