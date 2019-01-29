@@ -9,14 +9,17 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
 import com.nts.reservation.model.Product;
+import com.nts.reservation.model.ProductRequest;
 import com.nts.reservation.model.ProductResponse;
 import com.nts.reservation.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
+@WebAppConfiguration
 public class ProductServiceTest {
 
 	@Autowired
@@ -24,7 +27,10 @@ public class ProductServiceTest {
 
 	@Test
 	public void selectTest() {
-		ProductResponse productResponse = productService.getProductResponse(5, 0);
+		ProductRequest productRequest = new ProductRequest();
+		productRequest.setCategoryId(0);
+		productRequest.setStart(-1);
+		ProductResponse productResponse = productService.getProductResponse(productRequest);
 
 		System.out.println(productResponse.getTotalCount());
 		for (Product product : productResponse.getItem()) {
