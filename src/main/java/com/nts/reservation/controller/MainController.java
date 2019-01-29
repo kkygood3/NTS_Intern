@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
+	/**
+	 * 메인 페이지 호출
+	 */
 	@GetMapping(value = {"/main"})
 	public String mainpage() {
 		return "mainpage";

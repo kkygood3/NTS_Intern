@@ -13,6 +13,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+ * Transaction Bean 설정 class
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Configuration
 @EnableTransactionManagement
 public class TransactionConfig implements TransactionManagementConfigurer {

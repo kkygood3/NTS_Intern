@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * databases 관련 설정 class
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
 public class DatabaseConfig {
@@ -28,6 +32,9 @@ public class DatabaseConfig {
 	@Value("${spring.datasource.password}")
 	private String password;
 
+	/**
+	 * dataSourece Bean 생성
+	 */
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();

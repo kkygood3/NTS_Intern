@@ -17,6 +17,9 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
+	/**
+	 * category 목록을 Json으로 응답
+	 */
 	@GetMapping(value = {"/api/categories"})
 	public CategoryResponse getCategoryList() {
 		return categoryService.getCategoryResponse();

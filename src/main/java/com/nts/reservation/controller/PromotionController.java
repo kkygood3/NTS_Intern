@@ -17,6 +17,9 @@ public class PromotionController {
 	@Autowired
 	private PromotionService promotionService;
 
+	/**
+	 * promotion 목록을 Json으로 응답
+	 */
 	@GetMapping(value = {"/api/promotions"})
 	public PromotionResponse getPromotionList() {
 		return promotionService.getPromotionResponse();

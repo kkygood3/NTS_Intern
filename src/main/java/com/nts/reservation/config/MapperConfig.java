@@ -13,6 +13,10 @@ import com.nts.reservation.model.Category;
 import com.nts.reservation.model.Product;
 import com.nts.reservation.model.Promotion;
 
+/**
+ * model class 를 sql query로 사용할 수 있게 변환하는 Bean 생성 설정 class
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Configuration
 public class MapperConfig {
 

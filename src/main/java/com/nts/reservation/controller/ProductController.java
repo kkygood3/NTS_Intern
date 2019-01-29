@@ -20,6 +20,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	/**
+	 * categoryId와 start index를 request parameter로 받아 해당 product list를 Json으로 응답
+	 */
 	@GetMapping(value = {"/api/products"})
 	public ProductResponse getProductList(@Valid ProductRequest productRequest) {
 		return productService.getProductResponse(productRequest);

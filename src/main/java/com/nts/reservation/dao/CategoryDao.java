@@ -23,6 +23,9 @@ public class CategoryDao {
 	@Autowired
 	private RowMapper<Category> categoryMapper;
 
+	/**
+	 * category 목록을 조회하여 List 객체로 반환
+	 */
 	public List<Category> getCategoryList() {
 		return jdbcTemplate.query(CategoryQuerys.SELECT_CATEGORY_LIST, categoryMapper);
 	}

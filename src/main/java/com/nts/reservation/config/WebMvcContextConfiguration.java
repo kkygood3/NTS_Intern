@@ -14,11 +14,18 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Spring Web MVC 설정 class
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
+	/** 
+	 * view가 아닌 resource file 경로에 대한 접근 설정
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
@@ -29,11 +36,17 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
+	/** 
+	 * welcome view 설정
+	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
 	}
 
+	/**
+	 * view의 prefix, suffix 설정
+	 */
 	@Bean
 	public InternalResourceViewResolver getInternalResourceViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();

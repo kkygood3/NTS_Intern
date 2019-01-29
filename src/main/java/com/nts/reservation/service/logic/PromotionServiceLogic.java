@@ -17,6 +17,9 @@ public class PromotionServiceLogic implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;
 
+	/**
+	 * dao에서 promotion List 객체를 받아  PromotionResponse 객체로 생성 후 반환
+	 */
 	@Override
 	public PromotionResponse getPromotionResponse() {
 		return new PromotionResponse(promotionDao.getPromotionList());

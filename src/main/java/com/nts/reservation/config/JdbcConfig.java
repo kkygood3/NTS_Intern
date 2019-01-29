@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+/**
+ * DB에 접근하는 jdbc template Bean 생성 설정 class
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Configuration
 public class JdbcConfig {
 

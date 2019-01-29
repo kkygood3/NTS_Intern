@@ -24,6 +24,9 @@ public class PromotionDao {
 	@Autowired
 	private RowMapper<Promotion> promotionMapper;
 
+	/**
+	 * promotion 목록을 조회하여 List 객체로 반환
+	 */
 	public List<Promotion> getPromotionList() {
 		return jdbcTemplate.query(PromotionQuerys.SELECT_PROMOTION_LIST, Collections.EMPTY_MAP, promotionMapper);
 	}

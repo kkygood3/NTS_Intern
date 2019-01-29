@@ -17,6 +17,9 @@ public class CategoryServiceLogic implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
+	/**
+	 * dao에서 category List 객체를 받아 CategoryResponse 객체로 생성 후 반환
+	 */
 	@Override
 	public CategoryResponse getCategoryResponse() {
 		return new CategoryResponse(categoryDao.getCategoryList());

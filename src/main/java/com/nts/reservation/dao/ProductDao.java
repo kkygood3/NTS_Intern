@@ -28,6 +28,9 @@ public class ProductDao {
 	@Autowired
 	private RowMapper<Product> productMapper;
 
+	/**
+	 * product 전체목록을 조회하여 ProductResponse객체로 생성후 반환
+	 */
 	@Transactional(readOnly = true)
 	public ProductResponse getAllCategoryProductResponse(ProductRequest productRequest) {
 
@@ -40,6 +43,9 @@ public class ProductDao {
 		return new ProductResponse(productList, productCount);
 	}
 
+	/**
+	 * 특정 category의 product 목록을 조회하여 ProductResponse객체로 생성후 반환
+	 */
 	@Transactional(readOnly = true)
 	public ProductResponse getOneCategoryProductResponse(ProductRequest productRequest) {
 		List<Product> productList = jdbcTemplate.query(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCT_LIST,

@@ -28,8 +28,8 @@ public class ProductServiceTest {
 	@Test
 	public void selectTest() {
 		ProductRequest productRequest = new ProductRequest();
-		productRequest.setCategoryId(0);
-		productRequest.setStart(-1);
+		productRequest.setCategoryId(1);
+		productRequest.setStart(0);
 		ProductResponse productResponse = productService.getProductResponse(productRequest);
 
 		System.out.println(productResponse.getTotalCount());
