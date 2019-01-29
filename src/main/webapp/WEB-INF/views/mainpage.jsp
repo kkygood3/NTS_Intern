@@ -103,18 +103,18 @@
     </footer>
 
 	<script type="rv-template" id="categories">
-    <li class="item" data-category="\${id}">
-        <a class="anchor"> <span>\${name}</span> </a>
+    <li class="item" data-category="{id}">
+        <a class="anchor"> <span>{name}</span> </a>
     </li>
     </script>
 
     <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(\${imgUrl});">
+    <li class="item" style="background-image: url({imgUrl});">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
-                <h4 class="event_txt_tit">\${description}</h4>
-                <p class="event_txt_adr">\${placeName}</p>
-                <p class="event_txt_dsc">\${content}</p>
+                <h4 class="event_txt_tit">{description}</h4>
+                <p class="event_txt_adr">{placeName}</p>
+                <p class="event_txt_dsc">{content}</p>
             </div>
         </a>
     </li>
@@ -122,14 +122,14 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.jsp?id=\${id}" class="item_book">
+            <a href="detail.jsp?id={id}" class="item_book">
                 <div class="item_preview">
-                    <img alt="\${description}" class="img_thumb" src="\${imgUrl}">
+                    <img alt="{description}" class="img_thumb" src="{imgUrl}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>\${description}</span> <small class="sm">\${placeName}</small> </h4>
-                    <p class="event_txt_dsc">\${content}</p>
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
                 </div>
             </a>
         </li>

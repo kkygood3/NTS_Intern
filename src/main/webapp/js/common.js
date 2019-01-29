@@ -12,14 +12,12 @@ function getCategories() {
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				var jsonResponse = JSON.parse(httpRequest.responseText);
 
-				var targetElement = document.querySelector(".event_tab_lst");
-				var categoryTemplate = document.querySelector("#categories").textContent;
+				var categoryContainer = document.querySelector(".event_tab_lst");
+				var categoryTemplate = document.querySelector("#categories").innerHTML;
 				
-				jsonResponse["items"].forEach(function(event){
-					var id = item.id;
-					var name = item.name;
-					
-					targetElement.innerHTML += eval("`"+categoryTemplate+"`");
+				jsonResponse["items"].forEach(function(item){
+					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
+																   .replace("{name}", item.name);
 				});
 			}
 		}
@@ -73,18 +71,15 @@ function getProductsByCategory(categoryId, start = 0) {
 				countProduct.innerHTML = jsonResponse["totalCount"];
 				displayedProduct += jsonResponse["items"].length;
 				
-				var productTemplate = document.querySelector("#itemList").textContent;
+				var productTemplate = document.querySelector("#itemList").innerHTML;
 				
 				let containerIndex = 0;
 				jsonResponse["items"].forEach(function(item){
-					var id = item.productId;
-					var description = item.productDescription;
-					var placeName = item.placeName;
-					var content = item.productContent;
-					var imgUrl = item.productImageUrl;
-
-					var targetElement = productContainer[containerIndex];
-					targetElement.innerHTML += eval("`"+productTemplate+"`");
+					productContainer[containerIndex].innerHTML += productTemplate.replace("{id}", item.productId)
+															  .replace("{description}", item.productDescription)
+															  .replace("{placeName}", item.placeName)
+															  .replace("{content}", item.productContent)
+															  .replace("{imgUrl}", item.productImageUrl);
 					
 					containerIndex = (containerIndex + 1) % 2;
 				})
@@ -118,16 +113,14 @@ function getPromotions() {
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				var jsonResponse = JSON.parse(httpRequest.responseText);
 
-				var promotionTemplate = document.querySelector("#promotionItem").textContent;
+				var promotionTemplate = document.querySelector("#promotionItem").innerHTML;
 
 				jsonResponse["items"].forEach(function(item){
-					var imgUrl = item.productImageUrl;
-					var description = item.productDescription;
-					var placeName = item.placeName;
-					var content = item.productContent;
-
 					var promotionContainer = document.querySelector(".visual_img");
-					promotionContainer.innerHTML += eval("`"+promotionTemplate+"`");
+					promotionContainer.innerHTML += promotionTemplate.replace("{imgUrl}", item.productImageUrl)
+																	 .replace("{description}", item.productDescription)
+																	 .replace("{placeName}", item.placeName)
+																	 .replace("{content}", item.productContent);
 				});
 
 				executeAnimationTime = performance.now();
