@@ -33,7 +33,7 @@ public class ApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
 
 		List<ProductApiView> items;
-		items = productApiViewService.getCategoryProducts(categoryId, start);
+		items = productApiViewService.getProducts(categoryId, start);
 		
 		int totalCount = productApiViewService.getCount(categoryId);
 
