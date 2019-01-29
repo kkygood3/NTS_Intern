@@ -12,17 +12,17 @@ public class ProductDaoSqls {
 	public static final String SELECT_PRODUCT = "SELECT display.id AS display_info_id, product.id AS product_id"
 		+ ", product.content AS product_content, product.description AS product_description"
 		+ ", display.place_name AS place_name, file_info.save_file_name AS product_image_url"
-		+ " FROM file_info, product INNER JOIN display_info AS display ON product.id = display_info.product_id"
+		+ " FROM file_info, product INNER JOIN display_info AS display ON product.id = display.product_id"
 		+ " LEFT JOIN product_image ON product.id = product_image.product_id AND product_image.type = 'th'"
 		+ " WHERE product_image.file_id = file_info.id ORDER BY display.id ASC LIMIT :start, :limit";
 
 	public static final String SELECT_PRODUCT_BY_CATEGORY = "SELECT display.id AS display_info_id, product.id AS product_id, product.content AS product_content"
 		+ ", product.description AS product_description, display.place_name AS place_name, file_info.save_file_name AS product_image_url"
-		+ " FROM product INNER JOIN display_info AS display ON product.id = display_info.product_id LEFT JOIN product_image"
+		+ " FROM product INNER JOIN display_info AS display ON product.id = display.product_id LEFT JOIN product_image"
 		+ " ON product.id = product_image.product_id AND product_image.type = 'th' INNER JOIN file_info ON product_image.file_id = file_info.id"
 		+ " WHERE product.category_id = :category ORDER BY display.id ASC LIMIT :start, :limit";
 
-	public static final String SELECT_COUNT_PRODUCT = "SELECT COUNT(*) FROM product INNER JOIN display_info ON product.id = display_info.product_id";
+	public static final String SELECT_COUNT_PRODUCT = "SELECT COUNT(*) FROM product INNER JOIN display_info AS display ON product.id = display.product_id";
 
 	public static final String SELECT_COUNT_PRODUCT_BY_CATEGORY = "SELECT COUNT(*) FROM product"
 		+ " INNER JOIN display_info AS display ON product.id = display.product_id WHERE product.category_id = :category";
