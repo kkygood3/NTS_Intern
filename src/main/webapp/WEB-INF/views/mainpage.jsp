@@ -73,7 +73,7 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">10개</span> 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink"></span> 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box"></ul>
@@ -126,35 +126,7 @@
 
 	<script>
 		var currentStart = 0;
-		var currentTab = 0;
-	
-		function promotionTemplate(){
-			var ajaxReq = new XMLHttpRequest();
-	
-			ajaxReq.addEventListener('load', function(evt) {
-				var responseJson = evt.target.response;
-				var itemCount = responseJson['totalCount'];
-				var items = responseJson['items'];
-				
-				var template = document.querySelector("script#promotionItem").innerHTML;
-				var resultHtml = "";
-				for(var i = 0 ; i < itemCount; i++){
-					resultHtml += template.replace('{productImageUrl}',items[i].productImageUrl);
-				}
-				
-				if(items.length > 0)
-					resultHtml += template.replace('{productImageUrl}',items[0].productImageUrl)
-				
-				document.querySelector('ul.visual_img').innerHTML = resultHtml;
-								
-				promotionMoveSet();
-			});
-	
-			ajaxReq.open('GET', 'api/promotions');
-			ajaxReq.responseType = 'json';
-			ajaxReq.send();
-			
-		}
+		var currentCategory = 0;
 	
 		function promotionMoveSet(){
 			var items = document.querySelectorAll(".visual_img>.item");
@@ -192,74 +164,35 @@
 				
 			},4000);
 		}
+		
+		function promotionLoading(){
+			var ajaxReq = new XMLHttpRequest();
 	
-		function categoryTabInit(){
-			
-			document.querySelector('ul.event_tab_lst').addEventListener('click', function(btnEvent){
-				var selectedTab = event.target;
-				if(selectedTab.tagName === 'SPAN')
-					selectedTab = selectedTab.parentElement;
-					
+			ajaxReq.addEventListener('load', function(evt) {
+				var responseJson = evt.target.response;
+				var itemCount = responseJson['totalCount'];
+				var items = responseJson['items'];
 				
-				if(selectedTab.tagName === 'A'){
-					var categoryId = selectedTab.parentElement.getAttribute('data-category');
-					//다른 탭을 누른게 맞다면
-					if(categoryId != currentTab){
-						currentTab = categoryId;
-						currentStart = 0;
-						
-						document.querySelectorAll('a.anchor').forEach(function(element){
-							element.classList.remove('active');
-						});
-						selectedTab.classList.add('active');
-						
-						var ajaxReq = new XMLHttpRequest();
-						
-						//탭 초기 내용 불러오기
-						
-						ajaxReq.addEventListener('load', function(evt) {
-							var responseJson = evt.target.response;
-							var itemCount = responseJson['totalCount'];
-							var items = responseJson['items'];
-							
-							var template = document.querySelector("script#itemList").innerText;
-							var resultHtml = new Array(2);
-							resultHtml[0] = "";
-							resultHtml[1] = "";
-							var lrCounter = 0;
-							for(var i = 0 ; i < items.length; i++){
-								resultHtml[lrCounter] += template
-												.replace('{productImageUrl}',items[i].productImageUrl)
-												.replace("{description}",items[i].productDescription)
-												.replace("{description}",items[i].productDescription)
-												.replace('{id}',items[i].displayInfoId)
-												.replace('{placeName}',items[i].placeName)
-												.replace('{content}',items[i].productContent);
-								lrCounter++;
-								if(lrCounter == 2){
-									lrCounter = 0;
-								}
-							}
-							var containers = document.querySelectorAll('.lst_event_box');
-							containers[0].innerHTML = resultHtml[0];
-							containers[1].innerHTML = resultHtml[1];
-							
-							var moreProductBtn = document.querySelector('.btn');
-							if(itemCount <= currentStart+4)
-								moreProductBtn.style.display = 'none';
-							else
-								moreProductBtn.style.display = 'initial';
-						});
-	
-						ajaxReq.open('GET', 'api/products?categoryId='+categoryId+"&start="+currentStart);
-						ajaxReq.responseType = 'json';
-						ajaxReq.send();
-					}
+				var template = document.querySelector("script#promotionItem").innerHTML;
+				var resultHtml = "";
+				for(var i = 0 ; i < itemCount; i++){
+					resultHtml += template.replace('{productImageUrl}',items[i].productImageUrl);
 				}
+				
+				if(items.length > 0)
+					resultHtml += template.replace('{productImageUrl}',items[0].productImageUrl)
+				
+				document.querySelector('ul.visual_img').innerHTML = resultHtml;
+								
+				promotionMoveSet();
 			});
+	
+			ajaxReq.open('GET', 'api/promotions');
+			ajaxReq.responseType = 'json';
+			ajaxReq.send()
 		}
 	
-		function initialTabInit(){
+		function productLoading(categoryId, start, flag){
 			var ajaxReq = new XMLHttpRequest();
 			
 			ajaxReq.addEventListener('load', function(evt) {
@@ -286,75 +219,72 @@
 					}
 				}
 				var containers = document.querySelectorAll('.lst_event_box');
-				containers[0].innerHTML = resultHtml[0];
-				containers[1].innerHTML = resultHtml[1];
-				
+				containers[0].innerHTML += resultHtml[0];
+				containers[1].innerHTML += resultHtml[1];
+
 				var moreProductBtn = document.querySelector('.btn');
-				if(itemCount <= currentStart+4)
+				if(itemCount <= currentStart){
 					moreProductBtn.style.display = 'none';
-				else
+				} else {
 					moreProductBtn.style.display = 'initial';
+				}
 				
-				document.querySelector('.event_lst_txt>span').innerText = itemCount+'개';
+				if(flag == 1){
+					//최초 로딩 시 전체 Product수를 페이지 상단에 표시
+					document.querySelector('.event_lst_txt>span').innerText = itemCount+'개';
+				}
 			});
 			
-			ajaxReq.open('GET', 'api/products?categoryId=0&start=0');
+			ajaxReq.open('GET', 'api/products?categoryId='+categoryId+'&start='+start);
 			ajaxReq.responseType = 'json';
 			ajaxReq.send();
+			currentStart += 4;
 		}
-	
-		function moreButtonInit(){
-			document.querySelector('.btn').addEventListener('click', function(btnEvent) {
-				var ajaxReq = new XMLHttpRequest();
+		
+		function navTabEventSet(){
+			document.querySelector('ul.event_tab_lst').addEventListener('click', function(btnEvent){
+				var selectedTab = event.target;
+				if(selectedTab.tagName === 'SPAN')
+					selectedTab = selectedTab.parentElement;
 				
-				ajaxReq.addEventListener('load', function(evt) {
-					var responseJson = evt.target.response;
-					var itemCount = responseJson['totalCount'];
-					var items = responseJson['items'];
-					
-					var template = document.querySelector("script#itemList").innerText;
-					var resultHtml = new Array(2);
-					resultHtml[0] = "";
-					resultHtml[1] = "";
-					var lrCounter = 0;
-					for(var i = 0 ; i < items.length; i++){
-						resultHtml[lrCounter] += template
-										.replace('{productImageUrl}',items[i].productImageUrl)
-										.replace("{description}",items[i].productDescription)
-										.replace("{description}",items[i].productDescription)
-										.replace('{id}',items[i].displayInfoId)
-										.replace('{placeName}',items[i].placeName)
-										.replace('{content}',items[i].productContent);
-						lrCounter++;
-						if(lrCounter == 2){
-							lrCounter = 0;
-						}
+				if(selectedTab.tagName === 'A'){
+					var categoryId = selectedTab.parentElement.getAttribute('data-category');
+					//다른 탭을 누른게 맞다면
+					if(categoryId != currentCategory){
+						currentCategory = categoryId;
+						currentStart = 0;
+						
+						document.querySelectorAll('a.anchor').forEach(function(element){
+							element.classList.remove('active');
+						});
+						selectedTab.classList.add('active');
+						
+						var containers = document.querySelectorAll('.lst_event_box');
+						containers[0].innerHTML = "";
+						containers[1].innerHTML = "";
+						
+						productLoading(currentCategory,currentStart,0);
 					}
-					var containers = document.querySelectorAll('.lst_event_box');
-					containers[0].innerHTML += resultHtml[0];
-					containers[1].innerHTML += resultHtml[1];
-	
-					var moreProductBtn = btnEvent.target;
-					if(itemCount <= currentStart+4){
-						moreProductBtn.style.display = 'none';
-					} else {
-						moreProductBtn.style.display = 'initial';
-					}
-				});
-				currentStart += 4;
-				
-				ajaxReq.open('GET', 'api/products?categoryId='+currentTab+'&start='+currentStart);
-				ajaxReq.responseType = 'json';
-				ajaxReq.send();
-				
+				}
 			});
 		}
-	
+		
 		document.addEventListener("DOMContentLoaded", function() {
-			promotionTemplate();
-			categoryTabInit();
-			initialTabInit();
-			moreButtonInit();
+			//페이지 첫 로딩시 할 일
+			
+			//1. 상품 목록 가져오기
+			productLoading(0,0,1);
+			
+			//2. promotion 가져오기
+			promotionLoading();
+			
+			//3. 더보기 버튼 event 등록
+			document.querySelector('.btn').addEventListener('click', function(btnEvent) {
+				productLoading(currentCategory, currentStart, 0);
+			});
+			
+			//4. 탭 변경 event 등록
+			navTabEventSet();
 		});
 	</script>
 </body>
