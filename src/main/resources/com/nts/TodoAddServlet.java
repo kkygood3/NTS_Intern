@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.config.checkInputForm;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
-import com.nts.dto.TodoSequence;
+import com.nts.exception.ServerErrorException;
 
 /**
  * post방식으로 요청을 가져와 DB에 Insert시키는 서블릿입니다.
@@ -36,38 +37,29 @@ public class TodoAddServlet extends HttpServlet {
 
 		String title = request.getParameter("input-title");
 		String name = request.getParameter("input-name");
-		Integer sequence = 0;
+		String sequenceStringType = request.getParameter("input-sequence");
 
-		sequence = divSequence(request, sequence);
+		//입력형식이 맞는지 확인 후 맞지 않다면 에러페이지 출력
+		if (checkInputForm.isRightInputForm(title, name, sequenceStringType)) {
+			response.sendError(500, "입력 형식이 잘못되었습니다.");
+			return;
+		}
+
+		int sequence = Integer.parseInt(sequenceStringType);
 
 		TodoDto todoDto = new TodoDto(title, name, sequence);
-		TodoDao todoDao = new TodoDao();
 
-		if (todoDao.addTodo(todoDto) == 1) {
-			System.out.println("Insert complete");
-		} else {
-			System.out.println("Insert fail");
+		try {
+			TodoDao.TODODAO.addTodo(todoDto);
+
+		} catch (ServerErrorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			response.sendError(e.getERROR_CODE(), e.getMESSAGE());
 		}
 
 		response.sendRedirect("/main");
 
-	}
-
-	private Integer divSequence(HttpServletRequest request, Integer sequence) {
-		TodoSequence todoSequence = TodoSequence.valueOf(request.getParameter("input-sequence"));
-
-		switch (todoSequence) {
-			case FIRST:
-				sequence = 1;
-				break;
-			case SECOND:
-				sequence = 2;
-				break;
-			case THIRD:
-				sequence = 3;
-				break;
-		}
-		return sequence;
 	}
 
 }

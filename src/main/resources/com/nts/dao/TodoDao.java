@@ -12,29 +12,24 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
-import com.nts.config.DBConnection;
+import com.nts.config.DbConnection;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoType;
+import com.nts.exception.ServerErrorException;
 
 public class TodoDao {
 
 	private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-
-	private static String dbUrl = "jdbc:mysql://10.113.116.52:13306/user1";
-	private static String dbUser = "user1";
-	private static String dbPasswd = "user1";
+	public static final TodoDao TODODAO = new TodoDao();
 
 	/**
 	 * 처음 TodoDao 객체가 생성될때 드라이버를 찾습니다.
 	 */
-	public TodoDao() {
-		Properties properties = DBConnection.getProperties();
+	private TodoDao() {
 		try {
-			Class.forName(properties.getProperty("driver"));
+			Class.forName(DbConnection.PROPERTIESE.getProperty("driver"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
@@ -44,11 +39,11 @@ public class TodoDao {
 	/**
 	 * todo 테이블에 있는 정보를 가져오는 메소드입니다.
 	 */
-	public List<TodoDto> getTodos() {
+	public List<TodoDto> getTodos() throws ServerErrorException {
 
-		String mySqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
-		try (Connection connection = DBConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery);
+		String selectSqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
+		try (Connection connection = DbConnection.tryConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(selectSqlQuery);
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
 			List<TodoDto> todoList = new ArrayList<>();
@@ -65,22 +60,24 @@ public class TodoDao {
 				todoList.add(todo);
 			}
 			return todoList;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
+			throw new ServerErrorException(e);
 		}
 
-		return Collections.emptyList();
 	}
 
 	/**
 	 * todo 테이블에 정보를 추가하는 메소드입니다.
+	 * @throws ServerErrorException
 	 */
-	public int addTodo(TodoDto todo) {
+	public int addTodo(TodoDto todo) throws ServerErrorException {
 
-		String mySqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
-		try (Connection connection = DBConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery)) {
+		String insertSqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
+		try (Connection connection = DbConnection.tryConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(insertSqlQuery)) {
 
 			preparedStatement.setString(1, todo.getTitle());
 			preparedStatement.setString(2, todo.getName());
@@ -91,21 +88,21 @@ public class TodoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
+			throw new ServerErrorException(e);
 		}
-
-		return -1;
 	}
 
 	/**
 	 * todo 테이블에 있는 정보를 수정하는 메소드입니다.
+	 * @throws ServerErrorException
 	 */
-	public int updateTodo(Long id, String type) {
+	public int updateTodo(Long id, TodoType type) throws ServerErrorException {
 
-		String mySqlQuery = "update todo set type = ? where id = ?";
-		try (Connection connection = DBConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(mySqlQuery)) {
+		String updateSqlQuery = "update todo set type = ? where id = ?";
+		try (Connection connection = DbConnection.tryConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(updateSqlQuery)) {
 
-			preparedStatement.setString(1, type);
+			preparedStatement.setString(1, type.getNextType());
 			preparedStatement.setLong(2, id);
 
 			return preparedStatement.executeUpdate();
@@ -113,9 +110,8 @@ public class TodoDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
+			throw new ServerErrorException(e);
 		}
-
-		return -1;
 	}
 
 }

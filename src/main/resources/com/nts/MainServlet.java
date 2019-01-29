@@ -6,7 +6,9 @@ package com.nts;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 import com.nts.dto.TodoType;
+import com.nts.exception.ServerErrorException;
 
 /**
  * 메인화면으로 넘어가는 MainServlet 클래스입니다.
@@ -26,8 +29,6 @@ import com.nts.dto.TodoType;
 @WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private static final TodoDao TODODAO = new TodoDao();
 
 	/**
 	 * 전체 List를 가지고 와서 divList를 사용해 각 list를 forward방식으로 main.jsp에 넘기는 메소드입니다.
@@ -39,16 +40,18 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 
-		List<TodoDto> totalList = TODODAO.getTodos();
-		List<TodoDto> todoList = new ArrayList<TodoDto>();
-		List<TodoDto> doingList = new ArrayList<TodoDto>();
-		List<TodoDto> doneList = new ArrayList<TodoDto>();
+		Map<String, List<TodoDto>> classifymap = new HashMap<String, List<TodoDto>>();
+		try {
+			classifyList(classifymap);
+		} catch (ServerErrorException e) {
+			e.printStackTrace();
+			response.sendError(e.getERROR_CODE(), e.getMESSAGE());
+			return;
+		}
 
-		divList(totalList, todoList, doingList, doneList);
-
-		request.setAttribute("todoList", todoList);
-		request.setAttribute("doingList", doingList);
-		request.setAttribute("doneList", doneList);
+		for (TodoType type : TodoType.values()) {
+			request.setAttribute(type.getTodoType().toLowerCase() + "List", classifymap.get(type.getTodoType()));
+		}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
 		requestDispatcher.forward(request, response);
@@ -56,22 +59,20 @@ public class MainServlet extends HttpServlet {
 
 	/**
 	 * totalList를 각 리스트로 분류하는 메소드입니다.
+	 * @throws ServerErrorException
 	 */
-	private void divList(List<TodoDto> totalList, List<TodoDto> todoList, List<TodoDto> doingList,
-		List<TodoDto> doneList) {
-		for (TodoDto todoDto : totalList) {
+	private void classifyList(Map<String, List<TodoDto>> testmap) throws ServerErrorException {
 
-			if (todoDto.getType() == TodoType.TODO) {
-				todoList.add(todoDto);
-			}
-			if (todoDto.getType() == TodoType.DOING) {
-				doingList.add(todoDto);
-			}
-			if (todoDto.getType() == TodoType.DONE) {
-				doneList.add(todoDto);
-			}
+		List<TodoDto> totalList = TodoDao.TODODAO.getTodos();
 
+		for (TodoType type : TodoType.values()) {
+			testmap.put(type.getTodoType(), new ArrayList<TodoDto>());
 		}
+
+		for (TodoDto todoDto : totalList) {
+			testmap.get(todoDto.getType().getTodoType()).add(todoDto);
+		}
+
 	}
 
 }
