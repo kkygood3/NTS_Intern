@@ -18,9 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.Category;
 
 /**
-* FileName : CategoryDao.java
 * @author  : 이승수
-* @date    : 2019. 1. 28.
 */
 @Repository
 public class CategoryDao {

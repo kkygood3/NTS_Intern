@@ -20,9 +20,7 @@ import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.ProductService;
 
 /**
-* FileName : ReservationApiController.java
 * @author  : 이승수
-* @date    : 2019. 1. 28.
 */
 @RestController
 @RequestMapping(path = "/api")

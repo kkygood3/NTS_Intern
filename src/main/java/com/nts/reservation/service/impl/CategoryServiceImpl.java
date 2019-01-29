@@ -14,9 +14,7 @@ import com.nts.reservation.dto.Category;
 import com.nts.reservation.service.CategoryService;
 
 /**
-* FileName : CategoryServiceImpl.java
 * @author  : 이승수
-* @date    : 2019. 1. 28.
 */
 @Service
 public class CategoryServiceImpl implements CategoryService {

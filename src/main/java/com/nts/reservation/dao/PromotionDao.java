@@ -20,9 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.Product;
 
 /**
-* FileName : PromotionDao.java
 * @author  : 이승수
-* @date    : 2019. 1. 28.
 */
 @Repository
 public class PromotionDao {

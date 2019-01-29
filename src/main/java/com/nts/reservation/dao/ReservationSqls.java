@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.dao;
 
+/**
+* @author  : 이승수
+*/
 public class ReservationSqls {
 	private static final String PRODUCT_TABLE = "product "
 		+ "INNER JOIN display_info "

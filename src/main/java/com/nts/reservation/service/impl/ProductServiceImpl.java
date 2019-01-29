@@ -14,6 +14,9 @@ import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.ProductService;
 
+/**
+* @author  : 이승수
+*/
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired

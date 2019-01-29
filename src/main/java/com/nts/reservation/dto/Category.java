@@ -5,9 +5,7 @@
 package com.nts.reservation.dto;
 
 /**
-* FileName : Category.java
 * @author  : 이승수
-* @date    : 2019. 1. 28.
 */
 public class Category {
 	private Integer count;

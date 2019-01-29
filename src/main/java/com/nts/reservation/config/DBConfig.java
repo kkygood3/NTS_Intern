@@ -16,6 +16,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+* @author  : 이승수
+*/
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = "classpath:application.properties")

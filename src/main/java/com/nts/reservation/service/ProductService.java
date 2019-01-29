@@ -8,6 +8,9 @@ import java.util.List;
 
 import com.nts.reservation.dto.Product;
 
+/**
+* @author  : 이승수
+*/
 public interface ProductService {
 	public int getCountAllProducts();
 
