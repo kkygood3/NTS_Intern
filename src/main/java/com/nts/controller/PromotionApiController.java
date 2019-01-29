@@ -34,7 +34,7 @@ public class PromotionApiController {
 		List<PromotionDto> list = promotionService.getPromotions();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("item", list);
+		map.put("items", list);
 
 		return map;
 	}
