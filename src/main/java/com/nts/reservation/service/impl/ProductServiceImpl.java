@@ -1,15 +1,13 @@
 package com.nts.reservation.service.impl;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.Product;
-import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.ProductService;
 
 @Service
@@ -19,29 +17,32 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProducts(Integer start, Integer category) {
-		if (category == 0) {
-			return productDao.getProducts(start, LIMIT);
+	@Transactional(readOnly = true)
+	public Map<String, Object> getProductsByCategory(Integer start, Integer category) {
+		Map<String, Object> result = new HashMap<>();
+		if (category > 0 && category <= 5) {
+			result.put("items", productDao.getProductsByCategory(start, category, LIMIT));
 		} else {
-			return productDao.getProductsByCategory(start, category, LIMIT);
+			result.put("items", productDao.getProducts(start, LIMIT));
 		}
-
+		result.put("totalCount", productDao.getProductsCount());
+		return result;
 	}
 
 	@Override
-	@Transactional
-	public List<Promotion> getPromotions() {
-		return productDao.getPromotions();
+	@Transactional(readOnly = true)
+	public Map<String, Object> getPromotions() {
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productDao.getPromotions());
+		return result;
 	}
 
 	@Override
-	public Long getProductsCount() {
-		return productDao.getProductsCount();
-	}
-
-	@Override
-	public List<Category> getProductsCountByCategory() {
-		return productDao.getProductsCountByCategory();
+	@Transactional(readOnly = true)
+	public Map<String, Object> getProductsCountByCategory() {
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productDao.getProductsCountByCategory());
+		return result;
 	}
 
 }

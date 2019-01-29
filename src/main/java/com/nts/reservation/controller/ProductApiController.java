@@ -18,11 +18,8 @@ public class ProductApiController {
 	ProductService productService;
 
 	@GetMapping("/products/{start}/{category}")
-	public Map<String, Object> productByCategory(@PathVariable Integer start, @PathVariable Integer category) {
-		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.getProducts(start, category));
-		result.put("totalCount", productService.getProductsCount());
-		return result;
+	public Map<String, Object> getProductsByCategory(@PathVariable Integer start, @PathVariable Integer category) {
+		return productService.getProductsByCategory(start, category);
 	}
 
 	@GetMapping("/categories")
@@ -34,9 +31,7 @@ public class ProductApiController {
 
 	@GetMapping("/promotions")
 	public Map<String, Object> promotionList() {
-		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.getPromotions());
-		return result;
+		return productService.getPromotions();
 	}
 
 	@GetMapping("/promotions/{displayInfoId}")

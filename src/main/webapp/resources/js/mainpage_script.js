@@ -11,6 +11,7 @@ const promoContainerWidth = promoContainer.offsetWidth;
 var promotionData = null;
 var productData = null;
 var categoryData = null;
+var imgList = null;
 
 var currentCategory = 0;
 var page = 0;
@@ -47,6 +48,13 @@ function initTab(){
 	document.querySelector("div.more").addEventListener("click",(e)=>{
 		page++;
 		fetchProducts(currentCategory,page*4);
+		categoryData.items.forEach((data)=>{
+			if(data.id == currentCategory){
+				if(data.count-4 <= page*4){
+					document.querySelector("div.more > button").style.visibility = "hidden";
+				} 
+			}
+		});
 	});
 }
 
@@ -74,14 +82,16 @@ function fetchPromos(){
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				var promoTemplate = document.querySelector("#promotionItem").innerHTML;
+				let promoTemplate = document.querySelector("#promotionItem").innerHTML;
 				promotionData = JSON.parse(xhr.responseText).items;
-				var resultHTML = "";
-				for(var promoItem in promotionData){
-					resultHTML += promoTemplate.replace("{promotionImageUrl}",promotionData[promoItem].productImageUrl)
-				}
+				
+				let resultHTML = "";
+				promotionData.forEach((promoItem)=>{
+					resultHTML += promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl)
+				})
 				promoContainer.innerHTML = resultHTML;
-				window.requestAnimationFrame(initPromoAnimation);
+				imgList = promoContainer.getElementsByTagName("li");
+				requestAnimationFrame(initPromoAnimation);
 			} else {
 				alert("Error fetching promotions");
 			}
@@ -109,21 +119,13 @@ function fetchProducts(categoryId, start){
 						productNumberInd.innerText = productData.totalCount + "개";
 					}
 					else{
-						categoryData.forEach((data)=>{
+						categoryData.items.forEach((data)=>{
 							if(data.id == categoryId){
 								productNumberInd.innerText = data.count + "개";
 							}
 						});
 					}
 					RenderItems();
-					categoryData.forEach((data)=>{
-						if(data.id == categoryId){
-							if(data.count-4 <= page*4){
-								document.querySelector("div.more > button").style.visibility = "hidden";
-							} 
-						}
-					});
-					
 				} else {
 					alert("Error fetching products");
 				}
@@ -165,12 +167,10 @@ function RenderItems(){
 }
 
 function initPromoAnimation(){
-	var imgList = promoContainer.getElementsByTagName("li");
-	
 	imgList[0].style.left = "0px";
 	imgList[0].style.zIndex = 0+"";
 	
-	for(var i = 1; i<imgList.length;i++){
+	for(let i = 1; i<imgList.length;i++){
 		imgList[i].style.left = "0px";
 		imgList[i].style.zIndex = imgList.length-i+"";
 	}	
@@ -179,16 +179,15 @@ function initPromoAnimation(){
 	},3000);
 }
 
-var animationCount = 0;
+
 function animation(){
 	let divisor = 2;
 	var imgList = promoContainer.getElementsByTagName("li");
-	animationCount ++;
 	var needToStop = false;
 	for(var i = 0; i<imgList.length;i++){
 		let currentLeft = parseInt(imgList[i].style.left);
 		if((currentLeft) <= -414*(i+1)+divisor*2){
-			currentLeft = 4140-414*i;
+			currentLeft = 414*(imgList.length-1-i);
 			needToStop = true;
 		}
 		imgList[i].style.left = currentLeft-divisor + "px";
@@ -199,12 +198,6 @@ function animation(){
 			requestAnimationFrame(animation);
 		},1000);
 	}
-// if(animationCount >=414/divisor){
-// animationCount =0;
-// setTimeout(()=>{
-// requestAnimationFrame(animation);
-// },1000);
-// }
 	else {
 		requestAnimationFrame(animation);
 	}
