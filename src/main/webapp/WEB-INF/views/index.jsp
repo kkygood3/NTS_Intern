@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
 </head>
@@ -12,8 +12,8 @@
         <div class="header">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./myreservation.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <span class="spr_bi ico_n_logo">네이버</span>
+                    <span class="spr_bi ico_bk_logo">예약</span>
                 </h1>
                 <a href="./bookinglogin.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
@@ -95,8 +95,8 @@
     </footer>
 
 
-    <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(./img/${productId}/${productImageId});">
+    <script type="rv-template" id="promotion_item">
+    <li class="item" style="background-image: url(./img/{productId}/{productImageId});">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit"></h4>
@@ -107,19 +107,21 @@
     </li>
     </script>
 
-    <script type="rv-template" id="itemList">
+    <script type="rv-template" id="product_item">
         <li class="item">
-            <a href="detail.html?id=${id}" class="item_book">
+            <a href="detail.html?id={id}" class="item_book">
                 <div class="item_preview">
-                    <img alt="${description}" class="img_thumb" src="./img/${id}?type=th">
+                    <img alt="{description}" class="img_thumb" src="./img/{id}?type=th">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-                    <p class="event_txt_dsc">${content}</p>
+                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+                    <p class="event_txt_dsc">{content}</p>
                 </div>
             </a>
         </li>
     </script>
+    
+	<script src="./javascript/index.js"></script>
 </body>
 </html>
