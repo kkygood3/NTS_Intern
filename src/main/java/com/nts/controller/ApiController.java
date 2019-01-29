@@ -34,7 +34,7 @@ public class ApiController {
 
 		List<ProductApiView> items;
 		items = productApiViewService.getProducts(categoryId, start);
-		
+
 		int totalCount = productApiViewService.getCount(categoryId);
 
 		Map<String, Object> map = new HashMap<>();

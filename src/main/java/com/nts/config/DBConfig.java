@@ -14,7 +14,7 @@ import com.nts.constant.DBAccount;
 
 @Configuration
 @EnableTransactionManagement
-public class DBConfig implements TransactionManagementConfigurer{
+public class DBConfig implements TransactionManagementConfigurer {
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
