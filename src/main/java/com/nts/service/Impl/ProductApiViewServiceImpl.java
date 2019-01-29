@@ -16,8 +16,16 @@ public class ProductApiViewServiceImpl implements ProductApiViewService {
 	ProductApiViewDao productApiViewDao;
 
 	@Override
-	public List<ProductApiView> getProducts(long categoryId, long start) {
-		return productApiViewDao.selectPagingProducts(categoryId, start, LIMIT);
+	public List<ProductApiView> getCategoryProducts(long categoryId, long start) {
+		if(categoryId > 0)
+			return productApiViewDao.selectPagingProducts(categoryId, start, LIMIT);
+		else
+			return getAllProducts(start);
+	}
+
+	@Override
+	public List<ProductApiView> getAllProducts(long start) {
+		return productApiViewDao.selectAllPagingProducts(start, LIMIT);
 	}
 
 	@Override

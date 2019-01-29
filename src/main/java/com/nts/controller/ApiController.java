@@ -29,10 +29,12 @@ public class ApiController {
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "categoryId", required = true) int categoryId,
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
 
-		List<ProductApiView> items = productApiViewService.getProducts(categoryId, start);
+		List<ProductApiView> items;
+		items = productApiViewService.getCategoryProducts(categoryId, start);
+		
 		int totalCount = productApiViewService.getCount(categoryId);
 
 		Map<String, Object> map = new HashMap<>();
