@@ -1,6 +1,6 @@
-/src/main/resources/application.properties
 /.classpath
 /.project
 /target/
 /.settings/
 /bin/
+/src/main/node_modules/

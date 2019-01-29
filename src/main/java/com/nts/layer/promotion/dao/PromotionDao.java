@@ -4,7 +4,6 @@
  **/
 package com.nts.layer.promotion.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class PromotionDao {
 	 * @return categories
 	 */
 	public List<Promotion> selectCategories() {
-		return namedParameterJdbcTemplate.query(SELECT_PROMOTIONS, Collections.emptyMap(), rowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_PROMOTIONS, rowMapper);
 	}
 	
 }

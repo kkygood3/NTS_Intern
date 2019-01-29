@@ -4,6 +4,7 @@
  **/
 package com.nts.layer.product.dao;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +36,11 @@ public class ProductDao {
 	 * @param start
 	 * @return list(Product)
 	 */
-	public List<Product> selectProductsByCategory(String categoryId, int start) {
+	public List<Product> selectProductsByCategory(int categoryId, int start) {
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		
-		params.put("categoryId","%"+categoryId+"%");
+		params.put("categoryId",categoryId);
 		params.put("start", start*LIMIT);
 		params.put("limit",LIMIT);
 		
@@ -51,13 +52,39 @@ public class ProductDao {
 	 * @param categoryId
 	 * @return totalCount
 	 */
-	public int selectCountByCategory(String categoryId) {
+	public int selectProductsCountByCategory(int categoryId) {
 		
 		Map<String,Object> params = new HashMap<String,Object>();
 		
-		params.put("categoryId","%"+categoryId+"%");
+		params.put("categoryId",categoryId);
 		
-		return namedParameterJdbcTemplate.queryForObject(SELECT_COUNT_BY_CATEGORY,params,Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_BY_CATEGORY,params,Integer.class);
+	}
+	
+	/**
+	 * @desc 상품 전체 가져오기
+	 * @param categoryId
+	 * @param start
+	 * @return list(Product)
+	 */
+	public List<Product> selectProductsAll(int categoryId, int start) {
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		
+		params.put("start", start*LIMIT);
+		params.put("limit",LIMIT);
+		
+		return namedParameterJdbcTemplate.query(SELECT_PRODUCTS_ALL, params, rowMapper);
+	}
+	
+	
+	/**
+	 * @desc 상품 총 카운트 갯수
+	 * @return totalCount
+	 */
+	public int selectProductsCountAll() {
+		
+		return (int)namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_ALL,Collections.EMPTY_MAP,Integer.class);
 	}
 }
  

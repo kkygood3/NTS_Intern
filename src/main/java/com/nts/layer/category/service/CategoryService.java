@@ -10,5 +10,5 @@ import com.nts.layer.category.dto.CategoryResponse;
  * @author 전연빈
  */
 public interface CategoryService {
-	public CategoryResponse selectCategories();
+	CategoryResponse selectCategories();
 }

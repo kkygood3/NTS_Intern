@@ -4,7 +4,6 @@
  **/
 package com.nts.layer.category.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,6 @@ public class CategoryDao {
 	 * @return categories
 	 */
 	public List<Category> selectCategories() {
-		return namedParameterJdbcTemplate.query(SELECT_CATEGORIES, Collections.emptyMap(), rowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_CATEGORIES, rowMapper);
 	}
 }

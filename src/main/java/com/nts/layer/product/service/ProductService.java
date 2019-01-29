@@ -4,11 +4,12 @@
  **/
 package com.nts.layer.product.service;
 
+import com.nts.exception.ProductParamException;
 import com.nts.layer.product.dto.ProductResponse;
 
 /**
  * @author 전연빈
  */
 public interface ProductService {
-	public ProductResponse getProductsByCategory(String categoryId, int start);
+	ProductResponse getProductsByCategory(int categoryId, int start) throws ProductParamException;
 }
