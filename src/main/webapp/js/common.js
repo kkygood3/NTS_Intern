@@ -15,12 +15,12 @@ function getCategories() {
 				var targetElement = document.querySelector(".event_tab_lst");
 				var categoryTemplate = document.querySelector("#categories").textContent;
 				
-				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
-					var id = jsonResponse["items"][i]["id"];
-					var name = jsonResponse["items"][i]["name"];
+				jsonResponse["items"].forEach(function(event){
+					var id = item.id;
+					var name = item.name;
 					
 					targetElement.innerHTML += eval("`"+categoryTemplate+"`");
-				}
+				});
 			}
 		}
 		
@@ -75,16 +75,19 @@ function getProductsByCategory(categoryId, start = 0) {
 				
 				var productTemplate = document.querySelector("#itemList").textContent;
 				
-				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
-					var id = jsonResponse["items"][i]["productId"];
-					var description = jsonResponse["items"][i]["productDescription"];
-					var placeName = jsonResponse["items"][i]["placeName"];
-					var content = jsonResponse["items"][i]["productContent"];
-					var imgUrl = jsonResponse["items"][i]["productImageUrl"];
-					
-					var targetElement = productContainer[i % 2];
+				let containerIndex = 0;
+				jsonResponse["items"].forEach(function(item){
+					var id = item.productId;
+					var description = item.productDescription;
+					var placeName = item.placeName;
+					var content = item.productContent;
+					var imgUrl = item.productImageUrl;
+
+					var targetElement = productContainer[containerIndex];
 					targetElement.innerHTML += eval("`"+productTemplate+"`");
-				}
+					
+					containerIndex = (containerIndex + 1) % 2;
+				})
 				
 				if(displayedProduct >= jsonResponse["totalCount"]){
 					showMoreButton.hidden = true;
@@ -117,15 +120,16 @@ function getPromotions() {
 
 				var promotionTemplate = document.querySelector("#promotionItem").textContent;
 
-				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
-					var imgUrl = jsonResponse["items"][i]["productImageUrl"];
-					var description = jsonResponse["items"][i]["productDescription"];
-					var placeName = jsonResponse["items"][i]["placeName"];
-					var content = jsonResponse["items"][i]["productContent"];
+				jsonResponse["items"].forEach(function(item){
+					var imgUrl = item.productImageUrl;
+					var description = item.productDescription;
+					var placeName = item.placeName;
+					var content = item.productContent;
 
 					var promotionContainer = document.querySelector(".visual_img");
 					promotionContainer.innerHTML += eval("`"+promotionTemplate+"`");
-				}
+				});
+
 				executeAnimationTime = performance.now();
 				slideImage();
 			}
