@@ -11487,6 +11487,18 @@ select {
     color: #999;
     line-height: 16px;
 }
+.event .wrap_event_box .more {
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+.event .wrap_event_box .more button{
+	background-color: white;
+	width: 95%;
+	padding: 15px 32px;
+	border: 1px solid #bfc7cf;
+	margin-top: 10px;
+}
 .event .spr_book_event {
     overflow: hidden;
     display: inline-block;

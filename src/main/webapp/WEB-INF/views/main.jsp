@@ -64,7 +64,7 @@
 					<ul class="lst_event_box"></ul>
 					<!-- 더보기 -->
 					<div class="more">
-						<button class="btn">
+						<button class="btn" onclick="moreProducts();">
 							<span>더보기</span>
 						</button>
 					</div>
@@ -127,7 +127,6 @@
 			setPromotions();
 			setCategories();
 			setProducts()
-			
 		}
 
 		<!-- 프로모션정보를 서버로부터 불러와 해당dom에 추가한다 -->
@@ -224,8 +223,18 @@
 			});
 		}
 
-		<!-- 상품정보를 서버로부터 불러와 해당dom에 추가한다 -->
+		<!-- initProducts -->
 		function setProducts(categoryId) {
+			var productListBox = document.querySelector(".wrap_event_box");
+			var leftList = productListBox.getElementsByTagName("ul")[0];
+			var rightList = productListBox.getElementsByTagName("ul")[1];
+			leftList.innerHTML = "";
+			rightList.innerHTML = "";
+			addHTMLInnerProducts(categoryId);
+		}
+
+		<!-- 상품정보를 서버로부터 불러와 해당dom에 추가한다 -->
+		function addHTMLInnerProducts(categoryId) {
 			var xhr = new XMLHttpRequest();
 			var url = "./api/products";
 
@@ -244,13 +253,11 @@
 				var totalCount = data.totalCount;
 				var html = document.querySelector("#template-product-list").innerHTML;
 				var resultHTML = "";
-				
+
 				var productListBox = document.querySelector(".wrap_event_box");
 				var leftList = productListBox.getElementsByTagName("ul")[0];
 				var rightList = productListBox.getElementsByTagName("ul")[1];
-				leftList.innerHTML = "";
-				rightList.innerHTML = "";
-				
+
 				for (var i in items) {
 					var resultHTML = html.replace("{displayInfoId}", items[i].displayInfoId)
 						.replace("{productId}", items[i].productId)
@@ -278,6 +285,13 @@
 		function setCategoryCount(count) {
 			var pink = document.querySelector(".pink");
 			pink.innerText = count + "개";
+		}
+
+		<!-- 프로덕트 더보기 -->
+		function moreProducts() {
+			var el = document.querySelector(".active");
+			var categoryId = el.parentNode.getAttribute("data-category");
+			addHTMLInnerProducts(categoryId);
 		}
 
 		init();
