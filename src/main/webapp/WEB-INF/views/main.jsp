@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
+<script type= "text/javascript" src= "./javascript/main/main.js" ></script>
 </head>
 <body>
     <div id="container">
@@ -122,6 +123,5 @@
         </li>
     </script>
     
-	<script src="./javascript/index.js"></script>
 </body>
 </html>
