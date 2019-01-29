@@ -7,16 +7,18 @@ package com.nts.todolist.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.cj.util.StringUtils;
+import com.nts.todolist.common.StringUtils;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
+import com.nts.todolist.exception.DatabaseAccessException;
 
 /**
  * 입력받은 todo (title, name, sequence)를 Database에 추가시키는 servlet
@@ -26,8 +28,6 @@ import com.nts.todolist.dto.TodoDto;
 @WebServlet("/todoAdd")
 public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private static final String PATTERN = "[123]";
 
 	/**
 	 * 값이 유의미하면 Database에 등록시킨 후 main화면으로 redirect
@@ -36,46 +36,45 @@ public class TodoAddServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws IOException {
+		throws IOException, ServletException {
 
 		request.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 
-		String title = request.getParameter("title").trim();
-		String name = request.getParameter("name").trim();
+		String title = request.getParameter("title");
+		String name = request.getParameter("name");
 		String sequence = request.getParameter("sequence");
-
-		// 비어있거나, 알맞은 패턴이 아닐 경우
-		if (isValueEmpty(title, name, sequence) || !Pattern.matches(PATTERN, sequence)) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter printWriter = response.getWriter();
-			printWriter.write("<script>");
-			printWriter.write("alert('알맞은 값을 입력하십시오.');");
-			printWriter.write("location.href='/todoForm'");
-			printWriter.write("</script>");
-			printWriter.close();
-			
-		} else {
-			TodoDto newTodo = new TodoDto(title, name, Integer.parseInt(sequence));
-
-			int result = TodoDao.getInstance().addTodo(newTodo);
-			if (result == 1) {
-				response.sendRedirect("/main");
-			}
+		
+		// 양식과 다를 경우 Alert
+		if(!StringUtils.isValid(title, name, sequence)) {
+			printErrorAlertToJsp(response);
+			return;
 		}
+
+		TodoDto newTodo = new TodoDto(title.trim(), name.trim(), Integer.parseInt(sequence));
+
+		try {
+			TodoDao.getInstance().addTodo(newTodo);
+			response.sendRedirect("/main");
+		} catch (DatabaseAccessException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", e.getMessage());
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/error.jsp");
+			requestDispatcher.forward(request, response);
+			return;
+		}
+		
+		
 	}
 
-	/**
-	 * 1개 이상의 Stirng value를 빈값 혹은 null인지 확인하는 method
-	 * @author yongjoon.Park
-	 * @param 빈 값인지 확인하려는 String value
-	 * @return String value가 null 혹은 빈값("")이라면 true를 반환  
-	 */
-	private boolean isValueEmpty(String... values) {
-		for (String value : values) {
-			if (StringUtils.isEmptyOrWhitespaceOnly(value)) {
-				return true;
-			}
-		}
-		return false;
+	private void printErrorAlertToJsp(HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter printWriter = response.getWriter();
+		printWriter.write("<script>");
+		printWriter.write("alert('알맞은 값을 입력하십시오.');");
+		printWriter.write("location.href='/todoForm'");
+		printWriter.write("</script>");
+		printWriter.close();
 	}
+
+
 }
