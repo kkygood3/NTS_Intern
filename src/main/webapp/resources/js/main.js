@@ -121,15 +121,19 @@ var mainPage = {
     
         var productContainers = this.elements.productContainers;
         var template = document.querySelector("#itemList").innerHTML;
-        var resultTemplate = ["", ""];
+        var column = productContainers.length;
+
         for(var i = 0; i < products.length; i++){
             var product = products[i];
-            resultTemplate[i%2] += template.replace("{id}", product.displayInfoId).replace("{description}", product.productDescription)
-                                        .replace("{image_url}", "./" + product.productImageUrl).replace("{placeName}", product.placeName)
-                                        .replace("{content}", product.productContent).replace("{description}", product.productDescription);
-        }
-        for(var i = 0; i < productContainers.length; i++){
-            productContainers[i].innerHTML += resultTemplate[i];
+            var params = {
+                id: product.displayInfoId,
+                description:  product.productDescription,
+                image_url: "./" + product.productImageUrl,
+                placeName: product.productDescription,
+                content: product.productContent,
+                description2: product.productDescription
+            }
+            productContainers[i%column].innerHTML += this.replaceTemlate(template, params)
         }
     },
     /**
@@ -139,17 +143,29 @@ var mainPage = {
     updateCategories: function (categories) {
         var template = document.querySelector("#categoryItem").innerHTML;
         var resultTemplate = "";
+        var tabContainer = this.elements.tabContainer;
         var sum = 0;
+        var params = {};
         for(var i = 0; i < categories.length; i++){
             sum += categories[i].count;
-            resultTemplate += template.replace("{categoryId}", categories[i].id).replace("{count}", categories[i].count)
-                                    .replace("{name}", categories[i].name).replace("{active}", "");
+            params = {
+                categoryId: categories[i].id,
+                count: categories[i].count,
+                name: categories[i].name,
+                active: ""
+            }
+            resultTemplate += this.replaceTemlate(template, params)
         }
-        resultTemplate = template.replace("{categoryId}", 0).replace("{count}", sum)
-                                    .replace("{name}", "전체리스트").replace("{active}", "active") + resultTemplate;
-        this.elements.tabContainer.innerHTML = resultTemplate;
-        this.elements.tabContainer.dataset.selected = 0;
-        this.elements.tabContainer.dataset.currentCount = 0;
+        params = {
+            categoryId: 0,
+            count: sum,
+            name: "전체리스트",
+            active: "active"
+        }
+        resultTemplate = this.replaceTemlate(template, params) + resultTemplate;
+        tabContainer.innerHTML = resultTemplate;
+        tabContainer.dataset.selected = 0;
+        tabContainer.dataset.currentCount = 0;
     
         var eventListText = document.querySelector(".event_lst_txt > span");
         eventListText.textContent = sum + "개";   
@@ -166,11 +182,13 @@ var mainPage = {
         var resultTemplate = "";
         for(var i = 0; i < promotions.length; i++){
             var promotion = promotions[i];
-            resultTemplate += template.replace("{image_url}", "./" + promotion.productImageUrl)
-                                        .replace("{index}", i);
+            var params = {
+                image_url: "./" + promotion.productImageUrl,
+                index: i
+            }
+            resultTemplate += this.replaceTemlate(template, params);
         }
         promotionContainer.innerHTML = resultTemplate;
-        
         promotionContainer.dataset.current = 0;
     
         this.preSettingStyleForPromotionAnimation();
@@ -193,7 +211,7 @@ var mainPage = {
     updatePromotionAnimation: function (){
         var now = new Date().getTime();
         
-        if((now - this.values.executionTime) >= this.PROMOTION_ANIMATION_TICK){
+        if((now - this.values.executionTime) >= this.values.PROMOTION_ANIMATION_TICK){
             var promotionContainer = this.elements.promotionContainer;
             var childNodes = promotionContainer.children;
             var length = childNodes.length;
@@ -275,6 +293,18 @@ var mainPage = {
                 this.requestProducts(0, tabContainer.dataset.selected == 0 ? null : tabContainer.dataset.selected);
             }
         }.bind(this), false);
+    },
+    /**
+     * @function replaceTemlate 템플릿에 파라미터의 값들로 치환해주는 함수
+     * @param {String} template 
+     * @param {JSON} params 
+     * @returns 변환 된 템플릿 String 리턴.
+     */
+    replaceTemlate: function (template, params){
+        for( key in params){
+            template = template.replace("{" + key + "}", params[key]);
+        }
+        return template;
     }
 }
 
