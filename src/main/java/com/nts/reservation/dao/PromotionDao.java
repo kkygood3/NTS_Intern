@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class PromotionDao {
 	 * promotion 목록을 조회하여 List 객체로 반환
 	 */
 	public List<Promotion> getPromotionList() {
-		return jdbcTemplate.query(PromotionQuerys.SELECT_PROMOTION_LIST, Collections.EMPTY_MAP, promotionMapper);
+		return jdbcTemplate.query(PromotionQuerys.SELECT_PROMOTION_LIST, promotionMapper);
 	}
 
 }
