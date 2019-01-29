@@ -1,6 +1,14 @@
 /**
- * 
+ * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
+ * internal use for NAVER, unauthorized use of redistribution of this software
+ * are strongly prohibited.
  */
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
+
+// HTML Dom element constants for faster access;
 const tabButton = document.querySelectorAll("div.section_event_tab ul li");
 const promoContainer = document.querySelector("ul.visual_img");
 const productLists = document.querySelectorAll(".lst_event_box");
@@ -8,21 +16,17 @@ const newProductItem = document.querySelector("#itemList").innerHTML;
 const productNumberInd =document.querySelector("p.event_lst_txt span");
 const promoContainerWidth = promoContainer.offsetWidth;
 
+// currently saved data for manipulation
 var promotionData = null;
 var productData = null;
 var categoryData = null;
 var imgList = null;
 
+// current state;
 var currentCategory = 0;
 var page = 0;
 
-var promoCount = 0;
-
-var floorMod = function (n, m) {
-    var remain = n % m;
-    return Math.floor(remain >= 0 ? remain : remain + m);
-};
-
+// will be loaded with body onload
 function init(){
 	initTab();
 	fetchPromos();
@@ -30,6 +34,7 @@ function init(){
 	fetchCategoryCounts();
 }
 
+// tab active css change and load more button visibility control
 function initTab(){
 	tabButton.forEach((item) => {
 		item.addEventListener("click",(e)=> {
@@ -58,6 +63,7 @@ function initTab(){
 	});
 }
 
+// fetch total number of rows in db by category
 function fetchCategoryCounts(){
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", "/reservation/api/categories", true);
@@ -110,8 +116,8 @@ function fetchProducts(categoryId, start){
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 				/*
-				 * reset the current productData since this would be written
-				 * along the new items
+				 * change the current productCountData according to current
+				 * category state
 				 */
 				if (xhr.status === 200) {
 					productData = JSON.parse(xhr.responseText);
@@ -136,6 +142,10 @@ function fetchProducts(categoryId, start){
 
 
 function switchCategory(category){
+	/*
+	 * When category switch action, remove all the elements in the list and
+	 * fetch + render items obtained. Force visbility of load more button
+	 */
 	if(category!=currentCategory){
 		productLists.forEach((list)=>{
 			while (list.firstChild) {
@@ -167,10 +177,8 @@ function RenderItems(){
 }
 
 function initPromoAnimation(){
-	imgList[0].style.left = "0px";
-	imgList[0].style.zIndex = 0+"";
-	
-	for(let i = 1; i<imgList.length;i++){
+	// initialize the variables
+	for(let i = 0; i<imgList.length;i++){
 		imgList[i].style.left = "0px";
 		imgList[i].style.zIndex = imgList.length-i+"";
 	}	
@@ -179,24 +187,36 @@ function initPromoAnimation(){
 	},3000);
 }
 
-
+/**
+ * @speed : to control the speed or animation.
+ * 
+ * @stopDuration : in milliseconds, determines the stop duration of the
+ *               animation when the image arrives in the right position
+ * @animation()
+ */
 function animation(){
-	let divisor = 2;
-	var imgList = promoContainer.getElementsByTagName("li");
-	var needToStop = false;
-	for(var i = 0; i<imgList.length;i++){
-		let currentLeft = parseInt(imgList[i].style.left);
-		if((currentLeft) <= -414*(i+1)+divisor*2){
-			currentLeft = 414*(imgList.length-1-i);
-			needToStop = true;
+	let speed = 10;
+	let needToStop = false;
+	let stopDuration = 1000;
+	
+	for(let iter = 0; iter<speed; iter++){
+		for(let i = 0; i<imgList.length; i++){
+			let currentLeft = parseInt(imgList[i].style.left);
+			if((currentLeft) <= -promoContainerWidth*(i+1)){
+				currentLeft = promoContainerWidth*(imgList.length-1-i);
+				needToStop = true;
+			}
+			imgList[i].style.left = currentLeft-1 + "px";
+		}	
+		if(needToStop){
+			break;
 		}
-		imgList[i].style.left = currentLeft-divisor + "px";
-	}	
+	}
 	
 	if(needToStop){
 		setTimeout(()=>{
 			requestAnimationFrame(animation);
-		},1000);
+		},stopDuration);
 	}
 	else {
 		requestAnimationFrame(animation);

@@ -2,6 +2,17 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<!--
+	Copyright 2019 NAVER Corp.
+	All rights reserved.
+	Except in the case of internal use for NAVER,
+	unauthorized use of redistribution of this software are strongly prohibited.
+ -->
+
+
+<!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
+
+
 
 <head>
 <meta charset="utf-8">
@@ -93,10 +104,10 @@
 				<div class="wrap_event_box">
 					<!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
 					<ul class="lst_event_box">
-						
+
 					</ul>
 					<ul class="lst_event_box">
-						
+
 					</ul>
 					<!-- 더보기 -->
 					<div class="more">

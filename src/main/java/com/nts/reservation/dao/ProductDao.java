@@ -1,4 +1,10 @@
 package com.nts.reservation.dao;
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS;
 import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY;
@@ -19,6 +25,10 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.Promotion;
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 
 @Repository
 public class ProductDao {

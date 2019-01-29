@@ -1,4 +1,10 @@
 package com.nts.reservation.config;
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 
 import javax.sql.DataSource;
 
@@ -13,6 +19,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 
 @Configuration
 @EnableTransactionManagement
