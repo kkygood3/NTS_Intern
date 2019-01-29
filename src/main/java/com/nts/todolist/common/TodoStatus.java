@@ -20,12 +20,28 @@ public enum TodoStatus {
 		this.todoStatus = todoStatus;
 	}
 
-	public String getValue() {
+	public String getTodoStatus() {
 		return todoStatus;
 	}
 
-	public String changeNextStatus() {
-		return TODO.equals(this) ? DOING.getValue() : DONE.getValue();
+	/**현재 todoStatus값을 다음 단계의 todoStatus으로 반환
+	 * @author yongjoon.Park
+	 */
+	public TodoStatus getNextStatus() {
+		return TodoStatus.values()[this.ordinal() + 1];
 	}
-	
+
+	/**입력 받은 값이 TodoStatus Enum에 존재하는 지 확인
+	 * @author yongjoon.Park
+	 * @param type 해당 enum에 존재하는 지 확인할 type값
+	 * @return 해당 type이 있을 경우 true, 없을 경우 false를 return한다.
+	 */
+	public static boolean isExistTodoStatus(String type) {
+		for (TodoStatus compareStatus : TodoStatus.values()) {
+			if (compareStatus.getTodoStatus().equals(type)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
