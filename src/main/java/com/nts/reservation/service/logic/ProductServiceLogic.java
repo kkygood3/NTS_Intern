@@ -21,7 +21,7 @@ public class ProductServiceLogic implements ProductService {
 	@Override
 	public ProductResponse getProductResponse(ProductRequest productRequest) {
 
-		if (productRequest.getCategoryId() == 0) {
+		if (productRequest.isAllCategory()) {
 			return productDao.getAllCategoryProductResponse(productRequest);
 		} else {
 			return productDao.getOneCategoryProductResponse(productRequest);

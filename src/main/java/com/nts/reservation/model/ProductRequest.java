@@ -13,6 +13,13 @@ public class ProductRequest {
 	@Min(value = 0, message = "start value must positive number")
 	private int start;
 
+	public boolean isAllCategory() {
+		if (this.categoryId == 0) {
+			return true;
+		}
+		return false;
+	}
+
 	public int getCategoryId() {
 		return categoryId;
 	}
