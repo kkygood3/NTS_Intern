@@ -1,0 +1,155 @@
+
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
+ 
+@charset "UTF-8";
+
+body {
+	background-color: aliceblue;
+	padding: 50px;
+}
+
+header {
+	display: table;
+	overflow: auto;
+	width: 100%;
+	height: 5em;
+	padding: 20px 0 20px 0;
+	background-color: white;
+}
+
+section {
+	padding: 5% 10%;
+	background-color: white;
+	overflow: auto;
+	vertical-align: top
+}
+
+.section_main {
+	padding: 0 5% 0 10%;
+	background-color: white;
+	overflow: auto;
+}
+
+table {
+	margin: 0 auto;
+	width: 100%;
+}
+
+th, td {
+	height: 4em;
+	text-align: left;
+	width: 33%;
+}
+
+th {
+	padding: 10px;
+	background-color: blue;
+	color: white;
+}
+
+td {
+	overflow: inherit;
+	vertical-align: top;
+}
+
+ul {
+	float: left;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+li {
+	background-color: #bbbbbb;
+	margin: 10px 0;
+	padding: 10px 10px;
+	text-decoration: none;
+	width: auto;
+	overflow: auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+p {
+	font-size: 10pt;
+	width: auto;
+	margin: 0 auto;
+	line-height: 2;
+}
+
+form {
+	margin: 0 20%;
+}
+
+.text_input {
+	width: 100%;
+}
+
+.addTodo_button {
+	width: 20%;
+	height: 10%;
+	padding: 10px;
+	margin: 0 10px;
+}
+
+input[type=button] {
+	float: left;
+	background-color: white;
+	border: solid 2px #aaaaaa;
+	text-decoration: underline;
+}
+
+input[type=submit] {
+	color: white;
+	background-color: cornflowerblue;
+	float: right;
+}
+
+input[type=reset] {
+	color: white;
+	background-color: cornflowerblue;
+	float: right;
+}
+
+.content_title {
+	text-overflow: ellipsis;
+}
+
+.header_left_text {
+	font: 30px bold;
+	margin-top: 1em;
+	float: left;
+	transform: rotate(-30deg);
+}
+
+.header_button_wrapper {
+	float: right;
+	display: table;
+	width: 20%;
+	height: 100%;
+	margin-right: 10%;
+}
+
+.header_button_inner {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #2fa8a0;
+	border-radius: 0.5em;
+	box-shadow: 0.5em 0.5em #888888;
+	text-decoration: none;
+	color: white;
+}
+
+.content_move_button {
+	margin: 0 auto;
+	float: right;
+}
