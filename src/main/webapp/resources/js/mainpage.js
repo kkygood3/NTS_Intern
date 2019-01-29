@@ -16,7 +16,7 @@ function printPromotions() {
 }
 
 function printCategories() {
-	var categoryList = document.querySelector("#category_list")
+	var categoryList = document.querySelector("#category_list");
 
 	var categoryItems = JSON.parse(this.response).item;
 	for (var i = 0, len = categoryItems.length; i < len; i++) {
@@ -30,12 +30,12 @@ function printProducts() {
 	var productCount = getProductsCount();
 
 	var responseObject = JSON.parse(this.response);
-	var totalCount = responseObject.totalCount
+	var totalCount = responseObject.totalCount;
 	var productItems = responseObject.item;
 
 	document.querySelector("#totalCount").innerText = totalCount;
 	for (var i = 0, len = productItems.length; i < len; i++) {
-		productLists[productCount % productListLength].innerHTML += parseProductToHtml(productItems[i]);
+		productLists[productCount % productListsLength].innerHTML += parseProductToHtml(productItems[i]);
 		productCount++;
 	}
 
@@ -67,27 +67,36 @@ document.addEventListener("DOMContentLoaded", function(){
 	loadContent("/api/promotions", "GET", printPromotions);
 	loadContent("/api/categories", "GET", printCategories);
 	loadContent("/api/products", "GET", printProducts);
+	
+	addClickEventCategoryChange();
+	addClickEventMoreBtn();
 });
 
-document.querySelector("#category_list").addEventListener("click", function(evt){
-    var paths = evt.path;
-    
-    for(var i=0, len=paths.length; i<len; i++){
-        if(paths[i].tagName === "A" && paths[i].className === "anchor"){
-	    	document.querySelector(".anchor.active").className = "anchor";
-			paths[i].className = "anchor active";
-			var categoryId = paths[i].parentElement.dataset.category;
-			clearProductLists();
-			loadContent("/api/products?categoryId=" + categoryId, "GET", printProducts);
-    		document.querySelector(".more .btn").style.display = "inline-block";
-			break;
-        }
-    }
-});
-
-document.querySelector(".more .btn").addEventListener("click", function(){
-    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;
-    var productCount = getProductsCount();
-    
-    loadContent("/api/products?categoryId=" + categoryId + "&start=" + productCount, "GET", printProducts);
-});
+function addClickEventCategoryChange(){
+	document.querySelector("#category_list").addEventListener("click", function(evt){
+	    var paths = evt.path;
+	    
+	    for(var i=0, len=paths.length; i<len; i++){
+	        if(paths[i].tagName === "A" && paths[i].className === "anchor"){
+		    	document.querySelector(".anchor.active").className = "anchor";
+				paths[i].className = "anchor active";
+				
+				clearProductLists();
+				
+				var categoryId = paths[i].parentElement.dataset.category;
+				loadContent("/api/products?categoryId=" + categoryId, "GET", printProducts);
+				
+	    		document.querySelector(".more .btn").style.display = "inline-block";
+				break;
+	        }
+	    }
+	});
+}
+function addClickEventMoreBtn(){
+	document.querySelector(".more .btn").addEventListener("click", function(){
+	    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;
+	    var productCount = getProductsCount();
+	    
+	    loadContent("/api/products?categoryId=" + categoryId + "&start=" + productCount, "GET", printProducts);
+	});
+}
