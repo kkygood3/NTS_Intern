@@ -16,10 +16,10 @@
         <div class="header">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="/myreservation.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/main" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="/bookinglogin.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                <a href="/" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
         </div>
         <hr>
@@ -63,13 +63,13 @@
             </div>
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
-                    <li class="item" data-category="">
+                    <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
                     
                     <template id="categories-template">
-						 <li class="item" data-category="${id}" data-count="${count}">
-				             <a class="anchor"> <span>${name}</span> </a>
+						 <li class="item" data-category="{id}" data-count="{count}">
+				             <a class="anchor"> <span>{name}</span> </a>
 				         </li>
 					</template>
 					
@@ -80,9 +80,10 @@
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
-                    
-					    
                     </ul>
+                    <ul class="lst_event_box">
+                    </ul>
+                    
                     <template id="products-template">
 						<li class="item">
 							<a href="/?id={displayInfoId}" class="item_book">
@@ -97,9 +98,10 @@
 					         </a>
 					     </li>
 					 </template>
+					 
                     <!-- 더보기 -->
                     <div class="more">
-                        <button class="btn" data-start="0"><span>더보기</span></button>
+                        <button id="moreButton" class="btn" data-start="0" data-category="0"><span>더보기</span></button>
                     </div>
                 </div>
             </div>
@@ -117,7 +119,7 @@
 
 
     
-    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script type="text/javascript" src="/static/js/home.js"></script>
 </body>
 
 </html>
