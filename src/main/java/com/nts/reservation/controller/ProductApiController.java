@@ -30,7 +30,6 @@ public class ProductApiController {
 	@GetMapping("/products")
 	public Map<String, Object> getProductsByCategory(@RequestParam(name = "start", required = true) Integer start,
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer category) {
-		System.out.println(start + " " + category);
 		return productService.getProductsByCategory(start, category);
 	}
 

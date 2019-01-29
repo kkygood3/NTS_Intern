@@ -16,10 +16,10 @@ public class ProductDaoSqls {
 	public static final String SELECT_PROMOTION = "SELECT prom.id AS id, "
 		+ "prom.product_id AS productId, "
 		+ "CONCAT('img/',pi.product_id,'_',pi.type,'_',pi.id,'.png') AS productImageUrl "
-		+ "FROM promotion prom"
+		+ "FROM promotion prom "
 		+ "INNER JOIN "
-		+ "product_image pi"
-		+ "ON prom.product_id=pi.product_id "
+		+ "product_image pi "
+		+ "ON prom.product_id = pi.product_id "
 		+ "WHERE pi.type='th'";
 
 	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(*) FROM display_info";
@@ -33,7 +33,8 @@ public class ProductDaoSqls {
 		+ "FROM product p1 "
 		+ "INNER JOIN display_info di "
 		+ "INNER JOIN product_image pi "
-		+ "WHERE p1.id = di.product_id AND di.product_id = pi.product_id AND pi.type = 'th' "
+		+ "ON p1.id = di.product_id AND di.product_id = pi.product_id "
+		+ "WHERE pi.type = 'th' "
 		+ "ORDER BY di.product_id ASC limit :start, :limit";
 
 	public static final String SELECT_ALL_PRODUCTS_BY_CATEGORY = "SELECT di.id AS displayInfoId, "
@@ -45,9 +46,9 @@ public class ProductDaoSqls {
 		+ "FROM product p1 "
 		+ "INNER JOIN display_info di "
 		+ "INNER JOIN product_image pi "
-		+ "WHERE p1.id = di.product_id "
+		+ "ON p1.id = di.product_id "
 		+ "AND di.product_id = pi.product_id "
-		+ "AND p1.category_id =:category_id "
+		+ "WHERE p1.category_id =:category_id "
 		+ "AND pi.type = 'th' ORDER BY di.product_id ASC limit :start, :limit";
 
 	public static final String SELECT_PRODUCTS_COUNT_BY_CATEGORY = "SELECT ctg.id AS id, "
@@ -56,6 +57,6 @@ public class ProductDaoSqls {
 		+ "FROM display_info di "
 		+ "INNER JOIN product p1 "
 		+ "INNER JOIN category ctg "
-		+ "WHERE p1.id = di.product_id AND ctg.id = p1.category_id "
+		+ "ON p1.id = di.product_id AND ctg.id = p1.category_id "
 		+ "GROUP BY p1.category_id;";
 }
