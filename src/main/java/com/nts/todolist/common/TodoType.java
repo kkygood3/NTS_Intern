@@ -8,30 +8,35 @@ package com.nts.todolist.common;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public enum TodoType {
-
-	TODO("TODO"),
-	DOING("DOING"),
-	DONE("DONE");
-
-	private String currentType;
-
-	private TodoType(String currentType) {
-		this.currentType = currentType;
-	}
-
-	public String getValue() {
-		return currentType;
-	}
-
-	public String getAfterType() {
-		String afterType = "";
-
-		if (TODO.equals(this)) {
-			afterType = DOING.getValue();
-		} else if (DOING.equals(this)) {
-			afterType = DONE.getValue();
+	TODO("TODO") {
+		@Override
+		public TodoType getNextType() {
+			return DOING;
 		}
-		return afterType;
+	},
+	DOING("DOING") {
+		@Override
+		public TodoType getNextType() {
+			return DONE;
+		}
+	},
+	DONE("DONE") {
+		@Override
+		public TodoType getNextType() {
+			return DONE;
+		}
+	};
+
+	private String todoType;
+
+	private TodoType(String todoType) {
+		this.todoType = todoType;
 	}
+
+	public String getTodoType() {
+		return todoType;
+	}
+
+	public abstract TodoType getNextType();
 
 }

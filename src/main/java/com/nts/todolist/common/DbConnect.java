@@ -4,27 +4,38 @@
  */
 package com.nts.todolist.common;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
-public class DBConnect {
+public class DbConnect {
 
 	/**
 	 * 데이터베이스 연결에 사용되는 url, user, password, driver 정보를 저장한 properties 파일에서 정보를 가져옵니다.
 	 */
 	public static Properties getProperties() {
-		String propertiesPath = DBConnect.class.getResource("").getPath();
+		String propertiesPath = DbConnect.class.getResource("").getPath();
 		Properties properties = null;
 
 		try (FileReader fileReader = new FileReader(propertiesPath + "DB.properties");) {
 			properties = new Properties();
 			properties.load(fileReader);
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			//
+			System.out.println("DbConnect.java 예외처리 1-1");
+			//
+			e.printStackTrace();
+		} catch (IOException e) {
+			//
+			System.out.println("DbConnect.java 예외처리 1-2");
+			//
 			e.printStackTrace();
 		}
 		return properties;
@@ -42,7 +53,15 @@ public class DBConnect {
 			connection = DriverManager.getConnection(properties.getProperty("url"),
 				properties.getProperty("user"), properties.getProperty("password"));
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			//
+			System.out.println("DbConnect.java 예외처리 2-1");
+			//
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			//
+			System.out.println("DbConnect.java 예외처리 2-2");
+			//
 			e.printStackTrace();
 		}
 

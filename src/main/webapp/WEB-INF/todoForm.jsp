@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <p>누가 할일인가요?</p>
-                    <input type="text" name="name" maxlength="50" value="홍길동" class="input-todoForm">
+                    <input type="text" name="name" maxlength="17" value="홍길동" class="input-todoForm">
                 </div>
                 <div>
                     <p>우선순위를 선택하세요</p>

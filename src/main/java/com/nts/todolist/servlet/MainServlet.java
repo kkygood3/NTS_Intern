@@ -34,19 +34,19 @@ public class MainServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 
-		List<TodoDto> allTypeList = new TodoDao().getTodos();
+		List<TodoDto> allTypeList = TodoDao.getInstance().getTodos();
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
 		for (TodoDto todoDto : allTypeList) {
-			String type = todoDto.getType();
+			TodoType type = TodoType.valueOf(todoDto.getType());
 
-			if (TodoType.TODO.getValue().equals(type)) {
+			if (type == TodoType.TODO) {
 				todoList.add(todoDto);
-			} else if (TodoType.DOING.getValue().equals(type)) {
+			} else if (type == TodoType.DOING) {
 				doingList.add(todoDto);
-			} else if (TodoType.DONE.getValue().equals(type)) {
+			} else if (type == TodoType.DONE) {
 				doneList.add(todoDto);
 			}
 		}
@@ -59,5 +59,17 @@ public class MainServlet extends HttpServlet {
 		requestDispatcher.forward(request, response);
 
 	}
+
+	//	private List<TodoDto> getTodoDtoList(ㅁ) {
+	//		List<TodoDto> todoDtoList = new ArrayList<>();
+	//
+	//		for (TodoDto todoDto : allTypeList) {
+	//
+	//			if (todoDtoType == todoType) {
+	//				todoDtoList.add(todoDto);
+	//			}
+	//		}
+	//		return todoDtoList;
+	//	}
 
 }

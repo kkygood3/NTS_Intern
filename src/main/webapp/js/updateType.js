@@ -22,7 +22,7 @@ function updateType(id) {
 		var afterList = document.querySelector("#ul-" + afterType);
 		
 		updateList(todo, beforeList, afterList);
-		
+				
 	});
 	xmlHttpRequest.open("PUT", "/todoUpdate?id=" + id.split("-")[2] + "&type=" + type);
 	xmlHttpRequest.send();

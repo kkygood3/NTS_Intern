@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nts.todolist.check.ValidationCheck;
 import com.nts.todolist.common.TodoType;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
@@ -33,27 +34,39 @@ public class TodoTypeServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		Long id = Long.parseLong(request.getParameter("id"));
-		TodoType currentType = TodoType.valueOf(request.getParameter("type"));
-		String afterType = currentType.getAfterType();
+		String typeString = request.getParameter("type");
 
-		TodoDao todoDao = new TodoDao();
+		System.out.println("id : " + id);
+		System.out.println("typeString : " + typeString);
+		if (ValidationCheck.isCorrentValue(id, typeString)) {
+			TodoType type = TodoType.valueOf(typeString);
+			TodoType nextType = type.getNextType();
 
-		TodoDto todoDto = new TodoDto();
-		todoDto.setId(id);
-		todoDto.setType(afterType);
+			TodoDto todoDto = new TodoDto();
+			todoDto.setId(id);
+			todoDto.setType(nextType.getTodoType());
 
-		int typeUpdateState = 0;
-
-		if (TodoType.TODO.getValue().equals(currentType)) {
-			typeUpdateState = todoDao.updateTodo(todoDto);
-		} else if (TodoType.DOING.getValue().equals(currentType)) {
-			typeUpdateState = todoDao.updateTodo(todoDto);
-		}
-
-		if (typeUpdateState == 1) {
-			System.out.println("TodoTypeServlet 성공");
+			TodoDao todoDao = TodoDao.getInstance();
+			int typeUpdateState = 0;
+			if (type != TodoType.DONE) {
+				try {
+					typeUpdateState = todoDao.updateTodo(todoDto);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (typeUpdateState == 1) {
+				//
+				System.out.println("TodoTypeServlet.java 타입 변경 성공");
+			} else {
+				//
+				System.out.println("TodoTypeServlet.java 타입 변경 실패");
+			}
 		} else {
-			System.out.println("TodoTypeServlet 실패");
+			//
+			System.out.println("TodoAddServlet.java 예외처리 1");
+			response.sendRedirect("/main");
 		}
 	}
 
