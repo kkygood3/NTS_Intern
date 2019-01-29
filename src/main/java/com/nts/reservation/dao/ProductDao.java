@@ -12,12 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.querys.ProductQuerys;
 import com.nts.reservation.model.Product;
 import com.nts.reservation.model.ProductRequest;
-import com.nts.reservation.model.ProductResponse;
 
 @Repository
 public class ProductDao {
@@ -29,32 +27,37 @@ public class ProductDao {
 	private RowMapper<Product> productMapper;
 
 	/**
-	 * product 전체목록을 조회하여 ProductResponse객체로 생성후 반환
+	 * product 전체목록을 조회하여  Product List 반환
 	 */
-	@Transactional(readOnly = true)
-	public ProductResponse getAllCategoryProductResponse(ProductRequest productRequest) {
-
-		List<Product> productList = jdbcTemplate.query(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCT_LIST,
+	public List<Product> getAllCategoryProductList(ProductRequest productRequest) {
+		return jdbcTemplate.query(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCT_LIST,
 			new BeanPropertySqlParameterSource(productRequest),
 			productMapper);
-		Integer productCount = jdbcTemplate.queryForObject(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCTS_COUNT,
-			Collections.emptyMap(), Integer.class);
-
-		return new ProductResponse(productList, productCount);
 	}
 
 	/**
-	 * 특정 category의 product 목록을 조회하여 ProductResponse객체로 생성후 반환
+	 * product 전체목록의 count 반환
 	 */
-	@Transactional(readOnly = true)
-	public ProductResponse getOneCategoryProductResponse(ProductRequest productRequest) {
-		List<Product> productList = jdbcTemplate.query(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCT_LIST,
+	public int getAllCategoryProductCount(ProductRequest productRequest) {
+		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCTS_COUNT,
+			Collections.emptyMap(), Integer.class);
+	}
+
+	/**
+	 * 특정 category의 product 목록을 조회하여 Product List 반환
+	 */
+	public List<Product> getOneCategoryProductList(ProductRequest productRequest) {
+		return jdbcTemplate.query(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCT_LIST,
 			new BeanPropertySqlParameterSource(productRequest),
 			productMapper);
-		Integer productCount = jdbcTemplate.queryForObject(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCTS_COUNT,
+	}
+
+	/**
+	 * product 특정목록의 count 반환
+	 */
+	public int getOneCategoryProductCount(ProductRequest productRequest) {
+		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCTS_COUNT,
 			new BeanPropertySqlParameterSource(productRequest),
 			Integer.class);
-
-		return new ProductResponse(productList, productCount);
 	}
 }

@@ -6,6 +6,7 @@ package com.nts.reservation.service.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.model.ProductRequest;
@@ -23,12 +24,15 @@ public class ProductServiceLogic implements ProductService {
 	 * categoryId가 0일경우 isAllCategory Method 결과값 true, 그외 false
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public ProductResponse getProductResponse(ProductRequest productRequest) {
 
 		if (productRequest.isAllCategory()) {
-			return productDao.getAllCategoryProductResponse(productRequest);
+			return new ProductResponse(productDao.getAllCategoryProductList(productRequest),
+				productDao.getAllCategoryProductCount(productRequest));
 		} else {
-			return productDao.getOneCategoryProductResponse(productRequest);
+			return new ProductResponse(productDao.getOneCategoryProductList(productRequest),
+				productDao.getOneCategoryProductCount(productRequest));
 		}
 
 	}
