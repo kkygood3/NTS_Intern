@@ -29,4 +29,5 @@ public class ReservationSqls {
 		+ "and promotion.product_id = product.id ";
 	public static final String COUNT_PROMOTION = "SELECT count(*) FROM promotion";
 
+	public static final String GET_CATEGORIES = "SELECT category.id, category.name, COUNT(*) AS count FROM category JOIN product ON category.id = product.category_id JOIN display_info ON product.id = display_info.product_id GROUP BY category.id";
 }
