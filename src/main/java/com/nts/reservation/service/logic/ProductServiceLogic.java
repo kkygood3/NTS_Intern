@@ -28,13 +28,13 @@ public class ProductServiceLogic implements ProductService {
 	public ProductResponse getProductResponse(ProductRequest productRequest) {
 
 		if (productRequest.isAllCategory()) {
-			return new ProductResponse(productDao.getAllCategoryProductList(productRequest),
-				productDao.getAllCategoryProductCount(productRequest));
+			return new ProductResponse(productDao.getAllCategoryProductList(productRequest.getStart()),
+				productDao.getAllCategoryProductCount());
 		} else {
-			return new ProductResponse(productDao.getOneCategoryProductList(productRequest),
-				productDao.getOneCategoryProductCount(productRequest));
+			return new ProductResponse(
+				productDao.getOneCategoryProductList(productRequest.getCategoryId(), productRequest.getStart()),
+				productDao.getOneCategoryProductCount(productRequest.getCategoryId()));
 		}
 
 	}
-
 }
