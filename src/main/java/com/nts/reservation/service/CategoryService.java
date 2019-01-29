@@ -8,6 +8,6 @@ import com.nts.reservation.model.CategoryResponse;
 
 public interface CategoryService {
 
-	public CategoryResponse getCategoryResponse();
+	CategoryResponse getCategoryResponse();
 
 }

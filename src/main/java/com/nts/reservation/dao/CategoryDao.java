@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.dao;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class CategoryDao {
 	private RowMapper<Category> categoryMapper;
 
 	public List<Category> getCategoryList() {
-		return jdbcTemplate.query(CategoryQuerys.SELECT_CATEGORY_LIST, Collections.EMPTY_MAP, categoryMapper);
+		return jdbcTemplate.query(CategoryQuerys.SELECT_CATEGORY_LIST, categoryMapper);
 	}
 
 }

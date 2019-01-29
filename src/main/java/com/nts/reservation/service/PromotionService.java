@@ -8,6 +8,6 @@ import com.nts.reservation.model.PromotionResponse;
 
 public interface PromotionService {
 
-	public PromotionResponse getPromotionResponse();
+	PromotionResponse getPromotionResponse();
 
 }
