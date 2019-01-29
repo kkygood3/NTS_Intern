@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.CategoryDto;
 
-/*
+/**
  * @author 육성렬
  */
 @Repository

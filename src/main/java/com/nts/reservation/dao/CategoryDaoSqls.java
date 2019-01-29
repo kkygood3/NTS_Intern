@@ -5,7 +5,7 @@
 
 package com.nts.reservation.dao;
 
-/*
+/**
  * @author 육성렬
  */
 public class CategoryDaoSqls {

@@ -15,7 +15,7 @@ import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.CategoryDto;
 import com.nts.reservation.service.CategoryService;
 
-/*
+/**
  * @author 육성렬
  */
 @Service

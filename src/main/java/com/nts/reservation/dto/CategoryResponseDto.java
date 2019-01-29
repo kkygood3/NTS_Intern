@@ -7,7 +7,7 @@ package com.nts.reservation.dto;
 
 import java.util.List;
 
-/*
+/**
  * 카테고리 리스트 전송 양식을 위한 클래스
  * @author 육성렬
  */

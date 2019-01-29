@@ -5,7 +5,7 @@
 
 package com.nts.reservation.dto;
 
-/*
+/**
  * @author 육성렬
  */
 public class ProductDto {

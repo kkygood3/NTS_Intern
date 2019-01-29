@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ProductDto;
 
-/*
+/**
  * @author 육성렬
  */
 @Repository

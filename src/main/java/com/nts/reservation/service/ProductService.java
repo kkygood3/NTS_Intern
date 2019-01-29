@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.nts.reservation.dto.ProductDto;
 
-/*
+/**
  * @author 육성렬
  */
 public interface ProductService {
