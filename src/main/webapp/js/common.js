@@ -3,32 +3,39 @@ document.addEventListener("DOMContentLoaded", function() {
 	getProductsByCategory(0);
 });
 
-// 탭 메뉴 : TODO 이벤트위임 방식으로 수정
-var productContainer = document.querySelectorAll(".lst_event_box");
-var countProduct = document.querySelector(".event_lst_txt span");
-var showMoreButton = document.querySelector(".more");
-let nowCategoryId = 0;
+let productContainer = document.querySelectorAll(".lst_event_box");
+let countProduct = document.querySelector(".event_lst_txt span");
+let showMoreButton = document.querySelector(".more");
+let selectedCategoryId = 0;
 let start = 0;
 let displayedProduct = 0;
 
-var tab = document.querySelector(".section_event_tab").querySelectorAll(".anchor");
-for(var i = 0; i < tab.length; i++){
-	tab[i].addEventListener("click", function(){
-		var nowActive = this.parentNode.parentNode.querySelector("[data-category='"+nowCategoryId+"']").firstElementChild;
-		nowActive.className = "anchor";
-		this.className += " active";
-		nowCategoryId = this.parentNode.dataset.category;
-		productContainer[0].innerHTML = "";
-		productContainer[1].innerHTML = "";
-		start = 0;
-		displayedProduct = 0;
-		showMoreButton.hidden = false;
-		getProductsByCategory(nowCategoryId, start);
-	});
-}
+let tab = document.querySelector(".section_event_tab").querySelector("ul");
+tab.addEventListener("click", function(event){
+	var anchorElement;
+	if(event.target.tagName === "A"){
+		anchorElement = event.target;
+	} else if(event.target.tagName === "SPAN"){
+		anchorElement = event.target.parentNode;
+	}
+	
+	var previousActive = anchorElement.parentNode.parentNode.querySelector("[data-category='"+selectedCategoryId+"']").firstElementChild;
+	previousActive.className = "anchor";
+	
+	selectedCategoryId = anchorElement.parentNode.dataset.category;
+	anchorElement.className += " active";
+	
+	productContainer[0].innerHTML = "";
+	productContainer[1].innerHTML = "";
+	
+	start = 0;
+	displayedProduct = 0;
+	showMoreButton.hidden = false;
+	
+	getProductsByCategory(selectedCategoryId, start);
+});
 
 function getProductsByCategory(categoryId, start = 0) {
-	
 	if (window.XMLHttpRequest) {
 		var httpRequest =  new XMLHttpRequest();
 		
@@ -69,7 +76,7 @@ const productsPerPage = 4;
 
 showMoreButton.addEventListener("click", function(event){
 	start += productsPerPage;
-	getProductsByCategory(nowCategoryId, start);
+	getProductsByCategory(selectedCategoryId, start);
 });
 
 let executeAnimationTime;
