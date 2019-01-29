@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 var mainPage = {
+    /**
+     * @function init 페이지 Content 로드 완료시 초기 설정 함수.
+     */
     init: function() {
         this.requestProducts();
         this.requestCategories();
@@ -10,8 +13,15 @@ var mainPage = {
         this.initMoreBtn();
     },
     values: {
+        /**
+         * @val {number} 프로모션 애니메이션 tick을 위한 값
+         */
         executionTime: 0,
-        promotionAnimationRequestId: 0
+        /**
+         * @val {number} 프로모션 애니메이션 requestAnimationFrame 시의 아이디값
+         */
+        promotionAnimationRequestId: 0,
+        PROMOTION_ANIMATION_TICK: 3000
     },
     elements: {
         tabContainer: document.querySelector(".event_tab_lst"),
@@ -19,6 +29,9 @@ var mainPage = {
         productContainers : document.getElementsByClassName("lst_event_box"),
         promotionContainer: document.querySelector(".visual_img")
     },
+    /**
+     * @function initMoreBtn 더 보기 버튼 초기 설정 함수.
+     */
     initMoreBtn: function() {
         var moreBtn = this.elements.moreBtn;
         moreBtn.addEventListener("click", function() {
@@ -26,6 +39,11 @@ var mainPage = {
             this.requestProducts(tabContainer.dataset.currentCount, tabContainer.dataset.selected == 0 ? null : tabContainer.dataset.selected);
         }.bind(this))
     },
+    /**
+     * @function requestProducts 프로덕트 정보 요청 함수.
+     * @param {Number} start 시작 index
+     * @param {Number} categoryId 요청 카테고리, 전체보기 시 null.
+     */
     requestProducts:  function (start, categoryId) {
         var params = {};
         if(start) {
@@ -35,20 +53,30 @@ var mainPage = {
             params.categoryId = categoryId;
         }
         this.httpMethod.sendGet("/reservation-service/api/products",params, function(response) {
-            this.responseProduct(response);
+            this.responseProducts(response);
         }.bind(this))
     },
+    /**
+     * @function requestCategories 카테고리 정보 요청
+     */
     requestCategories : function() {
         this.httpMethod.sendGet("/reservation-service/api/categories", null, function(response){
             this.responseCategories(response);
         }.bind(this))
     },
+    /**
+     * @function requestPromotions 프로모션 상품 요청 함수
+     */
     requestPromotions: function () {
         this.httpMethod.sendGet("/reservation-service/api/promotions", null, function(response){
             this.responsePromotions(response);
         }.bind(this))
     },
-    responseProduct: function (response) {
+    /**
+     * @function responseProducts 프로덕트 정보 요청에 대한 콜백 함수.
+     * @param {XMLHttpRequest} response
+     */
+    responseProducts: function (response) {
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
             this.updateProductList(data.items, data.totalCount);
@@ -56,6 +84,10 @@ var mainPage = {
             alert("상품 목록을 불러오는데 실패했습니다.");
         }
     },
+    /**
+     * @function responseCategories 카테고리 정보 요청에 대한 콜백 함수.
+     * @param {XMLHttpRequest} response
+     */
     responseCategories: function (response){
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
@@ -64,6 +96,10 @@ var mainPage = {
             alert("카테고리를 불러오는데 실패했습니다.");
         }
     },
+    /**
+     * @function responsePromotions 프로모션 정보 요청에 대한 콜백 함수.
+     * @param {XMLHttpRequest} response
+     */
     responsePromotions: function (response){
         if(response.status == 200){
             var data = JSON.parse(response.responseText);
@@ -72,6 +108,11 @@ var mainPage = {
             alert("프로모션 상품들을 불러오는데 실패했습니다.");
         }
     },
+    /**
+     * @function updateProductList 상품 정보에 대한 상품 리스트 UI 갱신 함수.
+     * @param {JSON} products 상품 리스트
+     * @param {Number} totalCount 해당 카테고리의 전체 상품 갯수. (products와 갯수 일치 X)
+     */
     updateProductList : function (products, totalCount){
         var tabContainer = this.elements.tabContainer;
         tabContainer.dataset.currentTotalCount = totalCount;
@@ -91,6 +132,10 @@ var mainPage = {
             productContainers[i].innerHTML += resultTemplate[i];
         }
     },
+    /**
+     * @function updateCategories 카테고리 정보에 대한 카테고리 UI 갱신 함수.
+     * @param {JSON} categories 카테고리 리스트
+     */
     updateCategories: function (categories) {
         var template = document.querySelector("#categoryItem").innerHTML;
         var resultTemplate = "";
@@ -111,6 +156,10 @@ var mainPage = {
     
         this.addCategoryEventListner();
     },
+    /**
+     * @function updatePromtions 프로모션 정보에 대한 프로모션 UI 갱신 함수.
+     * @param {JSON} promotions 프로모션 리스트
+     */
     updatePromtions: function (promotions) {
         var promotionContainer = this.elements.promotionContainer;
         var template = document.querySelector("#promotionItem").innerHTML;
@@ -124,21 +173,27 @@ var mainPage = {
         
         promotionContainer.dataset.current = 0;
     
-        this.settingPromotionStyle();
+        this.preSettingStyleForPromotionAnimation();
         this.values.executionTime = new Date().getTime();
         this.updatePromotionAnimation();
     },
-    settingPromotionStyle: function (){
+    /**
+     * @function preSettingStyleForPromotionAnimation 프로모션 UI 애니메이션 시작 전의 사전 세팅 함수.
+     */
+    preSettingStyleForPromotionAnimation: function (){
         var childNodes = this.elements.promotionContainer.children;
         childNodes[0].className = "item current_promotion";
         for(var i = 1; i < childNodes.length; i++){
             childNodes[i].className = "item prev_promotion";
         }
     },
+    /**
+     * @function updatePromotionAnimation 프로모션 UI 애니메이션 구동 함수.
+     */
     updatePromotionAnimation: function (){
         var now = new Date().getTime();
         
-        if((now - this.values.executionTime) >= 3000){
+        if((now - this.values.executionTime) >= this.PROMOTION_ANIMATION_TICK){
             var promotionContainer = this.elements.promotionContainer;
             var childNodes = promotionContainer.children;
             var length = childNodes.length;
@@ -160,6 +215,12 @@ var mainPage = {
         }.bind(this));
     },
     httpMethod: {
+        /**
+         * @function sendGet 서버에 Get 메서드 요청 함수.
+         * @param {String} path 요청 URL
+         * @param {JSON} params  
+         * @param {Function} onCallback 콜백 함수.
+         */
         sendGet: function (path, params, onCallback) {
             var data = "";
             if(params){
@@ -178,6 +239,9 @@ var mainPage = {
             request.send();
         }
     },
+    /**
+     * @function addCategoryEventListner 카테고리 탭 별 이벤트 리스너 추가 함수
+     */
     addCategoryEventListner: function () {
         var tabContainer = this.elements.tabContainer;
         tabContainer.addEventListener("click", function (event) {
