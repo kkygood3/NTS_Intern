@@ -1,7 +1,34 @@
 document.addEventListener("DOMContentLoaded", function() {
-	getPromotion();
+	getCategories();
+	getPromotions();
 	getProductsByCategory(0);
 });
+
+function getCategories() {
+	if (window.XMLHttpRequest) {
+		var httpRequest =  new XMLHttpRequest();
+		
+		httpRequest.onreadystatechange = function() {  
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				var jsonResponse = JSON.parse(httpRequest.responseText);
+
+				var targetElement = document.querySelector(".event_tab_lst");
+				var categoryTemplate = document.querySelector("#categories").textContent;
+				
+				for(var i = 0, len = jsonResponse["items"].length; i < len; i++){
+					var id = jsonResponse["items"][i]["id"];
+					var name = jsonResponse["items"][i]["name"];
+					
+					targetElement.innerHTML += eval("`"+categoryTemplate+"`");
+				}
+			}
+		}
+		
+		httpRequest.open("GET", "./api/categories");
+		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+		httpRequest.send();
+	}
+}
 
 let productContainer = document.querySelectorAll(".lst_event_box");
 let countProduct = document.querySelector(".event_lst_txt span");
@@ -80,7 +107,7 @@ showMoreButton.addEventListener("click", function(event){
 });
 
 let executeAnimationTime;
-function getPromotion() {
+function getPromotions() {
 	if (window.XMLHttpRequest) {
 		var httpRequest =  new XMLHttpRequest();
 

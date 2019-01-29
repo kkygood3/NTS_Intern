@@ -53,7 +53,7 @@
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
-                    <li class="item" data-category="1">
+                    <!-- li class="item" data-category="1">
                         <a class="anchor"> <span>전시</span> </a>
                     </li>
                     <li class="item" data-category="2">
@@ -101,6 +101,12 @@
             <span class="copyright">© NAVER Corp.</span>
         </div>
     </footer>
+
+	<script type="rv-template" id="categories">
+    <li class="item" data-category="\${id}">
+        <a class="anchor"> <span>\${name}</span> </a>
+    </li>
+    </script>
 
     <script type="rv-template" id="promotionItem">
     <li class="item" style="background-image: url(\${imgUrl});">
