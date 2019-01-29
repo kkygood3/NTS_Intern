@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class Categories {
+public class Category {
 	private Long count;
 	private Long id;
 	private String name;

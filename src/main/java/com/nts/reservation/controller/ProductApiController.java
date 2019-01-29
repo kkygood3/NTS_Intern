@@ -19,17 +19,24 @@ public class ProductApiController {
 
 	@GetMapping("/products/{start}/{category}")
 	public Map<String, Object> productByCategory(@PathVariable Integer start, @PathVariable Integer category) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("items", productService.getProducts(start, category));
-		map.put("totalCount", productService.getProductsCount());
-		return map;
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getProducts(start, category));
+		result.put("totalCount", productService.getProductsCount());
+		return result;
+	}
+
+	@GetMapping("/categories")
+	public Map<String, Object> getCountsByCategory() {
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getProductsCountByCategory());
+		return result;
 	}
 
 	@GetMapping("/promotions")
 	public Map<String, Object> promotionList() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("items", productService.getPromotions());
-		return map;
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getPromotions());
+		return result;
 	}
 
 	@GetMapping("/promotions/{displayInfoId}")

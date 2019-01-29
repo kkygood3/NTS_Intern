@@ -2,6 +2,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.Promotion;
 
@@ -14,4 +15,5 @@ public interface ProductService {
 
 	public List<Promotion> getPromotions();
 
+	public List<Category> getProductsCountByCategory();
 }
