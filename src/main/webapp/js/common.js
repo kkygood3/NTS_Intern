@@ -60,8 +60,9 @@ tab.addEventListener("click", function(event){
 		selectedCategoryId = anchorElement.parentNode.dataset.category;
 		anchorElement.className += " active";
 		
-		productContainer[0].innerHTML = "";
-		productContainer[1].innerHTML = "";
+		productContainer.forEach(function(container){
+			container.innerHTML = "";
+		});
 		
 		start = 0;
 		displayedProduct = 0;
@@ -133,13 +134,11 @@ function getPromotions() {
 
 		httpRequest.onreadystatechange = function() {
 			let jsonResponse;
-			let promotionTemplate;
 			let promotionContainer = document.querySelector(".visual_img");
+			let promotionTemplate = document.querySelector("#promotionItem").innerHTML;;
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
-
-				promotionTemplate = document.querySelector("#promotionItem").innerHTML;
 
 				jsonResponse["items"].forEach(function(item){
 					promotionContainer.innerHTML += promotionTemplate.replace("{imgUrl}", item.productImageUrl)
