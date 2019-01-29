@@ -8,16 +8,15 @@ import javax.validation.constraints.Min;
 
 public class ProductRequest {
 
+	private static final int ALL_CATEGORY = 0;
+
 	private int categoryId;
 
 	@Min(value = 0, message = "start value must positive number")
 	private int start;
 
 	public boolean isAllCategory() {
-		if (this.categoryId == 0) {
-			return true;
-		}
-		return false;
+		return this.categoryId == ALL_CATEGORY;
 	}
 
 	public int getCategoryId() {
