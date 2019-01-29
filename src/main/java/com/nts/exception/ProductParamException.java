@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @desc Product start가 음수일때는 잘못된 요청에 대한 error response
+ * @desc Product Parameter start가 음수일때는 잘못된 요청에 대한 error response
  * @author 전연빈
  */
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "잘못된 요청입니다.")
