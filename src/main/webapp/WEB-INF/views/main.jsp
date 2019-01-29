@@ -31,6 +31,7 @@
 		</div>
 		<hr>
 		<div class="event">
+			<!-- 프로모션 구역 -->
 			<div class="section_visual">
 				<div class="group_visual">
 					<div class="container_visual">
@@ -41,30 +42,14 @@
 					</div>
 				</div>
 			</div>
+			<!-- 카테고리 tab 구역 -->
 			<div class="section_event_tab">
 				<ul class="event_tab_lst tab_lst_min">
-					<li class="item" data-category="0"><a class="anchor active">
+					<li class="item" data-category="0">
+						<a class="anchor active">
 							<span>전체리스트</span>
-					</a></li>
-					<li class="item" data-category="1"><a class="anchor"> <span>전시</span>
-					</a></li>
-					<li class="item" data-category="2"><a class="anchor"> <span>뮤지컬</span>
-					</a></li>
-					<li class="item" data-category="3"><a class="anchor"> <span>콘서트</span>
-					</a></li>
-					<li class="item" data-category="4"><a class="anchor"> <span>클래식</span>
-					</a></li>
-					<li class="item" data-category="5"><a class="anchor"> <span>연극</span>
-					</a></li>
-					<!-- li class="item" data-category="7">
-                        <a class="anchor"> <span>클래스</span> </a>
-                    </li>
-                    <li class="item" data-category="8">
-                        <a class="anchor"> <span>체험</span> </a>
-                    </li>
-                    <li class="item" data-category="9">
-                        <a class="anchor last"> <span>키즈</span> </a>
-                    </li -->
+						</a>
+					</li>
 				</ul>
 			</div>
 			<div class="section_event_lst">
@@ -218,17 +203,21 @@
 			</a>
 		</li>
 	</script>
-	
+
 	<script type="text/template" id="template-promotion-image">
 		<img data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
-	</script> 
-	
+	</script>
+
+	<script type="text/template" id="template-category-ui-list">
+		<li class="item" data-category="{id}"><a class="anchor"><span>{name}</span>
+	</script>
+
 	<script>
 		function init() {
 			setPromotions();
-			
+			setCategories();
 		}
-		
+
 		function setPromotions() {
 			var xhr = new XMLHttpRequest();
 			var url = "./api/promotions";
@@ -274,6 +263,31 @@
 					i += 1;
 				}
 			}, 2000);
+		}
+
+		function setCategories() {
+			var xhr = new XMLHttpRequest();
+			var url = "./api/categories";
+
+			xhr.open("GET", url);
+			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+			xhr.send();
+
+			xhr.addEventListener("load", function(e) {
+				var items = JSON.parse(e.target.response).items;
+				var html = document.querySelector("#template-category-ui-list").innerHTML;
+				var resultHTML = "";
+				for (var i in items) {
+					resultHTML += html.replace("{id}", items[i].id)
+							.replace("{name}", items[i].name);
+				}
+
+				document.querySelector(".tab_lst_min").innerHTML += resultHTML;
+			});
+
+			xhr.addEventListener("error", function(e) {
+				alert("An error occurred while transferring the file.");
+			});
 		}
 		
 		init();
