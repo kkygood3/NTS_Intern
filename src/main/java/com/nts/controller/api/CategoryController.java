@@ -27,7 +27,7 @@ public class CategoryController {
 	 * @return items { 카테고리 리스트}
 	 */
 	@GetMapping
-	public CategoryResponse getCategorys() {
+	public CategoryResponse getCategories() {
 		return categoryService.selectCategories();
 	}
 }
