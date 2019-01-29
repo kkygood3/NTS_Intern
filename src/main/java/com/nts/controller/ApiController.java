@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.Category;
+import com.nts.dto.CategoryApiView;
 import com.nts.dto.ProductApiView;
-import com.nts.dto.Promotion;
-import com.nts.service.CategoryService;
+import com.nts.dto.PromotionApiView;
+import com.nts.service.CategoryApiViewService;
 import com.nts.service.ProductApiViewService;
-import com.nts.service.PromotionService;
+import com.nts.service.PromotionApiViewService;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -23,9 +23,9 @@ public class ApiController {
 	@Autowired
 	ProductApiViewService productApiViewService;
 	@Autowired
-	CategoryService categoryService;
+	CategoryApiViewService categoryApiViewService;
 	@Autowired
-	PromotionService promotionService;
+	PromotionApiViewService promotionApiViewService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> products(
@@ -45,7 +45,7 @@ public class ApiController {
 	@GetMapping(path = "/categories")
 	public Map<String, Object> categories() {
 
-		List<Category> items = categoryService.getAllCategories();
+		List<CategoryApiView> items = categoryApiViewService.getAllCategories();
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);
 
@@ -55,8 +55,8 @@ public class ApiController {
 	@GetMapping(path = "/promotions")
 	public Map<String, Object> promotions() {
 
-		List<Promotion> items = promotionService.getAllPromotions();
-		int totalCount = promotionService.getCount();
+		List<PromotionApiView> items = promotionApiViewService.getAllPromotions();
+		int totalCount = promotionApiViewService.getCount();
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);

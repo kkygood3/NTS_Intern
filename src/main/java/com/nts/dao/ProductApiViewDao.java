@@ -25,7 +25,7 @@ public class ProductApiViewDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	public List<ProductApiView> selectProduct(long categoryId, long start, long limit) {
+	public List<ProductApiView> selectPagingProducts(long categoryId, long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("category_id", categoryId);
 		params.put("start", start);

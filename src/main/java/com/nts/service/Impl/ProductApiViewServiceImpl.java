@@ -15,11 +15,9 @@ public class ProductApiViewServiceImpl implements ProductApiViewService {
 	@Autowired
 	ProductApiViewDao productApiViewDao;
 
-	
-
 	@Override
 	public List<ProductApiView> getProducts(long categoryId, long start) {
-		return productApiViewDao.selectProduct(categoryId, start, LIMIT);
+		return productApiViewDao.selectPagingProducts(categoryId, start, LIMIT);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package com.nts.dto;
 
-public class ProductApiView {
+public class PromotionApiView {
 	private long displayInfoId;
 	private String placeName;
 	private String productContent;
@@ -8,7 +8,7 @@ public class ProductApiView {
 	private long productId;
 	private String productImageUrl;
 
-	public ProductApiView() {
+	public PromotionApiView() {
 		super();
 	}
 
@@ -62,8 +62,9 @@ public class ProductApiView {
 
 	@Override
 	public String toString() {
-		return "ProductApiView [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
+		return "PromotionApiView [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
 			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
 			+ ", productImageUrl=" + productImageUrl + "]";
 	}
+
 }
