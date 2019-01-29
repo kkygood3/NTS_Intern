@@ -4,10 +4,11 @@
  */
 package com.nts.reservation.service;
 
+import com.nts.reservation.model.ProductRequest;
 import com.nts.reservation.model.ProductResponse;
 
 public interface ProductService {
 
-	public ProductResponse getProductResponse(int categoryId, int start);
+	ProductResponse getProductResponse(ProductRequest productRequest);
 
 }
