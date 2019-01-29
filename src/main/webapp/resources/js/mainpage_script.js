@@ -8,6 +8,10 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
+// library mapping to use forEach
+HTMLCollection.prototype.forEach = Array.prototype.forEach;
+NodeList.prototype.forEach = Array.prototype.forEach;
+
 // HTML Dom element constants for faster access;
 const tabButton = document.querySelectorAll("div.section_event_tab ul li");
 const promoContainer = document.querySelector("ul.visual_img");
@@ -111,7 +115,7 @@ function fetchProducts(categoryId, start){
 		productData.items = null;
 	}
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET","/reservation/api/products/"+start+"/"+categoryId,true);
+	xhr.open("GET","/reservation/api/products?start="+start+"&categoryId="+categoryId,true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -177,29 +181,29 @@ function RenderItems(){
 }
 
 function initPromoAnimation(){
-	// initialize the variables
-	for(let i = 0; i<imgList.length;i++){
-		imgList[i].style.left = "0px";
-		imgList[i].style.zIndex = imgList.length-i+"";
-	}	
+	imgList.forEach((item)=>{
+		item.style.left = "0px";
+	})
 	setTimeout(()=>{
 		requestAnimationFrame(animation);
 	},3000);
 }
 
 /**
- * @speed : to control the speed or animation.
+ * @animationSpeed : to control the speed or animation.
  * 
+ * @needToStop : this boolean indicates when the element is arrived in the right
+ *             position to be displayed
  * @stopDuration : in milliseconds, determines the stop duration of the
  *               animation when the image arrives in the right position
  * @animation()
  */
 function animation(){
-	let speed = 10;
+	let animationSpeed = 10;
 	let needToStop = false;
 	let stopDuration = 1000;
 	
-	for(let iter = 0; iter<speed; iter++){
+	for(let iter = 0; iter<animationSpeed; iter++){
 		for(let i = 0; i<imgList.length; i++){
 			let currentLeft = parseInt(imgList[i].style.left);
 			if((currentLeft) <= -promoContainerWidth*(i+1)){

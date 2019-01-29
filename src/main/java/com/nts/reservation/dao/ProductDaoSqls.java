@@ -13,14 +13,14 @@ package com.nts.reservation.dao;
 
 public class ProductDaoSqls {
 
-	public static final String SELECT_PROMOTION = "SELECT promotion.id AS id, "
-		+ "promotion.product_id AS productId, "
-		+ "CONCAT('img/',product_image.product_id,'_',product_image.type,'_',product_image.id,'.png') AS productImageUrl "
-		+ "FROM promotion "
+	public static final String SELECT_PROMOTION = "SELECT prom.id AS id, "
+		+ "prom.product_id AS productId, "
+		+ "CONCAT('img/',pi.product_id,'_',pi.type,'_',pi.id,'.png') AS productImageUrl "
+		+ "FROM promotion prom"
 		+ "INNER JOIN "
-		+ "product_image "
-		+ "ON promotion.product_id=product_image.product_id "
-		+ "WHERE product_image.type='th'";
+		+ "product_image pi"
+		+ "ON prom.product_id=pi.product_id "
+		+ "WHERE pi.type='th'";
 
 	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(*) FROM display_info";
 

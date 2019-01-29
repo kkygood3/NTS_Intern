@@ -11,8 +11,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.service.ProductService;
@@ -27,8 +27,10 @@ public class ProductApiController {
 	@Autowired
 	ProductService productService;
 
-	@GetMapping("/products/{start}/{category}")
-	public Map<String, Object> getProductsByCategory(@PathVariable Integer start, @PathVariable Integer category) {
+	@GetMapping("/products")
+	public Map<String, Object> getProductsByCategory(@RequestParam(name = "start", required = true) Integer start,
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer category) {
+		System.out.println(start + " " + category);
 		return productService.getProductsByCategory(start, category);
 	}
 
@@ -43,5 +45,4 @@ public class ProductApiController {
 	public Map<String, Object> promotionList() {
 		return productService.getPromotions();
 	}
-
 }
