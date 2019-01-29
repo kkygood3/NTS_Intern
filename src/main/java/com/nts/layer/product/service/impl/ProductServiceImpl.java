@@ -28,31 +28,31 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Transactional
 	@Override
-	public ProductResponse getProductsByCategory(int categoryId, int start) throws ProductParamException{
-		
-		if(!isValidRequest(start)) {
+	public ProductResponse getProductsByCategory(int categoryId, int start) throws ProductParamException {
+
+		if (!isValidRequest(start)) {
 			throw new ProductParamException();
 		}
-		
+
 		ProductResponse productResponse = new ProductResponse();
 
-		if(categoryId > 0) {
+		if (categoryId != 0) {
 			productResponse.setItems(productDao.selectProductsByCategory(categoryId, start));
 			productResponse.setTotalCount(productDao.selectProductsCountByCategory(categoryId));
 		} else {
 			productResponse.setItems(productDao.selectProductsAll(categoryId, start));
 			productResponse.setTotalCount(productDao.selectProductsCountAll());
 		}
-		
+
 		return productResponse;
 	}
-	
+
 	/**
 	 * @desc 유효 요청 검사 ( start 기준 )
 	 * @param start
 	 */
 	private boolean isValidRequest(int start) {
-		if(start < 0) {
+		if (start < 0) {
 			return false;
 		}
 		return true;
