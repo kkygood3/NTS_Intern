@@ -5,29 +5,68 @@
 package com.nts.reservation.dao;
 
 public class ReservationSqls {
-	private static final String PRODUCT_TABLE = "product, display_info, product_image, file_info "
-		+ "WHERE product.id = display_info.product_id "
-		+ "and product.id = product_image.product_id "
-		+ "and file_id = file_info.id "
-		+ "and type = 'th' ";
-	private static final String PRODUCT_COULMN = "SELECT display_info.id as display_info_id, "
-		+ "place_name, "
-		+ "content as product_content, "
-		+ "description as product_description, "
-		+ "product.id as product_id, "
-		+ "save_file_name as product_image_url ";
-
 	public static final String LIMIT = "limit :start, 4 ";
 
-	public static final String SELECT_COUNT_ALL = "SELECT count(*) FROM " + PRODUCT_TABLE;
-	public static final String COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "and category_id = :categoryId";
+	public static final String SELECT_COUNT_ALL = "SELECT count(*) "
+		+ "FROM product "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "INNER JOIN product_image "
+		+ "ON product.id = product_image.product_id "
+		+ "INNER JOIN file_info "
+		+ "ON file_id = file_info.id "
+		+ "GROUP BY type "
+		+ "HAVING type = 'th'";
+	public static final String COUNT_BY_CATEGORY_ID = "SELECT count(*) "
+		+ "FROM product "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "INNER JOIN product_image "
+		+ "ON product.id = product_image.product_id "
+		+ "INNER JOIN file_info "
+		+ "ON file_id = file_info.id "
+		+ "GROUP BY type, category_id "
+		+ "HAVING type = 'th' "
+		+ "and category_id = :categoryId";
 
-	public static final String GET_PRODUCTS = PRODUCT_COULMN + "FROM " + PRODUCT_TABLE;
-	public static final String GET_PRODUCTS_BY_CATEGORY_ID = GET_PRODUCTS + "and category_id = :categoryId ";
+	public static final String GET_PRODUCTS = "SELECT display_info.id as display_info_id, place_name, content as product_content, description as product_description, product.id as product_id, save_file_name as product_image_url "
+		+ "FROM product "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "INNER JOIN product_image "
+		+ "ON product.id = product_image.product_id "
+		+ "INNER JOIN file_info "
+		+ "ON file_id = file_info.id "
+		+ "GROUP BY display_info.id ";
+	public static final String GET_PRODUCTS_BY_CATEGORY_ID = "SELECT display_info.id as display_info_id, place_name, content as product_content, description as product_description, product.id as product_id, save_file_name as product_image_url "
+		+ "FROM product "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "INNER JOIN product_image "
+		+ "ON product.id = product_image.product_id "
+		+ "INNER JOIN file_info "
+		+ "ON file_id = file_info.id "
+		+ "GROUP BY display_info.id, category_id "
+		+ "HAVING category_id = :categoryId ";
 
-	public static final String GET_PROMOTION_PRODUCTS = PRODUCT_COULMN + "FROM promotion, " + PRODUCT_TABLE
-		+ "and promotion.product_id = product.id ";
+	public static final String GET_PROMOTION_PRODUCTS = "SELECT display_info.id as display_info_id, place_name, content as product_content, description as product_description, product.id as product_id, save_file_name as product_image_url "
+		+ "FROM promotion "
+		+ "INNER JOIN product "
+		+ "ON promotion.product_id = product.id "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "INNER JOIN product_image "
+		+ "ON product.id = product_image.product_id "
+		+ "INNER JOIN file_info "
+		+ "ON file_id = file_info.id "
+		+ "GROUP BY display_info.id ";
 	public static final String COUNT_PROMOTION = "SELECT count(*) FROM promotion";
 
-	public static final String GET_CATEGORIES = "SELECT category.id, category.name, COUNT(*) AS count FROM category JOIN product ON category.id = product.category_id JOIN display_info ON product.id = display_info.product_id GROUP BY category.id";
+	public static final String GET_CATEGORIES = "SELECT category.id, name, count(*) as count "
+		+ "FROM category "
+		+ "INNER JOIN product "
+		+ "ON category.id = product.category_id "
+		+ "INNER JOIN display_info "
+		+ "ON product.id = display_info.product_id "
+		+ "GROUP BY category.id";
 }
