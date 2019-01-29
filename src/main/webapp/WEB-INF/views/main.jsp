@@ -45,7 +45,7 @@
 			<!-- 카테고리 tab 구역 -->
 			<div class="section_event_tab">
 				<ul class="event_tab_lst tab_lst_min">
-					<li class="item" data-category="0">
+					<li class="item">
 						<a class="anchor active">
 							<span>전체리스트</span>
 						</a>
@@ -85,39 +85,16 @@
 	</footer>
 
 
-	<script type="rv-template" id="promotionItem">
-	<li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
-		<a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
-			<div class="event_txt">
-				<h4 class="event_txt_tit"></h4>
-				<p class="event_txt_adr"></p>
-				<p class="event_txt_dsc"></p>
-			</div>
-		</a>
-	</li>
-	</script>
-
-	<script type="rv-template" id="itemList">
-		<li class="item">
-			<a href="detail.html?id=${id}" class="item_book">
-				<div class="item_preview">
-					<img alt="${description}" class="img_thumb" src="http://211.249.62.123/productImages/${id}?type=th">
-					<span class="img_border"></span>
-				</div>
-				<div class="event_txt">
-					<h4 class="event_txt_tit"> <span>${description}</span> <small class="sm">${placeName}</small> </h4>
-					<p class="event_txt_dsc">${content}</p>
-				</div>
-			</a>
-		</li>
-	</script>
-
 	<script type="text/template" id="template-promotion-image">
 		<img data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
 	</script>
 
 	<script type="text/template" id="template-category-ui-list">
-		<li class="item" data-category="{id}" data-count="{count}"><a class="anchor"><span>{name}</span>
+		<li class="item" data-category="{id}" data-count="{count}">
+			<a class="anchor">
+				<span>{name}</span>
+			</a>
+		</li>
 	</script>
 
 	<script type="text/template" id="template-product-list">
@@ -141,10 +118,16 @@
 	</script>
 
 	<script>
+		// empty, null, undefined 체크 
+		function isEmpty(x) {
+			return (!x || 0 === x.length);
+		}
+
 		function init() {
 			setPromotions();
 			setCategories();
 			setProducts()
+			
 		}
 
 		<!-- 프로모션정보를 서버로부터 불러와 해당dom에 추가한다 -->
@@ -216,21 +199,42 @@
 							.replace("{count}", items[i].count);
 					totalCount += items[i].count;
 				}
-				var categoryTabList = document.querySelector(".tab_lst_min"); 
+				var categoryTabList = document.querySelector(".tab_lst_min");
 				categoryTabList.innerHTML += resultHTML;
+				setTabUI();
 			});
 
 			xhr.addEventListener("error", function(e) {
 				alert("An error occurred while transferring the file.");
 			});
 		}
+		
+		function setTabUI() {
+			var categoryTabList = document.querySelector(".tab_lst_min");
+			categoryTabList.addEventListener("click", function(evt) {
+				if (evt.target.tagName === "SPAN") {
+					var els = categoryTabList.querySelectorAll("a");
+					for (var i=0; i<els.length; i++) {
+						els[i].setAttribute("class", "anchor");
+					}
+					evt.target.parentNode.setAttribute("class", "anchor active");
+					var categoryId = evt.target.parentNode.parentNode.getAttribute("data-category");
+					setProducts(categoryId);
+				}
+			});
+		}
 
 		<!-- 상품정보를 서버로부터 불러와 해당dom에 추가한다 -->
-		function setProducts() {
+		function setProducts(categoryId) {
 			var xhr = new XMLHttpRequest();
 			var url = "./api/products";
 
-			xhr.open("GET", url);
+			var params = "";
+			if (!isEmpty(categoryId)) {
+				params = "?categoryId=" + categoryId; 
+			}
+
+			xhr.open("GET", url + params);
 			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 			xhr.send();
 
@@ -244,6 +248,8 @@
 				var productListBox = document.querySelector(".wrap_event_box");
 				var leftList = productListBox.getElementsByTagName("ul")[0];
 				var rightList = productListBox.getElementsByTagName("ul")[1];
+				leftList.innerHTML = "";
+				rightList.innerHTML = "";
 				
 				for (var i in items) {
 					var resultHTML = html.replace("{displayInfoId}", items[i].displayInfoId)
@@ -259,19 +265,19 @@
 						leftList.innerHTML += resultHTML;
 					}
 				}
-				
 				setCategoryCount(totalCount);
 			});
-
-			<!-- 전체 카테고리 상품 개수 표시 -->
-			function setCategoryCount(count) {
-				var pink = document.querySelector(".pink");
-				pink.innerText = count + "개";
-			}
 
 			xhr.addEventListener("error", function(e) {
 				alert("An error occurred while transferring the file.");
 			});
+		}
+		
+
+		<!-- 전체 카테고리 상품 개수 표시 -->
+		function setCategoryCount(count) {
+			var pink = document.querySelector(".pink");
+			pink.innerText = count + "개";
 		}
 
 		init();
