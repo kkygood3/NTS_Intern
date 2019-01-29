@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProducts(int categoryId, int start) {
+	public List<Product> getProducts(Integer categoryId, int start) {
 		return productDao.getProducts(categoryId, start);
 	}
 

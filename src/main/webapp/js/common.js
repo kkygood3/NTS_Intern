@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 	getCategories();
 	getPromotions();
-	getProductsByCategory(0);
+	getProductsByCategory();
 });
 
 function getCategories() {
@@ -18,6 +18,10 @@ function getCategories() {
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
 
+				categoryContainer.innerHTML += categoryTemplate.replace("{id}", "")
+															   .replace("{name}", "전체리스트")
+															   .replace("anchor", "anchor active");
+				
 				jsonResponse["items"].forEach(function(item){
 					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
 																   .replace("{name}", item.name);
@@ -32,36 +36,39 @@ function getCategories() {
 }
 
 let showMoreButton = document.querySelector(".more");
-let selectedCategoryId = 0;
+let selectedCategoryId;
 let start = 0;
 let displayedProduct = 0;
 
 let tab = document.querySelector(".section_event_tab").querySelector("ul");
 tab.addEventListener("click", function(event){
 	let anchorElement;
-	let previousActive;
+	let previousActive = document.querySelector(".active");
 	let productContainer = document.querySelectorAll(".lst_event_box");
 	
-	if(event.target.tagName === "A"){
-		anchorElement = event.target;
-	} else if(event.target.tagName === "SPAN"){
-		anchorElement = event.target.parentNode;
+	if(event.target.tagName !== "UL"){
+		if(event.target.tagName === "LI"){
+			anchorElement = event.target.firstElementChild;
+		} else if(event.target.tagName === "A"){
+			anchorElement = event.target;
+		} else if(event.target.tagName === "SPAN"){
+			anchorElement = event.target.parentNode;
+		}
+	
+		previousActive.className = "anchor";
+		
+		selectedCategoryId = anchorElement.parentNode.dataset.category;
+		anchorElement.className += " active";
+		
+		productContainer[0].innerHTML = "";
+		productContainer[1].innerHTML = "";
+		
+		start = 0;
+		displayedProduct = 0;
+		showMoreButton.hidden = false;
+		
+		getProductsByCategory(selectedCategoryId, start);
 	}
-	
-	previousActive = anchorElement.parentNode.parentNode.querySelector("[data-category='"+selectedCategoryId+"']").firstElementChild;
-	previousActive.className = "anchor";
-	
-	selectedCategoryId = anchorElement.parentNode.dataset.category;
-	anchorElement.className += " active";
-	
-	productContainer[0].innerHTML = "";
-	productContainer[1].innerHTML = "";
-	
-	start = 0;
-	displayedProduct = 0;
-	showMoreButton.hidden = false;
-	
-	getProductsByCategory(selectedCategoryId, start);
 });
 
 function getProductsByCategory(categoryId, start = 0) {
@@ -100,7 +107,11 @@ function getProductsByCategory(categoryId, start = 0) {
 			}
 		}
 		
-		url = "./api/products?categoryId=" + categoryId + "&start=" + start;
+		if(categoryId === null | categoryId === undefined){
+			url = "./api/products?start=" + start;
+		} else {
+			url = "./api/products?categoryId=" + categoryId + "&start=" + start;
+		}
 		httpRequest.open("GET", url);
 		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 		httpRequest.send();

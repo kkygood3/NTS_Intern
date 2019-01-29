@@ -16,7 +16,7 @@ public interface ProductService {
 
 	public int getCount(int categoryId);
 
-	public List<Product> getProducts(int categoryId, int start);
+	public List<Product> getProducts(Integer categoryId, int start);
 
 	public List<Product> getPromotions();
 

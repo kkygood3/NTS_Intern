@@ -32,11 +32,11 @@ public class ReservationApiController {
 	CategoryService categoryService;
 
 	@GetMapping(path = "/products")
-	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = true) int categoryId,
+	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
 		List<Product> products = productService.getProducts(categoryId, start);
 		int countProducts = 0;
-		if (categoryId == 0) {
+		if (categoryId == null) {
 			countProducts = productService.getCountAllProducts();
 		} else {
 			countProducts = productService.getCount(categoryId);
