@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.dto.product.ProductResponse;
 import com.nts.exception.ProductParamException;
-import com.nts.layer.product.dto.ProductResponse;
-import com.nts.layer.product.service.ProductService;
+import com.nts.service.product.ProductService;
 
 /**
  * @author 전연빈
@@ -20,7 +20,7 @@ import com.nts.layer.product.service.ProductService;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productService;
 
@@ -32,13 +32,10 @@ public class ProductController {
 	 * @throws ProductParamException 
 	 */
 	@GetMapping
-	public ProductResponse getProductsByCategory(@RequestParam(name = "categoryId", required = false, defaultValue= "0")int categoryId,
-		@RequestParam(name = "start", required = true)int start) throws ProductParamException  {
-		
-		try {
-			return productService.getProductsByCategory(categoryId, start);
-		} catch(ProductParamException e) {
-			throw new ProductParamException();
-		}
+	public ProductResponse getProductsByCategory(
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
+		@RequestParam(name = "start", required = true) int start) throws ProductParamException {
+
+		return productService.getProductsByCategory(categoryId, start);
 	}
 }

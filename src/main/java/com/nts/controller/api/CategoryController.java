@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.layer.category.dto.CategoryResponse;
-import com.nts.layer.category.service.CategoryService;
+import com.nts.dto.category.CategoryResponse;
+import com.nts.service.category.CategoryService;
 
 /**
  * @author 전연빈
@@ -28,6 +28,6 @@ public class CategoryController {
 	 */
 	@GetMapping
 	public CategoryResponse getCategories() {
-		return categoryService.selectCategories();
+		return categoryService.getCategories();
 	}
 }

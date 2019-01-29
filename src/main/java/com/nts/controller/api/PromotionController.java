@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.layer.promotion.dto.PromotionResponse;
-import com.nts.layer.promotion.service.PromotionService;
+import com.nts.dto.promotion.PromotionResponse;
+import com.nts.service.promotion.PromotionService;
 
 /**
  * @author 전연빈
