@@ -10,20 +10,21 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="../css/style.css" rel="stylesheet">
+<link href="./css/reservation.css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
-						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./myreservation.html" class="lnk_logo" title="예약"> <span
-						class="spr_bi ico_bk_logo">예약</span>
+					<a href="#" class="lnk_logo" title="네이버">
+					<span class="spr_bi ico_n_logo">네이버</span>
+					</a>
+					<a href="#" class="lnk_logo" title="예약">
+						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="./bookinglogin.html" class="btn_my"> <span
+				<a href="#" class="btn_my"> <span
 					class="viewReservation" title="예약확인">예약확인</span>
 				</a>
 			</header>
@@ -33,27 +34,9 @@
 			<div class="section_visual">
 				<div class="group_visual">
 					<div class="container_visual">
-						<div class="prev_e" style="display: none;">
-							<div class="prev_inn">
-								<a href="#" class="btn_pre_e" title="이전"> <i
-									class="spr_book_event spr_event_pre">이전</i>
-								</a>
+						<div class="visual_img">
+							<div class="slide_images">
 							</div>
-						</div>
-						<div class="nxt_e" style="display: none;">
-							<div class="nxt_inn">
-								<a href="#" class="btn_nxt_e" title="다음"> <i
-									class="spr_book_event spr_event_nxt">다음</i>
-								</a>
-							</div>
-						</div>
-						<div>
-							<div class="container_visual">
-								<!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-								<ul class="visual_img">
-								</ul>
-							</div>
-							<span class="nxt_fix" style="display: none;"></span>
 						</div>
 					</div>
 				</div>
@@ -234,6 +217,66 @@
 				</div>
 			</a>
 		</li>
+	</script>
+	
+	<script type="text/template" id="template-promotion-image">
+		<img data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
+	</script> 
+	
+	<script>
+		function init() {
+			setPromotions();
+			
+		}
+		
+		function setPromotions() {
+			var xhr = new XMLHttpRequest();
+			var url = "./api/promotions";
+
+			xhr.open("GET", url);
+			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+			xhr.send();
+
+			xhr.addEventListener("load", function(e) {
+				var items = JSON.parse(e.target.response).items;
+				var html = document.querySelector("#template-promotion-image").innerHTML;
+				var resultHTML = "";
+				for (var i in items) {
+					resultHTML += html.replace("{id}", items[i].id)
+							.replace("{productId}", items[i].productId)
+							.replace("{productImageUrl}", items[i].productImageUrl);
+				}
+				resultHTML += html.replace("{id}", items[0].id)
+						.replace("{productId}", items[0].productId)
+						.replace("{productImageUrl}", items[0].productImageUrl);
+
+				document.querySelector(".slide_images").innerHTML = resultHTML;
+				doSlidePromotion();
+			});
+
+			xhr.addEventListener("error", function(e) {
+				alert("An error occurred while transferring the file.");
+			});
+		}
+		
+		function doSlidePromotion() {
+			var slideImages = document.querySelector(".slide_images");
+			var imgCount = slideImages.childElementCount;
+			var i = 1;
+			setInterval(function() {
+				if (i == imgCount) {
+					slideImages.style.transitionProperty = "none"
+					slideImages.style.transform = "translateX(0px)";
+					i = 1;
+				} else {
+					slideImages.style.transitionProperty = "all"
+					slideImages.style.transform = "translateX(" + i * -414 + "px)";
+					i += 1;
+				}
+			}, 2000);
+		}
+		
+		init();
 	</script>
 </body>
 </html>
