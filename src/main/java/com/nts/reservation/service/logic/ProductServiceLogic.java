@@ -6,9 +6,9 @@ package com.nts.reservation.service.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.model.ProductRequest;
 import com.nts.reservation.model.ProductResponse;
 import com.nts.reservation.service.ProductService;
 
@@ -19,10 +19,14 @@ public class ProductServiceLogic implements ProductService {
 	private ProductDao productDao;
 
 	@Override
-	@Transactional(readOnly = true)
-	public ProductResponse getProductResponse(int categoryId, int start) {
-		return new ProductResponse(productDao.getProductList(categoryId, start),
-			productDao.getCategoryProductsCount(categoryId));
+	public ProductResponse getProductResponse(ProductRequest productRequest) {
+
+		if (productRequest.getCategoryId() == 0) {
+			return productDao.getAllCategoryProductResponse(productRequest);
+		} else {
+			return productDao.getOneCategoryProductResponse(productRequest);
+		}
+
 	}
 
 }

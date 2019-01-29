@@ -4,17 +4,20 @@
  */
 package com.nts.reservation.dao;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.querys.ProductQuerys;
 import com.nts.reservation.model.Product;
+import com.nts.reservation.model.ProductRequest;
+import com.nts.reservation.model.ProductResponse;
 
 @Repository
 public class ProductDao {
@@ -25,27 +28,27 @@ public class ProductDao {
 	@Autowired
 	private RowMapper<Product> productMapper;
 
-	public List<Product> getProductList(int categoryId, int start) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("categoryId", categoryId);
-		params.put("start", start);
+	@Transactional(readOnly = true)
+	public ProductResponse getAllCategoryProductResponse(ProductRequest productRequest) {
 
-		if (categoryId == 0) {
-			params.put("categoryId", "");
-		}
+		List<Product> productList = jdbcTemplate.query(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCT_LIST,
+			new BeanPropertySqlParameterSource(productRequest),
+			productMapper);
+		Integer productCount = jdbcTemplate.queryForObject(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCTS_COUNT,
+			Collections.emptyMap(), Integer.class);
 
-		return jdbcTemplate.query(ProductQuerys.SELECT_PRODUCT_LIST, params, productMapper);
+		return new ProductResponse(productList, productCount);
 	}
 
-	public Integer getCategoryProductsCount(int categoryId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("categoryId", categoryId);
-
-		if (categoryId == 0) {
-			params.put("categoryId", "");
-		}
-
-		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_CATEGORY_PRODUCTS_COUNT, params,
+	@Transactional(readOnly = true)
+	public ProductResponse getOneCategoryProductResponse(ProductRequest productRequest) {
+		List<Product> productList = jdbcTemplate.query(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCT_LIST,
+			new BeanPropertySqlParameterSource(productRequest),
+			productMapper);
+		Integer productCount = jdbcTemplate.queryForObject(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCTS_COUNT,
+			new BeanPropertySqlParameterSource(productRequest),
 			Integer.class);
+
+		return new ProductResponse(productList, productCount);
 	}
 }
