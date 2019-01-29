@@ -5,16 +5,19 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function getCategories() {
+	let httpRequest;
+	
 	if (window.XMLHttpRequest) {
-		var httpRequest =  new XMLHttpRequest();
+		httpRequest =  new XMLHttpRequest();
 		
 		httpRequest.onreadystatechange = function() {  
+			let jsonResponse;
+			let categoryContainer = document.querySelector(".event_tab_lst");
+			let categoryTemplate = document.querySelector("#categories").innerHTML;
+			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				var jsonResponse = JSON.parse(httpRequest.responseText);
+				jsonResponse = JSON.parse(httpRequest.responseText);
 
-				var categoryContainer = document.querySelector(".event_tab_lst");
-				var categoryTemplate = document.querySelector("#categories").innerHTML;
-				
 				jsonResponse["items"].forEach(function(item){
 					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
 																   .replace("{name}", item.name);
@@ -28,8 +31,6 @@ function getCategories() {
 	}
 }
 
-let productContainer = document.querySelectorAll(".lst_event_box");
-let countProduct = document.querySelector(".event_lst_txt span");
 let showMoreButton = document.querySelector(".more");
 let selectedCategoryId = 0;
 let start = 0;
@@ -37,14 +38,17 @@ let displayedProduct = 0;
 
 let tab = document.querySelector(".section_event_tab").querySelector("ul");
 tab.addEventListener("click", function(event){
-	var anchorElement;
+	let anchorElement;
+	let previousActive;
+	let productContainer = document.querySelectorAll(".lst_event_box");
+	
 	if(event.target.tagName === "A"){
 		anchorElement = event.target;
 	} else if(event.target.tagName === "SPAN"){
 		anchorElement = event.target.parentNode;
 	}
 	
-	var previousActive = anchorElement.parentNode.parentNode.querySelector("[data-category='"+selectedCategoryId+"']").firstElementChild;
+	previousActive = anchorElement.parentNode.parentNode.querySelector("[data-category='"+selectedCategoryId+"']").firstElementChild;
 	previousActive.className = "anchor";
 	
 	selectedCategoryId = anchorElement.parentNode.dataset.category;
@@ -61,27 +65,33 @@ tab.addEventListener("click", function(event){
 });
 
 function getProductsByCategory(categoryId, start = 0) {
+	let httpRequest;
+	let url;
+	
 	if (window.XMLHttpRequest) {
-		var httpRequest =  new XMLHttpRequest();
+		httpRequest =  new XMLHttpRequest();
 		
-		httpRequest.onreadystatechange = function() {  
+		httpRequest.onreadystatechange = function() {
+			let jsonResponse;
+			let countProduct = document.querySelector(".event_lst_txt span");
+			let productContainer = document.querySelectorAll(".lst_event_box");
+			let containerIndex = 0;
+			let productTemplate = document.querySelector("#itemList").innerHTML;
+			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				var jsonResponse = JSON.parse(httpRequest.responseText);
+				jsonResponse = JSON.parse(httpRequest.responseText);
 
 				countProduct.innerHTML = jsonResponse["totalCount"];
 				displayedProduct += jsonResponse["items"].length;
 				
-				var productTemplate = document.querySelector("#itemList").innerHTML;
-				
-				let containerIndex = 0;
 				jsonResponse["items"].forEach(function(item){
 					productContainer[containerIndex].innerHTML += productTemplate.replace("{id}", item.productId)
-															  .replace("{description}", item.productDescription)
-															  .replace("{placeName}", item.placeName)
-															  .replace("{content}", item.productContent)
-															  .replace("{imgUrl}", item.productImageUrl);
+																				 .replace(/{description}/gi, item.productDescription)
+																				 .replace("{placeName}", item.placeName)
+																				 .replace("{content}", item.productContent)
+																				 .replace("{imgUrl}", item.productImageUrl);
 					
-					containerIndex = (containerIndex + 1) % 2;
+					containerIndex = (containerIndex + 1) % productContainer.length;
 				})
 				
 				if(displayedProduct >= jsonResponse["totalCount"]){
@@ -90,33 +100,37 @@ function getProductsByCategory(categoryId, start = 0) {
 			}
 		}
 		
-		var url = "./api/products?categoryId=" + categoryId + "&start=" + start;
+		url = "./api/products?categoryId=" + categoryId + "&start=" + start;
 		httpRequest.open("GET", url);
 		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 		httpRequest.send();
 	}
 }
 
-const productsPerPage = 4;
-
 showMoreButton.addEventListener("click", function(event){
+	const productsPerPage = 4;
 	start += productsPerPage;
 	getProductsByCategory(selectedCategoryId, start);
 });
 
 let executeAnimationTime;
 function getPromotions() {
+	let httpRequest;
+	
 	if (window.XMLHttpRequest) {
-		var httpRequest =  new XMLHttpRequest();
+		httpRequest =  new XMLHttpRequest();
 
-		httpRequest.onreadystatechange = function() {  
+		httpRequest.onreadystatechange = function() {
+			let jsonResponse;
+			let promotionTemplate;
+			let promotionContainer = document.querySelector(".visual_img");
+			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				var jsonResponse = JSON.parse(httpRequest.responseText);
+				jsonResponse = JSON.parse(httpRequest.responseText);
 
-				var promotionTemplate = document.querySelector("#promotionItem").innerHTML;
+				promotionTemplate = document.querySelector("#promotionItem").innerHTML;
 
 				jsonResponse["items"].forEach(function(item){
-					var promotionContainer = document.querySelector(".visual_img");
 					promotionContainer.innerHTML += promotionTemplate.replace("{imgUrl}", item.productImageUrl)
 																	 .replace("{description}", item.productDescription)
 																	 .replace("{placeName}", item.placeName)
@@ -137,11 +151,11 @@ function getPromotions() {
 let slideFirst = 0;
 let slideMiddle = 1;
 let slideLast = 2;
-const animationTime = 5000;
 function slideImage(){
-	var now = performance.now();
-	var slides = document.querySelectorAll(".visual_img li");
+	let now = performance.now();
+	let slides = document.querySelectorAll(".visual_img li");
 	const promotionWidth = slides[slideFirst].clientWidth;
+	const animationTime = 5000;
 
 	slides[slideFirst].style.left = "0";
 	slides[slideFirst].className = "item slide_first";
