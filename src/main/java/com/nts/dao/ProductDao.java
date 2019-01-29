@@ -19,10 +19,7 @@ import com.nts.dto.Product;
 public class ProductDao {
 
 	private NamedParameterJdbcTemplate jdbc;
-	private SimpleJdbcInsert insertAction;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
-	
-	private final String DaoTableName = "product"; 
 	
 	private String SELECT_ALL = "SELECT * FROM product ORDER BY id DESC";
 	private String SELECT_BY_ID = "SELECT * FROM product where id = :id";
@@ -31,14 +28,10 @@ public class ProductDao {
 	
 	public ProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-		this.insertAction = new SimpleJdbcInsert(dataSource)
-			.withTableName(DaoTableName)
-			.usingGeneratedKeyColumns("id");
 	}
 
-	public List<Product> selectAll() {
-		Map<String, Long> params = new HashMap<>();
-		return jdbc.query(SELECT_ALL, params, rowMapper);
+	public List<Product> selectAllProducts() {
+		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 	
 	public Product selectById(long id) {
@@ -47,7 +40,7 @@ public class ProductDao {
 		return jdbc.query(SELECT_BY_ID, params, rowMapper).get(0);
 	}
 	
-	public List<Product> selectPaging(int start,int limit) {
+	public List<Product> selectPagingProducts(int start,int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);

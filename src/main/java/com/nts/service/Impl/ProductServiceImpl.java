@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> getProducts(Integer start) {
-		return productDao.selectPaging(start, LIMIT);
+		return productDao.selectPagingProducts(start, LIMIT);
 	}
 
 	@Override
