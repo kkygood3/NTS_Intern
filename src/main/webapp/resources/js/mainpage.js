@@ -1,45 +1,47 @@
-document.addEventListener("DOMContentLoaded", function(){
-	loadContent("/api/promotions", "GET", printPromotions);
-	loadContent("/api/categories", "GET", printCategories);
-	loadContent("/api/products", "GET", printProducts);
+document.addEventListener("DOMContentLoaded", () => {
+	ajax("GET", "/api/promotions", "", printPromotions);
+	ajax("GET", "/api/categories", "", printCategories);
+	ajax("GET", "/api/products", "", printProducts);
 	
 	addClickEventCategoryChange();
 	addClickEventMoreBtn();
 	slidePromotion();
 });
 
-function loadContent(url, method, loadFunction) {
+function ajax(method ,url, data, callback) {
 	var xmlHttpRequest = new XMLHttpRequest();
-	xmlHttpRequest.addEventListener("load", loadFunction);
-	xmlHttpRequest.open(method, url);
+	xmlHttpRequest.addEventListener("load", function(){
+			callback(this.response);
+	});
+	xmlHttpRequest.open(method, url + data);
 	xmlHttpRequest.send();
 }
 
-function printPromotions() {
+function printPromotions(response) {
+	console.log(this.response);
 	var promotionList = document.querySelector("#promotion_list");
-
-	var promotionItems = JSON.parse(this.response).item;
+	var promotionItems = JSON.parse(response).item;
 	promotionItems.forEach((promotionItem) => {
 		promotionList.innerHTML += parsePromotionToHtml(promotionItem);
 	});
 
 }
 
-function printCategories() {
+function printCategories(response) {
 	var categoryList = document.querySelector("#category_list");
 
-	var categoryItems = JSON.parse(this.response).item;
+	var categoryItems = JSON.parse(response).item;
 	categoryItems.forEach((categoryItem) =>{
 		categoryList.innerHTML += parseCategoryToHtml(categoryItem);
 	});
 }
 
-function printProducts() {
+function printProducts(response) {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	var productListsLength = productLists.length;
 	var productCount = getProductsCount();
 
-	var responseObject = JSON.parse(this.response);
+	var responseObject = JSON.parse(response);
 	var totalCount = responseObject.totalCount;
 	var productItems = responseObject.item;
 
@@ -97,7 +99,7 @@ function movePromotionHeadToTail(promotionList){
 }
 
 function addClickEventCategoryChange(){
-	document.querySelector("#category_list").addEventListener("click", function(evt){
+	document.querySelector("#category_list").addEventListener("click", (evt) => {
 	    var paths = evt.path;
 	    
 	    paths.some((path) => {
@@ -108,21 +110,21 @@ function addClickEventCategoryChange(){
 	            clearProductLists();
 
 	            var categoryId = path.parentElement.dataset.category;
-	            loadContent("/api/products?categoryId=" + categoryId, "GET", printProducts);
+	            ajax("GET", "/api/products", "?categoryId=" + categoryId, printProducts);
 
 	            document.querySelector(".more .btn").style.display = "inline-block";
 	            return true;
-	        }
+	        		}
 	        return false;
 	    });
 	});
 }
 
 function addClickEventMoreBtn(){
-	document.querySelector(".more .btn").addEventListener("click", function(){
+	document.querySelector(".more .btn").addEventListener("click", () => {
 	    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;
 	    var productCount = getProductsCount();
 	    
-	    loadContent("/api/products?categoryId=" + categoryId + "&start=" + productCount, "GET", printProducts);
+	    ajax("GET", "/api/products", "?categoryId=" + categoryId + "&start=" + productCount, printProducts);
 	});
 }
