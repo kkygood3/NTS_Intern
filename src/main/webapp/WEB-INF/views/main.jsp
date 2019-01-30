@@ -10,7 +10,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="./css/reservation.css" rel="stylesheet">
+<link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -35,10 +35,7 @@
 			<div class="section_visual">
 				<div class="group_visual">
 					<div class="container_visual">
-						<div class="visual_img">
-							<div class="slide_images">
-							</div>
-						</div>
+						<div class="slide_images"></div>
 					</div>
 				</div>
 			</div>
@@ -118,18 +115,14 @@
 	</script>
 
 	<script>
-		// empty, null, undefined 체크 
-		function isEmpty(x) {
-			return (!x || 0 === x.length);
-		}
-
+		// 초기화 함수 ajax요청을 통해 기본 데이터를 가져와 DOM에 넣어준다.
 		function init() {
 			setPromotions();
 			setCategories();
-			setProducts()
+			setProducts();
 		}
 
-		<!-- 프로모션정보를 서버로부터 불러와 해당dom에 추가한다 -->
+		// 프로모션정보를 서버로부터 불러와 해당dom에 설정한다.
 		function setPromotions() {
 			var xhr = new XMLHttpRequest();
 			var url = "./api/promotions";
@@ -160,7 +153,7 @@
 			});
 		}
 
-		<!-- 프로모션 이미지들을 슬라딩해준다 -->
+		// 프로모션 이미지들을 슬라딩해준다
 		function doSlidePromotion() {
 			var slideImages = document.querySelector(".slide_images");
 			var imgCount = slideImages.childElementCount;
@@ -178,7 +171,7 @@
 			}, 2000);
 		}
 
-		<!-- 카테고리정보를 서버로부터 불러와 해당dom에 추가한다 -->
+		// 카테고리정보를 서버로부터 불러와 해당dom에 설정한다
 		function setCategories() {
 			var xhr = new XMLHttpRequest();
 			var url = "./api/categories";
@@ -207,7 +200,8 @@
 				alert("An error occurred while transferring the file.");
 			});
 		}
-		
+
+		// tabUI 이벤트리스너를 등록한다.
 		function setTabUI() {
 			var categoryTabList = document.querySelector(".tab_lst_min");
 			categoryTabList.addEventListener("click", function(evt) {
@@ -223,25 +217,42 @@
 			});
 		}
 
-		<!-- initProducts -->
+		function setProducts() {
+			setProducts(null);
+		}
+
+		// 상품정보를 서버로부터 불러와 해당dom에 설정한다
 		function setProducts(categoryId) {
 			var productListBox = document.querySelector(".wrap_event_box");
 			var leftList = productListBox.getElementsByTagName("ul")[0];
 			var rightList = productListBox.getElementsByTagName("ul")[1];
 			leftList.innerHTML = "";
 			rightList.innerHTML = "";
-			addHTMLInnerProducts(categoryId);
+			document.querySelector(".more .btn").disabled = false;
+			addProducts(categoryId);
 		}
 
-		<!-- 상품정보를 서버로부터 불러와 해당dom에 추가한다 -->
-		function addHTMLInnerProducts(categoryId) {
+		function addProducts() {
+			addProducts(null, null);
+		}
+
+		function addProducts(categoryId) {
+			addProducts(categoryId, null);
+		}
+
+		// 상품정보를 서버로부터 불러와 해당dom에 추가한다
+		function addProducts(categoryId, start) {
+			var params = "";
+			if (isEmpty(categoryId) && !isEmpty(start)) {
+				params = "?start=" + start;
+			} else if (!isEmpty(categoryId) && isEmpty(start)) {
+				params = "?categoryId=" + categoryId;
+			} else if (!isEmpty(categoryId) && !isEmpty(start)) {
+				params = "?categoryId=" + categoryId + "&start=" + start;
+			}
+			
 			var xhr = new XMLHttpRequest();
 			var url = "./api/products";
-
-			var params = "";
-			if (!isEmpty(categoryId)) {
-				params = "?categoryId=" + categoryId; 
-			}
 
 			xhr.open("GET", url + params);
 			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -257,6 +268,11 @@
 				var productListBox = document.querySelector(".wrap_event_box");
 				var leftList = productListBox.getElementsByTagName("ul")[0];
 				var rightList = productListBox.getElementsByTagName("ul")[1];
+				
+				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
+				if (items.length < 4) {
+					disableMoreButton();
+				}
 
 				for (var i in items) {
 					var resultHTML = html.replace("{displayInfoId}", items[i].displayInfoId)
@@ -279,19 +295,32 @@
 				alert("An error occurred while transferring the file.");
 			});
 		}
-		
 
-		<!-- 전체 카테고리 상품 개수 표시 -->
+		// empty, null, undefined 체크
+		function isEmpty(x) {
+			return (!x || 0 === x.length);
+		}
+
+		// more 버튼 disable 
+		function disableMoreButton() {
+			var button = document.querySelector(".more .btn");
+			button.disabled = true;
+		}
+
+		// 전체 카테고리 상품 개수 표시
 		function setCategoryCount(count) {
 			var pink = document.querySelector(".pink");
 			pink.innerText = count + "개";
 		}
 
-		<!-- 프로덕트 더보기 -->
+		// 프로덕트 더보기
 		function moreProducts() {
 			var el = document.querySelector(".active");
 			var categoryId = el.parentNode.getAttribute("data-category");
-			addHTMLInnerProducts(categoryId);
+			var productListBox = document.querySelector(".wrap_event_box");
+			var listCount = productListBox.getElementsByTagName("li").length;
+
+			addProducts(categoryId, listCount);
 		}
 
 		init();
