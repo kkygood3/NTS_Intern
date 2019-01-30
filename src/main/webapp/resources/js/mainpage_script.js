@@ -23,18 +23,24 @@ const productNumberInd =document.querySelector("p.event_lst_txt span");
 const promoTemplate = document.querySelector("#promotionItem").innerHTML;
 
 const promoContainerWidth = promoContainer.offsetWidth;
-const animationSpeed = 10;
+const animationSpeed = 4;
 const animationStopDuration = 1000;
 
 // currently saved data for manipulation
-var promotionData = null;
-var productData = null;
-var categoryData = null;
-var imgList = null;
+var promotionData;
+var productData;
+var categoryData;
+var imgList;
 
 // current state;
 var currentCategory = 0;
 var page = 0;
+var promoCount = 1;
+var prevPromoCount = 0;
+
+// promoNode, keep changing depends on the current showing element
+var prev;
+var current;
 
 /**
  * @init() : will be loaded with body onload, initialization function group
@@ -201,12 +207,19 @@ function renderPromoItems(){
  */
 function initPromoAnimation(){
 	// fix the layout in case of error
+	imgList[0].style.left = 0+"px";
+	imgList[0].style.position = "absolute";
 	imgList.forEach((item)=>{
-		item.style.left = "0px";
+		if(item!=imgList[0]){
+			item.style.left = promoContainerWidth+"px";
+			item.style.position = "absolute";
+		}
 	});
 	
 	// timeout since first promoslide should be displayed before transition
 	setTimeout(()=>{
+		prev = imgList[prevPromoCount];
+		current = imgList[promoCount];
 		requestAnimationFrame(promoAnimation);
 	},3000);
 }
@@ -227,23 +240,25 @@ function initPromoAnimation(){
  */
 function promoAnimation(){
 	let needToStop = false;
-
+	
 	for(let iter = 0; iter<animationSpeed; iter++){
-		for(let i = 0; i<imgList.length; i++){
-			let currentLeft = parseInt(imgList[i].style.left);
-			if((currentLeft) <= -promoContainerWidth*(i+1)){
-				currentLeft = promoContainerWidth*(imgList.length-1-i);
-				needToStop = true;
+		prev.style.left = parseInt(prev.style.left)-1 + "px";
+		current.style.left = parseInt(current.style.left)-1 + "px";
+		if(parseInt(prev.style.left) <= -promoContainerWidth){
+			prev.style.left = promoContainerWidth+"px";
+			prevPromoCount = promoCount;
+			promoCount++;
+			if(promoCount == imgList.length){
+				promoCount =0;
 			}
-			imgList[i].style.left = currentLeft-1 + "px";
-		}	
-		if(needToStop){
+			needToStop = true;
 			break;
 		}
-	}
-	
+	}	
 	if(needToStop){
 		setTimeout(()=>{
+			prev = imgList[prevPromoCount];
+			current = imgList[promoCount];
 			requestAnimationFrame(promoAnimation);
 		},animationStopDuration);
 	}
