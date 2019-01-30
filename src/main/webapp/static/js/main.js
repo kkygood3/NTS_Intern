@@ -3,8 +3,11 @@
  */
 var globalVariable = {
 	getProductCount : 0,	// 해당 카테고리의 현재 리스트로 보여진 product의 갯수
+	imageItemIndex: 0,
+	promotionLength : -1 	// 프로모션 전체 길이
 };
 var sendAjax = require('./sendAjax');
+
 /**
  * @desc 카테고리 불러오기 및 리스트 불러오기
  */
@@ -29,7 +32,7 @@ function setCategories(){
 		
 		var categoryTemplate = document.querySelector('#categories-template').content;
 		var items = categoryResponse.items;
-		
+	
 		items.forEach(function(category) {
 			var itemQuerySelector = categoryTemplate.querySelector('.item');
 			
@@ -44,6 +47,18 @@ function setCategories(){
 	});
 }
 
+/**
+ * @desc promotion 슬라이더 애니메이션
+ * @returns
+ */
+function setAnimatePromotions(){
+	
+	if(globalVariable.imageItemIndex > globalVariable.promotionLength) {
+		globalVariable.imageItemIndex = 0;
+	}
+	document.querySelector('.visual_img').style.transform = 'translateX('+(-100* globalVariable.imageItemIndex)+'%)';
+	globalVariable.imageItemIndex++;
+}
 /**
  * @desc Products 셋팅
  * @params sendProductData { start, categoryId ,isCategoryClicked} 
@@ -118,7 +133,7 @@ function setPromotions(){
 			
 			var promotionLi = document.importNode(promotionTemplate,true);
 			promotionUl.appendChild(promotionLi);
-		
+			globalVariable.promotionLength++;
 		});
 	});
 	
@@ -198,4 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	init();
 	categoryClickEvent();
 	moreButtonClickEvent();
+	
+	setInterval(setAnimatePromotions,2000);
 });

@@ -3823,47 +3823,7 @@ button {
   font-size: 10px;
 }
 
-
 .visual_img{
-	width: 100%;
-    position: relative;
-    left: 0;
-	animation: slide infinite 10s alternate;
-}
-
-@keyframes slide {
-  0% {
-    margin-left: 0%;
-  }
-  10% {
-    margin-left: -100%;
-  }
-  20% {
-    margin-left: -200%;
-  }
-  30% {
-    margin-left: -300%;
-  }
-  40% {
-    margin-left: -400%;
-  }
-  50% {
-    margin-left: -500%;
-  }
-  60% {
-    margin-left: -600%;
-  }
-  70% {
-    margin-left: -700%;
-  }
-  80% {
-    margin-left: -800%;
-  }
-  90% {
-    margin-left: -900%;
-  }
-  100% {
-    margin-left: -1000%;
-  }
-  
+	transform: translateX(0%);
+    transition: 2s ease-in;
 }
