@@ -55,21 +55,6 @@
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
-                    <li class="item" data-category="1">
-                        <a class="anchor"> <span>전시</span> </a>
-                    </li>
-                    <li class="item" data-category="2">
-                        <a class="anchor"> <span>뮤지컬</span> </a>
-                    </li>
-                    <li class="item" data-category="3">
-                        <a class="anchor"> <span>콘서트</span> </a>
-                    </li>
-                    <li class="item" data-category="4">
-                        <a class="anchor"> <span>클래식</span> </a>
-                    </li>
-                    <li class="item" data-category="5">
-                        <a class="anchor"> <span>연극</span> </a>
-                    </li>
                 </ul>
             </div>
             <div class="section_event_lst">
@@ -109,7 +94,7 @@
     </li>
     </script>
 
-    <script type="rv-template" id="itemList">
+    <script type="rv-template" id="productItem">
         <li class="item">
             <a href="detail.html?id={id}" class="item_book">
                 <div class="item_preview">
@@ -123,11 +108,39 @@
             </a>
         </li>
     </script>
-
+    
+    <script type="rv-template" id="categoryItem">
+		<li class="item" data-category="{id}">
+			<a class="anchor"> <span>{name}</span> </a>
+		</li>
+    </script>
+                    
 	<script>
 		var currentStart = 0;
 		var currentCategory = 0;
 	
+		function categoryLoading(){
+			var ajaxReq = new XMLHttpRequest();
+			
+			ajaxReq.addEventListener('load', function(evt) {
+				var responseJson = evt.target.response;
+				var items = responseJson['items'];
+				
+				var template = document.querySelector("script#categoryItem").innerHTML;
+				var resultHtml = "";
+				for(var i = 0 ; i < items.length; i++){
+					resultHtml += template.replace('{name}',items[i].name)
+										.replace('{id}',items[i].id);
+				}
+				
+				document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
+			});
+	
+			ajaxReq.open('GET', 'api/categories');
+			ajaxReq.responseType = 'json';
+			ajaxReq.send()
+		}
+		
 		function promotionMoveSet(){
 			var items = document.querySelectorAll(".visual_img>.item");
 			var leftDistance = 0;
@@ -200,7 +213,7 @@
 				var itemCount = responseJson['totalCount'];
 				var items = responseJson['items'];
 				
-				var template = document.querySelector("script#itemList").innerText;
+				var template = document.querySelector("script#productItem").innerText;
 				var resultHtml = new Array(2);
 				resultHtml[0] = "";
 				resultHtml[1] = "";
@@ -272,18 +285,21 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			//페이지 첫 로딩시 할 일
 			
-			//1. 상품 목록 가져오기
+			//1. 카테고리 목록 가져오기
+			categoryLoading();
+			
+			//2. 상품 목록 가져오기
 			productLoading(0,0,1);
 			
-			//2. promotion 가져오기
+			//3. promotion 가져오기
 			promotionLoading();
 			
-			//3. 더보기 버튼 event 등록
+			//4. 더보기 버튼 event 등록
 			document.querySelector('.btn').addEventListener('click', function(btnEvent) {
 				productLoading(currentCategory, currentStart, 0);
 			});
 			
-			//4. 탭 변경 event 등록
+			//5. 탭 변경 event 등록
 			navTabEventSet();
 		});
 	</script>
