@@ -1,39 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
 	getCategories();
-	getPromotions();
 	getProductsByCategory();
+	getPromotions();
 });
-
-function getCategories() {
-	let httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
-		
-		httpRequest.onreadystatechange = function() {  
-			let jsonResponse;
-			let categoryContainer = document.querySelector(".event_tab_lst");
-			let categoryTemplate = document.querySelector("#categories").innerHTML;
-			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
-
-				categoryContainer.innerHTML += categoryTemplate.replace("{id}", "")
-															   .replace("{name}", "전체리스트")
-															   .replace("anchor", "anchor active");
-				
-				jsonResponse["items"].forEach(function(item){
-					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
-																   .replace("{name}", item.name);
-				});
-			}
-		}
-		
-		httpRequest.open("GET", "./api/categories");
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
-	}
-}
 
 let selectedCategoryId;
 let start = 0;
@@ -77,6 +46,37 @@ showMoreButton.addEventListener("click", function(event){
 	start += productsPerPage;
 	getProductsByCategory(selectedCategoryId, start);
 });
+
+function getCategories() {
+	let httpRequest;
+	
+	if (window.XMLHttpRequest) {
+		httpRequest =  new XMLHttpRequest();
+		
+		httpRequest.onreadystatechange = function() {  
+			let jsonResponse;
+			let categoryContainer = document.querySelector(".event_tab_lst");
+			let categoryTemplate = document.querySelector("#categories").innerHTML;
+			
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				jsonResponse = JSON.parse(httpRequest.responseText);
+
+				categoryContainer.innerHTML += categoryTemplate.replace("{id}", "")
+															   .replace("{name}", "전체리스트")
+															   .replace("anchor", "anchor active");
+				
+				jsonResponse["items"].forEach(function(item){
+					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
+																   .replace("{name}", item.name);
+				});
+			}
+		}
+		
+		httpRequest.open("GET", "./api/categories");
+		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+		httpRequest.send();
+	}
+}
 
 function getProductsByCategory(categoryId, start = 0) {
 	let httpRequest;
