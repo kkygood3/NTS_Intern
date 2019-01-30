@@ -73,10 +73,8 @@
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
-                    <!-- contents -->
                     </ul>
                     <ul class="lst_event_box">
-                    <!-- contents -->               
                     </ul>
                     <!-- 더보기 -->
                     <div class="more">
@@ -104,16 +102,14 @@
 
     <script type="rv-template" id="product_item">
 	<li class="item">
-		<a href="detail.html?id={id}" class="item_book">
-			<div class="item_preview">
-				<img alt="{description}" class="img_thumb" src="./img/{id}?type=th">
-				<span class="img_border"></span>
-			</div>
-			<div class="event_txt">
-				<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-				<p class="event_txt_dsc">{content}</p>
-			</div>
-		</a>
+		<div class="item_preview">
+			<img alt="{description}" class="img_thumb" src="./{save_file_name}">
+			<span class="img_border"></span>
+		</div>
+		<div class="event_txt">
+			<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{place_name}</small> </h4>
+			<p class="event_txt_dsc">{content}</p>
+		</div>
 	</li>
     </script>
     

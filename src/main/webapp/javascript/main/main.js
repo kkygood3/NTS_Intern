@@ -3,7 +3,6 @@ var readyToSlide = false;
 
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetPromotionsAjax();
-	sendGetCategorisAjax();
 	sendGetProductsAjax();
 	makePromotionSlide();
 });
@@ -21,7 +20,6 @@ function sendGetPromotionsAjax() {
 	httpRequest.onreadystatechange = function getPromotions() {
 		if (httpRequest.readyState === XMLHttpRequest.DONE) {
 			if (httpRequest.status === 200) {
-		//	    alert(httpRequest.responseText);
 			    var promotions = JSON.parse(httpRequest.responseText);
 			    makePromotionSlideHTML(promotions);
 			} else {
@@ -35,20 +33,18 @@ function sendGetPromotionsAjax() {
 }
 
 function makePromotionSlideHTML(promotions) {
-//sava_file_name_list
-	
 	promotions = promotions.save_file_name_list;
 	var html = document.getElementById("promotion_item").innerHTML;
 		
-		var resultHTML = "";
-		promotions.forEach((promotion) => {
-		    resultHTML += html.replace("{sava_file_name_list}", promotion.save_file_name);
-		});
+	var resultHTML = "";
+	promotions.forEach((promotion) => {
+		resultHTML += html.replace("{sava_file_name_list}", promotion.save_file_name);
+	});
 
-		var ul = document.getElementsByClassName("visual_img")[0];
-		ul.innerHTML = resultHTML;
-		ul.style.width = (100*promotions.length) + "%";
-		readyToSlide = true;
+	var ul = document.getElementsByClassName("visual_img")[0];
+	ul.innerHTML = resultHTML;
+	ul.style.width = (100*promotions.length) + "%";
+	readyToSlide = true;
 }
 
 function makePromotionSlide() {
@@ -68,39 +64,6 @@ function makePromotionSlide() {
 	},1);
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////		category
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
-function sendGetCategorisAjax() {
-	var httpRequest = new XMLHttpRequest();
-	
-	if(!httpRequest) {
-		return false;
-	}
-	httpRequest.open("GET", "./category");
-	httpRequest.onreadystatechange = function getCategoris() {
-		if (httpRequest.readyState === XMLHttpRequest.DONE) {
-			if (httpRequest.status === 200) {
-		//	    alert(httpRequest.responseText);
-			    var categoris = JSON.parse(httpRequest.responseText);
-			    makeCategorySelectionBar(categoris);
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	};
-	httpRequest.send();
-}
-
-function makeCategorySelectionBar(categoris) {
-}
-
-
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////		product
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -112,14 +75,12 @@ function sendGetProductsAjax() {
 	if(!httpRequest) {
 		return false;
 	}
-	httpRequest.open("GET", "./product");
+	httpRequest.open("GET", "./thumbnail_info");
 	httpRequest.onreadystatechange = function getProducts() {
-
 		if (httpRequest.readyState === XMLHttpRequest.DONE) {
 			if (httpRequest.status === 200) {
-	//		    alert(httpRequest.responseText);
-			    var products = JSON.parse(httpRequest.responseText);
-			    makeProductList(products);
+			    var thumbnailInfos = JSON.parse(httpRequest.responseText);
+			    makeProductList(thumbnailInfos);
 			} else {
 				return false;
 			}
@@ -128,21 +89,24 @@ function sendGetProductsAjax() {
 	httpRequest.send();
 }
 
+function makeProductList(thumbnailInfos) {
+//	alert(JSON.stringify(products));
+	thumbnailInfos = thumbnailInfos.thumbnail_info_list;
+	var html = document.getElementById("product_item").innerHTML;
 
-
-function makeProductList(products) {
-//	var html = document.querySelector("product_item");
-//
-//	var resultHTML = "";
-//	products.forEach((product) => {
-//	    resultHTML = html.replace("{id}", product.id)
-//	    				.replace("{description}", product.description)
-//	    				.replace("{place_name}", product.place_name)
-//	    				.replace("{content}", product.content);
-//
-//		var uls = document.getElementsByClassName("lst_event_box");
-//		var index = uls[0].offsetHeight < uls[1].offsetHeight ? 0 : 1;
-//		uls[index].innerHtml += resultHTML;
-//	});
+	var resultHTML = "";
+	thumbnailInfos.forEach((thumbnailInfo) => {
+//		alert(JSON.stringify(thumbnailInfo));
+//		alert(JSON.stringify(thumbnailInfo.description));
+	    resultHTML = html.replace("{id}", thumbnailInfo.id)
+	    				.replace("{description}", thumbnailInfo.description)
+	    				.replace("{description}", thumbnailInfo.description)
+	    				.replace("{place_name}", thumbnailInfo.placeName)
+	    				.replace("{content}", thumbnailInfo.content)
+						.replace("{save_file_name}", thumbnailInfo.saveFileName);
+		var uls = document.getElementsByClassName("lst_event_box");
+		var index = uls[0].offsetHeight <= uls[1].offsetHeight ? 0 : 1;
+		uls[index].innerHTML += resultHTML;
+	});
 
 }
