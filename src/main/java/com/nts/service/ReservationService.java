@@ -6,7 +6,6 @@
 package com.nts.service;
 
 
-public class ReservationService {
-	
-}
+public interface ReservationService {
 
+}

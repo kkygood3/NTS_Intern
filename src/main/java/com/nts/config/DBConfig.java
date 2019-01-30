@@ -16,6 +16,17 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+ *
+ * @description : Database Config
+ * @package : com.nts.config
+ * @filename : DBConfig.java
+ * @author : 최석현
+ * @method : DataSource dataSource()
+ * @method : PlatformTransactionManager annotationDrivenTransactionManager()
+ * @method : PlatformTransactionManager transactionManger()
+ * 
+ */
 @Configuration
 @PropertySource({"classpath:application.properties"})
 @EnableTransactionManagement

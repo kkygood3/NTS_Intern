@@ -4,7 +4,9 @@
  */
 package com.nts.service.impl;
 
+import com.nts.service.ProductService;
+import com.nts.service.ReservationService;
 
-public class ReservationServiceImpl {
+public class ReservationServiceImpl implements ReservationService{
 
 }

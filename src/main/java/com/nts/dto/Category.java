@@ -5,15 +5,15 @@
 package com.nts.dto;
 
 public class Category {
-	private int count;
+	private Integer count;
 	private int id;
 	String name;
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 

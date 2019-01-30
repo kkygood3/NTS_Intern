@@ -14,6 +14,18 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ *
+ * @description : WebMvcContextConfiguration
+ * @package : com.nts.config
+ * @filename : WebMvcContextConfiguration.java
+ * @author : 최석현
+ * @method : void addResourceHandlers(ResourceHandlerRegistry registry)
+ * @method : void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
+ * @method : void addViewControllers(final ViewControllerRegistry registry)
+ * @method : InternalResourceViewResolver getInternalResourceViewResolver()
+ * 
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.nts.controller" })
@@ -26,7 +38,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
         registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
     }
  
-    // default servlet handler를 사용하게 합니다.
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -34,7 +45,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
    
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-    		System.out.println("addViewControllers가 호출됩니다. ");
         registry.addViewController("/").setViewName("mainpage");
     }
     

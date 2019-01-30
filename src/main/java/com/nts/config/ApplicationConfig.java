@@ -6,9 +6,19 @@ package com.nts.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
+/**
+ *
+ * @description : ApplicationConfig
+ * @package : com.nts.config
+ * @filename : ApplicationConfig.java
+ * @author : 최석현
+ * 
+ */
 @Configuration
-@ComponentScan(basePackages = { "com.nts.dao",  "com.nts.service"})
+@ComponentScan(basePackages = { "com.nts.dto", "com.nts.dao", "com.nts.service" })
+@Import({ DBConfig.class })
 public class ApplicationConfig {
-
+	
 }

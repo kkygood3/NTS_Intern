@@ -6,6 +6,9 @@ package com.nts.dto;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProductResponse {
 	private List<Product> items;
 	private int totalCount;
