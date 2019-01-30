@@ -9,9 +9,9 @@ function printPromotions() {
 	var promotionList = document.querySelector("#promotion_list");
 
 	var promotionItems = JSON.parse(this.response).item;
-	for (var i = 0, len = promotionItems.length; i < len; i++) {
-		promotionList.innerHTML += parsePromotionToHtml(promotionItems[i]);
-	}
+	promotionItems.forEach((promotionItem) => {
+		promotionList.innerHTML += parsePromotionToHtml(promotionItem);
+	});
 
 }
 
@@ -19,9 +19,9 @@ function printCategories() {
 	var categoryList = document.querySelector("#category_list");
 
 	var categoryItems = JSON.parse(this.response).item;
-	for (var i = 0, len = categoryItems.length; i < len; i++) {
-		categoryList.innerHTML += parseCategoryToHtml(categoryItems[i]);
-	}
+	categoryItems.forEach((categoryItem) =>{
+		categoryList.innerHTML += parseCategoryToHtml(categoryItem);
+	});
 }
 
 function printProducts() {
@@ -34,10 +34,10 @@ function printProducts() {
 	var productItems = responseObject.item;
 
 	document.querySelector("#totalCount").innerText = totalCount;
-	for (var i = 0, len = productItems.length; i < len; i++) {
-		productLists[productCount % productListsLength].innerHTML += parseProductToHtml(productItems[i]);
+	productItems.forEach((productItem) => {
+		productLists[productCount % productListsLength].innerHTML += parseProductToHtml(productItem);
 		productCount++;
-	}
+	});
 
 	if (productCount >= totalCount) {
 		document.querySelector(".more .btn").style.display = "none";
@@ -49,18 +49,19 @@ function getProductsCount() {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	var productCount = 0;
 	
-	for (var i = 0, len = productLists.length; i < len; i++) {
-		productCount += productLists[i].childElementCount;
-	}
+	productLists.forEach((productList) => {
+		productCount + productList.childElementCount;
+	});
+	
 	return productCount;
 }
 
 function clearProductLists() {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	
-	for (var i = 0, len = productLists.length; i < len; i++) {
-		productLists[i].innerHTML = "";
-	}
+	productLists.forEach((productList) => {
+		productList.innerHTML = "";
+	});
 }
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -76,20 +77,21 @@ function addClickEventCategoryChange(){
 	document.querySelector("#category_list").addEventListener("click", function(evt){
 	    var paths = evt.path;
 	    
-	    for(var i=0, len=paths.length; i<len; i++){
-	        if(paths[i].tagName === "A" && paths[i].className === "anchor"){
-		    	document.querySelector(".anchor.active").className = "anchor";
-				paths[i].className = "anchor active";
-				
-				clearProductLists();
-				
-				var categoryId = paths[i].parentElement.dataset.category;
-				loadContent("/api/products?categoryId=" + categoryId, "GET", printProducts);
-				
-	    		document.querySelector(".more .btn").style.display = "inline-block";
-				break;
+	    paths.some((path) => {
+	        if(path.tagName === "A" && path.className === "anchor"){
+	            document.querySelector(".anchor.active").className = "anchor";
+	            path.className = "anchor active";
+
+	            clearProductLists();
+
+	            var categoryId = path.parentElement.dataset.category;
+	            loadContent("/api/products?categoryId=" + categoryId, "GET", printProducts);
+
+	            document.querySelector(".more .btn").style.display = "inline-block";
+	            return true;
 	        }
-	    }
+	        return false;
+	    });
 	});
 }
 function addClickEventMoreBtn(){
