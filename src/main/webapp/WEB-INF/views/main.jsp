@@ -48,24 +48,7 @@
             </div>
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
-                    <li class="item" data-category="0">
-                        <a class="anchor active"> <span>전체리스트</span> </a>
-                    </li>
-                    <li class="item" data-category="1">
-                        <a class="anchor"> <span>전시</span> </a>
-                    </li>
-                    <li class="item" data-category="2">
-                        <a class="anchor"> <span>뮤지컬</span> </a>
-                    </li>
-                    <li class="item" data-category="3">
-                        <a class="anchor"> <span>콘서트</span> </a>
-                    </li>
-                    <li class="item" data-category="4">
-                        <a class="anchor"> <span>클래식</span> </a>
-                    </li>
-                    <li class="item" data-category="5">
-                        <a class="anchor"> <span>연극</span> </a>
-                    </li>
+                <!-- content -->
                 </ul>
             </div>
             <div class="section_event_lst">
@@ -111,5 +94,10 @@
 		</div>
 	</li>
     </script>
+    <script type="rv-template" id="category_item">
+    <li class="item" data-category="{id}">
+		<a class="anchor active"> <span>{name}</span> </a>
+	</li>
+	</script>
 </body>
 </html>

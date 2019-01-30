@@ -1,5 +1,5 @@
 var readyToSlide = false;
-
+var curCategory = 0;
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetPromotionsAjax();
 	sendGetProductsAjax();
@@ -63,6 +63,36 @@ function makePromotionSlide() {
 	},1);
 }
 
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////		category
+//////////////////////////////////////////////////////////////////////////////////////////
+function sendGetCategorissAjax() {
+	var httpRequest = new XMLHttpRequest();
+	
+	if(!httpRequest) {
+		return false;
+	}
+	httpRequest.open("GET", "./category");
+	httpRequest.onreadystatechange = function getPromotions() {
+		if (httpRequest.readyState === XMLHttpRequest.DONE) {
+			if (httpRequest.status === 200) {
+			    var categoris = JSON.parse(httpRequest.responseText);
+			    makeCategoryBar(categoris);
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	};
+	httpRequest.send();
+}
+
+function makeCategoryBar(categoris) {
+	
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////		product
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +148,7 @@ function makeProductList(thumbnailInfos) {
 function addButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener('click', function(event){
-		alert("!!");
+		sendGetProductsAjax();
 	});
 }
 
