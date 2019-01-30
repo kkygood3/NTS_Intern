@@ -20,6 +20,7 @@ public class TodoDao {
 
 	/**
 	 * 처음 TodoDao 객체가 생성될때 드라이버를 찾습니다.
+	 * @throws ServerErrorException
 	 */
 	private TodoDao() {
 		try {

@@ -40,17 +40,16 @@ public class MainServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 
-		Map<String, List<TodoDto>> classifymap = new HashMap<String, List<TodoDto>>();
 		try {
-			classifyList(classifymap);
+			Map<TodoType, List<TodoDto>> classifyMap = getClassifyMap();
+
+			for (TodoType type : TodoType.getTodoTypes()) {
+				request.setAttribute(type.getTodoType().toLowerCase() + "List", classifyMap.get(type));
+			}
 		} catch (ServerErrorException e) {
 			e.printStackTrace();
 			response.sendError(e.getERROR_CODE(), e.getMESSAGE());
 			return;
-		}
-
-		for (TodoType type : TodoType.values()) {
-			request.setAttribute(type.getTodoType().toLowerCase() + "List", classifymap.get(type.getTodoType()));
 		}
 
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
@@ -61,17 +60,21 @@ public class MainServlet extends HttpServlet {
 	 * totalList를 각 리스트로 분류하는 메소드입니다.
 	 * @throws ServerErrorException
 	 */
-	private void classifyList(Map<String, List<TodoDto>> testmap) throws ServerErrorException {
+	private Map<TodoType, List<TodoDto>> getClassifyMap() throws ServerErrorException {
+
+		Map<TodoType, List<TodoDto>> classifyMap = new HashMap<TodoType, List<TodoDto>>();
 
 		List<TodoDto> totalList = TodoDao.TODODAO.getTodos();
 
-		for (TodoType type : TodoType.values()) {
-			testmap.put(type.getTodoType(), new ArrayList<TodoDto>());
+		for (TodoType type : TodoType.getTodoTypes()) {
+			classifyMap.put(type, new ArrayList<TodoDto>());
 		}
 
 		for (TodoDto todoDto : totalList) {
-			testmap.get(todoDto.getType().getTodoType()).add(todoDto);
+			classifyMap.get(todoDto.getType()).add(todoDto);
 		}
+
+		return classifyMap;
 
 	}
 

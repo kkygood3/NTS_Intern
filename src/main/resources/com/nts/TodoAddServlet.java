@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.config.checkInputForm;
+import com.nts.config.InputFormValidator;
 import com.nts.dao.TodoDao;
 import com.nts.dto.TodoDto;
 import com.nts.exception.ServerErrorException;
@@ -40,7 +40,7 @@ public class TodoAddServlet extends HttpServlet {
 		String sequenceStringType = request.getParameter("input-sequence");
 
 		//입력형식이 맞는지 확인 후 맞지 않다면 에러페이지 출력
-		if (checkInputForm.isRightInputForm(title, name, sequenceStringType)) {
+		if (InputFormValidator.isVaild(title, name, sequenceStringType)) {
 			response.sendError(500, "입력 형식이 잘못되었습니다.");
 			return;
 		}
@@ -53,7 +53,6 @@ public class TodoAddServlet extends HttpServlet {
 			TodoDao.TODODAO.addTodo(todoDto);
 
 		} catch (ServerErrorException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			response.sendError(e.getERROR_CODE(), e.getMESSAGE());
 		}
