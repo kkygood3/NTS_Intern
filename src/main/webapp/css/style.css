@@ -3824,7 +3824,6 @@ button {
 }
 
 .item {
-  transition: transform 5s;
   left: 0;
   z-index: 0;
 }
@@ -3848,10 +3847,6 @@ button {
   visibility: visible;
   animation-name: slide_last;
   animation-duration: 5s;
-}
-
-.waiting {
-  visibility: hidden;
 }
 
 @keyframes slide_first {

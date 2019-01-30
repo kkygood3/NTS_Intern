@@ -172,7 +172,7 @@ function slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime){
 	slides[slideLast].className = "item slide_last";
 	
 	if(now - executeAnimationTime > animationTime) {
-		slides[slideFirst].className = "item waiting";
+		slides[slideFirst].className = "item";
 		slideFirst = slideMiddle;
 		slideMiddle = slideLast;
 		slideLast = (slideLast + 1) % slides.length;
@@ -180,6 +180,6 @@ function slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime){
 	}
 	
 	requestAnimationFrame(function(){
-		slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime)
+		slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime);
 	});
 }
