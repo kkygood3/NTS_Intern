@@ -15,11 +15,12 @@ public class ProductDaoSqls {
 
 	public static final String SELECT_PROMOTION = "SELECT prom.id AS id, "
 		+ "prom.product_id AS productId, "
-		+ "CONCAT('img/',pi.product_id,'_',pi.type,'_',pi.id,'.png') AS productImageUrl "
+		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
 		+ "FROM promotion prom "
-		+ "INNER JOIN "
-		+ "product_image pi "
+		+ "INNER JOIN product_image pi "
+		+ "INNER JOIN file_info fi "
 		+ "ON prom.product_id = pi.product_id "
+		+ "AND fi.id = pi.file_id "
 		+ "WHERE pi.type='th'";
 
 	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(*) FROM display_info";
@@ -29,11 +30,14 @@ public class ProductDaoSqls {
 		+ "p1.description AS productDescription, "
 		+ "di.place_name AS placeName, "
 		+ "p1.content AS productContent, "
-		+ "CONCAT('img/',pi.product_id,'_',pi.type,'_',pi.id,'.png') as productImageUrl "
+		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
 		+ "FROM product p1 "
 		+ "INNER JOIN display_info di "
 		+ "INNER JOIN product_image pi "
-		+ "ON p1.id = di.product_id AND di.product_id = pi.product_id "
+		+ "INNER JOIN file_info fi "
+		+ "ON p1.id = di.product_id "
+		+ "AND di.product_id = pi.product_id "
+		+ "AND fi.id = pi.file_id "
 		+ "WHERE pi.type = 'th' "
 		+ "ORDER BY di.product_id ASC limit :start, :limit";
 
@@ -42,12 +46,14 @@ public class ProductDaoSqls {
 		+ "p1.description AS productDescription, "
 		+ "di.place_name AS placeName, "
 		+ "p1.content AS productContent, "
-		+ "CONCAT('img/',pi.product_id,'_',pi.type,'_',pi.id,'.png') as productImageUrl "
+		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
 		+ "FROM product p1 "
 		+ "INNER JOIN display_info di "
 		+ "INNER JOIN product_image pi "
+		+ "INNER JOIN file_info fi "
 		+ "ON p1.id = di.product_id "
 		+ "AND di.product_id = pi.product_id "
+		+ "AND fi.id = pi.file_id "
 		+ "WHERE p1.category_id =:category_id "
 		+ "AND pi.type = 'th' ORDER BY di.product_id ASC limit :start, :limit";
 
