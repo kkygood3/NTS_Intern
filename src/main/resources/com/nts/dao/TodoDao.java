@@ -5,13 +5,7 @@
 
 package com.nts.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.config.DbConnection;
@@ -21,7 +15,7 @@ import com.nts.exception.ServerErrorException;
 
 public class TodoDao {
 
-	private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+	public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 	public static final TodoDao TODODAO = new TodoDao();
 
 	/**
@@ -42,26 +36,10 @@ public class TodoDao {
 	public List<TodoDto> getTodos() throws ServerErrorException {
 
 		String selectSqlQuery = "SELECT id, title, name, sequence, type, regdate FROM todo";
-		try (Connection connection = DbConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(selectSqlQuery);
-			ResultSet resultSet = preparedStatement.executeQuery()) {
+		try {
+			return TransmitQuery.selectTransmit(selectSqlQuery);
 
-			List<TodoDto> todoList = new ArrayList<>();
-
-			while (resultSet.next()) {
-				Long id = resultSet.getLong("id");
-				String title = resultSet.getString("title");
-				String name = resultSet.getString("name");
-				int sequence = resultSet.getInt("sequence");
-				TodoType type = TodoType.valueOf(resultSet.getString("type"));
-				LocalDate regDate = resultSet.getDate("regdate").toLocalDate();
-				String toStringRegDate = DATE_TIME_FORMAT.format(regDate);
-				TodoDto todo = new TodoDto(id, title, name, sequence, type, toStringRegDate);
-				todoList.add(todo);
-			}
-			return todoList;
-
-		} catch (SQLException e) {
+		} catch (ServerErrorException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 			throw new ServerErrorException(e);
@@ -76,16 +54,10 @@ public class TodoDao {
 	public int addTodo(TodoDto todo) throws ServerErrorException {
 
 		String insertSqlQuery = "INSERT INTO todo (title, name, sequence) VALUES ( ?, ?, ? )";
-		try (Connection connection = DbConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(insertSqlQuery)) {
+		try {
+			return TransmitQuery.insertTransmit(insertSqlQuery, todo);
 
-			preparedStatement.setString(1, todo.getTitle());
-			preparedStatement.setString(2, todo.getName());
-			preparedStatement.setInt(3, todo.getSequence());
-
-			return preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
+		} catch (ServerErrorException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 			throw new ServerErrorException(e);
@@ -99,15 +71,10 @@ public class TodoDao {
 	public int updateTodo(Long id, TodoType type) throws ServerErrorException {
 
 		String updateSqlQuery = "update todo set type = ? where id = ?";
-		try (Connection connection = DbConnection.tryConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(updateSqlQuery)) {
+		try {
+			return TransmitQuery.updateTransmit(updateSqlQuery, id, type);
 
-			preparedStatement.setString(1, type.getNextType());
-			preparedStatement.setLong(2, id);
-
-			return preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
+		} catch (ServerErrorException e) {
 			e.printStackTrace();
 			System.out.println("SQL query 전송에 실패했습니다.");
 			throw new ServerErrorException(e);
