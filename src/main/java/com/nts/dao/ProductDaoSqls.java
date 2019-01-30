@@ -42,6 +42,19 @@ public class ProductDaoSqls {
 		+ " 	AND display_info.id = display_info_image.display_info_id"
 		+ " 	AND file_info.id = product_image.file_id"
 		+ " ORDER BY display_info.id ASC limit :start, :limit";
-	public static final String SELECT_COUNT = "SELECT count(*) FROM product";
-	public static final String SELECT_COUNT_BY_CATEGORY_ID = "SELECT count(*) FROM product WHERE category_id = :categoryId";
+	public static final String SELECT_COUNT = "SELECT "
+		+ "    COUNT(*) AS count " 
+		+ "FROM "
+		+ "    product, "
+		+ "    display_info " 
+		+ "WHERE "
+		+ "    product.id = display_info.product_id";
+	public static final String SELECT_COUNT_BY_CATEGORY_ID = "SELECT "
+		+ "    COUNT(*) AS count " 
+		+ "FROM "
+		+ "    product, "
+		+ "    display_info " 
+		+ "WHERE "
+		+ "    product.id = display_info.product_id"
+		+ "        AND product.category_id = :categoryId";
 }
