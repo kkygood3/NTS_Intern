@@ -125,7 +125,6 @@ function getProductsByCategory(categoryId, start = 0) {
 	}
 }
 
-let executeAnimationTime;
 function getPromotions() {
 	let httpRequest;
 	
@@ -136,6 +135,7 @@ function getPromotions() {
 			let jsonResponse;
 			let promotionContainer = document.querySelector(".visual_img");
 			let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
+			let executeAnimationTime;
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
@@ -148,7 +148,7 @@ function getPromotions() {
 				});
 
 				executeAnimationTime = performance.now();
-				slideImage();
+				slideImage(0, 1, 2, executeAnimationTime);
 			}
 		}
 
@@ -158,10 +158,7 @@ function getPromotions() {
 	}
 }
 
-let slideFirst = 0;
-let slideMiddle = 1;
-let slideLast = 2;
-function slideImage(){
+function slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime){
 	let now = performance.now();
 	let slides = document.querySelectorAll(".visual_img li");
 	const promotionWidth = slides[slideFirst].clientWidth;
@@ -182,5 +179,7 @@ function slideImage(){
 		executeAnimationTime = performance.now();
 	}
 	
-	requestAnimationFrame(slideImage);
+	requestAnimationFrame(function(){
+		slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime)
+	});
 }
