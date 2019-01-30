@@ -28,6 +28,7 @@ public class TodoDao {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("com.mysql.jdbc.Driver를 찾을 수 없습니다.");
+			throw new Error("Driver Error");
 		}
 	}
 
