@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function(){
+	loadContent("/api/promotions", "GET", printPromotions);
+	loadContent("/api/categories", "GET", printCategories);
+	loadContent("/api/products", "GET", printProducts);
+	
+	addClickEventCategoryChange();
+	addClickEventMoreBtn();
+	slidePromotion();
+});
+
 function loadContent(url, method, loadFunction) {
 	var xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.addEventListener("load", loadFunction);
@@ -81,20 +91,10 @@ function readjustPromotionList(promotionList){
 }
 
 function movePromotionHeadToTail(promotionList){
-	var promotionItem = promotionList.firstElementChild
+	var promotionItem = promotionList.firstElementChild;
 	promotionList.removeChild(promotionItem);
 	promotionList.appendChild(promotionItem);
 }
-
-document.addEventListener("DOMContentLoaded", function(){
-	loadContent("/api/promotions", "GET", printPromotions);
-	loadContent("/api/categories", "GET", printCategories);
-	loadContent("/api/products", "GET", printProducts);
-	
-	addClickEventCategoryChange();
-	addClickEventMoreBtn();
-	slidePromotion();
-});
 
 function addClickEventCategoryChange(){
 	document.querySelector("#category_list").addEventListener("click", function(evt){
@@ -117,6 +117,7 @@ function addClickEventCategoryChange(){
 	    });
 	});
 }
+
 function addClickEventMoreBtn(){
 	document.querySelector(".more .btn").addEventListener("click", function(){
 	    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;

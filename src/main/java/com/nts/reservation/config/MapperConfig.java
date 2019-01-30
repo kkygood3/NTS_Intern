@@ -31,7 +31,7 @@ public class MapperConfig {
 	}
 
 	@Bean
-	RowMapper<Promotion> promotionMapper() {
+	public RowMapper<Promotion> promotionMapper() {
 		return BeanPropertyRowMapper.newInstance(Promotion.class);
 	}
 

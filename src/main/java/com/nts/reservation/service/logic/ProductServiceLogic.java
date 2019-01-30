@@ -29,7 +29,7 @@ public class ProductServiceLogic implements ProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public ProductResponse getProductResponse(ProductRequest productRequest) {
-
+		
 		if (productRequest.isAllCategory()) {
 			List<Product> productList = productDao.getAllCategoryProductList(productRequest.getStart());
 			int productCount = productDao.getAllCategoryProductCount();
