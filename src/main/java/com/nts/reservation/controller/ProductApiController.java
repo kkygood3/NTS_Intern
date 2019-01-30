@@ -6,6 +6,7 @@ package com.nts.reservation.controller;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +28,26 @@ public class ProductApiController {
 	ProductService productService;
 
 	@GetMapping("/products")
-	public Map<String, Object> getProductsByCategory(@RequestParam(name = "start", required = true) Integer start,
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer category) {
-		return productService.getProductsByCategory(start, category);
+	public Map<String, Object> getProductsByCategory(
+			@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId) {
+		Map<String,Object> result = new HashMap<>();
+		result.put("items",productService.getProductsByCategory(start, categoryId));
+		result.put("totalCount", productService.getProductsCount());
+		return result;
 	}
 
 	@GetMapping("/categories")
 	public Map<String, Object> getCountsByCategory() {
-		return productService.getProductsCountByCategory();
+		Map<String,Object> result = new HashMap<>();
+		result.put("items",productService.getProductsCountByCategory());
+		return result;
 	}
 
 	@GetMapping("/promotions")
 	public Map<String, Object> promotionList() {
-		return productService.getPromotions();
+		Map<String,Object> result = new HashMap<>();
+		result.put("items",productService.getPromotions());
+		return result;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
+import org.springframework.stereotype.Controller;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -18,9 +19,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan(basePackages = {"com.nts.reservation"}, 
-    excludeFilters = @Filter(
-            type = FilterType.REGEX,
-            pattern = "com\\.nts\\.reservation\\.controller\\*"))
+    excludeFilters = @Filter(Controller.class))
 @Import({DBConfig.class})
 public class ApplicationConfig {
 

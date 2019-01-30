@@ -6,18 +6,26 @@ package com.nts.reservation.service;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
+import java.util.List;
+
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
 import java.util.Map;
 
+import com.nts.reservation.dto.Category;
+import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.Promotion;
+
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 
-	public Map<String, Object> getProductsByCategory(Integer start, Integer category);
+	public List<Product> getProductsByCategory(Integer start, Integer category);
 
-	public Map<String, Object> getPromotions();
+	public List<Promotion> getPromotions();
 
-	public Map<String, Object> getProductsCountByCategory();
+	public List<Category> getProductsCountByCategory();
+
+	public Long getProductsCount();
 }

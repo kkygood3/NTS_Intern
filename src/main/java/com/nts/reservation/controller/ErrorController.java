@@ -43,24 +43,4 @@ public class ErrorController {
 		return (Integer)httpRequest
 			.getAttribute("javax.servlet.error.status_code");
 	}
-
-	@RequestMapping(value = "500Error", method = RequestMethod.GET)
-	public void throwRuntimeException500() {
-		throw new NullPointerException("Throwing a null pointer exception");
-	}
-
-	@RequestMapping(value = "401Error", method = RequestMethod.GET)
-	public void throwRuntimeException401() {
-		throw new NullPointerException("Throwing a null pointer exception");
-	}
-
-	@RequestMapping(value = "403Error", method = RequestMethod.GET)
-	public void throwRuntimeException403() {
-		throw new NullPointerException("Throwing a null pointer exception");
-	}
-
-	@RequestMapping(value = "404Error", method = RequestMethod.GET)
-	public void throwRuntimeException404() {
-		throw new NullPointerException("Throwing a null pointer exception");
-	}
 }

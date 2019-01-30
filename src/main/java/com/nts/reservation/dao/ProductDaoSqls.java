@@ -13,56 +13,45 @@ package com.nts.reservation.dao;
 
 public class ProductDaoSqls {
 
-	public static final String SELECT_PROMOTION = "SELECT prom.id AS id, "
-		+ "prom.product_id AS productId, "
-		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
+	public static final String SELECT_PROMOTION = "SELECT prom.id AS id"
+		+ ", prom.product_id AS productId "
+		+ ", fi.file_name AS productImageUrl "
 		+ "FROM promotion prom "
-		+ "INNER JOIN product_image pi "
-		+ "INNER JOIN file_info fi "
-		+ "ON prom.product_id = pi.product_id "
-		+ "AND fi.id = pi.file_id "
-		+ "WHERE pi.type='th'";
+		+ "INNER JOIN product_image pi ON prom.product_id = pi.product_id "
+		+ "INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type='th'";
 
-	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(*) FROM display_info";
+	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(id) FROM display_info";
 
-	public static final String SELECT_ALL_PRODUCTS = "SELECT di.id AS displayInfoId, "
-		+ "di.product_id AS productId, "
-		+ "p1.description AS productDescription, "
-		+ "di.place_name AS placeName, "
-		+ "p1.content AS productContent, "
-		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
-		+ "FROM product p1 "
-		+ "INNER JOIN display_info di "
-		+ "INNER JOIN product_image pi "
-		+ "INNER JOIN file_info fi "
-		+ "ON p1.id = di.product_id "
-		+ "AND di.product_id = pi.product_id "
-		+ "AND fi.id = pi.file_id "
-		+ "WHERE pi.type = 'th' "
-		+ "ORDER BY di.product_id ASC limit :start, :limit";
+	public static final String SELECT_ALL_PRODUCTS_PAGING = "SELECT di.id AS displayInfoId "
+		+ ",di.product_id AS productId "
+		+ ",pdt.description AS productDescription "
+		+ ",di.place_name AS placeName "
+		+ ",pdt.content AS productContent "
+		+ ",fi.file_name AS productImageUrl "
+		+ "FROM display_info di "
+		+ "INNER JOIN product pdt ON pdt.id = di.product_id "
+		+ "INNER JOIN product_image pi ON pi.product_id = di.product_id AND pi.type = 'th' "
+		+ "INNER JOIN file_info fi ON fi.id = pi.file_id "
+		+ "ORDER BY di.product_id ASC LIMIT :start, :limit";
 
-	public static final String SELECT_ALL_PRODUCTS_BY_CATEGORY = "SELECT di.id AS displayInfoId, "
-		+ "di.product_id AS productId, "
-		+ "p1.description AS productDescription, "
-		+ "di.place_name AS placeName, "
-		+ "p1.content AS productContent, "
-		+ "CONCAT('img/',fi.file_name) AS productImageUrl "
-		+ "FROM product p1 "
-		+ "INNER JOIN display_info di "
-		+ "INNER JOIN product_image pi "
-		+ "INNER JOIN file_info fi "
-		+ "ON p1.id = di.product_id "
-		+ "AND di.product_id = pi.product_id "
-		+ "AND fi.id = pi.file_id "
-		+ "WHERE p1.category_id =:category_id "
-		+ "AND pi.type = 'th' ORDER BY di.product_id ASC limit :start, :limit";
+	public static final String SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING = "SELECT di.id AS displayInfoId "
+		+ ",di.product_id AS productId "
+		+ ",pdt.description AS productDescription "
+		+ ",di.place_name AS placeName "
+		+ ",pdt.content AS productContent "
+		+ ",fi.file_name AS productImageUrl "
+		+ "FROM product pdt "
+		+ "INNER JOIN display_info di ON pdt.id = di.product_id "
+		+ "INNER JOIN product_image pi ON di.product_id = pi.product_id "
+		+ "INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type = 'th' "
+		+ "WHERE pdt.category_id =:category_id "
+		+ "ORDER BY di.product_id ASC LIMIT :start, :limit";
 
 	public static final String SELECT_PRODUCTS_COUNT_BY_CATEGORY = "SELECT ctg.id AS id, "
 		+ "ctg.name AS NAME, "
 		+ "count(*) as COUNT "
 		+ "FROM display_info di "
-		+ "INNER JOIN product p1 "
-		+ "INNER JOIN category ctg "
-		+ "ON p1.id = di.product_id AND ctg.id = p1.category_id "
-		+ "GROUP BY p1.category_id;";
+		+ "INNER JOIN product pdt ON pdt.id = di.product_id "
+		+ "INNER JOIN category ctg ON ctg.id = pdt.category_id "
+		+ "GROUP BY pdt.category_id;";
 }

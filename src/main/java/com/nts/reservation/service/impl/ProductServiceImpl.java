@@ -11,6 +11,7 @@ package com.nts.reservation.service.impl;
  */
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,41 +19,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.dto.Category;
+import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.ProductService;
 
 @Service
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	ProductDao productDao;
 
 	@Override
-	@Transactional(readOnly = true)
-	public Map<String, Object> getProductsByCategory(Integer start, Integer category) {
-		Map<String, Object> result = new HashMap<>();
-		if (category > 0 && category <= 5) {
-			result.put("items", productDao.getProductsByCategory(start, category, LIMIT));
+	public List<Product> getProductsByCategory(Integer start, Integer category) {
+		if (category > 0) {
+			return productDao.getProductsByCategory(start, category, LIMIT);
 		} else {
-			result.put("items", productDao.getProducts(start, LIMIT));
+			return productDao.getProducts(start, LIMIT);
 		}
-		result.put("totalCount", productDao.getProductsCount());
-		return result;
+	}
+	
+	@Override
+	public Long getProductsCount() {
+		return productDao.getProductsCount();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Map<String, Object> getPromotions() {
-		Map<String, Object> result = new HashMap<>();
-		result.put("items", productDao.getPromotions());
-		return result;
+	public List<Promotion> getPromotions() {
+		return productDao.getPromotions();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Map<String, Object> getProductsCountByCategory() {
-		Map<String, Object> result = new HashMap<>();
-		result.put("items", productDao.getProductsCountByCategory());
-		return result;
+	public List<Category> getProductsCountByCategory() {
+		return productDao.getProductsCountByCategory();
 	}
 
 }

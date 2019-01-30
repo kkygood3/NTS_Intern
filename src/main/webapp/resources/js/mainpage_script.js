@@ -13,34 +13,48 @@ HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
 // HTML Dom element / constants for faster access;
-const tabButton = document.querySelectorAll("div.section_event_tab ul li");
-const showMoreButton = document.querySelector("div.more > button");
+var domElements = {
+	TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),
+	TAB_BUTTON_LI : document.querySelectorAll("div.section_event_tab ul li"),
+	SHOW_MORE_BUTTON : document.querySelector("div.more button"),
+	PROMO_CONTAINER : document.querySelector("ul.visual_img"),
+	PRODUCT_LISTS : document.querySelectorAll(".lst_event_box"),
+	NEW_PRODUCT_ITEM : document.querySelector("#itemList").innerHTML,
+	PRODUCT_NUMBER_IND : document.querySelector("p.event_lst_txt span"),
+	PROMO_TEMPLATE : document.querySelector("#promotionItem").innerHTML
+}
 
-const promoContainer = document.querySelector("ul.visual_img");
-const productLists = document.querySelectorAll(".lst_event_box");
-const newProductItem = document.querySelector("#itemList").innerHTML;
-const productNumberInd =document.querySelector("p.event_lst_txt span");
-const promoTemplate = document.querySelector("#promotionItem").innerHTML;
+var constants = {
+	PROMO_CONATINER_WIDTH : domElements.PROMO_CONTAINER.offsetWidth,
+	ANIMATION_SPEED : 4,
+	ANIMATION_STOP_DURATION : 1000,
+	ITEMS_PER_LOAD : 4
+}
 
-const promoContainerWidth = promoContainer.offsetWidth;
-const animationSpeed = 4;
-const animationStopDuration = 1000;
+var pageData = {
+	CATEGORY_DATA:{},
+	IMAGE_LIST:[]
+}
 
-// currently saved data for manipulation
-var promotionData;
-var productData;
-var categoryData;
-var imgList;
+var urls = {
+	CATEGORIES : "/reservation/api/categories",
+	PROMOS : "/reservation/api/promotions",
+	PRODUCTS : "/reservation/api/products"
+}
+
 
 // current state;
-var currentCategory = 0;
-var page = 0;
-var promoCount = 1;
-var prevPromoCount = 0;
+var pageState = {
+	currentCategory : 0,
+	productPage : 0,
+	promoCount : 1,
+	prevPromoCount : 0,
+	prevPromoImage : "",
+	currentPromoImage : ""
+}
+
 
 // promoNode, keep changing depends on the current showing element
-var prev;
-var current;
 
 /**
  * @init() : will be loaded with body onload, initialization function group
@@ -48,7 +62,7 @@ var current;
 function init(){
 	initTab();
 	fetchPromos();
-	fetchProducts(0,0);	
+	fetchProducts();	
 	fetchCategoryCounts();
 }
 
@@ -56,9 +70,9 @@ function init(){
  * @xhrGetRequest() : pre-defined XmlHttpRequest Get method since get method
  *                  will be used frequently
  */
-function xhrGetRequest(url,callback, isAsync){
+function xhrGetRequest(url,callback){
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", url, isAsync);
+	xhr.open("GET", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -76,28 +90,29 @@ function xhrGetRequest(url,callback, isAsync){
  * @initTab() : tab active css change and load more button visibility control
  */
 function initTab(){
-	tabButton.forEach((item) => {
-		item.addEventListener("click",(e)=> {
-			tabButton.forEach((item)=> {
-				let iter = item.firstElementChild;
-				if(iter.classList.contains("active")){
-					iter.classList.remove("active");
-				}
-			});
-			let tab = e.target.closest("li");
-			tab.firstElementChild.classList.add("active");
-			page = 0;
-			switchCategory(tab.dataset.category);
+	domElements.TAB_BUTTON_UL.addEventListener("click", (e) =>{
+		if(e.target == domElements.TAB_BUTTON_UL){
+			return;
+		}
+		domElements.TAB_BUTTON_LI.forEach((item) => {
+			let iter = item.firstElementChild;
+			if(iter.classList.contains("active")){
+				iter.classList.remove("active");
+			}
 		});
+		let tab = e.target.closest("li");
+		tab.firstElementChild.classList.add("active");
+		pageState.productPage = 0;
+		switchCategory(tab.dataset.category);
 	});
 	
-	document.querySelector("div.more").addEventListener("click",(e)=>{
-		page++;
-		fetchProducts(currentCategory,page*4);
-		categoryData.items.forEach((data)=>{
-			if(data.id == currentCategory){
-				if(data.count-4 <= page*4){
-					showMoreButton.style.visibility = "hidden";
+	document.querySelector("div.more").addEventListener("click",(e) => {
+		pageState.productPage++;
+		fetchProducts(pageState.currentCategory, pageState.productPage * constants.ITEMS_PER_LOAD);
+		pageData.CATEGORY_DATA.items.forEach((data) => {
+			if(data.id == pageState.currentCategory){
+				if(data.count-constants.ITEMS_PER_LOAD <= pageState.productPage * constants.ITEMS_PER_LOAD){
+					domElements.SHOW_MORE_BUTTON.style.visibility = "hidden";
 				} 
 			}
 		});
@@ -108,19 +123,22 @@ function initTab(){
  * @fetchCategoryCounts() : fetch total number of rows in db by category
  */
 function fetchCategoryCounts(){
-	xhrGetRequest("/reservation/api/categories",(respText)=>{
-		categoryData = JSON.parse(respText);
-	},true);
+	xhrGetRequest(urls.CATEGORIES,(respText) => {
+		pageData.CATEGORY_DATA = JSON.parse(respText);
+	});
 }
 
 /**
  * @fetchCategoryCounts() : fetch all information related to promotions
  */
 function fetchPromos(){
-	xhrGetRequest("/reservation/api/promotions",(respText)=>{
-		promotionData = JSON.parse(respText).items;
-		renderPromoItems();
-	},true);
+	xhrGetRequest(urls.PROMOS,(respText) => {
+		let promotionData = JSON.parse(respText).items;
+		promotionData.forEach((item) => {
+			item.productImageUrl = "img/" + item.productImageUrl;
+		});
+		renderPromoItems(promotionData);
+	});
 }
 
 /**
@@ -128,24 +146,28 @@ function fetchPromos(){
  *                  if categoryId == 0 || not in between 1 to 5, all category
  *                  will be searched
  */
-function fetchProducts(categoryId, start){
-	if(productData){
-		productData.items = null;
-	}
-	xhrGetRequest("/reservation/api/products?start="+start+"&categoryId="+categoryId,(respText)=>{
-		productData = JSON.parse(respText);
-		if(categoryId ==0){
-			productNumberInd.innerText = productData.totalCount + "개";
-		}
-		else{
-			categoryData.items.forEach((data)=>{
-				if(data.id == categoryId){
-					productNumberInd.innerText = data.count + "개";
+function fetchProducts(){
+	let getProductUrl = urls.PRODUCTS;
+	getProductUrl += "?start=" + Math.round(pageState.productPage*constants.ITEMS_PER_LOAD) 
+					+ "&categoryId=" + pageState.currentCategory;
+	
+	xhrGetRequest(getProductUrl,(respText) => {
+		let productData = JSON.parse(respText);
+		productData.items.forEach((item) => {
+			item.productImageUrl = "img/" + item.productImageUrl;
+		});
+		if(pageState.currentCategory > 0){
+			pageData.CATEGORY_DATA.items.forEach((data) => {
+				if(data.id == pageState.currentCategory){
+					domElements.PRODUCT_NUMBER_IND.innerText = data.count + "개";
 				}
 			});
 		}
-		RenderProductItems();
-	},true);
+		else{
+			domElements.PRODUCT_NUMBER_IND.innerText = productData.totalCount + "개";
+		}
+		RenderProductItems(productData);
+	});
 }
 
 
@@ -156,19 +178,19 @@ function fetchProducts(categoryId, start){
 function switchCategory(category){
 	/*
 	 * When category switch action, remove all the elements in the list and
-	 * fetch + render items obtained. Force visbility of load more button page
+	 * fetch + render items obtained. Force visibility of load more button page
 	 * returns to 0;
 	 */
-	if(category!=currentCategory){
-		productLists.forEach((list)=>{
+	if(category != pageState.currentCategory){
+		domElements.PRODUCT_LISTS.forEach((list) => {
 			while (list.firstChild) {
 				list.removeChild(list.firstChild);
 			}
 		});
-		currentCategory = category;
+		pageState.currentCategory = category;
 		page = 0;
-		fetchProducts(currentCategory,page*4);
-		showMoreButton.style.visibility = "visible";
+		fetchProducts();
+		domElements.SHOW_MORE_BUTTON.style.visibility = "visible";
 	}
 }
 
@@ -176,91 +198,95 @@ function switchCategory(category){
  * @RenderProductItems() : Loaded product items will be deployed on html, split
  *                       the list of products by the order in the data;
  */
-function RenderProductItems(){
+function RenderProductItems(productData){
 	let indexCount = 0;	
-	let bindTemplate = Handlebars.compile(newProductItem);
-	productData.items.forEach((item)=> {
-		 productLists[indexCount%2].innerHTML+=
-			 bindTemplate(item);
-		 indexCount++;
+	let bindTemplate = Handlebars.compile(domElements.NEW_PRODUCT_ITEM);
+	productData.items.forEach((item) => {
+		domElements.PRODUCT_LISTS[indexCount % 2].innerHTML += bindTemplate(item);
+		indexCount++;
 	});	
 }
 
 /**
  * @renderPromoItems() : Loaded promo items will be deployed on html
  */
-function renderPromoItems(){
-	let bindTemplate = Handlebars.compile(promoTemplate);
+function renderPromoItems(promotionData){
+	let bindTemplate = Handlebars.compile(domElements.PROMO_TEMPLATE);
 	
 	let resultHTML = "";
-	promotionData.forEach((promoItem)=>{
-		resultHTML +=bindTemplate(promoItem);
+	promotionData.forEach((promoItem) => {
+		resultHTML += bindTemplate(promoItem);
 	});
-	promoContainer.innerHTML = resultHTML;
-	imgList = promoContainer.getElementsByTagName("li");
+	domElements.PROMO_CONTAINER.innerHTML = resultHTML;
+	pageData.IMAGE_LIST = domElements.PROMO_CONTAINER.getElementsByTagName("li");
 	requestAnimationFrame(initPromoAnimation);
 }
 
 /**
  * @initPromoAnimation() : required setup for the promo animation, and
- *                       initialization of animation fram call
+ *                       initialization of animation frame call
  */
 function initPromoAnimation(){
 	// fix the layout in case of error
-	imgList[0].style.left = 0+"px";
-	imgList[0].style.position = "absolute";
-	imgList.forEach((item)=>{
-		if(item!=imgList[0]){
-			item.style.left = promoContainerWidth+"px";
-			item.style.position = "absolute";
+	pageData.IMAGE_LIST.forEach((item) => {
+		if(item == pageData.IMAGE_LIST[0]){
+			pageData.IMAGE_LIST[0].style.left = 0 + "px";
+		} else {
+			item.style.left = constants.PROMO_CONATINER_WIDTH + "px";
 		}
+		item.style.position = "absolute";
+		
 	});
 	
-	// timeout since first promoslide should be displayed before transition
+	// timeout since first promo-slide should be displayed before transition
 	setTimeout(()=>{
-		prev = imgList[prevPromoCount];
-		current = imgList[promoCount];
+		pageState.prevPromoImage = pageData.IMAGE_LIST[pageState.prevPromoCount];
+		pageState.currentPromoImage = pageData.IMAGE_LIST[pageState.promoCount];
 		requestAnimationFrame(promoAnimation);
-	},3000);
+	},constants.ANIMATION_STOP_DURATION);
 }
 
 /**
- * @animationSpeed : to control the speed or animation, declared as const in
- *                 global variable
+ * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
+ *                            const in global variable
  * 
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
  * 
- * @animationStopDuration : in milliseconds, determines the stop duration of the
- *                        animation when the image arrives in the right position ,
- *                        declared as const in global variable
+ * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
+ *                                    duration of the animation when the image
+ *                                    arrives in the right position , declared
+ *                                    as const in global variable
  * 
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
  */
 function promoAnimation(){
 	let needToStop = false;
+	let prevImage = pageState.prevPromoImage;
+	let currentImage = pageState.currentPromoImage;
 	
-	for(let iter = 0; iter<animationSpeed; iter++){
-		prev.style.left = parseInt(prev.style.left)-1 + "px";
-		current.style.left = parseInt(current.style.left)-1 + "px";
-		if(parseInt(prev.style.left) <= -promoContainerWidth){
-			prev.style.left = promoContainerWidth+"px";
-			prevPromoCount = promoCount;
-			promoCount++;
-			if(promoCount == imgList.length){
-				promoCount =0;
+	for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++){
+		prevImage.style.left = parseInt(prevImage.style.left) - 1 + "px";
+		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
+		
+		if(parseInt(prevImage.style.left) <= -1 * constants.PROMO_CONATINER_WIDTH){
+			prevImage.style.left = constants.PROMO_CONATINER_WIDTH + "px";
+			pageState.prevPromoCount = pageState.promoCount;
+			pageState.promoCount++;
+			if(pageState.promoCount == pageData.IMAGE_LIST.length){
+				pageState.promoCount = 0;
 			}
 			needToStop = true;
 			break;
 		}
 	}	
 	if(needToStop){
-		setTimeout(()=>{
-			prev = imgList[prevPromoCount];
-			current = imgList[promoCount];
+		setTimeout(() => {
+			pageState.prevPromoImage = pageData.IMAGE_LIST[pageState.prevPromoCount];
+			pageState.currentPromoImage = pageData.IMAGE_LIST[pageState.promoCount];
 			requestAnimationFrame(promoAnimation);
-		},animationStopDuration);
+		},constants.ANIMATION_STOP_DURATION);
 	}
 	else {
 		requestAnimationFrame(promoAnimation);
