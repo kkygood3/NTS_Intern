@@ -4,11 +4,14 @@
  */
 package com.nts.reservation.service.logic;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.model.Product;
 import com.nts.reservation.model.ProductRequest;
 import com.nts.reservation.model.ProductResponse;
 import com.nts.reservation.service.ProductService;
@@ -28,12 +31,17 @@ public class ProductServiceLogic implements ProductService {
 	public ProductResponse getProductResponse(ProductRequest productRequest) {
 
 		if (productRequest.isAllCategory()) {
-			return new ProductResponse(productDao.getAllCategoryProductList(productRequest.getStart()),
-				productDao.getAllCategoryProductCount());
+			List<Product> productList = productDao.getAllCategoryProductList(productRequest.getStart());
+			int productCount = productDao.getAllCategoryProductCount();
+
+			return new ProductResponse(productList, productCount);
+
 		} else {
-			return new ProductResponse(
-				productDao.getOneCategoryProductList(productRequest.getCategoryId(), productRequest.getStart()),
-				productDao.getOneCategoryProductCount(productRequest.getCategoryId()));
+			List<Product> productList = productDao.getOneCategoryProductList(productRequest.getCategoryId(),
+				productRequest.getStart());
+			int productCount = productDao.getOneCategoryProductCount(productRequest.getCategoryId());
+
+			return new ProductResponse(productList, productCount);
 		}
 
 	}
