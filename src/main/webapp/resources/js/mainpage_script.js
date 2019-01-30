@@ -36,6 +36,23 @@ function init(){
 	fetchPromos();
 	fetchProducts(0,0);	
 	fetchCategoryCounts();
+	
+}
+
+function xhrGetRequest(url,callback, isAsync){
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", url, isAsync);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	xhr.onreadystatechange = function(aEvt) {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				callback(xhr.responseText);
+			} else {
+				alert("Error fetching");
+			}
+		}
+	};
+	xhr.send();
 }
 
 // tab active css change and load more button visibility control
@@ -69,79 +86,45 @@ function initTab(){
 
 // fetch total number of rows in db by category
 function fetchCategoryCounts(){
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "/reservation/api/categories", true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				categoryData = JSON.parse(xhr.responseText).items;
-				console.log(categoryData)
-			} else {
-				alert("Error fetching promotions");
-			}
-		}
-	};
-	xhr.send();
+	xhrGetRequest("/reservation/api/categories",(respText)=>{
+		categoryData = JSON.parse(respText).items;
+	},true);
 }
 
 function fetchPromos(){
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "/reservation/api/promotions", true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				let promoTemplate = document.querySelector("#promotionItem").innerHTML;
-				promotionData = JSON.parse(xhr.responseText).items;
+	xhrGetRequest("/reservation/api/promotions",(respText)=>{
+		let promoTemplate = document.querySelector("#promotionItem").innerHTML;
+		promotionData = JSON.parse(respText).items;
 				
-				let resultHTML = "";
-				promotionData.forEach((promoItem)=>{
-					resultHTML += promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl)
-				})
-				promoContainer.innerHTML = resultHTML;
-				imgList = promoContainer.getElementsByTagName("li");
-				requestAnimationFrame(initPromoAnimation);
-			} else {
-				alert("Error fetching promotions");
-			}
-		}
-	};
-	xhr.send();
+		let resultHTML = "";
+		promotionData.forEach((promoItem)=>{
+			resultHTML +=
+				promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl)
+		})
+		promoContainer.innerHTML = resultHTML;
+		imgList = promoContainer.getElementsByTagName("li");
+		requestAnimationFrame(initPromoAnimation);
+	},true);
 }
 
 function fetchProducts(categoryId, start){
 	if(productData){
 		productData.items = null;
 	}
-	let xhr = new XMLHttpRequest();
-	xhr.open("GET","/reservation/api/products?start="+start+"&categoryId="+categoryId,true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-				/*
-				 * change the current productCountData according to current
-				 * category state
-				 */
-				if (xhr.status === 200) {
-					productData = JSON.parse(xhr.responseText);
-					if(categoryId ==0){
-						productNumberInd.innerText = productData.totalCount + "개";
-					}
-					else{
-						categoryData.items.forEach((data)=>{
-							if(data.id == categoryId){
-								productNumberInd.innerText = data.count + "개";
-							}
-						});
-					}
-					RenderItems();
-				} else {
-					alert("Error fetching products");
-				}
+	xhrGetRequest("/reservation/api/products?start="+start+"&categoryId="+categoryId,(respText)=>{
+		productData = JSON.parse(respText);
+		if(categoryId ==0){
+			productNumberInd.innerText = productData.totalCount + "개";
 		}
-	}
-	xhr.send();
+		else{
+			categoryData.items.forEach((data)=>{
+				if(data.id == categoryId){
+					productNumberInd.innerText = data.count + "개";
+				}
+			});
+		}
+		RenderProductItems();
+	},true);
 }
 
 
@@ -159,12 +142,12 @@ function switchCategory(category){
 		currentCategory = category;
 		page = 0;
 		fetchProducts(currentCategory,page*4);
-		RenderItems();
+		RenderProductItems();
 		document.querySelector("div.more > button").style.visibility = "visible";
 	}
 }
 
-function RenderItems(){
+function RenderProductItems(){
 	if(productData.items == null) return;
 	let count = 0;
 	productData.items.forEach((item)=> {
@@ -181,9 +164,10 @@ function RenderItems(){
 }
 
 function initPromoAnimation(){
+	// fix the layout in case of error
 	imgList.forEach((item)=>{
 		item.style.left = "0px";
-	})
+	});
 	setTimeout(()=>{
 		requestAnimationFrame(animation);
 	},3000);
