@@ -52,7 +52,7 @@ var mainPage = {
         if(categoryId) {
             params.categoryId = categoryId;
         }
-        this.httpMethod.sendGet("/reservation-service/api/products",params, function(response) {
+        sendGet("/reservation-service/api/products",params, function(response) {
             this.responseProducts(response);
         }.bind(this))
     },
@@ -60,7 +60,7 @@ var mainPage = {
      * @function requestCategories 카테고리 정보 요청
      */
     requestCategories : function() {
-        this.httpMethod.sendGet("/reservation-service/api/categories", null, function(response){
+        sendGet("/reservation-service/api/categories", null, function(response){
             this.responseCategories(response);
         }.bind(this))
     },
@@ -68,7 +68,7 @@ var mainPage = {
      * @function requestPromotions 프로모션 상품 요청 함수
      */
     requestPromotions: function () {
-        this.httpMethod.sendGet("/reservation-service/api/promotions", null, function(response){
+        sendGet("/reservation-service/api/promotions", null, function(response){
             this.responsePromotions(response);
         }.bind(this))
     },
@@ -231,31 +231,6 @@ var mainPage = {
         this.values.promotionAnimationRequestId = requestAnimationFrame(function() {
             this.updatePromotionAnimation()
         }.bind(this));
-    },
-    httpMethod: {
-        /**
-         * @function sendGet 서버에 Get 메서드 요청 함수.
-         * @param {String} path 요청 URL
-         * @param {JSON} params  
-         * @param {Function} onCallback 콜백 함수.
-         */
-        sendGet: function (path, params, onCallback) {
-            var data = "";
-            if(params){
-                data = Object.keys(params).map(function(key){
-                    return key + "=" + encodeURIComponent(params[key]);
-                }).join("&");
-            }
-            var request = new XMLHttpRequest();
-            request.addEventListener("load", function(event){
-                onCallback(event.target);
-            });
-        
-            var url = path + (data.length == 0 ? "" : "?") + data;
-            request.open("GET", url);
-            request.setRequestHeader("Content-type","charset=utf-8");
-            request.send();
-        }
     },
     /**
      * @function addCategoryEventListner 카테고리 탭 별 이벤트 리스너 추가 함수
