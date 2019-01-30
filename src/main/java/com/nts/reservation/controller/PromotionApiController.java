@@ -1,8 +1,6 @@
 package com.nts.reservation.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,14 +21,11 @@ public class PromotionApiController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+	public List<Promotion> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
 
 		List<Promotion> savaFileNameList = promotionService.getPromotions();
 
-		Map<String, Object> map = new HashMap<>();
-
-		map.put("save_file_name_list", savaFileNameList);
-		return map;
+		return savaFileNameList;
 	}
 }

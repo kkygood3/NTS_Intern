@@ -11,5 +11,5 @@ public class ProductDaoSqls {
 		+ "JOIN (SELECT product_id, place_name FROM display_info) as di "
 		+ "WHERE p.category_id = :category_id AND p.id = di.product_id "
 		+ "ORDER BY id DESC limit :start, :limit";
-	public static final String SELECT_COUNT = "SELECT count(*) FROM guestbook";
+	public static final String SELECT_COUNT = "SELECT count(id) FROM product";
 }

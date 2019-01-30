@@ -104,7 +104,6 @@
 	<li class="item">
 		<div class="item_preview">
 			<img alt="{description}" class="img_thumb" src="./{save_file_name}">
-			<span class="img_border"></span>
 		</div>
 		<div class="event_txt">
 			<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{place_name}</small> </h4>
@@ -112,6 +111,5 @@
 		</div>
 	</li>
     </script>
-    
 </body>
 </html>

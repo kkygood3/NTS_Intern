@@ -1,10 +1,10 @@
 var readyToSlide = false;
 
-
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetPromotionsAjax();
 	sendGetProductsAjax();
 	makePromotionSlide();
+	addButtonClickEvent();
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,6 @@ function sendGetPromotionsAjax() {
 }
 
 function makePromotionSlideHTML(promotions) {
-	promotions = promotions.save_file_name_list;
 	var html = document.getElementById("promotion_item").innerHTML;
 		
 	var resultHTML = "";
@@ -70,17 +69,23 @@ function makePromotionSlide() {
 
 
 function sendGetProductsAjax() {
+
+	var uls = document.getElementsByClassName("lst_event_box");
+	var start = 0;
+	start = uls[0].childElementCount + uls[1].childElementCount;
+	
 	httpRequest = new XMLHttpRequest();
 	
 	if(!httpRequest) {
 		return false;
 	}
-	httpRequest.open("GET", "./thumbnail_info");
+	httpRequest.open("GET", "./thumbnail_info?start=" + start);
 	httpRequest.onreadystatechange = function getProducts() {
 		if (httpRequest.readyState === XMLHttpRequest.DONE) {
 			if (httpRequest.status === 200) {
 			    var thumbnailInfos = JSON.parse(httpRequest.responseText);
-			    makeProductList(thumbnailInfos);
+			    setCounterBar(thumbnailInfos.product_count)
+			    makeProductList(thumbnailInfos.thumbnail_info_list);
 			} else {
 				return false;
 			}
@@ -89,15 +94,15 @@ function sendGetProductsAjax() {
 	httpRequest.send();
 }
 
+function setCounterBar(count) {
+	document.querySelector(".event_lst_txt > .pink").innerText = count + "개";
+}
+
 function makeProductList(thumbnailInfos) {
-//	alert(JSON.stringify(products));
-	thumbnailInfos = thumbnailInfos.thumbnail_info_list;
 	var html = document.getElementById("product_item").innerHTML;
 
 	var resultHTML = "";
 	thumbnailInfos.forEach((thumbnailInfo) => {
-//		alert(JSON.stringify(thumbnailInfo));
-//		alert(JSON.stringify(thumbnailInfo.description));
 	    resultHTML = html.replace("{id}", thumbnailInfo.id)
 	    				.replace("{description}", thumbnailInfo.description)
 	    				.replace("{description}", thumbnailInfo.description)
@@ -108,5 +113,12 @@ function makeProductList(thumbnailInfos) {
 		var index = uls[0].offsetHeight <= uls[1].offsetHeight ? 0 : 1;
 		uls[index].innerHTML += resultHTML;
 	});
-
 }
+
+function addButtonClickEvent() {
+	var moreButton = document.querySelector(".more > .btn");
+	moreButton.addEventListener('click', function(event){
+		alert("!!");
+	});
+}
+

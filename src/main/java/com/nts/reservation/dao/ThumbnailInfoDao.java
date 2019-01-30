@@ -1,7 +1,7 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_ALL_PAGING;
-import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_BY_CATERORY_PAGING;
+import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_ALL_WITH_PAGING;
+import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_BY_CATERORY_WITH_PAGING;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +26,12 @@ public class ThumbnailInfoDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<ThumbnailInfo> selectAll(Integer start, Integer limit) {
+	public List<ThumbnailInfo> selectAllCategoris(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 
-		return jdbc.query(SELECT_ALL_PAGING, params, rowMapper);
+		return jdbc.query(SELECT_ALL_WITH_PAGING, params, rowMapper);
 	}
 
 	public List<ThumbnailInfo> selectByCategory(Category category, Integer start, Integer limit) {
@@ -41,6 +41,6 @@ public class ThumbnailInfoDao {
 		params.put("start", start);
 		params.put("limit", limit);
 
-		return jdbc.query(SELECT_BY_CATERORY_PAGING, params, rowMapper);
+		return jdbc.query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
 	}
 }

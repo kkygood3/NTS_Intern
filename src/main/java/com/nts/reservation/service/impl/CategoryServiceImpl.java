@@ -19,5 +19,4 @@ public class CategoryServiceImpl implements CategoryService {
 		List<Category> list = promotionDao.selectAll();
 		return list;
 	}
-
 }
