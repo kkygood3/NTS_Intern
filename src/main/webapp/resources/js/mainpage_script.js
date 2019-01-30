@@ -14,11 +14,14 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
 // HTML Dom element / constants for faster access;
 const tabButton = document.querySelectorAll("div.section_event_tab ul li");
+const showMoreButton = document.querySelector("div.more > button");
+
 const promoContainer = document.querySelector("ul.visual_img");
 const productLists = document.querySelectorAll(".lst_event_box");
 const newProductItem = document.querySelector("#itemList").innerHTML;
 const productNumberInd =document.querySelector("p.event_lst_txt span");
 const promoTemplate = document.querySelector("#promotionItem").innerHTML;
+
 const promoContainerWidth = promoContainer.offsetWidth;
 const animationSpeed = 10;
 const animationStopDuration = 1000;
@@ -88,7 +91,7 @@ function initTab(){
 		categoryData.items.forEach((data)=>{
 			if(data.id == currentCategory){
 				if(data.count-4 <= page*4){
-					document.querySelector("div.more > button").style.visibility = "hidden";
+					showMoreButton.style.visibility = "hidden";
 				} 
 			}
 		});
@@ -159,7 +162,7 @@ function switchCategory(category){
 		currentCategory = category;
 		page = 0;
 		fetchProducts(currentCategory,page*4);
-		document.querySelector("div.more > button").style.visibility = "visible";
+		showMoreButton.style.visibility = "visible";
 	}
 }
 
