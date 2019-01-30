@@ -23,7 +23,7 @@
 <title>네이버 예약</title>
 <link href="resources/css/style.css" rel="stylesheet">
 <link rel="shortcut icon" href="resources/img/favicon.ico">
-
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 </head>
 
 <body onload="init()">
@@ -133,7 +133,7 @@
 		</div>
 	</footer>
 	<script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url('{promotionImageUrl}');width: 100%;">
+    <li class="item" style="background-image: url('{{productImageUrl}}');width: 100%;">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit"></h4>
@@ -146,14 +146,14 @@
 
 	<script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.html?id={id}" class="item_book">
+            <a href="detail.html?id={{productId}}" class="item_book">
                 <div class="item_preview">
-                    <img alt="{description}" class="img_thumb" src="{imageUrl}">
+                    <img alt="{{productDescription}}" class="img_thumb" src="{{productImageUrl}}">
                     <span class="img_border"></span>
                 </div>
                 <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-                    <p class="event_txt_dsc">{content}</p>
+                    <h4 class="event_txt_tit"> <span>{{productDescription}}</span> <small class="sm">{{placeName}}</small> </h4>
+                    <p class="event_txt_dsc">{{productContent}}</p>
                 </div>
             </a>
         </li>

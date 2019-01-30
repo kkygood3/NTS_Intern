@@ -12,13 +12,16 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
-// HTML Dom element constants for faster access;
+// HTML Dom element / constants for faster access;
 const tabButton = document.querySelectorAll("div.section_event_tab ul li");
 const promoContainer = document.querySelector("ul.visual_img");
 const productLists = document.querySelectorAll(".lst_event_box");
 const newProductItem = document.querySelector("#itemList").innerHTML;
 const productNumberInd =document.querySelector("p.event_lst_txt span");
+const promoTemplate = document.querySelector("#promotionItem").innerHTML;
 const promoContainerWidth = promoContainer.offsetWidth;
+const animationSpeed = 10;
+const animationStopDuration = 1000;
 
 // currently saved data for manipulation
 var promotionData = null;
@@ -30,7 +33,10 @@ var imgList = null;
 var currentCategory = 0;
 var page = 0;
 
-// will be loaded with body onload
+/**
+ * @init() : will be loaded with body onload, initialization function group
+ */
+
 function init(){
 	initTab();
 	fetchPromos();
@@ -38,6 +44,10 @@ function init(){
 	fetchCategoryCounts();
 }
 
+/**
+ * @xhrGetRequest() : pre-defined XmlHttpRequest Get method since get method
+ *                  will be used frequently
+ */
 function xhrGetRequest(url,callback, isAsync){
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", url, isAsync);
@@ -54,7 +64,9 @@ function xhrGetRequest(url,callback, isAsync){
 	xhr.send();
 }
 
-// tab active css change and load more button visibility control
+/**
+ * @initTab() : tab active css change and load more button visibility control
+ */
 function initTab(){
 	tabButton.forEach((item) => {
 		item.addEventListener("click",(e)=> {
@@ -84,7 +96,9 @@ function initTab(){
 	});
 }
 
-// fetch total number of rows in db by category
+/**
+ * @fetchCategoryCounts() : fetch total number of rows in db by category
+ */
 function fetchCategoryCounts(){
 	xhrGetRequest("/reservation/api/categories",(respText)=>{
 		categoryData = JSON.parse(respText).items;
@@ -93,14 +107,14 @@ function fetchCategoryCounts(){
 
 function fetchPromos(){
 	xhrGetRequest("/reservation/api/promotions",(respText)=>{
-		let promoTemplate = document.querySelector("#promotionItem").innerHTML;
 		promotionData = JSON.parse(respText).items;
-				
+		let bindTemplate = Handlebars.compile(promoTemplate);
+		
+		
 		let resultHTML = "";
 		promotionData.forEach((promoItem)=>{
-			resultHTML +=
-				promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl);
-		})
+			resultHTML +=bindTemplate(promoItem);
+		});
 		promoContainer.innerHTML = resultHTML;
 		imgList = promoContainer.getElementsByTagName("li");
 		requestAnimationFrame(initPromoAnimation);
@@ -150,15 +164,12 @@ function switchCategory(category){
 
 function RenderProductItems(){
 	if(productData.items == null) return;
-	let count = 0;
+	let count = 0;	
+	let bindTemplate = Handlebars.compile(newProductItem);
+	
 	productData.items.forEach((item)=> {
 		 productLists[count%2].innerHTML+=
-			   newProductItem.replace("{id}",item.productId)
-		 // globally replace, working as replace all
-							 .replace (/{description}/gi,item.productDescription)
-							 .replace ("{placeName}",item.placeName)
-							 .replace ("{content}",item.productContent)
-							 .replace ("{imageUrl}",item.productImageUrl);
+			 bindTemplate(item);
 		 count++;
 	});
 	
@@ -169,25 +180,30 @@ function initPromoAnimation(){
 	imgList.forEach((item)=>{
 		item.style.left = "0px";
 	});
+	
+	// timeout since first promoslide should be displayed before transition
 	setTimeout(()=>{
 		requestAnimationFrame(promoAnimation);
 	},3000);
 }
 
 /**
- * @animationSpeed : to control the speed or animation.
+ * @animationSpeed : to control the speed or animation, declared as const in
+ *                 global variable
  * 
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
+ * 
  * @stopDuration : in milliseconds, determines the stop duration of the
- *               animation when the image arrives in the right position
- * @animation()
+ *               animation when the image arrives in the right position ,
+ *               declared as const in global variable
+ * 
+ * @promoAnimation() : promotion animation with 2 for loops to control the
+ *                   accuracy of the stop-position
  */
 function promoAnimation(){
-	let animationSpeed = 10;
 	let needToStop = false;
-	let stopDuration = 1000;
-	
+
 	for(let iter = 0; iter<animationSpeed; iter++){
 		for(let i = 0; i<imgList.length; i++){
 			let currentLeft = parseInt(imgList[i].style.left);
@@ -205,7 +221,7 @@ function promoAnimation(){
 	if(needToStop){
 		setTimeout(()=>{
 			requestAnimationFrame(promoAnimation);
-		},stopDuration);
+		},animationStopDuration);
 	}
 	else {
 		requestAnimationFrame(promoAnimation);
