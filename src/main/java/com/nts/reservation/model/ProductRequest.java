@@ -12,7 +12,7 @@ public class ProductRequest {
 
 	private int categoryId;
 
-	@Min(value = 0, message = "start value must positive number")
+	@Min(value = 0, message = "start value must be positive number")
 	private int start;
 
 	public boolean isAllCategory() {
