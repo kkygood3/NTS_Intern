@@ -226,7 +226,7 @@
 			var rightList = productListBox.getElementsByTagName("ul")[1];
 			leftList.innerHTML = "";
 			rightList.innerHTML = "";
-			document.querySelector(".more .btn").disabled = false;
+			enableMoreButton();
 			addProducts(categoryId, start);
 		}
 
@@ -282,9 +282,10 @@
 			});
 		}
 
-		// empty, null, undefined 체크
-		function isEmpty(x) {
-			return (!x || 0 === x.length);
+		// more 버튼 enable 
+		function enableMoreButton() {
+			var button = document.querySelector(".more .btn");
+			button.disabled = false;
 		}
 
 		// more 버튼 disable 
