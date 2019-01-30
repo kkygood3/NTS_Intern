@@ -10,5 +10,5 @@ document.addEventListener("DOMContentLoaded", function() {
 			} else {
 				ul.style.left = Math.log(++left)*-15.78 + "px";
 			}	// 수치는 나중에 다시 계산해야함
-	},100);
+	},1);
 });

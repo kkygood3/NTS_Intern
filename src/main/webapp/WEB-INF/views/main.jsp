@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
+<link href="./css/main_slide.css" rel="stylesheet">
 <script type= "text/javascript" src= "./javascript/main/main.js" ></script>
 </head>
 <body>
@@ -97,30 +98,23 @@
 
 
     <script type="rv-template" id="promotion_item">
-    <li class="item" style="background-image: url(./img/{productId}/{productImageId});">
-        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
-            <div class="event_txt">
-                <h4 class="event_txt_tit"></h4>
-                <p class="event_txt_adr"></p>
-                <p class="event_txt_dsc"></p>
-            </div>
-        </a>
+    <li class="item" style="background-image: url(./{sava_file_name_list});">
     </li>
     </script>
 
     <script type="rv-template" id="product_item">
-        <li class="item">
-            <a href="detail.html?id={id}" class="item_book">
-                <div class="item_preview">
-                    <img alt="{description}" class="img_thumb" src="./img/{id}?type=th">
-                    <span class="img_border"></span>
-                </div>
-                <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-                    <p class="event_txt_dsc">{content}</p>
-                </div>
-            </a>
-        </li>
+	<li class="item">
+		<a href="detail.html?id={id}" class="item_book">
+			<div class="item_preview">
+				<img alt="{description}" class="img_thumb" src="./img/{id}?type=th">
+				<span class="img_border"></span>
+			</div>
+			<div class="event_txt">
+				<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+				<p class="event_txt_dsc">{content}</p>
+			</div>
+		</a>
+	</li>
     </script>
     
 </body>

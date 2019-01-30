@@ -1283,13 +1283,13 @@ button {
     white-space: nowrap
 }
 
-.group_visual .visual_img .item {
+/* .group_visual .visual_img .item {
     overflow: hidden;
     position: relative;
     display: inline-block;
     white-space: normal;
     vertical-align: top
-}
+} */
 
 .group_visual .visual_img .item .img_bg:before,.group_visual .visual_img .item .visual_txt {
     position: absolute;
@@ -2985,7 +2985,6 @@ button {
     overflow: hidden;
     position: relative;
     display: inline-block;
-    width: 84.4%;
     height: 177px;
     background-repeat: no-repeat;
     background-position: center center;

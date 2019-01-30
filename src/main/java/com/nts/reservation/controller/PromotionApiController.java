@@ -26,11 +26,11 @@ public class PromotionApiController {
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
 
-		List<Promotion> ProductList = promotionService.getPromotions();
+		List<Promotion> savaFileNameList = promotionService.getPromotions();
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("product_list", ProductList);
+		map.put("save_file_name_list", savaFileNameList);
 		return map;
 	}
 }
