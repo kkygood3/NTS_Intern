@@ -28,11 +28,9 @@ public class DbConnect {
 			properties = new Properties();
 			properties.load(fileReader);
 		} catch (FileNotFoundException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 1-1");
 			e.printStackTrace();
 		} catch (IOException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 1-2");
 			e.printStackTrace();
 		}
@@ -52,11 +50,9 @@ public class DbConnect {
 				properties.getProperty("user"), properties.getProperty("password"));
 
 		} catch (SQLException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 2-1");
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 2-2");
 			e.printStackTrace();
 		}

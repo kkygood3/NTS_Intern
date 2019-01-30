@@ -57,7 +57,6 @@ public class TodoTypeServlet extends HttpServlet {
 		try {
 			typeUpdateState = TodoDao.getInstance().updateTodo(todoDto);
 		} catch (RuntimeException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			e.printStackTrace();
 
 			ServerErrorException serverErrorException = new ServerErrorException(e);

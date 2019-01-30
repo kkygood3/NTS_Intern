@@ -64,7 +64,6 @@ public class TodoAddServlet extends HttpServlet {
 				System.out.println("TodoAddServlet.java 등록 실패");
 			}
 		} catch (RuntimeException e) {
-			// 로그 파일로 출력하고 사용자에게 보여주기
 			e.printStackTrace();
 
 			ServerErrorException serverErrorException = new ServerErrorException(e);

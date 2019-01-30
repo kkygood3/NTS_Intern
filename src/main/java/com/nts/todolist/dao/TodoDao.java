@@ -54,11 +54,9 @@ public class TodoDao {
 
 				todoList.add(todo);
 			}
-
 			return todoList;
 
 		} catch (SQLException e) {
-			// 로그 파일로 출력
 			e.printStackTrace();
 			System.out.println("SQLException 발생");
 		}
@@ -83,7 +81,6 @@ public class TodoDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			// 로그 파일로 출력
 			e.printStackTrace();
 			System.out.println("SQLException 발생");
 
@@ -108,7 +105,6 @@ public class TodoDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			// 로그 파일로 출력
 			e.printStackTrace();
 			System.out.println("SQLException 발생");
 
