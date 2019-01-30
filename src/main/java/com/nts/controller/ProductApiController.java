@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +22,6 @@ import com.nts.service.ProductService;
  * @author jinwoo.bae
  */
 @RestController
-@RequestMapping(path = "/api/products")
 public class ProductApiController {
 	@Autowired
 	ProductService productService;
@@ -30,8 +29,8 @@ public class ProductApiController {
 	/**
 	 * 상품정보들과 총개수를 가져와 json으로 리턴해준다.
 	 */
-	@GetMapping
-	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+	@GetMapping("/api/products")
+	public Map<String, Object> list(@RequestParam int start) {
 		List<ProductDto> list = productService.getProducts(start);
 		int count = productService.getCount();
 
@@ -46,9 +45,8 @@ public class ProductApiController {
 	 * 특정카테고리의 상품들을 start번째 부터 limit 범위만큼 가져와주고 
 	 * 해당카테고리에 몇개의 상품이 있는지도 계산하여 가져온후 json으로 리턴해준다.
 	 */
-	@GetMapping(params = {"categoryId"})
-	public Map<String, Object> list(@RequestParam(name = "categoryId", required = true) int categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+	@GetMapping("/api/categories/{categoryId}/products")
+	public Map<String, Object> list(@PathVariable int categoryId, @RequestParam int start) {
 		List<ProductDto> list = productService.getProductsByCategoryId(categoryId, start);
 		int count = productService.getCountByCategoryId(categoryId);
 

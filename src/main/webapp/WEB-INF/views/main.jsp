@@ -42,7 +42,7 @@
 			<!-- 카테고리 tab 구역 -->
 			<div class="section_event_tab">
 				<ul class="event_tab_lst tab_lst_min">
-					<li class="item">
+					<li class="item" data-category="0">
 						<a class="anchor active">
 							<span>전체리스트</span>
 						</a>
@@ -119,7 +119,7 @@
 		function init() {
 			setPromotions();
 			setCategories();
-			setProducts();
+			setProducts(0, 0);
 		}
 
 		// 프로모션정보를 서버로부터 불러와 해당dom에 설정한다.
@@ -204,6 +204,7 @@
 		// tabUI 이벤트리스너를 등록한다.
 		function setTabUI() {
 			var categoryTabList = document.querySelector(".tab_lst_min");
+			// 카테고리 클릭시 해당 카레고리의 프로덕트를 가져와 DOM에 설정
 			categoryTabList.addEventListener("click", function(evt) {
 				if (evt.target.tagName === "SPAN") {
 					var els = categoryTabList.querySelectorAll("a");
@@ -212,49 +213,34 @@
 					}
 					evt.target.parentNode.setAttribute("class", "anchor active");
 					var categoryId = evt.target.parentNode.parentNode.getAttribute("data-category");
-					setProducts(categoryId);
+					categoryId = parseInt(categoryId);
+					setProducts(categoryId, 0);
 				}
 			});
 		}
 
-		function setProducts() {
-			setProducts(null);
-		}
-
 		// 상품정보를 서버로부터 불러와 해당dom에 설정한다
-		function setProducts(categoryId) {
+		function setProducts(categoryId, start) {
 			var productListBox = document.querySelector(".wrap_event_box");
 			var leftList = productListBox.getElementsByTagName("ul")[0];
 			var rightList = productListBox.getElementsByTagName("ul")[1];
 			leftList.innerHTML = "";
 			rightList.innerHTML = "";
 			document.querySelector(".more .btn").disabled = false;
-			addProducts(categoryId);
-		}
-
-		function addProducts() {
-			addProducts(null, null);
-		}
-
-		function addProducts(categoryId) {
-			addProducts(categoryId, null);
+			addProducts(categoryId, start);
 		}
 
 		// 상품정보를 서버로부터 불러와 해당dom에 추가한다
 		function addProducts(categoryId, start) {
-			var params = "";
-			if (isEmpty(categoryId) && !isEmpty(start)) {
-				params = "?start=" + start;
-			} else if (!isEmpty(categoryId) && isEmpty(start)) {
-				params = "?categoryId=" + categoryId;
-			} else if (!isEmpty(categoryId) && !isEmpty(start)) {
-				params = "?categoryId=" + categoryId + "&start=" + start;
+			var url;
+			if (categoryId === 0) { // 전체리스트를 선택한 경우
+				url = "./api/products?start=" + start;
+			} else {
+				url = "./api/categories/" + categoryId + "/products?start=" + start;
 			}
-			
-			var xhr = new XMLHttpRequest();
-			var url = "./api/products";
 
-			xhr.open("GET", url + params);
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", url);
 			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 			xhr.send();
 
