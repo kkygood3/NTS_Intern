@@ -3,7 +3,7 @@
  */
 var globalVariable = {
 	getProductCount : 0,	// 해당 카테고리의 현재 리스트로 보여진 product의 갯수
-	imageItemIndex: 0,
+	promotionIndex: 0,		// 현재 프로모션 위치 
 	promotionLength : -1 	// 프로모션 전체 길이
 };
 var sendAjax = require('./sendAjax');
@@ -53,11 +53,11 @@ function setCategories(){
  */
 function setAnimatePromotions(){
 	
-	if(globalVariable.imageItemIndex > globalVariable.promotionLength) {
-		globalVariable.imageItemIndex = 0;
+	if(globalVariable.promotionIndex > globalVariable.promotionLength) {
+		globalVariable.promotionIndex = 0;
 	}
-	document.querySelector('.visual_img').style.transform = 'translateX('+(-100* globalVariable.imageItemIndex)+'%)';
-	globalVariable.imageItemIndex++;
+	document.querySelector('.visual_img').style.transform = 'translateX('+(-100* globalVariable.promotionIndex)+'%)';
+	globalVariable.promotionIndex++;
 }
 /**
  * @desc Products 셋팅
