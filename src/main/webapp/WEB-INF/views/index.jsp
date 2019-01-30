@@ -22,6 +22,8 @@
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
 <link href="resources/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
+
 </head>
 
 <body onload="init()">

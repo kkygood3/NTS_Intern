@@ -36,7 +36,6 @@ function init(){
 	fetchPromos();
 	fetchProducts(0,0);	
 	fetchCategoryCounts();
-	
 }
 
 function xhrGetRequest(url,callback, isAsync){
@@ -61,8 +60,9 @@ function initTab(){
 		item.addEventListener("click",(e)=> {
 			tabButton.forEach((item)=> {
 				let iter = item.firstElementChild;
-				if(iter.classList.contains("active"))
-				iter.classList.remove("active");
+				if(iter.classList.contains("active")){
+					iter.classList.remove("active");
+				}
 			});
 			let tab = e.target.closest("li");
 			tab.firstElementChild.classList.add("active");
@@ -99,7 +99,7 @@ function fetchPromos(){
 		let resultHTML = "";
 		promotionData.forEach((promoItem)=>{
 			resultHTML +=
-				promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl)
+				promoTemplate.replace("{promotionImageUrl}",promoItem.productImageUrl);
 		})
 		promoContainer.innerHTML = resultHTML;
 		imgList = promoContainer.getElementsByTagName("li");
@@ -131,7 +131,8 @@ function fetchProducts(categoryId, start){
 function switchCategory(category){
 	/*
 	 * When category switch action, remove all the elements in the list and
-	 * fetch + render items obtained. Force visbility of load more button
+	 * fetch + render items obtained. Force visbility of load more button page
+	 * returns to 0;
 	 */
 	if(category!=currentCategory){
 		productLists.forEach((list)=>{
@@ -169,7 +170,7 @@ function initPromoAnimation(){
 		item.style.left = "0px";
 	});
 	setTimeout(()=>{
-		requestAnimationFrame(animation);
+		requestAnimationFrame(promoAnimation);
 	},3000);
 }
 
@@ -182,7 +183,7 @@ function initPromoAnimation(){
  *               animation when the image arrives in the right position
  * @animation()
  */
-function animation(){
+function promoAnimation(){
 	let animationSpeed = 10;
 	let needToStop = false;
 	let stopDuration = 1000;
@@ -203,10 +204,10 @@ function animation(){
 	
 	if(needToStop){
 		setTimeout(()=>{
-			requestAnimationFrame(animation);
+			requestAnimationFrame(promoAnimation);
 		},stopDuration);
 	}
 	else {
-		requestAnimationFrame(animation);
+		requestAnimationFrame(promoAnimation);
 	}
 }
