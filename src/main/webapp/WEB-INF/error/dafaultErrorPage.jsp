@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" href="./css/base.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>요청하신 페이지를 찾을 수 없습니다.</title>
 </head>
 <body id="defaultError">
 	<pre>

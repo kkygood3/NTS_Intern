@@ -8,4 +8,8 @@
 		<error-code>404</error-code>
 		<location>/WEB-INF/error/dafaultErrorPage.jsp</location>
 	</error-page>
+	
+	<welcome-file-list>
+		<welcome-file>main</welcome-file>
+	</welcome-file-list>
 </web-app>
