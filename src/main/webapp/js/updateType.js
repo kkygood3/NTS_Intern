@@ -8,20 +8,20 @@ function updateType(id) {
 	
 	var xmlHttpRequest = new XMLHttpRequest();
 	xmlHttpRequest.addEventListener("load", function() {
-		var afterType;
+		var nextType;
 		
 		if (type === "TODO") {
-			afterType = "DOING";
+			nextType = "DOING";
 		} else if (type === "DOING") {
-			afterType = "DONE";
+			nextType = "DONE";
 		}
 		
-		removeButton(todo, afterType);
+		removeButton(todo, nextType);
 		
-		var beforeList = todo.parentElement;
-		var afterList = document.querySelector("#ul-" + afterType);
+		var todoList = todo.parentElement;
+		var nextTodoList = document.querySelector("#ul-" + nextType);
 		
-		updateList(todo, beforeList, afterList);
+		updateList(todo, todoList, nextTodoList);
 				
 	});
 	xmlHttpRequest.open("PUT", "/todoUpdate?id=" + id.split("-")[2] + "&type=" + type);
@@ -31,8 +31,8 @@ function updateType(id) {
 /**
  * TodoDto 객체의 type 속성값이 DOING에서 DONE으로 바뀔 경우 이동버튼을 삭제합니다.
  */
-function removeButton(todo, afterType) {
-	if (afterType === "DONE") {
+function removeButton(todo, nextType) {
+	if (nextType === "DONE") {
 		var updateButton = todo.querySelector(".updateButton");
 		updateButton.parentNode.removeChild(updateButton);
 	}
@@ -42,18 +42,18 @@ function removeButton(todo, afterType) {
  * 버튼을 누르는 이벤트가 발생 시 리스트를 이동시킵니다. (TODO에서 DOING으로, DOING에서 DONE으로)
  * 이때 이동할 목록이 리스트를 가지고 있으면 리스트들의 data-value 값인 날짜를 비교해 빠른 날짜가 위로 오게 삽입합니다.
  */
-function updateList(todo, beforeList, afterList) {
-	if (afterList.getElementsByTagName('li')[1] == undefined) {
-		var afterListTitle = afterList.getElementsByTagName('li')[0];
+function updateList(todo, todoList, nextTodoList) {
+	if (nextTodoList.getElementsByTagName('li')[1] == undefined) {
+		var nextTodoListTitle = nextTodoList.getElementsByTagName('li')[0];
 		
-		afterList.insertBefore(todo, afterListTitle.nextSibling);
+		nextTodoList.insertBefore(todo, nextTodoListTitle.nextSibling);
 	} else {
-		var afterListChild = afterList.getElementsByTagName('li')[1];
+		var nextTodoListChild = nextTodoList.getElementsByTagName('li')[1];
 		
-		while ( afterListChild !== null && afterListChild.getAttribute( 'data-regdate' ) <= todo.getAttribute( 'data-regdate' ) ) {
-			afterListChild = afterListChild.nextElementSibling;
+		while ( nextTodoListChild !== null && nextTodoListChild.getAttribute( 'data-regdate' ) <= todo.getAttribute( 'data-regdate' ) ) {
+			nextTodoListChild = nextTodoListChild.nextElementSibling;
 		}
-		afterList.insertBefore(todo, afterListChild);
+		nextTodoList.insertBefore(todo, nextTodoListChild);
 	}
 }
 

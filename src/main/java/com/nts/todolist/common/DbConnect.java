@@ -18,7 +18,7 @@ import java.util.Properties;
 public class DbConnect {
 
 	/**
-	 * 데이터베이스 연결에 사용되는 url, user, password, driver 정보를 저장한 properties 파일에서 정보를 가져옵니다.
+	 * 데이터베이스 연결에 사용되는 url, user, password, driver 정보를 저장한 properties 파일에서 정보를 가져옴
 	 */
 	public static Properties getProperties() {
 		String propertiesPath = DbConnect.class.getResource("").getPath();
@@ -28,21 +28,19 @@ public class DbConnect {
 			properties = new Properties();
 			properties.load(fileReader);
 		} catch (FileNotFoundException e) {
-			//
+			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 1-1");
-			//
 			e.printStackTrace();
 		} catch (IOException e) {
-			//
+			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 1-2");
-			//
 			e.printStackTrace();
 		}
 		return properties;
 	}
 
 	/**
-	 * properties 파일에서 읽어온 정보로 데이터베이스를 연결합니다.
+	 * properties 파일에서 읽어온 정보로 데이터베이스를 연결
 	 */
 	public static Connection getConnection() {
 		Properties properties = getProperties();
@@ -54,17 +52,14 @@ public class DbConnect {
 				properties.getProperty("user"), properties.getProperty("password"));
 
 		} catch (SQLException e) {
-			//
+			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 2-1");
-			//
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			//
+			// 로그 파일로 출력하고 사용자에게 보여주기
 			System.out.println("DbConnect.java 예외처리 2-2");
-			//
 			e.printStackTrace();
 		}
-
 		return connection;
 	}
 

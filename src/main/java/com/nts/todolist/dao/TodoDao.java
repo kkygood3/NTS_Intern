@@ -30,8 +30,12 @@ public class TodoDao {
 		return TodoDaoHolder.INSTANCE;
 	}
 
+	/**
+	 * 데이터베이스에 저장된 TodoDto 객체를 요소로 갖는 List를 생성하여 반환
+	 * @return 올바르게 동작한 경우 TodoDto 타입의 List를, 그렇지 않은 경우 비어있는 List를 반환
+	 */
 	public List<TodoDto> getTodos() {
-		List<TodoDto> todos = new ArrayList<>();
+		List<TodoDto> todoList = new ArrayList<>();
 
 		try (
 			Connection connection = DbConnect.getConnection();
@@ -41,7 +45,6 @@ public class TodoDao {
 
 			while (resultSet.next()) {
 				TodoDto todo = new TodoDto();
-
 				todo.setId(resultSet.getLong("id"));
 				todo.setTitle(resultSet.getString("title"));
 				todo.setName(resultSet.getString("name"));
@@ -49,22 +52,25 @@ public class TodoDao {
 				todo.setType(resultSet.getString("type"));
 				todo.setRegdate(resultSet.getString("regdate"));
 
-				todos.add(todo);
+				todoList.add(todo);
 			}
 
-			return todos;
+			return todoList;
 
 		} catch (SQLException e) {
-			//
-			System.out.println("TodoDao.java 예외처리 1");
-			//
+			// 로그 파일로 출력
 			e.printStackTrace();
+			System.out.println("SQLException 발생");
 		}
 		return Collections.emptyList();
 	}
 
-	public int addTodo(TodoDto todoDto) throws Exception {
-
+	/**
+	 * 데이터베이스에 TodoDto 객체를 삽입
+	 * @param todoDto TodoDto
+	 * @return PreparedStatement 객체의 executeUpdate() 메소드의 반환값
+	 */
+	public int addTodo(TodoDto todoDto) throws RuntimeException {
 		try (
 			Connection connection = DbConnect.getConnection();
 			PreparedStatement preparedStatement = connection
@@ -77,16 +83,20 @@ public class TodoDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			//
-			System.out.println("TodoDao.java 예외처리 2");
-			//
+			// 로그 파일로 출력
 			e.printStackTrace();
+			System.out.println("SQLException 발생");
+
+			throw new RuntimeException(e);
 		}
-		return -1;
 	}
 
-	public int updateTodo(TodoDto todoDto) throws Exception {
-
+	/**
+	 * 데이터베이스에 저장된 TodoDto 객체의 타입을 갱신
+	 * @param todoDto
+	 * @return PreparedStatement 객체의 executeUpdate() 메소드의 반환값
+	 */
+	public int updateTodo(TodoDto todoDto) throws RuntimeException {
 		try (
 			Connection connection = DbConnect.getConnection();
 			PreparedStatement preparedStatement = connection
@@ -98,12 +108,12 @@ public class TodoDao {
 			return preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			//
-			System.out.println("TodoDao.java 예외처리 3");
-			//
+			// 로그 파일로 출력
 			e.printStackTrace();
+			System.out.println("SQLException 발생");
+
+			throw new RuntimeException(e);
 		}
-		return -1;
 	}
 
 }

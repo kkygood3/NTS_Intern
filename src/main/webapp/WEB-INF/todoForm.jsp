@@ -23,6 +23,9 @@
                     <input type="text" name="name" maxlength="17" value="홍길동" class="input-todoForm">
                 </div>
                 <div>
+                	<p id="notice">( 문자와 숫자로 구성하여 제목은 24자 이내(공백 포함), 이름은 17자 이내(공백 미포함) )
+                </div>
+                <div>
                     <p>우선순위를 선택하세요</p>
                     <input type="radio" name="sequence" value="1" required>1순위
                     <input type="radio" name="sequence" value="2">2순위

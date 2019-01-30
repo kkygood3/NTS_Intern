@@ -6,6 +6,7 @@ package com.nts.todolist.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -26,6 +27,7 @@ import com.nts.todolist.dto.TodoDto;
 public class MainServlet extends HttpServlet {
 
 	/**
+	 * 데이터베이스에 저장된 TodoDto 객체들을 화면에 출력
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
@@ -35,41 +37,37 @@ public class MainServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		List<TodoDto> allTypeList = TodoDao.getInstance().getTodos();
+		HashMap<TodoType, List<TodoDto>> todoListMap = getTodoListMap(allTypeList);
+
+		for (TodoType todoType : TodoType.getTodoTypeList()) {
+			request.setAttribute(todoType.getTodoType().toLowerCase() + "List", todoListMap.get(todoType));
+		}
+
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
+		requestDispatcher.forward(request, response);
+	}
+
+	/**
+	 * HashMap 타입의 객체를 생성하여 반환 (이 때 각 타입을 key로, 타입에 해당하는 TodoDto 객체의 List를 value로 가짐)
+	 * @param allTypeList 타입과 상관없이 모든 TodoDto 객체를 요소로 갖는 List
+	 * @return key를 타입으로, value를 타입에 해당하는 TodoDto 객체의 List로 갖는 HashMap 타입의 객체를 반환
+	 */
+	private HashMap<TodoType, List<TodoDto>> getTodoListMap(List<TodoDto> allTypeList) {
 		List<TodoDto> todoList = new ArrayList<>();
 		List<TodoDto> doingList = new ArrayList<>();
 		List<TodoDto> doneList = new ArrayList<>();
 
-		for (TodoDto todoDto : allTypeList) {
-			TodoType type = TodoType.valueOf(todoDto.getType());
+		HashMap<TodoType, List<TodoDto>> todoListMap = new HashMap<TodoType, List<TodoDto>>();
+		todoListMap.put(TodoType.TODO, todoList);
+		todoListMap.put(TodoType.DOING, doingList);
+		todoListMap.put(TodoType.DONE, doneList);
 
-			if (type == TodoType.TODO) {
-				todoList.add(todoDto);
-			} else if (type == TodoType.DOING) {
-				doingList.add(todoDto);
-			} else if (type == TodoType.DONE) {
-				doneList.add(todoDto);
-			}
+		for (TodoDto todoDto : allTypeList) {
+			TodoType todoType = TodoType.valueOf(todoDto.getType());
+			todoListMap.get(todoType).add(todoDto);
 		}
 
-		request.setAttribute("todoList", todoList);
-		request.setAttribute("doingList", doingList);
-		request.setAttribute("doneList", doneList);
-
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
-		requestDispatcher.forward(request, response);
-
+		return todoListMap;
 	}
-
-	//	private List<TodoDto> getTodoDtoList(ㅁ) {
-	//		List<TodoDto> todoDtoList = new ArrayList<>();
-	//
-	//		for (TodoDto todoDto : allTypeList) {
-	//
-	//			if (todoDtoType == todoType) {
-	//				todoDtoList.add(todoDto);
-	//			}
-	//		}
-	//		return todoDtoList;
-	//	}
 
 }

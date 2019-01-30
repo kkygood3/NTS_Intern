@@ -5,6 +5,7 @@
 /build/
 
 /WebContent/META-INF/
+/src/test/java/
 
 .idea/
 *.iml

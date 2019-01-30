@@ -85,6 +85,12 @@ p#title {
 	font-weight: bold;
 }
 
+p#notice {
+	text-align: center;
+	font-size: 10px;
+	color: gray;
+}
+
 div#button-left {
 	float: left;
 	display: block;
@@ -117,4 +123,8 @@ div#button-right {
 
 input#work {
 	width: 100%;
+}
+
+body#defaultError {
+	text-align: center;
 }
