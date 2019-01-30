@@ -64,6 +64,28 @@ function clearProductLists() {
 	});
 }
 
+function slidePromotion(){
+	setTimeout(() =>{
+		var promotionList = document.querySelector("#promotion_list");
+		promotionList.className = "visual_img slide";
+		readjustPromotionList(promotionList);
+	}, 1000);
+}
+
+function readjustPromotionList(promotionList){
+	setTimeout(() => {
+		promotionList.className = "visual_img";
+		movePromotionHeadToTail(promotionList);
+		slidePromotion();
+	}, 1000);
+}
+
+function movePromotionHeadToTail(promotionList){
+	var promotionItem = promotionList.firstElementChild
+	promotionList.removeChild(promotionItem);
+	promotionList.appendChild(promotionItem);
+}
+
 document.addEventListener("DOMContentLoaded", function(){
 	loadContent("/api/promotions", "GET", printPromotions);
 	loadContent("/api/categories", "GET", printCategories);
@@ -71,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function(){
 	
 	addClickEventCategoryChange();
 	addClickEventMoreBtn();
+	slidePromotion();
 });
 
 function addClickEventCategoryChange(){

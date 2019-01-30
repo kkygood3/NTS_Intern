@@ -2976,25 +2976,14 @@ button {
     backface-visibility: hidden
 }
 
-@keyframes slidy {
-0% { left: 0%; }
-9% { left: -100%; }
-18% { left: -200%; }
-27% { left: -300%; }
-36% { left: -400%; }
-45% { left: -500%; }
-54% { left: -600%; }
-63% { left: -700%; }
-72% { left: -800%; }
-81% { left: -900%; }
-90% {left: -1000%; }
-99% {left: 0%; }
-}
-
 .event .section_visual .group_visual .container_visual .visual_img {
     position: relative;
     min-height: 177px;
-	animation: 30s slidy ease-in-out infinite;
+}
+
+.event .section_visual .group_visual .container_visual .visual_img.slide {
+    transition: transform 1s ease-in-out;
+    transform: translateX(-100%);
 }
 
 .event .section_visual .group_visual .container_visual .visual_img .item {
