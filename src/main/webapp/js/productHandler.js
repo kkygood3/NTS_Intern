@@ -2,16 +2,7 @@
 var currentCount = 0;
 var currentCategoryId = 0;
  
-/**
- * @description : EventList 내용 제거
- */
-function eventListClear(){
-	var eventUl = document.querySelectorAll(".lst_event_box");
-	eventUl.forEach((v)=>{
-	    v.innerText="";
-	    }
-	);
-}
+
 
 /**
  * @description : get method로 Product List를 요청
@@ -101,7 +92,6 @@ function productReset(categoryId){
 	currentCategoryId = categoryId;
 	currentCount = 4;
 	productListRequest(currentCategoryId, 0);
-	eventListClear();
 	
 	addMoreButtonListener();
 }

@@ -1,4 +1,15 @@
-var categories = new Array();
+var categories;
+
+/**
+ * @description : EventList 내용 제거
+ */
+function eventListClear(){
+	var eventUl = document.querySelectorAll(".lst_event_box");
+	eventUl.forEach((v)=>{
+	    v.innerText="";
+	    }
+	);
+}
 
 /**
  * @description : get method로 Category List를 요청
@@ -43,6 +54,7 @@ function appendTabList(items){
 	document.querySelector(".event_lst_txt").firstElementChild.innerText = count + "개";
 	
 	allList["count"] = count;
+	categories = new Array();
 	categories[0] = allList;
 	categories = categories.concat(items);
 	
