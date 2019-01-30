@@ -10,7 +10,7 @@ function eventListClear(){
 	    }
 	);
 }
-
+ 
 /**
  * @description : get method로 Category List를 요청
  */
