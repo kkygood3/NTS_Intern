@@ -35,7 +35,6 @@ function getCategories() {
 	}
 }
 
-let showMoreButton = document.querySelector(".more");
 let selectedCategoryId;
 let start = 0;
 let displayedProduct = 0;
@@ -70,6 +69,13 @@ tab.addEventListener("click", function(event){
 		
 		getProductsByCategory(selectedCategoryId, start);
 	}
+});
+
+let showMoreButton = document.querySelector(".more");
+showMoreButton.addEventListener("click", function(event){
+	const productsPerPage = 4;
+	start += productsPerPage;
+	getProductsByCategory(selectedCategoryId, start);
 });
 
 function getProductsByCategory(categoryId, start = 0) {
@@ -119,12 +125,6 @@ function getProductsByCategory(categoryId, start = 0) {
 	}
 }
 
-showMoreButton.addEventListener("click", function(event){
-	const productsPerPage = 4;
-	start += productsPerPage;
-	getProductsByCategory(selectedCategoryId, start);
-});
-
 let executeAnimationTime;
 function getPromotions() {
 	let httpRequest;
@@ -135,7 +135,7 @@ function getPromotions() {
 		httpRequest.onreadystatechange = function() {
 			let jsonResponse;
 			let promotionContainer = document.querySelector(".visual_img");
-			let promotionTemplate = document.querySelector("#promotionItem").innerHTML;;
+			let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
