@@ -36,7 +36,6 @@ var page = 0;
 /**
  * @init() : will be loaded with body onload, initialization function group
  */
-
 function init(){
 	initTab();
 	fetchPromos();
@@ -101,26 +100,25 @@ function initTab(){
  */
 function fetchCategoryCounts(){
 	xhrGetRequest("/reservation/api/categories",(respText)=>{
-		categoryData = JSON.parse(respText).items;
+		categoryData = JSON.parse(respText);
 	},true);
 }
 
+/**
+ * @fetchCategoryCounts() : fetch all information related to promotions
+ */
 function fetchPromos(){
 	xhrGetRequest("/reservation/api/promotions",(respText)=>{
 		promotionData = JSON.parse(respText).items;
-		let bindTemplate = Handlebars.compile(promoTemplate);
-		
-		
-		let resultHTML = "";
-		promotionData.forEach((promoItem)=>{
-			resultHTML +=bindTemplate(promoItem);
-		});
-		promoContainer.innerHTML = resultHTML;
-		imgList = promoContainer.getElementsByTagName("li");
-		requestAnimationFrame(initPromoAnimation);
+		renderPromoItems();
 	},true);
 }
 
+/**
+ * @fetchProducts() : fetch products to be loaded on the next step by category,
+ *                  if categoryId == 0 || not in between 1 to 5, all category
+ *                  will be searched
+ */
 function fetchProducts(categoryId, start){
 	if(productData){
 		productData.items = null;
@@ -142,6 +140,10 @@ function fetchProducts(categoryId, start){
 }
 
 
+/**
+ * @switchCategory() : current category will be switched, and related operation
+ *                   will be done
+ */
 function switchCategory(category){
 	/*
 	 * When category switch action, remove all the elements in the list and
@@ -157,24 +159,43 @@ function switchCategory(category){
 		currentCategory = category;
 		page = 0;
 		fetchProducts(currentCategory,page*4);
-		RenderProductItems();
 		document.querySelector("div.more > button").style.visibility = "visible";
 	}
 }
 
+/**
+ * @RenderProductItems() : Loaded product items will be deployed on html, split
+ *                       the list of products by the order in the data;
+ */
 function RenderProductItems(){
-	if(productData.items == null) return;
-	let count = 0;	
+	let indexCount = 0;	
 	let bindTemplate = Handlebars.compile(newProductItem);
-	
 	productData.items.forEach((item)=> {
-		 productLists[count%2].innerHTML+=
+		 productLists[indexCount%2].innerHTML+=
 			 bindTemplate(item);
-		 count++;
-	});
-	
+		 indexCount++;
+	});	
 }
 
+/**
+ * @renderPromoItems() : Loaded promo items will be deployed on html
+ */
+function renderPromoItems(){
+	let bindTemplate = Handlebars.compile(promoTemplate);
+	
+	let resultHTML = "";
+	promotionData.forEach((promoItem)=>{
+		resultHTML +=bindTemplate(promoItem);
+	});
+	promoContainer.innerHTML = resultHTML;
+	imgList = promoContainer.getElementsByTagName("li");
+	requestAnimationFrame(initPromoAnimation);
+}
+
+/**
+ * @initPromoAnimation() : required setup for the promo animation, and
+ *                       initialization of animation fram call
+ */
 function initPromoAnimation(){
 	// fix the layout in case of error
 	imgList.forEach((item)=>{

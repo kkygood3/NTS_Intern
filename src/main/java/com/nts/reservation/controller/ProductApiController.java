@@ -6,7 +6,6 @@ package com.nts.reservation.controller;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,7 @@ public class ProductApiController {
 
 	@GetMapping("/categories")
 	public Map<String, Object> getCountsByCategory() {
-		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.getProductsCountByCategory());
-		return result;
+		return productService.getProductsCountByCategory();
 	}
 
 	@GetMapping("/promotions")
