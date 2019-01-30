@@ -95,4 +95,3 @@ function productReset(categoryId){
 	
 	addMoreButtonListener();
 }
- 

@@ -1,7 +1,7 @@
 var categories;
 
 /**
- * @description : EventList 내용 제거
+ * @description : EventList 내용 제거 
  */
 function eventListClear(){
 	var eventUl = document.querySelectorAll(".lst_event_box");
