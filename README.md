@@ -15,12 +15,11 @@
 
    - URI
 
-     | METHOD | URI   |
-     | ------ | ----- |
-     | GET    | /main |
+   | METHOD | URI   |
+   | ------ | ----- |
+   | GET    | /main |
 
    - 구현 내용
-
      - 페이지 렌더링으로 controller를 이용하여 mainpage.jsp와 매핑
 
 2. API
@@ -39,9 +38,9 @@
 
    - URI
 
-     | METHOD | URI           | PARAMS                       | RETURN                                                       |
-     | ------ | ------------- | ---------------------------- | ------------------------------------------------------------ |
-     | GET    | /api/products | categoryId, start(시작 지점) | items : {Product List} , totalCount {카테고리 별 총 아이템 갯수} |
+   | METHOD | URI           | PARAMS                       | RETURN                                                       |
+   | ------ | ------------- | ---------------------------- | ------------------------------------------------------------ |
+   | GET    | /api/products | categoryId, start(시작 지점) | items : {Product List} , totalCount {카테고리 별 총 아이템 갯수} |
 
    - 구현 내용
 
@@ -57,9 +56,9 @@
 
    - URI
 
-     | METHOD | URI             | RETURN                  |
-     | ------ | --------------- | ----------------------- |
-     | GET    | /api/promotions | items :{Promotion List} |
+   | METHOD | URI             | RETURN                  |
+   | ------ | --------------- | ----------------------- |
+   | GET    | /api/promotions | items :{Promotion List} |
 
    - 구현 내용
 
