@@ -231,9 +231,9 @@ function initPromoAnimation(){
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
  * 
- * @stopDuration : in milliseconds, determines the stop duration of the
- *               animation when the image arrives in the right position ,
- *               declared as const in global variable
+ * @animationStopDuration : in milliseconds, determines the stop duration of the
+ *                        animation when the image arrives in the right position ,
+ *                        declared as const in global variable
  * 
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
