@@ -200,7 +200,9 @@ var mainPage = {
 		promotions.forEach(function(promotion, index) {
 			var params = {
 				image_url : "./" + promotion.productImageUrl,
-				index : index
+				index : index,
+				place : promotion.placeName,
+				description : promotion.productDescription
 			}
 			resultHtml += this.replaceTemplate(template, params);
 		}.bind(this))
