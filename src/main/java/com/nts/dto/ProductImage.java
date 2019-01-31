@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 ProductImage Table에 대응하는 DTO
+ */
 public class ProductImage {
 	private long id;
 	private long productId;

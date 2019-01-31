@@ -8,6 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * Service, Repository Config
+ */
 @Configuration
 @ComponentScan({"com.nts.dao", "com.nts.service"})
 @Import({DBConfig.class})

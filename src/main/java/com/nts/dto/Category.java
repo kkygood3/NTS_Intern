@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 Category Table에 대응하는 DTO
+ */
 public class Category {
 	private long id;
 	private String name;

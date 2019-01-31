@@ -14,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Controller Config
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.nts.controller")

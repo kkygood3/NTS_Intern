@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 Product Table에 대응하는 DTO
+ */
 public class Product {
 	private long id;
 	private long categoryId;

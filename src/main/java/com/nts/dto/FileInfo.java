@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 FileInfo Table에 대응하는 DTO
+ */
 public class FileInfo {
 	private long id;
 	private String fileName;

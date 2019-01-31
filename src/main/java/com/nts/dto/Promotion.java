@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 Promotion Table에 대응하는 DTO
+ */
 public class Promotion {
 	private long id;
 	private long productId;

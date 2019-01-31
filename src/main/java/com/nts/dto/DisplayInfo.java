@@ -4,6 +4,9 @@
  */
 package com.nts.dto;
 
+/**
+ * DB의 DisplayInfo Table에 대응하는 DTO
+ */
 public class DisplayInfo {
 	private long id;
 	private long productId;
