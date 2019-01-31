@@ -5,18 +5,13 @@
 
 package com.nts.reservation.config;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,32 +22,23 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
  */
 @Configuration
 @EnableTransactionManagement
+@PropertySource("classpath:application.properties")
 public class DBConfig implements TransactionManagementConfigurer {
 
-	@Autowired
-	private ResourceLoader resourceLoader;
-
+	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
+
+	@Value("${spring.datasource.url}")
 	private String url;
 
+	@Value("${spring.datasource.username}")
 	private String username;
+
+	@Value("${spring.datasource.password}")
 	private String password;
 
 	@Bean
 	public DataSource dataSource() {
-
-		Resource resource = resourceLoader.getResource("classpath:application.properties");
-		try {
-			InputStream inputStream = resource.getInputStream();
-			Properties dbProperties = new Properties();
-			dbProperties.load(inputStream);
-			driverClassName = dbProperties.getProperty("spring.datasource.driver-class-name");
-			url = dbProperties.getProperty("spring.datasource.url");
-			username = dbProperties.getProperty("spring.datasource.username");
-			password = dbProperties.getProperty("spring.datasource.password");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
