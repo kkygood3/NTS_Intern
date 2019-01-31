@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nts.todolist.common.StringUtils;
+import com.nts.todolist.common.Validator;
 import com.nts.todolist.dao.TodoDao;
 import com.nts.todolist.dto.TodoDto;
 import com.nts.todolist.exception.DatabaseAccessException;
@@ -43,10 +43,9 @@ public class TodoAddServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String name = request.getParameter("name");
 		String sequence = request.getParameter("sequence");
-		
-		// 양식과 다를 경우 Alert
-		if(!StringUtils.isValid(title, name, sequence)) {
-			printErrorAlertToJsp(response);
+
+		if (Validator.isInvalid(title, name, sequence)) {
+			alertAndGo(response);
 			return;
 		}
 
@@ -60,21 +59,26 @@ public class TodoAddServlet extends HttpServlet {
 			request.setAttribute("errorMessage", e.getMessage());
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/error.jsp");
 			requestDispatcher.forward(request, response);
-			return;
 		}
-		
-		
+
 	}
 
-	private void printErrorAlertToJsp(HttpServletResponse response) throws IOException {
+	private void alertAndGo(HttpServletResponse response) throws IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter printWriter = response.getWriter();
+		printWriter.write("<!DOCTYPE html>");
+		printWriter.write("<html>");
+		printWriter.write("<title>Error Page!</title>");
+		printWriter.write("<body>");
 		printWriter.write("<script>");
 		printWriter.write("alert('알맞은 값을 입력하십시오.');");
 		printWriter.write("location.href='/todoForm'");
 		printWriter.write("</script>");
+		printWriter.write("</body>");
+		printWriter.write("</html>");
 		printWriter.close();
+		
+		
 	}
-
 
 }

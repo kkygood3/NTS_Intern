@@ -22,7 +22,7 @@
 			<aside class="content_box" id="todo">
 				<h3 class="title">TODO</h3>
 
-				<c:forEach items="${ todoList }" var="todoList">
+				<c:forEach items="${ groupByType.get('TODO') }" var="todoList">
 					<article class="card" id="${ todoList.id }">
 						<h3>${ todoList.title }</h3>
 						등록날짜: ${ todoList.regdate }, ${ todoList.name }, ${ todoList.sequence }
@@ -38,7 +38,7 @@
 			<aside class="content_box" id="doing">
 				<h3 class="title">DOING</h3>
 
-				<c:forEach items="${ doingList }" var="doingList">
+				<c:forEach items="${ groupByType.get('DOING') }" var="doingList">
 					<article class="card" id="${ doingList.id }">
 						<h3>${ doingList.title }</h3>
 						등록날짜: ${ doingList.regdate }, ${ doingList.name }, ${ doingList.sequence }
@@ -52,7 +52,7 @@
 			<!-- DONE -->
 			<aside class="content_box" id="done">
 				<h3 class="title">DONE</h3>
-				<c:forEach items="${ doneList }" var="doneList">
+				<c:forEach items="${ groupByType.get('DONE') }" var="doneList">
 					<article class="card" id="${ doneList.id }">
 						<h3>${ doneList.title }</h3>
 						등록날짜: ${ doneList.regdate }, ${ doneList.name }, ${ doneList.sequence }
