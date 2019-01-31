@@ -19,14 +19,14 @@ import com.nts.todolist.exception.DatabaseAccessException;
  * @author yongjoon.Park
  *
  */
-public class JdbcConnection {
-	private static Properties PROPERTIES = null;
+public abstract class JdbcConnection {
+	private static Properties properties = null;
 
-	private static String PROPERTIES_NAME = "jdbc.properties";
-	private static String DRIVER = "driver";
-	private static String URL = "url";
-	private static String USER = "user";
-	private static String PASSWORD = "password";
+	private static final String PROPERTIES_NAME = "jdbc.properties";
+	private static final String DRIVER = "driver";
+	private static final String URL = "url";
+	private static final String USER = "user";
+	private static final String PASSWORD = "password";
 
 	/**
 	 * DB 구동을 위한 기본적인 setting을 구성
@@ -35,13 +35,13 @@ public class JdbcConnection {
 	 */
 	public static Properties getDatabaseSetting() throws DatabaseAccessException {
 
-		String propertiesPath = JdbcConnection.class.getResource("").getPath();
+		String propertiesPath = JdbcConnection.class.getResource("/" + PROPERTIES_NAME).getFile();
 
-		try (FileReader fileReader = new FileReader(propertiesPath + PROPERTIES_NAME);) {
-			PROPERTIES = new Properties();
-			PROPERTIES.load(fileReader);
+		try (FileReader fileReader = new FileReader(propertiesPath);) {
+			properties = new Properties();
+			properties.load(fileReader);
 
-			Class.forName(PROPERTIES.getProperty(DRIVER));
+			Class.forName(properties.getProperty(DRIVER));
 		} catch (FileNotFoundException e) {
 			throw new DatabaseAccessException("Not Found Properties. Please contact administrator.", e);
 		} catch (IOException e) {
@@ -50,7 +50,7 @@ public class JdbcConnection {
 			throw new DatabaseAccessException("Not Found Driver Class. Please contact administrator.", e);
 		}
 
-		return PROPERTIES;
+		return properties;
 	}
 
 	/**
@@ -60,15 +60,14 @@ public class JdbcConnection {
 	 * @throws DatabaseAccessException
 	 */
 	public static Connection getConnection() throws DatabaseAccessException {
-
-		if (PROPERTIES == null) {
-			PROPERTIES = getDatabaseSetting();
+		if (properties == null) {
+			properties = getDatabaseSetting();
 		}
 
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection(PROPERTIES.getProperty(URL),
-				PROPERTIES.getProperty(USER), PROPERTIES.getProperty(PASSWORD));
+			connection = DriverManager.getConnection(properties.getProperty(URL),
+				properties.getProperty(USER), properties.getProperty(PASSWORD));
 
 		} catch (SQLException e) {
 			throw new DatabaseAccessException("Database Access Error", e);
