@@ -43,8 +43,8 @@ public class MainPageApiController {
 	 */
 	@GetMapping("/products")
 	public ProductResponseDto getProductResponse(
-		@RequestParam(name = "start", defaultValue = "0") Integer start,
-		@RequestParam(name = "categoryId") Integer categoryId) {
+		@RequestParam(name = "start", defaultValue = "0", required = false) Integer start,
+		@RequestParam(name = "categoryId", required = false) Integer categoryId) {
 
 		List<ProductDto> items = Collections.emptyList();
 		int count = 0;

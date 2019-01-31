@@ -26,7 +26,7 @@ var mainPage = {
 	elements : {
 		tabContainer : document.querySelector(".event_tab_lst"),
 		moreBtn : document.querySelector(".btn"),
-		productContainers : document.getElementsByClassName("lst_event_box"),
+		productContainers : document.querySelectorAll(".lst_event_box"),
 		promotionContainer : document.querySelector(".visual_img")
 	},
 	/**
@@ -146,7 +146,7 @@ var mainPage = {
 				content : product.productContent,
 				description2 : product.productDescription
 			}
-			productContainers[i % column].innerHTML += this.replaceTemlate(
+			productContainers[i % column].innerHTML += this.replaceTemplate(
 					template, params)
 		}
 	},
@@ -169,15 +169,15 @@ var mainPage = {
 				name : category.name,
 				active : ""
 			}
-			resultHtml += this.replaceTemlate(template, params)
-		})
+			resultHtml += this.replaceTemplate(template, params)
+		}.bind(this))
 		params = {
 			categoryId : 0,
 			count : sum,
 			name : "전체리스트",
 			active : "active"
 		}
-		resultHtml = this.replaceTemlate(template, params) + resultHtml;
+		resultHtml = this.replaceTemplate(template, params) + resultHtml;
 		tabContainer.innerHTML = resultHtml;
 		tabContainer.dataset.selectedTabIndex = 0;
 		tabContainer.dataset.currentCount = 0;
@@ -197,13 +197,13 @@ var mainPage = {
 		var template = document.querySelector("#promotionItem").innerHTML;
 		var resultHtml = "";
 		var test = [];
-		promotions.forEach(function(promotion) {
+		promotions.forEach(function(promotion, index) {
 			var params = {
 				image_url : "./" + promotion.productImageUrl,
-				index : i
+				index : index
 			}
-			resultHtml += this.replaceTemlate(template, params);
-		})
+			resultHtml += this.replaceTemplate(template, params);
+		}.bind(this))
 		promotionContainer.innerHTML = resultHtml;
 		promotionContainer.dataset.current = 0;
 
@@ -217,9 +217,9 @@ var mainPage = {
 	 */
 	setupClassNameForPromotionAnimation : function() {
 		var childNodes = this.elements.promotionContainer.children;
-		childNodes.forEach(function(node) {
-			node.className = "item prev_promotion";
-		})
+		for (var i = 1; i < childNodes.length; i++) {
+			childNodes[i].className = "item prev_promotion";
+		}
 		childNodes[0].className = "item current_promotion";
 	},
 	/**
