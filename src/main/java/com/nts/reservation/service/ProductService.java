@@ -15,11 +15,11 @@ import com.nts.reservation.dto.ProductDto;
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 
-	public List<ProductDto> getProducts(int start);
+	public List<ProductDto> getProductList(int start);
 
-	public List<ProductDto> getProducts(int start, int categoryId);
+	public List<ProductDto> getProductList(int start, int categoryId);
 
-	public List<ProductDto> getPromotionProducts();
+	public List<ProductDto> getPromotionProductList();
 
 	public int getCount();
 

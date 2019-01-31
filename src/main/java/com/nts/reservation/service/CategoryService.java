@@ -13,5 +13,5 @@ import com.nts.reservation.dto.CategoryDto;
  * @author 육성렬
  */
 public interface CategoryService {
-	public List<CategoryDto> getCategorys();
+	public List<CategoryDto> getCategoryList();
 }

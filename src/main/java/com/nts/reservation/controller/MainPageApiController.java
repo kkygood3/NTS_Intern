@@ -42,18 +42,18 @@ public class MainPageApiController {
 	 * @return ProductResponseDto(items [프로덕트 리스트] , totalCount [카테고리 별 총 갯수 ] )
 	 */
 	@GetMapping("/products")
-	public ProductResponseDto getProductList(
-		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-		@RequestParam(name = "categoryId", required = false) Integer categoryId) {
+	public ProductResponseDto getProductResponse(
+		@RequestParam(name = "start", defaultValue = "0") Integer start,
+		@RequestParam(name = "categoryId") Integer categoryId) {
 
 		List<ProductDto> items = Collections.emptyList();
 		int count = 0;
 
 		if (categoryId == null) {
-			items = productService.getProducts(start);
+			items = productService.getProductList(start);
 			count = productService.getCount();
 		} else {
-			items = productService.getProducts(start, categoryId);
+			items = productService.getProductList(start, categoryId);
 			count = productService.getCount(categoryId);
 		}
 
@@ -65,9 +65,9 @@ public class MainPageApiController {
 	 * @return PromotionResponseDto(items [프로모션 리스트] , totalCount [프로모션 갯수] )
 	 */
 	@GetMapping("/promotions")
-	public PromotionResponseDto getPromotionList() {
+	public PromotionResponseDto getPromotionResponse() {
 
-		List<ProductDto> items = productService.getPromotionProducts();
+		List<ProductDto> items = productService.getPromotionProductList();
 		return new PromotionResponseDto(items, items.size());
 	}
 
@@ -76,9 +76,9 @@ public class MainPageApiController {
 	 * @return CategoryResponseDto(items [카테고리 리스트])
 	 */
 	@GetMapping("/categories")
-	public CategoryResponseDto getCategoryList() {
+	public CategoryResponseDto getCategoryResponse() {
 
-		List<CategoryDto> items = categoryService.getCategorys();
+		List<CategoryDto> items = categoryService.getCategoryList();
 		return new CategoryResponseDto(items);
 	}
 }
