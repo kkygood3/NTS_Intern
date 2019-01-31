@@ -5,7 +5,6 @@
 package com.nts.reservation.model;
 
 public class ProductRequirer {
-	private static final int ALL_CATEGORY = 0;
 
 	private int categoryId;
 
@@ -16,10 +15,6 @@ public class ProductRequirer {
 	public ProductRequirer(int categoryId, int start) {
 		this.categoryId = categoryId;
 		this.start = start;
-	}
-
-	public boolean isAllCategory() {
-		return this.categoryId == ALL_CATEGORY;
 	}
 
 	public int getCategoryId() {

@@ -12,9 +12,9 @@ import com.nts.reservation.model.ProductRequirer;
 
 public interface ProductService {
 
-	public List<Product> getProductList(ProductRequirer productRequirer);
+	public List<Product> getProductList(int categoryId, int start);
 
-	int getProductCount(ProductRequirer productRequirer);
+	int getProductCount(int categoryId);
 
 	ProductInfo getProductInfo(ProductRequirer productRequirer);
 

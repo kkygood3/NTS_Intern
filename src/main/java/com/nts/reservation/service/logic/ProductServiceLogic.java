@@ -19,34 +19,49 @@ import com.nts.reservation.service.ProductService;
 @Service
 public class ProductServiceLogic implements ProductService {
 
+	private static final int ALL_CATEGORY = 0;
+
 	@Autowired
 	private ProductDao productDao;
 
-	public List<Product> getProductList(ProductRequirer productRequirer) {
+	/** 
+	 * 전체 혹은 특정 카테고리의 ProductList 반환
+	 */
+	public List<Product> getProductList(int categoryId, int start) {
 
-		if (productRequirer.isAllCategory()) {
-			return productDao.getAllCategoryProductList(productRequirer.getStart());
+		if (this.isAllCategory(categoryId)) {
+			return productDao.getAllCategoryProductList(start);
 		} else {
-			return productDao.getOneCategoryProductList(productRequirer.getCategoryId(), productRequirer.getStart());
+			return productDao.getOneCategoryProductList(categoryId, start);
 		}
 	}
 
-	public int getProductCount(ProductRequirer productRequirer) {
+	/** 
+	 * 전체 혹은 특정 카테고리의 count 반환
+	 */
+	public int getProductCount(int categoryId) {
 
-		if (productRequirer.isAllCategory()) {
+		if (this.isAllCategory(categoryId)) {
 			return productDao.getAllCategoryProductCount();
 		} else {
-			return productDao.getOneCategoryProductCount(productRequirer.getCategoryId());
+			return productDao.getOneCategoryProductCount(categoryId);
 		}
 	}
 
+	/** 
+	 * 전체 혹은 특정 카테고리의 productList, count를 가진 객체 반환
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public ProductInfo getProductInfo(ProductRequirer productRequirer) {
 
-		List<Product> productList = this.getProductList(productRequirer);
-		int productCount = this.getProductCount(productRequirer);
+		List<Product> productList = this.getProductList(productRequirer.getCategoryId(), productRequirer.getStart());
+		int productCount = this.getProductCount(productRequirer.getCategoryId());
 
 		return new ProductInfo(productList, productCount);
+	}
+
+	private boolean isAllCategory(int categoryId) {
+		return categoryId == ALL_CATEGORY;
 	}
 }
