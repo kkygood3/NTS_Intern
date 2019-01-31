@@ -51,7 +51,7 @@ public class ProductApiController {
 	}
 
 	@GetMapping("/promotions")
-	public Map<String, Object> getPromotionList() {
+	public Map<String, Object> getPromotions() {
 		Map<String, Object> result = new HashMap<>();
 		result.put("items", productService.getPromotions());
 		return result;
