@@ -2,6 +2,9 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_ALL_WITH_PAGING;
 import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_BY_CATERORY_WITH_PAGING;
+import static com.nts.reservation.dto.column.Columns.CATEGORY_ID;
+import static com.nts.reservation.dto.column.Columns.LIMIT;
+import static com.nts.reservation.dto.column.Columns.START;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,17 +31,17 @@ public class ThumbnailInfoDao {
 
 	public List<ThumbnailInfo> selectAllCategoris(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("start", start);
-		params.put("limit", limit);
+		params.put(START, start);
+		params.put(LIMIT, limit);
 
 		return jdbc.query(SELECT_ALL_WITH_PAGING, params, rowMapper);
 	}
 
 	public List<ThumbnailInfo> selectByCategory(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", category.getId());
-		params.put("start", start);
-		params.put("limit", limit);
+		params.put(CATEGORY_ID, category.getId());
+		params.put(START, start);
+		params.put(LIMIT, limit);
 
 		return jdbc.query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
 	}

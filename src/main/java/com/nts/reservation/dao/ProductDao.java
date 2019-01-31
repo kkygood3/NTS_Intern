@@ -1,7 +1,12 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ProductDaoSqls.*;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_ALL_PAGING;
 import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_BY_CATERORY_PAGING;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_COUNT_ALL;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dto.column.Columns.CATEGORY_ID;
+import static com.nts.reservation.dto.column.Columns.LIMIT;
+import static com.nts.reservation.dto.column.Columns.START;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,7 +22,6 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Product;
-
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
@@ -29,17 +33,17 @@ public class ProductDao {
 
 	public List<Product> selectAll(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("start", start);
-		params.put("limit", limit);
+		params.put(START, start);
+		params.put(LIMIT, limit);
 
 		return jdbc.query(SELECT_ALL_PAGING, params, rowMapper);
 	}
 
 	public List<Product> selectByCategory(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", category.getId());
-		params.put("start", start);
-		params.put("limit", limit);
+		params.put(CATEGORY_ID, category.getId());
+		params.put(START, start);
+		params.put(LIMIT, limit);
 
 		return jdbc.query(SELECT_BY_CATERORY_PAGING, params, rowMapper);
 	}
