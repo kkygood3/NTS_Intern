@@ -1,6 +1,5 @@
 package com.nts.reservation.controller;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,8 @@ public class ThumbnailInfoApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
-
+		
+		System.out.println(categoryId);
 		int productCount = productService.getCount();
 		List<ThumbnailInfo> thumbnailInfoList = Collections.EMPTY_LIST;
 

@@ -36,7 +36,6 @@ public class ThumbnailInfoDao {
 
 	public List<ThumbnailInfo> selectByCategory(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		System.out.println("category : " + category);
 		params.put("categoryId", category.getId());
 		params.put("start", start);
 		params.put("limit", limit);

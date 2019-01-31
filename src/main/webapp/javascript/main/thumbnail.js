@@ -1,6 +1,6 @@
-function sendGetThumbnailsAjax() {
+function sendGetThumbnailsAjax(categoryId = 0) {
 	var start = calcLoadedThumbnails();
-	sendGETAjax("./thumbnail_info?start=" + start, setCounterAndMakeProductList);
+	sendGETAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setCounterAndMakeProductList);
 }
 
 function calcLoadedThumbnails() {
@@ -36,7 +36,7 @@ function setCounterAndMakeProductList(thumbnailInfos) {
 
 function deleteAllThumbnail() {
 	var uls = document.getElementsByClassName("lst_event_box");
-	uls.forEach((ul) => {
+	for (let ul of uls) {
 		ul.innerHTML = "";
-	})
+	}
 }

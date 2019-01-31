@@ -103,8 +103,8 @@
 	</li>
     </script>
     <script type="rv-template" id="category_item">
-    <li class="item" data-category="{id}">
-		<span>{name}</span>
+    <li class="item">
+		<span id="category_{id}">{name}</span>
 	</li>
 	</script>
 </body>
