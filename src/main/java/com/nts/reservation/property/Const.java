@@ -1,6 +1,6 @@
-package com.nts.reservation.dto.column;
+package com.nts.reservation.property;
 
-public class Columns {
+public class Const {
 	public static final String ID = "id";
 	public static final String NAME = "name";
 	public static final String PRODUCT_ID = "productId";
@@ -42,4 +42,5 @@ public class Columns {
 	public static final String SAVE_FILE_NAME = "saveFileName";
 	public static final String START = "start";
 	public static final String LIMIT = "limit";
+	public static final int ALL_CATEGORIES = 0;
 }
