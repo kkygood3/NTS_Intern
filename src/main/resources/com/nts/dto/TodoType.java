@@ -28,7 +28,7 @@ public enum TodoType {
 		}
 	};
 
-	private String todoType;
+	private final String todoType;
 	private static List<TodoType> TodoTypeList;
 
 	private TodoType(String todoType) {

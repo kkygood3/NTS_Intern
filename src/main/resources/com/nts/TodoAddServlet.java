@@ -40,7 +40,7 @@ public class TodoAddServlet extends HttpServlet {
 		String sequenceStringType = request.getParameter("input-sequence");
 
 		//입력형식이 맞는지 확인 후 맞지 않다면 에러페이지 출력
-		if (InputFormValidator.isVaild(title, name, sequenceStringType)) {
+		if (InputFormValidator.isNotVaild(title, name, sequenceStringType)) {
 			response.sendError(500, "입력 형식이 잘못되었습니다.");
 			return;
 		}

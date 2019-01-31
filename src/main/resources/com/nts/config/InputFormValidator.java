@@ -18,7 +18,7 @@ public class InputFormValidator {
 
 	private static final int INPUT_MAX_LENGTH = 24;
 
-	public static boolean isVaild(String title, String name, String sequence) {
+	public static boolean isNotVaild(String title, String name, String sequence) {
 		Pattern pattern = Pattern.compile("[123]");
 		Matcher matcher = pattern.matcher(sequence);
 
@@ -49,7 +49,7 @@ public class InputFormValidator {
 		return false;
 	}
 
-	public static boolean isVaild(String id, String type) {
+	public static boolean isNotVaild(String id, String type) {
 		Pattern pattern = Pattern.compile("[(^[0-9]*$)]");
 		Matcher matcher = pattern.matcher(id);
 

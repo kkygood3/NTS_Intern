@@ -40,7 +40,7 @@ public class TodoTypeServlet extends HttpServlet {
 		String idStringType = request.getParameter("id");
 
 		//입력형식이 맞는지 확인 후 맞지 않다면 에러페이지 출력
-		if (InputFormValidator.isVaild(idStringType, typeStringType)) {
+		if (InputFormValidator.isNotVaild(idStringType, typeStringType)) {
 			response.sendRedirect("/main");
 			return;
 		}
