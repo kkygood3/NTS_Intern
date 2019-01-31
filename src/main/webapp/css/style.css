@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* 전역 */
+body {
+	background: #ECF0EE;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+/* index.jsp */
+/* header */
+.rotated_title {
+	transform: rotate(-30deg);
+	display: inline-block;
+	color: #3D6072;
+	margin: 40px 0 20px 0;
+}
+
+.go_register_button {
+	color: #fff;
+	background: #20ADEE;
+	padding: 6px 20px;
+	font-size: 12px;
+	margin: 30px 0 0 0;
+	display: inline-block;
+	float: right;
+}
+
+/* main section */
+.content {
+	width: 55%;
+	margin: auto;
+	background: white;
+	padding: 50px 100px;
+}
+
+.content_main {
+	float: right;
+}
+
+.content_box {
+	display: block;
+	width: 300px;
+	float: left;
+	margin: 5px 0 5px 10px;
+}
+
+.title {
+	background: #345461;
+	color: #fff;
+	padding: 15px;
+	margin: 10px 0 10px 0;
+}
+
+.card {
+	background: #CEE5EF;
+	display: block;
+	padding: 15px;
+	margin: 0 0 10px 0;
+	font-size: 12px;
+}
+
+.card h3 {
+	margin: 0 0 5px 0;
+}
+
+.type_change_button {
+	float: right;
+	display: inline-block;
+}
+
+/* register.jsp */
+.register_content {
+	width: 30%;
+	margin: auto;
+	background: white;
+	padding: 50px 100px;
+}
+
+.register_button {
+	color: #fff;
+	background: #20ADEE;
+	padding: 6px 20px;
+	font-size: 12px;
+	margin: 0 5px 0 0;
+	display: inline-block;
+	border: 0px;
+}
+
+.previous_button {
+	border: 1px solid #000;
+	padding: 5px 15px;
+	color: #000;
+	font-size: 12px;
+	margin: 0 100px 0 0;
+	display: inline-block;
+}
