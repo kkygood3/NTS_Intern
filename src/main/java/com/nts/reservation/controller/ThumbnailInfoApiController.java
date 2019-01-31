@@ -1,5 +1,7 @@
 package com.nts.reservation.controller;
 
+import static com.nts.reservation.property.Const.*;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,7 @@ public class ThumbnailInfoApiController {
 	}
 
 	private int getProductCount(int categoryId) {
-		if (categoryId == 0) {
+		if (categoryId == ALL_CATEGORIES) {
 			return productService.getCount();
 		} else {
 			return productService.getCount(categoryId);

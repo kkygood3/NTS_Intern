@@ -22,6 +22,9 @@ function addCategoryClickEvent() {
 }
 
 function changeCategoryTabUi(curCategoryId) {
+	if (!parseInt(curCategoryId)) {
+		return false;
+	}
 	var preCategoryId = document.querySelector(".more > .btn").value;
 	document.getElementsByClassName("active")[0].className = "anchor";
 	document.querySelectorAll(".event_tab_lst a.anchor")[curCategoryId].className = "anchor active";
@@ -29,6 +32,9 @@ function changeCategoryTabUi(curCategoryId) {
 }
 
 function changeCategoryInfo(categoryId) {
+	if (!parseInt(categoryId)) {
+		return false;
+	}
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.value = categoryId;
 }

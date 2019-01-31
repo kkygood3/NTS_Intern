@@ -2,9 +2,9 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_ALL_WITH_PAGING;
 import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_BY_CATERORY_WITH_PAGING;
-import static com.nts.reservation.dto.column.Columns.CATEGORY_ID;
-import static com.nts.reservation.dto.column.Columns.LIMIT;
-import static com.nts.reservation.dto.column.Columns.START;
+import static com.nts.reservation.property.Const.CATEGORY_ID;
+import static com.nts.reservation.property.Const.LIMIT;
+import static com.nts.reservation.property.Const.START;
 
 import java.util.HashMap;
 import java.util.List;

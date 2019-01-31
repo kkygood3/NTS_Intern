@@ -9,10 +9,16 @@ function calcLoadedThumbnails() {
 }
 
 function setCounterBar(count) {
+	if (!parseInt(count)) {
+		return false;
+	}
 	document.querySelector(".event_lst_txt > .pink").innerText = count + "개";
 }
 
 function makeThumbnailList(thumbnailInfos) {
+	if (!thumbnailInfos) {
+		return false;
+	}
 	var html = document.getElementById("product_item").innerHTML;
 
 	var resultHTML = "";
@@ -31,6 +37,9 @@ function makeThumbnailList(thumbnailInfos) {
 }
 
 function setCounterAndMakeProductList(thumbnailInfos) {
+	if (!thumbnailInfos) {
+		return false;
+	}
 	setCounterBar(thumbnailInfos.product_count);
 	makeThumbnailList(thumbnailInfos.thumbnail_info_list);
 }

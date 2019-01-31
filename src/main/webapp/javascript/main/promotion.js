@@ -3,6 +3,9 @@ function sendGetPromotionsAjax() {
 }
 
 function makePromotionSlideHTML(promotions) {
+	if (!promotions) {
+		return false;
+	}
 	var html = document.getElementById("promotion_item").innerHTML;
 		
 	var resultHTML = "";

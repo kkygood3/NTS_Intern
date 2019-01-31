@@ -3,7 +3,9 @@ function sendGetCategorissAjax() {
 }
 
 function makeCategoryBar(categoris) {
-	
+	if (!categoris) {
+		return false;
+	}
 	var html = document.getElementById("category_item").innerHTML;
 
 	var resultHTML = "";
