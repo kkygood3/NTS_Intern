@@ -7,6 +7,11 @@
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main_slide.css" rel="stylesheet">
+<script type= "text/javascript" src= "./javascript/main/ajax.js" ></script>
+<script type= "text/javascript" src= "./javascript/main/category.js" ></script>
+<script type= "text/javascript" src= "./javascript/main/promotion.js" ></script>
+<script type= "text/javascript" src= "./javascript/main/thumbnail.js" ></script>
+<script type= "text/javascript" src= "./javascript/main/event.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/main.js" ></script>
 </head>
 <body>
@@ -48,6 +53,9 @@
             </div>
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
+                	<li class="item" data-category="0">
+                        <a class="anchor active"> <span>전체리스트</span> </a>
+                    </li>
                 <!-- content -->
                 </ul>
             </div>
@@ -96,7 +104,7 @@
     </script>
     <script type="rv-template" id="category_item">
     <li class="item" data-category="{id}">
-		<a class="anchor active"> <span>{name}</span> </a>
+		<span>{name}</span>
 	</li>
 	</script>
 </body>
