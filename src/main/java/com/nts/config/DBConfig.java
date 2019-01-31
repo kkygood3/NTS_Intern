@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * DBCP 설정 클래스
+ * @author jinwoo.bae
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value= {"classpath:application.properties"})
