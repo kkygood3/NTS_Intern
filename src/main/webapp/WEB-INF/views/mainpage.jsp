@@ -119,7 +119,7 @@
 		var currentStart = 0;
 		var currentCategory = 0;
 	
-		function ajaxRequest(callback, url){
+		function requestAjax(callback, url){
 			var ajaxReq = new XMLHttpRequest();
 			ajaxReq.callback = callback;
 			ajaxReq.addEventListener('load', function(evt) {
@@ -132,7 +132,7 @@
 		}
 		
 		
-		function categoryLoadingCallback(responseData){
+		function loadCategoriesCallback(responseData){
 			var items = responseData.items;
 			
 			var template = document.querySelector("script#categoryItem").innerHTML;
@@ -145,84 +145,98 @@
 			
 			document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
 		}
-		
-		function promotionMoveSet(){
+
+		function setPromotionMove() {
 			var items = document.querySelectorAll(".visual_img>.item");
 			var leftDistance = 0;
 			var itemSize = items.length;
 			var curIdx = 0;
 			
-			setInterval(function(){
-					leftDistance -= 100;
-	
-					for (var i = 0; i < items.length; i++) {
-						items[i].style.left = leftDistance + '%';
-					}
-	
-					curIdx++;
-	
-					if (curIdx >= itemSize - 1) {
-						setTimeout(function() {
-							for (var i = 0; i < items.length; i++) {
-								items[i].style.transitionDuration = '0s';
-							}
-	
-							for (var i = 0; i < items.length; i++) {
-								items[i].style.left = '0';
-							}
-							setTimeout(function() {
-								for (var i = 0; i < items.length; i++) {
-									items[i].style.transitionDuration = '1s';
-								}
-								curIdx = 0;
-								leftDistance = 0;
-							}, 100);
-						}, 1100);
-					}
+			setInterval(moveStep, 4000);
+			
+			function moveStep(){
 				
-			},4000);
+				leftDistance -= 100;
+
+				for (var i = 0; i < items.length; i++) {
+					items[i].style.left = leftDistance + '%';
+				}
+
+				curIdx++;
+
+				if (curIdx >= itemSize - 1) {
+					
+					setTimeout(resetPromotionPos, 1100);
+					
+					function resetPromotionPos() {
+						
+						for (var i = 0; i < items.length; i++) {
+							items[i].style.transitionDuration = '0s';
+						}
+
+						for (var i = 0; i < items.length; i++) {
+							items[i].style.left = '0';
+						}
+						
+						setTimeout(reattachTransition, 100);
+						
+						function reattachTransition() {
+							for (var i = 0; i < items.length; i++) {
+								items[i].style.transitionDuration = '1s';
+							}
+							curIdx = 0;
+							leftDistance = 0;
+						}
+						
+					}
+					
+				}
+				
+			}
 		}
-	
-		function promotionLoadingCallback(responseData){
+
+		function loadPromotionsCallback(responseData) {
 			var itemCount = responseData.totalCount;
 			var items = responseData.items;
-			
+
 			var template = document.querySelector("script#promotionItem").innerHTML;
 			var resultHtml = "";
-			for(var i = 0 ; i < items.length; i++){
-				resultHtml += template.replace('{productImageUrl}',items[i].productImageUrl);
+			for (var i = 0; i < items.length; i++) {
+				resultHtml += template
+									.replace('{productImageUrl}', items[i].productImageUrl);
 			}
-			
-			if(items.length > 0){
-				resultHtml += template.replace('{productImageUrl}',items[0].productImageUrl)
+
+			if (items.length > 0) {
+				resultHtml += template
+									.replace('{productImageUrl}', items[0].productImageUrl)
 			}
-			
+
 			document.querySelector('ul.visual_img').innerHTML = resultHtml;
-							
-			promotionMoveSet();
+
+			setPromotionMove();
 		}
-		
-		function productLoadingCallback(responseData){
+
+		function loadProductsCallback(responseData) {
 			currentStart += 4;
-			
+
 			var itemCount = responseData.totalCount;
 			var items = responseData.items;
-			
+
 			var template = document.querySelector("script#productItem").innerText;
 			var resultHtml = new Array(2);
 			resultHtml[0] = "";
 			resultHtml[1] = "";
 			var lrCounter = 0;
-			for(var i = 0 ; i < items.length; i++){
+			for (var i = 0; i < items.length; i++) {
 				resultHtml[lrCounter] += template
-											.replace('{productImageUrl}',items[i].productImageUrl)
-											.replace("{description}",items[i].productDescription)
-											.replace("{description}",items[i].productDescription)
-											.replace('{id}',items[i].displayInfoId)
-											.replace('{placeName}',items[i].placeName)
-											.replace('{content}',items[i].productContent);
+												.replace('{productImageUrl}', items[i].productImageUrl)
+												.replace("{description}", items[i].productDescription)
+												.replace("{description}", items[i].productDescription)
+												.replace('{id}', items[i].displayInfoId)
+												.replace('{placeName}', items[i].placeName)
+												.replace('{content}', items[i].productContent);
 				lrCounter++;
-				if(lrCounter == 2){
+				if (lrCounter == 2) {
 					lrCounter = 0;
 				}
 			}
@@ -231,65 +245,64 @@
 			containers[1].innerHTML += resultHtml[1];
 
 			var moreProductBtn = document.querySelector('.btn');
-			if(itemCount <= currentStart){
+			if (itemCount <= currentStart) {
 				moreProductBtn.style.display = 'none';
 			} else {
 				moreProductBtn.style.display = 'initial';
 			}
-			
-			document.querySelector('.event_lst_txt>span').innerText = itemCount+'개';
+
+			document.querySelector('.event_lst_txt>span').innerText = itemCount + '개';
 		}
-		
-		function mapProductParameters(categoryId, start){
-			return 'products?categoryId='+categoryId+'&start='+start;
+
+		function mapProductParameters(categoryId, start) {
+			return 'products?categoryId=' + categoryId + '&start=' + start;
 		}
-		
-		function navTabEventSet(){
-			document.querySelector('ul.event_tab_lst').addEventListener('click', function(btnEvent){
+
+		function setTabClickEvent() {
+			document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent) {
 				var selectedTab = event.target;
-				if(selectedTab.tagName === 'SPAN'){
+				
+				if (selectedTab.tagName === 'SPAN') {
 					selectedTab = selectedTab.parentElement;
 				}
-				
-				if(selectedTab.tagName === 'A'){
+
+				if (selectedTab.tagName === 'A') {
 					var categoryId = selectedTab.parentElement.getAttribute('data-category');
 					//다른 탭을 누른게 맞다면
-					if(categoryId != currentCategory){
+					if (categoryId != currentCategory) {
 						currentCategory = categoryId;
 						currentStart = 0;
-						
-						document.querySelectorAll('a.anchor').forEach(function(element){
-							element.classList.remove('active');
-						});
+
+						document.querySelectorAll('a.anchor').forEach(element=>element.classList.remove('active'));
 						selectedTab.classList.add('active');
-						
+
 						var containers = document.querySelectorAll('.lst_event_box');
 						containers[0].innerHTML = "";
 						containers[1].innerHTML = "";
-						
-						ajaxRequest(productLoadingCallback,mapProductParameters(currentCategory,currentStart));
+
+						requestAjax(loadProductsCallback,mapProductParameters(currentCategory,currentStart));
 					}
 				}
 			});
 		}
-		
+
 		document.addEventListener("DOMContentLoaded", function() {
 			//페이지 첫 로딩시 할 일
-			
+
 			//1. 카테고리 목록 가져오기
-			ajaxRequest(categoryLoadingCallback,'categories');
-			
+			requestAjax(loadCategoriesCallback, 'categories');
+
 			//2. 상품 목록 가져오기
-			ajaxRequest(productLoadingCallback,mapProductParameters(0,0));
-			
+			requestAjax(loadProductsCallback, mapProductParameters(0, 0));
+
 			//3. promotion 가져오기
-			ajaxRequest(promotionLoadingCallback,'promotions');
-			
+			requestAjax(loadPromotionsCallback, 'promotions');
+
 			//4. 더보기 버튼 event 등록
-			document.querySelector('.btn').addEventListener('click', function (evt){ajaxRequest(productLoadingCallback,mapProductParameters(currentCategory, currentStart));});
-			
+			document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart)));
+
 			//5. 탭 변경 event 등록
-			navTabEventSet();
+			setTabClickEvent();
 		});
 	</script>
 </body>
