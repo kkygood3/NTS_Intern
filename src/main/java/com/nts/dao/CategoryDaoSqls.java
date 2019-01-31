@@ -9,7 +9,7 @@ package com.nts.dao;
  * @author jinwoo.bae
  */
 public class CategoryDaoSqls {
-	public static final String SELECT_ALL_WITH_PRODUCT_COUNT = "SELECT  "
+	public static final String SELECT_LIMITED_LIST_WITH_PRODUCT_COUNT = "SELECT  "
 		+ "    c.id, c.name, COUNT(c.id) AS count "
 		+ "FROM "
 		+ "    category c, "
@@ -18,5 +18,5 @@ public class CategoryDaoSqls {
 		+ "WHERE "
 		+ "    c.id = p.category_id "
 		+ "        AND p.id = di.product_id "
-		+ "GROUP BY c.id";
+		+ "GROUP BY c.id LIMIT :limit";
 }

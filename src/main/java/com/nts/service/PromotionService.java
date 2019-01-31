@@ -13,5 +13,6 @@ import com.nts.dto.PromotionDto;
  * @author jinwoo.bae
  */
 public interface PromotionService {
+	public static final int SELECT_LIMIT = 20;
 	List<PromotionDto> getPromotions();
 }

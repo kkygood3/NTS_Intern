@@ -34,7 +34,7 @@ public class CategoryDao {
 	/**
 	 * 카테고리 목록과 카테고리별 프로덕트의 개수를 구한다. 
 	 */
-	public List<CategoryDto> selectAllWithProductCount() {
-		return jdbcTemplate.query(SELECT_ALL_WITH_PRODUCT_COUNT, Collections.emptyMap(), rowMapper);
+	public List<CategoryDto> selectLimitedListWithProductCount(int limit) {
+		return jdbcTemplate.query(SELECT_LIMITED_LIST_WITH_PRODUCT_COUNT, Collections.singletonMap("limit", limit), rowMapper);
 	}
 }

@@ -6,13 +6,14 @@ package com.nts.dao;
 
 import static com.nts.dao.PromotionDaoSqls.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.dto.PromotionDto;
@@ -24,19 +25,19 @@ import com.nts.dto.PromotionDto;
  */
 @Repository
 public class PromotionDao {
-	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate jdbcTemplate;
 	private RowMapper<PromotionDto> rowMapper = BeanPropertyRowMapper.newInstance(PromotionDto.class);
 
 	public PromotionDao(DataSource dataSource) {
-		jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	/**
 	 * 모든 프로모션 목록들을 fileInfo의 ImageUrl와 함께 가져온다
 	 * @return
 	 */
-	public List<PromotionDto> selectAll() {
-		return jdbcTemplate.query(SELECT_ALL, rowMapper);
+	public List<PromotionDto> selectLimitedList(int limit) {
+		return jdbcTemplate.query(SELECT_LIMITED_LIST, Collections.singletonMap("limit", limit), rowMapper);
 	}
 
 }

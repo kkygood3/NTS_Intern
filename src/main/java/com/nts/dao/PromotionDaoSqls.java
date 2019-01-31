@@ -9,7 +9,7 @@ package com.nts.dao;
  * @author jinwoo.bae
  */
 public class PromotionDaoSqls {
-	public static final String SELECT_ALL = "SELECT  "
+	public static final String SELECT_LIMITED_LIST = "SELECT  "
 		+ "    p.id AS id, "
 		+ "    p.product_id AS productId, "
 		+ "    fi.save_file_name AS productImageUrl "
@@ -21,5 +21,5 @@ public class PromotionDaoSqls {
 		+ "    p.product_id = pi.product_id "
 		+ "        AND pi.type = 'th' "
 		+ "        AND pi.file_id = fi.id "
-		+ "ORDER BY p.id ASC;";
+		+ "ORDER BY p.id ASC LIMIT :limit;";
 }
