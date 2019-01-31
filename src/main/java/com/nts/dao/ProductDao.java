@@ -20,6 +20,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.Product;
 import com.nts.dto.queries.ProductQueries;
 
+/**
+ * Product Table을 조회하는 DTO
+ */
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;

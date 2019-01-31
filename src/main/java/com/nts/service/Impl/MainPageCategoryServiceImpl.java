@@ -17,11 +17,11 @@ import com.nts.service.MainPageCategoryService;
 public class MainPageCategoryServiceImpl implements MainPageCategoryService {
 
 	@Autowired
-	private MainPageCategoryDao categoryApiViewDao;
+	private MainPageCategoryDao mainPageCategoryDao;
 
 	@Override
 	public List<MainPageCategory> getCategories() {
-		return categoryApiViewDao.selectCategories(LIMIT);
+		return mainPageCategoryDao.selectCategories(LIMIT);
 	}
 	
 }

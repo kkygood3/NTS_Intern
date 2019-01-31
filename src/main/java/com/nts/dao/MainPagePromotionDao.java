@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.MainPagePromotion;
 import com.nts.dto.queries.MainPagePromotionQueries;
 
+/**
+ * DB내의 promotion_api_view를 조회하는 DAO. /api/promotions 요청에 대응
+ */
 @Repository
 public class MainPagePromotionDao {
 	private NamedParameterJdbcTemplate jdbc;

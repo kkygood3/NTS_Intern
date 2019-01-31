@@ -4,7 +4,6 @@
  */
 package com.nts.dao;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +18,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.Category;
 import com.nts.dto.queries.CategoryQueries;
 
+/**
+ * Category Table을 조회하는 DTO
+ */
 @Repository
 public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;

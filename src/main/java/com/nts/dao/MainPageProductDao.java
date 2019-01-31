@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.MainPageProduct;
 import com.nts.dto.queries.MainPageProductQueries;
 
+/**
+ * DB내의 product_api_view를 조회하는 DAO. /api/products 요청에 대응
+ */
 @Repository
 public class MainPageProductDao {
 	private NamedParameterJdbcTemplate jdbc;

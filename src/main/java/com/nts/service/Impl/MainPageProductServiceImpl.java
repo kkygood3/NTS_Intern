@@ -17,31 +17,25 @@ import com.nts.service.MainPageProductService;
 public class MainPageProductServiceImpl implements MainPageProductService {
 
 	@Autowired
-	private MainPageProductDao productApiViewDao;
+	private MainPageProductDao mainPageProductDao;
 
 	@Override
-	public List<MainPageProduct> getProducts(long categoryId, long start) {
-		if (categoryId > 0) 
-			return productApiViewDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
-		else
-			return getProducts(start);
+	public List<MainPageProduct> getProductsByCategory(long categoryId, long start) {
+		return mainPageProductDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
 	}
 
 	@Override
 	public List<MainPageProduct> getProducts(long start) {
-		return productApiViewDao.selectPagingProducts(start, LIMIT);
+		return mainPageProductDao.selectPagingProducts(start, LIMIT);
 	}
 
 	@Override
-	public int getCount(int categoryId) {
-		if (categoryId > 0)
-			return productApiViewDao.selectCountByCategory(categoryId);
-		else
-			return getCount();
+	public int getCountByCategory(int categoryId) {
+		return mainPageProductDao.selectCountByCategory(categoryId);
 	}
 
 	@Override
 	public int getCount() {
-		return productApiViewDao.selectCount();
+		return mainPageProductDao.selectCount();
 	}
 }

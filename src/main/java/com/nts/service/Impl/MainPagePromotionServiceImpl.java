@@ -17,16 +17,16 @@ import com.nts.service.MainPagePromotionService;
 public class MainPagePromotionServiceImpl implements MainPagePromotionService {
 
 	@Autowired
-	private MainPagePromotionDao promotionApiViewDao;
+	private MainPagePromotionDao mainPagePromotionDao;
 
 	@Override
 	public List<MainPagePromotion> getPromotions() {
-		return promotionApiViewDao.selectPromotions(LIMIT);
+		return mainPagePromotionDao.selectPromotions(LIMIT);
 	}
 
 	@Override
 	public int getCount() {
-		return promotionApiViewDao.selectCount();
+		return mainPagePromotionDao.selectCount();
 	}
 
 }

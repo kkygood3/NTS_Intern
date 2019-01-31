@@ -18,6 +18,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.MainPageCategory;
 import com.nts.dto.queries.MainPageCategoryQueries;
 
+/**
+ * DB내의 category_api_view를 조회하는 DAO. /api/categories 요청에 대응
+ */
 @Repository
 public class MainPageCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;

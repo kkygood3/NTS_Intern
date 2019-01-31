@@ -21,6 +21,9 @@ import com.nts.dto.Category;
 import com.nts.dto.Promotion;
 import com.nts.dto.queries.PromotionQueries;
 
+/**
+ * Promotion Table을 조회하는 DTO
+ */
 @Repository
 public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
