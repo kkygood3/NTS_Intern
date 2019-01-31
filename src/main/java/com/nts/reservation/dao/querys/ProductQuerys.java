@@ -13,7 +13,7 @@ public class ProductQuerys {
 		+ "where p.id = d.product_id and p.id = i.product_id and i.file_id = f.id "
 		+ "and i.type = 'th' limit :start, 4";
 
-	public static final String SELECT_ALL_CATEGORY_PRODUCTS_COUNT = "select count(p.id) "
+	public static final String SELECT_ALL_CATEGORY_PRODUCTS_COUNT = "select count(*) "
 		+ "from product p, display_info d "
 		+ "where p.id = d.product_id";
 
@@ -26,7 +26,7 @@ public class ProductQuerys {
 		+ "and p.category_id = :categoryId and i.type = 'th' "
 		+ "limit :start, 4";
 
-	public static final String SELECT_ONE_CATEGORY_PRODUCTS_COUNT = "select count(p.id) "
+	public static final String SELECT_ONE_CATEGORY_PRODUCTS_COUNT = "select count(*) "
 		+ "from product p, display_info d "
 		+ "where p.id = d.product_id and p.category_id = :categoryId";
 }
