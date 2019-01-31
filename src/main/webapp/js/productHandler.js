@@ -1,69 +1,60 @@
 
 var currentCount = 0;
 var currentCategoryId = 0;
- 
-
+var pagingSize = 4;
+var moreButton = document.querySelector("#more_button");
 
 /**
  * @description : get method로 Product List를 요청
  */
 function productListRequest(categoryId, start){
-	var sendData = "?categoryId="+categoryId+"&start="+start;
-	var requestInit = { method: "GET",
+	var request = { method: "GET",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
 	}
-	var url = "/api/products";
-	
-	dataRequest(sendData,requestInit,url)
+	dataRequestGET("/api/products", "?categoryId=" + categoryId + "&start=" + start, request)
 		.then(result =>{
-		appendEventList(result.items, result.totalCount);
+		appendProductList(result.items, result.totalCount);
 	});
 }
 
 /**
  * @description : 수신된 Product List를 HTML의 Tab UL에 추가
  */
-function appendEventList(items, count){
-	var eventUl = document.querySelectorAll(".lst_event_box");
-	var appendEventHTML = document.querySelector("#itemList").innerText;
+function appendProductList(items, count){
+	var productUl = document.querySelector("#wrap_lst_event_box").getElementsByTagName("UL");
+	var appendProductHTML = document.querySelector("#itemList").innerText;
 	
 	for(var i=0, len=items.length;i<len;i++){
-		var li = replaceEventHTML(items[i], appendEventHTML);
-		eventUl[i%2].innerHTML += li;
+		var li = replaceProductHTML(items[i], appendProductHTML);
+		productUl.item(i%2).innerHTML += li;
 	}
 }
 
 /**
  * @description : 수신된 item과 html mapping
  */
-function replaceEventHTML(item, html){
-	var displayInfoId = item["displayInfoId"];
-	var placeName = item["placeName"];
-	var productContent = item["productContent"];
-	var productDescription = item["productDescription"];
-	var productId = item["productId"];
-	var productImageUrl = item["productImageUrl"];
+function replaceProductHTML(item, html){
 	
-	return  html.replace("${displayInfoId}",displayInfoId)
-				.replace("${placeName}",placeName)
-				.replace("${content}",productContent)
-				.replace("${description}",productDescription)
-				.replace("${description}",productDescription)
-				.replace("${id}",productId)
-				.replace("${productImageUrl}",productImageUrl);
+	return  html.replace("${displayInfoId}", item.displayInfoId)
+				.replace("${placeName}", item.placeName)
+				.replace("${content}", item.productContent)
+				.replace("${description}", item.productDescription)
+				.replace("${description}", item.productDescription)
+				.replace("${id}", item.productId)
+				.replace("${productImageUrl}", item.productImageUrl);
 }
 
 /**
  * @description : 더보기 버튼 Event Listener 추가
  */
 function addMoreButtonListener(){
-	var moreButton = document.querySelector(".more").firstElementChild;
-	moreButton.removeAttribute("style"); 
-	moreButton.removeEventListener("click",moreButtonDown);
 	
-	if(parseInt(document.querySelector(".event_lst_txt").firstElementChild.innerText) <= 4){
+	moreButton.removeAttribute("style"); 
+	moreButton.removeEventListener("click", moreButtonDown);
+	
+	if(parseInt(document.querySelector("#event_num").innerText) <= 4){
 		
 		moreButton.setAttribute("style", 'display:none');
 		
@@ -78,20 +69,31 @@ function addMoreButtonListener(){
  * @description : 더보기 버튼 Event
  */
 function moreButtonDown(){
-		if(currentCount + 4 < parseInt(document.querySelector(".event_lst_txt").firstElementChild.innerText)){
-			productListRequest(currentCategoryId, currentCount);
-			currentCount += 4;
+	productListRequest(currentCategoryId, currentCount);	
+	
+	if(currentCount + pagingSize < parseInt(document.querySelector("#event_num").innerText)){
+		
+		currentCount +=pagingSize;
 			
-		}else{
-			productListRequest(currentCategoryId, currentCount);
-			document.querySelector(".more").firstElementChild.setAttribute("style", "display:none");
-		}
+	} else{
+		
+		moreButton.setAttribute("style", "display:none");
+		
+	}
+	
+}
+
+function productInit(){
+	
+	productReset(0);
+	addMoreButtonListener();
+	
 }
 
 function productReset(categoryId){
-	currentCategoryId = categoryId;
-	currentCount = 4;
-	productListRequest(currentCategoryId, 0);
 	
-	addMoreButtonListener();
+	productListRequest(categoryId, 0);
+	currentCategoryId = categoryId;
+	currentCount = pagingSize;
+	
 }

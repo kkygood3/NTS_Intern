@@ -1,4 +1,10 @@
 
-categoryListRequest();
-productReset(0);
-promotionReset();
+document.addEventListener("DOMContentLoaded", function() {
+	
+	categoryListRequest();
+	
+	productInit();
+	
+	promotionListRequest();
+	
+});

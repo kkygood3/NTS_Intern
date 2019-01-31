@@ -1,10 +1,8 @@
 /**
  * @description : fetch API를 이용해 Request
  */
-function dataRequest(sendData,requestInit,url){
-	var productRequest = new Request(url+sendData,requestInit);
-	var productData;
-	
-	return fetch(productRequest)
+
+function dataRequestGET(url, queryString, request){
+	return fetch(new Request(url + queryString, request))
 		   .then(function(response) { return response.json(); })
 }
