@@ -21,10 +21,10 @@ import com.nts.reservation.service.ThumbnailInfoService;
 @RequestMapping(path = "/thumbnail_info")
 public class ThumbnailInfoApiController {
 	@Autowired
-	ThumbnailInfoService thumbnailInfoService;
+	private ThumbnailInfoService thumbnailInfoService;
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)

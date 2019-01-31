@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.Promotion;
@@ -15,6 +16,7 @@ public class PromotionServiceImpl implements PromotionService {
 	PromotionDao promotionDao;
 
 	@Override
+	@Transactional
 	public List<Promotion> getPromotions() {
 		List<Promotion> list = promotionDao.selectAll();
 		return list;

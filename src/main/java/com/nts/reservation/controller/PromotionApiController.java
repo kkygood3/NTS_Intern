@@ -17,7 +17,7 @@ import com.nts.reservation.service.PromotionService;
 @RequestMapping(path = "/promotion")
 public class PromotionApiController {
 	@Autowired
-	PromotionService promotionService;
+	private PromotionService promotionService;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)

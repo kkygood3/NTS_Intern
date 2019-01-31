@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.Category;
@@ -15,6 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryDao promotionDao;
 
 	@Override
+	@Transactional
 	public List<Category> getCategoris() {
 		List<Category> list = promotionDao.selectAll();
 		return list;

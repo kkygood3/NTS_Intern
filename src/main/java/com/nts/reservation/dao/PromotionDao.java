@@ -21,7 +21,6 @@ public class PromotionDao {
 	}
 
 	public List<Promotion> selectAll() {
-
 		return jdbc.queryForList(SELECT_SAVE_FILE_NAME, Collections.EMPTY_MAP);
 	}
 }
