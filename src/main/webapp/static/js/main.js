@@ -8,6 +8,9 @@ var globalVariable = {
 };
 var sendAjax = require('./sendAjax');
 
+/**
+ * @desc dom 로딩후 시작
+ */
 document.addEventListener('DOMContentLoaded', function() {
 	
 	init();
@@ -177,7 +180,7 @@ function categoryClickEvent(){
 		
 		if(targetTagName === 'ul'){
 			return;
-		}
+		} 
 		
 		globalVariable.getProductCount = 0;
 		removeAnchorActiveClass(e);
@@ -204,7 +207,7 @@ function categoryClickEvent(){
 		moreButton.dataset.category = categoryId;
 		
 	});
-}
+} 
 
 /**
  * @desc 더보기 버튼 클릭 이벤트
