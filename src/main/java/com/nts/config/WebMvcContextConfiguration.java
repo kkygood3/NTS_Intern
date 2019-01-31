@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nts.controller"})
+@ComponentScan("com.nts.controller")
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	private final int CACHE_PERIOD = 31556926;
 	@Override

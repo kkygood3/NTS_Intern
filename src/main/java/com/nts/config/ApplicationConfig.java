@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Import;
  * @author jinwoo.bae
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nts"})
+@ComponentScan("com.nts")
 @Import({DBConfig.class})
 public class ApplicationConfig {}

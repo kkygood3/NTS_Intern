@@ -21,7 +21,7 @@ import com.nts.service.CategoryService;
  * @author jinwoo.bae
  */
 @RestController
-@RequestMapping(path = "/api/categories")
+@RequestMapping("/api/categories")
 public class CategoryApiController {
 	@Autowired
 	private CategoryService categoryService;

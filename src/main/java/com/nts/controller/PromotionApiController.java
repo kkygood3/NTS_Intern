@@ -21,7 +21,7 @@ import com.nts.service.PromotionService;
  * @author jinwoo.bae
  */
 @RestController
-@RequestMapping(path = "/api/promotions")
+@RequestMapping("/api/promotions")
 public class PromotionApiController {
 	@Autowired
 	private PromotionService promotionService;

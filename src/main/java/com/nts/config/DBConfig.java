@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value= {"classpath:application.properties"})
+@PropertySource("classpath:application.properties")
 public class DBConfig {
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
