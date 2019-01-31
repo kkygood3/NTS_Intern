@@ -18,7 +18,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
-public class DatabaseConfig {
+public class DatasourceConfig {
 
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;

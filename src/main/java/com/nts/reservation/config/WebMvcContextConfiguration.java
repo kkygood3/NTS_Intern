@@ -23,12 +23,14 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
+	private static final int YEAR_SECONDS = 31536000;
+
 	/** 
 	 * view가 아닌 resource file 경로에 대한 접근 설정
 	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(YEAR_SECONDS);
 	}
 
 	@Override
