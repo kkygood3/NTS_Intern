@@ -104,7 +104,7 @@
 
 	<script type="rv-template" id="categories">
     <li class="item" data-category="{id}">
-        <a class="anchor"> <span>{name}</span> </a>
+        <a class="anchor"> <span class="category_name">{name}</span> </a>
     </li>
     </script>
 

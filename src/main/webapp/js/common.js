@@ -8,36 +8,34 @@ let selectedCategoryId;
 let start = 0;
 let displayedProduct = 0;
 
-let tab = document.querySelector(".section_event_tab").querySelector("ul");
+let tab = document.querySelector(".section_event_tab").querySelector(".event_tab_lst");
 tab.addEventListener("click", function(event){
 	let anchorElement;
 	let previousActive = document.querySelector(".active");
 	let productContainer = document.querySelectorAll(".lst_event_box");
 	
-	if(event.target.tagName !== "UL"){
-		if(event.target.tagName === "LI"){
-			anchorElement = event.target.firstElementChild;
-		} else if(event.target.tagName === "A"){
-			anchorElement = event.target;
-		} else if(event.target.tagName === "SPAN"){
-			anchorElement = event.target.parentNode;
-		}
-	
-		previousActive.className = "anchor";
-		
-		selectedCategoryId = anchorElement.parentNode.dataset.category;
-		anchorElement.className += " active";
-		
-		productContainer.forEach(function(container){
-			container.innerHTML = "";
-		});
-		
-		start = 0;
-		displayedProduct = 0;
-		btnShowMore.hidden = false;
-		
-		getProductsByCategory(selectedCategoryId, start);
+	if(event.target.className === "anchor"){
+		anchorElement = event.target;
+	} else if(event.target.className === "category_name"){
+		anchorElement = event.target.parentNode;
+	} else {
+		return;
 	}
+
+	previousActive.className = "anchor";
+	
+	selectedCategoryId = anchorElement.parentNode.dataset.category;
+	anchorElement.className += " active";
+	
+	productContainer.forEach(function(container){
+		container.innerHTML = "";
+	});
+	
+	start = 0;
+	displayedProduct = 0;
+	btnShowMore.hidden = false;
+	
+	getProductsByCategory(selectedCategoryId, start);
 });
 
 let btnShowMore = document.querySelector(".more");
