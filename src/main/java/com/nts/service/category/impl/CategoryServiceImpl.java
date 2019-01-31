@@ -7,8 +7,8 @@ package com.nts.service.category.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.category.CategoryDao;
-import com.nts.dto.category.CategoryResponse;
+import com.nts.dao.category.CategoryRepository;
+import com.nts.dto.category.Categories;
 import com.nts.service.category.CategoryService;
 
 /**
@@ -18,15 +18,15 @@ import com.nts.service.category.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * @desc category 전체 가져오기
 	 * @return categories
 	 */
 	@Override
-	public CategoryResponse getCategories() {
-		return new CategoryResponse(categoryDao.selectCategories());
+	public Categories getCategories() {
+		return new Categories(categoryRepository.selectCategories());
 	}
 
 }

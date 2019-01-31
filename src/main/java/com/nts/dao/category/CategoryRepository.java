@@ -20,7 +20,7 @@ import static com.nts.sqls.category.CategorySqls.*;
  * @author 전연빈
  */
 @Repository
-public class CategoryDao {
+public class CategoryRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;

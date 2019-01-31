@@ -4,11 +4,11 @@
  **/
 package com.nts.service.category;
 
-import com.nts.dto.category.CategoryResponse;
+import com.nts.dto.category.Categories;
 
 /**
  * @author 전연빈
  */
 public interface CategoryService {
-	CategoryResponse getCategories();
+	Categories getCategories();
 }

@@ -4,12 +4,23 @@
  **/
 package com.nts.service.product;
 
-import com.nts.dto.product.ProductResponse;
+import java.util.List;
+
+import com.nts.dto.product.Product;
+import com.nts.dto.product.Products;
 import com.nts.exception.ProductParamException;
 
 /**
  * @author 전연빈
  */
 public interface ProductService {
-	ProductResponse getProductsByCategory(int categoryId, int start) throws ProductParamException;
+	Products getProducts(int categoryId, int start) throws ProductParamException;
+
+	List<Product> getProductsAll(int start) throws ProductParamException;
+
+	int getProductsAllCount();
+
+	List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException;
+
+	int getProductsCountByCategory(int categoryId);
 }

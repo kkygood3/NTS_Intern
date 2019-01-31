@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.promotion.PromotionResponse;
+import com.nts.dto.promotion.Promotions;
 import com.nts.service.promotion.PromotionService;
 
 /**
@@ -27,7 +27,7 @@ public class PromotionController {
 	 * @return promotionResponse { items: promotion List } 
 	 */
 	@GetMapping
-	public PromotionResponse getPromotionsAll() {
-		return promotionService.getPromotionAll();
+	public Promotions getPromotions() {
+		return promotionService.getPromotions();
 	}
 }

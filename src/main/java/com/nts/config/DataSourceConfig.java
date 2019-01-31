@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  * @desc DB 설정들
  * @author 전연빈
  */
-public class DBConfig {
+public class DataSourceConfig {
 
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
@@ -24,10 +24,10 @@ public class DBConfig {
 	private String userName;
 	@Value("${spring.datasource.password}")
 	private String password;
-	
+
 	@Bean
 	public DataSource dataSource() {
-		
+
 		BasicDataSource dataSource = new BasicDataSource();
 
 		dataSource.setDriverClassName(driverClassName);

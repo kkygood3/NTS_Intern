@@ -14,9 +14,9 @@ import org.springframework.context.annotation.PropertySource;
  * @author 전연빈
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nts.dao,com.nts.service"})
+@ComponentScan(basePackages = {"com.nts.dao", "com.nts.service"})
 @PropertySource(value = {"classpath:/application.properties"})
-@Import({DBConfig.class, TransactionManagementConfig.class,JdbcTemplateConfig.class})
+@Import({DataSourceConfig.class, TransactionManagementConfig.class, JdbcTemplateConfig.class})
 public class ApplicationConfig {
 
 }

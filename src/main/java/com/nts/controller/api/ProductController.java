@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.product.ProductResponse;
+import com.nts.dto.product.Products;
 import com.nts.exception.ProductParamException;
+import com.nts.util.CheckProductParameter;
 import com.nts.service.product.ProductService;
 
 /**
@@ -32,10 +33,14 @@ public class ProductController {
 	 * @throws ProductParamException 
 	 */
 	@GetMapping
-	public ProductResponse getProductsByCategory(
+	public Products getProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = true) int start) throws ProductParamException {
 
-		return productService.getProductsByCategory(categoryId, start);
+		if (CheckProductParameter.isInvalidStart(start)) {
+			throw new ProductParamException("start = " + start);
+		}
+
+		return productService.getProducts(categoryId, start);
 	}
 }

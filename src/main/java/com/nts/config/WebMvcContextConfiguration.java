@@ -23,9 +23,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"com.nts.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
+	private static final int YEAR_SECONDS = 31536000;
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/").setCachePeriod(31556926);
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/").setCachePeriod(YEAR_SECONDS);
 	}
 
 	@Override

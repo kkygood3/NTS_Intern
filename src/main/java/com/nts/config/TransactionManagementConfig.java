@@ -19,12 +19,12 @@ public class TransactionManagementConfig implements TransactionManagementConfigu
 
 	@Autowired
 	private DataSource dataSource;
-	
+
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return this.transactionManager();
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource);

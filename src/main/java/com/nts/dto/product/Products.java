@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author 전연빈
  */
-public class ProductResponse {
+public class Products {
 	private List<Product> items; 	// 상품 모델
 	private int totalCount; 		// 카테고리에 해당하는 전체 상품 수이
 

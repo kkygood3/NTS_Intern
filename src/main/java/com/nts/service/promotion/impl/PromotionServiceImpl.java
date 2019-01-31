@@ -7,8 +7,8 @@ package com.nts.service.promotion.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.promotion.PromotionDao;
-import com.nts.dto.promotion.PromotionResponse;
+import com.nts.dao.promotion.PromotionRepository;
+import com.nts.dto.promotion.Promotions;
 import com.nts.service.promotion.PromotionService;
 
 /**
@@ -18,15 +18,15 @@ import com.nts.service.promotion.PromotionService;
 public class PromotionServiceImpl implements PromotionService {
 
 	@Autowired
-	private PromotionDao promotionDao;
+	private PromotionRepository promotionRepository;
 
 	/**
 	 * @desc 프로모션 전체 불러오기
-	 * @return promotionResponse { items: promotionList }
+	 * @return promotions { items: promotionList }
 	 */
 	@Override
-	public PromotionResponse getPromotionAll() {
-		return new PromotionResponse(promotionDao.selectCategories());
+	public Promotions getPromotions() {
+		return new Promotions(promotionRepository.selectPromotions());
 	}
 
 }

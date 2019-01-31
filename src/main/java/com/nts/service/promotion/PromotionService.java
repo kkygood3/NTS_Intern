@@ -4,11 +4,11 @@
  **/
 package com.nts.service.promotion;
 
-import com.nts.dto.promotion.PromotionResponse;
+import com.nts.dto.promotion.Promotions;
 
 /**
  * @author 전연빈
  */
 public interface PromotionService {
-	PromotionResponse getPromotionAll();
+	Promotions getPromotions();
 }

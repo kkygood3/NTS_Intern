@@ -4,13 +4,16 @@
  **/
 package com.nts.service.product.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.dao.product.ProductDao;
-import com.nts.dto.product.ProductResponse;
+import com.nts.dao.product.ProductRepository;
+import com.nts.dto.product.Product;
+import com.nts.dto.product.Products;
 import com.nts.exception.ProductParamException;
+import com.nts.util.CheckProductParameter;
 import com.nts.service.product.ProductService;
 
 /**
@@ -20,41 +23,76 @@ import com.nts.service.product.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductDao productDao;
+	private ProductRepository productRepository;
 
 	private static final int SELECT_PRODUCTS_ALL = 0;
 
 	/**
 	 * @desc 카테고리 별 product 가져오기
-	 * @return productResponse( items [product list] , totalCount [카테고리별 총 개수] )
+	 * @return products( items [product list] , totalCount [카테고리별 총 개수] )
+	 * @throws ProductParamException 
 	 */
-	@Transactional
 	@Override
-	public ProductResponse getProductsByCategory(int categoryId, int start) throws ProductParamException {
+	public Products getProducts(int categoryId, int start) throws ProductParamException {
 
-		if (!isValidRequest(start)) {
-			throw new ProductParamException("start값이 음수입니다");
-		}
-
-		ProductResponse productResponse = new ProductResponse();
+		Products products = new Products();
 
 		if (categoryId != SELECT_PRODUCTS_ALL) {
-			productResponse.setItems(productDao.selectProductsByCategory(categoryId, start));
-			productResponse.setTotalCount(productDao.selectProductsCountByCategory(categoryId));
+			products.setItems(this.getProductsByCategory(categoryId, start));
+			products.setTotalCount(this.getProductsCountByCategory(categoryId));
 		} else {
-			productResponse.setItems(productDao.selectProductsAll(categoryId, start));
-			productResponse.setTotalCount(productDao.selectProductsCountAll());
+			products.setItems(this.getProductsAll(start));
+			products.setTotalCount(this.getProductsAllCount());
 		}
-
-		return productResponse;
+		return products;
 	}
 
 	/**
-	 * @desc 유효 요청 검사 ( start 기준 )
-	 * @param start
+	 * @desc 상품 전체 가져오기 ( 페이징 별 )
+	 * @return product list
 	 */
-	private boolean isValidRequest(int start) {
-		return start >= 0;
+	@Override
+	public List<Product> getProductsAll(int start) throws ProductParamException {
+
+		if (CheckProductParameter.isInvalidStart(start)) {
+			throw new ProductParamException("start = " + start);
+		}
+
+		return productRepository.selectProducts(start);
+	}
+
+	/**
+	 * @desc 상품 전체 갯수
+	 * @return count
+	 */
+	@Override
+	public int getProductsAllCount() {
+
+		return productRepository.selectProductsCount();
+	}
+
+	/**
+	 * @desc 카테고리 별 상품 리스트 가져오기 ( 페이징 별 )
+	 * @return product list
+	 */
+	@Override
+	public List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException {
+
+		if (CheckProductParameter.isInvalidStart(start)) {
+			throw new ProductParamException("start = " + start);
+		}
+
+		return productRepository.selectProductsByCategory(categoryId, start);
+	}
+
+	/**
+	 * @desc category Id 별 상품 갯수
+	 * @return count
+	 */
+	@Override
+	public int getProductsCountByCategory(int categoryId) {
+
+		return productRepository.selectProductsCountByCategory(categoryId);
 	}
 
 }

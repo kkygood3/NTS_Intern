@@ -40,9 +40,9 @@
                         <div>
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-                                <ul class="visual_img">
+                                <ul class="visual_img" id="promotions_ul">
                                 
-                                	<template id='promotions-template'>
+                                	<template id='promotions_template'>
                                 		 <li class="item">
 									        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
 									            <div class="event_txt">
@@ -62,12 +62,12 @@
                 </div>
             </div>
             <div class="section_event_tab">
-                <ul class="event_tab_lst tab_lst_min">
+                <ul class="event_tab_lst tab_lst_min" id="categories_tab">
                     <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
                     
-                    <template id="categories-template">
+                    <template id="categories_template">
 						 <li class="item" data-category="{id}" data-count="{count}">
 				             <a class="anchor"> <span>{name}</span> </a>
 				         </li>
@@ -76,15 +76,15 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">10개</span> 있습니다</p>
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink"><span id="products_count"></span>개</span> 있습니다</p>
                 <div class="wrap_event_box">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
-                    <ul class="lst_event_box">
+                    <ul class="lst_event_box products_ul">
                     </ul>
-                    <ul class="lst_event_box">
+                    <ul class="lst_event_box products_ul">
                     </ul>
                     
-                    <template id="products-template">
+                    <template id="products_template">
 						<li class="item">
 							<a href="/?id={displayInfoId}" class="item_book">
 					        	<div class="item_preview">
@@ -92,8 +92,8 @@
 					                <span class="img_border"></span>
 					            </div>
 					         	<div class="event_txt">
-					            	<h4 class="event_txt_tit"> <span>{productDescription}</span> <small class="sm">{placeName}</small> </h4>
-					                <p class="event_txt_dsc">{productContent}</p>
+					            	<h4 class="event_txt_tit"> <span class="product_description">{productDescription}</span> <small class="sm place_name">{placeName}</small> </h4>
+					                <p class="event_txt_dsc product_content">{productContent}</p>
 					            </div>
 					         </a>
 					     </li>
