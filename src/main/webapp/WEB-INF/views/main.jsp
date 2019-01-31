@@ -54,7 +54,7 @@
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
                 	<li class="item" data-category="0">
-                        <a class="anchor active"> <span>전체리스트</span> </a>
+                		<a class="anchor active"><span id="category_0">전체리스트</span></a>
                     </li>
                 <!-- content -->
                 </ul>
@@ -104,7 +104,7 @@
     </script>
     <script type="rv-template" id="category_item">
     <li class="item">
-		<span id="category_{id}">{name}</span>
+		<a class="anchor"><span id="category_{id}">{name}</span><a>
 	</li>
 	</script>
 </body>

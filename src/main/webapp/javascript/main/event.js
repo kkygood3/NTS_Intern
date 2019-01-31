@@ -14,14 +14,17 @@ function addCategoryClickEvent() {
 		if (event.target.tagName != "SPAN") {
 			return;
 		}
+		changeCategoryTabUi(categoryId);
 		changeCategoryInfo(categoryId);
-		changeTabUi();
 		deleteAllThumbnail();
 		sendGetThumbnailsAjax(categoryId);
 	});
 }
 
-function changeTabUi() {
+function changeCategoryTabUi(curCategoryId) {
+	var preCategoryId = document.querySelector(".more > .btn").value;
+	document.getElementsByClassName("active")[0].className = "anchor";
+	document.querySelectorAll(".event_tab_lst a.anchor")[curCategoryId].className = "anchor active";
 	
 }
 
