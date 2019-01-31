@@ -12,6 +12,10 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/*
+ * 전체 상품 수 셀렉트
+ * @author 시윤
+ */
 @Repository
 public class ProductDao {
 	private NamedParameterJdbcTemplate jdbc;

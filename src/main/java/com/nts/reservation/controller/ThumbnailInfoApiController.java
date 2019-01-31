@@ -19,6 +19,10 @@ import com.nts.reservation.dto.ThumbnailInfo;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ThumbnailInfoService;
 
+/*
+ * 메인페이지 썸네일 관련 정보 4개씩 리턴
+ * @author 시윤
+ */
 @RestController
 @RequestMapping(path = "/thumbnail_info")
 public class ThumbnailInfoApiController {

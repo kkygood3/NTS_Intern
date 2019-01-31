@@ -11,6 +11,10 @@ import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.ThumbnailInfo;
 import com.nts.reservation.service.ThumbnailInfoService;
 
+/*
+ * 메인페이지 썸네일 4개씩 리턴
+ * @author 시윤
+ */
 @Service
 public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 	@Autowired

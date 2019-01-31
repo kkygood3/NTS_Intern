@@ -20,6 +20,10 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.ThumbnailInfo;
 
+/*
+ * 썸네일 정보 4개씩 셀렉트
+ * @author 시윤
+ */
 @Repository
 public class ThumbnailInfoDao {
 	private NamedParameterJdbcTemplate jdbc;

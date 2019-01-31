@@ -10,6 +10,10 @@ import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.service.CategoryService;
 
+/*
+ * 전체 카테고리 리스트 리턴
+ * @author 시윤
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired

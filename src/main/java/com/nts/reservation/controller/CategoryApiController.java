@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.service.CategoryService;
 
+/*
+ * 전체 카테고리 리스트 리턴
+ * @author 시윤
+ */
 @RestController
 @RequestMapping(path = "/category")
 public class CategoryApiController {
