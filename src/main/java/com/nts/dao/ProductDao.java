@@ -36,22 +36,22 @@ public class ProductDao {
 	/**
 	 * 모든 카테고리의 상품들을 가져온다 
 	 */
-	public List<ProductDto> selectAll(int start, Integer limit) {
+	public List<ProductDto> selectAllPaging(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_ALL, params, rowMapper);
+		return jdbcTemplate.query(SELECT_ALL_PAGING, params, rowMapper);
 	}
 
 	/**
 	 * 특정 카테고리의 상품들을 가져온다.
 	 */
-	public List<ProductDto> selectByCategoryId(int categoryId, int start, Integer limit) {
+	public List<ProductDto> selectByCategoryIdPaging(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_BY_CATEGORY_ID, params, rowMapper);
+		return jdbcTemplate.query(SELECT_BY_CATEGORY_ID_PAGING, params, rowMapper);
 	}
 
 	/**

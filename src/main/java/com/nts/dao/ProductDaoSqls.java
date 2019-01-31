@@ -9,7 +9,7 @@ package com.nts.dao;
  * @author jinwoo.bae
  */
 public class ProductDaoSqls {
-	public static final String SELECT_ALL = "SELECT  "
+	public static final String SELECT_ALL_PAGING = "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "
 		+ "    p.description AS productDescription, "
@@ -28,8 +28,8 @@ public class ProductDaoSqls {
 		+ "        AND p.id = di.product_id "
 		+ "        AND di.id = dii.display_info_id "
 		+ "        AND fi.id = pi.file_id "
-		+ "ORDER BY di.id ASC limit :start, :limit";
-	public static final String SELECT_BY_CATEGORY_ID = "SELECT  "
+		+ "ORDER BY di.id ASC LIMIT :start, :limit";
+	public static final String SELECT_BY_CATEGORY_ID_PAGING = "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "
 		+ "    p.description AS productDescription, "
@@ -48,7 +48,7 @@ public class ProductDaoSqls {
 		+ "        AND p.id = di.product_id "
 		+ "        AND di.id = dii.display_info_id "
 		+ "        AND fi.id = pi.file_id "
-		+ "ORDER BY di.id ASC limit :start, :limit";
+		+ "ORDER BY di.id ASC LIMIT :start, :limit";
 	public static final String SELECT_COUNT = "SELECT "
 		+ "    COUNT(p.id) AS count "
 		+ "FROM "

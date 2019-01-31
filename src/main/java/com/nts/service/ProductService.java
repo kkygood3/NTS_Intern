@@ -13,7 +13,7 @@ import com.nts.dto.ProductDto;
  * @author jinwoo.bae
  */
 public interface ProductService {
-	public static final Integer LIMIT = 4;
+	public static final int SELECT_LIMIT = 4;
 	List<ProductDto> getProducts(int start);
 	List<ProductDto> getProductsByCategoryId(int categoryId, int start);
 	int getCount();

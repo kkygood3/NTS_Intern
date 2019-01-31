@@ -23,13 +23,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDto> getProducts(int start) {
-		List<ProductDto> list = productDao.selectAll(start, ProductService.LIMIT);
+		List<ProductDto> list = productDao.selectAllPaging(start, SELECT_LIMIT);
 		return list;
 	}
 
 	@Override
 	public List<ProductDto> getProductsByCategoryId(int categoryId, int start) {
-		List<ProductDto> list = productDao.selectByCategoryId(categoryId, start, ProductService.LIMIT);
+		List<ProductDto> list = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
 		return list;
 	}
 
