@@ -17,8 +17,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.nts.constant.DaoQueries;
 import com.nts.dto.Product;
+import com.nts.dto.queries.ProductQueries;
 
 @Repository
 public class ProductDao {
@@ -30,24 +30,24 @@ public class ProductDao {
 	}
 
 	public List<Product> selectAllProducts() {
-		return jdbc.query(DaoQueries.PRODUCT_SELECT_ALL, Collections.emptyMap(), rowMapper);
+		return jdbc.query(ProductQueries.PRODUCT_SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 
 	public Product selectById(long id) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("id", id);
-		return jdbc.query(DaoQueries.PRODUCT_SELECT_BY_ID, params, rowMapper).get(0);
+		return jdbc.query(ProductQueries.PRODUCT_SELECT_BY_ID, params, rowMapper).get(0);
 	}
 
 	public List<Product> selectPagingProducts(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(DaoQueries.PRODUCT_SELECT_PAGING, params, rowMapper);
+		return jdbc.query(ProductQueries.PRODUCT_SELECT_PAGING, params, rowMapper);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(DaoQueries.PRODUCT_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(ProductQueries.PRODUCT_SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 }

@@ -17,9 +17,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.nts.constant.DaoQueries;
 import com.nts.dto.Category;
 import com.nts.dto.Promotion;
+import com.nts.dto.queries.PromotionQueries;
 
 @Repository
 public class PromotionDao {
@@ -31,11 +31,11 @@ public class PromotionDao {
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(DaoQueries.PROMOTION_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(PromotionQueries.PROMOTION_SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 	public List<Promotion> selectAll() {
 		Map<String, Integer> params = new HashMap<>();
-		return jdbc.query(DaoQueries.PROMOTION_SELECT_ALL, params, rowMapper);
+		return jdbc.query(PromotionQueries.PROMOTION_SELECT_ALL, params, rowMapper);
 	}
 }

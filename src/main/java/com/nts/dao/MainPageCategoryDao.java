@@ -14,19 +14,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.constant.DaoQueries;
-import com.nts.dto.MainPageCategory;
+import com.nts.dto.queries.MainPageCategoryQueries;
 
 @Repository
 public class MainPageCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPageCategory> rowMapper = BeanPropertyRowMapper.newInstance(MainPageCategory.class);
+	private RowMapper<MainPageCategoryQueries> rowMapper = BeanPropertyRowMapper.newInstance(MainPageCategoryQueries.class);
 
 	public MainPageCategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPageCategory> selectAllCategories() {
-		return jdbc.query(DaoQueries.CATEGORY_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<MainPageCategoryQueries> selectAllCategories() {
+		return jdbc.query(MainPageCategoryQueries.SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 }

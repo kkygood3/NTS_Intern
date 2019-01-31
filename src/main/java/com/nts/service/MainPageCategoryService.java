@@ -6,8 +6,8 @@ package com.nts.service;
 
 import java.util.List;
 
-import com.nts.dto.MainPageCategory;
+import com.nts.dto.queries.MainPageCategoryQueries;
 
 public interface MainPageCategoryService {
-	public List<MainPageCategory> getAllCategories();
+	public List<MainPageCategoryQueries> getAllCategories();
 }

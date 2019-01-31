@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.MainPageCategoryDao;
-import com.nts.dto.MainPageCategory;
+import com.nts.dto.queries.MainPageCategoryQueries;
 import com.nts.service.MainPageCategoryService;
 
 @Service
@@ -20,7 +20,7 @@ public class MainPageCategoryServiceImpl implements MainPageCategoryService {
 	private MainPageCategoryDao categoryApiViewDao;
 
 	@Override
-	public List<MainPageCategory> getAllCategories() {
+	public List<MainPageCategoryQueries> getAllCategories() {
 		return categoryApiViewDao.selectAllCategories();
 	}
 	

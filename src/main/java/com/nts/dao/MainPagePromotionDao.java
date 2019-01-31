@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.constant.DaoQueries;
 import com.nts.dto.MainPagePromotion;
+import com.nts.dto.queries.MainPagePromotionQueries;
 
 @Repository
 public class MainPagePromotionDao {
@@ -27,10 +27,10 @@ public class MainPagePromotionDao {
 	}
 
 	public List<MainPagePromotion> selectAllPromotions() {
-		return jdbc.query(DaoQueries.PROMOTION_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
+		return jdbc.query(MainPagePromotionQueries.PROMOTION_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(DaoQueries.PROMOTION_API_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(MainPagePromotionQueries.PROMOTION_API_SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }
