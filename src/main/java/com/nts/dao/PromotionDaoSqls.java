@@ -5,20 +5,21 @@
 package com.nts.dao;
 
 /**
+ * 프로모션 데이터에 대한 SQL문을 모아둔 클래스
  * @author jinwoo.bae
- *
  */
 public class PromotionDaoSqls {
-	public static final String SELECT_ALL = "SELECT "
-		+ " 	promotion.id AS id, "
-		+ " 	promotion.product_id AS productId, "
-		+ " 	file_info.save_file_name AS productImageUrl "
-		+ " FROM promotion, "
-		+ " 	product_image, "
-		+ " 	file_info "
-		+ " WHERE "
-		+ " 	promotion.product_id = product_image.product_id "
-		+ " 	AND product_image.type = 'th' "
-		+ " 	AND product_image.file_id = file_info.id "
-		+ " ORDER BY promotion.id ASC";
+	public static final String SELECT_ALL = "SELECT  "
+		+ "    p.id AS id, "
+		+ "    p.product_id AS productId, "
+		+ "    fi.save_file_name AS productImageUrl "
+		+ "FROM "
+		+ "    promotion p, "
+		+ "    product_image pi, "
+		+ "    file_info fi "
+		+ "WHERE "
+		+ "    p.product_id = pi.product_id "
+		+ "        AND pi.type = 'th' "
+		+ "        AND pi.file_id = fi.id "
+		+ "ORDER BY p.id ASC;";
 }
