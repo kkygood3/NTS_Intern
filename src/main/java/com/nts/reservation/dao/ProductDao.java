@@ -45,9 +45,10 @@ public class ProductDao {
 		return jdbc.queryForObject(COUNT_BY_CATEGORY_ID, param, Integer.class);
 	}
 
-	public List<Product> getProducts(Integer categoryId, int start) {
+	public List<Product> getProducts(Integer categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
+		params.put("limit", limit);
 		if (categoryId != null) {
 			params.put("categoryId", categoryId);
 			return jdbc.query(GET_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);

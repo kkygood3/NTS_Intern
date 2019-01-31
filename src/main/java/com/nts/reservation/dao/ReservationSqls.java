@@ -22,7 +22,7 @@ public class ReservationSqls {
 		+ ", product.id AS product_id"
 		+ ", save_file_name AS product_image_url ";
 
-	public static final String LIMIT = "LIMIT :start, 4 ";
+	public static final String LIMIT = "LIMIT :start, :limit ";
 
 	public static final String SELECT_COUNT_ALL = "SELECT count(*) FROM " + PRODUCT_TABLE + "WHERE type = 'th'";
 	public static final String COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "AND category_id = :categoryId ";

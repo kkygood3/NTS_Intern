@@ -12,6 +12,8 @@ import com.nts.reservation.dto.Product;
 * @author  : 이승수
 */
 public interface ProductService {
+	public static final Integer LIMIT = 4;
+
 	public int getCountAllProducts();
 
 	public int getCount(int categoryId);
