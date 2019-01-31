@@ -118,7 +118,12 @@
 	<script>
 		var currentStart = 0;
 		var currentCategory = 0;
-	
+		
+		/**
+		* 메인 페이지에서 호출할 /api의 Ajax Reqeust를 전담.
+		* @param	callback	페이지 로드후에 실행할 callback function
+		* @param	url	api/ 뒤에 붙일 url
+		*/
 		function requestAjax(callback, url){
 			var ajaxReq = new XMLHttpRequest();
 			ajaxReq.callback = callback;
@@ -145,7 +150,9 @@
 			
 			document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
 		}
+		
 
+		//페이지 상단에 움직이는 배너를 설정하는 함수 
 		function setPromotionMove() {
 			var items = document.querySelectorAll(".visual_img>.item");
 			var leftDistance = 0;
@@ -154,8 +161,11 @@
 			
 			setInterval(moveStep, 4000);
 			
+
+			//4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수
 			function moveStep(){
 				
+				//모든 배너 이미지를 매 주기마다 -100% 이동
 				leftDistance -= 100;
 
 				for (var i = 0; i < items.length; i++) {
@@ -164,10 +174,15 @@
 
 				curIdx++;
 
+				//마지막장의 다음장은 미리 첫번째 이미지로 설정
+				//if(마지막장을 넘어 갔을때)
 				if (curIdx >= itemSize - 1) {
 					
+					//마지막 +1에 위치한 첫번째 이미지를 출력하는 도중에, 모든 이미지를 왼쪽으로 이동
 					setTimeout(resetPromotionPos, 1100);
 					
+					//마지막장에서 첫장으로 반복하기위해 복구하는 함수
+					//모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시 transitionDuration을 1s로 초기화
 					function resetPromotionPos() {
 						
 						for (var i = 0; i < items.length; i++) {
@@ -268,7 +283,8 @@
 
 				if (selectedTab.tagName === 'A') {
 					var categoryId = selectedTab.parentElement.getAttribute('data-category');
-					//다른 탭을 누른게 맞다면
+					
+					//현재 탭과 다른 탭을 클릭했을 때 
 					if (categoryId != currentCategory) {
 						currentCategory = categoryId;
 						currentStart = 0;
