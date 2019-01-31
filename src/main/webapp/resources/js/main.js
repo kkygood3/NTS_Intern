@@ -256,47 +256,46 @@ var mainPage = {
 	 */
 	addCategoryEventListner : function() {
 		var tabContainer = this.elements.tabContainer;
-		tabContainer
-				.addEventListener(
-						"click",
-						function(event) {
-							var liElement;
-							var aElement;
-							if (event.target.tagName == "A") {
-								aElement = event.target;
-								liElement = event.target.parentNode;
-							} else if (event.target.tagName == "SPAN") {
-								aElement = event.target.parentNode;
-								liElement = aElement.parentNode;
-							} else {
-								return;
-							}
-
-							if (tabContainer.dataset.selectedTabIndex == liElement.dataset.category) {
-								return;
-							} else {
-								tabContainer.dataset.selectedTabIndex = liElement.dataset.category;
-								var deselectedElement = tabContainer
-										.querySelector(".active");
-								deselectedElement.classList.remove("active");
-								aElement.classList.add("active");
-								var eventListText = document
-										.querySelector(".event_lst_txt > span");
-								eventListText.textContent = liElement.dataset.totalCount
-										+ "개";
-								tabContainer.dataset.currentCount = 0;
-
-								var productContainers = this.elements.productContainers;
-								productContainers.forEach(function(container) {
-									container.innerHTML = "";
-								})
-								this
-										.requestProducts(
-												0,
-												tabContainer.dataset.selectedTabIndex == 0 ? null
-														: tabContainer.dataset.selectedTabIndex);
-							}
+		tabContainer.addEventListener( "click", function(event) {
+							this.onClickTabContainer(event, tabContainer);
 						}.bind(this), false);
+	},
+
+	/**
+	 * @function onClickTabContainer 카테고리 탭 클릭에 대한 콜백함수
+	 * @param {MouseEvent} event 
+	 * @param {Element} tabContainer 
+	 */
+	onClickTabContainer: function(event, tabContainer) {
+		var liElement;
+		var aElement;
+		if (event.target.tagName == "A") {
+			aElement = event.target;
+			liElement = event.target.parentNode;
+		} else if (event.target.tagName == "SPAN") {
+			aElement = event.target.parentNode;
+			liElement = aElement.parentNode;
+		} else {
+			return;
+		}
+
+		if (tabContainer.dataset.selectedTabIndex == liElement.dataset.category) {
+			return;
+		} else {
+			tabContainer.dataset.selectedTabIndex = liElement.dataset.category;
+			var deselectedElement = tabContainer.querySelector(".active");
+			deselectedElement.classList.remove("active");
+			aElement.classList.add("active");
+			var eventListText = document.querySelector(".event_lst_txt > span");
+			eventListText.textContent = liElement.dataset.totalCount + "개";
+			tabContainer.dataset.currentCount = 0;
+
+			var productContainers = this.elements.productContainers;
+			productContainers.forEach(function(container) {
+				container.innerHTML = "";
+			})
+			this.requestProducts( 0, tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex);
+		}
 	},
 	/**
 	 * @function replaceTemplate 템플릿에 파라미터의 값들로 치환해주는 함수
