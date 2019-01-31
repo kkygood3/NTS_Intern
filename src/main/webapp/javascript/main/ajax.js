@@ -6,16 +6,14 @@ function sendGETAjax(url, action) {
 	}
 	httpRequest.open("GET", url);
 	httpRequest.onreadystatechange = function getPromotions() {
-		if (httpRequest.readyState === XMLHttpRequest.DONE) {
-			if (httpRequest.status === 200) {
-			    var resultText = JSON.parse(httpRequest.responseText);
-			    action(resultText);
-			} else {
-				return false;
-			}
-		} else {
+		if (httpRequest.readyState !== XMLHttpRequest.DONE) {
 			return false;
 		}
+		if (httpRequest.status !== 200) {
+			return false;
+		}
+		var resultText = JSON.parse(httpRequest.responseText);
+		action(resultText);
 	};
 	httpRequest.send();
 }
