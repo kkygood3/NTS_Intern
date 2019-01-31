@@ -22,6 +22,9 @@ public class ProductDaoSqls {
 
 	public static final String SELECT_PRODUCTS_COUNT = "SELECT count(id) FROM display_info";
 
+	public static final String SELECT_PRODUCTS_COUNT_BY_CATEGORY = "SELECT count(di.id) FROM display_info di "
+		+ "INNER JOIN product pdt ON pdt.id = di.product_id AND pdt.category_id = :category_id";
+
 	public static final String SELECT_ALL_PRODUCTS_PAGING = "SELECT di.id AS displayInfoId "
 		+ ",di.product_id AS productId "
 		+ ",pdt.description AS productDescription "
@@ -41,17 +44,16 @@ public class ProductDaoSqls {
 		+ ",pdt.content AS productContent "
 		+ ",fi.file_name AS productImageUrl "
 		+ "FROM product pdt "
-		+ "INNER JOIN display_info di ON pdt.id = di.product_id "
+		+ "INNER JOIN display_info di ON pdt.id = di.product_id AND pdt.category_id =:category_id "
 		+ "INNER JOIN product_image pi ON di.product_id = pi.product_id "
 		+ "INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type = 'th' "
-		+ "WHERE pdt.category_id =:category_id "
 		+ "ORDER BY di.product_id ASC LIMIT :start, :limit";
 
-	public static final String SELECT_PRODUCTS_COUNT_BY_CATEGORY = "SELECT ctg.id AS id, "
+	public static final String SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY = "SELECT ctg.id AS id, "
 		+ "ctg.name AS NAME, "
 		+ "count(*) as COUNT "
 		+ "FROM display_info di "
 		+ "INNER JOIN product pdt ON pdt.id = di.product_id "
 		+ "INNER JOIN category ctg ON ctg.id = pdt.category_id "
-		+ "GROUP BY pdt.category_id;";
+		+ "GROUP BY pdt.category_id";
 }

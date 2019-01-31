@@ -29,25 +29,31 @@ public class ProductApiController {
 
 	@GetMapping("/products")
 	public Map<String, Object> getProductsByCategory(
-			@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId) {
-		Map<String,Object> result = new HashMap<>();
-		result.put("items",productService.getProductsByCategory(start, categoryId));
-		result.put("totalCount", productService.getProductsCount());
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
+		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getProductsByCategory(categoryId, start));
+		if (categoryId == 0) {
+			result.put("totalCount", productService.getProductsCount());
+		} else {
+			result.put("totalCount", productService.getProductsCountByCategory(categoryId));
+		}
+
 		return result;
 	}
 
 	@GetMapping("/categories")
-	public Map<String, Object> getCountsByCategory() {
-		Map<String,Object> result = new HashMap<>();
-		result.put("items",productService.getProductsCountByCategory());
+	public Map<String, Object> getAllProductsCountByCategory() {
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getAllProductsCountByCategory());
 		return result;
 	}
 
 	@GetMapping("/promotions")
 	public Map<String, Object> getPromotionList() {
-		Map<String,Object> result = new HashMap<>();
-		result.put("items",productService.getPromotions());
+		Map<String, Object> result = new HashMap<>();
+		result.put("items", productService.getPromotions());
 		return result;
 	}
 }

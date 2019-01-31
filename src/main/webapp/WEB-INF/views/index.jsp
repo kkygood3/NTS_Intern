@@ -23,10 +23,14 @@
 <title>네이버 예약</title>
 <link href="resources/css/style.css" rel="stylesheet">
 <link rel="shortcut icon" href="resources/img/favicon.ico">
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script type="text/javascript" src="resources/js/utils_script.js"></script>
+	<script type="text/javascript" src="resources/js/promoAnimation_script.js"></script>
 </head>
 
 <body onload="init()">
+
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
@@ -158,7 +162,6 @@
             </a>
         </li>
     </script>
-
-	<script type="text/javascript" src="resources/js/mainpage_script.js"></script>
+	<script type="text/javascript" src="resources/js/mainPage_script.js"></script>
 </body>
 </html>

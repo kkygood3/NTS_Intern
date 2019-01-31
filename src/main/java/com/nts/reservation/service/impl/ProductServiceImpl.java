@@ -6,13 +6,7 @@ package com.nts.reservation.service.impl;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-/**
- * Author: Jaewon Lee, lee.jaewon@nts-corp.com
- */
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +18,10 @@ import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.ProductService;
 
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
+
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
@@ -32,17 +30,22 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProductsByCategory(Integer start, Integer category) {
-		if (category > 0) {
-			return productDao.getProductsByCategory(start, category, LIMIT);
+	public List<Product> getProductsByCategory(Integer categoryId, Integer start) {
+		if (categoryId > 0) {
+			return productDao.getProductsByCategory(categoryId, start, LIMIT);
 		} else {
 			return productDao.getProducts(start, LIMIT);
 		}
 	}
-	
+
 	@Override
 	public Long getProductsCount() {
 		return productDao.getProductsCount();
+	}
+
+	@Override
+	public Long getProductsCountByCategory(Integer categoryId) {
+		return productDao.getProductsCountByCategory(categoryId);
 	}
 
 	@Override
@@ -51,8 +54,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Category> getProductsCountByCategory() {
-		return productDao.getProductsCountByCategory();
+	public List<Category> getAllProductsCountByCategory() {
+		return productDao.getAllProductsCountByCategory();
 	}
 
 }

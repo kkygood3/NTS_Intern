@@ -6,7 +6,12 @@ package com.nts.reservation.dao;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import static com.nts.reservation.dao.ProductDaoSqls.*;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_PAGING;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,26 +40,33 @@ public class ProductDao {
 		return jdbc.query(SELECT_PROMOTION, BeanPropertyRowMapper.newInstance(Promotion.class));
 	}
 
-	public List<Product> getProducts(int start, int limit) {
+	public List<Product> getProducts(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 		return jdbc.query(SELECT_ALL_PRODUCTS_PAGING, params, BeanPropertyRowMapper.newInstance(Product.class));
 	}
 
-	public List<Product> getProductsByCategory(int start, int category, int limit) {
+	public List<Product> getProductsByCategory(Integer category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 		params.put("category_id", category);
-		return jdbc.query(SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING, params, BeanPropertyRowMapper.newInstance(Product.class));
+		return jdbc.query(SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING, params,
+			BeanPropertyRowMapper.newInstance(Product.class));
 	}
 
 	public Long getProductsCount() {
 		return jdbc.queryForObject(SELECT_PRODUCTS_COUNT, Collections.emptyMap(), Long.class);
 	}
 
-	public List<Category> getProductsCountByCategory() {
-		return jdbc.query(SELECT_PRODUCTS_COUNT_BY_CATEGORY, BeanPropertyRowMapper.newInstance(Category.class));
+	public Long getProductsCountByCategory(Integer category) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("category_id", category);
+		return jdbc.queryForObject(SELECT_PRODUCTS_COUNT_BY_CATEGORY, params, Long.class);
+	}
+
+	public List<Category> getAllProductsCountByCategory() {
+		return jdbc.query(SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY, BeanPropertyRowMapper.newInstance(Category.class));
 	}
 }
