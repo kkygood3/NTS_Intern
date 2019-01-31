@@ -21,11 +21,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan("com.nts.controller")
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
+	/**
+	 * 31556926 seconds = 1 year
+	 * @value 31556926
+	 */
+	private static final int DEFAULT_PERIOD = 31556926;
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(DEFAULT_PERIOD);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(DEFAULT_PERIOD);
+		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(DEFAULT_PERIOD);
 	}
 
 	@Override
