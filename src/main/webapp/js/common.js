@@ -146,7 +146,7 @@ function getPromotions() {
 				});
 
 				executeAnimationTime = performance.now();
-				slideImage(0, 1, 2, executeAnimationTime);
+				slideImage(0, 1, executeAnimationTime);
 			}
 		}
 
@@ -156,28 +156,25 @@ function getPromotions() {
 	}
 }
 
-function slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime){
+function slideImage(slideOut, slideIn, executeAnimationTime){
 	let now = performance.now();
 	let slides = document.querySelectorAll(".visual_img li");
-	const promotionWidth = slides[slideFirst].clientWidth;
+	const promotionWidth = slides[slideOut].clientWidth;
 	const animationTime = 5000;
 
-	slides[slideFirst].style.left = "0";
-	slides[slideFirst].className = "item slide_first";
-	slides[slideMiddle].style.left = promotionWidth + "px";
-	slides[slideMiddle].className = "item slide_middle";
-	slides[slideLast].style.left = promotionWidth * 2 + "px";
-	slides[slideLast].className = "item slide_last";
+	slides[slideOut].style.left = "0";
+	slides[slideOut].className = "item slide_out";
+	slides[slideIn].style.left = promotionWidth + "px";
+	slides[slideIn].className = "item slide_in";
 	
 	if(now - executeAnimationTime > animationTime) {
-		slides[slideFirst].className = "item";
-		slideFirst = slideMiddle;
-		slideMiddle = slideLast;
-		slideLast = (slideLast + 1) % slides.length;
+		slides[slideOut].className = "item";
+		slideOut = slideIn;
+		slideIn = (slideIn + 1) % slides.length;
 		executeAnimationTime = performance.now();
 	}
 	
 	requestAnimationFrame(function(){
-		slideImage(slideFirst, slideMiddle, slideLast, executeAnimationTime);
+		slideImage(slideOut, slideIn, executeAnimationTime);
 	});
 }

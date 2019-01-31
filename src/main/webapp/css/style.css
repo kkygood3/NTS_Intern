@@ -2985,7 +2985,7 @@ button {
     overflow: hidden;
     position: absolute;
     display: inline-block;
-    width: 84.4%;
+    width: 100%;
     height: 177px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -3828,40 +3828,27 @@ button {
   z-index: 0;
 }
 
-.slide_first {
+.slide_out {
   z-index: 10;
   visibility: visible;
-  animation-name: slide_first;
+  animation-name: slide_out;
   animation-duration: 5s;
 }
 
-.slide_middle {
+.slide_in {
   z-index: 10;
   visibility: visible;
-  animation-name: slide_middle;
+  animation-name: slide_in;
   animation-duration: 5s;
 }
 
-.slide_last {
-  z-index: 10;
-  visibility: visible;
-  animation-name: slide_last;
-  animation-duration: 5s;
-}
-
-@keyframes slide_first {
+@keyframes slide_out {
   to {
     transform: translateX(-100%);
   }
 }
 
-@keyframes slide_middle {
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes slide_last {
+@keyframes slide_in {
   to {
     transform: translateX(-100%);
   }
