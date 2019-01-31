@@ -9,7 +9,7 @@ package com.nts.reservation.dao;
  * @author 육성렬
  */
 public class CategoryDaoSqls {
-	public static final String SELECT_CATEGORY = "SELECT category.id, category.name, COUNT(*) AS count"
+	public static final String SELECT_CATEGORY = "SELECT category.id, category.name, COUNT(display_info.id) AS count"
 		+ " FROM category"
 		+ " INNER JOIN product ON category.id = product.category_id"
 		+ " INNER JOIN display_info ON product.id = display_info.product_id"

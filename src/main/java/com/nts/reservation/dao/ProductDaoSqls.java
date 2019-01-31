@@ -31,10 +31,10 @@ public class ProductDaoSqls {
 		+ " ORDER BY display.id ASC"
 		+ " LIMIT :start, :limit";
 
-	public static final String SELECT_COUNT_PRODUCT = "SELECT COUNT(*) FROM product"
+	public static final String SELECT_COUNT_PRODUCT = "SELECT COUNT(display.id) FROM product"
 		+ " INNER JOIN display_info AS display ON product.id = display.product_id";
 
-	public static final String SELECT_COUNT_PRODUCT_BY_CATEGORY = "SELECT COUNT(*) FROM product"
+	public static final String SELECT_COUNT_PRODUCT_BY_CATEGORY = "SELECT COUNT(display.id) FROM product"
 		+ " INNER JOIN display_info AS display ON product.id = display.product_id"
 		+ " WHERE product.category_id = :category";
 
