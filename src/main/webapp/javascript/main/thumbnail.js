@@ -16,6 +16,9 @@ function makeThumbnailList(thumbnailInfos) {
 	var html = document.getElementById("product_item").innerHTML;
 
 	var resultHTML = "";
+
+	var uls = document.getElementsByClassName("lst_event_box");
+	var index = uls[0].offsetHeight <= uls[1].offsetHeight ? 0 : 1;
 	thumbnailInfos.forEach((thumbnailInfo) => {
 	    resultHTML = html.replace("{id}", thumbnailInfo.id)
 	    				.replace("{description}", thumbnailInfo.description)
@@ -23,9 +26,7 @@ function makeThumbnailList(thumbnailInfos) {
 	    				.replace("{place_name}", thumbnailInfo.placeName)
 	    				.replace("{content}", thumbnailInfo.content)
 						.replace("{save_file_name}", thumbnailInfo.saveFileName);
-		var uls = document.getElementsByClassName("lst_event_box");
-		var index = uls[0].offsetHeight <= uls[1].offsetHeight ? 0 : 1;
-		uls[index].innerHTML += resultHTML;
+		uls[(index++) & 1].innerHTML += resultHTML;
 	});
 }
 
