@@ -18,7 +18,7 @@ import com.nts.reservation.service.PromotionService;
 public class PromotionApiController {
 	@Autowired
 	PromotionService promotionService;
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Promotion> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,

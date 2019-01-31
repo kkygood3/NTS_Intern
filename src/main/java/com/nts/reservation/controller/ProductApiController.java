@@ -21,7 +21,7 @@ import com.nts.reservation.service.ProductService;
 public class ProductApiController {
 	@Autowired
 	ProductService productService;
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
@@ -32,7 +32,7 @@ public class ProductApiController {
 		map.put("product_list", ProductList);
 		return map;
 	}
-	
+
 	private List<Product> getProductList(int start, int categoryId) {
 		List<Product> ProductList = null;
 		if (categoryId == 0) {

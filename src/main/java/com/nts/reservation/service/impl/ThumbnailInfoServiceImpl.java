@@ -17,7 +17,7 @@ public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 	ThumbnailInfoDao thumbnailInfoDao;
 
 	@Override
-	@Transactional	// 내부적으로 readonly로 처리
+	@Transactional // 내부적으로 readonly로 처리
 	public List<ThumbnailInfo> getThumbnailInfos(int start) {
 		List<ThumbnailInfo> thumbnailInfoList = thumbnailInfoDao.selectAllCategoris(start, LIMIT);
 		return thumbnailInfoList;

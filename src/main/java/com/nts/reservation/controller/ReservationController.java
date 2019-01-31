@@ -10,7 +10,7 @@ import com.nts.reservation.service.ProductService;
 public class ReservationController {
 	@Autowired
 	ProductService guestBookService;
-	
+
 	@GetMapping(path = "/")
 	public String main() {
 		return "main";

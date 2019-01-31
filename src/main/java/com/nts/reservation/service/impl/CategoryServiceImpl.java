@@ -11,9 +11,9 @@ import com.nts.reservation.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
 	@Autowired
 	CategoryDao promotionDao;
+
 	@Override
 	public List<Category> getCategoris() {
 		List<Category> list = promotionDao.selectAll();

@@ -13,10 +13,10 @@ import com.nts.reservation.service.PromotionService;
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	PromotionDao promotionDao;
+
 	@Override
 	public List<Promotion> getPromotions() {
 		List<Promotion> list = promotionDao.selectAll();
 		return list;
 	}
-
 }

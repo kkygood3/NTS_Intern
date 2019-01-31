@@ -17,7 +17,7 @@ import com.nts.reservation.service.CategoryService;
 public class CategoryApiController {
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Category> list() {
