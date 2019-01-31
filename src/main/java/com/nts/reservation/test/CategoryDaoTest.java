@@ -25,5 +25,4 @@ public class CategoryDaoTest {
 			System.out.println(category);
 		}
 	}
-
 }

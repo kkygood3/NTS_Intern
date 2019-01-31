@@ -30,5 +30,4 @@ public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 		List<ThumbnailInfo> thumbnailInfoList = thumbnailInfoDao.selectByCategory(c, start, LIMIT);
 		return thumbnailInfoList;
 	}
-
 }
