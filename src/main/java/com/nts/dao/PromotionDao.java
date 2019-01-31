@@ -37,7 +37,7 @@ public class PromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 	
-	public List<Promotion> selectAll(){
-		return jdbc.query(SELECT_ALL, rowMapper);
+	public List<Promotion> selectPromotionsAll(){
+		return jdbc.query(SELECT_PROMOTIONS_ALL, rowMapper);
 	}
 }

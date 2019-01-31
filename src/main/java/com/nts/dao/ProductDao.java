@@ -20,7 +20,6 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.Product;
 import static com.nts.dao.ProductDaoSqls.*;
 
-
 /**
  *
  * @description : ProductDao
@@ -41,28 +40,29 @@ public class ProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Product> selectPagingById(int categoryId, int start) {
+	public List<Product> selectProductsById(int categoryId, int start) {
 		Map<String, Integer> params = new HashMap<>();
+		params.put("categoryId", categoryId);
 		params.put("start", start);
-	
-		String query = SELECT_PAGING_PREFIX;
-		if(categoryId > 0) {
-			query += APPEND_CATEGORY_ID;
-			query += String.valueOf(categoryId);
-		}
-		query += SELECT_PAGING_SUFFIX;
-		
-		return jdbc.query(query, params, rowMapper);
-		
+
+		return jdbc.query(SELECT_PRODUCTS + BY_ID + LIMIT_4, params, rowMapper);
+
 	}
 
-	public int selectCount(int categoryId) {
-		String query = SELECT_COUNT;
-		if(categoryId > 0) {
-			query += APPEND_CATEGORY_ID;
-			query += String.valueOf(categoryId);
-		}
-		
-		return jdbc.queryForObject(query, Collections.emptyMap(), Integer.class);
+	public List<Product> selectProductsAll(int start) {
+		Map<String, ?> param = Collections.singletonMap("start", start);
+
+		return jdbc.query(SELECT_PRODUCTS + LIMIT_4, param, rowMapper);
+	}
+
+	public int selectProductCountAll() {
+
+		return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
+	}
+
+	public int selectProductCountById(int categoryId) {
+		Map<String, ?> param = Collections.singletonMap("categoryId", categoryId);
+
+		return jdbc.queryForObject(SELECT_COUNT + BY_ID, param, Integer.class);
 	}
 }

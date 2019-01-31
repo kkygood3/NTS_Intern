@@ -39,11 +39,7 @@ public class CategoryDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Category> selectGroup() {
-		return jdbc.query(SELECT_CATEGORY_GROUP, rowMapper);
-	}
-
-	public List<Integer> selectCounts() {
-		return jdbc.queryForList(SELECT_COUNTS, Collections.emptyMap(), Integer.class);
+	public List<Category> selectCategoriesGroupById() {
+		return jdbc.query(SELECT_CATEGORIES_GROUP_BY_ID, rowMapper);
 	}
 }
