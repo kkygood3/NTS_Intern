@@ -107,7 +107,7 @@ function fetchPromos() {
  */
 function fetchProducts() {
         urls.PRODUCTS_PARAMS = "?start=" + state.loadedProductCount
-    		+ "&categoryId=" + state.currentCategory;
+    		                 + "&categoryId=" + state.currentCategory;
 	let getProductUrl = urls.PRODUCTS + urls.PRODUCTS_PARAMS;
 	xhrGetRequest(getProductUrl,(respText) => {
 		let productData = JSON.parse(respText);
