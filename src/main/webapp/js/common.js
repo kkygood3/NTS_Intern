@@ -34,14 +34,14 @@ tab.addEventListener("click", function(event){
 		
 		start = 0;
 		displayedProduct = 0;
-		showMoreButton.hidden = false;
+		btnShowMore.hidden = false;
 		
 		getProductsByCategory(selectedCategoryId, start);
 	}
 });
 
-let showMoreButton = document.querySelector(".more");
-showMoreButton.addEventListener("click", function(event){
+let btnShowMore = document.querySelector(".more");
+btnShowMore.addEventListener("click", function(event){
 	const productsPerPage = 4;
 	start += productsPerPage;
 	getProductsByCategory(selectedCategoryId, start);
@@ -109,7 +109,7 @@ function getProductsByCategory(categoryId, start = 0) {
 				})
 				
 				if(displayedProduct >= jsonResponse["totalCount"]){
-					showMoreButton.hidden = true;
+					btnShowMore.hidden = true;
 				}
 			}
 		}
