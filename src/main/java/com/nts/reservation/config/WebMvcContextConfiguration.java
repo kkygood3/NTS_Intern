@@ -1,4 +1,14 @@
 package com.nts.reservation.config;
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,9 +20,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"layeredexam.controller"})
+@ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -28,7 +41,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		System.out.println("addViewControllers가 호출됩니다. ");
 		registry.addViewController("/").setViewName("index");
 	}
 
