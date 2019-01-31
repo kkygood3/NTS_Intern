@@ -17,11 +17,11 @@ import com.nts.service.ProductApiViewService;
 public class ProductApiViewServiceImpl implements ProductApiViewService {
 
 	@Autowired
-	ProductApiViewDao productApiViewDao;
+	private ProductApiViewDao productApiViewDao;
 
 	@Override
 	public List<ProductApiView> getProducts(long categoryId, long start) {
-		if (categoryId > 0)
+		if (categoryId > 0) 
 			return productApiViewDao.selectPagingProducts(categoryId, start, LIMIT);
 		else
 			return getProducts(start);

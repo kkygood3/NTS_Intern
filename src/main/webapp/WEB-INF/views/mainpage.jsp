@@ -295,9 +295,7 @@
 			promotionLoading();
 			
 			//4. 더보기 버튼 event 등록
-			document.querySelector('.btn').addEventListener('click', function(btnEvent) {
-				productLoading(currentCategory, currentStart, 0);
-			});
+			document.querySelector('.btn').addEventListener('click', evt=>productLoading(currentCategory, currentStart, 0));
 			
 			//5. 탭 변경 event 등록
 			navTabEventSet();

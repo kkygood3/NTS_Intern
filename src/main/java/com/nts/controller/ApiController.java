@@ -25,11 +25,11 @@ import com.nts.service.PromotionApiViewService;
 @RequestMapping("/api")
 public class ApiController {
 	@Autowired
-	ProductApiViewService productApiViewService;
+	private ProductApiViewService productApiViewService;
 	@Autowired
-	CategoryApiViewService categoryApiViewService;
+	private CategoryApiViewService categoryApiViewService;
 	@Autowired
-	PromotionApiViewService promotionApiViewService;
+	private PromotionApiViewService promotionApiViewService;
 
 	@GetMapping("/products")
 	public Map<String, Object> products(

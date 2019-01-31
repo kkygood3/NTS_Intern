@@ -17,7 +17,7 @@ import com.nts.service.PromotionApiViewService;
 public class PromotionApiViewServiceImpl implements PromotionApiViewService {
 
 	@Autowired
-	PromotionApiViewDao promotionApiViewDao;
+	private PromotionApiViewDao promotionApiViewDao;
 
 	@Override
 	public List<PromotionApiView> getAllPromotions() {

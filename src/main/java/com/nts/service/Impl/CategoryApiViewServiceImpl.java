@@ -17,7 +17,7 @@ import com.nts.service.CategoryApiViewService;
 public class CategoryApiViewServiceImpl implements CategoryApiViewService {
 
 	@Autowired
-	CategoryApiViewDao categoryApiViewDao;
+	private CategoryApiViewDao categoryApiViewDao;
 
 	@Override
 	public List<CategoryApiView> getAllCategories() {

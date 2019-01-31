@@ -10,5 +10,6 @@ import com.nts.dto.Promotion;
 
 public interface PromotionService {
 	public List<Promotion> getAllPromotions();
+	
 	public int getCount();
 }

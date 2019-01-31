@@ -17,7 +17,7 @@ import com.nts.service.PromotionService;
 public class PromotionServiceImpl implements PromotionService{
 
 	@Autowired
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 	
 	@Override
 	public List<Promotion> getAllPromotions() {

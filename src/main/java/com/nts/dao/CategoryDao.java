@@ -19,7 +19,6 @@ import com.nts.dto.Category;
 
 @Repository
 public class CategoryDao {
-
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
