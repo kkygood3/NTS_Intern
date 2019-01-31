@@ -18,17 +18,17 @@ function makePromotionSlideHTML(promotions) {
 
 function makePromotionSlide() {
 	var ul = document.getElementsByClassName("visual_img")[0];
-	var left = 0;
+	var time = 0;
 	const interval = window.setInterval(()=> {
 		if (readyToSlide){
-			if (left == -400) {
-				left = 0;
+			if (time == 400) {
+				time = 0;
 				var firstLi = ul.firstElementChild;
 				ul.appendChild(firstLi);
 				ul.style.left = 0;
 			} else {
-				ul.style.left = --left + "px";
-			}	// 수치는 나중에 다시 계산해야함
+				ul.style.left = Math.log(time++/40+1)*-166.9 + "px";
+			}
 		}
 	}, 1);
 }
