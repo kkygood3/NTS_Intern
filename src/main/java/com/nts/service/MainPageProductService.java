@@ -22,7 +22,7 @@ public interface MainPageProductService extends DefaultService {
 	 * @return	인터페이스의 LIMIT만큼 해당 DTO의 List로 반환
 	 */
 	public List<MainPageProduct> getProductsByCategory(long categoryId, long start);
-	
+
 	/**
 	 * product_api_view를 조회. 카테고리 구분 없음
 	 * @param	start	페이지에 출력할 데이터의 시작 index

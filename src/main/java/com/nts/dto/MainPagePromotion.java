@@ -14,7 +14,7 @@ public class MainPagePromotion {
 	private String productDescription;
 	private long productId;
 	private String productImageUrl;
-	
+
 	public long getDisplayInfoId() {
 		return displayInfoId;
 	}

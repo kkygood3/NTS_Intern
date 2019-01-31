@@ -60,10 +60,10 @@ public class ApiController {
 			e.printStackTrace();
 		} finally {
 			//start가 음수라면 0부터
-			if(start < 0) {
+			if (start < 0) {
 				start = 0;
 			}
-			
+
 			//0보다 작을 때 카테고리 구분 없음 
 			if (categoryId <= 0) {
 				totalCount = mainPageProductService.getCount();
