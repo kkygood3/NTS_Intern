@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -33,12 +34,11 @@ import static com.nts.dao.ProductDaoSqls.*;
  */
 @Repository
 public class ProductDao {
+	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
+	
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
-	public ProductDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-	}
 
 	public List<Product> selectProductsById(int categoryId, int start) {
 		Map<String, Integer> params = new HashMap<>();
@@ -46,7 +46,6 @@ public class ProductDao {
 		params.put("start", start);
 
 		return jdbc.query(SELECT_PRODUCTS + BY_ID + LIMIT_4, params, rowMapper);
-
 	}
 
 	public List<Product> selectProductsAll(int start) {

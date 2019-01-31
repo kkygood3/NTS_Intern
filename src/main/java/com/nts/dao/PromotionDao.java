@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -30,12 +31,11 @@ import static com.nts.dao.PromotionDaoSqls.*;
  */
 @Repository
 public class PromotionDao {
+	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
+	
 	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
 	
-	public PromotionDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-	}
 	
 	public List<Promotion> selectPromotionsAll(){
 		return jdbc.query(SELECT_PROMOTIONS_ALL, rowMapper);

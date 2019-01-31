@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -32,12 +33,10 @@ import static com.nts.dao.CategoryDaoSqls.*;
  */
 @Repository
 public class CategoryDao {
+	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
+	
 	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
-
-	public CategoryDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-	}
 
 	public List<Category> selectCategoriesGroupById() {
 		return jdbc.query(SELECT_CATEGORIES_GROUP_BY_ID, rowMapper);
