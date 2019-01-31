@@ -29,10 +29,8 @@ var state = {
 
 function initPromoAnimation(){
 	state.IMAGE_LIST = domElements.PROMO_CONTAINER.getElementsByTagName("li");
-	// variable initialization
 	constants.PROMO_CONATINER_WIDTH = domElements.PROMO_CONTAINER.offsetWidth;
-	// constants.ANIMATION_SPEED = 10;
-	// constants.ANIMATION_STOP_DURATION = 1000;
+
 	state.prevPromoCount = 0;
 	state.currentPromoCount = 1;
 	// change the layout with style.left to initialize the animation
