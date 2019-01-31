@@ -11,4 +11,5 @@ public interface ProductService {
 //	public int deleteGuestBook(Long id, String ip);
 //	public Product addGuestBook(Product guestBook, String ip);
 	public int getCount();
+	public int getCount(int categoryId);
 }

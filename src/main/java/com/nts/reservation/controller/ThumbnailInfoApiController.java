@@ -30,9 +30,7 @@ public class ThumbnailInfoApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
-		
-		System.out.println(categoryId);
-		int productCount = productService.getCount();
+		int productCount = getProductCount(categoryId);
 		List<ThumbnailInfo> thumbnailInfoList = Collections.EMPTY_LIST;
 
 		if (productCount > 0) {
@@ -46,6 +44,13 @@ public class ThumbnailInfoApiController {
 		return map;
 	}
 
+	private int getProductCount(int categoryId) {
+		if (categoryId == 0) {
+			return productService.getCount();
+		} else {
+			return productService.getCount(categoryId);
+		}
+	}
 	private List<ThumbnailInfo> getThumbnailInfoList(int start, int categoryId) {
 		List<ThumbnailInfo> ProductList = null;
 		if (categoryId == 0) {

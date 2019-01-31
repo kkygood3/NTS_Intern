@@ -36,4 +36,10 @@ public class ProductServiceImpl implements ProductService {
 	public int getCount() {
 		return productDao.selectCount();
 	}
+
+	@Override
+	public int getCount(int categoryId) {
+		return productDao.selectCount(categoryId);
+	}
+	
 }

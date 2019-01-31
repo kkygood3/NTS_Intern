@@ -1,8 +1,7 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_ALL_PAGING;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.*;
 import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_BY_CATERORY_PAGING;
-import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_COUNT;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -38,7 +37,6 @@ public class ProductDao {
 
 	public List<Product> selectByCategory(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
-		System.out.println("category : " + category);
 		params.put("categoryId", category.getId());
 		params.put("start", start);
 		params.put("limit", limit);
@@ -47,6 +45,11 @@ public class ProductDao {
 	}
 
 	public Integer selectCount() {
-		return jdbc.queryForObject(SELECT_COUNT, Collections.EMPTY_MAP, Integer.class);
+		return jdbc.queryForObject(SELECT_COUNT_ALL, Collections.EMPTY_MAP, Integer.class);
+	}
+	public Integer selectCount(int categoryId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("categoryId", categoryId);
+		return jdbc.queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 }
