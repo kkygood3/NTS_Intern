@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDao categoryDao;
 
 	@Override
-	public List<Category> getAllCategories() {
-		return categoryDao.selectAllCategories();
+	public List<Category> getCategories() {
+		return categoryDao.selectCategories(LIMIT);
 	}
 }

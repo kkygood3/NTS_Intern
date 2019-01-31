@@ -29,25 +29,28 @@ public class ProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Product> selectAllProducts() {
-		return jdbc.query(ProductQueries.PRODUCT_SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<Product> selectProducts(long limit) {
+		Map<String, Long> params = new HashMap<>();
+		params.put("limit", limit);
+		return jdbc.query(ProductQueries.SELECT_PRODUCTS, params, rowMapper);
 	}
 
-	public Product selectById(long id) {
+	public Product selectProductsById(long id, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("id", id);
-		return jdbc.query(ProductQueries.PRODUCT_SELECT_BY_ID, params, rowMapper).get(0);
+		params.put("limit", limit);
+		return jdbc.query(ProductQueries.SELECT_PRODUCT_BY_ID, params, rowMapper).get(0);
 	}
 
-	public List<Product> selectPagingProducts(int start, int limit) {
+	public List<Product> selectProductsPage(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(ProductQueries.PRODUCT_SELECT_PAGING, params, rowMapper);
+		return jdbc.query(ProductQueries.SELECT_PRODUCT_PAGING, params, rowMapper);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(ProductQueries.PRODUCT_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(ProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 }

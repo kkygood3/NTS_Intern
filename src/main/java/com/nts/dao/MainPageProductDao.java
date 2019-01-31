@@ -28,28 +28,28 @@ public class MainPageProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPageProduct> selectAllPagingProducts(long start, long limit) {
+	public List<MainPageProduct> selectPagingProducts(long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(MainPageProductQueries.PRODUCT_API_SELECT_ALL, params, rowMapper);
+		return jdbc.query(MainPageProductQueries.SELECT_PRODUCTS_PAGE, params, rowMapper);
 	}
 
-	public List<MainPageProduct> selectPagingProducts(long categoryId, long start, long limit) {
+	public List<MainPageProduct> selectPagingProductsByCategory(long categoryId, long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(MainPageProductQueries.PRODUCT_API_SELECT_CATEGORY, params, rowMapper);
+		return jdbc.query(MainPageProductQueries.SELECT_PRODUCT_PAGE_BY_CATEGORY, params, rowMapper);
 	}
 
-	public int selectCount(long categoryId) {
+	public int selectCountByCategory(long categoryId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(MainPageProductQueries.PRODUCT_API_SELECT_COUNT, params, Integer.class);
+		return jdbc.queryForObject(MainPageProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 
-	public int selectCountAll() {
-		return jdbc.queryForObject(MainPageProductQueries.PRODUCT_API_SELECT_COUNT_ALL, Collections.emptyMap(), Integer.class);
+	public int selectCount() {
+		return jdbc.queryForObject(MainPageProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }

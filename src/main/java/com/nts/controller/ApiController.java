@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.dto.MainPageCategory;
 import com.nts.dto.MainPageProduct;
 import com.nts.dto.MainPagePromotion;
-import com.nts.dto.queries.MainPageCategoryQueries;
 import com.nts.service.MainPageCategoryService;
 import com.nts.service.MainPageProductService;
 import com.nts.service.MainPagePromotionService;
@@ -51,7 +51,7 @@ public class ApiController {
 	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 
-		List<MainPageCategoryQueries> items = categoryApiViewService.getAllCategories();
+		List<MainPageCategory> items = categoryApiViewService.getCategories();
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);
 
@@ -61,7 +61,7 @@ public class ApiController {
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 
-		List<MainPagePromotion> items = promotionApiViewService.getAllPromotions();
+		List<MainPagePromotion> items = promotionApiViewService.getPromotions();
 		int totalCount = promotionApiViewService.getCount();
 
 		Map<String, Object> map = new HashMap<>();

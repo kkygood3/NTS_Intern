@@ -20,8 +20,8 @@ public class MainPagePromotionServiceImpl implements MainPagePromotionService {
 	private MainPagePromotionDao promotionApiViewDao;
 
 	@Override
-	public List<MainPagePromotion> getAllPromotions() {
-		return promotionApiViewDao.selectAllPromotions();
+	public List<MainPagePromotion> getPromotions() {
+		return promotionApiViewDao.selectPromotions(LIMIT);
 	}
 
 	@Override

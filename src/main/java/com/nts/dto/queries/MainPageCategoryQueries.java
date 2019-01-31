@@ -5,5 +5,5 @@
 package com.nts.dto.queries;
 
 public class MainPageCategoryQueries {
-	public static final String SELECT_ALL = "SELECT id, name, count FROM category_api_view";
+	public static final String SELECT_CATEGORIES = "SELECT id, name, count FROM category_api_view limit :limit";
 }

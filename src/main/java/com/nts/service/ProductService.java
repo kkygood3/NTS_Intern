@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.nts.dto.Product;
 
-public interface ProductService {
+public interface ProductService extends DefaultService{
 	public static final Integer LIMIT = 4;
 
 	public List<Product> getProducts(Integer start);

@@ -5,6 +5,6 @@
 package com.nts.dto.queries;
 
 public class PromotionQueries {
-	public static final String PROMOTION_SELECT_ALL = "SELECT id,product_id FROM promotion";
-	public static final String PROMOTION_SELECT_COUNT = "SELECT count(id) FROM promotion";
+	public static final String SELECT_PROMOTIONS = "SELECT id,product_id FROM promotion limit :limit";
+	public static final String SELECT_COUNT = "SELECT count(id) FROM promotion";
 }

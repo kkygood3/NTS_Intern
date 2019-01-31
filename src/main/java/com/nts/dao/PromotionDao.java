@@ -31,11 +31,12 @@ public class PromotionDao {
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(PromotionQueries.PROMOTION_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(PromotionQueries.SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
-	public List<Promotion> selectAll() {
-		Map<String, Integer> params = new HashMap<>();
-		return jdbc.query(PromotionQueries.PROMOTION_SELECT_ALL, params, rowMapper);
+	public List<Promotion> selectPromotions(long limit) {
+		Map<String, Long> params = new HashMap<>();
+		params.put("limit", limit);
+		return jdbc.query(PromotionQueries.SELECT_PROMOTIONS, params, rowMapper);
 	}
 }

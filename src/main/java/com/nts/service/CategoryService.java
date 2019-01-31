@@ -8,6 +8,6 @@ import java.util.List;
 
 import com.nts.dto.Category;
 
-public interface CategoryService {
-	public List<Category> getAllCategories();
+public interface CategoryService extends DefaultService{
+	public List<Category> getCategories();
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.nts.dto.MainPageProduct;
 
-public interface MainPageProductService {
+public interface MainPageProductService extends DefaultService{
 	public static final Integer LIMIT = 4;
 	
 	public List<MainPageProduct> getProducts(long categoryId, long start);

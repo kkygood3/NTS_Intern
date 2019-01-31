@@ -5,7 +5,9 @@
 package com.nts.dao;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -26,11 +28,13 @@ public class MainPagePromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPagePromotion> selectAllPromotions() {
-		return jdbc.query(MainPagePromotionQueries.PROMOTION_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<MainPagePromotion> selectPromotions(long limit) {
+		Map<String,Long> params = new HashMap<>();
+		params.put("limit", limit);
+		return jdbc.query(MainPagePromotionQueries.SELECT_PROMOTION, params, rowMapper);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(MainPagePromotionQueries.PROMOTION_API_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(MainPagePromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }

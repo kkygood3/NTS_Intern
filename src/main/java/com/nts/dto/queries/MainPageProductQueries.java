@@ -5,8 +5,8 @@
 package com.nts.dto.queries;
 
 public class MainPageProductQueries {
-	public static final String PRODUCT_API_SELECT_COUNT = "SELECT count(product_id) FROM product_api_view where category_id = :categoryId";
-	public static final String PRODUCT_API_SELECT_COUNT_ALL = "SELECT count(product_id) FROM product_api_view";
-	public static final String PRODUCT_API_SELECT_CATEGORY = "SELECT category_id, display_info_id, place_name, product_content, product_description, product_id, product_image_url FROM product_api_view where category_id = :categoryId ORDER BY product_id DESC limit :start, :limit";
-	public static final String PRODUCT_API_SELECT_ALL = "SELECT category_id, display_info_id, place_name, product_content, product_description, product_id, product_image_url FROM product_api_view ORDER BY product_id DESC limit :start, :limit";
+	public static final String SELECT_PRODUCT_COUNT_BY_CATEGORY = "SELECT count(product_id) FROM product_api_view where category_id = :categoryId";
+	public static final String SELECT_PRODUCT_COUNT = "SELECT count(product_id) FROM product_api_view";
+	public static final String SELECT_PRODUCT_PAGE_BY_CATEGORY = "SELECT category_id, display_info_id, place_name, product_content, product_description, product_id, product_image_url FROM product_api_view where category_id = :categoryId ORDER BY product_id DESC limit :start, :limit";
+	public static final String SELECT_PRODUCTS_PAGE = "SELECT category_id, display_info_id, place_name, product_content, product_description, product_id, product_image_url FROM product_api_view ORDER BY product_id DESC limit :start, :limit";
 }

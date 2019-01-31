@@ -5,7 +5,9 @@
 package com.nts.dao;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -26,7 +28,9 @@ public class CategoryDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Category> selectAllCategories() {
-		return jdbc.query(CategoryQueries.CATEGORY_SELECT_ALL, Collections.emptyMap(), rowMapper);
+	public List<Category> selectCategories(long limit) {
+		Map<String, Long> params = new HashMap<>();
+		params.put("limit", limit);
+		return jdbc.query(CategoryQueries.SELECT_CATEGORIES, params, rowMapper);
 	}
 }

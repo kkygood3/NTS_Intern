@@ -21,12 +21,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> getProducts(Integer start) {
-		return productDao.selectPagingProducts(start, LIMIT);
+		return productDao.selectProductsPage(start, LIMIT);
 	}
 
 	@Override
 	public Product getProductById(Product product) {
-		return productDao.selectById(product.getId());
+		return productDao.selectProductsById(product.getId(),LIMIT);
 	}
 
 	@Override

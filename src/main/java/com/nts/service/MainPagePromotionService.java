@@ -8,8 +8,8 @@ import java.util.List;
 
 import com.nts.dto.MainPagePromotion;
 
-public interface MainPagePromotionService {
-	public List<MainPagePromotion> getAllPromotions();
+public interface MainPagePromotionService extends DefaultService{
+	public List<MainPagePromotion> getPromotions();
 
 	public int getCount();
 }

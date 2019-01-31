@@ -20,8 +20,8 @@ public class PromotionServiceImpl implements PromotionService{
 	private PromotionDao promotionDao;
 	
 	@Override
-	public List<Promotion> getAllPromotions() {
-		return promotionDao.selectAll();
+	public List<Promotion> getPromotions() {
+		return promotionDao.selectPromotions(LIMIT);
 	}
 	
 	@Override
