@@ -4,14 +4,14 @@
  */
 package com.nts.dto;
 
-public class ProductApiView {
+public class MainPagePromotion {
 	private long displayInfoId;
 	private String placeName;
 	private String productContent;
 	private String productDescription;
 	private long productId;
 	private String productImageUrl;
-
+	
 	public long getDisplayInfoId() {
 		return displayInfoId;
 	}

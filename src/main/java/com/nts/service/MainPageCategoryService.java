@@ -6,8 +6,8 @@ package com.nts.service;
 
 import java.util.List;
 
-import com.nts.dto.CategoryApiView;
+import com.nts.dto.MainPageCategory;
 
-public interface CategoryApiViewService {
-	public List<CategoryApiView> getAllCategories();
+public interface MainPageCategoryService {
+	public List<MainPageCategory> getAllCategories();
 }

@@ -4,7 +4,7 @@
  */
 package com.nts.dto;
 
-public class CategoryApiView {
+public class MainPageCategory {
 	private long id;
 	private String name;
 	private long count;

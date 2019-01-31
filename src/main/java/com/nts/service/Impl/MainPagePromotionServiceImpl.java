@@ -9,18 +9,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.PromotionApiViewDao;
-import com.nts.dto.PromotionApiView;
-import com.nts.service.PromotionApiViewService;
+import com.nts.dao.MainPagePromotionDao;
+import com.nts.dto.MainPagePromotion;
+import com.nts.service.MainPagePromotionService;
 
 @Service
-public class PromotionApiViewServiceImpl implements PromotionApiViewService {
+public class MainPagePromotionServiceImpl implements MainPagePromotionService {
 
 	@Autowired
-	private PromotionApiViewDao promotionApiViewDao;
+	private MainPagePromotionDao promotionApiViewDao;
 
 	@Override
-	public List<PromotionApiView> getAllPromotions() {
+	public List<MainPagePromotion> getAllPromotions() {
 		return promotionApiViewDao.selectAllPromotions();
 	}
 

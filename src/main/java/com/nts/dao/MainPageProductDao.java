@@ -17,25 +17,25 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.constant.DaoQueries;
-import com.nts.dto.ProductApiView;
+import com.nts.dto.MainPageProduct;
 
 @Repository
-public class ProductApiViewDao {
+public class MainPageProductDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<ProductApiView> rowMapper = BeanPropertyRowMapper.newInstance(ProductApiView.class);
+	private RowMapper<MainPageProduct> rowMapper = BeanPropertyRowMapper.newInstance(MainPageProduct.class);
 
-	public ProductApiViewDao(DataSource dataSource) {
+	public MainPageProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<ProductApiView> selectAllPagingProducts(long start, long limit) {
+	public List<MainPageProduct> selectAllPagingProducts(long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 		return jdbc.query(DaoQueries.PRODUCT_API_SELECT_ALL, params, rowMapper);
 	}
 
-	public List<ProductApiView> selectPagingProducts(long categoryId, long start, long limit) {
+	public List<MainPageProduct> selectPagingProducts(long categoryId, long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("category_id", categoryId);
 		params.put("start", start);

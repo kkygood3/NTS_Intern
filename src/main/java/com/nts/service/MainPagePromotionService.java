@@ -6,10 +6,10 @@ package com.nts.service;
 
 import java.util.List;
 
-import com.nts.dto.PromotionApiView;
+import com.nts.dto.MainPagePromotion;
 
-public interface PromotionApiViewService {
-	public List<PromotionApiView> getAllPromotions();
+public interface MainPagePromotionService {
+	public List<MainPagePromotion> getAllPromotions();
 
 	public int getCount();
 }

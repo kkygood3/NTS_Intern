@@ -14,29 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.CategoryApiView;
-import com.nts.dto.ProductApiView;
-import com.nts.dto.PromotionApiView;
-import com.nts.service.CategoryApiViewService;
-import com.nts.service.ProductApiViewService;
-import com.nts.service.PromotionApiViewService;
+import com.nts.dto.MainPageCategory;
+import com.nts.dto.MainPageProduct;
+import com.nts.dto.MainPagePromotion;
+import com.nts.service.MainPageCategoryService;
+import com.nts.service.MainPageProductService;
+import com.nts.service.MainPagePromotionService;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 	@Autowired
-	private ProductApiViewService productApiViewService;
+	private MainPageProductService productApiViewService;
 	@Autowired
-	private CategoryApiViewService categoryApiViewService;
+	private MainPageCategoryService categoryApiViewService;
 	@Autowired
-	private PromotionApiViewService promotionApiViewService;
+	private MainPagePromotionService promotionApiViewService;
 
 	@GetMapping("/products")
 	public Map<String, Object> products(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
 
-		List<ProductApiView> items;
+		List<MainPageProduct> items;
 		items = productApiViewService.getProducts(categoryId, start);
 
 		int totalCount = productApiViewService.getCount(categoryId);
@@ -51,7 +51,7 @@ public class ApiController {
 	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 
-		List<CategoryApiView> items = categoryApiViewService.getAllCategories();
+		List<MainPageCategory> items = categoryApiViewService.getAllCategories();
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);
 
@@ -61,7 +61,7 @@ public class ApiController {
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 
-		List<PromotionApiView> items = promotionApiViewService.getAllPromotions();
+		List<MainPagePromotion> items = promotionApiViewService.getAllPromotions();
 		int totalCount = promotionApiViewService.getCount();
 
 		Map<String, Object> map = new HashMap<>();

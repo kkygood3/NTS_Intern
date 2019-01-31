@@ -9,18 +9,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.ProductApiViewDao;
-import com.nts.dto.ProductApiView;
-import com.nts.service.ProductApiViewService;
+import com.nts.dao.MainPageProductDao;
+import com.nts.dto.MainPageProduct;
+import com.nts.service.MainPageProductService;
 
 @Service
-public class ProductApiViewServiceImpl implements ProductApiViewService {
+public class MainPageProductServiceImpl implements MainPageProductService {
 
 	@Autowired
-	private ProductApiViewDao productApiViewDao;
+	private MainPageProductDao productApiViewDao;
 
 	@Override
-	public List<ProductApiView> getProducts(long categoryId, long start) {
+	public List<MainPageProduct> getProducts(long categoryId, long start) {
 		if (categoryId > 0) 
 			return productApiViewDao.selectPagingProducts(categoryId, start, LIMIT);
 		else
@@ -28,7 +28,7 @@ public class ProductApiViewServiceImpl implements ProductApiViewService {
 	}
 
 	@Override
-	public List<ProductApiView> getProducts(long start) {
+	public List<MainPageProduct> getProducts(long start) {
 		return productApiViewDao.selectAllPagingProducts(start, LIMIT);
 	}
 

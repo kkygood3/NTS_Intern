@@ -15,22 +15,18 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.constant.DaoQueries;
-import com.nts.dto.PromotionApiView;
+import com.nts.dto.MainPageCategory;
 
 @Repository
-public class PromotionApiViewDao {
+public class MainPageCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<PromotionApiView> rowMapper = BeanPropertyRowMapper.newInstance(PromotionApiView.class);
+	private RowMapper<MainPageCategory> rowMapper = BeanPropertyRowMapper.newInstance(MainPageCategory.class);
 
-	public PromotionApiViewDao(DataSource dataSource) {
+	public MainPageCategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<PromotionApiView> selectAllPromotions() {
-		return jdbc.query(DaoQueries.PROMOTION_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
-	}
-
-	public int selectCount() {
-		return jdbc.queryForObject(DaoQueries.PROMOTION_API_SELECT_COUNT, Collections.emptyMap(), Integer.class);
+	public List<MainPageCategory> selectAllCategories() {
+		return jdbc.query(DaoQueries.CATEGORY_API_SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 }

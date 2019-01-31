@@ -9,18 +9,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.CategoryApiViewDao;
-import com.nts.dto.CategoryApiView;
-import com.nts.service.CategoryApiViewService;
+import com.nts.dao.MainPageCategoryDao;
+import com.nts.dto.MainPageCategory;
+import com.nts.service.MainPageCategoryService;
 
 @Service
-public class CategoryApiViewServiceImpl implements CategoryApiViewService {
+public class MainPageCategoryServiceImpl implements MainPageCategoryService {
 
 	@Autowired
-	private CategoryApiViewDao categoryApiViewDao;
+	private MainPageCategoryDao categoryApiViewDao;
 
 	@Override
-	public List<CategoryApiView> getAllCategories() {
+	public List<MainPageCategory> getAllCategories() {
 		return categoryApiViewDao.selectAllCategories();
 	}
 	
