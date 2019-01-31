@@ -41,34 +41,50 @@ public class ApiController {
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	JSON text
 	 */
+	@SuppressWarnings("finally")
 	@GetMapping("/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") String categoryIdParam,
+		@RequestParam(name = "start", required = false, defaultValue = "0") String startParam) {
+
+		int categoryId = 0;
+		int start = 0;
 
 		List<MainPageProduct> items = new ArrayList<>();
 		int totalCount = 0;
 
-		//0일 때는 카테고리 구분 없음 
-		if (categoryId > 0) {
-			totalCount = mainPageProductService.getCountByCategory(categoryId);
-
-			if (totalCount > 0) {
-				items = mainPageProductService.getProductsByCategory(categoryId, start);
+		try {
+			categoryId = new Integer(categoryIdParam);
+			start = new Integer(startParam);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} finally {
+			//start가 음수라면 0부터
+			if(start < 0) {
+				start = 0;
 			}
-		} else {
-			totalCount = mainPageProductService.getCount();
+			
+			//0보다 작을 때 카테고리 구분 없음 
+			if (categoryId <= 0) {
+				totalCount = mainPageProductService.getCount();
 
-			if (totalCount > 0) {
-				items = mainPageProductService.getProducts(start);
+				if (totalCount > 0) {
+					items = mainPageProductService.getProducts(start);
+				}
+			} else {
+				totalCount = mainPageProductService.getCountByCategory(categoryId);
+
+				if (totalCount > 0) {
+					items = mainPageProductService.getProductsByCategory(categoryId, start);
+				}
 			}
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("items", items);
+			map.put("totalCount", totalCount);
+
+			return map;
 		}
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("items", items);
-		map.put("totalCount", totalCount);
-
-		return map;
 	}
 
 	/**
