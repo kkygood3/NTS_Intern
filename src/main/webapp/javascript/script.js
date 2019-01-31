@@ -17,8 +17,12 @@ function buttonToAjax() {
 
 		if (result == "success") {
 			moveNext(type, buttonParent);
-		} else {
-			alert("ERROR");
+		} else if (result = "fail"){
+			alert("비정상적인 접근입니다.");
+			window.location.href = "/main";
+		} else if (result == "error"){
+			alert("연결상태가 불안정합니다. 관리자에게 문의하세요.");
+			window.location.href = "/main";
 		}
 
 	});
