@@ -7,12 +7,14 @@ package com.nts.dto;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class CategoryResponse {
 	private List<Category> items;
 
+	public CategoryResponse(List<Category> items) {
+		this.items = items;
+	}
+	
 	public List<Category> getItems() {
 		return items;
 	}

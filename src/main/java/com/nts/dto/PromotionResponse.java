@@ -6,11 +6,12 @@ package com.nts.dto;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class PromotionResponse {
 	private List<Promotion> items;
+
+	public PromotionResponse(List<Promotion> items) {
+		this.items = items;
+	}
 
 	public List<Promotion> getItems() {
 		return items;
