@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.model.ProductInfo;
 import com.nts.reservation.model.ProductRequest;
+import com.nts.reservation.model.ProductRequirer;
 import com.nts.reservation.model.ProductResponse;
 import com.nts.reservation.service.ProductService;
 
@@ -25,6 +27,10 @@ public class ProductController {
 	 */
 	@GetMapping(value = {"/api/products"})
 	public ProductResponse getProductList(@Valid ProductRequest productRequest) {
-		return productService.getProductResponse(productRequest);
+		ProductRequirer productRequirer = new ProductRequirer(productRequest.getCategoryId(),
+			productRequest.getStart());
+		ProductInfo productInfo = productService.getProductInfo(productRequirer);
+
+		return new ProductResponse(productInfo.getItem(), productInfo.getTotalCount());
 	}
 }

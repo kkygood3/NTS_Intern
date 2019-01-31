@@ -26,7 +26,7 @@ public class CategoryServiceTest {
 
 	@Test
 	public void getCategoryListTest() {
-		CategoryResponse categoryResponse = categoryService.getCategoryResponse();
+		CategoryResponse categoryResponse = new CategoryResponse(categoryService.getCategoryList());
 
 		for (Category category : categoryResponse.getItem()) {
 			System.out.println(category);

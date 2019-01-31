@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProductRequest;
-import com.nts.reservation.model.ProductResponse;
+import com.nts.reservation.model.ProductInfo;
+import com.nts.reservation.model.ProductRequirer;
 import com.nts.reservation.service.ProductService;
 
 @Service
@@ -22,27 +22,31 @@ public class ProductServiceLogic implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 
-	/**
-	 * parameter의 categoryId 확인후 전체카테고리나 특정카테고리의 ProductResponse 객체반환하는 dao를 호출후 return된 객체 반환
-	 * categoryId가 0일경우 isAllCategory Method 결과값 true, 그외 false
-	 */
+	public List<Product> getProductList(ProductRequirer productRequirer) {
+
+		if (productRequirer.isAllCategory()) {
+			return productDao.getAllCategoryProductList(productRequirer.getStart());
+		} else {
+			return productDao.getOneCategoryProductList(productRequirer.getCategoryId(), productRequirer.getStart());
+		}
+	}
+
+	public int getProductCount(ProductRequirer productRequirer) {
+
+		if (productRequirer.isAllCategory()) {
+			return productDao.getAllCategoryProductCount();
+		} else {
+			return productDao.getOneCategoryProductCount(productRequirer.getCategoryId());
+		}
+	}
+
 	@Override
 	@Transactional(readOnly = true)
-	public ProductResponse getProductResponse(ProductRequest productRequest) {
-		
-		if (productRequest.isAllCategory()) {
-			List<Product> productList = productDao.getAllCategoryProductList(productRequest.getStart());
-			int productCount = productDao.getAllCategoryProductCount();
+	public ProductInfo getProductInfo(ProductRequirer productRequirer) {
 
-			return new ProductResponse(productList, productCount);
+		List<Product> productList = this.getProductList(productRequirer);
+		int productCount = this.getProductCount(productRequirer);
 
-		} else {
-			List<Product> productList = productDao.getOneCategoryProductList(productRequest.getCategoryId(),
-				productRequest.getStart());
-			int productCount = productDao.getOneCategoryProductCount(productRequest.getCategoryId());
-
-			return new ProductResponse(productList, productCount);
-		}
-
+		return new ProductInfo(productList, productCount);
 	}
 }

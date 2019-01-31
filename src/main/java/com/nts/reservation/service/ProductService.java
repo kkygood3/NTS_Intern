@@ -4,11 +4,18 @@
  */
 package com.nts.reservation.service;
 
-import com.nts.reservation.model.ProductRequest;
-import com.nts.reservation.model.ProductResponse;
+import java.util.List;
+
+import com.nts.reservation.model.Product;
+import com.nts.reservation.model.ProductInfo;
+import com.nts.reservation.model.ProductRequirer;
 
 public interface ProductService {
 
-	ProductResponse getProductResponse(ProductRequest productRequest);
+	public List<Product> getProductList(ProductRequirer productRequirer);
+
+	int getProductCount(ProductRequirer productRequirer);
+
+	ProductInfo getProductInfo(ProductRequirer productRequirer);
 
 }

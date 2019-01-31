@@ -4,10 +4,12 @@
  */
 package com.nts.reservation.service;
 
-import com.nts.reservation.model.PromotionResponse;
+import java.util.List;
+
+import com.nts.reservation.model.Promotion;
 
 public interface PromotionService {
 
-	PromotionResponse getPromotionResponse();
+	List<Promotion> getPromotionList();
 
 }

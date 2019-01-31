@@ -26,7 +26,7 @@ public class PromotionServiceTest {
 
 	@Test
 	public void getPromotionList() {
-		PromotionResponse promotionResponse = promotionService.getPromotionResponse();
+		PromotionResponse promotionResponse = new PromotionResponse(promotionService.getPromotionList());
 
 		for (Promotion promotion : promotionResponse.getItem()) {
 			System.out.println(promotion);

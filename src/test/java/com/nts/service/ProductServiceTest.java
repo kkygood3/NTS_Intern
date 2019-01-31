@@ -13,7 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
 import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProductRequest;
+import com.nts.reservation.model.ProductInfo;
+import com.nts.reservation.model.ProductRequirer;
 import com.nts.reservation.model.ProductResponse;
 import com.nts.reservation.service.ProductService;
 
@@ -27,10 +28,12 @@ public class ProductServiceTest {
 
 	@Test
 	public void selectTest() {
-		ProductRequest productRequest = new ProductRequest();
-		productRequest.setCategoryId(1);
-		productRequest.setStart(0);
-		ProductResponse productResponse = productService.getProductResponse(productRequest);
+		ProductRequirer productRequirer = new ProductRequirer();
+		productRequirer.setCategoryId(3);
+		productRequirer.setStart(0);
+
+		ProductInfo productInfo = productService.getProductInfo(productRequirer);
+		ProductResponse productResponse = new ProductResponse(productInfo.getItem(), productInfo.getTotalCount());
 
 		System.out.println(productResponse.getTotalCount());
 		for (Product product : productResponse.getItem()) {

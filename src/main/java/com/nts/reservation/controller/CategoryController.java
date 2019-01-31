@@ -22,6 +22,6 @@ public class CategoryController {
 	 */
 	@GetMapping(value = {"/api/categories"})
 	public CategoryResponse getCategoryList() {
-		return categoryService.getCategoryResponse();
+		return new CategoryResponse(categoryService.getCategoryList());
 	}
 }

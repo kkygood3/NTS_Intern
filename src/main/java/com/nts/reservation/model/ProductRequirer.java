@@ -4,14 +4,23 @@
  */
 package com.nts.reservation.model;
 
-import javax.validation.constraints.Min;
-
-public class ProductRequest {
+public class ProductRequirer {
+	private static final int ALL_CATEGORY = 0;
 
 	private int categoryId;
 
-	@Min(value = 0, message = "start value must be positive number")
 	private int start;
+
+	public ProductRequirer() {}
+
+	public ProductRequirer(int categoryId, int start) {
+		this.categoryId = categoryId;
+		this.start = start;
+	}
+
+	public boolean isAllCategory() {
+		return this.categoryId == ALL_CATEGORY;
+	}
 
 	public int getCategoryId() {
 		return categoryId;

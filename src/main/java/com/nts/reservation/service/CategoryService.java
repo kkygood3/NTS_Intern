@@ -4,10 +4,12 @@
  */
 package com.nts.reservation.service;
 
-import com.nts.reservation.model.CategoryResponse;
+import java.util.List;
+
+import com.nts.reservation.model.Category;
 
 public interface CategoryService {
 
-	CategoryResponse getCategoryResponse();
+	List<Category> getCategoryList();
 
 }
