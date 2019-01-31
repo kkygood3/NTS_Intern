@@ -5,22 +5,27 @@
 
 package com.nts.controller.api.product;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Min;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.nts.dto.Product;
 import com.nts.dto.ProductResponse;
+import com.nts.exception.ValidationException;
 import com.nts.service.ProductService;
-
-import com.nts.config.ApplicationConfig;
-
 
 /**
  *
@@ -38,21 +43,31 @@ public class ProductApiController {
 	ProductService productService;
 
 	/**
+	 * @throws ValidationException
+	 * @throws IOException
+	 * @throws IllegalStateException
 	 * @description : Get 요청을 받으면 Service를 호출해 얻은 결과를 Response로 변환 후 return
 	 */
 	@GetMapping
-	public ProductResponse products(@RequestParam(name="categoryId" ) int categoryId,
-			@RequestParam(name="start", required=false, defaultValue="0") int start) {
-		
-		List<Product> items = productService.getItems(categoryId, start);
-		int totalCount = productService.getCount(categoryId);
+	public ProductResponse products(@RequestParam(name = "categoryId") int categoryId,
+			@RequestParam(name = "start", required = false, defaultValue = "0") int start)
+			throws ValidationException, IllegalStateException, IOException {
 
-		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		if (categoryId < 0) {
+			throw new ValidationException("categoryId : " + categoryId);
+		}
+		if (start < 0) {
+			throw new ValidationException("categoryId : " + start);
+		}
 		
-		ProductResponse productResponse = ac.getBean(ProductResponse.class);
-		productResponse.setItems(items);
-		productResponse.setTotalCount(totalCount);
+		List<Product> items = null;
+		int totalCount = 0;
 		
+		items = productService.getItems(categoryId, start);
+		totalCount = productService.getCount(categoryId);
+		
+		ProductResponse productResponse = new ProductResponse(items, totalCount);
+
 		return productResponse;
 	}
 }

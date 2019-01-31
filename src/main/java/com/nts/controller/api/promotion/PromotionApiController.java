@@ -4,17 +4,12 @@
  */
 package com.nts.controller.api.promotion;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.config.ApplicationConfig;
-import com.nts.dto.Promotion;
 import com.nts.dto.PromotionResponse;
 import com.nts.service.PromotionService;
 
@@ -39,14 +34,8 @@ public class PromotionApiController {
 	 */
 	@GetMapping
 	public PromotionResponse promotions() {
-
-		List<Promotion> items = promotionService.getItems();
-
-		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-
-		PromotionResponse promotionResponse = ac.getBean(PromotionResponse.class);
-		promotionResponse.setItems(items);
 		
-		return promotionResponse;
+		return new PromotionResponse(promotionService.getItems());
+		
 	}
 }

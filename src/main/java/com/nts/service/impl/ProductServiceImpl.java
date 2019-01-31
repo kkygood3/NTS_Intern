@@ -7,6 +7,7 @@ package com.nts.service.impl;
 import com.nts.dao.ProductDao;
 import com.nts.dto.Product;
 import com.nts.dto.ProductResponse;
+import com.nts.exception.ValidationException;
 import com.nts.service.ProductService;
 
 import java.util.List;
@@ -14,7 +15,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 /**
  *
@@ -28,16 +28,49 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDao;
-	
+
+	/**
+	 * @description : categoryId와 start 값을 검증 후 Dao로부터 List를 받음
+	 * @throws : ValidationException
+	 */
 	@Override
-	@Transactional
-	public List<Product> getItems(int categoryId, int start) {
-		return productDao.selectPagingById(categoryId, start);
+	@Transactional(readOnly = true)
+	public List<Product> getItems(int categoryId, int start) throws ValidationException {
+
+		if (categoryId < 0) {
+
+			throw new ValidationException("categoryId : " + categoryId);
+
+		} else if (start < 0) {
+
+			throw new ValidationException("categoryId : " + start);
+
+		} else if (categoryId == 0) {
+
+			return productDao.selectProductsAll(start);
+
+		}
+
+		return productDao.selectProductsById(categoryId, start);
+
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int getCount(int categoryId) {
-		return productDao.selectCount(categoryId);
+		
+		if (categoryId < 0) {
+
+			throw new ValidationException("categoryId : " + categoryId);
+
+		} else if (categoryId == 0) {
+
+			return productDao.selectProductCountAll();
+
+		}
+
+		return productDao.selectProductCountById(categoryId);
+
 	}
+
 }

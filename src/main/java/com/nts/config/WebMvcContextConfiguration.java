@@ -20,7 +20,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * @package : com.nts.config
  * @filename : WebMvcContextConfiguration.java
  * @author : 최석현
- * @method : void addResourceHandlers(ResourceHandlerRegistry registry)
  * @method : void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer)
  * @method : void addViewControllers(final ViewControllerRegistry registry)
  * @method : InternalResourceViewResolver getInternalResourceViewResolver()
@@ -31,13 +30,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = { "com.nts.controller" })
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
-    }
- 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

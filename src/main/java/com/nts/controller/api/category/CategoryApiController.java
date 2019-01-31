@@ -7,13 +7,10 @@ package com.nts.controller.api.category;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.config.ApplicationConfig;
 import com.nts.dto.CategoryResponse;
 import com.nts.service.CategoryService;
 
@@ -37,11 +34,8 @@ public class CategoryApiController {
 	 */
 	@GetMapping
 	public CategoryResponse categories() {
-		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class); 
 		
-		CategoryResponse categoryResponse = ac.getBean(CategoryResponse.class);
-		categoryResponse.setItems(categoryService.getItems());
+		return new CategoryResponse(categoryService.getItems());
 		
-		return categoryResponse;
 	}
 }
