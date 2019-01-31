@@ -22,7 +22,7 @@ import com.nts.service.ProductApiViewService;
 import com.nts.service.PromotionApiViewService;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping("/api")
 public class ApiController {
 	@Autowired
 	ProductApiViewService productApiViewService;
@@ -31,7 +31,7 @@ public class ApiController {
 	@Autowired
 	PromotionApiViewService promotionApiViewService;
 
-	@GetMapping(path = "/products")
+	@GetMapping("/products")
 	public Map<String, Object> products(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
@@ -48,7 +48,7 @@ public class ApiController {
 		return map;
 	}
 
-	@GetMapping(path = "/categories")
+	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 
 		List<CategoryApiView> items = categoryApiViewService.getAllCategories();
@@ -58,7 +58,7 @@ public class ApiController {
 		return map;
 	}
 
-	@GetMapping(path = "/promotions")
+	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 
 		List<PromotionApiView> items = promotionApiViewService.getAllPromotions();
