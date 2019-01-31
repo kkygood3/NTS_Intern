@@ -31,12 +31,6 @@ public class ProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Product> selectProducts(long limit) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("limit", limit);
-		return jdbc.query(ProductQueries.SELECT_PRODUCTS, params, rowMapper);
-	}
-
 	public Product selectProductsById(long id, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("id", id);

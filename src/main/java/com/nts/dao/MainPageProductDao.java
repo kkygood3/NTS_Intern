@@ -35,7 +35,7 @@ public class MainPageProductDao {
 		Map<String, Long> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(MainPageProductQueries.SELECT_PRODUCTS_PAGE, params, rowMapper);
+		return jdbc.query(MainPageProductQueries.SELECT_PRODUCT_PAGE, params, rowMapper);
 	}
 
 	public List<MainPageProduct> selectPagingProductsByCategory(long categoryId, long start, long limit) {
