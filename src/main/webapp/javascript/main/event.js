@@ -1,7 +1,9 @@
 function addButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener("click", function(event){
-		sendGetThumbnailsAjax();
+		var categoryId = moreButton.value;
+		sendGetThumbnailsAjax(categoryId);
+		
 	});
 }
 
@@ -12,7 +14,18 @@ function addCategoryClickEvent() {
 		if (event.target.tagName != "SPAN") {
 			return;
 		}
+		changeCategoryInfo(categoryId);
+		changeTabUi();
 		deleteAllThumbnail();
 		sendGetThumbnailsAjax(categoryId);
 	});
+}
+
+function changeTabUi() {
+	
+}
+
+function changeCategoryInfo(categoryId) {
+	var moreButton = document.querySelector(".more > .btn");
+	moreButton.value = categoryId;
 }
