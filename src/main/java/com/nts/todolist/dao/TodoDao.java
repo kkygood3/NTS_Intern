@@ -14,13 +14,14 @@ import java.util.List;
 import com.nts.todolist.common.JdbcConnection;
 import com.nts.todolist.common.TodoStatus;
 import com.nts.todolist.dto.TodoDto;
+import com.nts.todolist.dto.TodoDtoBuilder;
 import com.nts.todolist.exception.DatabaseAccessException;
 
 /**
  * Todo Data Access Object (Singleton)
  * @author yongjoon.Park
 */
-public class TodoDao {
+public class TodoDao extends JdbcConnection {
 
 	private TodoDao() {}
 
@@ -38,10 +39,10 @@ public class TodoDao {
 	 * @throws DatabaseAccessException
 	 */
 	public int addTodo(TodoDto todoDto) throws DatabaseAccessException {
-		final String INSERT_TODO = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
+		final String insertTodo = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
 
 		try (Connection connection = JdbcConnection.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TODO);) {
+			PreparedStatement preparedStatement = connection.prepareStatement(insertTodo);) {
 
 			preparedStatement.setString(1, todoDto.getTitle());
 			preparedStatement.setString(2, todoDto.getName());
@@ -60,25 +61,32 @@ public class TodoDao {
 	 * @throws DatabaseAccessException
 	 */
 	public List<TodoDto> getTodos() throws DatabaseAccessException {
-		List<TodoDto> todoList = new ArrayList<>();
 
-		final String GET_ALL_TODOS = "SELECT id, title, name, sequence, type, DATE_FORMAT(regdate, '%Y. %m. %d. ') " +
+		final String getAllTodos = "SELECT id, title, name, sequence, type, DATE_FORMAT(regdate, '%Y. %m. %d. ') " +
 			"FROM todo " +
 			"ORDER BY regdate";
 
 		try (Connection connection = JdbcConnection.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_TODOS);
+			PreparedStatement preparedStatement = connection.prepareStatement(getAllTodos);
 			ResultSet resultSet = preparedStatement.executeQuery();) {
 
+			List<TodoDto> todoList = new ArrayList<>();
 			while (resultSet.next()) {
-				long id = resultSet.getLong(1);
-				String title = resultSet.getString(2);
-				String name = resultSet.getString(3);
-				int sequence = resultSet.getInt(4);
-				String type = resultSet.getString(5);
+				long id = resultSet.getLong("id");
+				String title = resultSet.getString("title");
+				String name = resultSet.getString("name");
+				int sequence = resultSet.getInt("sequence");
+				String type = resultSet.getString("type");
 				String regdate = resultSet.getString(6);
 
-				TodoDto todo = new TodoDto(id, title, name, sequence, type, regdate);
+				TodoDto todo = new TodoDtoBuilder()
+					.setId(id)
+					.setTitle(title)
+					.setName(name)
+					.setSequence(sequence)
+					.setType(type)
+					.setRegdate(regdate)
+					.build();
 				todoList.add(todo);
 			}
 			return todoList;
@@ -98,10 +106,10 @@ public class TodoDao {
 	 */
 	public int updateTodo(long id, TodoStatus type) throws DatabaseAccessException {
 
-		final String UPDATE_TODO = "UPDATE todo SET TYPE = ? WHERE id = ?";
+		final String updateTodo = "UPDATE todo SET TYPE = ? WHERE id = ?";
 
 		try (Connection connection = JdbcConnection.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_TODO);) {
+			PreparedStatement preparedStatement = connection.prepareStatement(updateTodo);) {
 
 			preparedStatement.setString(1, type.getTodoStatus());
 			preparedStatement.setLong(2, id);
