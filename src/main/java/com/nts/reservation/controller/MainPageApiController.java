@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CategoryDto;
-import com.nts.reservation.dto.CategoryResponseDto;
 import com.nts.reservation.dto.ProductDto;
-import com.nts.reservation.dto.ProductResponseDto;
-import com.nts.reservation.dto.PromotionResponseDto;
+import com.nts.reservation.dto.response.CategoryResponseDto;
+import com.nts.reservation.dto.response.ProductResponseDto;
+import com.nts.reservation.dto.response.PromotionResponseDto;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.ProductService;
 

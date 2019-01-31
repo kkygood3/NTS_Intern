@@ -3,9 +3,11 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.response;
 
 import java.util.List;
+
+import com.nts.reservation.dto.CategoryDto;
 
 /**
  * 카테고리 리스트 전송 양식을 위한 클래스
