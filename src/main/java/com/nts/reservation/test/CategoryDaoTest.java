@@ -24,13 +24,6 @@ public class CategoryDaoTest {
 		for (Category category : categoris) {
 			System.out.println(category);
 		}
-		
-//		CategoryDao lDao = ac.getBean(CategoryDao.class);
-//		Category log = new Category();
-//		log.setIp("127.0.0.1");
-//		log.setMethod("insert");
-//		log.setRegdate(new Date());
-//		lDao.insert(log);
 	}
 
 }
