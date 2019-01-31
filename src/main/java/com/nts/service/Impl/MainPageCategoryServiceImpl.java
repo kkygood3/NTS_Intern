@@ -23,5 +23,5 @@ public class MainPageCategoryServiceImpl implements MainPageCategoryService {
 	public List<MainPageCategory> getCategories() {
 		return mainPageCategoryDao.selectCategories(LIMIT);
 	}
-	
+
 }

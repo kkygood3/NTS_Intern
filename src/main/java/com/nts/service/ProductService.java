@@ -8,7 +8,11 @@ import java.util.List;
 
 import com.nts.dto.Product;
 
-public interface ProductService extends DefaultService{
+public interface ProductService extends DefaultService {
+	/**
+	 * product에 Select 수행시 한번에 가져올 row 수
+	 * @value	4 
+	 */
 	public static final Integer LIMIT = 4;
 
 	public List<Product> getProducts(Integer start);

@@ -22,16 +22,16 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 public class DBConfig implements TransactionManagementConfigurer {
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
-	
+
 	@Value("${spring.datasource.url}")
 	private String url;
-	
+
 	@Value("${spring.datasource.username}")
 	private String userName;
-	
+
 	@Value("${spring.datasource.password}")
 	private String password;
-	
+
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();

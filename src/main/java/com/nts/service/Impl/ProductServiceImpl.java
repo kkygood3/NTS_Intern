@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Override
 	public List<Product> getProducts(Integer start) {
 		return productDao.selectProductsPage(start, LIMIT);
@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product getProductById(Product product) {
-		return productDao.selectProductsById(product.getId(),LIMIT);
+		return productDao.selectProductsById(product.getId(), LIMIT);
 	}
 
 	@Override

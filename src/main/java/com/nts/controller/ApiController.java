@@ -48,29 +48,29 @@ public class ApiController {
 
 		List<MainPageProduct> items = new ArrayList<>();
 		int totalCount = 0;
-		
+
 		//0일 때는 카테고리 구분 없음 
-		if(categoryId > 0) {
+		if (categoryId > 0) {
 			totalCount = mainPageProductService.getCountByCategory(categoryId);
-			
-			if(totalCount > 0) {
+
+			if (totalCount > 0) {
 				items = mainPageProductService.getProductsByCategory(categoryId, start);
 			}
-		}else {
+		} else {
 			totalCount = mainPageProductService.getCount();
-			
-			if(totalCount > 0) {
+
+			if (totalCount > 0) {
 				items = mainPageProductService.getProducts(start);
 			}
 		}
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);
 		map.put("totalCount", totalCount);
-		
+
 		return map;
 	}
-	
+
 	/**
 	 * /categories 요청을 받아 메인 페이지에 카테고리 목록 출력
 	 * @return	JSON text
@@ -84,7 +84,7 @@ public class ApiController {
 
 		return map;
 	}
-	
+
 	/**
 	 * /promotions 요청을 받아 메인 페이지에 프로모션 정보를 출력
 	 * @return	JSON text

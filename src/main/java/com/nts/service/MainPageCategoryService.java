@@ -8,6 +8,6 @@ import java.util.List;
 
 import com.nts.dto.MainPageCategory;
 
-public interface MainPageCategoryService extends DefaultService{
+public interface MainPageCategoryService extends DefaultService {
 	public List<MainPageCategory> getCategories();
 }

@@ -32,12 +32,13 @@ public class MainPagePromotionDao {
 	}
 
 	public List<MainPagePromotion> selectPromotions(long limit) {
-		Map<String,Long> params = new HashMap<>();
+		Map<String, Long> params = new HashMap<>();
 		params.put("limit", limit);
 		return jdbc.query(MainPagePromotionQueries.SELECT_PROMOTION, params, rowMapper);
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(MainPagePromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(MainPagePromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(),
+			Integer.class);
 	}
 }

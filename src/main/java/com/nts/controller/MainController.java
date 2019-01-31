@@ -6,6 +6,7 @@ package com.nts.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 /**
  * /mainpage을 요청하면 mainpage.jsp로 리다이렉트하는 Controller
  */
