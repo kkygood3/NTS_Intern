@@ -14,13 +14,21 @@ package com.nts.dao;
  * 
  */
 public class PromotionDaoSqls {
-	public static final String SELECT_ALL = "SELECT promotion.id, promotion.product_id, "
-												+ "save_file_name as product_image_url "
-											+ "FROM product, promotion, product_image, file_info "
-											+ "WHERE product_image.type = 'th' "
-												+ "and product.id = promotion.product_id "
-												+ "and product.id = product_image.product_id "
-												+ "and file_info.id = product_image.file_id "
-											+ "ORDER BY promotion.id asc";
+	public static final String SELECT_PROMOTIONS_ALL = "SELECT "
+														+ "promotion.id AS id"
+														+ ", promotion.product_id AS product_id"
+														+ ", save_file_name AS product_image_url "
+													 + "FROM "
+													 	+ "product"
+													 	+ ", promotion"
+													 	+ ", product_image"
+													 	+ ", file_info "
+													 + "WHERE product_image.type = 'th' "
+													 	+ "AND product.id = promotion.product_id "
+													 	+ "AND product.id = product_image.product_id "
+													 	+ "AND file_info.id = product_image.file_id "
+													 + "ORDER BY "
+													 	+ "promotion.id "
+													 + "ASC";
 
 }

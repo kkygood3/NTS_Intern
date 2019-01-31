@@ -15,23 +15,31 @@ package com.nts.dao;
  * 
  */
 public class ProductDaoSqls {
-	public static final String SELECT_COUNT = "SELECT count(*) "
-											+ "FROM display_info, product "
+	public static final String SELECT_COUNT = "SELECT "
+												+ "count(*)"
+											+ "FROM display_info"
+												+ ", product "
 											+ "WHERE display_info.product_id = product.id ";
 	
-	public static final String SELECT_PAGING_PREFIX = "SELECT display_info.id, place_name, "
-														+ "content as productContent, "
-														+ "description as productDescription, "
-														+ "display_info.product_id, "
-														+ "save_file_name as product_image_url "
-													+ "FROM product, display_info, product_image, file_info "
+	public static final String SELECT_PRODUCTS = "SELECT "
+														+ " display_info.id AS display_info_id "
+														+ ", place_name AS place_name "
+														+ ", content AS productContent "
+														+ ", description AS productDescription "
+														+ ", display_info.product_id AS product_id "
+														+ ", save_file_name AS product_image_url "
+													+ "FROM "
+														+ " product "
+														+ ", display_info "
+														+ ", product_image "
+														+ ", file_info "
 													+ "WHERE product_image.type = 'th' "
-														+ "and product.id = display_info.product_id "
-														+ "and product.id = product_image.product_id "
-														+ "and file_info.id = product_image.file_id ";
+														+ " and product.id = display_info.product_id "
+														+ " and product.id = product_image.product_id "
+														+ " and file_info.id = product_image.file_id ";
 
-	public static final String APPEND_CATEGORY_ID =		  "and product.category_id = ";
+	public static final String BY_ID =		  " and product.category_id = :categoryId";
 	
-	public static final String SELECT_PAGING_SUFFIX = " ORDER BY product.id asc limit :start, 4";
+	public static final String LIMIT_4 = " limit :start, 4 ";
 	
 }
