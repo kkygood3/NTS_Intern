@@ -10,15 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function ajax(method ,url, data, callback) {
 	var xmlHttpRequest = new XMLHttpRequest();
-	xmlHttpRequest.addEventListener("load", function(){
-			callback(this.response);
-	});
-	xmlHttpRequest.open(method, url + data);
-	xmlHttpRequest.send();
+	xmlHttpRequest.addEventListener("load", callback);
+	xmlHttpRequest.open(method, url + "?" + data);
+	xmlHttpRequest.send(data);
 }
 
-function printPromotions(response) {
-	console.log(this.response);
+function printPromotions(evt) {
+	var response = evt.currentTarget.response;
+	
 	var promotionList = document.querySelector("#promotion_list");
 	var promotionItems = JSON.parse(response).item;
 	promotionItems.forEach((promotionItem) => {
@@ -27,7 +26,9 @@ function printPromotions(response) {
 
 }
 
-function printCategories(response) {
+function printCategories(evt) {
+	var response = evt.currentTarget.response;
+	
 	var categoryList = document.querySelector("#category_list");
 
 	var categoryItems = JSON.parse(response).item;
@@ -36,7 +37,9 @@ function printCategories(response) {
 	});
 }
 
-function printProducts(response) {
+function printProducts(evt) {
+	var response = evt.currentTarget.response;
+	
 	var productLists = document.querySelectorAll(".lst_event_box");
 	var productListsLength = productLists.length;
 	var productCount = getProductsCount();
@@ -57,16 +60,6 @@ function printProducts(response) {
 
 }
 
-function getProductsCount() {
-	var productLists = document.querySelectorAll(".lst_event_box");
-	var productCount = 0;
-	
-	productLists.forEach((productList) => {
-		productCount + productList.childElementCount;
-	});
-	
-	return productCount;
-}
 
 function clearProductLists() {
 	var productLists = document.querySelectorAll(".lst_event_box");
@@ -110,11 +103,11 @@ function addClickEventCategoryChange(){
 	            clearProductLists();
 
 	            var categoryId = path.parentElement.dataset.category;
-	            ajax("GET", "/api/products", "?categoryId=" + categoryId, printProducts);
+	            ajax("GET", "/api/products", "categoryId=" + categoryId, printProducts);
 
 	            document.querySelector(".more .btn").style.display = "inline-block";
 	            return true;
-	        		}
+	        	}
 	        return false;
 	    });
 	});
@@ -125,6 +118,18 @@ function addClickEventMoreBtn(){
 	    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;
 	    var productCount = getProductsCount();
 	    
-	    ajax("GET", "/api/products", "?categoryId=" + categoryId + "&start=" + productCount, printProducts);
+	    ajax("GET", "/api/products", "categoryId=" + categoryId + "&start=" + productCount, printProducts);
 	});
+}
+
+
+function getProductsCount() {
+	var productLists = document.querySelectorAll(".lst_event_box");
+	var productCount = 0;
+
+	productLists.forEach((productList) => {
+		productCount += productList.childElementCount;
+	});
+	
+	return productCount;
 }
