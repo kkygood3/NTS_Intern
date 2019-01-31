@@ -10,7 +10,7 @@ import com.nts.dto.Product;
 
 public interface ProductService extends DefaultService {
 	/**
-	 * product에 Select 수행시 한번에 가져올 row 수
+	 * product에 Select 수행시 Paging 처리를 위해 한번에 가져올 row 수
 	 * @value	4 
 	 */
 	public static final Integer LIMIT = 4;

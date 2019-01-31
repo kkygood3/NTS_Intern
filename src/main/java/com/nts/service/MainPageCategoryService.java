@@ -9,5 +9,9 @@ import java.util.List;
 import com.nts.dto.MainPageCategory;
 
 public interface MainPageCategoryService extends DefaultService {
+	/**
+	 * category_api_view를 조회
+	 * @return default LIMIT만큼 조회하여 반환
+	 */
 	public List<MainPageCategory> getCategories();
 }
