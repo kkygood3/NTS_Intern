@@ -24,7 +24,7 @@ import com.nts.service.PromotionService;
 @RequestMapping(path = "/api/promotions")
 public class PromotionApiController {
 	@Autowired
-	PromotionService promotionService;
+	private PromotionService promotionService;
 
 	/**
 	 *  프로모션 목록들을 가져와 json으로 리턴

@@ -20,7 +20,7 @@ import com.nts.dto.CategoryDto;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	CategoryDao categoryDao;
+	private CategoryDao categoryDao;
 
 	@Override
 	public List<CategoryDto> getCategoriesWithProductCount() {

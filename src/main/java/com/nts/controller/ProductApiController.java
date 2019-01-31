@@ -24,7 +24,7 @@ import com.nts.service.ProductService;
 @RestController
 public class ProductApiController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	/**
 	 * 상품정보들과 총개수를 가져와 json으로 리턴해준다.

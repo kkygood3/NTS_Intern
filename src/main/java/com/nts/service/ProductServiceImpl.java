@@ -19,7 +19,7 @@ import com.nts.dto.ProductDto;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
 	public List<ProductDto> getProducts(int start) {

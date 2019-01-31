@@ -24,7 +24,7 @@ import com.nts.service.CategoryService;
 @RequestMapping(path = "/api/categories")
 public class CategoryApiController {
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	/**
 	 * 모든 카테고리 정보들을 json형태로 반환해준다 
