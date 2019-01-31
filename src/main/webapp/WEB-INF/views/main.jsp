@@ -125,7 +125,7 @@
 
 		// null or undefinde or "" or NaN or 0 or false 
 		function validResponse(response) {
-			if (response || !JSON.parse(response).items) {
+			if (!response || !JSON.parse(response).items) {
 				alert("응답받은 데이터가 없습니다.")
 				return false;
 			}
