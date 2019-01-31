@@ -8,10 +8,6 @@ public class Promotion {
 	private long id;
 	private long productId;
 
-	public Promotion() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -27,10 +23,4 @@ public class Promotion {
 	public void setProductId(long productId) {
 		this.productId = productId;
 	}
-
-	@Override
-	public String toString() {
-		return "Promotion [id=" + id + ", productId=" + productId + "]";
-	}
-
 }

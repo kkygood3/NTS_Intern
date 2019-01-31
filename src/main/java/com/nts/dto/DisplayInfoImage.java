@@ -9,10 +9,6 @@ public class DisplayInfoImage {
 	private long displayInfoId;
 	private long fileId;
 
-	public DisplayInfoImage() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -36,5 +32,4 @@ public class DisplayInfoImage {
 	public void setFileId(long fileId) {
 		this.fileId = fileId;
 	}
-
 }

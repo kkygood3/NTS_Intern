@@ -17,10 +17,6 @@ public class DisplayInfo {
 	private String createDate;
 	private String modifyDate;
 
-	public DisplayInfo() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -108,12 +104,4 @@ public class DisplayInfo {
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
-	@Override
-	public String toString() {
-		return "DisplayInfo [id=" + id + ", productId=" + productId + ", openingHours=" + openingHours + ", placeName="
-			+ placeName + ", placeLot=" + placeLot + ", placeStreet=" + placeStreet + ", tel=" + tel + ", homepage="
-			+ homepage + ", email=" + email + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
-	}
-
 }

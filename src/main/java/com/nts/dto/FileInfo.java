@@ -13,11 +13,6 @@ public class FileInfo {
 	private String createDate;
 	private String modifyDate;
 
-	public FileInfo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -73,12 +68,4 @@ public class FileInfo {
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
-	@Override
-	public String toString() {
-		return "fileInfo [id=" + id + ", fileName=" + fileName + ", saveFileName=" + saveFileName + ", contentType="
-			+ contentType + ", deleteFlag=" + deleteFlag + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-			+ "]";
-	}
-
 }

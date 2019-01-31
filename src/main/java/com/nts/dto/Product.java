@@ -13,10 +13,6 @@ public class Product {
 	private String createDate;
 	private String modifyDate;
 
-	public Product() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -72,11 +68,4 @@ public class Product {
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", categoryId=" + categoryId + ", description=" + description + ", content="
-			+ content + ", event=" + event + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
-	}
-
 }

@@ -12,10 +12,6 @@ public class ProductApiView {
 	private long productId;
 	private String productImageUrl;
 
-	public ProductApiView() {
-		super();
-	}
-
 	public long getDisplayInfoId() {
 		return displayInfoId;
 	}
@@ -62,12 +58,5 @@ public class ProductApiView {
 
 	public void setProductImageUrl(String productImageUrl) {
 		this.productImageUrl = productImageUrl;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductApiView [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
-			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
-			+ ", productImageUrl=" + productImageUrl + "]";
 	}
 }

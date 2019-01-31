@@ -10,10 +10,6 @@ public class ProductImage {
 	private String type;
 	private long fileId;
 
-	public ProductImage() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -45,10 +41,4 @@ public class ProductImage {
 	public void setFileId(long fileId) {
 		this.fileId = fileId;
 	}
-
-	@Override
-	public String toString() {
-		return "ProductImage [id=" + id + ", productId=" + productId + ", type=" + type + ", fileId=" + fileId + "]";
-	}
-
 }

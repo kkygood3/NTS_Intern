@@ -8,10 +8,6 @@ public class Category {
 	private long id;
 	private String name;
 
-	public Category() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -27,10 +23,4 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
-	}
-
 }

@@ -9,10 +9,6 @@ public class CategoryApiView {
 	private String name;
 	private long count;
 
-	public CategoryApiView() {
-		super();
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -35,10 +31,5 @@ public class CategoryApiView {
 
 	public void setCount(long count) {
 		this.count = count;
-	}
-
-	@Override
-	public String toString() {
-		return "CategoryApiView [id=" + id + ", name=" + name + ", count=" + count + "]";
 	}
 }

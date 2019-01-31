@@ -11,11 +11,7 @@ public class PromotionApiView {
 	private String productDescription;
 	private long productId;
 	private String productImageUrl;
-
-	public PromotionApiView() {
-		super();
-	}
-
+	
 	public long getDisplayInfoId() {
 		return displayInfoId;
 	}
@@ -63,12 +59,4 @@ public class PromotionApiView {
 	public void setProductImageUrl(String productImageUrl) {
 		this.productImageUrl = productImageUrl;
 	}
-
-	@Override
-	public String toString() {
-		return "PromotionApiView [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
-			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
-			+ ", productImageUrl=" + productImageUrl + "]";
-	}
-
 }
