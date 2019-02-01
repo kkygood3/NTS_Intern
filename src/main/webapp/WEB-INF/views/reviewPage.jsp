@@ -70,7 +70,7 @@
 				<div>
 					<div class="review_area">
 						<div class="thumb_area">
-							<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src={{imageUrl}} alt="리뷰이미지"> </a> <span class="img_count">1</span>                                                </div>
+							<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src={{imageUrl}} alt="리뷰이미지"> </a> <span class="img_count">{{imageCount}}</span>                                                </div>
 						<h4 class="resoc_name">{{productName}}</h4>
 						<p class="review">{{comment}}</p>
 					</div>
