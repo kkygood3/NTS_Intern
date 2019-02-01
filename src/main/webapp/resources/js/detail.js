@@ -217,7 +217,7 @@ var detailPage = {
 	 * @typedef {Object} ReturnIndexAndStyleForNext
 	 * @property {number} nextIndex 
 	 * @property {String} nextStyle
-	 * @property {moveToCurrentStyle} moveToCurrentStyle
+	 * @property {String} moveToCurrentStyle
 	 */
 	/**
 	 * @function getIndexAndStyleForNext 이미지 슬라이드의 방향에 따른 NextIndex 및 스타일 클래스 명들을 리턴 
