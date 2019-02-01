@@ -63,7 +63,7 @@ var detailPage = {
 	 * @param {JSON[]} images
 	 */
 	updateImageSlide: function(images, description) {
-		var bindTemplate = this.getTargetTemplate("#imageItem");
+		var bindTemplate = getTargetTemplate("#imageItem");
 		var convertImages = images.reduce(function( prevValue, image){
 			var data = {
 				imageUrl: "../" + image.saveFileName,
@@ -201,6 +201,7 @@ var detailPage = {
 		var date = new Date(timestamp);
 		return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." +date.getDay() + "."
 	},
+
 	/**
 	 * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수
 	 * @param {String} direction 
@@ -209,28 +210,64 @@ var detailPage = {
 		var imageContainer = this.elements.imageContainer;
 		var images = document.querySelectorAll(".product_image");
 		var currentIndex = Number(imageContainer.dataset.currentIndex);
-		var nextIndex;
-		var nextStyle;
-		var moveToCurrentStyle;
 		var moveToNextStyle = "current_pos";
-		if(direction == "right"){
-			nextIndex = (currentIndex + 1) % images.length;
-			nextStyle = "left_pos";
-			moveToCurrentStyle = "right_pos";
-		}else {
-			nextIndex = currentIndex - 1 < 0 ? currentIndex - 1 + images.length : currentIndex - 1;
-			nextStyle = "right_pos";
-			moveToCurrentStyle = "left_pos";
-		}
+		var { nextIndex, nextStyle, moveToCurrentStyle } =
+							 this.getIndexAndStyleForNext(direction, currentIndex, images.length);
+		
 		this.changeSlideBtnClass(images[nextIndex], [nextStyle]);
 		setTimeout(function() {
 			var addToTransition = "add_transition";
-			this.changeSlideBtnClass(images[currentIndex], [moveToCurrentStyle, addToTransition]);
-			this.changeSlideBtnClass(images[nextIndex], [moveToNextStyle, addToTransition]);
-			this.elements.imageCurrentIndexLabel.innerHTML = nextIndex + 1;
-			imageContainer.dataset.currentIndex = nextIndex;
+			this.moveToNextSlideImage(images[currentIndex], [moveToCurrentStyle, addToTransition]
+				, images[nextIndex], [moveToNextStyle, addToTransition], nextIndex);
 		}.bind(this), 100);
 		
+	},
+	/**
+	 * @typedef {Object} ReturnIndexAndStyleForNext
+	 * @property {number} nextIndex 
+	 * @property {String} nextStyle
+	 * @property {moveToCurrentStyle} moveToCurrentStyle
+	 */
+	/**
+	 * @function getIndexAndStyleForNext 이미지 슬라이드의 방향에 따른 NextIndex 및 스타일 클래스 명들을 리턴 
+	 * @param {String} direction "right" Or "left" 값만 넣어야함. 
+	 * @param {Number} currentIndex 
+	 * @param {Number} imagesCount
+	 * @return {ReturnIndexAndStyleForNext}
+	 */
+	getIndexAndStyleForNext(direction, currentIndex, imagesCount) {
+		var nextIndex = 0;
+		var nextStyle = "";
+		var moveToCurrentStyle = "";
+		if(direction == "right"){
+			nextIndex = (currentIndex + 1) % imagesCount;
+			nextStyle = "left_pos";
+			moveToCurrentStyle = "right_pos";
+		}else {
+			nextIndex = currentIndex - 1 < 0 ? currentIndex - 1 + imagesCount : currentIndex - 1;
+			nextStyle = "right_pos";
+			moveToCurrentStyle = "left_pos";
+		}
+		return {
+			nextIndex: nextIndex,
+			nextStyle: nextStyle,
+			moveToCurrentStyle: moveToCurrentStyle
+		}
+	},
+	/**
+	 * @function moveToNextSlideImage 이미지를 슬라이드를 작동 시키고
+	 * 									라벨 값을 갱신한다.
+	 * @param {Element} currentImage 
+	 * @param {String[]} currentImageClassNames 
+	 * @param {Element} nextImage 
+	 * @param {String[]} nextImageClassNames 
+	 * @param {Element} imageContainer 
+	 */
+	moveToNextSlideImage: function(currentImage, currentImageClassNames, nextImage, nextImageClassNames, nextIndex) {
+		this.changeSlideBtnClass(currentImage, currentImageClassNames);
+		this.changeSlideBtnClass(nextImage, nextImageClassNames);
+		this.elements.imageCurrentIndexLabel.innerHTML = nextIndex + 1;
+		this.elements.imageContainer.dataset.currentIndex = nextIndex;
 	},
 	
 	/**
@@ -259,7 +296,7 @@ var detailPage = {
 		if(commentImages.length == 0){
 			return;
 		}
-		var bindTemplate = this.getTargetTemplate("#commentImageItem");
+		var bindTemplate = getTargetTemplate("#commentImageItem");
 		var data = {
 			imageUrl : "../" + commentImages[0].saveFileName
 		}
@@ -305,12 +342,13 @@ var detailPage = {
 	},
 	/**
 	 * @function getCommentListHtml comments에 대한 html 값을 얻는다.
-	 * @param {JSON[]} comments 
+	 * @param {JSON[]} comments
+	 * @return {String}
 	 */
 	getCommentListHtml(comments) {
 		
 		var resultHtml = "";
-		var bindTemplate = this.getTargetTemplate("#commentItem");
+		var bindTemplate = getTargetTemplate("#commentItem");
 		Handlebars.registerHelper("commentImage", function(commentImages){
 			return this.registerCommentImagesLogicForHelper(commentImages);
 		}.bind(this))
@@ -330,14 +368,5 @@ var detailPage = {
 			resultHtml += bindTemplate(data).trim();
 		}
 		return resultHtml;
-	},
-	/**
-	 * @function getTargetTemplate id를 받아 template을 바인딩하는 함수를 리턴해준다.
-	 * @param {string} templateId  #아이디 형식을 보낼 것
-	 * @returns {function}  html template를 바인딩하는 함수 리턴
-	 */
-	getTargetTemplate: function(templateId){
-		var template = document.querySelector(templateId).innerText;
-		return Handlebars.compile(template);
 	}
 }
