@@ -96,4 +96,7 @@ function productReset(categoryId){
 	currentCategoryId = categoryId;
 	currentCount = pagingSize;
 	
+	if(pagingSize < parseInt(document.querySelector("#event_num").innerText)){
+		moreButton.removeAttribute("style");
+	}
 }
