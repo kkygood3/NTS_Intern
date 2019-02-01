@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.controller;
+package com.nts.project3.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.ProductDto;
-import com.nts.service.ProductService;
+import com.nts.project3.dto.ProductDto;
+import com.nts.project3.service.ProductService;
 
 /**
  * 상품 대한 Web Api 요청을 처리해주는 클래스

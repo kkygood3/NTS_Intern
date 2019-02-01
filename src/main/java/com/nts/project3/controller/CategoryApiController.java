@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.controller;
+package com.nts.project3.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.PromotionDto;
-import com.nts.service.PromotionService;
+import com.nts.project3.dto.CategoryDto;
+import com.nts.project3.service.CategoryService;
 
 /**
- * 프로모션 목록 구하기 web api
+ * 카테고리에 대한 Web Api 요청을 처리해주는 클래스
  * @author jinwoo.bae
  */
 @RestController
-@RequestMapping("/api/promotions")
-public class PromotionApiController {
+@RequestMapping("/api/categories")
+public class CategoryApiController {
 	@Autowired
-	private PromotionService promotionService;
+	private CategoryService categoryService;
 
 	/**
-	 *  프로모션 목록들을 가져와 json으로 리턴
+	 * 모든 카테고리 정보들을 json형태로 반환해준다 
 	 */
 	@GetMapping
 	public Map<String, Object> list() {
-		List<PromotionDto> list = promotionService.getPromotions();
+		List<CategoryDto> list = categoryService.getCategoriesWithProductCount();
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("items", list);

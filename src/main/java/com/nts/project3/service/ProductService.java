@@ -2,11 +2,11 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.service;
+package com.nts.project3.service;
 
 import java.util.List;
 
-import com.nts.dto.ProductDto;
+import com.nts.project3.dto.ProductDto;
 
 /**
  * 상품에 대한 서비스 인터페이스

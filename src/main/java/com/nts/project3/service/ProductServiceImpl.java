@@ -2,15 +2,15 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.service;
+package com.nts.project3.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.ProductDao;
-import com.nts.dto.ProductDto;
+import com.nts.project3.dao.ProductDao;
+import com.nts.project3.dto.ProductDto;
 
 /**
  * 상품 서비스 인터페이스 구현로직

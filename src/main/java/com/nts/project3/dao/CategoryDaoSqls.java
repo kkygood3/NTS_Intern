@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.dao;
+package com.nts.project3.dao;
 
 /**
  * 카테고리 데이터에 대한 SQL문을 모아둔 클래스
