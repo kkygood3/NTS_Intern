@@ -24,7 +24,7 @@ public class CategoryApiController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Category> list() {
+	public List<Category> getCategoris() {
 		List<Category> CategoryList = categoryService.getCategoris();
 		return CategoryList;
 	}

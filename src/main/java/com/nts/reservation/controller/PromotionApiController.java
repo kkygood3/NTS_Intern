@@ -25,7 +25,7 @@ public class PromotionApiController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Promotion> list() {
+	public List<Promotion> getPromotions() {
 		List<Promotion> savaFileNameList = promotionService.getPromotions();
 
 		return savaFileNameList;

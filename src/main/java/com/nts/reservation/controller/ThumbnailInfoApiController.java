@@ -32,7 +32,7 @@ public class ThumbnailInfoApiController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+	public Map<String, Object> getProductCountAndThumbnailInfos(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 		int productCount = productService.getCount(categoryId);
