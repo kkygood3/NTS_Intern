@@ -25,9 +25,7 @@ public class PromotionApiController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Promotion> list(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
-
+	public List<Promotion> list() {
 		List<Promotion> savaFileNameList = promotionService.getPromotions();
 
 		return savaFileNameList;
