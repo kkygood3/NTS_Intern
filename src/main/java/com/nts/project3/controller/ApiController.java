@@ -52,10 +52,10 @@ public class ApiController {
 		List<MainPageProduct> items = new ArrayList<>();
 		int totalCount = 0;
 		
-		totalCount = mainPageProductService.getCount();
+		totalCount = mainPageProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			items = mainPageProductService.getProducts(start);
+			items = mainPageProductService.getProducts(categoryId,start);
 		}
 
 		Map<String, Object> map = new HashMap<>();

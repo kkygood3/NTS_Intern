@@ -20,8 +20,11 @@ public class MainPageProductServiceImpl implements MainPageProductService {
 	private MainPageProductDao mainPageProductDao;
 
 	@Override
-	public List<MainPageProduct> getProductsByCategory(long categoryId, long start) {
-		return mainPageProductDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
+	public List<MainPageProduct> getProducts(long categoryId, long start) {
+		if(categoryId > 0)
+			return mainPageProductDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
+		else
+			return getProducts(start);
 	}
 
 	@Override
@@ -30,8 +33,11 @@ public class MainPageProductServiceImpl implements MainPageProductService {
 	}
 
 	@Override
-	public int getCountByCategory(int categoryId) {
-		return mainPageProductDao.selectCountByCategory(categoryId);
+	public int getCount(int categoryId) {
+		if(categoryId > 0)
+			return mainPageProductDao.selectCountByCategory(categoryId);
+		else
+			return getCount();
 	}
 
 	@Override
