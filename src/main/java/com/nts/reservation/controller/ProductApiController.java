@@ -20,11 +20,11 @@ import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.CommentImageDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
-import com.nts.reservation.dto.DisplayInfoResponseDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CategoryResponseDto;
+import com.nts.reservation.dto.response.DisplayInfoResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.PromotionResponseDto;
 import com.nts.reservation.service.CategoryService;
@@ -94,6 +94,12 @@ public class ProductApiController {
 		return new CategoryResponseDto(items);
 	}
 
+	/**
+	 * @desc 상품에 대한 상세 정보를 요청하는 Api
+	 * @param displayInfoId
+	 * @return DisplayInfoResponseDto (averageScore [평균 점수], comments [댓글 리스트] displayInfo [상세정보],
+	 * 						 displayInfoImage [상세 정보 이미지], productImages [상품이미지 리스트], productPrices [가격정보 리스트])
+	 */
 	@GetMapping("/products/{displayInfoId}")
 	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable Long displayInfoId) {
 

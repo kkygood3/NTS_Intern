@@ -50,31 +50,55 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	@Autowired
 	private ProductPriceDao productPriceDao;
 
+	/**
+	 * @desc 상품에 대한 댓글 리스트를 요청한다.
+	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 */
 	@Override
 	public List<CommentDto> getCommentList(Long displayInfoId) {
 		return commentDao.selectComments(displayInfoId);
 	}
 
+	/**
+	 * @desc 댓글에 대한 이미지 리스트를 요청한다..
+	 * @param reservationUserCommentId 댓글 Id
+	 */
 	@Override
 	public List<CommentImageDto> getCommentImageList(Long reservationUserCommentId) {
 		return commentImageDao.selectCommentImages(reservationUserCommentId);
 	}
 
+	/**
+	 * @desc 상품에 대한 상품 상세 정보를 요청한다.
+	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 */
 	@Override
 	public DisplayInfoDto getDisplayInfo(Long displayInfoId) {
 		return displayInfoDao.selectDisplayInfo(displayInfoId);
 	}
 
+	/**
+	 * @desc 상품에 대한 상품 상세 정보 이미지를 요청한다.
+	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 */
 	@Override
 	public DisplayInfoImageDto getDisplayInfoImage(Long displayInfoId) {
 		return displayInfoImageDao.selectDisplayInfoImage(displayInfoId);
 	}
 
+	/**
+	 * @desc 상품에 대한 상품 이미지 리스트를 요청한다.
+	 * @param productId 요청 하는 상품 Id
+	 */
 	@Override
 	public List<ProductImageDto> getProductImageList(Long productId) {
 		return productImageDao.selectProductImages(productId);
 	}
 
+	/**
+	 * @desc 상품에 대한 상품 가격 정보 리스트를 요청한다.
+	 * @param productId 요청 하는 상품 Id
+	 */
 	@Override
 	public List<ProductPriceDto> getProductPriceList(Long productId) {
 		return productPriceDao.selectProductPrices(productId);

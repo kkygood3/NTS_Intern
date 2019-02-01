@@ -3,9 +3,15 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.response;
 
 import java.util.List;
+
+import com.nts.reservation.dto.CommentDto;
+import com.nts.reservation.dto.DisplayInfoDto;
+import com.nts.reservation.dto.DisplayInfoImageDto;
+import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 
 /**
  * @author 육성렬
