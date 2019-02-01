@@ -39,6 +39,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("mainPage");
+		registry.addViewController("/displayInfo/{id}").setViewName("detailPage");
+		registry.addViewController("/displayInfo/review/{id}").setViewName("reviewPage");
 	}
 
 	@Bean
