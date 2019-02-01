@@ -4,6 +4,7 @@
  */
 package com.nts.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,11 @@ public class ProductApiController {
 	 */
 	@GetMapping("/api/products")
 	public Map<String, Object> list(@RequestParam int start) {
-		List<ProductDto> list = productService.getProducts(start);
 		int count = productService.getCount();
+		List<ProductDto> list = Collections.<ProductDto>emptyList();
+		if (count > 0) {
+			list = productService.getProducts(start);
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("totalCount", count);
@@ -47,8 +51,11 @@ public class ProductApiController {
 	 */
 	@GetMapping("/api/categories/{categoryId}/products")
 	public Map<String, Object> list(@PathVariable int categoryId, @RequestParam int start) {
-		List<ProductDto> list = productService.getProductsByCategoryId(categoryId, start);
 		int count = productService.getCountByCategoryId(categoryId);
+		List<ProductDto> list = Collections.<ProductDto>emptyList();
+		if (count > 0) {
+			list = productService.getProductsByCategoryId(categoryId, start);
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("totalCount", count);
