@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+section#menu {
+	height: 130px;
+}
+
+div#myTodo {
+	float: left;
+	transform: rotate(-30deg);
+	margin: 0 0 0 -20px;
+	padding: 50px 0 0 0;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+a#regTodo {
+	float: right;
+	display: block;
+	width: 220px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin: 50px 20px 0 0;
+	text-decoration: none;
+	color: white;
+	font-family: "dotum";
+	font-weight: bold;
+	background: DeepSkyBlue;
+}
+
+div#content {
+	float: right;
+	width: 100%;
+	margin: 0 20px 0 0;
+}
+
+.article-list {
+	float: right;
+	display: block;
+	width: 30%;
+	margin: 0 0 0 10px;
+}
+
+.ul-list {
+	list-style: none;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+.li-title {
+	background-color: DarkSlateGray;
+	margin: 0 0 10px 0;
+	padding: 5px 10px 5px 10px;
+}
+
+.li-content {
+	background-color: PowderBlue;
+	margin: 0 0 10px 0;
+	padding: 5px 10px 5px 10px;
+}
+
+.span-content {
+	display: block;
+	height: 40px;
+}
+
+.updateButton {
+	float: right;
+}
+
+section#content-todoForm {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+}
+
+article#command {
+	padding-top: 40px;
+}
+
+p#title {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+p#notice {
+	text-align: center;
+	font-size: 10px;
+	color: gray;
+}
+
+div#button-left {
+	float: left;
+	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 25px;
+	text-align: center;
+	border: 2px solid gray;
+}
+
+div#button-right {
+	display: block;
+	float: right;
+}
+
+.buttonBlue {
+	width: 100px;
+	height: 35px;
+	color: white;
+	background-color: DeepSkyBlue;
+}
+
+.input-todoForm {
+	height: 30px;
+	margin-bottom: 15px;
+	font-size: 15px;
+	font-weight: bold;
+	color: gray;
+}
+
+input#work {
+	width: 100%;
+}
+
+body#defaultError {
+	text-align: center;
+}
