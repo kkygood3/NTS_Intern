@@ -30,7 +30,7 @@ public class DetailDaoSqls {
 		+ ", fi.modify_date AS modifyDate"
 		+ " FROM display_info di"
 		+ " INNER JOIN product_image pi ON di.product_id = pi.product_id AND di.id = :display_info_id"
-		+ " INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type <>'th' ";
+		+ " INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type ='ma' OR pi.type='et' ";
 
 	public static final String SELECT_DETAIL_DISPLAY_INFO_IMAGE = "SELECT dii.id AS displayInfoImageId"
 		+ ", di.id AS displayInfoId"
@@ -60,7 +60,7 @@ public class DetailDaoSqls {
 		+ " INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id"
 		+ " ORDER BY ruc.id DESC";
 
-	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT AVG(ruc.score) as average"
+	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT ISNULL(AVG(ruc.score),0 )as average"
 		+ " FROM display_info di "
 		+ " INNER JOIN reservation_user_comment ruc ON ruc.product_id = di.product_id AND di.id = :display_info_id";
 
