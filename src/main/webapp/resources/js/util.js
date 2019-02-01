@@ -43,3 +43,12 @@ function getTargetTemplate (templateId){
 	var template = document.querySelector(templateId).innerText;
 	return Handlebars.compile(template);
 }
+
+/**
+ * @function toDateString timestamp를 등록 날짜 형식으로 변환해줌.
+ * @param {Number} timestamp 
+ */
+function toDateString (timestamp) {
+	var date = new Date(timestamp);
+	return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." +date.getDay() + "."
+}

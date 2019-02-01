@@ -194,15 +194,6 @@ var detailPage = {
 	},
 
 	/**
-	 * @function toReservationDateString timestamp를 댓글에 쓰이는 등록 날짜 형식으로 변환해줌.
-	 * @param {Number} timestamp 
-	 */
-	toReservationDateString: function (timestamp) {
-		var date = new Date(timestamp);
-		return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." +date.getDay() + "."
-	},
-
-	/**
 	 * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수
 	 * @param {String} direction 
 	 */
@@ -362,7 +353,7 @@ var detailPage = {
 				coment: comment.comment,
 				score: comment.score.toFixed(1),
 				name: comment.reservationName,
-				date: this.toReservationDateString(comment.reservationDate) + "방문",
+				date: toDateString(comment.reservationDate) + "방문",
 				commentImages: comment.commentImages
 			}
 			resultHtml += bindTemplate(data).trim();
