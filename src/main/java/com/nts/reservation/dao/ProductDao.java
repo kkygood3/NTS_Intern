@@ -6,12 +6,12 @@ package com.nts.reservation.dao;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_PAGING;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_PAGING;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PROMOTION;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,9 +23,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.Product;
-import com.nts.reservation.dto.Promotion;
+import com.nts.reservation.products.dto.Category;
+import com.nts.reservation.products.dto.Product;
+import com.nts.reservation.products.dto.Promotion;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
