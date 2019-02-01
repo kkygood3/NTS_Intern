@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.nts.dto.Product;
-import com.nts.dto.ProductResponse;
+import com.nts.dto.productdto.Product;
+import com.nts.dto.productdto.ProductResponse;
 import com.nts.exception.ValidationException;
 import com.nts.service.ProductService;
 
@@ -57,14 +57,12 @@ public class ProductApiController {
 			throw new ValidationException("categoryId : " + categoryId);
 		}
 		if (start < 0) {
-			throw new ValidationException("categoryId : " + start);
+			throw new ValidationException("start : " + start);
 		}
 		
-		List<Product> items = null;
-		int totalCount = 0;
 		
-		items = productService.getItems(categoryId, start);
-		totalCount = productService.getCount(categoryId);
+		List<Product> items = productService.getItems(categoryId, start);
+		int totalCount = productService.getCount(categoryId);
 		
 		ProductResponse productResponse = new ProductResponse(items, totalCount);
 

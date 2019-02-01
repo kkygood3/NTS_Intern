@@ -4,9 +4,9 @@
  */
 package com.nts.service.impl;
 
-import com.nts.dao.ProductDao;
-import com.nts.dto.Product;
-import com.nts.dto.ProductResponse;
+import com.nts.dao.productdao.ProductDao;
+import com.nts.dto.productdto.Product;
+import com.nts.dto.productdto.ProductResponse;
 import com.nts.exception.ValidationException;
 import com.nts.service.ProductService;
 
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 
 		} else if (start < 0) {
 
-			throw new ValidationException("categoryId : " + start);
+			throw new ValidationException("start : " + start);
 
 		} else if (categoryId == 0) {
 
