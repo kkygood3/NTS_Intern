@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class MainController {
-	@GetMapping("/mainpage")
+	@GetMapping("/main")
 	public String visitMainPage() {
-		return "mainpage";
+		return "main";
 	}
 }

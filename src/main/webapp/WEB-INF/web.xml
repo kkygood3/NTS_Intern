@@ -54,6 +54,6 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/invalid_access.jsp</location>
+		<location>/WEB-INF/views/error/invalidAccess.jsp</location>
 	</error-page>
 </web-app>
