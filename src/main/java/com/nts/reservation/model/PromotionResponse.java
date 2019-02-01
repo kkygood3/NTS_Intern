@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionResponse {
+
 	private List<Promotion> promotionList;
 
 	public PromotionResponse() {

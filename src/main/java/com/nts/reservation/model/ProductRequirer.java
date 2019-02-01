@@ -7,7 +7,6 @@ package com.nts.reservation.model;
 public class ProductRequirer {
 
 	private int categoryId;
-
 	private int start;
 
 	public ProductRequirer() {}

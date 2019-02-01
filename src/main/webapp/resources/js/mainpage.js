@@ -60,7 +60,6 @@ function printProducts(evt) {
 
 }
 
-
 function clearProductLists() {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	
@@ -121,7 +120,6 @@ function addClickEventMoreBtn(){
 	    ajax("GET", "/api/products", "categoryId=" + categoryId + "&start=" + productCount, printProducts);
 	});
 }
-
 
 function getProductsCount() {
 	var productLists = document.querySelectorAll(".lst_event_box");
