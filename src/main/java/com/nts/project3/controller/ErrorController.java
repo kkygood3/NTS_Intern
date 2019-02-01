@@ -39,7 +39,6 @@ public class ErrorController {
 	@ResponseBody
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
 	public ResponseEntity<String> handleRestApiValidationException() {
-		System.out.println("1");
 		return new ResponseEntity<String>("wrong input.", new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
 }

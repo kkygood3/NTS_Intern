@@ -113,24 +113,13 @@
 			</a>
 		</li>
 	</script>
-
+	<script type="text/javascript" src="/js/util.js"></script>
 	<script>
-		// 상수
-		const CATEGORY_TYPE_ALL = 0;
-		
-		// DOM
-		var slideImages = document.querySelector(".slide_images"); // 프로모션의 슬라이드 영역
-		var categoryTabList = document.querySelector(".tab_lst_min"); // 카테고리 탭 영역
-		var productListBox = document.querySelector(".wrap_event_box"); // 상품들을 보여주는 영역
-
-		// null or undefinde or "" or NaN or 0 or false 
-		function validResponse(response) {
-			if (!response || !JSON.parse(response).items) {
-				alert("응답받은 데이터가 없습니다.")
-				return false;
-			}
-			return true;
-		}
+		/*
+		 * ========================================
+		 *             UTIL Fucntion
+		 * ========================================
+		*/ 
 
 		// null or undefined or ""
 		function isEmpty(value){
@@ -141,12 +130,11 @@
 		 * XMLHttpRequest를 생성하고 반환해주며
 		 * 미리 헤더값과 transfer error 일때 발생되는 이벤트를 등록해줍니다.
 		*/
-		//  
-		
 		function getXMLHttpRequest(url) {
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", url);
 			xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+			xhr.responseType = "json";
 
 			xhr.addEventListener("error", function(e) {
 				alert("An error occurred while transferring the file.");
@@ -167,6 +155,22 @@
 			return template;
 		}
 
+
+		/*
+		 * ========================================
+		 *                Main JS
+		 * ========================================
+		*/ 
+
+		// 상수
+		const CATEGORY_TYPE_ALL = 0;
+		
+		// DOM
+		var slideImages = document.querySelector(".slide_images"); // 프로모션의 슬라이드 영역
+		var categoryTabList = document.querySelector(".tab_lst_min"); // 카테고리 탭 영역
+		var productListBox = document.querySelector(".wrap_event_box"); // 상품들을 보여주는 영역
+
+
 		/*
 		 * DOM 로딩후 한번만 실행되는 초기화 함수로
 		 * ajax를 통해 서버로부터 데이터를 가져와 각 DOM에 알맞게 넣어줍니다.
@@ -184,10 +188,7 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				if (!validResponse(e.target.response)) {
-					return;
-				}
-				var items = JSON.parse(e.target.response).items;
+				var items = e.target.response.items;
 				var template = document.querySelector("#template-promotion-image").innerHTML;
 
 				var resultHTML = items.reduce(function(prev, item) {
@@ -208,10 +209,7 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				if (!validResponse(e.target.response)) {
-					return;
-				}
-				var items = JSON.parse(e.target.response).items;
+				var items = e.target.response.items;
 				var template = document.querySelector("#template-category-ui-list").innerHTML;
 				var totalCount = 0;
 
@@ -238,6 +236,15 @@
 			enableMoreButton();
 			addDOMProducts(categoryId, start);
 		}
+		
+		function getProductsApiUrl(categoryId, start) {
+			var url;
+			if (categoryId === CATEGORY_TYPE_ALL) {
+				url = "./api/products?start=" + start;
+			} else {
+				url = "./api/categories/" + categoryId + "/products?start=" + start;
+			}
+		}
 
 		// 상품정보를 서버로부터 불러와 상품영역에 추가해서 넣어줍니다.
 		function addDOMProducts(categoryId, start) {
@@ -245,21 +252,13 @@
 				alert("잘못된 입력값입니다.");
 				return;
 			}
-			var url;
-			if (categoryId === CATEGORY_TYPE_ALL) {
-				url = "./api/products?start=" + start;
-			} else {
-				url = "./api/categories/" + categoryId + "/products?start=" + start;
-			}
 
+			var url = getProductsApiUrl(categoryId, start);
 			var xhr = getXMLHttpRequest(url);
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				if (!validResponse(e.target.response)) {
-					return;
-				}
-				var items = JSON.parse(e.target.response).items;
+				var items = e.target.response.items;
 				var template = document.querySelector("#template-product-list").innerHTML;
 				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
 				if (items.length < 4) {
@@ -342,7 +341,6 @@
 			var el = document.querySelector(".active");
 			var categoryId = el.parentNode.getAttribute("data-category");
 			var listCount = productListBox.getElementsByTagName("li").length;
-
 			addDOMProducts(parseInt(categoryId), listCount);
 		}
 
