@@ -48,7 +48,7 @@ public class ProductDao {
 	 * 특정 category의 product 목록을 조회하여 Product List 반환
 	 */
 	public List<Product> getOneCategoryProductList(int categoryId, int start) {
-		Map<String, Object> param = new HashMap<>();
+		Map<String, Integer> param = new HashMap<>();
 		param.put("categoryId", categoryId);
 		param.put("start", start);
 
