@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.PromotionResponse;
+import com.nts.dto.promotiondto.PromotionResponse;
 import com.nts.service.PromotionService;
 
 

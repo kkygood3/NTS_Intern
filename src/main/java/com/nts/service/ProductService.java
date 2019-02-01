@@ -7,7 +7,7 @@ package com.nts.service;
 
 import java.util.List;
 
-import com.nts.dto.Product;
+import com.nts.dto.productdto.Product;
 import com.nts.exception.ValidationException;
 
 

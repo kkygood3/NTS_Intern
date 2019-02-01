@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.dao.PromotionDao;
-import com.nts.dto.Promotion;
+import com.nts.dao.promotiondao.PromotionDao;
+import com.nts.dto.promotiondto.Promotion;
 import com.nts.service.PromotionService;
 
 

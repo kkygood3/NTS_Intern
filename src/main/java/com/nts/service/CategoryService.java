@@ -7,7 +7,7 @@ package com.nts.service;
 
 import java.util.List;
 
-import com.nts.dto.Category;
+import com.nts.dto.categorydto.Category;
 
 
 /**

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.dto.CategoryResponse;
+import com.nts.dto.categorydto.CategoryResponse;
 import com.nts.service.CategoryService;
 
 /**

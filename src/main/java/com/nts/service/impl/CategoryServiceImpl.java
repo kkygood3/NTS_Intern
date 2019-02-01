@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.dao.CategoryDao;
-import com.nts.dto.Category;
+import com.nts.dao.categorydao.CategoryDao;
+import com.nts.dto.categorydto.Category;
 import com.nts.service.CategoryService;
 
 /**
