@@ -10,16 +10,25 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.CommentDto;
+import com.nts.reservation.dto.CommentImageDto;
+import com.nts.reservation.dto.DisplayInfoDto;
+import com.nts.reservation.dto.DisplayInfoImageDto;
+import com.nts.reservation.dto.DisplayInfoResponseDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CategoryResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.PromotionResponseDto;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.DisplayInfoService;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -34,6 +43,9 @@ public class ProductApiController {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private DisplayInfoService displayInfoService;
 
 	/**
 	 * @desc 카테고리 별 프로덕트 리스트 요청하는 Api
@@ -80,5 +92,25 @@ public class ProductApiController {
 
 		List<CategoryDto> items = categoryService.getCategoryList();
 		return new CategoryResponseDto(items);
+	}
+
+	@GetMapping("/products/{displayInfoId}")
+	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable Long displayInfoId) {
+
+		DisplayInfoDto displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
+		DisplayInfoImageDto displayInfoImage = displayInfoService.getDisplayInfoImage(displayInfoId);
+		List<ProductImageDto> productImages = displayInfoService.getProductImageList(displayInfo.getProductId());
+		List<ProductPriceDto> productPrices = displayInfoService.getProductPriceList(displayInfo.getProductId());
+		List<CommentDto> comments = displayInfoService.getCommentList(displayInfoId);
+
+		float sumScores = 0.f;
+		for (CommentDto item : comments) {
+			sumScores += item.getScore();
+			List<CommentImageDto> commentImages = displayInfoService.getCommentImageList(item.getCommentId());
+			item.setCommentImages(commentImages);
+		}
+		float averageScore = comments.size() == 0 ? 0.f : sumScores / comments.size();
+		return new DisplayInfoResponseDto(averageScore, comments, displayInfo, displayInfoImage, productImages,
+			productPrices);
 	}
 }
