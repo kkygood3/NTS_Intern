@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.config;
+package com.nts.reservation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,18 +15,22 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * @author 육성렬
+ */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nts.reservationservice.controller"})
+@ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
-		registry.addResourceHandler("/img/**").addResourceLocations("/resources/img/").setCachePeriod(31556926);
+		registry.addResourceHandler("/image/**").addResourceLocations("/resources/img/").setCachePeriod(31556926);
+		registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/").setCachePeriod(31556926);
 		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
 	}
 
-	// default servlet handler를 사용하게 합니다.
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
@@ -34,8 +38,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		System.out.println("addViewControllers가 호출됩니다. ");
-		registry.addViewController("/").setViewName("mainpage");
+		registry.addViewController("/").setViewName("mainPage");
 	}
 
 	@Bean

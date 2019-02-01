@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservationservice.config;
+package com.nts.reservation.config;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
@@ -14,6 +14,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
+/**
+ * @author 육성렬
+ */
 public class WebApplicationInitializer implements org.springframework.web.WebApplicationInitializer {
 
 	private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
@@ -39,7 +42,7 @@ public class WebApplicationInitializer implements org.springframework.web.WebApp
 	private AnnotationConfigWebApplicationContext createContext(final Class<?>... annotatedClasses) {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(annotatedClasses);
-		context.setConfigLocation("com.nts.guestbook.config");
+		context.setConfigLocation("com.nts.reservation.config");
 		return context;
 	}
 
