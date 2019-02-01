@@ -137,14 +137,14 @@
 		
 		
 		function loadCategoriesCallback(responseData){
-			var items = responseData.items;
+			var categoryList = responseData.categoryList;
 			
 			var template = document.querySelector('script#categoryItem').innerHTML;
 			var resultHtml = '';
-			for(var i = 0 ; i < items.length; i++){
+			for(var i = 0 ; i < categoryList.length; i++){
 				resultHtml += template
-									.replace('{name}',items[i].name)
-									.replace('{id}',items[i].id);
+									.replace('{name}',categoryList[i].name)
+									.replace('{id}',categoryList[i].id);
 			}
 			
 			document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
@@ -153,9 +153,9 @@
 
 		//페이지 상단에 움직이는 배너를 설정하는 함수 
 		function setPromotionMove() {
-			var items = document.querySelectorAll('.visual_img>.item');
+			var bannerList = document.querySelectorAll('.visual_img>.item');
 			var leftDistance = 0;
-			var itemSize = items.length;
+			var itemSize = bannerList.length;
 			var curIdx = 0;
 			
 			setInterval(moveStep, 4000);
@@ -167,8 +167,8 @@
 				//모든 배너 이미지를 매 주기마다 -100% 이동
 				leftDistance -= 100;
 
-				for (var i = 0; i < items.length; i++) {
-					items[i].style.left = leftDistance + '%';
+				for (var i = 0; i < bannerList.length; i++) {
+					bannerList[i].style.left = leftDistance + '%';
 				}
 
 				curIdx++;
@@ -184,19 +184,19 @@
 					//모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시 transitionDuration을 1s로 초기화
 					function resetPromotionPos() {
 						
-						for (var i = 0; i < items.length; i++) {
-							items[i].style.transitionDuration = '0s';
+						for (var i = 0; i < bannerList.length; i++) {
+							bannerList[i].style.transitionDuration = '0s';
 						}
 
-						for (var i = 0; i < items.length; i++) {
-							items[i].style.left = '0';
+						for (var i = 0; i < bannerList.length; i++) {
+							bannerList[i].style.left = '0';
 						}
 						
 						setTimeout(reattachTransition, 100);
 						
 						function reattachTransition() {
-							for (var i = 0; i < items.length; i++) {
-								items[i].style.transitionDuration = '1s';
+							for (var i = 0; i < bannerList.length; i++) {
+								bannerList[i].style.transitionDuration = '1s';
 							}
 							curIdx = 0;
 							leftDistance = 0;
@@ -211,18 +211,18 @@
 
 		function loadPromotionsCallback(responseData) {
 			var itemCount = responseData.totalCount;
-			var items = responseData.items;
+			var promotionList = responseData.promotionList;
 
 			var template = document.querySelector('script#promotionItem').innerHTML;
 			var resultHtml = '';
-			for (var i = 0; i < items.length; i++) {
+			for (var i = 0; i < promotionList.length; i++) {
 				resultHtml += template
-									.replace('{productImageUrl}', items[i].productImageUrl);
+									.replace('{productImageUrl}', promotionList[i].productImageUrl);
 			}
 
-			if (items.length > 0) {
+			if (promotionList.length > 0) {
 				resultHtml += template
-									.replace('{productImageUrl}', items[0].productImageUrl)
+									.replace('{productImageUrl}', promotionList[0].productImageUrl)
 			}
 
 			document.querySelector('ul.visual_img').innerHTML = resultHtml;
@@ -234,20 +234,20 @@
 			currentStart += 4;
 
 			var itemCount = responseData.totalCount;
-			var items = responseData.items;
+			var productList = responseData.productList;
 
 			var template = document.querySelector('script#productItem').innerText;
 			var resultHtml = new Array(2);
 			resultHtml[0] = '';
 			resultHtml[1] = '';
-			for (var i = 0; i < items.length; i++) {
+			for (var i = 0; i < productList.length; i++) {
 				resultHtml[i % 2] += template
-												.replace('{productImageUrl}', items[i].productImageUrl)
-												.replace('{description}', items[i].productDescription)
-												.replace('{description}', items[i].productDescription)
-												.replace('{id}', items[i].displayInfoId)
-												.replace('{placeName}', items[i].placeName)
-												.replace('{content}', items[i].productContent);
+												.replace('{productImageUrl}', productList[i].productImageUrl)
+												.replace('{description}', productList[i].productDescription)
+												.replace('{description}', productList[i].productDescription)
+												.replace('{id}', productList[i].displayInfoId)
+												.replace('{placeName}', productList[i].placeName)
+												.replace('{content}', productList[i].productContent);
 			}
 			var containers = document.querySelectorAll('.lst_event_box');
 			containers[0].innerHTML += resultHtml[0];

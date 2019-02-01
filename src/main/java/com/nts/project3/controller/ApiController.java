@@ -49,17 +49,17 @@ public class ApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 
-		List<MainProduct> items = new ArrayList<>();
+		List<MainProduct> productList = new ArrayList<>();
 		int totalCount = 0;
 		
 		totalCount = mainProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			items = mainProductService.getProducts(categoryId,start);
+			productList = mainProductService.getProducts(categoryId,start);
 		}
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("items", items);
+		map.put("productList", productList);
 		map.put("totalCount", totalCount);
 
 		return map;
@@ -72,9 +72,9 @@ public class ApiController {
 	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 
-		List<MainCategory> items = mainCategoryService.getCategories();
+		List<MainCategory> categoryList = mainCategoryService.getCategories();
 		Map<String, Object> map = new HashMap<>();
-		map.put("items", items);
+		map.put("categoryList", categoryList);
 
 		return map;
 	}
@@ -86,11 +86,11 @@ public class ApiController {
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 
-		List<MainPromotion> items = mainPromotionService.getPromotions();
+		List<MainPromotion> promotionList = mainPromotionService.getPromotions();
 		int totalCount = mainPromotionService.getCount();
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("items", items);
+		map.put("promotionList", promotionList);
 		map.put("totalCount", totalCount);
 
 		return map;
