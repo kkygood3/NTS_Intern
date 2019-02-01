@@ -188,7 +188,12 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var promotions = e.target.response.promotions;
+				var response = e.target.response;
+				if (response.isError) {
+					alert(response.errorMsg);
+					return;
+				}
+				var promotions = response.promotions;
 				var template = document.querySelector("#template-promotion-image").innerHTML;
 
 				var resultHTML = promotions.reduce(function(prev, promotion) {
@@ -209,7 +214,12 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var categories = e.target.response.categories;
+				var response = e.target.response;
+				if (response.isError) {
+					alert(response.errorMsg);
+					return;
+				}
+				var categories = response.categories;
 				var template = document.querySelector("#template-category-ui-list").innerHTML;
 				var totalCount = 0;
 
@@ -259,7 +269,12 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var products = e.target.response.products;
+				var response = e.target.response;
+				if (response.isError) {
+					alert(response.errorMsg);
+					return;
+				}
+				var products = response.products;
 				var template = document.querySelector("#template-product-list").innerHTML;
 				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
 				if (products.length < 4) {

@@ -4,6 +4,9 @@
  */
 package com.nts.project3.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 
 import org.springframework.http.HttpHeaders;
@@ -38,7 +41,10 @@ public class ErrorController {
 	 */
 	@ResponseBody
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
-	public ResponseEntity<String> handleRestApiValidationException() {
-		return new ResponseEntity<String>("wrong input.", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<Map<String, Object>> handleRestApiValidationException() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("isError", true);
+		map.put("errorMsg", "wrong input");
+		return new ResponseEntity<Map<String, Object>>(map, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
 }
