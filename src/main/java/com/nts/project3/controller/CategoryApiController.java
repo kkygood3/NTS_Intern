@@ -30,11 +30,11 @@ public class CategoryApiController {
 	 * 모든 카테고리 정보들을 json형태로 반환해준다 
 	 */
 	@GetMapping
-	public Map<String, Object> list() {
-		List<CategoryDto> list = categoryService.getCategoriesWithProductCount();
+	public Map<String, Object> getCategoriesWithProductCount() {
+		List<CategoryDto> categories = categoryService.getCategoriesWithProductCount();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("items", list);
+		map.put("categories", categories);
 
 		return map;
 	}

@@ -30,11 +30,11 @@ public class PromotionApiController {
 	 *  프로모션 목록들을 가져와 json으로 리턴
 	 */
 	@GetMapping
-	public Map<String, Object> list() {
-		List<PromotionDto> list = promotionService.getPromotions();
+	public Map<String, Object> getPromotions() {
+		List<PromotionDto> promotions = promotionService.getPromotions();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("items", list);
+		map.put("promotions", promotions);
 
 		return map;
 	}

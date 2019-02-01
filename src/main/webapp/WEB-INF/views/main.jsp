@@ -188,14 +188,14 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var items = e.target.response.items;
+				var promotions = e.target.response.promotions;
 				var template = document.querySelector("#template-promotion-image").innerHTML;
 
-				var resultHTML = items.reduce(function(prev, item) {
-					return prev + parseTemplateToHTML(template, item)
+				var resultHTML = promotions.reduce(function(prev, promotion) {
+					return prev + parseTemplateToHTML(template, promotion)
 				}, "");
 				// 무한 슬라이딩을 위해 프로모션 첫 이미지를 끝에 추가로 삽입
-				resultHTML += parseTemplateToHTML(template, items[0]); 
+				resultHTML += parseTemplateToHTML(template, promotions[0]); 
 
 				slideImages.innerHTML = resultHTML;
 				doAutoSlideShowPromotions();
@@ -209,13 +209,13 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var items = e.target.response.items;
+				var categories = e.target.response.categories;
 				var template = document.querySelector("#template-category-ui-list").innerHTML;
 				var totalCount = 0;
 
-				var resultHTML = items.reduce(function(prev, item) {
-					totalCount += item.count;
-					return prev + parseTemplateToHTML(template, item)
+				var resultHTML = categories.reduce(function(prev, category) {
+					totalCount += category.count;
+					return prev + parseTemplateToHTML(template, category)
 				}, "");
 
 				setCategoryCount(totalCount);
@@ -244,6 +244,7 @@
 			} else {
 				url = "./api/categories/" + categoryId + "/products?start=" + start;
 			}
+			return url;
 		}
 
 		// 상품정보를 서버로부터 불러와 상품영역에 추가해서 넣어줍니다.
@@ -258,17 +259,17 @@
 			xhr.send();
 
 			xhr.addEventListener("load", function(e) {
-				var items = e.target.response.items;
+				var products = e.target.response.products;
 				var template = document.querySelector("#template-product-list").innerHTML;
 				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
-				if (items.length < 4) {
+				if (products.length < 4) {
 					disableMoreButton();
 				}
 				
 				var leftList = productListBox.getElementsByTagName("ul")[0];
 				var rightList = productListBox.getElementsByTagName("ul")[1];
-				for (var i in items) {
-					var resultHTML = parseTemplateToHTML(template, items[i]);
+				for (var i in products) {
+					var resultHTML = parseTemplateToHTML(template, products[i]);
 					// 템플링된 하나의 상품 HTML를 번갈아가며 왼쪽리스트와 오른쪽리스트에  넣어줍니다.
 					if (i % 2) {
 						rightList.innerHTML += resultHTML

@@ -4,6 +4,7 @@
  */
 package com.nts.project3.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDto> getProducts(int start) {
-		List<ProductDto> list = productDao.selectAllPaging(start, SELECT_LIMIT);
-		return list;
+		List<ProductDto> getProducts = Collections.<ProductDto>emptyList();
+		int count = productDao.selectCount();
+		if (count > 0) {
+			getProducts = productDao.selectAllPaging(start, SELECT_LIMIT);
+		}
+		return getProducts;
 	}
 
 	@Override
 	public List<ProductDto> getProductsByCategoryId(int categoryId, int start) {
-		List<ProductDto> list = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
-		return list;
+		List<ProductDto> products = Collections.<ProductDto>emptyList();
+		int count = productDao.selectCountByCategoryId(categoryId);
+		if (count > 0) {
+			products = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
+		}
+		return products;
 	}
-
-	@Override
-	public int getCount() {
-		return productDao.selectCount();
-	}
-
-	@Override
-	public int getCountByCategoryId(int categoryId) {
-		return productDao.selectCountByCategoryId(categoryId);
-	}
-
 }

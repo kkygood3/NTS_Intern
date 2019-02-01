@@ -31,16 +31,12 @@ public class ProductApiController {
 	 * 상품정보들과 총개수를 가져와 json으로 리턴해준다.
 	 */
 	@GetMapping("/api/products")
-	public Map<String, Object> list(@RequestParam int start) {
-		int count = productService.getCount();
-		List<ProductDto> list = Collections.<ProductDto>emptyList();
-		if (count > 0) {
-			list = productService.getProducts(start);
-		}
+	public Map<String, Object> getProducts(@RequestParam int start) {
+		List<ProductDto> getProducts = productService.getProducts(start);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("totalCount", count);
-		map.put("items", list);
+		map.put("totalCount", getProducts.size());
+		map.put("products", getProducts);
 
 		return map;
 	}
@@ -50,16 +46,12 @@ public class ProductApiController {
 	 * 해당카테고리에 몇개의 상품이 있는지도 계산하여 가져온후 json으로 리턴해준다.
 	 */
 	@GetMapping("/api/categories/{categoryId}/products")
-	public Map<String, Object> list(@PathVariable int categoryId, @RequestParam int start) {
-		int count = productService.getCountByCategoryId(categoryId);
-		List<ProductDto> list = Collections.<ProductDto>emptyList();
-		if (count > 0) {
-			list = productService.getProductsByCategoryId(categoryId, start);
-		}
+	public Map<String, Object> getProductsByCategoryId(@PathVariable int categoryId, @RequestParam int start) {
+		List<ProductDto> products = productService.getProductsByCategoryId(categoryId, start);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("totalCount", count);
-		map.put("items", list);
+		map.put("totalCount", products.size());
+		map.put("products", products);
 
 		return map;
 	}
