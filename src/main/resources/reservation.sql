@@ -1370,20 +1370,23 @@ insert into reservation_user_comment_image(id, reservation_info_id, reservation_
 
 -------------------------------------------------------------------
 -- 상품 목록 구하기
-SELECT display_info.id, place_name, product.content, product.description, product.id, file_info.file_name
+SELECT display_info.id as 'displayInfoId', place_name, product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', file_info.file_name as 'productImageUrl'
 FROM category
 INNER JOIN product ON product.category_id = category.id
 INNER JOIN display_info ON display_info.product_id = product.id
 INNER JOIN product_image ON product_image.product_id = product.id
 INNER JOIN file_info ON file_info.id = product_image.file_id
-WHERE CATEGORY.ID = 1
-LIMIT 1, 5;
+WHERE category.id = 1;
+
+SELECT count(*)
+FROM product
+WHERE category_id = 1;
 
 -- 총 목록 구하기
-SELECT *
+SELECT count(*)
 FROM category
 INNER JOIN product ON product.category_id = category.id
-WHERE CATEGORY.ID = 1;
+WHERE category.id = 1;
 
 -----------------------------------------------------------
 -- 카테고리 목록 구하기
