@@ -2,9 +2,7 @@ function addButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener("click", function(event){
 		var categoryId = moreButton.value;
-		alert(categoryId);
 		sendGetThumbnailsAjax(categoryId);
-		
 	});
 }
 
