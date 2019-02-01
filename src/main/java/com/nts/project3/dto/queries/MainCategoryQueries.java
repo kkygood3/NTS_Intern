@@ -4,6 +4,6 @@
  */
 package com.nts.project3.dto.queries;
 
-public class MainPageCategoryQueries {
+public class MainCategoryQueries {
 	public static final String SELECT_CATEGORIES = "SELECT id, name, count FROM category_api_view limit :limit";
 }

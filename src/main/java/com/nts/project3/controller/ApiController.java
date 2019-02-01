@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.project3.dto.MainPageCategory;
-import com.nts.project3.dto.MainPageProduct;
-import com.nts.project3.dto.MainPagePromotion;
-import com.nts.project3.service.MainPageCategoryService;
-import com.nts.project3.service.MainPageProductService;
-import com.nts.project3.service.MainPagePromotionService;
-import com.nts.project3.service.impl.MainPageCategoryServiceImpl;
-import com.nts.project3.service.impl.MainPageProductServiceImpl;
-import com.nts.project3.service.impl.MainPagePromotionServiceImpl;
+import com.nts.project3.dto.MainCategory;
+import com.nts.project3.dto.MainProduct;
+import com.nts.project3.dto.MainPromotion;
+import com.nts.project3.service.MainCategoryService;
+import com.nts.project3.service.MainProductService;
+import com.nts.project3.service.MainPromotionService;
+import com.nts.project3.service.impl.MainCategoryServiceImpl;
+import com.nts.project3.service.impl.MainProductServiceImpl;
+import com.nts.project3.service.impl.MainPromotionServiceImpl;
 
 /**
  * /api로 request를 받아 클라이언트가 요구하는 정보를 JSON으로 출력하는 RestContorller
@@ -32,11 +32,11 @@ import com.nts.project3.service.impl.MainPagePromotionServiceImpl;
 @RequestMapping("/api")
 public class ApiController {
 	@Autowired
-	private MainPageProductService mainPageProductService;
+	private MainProductService mainProductService;
 	@Autowired
-	private MainPageCategoryService mainPageCategoryService;
+	private MainCategoryService mainCategoryService;
 	@Autowired
-	private MainPagePromotionService mainPagePromotionService;
+	private MainPromotionService mainPromotionService;
 	
 	/**
 	 * /products 요청을 받아 메인 페이지에 상품정보를 출력
@@ -49,13 +49,13 @@ public class ApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 
-		List<MainPageProduct> items = new ArrayList<>();
+		List<MainProduct> items = new ArrayList<>();
 		int totalCount = 0;
 		
-		totalCount = mainPageProductService.getCount(categoryId);
+		totalCount = mainProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			items = mainPageProductService.getProducts(categoryId,start);
+			items = mainProductService.getProducts(categoryId,start);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -72,7 +72,7 @@ public class ApiController {
 	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 
-		List<MainPageCategory> items = mainPageCategoryService.getCategories();
+		List<MainCategory> items = mainCategoryService.getCategories();
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);
 
@@ -86,8 +86,8 @@ public class ApiController {
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 
-		List<MainPagePromotion> items = mainPagePromotionService.getPromotions();
-		int totalCount = mainPagePromotionService.getCount();
+		List<MainPromotion> items = mainPromotionService.getPromotions();
+		int totalCount = mainPromotionService.getCount();
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", items);

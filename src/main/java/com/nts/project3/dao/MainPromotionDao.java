@@ -16,28 +16,28 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.MainPagePromotion;
-import com.nts.project3.dto.queries.MainPagePromotionQueries;
+import com.nts.project3.dto.MainPromotion;
+import com.nts.project3.dto.queries.MainPromotionQueries;
 
 /**
  * DB내의 promotion_api_view를 조회하는 DAO. /api/promotions 요청에 대응
  */
 @Repository
-public class MainPagePromotionDao {
+public class MainPromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPagePromotion> rowMapper = BeanPropertyRowMapper.newInstance(MainPagePromotion.class);
+	private RowMapper<MainPromotion> rowMapper = BeanPropertyRowMapper.newInstance(MainPromotion.class);
 
-	public MainPagePromotionDao(DataSource dataSource) {
+	public MainPromotionDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPagePromotion> selectPromotions(long limit) {
+	public List<MainPromotion> selectPromotions(long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("limit", limit);
-		return jdbc.query(MainPagePromotionQueries.SELECT_PROMOTION, params, rowMapper);
+		return jdbc.query(MainPromotionQueries.SELECT_PROMOTION, params, rowMapper);
 	}
 
 	public Integer selectCount() {
-		return jdbc.queryForObject(MainPagePromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }

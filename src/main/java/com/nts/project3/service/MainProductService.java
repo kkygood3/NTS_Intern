@@ -6,9 +6,9 @@ package com.nts.project3.service;
 
 import java.util.List;
 
-import com.nts.project3.dto.MainPageProduct;
+import com.nts.project3.dto.MainProduct;
 
-public interface MainPageProductService {
+public interface MainProductService {
 	/**
 	 * product_api_view에 Select 수행시 Paging 처리를 위해 한번에 가져올 row 수
 	 * @value	4 
@@ -21,14 +21,14 @@ public interface MainPageProductService {
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	인터페이스의 LIMIT만큼 해당 DTO의 List로 반환
 	 */
-	public List<MainPageProduct> getProducts(long categoryId, long start);
+	public List<MainProduct> getProducts(long categoryId, long start);
 
 	/**
 	 * product_api_view를 조회. 카테고리 구분 없음
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	인터페이스의 LIMIT만큼 해당 DTO의 List로 반환
 	 */
-	public List<MainPageProduct> getProducts(long start);
+	public List<MainProduct> getProducts(long start);
 
 	/**
 	 * product_api_view를 조회

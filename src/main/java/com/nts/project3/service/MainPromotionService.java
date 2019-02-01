@@ -6,9 +6,9 @@ package com.nts.project3.service;
 
 import java.util.List;
 
-import com.nts.project3.dto.MainPagePromotion;
+import com.nts.project3.dto.MainPromotion;
 
-public interface MainPagePromotionService {
+public interface MainPromotionService {
 	/**
 	 * @value	100 
 	 */
@@ -18,7 +18,7 @@ public interface MainPagePromotionService {
 	 * promotion_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	public List<MainPagePromotion> getPromotions();
+	public List<MainPromotion> getPromotions();
 
 	/**
 	 * promotion_api_view를 조회

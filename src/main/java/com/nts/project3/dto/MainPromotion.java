@@ -7,7 +7,7 @@ package com.nts.project3.dto;
 /**
  * 메인 페이지 출력을 위한 /api/promotions 요청을 위한 DTO 
  */
-public class MainPagePromotion {
+public class MainPromotion {
 	private long displayInfoId;
 	private String placeName;
 	private String productContent;

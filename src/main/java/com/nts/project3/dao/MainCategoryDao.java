@@ -15,24 +15,24 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.MainPageCategory;
-import com.nts.project3.dto.queries.MainPageCategoryQueries;
+import com.nts.project3.dto.MainCategory;
+import com.nts.project3.dto.queries.MainCategoryQueries;
 
 /**
  * DB내의 category_api_view를 조회하는 DAO. /api/categories 요청에 대응
  */
 @Repository
-public class MainPageCategoryDao {
+public class MainCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPageCategory> rowMapper = BeanPropertyRowMapper.newInstance(MainPageCategory.class);
+	private RowMapper<MainCategory> rowMapper = BeanPropertyRowMapper.newInstance(MainCategory.class);
 
-	public MainPageCategoryDao(DataSource dataSource) {
+	public MainCategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPageCategory> selectCategories(long limit) {
+	public List<MainCategory> selectCategories(long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("limit", limit);
-		return jdbc.query(MainPageCategoryQueries.SELECT_CATEGORIES, params, rowMapper);
+		return jdbc.query(MainCategoryQueries.SELECT_CATEGORIES, params, rowMapper);
 	}
 }

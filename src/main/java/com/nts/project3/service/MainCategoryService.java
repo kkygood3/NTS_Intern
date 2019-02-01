@@ -6,9 +6,9 @@ package com.nts.project3.service;
 
 import java.util.List;
 
-import com.nts.project3.dto.MainPageCategory;
+import com.nts.project3.dto.MainCategory;
 
-public interface MainPageCategoryService {
+public interface MainCategoryService {
 	/**
 	 * @value	10
 	 */
@@ -18,5 +18,5 @@ public interface MainPageCategoryService {
 	 * category_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	public List<MainPageCategory> getCategories();
+	public List<MainCategory> getCategories();
 }
