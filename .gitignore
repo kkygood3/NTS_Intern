@@ -16,8 +16,6 @@ local.properties
 .loadpath
 .recommenders
 /src/main/resources/application.properties
-/src/main/webapp/img/
-/src/main/webapp/img_map/
 /src/main/java/com/nts/reservation/Test.java
 # External tool builders
 .externalToolBuilders/
