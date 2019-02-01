@@ -19,7 +19,7 @@ function printPromotions(evt) {
 	var response = evt.currentTarget.response;
 	
 	var promotionList = document.querySelector("#promotion_list");
-	var promotionItems = JSON.parse(response).item;
+	var promotionItems = JSON.parse(response).promotionList;
 	promotionItems.forEach((promotionItem) => {
 		promotionList.innerHTML += parsePromotionToHtml(promotionItem);
 	});
@@ -31,7 +31,7 @@ function printCategories(evt) {
 	
 	var categoryList = document.querySelector("#category_list");
 
-	var categoryItems = JSON.parse(response).item;
+	var categoryItems = JSON.parse(response).categoryList;
 	categoryItems.forEach((categoryItem) =>{
 		categoryList.innerHTML += parseCategoryToHtml(categoryItem);
 	});
@@ -46,7 +46,7 @@ function printProducts(evt) {
 
 	var responseObject = JSON.parse(response);
 	var totalCount = responseObject.totalCount;
-	var productItems = responseObject.item;
+	var productItems = responseObject.productList;
 
 	document.querySelector("#totalCount").innerText = totalCount;
 	productItems.forEach((productItem) => {

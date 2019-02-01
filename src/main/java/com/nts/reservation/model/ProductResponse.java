@@ -9,24 +9,24 @@ import java.util.List;
 
 public class ProductResponse {
 
-	private List<Product> item;
+	private List<Product> productList;
 	private int totalCount;
 
 	public ProductResponse() {
-		item = new ArrayList<>();
+		productList = new ArrayList<>();
 	}
 
-	public ProductResponse(List<Product> item, int totalCount) {
-		this.item = item;
+	public ProductResponse(List<Product> productList, int totalCount) {
+		this.productList = productList;
 		this.totalCount = totalCount;
 	}
 
-	public List<Product> getItem() {
-		return item;
+	public List<Product> getProductList() {
+		return productList;
 	}
 
-	public void setItem(List<Product> item) {
-		this.item = item;
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
 	}
 
 	public int getTotalCount() {

@@ -9,22 +9,22 @@ import java.util.List;
 
 public class CategoryResponse {
 
-	private List<Category> item;
+	private List<Category> categoryList;
 
 	public CategoryResponse() {
-		item = new ArrayList<>();
+		categoryList = new ArrayList<>();
 	}
 
-	public CategoryResponse(List<Category> item) {
-		this.item = item;
+	public CategoryResponse(List<Category> categoryList) {
+		this.categoryList = categoryList;
 	}
 
-	public List<Category> getItem() {
-		return item;
+	public List<Category> getCategoryList() {
+		return categoryList;
 	}
 
-	public void setItem(List<Category> item) {
-		this.item = item;
+	public void setCategoryList(List<Category> categoryList) {
+		this.categoryList = categoryList;
 	}
 
 }

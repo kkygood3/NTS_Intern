@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProductInfo;
+import com.nts.reservation.model.ProducsListInfo;
 import com.nts.reservation.model.ProductRequirer;
 import com.nts.reservation.service.ProductService;
 
@@ -53,12 +53,12 @@ public class ProductServiceLogic implements ProductService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public ProductInfo getProductInfo(ProductRequirer productRequirer) {
+	public ProducsListInfo getProductInfo(ProductRequirer productRequirer) {
 
 		List<Product> productList = getProductList(productRequirer.getCategoryId(), productRequirer.getStart());
 		int productCount = getProductCount(productRequirer.getCategoryId());
 
-		return new ProductInfo(productList, productCount);
+		return new ProducsListInfo(productList, productCount);
 	}
 
 	private boolean isAllCategory(int categoryId) {

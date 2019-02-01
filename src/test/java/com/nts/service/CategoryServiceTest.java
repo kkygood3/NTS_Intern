@@ -28,7 +28,7 @@ public class CategoryServiceTest {
 	public void getCategoryListTest() {
 		CategoryResponse categoryResponse = new CategoryResponse(categoryService.getCategoryList());
 
-		for (Category category : categoryResponse.getItem()) {
+		for (Category category : categoryResponse.getCategoryList()) {
 			System.out.println(category);
 		}
 	}

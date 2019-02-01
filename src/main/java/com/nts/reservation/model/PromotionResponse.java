@@ -8,22 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PromotionResponse {
-	private List<Promotion> item;
+	private List<Promotion> promotionList;
 
 	public PromotionResponse() {
-		item = new ArrayList<>();
+		promotionList = new ArrayList<>();
 	}
 
-	public PromotionResponse(List<Promotion> item) {
-		this.item = item;
+	public PromotionResponse(List<Promotion> promotionList) {
+		this.promotionList = promotionList;
 	}
 
-	public List<Promotion> getItem() {
-		return item;
+	public List<Promotion> getPromotionList() {
+		return promotionList;
 	}
 
-	public void setItem(List<Promotion> item) {
-		this.item = item;
+	public void setPromotionList(List<Promotion> promotionList) {
+		this.promotionList = promotionList;
 	}
 
 }
