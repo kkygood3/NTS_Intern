@@ -37,57 +37,32 @@ public class ApiController {
 	private MainPageCategoryService mainPageCategoryService;
 	@Autowired
 	private MainPagePromotionService mainPagePromotionService;
-
+	
 	/**
 	 * /products 요청을 받아 메인 페이지에 상품정보를 출력
 	 * @param	categoryId	해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	JSON text
 	 */
-	@SuppressWarnings("finally")
 	@GetMapping("/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") String categoryIdParam,
-		@RequestParam(name = "start", required = false, defaultValue = "0") String startParam) {
-
-		int categoryId = 0;
-		int start = 0;
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
+		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 
 		List<MainPageProduct> items = new ArrayList<>();
 		int totalCount = 0;
+		
+		totalCount = mainPageProductService.getCount();
 
-		try {
-			categoryId = new Integer(categoryIdParam);
-			start = new Integer(startParam);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} finally {
-			//start가 음수라면 0부터
-			if (start < 0) {
-				start = 0;
-			}
-
-			//0보다 작을 때 카테고리 구분 없음 
-			if (categoryId <= 0) {
-				totalCount = mainPageProductService.getCount();
-
-				if (totalCount > 0) {
-					items = mainPageProductService.getProducts(start);
-				}
-			} else {
-				totalCount = mainPageProductService.getCountByCategory(categoryId);
-
-				if (totalCount > 0) {
-					items = mainPageProductService.getProductsByCategory(categoryId, start);
-				}
-			}
-
-			Map<String, Object> map = new HashMap<>();
-			map.put("items", items);
-			map.put("totalCount", totalCount);
-
-			return map;
+		if (totalCount > 0) {
+			items = mainPageProductService.getProducts(start);
 		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("items", items);
+		map.put("totalCount", totalCount);
+
+		return map;
 	}
 
 	/**

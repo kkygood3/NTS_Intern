@@ -239,7 +239,7 @@
 			var template = document.querySelector('script#productItem').innerText;
 			var resultHtml = new Array(2);
 			resultHtml[0] = '';
-			resultHtml[0] = '';
+			resultHtml[1] = '';
 			for (var i = 0; i < items.length; i++) {
 				resultHtml[i % 2] += template
 												.replace('{productImageUrl}', items[i].productImageUrl)

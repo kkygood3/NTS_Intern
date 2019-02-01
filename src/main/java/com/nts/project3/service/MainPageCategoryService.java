@@ -8,7 +8,12 @@ import java.util.List;
 
 import com.nts.project3.dto.MainPageCategory;
 
-public interface MainPageCategoryService extends DefaultService {
+public interface MainPageCategoryService {
+	/**
+	 * @value	10
+	 */
+	public static final Integer LIMIT = 10;
+	
 	/**
 	 * category_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환

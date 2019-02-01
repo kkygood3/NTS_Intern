@@ -8,7 +8,12 @@ import java.util.List;
 
 import com.nts.project3.dto.MainPagePromotion;
 
-public interface MainPagePromotionService extends DefaultService {
+public interface MainPagePromotionService {
+	/**
+	 * @value	100 
+	 */
+	public static final Integer LIMIT = 100;
+	
 	/**
 	 * promotion_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.nts.project3.dto.MainPageProduct;
 
-public interface MainPageProductService extends DefaultService {
+public interface MainPageProductService {
 	/**
 	 * product_api_view에 Select 수행시 Paging 처리를 위해 한번에 가져올 row 수
 	 * @value	4 
