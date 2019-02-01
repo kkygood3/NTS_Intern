@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-	<display-name>Spring JavaConfig Sample</display-name>
+	<display-name>Project3</display-name>
+
+	<!-- Spring DI 등록 -->
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext
@@ -15,7 +17,8 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
-	<display-name>Spring JavaConfig Sample</display-name>
+
+	<!-- Spring WebMvc 컨트롤러 -->
 	<servlet>
 		<servlet-name>mvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -29,6 +32,10 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>com.nts.config.WebMvcContextConfiguration
 			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
