@@ -103,5 +103,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public List<ProductPriceDto> getProductPriceList(Long productId) {
 		return productPriceDao.selectProductPrices(productId);
 	}
-
+	
+	/**
+	 * @desc  display에 해당하는 상품의 코멘트 평점의 평균 값을 반환한다.
+	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 */
+	@Override
+	public float getCommentAvgScore(Long displayInfoId) {
+		return commentDao.selectCommentAvgScore(displayInfoId);
+	}
 }

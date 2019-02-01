@@ -24,4 +24,10 @@ public class CommentDaoSqls {
 		+ " reservation_info AS reservation"
 		+ " WHERE reservation.display_info_id = :id"
 		+ " AND reservation.id = comment.reservation_info_id";
+	public static final String SELECT_COMMENT_AVG_SCORE_BY_DISPLAY_INFO_ID = "SELECT AVG(comment.score)"
+			+ " FROM reservation_user_comment AS comment,"
+			+ " reservation_info AS reservation"
+			+ " WHERE reservation.display_info_id = :id"
+			+ " AND reservation.id = comment.reservation_info_id";
 }
+

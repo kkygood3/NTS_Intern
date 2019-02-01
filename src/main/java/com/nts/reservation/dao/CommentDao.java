@@ -5,7 +5,7 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.CommentDaoSqls.SELECT_COMMENT_BY_DISPLAY_INFO_ID;
+import static com.nts.reservation.dao.sql.CommentDaoSqls.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,5 +40,14 @@ public class CommentDao {
 	public List<CommentDto> selectComments(Long displayInfoId) {
 		Map<String, Object> map = Collections.singletonMap("id", displayInfoId);
 		return jdbc.query(SELECT_COMMENT_BY_DISPLAY_INFO_ID, map, rowMapper);
+	}
+	
+	/*
+	 * @desc 모든 프로덕트의 갯수를 DB에 요청한다.
+	 * @return Integer 프로덕트의 갯수
+	 */
+	public float selectCommentAvgScore(Long displayInfoId) {
+		Map<String, Object> map = Collections.singletonMap("id", displayInfoId);
+		return jdbc.queryForObject(SELECT_COMMENT_AVG_SCORE_BY_DISPLAY_INFO_ID, map, Float.class);
 	}
 }

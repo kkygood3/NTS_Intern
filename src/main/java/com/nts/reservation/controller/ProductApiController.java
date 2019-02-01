@@ -108,14 +108,13 @@ public class ProductApiController {
 		List<ProductImageDto> productImages = displayInfoService.getProductImageList(displayInfo.getProductId());
 		List<ProductPriceDto> productPrices = displayInfoService.getProductPriceList(displayInfo.getProductId());
 		List<CommentDto> comments = displayInfoService.getCommentList(displayInfoId);
-
-		float sumScores = 0.f;
+		float averageScore = displayInfoService.getCommentAvgScore(displayInfoId);
+		
 		for (CommentDto item : comments) {
-			sumScores += item.getScore();
 			List<CommentImageDto> commentImages = displayInfoService.getCommentImageList(item.getCommentId());
 			item.setCommentImages(commentImages);
 		}
-		float averageScore = comments.size() == 0 ? 0.f : sumScores / comments.size();
+
 		return new DisplayInfoResponseDto(averageScore, comments, displayInfo, displayInfoImage, productImages,
 			productPrices);
 	}
