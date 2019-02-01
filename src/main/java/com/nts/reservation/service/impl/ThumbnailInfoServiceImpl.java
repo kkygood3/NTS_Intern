@@ -1,5 +1,7 @@
 package com.nts.reservation.service.impl;
 
+import static com.nts.reservation.property.Const.ALL_CATEGORIES;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +20,21 @@ import com.nts.reservation.service.ThumbnailInfoService;
 @Service
 public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 	@Autowired
-	ThumbnailInfoDao thumbnailInfoDao;
+	private ThumbnailInfoDao thumbnailInfoDao;
 
 	@Override
 	@Transactional
-	public List<ThumbnailInfo> getThumbnailInfos(int start) {
-		List<ThumbnailInfo> thumbnailInfoList = thumbnailInfoDao.selectAllCategoris(start, LIMIT);
+	public List<ThumbnailInfo> getThumbnailInfos(int start, int categoryId, int limit) {
+		List<ThumbnailInfo> thumbnailInfoList;
+		if (categoryId == ALL_CATEGORIES) {
+			thumbnailInfoList = thumbnailInfoDao.selectAllCategoris(start, limit);
+			return thumbnailInfoList;
+		} else {
+			Category c = new Category();
+			c.setId(categoryId);
+			thumbnailInfoList = thumbnailInfoDao.selectByCategory(c, start, limit);
+		}
 		return thumbnailInfoList;
 	}
 
-	@Override
-	@Transactional
-	public List<ThumbnailInfo> getThumbnailInfosByCategory(int start, int categoryId) {
-		Category c = new Category();
-		c.setId(categoryId);
-		List<ThumbnailInfo> thumbnailInfoList = thumbnailInfoDao.selectByCategory(c, start, LIMIT);
-		return thumbnailInfoList;
-	}
 }

@@ -18,14 +18,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public int getCount() {
-		return productDao.selectCount();
-	}
-
-	@Override
-	@Transactional
 	public int getCount(int categoryId) {
-		return productDao.selectCount(categoryId);
+		if (categoryId == 0) {
+			return productDao.selectCount();
+		} else {
+			return productDao.selectCount(categoryId);
+		}
 	}
-
 }
