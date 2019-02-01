@@ -35,8 +35,6 @@ var reviewPage = {
 		if(response.status == 200){
 			var data = JSON.parse(response.responseText);
 			const { averageScore, comments, displayInfo, displayInfoImage, productImages, productPrices } = data;
-			console.log(data);
-			console.log(comments)
 			this.updateHeader(displayInfo.placeName);
 			this.updateReviewContainer(comments, averageScore, displayInfo.productDescription);
 			
