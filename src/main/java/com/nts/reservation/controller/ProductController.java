@@ -26,7 +26,7 @@ public class ProductController {
 	 * categoryId, start parameter로 product list와 count를 Json으로 응답
 	 */
 	@GetMapping(value = {"/api/products"})
-	public ProductResponse getProductList(@Valid ProductRequest productRequest) {
+	public ProductResponse getProductResponse(@Valid ProductRequest productRequest) {
 		ProductRequirer productRequirer = new ProductRequirer(productRequest.getCategoryId(),
 			productRequest.getStart());
 		ProductInfo productInfo = productService.getProductInfo(productRequirer);

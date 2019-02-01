@@ -21,7 +21,7 @@ public class CategoryController {
 	 * category 목록을 Json으로 응답
 	 */
 	@GetMapping(value = {"/api/categories"})
-	public CategoryResponse getCategoryList() {
+	public CategoryResponse getCategoryResponse() {
 		return new CategoryResponse(categoryService.getCategoryList());
 	}
 }

@@ -21,7 +21,7 @@ public class PromotionController {
 	 * promotion 목록을 Json으로 응답
 	 */
 	@GetMapping(value = {"/api/promotions"})
-	public PromotionResponse getPromotionList() {
+	public PromotionResponse getPromotionResponse() {
 		return new PromotionResponse(promotionService.getPromotionList());
 	}
 }

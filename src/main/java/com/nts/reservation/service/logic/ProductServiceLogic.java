@@ -29,7 +29,7 @@ public class ProductServiceLogic implements ProductService {
 	 */
 	public List<Product> getProductList(int categoryId, int start) {
 
-		if (this.isAllCategory(categoryId)) {
+		if (isAllCategory(categoryId)) {
 			return productDao.getAllCategoryProductList(start);
 		} else {
 			return productDao.getOneCategoryProductList(categoryId, start);
@@ -41,7 +41,7 @@ public class ProductServiceLogic implements ProductService {
 	 */
 	public int getProductCount(int categoryId) {
 
-		if (this.isAllCategory(categoryId)) {
+		if (isAllCategory(categoryId)) {
 			return productDao.getAllCategoryProductCount();
 		} else {
 			return productDao.getOneCategoryProductCount(categoryId);
@@ -55,8 +55,8 @@ public class ProductServiceLogic implements ProductService {
 	@Transactional(readOnly = true)
 	public ProductInfo getProductInfo(ProductRequirer productRequirer) {
 
-		List<Product> productList = this.getProductList(productRequirer.getCategoryId(), productRequirer.getStart());
-		int productCount = this.getProductCount(productRequirer.getCategoryId());
+		List<Product> productList = getProductList(productRequirer.getCategoryId(), productRequirer.getStart());
+		int productCount = getProductCount(productRequirer.getCategoryId());
 
 		return new ProductInfo(productList, productCount);
 	}

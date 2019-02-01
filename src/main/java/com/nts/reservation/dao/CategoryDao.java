@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.querys.CategoryQuerys;
 import com.nts.reservation.model.Category;
+import static com.nts.reservation.dao.querys.CategoryQuerys.*;
 
 @Repository
 public class CategoryDao {
@@ -27,7 +27,7 @@ public class CategoryDao {
 	 * category 목록을 조회하여 List 객체로 반환
 	 */
 	public List<Category> getCategoryList() {
-		return jdbcTemplate.query(CategoryQuerys.SELECT_CATEGORY_LIST, categoryMapper);
+		return jdbcTemplate.query(SELECT_CATEGORY_LIST, categoryMapper);
 	}
 
 }

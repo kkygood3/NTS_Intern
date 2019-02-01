@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.querys.ProductQuerys;
 import com.nts.reservation.model.Product;
+import static com.nts.reservation.dao.querys.ProductQuerys.*;
 
 @Repository
 public class ProductDao {
@@ -32,7 +32,7 @@ public class ProductDao {
 	public List<Product> getAllCategoryProductList(int start) {
 		Map<String, Integer> param = Collections.singletonMap("start", start);
 
-		return jdbcTemplate.query(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCT_LIST,
+		return jdbcTemplate.query(SELECT_ALL_CATEGORY_PRODUCT_LIST,
 			param, productMapper);
 	}
 
@@ -40,7 +40,7 @@ public class ProductDao {
 	 * product 전체목록의 count 반환
 	 */
 	public int getAllCategoryProductCount() {
-		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_ALL_CATEGORY_PRODUCTS_COUNT,
+		return jdbcTemplate.queryForObject(SELECT_ALL_CATEGORY_PRODUCTS_COUNT,
 			Collections.emptyMap(), Integer.class);
 	}
 
@@ -52,7 +52,7 @@ public class ProductDao {
 		param.put("categoryId", categoryId);
 		param.put("start", start);
 
-		return jdbcTemplate.query(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCT_LIST,
+		return jdbcTemplate.query(SELECT_ONE_CATEGORY_PRODUCT_LIST,
 			param, productMapper);
 	}
 
@@ -62,7 +62,7 @@ public class ProductDao {
 	public int getOneCategoryProductCount(int categoryId) {
 		Map<String, Integer> param = Collections.singletonMap("categoryId", categoryId);
 
-		return jdbcTemplate.queryForObject(ProductQuerys.SELECT_ONE_CATEGORY_PRODUCTS_COUNT,
+		return jdbcTemplate.queryForObject(SELECT_ONE_CATEGORY_PRODUCTS_COUNT,
 			param, Integer.class);
 	}
 }
