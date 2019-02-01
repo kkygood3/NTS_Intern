@@ -1027,6 +1027,7 @@ button {
 
 .img_thumb {
     width: 100%;
+    height: 100%;
     vertical-align: top
 }
 
@@ -3843,4 +3844,22 @@ button {
 	visibility: hidden;
 }
 
-
+.detail_swipe {
+	height: 100%;
+}
+.detail_swipe > li {
+	height: 100%;
+	position: absolute !important;
+}
+.right_pos {
+	transform: translateX(100%);
+}
+.current_pos{
+	transform: translateX(0);
+}
+.left_pos{
+	transform: translateX(-100%);
+}
+.add_transition {
+	transition: transform 1s ease;
+}
