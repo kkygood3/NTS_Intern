@@ -17,6 +17,11 @@ public class ProductRequirer {
 		this.start = start;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductRequirer [categoryId=" + categoryId + ", start=" + start + "]";
+	}
+
 	public int getCategoryId() {
 		return categoryId;
 	}

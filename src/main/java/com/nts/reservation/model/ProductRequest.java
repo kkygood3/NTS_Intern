@@ -13,6 +13,11 @@ public class ProductRequest {
 	@Min(value = 0, message = "start value must be positive number")
 	private int start;
 
+	@Override
+	public String toString() {
+		return "ProductRequest [categoryId=" + categoryId + ", start=" + start + "]";
+	}
+
 	public int getCategoryId() {
 		return categoryId;
 	}

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProducsListInfo {
+
 	private List<Product> productList;
 	private int totalCount;
 

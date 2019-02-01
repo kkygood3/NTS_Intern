@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 public class TransactionConfig implements TransactionManagementConfigurer {
 
 	@Autowired
-	DataSource dataSource;
+	private DataSource dataSource;
 
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {

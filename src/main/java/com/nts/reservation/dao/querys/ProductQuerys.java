@@ -5,6 +5,7 @@
 package com.nts.reservation.dao.querys;
 
 public class ProductQuerys {
+
 	public static final String SELECT_ALL_CATEGORY_PRODUCT_LIST = "select p.id as product_id, "
 		+ "p.description as product_description, p.content as product_content, "
 		+ "d.id as display_info_id, d.place_name as place_name, "
