@@ -17,7 +17,7 @@ import com.nts.reservation.service.PromotionService;
 @Service
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 
 	@Override
 	@Transactional

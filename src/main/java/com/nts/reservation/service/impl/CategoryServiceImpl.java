@@ -17,7 +17,7 @@ import com.nts.reservation.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	CategoryDao promotionDao;
+	private CategoryDao promotionDao;
 
 	@Override
 	@Transactional
