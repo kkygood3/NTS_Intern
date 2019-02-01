@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.dto;
 
+import lombok.Data;
+
+@Data
 public class Product {
 	private int displayInfoId;
 	private String placeName;

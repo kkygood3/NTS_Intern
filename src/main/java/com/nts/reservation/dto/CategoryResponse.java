@@ -6,6 +6,9 @@ package com.nts.reservation.dto;
 
 import java.util.List;
 
+import lombok.Data;
+
+@Data
 public class CategoryResponse {
 	private List<Category> items;
 }
