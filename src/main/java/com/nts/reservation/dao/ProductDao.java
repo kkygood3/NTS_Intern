@@ -5,11 +5,11 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION_PRODUCT;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_COUNT_PRODUCT;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_COUNT_PRODUCT_BY_CATEGORY;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_PRODUCT;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_PRODUCT_BY_CATEGORY;
+import static com.nts.reservation.dao.sql.ProductDaoSqls.SELECT_PROMOTION_PRODUCT;
 
 import java.util.Collections;
 import java.util.HashMap;

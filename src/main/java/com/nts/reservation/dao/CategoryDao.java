@@ -5,7 +5,7 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.CategoryDaoSqls.SELECT_CATEGORY;
+import static com.nts.reservation.dao.sql.CategoryDaoSqls.SELECT_CATEGORY;
 
 import java.util.Collections;
 import java.util.List;
