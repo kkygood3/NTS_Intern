@@ -2,6 +2,7 @@ function addButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener("click", function(event){
 		var categoryId = moreButton.value;
+		alert(categoryId);
 		sendGetThumbnailsAjax(categoryId);
 		
 	});
@@ -22,7 +23,7 @@ function addCategoryClickEvent() {
 }
 
 function changeCategoryTabUi(curCategoryId) {
-	if (!parseInt(curCategoryId)) {
+	if ((curCategoryId !== "0") && !parseInt(curCategoryId)) {
 		return false;
 	}
 	var preCategoryId = document.querySelector(".more > .btn").value;
@@ -32,7 +33,7 @@ function changeCategoryTabUi(curCategoryId) {
 }
 
 function changeCategoryInfo(categoryId) {
-	if (!parseInt(categoryId)) {
+	if ((categoryId !== "0") && !parseInt(categoryId)) {
 		return false;
 	}
 	var moreButton = document.querySelector(".more > .btn");
