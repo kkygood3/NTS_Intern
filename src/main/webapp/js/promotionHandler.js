@@ -50,9 +50,9 @@ function setPromotionAnimation(){
 	
 	setTimeout(function run(){
 		promotionUl.style.transition = "right 1s";
-		promotionUl.style.right = parseInt(promotionUl.style.right) + shiftPixel + "px";
+		promotionUl.style.right = parseInt(promotionUl.style.right) + shiftPixels + "px";
 		
-		if(parseInt(promotionUl.style.right) > shiftPixel){
+		if(parseInt(promotionUl.style.right) > shiftPixels){
 			promotionUl.innerHTML += promotionUl.firstElementChild.outerHTML;
 			promotionUl.style.transition = "right 0s";
 			promotionUl.style.right = 0;
