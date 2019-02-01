@@ -33,6 +33,7 @@ import com.nts.reservation.service.ProductService;
 public class ProductApiController {
 	@Autowired
 	ProductService productService;
+	@Autowired
 	DetailService detailService;
 
 	@GetMapping("/products")
@@ -54,7 +55,6 @@ public class ProductApiController {
 	@GetMapping("/products/{displayInfoId}")
 	public DetailResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-
 		List<Comment> comments = detailService.getComments(displayInfoId);
 		List<CommentImage> commentImages = detailService.getCommentsImages(displayInfoId);
 		Iterator<CommentImage> imgIter = commentImages.iterator();
@@ -68,7 +68,9 @@ public class ProductApiController {
 			while (commIter.hasNext()) {
 				Comment currentComment = commIter.next();
 				if (commentId == currentComment.getCommentId()) {
+					System.out.println(currentComment);
 					currentComment.getCommentImages().add(currentImage);
+					System.out.println(currentComment);
 					break;
 				}
 			}

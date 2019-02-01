@@ -18,7 +18,7 @@ public class DetailDaoSqls {
 		+ " FROM  display_info di "
 		+ " INNER JOIN product pdt ON pdt.id = di.product_id AND di.id = :display_info_id"
 		+ " INNER JOIN category ctg ON pdt.category_id = ctg.id";
-	public static final String SELECT_DETAIL_PRODUCT_IMAGES = "SELECT di.product_id AS id"
+	public static final String SELECT_DETAIL_PRODUCT_IMAGES = "SELECT di.product_id AS productId"
 		+ ", pi.id AS productImageId"
 		+ ", pi.type AS type"
 		+ ", fi.id AS fileInfoId"
@@ -60,17 +60,22 @@ public class DetailDaoSqls {
 		+ " INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id"
 		+ " ORDER BY ruc.id DESC";
 
-	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT AVG(ruc.score)"
-		+ "FROM display_info di "
-		+ "INNER JOIN reservation_user_comment ruc ON ruc.product_id = di.product_id AND di.id = :display_info_id";
+	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT AVG(ruc.score) as average"
+		+ " FROM display_info di "
+		+ " INNER JOIN reservation_user_comment ruc ON ruc.product_id = di.product_id AND di.id = :display_info_id";
 
 	public static final String SELECT_DETAIL_COMMENTS_IMAGES = "SELECT ruci.id as imageId"
-		+ ", ruc.reservation_info_id as reservationInfoId" + ", fi.id as fileId" + ", fi.file_name as fileName"
-		+ ", fi.save_file_name as saveFileName" + ", fi.content_type as contentType" + ", fi.delete_flag as deleteFlag"
-		+ ", fi.create_date as createDate" + ", fi.modify_date as modifyDate" + "from display_info di"
-		+ " INNER JOIN reservation_user_comment ruc ON di.product_id = ruc.product_id"
+		+ ", ruc.reservation_info_id as reservationInfoId"
+		+ ", fi.id as fileId" + ", fi.file_name as fileName"
+		+ ", fi.save_file_name as saveFileName"
+		+ ", fi.content_type as contentType"
+		+ ", fi.delete_flag as deleteFlag"
+		+ ", fi.create_date as createDate"
+		+ ", fi.modify_date as modifyDate"
+		+ " FROM reservation_user_comment ruc"
+		+ " INNER JOIN display_info di ON di.product_id = ruc.product_id AND di.id = :display_info_id"
 		+ " INNER JOIN reservation_user_comment_image ruci ON ruc.id = ruci.reservation_user_comment_id"
-		+ " INNER JOIN file_info fi ON ruci.file_id = fi.id  AND di.id = :display_info_id"
+		+ " INNER JOIN file_info fi ON ruci.file_id = fi.id"
 		+ " ORDER BY ruc.id DESC";
 
 	public static final String SELECT_DETAIL_COMMENTS_PRODUCT_PRICES = "SELECT pp.id AS productPriceId"

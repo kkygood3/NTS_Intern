@@ -1,7 +1,5 @@
 package com.nts.reservation.detail.dto;
 
-import java.time.LocalDateTime;
-
 public class DisplayInfo {
 	private Long productId;
 	private Long categoryId;
@@ -17,8 +15,8 @@ public class DisplayInfo {
 	private String telephone;
 	private String homepage;
 	private String email;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
+	private String createDate;
+	private String modifyDate;
 
 	public Long getProductId() {
 		return productId;
@@ -132,19 +130,19 @@ public class DisplayInfo {
 		this.email = email;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModifyDate() {
+	public String getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(LocalDateTime modifyDate) {
+	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

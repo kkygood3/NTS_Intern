@@ -1,19 +1,21 @@
 package com.nts.reservation.detail.dto;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comment {
 	private Long commentId;
 	private Long productId;
+	private Long reservationInfoId;
 	private int score;
 	private String comment;
+	private String reservationTelephone;
 	private String reservationName;
 	private String reservationEmail;
-	private LocalDateTime reservationDate;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
-	private List<CommentImage> commentImages;
+	private String reservationDate;
+	private String createDate;
+	private String modifyDate;
+	private List<CommentImage> commentImages = new ArrayList<CommentImage>();
 
 	public Long getCommentId() {
 		return commentId;
@@ -63,27 +65,27 @@ public class Comment {
 		this.reservationEmail = reservationEmail;
 	}
 
-	public LocalDateTime getReservationDate() {
+	public String getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(LocalDateTime reservationDate) {
+	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModifyDate() {
+	public String getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(LocalDateTime modifyDate) {
+	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
@@ -95,12 +97,29 @@ public class Comment {
 		this.commentImages = commentImages;
 	}
 
+	public Long getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(Long reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
+
+	public String getReservationTelephone() {
+		return reservationTelephone;
+	}
+
+	public void setReservationTelephone(String reservationTelephone) {
+		this.reservationTelephone = reservationTelephone;
+	}
+
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", productId=" + productId + ", score=" + score + ", comment="
-			+ comment + ", reservationName=" + reservationName + ", reservationEmail=" + reservationEmail
+		return "Comment [commentId=" + commentId + ", productId=" + productId + ", reservationInfoId="
+			+ reservationInfoId + ", score=" + score + ", comment=" + comment + ", reservationTelephone="
+			+ reservationTelephone + ", reservationName=" + reservationName + ", reservationEmail=" + reservationEmail
 			+ ", reservationDate=" + reservationDate + ", createDate=" + createDate + ", modifyDate=" + modifyDate
-			+ "]";
+			+ ", commentImages=" + commentImages + "]";
 	}
 
 }

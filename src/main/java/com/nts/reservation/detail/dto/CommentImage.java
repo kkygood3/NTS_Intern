@@ -1,7 +1,5 @@
 package com.nts.reservation.detail.dto;
 
-import java.time.LocalDateTime;
-
 public class CommentImage {
 	private Long imageId;
 	private Long reservationInfoId;
@@ -10,8 +8,8 @@ public class CommentImage {
 	private String saveFileName;
 	private String contentType;
 	private boolean deleteFlag;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
+	private String createDate;
+	private String modifyDate;
 
 	public Long getImageId() {
 		return imageId;
@@ -69,19 +67,19 @@ public class CommentImage {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModifyDate() {
+	public String getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(LocalDateTime modifyDate) {
+	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

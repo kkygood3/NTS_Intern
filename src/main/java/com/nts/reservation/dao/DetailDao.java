@@ -64,11 +64,10 @@ public class DetailDao {
 			BeanPropertyRowMapper.newInstance(CommentImage.class));
 	}
 
-	public Double getAverageScore(Long displayInfoId) {
+	public double getAverageScore(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params,
-			BeanPropertyRowMapper.newInstance(Double.class));
+		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, double.class);
 	}
 
 	public List<ProductPrice> getProductPrices(Long displayInfoId) {

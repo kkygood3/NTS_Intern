@@ -29,7 +29,7 @@ public interface DetailService {
 
 	public abstract List<CommentImage> getCommentsImages(Long displayInfoId);
 
-	public abstract Double getAverageScore(Long displayInfoId);
+	public abstract double getAverageScore(Long displayInfoId);
 
 	public List<ProductPrice> getProductPrices(Long displayInfoId);
 

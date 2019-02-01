@@ -57,7 +57,7 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
-	public Double getAverageScore(Long displayInfoId) {
+	public double getAverageScore(Long displayInfoId) {
 		return DetailDao.getAverageScore(displayInfoId);
 	}
 
