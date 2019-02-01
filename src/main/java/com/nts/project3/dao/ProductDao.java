@@ -13,9 +13,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.project3.dto.ProductDto;
@@ -25,12 +22,10 @@ import com.nts.project3.dto.ProductDto;
  * @author jinwoo.bae
  */
 @Repository
-public class ProductDao {
-	private NamedParameterJdbcTemplate jdbcTemplate;
-	private RowMapper<ProductDto> rowMapper = BeanPropertyRowMapper.newInstance(ProductDto.class);
-
+public class ProductDao extends BasicDao<ProductDto> {
 	public ProductDao(DataSource dataSource) {
-		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
+		setRowMapper(ProductDto.class);
 	}
 
 	/**

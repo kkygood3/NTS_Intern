@@ -11,9 +11,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.project3.dto.PromotionDto;
@@ -24,12 +21,10 @@ import com.nts.project3.dto.PromotionDto;
  *
  */
 @Repository
-public class PromotionDao {
-	private NamedParameterJdbcTemplate jdbcTemplate;
-	private RowMapper<PromotionDto> rowMapper = BeanPropertyRowMapper.newInstance(PromotionDto.class);
-
+public class PromotionDao extends BasicDao<PromotionDto> {
 	public PromotionDao(DataSource dataSource) {
-		jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
+		setRowMapper(PromotionDto.class);
 	}
 
 	/**
