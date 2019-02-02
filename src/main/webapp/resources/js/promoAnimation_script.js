@@ -27,7 +27,7 @@ var state = {
  *                       initialization of animation frame call
  */
 
-function initPromoAnimation(){
+function initPromoAnimation() {
 	state.IMAGE_LIST = domElements.PROMO_CONTAINER.getElementsByTagName("li");
 	constants.PROMO_CONATINER_WIDTH = domElements.PROMO_CONTAINER.offsetWidth;
 
@@ -46,7 +46,7 @@ function initPromoAnimation(){
 	
 	// timeout because first promo-slide should be displayed before
 	// transition
-	setTimeout(()=>{
+	setTimeout(() => {
 		state.prevPromoImage = state.IMAGE_LIST[state.prevPromoCount];
 		state.currentPromoImage = state.IMAGE_LIST[state.currentPromoCount];
 		requestAnimationFrame(promoAnimation);
@@ -68,20 +68,20 @@ function initPromoAnimation(){
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
  */
-function promoAnimation(){
+function promoAnimation() {
 	let needToStop = false;
 	let prevImage = state.prevPromoImage;
 	let currentImage = state.currentPromoImage;
 	
-	for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++){
+	for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++) {
 		prevImage.style.left = parseInt(prevImage.style.left) - 1 + "px";
 		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
 		
-		if(parseInt(prevImage.style.left) <= -1 * constants.PROMO_CONATINER_WIDTH){
+		if(parseInt(prevImage.style.left) <= -1 * constants.PROMO_CONATINER_WIDTH) {
 			prevImage.style.left = constants.PROMO_CONATINER_WIDTH + "px";
 			state.prevPromoCount = state.currentPromoCount;
 			state.currentPromoCount++;
-			if(state.currentPromoCount == state.IMAGE_LIST.length){
+			if(state.currentPromoCount == state.IMAGE_LIST.length) {
 				state.currentPromoCount = 0;
 			}
 			needToStop = true;
@@ -89,7 +89,7 @@ function promoAnimation(){
 		}
 	}	
 	
-	if(needToStop){
+	if(needToStop) {
 		setTimeout(() => {
 			state.prevPromoImage = state.IMAGE_LIST[state.prevPromoCount];
 			state.currentPromoImage = state.IMAGE_LIST[state.currentPromoCount];
