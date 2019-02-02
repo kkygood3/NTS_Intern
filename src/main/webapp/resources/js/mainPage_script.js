@@ -148,7 +148,7 @@ function switchCategory(category) {
 function renderProductItems(productData) {
     let bindTemplate = Handlebars.compile(domElements.NEW_PRODUCT_ITEM);
     productData.items.forEach((item) => {
-    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild
+    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild;
     	domElements.PRODUCT_LISTS[state.loadedProductCount % 2].appendChild(newProduct);
     	state.loadedProductCount++;
     });	
@@ -168,7 +168,7 @@ function renderPromoItems(promotionData) {
     let bindTemplate = Handlebars.compile(domElements.PROMO_TEMPLATE);
 
     promotionData.forEach((promoItem) => {
-    	let newPromo = parser.parseFromString(bindTemplate(promoItem), "text/html").body.firstChild
+    	let newPromo = parser.parseFromString(bindTemplate(promoItem), "text/html").body.firstChild;
     	domElements.PROMO_CONTAINER.appendChild(newPromo);
     });
 	
