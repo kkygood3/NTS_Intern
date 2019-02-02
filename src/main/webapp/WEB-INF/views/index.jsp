@@ -25,9 +25,9 @@
 	<link rel="shortcut icon" href="resources/img/favicon.ico">
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-	<script type="text/javascript" src="resources/js/utils_script.js"></script>
+	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript"
-		src="resources/js/mainpage/promoAnimation_script.js"></script>
+		src="resources/js/commons/slideAnimation_script.js"></script>
 </head>
 
 <body onload="init()">

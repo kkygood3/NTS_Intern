@@ -12,11 +12,14 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
+this.initSlideAnimation = initSlideAnimation.bind(this);
+this.slideAnimation = slideAnimation.bind(this);
+
 var domElements = {
 	TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),
 	TAB_BUTTON_LI : document.querySelectorAll("div.section_event_tab ul li"),
 	SHOW_MORE_BUTTON : document.querySelector("div.more button"),
-	PROMO_CONTAINER : document.querySelector("ul.visual_img"),
+	SLIDE_CONTAINER : document.querySelector("ul.visual_img"),
 	PRODUCT_LISTS : document.querySelectorAll(".lst_event_box"),
 	NEW_PRODUCT_ITEM : document.querySelector("#itemList").innerHTML,
 	PRODUCT_NUMBER_IND : document.querySelector("p.event_lst_txt span"),
@@ -28,6 +31,12 @@ var urls = {
 	PROMOS : "/reservation/api/promotions",
 	PRODUCTS : "/reservation/api/products",
 	PRODUCTS_PARAMS : ""
+};
+
+var constants = {
+	SLIDE_CONATINER_WIDTH : "",
+	ANIMATION_SPEED : 4,
+	ANIMATION_STOP_DURATION : 1000,
 };
 
 var state = {
@@ -148,7 +157,7 @@ function switchCategory(category) {
 function renderProductItems(productData) {
     let bindTemplate = Handlebars.compile(domElements.NEW_PRODUCT_ITEM);
     productData.items.forEach((item) => {
-    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild
+    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild;
     	domElements.PRODUCT_LISTS[state.loadedProductCount % 2].appendChild(newProduct);
     	state.loadedProductCount++;
     });	
@@ -168,10 +177,10 @@ function renderPromoItems(promotionData) {
     let bindTemplate = Handlebars.compile(domElements.PROMO_TEMPLATE);
 
     promotionData.forEach((promoItem) => {
-    	let newPromo = parser.parseFromString(bindTemplate(promoItem), "text/html").body.firstChild
-    	domElements.PROMO_CONTAINER.appendChild(newPromo);
+    	let newPromo = parser.parseFromString(bindTemplate(promoItem), "text/html").body.firstChild;
+    	domElements.SLIDE_CONTAINER.appendChild(newPromo);
     });
 	
-    requestAnimationFrame(initPromoAnimation);
+    initSlideAnimation(domElements.SLIDE_CONTAINER,true);
 }
 

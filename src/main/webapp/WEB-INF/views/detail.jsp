@@ -13,12 +13,13 @@
 <link rel="shortcut icon" href="resources/img/favicon.ico">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-<script type="text/javascript" src="resources/js/utils_script.js"></script>
+<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
+<script type="text/javascript" src="resources/js/commons/slideAnimation_script.js"></script>
 
 <style>
-.container_visual {
-	height: 414px;
-}
+	.container_visual {
+		height: 414px;
+	}
 </style>
 
 </head>
@@ -63,46 +64,7 @@
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<ul class="visual_img detail_swipe">
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
+									<!-- image files get rendered in here -->
 								</ul>
 							</div>
 							<div class="prev">
@@ -309,7 +271,7 @@
 							<div class="bottom_common_path column2">
 								<a href="#" class="btn_path"> <i class="fn fn-path-find2"></i>
 									<span>길찾기</span>
-								</a> <a hewf="#" class="btn_navigation before"> <i
+								</a> <a href="#" class="btn_navigation before"> <i
 									class="fn fn-navigation2"></i> <span>내비게이션</span>
 								</a>
 							</div>
@@ -331,6 +293,34 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
+	<!--
+contenttype: "image/png"
+createDate: "2019-01-25 22:10:21"
+deleteFlag: false
+fileInfoId: 85
+fileName: "9_et_26.png"
+modifyDate: "2019-01-25 22:10:21"
+productId: 9
+productImageId: 26
+saveFileName: "img/9_et_26.png"
+type: "et"
+-->
+	<script type="rv-template" id="imageItem">
+
+	<li class="item" style="width: 414px; position:absolute">
+		<img alt="map" class="img_thumb" src="{{saveFileName}}">
+		<span class="img_bg"></span>
+		<div class="visual_txt">
+		<div class="visual_txt_inn">
+			<h2 class="visual_txt_tit">
+				<span></span>
+				</h2>
+				<p class="visual_txt_dsc"></p>
+			</div>
+		</div>
+	</li>				
+	</script>
+	
 	<script type="text/javascript"
 		src="resources/js/detailpage/detailPage_script.js"></script>
 </body>

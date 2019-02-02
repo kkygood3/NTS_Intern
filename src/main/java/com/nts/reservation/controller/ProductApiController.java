@@ -71,9 +71,7 @@ public class ProductApiController {
 			while (commIter.hasNext()) {
 				Comment currentComment = commIter.next();
 				if (commentId == currentComment.getCommentId()) {
-					System.out.println(currentComment);
 					currentComment.getCommentImages().add(currentImage);
-					System.out.println(currentComment);
 					break;
 				}
 			}
