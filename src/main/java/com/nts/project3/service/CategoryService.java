@@ -14,5 +14,5 @@ import com.nts.project3.dto.CategoryDto;
  */
 public interface CategoryService {
 	public static final int SELECT_LIMIT = 10;
-	public List<CategoryDto> getCategoriesWithProductCount();
+	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount();
 }

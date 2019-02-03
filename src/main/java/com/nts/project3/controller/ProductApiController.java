@@ -4,7 +4,6 @@
  */
 package com.nts.project3.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +31,11 @@ public class ProductApiController {
 	 */
 	@GetMapping("/api/products")
 	public Map<String, Object> getProducts(@RequestParam int start) {
-		List<ProductDto> getProducts = productService.getProducts(start);
+		List<ProductDto> products = productService.getProducts(start);
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("totalCount", getProducts.size());
-		map.put("products", getProducts);
+		map.put("totalCount", products.size());
+		map.put("products", products);
 
 		return map;
 	}

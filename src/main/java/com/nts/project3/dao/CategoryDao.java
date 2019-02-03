@@ -27,10 +27,10 @@ public class CategoryDao extends BasicDao<CategoryDto> {
 	}
 
 	/**
-	 * 카테고리 목록과 카테고리별 프로덕트의 개수를 구한다. 
+	 * 카테고리 목록과 카테고리별 프로덕트의 개수를 구한다.
 	 */
-	public List<CategoryDto> selectLimitedListWithProductCount(int limit) {
-		return jdbcTemplate.query(SELECT_LIMITED_LIST_WITH_PRODUCT_COUNT, Collections.singletonMap("limit", limit),
-			rowMapper);
+	public List<CategoryDto> selectLimitedCategoriesWithProductsOnDisplayCount(int limit) {
+		return jdbcTemplate.query(SELECT_LIMITED_CATEGORIES_WITH_PRODUCTS_ON_DISPLAY_COUNT,
+				Collections.singletonMap("limit", limit), rowMapper);
 	}
 }

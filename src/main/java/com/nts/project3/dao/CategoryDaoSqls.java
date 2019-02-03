@@ -9,7 +9,7 @@ package com.nts.project3.dao;
  * @author jinwoo.bae
  */
 public class CategoryDaoSqls {
-	public static final String SELECT_LIMITED_LIST_WITH_PRODUCT_COUNT = "SELECT  "
+	public static final String SELECT_LIMITED_CATEGORIES_WITH_PRODUCTS_ON_DISPLAY_COUNT = "SELECT  "
 		+ "    c.id, c.name, COUNT(c.id) AS count "
 		+ "FROM "
 		+ "    category c, "
