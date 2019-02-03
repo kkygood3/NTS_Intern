@@ -61,7 +61,7 @@ function init() {
  * @initTab() : tab active css change and load more button visibility control
  */
 function initTab() {
-	domElements.TAB_BUTTON_UL.addEventListener("click", (e) =>{
+	domElements.TAB_BUTTON_UL.addEventListener("click" , (e) => {
 		if(e.target == domElements.TAB_BUTTON_UL) {
 			return;
 		}
@@ -76,7 +76,7 @@ function initTab() {
 		switchCategory(tab.dataset.category);
 	});
 	
-	document.querySelector("div.more").addEventListener("click",(e) => {
+	document.querySelector("div.more").addEventListener("click" , (e) => {
 		fetchProducts(state.currentCategory, state.loadedProductCount);
 	});
 }

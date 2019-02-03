@@ -58,7 +58,7 @@ public class DetailDaoSqls {
 		+ " FROM reservation_user_comment ruc"
 		+ " INNER JOIN display_info di ON di.product_id = ruc.product_id AND di.id = :display_info_id"
 		+ " INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id"
-		+ " ORDER BY ruc.id DESC";
+		+ " ORDER BY ruc.id DESC LIMIT 0, 3";
 
 	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT IFNULL(CONVERT( AVG(ruc.score), DECIMAL(3,2)), 0 ) as average"
 		+ " FROM display_info di "

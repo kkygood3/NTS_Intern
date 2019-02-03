@@ -17,8 +17,8 @@ var constants = {
 var state = {
 	nextSlideCount : 1,
 	currentSlideCount : 0,
-	nextSlide : "",
-	currentSlide : "",
+	prevSlideCount : -1,
+	isAnimating : false,
 	IMAGE_LIST : []
 };
 
@@ -28,13 +28,13 @@ var state = {
  */
 
 function initSlideAnimation(slideContainer, isAuto) {
-	state.IMAGE_LIST = slideContainer.getElementsByTagName("li");
 	constants.SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
-	
+
+	state.IMAGE_LIST = slideContainer.getElementsByTagName("li");
+	state.prevSlideCount = state.IMAGE_LIST.length-1;	
 	state.currentSlideCount = 0;
 	state.nextSlideCount = 1;
-	state.currentSlide = state.IMAGE_LIST[state.currentSlideCount];
-	state.nextSlide = state.IMAGE_LIST[state.nextSlideCount];
+
 	// change the layout with style.left to initialize the animation
 	state.IMAGE_LIST.forEach((item) => {
 		
@@ -49,8 +49,9 @@ function initSlideAnimation(slideContainer, isAuto) {
 	/* timeout because first promo-slide should be displayed before
 		transition*/
 	if(isAuto) {
+
 		setTimeout(() => {
-			requestAnimationFrame(() => slideAnimation(false));
+			requestAnimationFrame(() => slideAnimation(true));
 		}, constants.ANIMATION_STOP_DURATION);
 	}
 }
@@ -71,18 +72,28 @@ function initSlideAnimation(slideContainer, isAuto) {
  *                   accuracy of the stop-position
  */
 function slideAnimation(isAuto) {
+	state.isAnimating = true;
+	
 	let needToStop = false;
-	let currentImage = state.currentSlide;
-	let nextImage = state.nextSlide;
+	let currentImage = state.IMAGE_LIST[state.currentSlideCount];
+	let nextImage = state.IMAGE_LIST[state.nextSlideCount];
+	
+	if(parseInt(nextImage.style.left) == -414){
+		nextImage.style.left = constants.SLIDE_CONATINER_WIDTH + "px";
+	}
+	
 	for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++) {
 		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
 		nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
-		console.log(currentImage.style.left)
-		if(parseInt(currentImage.style.left) <= -1 * constants.SLIDE_CONATINER_WIDTH) {
+		
+		if(parseInt(currentImage.style.left) <= -constants.SLIDE_CONATINER_WIDTH) {
 			
 			currentImage.style.left = constants.SLIDE_CONATINER_WIDTH + "px";
+			
+			state.prevSlideCount = state.currentSlideCount;
 			state.currentSlideCount = state.nextSlideCount;
 			state.nextSlideCount++;
+			
 			if(state.nextSlideCount == state.IMAGE_LIST.length) {
 				state.nextSlideCount = 0;
 			}
@@ -91,16 +102,61 @@ function slideAnimation(isAuto) {
 		}
 	}
 	if(needToStop){
-		state.currentSlide = state.IMAGE_LIST[state.currentSlideCount];
-		state.nextSlide = state.IMAGE_LIST[state.nextSlideCount];
 		if(isAuto) {
 			setTimeout(() => {
 				requestAnimationFrame(() => slideAnimation(isAuto));
 			}, constants.ANIMATION_STOP_DURATION);
+		} else {
+			state.isAnimating = false;
 		}
 	}
 	else {
 		requestAnimationFrame(() => slideAnimation(isAuto));
+	}	
+}
+
+function slideAnimationReverse(isAuto) {
+	state.isAnimating = true;
+	
+	let needToStop = false;
+	let prevImage = state.IMAGE_LIST[state.prevSlideCount];
+	let currentImage = state.IMAGE_LIST[state.currentSlideCount];
+	
+	if(parseInt(prevImage.style.left) == 414){
+		prevImage.style.left = -constants.SLIDE_CONATINER_WIDTH + "px";
+	}
+	
+	for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++) {
+		currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
+		prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
+		
+		if(parseInt(currentImage.style.left) >= constants.SLIDE_CONATINER_WIDTH) {
+			
+			currentImage.style.left = -constants.SLIDE_CONATINER_WIDTH + "px";
+			
+			state.nextSlideCount = state.currentSlideCount;
+			state.currentSlideCount = state.prevSlideCount;
+			state.prevSlideCount = state.prevSlideCount -1;
+			
+			if(state.prevSlideCount == -1){
+				state.prevSlideCount = state.IMAGE_LIST.length-1;
+			}
+			
+			needToStop = true;
+			break;
+		}
+	}
+	if(needToStop){
+		if(isAuto) {
+			setTimeout(() => {
+				requestAnimationFrame(() => slideAnimationReverse(isAuto));
+			}, constants.ANIMATION_STOP_DURATION);
+		} else {
+			state.isAnimating = false;
+		}
+	}
+	else {
+		requestAnimationFrame(() => slideAnimationReverse(isAuto));
 	}
 	
 }
