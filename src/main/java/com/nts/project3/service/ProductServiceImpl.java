@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.project3.dao.ProductDao;
 import com.nts.project3.dto.ProductDto;
+import com.nts.project3.dto.ProductResponseDto;
 
 /**
  * 상품 서비스 인터페이스 구현로직
@@ -25,22 +26,22 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDao productDao;
 
 	@Override
-	public List<ProductDto> getProducts(int start) {
-		List<ProductDto> getProducts = Collections.<ProductDto>emptyList();
+	public ProductResponseDto getProductResponse(int start) {
+		List<ProductDto> products = Collections.<ProductDto>emptyList();
 		int count = productDao.selectCount();
 		if (count > 0) {
-			getProducts = productDao.selectAllPaging(start, SELECT_LIMIT);
+			products = productDao.selectAllPaging(start, SELECT_LIMIT);
 		}
-		return getProducts;
+		return new ProductResponseDto(products, count);
 	}
 
 	@Override
-	public List<ProductDto> getProductsByCategoryId(int categoryId, int start) {
+	public ProductResponseDto getProductResponse(int categoryId, int start) {
 		List<ProductDto> products = Collections.<ProductDto>emptyList();
 		int count = productDao.selectCountByCategoryId(categoryId);
 		if (count > 0) {
 			products = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
 		}
-		return products;
+		return new ProductResponseDto(products, count);
 	}
 }

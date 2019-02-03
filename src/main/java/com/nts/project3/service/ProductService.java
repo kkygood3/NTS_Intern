@@ -4,9 +4,7 @@
  */
 package com.nts.project3.service;
 
-import java.util.List;
-
-import com.nts.project3.dto.ProductDto;
+import com.nts.project3.dto.ProductResponseDto;
 
 /**
  * 상품에 대한 서비스 인터페이스
@@ -14,6 +12,6 @@ import com.nts.project3.dto.ProductDto;
  */
 public interface ProductService {
 	public static final int SELECT_LIMIT = 4;
-	List<ProductDto> getProducts(int start);
-	List<ProductDto> getProductsByCategoryId(int categoryId, int start);
+	ProductResponseDto getProductResponse(int start);
+	ProductResponseDto getProductResponse(int categoryId, int start);
 }

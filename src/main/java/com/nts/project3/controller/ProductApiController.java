@@ -4,17 +4,13 @@
  */
 package com.nts.project3.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.project3.dto.ProductDto;
+import com.nts.project3.dto.ProductResponseDto;
 import com.nts.project3.service.ProductService;
 
 /**
@@ -27,31 +23,20 @@ public class ProductApiController {
 	private ProductService productService;
 
 	/**
-	 * 상품정보들과 총개수를 가져와 json으로 리턴해준다.
+	 * 전시상품들을 start번째부터 최대 limit 수만큼 리스트로 가져오고
+	 * 전시되고있는 모든상품들의 총 개수를 json으로 리턴해준다. 
 	 */
 	@GetMapping("/api/products")
-	public Map<String, Object> getProducts(@RequestParam int start) {
-		List<ProductDto> products = productService.getProducts(start);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("totalCount", products.size());
-		map.put("products", products);
-
-		return map;
+	public ProductResponseDto getProductResponse(@RequestParam int start) {
+		return productService.getProductResponse(start);
 	}
 
 	/**
-	 * 특정카테고리의 상품들을 start번째 부터 limit 범위만큼 가져와주고 
-	 * 해당카테고리에 몇개의 상품이 있는지도 계산하여 가져온후 json으로 리턴해준다.
+	 * 해당카테고리의 전시상품들을 start번째부터 최대 limit 수만큼 리스트로 가져오고 
+	 * 해당카테고리의 전시상품들의 총개수를 가져와 json으로 리턴해준다 
 	 */
 	@GetMapping("/api/categories/{categoryId}/products")
-	public Map<String, Object> getProductsByCategoryId(@PathVariable int categoryId, @RequestParam int start) {
-		List<ProductDto> products = productService.getProductsByCategoryId(categoryId, start);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("totalCount", products.size());
-		map.put("products", products);
-
-		return map;
+	public ProductResponseDto getProductsByCategoryId(@PathVariable int categoryId, @RequestParam int start) {
+		return productService.getProductResponse(categoryId, start);
 	}
 }
