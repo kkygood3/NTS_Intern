@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Import;
  * @author jinwoo.bae
  */
 @Configuration
-@ComponentScan("com.nts.project3")
+@ComponentScan({"com.nts.project3.dao", "com.nts.project3.service"})
 @Import({DBConfig.class})
 public class ApplicationConfig {}
