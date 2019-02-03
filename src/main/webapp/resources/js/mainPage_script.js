@@ -52,7 +52,7 @@ function init() {
  * @initTab() : tab active css change and load more button visibility control
  */
 function initTab() {
-	domElements.TAB_BUTTON_UL.addEventListener("click", (e) =>{
+	domElements.TAB_BUTTON_UL.addEventListener("click" , (e) =>{
 		if(e.target == domElements.TAB_BUTTON_UL) {
 			return;
 		}
@@ -67,7 +67,7 @@ function initTab() {
 		switchCategory(tab.dataset.category);
 	});
 	
-	document.querySelector("div.more").addEventListener("click",(e) => {
+	document.querySelector("div.more").addEventListener("click" , (e) => {
 		fetchProducts(state.currentCategory, state.loadedProductCount);
 	});
 }
@@ -126,10 +126,10 @@ function fetchProducts() {
  */
 function switchCategory(category) {
 	/*
-     * When category switch action, remove all the elements in the list and
-     * fetch + render items obtained. Force visibility of load more button page
-     * returns to 0;
-     */
+	 * When category switch action, remove all the elements in the list and
+	 * fetch + render items obtained. Force visibility of load more button
+	 * page returns to 0;
+	 */
 	if(category != state.currentCategory) {
 		domElements.PRODUCT_LISTS.forEach((list) => {
 			list.innerHTML = "";
