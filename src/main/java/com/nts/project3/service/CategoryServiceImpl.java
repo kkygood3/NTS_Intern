@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.project3.dao.CategoryDao;
 import com.nts.project3.dto.CategoryDto;
@@ -17,6 +18,7 @@ import com.nts.project3.dto.CategoryDto;
  * @author jinwoo.bae
  */
 @Service
+@Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;

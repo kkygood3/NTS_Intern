@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.project3.dao.PromotionDao;
 import com.nts.project3.dto.PromotionDto;
@@ -17,6 +18,7 @@ import com.nts.project3.dto.PromotionDto;
  * @author jinwoo.bae
  */
 @Service
+@Transactional(readOnly = true)
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;

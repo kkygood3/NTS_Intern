@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.project3.dao.ProductDao;
 import com.nts.project3.dto.ProductDto;
@@ -18,6 +19,7 @@ import com.nts.project3.dto.ProductDto;
  * @author jinwoo.bae
  */
 @Service
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
