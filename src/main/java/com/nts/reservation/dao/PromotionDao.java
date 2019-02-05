@@ -1,6 +1,6 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.PromotionDaoSqls.SELECT_SAVE_FILE_NAME;
+import static com.nts.reservation.dao.sql.PromotionDaoSqls.SELECT_SAVE_FILE_NAMES_IN_PROMOTION;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +25,6 @@ public class PromotionDao {
 	}
 
 	public List<Promotion> selectAll() {
-		return jdbc.queryForList(SELECT_SAVE_FILE_NAME, Collections.EMPTY_MAP);
+		return jdbc.queryForList(SELECT_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
 	}
 }
