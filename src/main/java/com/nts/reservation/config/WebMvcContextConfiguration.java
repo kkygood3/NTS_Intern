@@ -35,11 +35,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
         configurer.enable();
     }
    
-    @Override
-    public void addViewControllers(final ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
-    
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
