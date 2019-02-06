@@ -103,7 +103,7 @@ function fetchPromos() {
 	xhrGetRequest(urls.PROMOS,(respText) => {
 		let promotionData = JSON.parse(respText).items;
 		promotionData.forEach((item) => {
-			item.productImageUrl = "resources/img_product/" + item.productImageUrl;
+			item.productImageUrl = "img/" + item.productImageUrl;
 		});
 		renderPromoItems(promotionData);
 	});
@@ -121,7 +121,7 @@ function fetchProducts() {
 	xhrGetRequest(getProductUrl,(respText) => {
 		let productData = JSON.parse(respText);
 		productData.items.forEach((item) => {
-			item.productImageUrl = "resources/img_product/" + item.productImageUrl;
+			item.productImageUrl = "img/" + item.productImageUrl;
 		});
 		domElements.PRODUCT_NUMBER_IND.innerText = productData.totalCount + "개";
 		renderProductItems(productData);

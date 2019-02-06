@@ -65,4 +65,5 @@ public class DetailServiceImpl implements DetailService {
 	public List<ProductPrice> getProductPrices(Long displayInfoId) {
 		return DetailDao.getProductPrices(displayInfoId);
 	}
+
 }

@@ -49,7 +49,6 @@ function initSlideAnimation(slideContainer, isAuto) {
 	/* timeout because first promo-slide should be displayed before
 		transition*/
 	if(isAuto) {
-
 		setTimeout(() => {
 			requestAnimationFrame(() => slideAnimation(true));
 		}, constants.ANIMATION_STOP_DURATION);

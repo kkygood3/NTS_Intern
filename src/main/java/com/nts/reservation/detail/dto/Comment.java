@@ -7,7 +7,7 @@ public class Comment {
 	private Long commentId;
 	private Long productId;
 	private Long reservationInfoId;
-	private int score;
+	private double score;
 	private String comment;
 	private String reservationTelephone;
 	private String reservationName;
@@ -33,11 +33,11 @@ public class Comment {
 		this.productId = productId;
 	}
 
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 

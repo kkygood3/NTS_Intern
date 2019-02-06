@@ -2573,7 +2573,7 @@ button {
 
 .section_review_list .short_review_area .review_area {
 	padding-bottom: 3px;
-	min-height: 90px
+	min-height: 10px
 }
 
 .section_review_list .short_review_area .review_area.no_img {
