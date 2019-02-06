@@ -23,6 +23,9 @@ public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;
 
+	/**
+	 * 먼저 등록된 순으로 SELECT_LIMIT값 수만큼 프로모션을 가져옵니다.
+	 */
 	@Override
 	public List<PromotionDto> getPromotions() {
 		return promotionDao.selectLimitedList(SELECT_LIMIT);
