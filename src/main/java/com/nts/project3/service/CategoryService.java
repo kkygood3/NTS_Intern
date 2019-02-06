@@ -13,6 +13,6 @@ import com.nts.project3.dto.CategoryDto;
  * @author jinwoo.bae
  */
 public interface CategoryService {
-	public static final int SELECT_LIMIT = 10;
+	int SELECT_LIMIT = 10;
 	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount();
 }

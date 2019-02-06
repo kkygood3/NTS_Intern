@@ -11,7 +11,7 @@ import com.nts.project3.dto.ProductResponseDto;
  * @author jinwoo.bae
  */
 public interface ProductService {
-	public static final int SELECT_LIMIT = 4;
+	int SELECT_LIMIT = 4;
 	ProductResponseDto getProductResponse(int start);
 	ProductResponseDto getProductResponse(int categoryId, int start);
 }
