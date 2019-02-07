@@ -29,7 +29,6 @@ public class ProductController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start){
 		
 		int totalCount = productService.getProductsCountByCategory(categoryId);
-		
 		List<Product> products = productService.getProductsByCategory(categoryId, start);
 		
 		Map<String, Object> map = new HashMap<>();
