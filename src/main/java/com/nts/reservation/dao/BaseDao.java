@@ -4,7 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-public abstract class BaseDao {
+public class BaseDao {
 
 	private NamedParameterJdbcTemplate jdbc;
 	BaseDao(DataSource dataSource) {
