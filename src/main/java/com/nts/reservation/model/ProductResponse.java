@@ -21,6 +21,11 @@ public class ProductResponse {
 		this.totalCount = totalCount;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductResponse [productList=" + productList + ", totalCount=" + totalCount + "]";
+	}
+
 	public List<Product> getProductList() {
 		return productList;
 	}
