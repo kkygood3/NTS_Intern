@@ -26,7 +26,9 @@ public interface DetailService {
 	public abstract DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
 
 	public abstract List<Comment> getComments(Long displayInfoId);
-	
+
+	public abstract List<Comment> getThreeComments(Long displayInfoId);
+
 	public abstract List<CommentImage> getCommentsImages(Long displayInfoId);
 
 	public abstract double getAverageScore(Long displayInfoId);

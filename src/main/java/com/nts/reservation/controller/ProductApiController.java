@@ -58,7 +58,7 @@ public class ProductApiController {
 	@GetMapping("/products/{displayInfoId}")
 	public DetailResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		List<Comment> comments = detailService.getComments(displayInfoId);
+		List<Comment> comments = detailService.getThreeComments(displayInfoId);
 		List<CommentImage> commentImages = detailService.getCommentsImages(displayInfoId);
 		Iterator<CommentImage> imgIter = commentImages.iterator();
 		Iterator<Comment> commIter = comments.iterator();
@@ -82,6 +82,32 @@ public class ProductApiController {
 			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
 			.averageScore(detailService.getAverageScore(displayInfoId))
 			.productPrices(detailService.getProductPrices(displayInfoId))
+			.comments(comments)
+			.build();
+
+		return result;
+	}
+
+	@GetMapping("/products/comments")
+	public DetailResponse getReviewInfo(
+		@RequestParam(name = "displayInfoId", required = false, defaultValue = "0") Long displayInfoId) {
+		List<Comment> comments = detailService.getThreeComments(displayInfoId);
+		List<CommentImage> commentImages = detailService.getCommentsImages(displayInfoId);
+		Iterator<CommentImage> imgIter = commentImages.iterator();
+		Iterator<Comment> commIter = comments.iterator();
+		while (imgIter.hasNext()) {
+			CommentImage currentImage = imgIter.next();
+			Long commentId = currentImage.getReservationInfoId();
+			while (commIter.hasNext()) {
+				Comment currentComment = commIter.next();
+				if (commentId == currentComment.getCommentId()) {
+					currentComment.getCommentImages().add(currentImage);
+					break;
+				}
+			}
+		}
+		DetailResponse result = new DetailResponse.Builder()
+			.displayInfo(detailService.getDisplayInfo(displayInfoId))
 			.comments(comments)
 			.build();
 

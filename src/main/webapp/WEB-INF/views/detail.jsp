@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-<head onload="init()">
+<head>
 <meta charset="utf-8">
 <meta name="description"
 	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
@@ -13,13 +13,17 @@
 <link rel="shortcut icon" href="resources/img/favicon.ico">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-<script type="text/javascript" src="resources/js/commons/slideAnimation_script.js"></script>
-
+<script type="text/javascript"
+	src="resources/js/commons/utils_script.js"></script>
+<script type="text/javascript"
+	src="resources/js/commons/slideAnimation_script.js"></script>
+<script type="text/javascript"
+	src="resources/js/commons/handleBarRenderer_script.js"></script>
+	
 <style>
-	.container_visual {
-		height: 414px;
-	}
+.container_visual {
+	height: 414px;
+}
 </style>
 
 </head>
@@ -140,7 +144,7 @@
 								</strong> <span class="join_count"><em class="green">52건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-								
+
 							</ul>
 						</div>
 						<p class="guide">
@@ -148,7 +152,7 @@
 								이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" href="./review.html"> <span>예매자
+					<a class="btn_review_more" href="./review"> <span>예매자
 							한줄평 더보기</span> <i class="fn fn-forward1"></i>
 					</a>
 				</div>
@@ -175,11 +179,13 @@
 												src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000">
 											</li>
 										</ul></li>
-									<!-- <li class="detail_info_lst"> <strong class="in_tit">[공연정보]</strong>
-                                        <ul class="in_img_group">
-                                            <li class="in_img_lst"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170131_255/1485825099482NmYMe_JPEG/%B0%F8%BF%AC%C1%A4%BA%B8.jpg?type=a1000"> </li>
-                                        </ul>
-                                    </li> -->
+									<!-- <li class="detail_info_lst"><strong class="in_tit">[공연정보]</strong>
+										<ul class="in_img_group">
+											<li class="in_img_lst"><img alt="" class="img_thumb"
+												src="https://ssl.phinf.net/naverbooking/20170131_255/1485825099482NmYMe_JPEG/%B0%F8%BF%AC%C1%A4%BA%B8.jpg?type=a1000">
+											</li>
+										</ul>
+									</li> -->
 								</ul>
 							</div>
 						</div>
@@ -197,10 +203,9 @@
 							<div class="store_info">
 								<div class="store_addr_wrap">
 									<span class="fn fn-pin2"></span>
-									<p class="store_addr store_addr_bold">서울특별시 종로구 종로33길 15</p>
+									<p class="store_addr store_addr_bold"></p>
 									<p class="store_addr">
-										<span class="addr_old">지번</span> <span class="addr_old_detail">서울특별시
-											종로구 연지동 270 </span>
+										<span class="addr_old">지번</span> <span class="addr_old_detail"></span>
 									</p>
 									<p class="store_addr addr_detail">두산아트센터 연강홀</p>
 								</div>
@@ -239,19 +244,9 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
-	<!--
-contenttype: "image/png"
-createDate: "2019-01-25 22:10:21"
-deleteFlag: false
-fileInfoId: 85
-fileName: "9_et_26.png"
-modifyDate: "2019-01-25 22:10:21"
-productId: 9
-productImageId: 26
-saveFileName: "img/9_et_26.png"
-type: "et"
--->
+
 	<script type="rv-template" id="imageItem">
+	{{#each data}}
 	<li class="item" style="width: 414px; position:absolute">
 		<img alt="map" class="img_thumb" src="{{saveFileName}}">
 		<span class="img_bg"></span>
@@ -263,17 +258,16 @@ type: "et"
 				<p class="visual_txt_dsc"></p>
 			</div>
 		</div>
-	</li>				
+	</li>
+	{{/each}}
 	</script>
-	
+
 	<script type="rv-template" id="commentItem">
 	{{#each data}}
 	<li class="list_item">
-		
 		<div>
 			<div class="review_area">
 				<div class="thumb_area">
-
 					{{#if commentImages.length}}
 					<a href="#" class="thumb" title="이미지 크게 보기"> 
 						<img width="90" height="90" class="img_vertical_top"
@@ -283,20 +277,20 @@ type: "et"
 					{{/if}}
 
 				</div>
-				<h4 class="resoc_name"></h4>
+				<h4 class="resoc_name">{{productName}}</h4>
 				<p class="review">{{comment}}</p>
 			</div>
 			<div class="info_area">
 				<div class="review_info">
-					<span class="grade">{{score}}</span> <span class="name">{{reservationName}}</span>
-					<span class="date">{{modifyDate}} 방문</span>
+					<span class="grade"><b>{{score}}</b></span> <span class="name">{{reservationEmail}}</span>
+					<span class="date">{{{date reservationDate}}} 방문</span>
 				</div>
 			</div>
 		</div>
 	</li>
 	{{/each}}
 	</script>
-	
+
 	<script type="text/javascript"
 		src="resources/js/detailpage/detailPage_script.js"></script>
 </body>

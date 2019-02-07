@@ -14,6 +14,7 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
 this.initSlideAnimation = initSlideAnimation.bind(this);
 this.slideAnimation = slideAnimation.bind(this);
+this.handleBarRenderer = handleBarRenderer.bind(this);
 
 var domElements = {
 	TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),
@@ -135,10 +136,10 @@ function fetchProducts() {
  */
 function switchCategory(category) {
 	/*
-     * When category switch action, remove all the elements in the list and
-     * fetch + render items obtained. Force visibility of load more button page
-     * returns to 0;
-     */
+	 * When category switch action, remove all the elements in the list and
+	 * fetch + render items obtained. Force visibility of load more button page
+	 * returns to 0;
+	 */
 	if(category != state.currentCategory) {
 		domElements.PRODUCT_LISTS.forEach((list) => {
 			list.innerHTML = "";
@@ -174,13 +175,7 @@ function renderProductItems(productData) {
  * @renderPromoItems() : Loaded promo items will be deployed on html
  */
 function renderPromoItems(promotionData) {
-    let bindTemplate = Handlebars.compile(domElements.PROMO_TEMPLATE);
-
-    promotionData.forEach((promoItem) => {
-    	let newPromo = parser.parseFromString(bindTemplate(promoItem), "text/html").body.firstChild;
-    	domElements.SLIDE_CONTAINER.appendChild(newPromo);
-    });
-	
+	handleBarRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
     initSlideAnimation(domElements.SLIDE_CONTAINER,true);
 }
 

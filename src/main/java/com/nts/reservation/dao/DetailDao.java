@@ -7,6 +7,7 @@ import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO_IMAGE;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_PRODUCT_IMAGES;
+import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_THREE_COMMENTS;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +76,13 @@ public class DetailDao {
 		params.put("display_info_id", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_COMMENTS_PRODUCT_PRICES, params,
 			BeanPropertyRowMapper.newInstance(ProductPrice.class));
+	}
+
+	public List<Comment> getThreeComments(Long displayInfoId) {
+		Map<String, Long> params = new HashMap<>();
+		params.put("display_info_id", displayInfoId);
+		return jdbc.query(SELECT_DETAIL_THREE_COMMENTS, params,
+			BeanPropertyRowMapper.newInstance(Comment.class));
 	}
 
 }
