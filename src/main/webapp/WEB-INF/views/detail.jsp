@@ -139,7 +139,7 @@
                                 <span class="join_count"><em class="green"></em> 등록</span>
                             </div>
                             <ul class="list_short_review">
-                                <li class="list_item">
+                                <!-- li class="list_item">
                                     <div>
                                         <div class="review_area">
                                             <div class="thumb_area">
@@ -173,7 +173,7 @@
                                             <div class="review_info"> <span class="grade">4.0</span> <span class="name">xero****</span> <span class="date">2017.3.4. 방문</span> </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li -->
                             </ul>
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
@@ -262,6 +262,40 @@
     </footer>
     <div id="photoviwer"></div>
     
+    <script type="rv-template" id="commentTemplate">
+	{{#each comments}}
+    <li class="list_item">
+        <div>
+			{{#if commentImages}}
+                <div class="review_area">
+                    <div class="thumb_area">
+                        <a href="#" class="thumb" title="이미지 크게 보기">
+                            <img width="90" height="90" class="img_vertical_top" src="../{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
+                        </a>
+                        <span class="img_count">{{commentImages.length}}</span>
+                    </div>
+                    <h4 class="resoc_name"></h4>
+                    <p class="review">{{comment}}</p>
+                </div>
+			{{else}}
+                <div class="review_area no_img">
+                    <h4 class="resoc_name"></h4>
+                    <p class="review">{{comment}}</p>
+                </div>
+			{{/if}}
+            <div class="info_area">
+                <div class="review_info">
+                    <span class="grade">{{score}}</span>
+                    <span class="name">{{reservationName}}</span>
+                    <span class="date">{{reservationDate}} 방문</span>
+                </div>
+            </div>
+        </div>
+    </li>
+	{{/each}}
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="../js/detail.js"></script>
 </body>
