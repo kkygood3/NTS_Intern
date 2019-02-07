@@ -21,4 +21,4 @@ function sendAjax(sendHeader, sendData, callback) {
 	}
 }
 
-module.exports = sendAjax;
+//module.exports = sendAjax;

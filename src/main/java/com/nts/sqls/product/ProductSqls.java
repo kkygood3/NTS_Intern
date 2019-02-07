@@ -31,5 +31,18 @@ public class ProductSqls {
 	public static final String SELECT_PRODUCTS_COUNT_ALL = 
 	"SELECT count(d.id) " + 
 	"FROM product p INNER JOIN display_info d " + 
-	"ON p.id = d.product_id "; 
+	"ON p.id = d.product_id ";
+	
+	public static final String SELECT_PRODUCT_IMAGES_LIMIT = 
+	"SELECT pr_img.product_id AS product_id, pr_img.id AS product_image_Id, pr_img.type AS type, pr_img.file_id AS file_info_id, f.file_name AS file_name, f.save_file_name AS save_file_name, f.content_type AS content_type, IF(f.delete_flag,'true','false') AS delete_flag, f.create_date AS create_date, f.modify_date AS modify_date " + 
+	"FROM product_image pr_img INNER JOIN file_info f " + 
+	"ON pr_img.file_id = f.id  " + 
+	"WHERE pr_img.product_id = :productId AND (type = 'ma' OR type = 'et') " + 
+	"LIMIT :limit";
+	
+	public static final String SELECT_PRODUCT_PRICES_BY_PRODUCT_ID =
+	"SELECT id AS product_price_id,product_id,price_type_name,price,FLOOR(discount_rate) AS discount_rate,create_date,modify_date " + 
+	"FROM product_price " + 
+	"WHERE product_id = :productId " + 
+	"ORDER BY id DESC";
 }
