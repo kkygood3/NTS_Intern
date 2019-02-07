@@ -26,7 +26,7 @@ import com.nts.service.PromotionService;
 @Service
 public class PromotionServiceImpl implements PromotionService{
 	@Autowired
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 	
 	@Override
 	@Transactional(readOnly = true)

@@ -27,8 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	ProductDao productDao;
-
+	private ProductDao productDao;
+	
+	private static final int ALL_ITEMS = 0;
 	/**
 	 * @description : categoryId와 start 값을 검증 후 Dao로부터 List를 받음
 	 * @throws : ValidationException
@@ -36,16 +37,20 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Product> getItems(int categoryId, int start) throws ValidationException {
-
+		
 		if (categoryId < 0) {
 
 			throw new ValidationException("categoryId : " + categoryId);
 
-		} else if (start < 0) {
+		}
+		
+		if (start < 0) {
 
 			throw new ValidationException("start : " + start);
 
-		} else if (categoryId == 0) {
+		}
+		
+		if (categoryId == ALL_ITEMS) {
 
 			return productDao.selectProductsAll(start);
 
@@ -63,7 +68,9 @@ public class ProductServiceImpl implements ProductService {
 
 			throw new ValidationException("categoryId : " + categoryId);
 
-		} else if (categoryId == 0) {
+		}
+		
+		if (categoryId == ALL_ITEMS) {
 
 			return productDao.selectProductCountAll();
 
