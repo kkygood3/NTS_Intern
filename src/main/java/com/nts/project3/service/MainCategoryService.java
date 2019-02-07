@@ -12,11 +12,11 @@ public interface MainCategoryService {
 	/**
 	 * @value	10
 	 */
-	public static final Integer LIMIT = 10;
+	Integer LIMIT = 10;
 	
 	/**
 	 * category_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	public List<MainCategory> getCategories();
+	List<MainCategory> getCategories();
 }

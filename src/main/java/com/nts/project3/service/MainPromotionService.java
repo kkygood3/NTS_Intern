@@ -12,17 +12,17 @@ public interface MainPromotionService {
 	/**
 	 * @value	100 
 	 */
-	public static final Integer LIMIT = 100;
+	Integer LIMIT = 100;
 	
 	/**
 	 * promotion_api_view를 조회
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	public List<MainPromotion> getPromotions();
+	List<MainPromotion> getPromotions();
 
 	/**
 	 * promotion_api_view를 조회
 	 * @return 해당 View의 row 수
 	 */
-	public int getCount();
+	int getCount();
 }
