@@ -135,7 +135,7 @@
         </li>
     </script>
 
-	<script src="js/common.js"></script>
+	<script src="js/mainpage.js"></script>
 </body>
 
 </html>
