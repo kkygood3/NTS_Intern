@@ -32,8 +32,15 @@ let introduce = document.querySelector(".detail_info_lst").querySelector(".in_ds
 let cntComment = document.querySelector(".green");
 let commentsContainer = document.querySelector(".list_short_review");
 
-var template = document.querySelector("#commentTemplate").innerText;
-var bindTemplate = Handlebars.compile(template);
+let storeMap = document.querySelector(".store_map");
+let storeName = document.querySelector(".store_name");
+let addrStreet = document.querySelector(".store_addr_bold");
+let addrOld = document.querySelector(".addr_old_detail");
+let placeName = document.querySelector(".store_addr.addr_detail");
+let telephone = document.querySelector(".store_tel");
+
+let template = document.querySelector("#commentTemplate").innerText;
+let bindTemplate = Handlebars.compile(template);
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -72,6 +79,14 @@ function getDetailInfo(displayInfoId) {
 				commentsContainer.innerHTML = bindTemplate(jsonResponse);
 				// 상세설명
 				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
+				
+				//오시는길
+				storeMap.src = "../" + jsonResponse["displayInfoImage"].saveFileName;
+				storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
+				addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
+				addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;
+				placeName.innerHTML = jsonResponse["displayInfo"].placeName;
+				telephone.innerHTML = jsonResponse["displayInfo"].telephone;
 			}
 		}
 		
@@ -82,6 +97,8 @@ function getDetailInfo(displayInfoId) {
 }
 
 let tab = document.querySelector(".info_tab_lst");
+let detailInfo = document.querySelector(".detail_area_wrap");
+let locationInfo = document.querySelector(".detail_location");
 tab.addEventListener("click", function(event){
 	let anchorElement;
 	let previousActive = document.querySelector(".anchor.active");
@@ -99,4 +116,16 @@ tab.addEventListener("click", function(event){
 
  	selectedCategoryId = anchorElement.parentNode.dataset.category;
 	anchorElement.className += " active";
+
+	if(anchorElement.innerText === "상세정보"){
+		if(!locationInfo.className.includes("hide")){
+			locationInfo.className += " hide";
+		}
+		detailInfo.className = detailInfo.className.replace("hide", "");
+	} else if(anchorElement.innerText === "오시는길") {
+		if(!detailInfo.className.includes("hide")){
+			detailInfo.className += " hide";
+		}
+		locationInfo.className = detailInfo.className.replace("hide", "");
+	}
 }); 
