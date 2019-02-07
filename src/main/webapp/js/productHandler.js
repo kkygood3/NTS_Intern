@@ -8,42 +8,31 @@ var moreButton = document.querySelector("#more_button");
  * @description : get method로 Product List를 요청
  */
 function productListRequest(categoryId, start){
-	var request = { method: "GET",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "/api/products"+"?categoryId=" + categoryId + "&start=" + start, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState==4 && xhr.status==200){
+			appendProductList(JSON.parse(xhr.responseText).items);
+		}
 	}
-	dataRequestGET("/api/products", "?categoryId=" + categoryId + "&start=" + start, request)
-		.then(result =>{
-		appendProductList(result.items, result.totalCount);
-	});
+
+	xhr.send();
 }
+
 
 /**
  * @description : 수신된 Product List를 HTML의 Tab UL에 추가
  */
-function appendProductList(items, count){
+function appendProductList(items){
 	var productUl = document.querySelector("#wrap_lst_event_box").getElementsByTagName("UL");
 	var appendProductHTML = document.querySelector("#itemList").innerText;
 	
 	for(var i=0, len=items.length;i<len;i++){
-		var li = replaceProductHTML(items[i], appendProductHTML);
+		var li = replaceTemplateHTML(items[i], appendProductHTML);
 		productUl.item(i%2).innerHTML += li;
 	}
-}
-
-/**
- * @description : 수신된 item과 html mapping
- */
-function replaceProductHTML(item, html){
-	
-	return  html.replace("${displayInfoId}", item.displayInfoId)
-				.replace("${placeName}", item.placeName)
-				.replace("${content}", item.productContent)
-				.replace("${description}", item.productDescription)
-				.replace("${description}", item.productDescription)
-				.replace("${id}", item.productId)
-				.replace("${productImageUrl}", item.productImageUrl);
 }
 
 /**

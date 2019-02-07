@@ -27,7 +27,7 @@ import com.nts.service.PromotionService;
 @RequestMapping(path = "/api/promotions")
 public class PromotionApiController {
 	@Autowired
-	PromotionService promotionService;
+	private PromotionService promotionService;
 
 	/**
 	 * @description : Get 요청을 받으면 Service를 호출해 얻은 결과를 Response로 변환 후 return

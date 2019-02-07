@@ -25,7 +25,7 @@ import com.nts.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	CategoryDao categoryDao;
+	private CategoryDao categoryDao;
 
 	@Override
 	@Transactional(readOnly = true)

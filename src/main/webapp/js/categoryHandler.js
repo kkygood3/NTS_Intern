@@ -15,16 +15,18 @@ function eventListClear(){
  * @description : get method로 Category List를 요청
  */
 function categoryListRequest(){
-	var request = { method: "GET",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "/api/categories", true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState==4 && xhr.status==200){
+			appendTabList(JSON.parse(xhr.responseText).items);
+		}
 	}
+
+	xhr.send();
 	
-	dataRequestGET("/api/categories", "", request)
-		.then(result =>{
-			appendTabList(result.items);
-	});
 }
 
 /**
@@ -41,10 +43,10 @@ function appendTabList(items){
 	}
 	
 	var count = 0;
-	tabUl.innerHTML += replaceTabHTML(allCategories, tabListHTML);
+	tabUl.innerHTML += replaceTemplateHTML(allCategories, tabListHTML);
 	
 	for(var i=0, len=items.length; i<len; i++){
-		tabUl.innerHTML += replaceTabHTML(items[i], tabListHTML);
+		tabUl.innerHTML += replaceTemplateHTML(items[i], tabListHTML);
 		count+=items[i]["count"];
 	}
 	
@@ -59,15 +61,6 @@ function appendTabList(items){
 	categories = categories.concat(items);
 	
 	addCategoryButtonListener();
-}
-
-/**
- * @description : 수신된 item과 html mapping
- */
-function replaceTabHTML(item, html){
-	
-	return  html.replace("${id}",item.id)
-				.replace("${name}",item.name);
 }
 
 /**

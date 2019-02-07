@@ -40,7 +40,7 @@ import com.nts.service.ProductService;
 @RequestMapping(path = "/api/products")
 public class ProductApiController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	/**
 	 * @throws ValidationException
