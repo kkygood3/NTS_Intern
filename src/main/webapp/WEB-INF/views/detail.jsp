@@ -136,7 +136,7 @@
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
                                 <span class="graph_mask"> <em class="graph_value"></em> </span>
                                 <strong class="text_value"> <span></span> <em class="total">5.0</em> </strong>
-                                <span class="join_count"><em class="green">52건</em> 등록</span>
+                                <span class="join_count"><em class="green"></em> 등록</span>
                             </div>
                             <ul class="list_short_review">
                                 <li class="list_item">

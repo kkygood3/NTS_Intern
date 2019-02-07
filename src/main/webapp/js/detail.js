@@ -28,6 +28,7 @@ let content = document.querySelector(".dsc");
 let star_rating = document.querySelector(".graph_value");
 let rating = document.querySelector(".text_value");
 let introduce = document.querySelector(".detail_info_lst").querySelector(".in_dsc");
+let cntComment = document.querySelector(".green");
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -52,6 +53,8 @@ function getDetailInfo(displayInfoId) {
 				// 평점
 				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
 				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
+				// 댓글 개수
+				cntComment.innerHTML = jsonResponse["comments"].length + "건";
 				// 상세설명
 				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 			}
