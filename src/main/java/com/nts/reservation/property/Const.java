@@ -1,9 +1,10 @@
 package com.nts.reservation.property;
 
-/*
+/**
  * 프로젝트에서 사용되는 상수들 정의
  * TODO: 따로따로 정의하면 중복이 너무 많이 생겨서 합쳐놓음 어떻게하는게 좋을지 생각해보기
- * @author 시윤
+ * @author si yoon
+ *
  */
 public class Const {
 	public static final String ID = "id";

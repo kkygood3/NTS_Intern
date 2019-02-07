@@ -9,16 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.service.CategoryService;
-
-/*
- * 전체 카테고리 리스트 리턴
- * @author 시윤
+/**
+ * 카테고리 관련 서비스 로직 수행하는 클래스
+ * @author si yoon
+ *
  */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao promotionDao;
 
+	/**
+	 * 전체 카테고리 셀렉트
+	 */
 	@Override
 	@Transactional
 	public List<Category> getCategoris() {

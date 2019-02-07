@@ -10,15 +10,19 @@ import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
-/*
- * 프로모션 이미지 이름 리턴
- * @author 시윤
+/**
+ * 프로모션 관련 서비스 로직 수행하는 클래스
+ * @author si yoon
+ *
  */
 @Service
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
 	private PromotionDao promotionDao;
 
+	/**
+	 * 전체 프로모션 이미지 리스트 리턴
+	 */
 	@Override
 	@Transactional
 	public List<Promotion> getPromotions() {

@@ -11,9 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Category;
 
-/*
- * 전체 카테고리 리스트 셀렉트
- * @author 시윤
+/**
+ * 카테고리 테이블 접근하는 클래스
+ * @author si yoon
+ *
  */
 @Repository
 public class CategoryDao extends BaseDao {
@@ -21,6 +22,10 @@ public class CategoryDao extends BaseDao {
 		super(dataSource);
 	}
 
+	/**
+	 * 모든 카테고리 셀렉트하는 메소드
+	 * @return 전체 카테고리 목록
+	 */
 	public List<Category> selectAll() {
 		return getJDBC().queryForList(SELECT_ALL, Collections.EMPTY_MAP);
 	}
