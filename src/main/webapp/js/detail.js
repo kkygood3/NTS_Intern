@@ -41,6 +41,10 @@ let telephone = document.querySelector(".store_tel");
 
 let template = document.querySelector("#commentTemplate").innerText;
 let bindTemplate = Handlebars.compile(template);
+const displayedLength = 4;
+Handlebars.registerHelper('anonymize', function(context) {
+	return context.substring(0, displayedLength) + "****";
+});
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;

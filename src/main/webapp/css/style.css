@@ -3854,6 +3854,6 @@ button {
   }
 }
 
-.list_short_review li:nth-of-type(n+4) { 
+.list_short_review.mainpage_review li:nth-of-type(n+4) { 
     display: none;
 }

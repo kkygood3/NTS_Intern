@@ -138,7 +138,7 @@
                                 <strong class="text_value"> <span></span> <em class="total">5.0</em> </strong>
                                 <span class="join_count"><em class="green"></em> 등록</span>
                             </div>
-                            <ul class="list_short_review">
+                            <ul class="list_short_review mainpage_review">
                                 <!-- li class="list_item">
                                     <div>
                                         <div class="review_area">
@@ -286,7 +286,7 @@
             <div class="info_area">
                 <div class="review_info">
                     <span class="grade">{{score}}</span>
-                    <span class="name">{{reservationName}}</span>
+                    <span class="name">{{anonymize reservationEmail}}</span>
                     <span class="date">{{reservationDate}} 방문</span>
                 </div>
             </div>
