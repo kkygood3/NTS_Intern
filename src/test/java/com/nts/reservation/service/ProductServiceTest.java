@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.service;
+package com.nts.reservation.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
 import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProducsListInfo;
+import com.nts.reservation.model.ProductListInfo;
 import com.nts.reservation.model.ProductRequirer;
 import com.nts.reservation.model.ProductResponse;
-import com.nts.reservation.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
@@ -32,7 +31,7 @@ public class ProductServiceTest {
 		productRequirer.setCategoryId(3);
 		productRequirer.setStart(0);
 
-		ProducsListInfo productInfo = productService.getProductInfo(productRequirer);
+		ProductListInfo productInfo = productService.getProductListInfo(productRequirer);
 		ProductResponse productResponse = new ProductResponse(productInfo.getProductList(),
 			productInfo.getTotalCount());
 
