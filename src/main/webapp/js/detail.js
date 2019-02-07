@@ -45,3 +45,23 @@ function getDetailInfo(displayInfoId) {
 		httpRequest.send();
 	}
 }
+
+let tab = document.querySelector(".info_tab_lst");
+tab.addEventListener("click", function(event){
+	let anchorElement;
+	let previousActive = document.querySelector(".anchor.active");
+	let productContainer = document.querySelectorAll(".lst_event_box");
+
+ 	if(event.target.className === "anchor"){
+		anchorElement = event.target;
+	} else if(event.target.className === "info_tab_text"){
+		anchorElement = event.target.parentNode;
+	} else {
+		return;
+	}
+
+ 	previousActive.className = "anchor";
+
+ 	selectedCategoryId = anchorElement.parentNode.dataset.category;
+	anchorElement.className += " active";
+}); 
