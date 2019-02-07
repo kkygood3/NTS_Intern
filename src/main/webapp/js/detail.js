@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	getDetailInfo(displayInfoId);
 });
 
+let title = document.querySelector(".visual_txt_tit")
 let image = document.querySelector(".img_thumb");
 let cnt = document.querySelector(".count_detail_image");
 let content = document.querySelector(".dsc");
@@ -48,7 +49,12 @@ function getDetailInfo(displayInfoId) {
 				
 				// 이미지 개수 영역
 				cnt.innerHTML = jsonResponse["productImages"].length;
-				// 상단 이미지
+				if(jsonResponse["productImages"].length === 1){
+					document.querySelector(".btn_prev").style.display = "none";
+					document.querySelector(".btn_nxt").style.display = "none";
+				}
+				// 상단 이미지 & 타이틀
+				title.innerHTML = "<span>" + jsonResponse["displayInfo"].productDescription + "</span>";
 				jsonResponse["productImages"].forEach(function(productImage){
 					image.src = "../" + productImage.saveFileName;
 				});
