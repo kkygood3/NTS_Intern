@@ -81,6 +81,8 @@ function getDetailInfo(displayInfoId) {
 				const commentsPerPage = 3;
 				if(document.querySelector(".list_short_review").querySelectorAll("li").length < commentsPerPage){
 					document.querySelector(".btn_review_more").style.display = "none";
+				} else {
+					document.querySelector(".btn_review_more").href = "../review/" + displayInfoId;
 				}
 				// 상세설명
 				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
