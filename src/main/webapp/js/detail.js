@@ -10,6 +10,7 @@ let cnt = document.querySelector(".count_detail_image");
 let content = document.querySelector(".dsc");
 let star_rating = document.querySelector(".graph_value");
 let rating = document.querySelector(".text_value");
+let introduce = document.querySelector(".detail_info_lst").querySelector(".in_dsc");
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -33,7 +34,9 @@ function getDetailInfo(displayInfoId) {
 				content.innerHTML = jsonResponse["displayInfo"].productContent;
 				// 평점
 				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
-				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>"
+				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
+				// 상세설명
+				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 			}
 		}
 		
