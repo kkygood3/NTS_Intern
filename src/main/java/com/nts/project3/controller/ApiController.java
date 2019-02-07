@@ -21,9 +21,6 @@ import com.nts.project3.dto.MainPromotion;
 import com.nts.project3.service.MainCategoryService;
 import com.nts.project3.service.MainProductService;
 import com.nts.project3.service.MainPromotionService;
-import com.nts.project3.service.impl.MainCategoryServiceImpl;
-import com.nts.project3.service.impl.MainProductServiceImpl;
-import com.nts.project3.service.impl.MainPromotionServiceImpl;
 
 /**
  * /api로 request를 받아 클라이언트가 요구하는 정보를 JSON으로 출력하는 RestContorller
