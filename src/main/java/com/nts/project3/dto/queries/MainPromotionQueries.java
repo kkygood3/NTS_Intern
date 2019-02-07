@@ -6,7 +6,8 @@ package com.nts.project3.dto.queries;
 
 public class MainPromotionQueries {
 	public static final String SELECT_PROMOTION_COUNT = 
-			"SELECT COUNT(display_info.id)" + "FROM promotion"
+			"SELECT COUNT(display_info.id)"
+			+ " FROM promotion"
 			+ " INNER JOIN display_info ON promotion.product_id = display_info.product_id";
 
 	public static final String SELECT_PROMOTION = 
