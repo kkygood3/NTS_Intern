@@ -82,8 +82,8 @@
 
 
 	<script type="rv-template" id="promotionItem">
-	<li class="item" style="background-image: url(img/{productImageUrl});">
-		<a href="img/{productImageUrl}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+	<li class="item" style="background-image: url({promotionImageUrl});">
+		<a href="{promotionImageUrl}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
 			<div class="event_txt">
 				<h4 class="event_txt_tit"></h4>
 				<p class="event_txt_adr"></p>
@@ -97,7 +97,7 @@
 		<li class="item">
 			<a href="detail.html?id={id}" class="item_book">
 				<div class="item_preview">
-					<img alt="{description}" class="img_thumb" src="img/{productImageUrl}">
+					<img alt="{description}" class="img_thumb" src="{productImageUrl}">
 					<span class="img_border"></span>
 				</div>
 				<div class="event_txt">
@@ -217,12 +217,12 @@
 			var resultHtml = '';
 			for (var i = 0; i < promotionList.length; i++) {
 				resultHtml += template
-									.replace('{productImageUrl}', promotionList[i].productImageUrl);
+									.replace('{promotionImageUrl}', promotionList[i].productImageUrl);
 			}
 
 			if (promotionList.length > 0) {
 				resultHtml += template
-									.replace('{productImageUrl}', promotionList[0].productImageUrl)
+									.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
 			}
 
 			document.querySelector('ul.visual_img').innerHTML = resultHtml;
