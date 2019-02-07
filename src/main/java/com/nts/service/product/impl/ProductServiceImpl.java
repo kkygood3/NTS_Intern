@@ -38,11 +38,11 @@ public class ProductServiceImpl implements ProductService {
 		Products products = new Products();
 
 		if (categoryId != SELECT_PRODUCTS_ALL) {
-			products.setItems(this.getProductsByCategory(categoryId, start));
-			products.setTotalCount(this.getProductsCountByCategory(categoryId));
+			products.setItems(getProductsByCategory(categoryId, start));
+			products.setTotalCount(getProductsCountByCategory(categoryId));
 		} else {
-			products.setItems(this.getProductsAll(start));
-			products.setTotalCount(this.getProductsAllCount());
+			products.setItems(getProductsAll(start));
+			products.setTotalCount(getProductsAllCount());
 		}
 		return products;
 	}
@@ -51,8 +51,7 @@ public class ProductServiceImpl implements ProductService {
 	 * @desc 상품 전체 가져오기 ( 페이징 별 )
 	 * @return product list
 	 */
-	@Override
-	public List<Product> getProductsAll(int start) throws ProductParamException {
+	private List<Product> getProductsAll(int start) throws ProductParamException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
 			throw new ProductParamException("start = " + start);
@@ -65,8 +64,7 @@ public class ProductServiceImpl implements ProductService {
 	 * @desc 상품 전체 갯수
 	 * @return count
 	 */
-	@Override
-	public int getProductsAllCount() {
+	private int getProductsAllCount() {
 
 		return productRepository.selectProductsCount();
 	}
@@ -75,8 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	 * @desc 카테고리 별 상품 리스트 가져오기 ( 페이징 별 )
 	 * @return product list
 	 */
-	@Override
-	public List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException {
+	private List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
 			throw new ProductParamException("start = " + start);
@@ -89,8 +86,7 @@ public class ProductServiceImpl implements ProductService {
 	 * @desc category Id 별 상품 갯수
 	 * @return count
 	 */
-	@Override
-	public int getProductsCountByCategory(int categoryId) {
+	private int getProductsCountByCategory(int categoryId) {
 
 		return productRepository.selectProductsCountByCategory(categoryId);
 	}
