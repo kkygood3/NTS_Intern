@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dao;
+package com.nts.reservation.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.MainCategory;
-import com.nts.project3.dto.queries.MainCategoryQueries;
+import com.nts.reservation.dto.MainCategory;
+import com.nts.reservation.dto.queries.MainCategoryQueries;
 
 /**
  * DB내의 category_api_view를 조회하는 DAO. /api/categories 요청에 대응

@@ -1,4 +1,4 @@
-package com.nts.project3.controller;
+package com.nts.reservation.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

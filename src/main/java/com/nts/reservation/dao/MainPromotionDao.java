@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dao;
+package com.nts.reservation.dao;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.MainPromotion;
-import com.nts.project3.dto.queries.MainPromotionQueries;
+import com.nts.reservation.dto.MainPromotion;
+import com.nts.reservation.dto.queries.MainPromotionQueries;
 
 /**
  * DB내의 promotion_api_view를 조회하는 DAO. /api/promotions 요청에 대응

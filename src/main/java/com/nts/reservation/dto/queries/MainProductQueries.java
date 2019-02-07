@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dto.queries;
+package com.nts.reservation.dto.queries;
 
 public class MainProductQueries {
 	public static final String SELECT_PRODUCT_COUNT_BY_CATEGORY = 

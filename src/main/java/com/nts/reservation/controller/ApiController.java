@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.controller;
+package com.nts.reservation.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.project3.dto.MainCategory;
-import com.nts.project3.dto.MainProduct;
-import com.nts.project3.dto.MainPromotion;
-import com.nts.project3.service.MainCategoryService;
-import com.nts.project3.service.MainProductService;
-import com.nts.project3.service.MainPromotionService;
+import com.nts.reservation.dto.MainCategory;
+import com.nts.reservation.dto.MainProduct;
+import com.nts.reservation.dto.MainPromotion;
+import com.nts.reservation.service.MainCategoryService;
+import com.nts.reservation.service.MainProductService;
+import com.nts.reservation.service.MainPromotionService;
 
 /**
  * /api로 request를 받아 클라이언트가 요구하는 정보를 JSON으로 출력하는 RestContorller
