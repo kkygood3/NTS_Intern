@@ -6,7 +6,9 @@
 .visual_img {
 	left: 0;
 	top: 0;
-	list-style:none;
+	list-style: none;
+	transform: left(-414px);
+	transition: left 1s;
 }
 .visual_img .item {
 	width: 414px;

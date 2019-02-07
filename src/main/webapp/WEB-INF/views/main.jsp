@@ -7,8 +7,8 @@
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main_slide.css" rel="stylesheet">
-<script type= "text/javascript" src= "./javascript/main/error.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/ajax.js" ></script>
+<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
+<script type= "text/javascript" src= "./javascript/common/ajax.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/category.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/promotion.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/thumbnail.js" ></script>
