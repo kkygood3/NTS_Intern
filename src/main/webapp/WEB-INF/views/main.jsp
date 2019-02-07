@@ -10,21 +10,21 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="./css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="#" class="lnk_logo" title="네이버">
+					<a class="lnk_logo" title="네이버">
 					<span class="spr_bi ico_n_logo">네이버</span>
 					</a>
-					<a href="#" class="lnk_logo" title="예약">
+					<a class="lnk_logo" title="예약">
 						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span
+				<a class="btn_my"> <span
 					class="viewReservation" title="예약확인">예약확인</span>
 				</a>
 			</header>
@@ -96,7 +96,7 @@
 
 	<script type="text/template" id="template-product-list">
 		<li class="item" data-display-info-id={displayInfoId}, data-product-id={productId}>
-			<a href="detail.html" class="item_book">
+			<a href="detail" class="item_book">
 			<div class="item_preview">
 				<img alt="{productDescription}" class="img_thumb" src="{productImageUrl}">
 				<span class="img_border"></span>
@@ -113,7 +113,6 @@
 			</a>
 		</li>
 	</script>
-	<script type="text/javascript" src="/js/util.js"></script>
 	<script>
 		/*
 		 * ========================================
