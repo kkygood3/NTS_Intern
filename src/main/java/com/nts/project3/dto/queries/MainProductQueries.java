@@ -18,7 +18,7 @@ public class MainProductQueries {
 			+ " INNER JOIN display_info ON product.id = display_info.product_id";
 
 	public static final String SELECT_PRODUCT_PAGE_BY_CATEGORY = 
-			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url"
+			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.file_name AS product_image_url"
 			+ " FROM product" 
 			+ " INNER JOIN product_image ON product.id = product_image.product_id"
 			+ " INNER JOIN display_info ON product.id = display_info.product_id"
@@ -27,7 +27,7 @@ public class MainProductQueries {
 			+ " LIMIT :start, :limit";
 
 	public static final String SELECT_PRODUCT_PAGE = 
-			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url"
+			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.file_name AS product_image_url"
 			+ " FROM product " + "LEFT JOIN product_image ON product.id = product_image.product_id"
 			+ " LEFT JOIN display_info ON product.id = display_info.product_id"
 			+ " INNER JOIN file_info ON product_image.file_id = file_info.id and product_image.type='th'"
