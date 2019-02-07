@@ -24,6 +24,7 @@ import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -37,6 +38,9 @@ public class ReservationApiController {
 
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	DetailProductService detailProductService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
