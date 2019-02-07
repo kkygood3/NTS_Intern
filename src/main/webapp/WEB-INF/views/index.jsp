@@ -13,16 +13,16 @@
 <!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 
 <head>
-	<meta charset="utf-8">
-	<meta name="description"
-		content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-		
-	<title>네이버 예약</title>
-	
-	<link href="resources/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+<meta charset="utf-8">
+<meta name="description"
+	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+
+<title>네이버 예약</title>
+
+<link href="resources/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
 <body onload="init()">
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<footer>
 		<div class="gototop">
 			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
@@ -132,19 +132,19 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
-	
+
 	<script type="rv-template" id="promotionItem">
-	{{#each data}}
-    <li class="item" style="background-image: url('{{productImageUrl}}');width: 100%;">
-        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
-            <div class="event_txt">
-                <h4 class="event_txt_tit"></h4>
-                <p class="event_txt_adr"></p>
-                <p class="event_txt_dsc"></p>
-            </div>
-        </a>
-    </li>
-	{{/each}}
+		{{#each data}}
+    	<li class="item" style="background-image: url('{{productImageUrl}}');width: 100%;">
+        	<a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+            	<div class="event_txt">
+                	<h4 class="event_txt_tit"></h4>
+                	<p class="event_txt_adr"></p>
+                	<p class="event_txt_dsc"></p>
+            	</div>
+        	</a>
+    	</li>
+		{{/each}}
     </script>
 
 	<script type="rv-template" id="itemList">
@@ -161,7 +161,7 @@
             </a>
         </li>
     </script>
-    
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 	<script type="text/javascript"

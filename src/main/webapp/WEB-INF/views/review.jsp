@@ -91,34 +91,35 @@
 	</footer>
 
 	<script type="rv-template" id="commentItem">
-	{{#each data}}
-	<li class="list_item">
-		<div>
-			<div class="review_area {{#unless commentImages.length}}no_img{{/unless}}">
-				<div class="thumb_area">
-					{{#if commentImages}}
-					<a href="#" class="thumb" title="이미지 크게 보기"> 
-						<img width="90" height="90" class="img_vertical_top"
-							src="{{imageUrl commentImages}}"
-							alt="리뷰이미지">
-
-					</a>
-					<span class="img_count">{{commentImages.length}}</span>
-					{{/if}}
+		{{#each data}}
+		<li class="list_item">
+			<div>
+				<div class="review_area {{#unless commentImages.length}}no_img{{/unless}}">
+					<div class="thumb_area">
+						{{#if commentImages}}
+						<a href="#" class="thumb" title="이미지 크게 보기"> 
+							<img width="90" height="90" class="img_vertical_top"
+								src="{{imageUrl commentImages}}"
+								alt="리뷰이미지">
+	
+						</a>
+						<span class="img_count">{{commentImages.length}}</span>
+						{{/if}}
+					</div>
+					<h4 class="resoc_name">{{productName}}</h4>
+					<p class="review">{{comment}}</p>
 				</div>
-				<h4 class="resoc_name">{{productName}}</h4>
-				<p class="review">{{comment}}</p>
-			</div>
-			<div class="info_area">
-				<div class="review_info">
-					<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
-					<span class="date">{{{date reservationDate}}} 방문</span>
+				<div class="info_area">
+					<div class="review_info">
+						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
+						<span class="date">{{{date reservationDate}}} 방문</span>
+					</div>
 				</div>
 			</div>
-		</div>
-	</li>
-	{{/each}}
+		</li>
+		{{/each}}
 	</script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 	<script type="text/javascript"

@@ -252,49 +252,49 @@
 	<div id="photoviwer"></div>
 
 	<script type="rv-template" id="imageItem">
-	{{#each data}}
-	<li class="item" style="width: 414px; position:absolute">
-		<img alt="map" class="img_thumb" src="{{saveFileName}}">
-		<span class="img_bg"></span>
-		<div class="visual_txt">
-		<div class="visual_txt_inn">
-			<h2 class="visual_txt_tit">
-				<span></span>
-				</h2>
-				<p class="visual_txt_dsc"></p>
+		{{#each data}}
+		<li class="item" style="width: 414px; position:absolute">
+			<img alt="map" class="img_thumb" src="{{saveFileName}}">
+			<span class="img_bg"></span>
+			<div class="visual_txt">
+			<div class="visual_txt_inn">
+				<h2 class="visual_txt_tit">
+					<span></span>
+					</h2>
+					<p class="visual_txt_dsc"></p>
+				</div>
 			</div>
-		</div>
-	</li>
-	{{/each}}
+		</li>
+		{{/each}}
 	</script>
 
 	<script type="rv-template" id="commentItem">
-	{{#each data}}
-	<li class="list_item">
-		<div>
-			<div class="review_area">
-				<div class="thumb_area">
-					{{#if commentImages.length}}
-					<a href="#" class="thumb" title="이미지 크게 보기"> 
-						<img width="90" height="90" class="img_vertical_top"
-							src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300"
-							alt="리뷰이미지">
-					</a> <span class="img_count" style="display: none;">{{commentId}}</span>
-					{{/if}}
-
+		{{#each data}}
+		<li class="list_item">
+			<div>
+				<div class="review_area">
+					<div class="thumb_area">
+						{{#if commentImages.length}}
+						<a href="#" class="thumb" title="이미지 크게 보기"> 
+							<img width="90" height="90" class="img_vertical_top"
+								src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300"
+								alt="리뷰이미지">
+						</a> <span class="img_count" style="display: none;">{{commentId}}</span>
+						{{/if}}
+	
+					</div>
+					<h4 class="resoc_name">{{productName}}</h4>
+					<p class="review">{{comment}}</p>
 				</div>
-				<h4 class="resoc_name">{{productName}}</h4>
-				<p class="review">{{comment}}</p>
-			</div>
-			<div class="info_area">
-				<div class="review_info">
-					<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
-					<span class="date">{{{date reservationDate}}} 방문</span>
+				<div class="info_area">
+					<div class="review_info">
+						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
+						<span class="date">{{{date reservationDate}}} 방문</span>
+					</div>
 				</div>
 			</div>
-		</div>
-	</li>
-	{{/each}}
+		</li>
+		{{/each}}
 	</script>
 	
 	<script
