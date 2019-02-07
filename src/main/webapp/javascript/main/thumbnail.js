@@ -40,8 +40,8 @@ function setCounterAndMakeProductList(thumbnailInfos) {
 	if (!thumbnailInfos) {
 		return false;
 	}
-	setCounterBar(thumbnailInfos.product_count);
-	makeThumbnailList(thumbnailInfos.thumbnail_info_list);
+	setCounterBar(thumbnailInfos.productCount);
+	makeThumbnailList(thumbnailInfos.thumbnailInfoList);
 }
 
 function deleteAllThumbnail() {

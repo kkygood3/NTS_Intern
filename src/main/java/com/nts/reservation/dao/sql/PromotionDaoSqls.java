@@ -1,7 +1,7 @@
 package com.nts.reservation.dao.sql;
 
 public class PromotionDaoSqls {
-	public static final String SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION =  "SELECT save_file_name "
+	public static final String SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION =  "SELECT save_file_name AS saveFileName "
 		+ "FROM file_info INNER JOIN ( "
 		+ "	SELECT product_image.file_id "
 		+ "	FROM product_image INNER JOIN ( "

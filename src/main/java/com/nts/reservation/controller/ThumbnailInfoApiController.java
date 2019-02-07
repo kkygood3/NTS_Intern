@@ -53,8 +53,8 @@ public class ThumbnailInfoApiController {
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("product_count", productCount);
-		map.put("thumbnail_info_list", thumbnailInfoList);
+		map.put("productCount", productCount);
+		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
 	}
 
