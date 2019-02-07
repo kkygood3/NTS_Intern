@@ -9,9 +9,9 @@ import java.util.List;
 import com.nts.reservation.dto.Product;
 
 public interface ProductService {
-	public static final int LIMIT = 5;
+	public static final int LIMIT = 4;
 	
-	public List<Product> getProductByCategory(int categoryId, int start);
-	public int getNumberOfProducts(int categoryId);
+	public List<Product> getProductsByCategory(int categoryId, int start);
+	public int getProductsCountByCategory(int categoryId);
 	
 }

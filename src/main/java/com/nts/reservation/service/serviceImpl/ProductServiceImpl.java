@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service;
+package com.nts.reservation.service.serviceImpl;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dto.Product;
+import com.nts.reservation.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,13 +20,13 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProductByCategory(int categoryId, int start) {
-		return productDao.selectAllProductGroupByCategory(categoryId, start, LIMIT);
+	public List<Product> getProductsByCategory(int categoryId, int start) {
+		return productDao.getProductsByCategory(categoryId, start, LIMIT);
 	}
 
 	@Override
-	public int getNumberOfProducts(int categoryId) {
-		return productDao.getNumberOfProducts(categoryId);
+	public int getProductsCountByCategory(int categoryId) {
+		return productDao.getProductCountByCategory(categoryId);
 	}
 
 }

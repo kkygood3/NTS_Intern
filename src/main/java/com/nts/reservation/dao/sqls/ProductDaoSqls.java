@@ -5,16 +5,29 @@
 package com.nts.reservation.dao.sqls;
 
 public class ProductDaoSqls {
-	public static final String GET_PRODUCT = "SELECT display_info.id as 'displayInfoId', place_name, product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', file_info.file_name as 'productImageUrl' " + 
+	public static final String GET_PRODUCTS_BY_CATEGORY = "SELECT display_info.id as 'displayInfoId', place_name, product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', file_info.file_name as 'productImageUrl' " + 
 		"FROM category " + 
 		"INNER JOIN product ON product.category_id = category.id " + 
 		"INNER JOIN display_info ON display_info.product_id = product.id " + 
 		"INNER JOIN product_image ON product_image.product_id = product.id " + 
 		"INNER JOIN file_info ON file_info.id = product_image.file_id " + 
 		"WHERE category.id = :categoryId " + 
+		"AND product_image.type = 'th'" + 
 		"LIMIT :start, :limit";
 	
-	public static final String GET_TOTAL_COUNT = "SELECT count(*) " + 
+	public static final String GET_ALL_PRODUCTS = "SELECT display_info.id as 'displayInfoId', place_name, product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', file_info.file_name as 'productImageUrl' " + 
+		"FROM category " + 
+		"INNER JOIN product ON product.category_id = category.id " + 
+		"INNER JOIN display_info ON display_info.product_id = product.id " + 
+		"INNER JOIN product_image ON product_image.product_id = product.id " + 
+		"INNER JOIN file_info ON file_info.id = product_image.file_id " + 
+		"WHERE product_image.type = 'th'" + 
+		"LIMIT :start, :limit";
+	
+	public static final String GET_ALL_PRODUCTS_COUNT = "SELECT count(*) " + 
+		"FROM product";
+
+	public static final String GET_PRODUCTS_COUNT_BY_CATEGORY = "SELECT count(*) " + 
 		"FROM product " + 
-		"WHERE category_id = :categoryId"; 
+		"WHERE category_id = :categoryId";
 }
