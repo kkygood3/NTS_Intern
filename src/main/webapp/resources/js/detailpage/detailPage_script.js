@@ -1,5 +1,11 @@
 /**
- * 
+ * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
+ * internal use for NAVER, unauthorized use of redistribution of this software
+ * are strongly prohibited.
+ */
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
 // library mapping to use forEach
@@ -9,9 +15,9 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 this.initSlideAnimation = initSlideAnimation.bind(this);
 this.slideAnimation = slideAnimation.bind(this);
 this.slideAnimationReverse = slideAnimationReverse.bind(this);
-this.handleBarRenderer = handleBarRenderer.bind(this);
+this.arrayToLiRenderer = arrayToLiRenderer.bind(this);
 
-var domElements = {
+const domElements = {
 	SLIDE_WRAPPER : document.querySelector("div.container_visual"),
 	SLIDE_CONTAINER : document.querySelector("ul.visual_img"),
 	SLIDE_CONTAINER_ITEM : document.querySelector("#imageItem").innerHTML,
@@ -30,7 +36,7 @@ var domElements = {
 	INFO_TAB_UL : document.querySelector("ul.info_tab_lst"),
 	INFO_TAB_LI : document.querySelectorAll("ul.info_tab_lst li"),
 	BOTTOM_DESCRIPTION : document.querySelector("ul.detail_info_group"),
-	BOTTOM_PATH : document.querySelector("div.detail_location"),
+	BOTTOM_PATH : document.querySelector("div.detail_location")
 };
 
 var urls = {
@@ -45,7 +51,7 @@ var constants = {
 
 var state = {
   detail_data : "",
-  tab_state : 1,
+  tab_state : 1
 }
 
 var parser = new DOMParser();
@@ -60,11 +66,12 @@ function init() {
 }
 
 function initTab(){
-	domElements.INFO_TAB_UL.addEventListener("click" , (e) => {
+	domElements.INFO_TAB_UL.addEventListener("click", (e) => {
 		let currentScroll = document.documentElement.scrollTop;
 		if(e.target == domElements.INFO_TAB_UL) {
 			return;
 		}
+		
 		domElements.INFO_TAB_LI.forEach((item) => {
 			let iter = item.firstElementChild;
 			if(iter.classList.contains("active")) {
@@ -73,6 +80,7 @@ function initTab(){
 		});
 		let tab = e.target.closest("li");
 		tab.firstElementChild.classList.add("active");
+		
 		if(tab.classList.contains("_detail")){
 			document.querySelector("div.detail_area_wrap").classList.remove("hide");
 			document.querySelector("div.detail_location").classList.add("hide");
@@ -86,48 +94,60 @@ function initTab(){
 }
 
 function fetchDetailData(){
-    xhrGetRequest(urls.DETAIL+constants.DISPLAY_INFO_ID,(respText) => {
+    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
     	state.detail_data = JSON.parse(respText);
     	// redefinition of slide speed since this may be different by pages
-    	this.constants.ANIMATION_SPEED = 10;
-    	
-    	// reformatting of data in comment
-        state.detail_data.comments.forEach((item) => {
-        	item.score = item.score.toFixed(1);
-        	item.reservationEmail = item.reservationEmail.slice(0,4)+"****";
-        });
+    	constants.ANIMATION_SPEED = 10;
         
-        descriptionDeploy();
+        deployDescription();
         
-        bottomDataDeploy();
+        deployBottomData();
         
-        domElements.SLIDE_CONTAINER.innerHTML = "";
-        renderImages();
-        console.log(state.detail_data);
+        deployEventSection();
         
-        domElements.REVIEW_COUNT.innerHTML = state.detail_data.comments.length + "건";
-        handleBarRenderer(state.detail_data.comments,domElements.REVIEW_AREA,domElements.REVIEW_ITEM);
+        deployImages();
         
-        // Event Description attachment
-        if(state.detail_data.displayInfo.productEvent == "") {
-        	domElements.EVENT_CONTAINER.innerHTML = "";
-        } else {
-        	domElements.EVENT_CONTAINER.querySelector("div_dsc").innerHTML 
-        		= state.detail_data.displayInfo.productEvent;
-        }
-        
-        domElements.AVERAGE_SCORE_STARS.style.width = state.detail_data.averageScore/5 *100 + "%";
-        domElements.AVERAGE_SCORE_TEXT.innerHTML = 	state.detail_data.averageScore;
+        deployComments();
     });
 }
 
-function descriptionDeploy(){
+/**
+ * @deployComments() : calling render function to render 3 comments as
+ *                   specification mentioned, and re-establishment of more
+ *                   comments button to id;
+ */
+function deployComments(){
+    document.querySelector("a.btn_review_more").href="./review?id=" + constants.DISPLAY_INFO_ID;
+	domElements.REVIEW_COUNT.innerHTML = state.detail_data.comments.length + "건";
+    arrayToLiRenderer(state.detail_data.comments.slice(0, 3), domElements.REVIEW_AREA, domElements.REVIEW_ITEM);
+}
+
+/**
+ * @deployEventSection() : if there is no event specified, remove the
+ *                       corresponding section, else put event information
+ *                       inside the section
+ */
+function deployEventSection(){
+	if(state.detail_data.displayInfo.productEvent == "") {
+    	domElements.EVENT_CONTAINER.innerHTML = "";
+    } else {
+    	domElements.EVENT_CONTAINER.querySelector("div_dsc").innerHTML 
+    		= state.detail_data.displayInfo.productEvent;
+    }
+}
+
+/**
+ * @deployDescription() this puts description in the section right below the
+ *                      images carousel detect scroll height, and client height
+ *                      to check whether the string has more than 3 lines. If
+ *                      there is less than 3 lines, hide the buttons.
+ */
+function deployDescription(){
 	domElements.PRODUCT_CONTENT.innerHTML = state.detail_data.displayInfo.productContent;
-    if(domElements.PRODUCT_CONTENT.clientHeight <= domElements.PRODUCT_CONTENT.scrollHeight) {
+    if(domElements.PRODUCT_CONTENT.clientHeight == domElements.PRODUCT_CONTENT.scrollHeight) {
     	domElements.UNFOLD.style.display = "none";
     	domElements.FOLD.style.display = "none";
-    }
-    else{
+    } else{
     	domElements.UNFOLD.addEventListener("click" , (e) => {
         	if(domElements.PRODUCT_CONTENT.closest("div").classList.contains("close3")) {
         		domElements.PRODUCT_CONTENT.closest("div").classList.remove("close3");
@@ -136,7 +156,7 @@ function descriptionDeploy(){
         	domElements.FOLD.style.display = "block";
         	});
         
-        domElements.FOLD.addEventListener("click" , (e) => {
+        domElements.FOLD.addEventListener("click", (e) => {
             if(!domElements.PRODUCT_CONTENT.closest("div").classList.contains("close3")) {
                 domElements.PRODUCT_CONTENT.closest("div").classList.add("close3");
             }
@@ -146,41 +166,59 @@ function descriptionDeploy(){
     }
 }
 
-function bottomDataDeploy(){
+/**
+ * @deployBottomData() : put information into corresponding section
+ */
+function deployBottomData(){
 	 domElements.BOTTOM_DESCRIPTION.querySelector("p.in_dsc").innerHTML 
 	 	= state.detail_data.displayInfo.productContent;
+	 
 	 domElements.BOTTOM_PATH.querySelector("img.store_map").src 
 	 	= state.detail_data.displayInfoImage.saveFileName;
+	 
 	 domElements.BOTTOM_PATH.querySelector("h3.store_name").innerHTML 
 	 	= state.detail_data.displayInfo.productDescription;
+	 
 	 domElements.BOTTOM_PATH.querySelector("p.store_addr_bold").innerHTML 
 	 	= state.detail_data.displayInfo.placeStreet;
+	 
 	 domElements.BOTTOM_PATH.querySelector("span.addr_old_detail").innerHTML 
 	 	= state.detail_data.displayInfo.placeLot;
+	 
 	 domElements.BOTTOM_PATH.querySelector("p.addr_detail").innerHTML 
 	 	= state.detail_data.displayInfo.placeName;
+	 
 	 domElements.BOTTOM_PATH.querySelector("a.store_tel").innerHTML 
 	 	= state.detail_data.displayInfo.telephone;
+	 
+	 domElements.AVERAGE_SCORE_STARS.style.width = state.detail_data.averageScore / 5 * 100 + "%";
+	 
+     domElements.AVERAGE_SCORE_TEXT.innerHTML = state.detail_data.averageScore;
 }
 
-function renderImages(){
+/**
+ * @deployImages() : render and attach functionality to product images part
+ */
+function deployImages(){
+    domElements.SLIDE_CONTAINER.innerHTML = "";
+    
 	let imageList = state.detail_data.productImages;
 	domElements.FIGURE_PAGINATION.querySelector("span.off span").innerHTML 
 		= imageList.length;
 	
-	handleBarRenderer(imageList,domElements.SLIDE_CONTAINER,domElements.SLIDE_CONTAINER_ITEM)
+	arrayToLiRenderer(imageList, domElements.SLIDE_CONTAINER, domElements.SLIDE_CONTAINER_ITEM)
 
-	initSlideAnimation(domElements.SLIDE_CONTAINER,false);
+	initSlideAnimation(domElements.SLIDE_CONTAINER, false);
 	
-	if(imageList.length>1) {
-		domElements.SLIDE_LEFT.addEventListener("click" , (e) => {
+	if(imageList.length > 1) {
+		domElements.SLIDE_LEFT.addEventListener("click", (e) => {
 			if(!state.isAnimating) {
 				slideAnimation(false);
 				resizeImageContainer(state.nextSlideCount);
 			}
 		});
 		
-		domElements.SLIDE_RIGHT.addEventListener("click" , (e) => {
+		domElements.SLIDE_RIGHT.addEventListener("click", (e) => {
 			if(!state.isAnimating) {
 				slideAnimationReverse(false);
 				resizeImageContainer(state.prevSlideCount);
@@ -194,12 +232,16 @@ function renderImages(){
 		= state.detail_data.displayInfo.productDescription;
 }
 
+/**
+ * @resizeImageContainer(countTarget) : countTarget represents the next target
+ *                                    image index in state.IMAGE_LIST, and set
+ *                                    the height of the image container with
+ *                                    height obtained from the slide
+ */
 function resizeImageContainer(countTarget){
-	if(state.IMAGE_LIST[countTarget].clientHeight>414){
+	if(state.IMAGE_LIST[countTarget].clientHeight > 414) {
 		domElements.SLIDE_WRAPPER.style.height = "414px";
+	} else {
+		domElements.SLIDE_WRAPPER.style.height = state.IMAGE_LIST[countTarget].clientHeight + "px";
 	}
-	else{
-		domElements.SLIDE_WRAPPER.style.height = state.IMAGE_LIST[countTarget].clientHeight+"px";
-	}
-	
 }

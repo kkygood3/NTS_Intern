@@ -2,29 +2,33 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<!--
+	Copyright 2019 NAVER Corp.
+	All rights reserved.
+	Except in the case of internal use for NAVER,
+	unauthorized use of redistribution of this software are strongly prohibited.
+ -->
+
+
+<!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
+
 <head>
-<meta charset="utf-8">
-<meta name="description"
-	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-<title>네이버 예약</title>
-<link href="resources/css/style.css" rel="stylesheet">
-<link rel="shortcut icon" href="resources/img/favicon.ico">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/utils_script.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/slideAnimation_script.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/handleBarRenderer_script.js"></script>
+	<meta charset="utf-8">
+	<meta name="description"
+		content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+		
+	<title>네이버 예약</title>
 	
-<style>
-.container_visual {
-	height: 414px;
-}
-</style>
+	<link href="resources/css/style.css" rel="stylesheet">
+	<link rel="shortcut icon" href="resources/img/favicon.ico">
+
+	<style>
+	.container_visual {
+		height: 414px;
+	}
+	</style>
 
 </head>
 
@@ -33,7 +37,7 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
+					<a href="./" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
 					</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
@@ -106,9 +110,9 @@
 						<p class="dsc"></p>
 					</div>
 					<!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
-					<a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span>
+					<a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span>
 						<i class="fn fn-down2"></i>
-					</a> <a href="#" class="bk_more _close" style="display: none;"> <span
+					</a> <a class="bk_more _close" style="display: none;"> <span
 						class="bk_more_txt">접기</span> <i class="fn fn-up2"></i>
 					</a>
 				</div>
@@ -159,10 +163,10 @@
 				<div class="section_info_tab">
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
-						<li class="item active _detail"><a href="#"
-							class="anchor active"> <span>상세정보</span>
+						<li class="item active _detail"><a class="anchor active">
+								<span>상세정보</span>
 						</a></li>
-						<li class="item _path"><a href="#" class="anchor"> <span>오시는길</span>
+						<li class="item _path"><a class="anchor"> <span>오시는길</span>
 						</a></li>
 					</ul>
 					<!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
@@ -232,6 +236,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<footer>
 		<div class="gototop">
 			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
@@ -243,6 +248,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
 	<div id="photoviwer"></div>
 
 	<script type="rv-template" id="imageItem">
@@ -282,7 +288,7 @@
 			</div>
 			<div class="info_area">
 				<div class="review_info">
-					<span class="grade"><b>{{score}}</b></span> <span class="name">{{reservationEmail}}</span>
+					<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
 					<span class="date">{{{date reservationDate}}} 방문</span>
 				</div>
 			</div>
@@ -290,7 +296,11 @@
 	</li>
 	{{/each}}
 	</script>
-
+	
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script type="text/javascript"
+		src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript"
 		src="resources/js/detailpage/detailPage_script.js"></script>
 </body>

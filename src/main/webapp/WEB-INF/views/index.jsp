@@ -12,30 +12,20 @@
 
 <!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 
-
-
 <head>
-<meta charset="utf-8">
-<meta name="description"
-	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-<title>네이버 예약</title>
-<link href="resources/css/style.css" rel="stylesheet">
-<link rel="shortcut icon" href="resources/img/favicon.ico">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/utils_script.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/slideAnimation_script.js"></script>
-<script type="text/javascript"
-	src="resources/js/commons/handleBarRenderer_script.js"></script>
-
+	<meta charset="utf-8">
+	<meta name="description"
+		content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+		
+	<title>네이버 예약</title>
+	
+	<link href="resources/css/style.css" rel="stylesheet">
+	<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
 <body onload="init()">
-
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
@@ -130,6 +120,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<footer>
 		<div class="gototop">
 			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
@@ -141,6 +132,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
 	<script type="rv-template" id="promotionItem">
 	{{#each data}}
     <li class="item" style="background-image: url('{{productImageUrl}}');width: 100%;">
@@ -153,7 +145,6 @@
         </a>
     </li>
 	{{/each}}
-
     </script>
 
 	<script type="rv-template" id="itemList">
@@ -170,6 +161,11 @@
             </a>
         </li>
     </script>
+    
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script type="text/javascript"
+		src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript"
 		src="resources/js/mainpage/mainPage_script.js"></script>
 </body>

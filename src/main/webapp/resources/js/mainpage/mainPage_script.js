@@ -14,9 +14,9 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
 this.initSlideAnimation = initSlideAnimation.bind(this);
 this.slideAnimation = slideAnimation.bind(this);
-this.handleBarRenderer = handleBarRenderer.bind(this);
+this.arrayToLiRenderer = arrayToLiRenderer.bind(this);
 
-var domElements = {
+const domElements = {
 	TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),
 	TAB_BUTTON_LI : document.querySelectorAll("div.section_event_tab ul li"),
 	SHOW_MORE_BUTTON : document.querySelector("div.more button"),
@@ -37,13 +37,13 @@ var urls = {
 var constants = {
 	SLIDE_CONATINER_WIDTH : "",
 	ANIMATION_SPEED : 4,
-	ANIMATION_STOP_DURATION : 1000,
+	ANIMATION_STOP_DURATION : 1000
 };
 
 var state = {
 	CATEGORY_DATA : "",
 	loadedProductCount : 0,
-	currentCategory : 0,
+	currentCategory : 0
 };
 
 var parser = new DOMParser();
@@ -62,7 +62,7 @@ function init() {
  * @initTab() : tab active css change and load more button visibility control
  */
 function initTab() {
-	domElements.TAB_BUTTON_UL.addEventListener("click" , (e) => {
+	domElements.TAB_BUTTON_UL.addEventListener("click", (e) => {
 		if(e.target == domElements.TAB_BUTTON_UL) {
 			return;
 		}
@@ -77,7 +77,7 @@ function initTab() {
 		switchCategory(tab.dataset.category);
 	});
 	
-	document.querySelector("div.more").addEventListener("click" , (e) => {
+	document.querySelector("div.more").addEventListener("click", (e) => {
 		fetchProducts(state.currentCategory, state.loadedProductCount);
 	});
 }
@@ -86,7 +86,7 @@ function initTab() {
  * @fetchCategoryCounts() : fetch total number of rows in db by category
  */
 function fetchCategoryCounts() {
-	xhrGetRequest(urls.CATEGORIES,(respText) => {
+	xhrGetRequest(urls.CATEGORIES, (respText) => {
 		state.CATEGORY_DATA = JSON.parse(respText);
 		var totalProductsCount = 0; 
 		state.CATEGORY_DATA.items.filter((item) => {
@@ -101,7 +101,7 @@ function fetchCategoryCounts() {
  * @fetchCategoryCounts() : fetch all information related to promotions
  */
 function fetchPromos() {
-	xhrGetRequest(urls.PROMOS,(respText) => {
+	xhrGetRequest(urls.PROMOS, (respText) => {
 		let promotionData = JSON.parse(respText).items;
 		promotionData.forEach((item) => {
 			item.productImageUrl = "img/" + item.productImageUrl;
@@ -119,7 +119,7 @@ function fetchProducts() {
         urls.PRODUCTS_PARAMS = "?start=" + state.loadedProductCount
     		                 + "&categoryId=" + state.currentCategory;
 	let getProductUrl = urls.PRODUCTS + urls.PRODUCTS_PARAMS;
-	xhrGetRequest(getProductUrl,(respText) => {
+	xhrGetRequest(getProductUrl, (respText) => {
 		let productData = JSON.parse(respText);
 		productData.items.forEach((item) => {
 			item.productImageUrl = "img/" + item.productImageUrl;
@@ -175,7 +175,7 @@ function renderProductItems(productData) {
  * @renderPromoItems() : Loaded promo items will be deployed on html
  */
 function renderPromoItems(promotionData) {
-	handleBarRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
+	arrayToLiRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
     initSlideAnimation(domElements.SLIDE_CONTAINER,true);
 }
 
