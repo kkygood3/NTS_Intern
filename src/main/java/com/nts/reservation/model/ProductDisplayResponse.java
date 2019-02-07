@@ -7,18 +7,19 @@ package com.nts.reservation.model;
 public class ProductDisplayResponse {
 
 	private ProductDisplay productDisplay;
-	private CommentsInfo commentsInfo;
+	private CommentListInfo commentListInfo;
 
 	public ProductDisplayResponse() {}
 
-	public ProductDisplayResponse(ProductDisplay productDisplay, CommentsInfo commentsInfo) {
+	public ProductDisplayResponse(ProductDisplay productDisplay, CommentListInfo commentListInfo) {
 		this.productDisplay = productDisplay;
-		this.commentsInfo = commentsInfo;
+		this.commentListInfo = commentListInfo;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductDisplayResponse [productDisplay=" + productDisplay + ", commentsInfo=" + commentsInfo + "]";
+		return "ProductDisplayResponse [productDisplay=" + productDisplay + ", commentListInfo=" + commentListInfo
+			+ "]";
 	}
 
 	public ProductDisplay getProductDisplay() {
@@ -29,12 +30,12 @@ public class ProductDisplayResponse {
 		this.productDisplay = productDisplay;
 	}
 
-	public CommentsInfo getCommentsInfo() {
-		return commentsInfo;
+	public CommentListInfo getCommentListInfo() {
+		return commentListInfo;
 	}
 
-	public void setCommentsInfo(CommentsInfo commentsInfo) {
-		this.commentsInfo = commentsInfo;
+	public void setCommentListInfo(CommentListInfo commentListInfo) {
+		this.commentListInfo = commentListInfo;
 	}
 
 }

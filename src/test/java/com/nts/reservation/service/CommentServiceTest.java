@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
-import com.nts.reservation.model.CommentsInfo;
+import com.nts.reservation.model.CommentListInfo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
@@ -26,7 +26,7 @@ public class CommentServiceTest {
 
 	@Test
 	public void getProductDisplayCommentsInfoTest() {
-		CommentsInfo commentsInfo = commentService.getCommentsInfo(1, CommentService.NOT_LIMITED);
+		CommentListInfo commentsInfo = commentService.getCommentListInfo(1, CommentService.NOT_LIMITED);
 		System.out.println(commentsInfo);
 	}
 

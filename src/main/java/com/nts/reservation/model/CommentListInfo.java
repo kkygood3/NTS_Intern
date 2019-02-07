@@ -6,14 +6,14 @@ package com.nts.reservation.model;
 
 import java.util.List;
 
-public class CommentsInfo {
+public class CommentListInfo {
 
 	private CommentMetaData commentMetaData;
 	private List<Comment> commentList;
 
-	public CommentsInfo() {}
+	public CommentListInfo() {}
 
-	public CommentsInfo(CommentMetaData commentMetaData, List<Comment> commentList) {
+	public CommentListInfo(CommentMetaData commentMetaData, List<Comment> commentList) {
 		this.commentMetaData = commentMetaData;
 		this.commentList = commentList;
 	}

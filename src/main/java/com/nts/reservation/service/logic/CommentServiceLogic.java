@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.model.Comment;
 import com.nts.reservation.model.CommentMetaData;
-import com.nts.reservation.model.CommentsInfo;
+import com.nts.reservation.model.CommentListInfo;
 import com.nts.reservation.service.CommentService;
 
 @Service
@@ -22,11 +22,11 @@ public class CommentServiceLogic implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public CommentsInfo getCommentsInfo(int displayInfoId, boolean limit) {
+	public CommentListInfo getCommentListInfo(int displayInfoId, boolean limit) {
 		CommentMetaData commentMetaData = getCommentMetaData(displayInfoId);
 		List<Comment> commentList = getCommentList(displayInfoId, limit);
 
-		return new CommentsInfo(commentMetaData, commentList);
+		return new CommentListInfo(commentMetaData, commentList);
 	}
 
 	@Override

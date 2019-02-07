@@ -8,14 +8,14 @@ import java.util.List;
 
 import com.nts.reservation.model.Comment;
 import com.nts.reservation.model.CommentMetaData;
-import com.nts.reservation.model.CommentsInfo;
+import com.nts.reservation.model.CommentListInfo;
 
 public interface CommentService {
 
 	static final boolean LIMITED = true;
 	static final boolean NOT_LIMITED = false;
 
-	CommentsInfo getCommentsInfo(int displayInfoId, boolean limit);
+	CommentListInfo getCommentListInfo(int displayInfoId, boolean limit);
 
 	List<Comment> getCommentList(int displayInfoId, boolean limit);
 

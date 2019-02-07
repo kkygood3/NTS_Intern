@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-import com.nts.reservation.model.CommentsInfo;
+import com.nts.reservation.model.CommentListInfo;
 import com.nts.reservation.service.CommentService;
 
 @RestController
@@ -21,8 +21,8 @@ public class CommentController {
 	private CommentService commentService;
 
 	@GetMapping(value = {"/api/products/{displayInfoId}/comments"})
-	public CommentsInfo getCommentsInfo(@PathVariable int displayInfoId) {
-		return commentService.getCommentsInfo(displayInfoId, CommentService.NOT_LIMITED);
+	public CommentListInfo getCommentsInfo(@PathVariable int displayInfoId) {
+		return commentService.getCommentListInfo(displayInfoId, CommentService.NOT_LIMITED);
 	}
 
 }

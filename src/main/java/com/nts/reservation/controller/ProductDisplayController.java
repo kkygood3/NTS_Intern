@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.model.CommentsInfo;
+import com.nts.reservation.model.CommentListInfo;
 import com.nts.reservation.model.ProductDisplay;
 import com.nts.reservation.model.ProductDisplayResponse;
 import com.nts.reservation.service.CommentService;
@@ -27,7 +27,7 @@ public class ProductDisplayController {
 	@GetMapping(value = {"/api/products/{displayInfoId}"})
 	public ProductDisplayResponse getProductDisplayResponse(@PathVariable int displayInfoId) {
 		ProductDisplay productDisplay = productDisplayService.getProductDisplay(displayInfoId);
-		CommentsInfo commentsInfo = commentService.getCommentsInfo(displayInfoId, CommentService.LIMITED);
+		CommentListInfo commentsInfo = commentService.getCommentListInfo(displayInfoId, CommentService.LIMITED);
 
 		return new ProductDisplayResponse(productDisplay, commentsInfo);
 	}
