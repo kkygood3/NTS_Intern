@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 let image = document.querySelector(".img_thumb");
 let cnt = document.querySelector(".count_detail_image");
+let content = document.querySelector(".dsc");
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -26,6 +27,8 @@ function getDetailInfo(displayInfoId) {
 				jsonResponse["productImages"].forEach(function(productImage){
 					image.src = "../" + productImage.saveFileName;
 				});
+				// 상단 상품 설명 영역
+				content.innerHTML = jsonResponse["displayInfo"].productContent;
 			}
 		}
 		
