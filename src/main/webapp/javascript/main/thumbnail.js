@@ -1,5 +1,6 @@
 function sendGetThumbnailsAjax(categoryId = 0) {
 	var start = calcLoadedThumbnails();
+	start="eee";
 	sendGETAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setCounterAndMakeProductList);
 }
 
