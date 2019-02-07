@@ -10,8 +10,7 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-<link href="css/style.css" rel="stylesheet">
-<link href="css/customStyle.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div id="container">
@@ -55,11 +54,9 @@
 									//TODO slide image, link
 								%>
 								<ul class="visual_img">
-									<li><img src="/img/product/1_ma_2.png"/></li>
-									<li><img src="/img/product/2_ma_4.png"/></li>
-									<li><img src="/img/product/3_ma_10.png"/></li>
-									<li><img src="/img/product/4_ma_12.png"/></li>
-									<li><img src="/img/product/5_ma_14.png"/></li>
+									<c:forEach var="promotion" items="${ promotionList }">
+										<li><img src="/img/product/${ promotion.productImageUrl }"/></li>
+									</c:forEach>
 								</ul>
 							</div>
 							<span class="nxt_fix" style="display: none;"></span>
@@ -81,11 +78,11 @@
 			</div>
 			<div class="section_event_lst">
 				<p class="event_lst_txt">
-					바로 예매 가능한 행사가 <span class="pink"> ${ productCount } </span> 있습니다
+					바로 예매 가능한 행사가 <span id="categoryCount" class="pink"> ${ productCount } </span> 있습니다
 				</p>
 				<div class="wrap_event_box">
 					<!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
-					<ul class="lst_event_box">
+					<ul id="productBox1" class="lst_event_box">
 					<c:forEach var="product" items="${ productList }" varStatus="status">
 						<c:if test="${ status.index % 2 == 0 }">
 						<li class="item">
@@ -107,8 +104,8 @@
 						</c:if>
 					</c:forEach>
 					</ul>
-					<ul class="lst_event_box">
-					
+					<ul id="productBox2" class="lst_event_box">
+
 					<c:forEach var="product" items="${ productList }" varStatus="status">
 						<c:if test="${ status.index % 2 != 0 }">
 						<li class="item">
@@ -129,11 +126,11 @@
 						</li>
 						</c:if>
 					</c:forEach>
-					
+
 					</ul>
 					<!-- 더보기 -->
 					<div class="more">
-						<button class="btn">
+						<button id="moreButton" class="btn" value="4">
 							<span>더보기</span>
 						</button>
 					</div>
@@ -152,5 +149,108 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+
+	<script type="rv-template" id="itemList">
+		<li class="item">
+			<a href="detail.html?id={id}" class="item_book">
+				<div class="item_preview">
+					<img alt="{description}" class="img_thumb" src="img/product/{productImageUrl}">
+					<span class="img_border"></span>
+				</div>
+				<div class="event_txt">
+					<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+					<p class="event_txt_dsc">{content}</p>
+				</div>
+			</a>
+		</li>
+	</script>
+
+	<script>
+		let categoryCount = parseInt(document.querySelector("#categoryCount").innerText);
+		const LIMIT = 4;
+		
+		let more = document.querySelector("#moreButton");
+		more.addEventListener("click", function(e){
+			let buttonValue = parseInt(e.target.value);
+			
+			ajax(buttonValue);
+			
+			if(buttonValue < categoryCount){
+				buttonValue += LIMIT;
+				e.target.value = buttonValue; 
+			}else{
+				removeMoreButton();
+			}
+		});
+
+		function ajax(start) {
+			let oReq = new XMLHttpRequest();
+			let categoryId = 0;
+			oReq.addEventListener("load", function() {
+				let data = JSON.parse(this.responseText);
+				replacingScript(data.products);
+			});
+
+			oReq.open("GET", "http://localhost:8080/products?categoryId="+ categoryId + "&start=" + start);
+			oReq.send();
+
+		}
+
+		function replacingScript(products){
+			products.forEach(function(product, index){
+				let script = document.querySelector("#itemList").innerHTML;
+				let resultHtml = script.replace('{id}', product.displayInfoId)
+							.replace('{placeName}', product.placeName)
+							.replace("{content}", product.productContent)
+							.replace(/{description}/gi, product.productDescription)
+							.replace("{productImageUrl}", product.productImageUrl);
+				
+				if(index % 2 == 0){
+					document.querySelector('#productBox1').innerHTML += resultHtml;
+				}else{
+					document.querySelector('#productBox2').innerHTML += resultHtml;
+				}
+			});
+		}
+		
+		function removeMoreButton(){
+			document.querySelector("#moreButton").hidden = true;
+		}
+		
+		
+		// slide
+		document.addEventListener("DOMContentLoaded", function(){
+			let promotionSlide = document.querySelector(".visual_img");
+			let slideWidth = promotionSlide.offsetWidth;
+			let promotionCount = promotionSlide.childElementCount;
+			let duration = promotionCount;
+			
+			let slideCss = document.createElement("style");
+			slideCss.type = "text/css";
+			
+			cssScript = "100% {right: 0px;}";
+			for(let i = 0; i < promotionCount; i++){
+				cssScript += (i / promotionCount) * 100 + "% {right: " + slideWidth * i + "px}\n";
+			}
+			slideCss.innerHTML = `.visual_img { padding: 0px;
+				margin: 0px;
+				list-style: none;
+				height: 177px;
+				display: flex;
+				overflow: hidden; }` + 
+			
+			`@keyframes slide{` + cssScript + `}
+
+			.visual_img li img {
+				width: `+ slideWidth + `px;
+				position: relative;
+				animation-name: slide;
+				animation-duration: `+ duration + `s;
+				animation-iteration-count: infinite;
+			}`;
+			document.body.appendChild(slideCss);
+		});
+		
+	</script>
 </body>
 </html>
