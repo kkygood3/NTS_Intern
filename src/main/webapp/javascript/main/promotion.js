@@ -21,11 +21,11 @@ function makePromotionSlideHTML(promotions) {
 
 function makePromotionSlide(numOfPromotionImgs) {
 	const interval = window.setInterval(()=> {
-		runSlide(readyToSlide);
+		runSlide();
 	}, 5000);
 }
 
-function runSlide(readyToSlide) {
+function runSlide() {
 	if (readyToSlide){
 		var ul = document.getElementsByClassName("visual_img")[0];
 		ul.className = "visual_img";
