@@ -30,7 +30,7 @@ function makePromotionSlide() {
 				ul.appendChild(firstLi);
 				ul.style.left = 0;
 			} else {
-				ul.style.left = Math.log(time++/40+1)*-166.9 + "px";
+				ul.style.left = Math.log(time++/40+1)*-173 + "px";
 			}
 		}
 	}, 1);
