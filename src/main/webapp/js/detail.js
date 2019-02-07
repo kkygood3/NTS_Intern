@@ -77,6 +77,11 @@ function getDetailInfo(displayInfoId) {
 					comment.score = comment.score.toFixed(1);
 				});
 				commentsContainer.innerHTML = bindTemplate(jsonResponse);
+				
+				const commentsPerPage = 3;
+				if(document.querySelector(".list_short_review").querySelectorAll("li").length < commentsPerPage){
+					document.querySelector(".btn_review_more").style.display = "none";
+				}
 				// 상세설명
 				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 				
@@ -128,4 +133,8 @@ tab.addEventListener("click", function(event){
 		}
 		locationInfo.className = detailInfo.className.replace("hide", "");
 	}
-}); 
+});
+
+document.querySelector(".lnk_top").addEventListener("click", function(){
+	document.documentElement.scrollTop = 0;
+});

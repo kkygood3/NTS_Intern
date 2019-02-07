@@ -178,3 +178,7 @@ function slideImage(slideOut, slideIn, executeAnimationTime){
 		slideImage(slideOut, slideIn, executeAnimationTime);
 	});
 }
+
+document.querySelector(".lnk_top").addEventListener("click", function(){
+	document.documentElement.scrollTop = 0;
+});

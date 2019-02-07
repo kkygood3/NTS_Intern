@@ -3853,3 +3853,7 @@ button {
     transform: translateX(-100%);
   }
 }
+
+.list_short_review li:nth-of-type(n+4) { 
+    display: none;
+}
