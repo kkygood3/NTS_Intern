@@ -66,9 +66,4 @@ public class DetailServiceImpl implements DetailService {
 		return DetailDao.getProductPrices(displayInfoId);
 	}
 
-	@Override
-	public List<Comment> getThreeComments(Long displayInfoId) {
-		return DetailDao.getThreeComments(displayInfoId);
-	}
-
 }

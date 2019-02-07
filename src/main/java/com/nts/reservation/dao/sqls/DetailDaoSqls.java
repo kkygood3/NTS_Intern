@@ -62,21 +62,6 @@ public class DetailDaoSqls {
 		+ " INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id"
 		+ " ORDER BY ruc.id DESC";
 
-	public static final String SELECT_DETAIL_THREE_COMMENTS = "SELECT ruc.id AS commentId "
-		+ ", di.product_id AS productId "
-		+ ", ri.id AS reservationInfoId"
-		+ ", IFNULL(CONVERT( ruc.score, DECIMAL(2,1)), 0 ) AS score"
-		+ ", ruc.comment AS comment "
-		+ ", ri.reservation_name AS reservationName"
-		+ ", ri.reservation_email AS reservationEmail"
-		+ ", ri.reservation_date AS reservationDate"
-		+ ", ri.create_date AS createDate"
-		+ ", ri.modify_date AS modifyDate"
-		+ " FROM reservation_user_comment ruc"
-		+ " INNER JOIN display_info di ON di.product_id = ruc.product_id AND di.id = :display_info_id"
-		+ " INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id"
-		+ " ORDER BY ruc.id DESC LIMIT 0, 3";
-
 	public static final String SELECT_DETAIL_COMMENTS_AVERAGE_SCORE = "SELECT IFNULL(CONVERT( AVG(ruc.score), DECIMAL(3,1)), 0 ) as average"
 		+ " FROM display_info di "
 		+ " INNER JOIN reservation_user_comment ruc ON ruc.product_id = di.product_id AND di.id = :display_info_id";
