@@ -21,7 +21,7 @@ const categoryTemplate = `
 
 const productTemplate = `
     <li class="item">
-        <a href="#" class="item_book">
+        <a href="/product-display?displayInfoId={displayInfoId}" class="item_book">
             <div class="item_preview">
                 <img alt="{productDescription}" class="img_thumb" src="/resources/{productImageUrl}">
                 <span class="img_border"></span>
@@ -52,6 +52,7 @@ function parseCategoryToHtml(categoryItem){
 
 function parseProductToHtml(productItem){
 	var productItemHTML = productTemplate
+		.replace("{displayInfoId}", productItem.displayInfoId)
 		.replace("{productDescription}", productItem.productDescription)
 		.replace("{productImageUrl}", productItem.productImageUrl)
 		.replace("{productDescription}", productItem.productDescription)
