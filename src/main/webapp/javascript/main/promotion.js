@@ -19,19 +19,23 @@ function makePromotionSlideHTML(promotions) {
 	readyToSlide = true;
 }
 
-function makePromotionSlide() {
-	var ul = document.getElementsByClassName("visual_img")[0];
-	var time = 0;
+function makePromotionSlide(numOfPromotionImgs) {
 	const interval = window.setInterval(()=> {
-		if (readyToSlide){
-//				if (time == 400) {
-//					time = 0;
-//					var firstLi = ul.firstElementChild;
-//					ul.appendChild(firstLi);
-//					ul.style.left = 0;
-//				} else {
-//					ul.style.left = Math.log(time++/40+1)*-173 + "px";
-//				}
-		}
-	}, 1000);
+		runSlide(readyToSlide);
+	}, 5000);
+}
+
+function runSlide(readyToSlide) {
+	if (readyToSlide){
+		var ul = document.getElementsByClassName("visual_img")[0];
+		ul.className = "visual_img";
+		ul.style.left = 0;
+		var firstLi = ul.firstElementChild;
+		ul.appendChild(firstLi);
+
+		window.setTimeout(()=> {
+			ul.className = "visual_img transition";
+			ul.style.left = "-414px";
+		}, 1000);
+	}
 }
