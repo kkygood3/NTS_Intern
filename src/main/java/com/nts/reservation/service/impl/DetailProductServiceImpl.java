@@ -9,12 +9,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nts.reservation.dao.DetailProductDao;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
 import com.nts.reservation.service.DetailProductService;
 
+/**
+* @author  : 이승수
+*/
 public class DetailProductServiceImpl implements DetailProductService {
 	@Autowired
 	DetailProductDao detailProductDao;
