@@ -96,52 +96,43 @@ var reviewPage = {
 	 */
 	updateCommentList: function(comments, commentListContainer, productTitle){
 		var resultHtml = comments.reduce(function(prevValue, comment) {
-			var commentElement = "";
-			if(comment.commentImages.length > 0){
-				commentElement += this.getCommentElement(comment, productTitle);
-			}else{
-				commentElement += this.getNoImageCommentElement(comment, productTitle);
-			}
+			var commentElement = this.getCommentElement(comment, productTitle);
 			return prevValue + commentElement;
 		}.bind(this), "");
 		commentListContainer.innerHTML = resultHtml;
 	},
 	/**
-	 * @function getNoImageCommentElement 이미지가 없는 코멘트 템플릿 리턴
-	 * @param {JSON}
-	 *            comment
-	 * @param {String}
-	 *            productTitle
-	 */
-	getNoImageCommentElement: function(comment, productTitle) {
-		var bindTemplate = getTargetTemplate("#noImageComment");
-		var data = {
-			productName: productTitle,
-			comment: comment.comment,
-			score: comment.score.toFixed(1),
-			name: comment.reservationName,
-			commentDate: toDateString(comment.reservationDate) + "방문"
-		};
-		return bindTemplate(data).trim();
-	},
-	/**
-	 * @function getCommentElement 이미지가 있는 코멘트 템플릿 리턴
+	 * @function getCommentElement 코멘트 템플릿 리턴
 	 * @param {JSON}
 	 *            comment
 	 * @param {String}
 	 *            productTitle
 	 */
 	getCommentElement: function(comment, productTitle) {
-		var bindTemplate = getTargetTemplate("#imageComment");
-		var data = {
-			productName: productTitle,
-			comment: comment.comment,
-			score: comment.score.toFixed(1),
-			name: comment.reservationName,
-			commentDate: toDateString(comment.reservationDate) + "방문",
-			imageUrl: "../../" + comment.commentImages[0].saveFileName,
-			imageCount: comment.commentImages.length
-		};
+		var bindTemplate = "";
+		var data = {};
+		if(comment.commentImages.length > 0) {
+			bindTemplate = getTargetTemplate("#imageComment");
+			data = {
+				productName: productTitle,
+				comment: comment.comment,
+				score: comment.score.toFixed(1),
+				name: comment.reservationName,
+				commentDate: toDateString(comment.reservationDate) + "방문",
+				imageUrl: "../../" + comment.commentImages[0].saveFileName,
+				imageCount: comment.commentImages.length
+			};
+			
+		} else {
+			bindTemplate = getTargetTemplate("#noImageComment");
+			data = {
+				productName: productTitle,
+				comment: comment.comment,
+				score: comment.score.toFixed(1),
+				name: comment.reservationName,
+				commentDate: toDateString(comment.reservationDate) + "방문"
+			};
+		}
 		return bindTemplate(data).trim();
 	}
 };
