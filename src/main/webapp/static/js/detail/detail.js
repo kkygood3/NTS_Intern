@@ -1,3 +1,7 @@
+/**
+ * @desc 전역변수 
+ */
+var sendAjax = require('../sendAjax');
 
 document.addEventListener('DOMContentLoaded', function() {
 	getDisplayInfos();
@@ -30,7 +34,7 @@ function getDisplayInfos() {
 		var end = 3;
 		
 		setHandlebarRegist();
-		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, String(displayInfoResponse.averageScore).substr(start,end));
+		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, String(displayInfoResponse.averageScore).substr(start,end), displayInfoResponse.displayInfo.productId);
 		setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
 	});
 }
@@ -140,12 +144,18 @@ function myButtonHideOtherButtonOpen(_this,otherQuery){
 /**
  * @desc set comment
  */
-function setComments(comments,commentsLength,commentAverageScore){
+function setComments(comments,commentsLength,commentAverageScore,productId){
 	
 	document.querySelector('.list_short_review').innerHTML = getHandlebarTemplateFromHtml('#comment_template',comments);
 	document.querySelector('#comment_count').innerHTML = commentsLength;
 	document.querySelector('#comment_average').innerHTML = commentAverageScore;
 	document.querySelector('#comment_graph_star').style.width = commentAverageScore * 20 + '%';
+	
+	if(commentsLength === 0){
+		document.querySelector('.btn_review_more').remove();
+	} else {
+		document.querySelector('.btn_review_more').href = '/review/'+productId;
+	}
 }
 
 /**
@@ -250,8 +260,7 @@ function addDetailButtonEvent(){
 
 /**
  * @desc anchor 태그 active class 지우기
- * @param e
- * @returns
+ * @param currentTarget
  */
 function removeAnchorActiveClass(currentTarget){
 	
