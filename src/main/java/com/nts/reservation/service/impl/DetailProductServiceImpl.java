@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.DetailProductDao;
+import com.nts.reservation.dto.Comment;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.ProductImage;
@@ -19,6 +21,7 @@ import com.nts.reservation.service.DetailProductService;
 /**
 * @author  : 이승수
 */
+@Service
 public class DetailProductServiceImpl implements DetailProductService {
 	@Autowired
 	DetailProductDao detailProductDao;

@@ -4,6 +4,14 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.DetailProductSqls.GET_AVERAGE_SCORE;
+import static com.nts.reservation.dao.DetailProductSqls.GET_COMMENTS;
+import static com.nts.reservation.dao.DetailProductSqls.GET_COMMENT_IMAGES;
+import static com.nts.reservation.dao.DetailProductSqls.GET_DISPLAY_INFO;
+import static com.nts.reservation.dao.DetailProductSqls.GET_DISPLAY_INFO_IMAGE;
+import static com.nts.reservation.dao.DetailProductSqls.GET_PRODUCT_IMAGES;
+import static com.nts.reservation.dao.DetailProductSqls.GET_PRODUCT_PRICES;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
