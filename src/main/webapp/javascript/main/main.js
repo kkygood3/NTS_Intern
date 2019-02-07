@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	sendGetThumbnailsAjax();
 	sendGetCategorissAjax();
 	makePromotionSlide();
-	addButtonClickEvent();
+	addMoreButtonClickEvent();
 	addCategoryClickEvent();
 });
