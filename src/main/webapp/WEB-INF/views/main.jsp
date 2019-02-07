@@ -217,12 +217,14 @@
 			var resultHtml = '';
 			for (var i = 0; i < promotionList.length; i++) {
 				resultHtml += template
+									.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
 									.replace('{promotionImageUrl}', promotionList[i].productImageUrl);
 			}
 
 			if (promotionList.length > 0) {
 				resultHtml += template
 									.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
+									.replace('{promotionImageUrl}', promotionList[0].productImageUrl);
 			}
 
 			document.querySelector('ul.visual_img').innerHTML = resultHtml;
