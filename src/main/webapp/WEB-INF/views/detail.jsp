@@ -41,50 +41,30 @@
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
                             <span class="num">1</span>
-                            <span class="num off">/ <span>2</span></span>
+                            <span class="num off">/ <span id="product_image_max"></span></span>
                         </div>
                     </div>
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-                                        <div class="visual_txt">
-                                            <div class="visual_txt_inn">
-                                                <h2 class="visual_txt_tit"> <span></span> </h2>
-                                                <p class="visual_txt_dsc"></p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                <ul class="visual_img detail_swipe product_images_ul">
+                                	<script id="product_images_template" type="text/x-handlebars-template">
+                                		{{#each productImages}}
+											<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/static/{{saveFileName}}"> <span class="img_bg"></span>
+                                        		<div class="visual_txt">
+                                            		<div class="visual_txt_inn">
+                                                		<h2 class="visual_txt_tit"> <span class="product_title"></span> </h2>
+                                                		<p class="visual_txt_dsc"></p>
+                                            		</div>
+                                        		</div>
+                                    		</li>
+										{{/each}}
+                                	</script>
                                 </ul>
                             </div>
                             <div class="prev">
                                 <div class="prev_inn">
-                                    <a href="#" class="btn_prev" title="이전">
+                                    <a class="btn_prev" title="이전">
                                         <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
                                         <i class="spr_book2 ico_arr6_lt off"></i>
                                     </a>
@@ -92,7 +72,7 @@
                             </div>
                             <div class="nxt">
                                 <div class="nxt_inn">
-                                    <a href="#" class="btn_nxt" title="다음">
+                                    <a class="btn_nxt" title="다음">
                                         <i class="spr_book2 ico_arr6_rt"></i>
                                     </a>
                                 </div>
@@ -114,8 +94,8 @@
                        	</p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
-                    <a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
-                    <a href="#" class="bk_more _close" style="display: none;"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
+                    <a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
+                    <a class="bk_more _close hide"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
                 </div>
                 <div class="section_event">
                     <div class="event_info_box">

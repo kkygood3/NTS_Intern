@@ -2,6 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 	getDisplayInfos();
 	addDetailButtonEvent();
+	
+	addFoldButtonEvent();
+	addExpandButtonEvent();
 });
 
 /**
@@ -19,7 +22,7 @@ function getDisplayInfos() {
 	sendAjax(displayInfoSendHeader,'',function(displayInfoResponse){
 		console.log(displayInfoResponse);
 		
-		setProductImages(displayInfoResponse.productImages);
+		setProductImages(displayInfoResponse.productImages, displayInfoResponse.displayInfo.productDescription);
 		setProductContent(displayInfoResponse.displayInfo.productContent);
 		setProductEvent({productEvent : displayInfoResponse.displayInfo.productEvent});
 		
@@ -44,13 +47,98 @@ function getDisplayInfoId() {
  * @param productImages
  * @returns
  */
-function setProductImages(productImages){
+function setProductImages(productImages, productDescription){
 	
+	var productImageLength = productImages.length;
+	document.querySelector('#product_image_max').innerHTML = productImageLength;
+	document.querySelector('.product_images_ul').innerHTML = getHandlebarTemplateFromHtml('#product_images_template', {productImages: productImages});
+	
+	document.querySelectorAll('.product_title').forEach(function(ele){
+		ele.innerText = productDescription; 
+	});
+	
+	if(productImageLength === 1){
+		document.querySelector('.prev').remove();
+		document.querySelector('.nxt').remove();
+	} else {
+		document.querySelector('.prev').classList.add('hide');
+		
+		var productImagesUl = document.querySelector('.product_images_ul');
+		productImageNextButtonEvent(productImagesUl);
+		productImagePrevButtonEvent(productImagesUl);
+	}
+}
+
+/**
+ * @desc 다음 button 클릭 이벤트
+ * @param productImagesUl
+ */
+function productImageNextButtonEvent(productImagesUl){
+	
+	document.querySelector('.nxt').addEventListener('click',function(e){
+		
+		myButtonHideOtherButtonOpen(this,'.prev');
+		productImagesUl.style.transform = 'translateX(-100%)';
+	});
+}
+
+/**
+ * @desc 이전 버튼 클릭 이벤트
+ * @param productImagesUl
+ */
+function productImagePrevButtonEvent(productImagesUl){
+	
+	document.querySelector('.prev').addEventListener('click',function(e){
+		
+		myButtonHideOtherButtonOpen(this,'.nxt');
+		productImagesUl.style.transform = 'translateX(0%)';
+	});
+}
+
+/**
+ * @desc 접기 버튼 이벤트
+ */
+function addFoldButtonEvent(){
+	
+	document.querySelector('._close').addEventListener('click',function(){
+		myButtonHideOtherButtonOpen(this,'._open');
+		
+		var details = document.querySelector('.store_details');
+		details.classList.add('close3');
+	});
+}
+
+/**
+ * @desc 펼쳐보기 버튼 이벤트
+ */
+function addExpandButtonEvent(){
+	
+	document.querySelector('._open').addEventListener('click',function(){
+		myButtonHideOtherButtonOpen(this,'._close');
+		
+		var details = document.querySelector('.store_details');
+		details.classList.remove('close3');
+	});
+}
+
+/**
+ * @desc 자신의 버튼 닫고 다른버튼 활성화
+ * @param otherId
+ * @param _this
+ */
+function myButtonHideOtherButtonOpen(_this,otherQuery){
+	
+	_this.classList.remove('open');
+	_this.classList.add('hide');
+	
+	var other = document.querySelector(otherQuery);
+	
+	other.classList.remove('hide');
+	other.classList.add('open');
 }
 
 /**
  * @desc set comment
- * @returns
  */
 function setComments(comments,commentsLength,commentAverageScore){
 	
