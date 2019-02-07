@@ -12,14 +12,14 @@ var detailPage = {
 	},
 	elements: {
 		imageContainer: document.querySelector(".detail_swipe"),
-		imageCurrentIndexLabel: document.querySelector(".figure_pagination > .num"),
-		imageMaxIndexLabel: document.querySelector(".figure_pagination > .off > span"),
+		imageCurrentIndexTextUi: document.querySelector(".figure_pagination > .num"),
+		imageMaxIndexTextUi: document.querySelector(".figure_pagination > .off > span"),
 		prevBtn: document.querySelector(".prev_inn"),
 		nextBtn: document.querySelector(".nxt_inn"),
 		contentOpenMoreBtn: document.querySelector("._open"),
 		contentCloseMoreBtn: document.querySelector("._close"),
 		contentContainer: document.querySelector(".store_details"),
-		eventLabel: document.querySelector(".event_info > .in_dsc"),
+		eventTextUi: document.querySelector(".event_info > .in_dsc"),
 		eventContainer: document.querySelector(".section_event"),
 		detailTabBtn: document.querySelector("._detail > a"),
 		contactTabBtn: document.querySelector("._path > a"),
@@ -51,7 +51,7 @@ var detailPage = {
 			this.updateImageSlide(productImages, displayInfo.productDescription);
 			this.updateImageSlideBtn(productImages);
 			this.updateContentContainer(displayInfo.productContent);
-			this.updateEventLabel(productPrices);
+			this.updateEventTextUi(productPrices);
 			this.updateBottomSection(displayInfo, displayInfoImage);
 			this.updateCommentsContainer(averageScore, comments);
 			
@@ -84,8 +84,8 @@ var detailPage = {
 		for(var i = 1; i < items.length; i++){
 			items[i].classList.add("right_pos");
 		}
-		this.elements.imageCurrentIndexLabel.innerHTML = Number(imageContainer.dataset.currentIndex) + 1;
-		this.elements.imageMaxIndexLabel.innerHTML = imageContainer.dataset.maxIndex;
+		this.elements.imageCurrentIndexTextUi.innerHTML = Number(imageContainer.dataset.currentIndex) + 1;
+		this.elements.imageMaxIndexTextUi.innerHTML = imageContainer.dataset.maxIndex;
 	},
 	/**
 	 * @function updateImageSlideBtn 이미지 슬라이더 양옆 버튼 UI 업데이트.
@@ -131,10 +131,10 @@ var detailPage = {
 		})
 	},
 	/**
-	 * @function updateEventLabel 이벤트 표기 부분 UI 업데이트
+	 * @function updateEventTextUi 이벤트 표기 부분 UI 업데이트
 	 * @param {JSON[]} priceInfos 
 	 */
-	updateEventLabel: function(priceInfos) {
+	updateEventTextUi: function(priceInfos) {
 		var eventText = priceInfos.reduce(function(prevValue, priceInfo){
 			if(priceInfo.discountRate != 0){
 				return prevValue + priceInfo.priceTypeName + "석 " + priceInfo.discountRate + "%, "
@@ -142,7 +142,7 @@ var detailPage = {
 		}, "");
 		if(eventText != undefined){
 			eventText = eventText.substr(0,	eventText.length - 2) + " 할인";
-			this.elements.eventLabel.innerHTML += eventText;
+			this.elements.eventTextUi.innerHTML += eventText;
 		}else{
 			this.elements.eventContainer.hidden = true;
 		}
@@ -175,15 +175,15 @@ var detailPage = {
 	updateCommentsContainer: function(averageScore, comments){
 		var commentsContainer = this.elements.commentsContainer;
 
-		var averageScoreLabel = commentsContainer.querySelector(".text_value > span");
-		averageScoreLabel.innerHTML = averageScore.toFixed(1);
+		var averageScoreTextUi = commentsContainer.querySelector(".text_value > span");
+		averageScoreTextUi.innerHTML = averageScore.toFixed(1);
 
 		var scoreGraph = commentsContainer.querySelector(".graph_value");
 		var graphValuePercent = Math.round((averageScore / 5) * 100);
 		scoreGraph.style.width = graphValuePercent + "%";
 
-		var countCommentsLabel = commentsContainer.querySelector(".green");
-		countCommentsLabel.innerHTML = comments.length + "건";
+		var countCommentsTextUi = commentsContainer.querySelector(".green");
+		countCommentsTextUi.innerHTML = comments.length + "건";
 		
 		var commentListContainer = commentsContainer.querySelector(".list_short_review");
 		commentListContainer.innerHTML = this.getCommentListHtml(comments);
@@ -195,7 +195,6 @@ var detailPage = {
 		}
 		moreCommentBtn.setAttribute("href", "./review/" + getDisplayInfoIdFromUrl());
 	},
-
 	/**
 	 * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수
 	 * @param {String} direction 
@@ -260,7 +259,7 @@ var detailPage = {
 	moveToNextSlideImage: function(currentImage, currentImageClassNames, nextImage, nextImageClassNames, nextIndex) {
 		this.changeSlideBtnClass(currentImage, currentImageClassNames);
 		this.changeSlideBtnClass(nextImage, nextImageClassNames);
-		this.elements.imageCurrentIndexLabel.innerHTML = nextIndex + 1;
+		this.elements.imageCurrentIndexTextUi.innerHTML = nextIndex + 1;
 		this.elements.imageContainer.dataset.currentIndex = nextIndex;
 	},
 	
@@ -315,8 +314,8 @@ var detailPage = {
 	 * @param {JSON} displayInfoImage 
 	 */
 	bindDataToBottomSection: function (detailContainer, contactContainer, displayInfo, displayInfoImage) {
-		var contentLabel = detailContainer.querySelector(".in_dsc");
-		contentLabel.innerHTML = displayInfo.productContent;
+		var contentTextUi = detailContainer.querySelector(".in_dsc");
+		contentTextUi.innerHTML = displayInfo.productContent;
 		var mapImg = contactContainer.querySelector(".store_map");
 		mapImg.setAttribute("src", "../" + displayInfoImage.saveFileName);
 		var streetAddress = contactContainer.querySelector(".store_addr_bold");
@@ -330,8 +329,8 @@ var detailPage = {
 			var telConatiner = document.querySelector(".lst_store_info_wrap");
 			telConatiner.className += " hide";
 		}else{
-			var telLabel = document.querySelector(".store_tel");
-			telLabel.innerHTML = displayInfo.telephone;
+			var telTextUi = document.querySelector(".store_tel");
+			telTextUi.innerHTML = displayInfo.telephone;
 		}
 	},
 	/**

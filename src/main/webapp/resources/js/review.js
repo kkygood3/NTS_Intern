@@ -51,8 +51,8 @@ var reviewPage = {
 	 *            placeName
 	 */
 	updateHeader: function(placeName){
-		var headerTitleLabel = this.elements.headerContainer.querySelector(".title");
-		headerTitleLabel.textContent = placeName;
+		var headerTitleTextUi = this.elements.headerContainer.querySelector(".title");
+		headerTitleTextUi.textContent = placeName;
 	},
 	/**
 	 * @function updateReviewContainer 코멘트 리스트를 갱신시켜준다.
@@ -74,15 +74,15 @@ var reviewPage = {
 	 */
 	updateReviewContainerHeader: function(averageScore, commentCount){
 		var reviewContainer = this.elements.reviewContainer;
-		var scoreLabel = reviewContainer.querySelector(".text_value > span");
-		scoreLabel.textContent = averageScore.toFixed(1);
+		var scoreTextUi = reviewContainer.querySelector(".text_value > span");
+		scoreTextUi.textContent = averageScore.toFixed(1);
 
 		var scoreGraph = reviewContainer.querySelector(".graph_value");
 		var graphValuePercent = Math.round((averageScore / 5) * 100);
 		scoreGraph.style.width = graphValuePercent + "%";
 		
-		var commentCountLabel = reviewContainer.querySelector(".green");
-		commentCountLabel.innerHTML = commentCount + "건";
+		var commentCountTextUi = reviewContainer.querySelector(".green");
+		commentCountTextUi.innerHTML = commentCount + "건";
 	},
 
 	/**
@@ -96,43 +96,52 @@ var reviewPage = {
 	 */
 	updateCommentList: function(comments, commentListContainer, productTitle){
 		var resultHtml = comments.reduce(function(prevValue, comment) {
-			var commentElement = this.getCommentElement(comment, productTitle);
+			var commentElement = "";
+			if(comment.commentImages.length > 0){
+				commentElement += this.getCommentElement(comment, productTitle);
+			}else{
+				commentElement += this.getNoImageCommentElement(comment, productTitle);
+			}
 			return prevValue + commentElement;
 		}.bind(this), "");
 		commentListContainer.innerHTML = resultHtml;
 	},
 	/**
-	 * @function getCommentElement 코멘트 템플릿 리턴
+	 * @function getNoImageCommentElement 이미지가 없는 코멘트 템플릿 리턴
+	 * @param {JSON}
+	 *            comment
+	 * @param {String}
+	 *            productTitle
+	 */
+	getNoImageCommentElement: function(comment, productTitle) {
+		var bindTemplate = getTargetTemplate("#noImageComment");
+		var data = {
+			productName: productTitle,
+			comment: comment.comment,
+			score: comment.score.toFixed(1),
+			name: comment.reservationName,
+			commentDate: toDateString(comment.reservationDate) + "방문"
+		};
+		return bindTemplate(data).trim();
+	},
+	/**
+	 * @function getCommentElement 이미지가 있는 코멘트 템플릿 리턴
 	 * @param {JSON}
 	 *            comment
 	 * @param {String}
 	 *            productTitle
 	 */
 	getCommentElement: function(comment, productTitle) {
-		var bindTemplate = "";
-		var data = {};
-		if(comment.commentImages.length > 0) {
-			bindTemplate = getTargetTemplate("#imageComment");
-			data = {
-				productName: productTitle,
-				comment: comment.comment,
-				score: comment.score.toFixed(1),
-				name: comment.reservationName,
-				commentDate: toDateString(comment.reservationDate) + "방문",
-				imageUrl: "../../" + comment.commentImages[0].saveFileName,
-				imageCount: comment.commentImages.length
-			};
-			
-		} else {
-			bindTemplate = getTargetTemplate("#noImageComment");
-			data = {
-				productName: productTitle,
-				comment: comment.comment,
-				score: comment.score.toFixed(1),
-				name: comment.reservationName,
-				commentDate: toDateString(comment.reservationDate) + "방문"
-			};
-		}
+		var bindTemplate = getTargetTemplate("#imageComment");
+		var data = {
+			productName: productTitle,
+			comment: comment.comment,
+			score: comment.score.toFixed(1),
+			name: comment.reservationName,
+			commentDate: toDateString(comment.reservationDate) + "방문",
+			imageUrl: "../../" + comment.commentImages[0].saveFileName,
+			imageCount: comment.commentImages.length
+		};
 		return bindTemplate(data).trim();
 	}
 };
