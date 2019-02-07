@@ -25,20 +25,19 @@ import com.nts.reservation.dto.ThumbnailInfo;
  * @author 시윤
  */
 @Repository
-public class ThumbnailInfoDao {
-	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<ThumbnailInfo> rowMapper = BeanPropertyRowMapper.newInstance(ThumbnailInfo.class);
-
+public class ThumbnailInfoDao extends BaseDao {
 	public ThumbnailInfoDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
 	}
+
+	private RowMapper<ThumbnailInfo> rowMapper = BeanPropertyRowMapper.newInstance(ThumbnailInfo.class);
 
 	public List<ThumbnailInfo> selectAllCategoris(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(START, start);
 		params.put(LIMIT, limit);
 
-		return jdbc.query(SELECT_ALL_WITH_PAGING, params, rowMapper);
+		return getJDBC().query(SELECT_ALL_WITH_PAGING, params, rowMapper);
 	}
 
 	public List<ThumbnailInfo> selectByCategory(Category category, Integer start, Integer limit) {
@@ -47,6 +46,6 @@ public class ThumbnailInfoDao {
 		params.put(START, start);
 		params.put(LIMIT, limit);
 
-		return jdbc.query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
+		return getJDBC().query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
 	}
 }

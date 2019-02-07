@@ -17,20 +17,20 @@ import org.springframework.stereotype.Repository;
  * @author 시윤
  */
 @Repository
-public class ProductDao {
-	private NamedParameterJdbcTemplate jdbc;
+public class ProductDao extends BaseDao {
+
 
 	public ProductDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
 	}
 
 	public Integer selectCount() {
-		return jdbc.queryForObject(SELECT_COUNT_ALL, Collections.EMPTY_MAP, Integer.class);
+		return getJDBC().queryForObject(SELECT_COUNT_ALL, Collections.EMPTY_MAP, Integer.class);
 	}
 
 	public Integer selectCount(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
+		return getJDBC().queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 }

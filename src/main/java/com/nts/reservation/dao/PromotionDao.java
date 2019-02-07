@@ -17,14 +17,12 @@ import com.nts.reservation.dto.Promotion;
  * @author 시윤
  */
 @Repository
-public class PromotionDao {
-	private NamedParameterJdbcTemplate jdbc;
-
+public class PromotionDao extends BaseDao {
 	public PromotionDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
 	}
 
 	public List<Promotion> selectAll() {
-		return jdbc.queryForList(SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
+		return getJDBC().queryForList(SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
 	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Category;
@@ -17,14 +16,12 @@ import com.nts.reservation.dto.Category;
  * @author 시윤
  */
 @Repository
-public class CategoryDao {
-	private NamedParameterJdbcTemplate jdbc;
-
+public class CategoryDao extends BaseDao {
 	public CategoryDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
 	}
 
 	public List<Category> selectAll() {
-		return jdbc.queryForList(SELECT_ALL, Collections.EMPTY_MAP);
+		return getJDBC().queryForList(SELECT_ALL, Collections.EMPTY_MAP);
 	}
 }
