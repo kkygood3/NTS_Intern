@@ -97,7 +97,7 @@ function getProductsByCategory(categoryId, start = 0) {
 				displayedProduct += jsonResponse["items"].length;
 				
 				jsonResponse["items"].forEach(function(item){
-					productContainer[containerIndex].innerHTML += productTemplate.replace("{id}", item.productId)
+					productContainer[containerIndex].innerHTML += productTemplate.replace("{displayInfoId}", item.displayInfoId)
 																				 .replace(/{description}/gi, item.productDescription)
 																				 .replace("{placeName}", item.placeName)
 																				 .replace("{content}", item.productContent)

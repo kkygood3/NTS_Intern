@@ -122,7 +122,7 @@
 
     <script type="rv-template" id="itemList">
         <li class="item">
-            <a href="detail.jsp?id={id}" class="item_book">
+            <a href="detail/{displayInfoId}" class="item_book">
                 <div class="item_preview">
                     <img alt="{description}" class="img_thumb" src="{imgUrl}">
                     <span class="img_border"></span>
