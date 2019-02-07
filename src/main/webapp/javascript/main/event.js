@@ -17,6 +17,7 @@ function addCategoryClickEvent() {
 		changeCategoryInfo(categoryId);
 		deleteAllThumbnail();
 		sendGetThumbnailsAjax(categoryId);
+		setMoreButtonVisibility("visible");
 	});
 }
 
