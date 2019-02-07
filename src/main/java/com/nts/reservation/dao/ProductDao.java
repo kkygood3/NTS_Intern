@@ -12,25 +12,35 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-/*
- * 전체 상품 수 셀렉트
- * @author 시윤
+/**
+ * 상품 테이블 접근하는 클래스
+ * @author si yoon
+ *
  */
 @Repository
-public class ProductDao {
-	private NamedParameterJdbcTemplate jdbc;
+public class ProductDao extends BaseDao {
+
 
 	public ProductDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		super(dataSource);
 	}
 
+	/**
+	 * 모든 상품수 리턴하는 메소드
+	 * @return 전체 상품 수
+	 */
 	public Integer selectCount() {
-		return jdbc.queryForObject(SELECT_COUNT_ALL, Collections.EMPTY_MAP, Integer.class);
+		return getJDBC().queryForObject(SELECT_COUNT_ALL, Collections.EMPTY_MAP, Integer.class);
 	}
 
+	/**
+	 * 선택된 카테고리의 상품수 리턴하는 메소드
+	 * @param categoryId 카테고리 아이디
+	 * @return 해당 카테고리의 상품 수
+	 */
 	public Integer selectCount(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
+		return getJDBC().queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 }

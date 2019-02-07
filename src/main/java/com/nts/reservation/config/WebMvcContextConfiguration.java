@@ -13,9 +13,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-/*
+/**
  * url 맵핑
  * @author 시윤
+ *
  */
 @Configuration
 @EnableWebMvc
@@ -35,11 +36,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
         configurer.enable();
     }
    
-    @Override
-    public void addViewControllers(final ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-    }
-    
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();

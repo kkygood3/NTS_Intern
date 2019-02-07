@@ -24,14 +24,14 @@ function makePromotionSlide() {
 	var time = 0;
 	const interval = window.setInterval(()=> {
 		if (readyToSlide){
-			if (time == 400) {
-				time = 0;
-				var firstLi = ul.firstElementChild;
-				ul.appendChild(firstLi);
-				ul.style.left = 0;
-			} else {
-				ul.style.left = Math.log(time++/40+1)*-166.9 + "px";
-			}
+//				if (time == 400) {
+//					time = 0;
+//					var firstLi = ul.firstElementChild;
+//					ul.appendChild(firstLi);
+//					ul.style.left = 0;
+//				} else {
+//					ul.style.left = Math.log(time++/40+1)*-173 + "px";
+//				}
 		}
-	}, 1);
+	}, 1000);
 }
