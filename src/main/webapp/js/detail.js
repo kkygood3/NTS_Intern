@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
 let image = document.querySelector(".img_thumb");
 let cnt = document.querySelector(".count_detail_image");
 let content = document.querySelector(".dsc");
+let star_rating = document.querySelector(".graph_value");
+let rating = document.querySelector(".text_value");
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -29,6 +31,9 @@ function getDetailInfo(displayInfoId) {
 				});
 				// 상단 상품 설명 영역
 				content.innerHTML = jsonResponse["displayInfo"].productContent;
+				// 평점
+				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
+				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>"
 			}
 		}
 		
