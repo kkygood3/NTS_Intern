@@ -32,7 +32,7 @@
 
 </head>
 
-<body onload="init()">
+<body onload="detailPage.init()">
 	<div id="container">
 		<div class="header fade">
 			<header class="header_tit">

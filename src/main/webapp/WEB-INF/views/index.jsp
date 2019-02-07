@@ -25,7 +25,7 @@
 <link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
-<body onload="init()">
+<body onload="mainPage.init()">
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
