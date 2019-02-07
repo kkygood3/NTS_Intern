@@ -48,7 +48,7 @@
                         <div>
                             <div class="container_visual" style="width: 414px;">
                                 <ul class="visual_img detail_swipe">
-                                    <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
+                                    <!-- li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
                                         <div class="visual_txt">
                                             <div class="visual_txt_inn">
                                                 <h2 class="visual_txt_tit"> <span></span> </h2>
@@ -79,7 +79,7 @@
                                                 <p class="visual_txt_dsc"></p>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li -->
                                 </ul>
                             </div>
                             <div class="prev">
@@ -262,6 +262,20 @@
     </footer>
     <div id="photoviwer"></div>
     
+    <script type="rv-template" id="visualImgTemplate">
+	{{#each productImages}}
+    <li class="item" style="width: 414px; height: 414px;" data-index="{{@index}}">
+        <img alt="" class="img_thumb" src="../{{saveFileName}}" style="width: 100%; height: 100%;">
+        <span class="img_bg"></span>
+        <div class="visual_txt">
+            <div class="visual_txt_inn">
+                <h2 class="visual_txt_tit"> <span>{{lookup ../displayInfo "productDescription"}}</span> </h2>
+                <p class="visual_txt_dsc"></p>
+			</div>
+        </div>
+    </li>
+	{{/each}}
+    </script>
     <script type="rv-template" id="commentTemplate">
 	{{#each comments}}
     <li class="list_item">

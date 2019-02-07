@@ -30,7 +30,6 @@ let star_rating = document.querySelector(".graph_value");
 let rating = document.querySelector(".text_value");
 let introduce = document.querySelector(".detail_info_lst").querySelector(".in_dsc");
 let cntComment = document.querySelector(".green");
-let commentsContainer = document.querySelector(".list_short_review");
 
 let storeMap = document.querySelector(".store_map");
 let storeName = document.querySelector(".store_name");
@@ -39,8 +38,14 @@ let addrOld = document.querySelector(".addr_old_detail");
 let placeName = document.querySelector(".store_addr.addr_detail");
 let telephone = document.querySelector(".store_tel");
 
-let template = document.querySelector("#commentTemplate").innerText;
-let bindTemplate = Handlebars.compile(template);
+
+let visualImgContainer = document.querySelector(".visual_img.detail_swipe");
+let visualImgTemplate = document.querySelector("#visualImgTemplate").innerHTML;
+let bindVisualImgs = Handlebars.compile(visualImgTemplate);
+
+let commentsContainer = document.querySelector(".list_short_review");
+let commentTemplate = document.querySelector("#commentTemplate").innerHTML;
+let bindComments = Handlebars.compile(commentTemplate);
 const displayedLength = 4;
 Handlebars.registerHelper('anonymize', function(context) {
 	return context.substring(0, displayedLength) + "****";
@@ -65,10 +70,7 @@ function getDetailInfo(displayInfoId) {
 					document.querySelector(".btn_nxt").style.display = "none";
 				}
 				// 상단 이미지 & 타이틀
-				title.innerHTML = "<span>" + jsonResponse["displayInfo"].productDescription + "</span>";
-				jsonResponse["productImages"].forEach(function(productImage){
-					image.src = "../" + productImage.saveFileName;
-				});
+				visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
 				// 상단 상품 설명 영역
 				content.innerHTML = jsonResponse["displayInfo"].productContent;
 				// 평점
@@ -80,7 +82,7 @@ function getDetailInfo(displayInfoId) {
 				jsonResponse["comments"].forEach(function(comment){
 					comment.score = comment.score.toFixed(1);
 				});
-				commentsContainer.innerHTML = bindTemplate(jsonResponse);
+				commentsContainer.innerHTML = bindComments(jsonResponse);
 				
 				const commentsPerPage = 3;
 				if(document.querySelector(".list_short_review").querySelectorAll("li").length < commentsPerPage){

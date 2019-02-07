@@ -107,7 +107,7 @@ public class DetailProductSqls {
 		+ "ON pi.file_id = f.id "
 		+ "INNER JOIN display_info AS d "
 		+ "ON pi.product_id = d.product_id "
-		+ "WHERE pi.type = 'ma'"
+		+ "WHERE pi.type != 'th'"
 		+ "AND d.id = :displayInfoId ";
 	public static final String GET_PRODUCT_PRICES = "SELECT "
 		+ "pp.create_date"
