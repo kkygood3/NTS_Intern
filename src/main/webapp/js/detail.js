@@ -1,3 +1,20 @@
+$(document).ready(function(){
+  $(".bk_more._open").click(function(){
+    if($(".bk_more._open").css("display") === "block") {
+       $(".bk_more._open").css({ display: "none"});
+       $(".bk_more._close").css({ display: "block"});
+       $(".store_details").removeClass("close3");
+    }
+  });
+  $(".bk_more._close").click(function(){
+	    if($(".bk_more._close").css("display") === "block") {
+	       $(".bk_more._close").css({ display: "none"});
+	       $(".bk_more._open").css({ display: "block"});
+	       $(".store_details").addClass("close3");
+	    }
+	  });
+});
+
 document.addEventListener("DOMContentLoaded", function() {
 	let url = window.location.href;
 	let path = url.split("/");
