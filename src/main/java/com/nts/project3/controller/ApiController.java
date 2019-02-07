@@ -37,7 +37,7 @@ public class ApiController {
 	private MainCategoryService mainCategoryService;
 	@Autowired
 	private MainPromotionService mainPromotionService;
-	
+
 	/**
 	 * /products 요청을 받아 메인 페이지에 상품정보를 출력
 	 * @param	categoryId	해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
@@ -50,12 +50,10 @@ public class ApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 
 		List<MainProduct> productList = new ArrayList<>();
-		int totalCount = 0;
-		
-		totalCount = mainProductService.getCount(categoryId);
+		int totalCount = mainProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			productList = mainProductService.getProducts(categoryId,start);
+			productList = mainProductService.getProducts(categoryId, start);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -85,9 +83,13 @@ public class ApiController {
 	 */
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
-
-		List<MainPromotion> promotionList = mainPromotionService.getPromotions();
+		
+		List<MainPromotion> promotionList = new ArrayList<>();
 		int totalCount = mainPromotionService.getCount();
+
+		if (totalCount > 0) {
+			promotionList = mainPromotionService.getPromotions();
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("promotionList", promotionList);
