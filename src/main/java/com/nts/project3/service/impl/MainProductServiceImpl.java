@@ -21,23 +21,33 @@ public class MainProductServiceImpl implements MainProductService {
 
 	@Override
 	public List<MainProduct> getProducts(long categoryId, long start) {
-		if(categoryId > 0)
+		if (start < 0) {
+			start = 0;
+		}
+
+		if (categoryId > 0) {
 			return mainProductDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
-		else
+		} else {
 			return getProducts(start);
+		}
 	}
 
 	@Override
 	public List<MainProduct> getProducts(long start) {
+		if (start < 0) {
+			start = 0;
+		}
+
 		return mainProductDao.selectPagingProducts(start, LIMIT);
 	}
 
 	@Override
 	public int getCount(int categoryId) {
-		if(categoryId > 0)
+		if (categoryId > 0) {
 			return mainProductDao.selectCountByCategory(categoryId);
-		else
+		} else {
 			return getCount();
+		}
 	}
 
 	@Override
