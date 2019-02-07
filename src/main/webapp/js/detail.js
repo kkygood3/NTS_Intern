@@ -71,6 +71,7 @@ function getDetailInfo(displayInfoId) {
 				}
 				// 상단 이미지 & 타이틀
 				visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
+				imageSlide();
 				// 상단 상품 설명 영역
 				content.innerHTML = jsonResponse["displayInfo"].productContent;
 				// 평점
@@ -142,6 +143,30 @@ tab.addEventListener("click", function(event){
 		locationInfo.className = detailInfo.className.replace("hide", "");
 	}
 });
+
+function imageSlide(){
+	let visualImageIndex = 0;
+	const cntImages = visualImgContainer.querySelectorAll("li").length;
+	const imageWidth = 414;
+	let prevImage = visualImgContainer.querySelector("li[data-index='" + (cntImages - 1) + "']");
+	let nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
+	let nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) + "']");
+	document.querySelector(".btn_prev").addEventListener("click", function(){
+
+	});
+	document.querySelector(".btn_nxt").addEventListener("click", function(){
+		nowImage.style.left = "0";
+		nowImage.className = "item slide_left_out";
+		nextImage.style.left = imageWidth + "px";
+		nextImage.className = "item slide_left_in";
+		
+		visualImageIndex = (visualImageIndex + 1) % cntImages;
+		nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
+		nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) % cntImages + "']");
+		
+		document.querySelector(".num").innerHTML = visualImageIndex + 1;
+	});
+}
 
 document.querySelector(".lnk_top").addEventListener("click", function(){
 	document.documentElement.scrollTop = 0;
