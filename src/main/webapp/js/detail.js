@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 let image = document.querySelector(".img_thumb");
+let cnt = document.querySelector(".count_detail_image");
 
 function getDetailInfo(displayInfoId) {
 	let httpRequest;
@@ -19,6 +20,8 @@ function getDetailInfo(displayInfoId) {
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
 				
+				// 이미지 개수 영역
+				cnt.innerHTML = jsonResponse["productImages"].length;
 				// 상단 이미지
 				jsonResponse["productImages"].forEach(function(productImage){
 					image.src = "../" + productImage.saveFileName;
