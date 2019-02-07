@@ -242,7 +242,7 @@
 			leftList.innerHTML = "";
 			rightList.innerHTML = "";
 
-			enableMoreButton();
+			showMoreButton();
 			addDOMProducts(categoryId, start);
 		}
 		
@@ -274,12 +274,9 @@
 					return;
 				}
 				var products = response.products;
+				var totalCount = response.totalCount;
 				var template = document.querySelector("#template-product-list").innerHTML;
-				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
-				if (products.length < 4) {
-					disableMoreButton();
-				}
-				
+
 				var leftList = productListBox.getElementsByTagName("ul")[0];
 				var rightList = productListBox.getElementsByTagName("ul")[1];
 				for (var i in products) {
@@ -290,6 +287,12 @@
 					} else {
 						leftList.innerHTML += resultHTML;
 					}
+				}
+
+				setCategoryCount(totalCount);
+				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
+				if (totalCount <= leftList.childElementCount + rightList.childElementCount) {
+					hideMoreButton();
 				}
 			});
 		}
@@ -333,22 +336,20 @@
 				els[i].setAttribute("class", "anchor");
 			}
 			categoryTab.querySelector("a").setAttribute("class", "anchor active");
-			var count = categoryTab.getAttribute("data-count");
-			setCategoryCount(count);
 			var categoryId = categoryTab.getAttribute("data-category");
 			setDOMProducts(parseInt(categoryId), 0);
 		}
 
 		// more 버튼 활성화 
-		function enableMoreButton() {
+		function showMoreButton() {
 			var button = document.querySelector(".more .btn");
-			button.disabled = false;
+			button.style.display = "block";
 		}
 
 		// more 버튼 비활성화 
-		function disableMoreButton() {
+		function hideMoreButton() {
 			var button = document.querySelector(".more .btn");
-			button.disabled = true;
+			button.style.display = "none";
 		}
 
 		// 프로덕트 더보기
