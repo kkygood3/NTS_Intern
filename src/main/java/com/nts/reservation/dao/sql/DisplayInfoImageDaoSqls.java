@@ -9,17 +9,17 @@ package com.nts.reservation.dao.sql;
  * @author 육성렬
  */
 public class DisplayInfoImageDaoSqls {
-	public static final String SELECT_DISPLAY_INFO_IMAGE_BY_ID = "SELECT file_info.content_type,"
-		+ " file_info.create_date,"
-		+ " file_info.delete_flag,"
-		+ " file_info.modify_date,"
-		+ " file_info.save_file_name,"
-		+ " file_info.file_name,"
-		+ " file_info.id AS file_id,"
+	public static final String SELECT_DISPLAY_INFO_IMAGE_BY_ID = "SELECT file.content_type,"
+		+ " file.create_date,"
+		+ " file.delete_flag,"
+		+ " file.modify_date,"
+		+ " file.save_file_name,"
+		+ " file.file_name,"
+		+ " file.id AS file_id,"
 		+ " image.display_info_id,"
 		+ " image.id AS display_info_image_id"
 		+ " FROM  display_info_image AS image,"
-		+ " file_info"
-		+ " WHERE image.file_id = file_info.id"
+		+ " file_info AS file"
+		+ " WHERE image.file_id = file.id"
 		+ " AND image.display_info_id = :id";
 }
