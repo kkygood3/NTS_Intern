@@ -10,7 +10,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.nts.reservation.model.Category;
+import com.nts.reservation.model.Comment;
+import com.nts.reservation.model.CommentMetaData;
 import com.nts.reservation.model.Product;
+import com.nts.reservation.model.ProductDisplay;
 import com.nts.reservation.model.Promotion;
 
 /**
@@ -33,6 +36,21 @@ public class MapperConfig {
 	@Bean
 	public RowMapper<Promotion> promotionMapper() {
 		return BeanPropertyRowMapper.newInstance(Promotion.class);
+	}
+
+	@Bean
+	public RowMapper<ProductDisplay> productDisplayMapper() {
+		return BeanPropertyRowMapper.newInstance(ProductDisplay.class);
+	}
+
+	@Bean
+	public RowMapper<Comment> commentMapper() {
+		return BeanPropertyRowMapper.newInstance(Comment.class);
+	}
+
+	@Bean
+	public RowMapper<CommentMetaData> commentMetaDataMapper() {
+		return BeanPropertyRowMapper.newInstance(CommentMetaData.class);
 	}
 
 }
