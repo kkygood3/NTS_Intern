@@ -4,24 +4,30 @@
  */
 package com.nts.reservation.dto;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
 * @author  : 이승수
 */
 public class DisplayInfoImage {
-	private String createDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date createDate;
 	private boolean deleteFlag;
 	private int displayInfoId;
 	private int displayInfoImageId;
 	private int fileId;
 	private String fileName;
-	private String modifyDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date modifyDate;
 	private String saveFileName;
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -65,11 +71,11 @@ public class DisplayInfoImage {
 		this.fileName = fileName;
 	}
 
-	public String getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

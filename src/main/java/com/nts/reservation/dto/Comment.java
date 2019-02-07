@@ -6,7 +6,10 @@ package com.nts.reservation.dto;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
 * @author  : 이승수
@@ -15,10 +18,13 @@ public class Comment {
 	private String comment;
 	private int commentId;
 	private List<CommentImage> commentImages = Collections.emptyList();
-	private String createDate;
-	private String modifyDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date createDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date modifyDate;
 	private int productId;
-	private String reservationDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date reservationDate;
 	private String reservationEmail;
 	private int reservationInfoId;
 	private String reservationName;
@@ -49,19 +55,19 @@ public class Comment {
 		this.commentImages = commentImages;
 	}
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
@@ -73,11 +79,11 @@ public class Comment {
 		this.productId = productId;
 	}
 
-	public String getReservationDate() {
+	public Date getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(String reservationDate) {
+	public void setReservationDate(Date reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

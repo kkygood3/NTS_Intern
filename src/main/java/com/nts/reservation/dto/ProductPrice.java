@@ -4,23 +4,29 @@
  */
 package com.nts.reservation.dto;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
 * @author  : 이승수
 */
 public class ProductPrice {
-	private String createDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date createDate;
 	private int discountRate;
-	private String modifyDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date modifyDate;
 	private int price;
 	private String priceTypeName;
 	private int productId;
 	private int productPriceId;
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -32,11 +38,11 @@ public class ProductPrice {
 		this.discountRate = discountRate;
 	}
 
-	public String getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

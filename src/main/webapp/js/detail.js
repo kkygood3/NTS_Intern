@@ -60,6 +60,9 @@ function getDetailInfo(displayInfoId) {
 				// 댓글 개수
 				cntComment.innerHTML = jsonResponse["comments"].length + "건";
 				// 댓글
+				jsonResponse["comments"].forEach(function(comment){
+					comment.score = comment.score.toFixed(1);
+				});
 				commentsContainer.innerHTML = bindTemplate(jsonResponse);
 				// 상세설명
 				introduce.innerHTML = jsonResponse["displayInfo"].productContent;

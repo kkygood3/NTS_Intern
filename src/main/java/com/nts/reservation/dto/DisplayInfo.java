@@ -4,17 +4,23 @@
  */
 package com.nts.reservation.dto;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
 * @author  : 이승수
 */
 public class DisplayInfo {
 	private int categoryId;
 	private String categoryName;
-	private String createDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date createDate;
 	private int displayInfoId;
 	private String email;
 	private String homepage;
-	private String modifyDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date modifyDate;
 	private String openingHours;
 	private String placeLot;
 	private String placeName;
@@ -41,11 +47,11 @@ public class DisplayInfo {
 		this.categoryName = categoryName;
 	}
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
@@ -73,11 +79,11 @@ public class DisplayInfo {
 		this.homepage = homepage;
 	}
 
-	public String getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
