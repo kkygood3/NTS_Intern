@@ -83,6 +83,6 @@ public class ProductRepository {
 	 */
 	public int selectProductsCount() {
 
-		return (int)namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_ALL, Collections.EMPTY_MAP,Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_ALL, Collections.emptyMap(),Integer.class);
 	}
 }
