@@ -10,11 +10,11 @@ public class MainPromotionQueries {
 			+ " INNER JOIN display_info ON promotion.product_id = display_info.product_id";
 
 	public static final String SELECT_PROMOTION = 
-			"SELECT display_info.id AS display_info_id, display_info.place_name,product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.file_name AS product_image_url FROM promotion"
+			"SELECT display_info.id AS display_info_id, display_info.place_name,product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url FROM promotion"
 			+ " INNER JOIN display_info ON promotion.product_id = display_info.product_id"
 			+ " INNER JOIN product ON promotion.product_id = product.id"
 			+ " INNER JOIN product_image ON promotion.product_id = product_image.product_id AND product_image.type = 'th'"
 			+ " INNER JOIN file_info ON product_image.file_id = file_info.id"
-			+ " ORDER BY display_info.id DESC"
+			+ " GROUP BY promotion.product_id"
 			+ " LIMIT :limit";
 }
