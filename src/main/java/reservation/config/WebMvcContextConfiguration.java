@@ -16,10 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.nts.reservation.controller")
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
-	/**
-	 * 31556926 seconds = 1 year
-	 * @value 31556926
-	 */
+
 	private static final int DEFAULT_PERIOD = 31556926;
 
 	@Override
