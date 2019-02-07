@@ -2,9 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.service;
+package com.nts.resevation.service;
 
-import com.nts.project3.dto.ProductResponseDto;
+import com.nts.resevation.dto.ProductResponseDto;
 
 /**
  * 상품에 대한 서비스 인터페이스

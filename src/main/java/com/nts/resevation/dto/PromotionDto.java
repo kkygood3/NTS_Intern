@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dto;
+package com.nts.resevation.dto;
 
 /**
  * 프로모션 데이터를 담는 클래스

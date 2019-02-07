@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.controller;
+package com.nts.resevation.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.project3.dto.PromotionDto;
-import com.nts.project3.service.PromotionService;
+import com.nts.resevation.dto.PromotionDto;
+import com.nts.resevation.service.PromotionService;
 
 /**
  * 프로모션 목록 구하기 web api

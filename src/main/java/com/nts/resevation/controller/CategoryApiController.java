@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.controller;
+package com.nts.resevation.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.project3.dto.CategoryDto;
-import com.nts.project3.service.CategoryService;
+import com.nts.resevation.dto.CategoryDto;
+import com.nts.resevation.service.CategoryService;
 
 /**
  * 카테고리에 대한 Web Api 요청을 처리해주는 클래스

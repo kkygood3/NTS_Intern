@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dto;
+package com.nts.resevation.dto;
 
 /**
  * 상품 정보를 담는 클래스

@@ -2,9 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dao;
+package com.nts.resevation.dao;
 
-import static com.nts.project3.dao.ProductDaoSqls.*;
+import static com.nts.resevation.dao.ProductDaoSqls.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.ProductDto;
+import com.nts.resevation.dto.ProductDto;
 
 /**
  * 상품 정보들을 가져오는 클래스

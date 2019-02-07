@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.service;
+package com.nts.resevation.service;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.project3.dao.PromotionDao;
-import com.nts.project3.dto.PromotionDto;
+import com.nts.resevation.dao.PromotionDao;
+import com.nts.resevation.dto.PromotionDto;
 
 /**
  * 프로모션에 대한 서비스 로직

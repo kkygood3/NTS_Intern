@@ -2,9 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.project3.dao;
+package com.nts.resevation.dao;
 
-import static com.nts.project3.dao.CategoryDaoSqls.*;
+import static com.nts.resevation.dao.CategoryDaoSqls.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-import com.nts.project3.dto.CategoryDto;
+import com.nts.resevation.dto.CategoryDto;
 
 /**
  * 카테고리 데이터를 가져오는 클래스  
