@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.nts.project3.controller")
+@ComponentScan("com.nts.resevation.controller")
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	// 1Year = 31556926 second
 	private final int CACHE_PERIOD = 31556926;
