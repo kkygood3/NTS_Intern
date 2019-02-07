@@ -18,4 +18,3 @@ function sendGETAjax(url, action) {
 	};
 	httpRequest.send();
 }
-
