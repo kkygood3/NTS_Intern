@@ -1,3 +1,6 @@
+/**
+ * @author 육성렬
+ */
 
 document.addEventListener("DOMContentLoaded", function() {
     detailPage.init();

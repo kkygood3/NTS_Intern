@@ -1,6 +1,7 @@
 /**
- * 
+ * @author 육성렬
  */
+
 document.addEventListener("DOMContentLoaded", function() {
 	reviewPage.init();
 })

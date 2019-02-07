@@ -1,4 +1,8 @@
 /**
+ * @author 육성렬
+ */
+
+/**
  * @function sendGet 서버에 Get 메서드 요청 함수.
  * @param {String}
  *            path 요청 URL
