@@ -13,7 +13,6 @@ function sendGETAjax(url, action) {
 			window.location.href = "/error" + getParamsForErrorPage(httpRequest.status);
 			return false;
 		}
-		alert(httpRequest.getAllResponseHeaders());
 		var resultText = JSON.parse(httpRequest.responseText);
 		action(resultText);
 	};
