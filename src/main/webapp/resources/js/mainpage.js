@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	addClickEventCategoryChange();
 	addClickEventMoreBtn();
+	addSlideEndEvent();
 	slidePromotion();
 });
 
@@ -72,16 +73,13 @@ function slidePromotion(){
 	setTimeout(() =>{
 		var promotionList = document.querySelector("#promotion_list");
 		promotionList.className = "visual_img slide";
-		readjustPromotionList(promotionList);
 	}, 1000);
 }
 
 function readjustPromotionList(promotionList){
-	setTimeout(() => {
 		promotionList.className = "visual_img";
 		movePromotionHeadToTail(promotionList);
 		slidePromotion();
-	}, 1000);
 }
 
 function movePromotionHeadToTail(promotionList){
@@ -130,4 +128,11 @@ function getProductsCount() {
 	});
 	
 	return productCount;
+}
+
+
+function addSlideEndEvent(){
+	document.querySelector("#promotion_list").addEventListener("transitionend", (evt)=>{
+		readjustPromotionList(evt.currentTarget);
+	});
 }

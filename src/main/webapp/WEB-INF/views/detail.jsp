@@ -223,10 +223,10 @@
 		</li>
 	</script>
 	<script type="text/template" id="product_display_img_template">
-		<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
+		<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="{{productDisplayImageUrl}}"> <span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
-					<h2 class="visual_txt_tit"> <span></span> </h2>
+					<h2 class="visual_txt_tit"> <span>{{productDescription}}</span> </h2>
 					<p class="visual_txt_dsc"></p>
 				</div>
 			</div>
@@ -248,12 +248,14 @@
 		var productDisplayInfo = JSON.parse(response);
 		
 		var productDisplay = productDisplayInfo.productDisplay;
+		var productDisplayImgUrlList = productDisplay.productDisplayImageUrlList;
 		var commentListInfo = productDisplayInfo.commentListInfo;
+		
 		
 		document.querySelector("#product_description").innerHTML = productDisplay.productDescription;
 		document.querySelector("#product_content").innerHTML = productDisplay.productContent;
 		document.querySelector("#product_introduce").innerHTML = productDisplay.productContent;
-		product_introduce
+		
 		
 		printComment(commentListInfo);
 	}
@@ -267,7 +269,6 @@
 		document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
 		document.querySelector("#star_score").style.width = commentAvgScore * 20 + "%";
 		var commentList = document.querySelector("#comment_list");
-		
 		commentItems.forEach((commentItem) =>{
 			commentList.innerHTML += parseCommentToHtml(commentItem);
 		});
