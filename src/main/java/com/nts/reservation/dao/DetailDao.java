@@ -1,5 +1,14 @@
 package com.nts.reservation.dao;
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_AVERAGE_SCORE;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES;
@@ -17,6 +26,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ */
 import com.nts.reservation.detail.dto.Comment;
 import com.nts.reservation.detail.dto.CommentImage;
 import com.nts.reservation.detail.dto.DisplayInfo;
@@ -24,6 +39,9 @@ import com.nts.reservation.detail.dto.DisplayInfoImage;
 import com.nts.reservation.detail.dto.ProductImage;
 import com.nts.reservation.detail.dto.ProductPrice;
 
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 @Repository
 public class DetailDao {
 	@Autowired

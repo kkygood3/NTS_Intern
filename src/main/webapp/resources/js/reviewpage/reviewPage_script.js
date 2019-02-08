@@ -18,11 +18,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
 var reviewPage = {
 		domElements : {
-			AVERAGE_SCORE_STARS : document.querySelector("em.graph_value"),
-			AVERAGE_SCORE_TEXT : document.querySelector("strong.text_value span"),
-			REVIEW_AREA : document.querySelector("ul.list_short_review"),
+			AVERAGE_SCORE_STARS : document.querySelector(".graph_value"),
+			AVERAGE_SCORE_TEXT : document.querySelector(".text_value span"),
+			REVIEW_AREA : document.querySelector(".list_short_review"),
 			REVIEW_ITEM : document.querySelector("#commentItem").innerHTML,
-			REVIEW_COUNT : document.querySelector("em.green")
+			REVIEW_COUNT : document.querySelector(".green")
 		},
 		
 		urls : {

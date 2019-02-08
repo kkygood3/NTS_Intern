@@ -17,6 +17,7 @@ import com.nts.reservation.detail.dto.ProductPrice;
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
+
 public interface DetailService {
 	DisplayInfo getDisplayInfo(Long displayInfoId);
 

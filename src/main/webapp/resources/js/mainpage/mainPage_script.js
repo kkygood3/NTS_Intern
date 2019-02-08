@@ -18,13 +18,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
 var mainPage = {
 	domElements : {
-		TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),
-		TAB_BUTTON_LI : document.querySelectorAll("div.section_event_tab ul li"),
-		SHOW_MORE_BUTTON : document.querySelector("div.more button"),
-		SLIDE_CONTAINER : document.querySelector("ul.visual_img"),
+		TAB_BUTTON_UL :	document.querySelector(".section_event_tab ul"),
+		TAB_BUTTON_LI : document.querySelectorAll(".section_event_tab ul li"),
+		SHOW_MORE_BUTTON : document.querySelector(".more button"),
+		SLIDE_CONTAINER : document.querySelector(".visual_img"),
 		PRODUCT_LISTS : document.querySelectorAll(".lst_event_box"),
 		NEW_PRODUCT_ITEM : document.querySelector("#itemList").innerHTML,
-		PRODUCT_NUMBER_IND : document.querySelector("p.event_lst_txt span"),
+		PRODUCT_NUMBER_IND : document.querySelector(".event_lst_txt span"),
 		PROMO_TEMPLATE : document.querySelector("#promotionItem").innerHTML
 	},
 	
@@ -87,7 +87,7 @@ var mainPage = {
 			switchCategory(tab.dataset.category);
 		});
 		
-		document.querySelector("div.more").addEventListener("click", (e) => {
+		document.querySelector(".more").addEventListener("click", (e) => {
 			fetchProducts(state.currentCategory, state.loadedProductCount);
 		});
 	},
@@ -188,6 +188,6 @@ var mainPage = {
 	 */
 	renderPromoItems : function (promotionData) {
 		arrayToLiRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
-		new SlidingAnimation(domElements.SLIDE_CONTAINER, 4, 1000, true).initSlideAnimation();
+		new SlidingAnimation(domElements.SLIDE_CONTAINER).init(4, 1000, true);
 	}
 };

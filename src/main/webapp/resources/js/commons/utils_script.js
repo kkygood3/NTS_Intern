@@ -8,17 +8,16 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-
-function SlidingAnimation(_slideContainer, _animationSpeed, _stopDuration, _isAuto){
+function SlidingAnimation(_slideContainer){
 	slideContainer = _slideContainer;
-	isAuto = _isAuto;
-	
 	slideWrapper = slideContainer.closest("div");
-	IMAGE_LIST = slideContainer.getElementsByTagName("li");
 	
+	IMAGE_LIST = slideContainer.getElementsByTagName("li");
 	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
-	ANIMATION_SPEED = _animationSpeed;
-	ANIMATION_STOP_DURATION = _stopDuration;
+	
+	isAuto = true;
+	ANIMATION_SPEED = 1;
+	ANIMATION_STOP_DURATION = 1000;
 	
 	prevSlideCount = IMAGE_LIST.length - 1;	
 	currentSlideCount = 0;
@@ -30,9 +29,12 @@ function SlidingAnimation(_slideContainer, _animationSpeed, _stopDuration, _isAu
  * @initSlideAnimation() : required setup for the promo animation, and
  *                       initialization of animation frame call
  */
-SlidingAnimation.prototype.initSlideAnimation = function() {
+SlidingAnimation.prototype.init = function(_animationSpeed, _stopDuration, _isAuto) {
+	isAuto = _isAuto;
+	ANIMATION_SPEED = _animationSpeed;
+	ANIMATION_STOP_DURATION = _stopDuration;
+	
 	IMAGE_LIST.forEach((item) => {
-		
 		if(item == IMAGE_LIST[0]) {
 			IMAGE_LIST[0].style.left = 0 + "px";
 		} else {
@@ -46,7 +48,7 @@ SlidingAnimation.prototype.initSlideAnimation = function() {
 	 */
 	if(isAuto) {
 		setTimeout(() => {
-			requestAnimationFrame(() => this.slideAnimation(true));
+			requestAnimationFrame(() => this.slide(true));
 		}, ANIMATION_STOP_DURATION);
 	}
 },
@@ -68,7 +70,7 @@ SlidingAnimation.prototype.initSlideAnimation = function() {
  * 
  * @isAuto : parameter to control auto-slide animation, if false, manual
  */
-SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeight, minHeight) {
+SlidingAnimation.prototype.slide = function(isAuto, isResizing, maxHeight, minHeight) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
@@ -105,14 +107,14 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 	if(needToStop) {
 		if(isAuto) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slideAnimation(isAuto));
+				requestAnimationFrame(() => this.slide(isAuto));
 			}, ANIMATION_STOP_DURATION);
 		} else {
 			console.log("done")
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() => this.slideAnimation(isAuto));
+		requestAnimationFrame(() => this.slide(isAuto));
 	}	
 },
 
@@ -138,7 +140,7 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
  *                                as slideAnimation slides with asc order,
  *                                Reverse goes desc order
  */
-SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, maxHeight, minHeight) {
+SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing, maxHeight, minHeight) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
@@ -176,13 +178,13 @@ SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, 
 	if(needToStop) {
 		if(isAuto) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slideAnimationReverse(isAuto));
+				requestAnimationFrame(() => this.slideReverse(isAuto));
 			}, ANIMATION_STOP_DURATION);
 		} else {
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() =>this.slideAnimationReverse(isAuto));
+		requestAnimationFrame(() =>this.slideReverse(isAuto));
 	}
 }
 
