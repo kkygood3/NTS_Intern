@@ -34,6 +34,7 @@ var detailPage = {
 	displayInfoId : window.location.href.split("/").slice(-1)[0],
 	
 	constants: {
+		cntMainImage : 2,
 		displayedIdLength : 4,
 		contentContainerHeight : 73,
 		slideImageWidth : 414,
@@ -83,7 +84,9 @@ var detailPage = {
 	displayMainInfo: function(jsonResponse){
 		var bindVisualImgs = this.compileHendlebars.bindTemplate(this.template.visualImgTemplate);
 		
-		this.elements.cnt.innerHTML = jsonResponse["productImages"].length;
+		if(jsonResponse["productImages"].length > 1){
+			this.elements.cnt.innerHTML = this.constants.cntMainImage;
+		}
 		if(jsonResponse["productImages"].length === 1){
 			this.elements.btnPrev.style.display = "none";
 			this.elements.btnNxt.style.display = "none";
@@ -217,7 +220,7 @@ var detailPage = {
 		
 		slideRight: function(){
 			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
-			var cntImages = this.detailPage.imageSlide.setCntImage();
+			var cntImages = this.detailPage.constants.cntMainImage;
 			var prevImage;
 			var nowImage = this.detailPage.imageSlide.setImage(slideImageIndex);
 			
@@ -243,7 +246,7 @@ var detailPage = {
 		
 		slideLeft: function(){
 			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
-			var cntImages = this.detailPage.imageSlide.setCntImage();
+			var cntImages = this.detailPage.constants.cntMainImage;
 			var nowImage = this.detailPage.imageSlide.setImage(this.detailPage.imageSlide.visualImageIndex);
 			var nextImage = this.detailPage.elements.visualImgContainer.querySelector("li[data-index='" + (slideImageIndex + 1) % cntImages + "']");
 			
