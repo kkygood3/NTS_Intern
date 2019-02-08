@@ -30,12 +30,14 @@ public class ProductApiController {
 	 * 전시되고있는 상품들의 총 개수를 json으로 리턴해준다. 
 	 */
 	@GetMapping
-	public ProductResponseDto getProductResponse(@RequestParam(required=false, defaultValue="0") int categoryId, @RequestParam int start) {
+	public ProductResponseDto getProductResponse(@RequestParam(required = false, defaultValue = "0") int categoryId,
+		@RequestParam int start) {
 		return productService.getProductResponse(categoryId, start);
 	}
-	
+
 	@GetMapping("/{displayInfoId}")
-	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId) {
-		return productService.getDisplayInfoResponse(displayInfoId);
+	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId,
+		@RequestParam(required = false, defaultValue = "2") int productImageLimit) {
+		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit);
 	}
 }

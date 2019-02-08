@@ -11,8 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.resevation.dao.DisplayInfoDao;
 import com.nts.resevation.dao.ProductDao;
+import com.nts.resevation.dto.DisplayInfoDto;
+import com.nts.resevation.dto.DisplayInfoImageDto;
+import com.nts.resevation.dto.DisplayInfoResponseDto;
 import com.nts.resevation.dto.ProductDto;
+import com.nts.resevation.dto.ProductImageDto;
 import com.nts.resevation.dto.ProductResponseDto;
 
 /**
@@ -24,6 +29,8 @@ import com.nts.resevation.dto.ProductResponseDto;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
+	@Autowired
+	private DisplayInfoDao displayInfoDao;
 
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start) {
@@ -41,5 +48,16 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return new ProductResponseDto(products, count);
+	}
+
+	@Override
+	public DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit) {
+		DisplayInfoResponseDto displayInfoResponse = new DisplayInfoResponseDto();
+		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
+		List<ProductImageDto> productImages = productDao.selectProductImages(displayInfo.getProductId(),
+			productImageLimit);
+		displayInfoResponse.setDisplayInfo(displayInfo);
+		displayInfoResponse.setProductImages(productImages);
+		return displayInfoResponse;
 	}
 }

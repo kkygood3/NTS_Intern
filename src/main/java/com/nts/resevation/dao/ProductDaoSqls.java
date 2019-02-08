@@ -9,7 +9,8 @@ package com.nts.resevation.dao;
  * @author jinwoo.bae
  */
 public class ProductDaoSqls {
-	public static final String SELECT_ALL_PAGING = "SELECT  "
+	public static final String SELECT_ALL_PAGING = ""
+		+ "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "
 		+ "    p.description AS productDescription, "
@@ -29,7 +30,8 @@ public class ProductDaoSqls {
 		+ "        AND di.id = dii.display_info_id "
 		+ "        AND fi.id = pi.file_id "
 		+ "ORDER BY di.id ASC LIMIT :start, :limit";
-	public static final String SELECT_BY_CATEGORY_ID_PAGING = "SELECT  "
+	public static final String SELECT_BY_CATEGORY_ID_PAGING = ""
+		+ "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "
 		+ "    p.description AS productDescription, "
@@ -49,14 +51,16 @@ public class ProductDaoSqls {
 		+ "        AND di.id = dii.display_info_id "
 		+ "        AND fi.id = pi.file_id "
 		+ "ORDER BY di.id ASC LIMIT :start, :limit";
-	public static final String SELECT_COUNT = "SELECT "
+	public static final String SELECT_COUNT = ""
+		+ "SELECT "
 		+ "    COUNT(p.id) AS count "
 		+ "FROM "
 		+ "    product p, "
 		+ "    display_info di "
 		+ "WHERE "
 		+ "    p.id = di.product_id";
-	public static final String SELECT_COUNT_BY_CATEGORY_ID = "SELECT "
+	public static final String SELECT_COUNT_BY_CATEGORY_ID = ""
+		+ "SELECT "
 		+ "    COUNT(p.id) AS count "
 		+ "FROM "
 		+ "    product p, "
@@ -64,4 +68,24 @@ public class ProductDaoSqls {
 		+ "WHERE "
 		+ "    p.id = di.product_id"
 		+ "        AND p.category_id = :categoryId";
+	public static final String SELECT_PRODUCT_IMAGES = ""
+		+ "SELECT "
+		+ "    pi.product_id AS productId, "
+		+ "    pi.id AS productImageId, "
+		+ "    pi.type AS type, "
+		+ "    fi.id AS fileInfoId, "
+		+ "    fi.file_name AS fileName, "
+		+ "    fi.save_file_name AS saveFileName, "
+		+ "    fi.content_type AS contentType, "
+		+ "    fi.delete_flag AS deleteFlage, "
+		+ "    fi.create_date AS createDate, "
+		+ "    fi.modify_date AS modifyDate "
+		+ "FROM "
+		+ "    product_image pi, "
+		+ "    file_info fi "
+		+ "WHERE "
+		+ "    pi.file_id = fi.id AND pi.type != 'th' "
+		+ "        AND pi.product_id = :productId "
+		+ "ORDER BY pi.id "
+		+ "LIMIT :limit";
 }
