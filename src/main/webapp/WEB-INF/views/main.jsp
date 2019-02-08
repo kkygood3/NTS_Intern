@@ -8,7 +8,7 @@
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main_slide.css" rel="stylesheet">
 <script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-<script type= "text/javascript" src= "./javascript/common/ajax.js" ></script>
+<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/category.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/promotion.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/thumbnail.js" ></script>
@@ -64,6 +64,7 @@
             </div>
         </div>
     </div>
+    
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
@@ -80,7 +81,7 @@
     </script>
 
     <script type="rv-template" id="product_item">
-	<li class="item" id="thumb_{display_info_id}">
+	<li class="item" id="thumb_{product_id}_{display_info_id}">
 		<div class="item_preview">
 			<img alt="{description}" class="img_thumb" src="./{save_file_name}">
 		</div>
@@ -95,6 +96,11 @@
     <li class="item">
 		<a class="anchor"><span id="category_{id}">{name}</span><a>
 	</li>
+	</script>
+	<script type="rv-template" id="post_form_template">
+    <form class="post_form" action="" method="post" style="visibility: hidden; width: 0; height: 0;">
+		<input class="data" type="text" name="data">
+	</form>
 	</script>
 </body>
 </html>

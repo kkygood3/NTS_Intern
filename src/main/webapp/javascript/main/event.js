@@ -28,9 +28,24 @@ function addThumbnailClickEvent() {
 		if (!event.target.closest("li")) {
 			return;
 		}
-		var id = event.target.closest("li").id.replace("thumb_", "");
-		window.location.href = "./detail?display_info_id=" +id;  
+		window.location.href = "./detail" +  makeParamsForDetailPage(event.target.closest("li"));
+
 	});
+}
+
+function makeParamsForDetailPage(thumbnail) {
+	var ids = thumbnail.id.split("_");
+	var img = thumbnail.getElementsByTagName("img")[0];
+	var txt_tit = thumbnail.getElementsByTagName("h4")[0];
+	var placeName = txt_tit.getElementsByClassName("sm")[0].innerText;
+	var content = thumbnail.getElementsByClassName("event_txt_dsc")[0].innerText;
+	var des
+	return "?product_id=" + ids[1] +
+		"&display_info_id=" + ids[2] +
+		"&description=" + encodeURI(img.getAttribute("alt")) +
+		"&save_file_name=" + img.getAttribute("src")+
+		"&place_name=" + encodeURI(placeName)+
+		"&content=" + encodeURI(content);
 }
 
 function changeCategoryTabUi(curCategoryId) {

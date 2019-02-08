@@ -10,7 +10,7 @@ function sendGETAjax(url, action) {
 			return false;
 		}
 		if (httpRequest.status !== 200) {
-			window.location.href = "/error" + getParamsForErrorPage(httpRequest.status);
+			window.location.href = "./error" + getParamsForErrorPage(httpRequest.status);
 			return false;
 		}
 		var resultText = JSON.parse(httpRequest.responseText);

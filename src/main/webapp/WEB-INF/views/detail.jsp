@@ -12,7 +12,7 @@
 	<link href="./css/style.css" rel="stylesheet">
 	<link href="./css/detail.css" rel="stylesheet">
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/ajax.js" ></script>
+	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
     <style>
 
     </style>
@@ -50,7 +50,15 @@
                         <div>
                             <div class="container_visual" style="width: 414px;">
                                 <ul class="visual_img detail_swipe">
-								<!-- content -->
+								    <li class="item" style="width: 414px;">
+										<img alt="" class="img_thumb" src="${saveFileName}">
+										<span class="img_bg"></span>
+								    	<div class="visual_txt">
+								    		<div class="visual_txt_inn">
+								    			<h2 class="visual_txt_tit"><span>${description}</span></h2>
+								         	</div>
+								        </div>
+								    </li>
                                 </ul>
                             </div>
                             <div class="prev">
@@ -81,8 +89,7 @@
                 <div class="section_store_details">
                     <!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
                     <div class="store_details close3">
-                        <p class="dsc">
-                        </p>
+                        <p class="dsc">${content}</p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
                     <a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
@@ -200,11 +207,11 @@
     
     <script type="rv-template" id="promotion_item">
     <li class="item" style="width: 414px;">
-		<img alt="" class="img_thumb" src="./{save_file_name}">
+		<img alt="" class="img_thumb" src="${saveFileName}">
 		<span class="img_bg"></span>
     	<div class="visual_txt">
     		<div class="visual_txt_inn">
-    			<h2 class="visual_txt_tit"><span>{description}</span></h2>
+    			<h2 class="visual_txt_tit"><span>${description}</span></h2>
          	</div>
         </div>
     </li>
@@ -214,9 +221,9 @@
 	<li class="list_item">
 		<div class="review_area">
 			<div class="thumb_area img_vertical_top">
-				<img width="90" height="90" class="img_vertical_top" src="./{save_file_name}" alt="리뷰이미지">
+				<img width="90" height="90" class="img_vertical_top" src="${saveFileName}" alt="리뷰이미지">
 			</div>
-			<p class="review_tit">{description}</p>
+			<p class="review_tit">${description}</p>
 			<p class="review">{comment}</p>
 		</div>
 		<div class="info_area">
