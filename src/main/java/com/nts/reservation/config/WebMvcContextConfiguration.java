@@ -22,9 +22,9 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(PERIOD);
-		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(PERIOD);
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(PERIOD);
+		registry.addResourceHandler("/resources/css/**").addResourceLocations("/resources/css/").setCachePeriod(PERIOD);
+		registry.addResourceHandler("/resources/img/**").addResourceLocations("/resources/img/").setCachePeriod(PERIOD);
+		registry.addResourceHandler("/resources/js/**").addResourceLocations("/resources/js/").setCachePeriod(PERIOD);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index");
+		registry.addViewController("/").setViewName("mainpage");
 	}
 
 	@Bean
