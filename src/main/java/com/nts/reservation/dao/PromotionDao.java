@@ -27,7 +27,7 @@ public class PromotionDao extends BaseDao {
 	 * 전체 프로모션 이미지 셀렉트하는 메소드
 	 * @return 전체 프로모션 이미지 이름
 	 */
-	public List<Promotion> selectAll() {
+	public List<Promotion> selectMaTypeFileNames() {
 		return getJDBC().queryForList(SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
 	}
 }
