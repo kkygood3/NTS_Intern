@@ -30,13 +30,6 @@ var mainPage = {
 		PRODUCTS : "/reservation/api/products",
 		PRODUCTS_PARAMS : ""
 	},
-	
-	constants : {
-		SLIDE_CONATINER_WIDTH : "",
-		ANIMATION_SPEED : 4,
-		ANIMATION_STOP_DURATION : 1000
-	},
-	
 	state : {
 		CATEGORY_DATA : "",
 		loadedProductCount : 0,
@@ -51,11 +44,12 @@ var mainPage = {
 	init : function() {
 		domElements = this.domElements;
 		urls = this.urls;
-		constants = this.constants;
 		state = this.state;
+		parser = this.parser;
+		
 		renderPromoItems = this.renderPromoItems;
 		renderProductItems = this.renderProductItems;
-		parser = this.parser;
+
 		initTab = this.initTab;
 		fetchPromos = this.fetchPromos;
 		fetchProducts = this.fetchProducts;
@@ -174,7 +168,7 @@ var mainPage = {
 	    	domElements.PRODUCT_LISTS[state.loadedProductCount % 2].appendChild(newProduct);
 	    	state.loadedProductCount++;
 	    });
-	    if(state.CATEGORY_DATA.items.length>0){
+	    if(state.CATEGORY_DATA.items){
 	    	state.CATEGORY_DATA.items.forEach((data) => {
 		    	if(data.id == state.currentCategory) {
 		    		if(data.count <= state.loadedProductCount) {
@@ -190,6 +184,6 @@ var mainPage = {
 	 */
 	renderPromoItems : function (promotionData) {
 		arrayToLiRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
-	    slidingAnimation.initSlideAnimation(domElements.SLIDE_CONTAINER,true);
+		new SlidingAnimation(domElements.SLIDE_CONTAINER, 4, 1000, true).initSlideAnimation();
 	}
 };

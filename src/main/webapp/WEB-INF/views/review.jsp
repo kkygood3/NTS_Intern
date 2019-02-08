@@ -24,7 +24,7 @@
 	<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
-<body onload="mainPage.init()">
+<body onload="reviewPage.init()">
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
@@ -58,10 +58,10 @@
 						<div class="short_review_area">
 							<div class="grade_area">
 								<span class="graph_mask"> <em class="graph_value"
-									style="width: 88%;"></em>
-								</span> <strong class="text_value"> <span>4.4</span> <em
+									style="width: 0%;"></em>
+								</span> <strong class="text_value"> <span>0</span> <em
 									class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green">20건</em> 등록</span>
+								</strong> <span class="join_count"><em class="green">건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
 

@@ -8,173 +8,195 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-var slidingAnimation = {
-	state : {
-		IMAGE_LIST : []
-	},
-	
-	/**
-	 * @initSlideAnimation() : required setup for the promo animation, and
-	 *                       initialization of animation frame call
-	 */
-	initSlideAnimation : function (slideContainer, isAuto) {
-		constants.SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
-		state.IMAGE_LIST = slideContainer.getElementsByTagName("li");
-		state.prevSlideCount = state.IMAGE_LIST.length - 1;	
-		state.currentSlideCount = 0;
-		state.nextSlideCount = 1;
 
-		// change the layout with style.left to initialize the animation
-		state.IMAGE_LIST.forEach((item) => {
-			
-			if(item == state.IMAGE_LIST[0]) {
-				state.IMAGE_LIST[0].style.left = 0 + "px";
-			} else {
-				item.style.left = constants.SLIDE_CONATINER_WIDTH + "px";
-			}
-			item.style.position = "absolute";
-		});
+function SlidingAnimation(slideContainer, animationSpeed, stopDuration, isAuto){
+	this.slideContainer = slideContainer;
+	this.isAuto = isAuto;
+	slideWrapper = slideContainer.closest("div");
+	IMAGE_LIST = slideContainer.getElementsByTagName("li");
+	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
+	ANIMATION_SPEED = animationSpeed;
+	ANIMATION_STOP_DURATION = stopDuration;
+	this.prevSlideCount = IMAGE_LIST.length - 1;	
+	this.currentSlideCount = 0;
+	this.nextSlideCount = 1;
+	this.isAnimating = false;
+}
+
+/**
+ * @initSlideAnimation() : required setup for the promo animation, and
+ *                       initialization of animation frame call
+ */
+SlidingAnimation.prototype.initSlideAnimation = function() {
+	IMAGE_LIST.forEach((item) => {
 		
-		/*
-		 * timeout because first promo-slide should be displayed before
-		 * transition
-		 */
-		if(isAuto) {
+		if(item == IMAGE_LIST[0]) {
+			IMAGE_LIST[0].style.left = 0 + "px";
+		} else {
+			item.style.left = SLIDE_CONATINER_WIDTH + "px";
+		}
+		item.style.position = "absolute";
+	});
+	
+	/*
+	 * timeout because first promo-slide should be displayed before transition
+	 */
+	if(this.isAuto) {
+		setTimeout(() => {
+			requestAnimationFrame(() => this.slideAnimation(true));
+		}, ANIMATION_STOP_DURATION);
+	}
+},
+
+/**
+ * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
+ *                            const in global variable
+ * 
+ * @needToStop : this boolean indicates when the element is arrived in the right
+ *             position to be displayed
+ * 
+ * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
+ *                                    duration of the animation when the image
+ *                                    arrives in the right position , declared
+ *                                    as const in global variable
+ * 
+ * @promoAnimation() : promotion animation with 2 for loops to control the
+ *                   accuracy of the stop-position
+ * 
+ * @isAuto : parameter to control auto-slide animation, if false, manual
+ */
+SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeight, minHeight) {
+	this.isAnimating = true;
+	
+	let needToStop = false;
+	let currentImage = IMAGE_LIST[this.currentSlideCount];
+	let nextImage = IMAGE_LIST[this.nextSlideCount];
+	
+	if(isResizing){
+		this.resizeImageContainer(this.nextSlideCount, maxHeight, minHeight);
+	}
+	
+	if(parseInt(nextImage.style.left) == -414) {
+		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
+	}
+	
+	for(let iter = 0; iter < ANIMATION_SPEED; iter++) {
+		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
+		nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
+		
+		if(parseInt(currentImage.style.left) <= -SLIDE_CONATINER_WIDTH) {
+			
+			currentImage.style.left = SLIDE_CONATINER_WIDTH + "px";
+			
+			this.prevSlideCount = this.currentSlideCount;
+			this.currentSlideCount = this.nextSlideCount;
+			this.nextSlideCount++;
+			
+			if(this.nextSlideCount == IMAGE_LIST.length) {
+				this.nextSlideCount = 0;
+			}
+			needToStop = true;
+			break;
+		}
+	}
+	if(needToStop) {
+		if(this.isAuto) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slideAnimation(true));
-			}, constants.ANIMATION_STOP_DURATION);
-		}
-	},
-	
-	/**
-	 * @constants.ANIMATION_SPEED : to control the speed or animation, declared
-	 *                            as const in global variable
-	 * 
-	 * @needToStop : this boolean indicates when the element is arrived in the
-	 *             right position to be displayed
-	 * 
-	 * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
-	 *                                    duration of the animation when the
-	 *                                    image arrives in the right position ,
-	 *                                    declared as const in global variable
-	 * 
-	 * @promoAnimation() : promotion animation with 2 for loops to control the
-	 *                   accuracy of the stop-position
-	 * 
-	 * @isAuto : parameter to control auto-slide animation, if false, manual
-	 */
-	slideAnimation : function (isAuto) {
-		state.isAnimating = true;
-		
-		let needToStop = false;
-		let currentImage = state.IMAGE_LIST[state.currentSlideCount];
-		let nextImage = state.IMAGE_LIST[state.nextSlideCount];
-		
-		if(parseInt(nextImage.style.left) == -414) {
-			nextImage.style.left = constants.SLIDE_CONATINER_WIDTH + "px";
-		}
-		
-		for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++) {
-			currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
-			nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
-			
-			if(parseInt(currentImage.style.left) <= -constants.SLIDE_CONATINER_WIDTH) {
-				
-				currentImage.style.left = constants.SLIDE_CONATINER_WIDTH + "px";
-				
-				state.prevSlideCount = state.currentSlideCount;
-				state.currentSlideCount = state.nextSlideCount;
-				state.nextSlideCount++;
-				
-				if(state.nextSlideCount == state.IMAGE_LIST.length) {
-					state.nextSlideCount = 0;
-				}
-				needToStop = true;
-				break;
-			}
-		}
-		if(needToStop) {
-			if(isAuto) {
-				setTimeout(() => {
-					requestAnimationFrame(() => this.slideAnimation(isAuto));
-				}, constants.ANIMATION_STOP_DURATION);
-			} else {
-				state.isAnimating = false;
-			}
+				requestAnimationFrame(() => this.slideAnimation(isAuto));
+			}, ANIMATION_STOP_DURATION);
 		} else {
-			requestAnimationFrame(() => this.slideAnimation(isAuto));
-		}	
-	},
+			this.isAnimating = false;
+		}
+	} else {
+		requestAnimationFrame(() => this.slideAnimation(isAuto));
+	}	
+},
 
-	/**
-	 * @constants.ANIMATION_SPEED : to control the speed or animation, declared
-	 *                            as const in global variable
-	 * 
-	 * @needToStop : this boolean indicates when the element is arrived in the
-	 *             right position to be displayed
-	 * 
-	 * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
-	 *                                    duration of the animation when the
-	 *                                    image arrives in the right position ,
-	 *                                    declared as const in global variable
-	 * 
-	 * @promoAnimation() : promotion animation with 2 for loops to control the
-	 *                   accuracy of the stop-position
-	 * 
-	 * @isAuto : parameter to control auto-slide animation, if false, manual
-	 * 
-	 * @slideAnimationReverse(isAuto) diff with slideAnimation => direction of
-	 *                                animation and counting system are
-	 *                                different, as slideAnimation slides with
-	 *                                asc order, Reverse goes desc order
-	 */
-	slideAnimationReverse : function (isAuto) {
-		state.isAnimating = true;
+/**
+ * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
+ *                            const in global variable
+ * 
+ * @needToStop : this boolean indicates when the element is arrived in the right
+ *             position to be displayed
+ * 
+ * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
+ *                                    duration of the animation when the image
+ *                                    arrives in the right position , declared
+ *                                    as const in global variable
+ * 
+ * @promoAnimation() : promotion animation with 2 for loops to control the
+ *                   accuracy of the stop-position
+ * 
+ * @isAuto : parameter to control auto-slide animation, if false, manual
+ * 
+ * @slideAnimationReverse(isAuto) diff with slideAnimation => direction of
+ *                                animation and counting system are different,
+ *                                as slideAnimation slides with asc order,
+ *                                Reverse goes desc order
+ */
+SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, maxHeight, minHeight) {
+	this.isAnimating = true;
+	
+	let needToStop = false;
+	let prevImage = IMAGE_LIST[this.prevSlideCount];
+	let currentImage = IMAGE_LIST[this.currentSlideCount];
+	
+	if(isResizing){
+		this.resizeImageContainer(prevImage, maxHeight, minHeight);
+	}
+	
+	if(parseInt(prevImage.style.left) == 414) {
+		prevImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
+	}
+	
+	for(let iter = 0; iter < ANIMATION_SPEED; iter++) {
+		currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
+		prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
 		
-		let needToStop = false;
-		let prevImage = state.IMAGE_LIST[state.prevSlideCount];
-		let currentImage = state.IMAGE_LIST[state.currentSlideCount];
-		
-		if(parseInt(prevImage.style.left) == 414) {
-			prevImage.style.left = -constants.SLIDE_CONATINER_WIDTH + "px";
-		}
-		
-		for(let iter = 0; iter < constants.ANIMATION_SPEED; iter++) {
-			currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
-			prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
+		if(parseInt(currentImage.style.left) >= SLIDE_CONATINER_WIDTH) {
 			
-			if(parseInt(currentImage.style.left) >= constants.SLIDE_CONATINER_WIDTH) {
-				
-				currentImage.style.left = -constants.SLIDE_CONATINER_WIDTH + "px";
-				
-				state.nextSlideCount = state.currentSlideCount;
-				state.currentSlideCount = state.prevSlideCount;
-				state.prevSlideCount = state.prevSlideCount - 1;
-				
-				if(state.prevSlideCount == -1){
-					state.prevSlideCount = state.IMAGE_LIST.length - 1;
-				}
-				
-				needToStop = true;
-				break;
+			currentImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
+			
+			this.nextSlideCount = this.currentSlideCount;
+			this.currentSlideCount = this.prevSlideCount;
+			this.prevSlideCount = this.prevSlideCount - 1;
+			
+			if(this.prevSlideCount == -1){
+				this.prevSlideCount = IMAGE_LIST.length - 1;
 			}
+			
+			needToStop = true;
+			break;
 		}
-		if(needToStop) {
-			if(isAuto) {
-				setTimeout(() => {
-					requestAnimationFrame(() => this.slideAnimationReverse(isAuto));
-				}, constants.ANIMATION_STOP_DURATION);
-			} else {
-				state.isAnimating = false;
-			}
+	}
+	if(needToStop) {
+		if(this.isAuto) {
+			setTimeout(() => {
+				requestAnimationFrame(() => this.slideAnimationReverse(isAuto));
+			}, ANIMATION_STOP_DURATION);
 		} else {
-			requestAnimationFrame(() => this.slideAnimationReverse(isAuto));
+			this.isAnimating = false;
 		}
-		
+	} else {
+		requestAnimationFrame(() =>this.slideAnimationReverse(isAuto));
 	}
 }
 
-
+/**
+ * @resizeImageContainer(countTarget) : countTarget represents the next target
+ *                                    image index in state.IMAGE_LIST, and set
+ *                                    the height of the image container with
+ *                                    height obtained from the slide
+ */
+SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, minHeight){
+	console.log(target)
+	console.log(slideWrapper)
+	if(target.clientHeight > 414) {
+		slideWrapper.style.height = "414px";
+	} else {
+		slideWrapper.style.height = target.clientHeight + "px";
+	}
+}
 
 /**
  * @xhrGetRequest() : pre-defined XmlHttpRequest Get method since get method
@@ -195,10 +217,6 @@ function xhrGetRequest(url, callback) {
 	};
 	xhr.send();
 }
-
-
-
-
 
 /**
  * @data: data to be rendered, and mapped with handlebar, in array type.

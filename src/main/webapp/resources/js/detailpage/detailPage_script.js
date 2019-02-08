@@ -12,9 +12,6 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
-this.arrayToLiRenderer = arrayToLiRenderer.bind(this);
-
-
 var detailPage = {
 	domElements : {
 		SLIDE_WRAPPER : document.querySelector("div.container_visual"),
@@ -37,18 +34,22 @@ var detailPage = {
 		BOTTOM_DESCRIPTION : document.querySelector("ul.detail_info_group"),
 		BOTTOM_PATH : document.querySelector("div.detail_location")
 	},
+	
+	constants : {
+	    DISPLAY_INFO_ID : "",
+	},
+	
 	urls : {
 	    DETAIL : "/reservation/api/products/",
 	},
-	constants : {
-	    DISPLAY_INFO_ID : "",
-	    SLIDE_CONATINER_WIDTH : "",
-		ANIMATION_SPEED : 4
-	},
+	
+	animation : "",
+	
 	state : {
 	  detail_data : "",
 	  tab_state : 1
 	},
+	
 	parser : new DOMParser(),
 	
 	init : function() {
@@ -57,6 +58,7 @@ var detailPage = {
 		constants = this.constants;
 		state = this.state;
 		parser = this.parser;
+		
 		initTab = this.initTab;
 		fetchDetailData = this.fetchDetailData;
 		deployComments = this.deployComments;
@@ -65,6 +67,7 @@ var detailPage = {
 		deployBottomData = this.deployBottomData;
 		deployImages = this.deployImages;
 		resizeImageContainer = this.resizeImageContainer;
+		
 	    var url_string = window.location.href;
 	    var url = new URL(url_string);
 	    constants.DISPLAY_INFO_ID = url.searchParams.get("id");
@@ -104,8 +107,6 @@ var detailPage = {
 	    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
 	    	state.detail_data = JSON.parse(respText);
 	    	// redefinition of slide speed since this may be different by pages
-	    	constants.ANIMATION_SPEED = 10;
-	        
 	        deployDescription();
 	        
 	        deployBottomData();
@@ -215,21 +216,19 @@ var detailPage = {
 			= imageList.length;
 		
 		arrayToLiRenderer(imageList, domElements.SLIDE_CONTAINER, domElements.SLIDE_CONTAINER_ITEM)
-
-		slidingAnimation.initSlideAnimation(domElements.SLIDE_CONTAINER, false);
-		
+		animation = new SlidingAnimation(domElements.SLIDE_CONTAINER, 10, 1000, false);
+		animation.initSlideAnimation();
+				
 		if(imageList.length > 1) {
 			domElements.SLIDE_LEFT.addEventListener("click", (e) => {
-				if(!state.isAnimating) {
-					slidingAnimation.slideAnimation(false);
-					resizeImageContainer(state.nextSlideCount);
+				if(!animation.isAnimating) {
+					animation.slideAnimation(false, true, 414, 10);
 				}
 			});
 			
 			domElements.SLIDE_RIGHT.addEventListener("click", (e) => {
-				if(!state.isAnimating) {
-					slidingAnimation.slideAnimationReverse(false);
-					resizeImageContainer(state.prevSlideCount);
+				if(!animation.isAnimating) {
+					animation.slideAnimationReverse(false, true, 414, 10);
 				}
 			});
 		} else {
@@ -239,20 +238,4 @@ var detailPage = {
 		document.querySelector("h2.visual_txt_tit span").innerHTML 
 			= state.detail_data.displayInfo.productDescription;
 	},
-
-	/**
-	 * @resizeImageContainer(countTarget) : countTarget represents the next
-	 *                                    target image index in
-	 *                                    state.IMAGE_LIST, and set the height
-	 *                                    of the image container with height
-	 *                                    obtained from the slide
-	 */
-	resizeImageContainer: function(countTarget){
-		if(state.IMAGE_LIST[countTarget].clientHeight > 414) {
-			domElements.SLIDE_WRAPPER.style.height = "414px";
-		} else {
-			domElements.SLIDE_WRAPPER.style.height = state.IMAGE_LIST[countTarget].clientHeight + "px";
-		}
-	}
 }
-
