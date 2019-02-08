@@ -4,5 +4,5 @@ import com.nts.reservation.dto.CategoryResponse;
 
 public interface CategoryService {
 
-	public CategoryResponse getCategories();
+	CategoryResponse getCategories();
 }
