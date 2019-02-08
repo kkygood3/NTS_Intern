@@ -14,7 +14,7 @@ public class CommentDaoSqls {
 		+ "    c.id AS commentId, "
 		+ "    c.product_id AS productId, "
 		+ "    ri.id AS reservationInfoId, "
-		+ "    c.score AS scroe, "
+		+ "    c.score AS score, "
 		+ "    c.comment AS comment, "
 		+ "    ri.reservation_name AS reservationName, "
 		+ "    ri.reservation_tel AS reservationTelephone, "
