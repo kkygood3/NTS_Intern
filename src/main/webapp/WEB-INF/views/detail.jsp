@@ -206,18 +206,6 @@
     <div id="photoviwer"></div>
     
     <script type="rv-template" id="promotion_item">
-    <li class="item" style="width: 414px;">
-		<img alt="" class="img_thumb" src="${saveFileName}">
-		<span class="img_bg"></span>
-    	<div class="visual_txt">
-    		<div class="visual_txt_inn">
-    			<h2 class="visual_txt_tit"><span>${description}</span></h2>
-         	</div>
-        </div>
-    </li>
-    </script>
-    
-    <script type="rv-template" id="promotion_item">
 	<li class="list_item">
 		<div class="review_area">
 			<div class="thumb_area img_vertical_top">
