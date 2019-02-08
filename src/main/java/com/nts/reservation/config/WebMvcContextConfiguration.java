@@ -40,7 +40,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		System.out.println("addViewControllers가 호출됩니다. ");
+		System.out.println("addViewControllers가 호출됩니다.");
 		registry.addViewController("/").setViewName("main");
 	}
 

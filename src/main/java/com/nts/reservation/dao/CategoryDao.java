@@ -31,9 +31,6 @@ public class CategoryDao {
 
 	public CategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-		//        this.insertAction = new SimpleJdbcInsert(dataSource)
-		//                .withTableName("guestbook")
-		//                .usingGeneratedKeyColumns("id");
 	}
 
 	public List<Category> selectAllCategories(Integer limit) {
@@ -41,18 +38,4 @@ public class CategoryDao {
 		params.put("limit", limit);
 		return jdbc.query(SELECT_CATEGORY, params, rowMapper);
 	}
-
-	//	public Long insert(Category guestbook) {
-	//		SqlParameterSource params = new BeanPropertySqlParameterSource(guestbook);
-	//		return insertAction.executeAndReturnKey(params).longValue();
-	//	}
-	//
-	//	public int deleteById(Long id) {
-	//		Map<String, ?> params = Collections.singletonMap("id", id);
-	//		return jdbc.update(DELETE_BY_ID, params);
-	//	}
-	//
-	//	public int selectCount() {
-	//		return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
-	//	}
 }
