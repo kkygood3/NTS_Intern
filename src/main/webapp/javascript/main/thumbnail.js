@@ -22,11 +22,10 @@ function makeThumbnailList(thumbnailInfos) {
 	var html = document.getElementById("product_item").innerHTML;
 
 	var resultHTML = "";
-
 	var uls = document.getElementsByClassName("lst_event_box");
 	var index = uls[0].offsetHeight <= uls[1].offsetHeight ? 0 : 1;
 	thumbnailInfos.forEach((thumbnailInfo) => {
-	    resultHTML = html.replace("{id}", thumbnailInfo.id)
+	    resultHTML = html.replace("{display_info_id}", thumbnailInfo.displayInfoId)
 	    				.replace("{description}", thumbnailInfo.description)
 	    				.replace("{description}", thumbnailInfo.description)
 	    				.replace("{place_name}", thumbnailInfo.placeName)

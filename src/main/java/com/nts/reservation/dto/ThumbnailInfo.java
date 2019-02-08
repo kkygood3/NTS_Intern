@@ -1,18 +1,18 @@
 package com.nts.reservation.dto;
 
 public class ThumbnailInfo {
-	private int productId;
+	private int displayInfoId;
 	private String description;
 	private String content;
 	private String placeName;
 	private String saveFileName;
 
-	public int getProductId() {
-		return productId;
+	public int getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
 	public String getDescription() {
@@ -49,7 +49,7 @@ public class ThumbnailInfo {
 
 	@Override
 	public String toString() {
-		return "ThumbnailInfo [productId=" + productId + ", description=" + description + ", content=" + content
+		return "ThumbnailInfo [productId=" + displayInfoId + ", description=" + description + ", content=" + content
 			+ ", placeName=" + placeName + ", saveFileName=" + saveFileName + "]";
 	}
 

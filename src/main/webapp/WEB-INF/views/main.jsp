@@ -80,7 +80,7 @@
     </script>
 
     <script type="rv-template" id="product_item">
-	<li class="item">
+	<li class="item" id="thumb_{display_info_id}">
 		<div class="item_preview">
 			<img alt="{description}" class="img_thumb" src="./{save_file_name}">
 		</div>
