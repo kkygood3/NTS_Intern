@@ -31,6 +31,7 @@ public class MainProductServiceImpl implements MainProductService {
 	}
 
 	@Override
+	@Transactional
 	public List<MainProduct> getProducts(Integer categoryId, Integer start) {
 		if (start < 0) {
 			start = 0;
