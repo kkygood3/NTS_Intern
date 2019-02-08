@@ -18,7 +18,6 @@ function makeCommentList(commentDisplayInfos) {
 	var ul = document.getElementsByClassName("list_short_review")[0];
 	
 	commentDisplayInfos.forEach((commentDisplayInfo) => {
-		alert(JSON.stringify(commentDisplayInfo));
 	    resultHTML += html.replace("{comment}", commentDisplayInfo.comment)
 		.replace("{score}", commentDisplayInfo.score)
 		.replace("{reservation_email}", commentDisplayInfo.reservationEmail)

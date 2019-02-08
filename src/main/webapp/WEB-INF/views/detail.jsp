@@ -15,6 +15,7 @@
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
+	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
     <style>
 
@@ -131,10 +132,10 @@
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
                     <ul class="info_tab_lst">
                         <li class="item active _detail">
-                            <a href="#" class="anchor active"> <span>상세정보</span> </a>
+                            <a class="anchor active"> <span>상세정보</span> </a>
                         </li>
                         <li class="item _path">
-                            <a href="#" class="anchor"> <span>오시는길</span> </a>
+                            <a class="anchor"> <span>오시는길</span> </a>
                         </li>
                     </ul>
                     <!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
@@ -145,17 +146,12 @@
                                 <ul class="detail_info_group">
                                     <li class="detail_info_lst">
                                         <strong class="in_tit">[소개]</strong>
-                                        <p class="in_dsc">
-                                        <!-- content -->
-                                        </p>
+                                        <p class="in_dsc">${content}</p>
                                     </li>
                                     <li class="detail_info_lst"> <strong class="in_tit">[공지사항]</strong>
                                         <ul class="in_img_group">
                                             <li class="in_img_lst"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000"> </li>
                                         </ul>
-                                    </li>
-                                    <li class="detail_info_lst"> <strong class="in_tit">[공연정보]</strong>
-                                    <!-- 공연정보 -->
                                     </li>
                                 </ul>
                             </div>
