@@ -4,14 +4,11 @@
  */
 package com.nts.reservation.service;
 
-import java.util.List;
-
-import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.ProductResponse;
 
 public interface ProductService {
 	public static final int LIMIT = 4;
 	
-	public List<Product> getProductsByCategory(int categoryId, int start);
-	public int getProductsCountByCategory(int categoryId);
+	public ProductResponse getProductsByCategory(int categoryId, int start);
 	
 }

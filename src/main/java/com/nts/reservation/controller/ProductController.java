@@ -4,17 +4,13 @@
  */
 package com.nts.reservation.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.Product;
+import com.nts.reservation.dto.ProductResponse;
 import com.nts.reservation.service.ProductService;
 
 @RestController
@@ -25,16 +21,9 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping
-	public Map<String, Object> productList(@RequestParam(name = "categoryId", required = true) int categoryId,
+	public ProductResponse productList(@RequestParam(name = "categoryId", required = true) int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start){
 		
-		int totalCount = productService.getProductsCountByCategory(categoryId);
-		List<Product> products = productService.getProductsByCategory(categoryId, start);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("totalCount", totalCount);
-		map.put("products", products);
-		
-		return map;
+		return productService.getProductsByCategory(categoryId, start);
 	}
 }
