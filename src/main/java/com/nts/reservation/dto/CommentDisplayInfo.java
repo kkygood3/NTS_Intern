@@ -1,12 +1,13 @@
 package com.nts.reservation.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class CommentDisplayInfo {
 	private String comment;
 	private double score;
-	private String email;
-	private Date reservationDate;
+	private String reservationEmail;
+	private Timestamp reservationDate;
 	private String saveFileName;
 
 	public String getComment() {
@@ -25,19 +26,19 @@ public class CommentDisplayInfo {
 		this.score = score;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getReservationEmail() {
+		return reservationEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setReservationEmail(String reservationEmail) {
+		this.reservationEmail = reservationEmail;
 	}
 
-	public Date getReservationDate() {
-		return reservationDate;
+	public String getReservationDate() {
+		return new SimpleDateFormat("yyyy.M.d.").format(reservationDate);
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(Timestamp reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
@@ -51,7 +52,7 @@ public class CommentDisplayInfo {
 
 	@Override
 	public String toString() {
-		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", email=" + email
+		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail=" + reservationEmail
 			+ ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
 	}
 }
