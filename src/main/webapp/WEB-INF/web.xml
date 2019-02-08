@@ -13,13 +13,14 @@
 		<param-value>com.nts.reservation.config.ApplicationConfig
 		</param-value>
 	</context-param>
-	<!-- Server가 시작될 때(context가 loading될 때) ContextLoaderListener를 실행시킴 -> 위에 context-param을 이용함 -->
+	<!-- Server가 시작될 때(context가 loading될 때) ContextLoaderListener를 실행시킴 -> 위에 
+		context-param을 이용함 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
 
-	
+
 	<servlet>
 		<!-- (DispatcherServlet)을 등록 -->
 		<servlet-name>mvc</servlet-name>
@@ -44,6 +45,12 @@
 		<servlet-name>mvc</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!-- Error page 설정 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/common/404.jsp</location>
+	</error-page>
 
 	<!-- 요청 전/후로 처리 (encoding, url pattern) -->
 	<filter>
