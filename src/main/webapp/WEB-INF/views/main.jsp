@@ -119,7 +119,7 @@
 
 
 	<script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url(http://211.249.62.123/productImages/${productId}/${productImageId});">
+    <li class="item" style="background-image: url({productImageUrl});">
         <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit"></h4>
@@ -145,60 +145,7 @@
         </li>
     </script>
 
-	<script>
-		var currentStart = 0;
-		var currentCategory = 0;
-	
-		function requestAjax(callback, url) {
-		    var ajaxReq = new XMLHttpRequest();
-		    ajaxReq.callback = callback;
-		    ajaxReq.addEventListener('load', evt =>
-		        callback(evt.target.response)
-		    );
-		    ajaxReq.open('GET', 'api/'+url);
-		    ajaxReq.responseType = 'json';
-		    ajaxReq.send();
-		}
-	
-		function loadProductsCallback(responseData){
-		    var totalCount = responseData.totalCount;
-		    var items = responseData.items;
-		    
-		    var template = document.querySelector('#itemList').innerHTML;
-		    var containers = document.querySelectorAll('.lst_event_box');
-	
-		    for(var i = 0, len = items.length; i < len; ++i){
-		        containers[i % 2].innerHTML += template
-		                                                .replace('{productImageUrl}', items[i].productImageUrl)
-		                                                .replace(/{description}/g, items[i].productDescription)
-		                                                .replace('{id}', items[i].productId)
-		                                                .replace('{placeName}', items[i].placeName)
-		                                                .replace('{content}', items[i].productContent);
-		    }
-	
-		    var moreViewbtn = document.querySelector('.btn');
-		    if(currentStart >= totalCount) {
-		        moreViewbtn.style.display = 'none';
-		    } else {
-		        moreViewbtn.style.display = 'initial';
-		    }
-	
-		    currentStart += 4;
-		    document.querySelector('.pink').innerText = totalCount + '개';
-		}
-	
-		function mapProductParameters(categoryId, start) {
-		    return 'products?categoryId=' + categoryId + '&start=' + start;
-		}
-	
-		document.addEventListener('DOMContentLoaded', function() {
-		    requestAjax(loadProductsCallback, mapProductParameters(0, 0));
-	
-		    document.querySelector('.btn').addEventListener('click', () => 
-		    requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart)));
-		});
-
-	</script>
+	<script type="text/javascript" src="js/mainPage.js" ></script>
 </body>
 
 </html>
