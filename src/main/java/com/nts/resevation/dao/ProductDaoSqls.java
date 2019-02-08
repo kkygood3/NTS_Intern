@@ -77,7 +77,7 @@ public class ProductDaoSqls {
 		+ "    fi.file_name AS fileName, "
 		+ "    fi.save_file_name AS saveFileName, "
 		+ "    fi.content_type AS contentType, "
-		+ "    fi.delete_flag AS deleteFlage, "
+		+ "    fi.delete_flag AS deleteFlag, "
 		+ "    fi.create_date AS createDate, "
 		+ "    fi.modify_date AS modifyDate "
 		+ "FROM "
