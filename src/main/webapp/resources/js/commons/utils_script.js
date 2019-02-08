@@ -9,18 +9,21 @@
  */
 
 
-function SlidingAnimation(slideContainer, animationSpeed, stopDuration, isAuto){
-	this.slideContainer = slideContainer;
-	this.isAuto = isAuto;
+function SlidingAnimation(_slideContainer, _animationSpeed, _stopDuration, _isAuto){
+	slideContainer = _slideContainer;
+	isAuto = _isAuto;
+	
 	slideWrapper = slideContainer.closest("div");
 	IMAGE_LIST = slideContainer.getElementsByTagName("li");
+	
 	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
-	ANIMATION_SPEED = animationSpeed;
-	ANIMATION_STOP_DURATION = stopDuration;
-	this.prevSlideCount = IMAGE_LIST.length - 1;	
-	this.currentSlideCount = 0;
-	this.nextSlideCount = 1;
-	this.isAnimating = false;
+	ANIMATION_SPEED = _animationSpeed;
+	ANIMATION_STOP_DURATION = _stopDuration;
+	
+	prevSlideCount = IMAGE_LIST.length - 1;	
+	currentSlideCount = 0;
+	nextSlideCount = 1;
+	isAnimating = false;
 }
 
 /**
@@ -69,11 +72,11 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 	this.isAnimating = true;
 	
 	let needToStop = false;
-	let currentImage = IMAGE_LIST[this.currentSlideCount];
-	let nextImage = IMAGE_LIST[this.nextSlideCount];
+	let currentImage = IMAGE_LIST[currentSlideCount];
+	let nextImage = IMAGE_LIST[nextSlideCount];
 	
 	if(isResizing){
-		this.resizeImageContainer(this.nextSlideCount, maxHeight, minHeight);
+		this.resizeImageContainer(nextImage, maxHeight, minHeight);
 	}
 	
 	if(parseInt(nextImage.style.left) == -414) {
@@ -88,9 +91,9 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 			
 			currentImage.style.left = SLIDE_CONATINER_WIDTH + "px";
 			
-			this.prevSlideCount = this.currentSlideCount;
-			this.currentSlideCount = this.nextSlideCount;
-			this.nextSlideCount++;
+			prevSlideCount = currentSlideCount;
+			currentSlideCount = nextSlideCount;
+			nextSlideCount++;
 			
 			if(this.nextSlideCount == IMAGE_LIST.length) {
 				this.nextSlideCount = 0;
@@ -100,12 +103,12 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 		}
 	}
 	if(needToStop) {
-		if(this.isAuto) {
+		if(isAuto) {
 			setTimeout(() => {
 				requestAnimationFrame(() => this.slideAnimation(isAuto));
 			}, ANIMATION_STOP_DURATION);
 		} else {
-			this.isAnimating = false;
+			isAnimating = false;
 		}
 	} else {
 		requestAnimationFrame(() => this.slideAnimation(isAuto));
@@ -135,11 +138,11 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
  *                                Reverse goes desc order
  */
 SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, maxHeight, minHeight) {
-	this.isAnimating = true;
+	isAnimating = true;
 	
 	let needToStop = false;
-	let prevImage = IMAGE_LIST[this.prevSlideCount];
-	let currentImage = IMAGE_LIST[this.currentSlideCount];
+	let prevImage = IMAGE_LIST[prevSlideCount];
+	let currentImage = IMAGE_LIST[currentSlideCount];
 	
 	if(isResizing){
 		this.resizeImageContainer(prevImage, maxHeight, minHeight);
@@ -157,12 +160,12 @@ SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, 
 			
 			currentImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
 			
-			this.nextSlideCount = this.currentSlideCount;
-			this.currentSlideCount = this.prevSlideCount;
-			this.prevSlideCount = this.prevSlideCount - 1;
+			nextSlideCount = currentSlideCount;
+			currentSlideCount = prevSlideCount;
+			prevSlideCount = prevSlideCount - 1;
 			
-			if(this.prevSlideCount == -1){
-				this.prevSlideCount = IMAGE_LIST.length - 1;
+			if(prevSlideCount == -1){
+				prevSlideCount = IMAGE_LIST.length - 1;
 			}
 			
 			needToStop = true;
@@ -170,7 +173,7 @@ SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, 
 		}
 	}
 	if(needToStop) {
-		if(this.isAuto) {
+		if(isAuto) {
 			setTimeout(() => {
 				requestAnimationFrame(() => this.slideAnimationReverse(isAuto));
 			}, ANIMATION_STOP_DURATION);
