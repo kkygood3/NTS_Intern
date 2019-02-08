@@ -40,8 +40,9 @@ public class ProductDaoTest {
 				PRODUCT_LIMIT);
 			for (Product product : listProduct) {
 				System.out.println(product.toString());
+				System.out.println("");
 			}
-			System.out.println();
+			System.out.println("//");
 		}
 
 	}
