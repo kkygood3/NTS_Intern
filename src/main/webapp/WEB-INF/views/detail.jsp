@@ -22,14 +22,14 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
-						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
-						class="spr_bi ico_bk_logo">예약</span>
+					<a href="/main" class="lnk_logo" title="네이버">
+						<span class="spr_bi ico_n_logo">네이버</span>
+					</a>
+					<a href="/main" class="lnk_logo" title="예약">
+						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
-				</a>
+				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span></a>
 			</header>
 		</div>
 		<div class="ct main">
@@ -163,7 +163,7 @@
 						<i class="fn fn-nbooking-calender2"></i> <span>예매하기</span>
 					</button>
 				</div>
-				<!-- 상세설명 영역  -->
+				<!-- 상품평 영역  -->
 				<div class="section_review_list">
 					<div class="review_box">
 						<h3 class="title_h3">예매자 한줄평</h3>
@@ -331,6 +331,67 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
-</body>
+	<script type="text/javascript" src="/js/util.js"></script>
+	<script>
+		var detail = {
+			displayInfo : {},
+			productImages : [],
+			displayInfoImage : {},
+			comments : [],
+			averageScore : 0,
 
+			getDisplayInfoId : function () {
+				var url_string = window.location.href;
+				var url = new URL(url_string);
+				return url.searchParams.get("id");
+			},
+			getDisplayInfoResponse : function () {
+				var displayInfoId = this.getDisplayInfoId();
+				if (isEmpty(displayInfoId)) {
+					alert("잘못된 파라미터임니다");
+					window.history.back();
+					return;
+				}
+				var url = "/api/products/" + displayInfoId;
+				var xhr = getXMLHttpRequest(url);
+				xhr.send();
+
+				xhr.addEventListener("load", function(e) {
+					var response = e.target.response;
+					if (response.isError) {
+						alert(response.errorMsg);
+						return;
+					}
+					this.displayInfo = response.displayInfo;
+					this.productImages = response.productImages;
+					this.displayInfoImage = response.displayInfoImage;
+					this.comments = response.comments;
+					this.averageScore = response.averageScore;
+					this.setTitleDOM();
+					this.setProductDescriptionDOM();
+					this.setEventDOM();
+					this.setCommentDOM();
+					this.setDetailInformationDOM();
+				}.bind(this));
+			},
+			setTitleDOM : function () {
+				console.log("test");
+			},
+			setProductDescriptionDOM : function () {
+				// TODO: 제품설명 구역 구현
+			},
+			setEventDOM : function () {
+				// TODO: 이벤트 정보 구역 구현
+			},
+			setCommentDOM : function () {
+				// TODO: 상품평 구역 구현
+			},
+			setDetailInformationDOM : function () {
+				// TODO: 상세정보 구역 구현
+			}
+		}
+		detail.getDisplayInfoResponse();
+		
+	</script>
+</body>
 </html>
