@@ -64,20 +64,7 @@
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<!-- 타이틀 이미지 넣는 구역 -->
-								<ul class="visual_img detail_swipe">
-									<li class="item" style="width: 414px;">
-										<img alt="" class="img_thumb" src="img/1_ma_2.png">
-										<span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span>Paper, Present:너를 위한 선물</span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
-								</ul>
+								<ul class="visual_img detail_swipe"></ul>
 							</div>
 							<div class="prev">
 								<div class="prev_inn">
@@ -362,18 +349,19 @@
 					this.comments = response.comments;
 					this.averageScore = response.averageScore;
 					this.setTitleDOM();
-					this.setProductDescriptionDOM();
-					this.setEventDOM();
+					this.setProductContentDOM();
 					this.setCommentDOM();
 					this.setDetailInformationDOM();
 				}.bind(this));
 			},
 			setTitleDOM : function () {
+				// 이미지 페이징 번호값 지정
 				var currentNumDiv = document.querySelector(".num");
 				var lastNumDiv = document.querySelector(".num.off");
 				currentNumDiv.innerText = 1;
 				lastNumDiv.innerText = "/ " + this.productImages.length;
-				
+
+				// 상품 이미지 리스트 추가
 				var template = document.querySelector("#template-product-image").innerText;
 				var bindTemplate = Handlebars.compile(template);
 				var resultHTML = "";
@@ -387,14 +375,13 @@
 				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
 				productImagesDiv.innerHTML = resultHTML;
 			},
-			setProductDescriptionDOM : function () {
-				// TODO: 제품설명 구역 구현
-			},
-			setEventDOM : function () {
-				// TODO: 이벤트 정보 구역 구현
+			setProductContentDOM : function () {
+				var productContentTextDiv = document.querySelector(".store_details .dsc");
+				productContentTextDiv.innerText = this.displayInfo.productContent;
 			},
 			setCommentDOM : function () {
 				// TODO: 상품평 구역 구현
+				
 			},
 			setDetailInformationDOM : function () {
 				// TODO: 상세정보 구역 구현
