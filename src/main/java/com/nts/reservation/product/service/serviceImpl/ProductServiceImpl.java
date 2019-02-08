@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductResponse getProductsByCategory(int categoryId, int start) {
 		return ProductResponse.builder()
-			.items(productDao.getProductsByCategory(categoryId, start, LIMIT))
-			.totalCount(productDao.getProductCountByCategory(categoryId))
+			.items(productDao.selectProductsByCategory(categoryId, start, LIMIT))
+			.totalCount(productDao.selectProductCountByCategory(categoryId))
 			.build();
 	}
 }

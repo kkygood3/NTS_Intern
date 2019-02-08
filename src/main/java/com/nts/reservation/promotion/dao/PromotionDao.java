@@ -32,7 +32,7 @@ public class PromotionDao {
 	 * @author yongjoon.Park
 	 * @return
 	 */
-	public List<Promotion> getPromotions() {
+	public List<Promotion> selectAllPromotions() {
 		return jdbc.query(PromotionDaoSqls.GET_PROMOTION, rowMapper);
 	}
 }

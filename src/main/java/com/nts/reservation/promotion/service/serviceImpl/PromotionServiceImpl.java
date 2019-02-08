@@ -20,7 +20,7 @@ public class PromotionServiceImpl implements PromotionService{
 	@Override
 	public PromotionResponse getPromotions() {
 		return PromotionResponse.builder()
-			.items(promotionDao.getPromotions()).build();
+			.items(promotionDao.selectAllPromotions()).build();
 	}
 	
 }

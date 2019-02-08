@@ -16,7 +16,7 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public CategoryResponse getCategories() {
 		return CategoryResponse.builder()
-			.items(categoryDao.getCategory()).build();
+			.items(categoryDao.selectCategories()).build();
 	}
 
 }

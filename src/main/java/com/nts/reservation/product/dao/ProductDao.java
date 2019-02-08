@@ -37,7 +37,7 @@ public class ProductDao {
 	 * @author yongjoon.Park
 	 * @return
 	 */
-	public List<Product> getProductsByCategory(int categoryId, int start, int limit) {
+	public List<Product> selectProductsByCategory(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -55,7 +55,7 @@ public class ProductDao {
 	 * @author yongjoon.Park
 	 * @return
 	 */
-	public int getProductCountByCategory(int categoryId) {
+	public int selectProductCountByCategory(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 

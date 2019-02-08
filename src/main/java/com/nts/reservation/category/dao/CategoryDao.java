@@ -22,7 +22,7 @@ public class CategoryDao {
 			this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 		}
 		
-		public List<Category> getCategory() {
+		public List<Category> selectCategories() {
 			return jdbc.query(CategoryDaoSqls.GET_CATEGORY, rowMapper);
 		}
 	
