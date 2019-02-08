@@ -65,10 +65,7 @@ public class ProductServiceImpl implements ProductService {
 			productImageLimit);
 		DisplayInfoImageDto displayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
 		List<CommentDto> comments = commentDao.selectComments(displayInfo.getProductId(), commentStart, commentLimit);
-		double averageScore = 0;
-		for (CommentDto comment : comments) {
-			averageScore += comment.getScore();
-		}
+		double averageScore = commentDao.selectCommentAvgScore(displayInfo.getProductId());
 		displayInfoResponse.setDisplayInfo(displayInfo);
 		displayInfoResponse.setProductImages(productImages);
 		displayInfoResponse.setDisplayInfoImage(displayInfoImage);

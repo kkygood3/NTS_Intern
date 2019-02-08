@@ -57,4 +57,12 @@ public class CommentDao extends BasicDao<CommentDto> {
 			return null;
 		}
 	}
+
+	/**
+	 * 해당 productId의 상품평 평균점수를 가져옵니다.
+	 */
+	public double selectCommentAvgScore(int productId) {
+		return jdbcTemplate.queryForObject(SELECT_COMMENT_AVG_SCORE, Collections.singletonMap("productId", productId),
+			Double.class);
+	}
 }

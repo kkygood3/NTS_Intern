@@ -48,4 +48,12 @@ public class CommentDaoSqls {
 		+ "    file_info fi "
 		+ "WHERE "
 		+ "    ci.file_id = fi.id AND ci.id = :commentId";
+
+	public static final String SELECT_COMMENT_AVG_SCORE = ""
+		+ "SELECT  "
+		+ "    IFNULL(AVG(score), 0) "
+		+ "FROM "
+		+ "    reservation_user_comment "
+		+ "WHERE "
+		+ "    product_id = :productId";
 }
