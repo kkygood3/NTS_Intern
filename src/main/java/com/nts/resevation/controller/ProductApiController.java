@@ -6,10 +6,12 @@ package com.nts.resevation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.resevation.dto.DisplayInfoResponseDto;
 import com.nts.resevation.dto.ProductResponseDto;
 import com.nts.resevation.service.ProductService;
 
@@ -30,5 +32,10 @@ public class ProductApiController {
 	@GetMapping
 	public ProductResponseDto getProductResponse(@RequestParam(required=false, defaultValue="0") int categoryId, @RequestParam int start) {
 		return productService.getProductResponse(categoryId, start);
+	}
+	
+	@GetMapping("/{displayInfoId}")
+	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId) {
+		return productService.getDisplayInfoResponse(displayInfoId);
 	}
 }
