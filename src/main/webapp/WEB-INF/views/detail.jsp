@@ -29,75 +29,54 @@
 						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span></a>
+				<a href="/main" class="btn_my"> <span title="예약확인">예약확인</span></a>
 			</header>
 		</div>
 		<div class="ct main">
 			<div>
 				<!-- 타이틀 영역  -->
 				<div class="section_visual">
+					<!-- 타이틀 헤더 -->
 					<header>
 						<h1 class="logo">
-							<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
-								class="spr_bi ico_n_logo">네이버</span>
-							</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+							<a href="/main" class="lnk_logo" title="네이버">
+								<span class="spr_bi ico_n_logo">네이버</span>
+							</a>
+							<a href="/main" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation.html" class="btn_my"> <span
-							class="viewReservation" title="예약확인">예약확인</span>
+						<a href="/main" class="btn_my"> 
+							<span class="viewReservation" title="예약확인">예약확인</span>
 						</a>
 					</header>
+					<!-- 타이틀 이미지 사진번호 -->
 					<div class="pagination">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
-							<span class="num">1</span> <span class="num off">/ <span>2</span></span>
+							<!-- 현재사진 번호 -->
+							<span class="num"></span>
+							<!-- 총사진 개수 -->
+							<span class="num off"></span>
 						</div>
 					</div>
 					<div class="group_visual">
 						<div>
 							<div class="container_visual" style="width: 414px;">
+								<!-- 타이틀 이미지 넣는 구역 -->
 								<ul class="visual_img detail_swipe">
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
+									<li class="item" style="width: 414px;">
+										<img alt="" class="img_thumb" src="img/1_ma_2.png">
+										<span class="img_bg"></span>
 										<div class="visual_txt">
 											<div class="visual_txt_inn">
 												<h2 class="visual_txt_tit">
-													<span></span>
+													<span>Paper, Present:너를 위한 선물</span>
 												</h2>
 												<p class="visual_txt_dsc"></p>
 											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
-									<li class="item" style="width: 414px;"><img alt=""
-										class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit">
-													<span></span>
-												</h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div></li>
+										</div>
+									</li>
 								</ul>
 							</div>
 							<div class="prev">
@@ -331,6 +310,21 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
+	<script type="text/template" id="template-product-image">
+		<li class="item" style="width: 414px;">
+			<img alt="" class="img_thumb" src="{{saveFileName}}">
+			<span class="img_bg"></span>
+			<div class="visual_txt">
+				<div class="visual_txt_inn">
+					<h2 class="visual_txt_tit">
+						<span>{{productDescription}}</span>
+					</h2>
+					<p class="visual_txt_dsc"></p>
+				</div>
+			</div>
+		</li>
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script>
 		var detail = {
@@ -375,7 +369,23 @@
 				}.bind(this));
 			},
 			setTitleDOM : function () {
-				console.log("test");
+				var currentNumDiv = document.querySelector(".num");
+				var lastNumDiv = document.querySelector(".num.off");
+				currentNumDiv.innerText = 1;
+				lastNumDiv.innerText = "/ " + this.productImages.length;
+				
+				var template = document.querySelector("#template-product-image").innerText;
+				var bindTemplate = Handlebars.compile(template);
+				var resultHTML = "";
+				for (var i in this.productImages) {
+					var data = {
+						saveFileName: this.productImages[i].saveFileName,
+						productDescription: this.displayInfo.productDescription
+					}
+					resultHTML += bindTemplate(data);
+				}
+				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
+				productImagesDiv.innerHTML = resultHTML;
 			},
 			setProductDescriptionDOM : function () {
 				// TODO: 제품설명 구역 구현
