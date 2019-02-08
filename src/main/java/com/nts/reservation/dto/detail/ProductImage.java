@@ -71,4 +71,11 @@ public class ProductImage {
 	public void setType(String type) {
 		Type = type;
 	}
+	@Override
+	public String toString() {
+		return "ProductImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag=" + deleteFlag
+			+ ", fileInfoId=" + fileInfoId + ", fileName=" + fileName + ", modifyDate=" + modifyDate + ", productId="
+			+ productId + ", productImageId=" + productImageId + ", saveFileName=" + saveFileName + ", Type=" + Type
+			+ "]";
+	}
 }

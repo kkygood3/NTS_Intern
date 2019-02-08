@@ -3,7 +3,7 @@ package com.nts.reservation.dto.detail;
 public class DisplayInfo {
 	private int categoryId;
 	private String categoryName;
-	private String categoryDate;
+	private String createDate;
 	private int displayInfoId;
 	private String email;
 	private String homepage;
@@ -32,14 +32,6 @@ public class DisplayInfo {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-
-	public String getCategoryDate() {
-		return categoryDate;
-	}
-
-	public void setCategoryDate(String categoryDate) {
-		this.categoryDate = categoryDate;
 	}
 
 	public int getDisplayInfoId() {
@@ -145,4 +137,13 @@ public class DisplayInfo {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
 }

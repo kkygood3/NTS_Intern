@@ -1,14 +1,15 @@
 package com.nts.reservation.dto.detail;
 
-public class DisplayInfoImage {
+public class CommentImage {
 	private String contentType;
 	private String createDate;
 	private int deleteFlag;
-	private int displayInfoId;
-	private int displayInfoImageId;
 	private int fileId;
 	private String fileName;
+	private int imageId;
 	private String modifyDate;
+	private int reservationInfoId;
+	private int reservationUserCommentId;
 	private String saveFileName;
 
 	public String getContentType() {
@@ -35,22 +36,6 @@ public class DisplayInfoImage {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public int getDisplayInfoId() {
-		return displayInfoId;
-	}
-
-	public void setDisplayInfoId(int displayInfoId) {
-		this.displayInfoId = displayInfoId;
-	}
-
-	public int getDisplayInfoImageId() {
-		return displayInfoImageId;
-	}
-
-	public void setDisplayInfoImageId(int displayInfoImageId) {
-		this.displayInfoImageId = displayInfoImageId;
-	}
-
 	public int getFileId() {
 		return fileId;
 	}
@@ -59,12 +44,12 @@ public class DisplayInfoImage {
 		this.fileId = fileId;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public int getImageId() {
+		return imageId;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setImageId(int imageId) {
+		this.imageId = imageId;
 	}
 
 	public String getModifyDate() {
@@ -75,6 +60,22 @@ public class DisplayInfoImage {
 		this.modifyDate = modifyDate;
 	}
 
+	public int getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(int reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
+
+	public int getReservationUserCommentId() {
+		return reservationUserCommentId;
+	}
+
+	public void setReservationUserCommentId(int reservationUserCommentId) {
+		this.reservationUserCommentId = reservationUserCommentId;
+	}
+
 	public String getSaveFileName() {
 		return saveFileName;
 	}
@@ -83,11 +84,19 @@ public class DisplayInfoImage {
 		this.saveFileName = saveFileName;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	@Override
 	public String toString() {
-		return "DisplayInfoImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag="
-			+ deleteFlag + ", displayInfoId=" + displayInfoId + ", displayInfoImageId=" + displayInfoImageId
-			+ ", fileId=" + fileId + ", fileName=" + fileName + ", modifyDate=" + modifyDate + ", saveFileName="
-			+ saveFileName + "]";
+		return "CommentImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag=" + deleteFlag
+			+ ", fileId=" + fileId + ", fileName=" + fileName + ", imageId=" + imageId + ", modifyDate=" + modifyDate
+			+ ", reservationInfoId=" + reservationInfoId + ", reservationUserCommentId=" + reservationUserCommentId
+			+ ", saveFileName=" + saveFileName + "]";
 	}
 }

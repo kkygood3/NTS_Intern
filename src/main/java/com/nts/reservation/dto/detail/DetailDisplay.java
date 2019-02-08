@@ -4,6 +4,16 @@ import java.util.List;
 
 public class DetailDisplay {
 	private double averageScore;
+	private List<Comment> comments;
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	private DisplayInfo displayInfo;
 	private List<DisplayInfoImage> displayInfoImages;
 	private List<ProductImage> productImages;
