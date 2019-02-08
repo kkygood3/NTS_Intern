@@ -63,7 +63,6 @@ public class ProductRepository {
 
 	/**
 	 * @desc 상품 전체 가져오기
-	 * @param categoryId
 	 * @param start
 	 * @return list(Product)
 	 */
@@ -83,6 +82,6 @@ public class ProductRepository {
 	 */
 	public int selectProductsCount() {
 
-		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_ALL, Collections.emptyMap(),Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCTS_COUNT_ALL, Collections.emptyMap(), Integer.class);
 	}
 }
