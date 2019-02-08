@@ -17,7 +17,17 @@ public class ReservationSystemController {
 	@GetMapping(path = "/")
 	public String main() {
 		return "main";
-	}	/**
+	}
+	/**
+	 * 상세페이지 URL 맵핑 
+	 * @return 메인페이지
+	 */
+	@GetMapping(path = "/detail")
+	public String detail() {
+		return "detail";
+	}
+	
+	/**
 	 * 에러페이지 URL 맵핑 
 	 * @return 에러페이지
 	 */

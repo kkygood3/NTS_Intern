@@ -21,6 +21,18 @@ function addCategoryClickEvent() {
 	});
 }
 
+function addThumbnailClickEvent() {
+	var ul = document.getElementsByClassName("wrap_event_box")[0];
+	
+	ul.addEventListener("click", function(event) {
+		if (!event.target.closest("li")) {
+			return;
+		}
+		var id = event.target.closest("li").id.replace("thumb_", "");
+		window.location.href = "./detail?display_info_id=" +id;  
+	});
+}
+
 function changeCategoryTabUi(curCategoryId) {
 	if ((curCategoryId !== "0") && !parseInt(curCategoryId)) {
 		return false;

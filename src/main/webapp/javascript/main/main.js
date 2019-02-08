@@ -7,4 +7,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	makePromotionSlide();
 	addMoreButtonClickEvent();
 	addCategoryClickEvent();
+	addThumbnailClickEvent();
 });
