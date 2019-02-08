@@ -12,6 +12,10 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
+window.addEventListener('DOMContentLoaded', function(){
+	detailPage.init();
+});
+
 var detailPage = {
 	domElements : {
 		SLIDE_WRAPPER : document.querySelector("div.container_visual"),

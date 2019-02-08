@@ -13,18 +13,17 @@
 <!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 
 <head>
-	<meta charset="utf-8">
-	<meta name="description"
-		content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-	<title>네이버 예약</title>
-	<title>Insert title here</title>
-	<link href="resources/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+<meta charset="utf-8">
+<meta name="description"
+	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+<title>네이버 예약</title>
+<link href="resources/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
-<body onload="reviewPage.init()">
+<body>
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
@@ -77,7 +76,7 @@
 		</div>
 		<hr>
 	</div>
-	
+
 	<footer>
 		<div class="gototop">
 			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
@@ -119,12 +118,9 @@
 		</li>
 		{{/each}}
 	</script>
-	
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-	<script type="text/javascript"
-		src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript"
-		src="resources/js/reviewpage/reviewPage_script.js"></script>
+
+	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="resources/js/reviewpage/reviewPage_script.js"></script>
 </body>
 </html>

@@ -51,5 +51,4 @@ public class ProductServiceImpl implements ProductService {
 	public List<Promotion> getPromotions() {
 		return productDao.getPromotions();
 	}
-
 }

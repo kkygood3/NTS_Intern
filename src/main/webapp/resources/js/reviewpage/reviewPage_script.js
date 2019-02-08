@@ -12,6 +12,10 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
+window.addEventListener('DOMContentLoaded', function(){
+	reviewPage.init();
+});
+
 var reviewPage = {
 		domElements : {
 			AVERAGE_SCORE_STARS : document.querySelector("em.graph_value"),

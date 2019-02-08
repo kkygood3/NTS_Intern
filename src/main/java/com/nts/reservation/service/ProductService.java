@@ -18,12 +18,12 @@ import com.nts.reservation.products.dto.Promotion;
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 
-	public abstract List<Product> getProductsByCategory(Integer categoryId, Integer start);
+	List<Product> getProductsByCategory(Integer categoryId, Integer start);
 
-	public abstract List<Promotion> getPromotions();
+	List<Promotion> getPromotions();
 
-	public abstract Long getProductsCount();
+	Long getProductsCount();
 
-	public abstract Long getProductsCountByCategory(Integer categoryId);
+	Long getProductsCountByCategory(Integer categoryId);
 
 }

@@ -18,16 +18,15 @@ import com.nts.reservation.detail.dto.ProductPrice;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 public interface DetailService {
-	public abstract DisplayInfo getDisplayInfo(Long displayInfoId);
+	DisplayInfo getDisplayInfo(Long displayInfoId);
 
-	public abstract List<ProductImage> getProductImages(Long displayInfoId);
+	List<ProductImage> getProductImages(Long displayInfoId);
 
-	public abstract DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
+	DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
 
-	public abstract List<Comment> getComments(Long displayInfoId);
+	List<Comment> getComments(Long displayInfoId);
 
-	public abstract double getAverageScore(Long displayInfoId);
+	double getAverageScore(Long displayInfoId);
 
-	public List<ProductPrice> getProductPrices(Long displayInfoId);
-
+	List<ProductPrice> getProductPrices(Long displayInfoId);
 }

@@ -32,7 +32,7 @@
 
 </head>
 
-<body onload="detailPage.init()">
+<body>
 	<div id="container">
 		<div class="header fade">
 			<header class="header_tit">
@@ -297,11 +297,8 @@
 		{{/each}}
 	</script>
 	
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-	<script type="text/javascript"
-		src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript"
-		src="resources/js/detailpage/detailPage_script.js"></script>
+	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="resources/js/detailpage/detailPage_script.js"></script>
 </body>
 </html>

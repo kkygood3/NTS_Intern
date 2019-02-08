@@ -25,7 +25,7 @@
 <link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
-<body onload="mainPage.init()">
+<body>
 	<div id="container">
 		<div class="header">
 			<header class="header_tit">
@@ -100,7 +100,7 @@
 			</div>
 			<div class="section_event_lst">
 				<p class="event_lst_txt">
-					바로 예매 가능한 행사가 <span class="pink">10개</span> 있습니다
+					바로 예매 가능한 행사가 <span class="pink">개</span> 있습니다
 				</p>
 				<div class="wrap_event_box">
 					<!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
@@ -162,11 +162,8 @@
         </li>
     </script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-	<script type="text/javascript"
-		src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript"
-		src="resources/js/mainpage/mainPage_script.js"></script>
+	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="resources/js/mainpage/mainPage_script.js"></script>
 </body>
 </html>

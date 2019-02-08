@@ -12,6 +12,10 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
+window.addEventListener('DOMContentLoaded', function(){
+	mainPage.init();
+});
+
 var mainPage = {
 	domElements : {
 		TAB_BUTTON_UL :	document.querySelector("div.section_event_tab ul"),

@@ -74,9 +74,7 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 	let needToStop = false;
 	let currentImage = IMAGE_LIST[currentSlideCount];
 	let nextImage = IMAGE_LIST[nextSlideCount];
-	
-	console.log(currentSlideCount,nextSlideCount)
-	
+		
 	if(isResizing){
 		this.resizeImageContainer(nextImage, maxHeight, minHeight);
 	}

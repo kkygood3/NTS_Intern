@@ -14,6 +14,5 @@ import com.nts.reservation.products.dto.Category;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 public interface CategoryService {
-	public abstract List<Category> getAllProductsCountByCategory();
-
+	List<Category> getAllProductsCountByCategory();
 }
