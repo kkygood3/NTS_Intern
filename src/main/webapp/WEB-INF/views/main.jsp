@@ -26,30 +26,18 @@
                 <a href="" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
         </div>
+        
         <hr>
+        
         <div class="event">
-            <div class="section_visual">
+            <div class="section_visual group_visual">
                 <div class="group_visual">
-                    <div class="container_visual">
-                        <div class="prev_e" style="display:none;">
-                            <div class="prev_inn">
-                                <a href="#" class="btn_pre_e" title="이전"> <i class="spr_book_event spr_event_pre">이전</i> </a>
-                            </div>
-                        </div>
-                        <div class="nxt_e" style="display:none;">
-                            <div class="nxt_inn">
-                                <a href="#" class="btn_nxt_e" title="다음"> <i class="spr_book_event spr_event_nxt">다음</i> </a>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="container_visual">
-                                <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-                                <ul class="visual_img transition">
-                                </ul>
-                            </div>
-                            <span class="nxt_fix" style="display:none;"></span>
-                        </div>
-                    </div>
+                	<div class="container_visual">
+                	<!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
+                		<ul class="visual_img transition">
+                		</ul>
+                	</div>
+                	<span class="nxt_fix" style="display:none;"></span>
                 </div>
             </div>
             <div class="section_event_tab">
@@ -86,7 +74,6 @@
         </div>
     </footer>
 
-
     <script type="rv-template" id="promotion_item">
     <li class="item" style="background-image: url(./{sava_file_name_list});">
     </li>
@@ -103,6 +90,7 @@
 		</div>
 	</li>
     </script>
+    
     <script type="rv-template" id="category_item">
     <li class="item">
 		<a class="anchor"><span id="category_{id}">{name}</span><a>
