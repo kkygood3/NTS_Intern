@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto.queries;
+package com.nts.reservation.dao.queries;
 
 public class MainPromotionQueries {
 	public static final String SELECT_PROMOTION_COUNT = 
