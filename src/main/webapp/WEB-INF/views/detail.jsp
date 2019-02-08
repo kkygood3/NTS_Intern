@@ -13,6 +13,8 @@
 	<link href="./css/detail.css" rel="stylesheet">
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
+	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
     <style>
 
     </style>
