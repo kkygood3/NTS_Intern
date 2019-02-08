@@ -6,9 +6,11 @@ package com.nts.reservation.dto;
 
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class PromotionResponse {
 	List<Promotion> items;
 }

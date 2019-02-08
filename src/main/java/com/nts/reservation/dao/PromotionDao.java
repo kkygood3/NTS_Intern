@@ -21,9 +21,6 @@ public class PromotionDao {
 
 	private NamedParameterJdbcTemplate jdbc;
 
-	static final int ALL_CATEGORIES = 0;
-
-	// ResultSet 에서 값을 추출하여 원하는 객체로 변환
 	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
 
 	public PromotionDao(DataSource dataSource) {

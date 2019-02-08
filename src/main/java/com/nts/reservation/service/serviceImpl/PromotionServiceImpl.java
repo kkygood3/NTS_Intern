@@ -4,13 +4,11 @@
  */
 package com.nts.reservation.service.serviceImpl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.PromotionDao;
-import com.nts.reservation.dto.Promotion;
+import com.nts.reservation.dto.PromotionResponse;
 import com.nts.reservation.service.PromotionService;
 
 @Service
@@ -20,8 +18,9 @@ public class PromotionServiceImpl implements PromotionService{
 	PromotionDao promotionDao;
 	
 	@Override
-	public List<Promotion> getPromotions() {
-		return promotionDao.getPromotions();
+	public PromotionResponse getPromotions() {
+		return PromotionResponse.builder()
+			.items(promotionDao.getPromotions()).build();
 	}
 	
 }

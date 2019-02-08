@@ -4,9 +4,24 @@
  */
 package com.nts.reservation.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.nts.reservation.dto.PromotionResponse;
+import com.nts.reservation.service.PromotionService;
+
+@RestController
+@RequestMapping(path = "/promotions")
 public class PromotionController {
-
+	
+	@Autowired
+	PromotionService promotionService;
+	
+	@GetMapping
+	public PromotionResponse getPromotions(){
+		return promotionService.getPromotions();
+	}
+	
 }
