@@ -49,6 +49,9 @@ public class DetailServiceImpl implements DetailService {
 
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
+		long start;
+		start = System.currentTimeMillis();
+
 		List<CommentImage> commentImages = DetailDao.getCommentsImages(displayInfoId);
 		List<Comment> comments = DetailDao.getComments(displayInfoId);
 		Iterator<CommentImage> imgIter = commentImages.iterator();
@@ -56,23 +59,44 @@ public class DetailServiceImpl implements DetailService {
 		/* since all the comments/images are in DESC order, 
 		 * we can simply iterate and put images to comments
 		 */
+		if (!commIter.hasNext()) {
+			return comments;
+		}
+		Comment currentComment = commIter.next();
 		while (imgIter.hasNext()) {
 			boolean isFound = false;
 			CommentImage currentImage = imgIter.next();
 			Long commentId = currentImage.getReservationInfoId();
-			while (commIter.hasNext()) {
-				Comment currentComment = commIter.next();
-				if (commentId == currentComment.getCommentId()) {
-					isFound = true;
-					currentComment.getCommentImages().add(currentImage);
+			if (currentComment.getCommentId() == commentId) {
+				currentComment.getCommentImages().add(currentImage);
+			} else {
+				while (commIter.hasNext()) {
+					currentComment = commIter.next();
+					if (commentId == currentComment.getCommentId()) {
+						isFound = true;
+						currentComment.getCommentImages().add(currentImage);
+						break;
+					}
+				}
+				if (!isFound) {
 					break;
 				}
 			}
-			if (!isFound) {
-				break;
-			}
 		}
-		return comments;
+		System.out.println("myWay" + (System.currentTimeMillis() - start));
+		long start2;
+		start2 = System.currentTimeMillis();
+
+		List<Comment> comments2 = DetailDao.getComments(displayInfoId);
+		Iterator<Comment> commIter2 = comments2.iterator();
+		while (commIter2.hasNext()) {
+			currentComment = commIter2.next();
+			List<CommentImage> list = DetailDao.getCommentsImagesByCommentId(currentComment.getCommentId());
+			currentComment.setCommentImages(list);
+		}
+		System.out.println("otherWay" + (System.currentTimeMillis() - start2));
+		System.out.println(comments.equals(comments2));
+		return comments2;
 	}
 
 	@Override
