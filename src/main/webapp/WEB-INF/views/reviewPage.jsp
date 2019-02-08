@@ -80,7 +80,7 @@
 				</div>
 			</li>
 		</script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+		<script src="../../js/handlebars.min-v4.0.13.js"></script>
 		<script src="../../js/util.js"></script>
 		<script src="../../js/review.js"></script>
 	</body>
