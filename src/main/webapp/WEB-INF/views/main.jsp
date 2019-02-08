@@ -251,7 +251,7 @@
 			if (categoryId === CATEGORY_TYPE_ALL) {
 				url = "./api/products?start=" + start;
 			} else {
-				url = "./api/categories/" + categoryId + "/products?start=" + start;
+				url = "./api/products?start=" + start + "&categoryId=" + categoryId;
 			}
 			return url;
 		}

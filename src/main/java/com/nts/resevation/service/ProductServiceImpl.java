@@ -26,21 +26,19 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDao productDao;
 
 	@Override
-	public ProductResponseDto getProductResponse(int start) {
-		List<ProductDto> products = Collections.<ProductDto>emptyList();
-		int count = productDao.selectCount();
-		if (count > 0) {
-			products = productDao.selectAllPaging(start, SELECT_LIMIT);
-		}
-		return new ProductResponseDto(products, count);
-	}
-
-	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start) {
 		List<ProductDto> products = Collections.<ProductDto>emptyList();
-		int count = productDao.selectCountByCategoryId(categoryId);
-		if (count > 0) {
-			products = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
+		int count = 0;
+		if (categoryId == CATEGORY_TYPE_ALL) {
+			count = productDao.selectCount();
+			if (count > 0) {
+				products = productDao.selectAllPaging(start, SELECT_LIMIT);
+			}
+		} else {
+			count = productDao.selectCountByCategoryId(categoryId);
+			if (count > 0) {
+				products = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
+			}
 		}
 		return new ProductResponseDto(products, count);
 	}
