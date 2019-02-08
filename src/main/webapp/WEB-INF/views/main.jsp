@@ -83,7 +83,7 @@
 
 	<script type="rv-template" id="promotionItem">
 	<li class="item" style="background-image: url({promotionImageUrl});">
-		<a href="{promotionImageUrl}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+		<a href="detail?id={productId}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
 			<div class="event_txt">
 				<h4 class="event_txt_tit"></h4>
 				<p class="event_txt_adr"></p>
@@ -95,7 +95,7 @@
 
 	<script type="rv-template" id="productItem">
 		<li class="item">
-			<a href="detail.html?id={id}" class="item_book">
+			<a href="detail?id={productId}" class="item_book">
 				<div class="item_preview">
 					<img alt="{description}" class="img_thumb" src="{productImageUrl}">
 					<span class="img_border"></span>
@@ -218,13 +218,15 @@
 			for (var i = 0; i < promotionList.length; i++) {
 				resultHtml += template
 									.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
-									.replace('{promotionImageUrl}', promotionList[i].productImageUrl);
+									.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
+									.replace('{productId}', promotionList[i].productId);
 			}
 
 			if (promotionList.length > 0) {
 				resultHtml += template
 									.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
-									.replace('{promotionImageUrl}', promotionList[0].productImageUrl);
+									.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
+									.replace('{productId}', promotionList[0].productId);
 			}
 
 			document.querySelector('ul.visual_img').innerHTML = resultHtml;
@@ -249,7 +251,8 @@
 												.replace('{description}', productList[i].productDescription)
 												.replace('{id}', productList[i].displayInfoId)
 												.replace('{placeName}', productList[i].placeName)
-												.replace('{content}', productList[i].productContent);
+												.replace('{content}', productList[i].productContent)
+												.replace('{productId}', productList[i].productId);
 			}
 			var containers = document.querySelectorAll('.lst_event_box');
 			containers[0].innerHTML += resultHtml[0];
