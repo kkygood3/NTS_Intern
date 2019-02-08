@@ -33,9 +33,9 @@ const promotionTemplate = `<li><img src="/resources/img/product/{productImageUrl
 
 
 function basicSettings(){
-	ajax(addProductTemplate, GET, "/products?categoryId=0");
-	ajax(getPromotions, GET, "/promotions");
-	ajax(showCategories, GET, "/categories");
+	ajax(addProductTemplate, GET, "/api/products?categoryId=0");
+	ajax(getPromotions, GET, "/api/promotions");
+	ajax(showCategories, GET, "/api/categories");
 }
 
 // slide CSS
@@ -100,7 +100,7 @@ function moreButtonListener(e){
 	let categoryCount = parseInt(document.getElementById('categoryCount').innerText);
 	
 	let categoryId = currentCategory;
-	let url = `/products?categoryId=${categoryId}&start=${buttonValue}`;
+	let url = `/api/products?categoryId=${categoryId}&start=${buttonValue}`;
 	let param;
 	
 	ajax(addProductTemplate, GET, url);
@@ -128,7 +128,7 @@ function addProductTemplate(data){
 		let resultHtml = productTemplate.replace('{id}', product.displayInfoId)
 					.replace('{placeName}', product.placeName)
 					.replace('{content}', product.productContent)
-					.replace(/{description}/gi, product.productDescription)
+					.replace(/{description}/g, product.productDescription)
 					.replace('{productImageUrl}', product.productImageUrl);
 
 		if(index % 2 == 0){
@@ -188,7 +188,7 @@ function categoryClickEvent(){
 		}*/
 		isClickedAnotherCategory = true;
 		currentCategory = clickedCategory;
-		let url = `/products?categoryId=${clickedCategory}`;
+		let url = `/api/products?categoryId=${clickedCategory}`;
 		ajax(addProductTemplate, GET, url);
 	});
 }

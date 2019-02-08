@@ -9,13 +9,13 @@ import com.nts.reservation.dto.CategoryResponse;
 import com.nts.reservation.service.CategoryService;
 
 @RestController
-@RequestMapping(path = "/categories")
+@RequestMapping(path = "/api")
 public class CategoryController {
 	
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 	
-	@GetMapping
+	@GetMapping(path = "/categories")
 	public CategoryResponse getCategory(){
 		return categoryService.getCategories();
 	}

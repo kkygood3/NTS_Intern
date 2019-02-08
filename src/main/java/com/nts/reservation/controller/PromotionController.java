@@ -13,13 +13,13 @@ import com.nts.reservation.dto.PromotionResponse;
 import com.nts.reservation.service.PromotionService;
 
 @RestController
-@RequestMapping(path = "/promotions")
+@RequestMapping(path = "/api")
 public class PromotionController {
 	
 	@Autowired
-	PromotionService promotionService;
+	private PromotionService promotionService;
 	
-	@GetMapping
+	@GetMapping(path = "/promotions")
 	public PromotionResponse getPromotions(){
 		return promotionService.getPromotions();
 	}

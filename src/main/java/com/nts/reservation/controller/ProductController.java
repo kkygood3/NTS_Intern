@@ -12,18 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.ProductResponse;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.utils.Validator;
 
 @RestController
-@RequestMapping(path = "/products")
+@RequestMapping(path = "/api")
 public class ProductController {
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 	
-	@GetMapping
-	public ProductResponse productList(@RequestParam(name = "categoryId", required = true) int categoryId,
+	
+	@GetMapping(path = "/products")
+	public ProductResponse productList(@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start){
 		
+		if(Validator.isCategoryInvaild(categoryId, start)) {
+			throw new NumberFormatException("BAD_REQUEST!!<br> Please try agin...");
+		}
 		return productService.getProductsByCategory(categoryId, start);
 	}
 }

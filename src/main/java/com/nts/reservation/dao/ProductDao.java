@@ -23,7 +23,7 @@ public class ProductDao {
 	// 이름이 붙여진 파라미터가 들어간 SQL을 호출 (? -> :id로 사용 가능)
 	private NamedParameterJdbcTemplate jdbc;
 
-	static final int ALL_CATEGORIES = 0;
+	private static final int ALL_CATEGORIES = 0;
 
 	// ResultSet 에서 값을 추출하여 원하는 객체로 변환
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
