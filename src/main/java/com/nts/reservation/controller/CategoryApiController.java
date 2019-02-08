@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.Category;
@@ -20,12 +19,11 @@ import com.nts.reservation.service.CategoryService;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
-@RequestMapping(path = "/categories")
 public class CategoryApiController {
 	@Autowired
 	CategoryService categoryService;
 
-	@GetMapping
+	@GetMapping("/api/categories")
 	public Map<String, List<Category>> categories() {
 
 		List<Category> categoryList = categoryService.getCategoryList();
