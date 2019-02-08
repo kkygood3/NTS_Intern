@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		this.compileHendlebars.anonymizeUserId(this.constants.displayedIdLength);
+		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
 		
 		let httpRequest;
 		
@@ -35,7 +35,7 @@ var reviewPage = {
 	displayInfoId : window.location.href.split("/").slice(-1)[0],
 	
 	constants: {
-		displayedIdLength : 4,
+		DISPLAYED_ID_LENGTH : 4,
 	},
 	
 	elements: {
@@ -61,9 +61,9 @@ var reviewPage = {
 			return Handlebars.compile(template);
 		},
 		
-		anonymizeUserId: function(displayedIdLength){
+		anonymizeUserId: function(DISPLAYED_ID_LENGTH){
 			Handlebars.registerHelper('anonymize', function(context) {
-				return context.substring(0, displayedIdLength) + "****";
+				return context.substring(0, DISPLAYED_ID_LENGTH) + "****";
 			});
 		}
 	},

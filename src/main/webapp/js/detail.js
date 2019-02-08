@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var detailPage = {
 	getDetailPage: function(displayInfoId){
-		this.compileHendlebars.anonymizeUserId(this.constants.displayedIdLength);
+		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
 		
 		let httpRequest;
 		
@@ -34,11 +34,11 @@ var detailPage = {
 	displayInfoId : window.location.href.split("/").slice(-1)[0],
 	
 	constants: {
-		cntMainImage : 2,
-		displayedIdLength : 4,
-		contentContainerHeight : 73,
-		slideImageWidth : 414,
-		commentsPerPage : 3
+		CNT_MAIN_IMAGE : 2,
+		DISPLAYED_ID_LENGTH : 4,
+		CONTENT_CONTAINER_HEIGHT : 73,
+		SLIDE_IMG_WIDTH : 414,
+		CNT_COMMENTS_AT_MAIN_PAGE : 3
 	},
 
 	elements: {
@@ -85,7 +85,7 @@ var detailPage = {
 		var bindVisualImgs = this.compileHendlebars.bindTemplate(this.template.visualImgTemplate);
 		
 		if(jsonResponse["productImages"].length > 1){
-			this.elements.cnt.innerHTML = this.constants.cntMainImage;
+			this.elements.cnt.innerHTML = this.constants.CNT_MAIN_IMAGE;
 		}
 		if(jsonResponse["productImages"].length === 1){
 			this.elements.btnPrev.style.display = "none";
@@ -97,7 +97,7 @@ var detailPage = {
 		this.setEvent.carousel();
 		
 		this.elements.content.innerHTML = jsonResponse["displayInfo"].productContent;
-		if(this.elements.content.scrollHeight < this.constants.contentContainerHeight){
+		if(this.elements.content.scrollHeight < this.constants.CONTENT_CONTAINER_HEIGHT){
 			this.elements.btnOpen.style.display = "none";
 		}
 		
@@ -117,7 +117,7 @@ var detailPage = {
 		});
 		
 		this.elements.commentsContainer.innerHTML = bindComments(jsonResponse);
-		if(this.elements.commentsContainer.querySelectorAll("li").length < this.constants.commentsPerPage){
+		if(this.elements.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
 			this.elements.btnMoreReview.style.display = "none";
 		} else {
 			this.elements.btnMoreReview.href = "../review/" + this.displayInfoId;
@@ -142,9 +142,9 @@ var detailPage = {
 			return Handlebars.compile(template);
 		},
 		
-		anonymizeUserId: function(displayedIdLength){
+		anonymizeUserId: function(DISPLAYED_ID_LENGTH){
 			Handlebars.registerHelper('anonymize', function(context) {
-				return context.substring(0, displayedIdLength) + "****";
+				return context.substring(0, DISPLAYED_ID_LENGTH) + "****";
 			});
 		}
 	},
@@ -220,7 +220,7 @@ var detailPage = {
 		
 		slideRight: function(){
 			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
-			var cntImages = this.detailPage.constants.cntMainImage;
+			var cntImages = this.detailPage.constants.CNT_MAIN_IMAGE;
 			var prevImage;
 			var nowImage = this.detailPage.imageSlide.setImage(slideImageIndex);
 			
@@ -230,7 +230,7 @@ var detailPage = {
 				prevImage = this.detailPage.imageSlide.setImage(slideImageIndex - 1);
 			}
 			
-			prevImage.style.left = -this.detailPage.constants.slideImageWidth + "px";
+			prevImage.style.left = -this.detailPage.constants.SLIDE_IMG_WIDTH + "px";
 			prevImage.style.visibility = "visible";
 			prevImage.className = "item slide_right_in";
 			nowImage.style.left = "0";
@@ -246,13 +246,13 @@ var detailPage = {
 		
 		slideLeft: function(){
 			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
-			var cntImages = this.detailPage.constants.cntMainImage;
+			var cntImages = this.detailPage.constants.CNT_MAIN_IMAGE;
 			var nowImage = this.detailPage.imageSlide.setImage(this.detailPage.imageSlide.visualImageIndex);
 			var nextImage = this.detailPage.elements.visualImgContainer.querySelector("li[data-index='" + (slideImageIndex + 1) % cntImages + "']");
 			
 			nowImage.style.left = "0";
 			nowImage.className = "item slide_left_out";
-			nextImage.style.left = this.detailPage.constants.slideImageWidth + "px";
+			nextImage.style.left = this.detailPage.constants.SLIDE_IMG_WIDTH + "px";
 			nextImage.style.visibility = "visible";
 			nextImage.className = "item slide_left_in";
 			
