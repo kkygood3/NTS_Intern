@@ -50,7 +50,6 @@ public class CommentDao extends BasicDao<CommentDto> {
 	 * 해당 commentId의 상품 이미지를 가져옵니다. 등록된 이미지가 없으면 null 반환
 	 */
 	public CommentImageDto selectCommentImage(int commentId) {
-		commentId = 1;
 		try {
 			return jdbcTemplate.queryForObject(SELECT_COMMENT_IMAGE, Collections.singletonMap("commentId", commentId),
 				BeanPropertyRowMapper.newInstance(CommentImageDto.class));
