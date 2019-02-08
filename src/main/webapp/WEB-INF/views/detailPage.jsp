@@ -223,7 +223,7 @@
 			<a href="{{imageUrl}}"title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{imageUrl}}" alt="리뷰이미지"> </a>
 		</div>
 	</script>
-	<script src="../../js/handlebars.min-v4.0.13.js"></script>
+	<script src="../js/handlebars.min-v4.0.13.js"></script>
     <script src="../js/util.js"></script>
     <script src="../js/detail.js"></script>
 </body>
