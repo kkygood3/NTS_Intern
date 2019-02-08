@@ -9,23 +9,22 @@
  */
 
 function SlidingAnimation(_slideContainer){
-	slideContainer = _slideContainer;
-	slideWrapper = slideContainer.closest("div");
+	SLIDE_CONTAINER = _slideContainer;
+	SLIDE_WRAPPER = SLIDE_CONTAINER.closest("div");
 	
-	IMAGE_LIST = slideContainer.getElementsByTagName("li");
-	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
-	
-	isAuto = true;
-	ANIMATION_SPEED = 10;
-	ANIMATION_STOP_DURATION = 1000;
+	IMAGE_LIST = SLIDE_CONTAINER.getElementsByTagName("li");
+	SLIDE_CONATINER_WIDTH = SLIDE_CONTAINER.offsetWidth;	
 	
 	prevSlideCount = IMAGE_LIST.length - 1;	
 	currentSlideCount = 0;
 	nextSlideCount = 1;
 	isAnimating = false;
 	
-	maxHeight = slideWrapper.clientHeight;
+	maxHeight = SLIDE_WRAPPER.clientHeight;
 	minHeight = 100;
+	isAuto = true;
+	ANIMATION_SPEED = 10;
+	ANIMATION_STOP_DURATION = 1000;
 }
 
 /**
@@ -149,7 +148,7 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
  *                                as slideAnimation slides with asc order,
  *                                Reverse goes desc order
  */
-SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing, maxHeight, minHeight) {
+SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
@@ -205,9 +204,9 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing, maxHeight
  */
 SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, minHeight){
 	if(target.clientHeight > SLIDE_CONATINER_WIDTH) {
-		slideWrapper.style.height = SLIDE_CONATINER_WIDTH+"px";
+		SLIDE_WRAPPER.style.height = SLIDE_CONATINER_WIDTH+"px";
 	} else {
-		slideWrapper.style.height = target.clientHeight + "px";
+		SLIDE_WRAPPER.style.height = target.clientHeight + "px";
 	}
 }
 

@@ -51,7 +51,6 @@ var detailPage = {
 	
 	state : {
 	  detail_data : "",
-	  tab_state : 1
 	},
 	
 	parser : new DOMParser(),
@@ -95,13 +94,17 @@ var detailPage = {
 			let tab = e.target.closest("li");
 			tab.firstElementChild.classList.add("active");
 			
+			let detailTab = document.querySelector(".detail_area_wrap");
+			let pathTab = document.querySelector(".detail_location");
+			
 			if(tab.classList.contains("_detail")){
-				document.querySelector(".detail_area_wrap").classList.remove("hide");
-				document.querySelector(".detail_location").classList.add("hide");
+				detailTab.classList.remove("hide");
+				pathTab.classList.add("hide");
 			}
+			
 			else if(tab.classList.contains("_path")){
-				document.querySelector(".detail_location").classList.remove("hide");
-				document.querySelector(".detail_area_wrap").classList.add("hide");
+				pathTab.classList.remove("hide");
+				detailTab.classList.add("hide");
 			}
 			document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
 		});
@@ -129,7 +132,7 @@ var detailPage = {
 	 *                   comments button to id;
 	 */
 	deployComments : function(){
-	    document.querySelector(".btn_review_more").href="./review?id=" + constants.DISPLAY_INFO_ID;
+	    document.querySelector(".btn_review_more").href = "./review?id=" + constants.DISPLAY_INFO_ID;
 		domElements.REVIEW_COUNT.innerHTML = state.detail_data.comments.length + "건";
 	    arrayToLiRenderer(state.detail_data.comments.slice(0, 3), domElements.REVIEW_AREA, domElements.REVIEW_ITEM);
 	},
@@ -205,9 +208,11 @@ var detailPage = {
 		 domElements.BOTTOM_PATH.querySelector(".store_tel").innerHTML 
 		 	= state.detail_data.displayInfo.telephone;
 		 
-		 domElements.AVERAGE_SCORE_STARS.style.width = state.detail_data.averageScore / 5 * 100 + "%";
+		 domElements.AVERAGE_SCORE_STARS.style.width 
+		 	= state.detail_data.averageScore / 5 * 100 + "%";
 		 
-	     domElements.AVERAGE_SCORE_TEXT.innerHTML = state.detail_data.averageScore;
+	     domElements.AVERAGE_SCORE_TEXT.innerHTML 
+	     	= state.detail_data.averageScore;
 	},
 
 	/**
@@ -227,13 +232,13 @@ var detailPage = {
 		if(imageList.length > 1) {
 			domElements.SLIDE_LEFT.addEventListener("click", (e) => {
 				if(!animation.isAnimating) {
-					animation.slide(false, true, 414, 10);
+					animation.slide(false, true);
 				}
 			});
 			
 			domElements.SLIDE_RIGHT.addEventListener("click", (e) => {
 				if(!animation.isAnimating) {
-					animation.slideReverse(false, true, 414, 10);
+					animation.slideReverse(false, true);
 				}
 			});
 		} else {

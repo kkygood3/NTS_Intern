@@ -32,7 +32,6 @@ var mainPage = {
 		CATEGORIES : "/reservation/api/categories",
 		PROMOS : "/reservation/api/promotions",
 		PRODUCTS : "/reservation/api/products",
-		PRODUCTS_PARAMS : ""
 	},
 	state : {
 		CATEGORY_DATA : "",
@@ -63,7 +62,6 @@ var mainPage = {
 		
 		initTab();
 		fetchPromos();
-		fetchProducts();	
 		fetchCategoryCounts();
 	},
 	
@@ -104,11 +102,12 @@ var mainPage = {
 				return;
 			});
 			state.CATEGORY_DATA.items.push({count : totalProductsCount, id : 0, name : "전체"});
+			fetchProducts();
 		});
 	},
 	
 	/**
-	 * @fetchCategoryCounts() : fetch all information related to promotions
+	 * @fetchPromos() : fetch all information related to promotions
 	 */
 	fetchPromos : function () {
 		xhrGetRequest(urls.PROMOS, (respText) => {
@@ -126,9 +125,9 @@ var mainPage = {
 	 *                  all category will be searched
 	 */
 	fetchProducts : function () {
-	    urls.PRODUCTS_PARAMS = "?start=" + state.loadedProductCount
+	    products_params = "?start=" + state.loadedProductCount
 	    		                 + "&categoryId=" + state.currentCategory;
-		let getProductUrl = urls.PRODUCTS + urls.PRODUCTS_PARAMS;
+		let getProductUrl = urls.PRODUCTS + products_params;
 		xhrGetRequest(getProductUrl, (respText) => {
 			let productData = JSON.parse(respText);
 			productData.items.forEach((item) => {
@@ -191,6 +190,5 @@ var mainPage = {
 		let animation = new SlidingAnimation(domElements.SLIDE_CONTAINER);
 		animation.changeTiming(4, 1000)
 		animation.init(true);
-			
 	}
 };
