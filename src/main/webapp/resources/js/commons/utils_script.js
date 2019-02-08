@@ -44,7 +44,7 @@ SlidingAnimation.prototype.initSlideAnimation = function() {
 	/*
 	 * timeout because first promo-slide should be displayed before transition
 	 */
-	if(this.isAuto) {
+	if(isAuto) {
 		setTimeout(() => {
 			requestAnimationFrame(() => this.slideAnimation(true));
 		}, ANIMATION_STOP_DURATION);
@@ -75,6 +75,8 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 	let currentImage = IMAGE_LIST[currentSlideCount];
 	let nextImage = IMAGE_LIST[nextSlideCount];
 	
+	console.log(currentSlideCount,nextSlideCount)
+	
 	if(isResizing){
 		this.resizeImageContainer(nextImage, maxHeight, minHeight);
 	}
@@ -95,8 +97,8 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 			currentSlideCount = nextSlideCount;
 			nextSlideCount++;
 			
-			if(this.nextSlideCount == IMAGE_LIST.length) {
-				this.nextSlideCount = 0;
+			if(nextSlideCount == IMAGE_LIST.length) {
+				nextSlideCount = 0;
 			}
 			needToStop = true;
 			break;
@@ -108,7 +110,8 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
 				requestAnimationFrame(() => this.slideAnimation(isAuto));
 			}, ANIMATION_STOP_DURATION);
 		} else {
-			isAnimating = false;
+			console.log("done")
+			this.isAnimating = false;
 		}
 	} else {
 		requestAnimationFrame(() => this.slideAnimation(isAuto));
@@ -138,7 +141,7 @@ SlidingAnimation.prototype.slideAnimation = function(isAuto, isResizing, maxHeig
  *                                Reverse goes desc order
  */
 SlidingAnimation.prototype.slideAnimationReverse = function(isAuto, isResizing, maxHeight, minHeight) {
-	isAnimating = true;
+	this.isAnimating = true;
 	
 	let needToStop = false;
 	let prevImage = IMAGE_LIST[prevSlideCount];
