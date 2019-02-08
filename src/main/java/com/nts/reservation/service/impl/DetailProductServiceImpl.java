@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.DetailProductDao;
 import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.ProductImage;
@@ -33,7 +34,13 @@ public class DetailProductServiceImpl implements DetailProductService {
 
 	@Override
 	public List<Comment> getComments(Integer displayInfoId) {
-		return detailProductDao.getComments(displayInfoId);
+		List<Comment> comments = detailProductDao.getComments(displayInfoId);
+		for (Comment c : comments) {
+			int commentId = c.getCommentId();
+			List<CommentImage> commentImages = detailProductDao.getCommentImages(commentId);
+			c.setCommentImages(commentImages);
+		}
+		return comments;
 	}
 
 	@Override

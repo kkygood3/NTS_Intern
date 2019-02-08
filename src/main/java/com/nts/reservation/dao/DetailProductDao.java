@@ -60,16 +60,12 @@ public class DetailProductDao {
 
 	public List<Comment> getComments(Integer displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		List<Comment> comments = jdbc.query(GET_COMMENTS, param, commentMapper);
-		for (Comment c : comments) {
-			int commentId = c.getCommentId();
-			Map<String, Integer> contentIdParam = Collections.singletonMap("commentId", commentId);
-			List<CommentImage> commentImages = jdbc.query(GET_COMMENT_IMAGES, contentIdParam, commentImageMapper);
-			if (commentImages.size() != 0) {
-				c.setCommentImages(commentImages);
-			}
-		}
-		return comments;
+		return jdbc.query(GET_COMMENTS, param, commentMapper);
+	}
+
+	public List<CommentImage> getCommentImages(Integer commentId) {
+		Map<String, Integer> param = Collections.singletonMap("commentId", commentId);
+		return jdbc.query(GET_COMMENT_IMAGES, param, commentImageMapper);
 	}
 
 	public DisplayInfo getDisplayInfo(Integer displayInfoId) {
