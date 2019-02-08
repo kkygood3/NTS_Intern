@@ -33,7 +33,7 @@ public class CategoryDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Category> selectAllCategories(Integer limit) {
+	public List<Category> selectCategory(Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("limit", limit);
 		return jdbc.query(SELECT_CATEGORY, params, rowMapper);

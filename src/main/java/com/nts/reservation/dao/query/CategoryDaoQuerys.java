@@ -8,5 +8,5 @@ package com.nts.reservation.dao.query;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class CategoryDaoQuerys {
-	public static final String SELECT_CATEGORY = "SELECT id, name FROM category ORDER BY id DESC limit :limit";
+	public static final String SELECT_CATEGORY = "SELECT id, name FROM category ORDER BY id limit :limit";
 }
