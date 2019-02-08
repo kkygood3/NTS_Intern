@@ -17,7 +17,7 @@ import com.nts.reservation.dto.Promotion;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class PromotionDaoTest {
-	private static final int PROMOTION_LIMIT = 100;
+	private static final long PROMOTION_LIMIT = 100;
 
 	public static void main(String[] args) {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
@@ -25,7 +25,7 @@ public class PromotionDaoTest {
 
 		System.out.println(promotionDao.selectPromotionCount());
 
-		List<Promotion> listPromotion = promotionDao.selectPromotion(PROMOTION_LIMIT);
+		List<Promotion> listPromotion = promotionDao.selectPromotions(PROMOTION_LIMIT);
 		for (Promotion promotion : listPromotion) {
 			System.out.println(promotion.toString());
 		}

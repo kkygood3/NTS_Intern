@@ -29,14 +29,14 @@ public class ProductDaoTest {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 
 		CategoryDao categoryDao = ac.getBean(CategoryDao.class);
-		List<Category> listCategory = categoryDao.selectCategory(CATEGORY_LIMIT);
+		List<Category> listCategory = categoryDao.selectCategories(CATEGORY_LIMIT);
 
 		ProductDao productDao = ac.getBean(ProductDao.class);
 
 		for (Category category : listCategory) {
-			System.out.println(productDao.selectProductCountByCategory(category.getId()));
+			System.out.println(productDao.selectProductsCountByCategory(category.getId()));
 
-			List<Product> listProduct = productDao.selectProductByCategory(category.getId(), PRODUCT_START,
+			List<Product> listProduct = productDao.selectProductsByCategory(category.getId(), PRODUCT_START,
 				PRODUCT_LIMIT);
 			for (Product product : listProduct) {
 				System.out.println(product.toString());

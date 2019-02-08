@@ -24,7 +24,7 @@ public class CategoryDaoTest {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		CategoryDao categoryDao = ac.getBean(CategoryDao.class);
 
-		List<Category> listCategory = categoryDao.selectCategory(CATEGORY_LIMIT);
+		List<Category> listCategory = categoryDao.selectCategories(CATEGORY_LIMIT);
 		for (Category category : listCategory) {
 			System.out.println(category.toString());
 		}

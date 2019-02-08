@@ -6,6 +6,7 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.query.ProductDaoQuerys.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,14 @@ public class ProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Product> selectProductByCategory(long categoryId, long start, long limit) {
+	public List<Product> selectProducts(long start, long limit) {
+		Map<String, Long> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_PRODUCT, params, rowMapper);
+	}
+
+	public List<Product> selectProductsByCategory(long categoryId, long start, long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -40,7 +48,11 @@ public class ProductDao {
 		return jdbc.query(SELECT_PRODUCT_BY_CATEGORY, params, rowMapper);
 	}
 
-	public int selectProductCountByCategory(long categoryId) {
+	public int selectProductsCount() {
+		return jdbc.queryForObject(SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
+	}
+
+	public int selectProductsCountByCategory(long categoryId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);

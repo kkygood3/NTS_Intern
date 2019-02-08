@@ -33,7 +33,7 @@ public class PromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Promotion> selectPromotion(long limit) {
+	public List<Promotion> selectPromotions(long limit) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("limit", limit);
 		return jdbc.query(SELECT_PROMOTION, params, rowMapper);
