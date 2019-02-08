@@ -29,7 +29,7 @@ public class ProductController {
 	 * @desc 카테고리별 Product 가져오기
 	 * @param categoryId
 	 * @param start 
-	 * @return productResponse( items [product list] , totalCount [카테고리별 총 개수] )
+	 * @return products( items [product list] , totalCount [카테고리별 총 개수] )
 	 * @throws ProductParamException 
 	 */
 	@GetMapping
@@ -43,4 +43,5 @@ public class ProductController {
 
 		return productService.getProducts(categoryId, start);
 	}
+
 }
