@@ -45,5 +45,4 @@ public class DbConfig implements TransactionManagementConfigurer {
 	public PlatformTransactionManager transactionManger() {
 		return new DataSourceTransactionManager(dataSource());
 	}
-
 }

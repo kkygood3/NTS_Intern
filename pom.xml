@@ -69,6 +69,7 @@
 		<version>${spring.version}</version>
 	</dependency>
 	
+	<!-- MySQL -->
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
@@ -96,8 +97,7 @@
 	</dependency> 
   </dependencies>
   <build>
-    <finalName>guestbook</finalName>
-    
+    <finalName>reservation</finalName>
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>

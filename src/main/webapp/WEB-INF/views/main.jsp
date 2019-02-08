@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>Spring 설정</h1>
 </body>
 </html>
