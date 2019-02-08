@@ -14,6 +14,6 @@
 	<h1>
 		<c:if test="${code != null}">${code} : ${message}</c:if> 
 	</h1>
-	<button onclick="location.href='/'">메인페이지로 이동</button>
+	<button onclick="location.href='./'">메인페이지로 이동</button>
 </body>
 </html>

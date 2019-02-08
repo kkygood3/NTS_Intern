@@ -3,11 +3,13 @@ function getParamsForErrorPage(status) {
 }
 function getErrorText(status) {
 	switch(status) {
-	  case 400:
-		  return "Bad Request";
-	  case 404:
-		  return "Page Not Found";
-	  default:
-		  return "Unknown Error";
+	case 400:
+		return "Bad Request";
+	case 404:
+		return "Page Not Found";
+	case 500:
+		return "Internal Server Error"
+	default:
+		return "Unknown Error";
 	}
 }
