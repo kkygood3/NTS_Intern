@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function(){
 	
 	basicSettings();
-	document.querySelector('#moreButton').addEventListener('click', e=>moreButtonListener(e));
+	document.getElementById('moreButton').addEventListener('click', e=>moreButtonListener(e));
 	categoryClickEvent();
 	
 });
@@ -11,6 +11,7 @@ let currentCategory = 0;
 let isClickedAnotherCategory = false;
 const LIMIT = 4;
 const GET = 'GET';
+
 const productTemplate = `<li class="item">
 			<a href="detail.html?id={id}" class="item_book">
 				<div class="item_preview">
@@ -34,12 +35,12 @@ const promotionTemplate = `<li><img src="/resources/img/product/{productImageUrl
 function basicSettings(){
 	ajax(addProductTemplate, GET, "/products?categoryId=0");
 	ajax(getPromotions, GET, "/promotions");
-	categoryAjax();
+	ajax(showCategories, GET, "/categories");
 }
 
 // slide CSS
 function slidePromotion(count){
-	let promotionSlide = document.querySelector('.visual_img');
+	let promotionSlide = document.getElementById('slide');
 	let slideWidth = promotionSlide.offsetWidth;
 	let promotionCount = count;
 	let duration = promotionCount * 2;
@@ -96,7 +97,7 @@ function ajax(perform, method, url) {
  */
 function moreButtonListener(e){
 	let buttonValue = parseInt(e.target.dataset.page);
-	let categoryCount = parseInt(document.querySelector('#categoryCount').innerText);
+	let categoryCount = parseInt(document.getElementById('categoryCount').innerText);
 	
 	let categoryId = currentCategory;
 	let url = `/products?categoryId=${categoryId}&start=${buttonValue}`;
@@ -114,11 +115,11 @@ function moreButtonListener(e){
 
 function addProductTemplate(data){
 	if(isClickedAnotherCategory){
-		document.querySelector('#productBox1').innerHTML = "";
-		document.querySelector('#productBox2').innerHTML = "";
-		document.querySelector('#moreButton').dataset.page = LIMIT;
+		document.getElementById('productBox1').innerHTML = "";
+		document.getElementById('productBox2').innerHTML = "";
+		document.getElementById('moreButton').dataset.page = LIMIT;
 		isClickedAnotherCategory = false;
-		document.querySelector('#moreButton').hidden = false;
+		document.getElementById('moreButton').hidden = false;
 	}
 
 	let products = data.items;
@@ -131,27 +132,23 @@ function addProductTemplate(data){
 					.replace('{productImageUrl}', product.productImageUrl);
 
 		if(index % 2 == 0){
-			document.querySelector('#productBox1').innerHTML += resultHtml;
+			document.getElementById('productBox1').innerHTML += resultHtml;
 		}else{
-			document.querySelector('#productBox2').innerHTML += resultHtml;
+			document.getElementById('productBox2').innerHTML += resultHtml;
 		}
 	});
 	
 	let categoryCount = data.totalCount;
-	document.querySelector("#categoryCount").textContent = categoryCount;
+	document.getElementById("categoryCount").textContent = categoryCount;
 }
 
 function removeMoreButton(){
-	document.querySelector('#moreButton').hidden = true;
+	document.getElementById('moreButton').hidden = true;
 }
 
 /****************************************/
 /***************category*****************/
 /****************************************/
-function categoryAjax(){
-	let url = '/categories';
-	ajax(showCategories, GET, url);
-}
 
 function showCategories(data){
 	let items = data.items;
@@ -160,7 +157,7 @@ function showCategories(data){
 		let categoryName = category.name;
 		let script = categoryTemplate.replace('{categoryId}', categoryId)
 									.replace('{categoryName}', categoryName);
-		document.querySelector('#category').innerHTML += script;
+		document.getElementById('category').innerHTML += script;
 	});
 }
 
@@ -169,7 +166,7 @@ function showCategories(data){
  * @returns
  */
 function categoryClickEvent(){
-	document.querySelector('#category').addEventListener('click', e=>{
+	document.getElementById('category').addEventListener('click', e=>{
 		let clickedTag = e.target.tagName;
 		
 		let clickedCategory;
@@ -200,7 +197,7 @@ function categoryClickEvent(){
  * @returns
  */
 function removeActiveCategory(){
-	document.querySelectorAll('.active').forEach(tag=>{
+	Array.from(document.getElementsByClassName('active')).forEach(tag=>{
 		tag.className = 'anchor';
 	});
 }
@@ -214,7 +211,7 @@ function getPromotions(data){
 	promotions.forEach(promotion=>{
 		promotionsHtml += promotionTemplate.replace('{productImageUrl}', promotion.productImageUrl);
 	});
-	document.querySelector('#slide').innerHTML += promotionsHtml;
+	document.getElementById('slide').innerHTML += promotionsHtml;
 	
 	slidePromotion(promotions.length);
 }
