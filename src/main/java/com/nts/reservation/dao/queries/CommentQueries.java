@@ -11,4 +11,9 @@ public class CommentQueries {
 		+ " INNER JOIN reservation_info ON reservation_user_comment.reservation_info_id = reservation_info.id"
 		+ " WHERE reservation_user_comment.product_id = :productId"
 		+ " ORDER BY reservation_user_comment.id DESC";
+	
+	public static final String SELECT_AVG_SCORE =
+		"SELECT AVG(reservation_user_comment.score)"
+		+ " FROM reservation_user_comment"
+		+ " WHERE reservation_user_comment.product_id = :productId";
 }
