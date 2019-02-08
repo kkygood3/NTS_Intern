@@ -29,7 +29,12 @@ public class DetailProductServiceImpl implements DetailProductService {
 
 	@Override
 	public BigDecimal getAverageScore(Integer displayInfoId) {
-		return detailProductDao.getAverageScore(displayInfoId);
+		BigDecimal avgScore = BigDecimal.valueOf(0);
+		if (detailProductDao.getAverageScore(displayInfoId) != null) {
+			avgScore = detailProductDao.getAverageScore(displayInfoId)
+				.setScale(1, BigDecimal.ROUND_HALF_UP);
+		}
+		return avgScore;
 	}
 
 	@Override

@@ -44,12 +44,7 @@ public class DetailProductDao {
 
 	public BigDecimal getAverageScore(Integer displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		BigDecimal avgScore = BigDecimal.valueOf(0);
-		if (jdbc.queryForObject(GET_AVERAGE_SCORE, param, Double.class) != null) {
-			avgScore = BigDecimal.valueOf(jdbc.queryForObject(GET_AVERAGE_SCORE, param, Double.class))
-				.setScale(1, BigDecimal.ROUND_HALF_UP);
-		}
-		return avgScore;
+		return jdbc.queryForObject(GET_AVERAGE_SCORE, param, BigDecimal.class);
 	}
 
 	public List<Comment> getComments(Integer displayInfoId) {
