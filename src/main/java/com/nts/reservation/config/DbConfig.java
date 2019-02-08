@@ -25,7 +25,7 @@ public class DbConfig implements TransactionManagementConfigurer {
 	private static final String URL = "spring.datasource.url";
 	private static final String USE_RNAME = "spring.datasource.username";
 	private static final String PASSWORD = "spring.datasource.password";
-	
+
 	@Autowired
 	Environment environment;
 
@@ -38,8 +38,7 @@ public class DbConfig implements TransactionManagementConfigurer {
 		dataSource.setPassword(environment.getProperty(PASSWORD));
 		return dataSource;
 	}
-	
-	// 
+
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return transactionManger();

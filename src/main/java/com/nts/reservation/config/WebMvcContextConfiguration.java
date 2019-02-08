@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nts.reservation.controller"})
+@ComponentScan(basePackages = {"com.nts.reservation"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	static final int PERIOD = 365 * 24 * 60 * 60;
 	
