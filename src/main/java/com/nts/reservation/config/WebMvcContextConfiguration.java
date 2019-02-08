@@ -1,6 +1,8 @@
-package reservation.config;
-
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+package com.nts.reservation.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * @Author Duik Park, duik.park@nts-corp.com
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.nts.reservation.controller")
