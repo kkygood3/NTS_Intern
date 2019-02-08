@@ -3,11 +3,11 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.service;
+package com.nts.reservation.main.promotion.service;
 
 import java.util.List;
 
-import com.nts.reservation.dto.MainPromotion;
+import com.nts.reservation.main.promotion.dto.MainPromotion;
 
 public interface MainPromotionService {
 	public List<MainPromotion> getPromotions();

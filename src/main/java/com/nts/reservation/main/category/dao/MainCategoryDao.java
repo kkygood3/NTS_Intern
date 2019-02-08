@@ -3,9 +3,9 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dao;
+package com.nts.reservation.main.category.dao;
 
-import static com.nts.reservation.dao.queries.MainPromotionQueries.*;
+import static com.nts.reservation.main.category.dao.queries.MainCategoryQueries.*;
 
 import java.util.List;
 
@@ -16,18 +16,19 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.MainPromotion;
+import com.nts.reservation.main.category.dto.MainCategory;
 
 @Repository
-public class MainPromotionDao {
+public class MainCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPromotion> rowMapper = BeanPropertyRowMapper.newInstance(MainPromotion.class);
+	private RowMapper<MainCategory> rowMapper = BeanPropertyRowMapper.newInstance(MainCategory.class);
 
-	public MainPromotionDao(DataSource dataSource) {
+	public MainCategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPromotion> selectPagingCategories() {
-		return jdbc.query(SELECT_PROMOTION_PAGE, rowMapper);
+	public List<MainCategory> selectPagingCategories() {
+		return jdbc.query(SELECT_CATEGORY_PAGE, rowMapper);
 	}
+
 }

@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dto;
+package com.nts.reservation.main.promotion.dto;
 
 public class MainPromotion {
 	private Integer id;

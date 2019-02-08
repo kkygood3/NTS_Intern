@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dto;
+package com.nts.reservation.main.category.dto;
 
 public class MainCategory {
 	private Integer id;

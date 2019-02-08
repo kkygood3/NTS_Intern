@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dao.queries;
+package com.nts.reservation.main.product.dao.queries;
 
 public class MainProductQueries {
 	public static final String SELECT_PROUDUCT_PAGE = "SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url\r\n"

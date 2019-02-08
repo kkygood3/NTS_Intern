@@ -3,9 +3,9 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dao;
+package com.nts.reservation.main.product.dao;
 
-import static com.nts.reservation.dao.queries.MainProductQueries.*;
+import static com.nts.reservation.main.product.dao.queries.MainProductQueries.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.MainProduct;
+import com.nts.reservation.main.product.dto.MainProduct;
 
 @Repository
 public class MainProductDao {

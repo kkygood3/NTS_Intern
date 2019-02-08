@@ -3,11 +3,11 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.service;
+package com.nts.reservation.main.product.service;
 
 import java.util.List;
 
-import com.nts.reservation.dto.MainProduct;
+import com.nts.reservation.main.product.dto.MainProduct;
 
 public interface MainProductService {
 	public static final Integer LIMIT = 4;

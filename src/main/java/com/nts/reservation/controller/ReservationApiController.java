@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.MainCategory;
-import com.nts.reservation.dto.MainProduct;
-import com.nts.reservation.dto.MainPromotion;
-import com.nts.reservation.service.MainCategoryService;
-import com.nts.reservation.service.MainProductService;
-import com.nts.reservation.service.MainPromotionService;
+import com.nts.reservation.main.category.dto.MainCategory;
+import com.nts.reservation.main.category.service.MainCategoryService;
+import com.nts.reservation.main.product.dto.MainProduct;
+import com.nts.reservation.main.product.service.MainProductService;
+import com.nts.reservation.main.promotion.dto.MainPromotion;
+import com.nts.reservation.main.promotion.service.MainPromotionService;
 
 @RestController
 @RequestMapping("/api")
