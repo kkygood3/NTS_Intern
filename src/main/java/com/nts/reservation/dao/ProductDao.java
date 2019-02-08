@@ -25,7 +25,6 @@ import com.nts.reservation.dto.Product;
  */
 @Repository
 public class ProductDao {
-
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 

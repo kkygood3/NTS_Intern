@@ -25,7 +25,6 @@ import com.nts.reservation.dto.Promotion;
  */
 @Repository
 public class PromotionDao {
-
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
 
@@ -39,7 +38,7 @@ public class PromotionDao {
 		return jdbc.query(SELECT_PROMOTION, params, rowMapper);
 	}
 
-	public Integer selectPromotionCount() {
+	public Integer selectPromotionsCount() {
 		return jdbc.queryForObject(SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 

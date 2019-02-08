@@ -23,7 +23,7 @@ public class PromotionDaoTest {
 		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		PromotionDao promotionDao = ac.getBean(PromotionDao.class);
 
-		System.out.println(promotionDao.selectPromotionCount());
+		System.out.println(promotionDao.selectPromotionsCount());
 
 		List<Promotion> listPromotion = promotionDao.selectPromotions(PROMOTION_LIMIT);
 		for (Promotion promotion : listPromotion) {
