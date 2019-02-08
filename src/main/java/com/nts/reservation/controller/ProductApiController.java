@@ -7,8 +7,6 @@ package com.nts.reservation.controller;
  */
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.CommentImage;
 import com.nts.reservation.detail.dto.DetailResponse;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
@@ -58,38 +54,14 @@ public class ProductApiController {
 	@GetMapping("/products/{displayInfoId}")
 	public DetailResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		List<Comment> comments = detailService.getComments(displayInfoId);
-		List<CommentImage> commentImages = detailService.getCommentsImages(displayInfoId);
-		Iterator<CommentImage> imgIter = commentImages.iterator();
-		Iterator<Comment> commIter = comments.iterator();
-		/* since all the comments/images are in DESC order, 
-		 * we can simply iterate and put images to comments
-		 */
-		while (imgIter.hasNext()) {
-			boolean isFound = false;
-			CommentImage currentImage = imgIter.next();
-			Long commentId = currentImage.getReservationInfoId();
-			while (commIter.hasNext()) {
-				Comment currentComment = commIter.next();
-				if (commentId == currentComment.getCommentId()) {
-					isFound = true;
-					currentComment.getCommentImages().add(currentImage);
-					break;
-				}
-			}
-			if (!isFound) {
-				break;
-			}
-		}
 		DetailResponse result = new DetailResponse.Builder()
 			.displayInfo(detailService.getDisplayInfo(displayInfoId))
 			.productImages(detailService.getProductImages(displayInfoId))
 			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
 			.averageScore(detailService.getAverageScore(displayInfoId))
 			.productPrices(detailService.getProductPrices(displayInfoId))
-			.comments(comments)
+			.comments(detailService.getComments(displayInfoId))
 			.build();
-
 		return result;
 	}
 

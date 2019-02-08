@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +49,30 @@ public class DetailServiceImpl implements DetailService {
 
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
-		return DetailDao.getComments(displayInfoId);
-	}
-
-	@Override
-	public List<CommentImage> getCommentsImages(Long displayInfoId) {
-		return DetailDao.getCommentsImages(displayInfoId);
+		List<CommentImage> commentImages = DetailDao.getCommentsImages(displayInfoId);
+		List<Comment> comments = DetailDao.getComments(displayInfoId);
+		Iterator<CommentImage> imgIter = commentImages.iterator();
+		Iterator<Comment> commIter = comments.iterator();
+		/* since all the comments/images are in DESC order, 
+		 * we can simply iterate and put images to comments
+		 */
+		while (imgIter.hasNext()) {
+			boolean isFound = false;
+			CommentImage currentImage = imgIter.next();
+			Long commentId = currentImage.getReservationInfoId();
+			while (commIter.hasNext()) {
+				Comment currentComment = commIter.next();
+				if (commentId == currentComment.getCommentId()) {
+					isFound = true;
+					currentComment.getCommentImages().add(currentImage);
+					break;
+				}
+			}
+			if (!isFound) {
+				break;
+			}
+		}
+		return comments;
 	}
 
 	@Override
