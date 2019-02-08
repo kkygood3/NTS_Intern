@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.resevation.dao.DisplayInfoDao;
 import com.nts.resevation.dao.ProductDao;
+import com.nts.resevation.dto.CommentDto;
 import com.nts.resevation.dto.DisplayInfoDto;
 import com.nts.resevation.dto.DisplayInfoImageDto;
 import com.nts.resevation.dto.DisplayInfoResponseDto;
@@ -56,8 +57,11 @@ public class ProductServiceImpl implements ProductService {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		List<ProductImageDto> productImages = productDao.selectProductImages(displayInfo.getProductId(),
 			productImageLimit);
+		DisplayInfoImageDto displayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
+		//List<CommentDto> comments = commentDao.selectComments()
 		displayInfoResponse.setDisplayInfo(displayInfo);
 		displayInfoResponse.setProductImages(productImages);
+		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
 		return displayInfoResponse;
 	}
 }

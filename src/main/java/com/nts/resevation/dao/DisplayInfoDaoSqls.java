@@ -35,4 +35,21 @@ public class DisplayInfoDaoSqls {
 		+ "    di.product_id = p.id "
 		+ "        AND p.category_id = c.id "
 		+ "        AND di.id = :displayInfoId ";
+	public static final String SELECT_DISPLAY_INFO_IMAGE = ""
+		+ "SELECT  "
+		+ "    dii.id AS displayInfoImageId, "
+		+ "    dii.display_info_id AS displayInfoId, "
+		+ "    fi.id AS fileId, "
+		+ "    fi.file_name AS fileName, "
+		+ "    fi.save_file_name AS saveFileName, "
+		+ "    fi.content_type AS contentType, "
+		+ "    fi.delete_flag AS deleteFlag, "
+		+ "    fi.create_date AS createDate, "
+		+ "    fi.modify_date AS modifyDate "
+		+ "FROM "
+		+ "    display_info_image dii, "
+		+ "    file_info fi "
+		+ "WHERE "
+		+ "    dii.file_id = fi.id "
+		+ "        AND dii.display_info_id = :displayInfoId";
 }
