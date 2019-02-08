@@ -12,6 +12,6 @@ import lombok.Data;
 @Data
 @Builder
 public class ProductResponse {
-	private List<Product> itmes;
+	private List<Product> items;
 	private int totalCount;
 }
