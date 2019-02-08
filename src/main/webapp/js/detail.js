@@ -75,6 +75,10 @@ function getDetailInfo(displayInfoId) {
 				imageSlide();
 				// 상단 상품 설명 영역
 				content.innerHTML = jsonResponse["displayInfo"].productContent;
+				const contentContainerHeight = 73;
+				if(content.scrollHeight < contentContainerHeight){
+					document.querySelector(".bk_more").style.display = "none";
+				}
 				// 평점
 				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
 				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";

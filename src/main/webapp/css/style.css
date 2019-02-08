@@ -3876,25 +3876,25 @@ button {
 .slide_left_in {
   z-index: 20;
   animation-name: slide_in;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 .slide_left_out {
   z-index: 20;
   animation-name: slide_out;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 .slide_right_in {
   z-index: 20;
   animation-name: slide_right_in;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
  .slide_right_out {
   z-index: 20;
   animation-name: slide_right_out;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 @keyframes slide_right_in {
