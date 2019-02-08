@@ -247,7 +247,6 @@
     </footer>
     <div id="photoviwer"></div>
     
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
     <script type="text/javascript" src="/static/js/detail/detailConvert.js"></script>
 </body>
 

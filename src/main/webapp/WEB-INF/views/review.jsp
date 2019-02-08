@@ -27,7 +27,7 @@
             <div class="wrap_review_list">
                 <div class="review_header">
                     <div class="top_title gr">
-                        <a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+                        <a href="javascript:history.back();" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
                         <h2><a class="title" href="#">오디컴퍼니 주식회사</a></h2>
                     </div>
                 </div>
@@ -84,7 +84,6 @@
 	        </div>
 	    </footer>
 	    
-	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
 	    <script type="text/javascript" src="/static/js/review/review.js"></script>
 </body>
 

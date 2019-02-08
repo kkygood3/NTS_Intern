@@ -7,7 +7,7 @@ var sendAjax = require('../sendAjax');
  * @function setHandlebarRegistHelper()  : handlebar regist Helper 설정
  * @function getHandlebarTemplateFromHtml(templateId,content) : handlebar로 compile해서 html 얻어오기
  */
-var handlebarRegistHelper = require('../handlebarRegistHelper');
+var handlebarsFunction = require('../handlebarsFunction');
 
 document.addEventListener('DOMContentLoaded', function(){
 	getComments();
@@ -52,7 +52,7 @@ var setComments = {
 	 * @param comments : {comments : comments} 객체
 	 */
 	setCommentList : function(comments){
-		document.querySelector('.list_short_review').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#comment_template',comments);
+		document.querySelector('.list_short_review').innerHTML = handlebarsFunction.getHandlebarTemplateFromHtml('#comment_template',comments);
 	}
 	
 };
@@ -73,7 +73,7 @@ function getComments(){
 		setComments.setCommentAverageScore(commentResponse.averageScore);
 		setComments.setAverageScoreStar(commentResponse.averageScore);
 		
-		handlebarRegistHelper.setHandlebarRegistHelper();
+		handlebarsFunction.setHandlebarRegistHelper();
 		setComments.setCommentList({comments:commentResponse.comments});
 	});
 }

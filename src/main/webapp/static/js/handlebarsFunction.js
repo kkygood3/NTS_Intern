@@ -1,8 +1,9 @@
-var handlebarRegistHelper = {
+var Handlebars = require('handlebars/dist/handlebars');
+
+module.exports = {
 	
 	/**
 	 * @desc handlebar helper regist 작업 
-	 * @returns
 	 */	
 	setHandlebarRegistHelper : function() {
 		
@@ -37,6 +38,4 @@ var handlebarRegistHelper = {
 		
 		return handlebarTemplate(content);
 	}
-}
-
-module.exports = handlebarRegistHelper;
+};

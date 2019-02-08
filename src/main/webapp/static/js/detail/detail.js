@@ -2,12 +2,11 @@
  * @desc 전역변수 
  */
 var sendAjax = require('../sendAjax');
-
 /**
  * @function setHandlebarRegistHelper()  : handlebar regist Helper 설정
  * @function getHandlebarTemplateFromHtml(templateId,content) : handlebar로 compile해서 html로 얻어오기
  */
-var handlebarRegistHelper = require('../handlebarRegistHelper');
+var handlebarsFunction = require('../handlebarsFunction');
 
 var globalVariables = {
 	productTransform : 0,			// productImage 현재 Transform 거리
@@ -43,7 +42,7 @@ function getDisplayInfos() {
 		var start = 0;
 		var end = 3;
 		
-		handlebarRegistHelper.setHandlebarRegistHelper();
+		handlebarsFunction.setHandlebarRegistHelper();
 		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
 		setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
 	});
@@ -65,7 +64,7 @@ function setProductImages(productImages, productDescription){
 	
 	var productImageLength = productImages.length;
 	document.querySelector('#product_image_max').innerHTML = productImageLength;
-	document.querySelector('.product_images_ul').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#product_images_template', {productImages: productImages});
+	document.querySelector('.product_images_ul').innerHTML = handlebarsFunction.getHandlebarTemplateFromHtml('#product_images_template', {productImages: productImages});
 	
 	document.querySelectorAll('.product_title').forEach(function(ele){
 		ele.innerText = productDescription; 
@@ -189,7 +188,7 @@ function myButtonHideOtherButtonOpen(_this,otherQuery){
  */
 function setComments(comments,commentsLength,commentAverageScore,productId){
 	
-	document.querySelector('.list_short_review').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#comment_template',comments);
+	document.querySelector('.list_short_review').innerHTML = handlebarsFunction.getHandlebarTemplateFromHtml('#comment_template',comments);
 	document.querySelector('#comment_count').innerHTML = commentsLength;
 	
 	var start = 0;
@@ -212,7 +211,7 @@ function setComments(comments,commentsLength,commentAverageScore,productId){
  * @returns
  */
 function setProductEvent(productEvent){
-	document.querySelector('.event_info').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#product_event_template',productEvent);
+	document.querySelector('.event_info').innerHTML = handlebarsFunction.getHandlebarTemplateFromHtml('#product_event_template',productEvent);
 }
 
 /**
@@ -235,7 +234,7 @@ function setProductContent(productContent){
 function setProductDetail(displayInfo, saveFileName){
 	
 	displayInfo.saveFileName = saveFileName;
-	document.querySelector('.product_location').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#detail_location_template',displayInfo);
+	document.querySelector('.product_location').innerHTML = handlebarsFunction.getHandlebarTemplateFromHtml('#detail_location_template',displayInfo);
 }
 
 
