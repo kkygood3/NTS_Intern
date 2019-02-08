@@ -29,6 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc 카테고리 별 product 가져오기
+	 * @param categoryId
+	 * @param start
 	 * @return products( items [product list] , totalCount [카테고리별 총 개수] )
 	 * @throws ProductParamException 
 	 */
@@ -49,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc 상품 전체 가져오기 ( 페이징 별 )
+	 * @param start
 	 * @return product list
 	 */
 	private List<Product> getProductsAll(int start) throws ProductParamException {
@@ -71,6 +74,8 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc 카테고리 별 상품 리스트 가져오기 ( 페이징 별 )
+	 * @param categoryId
+	 * @param start
 	 * @return product list
 	 */
 	private List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException {
@@ -84,6 +89,7 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc category Id 별 상품 갯수
+	 * @param categoryId
 	 * @return count
 	 */
 	private int getProductsCountByCategory(int categoryId) {
