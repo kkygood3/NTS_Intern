@@ -1,198 +1,265 @@
-$(document).ready(function(){
-  $(".bk_more._open").click(function(){
-    if($(".bk_more._open").css("display") === "block") {
-       $(".bk_more._open").css({ display: "none"});
-       $(".bk_more._close").css({ display: "block"});
-       $(".store_details").removeClass("close3");
-    }
-  });
-  $(".bk_more._close").click(function(){
-	    if($(".bk_more._close").css("display") === "block") {
-	       $(".bk_more._close").css({ display: "none"});
-	       $(".bk_more._open").css({ display: "block"});
-	       $(".store_details").addClass("close3");
-	    }
-	  });
-});
-
 document.addEventListener("DOMContentLoaded", function() {
-	let url = window.location.href;
-	let path = url.split("/");
-	let displayInfoId = path[path.length-1];
-	getDetailInfo(displayInfoId);
+	detailPage.getDetailPage(detailPage.displayInfoId);
 });
 
-let title = document.querySelector(".display_title")
-let image = document.querySelector(".img_thumb");
-let cnt = document.querySelector(".count_detail_image");
-let content = document.querySelector(".dsc");
-let star_rating = document.querySelector(".graph_value");
-let rating = document.querySelector(".text_value");
-let introduce = document.querySelector(".detail_info_lst").querySelector(".in_dsc");
-let cntComment = document.querySelector(".green");
-
-let storeMap = document.querySelector(".store_map");
-let storeName = document.querySelector(".store_name");
-let addrStreet = document.querySelector(".store_addr_bold");
-let addrOld = document.querySelector(".addr_old_detail");
-let placeName = document.querySelector(".store_addr.addr_detail");
-let telephone = document.querySelector(".store_tel");
-
-
-let visualImgContainer = document.querySelector(".visual_img.detail_swipe");
-let visualImgTemplate = document.querySelector("#visualImgTemplate").innerHTML;
-let bindVisualImgs = Handlebars.compile(visualImgTemplate);
-
-let commentsContainer = document.querySelector(".list_short_review");
-let commentTemplate = document.querySelector("#commentTemplate").innerHTML;
-let bindComments = Handlebars.compile(commentTemplate);
-const displayedLength = 4;
-Handlebars.registerHelper('anonymize', function(context) {
-	return context.substring(0, displayedLength) + "****";
-});
-
-function getDetailInfo(displayInfoId) {
-	let httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
+var detailPage = {
+	getDetailPage: function(displayInfoId){
+		this.compileHendlebars.anonymizeUserId(this.constants.displayedIdLength);
 		
-		httpRequest.onreadystatechange = function() {
-			let jsonResponse;
+		let httpRequest;
+		
+		if (window.XMLHttpRequest) {
+			httpRequest =  new XMLHttpRequest();
 			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
+			httpRequest.onreadystatechange = function() {
+				let jsonResponse;
 				
-				// 이미지 개수 영역
-				cnt.innerHTML = jsonResponse["productImages"].length;
-				if(jsonResponse["productImages"].length === 1){
-					document.querySelector(".btn_prev").style.display = "none";
-					document.querySelector(".btn_nxt").style.display = "none";
+				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+					jsonResponse = JSON.parse(httpRequest.responseText);
+					
+					this.displayMainInfo(jsonResponse);
+					this.displayComments(jsonResponse);
+					this.displayDetailInfo(jsonResponse);
 				}
-				// 상단 이미지 & 타이틀
-				title.innerHTML = jsonResponse["displayInfo"].productDescription;
-				visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
-				imageSlide();
-				// 상단 상품 설명 영역
-				content.innerHTML = jsonResponse["displayInfo"].productContent;
-				const contentContainerHeight = 73;
-				if(content.scrollHeight < contentContainerHeight){
-					document.querySelector(".bk_more").style.display = "none";
-				}
-				// 평점
-				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
-				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
-				// 댓글 개수
-				cntComment.innerHTML = jsonResponse["comments"].length + "건";
-				// 댓글
-				jsonResponse["comments"].forEach(function(comment){
-					comment.score = comment.score.toFixed(1);
-				});
-				commentsContainer.innerHTML = bindComments(jsonResponse);
-				
-				const commentsPerPage = 3;
-				if(document.querySelector(".list_short_review").querySelectorAll("li").length < commentsPerPage){
-					document.querySelector(".btn_review_more").style.display = "none";
-				} else {
-					document.querySelector(".btn_review_more").href = "../review/" + displayInfoId;
-				}
-				// 상세설명
-				introduce.innerHTML = jsonResponse["displayInfo"].productContent;
-				
-				//오시는길
-				storeMap.src = "../" + jsonResponse["displayInfoImage"].saveFileName;
-				storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
-				addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
-				addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;
-				placeName.innerHTML = jsonResponse["displayInfo"].placeName;
-				telephone.innerHTML = jsonResponse["displayInfo"].telephone;
-			}
+			}.bind(this)
+			
+			httpRequest.open("GET", "../api/products/" + displayInfoId);
+			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+			httpRequest.send();
 		}
 		
-		httpRequest.open("GET", "../api/products/" + displayInfoId);
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
-	}
-}
+		this.setEvent.scrollTop();
+	},
+		
+	displayInfoId : window.location.href.split("/").slice(-1)[0],
+	
+	constants: {
+		displayedIdLength : 4,
+		contentContainerHeight : 73,
+		slideImageWidth : 414,
+		commentsPerPage : 3
+	},
 
-let tab = document.querySelector(".info_tab_lst");
-let detailInfo = document.querySelector(".detail_area_wrap");
-let locationInfo = document.querySelector(".detail_location");
-tab.addEventListener("click", function(event){
-	let anchorElement;
-	let previousActive = document.querySelector(".anchor.active");
-	let productContainer = document.querySelectorAll(".lst_event_box");
+	elements: {
+		displayTitle : document.querySelector(".display_title"),
+		cnt : document.querySelector(".count_detail_image"),
+		content : document.querySelector(".dsc"),
+		star_rating : document.querySelector(".graph_value"),
+		num_rating : document.querySelector(".text_value"),
+		introduce : document.querySelector(".detail_info_lst").querySelector(".in_dsc"),
+		cntComment : document.querySelector(".green"),
+		
+		btnPrev : document.querySelector(".btn_prev"),
+		btnNxt : document.querySelector(".btn_nxt"),
+		
+		btnOpen : document.querySelector(".bk_more._open"),
+		btnClose : document.querySelector(".bk_more._close"),
+		contentContainer : document.querySelector(".store_details"),
+		
+		btnMoreReview : document.querySelector(".btn_review_more"),
+		
+		tabUi : document.querySelector(".info_tab_lst"),
+		detailInfo : document.querySelector(".detail_area_wrap"),
+		locationInfo : document.querySelector(".detail_location"),
 
- 	if(event.target.className === "anchor"){
-		anchorElement = event.target;
-	} else if(event.target.className === "info_tab_text"){
-		anchorElement = event.target.parentNode;
-	} else {
-		return;
-	}
+		storeMap : document.querySelector(".store_map"),
+		storeName : document.querySelector(".store_name"),
+		addrStreet : document.querySelector(".store_addr_bold"),
+		addrOld : document.querySelector(".addr_old_detail"),
+		placeName : document.querySelector(".store_addr.addr_detail"),
+		telephone : document.querySelector(".store_tel"),
 
- 	previousActive.className = "anchor";
-
- 	selectedCategoryId = anchorElement.parentNode.dataset.category;
-	anchorElement.className += " active";
-
-	if(anchorElement.innerText === "상세정보"){
-		if(!locationInfo.className.includes("hide")){
-			locationInfo.className += " hide";
+		visualImgContainer : document.querySelector(".visual_img.detail_swipe"),
+		commentsContainer : document.querySelector(".list_short_review"),
+		
+		btnTop : document.querySelector(".lnk_top"),
+	},
+	
+	template: {
+		visualImgTemplate : document.querySelector("#visualImgTemplate").innerHTML,
+		commentTemplate : document.querySelector("#commentTemplate").innerHTML
+	},
+	
+	displayMainInfo: function(jsonResponse){
+		var bindVisualImgs = this.compileHendlebars.bindTemplate(this.template.visualImgTemplate);
+		
+		this.elements.cnt.innerHTML = jsonResponse["productImages"].length;
+		if(jsonResponse["productImages"].length === 1){
+			this.elements.btnPrev.style.display = "none";
+			this.elements.btnNxt.style.display = "none";
 		}
-		detailInfo.className = detailInfo.className.replace("hide", "");
-	} else if(anchorElement.innerText === "오시는길") {
-		if(!detailInfo.className.includes("hide")){
-			detailInfo.className += " hide";
+		
+		this.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
+		this.elements.visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
+		this.setEvent.carousel();
+		
+		this.elements.content.innerHTML = jsonResponse["displayInfo"].productContent;
+		if(this.elements.content.scrollHeight < this.constants.contentContainerHeight){
+			this.elements.btnOpen.style.display = "none";
 		}
-		locationInfo.className = detailInfo.className.replace("hide", "");
-	}
-});
+		
+		this.setEvent.openClose();
+	},
+	
+	displayComments: function(jsonResponse){
+		var bindComments = this.compileHendlebars.bindTemplate(this.template.commentTemplate);
+		
+		this.elements.star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
+		this.elements.num_rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
 
-function imageSlide(){
-	let visualImageIndex = 0;
-	const cntImages = visualImgContainer.querySelectorAll("li").length;
-	const imageWidth = 414;
-	let prevImage = visualImgContainer.querySelector("li[data-index='" + (cntImages - 1) + "']");
-	let nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
-	let nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) + "']");
-	document.querySelector(".btn_prev").addEventListener("click", function(){
-		if(visualImageIndex === 0){
-			prevImage = visualImgContainer.querySelector("li[data-index='" + (cntImages - 1) + "']");
+		this.elements.cntComment.innerHTML = jsonResponse["comments"].length + "건";
+
+		jsonResponse["comments"].forEach(function(comment){
+			comment.score = comment.score.toFixed(1);
+		});
+		
+		this.elements.commentsContainer.innerHTML = bindComments(jsonResponse);
+		if(this.elements.commentsContainer.querySelectorAll("li").length < this.constants.commentsPerPage){
+			this.elements.btnMoreReview.style.display = "none";
 		} else {
-			prevImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex - 1) + "']");
+			this.elements.btnMoreReview.href = "../review/" + this.displayInfoId;
 		}
+	},
+	
+	displayDetailInfo: function(jsonResponse){
+		this.elements.introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 		
-		prevImage.style.left = -imageWidth + "px";
-		prevImage.style.visibility = "visible";
-		prevImage.className = "item slide_right_in";
-		nowImage.style.left = "0";
-		nowImage.className = "item slide_right_out";
+		this.elements.storeMap.src = "../" + jsonResponse["displayInfoImage"].saveFileName;
+		this.elements.storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
+		this.elements.addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
+		this.elements.addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;
+		this.elements.placeName.innerHTML = jsonResponse["displayInfo"].placeName;
+		this.elements.telephone.innerHTML = jsonResponse["displayInfo"].telephone;
+		
+		this.setEvent.tabEvent();
+	},
+	
+	compileHendlebars: {
+		bindTemplate : function(template){
+			return Handlebars.compile(template);
+		},
+		
+		anonymizeUserId: function(displayedIdLength){
+			Handlebars.registerHelper('anonymize', function(context) {
+				return context.substring(0, displayedIdLength) + "****";
+			});
+		}
+	},
+	
+	setEvent: {
+		openClose : function(){
+			this.detailPage.elements.btnOpen.addEventListener("click", function(){
+				this.detailPage.elements.btnOpen.style.display = "none";
+				this.detailPage.elements.btnClose.style.display = "block";
+				this.detailPage.elements.contentContainer.classList.remove("close3");
+			}.bind(this));
+			this.detailPage.elements.btnClose.addEventListener("click", function(){
+				this.detailPage.elements.btnClose.style.display = "none";
+				this.detailPage.elements.btnOpen.style.display = "block";
+				this.detailPage.elements.contentContainer.classList.add("close3");
+			}.bind(this));
+		}.bind(this),
+		
+		scrollTop: function(){
+			this.detailPage.elements.btnTop.addEventListener("click", function(){
+				document.documentElement.scrollTop = 0;
+			});
+		}.bind(this),
+		
+		tabEvent: function(){
+			this.detailPage.elements.tabUi.addEventListener("click", function(event){
+				var anchorElement;
+				var selectedCategoryId;
+				var previousActive = document.querySelector(".anchor.active");
+	
+			 	if(event.target.className === "anchor"){
+					anchorElement = event.target;
+				} else if(event.target.className === "info_tab_text"){
+					anchorElement = event.target.parentNode;
+				} else {
+					return;
+				}
+	
+			 	previousActive.className = "anchor";
+	
+			 	selectedCategoryId = anchorElement.parentNode.dataset.category;
+				anchorElement.className = "anchor active";
+	
+				if(anchorElement.innerText === "상세정보"){
+					if(!this.detailPage.elements.locationInfo.className.includes("hide")){
+						this.detailPage.elements.locationInfo.className = "detail_area_wrap hide";
+					}
+					this.detailPage.elements.detailInfo.className = this.detailPage.elements.detailInfo.className.replace("hide", "");
+				} else if(anchorElement.innerText === "오시는길") {
+					if(!this.detailPage.elements.detailInfo.className.includes("hide")){
+						this.detailPage.elements.detailInfo.className = "detail_location hide";
+					}
+					this.detailPage.elements.locationInfo.className = this.detailPage.elements.locationInfo.className.replace("hide", "");
+				}
+			}.bind(this));
+		}.bind(this),
+		
+		carousel: function(){
+			this.detailPage.elements.btnPrev.addEventListener("click", this.detailPage.imageSlide.slideRight);
+			this.detailPage.elements.btnNxt.addEventListener("click", this.detailPage.imageSlide.slideLeft);
+		}.bind(this)
+	},
+	
+	imageSlide: {
+		visualImageIndex : 0,
+		
+		setCntImage: function(){
+			return this.detailPage.elements.visualImgContainer.querySelectorAll("li").length;
+		}.bind(this),
+		setImage: function(index){
+			return this.detailPage.elements.visualImgContainer.querySelector("li[data-index='" + index + "']");
+		}.bind(this),
+		
+		slideRight: function(){
+			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
+			var cntImages = this.detailPage.imageSlide.setCntImage();
+			var prevImage;
+			var nowImage = this.detailPage.imageSlide.setImage(slideImageIndex);
+			
+			if(slideImageIndex === 0){
+				prevImage = this.detailPage.imageSlide.setImage(cntImages - 1);
+			} else {
+				prevImage = this.detailPage.imageSlide.setImage(slideImageIndex - 1);
+			}
+			
+			prevImage.style.left = -this.detailPage.constants.slideImageWidth + "px";
+			prevImage.style.visibility = "visible";
+			prevImage.className = "item slide_right_in";
+			nowImage.style.left = "0";
+			nowImage.className = "item slide_right_out";
 
-		visualImageIndex = visualImageIndex - 1;
-		if(visualImageIndex < 0){
-			visualImageIndex = cntImages - 1; 
-		}
-		nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
+			this.detailPage.imageSlide.visualImageIndex = slideImageIndex - 1;
+			if(this.detailPage.imageSlide.visualImageIndex < 0){
+				this.detailPage.imageSlide.visualImageIndex = cntImages - 1; 
+			}
+
+			this.detailPage.imageSlide.updateIndex();
+		}.bind(this),
 		
-		document.querySelector(".num").innerHTML = visualImageIndex + 1;
-	});
-	document.querySelector(".btn_nxt").addEventListener("click", function(){
-		nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) % cntImages + "']");
+		slideLeft: function(){
+			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
+			var cntImages = this.detailPage.imageSlide.setCntImage();
+			var nowImage = this.detailPage.imageSlide.setImage(this.detailPage.imageSlide.visualImageIndex);
+			var nextImage = this.detailPage.elements.visualImgContainer.querySelector("li[data-index='" + (slideImageIndex + 1) % cntImages + "']");
+			
+			nowImage.style.left = "0";
+			nowImage.className = "item slide_left_out";
+			nextImage.style.left = this.detailPage.constants.slideImageWidth + "px";
+			nextImage.style.visibility = "visible";
+			nextImage.className = "item slide_left_in";
+			
+			this.detailPage.imageSlide.visualImageIndex = (slideImageIndex + 1) % cntImages;
+			
+			this.detailPage.imageSlide.updateIndex();
+		}.bind(this),
 		
-		nowImage.style.left = "0";
-		nowImage.className = "item slide_left_out";
-		nextImage.style.left = imageWidth + "px";
-		nextImage.style.visibility = "visible";
-		nextImage.className = "item slide_left_in";
-		
-		visualImageIndex = (visualImageIndex + 1) % cntImages;
-		nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
-		
-		document.querySelector(".num").innerHTML = visualImageIndex + 1;
-	});
+		updateIndex: function(){
+			document.querySelector(".num").innerHTML = this.detailPage.imageSlide.visualImageIndex + 1;
+		}.bind(this)
+	}
 }
-
-document.querySelector(".lnk_top").addEventListener("click", function(){
-	document.documentElement.scrollTop = 0;
-});

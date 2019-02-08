@@ -1,59 +1,97 @@
 document.addEventListener("DOMContentLoaded", function() {
-	let url = window.location.href;
-	let path = url.split("/");
-	let displayInfoId = path[path.length-1];
-	getDetailInfo(displayInfoId);
+	reviewPage.getReviews(reviewPage.displayInfoId);
 });
 
-let title = document.querySelector(".title")
-let star_rating = document.querySelector(".graph_value");
-let rating = document.querySelector(".text_value");
-let cntComment = document.querySelector(".green");
-let commentsContainer = document.querySelector(".list_short_review");
-
-let template = document.querySelector("#commentTemplate").innerText;
-let bindTemplate = Handlebars.compile(template);
-const displayedLength = 4;
-Handlebars.registerHelper('anonymize', function(context) {
-	return context.substring(0, displayedLength) + "****";
-});
-
-function getDetailInfo(displayInfoId) {
-	let httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
+var reviewPage = {
+	getReviews: function(displayInfoId){
+		this.compileHendlebars.anonymizeUserId(this.constants.displayedIdLength);
 		
-		httpRequest.onreadystatechange = function() {
-			let jsonResponse;
+		let httpRequest;
+		
+		if (window.XMLHttpRequest) {
+			httpRequest =  new XMLHttpRequest();
 			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
+			httpRequest.onreadystatechange = function() {
+				let jsonResponse;
 				
-				title.innerHTML = jsonResponse["displayInfo"].productDescription;
-				// 평점
-				star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
-				rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
-				// 댓글 개수
-				cntComment.innerHTML = jsonResponse["comments"].length + "건";
-				// 댓글
-				jsonResponse["comments"].forEach(function(comment){
-					comment.score = comment.score.toFixed(1);
-				});
-				commentsContainer.innerHTML = bindTemplate(jsonResponse);
-			}
+				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+					jsonResponse = JSON.parse(httpRequest.responseText);
+					
+					this.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
+					
+					this.displayComments(jsonResponse);
+				}
+			}.bind(this)
+			
+			httpRequest.open("GET", "../api/products/" + displayInfoId);
+			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+			httpRequest.send();
 		}
 		
-		httpRequest.open("GET", "../api/products/" + displayInfoId);
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
+		this.goToPrevPage();
+		this.scrollTop();
+	},
+	
+	displayInfoId : window.location.href.split("/").slice(-1)[0],
+	
+	constants: {
+		displayedIdLength : 4,
+	},
+	
+	elements: {
+		displayTitle : document.querySelector(".title"),
+		cnt : document.querySelector(".count_detail_image"),
+		content : document.querySelector(".dsc"),
+		star_rating : document.querySelector(".graph_value"),
+		num_rating : document.querySelector(".text_value"),
+		cntComment : document.querySelector(".green"),
+		
+		commentsContainer : document.querySelector(".list_short_review"),
+		
+		btnBack : document.querySelector(".btn_back"),
+		btnTop : document.querySelector(".lnk_top")
+	},
+	
+	template: {
+		commentTemplate : document.querySelector("#commentTemplate").innerHTML
+	},
+	
+	compileHendlebars: {
+		bindTemplate : function(template){
+			return Handlebars.compile(template);
+		},
+		
+		anonymizeUserId: function(displayedIdLength){
+			Handlebars.registerHelper('anonymize', function(context) {
+				return context.substring(0, displayedIdLength) + "****";
+			});
+		}
+	},
+	
+	displayComments: function(jsonResponse){
+		var bindComments = this.compileHendlebars.bindTemplate(this.template.commentTemplate);
+		
+		this.elements.star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
+		this.elements.num_rating.innerHTML = "<span>" + jsonResponse["averageScore"] + "</span>";
+
+		this.elements.cntComment.innerHTML = jsonResponse["comments"].length + "건";
+
+		jsonResponse["comments"].forEach(function(comment){
+			comment.score = comment.score.toFixed(1);
+		});
+		
+		this.elements.commentsContainer.innerHTML = bindComments(jsonResponse);
+	},
+	
+	goToPrevPage: function(){
+		this.elements.btnBack.addEventListener("click", function(){
+			history.back();
+		});
+	},
+	
+	scrollTop: function(){
+		this.elements.btnTop.addEventListener("click", function(){
+			document.documentElement.scrollTop = 0;
+		});
 	}
 }
-
-document.querySelector(".btn_back").addEventListener("click", function(){
-	history.back();
-});
-
-document.querySelector(".lnk_top").addEventListener("click", function(){
-	document.documentElement.scrollTop = 0;
-});
