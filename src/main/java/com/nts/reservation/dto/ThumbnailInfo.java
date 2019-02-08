@@ -1,26 +1,26 @@
 package com.nts.reservation.dto;
 
 public class ThumbnailInfo {
-	private int productId;
-	private int displayInfoId;
+	private long productId;
+	private long displayInfoId;
 	private String description;
 	private String content;
 	private String placeName;
 	private String saveFileName;
 
-	public int getProductId() {
+	public long getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 
-	public int getDisplayInfoId() {
+	public long getDisplayInfoId() {
 		return displayInfoId;
 	}
 
-	public void setDisplayInfoId(int displayInfoId) {
+	public void setDisplayInfoId(long displayInfoId) {
 		this.displayInfoId = displayInfoId;
 	}
 
