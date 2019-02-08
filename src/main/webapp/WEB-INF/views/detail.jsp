@@ -21,10 +21,10 @@
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="#" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+                <a class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
         </div>
         <div class="ct main">
@@ -32,10 +32,10 @@
                 <div class="section_visual">
                     <header>
                         <h1 class="logo">
-                            <a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a href="#" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                            <a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="#" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
@@ -47,21 +47,13 @@
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
-                                    
-									<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/resources/img/favicon.ico"> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit"> <span id="product_description"></span> </h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
+                                <ul id="product_display_img_list" class="visual_img detail_swipe">
                                 </ul>
                             </div>
+                            
                             <div class="prev">
                                 <div class="prev_inn">
-                                    <a href="#" class="btn_prev" title="이전">
+                                    <a id="display_img_left_slide" class="btn_prev" title="이전">
                                         <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
                                         <i class="spr_book2 ico_arr6_lt"></i>
                                     </a>
@@ -69,7 +61,7 @@
                             </div>
                             <div class="nxt">
                                 <div class="nxt_inn">
-                                    <a href="#" class="btn_nxt" title="다음">
+                                    <a id="display_img_right_slide" class="btn_nxt" title="다음">
                                         <i class="spr_book2 ico_arr6_rt"></i>
                                     </a>
                                 </div>
@@ -90,9 +82,8 @@
                         <p id="product_content" class="dsc">
                         </p>
                     </div>
-                    <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
-                    <a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
-                    <a href="#" class="bk_more _close" style="display: none;"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
+                    <a id="btn_expand" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
+                    <a id="btn_fold" class="bk_more _close hide"> <span class="bk_more_txt">접기</span> <i class="fn fn-up2"></i> </a>
                 </div>
                 <div class="section_event">
                     <div class="event_info_box">
@@ -111,29 +102,29 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"> <em id="star_score" class="graph_value" style="width: 50%;"></em> </span>
-                                <strong class="text_value"> <span id="comment_avg_score">4.2</span> <em class="total">5.0</em> </strong>
-                                <span class="join_count"><em class="green"><span id="comment_count">52</span>건</em> 등록</span>
+                                <span class="graph_mask"> <em id="star_score" class="graph_value" style="width: 0%;"></em> </span>
+                                <strong class="text_value"> <span id="comment_avg_score">0.0</span> <em class="total">5.0</em> </strong>
+                                <span class="join_count"><em class="green"><span id="comment_count">0</span>건</em> 등록</span>
                             </div>
                             <ul id="comment_list" class="list_short_review">
                             </ul>
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="/product-display/comments"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="/product-display/comments?displayInfoId=${displayInfoId}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
-                    <ul class="info_tab_lst">
+                    <ul id="info_tab_list" class="info_tab_lst">
                         <li class="item active _detail">
-                            <a href="#" class="anchor active"> <span>상세정보</span> </a>
+                            <a class="anchor active" data-area-id="detail_area"> <span>상세정보</span> </a>
                         </li>
                         <li class="item _path">
-                            <a href="#" class="anchor"> <span>오시는길</span> </a>
+                            <a class="anchor" data-area-id="location_area"> <span>오시는길</span> </a>
                         </li>
                     </ul>
-                    <!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
-                    <div class="detail_area_wrap">
+                    <!-- [D] 상세정보 탭 선택 시 class에 show 추가 -->
+                    <div id="detail_area" class="detail_area_wrap show">
                         <div class="detail_area">
                         <div class="detail_info">
                                 <h3 class="blind">상세정보</h3>
@@ -151,35 +142,43 @@
                             </div>
                         </div>
                     </div>
-                    <!-- [D] 오시는길 외 다른 탭 선택 시 detail_location에 hide 추가 -->
-                    <div class="detail_location hide">
+                    <!-- [D] 오시는길 탭 선택 시 class에 show 추가 -->
+                    <div id="location_area" class="detail_location">
                         <div class="box_store_info no_topline">
-                            <a href="#" class="store_location" title="지도웹으로 연결">
-                                <img class="store_map img_thumb" alt="map" src="https://simg.pstatic.net/static.map/image?version=1.1&amp;crs=EPSG:4326&amp;baselayer=bl_vc_bg&amp;exception=xml&amp;scale=2&amp;caller=mw_smart_booking&amp;overlayers=ol_vc_an&amp;center=127.0011948,37.5717079&amp;markers=type,default2,127.0011948,37.5717079&amp;level=11&amp;w=340&amp;h=150">
+                            <a class="store_location" title="지도웹으로 연결">
+                                <img id="location_display_img" class="store_map img_thumb" alt="map" src="">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">엔에이치엔티켓링크(주)</h3>
+                            <h3 id="location_product_description" class="store_name"></h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">서울특별시 종로구 종로33길 15 </p>
+                                    <p id="location_place_street" class="store_addr store_addr_bold"></p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">서울특별시 종로구 연지동 270 </span>
+                                        <span id="location_place_lot"class="addr_old_detail"></span>
                                     </p>
-                                    <p class="store_addr addr_detail">두산아트센터 연강홀</p>
+                                    <p id="location_place_name" class="store_addr addr_detail"></p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">전화번호</span> </span> <span class="item_rt"> <a href="#" class="store_tel">02-548-0597</a></span> </li>
+                                        <li class="item"> 
+                                        	<span class="item_lt"> 
+                                        		<i class="fn fn-call2"></i> 
+                                        		<span class="sr_only">전화번호</span> 
+                                        	</span> 
+                                        	<span class="item_rt"> 
+                                        		<span id="location_telephone" class="store_tel"></span>
+                                        	</span> 
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
 							<!-- [D] 모바일 브라우저에서 접근 시 column2 추가와 btn_navigation 요소 추가 -->
                             <div class="bottom_common_path column2">
-                                <a href="#" class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
-								<a href="#" class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
+                                <a class="btn_path"> <i class="fn fn-path-find2"></i> <span>길찾기</span> </a>
+								<a class="btn_navigation before"> <i class="fn fn-navigation2"></i> <span>내비게이션</span> </a>
                             </div>
                         </div>
                     </div>
@@ -203,7 +202,7 @@
 				<div class="review_area {{#unless commentImageUrl}}no_img{{/unless}}">
 					{{#if commentImageUrl}}
 					<div class="thumb_area">
-						<a href="#" class="thumb" title="이미지 크게 보기">
+						<a class="thumb" title="이미지 크게 보기">
 							<img width="90" height="90" class="img_vertical_top" src="/resources/{{commentImageUrl}}" alt="리뷰이미지">
 						</a>
 						<span class="img_count" style="display:none;">1</span>
@@ -216,14 +215,14 @@
 					<div class="review_info"> 
 						<span class="grade">{{score}}.0</span>
 						<span class="name">{{reservationEmail}}****</span>
-						<span class="date">{{reservationDate}} 방문</span>
+						<span class="date">{{formattingDate reservationDate}} 방문</span>
 					</div>
 				</div>
 			</div>
 		</li>
 	</script>
 	<script type="text/template" id="product_display_img_template">
-		<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="{{productDisplayImageUrl}}"> <span class="img_bg"></span>
+		<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/resources/{{productDisplayImageUrl}}"> <span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
 					<h2 class="visual_txt_tit"> <span>{{productDescription}}</span> </h2>
@@ -233,14 +232,18 @@
 		</li>
 	</script>
 	
-	<script type="text/javascript" src="/resources/js/common.js"></script>
-	<script type="text/javascript" src="/resources/js/detail_template.js"></script>
 	<script type="text/javascript" src="/resources/js/handlebars-v4.0.12.js"></script>
+	<script type="text/javascript" src="/resources/js/detail_template.js"></script>
+	<script type="text/javascript" src="/resources/js/common.js"></script>
 	<script>
 	document.addEventListener("DOMContentLoaded", () => {
 		initializeTemplate();
 		
 		ajax("GET", "/api/products/${displayInfoId}", "", printProductDisplay);
+		
+		addEventClickProductContentFoldExpand();
+		addEventClickInfoTabList();
+		addEventClickProductDisplayImgSlide();
 	});
 	
 	function printProductDisplay(evt){
@@ -248,31 +251,134 @@
 		var productDisplayInfo = JSON.parse(response);
 		
 		var productDisplay = productDisplayInfo.productDisplay;
-		var productDisplayImgUrlList = productDisplay.productDisplayImageUrlList;
+		var productDisplayImgUrlItems = productDisplay.productDisplayImageUrlList;
 		var commentListInfo = productDisplayInfo.commentListInfo;
 		
-		
-		document.querySelector("#product_description").innerHTML = productDisplay.productDescription;
 		document.querySelector("#product_content").innerHTML = productDisplay.productContent;
 		document.querySelector("#product_introduce").innerHTML = productDisplay.productContent;
 		
-		
+		printProductDisplayImg(productDisplayImgUrlItems, productDisplay.productDescription);
 		printComment(commentListInfo);
+		printLocationDetail(productDisplay);
+		
+
 	}
 	
 	function printComment(commentListInfo){
+		const SCORE_TO_PERCENT = 20;
 		var commentItems = commentListInfo.commentList;
 		var commentCount = commentListInfo.commentMetaData.totalCount;
 		var commentAvgScore = commentListInfo.commentMetaData.averageScore;
 		
 		document.querySelector("#comment_count").innerHTML = commentCount;
 		document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
-		document.querySelector("#star_score").style.width = commentAvgScore * 20 + "%";
+		document.querySelector("#star_score").style.width = commentAvgScore * SCORE_TO_PERCENT + "%";
+		
 		var commentList = document.querySelector("#comment_list");
 		commentItems.forEach((commentItem) =>{
 			commentList.innerHTML += parseCommentToHtml(commentItem);
 		});
 	}
+	
+	function printProductDisplayImg(productDisplayImgUrlItems, productDescription){
+		var productDisplayImgList = document.querySelector("#product_display_img_list");
+		productDisplayImgUrlItems.forEach((imgUrlItem) =>{
+			productDisplayImgList.innerHTML += parseProductDisplayImgToHtml(imgUrlItem, productDescription);
+		});
+	}
+	
+	function printLocationDetail(productDisplay){
+		document.querySelector("#location_display_img").src = "/resources/" +productDisplay.displayInfoImageUrl;
+		document.querySelector("#location_product_description").textContent = productDisplay.productDescription;
+		document.querySelector("#location_place_street").textContent = productDisplay.placeStreet;
+		document.querySelector("#location_place_lot").textContent = productDisplay.placeLot;
+		document.querySelector("#location_place_name").textContent = productDisplay.placeName;
+		document.querySelector("#location_telephone").textContent = productDisplay.telephone;
+	}
+	
+	var slide = {
+		PAGE : 100,
+		direction : {
+			LEFT : 0,
+			RIGHT : -1
+		},
+		action : (target, direction) =>{
+			target.className += " slide";
+			target.style.transform = "translateX(" + slide.PAGE * direction +"%)";
+		},
+		transitionend : () => {
+			slide.callback();
+		},
+		
+	}
+	function addEventClickProductDisplayImgSlide(){
+		var productDisplayImgList = document.querySelector("#product_display_img_list");
+		var btnLeftSlide = document.querySelector("#display_img_left_slide");
+		var btnRightSlide = document.querySelector("#display_img_right_slide");
+		var originalClass = productDisplayImgList.className;
+		
+
+		productDisplayImgList.addEventListener("transitionend", slide.transitionend);
+		
+		btnLeftSlide.addEventListener("click", () =>{
+			slide.callback = readjustImgList.bind(null, productDisplayImgList, originalClass, -100);
+			slide.action(productDisplayImgList, slide.direction.LEFT);
+		});
+		
+		btnRightSlide.addEventListener("click", () =>{
+			slide.callback = readjustImgList.bind(null, productDisplayImgList, originalClass, 0);
+			slide.action(productDisplayImgList, slide.direction.RIGHT);
+		});
+	}
+	
+	function readjustImgList(productDisplayImgList, originalClass, v){
+		productDisplayImgList.className = originalClass;
+		productDisplayImgList.style.transform = "translate("+v+"%)";
+		var img = productDisplayImgList.removeChild(productDisplayImgList.firstElementChild)
+		productDisplayImgList.innerHTML = productDisplayImgList.innerHTML + img.outerHTML;
+	}
+	
+	function addEventClickProductContentFoldExpand(){
+		var btnExpand = document.querySelector("#btn_expand");
+		var btnFold = document.querySelector("#btn_fold");
+		var productContentArea = document.querySelector("#product_content").parentElement;
+		
+		btn_expand.addEventListener("click", () =>{
+			btnExpand.className = "bk_more _open hide";
+			btnFold.className = "bk_more _close";
+			productContentArea.className = "store_details";
+		});
+		
+		btn_fold.addEventListener("click", () =>{
+			btnExpand.className = "bk_more _open";
+			btnFold.className = "bk_more _close hide";
+			productContentArea.className = "store_details close3";
+		});
+	}
+	
+	function addEventClickInfoTabList(){
+		var infoTabList = document.querySelector("#info_tab_list");
+		
+		infoTabList.addEventListener("click", (evt) =>{
+			var paths = evt.path;
+			
+			paths.some((path) => {
+		        if(path.tagName === "A" && path.className === "anchor"){
+					document.querySelector("#detail_area").className = "detail_area_wrap";
+					document.querySelector("#location_area").className = "detail_location";
+		            infoTabList.querySelector(".anchor.active").className = "anchor";
+		            path.className = "anchor active";
+					
+		            var areaId = path.dataset.areaId;
+		            document.querySelector("#"+areaId).className += " show";
+		            
+		            return true;
+		        	}
+		        return false;
+		    });
+		});
+	}
+	
 	</script>
 </body>
 

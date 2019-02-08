@@ -19,7 +19,9 @@ public class ProductDisplayDetailController {
 	}
 
 	@GetMapping(value = {"/product-display/comments"})
-	public String productDisplayCommentListPage() {
-		return "comments";
+	public ModelAndView productDisplayCommentListPage(ModelAndView mv, int displayInfoId) {
+		mv.addObject("displayInfoId", displayInfoId);
+		mv.setViewName("comments");
+		return mv;
 	}
 }

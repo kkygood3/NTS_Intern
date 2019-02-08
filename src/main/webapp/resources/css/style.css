@@ -3827,3 +3827,15 @@ button {
   top: 0;
   font-size: 10px;
 }
+
+#detail_area, #location_area {
+  display: none;
+}
+
+#detail_area.show, #location_area.show {
+  display: block;
+}
+
+#product_display_img_list.slide{
+    transition: transform 0.3s ease-in-out;
+}

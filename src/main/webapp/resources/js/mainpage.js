@@ -77,9 +77,9 @@ function slidePromotion(){
 }
 
 function readjustPromotionList(promotionList){
-		promotionList.className = "visual_img";
-		movePromotionHeadToTail(promotionList);
-		slidePromotion();
+	promotionList.className = "visual_img";
+	movePromotionHeadToTail(promotionList);
+	slidePromotion();
 }
 
 function movePromotionHeadToTail(promotionList){
