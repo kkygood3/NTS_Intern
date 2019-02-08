@@ -12,7 +12,7 @@ import com.nts.reservation.dto.Product;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface ProductService {
-	Integer LIMIT = 4;
+	public static final int PRODUCT_LIMIT = 4;
 
 	List<Product> getProducts(long categoryId, long start);
 

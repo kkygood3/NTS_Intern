@@ -12,7 +12,7 @@ import com.nts.reservation.dto.Category;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CategoryService {
-	public static final int LIMIT = 10;
+	public static final int CATEGORY_LIMIT = 10;
 
 	public List<Category> getCategoryList();
 }
