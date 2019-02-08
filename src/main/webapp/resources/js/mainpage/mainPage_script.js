@@ -188,6 +188,9 @@ var mainPage = {
 	 */
 	renderPromoItems : function (promotionData) {
 		arrayToLiRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
-		new SlidingAnimation(domElements.SLIDE_CONTAINER).init(4, 1000, true);
+		let animation = new SlidingAnimation(domElements.SLIDE_CONTAINER);
+		animation.changeTiming(4, 1000)
+		animation.init(true);
+			
 	}
 };

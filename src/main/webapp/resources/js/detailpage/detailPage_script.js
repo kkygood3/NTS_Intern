@@ -222,7 +222,7 @@ var detailPage = {
 		
 		arrayToLiRenderer(imageList, domElements.SLIDE_CONTAINER, domElements.SLIDE_CONTAINER_ITEM)
 		animation = new SlidingAnimation(domElements.SLIDE_CONTAINER);
-		animation.init(10, 1000, false);
+		animation.init(false);
 				
 		if(imageList.length > 1) {
 			domElements.SLIDE_LEFT.addEventListener("click", (e) => {

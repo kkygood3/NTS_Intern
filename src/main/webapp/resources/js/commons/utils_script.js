@@ -16,23 +16,24 @@ function SlidingAnimation(_slideContainer){
 	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;
 	
 	isAuto = true;
-	ANIMATION_SPEED = 1;
+	ANIMATION_SPEED = 10;
 	ANIMATION_STOP_DURATION = 1000;
 	
 	prevSlideCount = IMAGE_LIST.length - 1;	
 	currentSlideCount = 0;
 	nextSlideCount = 1;
 	isAnimating = false;
+	
+	maxHeight = slideWrapper.clientHeight;
+	minHeight = 100;
 }
 
 /**
  * @initSlideAnimation() : required setup for the promo animation, and
  *                       initialization of animation frame call
  */
-SlidingAnimation.prototype.init = function(_animationSpeed, _stopDuration, _isAuto) {
+SlidingAnimation.prototype.init = function(_isAuto) {
 	isAuto = _isAuto;
-	ANIMATION_SPEED = _animationSpeed;
-	ANIMATION_STOP_DURATION = _stopDuration;
 	
 	IMAGE_LIST.forEach((item) => {
 		if(item == IMAGE_LIST[0]) {
@@ -53,6 +54,15 @@ SlidingAnimation.prototype.init = function(_animationSpeed, _stopDuration, _isAu
 	}
 },
 
+SlidingAnimation.prototype.changeTiming = function(_animationSpeed, _stopDuration){
+	ANIMATION_SPEED = _animationSpeed;
+	ANIMATION_STOP_DURATION = _stopDuration;
+}
+
+SlidingAnimation.prototype.resizeMinMax = function(minHeight, _maxHeight){
+	maxHeight = _maxHeight;
+	minHeight = _minHeight;
+}
 /**
  * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
  *                            const in global variable
@@ -70,7 +80,7 @@ SlidingAnimation.prototype.init = function(_animationSpeed, _stopDuration, _isAu
  * 
  * @isAuto : parameter to control auto-slide animation, if false, manual
  */
-SlidingAnimation.prototype.slide = function(isAuto, isResizing, maxHeight, minHeight) {
+SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
@@ -78,10 +88,10 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing, maxHeight, minHe
 	let nextImage = IMAGE_LIST[nextSlideCount];
 		
 	if(isResizing){
-		this.resizeImageContainer(nextImage, maxHeight, minHeight);
+		this.resizeImageContainer(nextImage);
 	}
 	
-	if(parseInt(nextImage.style.left) == -414) {
+	if(parseInt(nextImage.style.left) == -SLIDE_CONATINER_WIDTH) {
 		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
 	}
 	
@@ -110,7 +120,6 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing, maxHeight, minHe
 				requestAnimationFrame(() => this.slide(isAuto));
 			}, ANIMATION_STOP_DURATION);
 		} else {
-			console.log("done")
 			this.isAnimating = false;
 		}
 	} else {
@@ -148,10 +157,10 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing, maxHeight
 	let currentImage = IMAGE_LIST[currentSlideCount];
 	
 	if(isResizing){
-		this.resizeImageContainer(prevImage, maxHeight, minHeight);
+		this.resizeImageContainer(prevImage);
 	}
 	
-	if(parseInt(prevImage.style.left) == 414) {
+	if(parseInt(prevImage.style.left) == SLIDE_CONATINER_WIDTH) {
 		prevImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
 	}
 	
@@ -195,10 +204,8 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing, maxHeight
  *                                    height obtained from the slide
  */
 SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, minHeight){
-	console.log(target)
-	console.log(slideWrapper)
-	if(target.clientHeight > 414) {
-		slideWrapper.style.height = "414px";
+	if(target.clientHeight > SLIDE_CONATINER_WIDTH) {
+		slideWrapper.style.height = SLIDE_CONATINER_WIDTH+"px";
 	} else {
 		slideWrapper.style.height = target.clientHeight + "px";
 	}
