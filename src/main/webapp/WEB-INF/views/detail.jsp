@@ -11,6 +11,7 @@
     <title>네이버 예약</title>
 	<link href="./css/style.css" rel="stylesheet">
 	<link href="./css/detail.css" rel="stylesheet">
+	<script type="text/javascript">var productId = ${productId};</script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
@@ -207,11 +208,11 @@
     </footer>
     <div id="photoviwer"></div>
     
-    <script type="rv-template" id="promotion_item">
+    <script type="rv-template" id="comment_item">
 	<li class="list_item">
 		<div class="review_area">
 			<div class="thumb_area img_vertical_top">
-				<img width="90" height="90" class="img_vertical_top" src="${saveFileName}" alt="리뷰이미지">
+				<img width="90" height="90" class="img_vertical_top" src="./{save_file_name}" alt="리뷰이미지">
 			</div>
 			<p class="review_tit">${description}</p>
 			<p class="review">{comment}</p>
