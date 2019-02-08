@@ -39,7 +39,7 @@ public class ThumbnailInfoDao extends BaseDao {
 	 * @param limit 셀렉트할 갯수
 	 * @return 썸네일 정보
 	 */
-	public List<ThumbnailInfo> selectAllCategoris(Integer start, Integer limit) {
+	public List<ThumbnailInfo> selectFromAllCategorisWithPaging(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(START, start);
 		params.put(LIMIT, limit);
@@ -54,7 +54,7 @@ public class ThumbnailInfoDao extends BaseDao {
 	 * @param limit 셀렉트할 갯수
 	 * @return 해당 카테고리의 썸네일 정보
 	 */
-	public List<ThumbnailInfo> selectByCategory(Category category, Integer start, Integer limit) {
+	public List<ThumbnailInfo> selectFromTheCategoryWithPaging(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(CATEGORY_ID, category.getId());
 		params.put(START, start);

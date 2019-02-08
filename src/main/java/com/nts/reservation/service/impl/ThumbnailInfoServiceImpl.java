@@ -31,12 +31,12 @@ public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 	public List<ThumbnailInfo> getThumbnailInfos(int start, int categoryId, int limit) {
 		List<ThumbnailInfo> thumbnailInfoList;
 		if (categoryId == ALL_CATEGORIES) {
-			thumbnailInfoList = thumbnailInfoDao.selectAllCategoris(start, limit);
+			thumbnailInfoList = thumbnailInfoDao.selectFromAllCategorisWithPaging(start, limit);
 			return thumbnailInfoList;
 		} else {
 			Category c = new Category();
 			c.setId(categoryId);
-			thumbnailInfoList = thumbnailInfoDao.selectByCategory(c, start, limit);
+			thumbnailInfoList = thumbnailInfoDao.selectFromTheCategoryWithPaging(c, start, limit);
 		}
 		return thumbnailInfoList;
 	}
