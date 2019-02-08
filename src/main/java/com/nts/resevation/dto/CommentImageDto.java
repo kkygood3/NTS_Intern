@@ -9,24 +9,16 @@ package com.nts.resevation.dto;
  * @author jinwoo.bae
  */
 public class CommentImageDto {
-	int fileId; // 파일 Id
 	int imageId; // 이미지 Id
 	int reservationInfoId; // 예약 Id
 	int reservationUserCommentId; // 예약자 상품평 Id
-	Boolean deleteFlag; // 삭제 여부
+	int fileId; // 파일 Id
 	String fileName;
 	String saveFileName;
 	String contentType; // 파일 확장자
+	Boolean deleteFlag; // 삭제 여부
 	String createDate;
 	String modifyDate;
-
-	public int getFileId() {
-		return fileId;
-	}
-
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
-	}
 
 	public int getImageId() {
 		return imageId;
@@ -52,12 +44,12 @@ public class CommentImageDto {
 		this.reservationUserCommentId = reservationUserCommentId;
 	}
 
-	public Boolean getDeleteFlag() {
-		return deleteFlag;
+	public int getFileId() {
+		return fileId;
 	}
 
-	public void setDeleteFlag(Boolean deleteFlag) {
-		this.deleteFlag = deleteFlag;
+	public void setFileId(int fileId) {
+		this.fileId = fileId;
 	}
 
 	public String getFileName() {
@@ -82,6 +74,14 @@ public class CommentImageDto {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public Boolean getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(Boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
 	public String getCreateDate() {

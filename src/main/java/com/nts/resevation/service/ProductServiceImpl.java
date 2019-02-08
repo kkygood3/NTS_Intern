@@ -7,10 +7,10 @@ package com.nts.resevation.service;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.resevation.dao.CommentDao;
 import com.nts.resevation.dao.DisplayInfoDao;
 import com.nts.resevation.dao.ProductDao;
 import com.nts.resevation.dto.CommentDto;
@@ -28,10 +28,15 @@ import com.nts.resevation.dto.ProductResponseDto;
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
-	@Autowired
 	private ProductDao productDao;
-	@Autowired
 	private DisplayInfoDao displayInfoDao;
+	private CommentDao commentDao;
+
+	public ProductServiceImpl(ProductDao productDao, DisplayInfoDao displayInfoDao, CommentDao commentDao) {
+		this.productDao = productDao;
+		this.displayInfoDao = displayInfoDao;
+		this.commentDao = commentDao;
+	}
 
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start) {
@@ -52,16 +57,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit) {
+	public DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit,
+		int commentStart, int commentLimit) {
 		DisplayInfoResponseDto displayInfoResponse = new DisplayInfoResponseDto();
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		List<ProductImageDto> productImages = productDao.selectProductImages(displayInfo.getProductId(),
 			productImageLimit);
 		DisplayInfoImageDto displayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
-		//List<CommentDto> comments = commentDao.selectComments()
+		List<CommentDto> comments = commentDao.selectComments(displayInfo.getProductId(), commentStart, commentLimit);
+		double averageScore = 0;
+		for (CommentDto comment : comments) {
+			averageScore += comment.getScore();
+		}
 		displayInfoResponse.setDisplayInfo(displayInfo);
 		displayInfoResponse.setProductImages(productImages);
 		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
+		displayInfoResponse.setComments(comments);
+		displayInfoResponse.setAverageScore(averageScore);
+		//displayInfoResponse.setProductPrices(productPrices);
 		return displayInfoResponse;
 	}
 }

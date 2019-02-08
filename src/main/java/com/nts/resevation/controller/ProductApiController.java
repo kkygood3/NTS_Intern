@@ -37,7 +37,9 @@ public class ProductApiController {
 
 	@GetMapping("/{displayInfoId}")
 	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId,
-		@RequestParam(required = false, defaultValue = "2") int productImageLimit) {
-		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit);
+		@RequestParam(required = false, defaultValue = "2") int productImageLimit,
+		@RequestParam(required = false, defaultValue = "0") int commentStart,
+		@RequestParam(required = false, defaultValue = "3") int commentLimit) {
+		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit, commentStart, commentLimit);
 	}
 }
