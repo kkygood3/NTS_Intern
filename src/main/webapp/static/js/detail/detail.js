@@ -3,6 +3,17 @@
  */
 var sendAjax = require('../sendAjax');
 
+/**
+ * @function setHandlebarRegistHelper()  : handlebar regist Helper 설정
+ * @function getHandlebarTemplateFromHtml(templateId,content) : handlebar로 compile해서 html로 얻어오기
+ */
+var handlebarRegistHelper = require('../handlebarRegistHelper');
+
+var globalVariables = {
+	productTransform : 0,			// productImage 현재 Transform 거리
+	showProductNumber : 0,			// 현재 보여지고 있는 이미지 number
+};
+
 document.addEventListener('DOMContentLoaded', function() {
 	getDisplayInfos();
 	addDetailButtonEvent();
@@ -12,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * @desc displayInfo 정보 가져오기
+ * @desc displayInfo 정보 가져온뒤 셋팅
  * @returns
  */
 function getDisplayInfos() {
@@ -24,7 +35,6 @@ function getDisplayInfos() {
 	};
 	
 	sendAjax(displayInfoSendHeader,'',function(displayInfoResponse){
-		console.log(displayInfoResponse);
 		
 		setProductImages(displayInfoResponse.productImages, displayInfoResponse.displayInfo.productDescription);
 		setProductContent(displayInfoResponse.displayInfo.productContent);
@@ -33,14 +43,15 @@ function getDisplayInfos() {
 		var start = 0;
 		var end = 3;
 		
-		setHandlebarRegist();
-		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, String(displayInfoResponse.averageScore).substr(start,end), displayInfoResponse.displayInfo.productId);
+		handlebarRegistHelper.setHandlebarRegistHelper();
+		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
 		setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
 	});
 }
 
 /**
- * @returns displayinfoid
+ * @desc displayInfoId 가져오기
+ * @returns displayInfoId
  */
 function getDisplayInfoId() {
 	return document.querySelector('.display_info_detail').dataset.displayinfoid;
@@ -49,13 +60,12 @@ function getDisplayInfoId() {
 /**
  * @desc page 최상단 image 셋팅
  * @param productImages
- * @returns
  */
 function setProductImages(productImages, productDescription){
 	
 	var productImageLength = productImages.length;
 	document.querySelector('#product_image_max').innerHTML = productImageLength;
-	document.querySelector('.product_images_ul').innerHTML = getHandlebarTemplateFromHtml('#product_images_template', {productImages: productImages});
+	document.querySelector('.product_images_ul').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#product_images_template', {productImages: productImages});
 	
 	document.querySelectorAll('.product_title').forEach(function(ele){
 		ele.innerText = productDescription; 
@@ -65,37 +75,66 @@ function setProductImages(productImages, productDescription){
 		document.querySelector('.prev').remove();
 		document.querySelector('.nxt').remove();
 	} else {
-		document.querySelector('.prev').classList.add('hide');
-		
 		var productImagesUl = document.querySelector('.product_images_ul');
-		productImageNextButtonEvent(productImagesUl);
-		productImagePrevButtonEvent(productImagesUl);
+		
+		var firstImageLi = productImagesUl.firstElementChild;
+		var lastImageLi = productImagesUl.lastElementChild;
+		
+		addProductImageNextButtonEvent(productImagesUl,firstImageLi,lastImageLi);
+		addProductImagePrevButtonEvent(productImagesUl,firstImageLi,lastImageLi);
 	}
 }
 
 /**
  * @desc 다음 button 클릭 이벤트
  * @param productImagesUl
+ * @param firstImageLi
+ * @param lastImageLi
  */
-function productImageNextButtonEvent(productImagesUl){
+function addProductImageNextButtonEvent(productImagesUl,firstImageLi,lastImageLi){
+	
+	var nowProductNumber = document.querySelector('.product_number');
 	
 	document.querySelector('.nxt').addEventListener('click',function(e){
 		
-		myButtonHideOtherButtonOpen(this,'.prev');
-		productImagesUl.style.transform = 'translateX(-100%)';
+		globalVariables.productTransform -= 100;
+		productImagesUl.style.transform = 'translateX('+globalVariables.productTransform +'%)';
+		
+		if(globalVariables.showProductNumber === 0 ){
+			productImagesUl.innerHTML += firstImageLi.outerHTML;
+		
+			globalVariables.showProductNumber = 1;
+		} else {
+			productImagesUl.innerHTML += lastImageLi.outerHTML;
+			globalVariables.showProductNumber = 0;
+		}
+		nowProductNumber.innerText = globalVariables.showProductNumber+1;
 	});
 }
 
 /**
  * @desc 이전 버튼 클릭 이벤트
  * @param productImagesUl
+ * @param firstImageLi
+ * @param lastImageLi
  */
-function productImagePrevButtonEvent(productImagesUl){
+function addProductImagePrevButtonEvent(productImagesUl,firstImageLi,lastImageLi){
 	
+	var nowProductNumber = document.querySelector('.product_number');
 	document.querySelector('.prev').addEventListener('click',function(e){
 		
-		myButtonHideOtherButtonOpen(this,'.nxt');
-		productImagesUl.style.transform = 'translateX(0%)';
+		if(globalVariables.productTransform < 0 ){
+			
+			if(globalVariables.showProductNumber === 0 ){
+				globalVariables.showProductNumber = 1;
+			} else {
+				globalVariables.showProductNumber = 0;
+			}
+			nowProductNumber.innerText = globalVariables.showProductNumber+1;
+			
+			globalVariables.productTransform += 100;
+			productImagesUl.style.transform = 'translateX('+globalVariables.productTransform +'%)';
+		}
 	});
 }
 
@@ -142,13 +181,21 @@ function myButtonHideOtherButtonOpen(_this,otherQuery){
 }
 
 /**
- * @desc set comment
+ * @desc 코멘트 갯수, 코멘트 리스트, 코멘트 별점 셋팅
+ * @param comments
+ * @param commentsLength
+ * @param commentAverageScore
+ * @param productId
  */
 function setComments(comments,commentsLength,commentAverageScore,productId){
 	
-	document.querySelector('.list_short_review').innerHTML = getHandlebarTemplateFromHtml('#comment_template',comments);
+	document.querySelector('.list_short_review').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#comment_template',comments);
 	document.querySelector('#comment_count').innerHTML = commentsLength;
-	document.querySelector('#comment_average').innerHTML = commentAverageScore;
+	
+	var start = 0;
+	var end = 3;
+	
+	document.querySelector('#comment_average').innerHTML = String(commentAverageScore).substr(start,end);
 	document.querySelector('#comment_graph_star').style.width = commentAverageScore * 20 + '%';
 	
 	if(commentsLength === 0){
@@ -158,40 +205,18 @@ function setComments(comments,commentsLength,commentAverageScore,productId){
 	}
 }
 
-/**
- * @desc handlebar helper regist 작업 
- * @returns
- */
-function setHandlebarRegist(){
-	
-	Handlebars.registerHelper('userEmailEncrypt', function(reservationEmail) {
-		   
-		var start = 0;
-	    var end = 4;
-	    
-		var encryptedUserEmail = reservationEmail.substring(start,end)+'****';
-	    return new Handlebars.SafeString(encryptedUserEmail);
-	});
-	
-	Handlebars.registerHelper('reservationDateYYYYMMDD', function(reservationDate) {
-	    
-		var start = 0;
-	    var end = 10;
-		
-	    var reservationDateYYYYMMDD = reservationDate.substring(start,end).replace(/-/g,'.')+'.';
-	    return new Handlebars.SafeString(reservationDateYYYYMMDD);
-	});
-}
+
 
 /**
  * @desc product event setting
  * @returns
  */
 function setProductEvent(productEvent){
-	document.querySelector('.event_info').innerHTML = getHandlebarTemplateFromHtml('#product_event_template',productEvent);
+	document.querySelector('.event_info').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#product_event_template',productEvent);
 }
 
 /**
+ * @desc product 내용 삽입
  * @param productContent
  * @returns
  */
@@ -202,7 +227,7 @@ function setProductContent(productContent){
 }
 
 /**
- * 
+ * @desc product 상세 셋팅
  * @param displayInfo
  * @param saveFileName
  * @returns
@@ -210,23 +235,9 @@ function setProductContent(productContent){
 function setProductDetail(displayInfo, saveFileName){
 	
 	displayInfo.saveFileName = saveFileName;
-	document.querySelector('.product_location').innerHTML = getHandlebarTemplateFromHtml('#detail_location_template',displayInfo);
+	document.querySelector('.product_location').innerHTML = handlebarRegistHelper.getHandlebarTemplateFromHtml('#detail_location_template',displayInfo);
 }
 
-/**
- * @desc handlebar로 compile해서 html로 만들어주기
- * @param templateId
- * @param compileTemplate
- * @param content
- * @returns html
- */
-function getHandlebarTemplateFromHtml(templateId,content){
-	
-	var template = document.querySelector(templateId).innerHTML;
-	var handlebarTemplate = Handlebars.compile(template);
-	
-	return handlebarTemplate(content);
-}
 
 /**
  * @desc detail Button Event 걸어주기

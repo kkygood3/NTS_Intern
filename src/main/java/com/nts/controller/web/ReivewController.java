@@ -13,21 +13,19 @@ import org.springframework.web.servlet.ModelAndView;
  * @author 전연빈
  */
 @Controller
-public class DetailController {
+public class ReivewController {
 
 	/**
-	 * @desc detail page로 view 렌더링
-	 * @param displayInfoId
+	 * @desc review page 렌더링 및 productId front로 값 넘겨주기
+	 * @param productId
 	 * @param modelAndView
-	 * @return modelAndView ( viewName : detail , object: displayInfoId)
+	 * @return modelAndView
 	 */
-	@RequestMapping("/detail/{displayInfoId}")
-	public ModelAndView getDetailPage(@PathVariable int displayInfoId, ModelAndView modelAndView) {
+	@RequestMapping("/review/{productId}")
+	public ModelAndView getReivewPage(@PathVariable int productId, ModelAndView modelAndView) {
 
-		modelAndView.addObject("displayInfoId", displayInfoId);
-		modelAndView.setViewName("detail");
-
+		modelAndView.addObject("productId", productId);
+		modelAndView.setViewName("review");
 		return modelAndView;
 	}
-
 }

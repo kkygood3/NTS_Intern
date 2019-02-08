@@ -4,17 +4,15 @@
  **/
 package com.nts.service.displayInfo.impl;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.dao.comment.CommentRepository;
 import com.nts.dao.displayinfo.DisplayInfoRepository;
 import com.nts.dao.product.ProductRepository;
-import com.nts.dto.comment.Comment;
 import com.nts.dto.displayinfo.DisplayInfos;
 import com.nts.exception.DisplayInfoNullException;
+import com.nts.service.comment.CommentService;
 import com.nts.service.displayInfo.DisplayInfoService;
 
 /**
@@ -30,13 +28,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 	private ProductRepository productRepository;
 	
 	@Autowired
-	private CommentRepository commentRepository;
+	private CommentService commentService;
 	
 	/**
 	 * @desc 상품 상세 정보 가져오기
 	 * @param displayInfoId
-	 * @return displayInfos
 	 * @throws DisplayInfoNullException 
+	 * @return displayInfos
 	 */
 	@Override
 	public DisplayInfos getDisplayInfos(int displayInfoId) throws DisplayInfoNullException {
@@ -54,17 +52,8 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 		
 		displayInfos.setProductImages(productRepository.selectProductImagesByProductId(productId));
 		displayInfos.setProductPrices(productRepository.selectProductPricesById(productId));
-		displayInfos.setAverageScore(commentRepository.selectCommentAverageByProductId(productId));
-		
-		List<Comment> commentList = commentRepository.selectCommentByProductId(productId);
-		
-		for(Comment comment : commentList) {
-			if(comment.hasImageFile()) {
-				comment.setCommentImage(commentRepository.selectCommentImagesByCommentId(comment.getCommentId()));
-			}
-		}
-		
-		displayInfos.setComments(commentList);
+		displayInfos.setAverageScore(commentService.getAverageScore(productId));
+		displayInfos.setComments(commentService.getCommentsByProductId(productId));
 		
 		return displayInfos;
 	}

@@ -70,7 +70,6 @@ public class ProductRepository {
 
 	/**
 	 * @desc 상품 전체 가져오기
-	 * @param categoryId
 	 * @param start
 	 * @return list(Product)
 	 */

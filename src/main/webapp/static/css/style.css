@@ -3827,3 +3827,7 @@ button {
 	transform: translateX(0%);
     transition: 2s ease-in;
 }
+
+.transition_1s{
+	transition: 1s ease-in;
+}
