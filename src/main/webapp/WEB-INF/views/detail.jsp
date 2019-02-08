@@ -136,12 +136,16 @@
 						<div class="short_review_area">
 							<div class="grade_area">
 								<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-								<span class="graph_mask"> <em class="graph_value"
-									style="width: 84%;"></em>
-								</span> <strong class="text_value"> <span>4.2</span> <em
-									class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green">52건</em> 등록</span>
+								<span class="graph_mask">
+									<em class="graph_value" style="width: 84%;"></em>
+								</span> 
+								<strong class="text_value">
+									<span></span> 
+									<em class="total">5.0</em>
+								</strong>
+								<span class="join_count"> <em class="green">52건</em> 등록</span>
 							</div>
+							<!-- 상품평 넣는 구역 -->
 							<ul class="list_short_review">
 								<li class="list_item">
 									<div>
@@ -149,7 +153,7 @@
 											<div class="thumb_area">
 												<a href="#" class="thumb" title="이미지 크게 보기"> <img
 													width="90" height="90" class="img_vertical_top"
-													src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300"
+													src=""
 													alt="리뷰이미지">
 												</a> <span class="img_count" style="display: none;">1</span>
 											</div>
@@ -311,6 +315,29 @@
 			</div>
 		</li>
 	</script>
+	<script type="text/template" id="template-comment">
+		<li class="list_item">
+			<div>
+				<div class="review_area">
+					<div class="thumb_area">
+						<a href="#" class="thumb" title="이미지 크게 보기"> 
+							<img width="90" height="90" class="img_vertical_top" src="" alt="리뷰이미지">
+						</a> 
+						<span class="img_count" style="display: none;">1</span>
+					</div>
+					<h4 class="resoc_name"></h4>
+					<p class="review">{{comment}}</p>
+				</div>
+				<div class="info_area">
+					<div class="review_info">
+						<span class="grade">{{score}}</span>
+						<span class="name">{{reservationName}}</span>
+						<span class="date">{{reservationDate}} 방문</span>
+					</div>
+				</div>
+			</div>
+		</li>
+	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script>
@@ -380,8 +407,10 @@
 				productContentTextDiv.innerText = this.displayInfo.productContent;
 			},
 			setCommentDOM : function () {
-				// TODO: 상품평 구역 구현
-				
+				var scoreTextDiv = document.querySelector(".text_value span");
+				scoreTextDiv.innerText = this.averageScore.toFixed(1);
+				var maxScore = parseFloat(document.querySelector(".text_value .total").innerText);
+				document.querySelector(".graph_value").style.width = this.averageScore / maxScore * 100 + "%";
 			},
 			setDetailInformationDOM : function () {
 				// TODO: 상세정보 구역 구현
