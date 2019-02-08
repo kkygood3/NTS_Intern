@@ -15,7 +15,7 @@ import com.nts.reservation.dao.queries.CommentQueries;
 import com.nts.reservation.dto.detail.Comment;
 
 @Repository
-public class CommentDao{
+public class CommentDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
 
@@ -27,5 +27,17 @@ public class CommentDao{
 		Map<String, Integer> params = new HashMap<>();
 		params.put("productId", productId);
 		return jdbc.query(CommentQueries.SELECT_COMMENT, params, rowMapper);
+	}
+
+	public Double selectAvgScoreByProductId(int productId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("productId", productId);
+		Double avg = jdbc.queryForObject(CommentQueries.SELECT_AVG_SCORE, params, Double.class);
+
+		if (avg == null) {
+			avg = 0.0;
+		}
+
+		return avg;
 	}
 }
