@@ -37,12 +37,6 @@ import com.nts.reservation.dto.ProductPrice;
 @Repository
 public class DetailProductDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Comment> commentMapper = BeanPropertyRowMapper.newInstance(Comment.class);
-	private RowMapper<CommentImage> commentImageMapper = BeanPropertyRowMapper.newInstance(CommentImage.class);
-	private RowMapper<DisplayInfo> displayInfoMapper = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
-	private RowMapper<DisplayInfoImage> displayImageMapper = BeanPropertyRowMapper.newInstance(DisplayInfoImage.class);
-	private RowMapper<ProductImage> productImageMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
-	private RowMapper<ProductPrice> productPriceMapper = BeanPropertyRowMapper.newInstance(ProductPrice.class);
 
 	public DetailProductDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -59,31 +53,37 @@ public class DetailProductDao {
 	}
 
 	public List<Comment> getComments(Integer displayInfoId) {
+		RowMapper<Comment> commentMapper = BeanPropertyRowMapper.newInstance(Comment.class);
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.query(GET_COMMENTS, param, commentMapper);
 	}
 
 	public List<CommentImage> getCommentImages(Integer commentId) {
+		RowMapper<CommentImage> commentImageMapper = BeanPropertyRowMapper.newInstance(CommentImage.class);
 		Map<String, Integer> param = Collections.singletonMap("commentId", commentId);
 		return jdbc.query(GET_COMMENT_IMAGES, param, commentImageMapper);
 	}
 
 	public DisplayInfo getDisplayInfo(Integer displayInfoId) {
+		RowMapper<DisplayInfo> displayInfoMapper = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(GET_DISPLAY_INFO, param, displayInfoMapper);
 	}
 
 	public DisplayInfoImage getDisplayInfoImage(Integer displayInfoId) {
+		RowMapper<DisplayInfoImage> displayImageMapper = BeanPropertyRowMapper.newInstance(DisplayInfoImage.class);
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(GET_DISPLAY_INFO_IMAGE, param, displayImageMapper);
 	}
 
 	public List<ProductImage> getProductImages(Integer displayInfoId) {
+		RowMapper<ProductImage> productImageMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.query(GET_PRODUCT_IMAGES, param, productImageMapper);
 	}
 
 	public List<ProductPrice> getProductPrices(Integer displayInfoId) {
+		RowMapper<ProductPrice> productPriceMapper = BeanPropertyRowMapper.newInstance(ProductPrice.class);
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.query(GET_PRODUCT_PRICES, param, productPriceMapper);
 	}
