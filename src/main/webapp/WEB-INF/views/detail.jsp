@@ -47,6 +47,7 @@
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
+                                <h1 class="display_title"></h1>
                                 <ul class="visual_img detail_swipe">
                                     <!-- li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
                                         <div class="visual_txt">
@@ -269,7 +270,7 @@
         <span class="img_bg"></span>
         <div class="visual_txt">
             <div class="visual_txt_inn">
-                <h2 class="visual_txt_tit"> <span>{{lookup ../displayInfo "productDescription"}}</span> </h2>
+                <h2 class="visual_txt_tit"></h2>
                 <p class="visual_txt_dsc"></p>
 			</div>
         </div>

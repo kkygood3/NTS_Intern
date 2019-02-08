@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	getDetailInfo(displayInfoId);
 });
 
-let title = document.querySelector(".visual_txt_tit")
+let title = document.querySelector(".display_title")
 let image = document.querySelector(".img_thumb");
 let cnt = document.querySelector(".count_detail_image");
 let content = document.querySelector(".dsc");
@@ -70,6 +70,7 @@ function getDetailInfo(displayInfoId) {
 					document.querySelector(".btn_nxt").style.display = "none";
 				}
 				// 상단 이미지 & 타이틀
+				title.innerHTML = jsonResponse["displayInfo"].productDescription;
 				visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
 				imageSlide();
 				// 상단 상품 설명 영역
@@ -152,17 +153,37 @@ function imageSlide(){
 	let nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
 	let nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) + "']");
 	document.querySelector(".btn_prev").addEventListener("click", function(){
+		if(visualImageIndex === 0){
+			prevImage = visualImgContainer.querySelector("li[data-index='" + (cntImages - 1) + "']");
+		} else {
+			prevImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex - 1) + "']");
+		}
+		
+		prevImage.style.left = -imageWidth + "px";
+		prevImage.style.visibility = "visible";
+		prevImage.className = "item slide_right_in";
+		nowImage.style.left = "0";
+		nowImage.className = "item slide_right_out";
 
+		visualImageIndex = visualImageIndex - 1;
+		if(visualImageIndex < 0){
+			visualImageIndex = cntImages - 1; 
+		}
+		nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
+		
+		document.querySelector(".num").innerHTML = visualImageIndex + 1;
 	});
 	document.querySelector(".btn_nxt").addEventListener("click", function(){
+		nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) % cntImages + "']");
+		
 		nowImage.style.left = "0";
 		nowImage.className = "item slide_left_out";
 		nextImage.style.left = imageWidth + "px";
+		nextImage.style.visibility = "visible";
 		nextImage.className = "item slide_left_in";
 		
 		visualImageIndex = (visualImageIndex + 1) % cntImages;
 		nowImage = visualImgContainer.querySelector("li[data-index='" + visualImageIndex + "']");
-		nextImage = visualImgContainer.querySelector("li[data-index='" + (visualImageIndex + 1) % cntImages + "']");
 		
 		document.querySelector(".num").innerHTML = visualImageIndex + 1;
 	});
