@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
 		displayInfoResponse.setComments(comments);
 		displayInfoResponse.setAverageScore(averageScore);
-		//displayInfoResponse.setProductPrices(productPrices);
+		// TODO: 프로젝트5에서  productPrices 구현 필요
 		return displayInfoResponse;
 	}
 }
