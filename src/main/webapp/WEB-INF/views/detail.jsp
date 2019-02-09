@@ -11,7 +11,10 @@
     <title>네이버 예약</title>
 	<link href="./css/style.css" rel="stylesheet">
 	<link href="./css/detail.css" rel="stylesheet">
-	<script type="text/javascript">var productId = ${productId};</script>
+	<script type="text/javascript">
+		var productId = ${productId};
+		var displayInfoId = ${displayInfoId};
+	</script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
