@@ -82,13 +82,15 @@
 
     <script type="rv-template" id="product_item">
 	<li class="item" id="thumb_{product_id}_{display_info_id}">
-		<div class="item_preview">
-			<img alt="{description}" class="img_thumb" src="./{save_file_name}">
-		</div>
-		<div class="event_txt">
-			<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{place_name}</small> </h4>
-			<p class="event_txt_dsc">{content}</p>
-		</div>
+		<a class="anchor">
+			<div class="item_preview">
+				<img alt="{description}" class="img_thumb" src="./{save_file_name}">
+			</div>
+			<div class="event_txt">
+				<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{place_name}</small> </h4>
+				<p class="event_txt_dsc">{content}</p>
+			</div>
+		</a>
 	</li>
     </script>
     
