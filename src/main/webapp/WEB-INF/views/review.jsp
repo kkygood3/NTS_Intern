@@ -33,7 +33,7 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i
+						<a onclick="window.history.back();" class="btn_back" title="이전 화면으로 이동"> <i
 							class="fn fn-backward1"></i>
 						</a>
 						<h2>
@@ -46,11 +46,14 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"> <em class="graph_value"
-									style="width: 88%;"></em>
-								</span> <strong class="text_value"> <span>4.4</span> <em
-									class="total">5.0</em>
-								</strong> <span class="join_count"><em class="green">20건</em> 등록</span>
+								<span class="graph_mask">
+									<em class="graph_value" style="width: 88%;"></em>
+								</span> 
+								<strong class="text_value">
+									<span></span>
+									<em class="total">5.0</em>
+								</strong> 
+								<span class="join_count"><em class="green"></em>등록</span>
 							</div>
 							<ul class="list_short_review">
 							</ul>
@@ -75,8 +78,75 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type="text/template" id="template-comment">
+		<li class="list_item">
+			<div>
+				<div class="review_area">
+					{{#if commentImage}}
+						<div class="thumb_area">
+							<a href="#" class="thumb" title="이미지 크게 보기"> 
+								<img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt="리뷰이미지">
+							</a> 
+							<span class="img_count" style="display: none;">1</span>
+						</div>
+					{{/if}}
+					<h4 class="resoc_name"></h4>
+					<p class="review">{{comment}}</p>
+				</div>
+				<div class="info_area">
+					<div class="review_info">
+						<span class="grade">{{score}}</span>
+						<span class="name">{{reservationName}}</span>
+						<span class="date">{{reservationDate}} 방문</span>
+					</div>
+				</div>
+			</div>
+		</li>
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type="text/javascript" src="/js/util.js"></script>
+	<script type="text/javascript" src="/js/ajax.js"></script>
 	<script type="text/javascript">
+		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
+
+		var review = {
+			init : function() {
+				commentResponse.loadCommentResponse(this.initComment.bind(this), productId, 0, 20);
+			},
+			initComment : function(response) {
+				this.setCountDOM(response);
+				this.setAvgScoreDOM(response);
+				this.setCommentDOM(response);
+			},
+			// 상품평 총 개수 설정
+			setCountDOM : function(response) {
+				var countTextDiv = document.querySelector(".join_count .green");
+				countTextDiv.innerText = response.totalCount + " 건";
+			},
+			// 상품평 평점 설정
+			setAvgScoreDOM : function(response) {
+				var scoreTextDiv = document.querySelector(".text_value span");
+				scoreTextDiv.innerText = response.averageScore.toFixed(1);
+				var maxScore = parseFloat(document.querySelector(".text_value .total").innerText);
+				document.querySelector(".graph_value").style.width = response.averageScore
+						/ maxScore * 100 + "%";
+			},
+			// 상품평 추가
+			setCommentDOM : function(response) {
+				var template = document.querySelector("#template-comment").innerText;
+				var bindTemplate = Handlebars.compile(template);
+				var resultHTML = response.comments.reduce(function(prev, comment) {
+					return prev + bindTemplate(comment);
+				}, "");
+				var commentsDiv = document.querySelector(".list_short_review");
+				commentsDiv.innerHTML = resultHTML;
+
+				if (response.totalCount <= 3) {
+					this.hiddenMoreButton();
+				}
+			},
+		}
+		review.init();
 	</script>
 </body>
-
 </html>
