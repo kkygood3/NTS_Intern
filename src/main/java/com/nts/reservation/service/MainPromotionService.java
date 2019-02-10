@@ -15,13 +15,13 @@ public interface MainPromotionService {
 	Integer LIMIT = 100;
 	
 	/**
-	 * promotion_api_view를 조회
+	 * api/promotions response에 사용
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
 	List<MainPromotion> getPromotions();
 
 	/**
-	 * promotion_api_view를 조회
+	 * api/promotions response에 사용
 	 * @return 해당 View의 row 수
 	 */
 	int getCount();

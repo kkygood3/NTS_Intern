@@ -15,8 +15,8 @@ public interface MainCategoryService {
 	Integer LIMIT = 10;
 	
 	/**
-	 * category_api_view를 조회
-	 * @return default LIMIT만큼 조회하여 반환
+	 * api/categories response에 사용
+	 * @return MainCategory List
 	 */
 	List<MainCategory> getCategories();
 }
