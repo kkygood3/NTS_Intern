@@ -1,3 +1,4 @@
+// TODO: 함수를 두개만들지 if문으로 처리할지...
 function makeSlide(ul, dir="left") {
 	if (dir != "left" && dir != "right") {
 		return;
