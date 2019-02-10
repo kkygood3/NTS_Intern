@@ -10,5 +10,5 @@ public class ProductImageQueries {
 		+ " FROM product_image"
 		+ " INNER JOIN product ON product_image.product_id = product.id"
 		+ " INNER JOIN file_info ON product_image.file_id = file_info.id"
-		+ " WHERE product_image.type = 'ma' AND product.id = :productId";
+		+ " WHERE product_image.type <> 'th' AND product.id = :productId";
 }
