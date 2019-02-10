@@ -48,45 +48,13 @@
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<ul class="visual_img detail_swipe">
-									<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit"> <span></span> </h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
-									<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit"> <span></span> </h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
-									<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit"> <span></span> </h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
-									<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
-										<div class="visual_txt">
-											<div class="visual_txt_inn">
-												<h2 class="visual_txt_tit"> <span></span> </h2>
-												<p class="visual_txt_dsc"></p>
-											</div>
-										</div>
-									</li>
 								</ul>
 							</div>
 							<div class="prev">
 								<div class="prev_inn">
 									<a href="#" class="btn_prev" title="이전">
 										<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
-										<i class="spr_book2 ico_arr6_lt off"></i>
+										<i class="spr_book2 ico_arr6_lt"></i>
 									</a>
 								</div>
 							</div>
@@ -139,41 +107,7 @@
 								<span class="join_count"><em class="green">52건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-								<li class="list_item">
-									<div>
-										<div class="review_area">
-											<div class="thumb_area">
-												<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count" style="display:none;">1</span>												</div>
-											<h4 class="resoc_name"></h4>
-											<p class="review">2층이어서 걱정했는데 꽤잘보여서 좋았습니다 고미오 너무 멋있었습니다 사진은 커튼콜때 찍었습니다 끝나고 퇴근길도 봐서 너무 좋았어요</p>
-										</div>
-										<div class="info_area">
-											<div class="review_info"> <span class="grade">4.0</span> <span class="name">dbfl****</span> <span class="date">2017.3.5. 방문</span> </div>
-										</div>
-									</div>
-								</li>
-								<li class="list_item">
-									<div>
-										<div class="review_area no_img">
-											<h4 class="resoc_name"></h4>
-											<p class="review">너무 재밌게봤구요~<br>마지막공연 후 뒷풀이도 잘봤습니다</p>
-										</div>
-										<div class="info_area">
-											<div class="review_info"> <span class="grade">5.0</span> <span class="name">yyck****</span> <span class="date">2017.3.5. 방문</span> </div>
-										</div>
-									</div>
-								</li>
-								<li class="list_item">
-									<div>
-										<div class="review_area no_img">
-											<h4 class="resoc_name"></h4>
-											<p class="review">좋은 공연이었습니다. <br>머큐쇼역활 하신분의 열창이 기억에 남는 반면에,,, 로미오는 별로 기억에 남지 않네요..</p>
-										</div>
-										<div class="info_area">
-											<div class="review_info"> <span class="grade">4.0</span> <span class="name">xero****</span> <span class="date">2017.3.4. 방문</span> </div>
-										</div>
-									</div>
-								</li>
+								 
 							</ul>
 						</div>
 						<p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
@@ -184,10 +118,10 @@
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
 						<li class="item active _detail">
-							<a href="#" class="anchor active"> <span>상세정보</span> </a>
+							<a class="anchor active"> <span>상세정보</span> </a>
 						</li>
 						<li class="item _path">
-							<a href="#" class="anchor"> <span>오시는길</span> </a>
+							<a class="anchor"> <span>오시는길</span> </a>
 						</li>
 					</ul>
 					<!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
@@ -261,6 +195,259 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
+	<script type="htmlTemplate" id="bannerImageTemplate">
+		<li class="item" style="width: 414px;"> <img alt="{{displayInfo.productDescription}}" class="img_thumb" src="{{curSaveFileName}}"> <span class="img_bg"></span>
+			<div class="visual_txt">
+				<div class="visual_txt_inn">
+					<h2 class="visual_txt_tit"> <span>{{displayInfo.productDescription}}</span> </h2>
+					<p class="visual_txt_dsc"></p>
+				</div>
+			</div>
+		</li>
+	</script>
+	
+	<script type="htmlTemplate" id="commentItemTemplate">
+		<li class="list_item">
+			<div>
+				<div class="review_area">
+					{{#if commentImage}}
+					<div class="thumb_area">
+						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>												
+					</div>
+					{{/if}}
+						<h4 class="resoc_name"></h4>
+						<p class="review">{{comment}}</p>
+					</div>
+					<div class="info_area">
+					<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
+				</div>
+			</div>
+		</li>
+	</script>
+		
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+
+	<script>
+		var currentTab = 1;
+		
+		function requestAjax(callback, url) {
+			var ajaxReq = new XMLHttpRequest();
+			ajaxReq.callback = callback;
+			ajaxReq.addEventListener('load', function(evt) {
+				this.callback(evt.target.response);
+			});
+	
+			ajaxReq.open('GET', url);
+			ajaxReq.responseType = 'json';
+			ajaxReq.send()
+		}
+		
+		function convertDateFormat(date){
+			var originDate = date.split(' ')[0];
+			var originDateSplited = originDate.split('-');
+			var resultDate = originDateSplited[0];
+			
+			if(originDateSplited[1].charAt(0) === '0'){
+				originDateSplited[1] = originDateSplited[1].charAt(1); 
+			}
+			
+			resultDate += '.'+originDateSplited[1];
+			
+			if(originDateSplited[2].charAt(0) === '0'){
+				originDateSplited[2] = originDateSplited[2].charAt(1); 
+			}
+			
+			resultDate += '.'+originDateSplited[2];
+			
+			return resultDate;
+		}
+		
+		function loadDisplayInfoCallback(responseData) {
+			var JsonData = responseData.detailDisplay;
+			JsonData.averageScore = JsonData.averageScore.toFixed(1);
+			
+			var averageScore = JsonData.averageScore;
+			var comments = JsonData.comments;
+			var displayInfo = JsonData.displayInfo;
+			var displayInfoImage = JsonData.displayInfoImage;
+			var productImages = JsonData.productImages;
+			var productPrices = JsonData.productPrices;
+			var itemCount = JsonData.totalCount;
+			var promotionList = JsonData.promotionList;
+			
+			//Image Template
+			var imageTemplate = document.querySelector('#bannerImageTemplate').innerText;
+			var bindImageTemplate = Handlebars.compile(imageTemplate);
+			var imageContainer = document.querySelector('ul.detail_swipe');
+			
+			
+			var imagePage = document.querySelector('.figure_pagination').querySelector('.num');
+			var imageAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
+			
+			var imageArrowLeft = document.querySelector('.ico_arr6_lt');
+			var imageArrowRight = document.querySelector('.ico_arr6_rt');
+			//공통 할 일 : 숫자 띄우기
+			if(productImages.length == 1){
+				//이미지가 1개면 띄우고 화살표 없앰
+				JsonData.curSaveFileName = JsonData.productImages[0].saveFileName;
+				imageContainer.innerHTML += bindImageTemplate(JsonData);
+				
+				imageAmount.innerText = '1';
+				document.querySelector('.ico_arr6_lt').style.display='none';
+				document.querySelector('.ico_arr6_rt').style.display='none';
+
+				imageArrowLeft.style.display = 'none';
+				imageArrowRight.style.display = 'none';
+				
+			}else if(productImages.length > 1){
+				//이미지가 2개 이상이면 2개만 띄움
+				for(var idx = 0; idx < 2; idx ++){
+					JsonData.curSaveFileName = JsonData.productImages[idx].saveFileName;
+					imageContainer.innerHTML += bindImageTemplate(JsonData);
+				}
+				
+				imageAmount.innerText = '2';
+				
+				//화살표에 클릭이벤트 추가
+				document.querySelector('.group_visual').addEventListener('click',function(evt){
+					
+					var clickedBtn = evt.target;
+					if(clickedBtn.tagName === 'I'){
+						var imageItems = document.querySelector('ul.detail_swipe').querySelectorAll('.item');
+						
+						if(imagePage.innerText === '1'){
+							//1번에서 2번으로
+							imagePage.innerText = '2';
+							imageItems.forEach(item => item.style.left = '-100%')
+						}else{
+							//2번에서 1번으로
+							imagePage.innerText = '1';
+							imageItems.forEach(item => item.style.left = '0%')
+						}
+					}
+				});
+			}
+			
+			imageContainer.innerHTML += bindImageTemplate(JsonData);
+			
+			var moreBtnContainer = document.querySelector('div.section_store_details');
+			var openBtn = moreBtnContainer.querySelector('a._open');	
+			var closeBtn = moreBtnContainer.querySelector('a._close');
+			var moreArea = moreBtnContainer.querySelector('div.store_details');
+			
+			moreBtnContainer.addEventListener('click',function(evt){
+				var clickedTag  = evt.target;
+				
+				if(clickedTag.className === 'bk_more _open'){
+					moreArea.classList.remove('close3');
+					
+					openBtn.style.display = 'none';
+					closeBtn.style.display = '';
+				}else if(clickedTag.className === 'bk_more _close'){
+					moreArea.classList.add('close3');
+					
+					openBtn.style.display = '';
+					closeBtn.style.display = 'none';
+				}
+			});
+			
+			//Comment Template
+			var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
+			var bindCommentTemplate = Handlebars.compile(commentTemplate);
+			
+			var commentContainer = document.querySelector('ul.list_short_review');
+			for(var i = 0 ; i < 3 && i < comments.length; i++){
+				comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
+				commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
+			} 
+			
+			//이미지위에 제목 띄우기
+			document.querySelector('div.store_details>p.dsc').innerHTML = JsonData.displayInfo.productContent;
+			
+			//별점 그래프, 숫자 조정
+			document.querySelector('em.graph_value').style.width = (averageScore*20)+'%';
+			document.querySelector('.text_value>span').innerText = averageScore;
+			
+			//우측 상단의 Comment 갯수
+			document.querySelector('span.join_count>em.green').innerText = comments.length+'건';
+			
+			//Comment 더보기 버튼
+			document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfo.displayInfoId)
+			
+			//[소개]란의 글
+			document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
+			
+			//[오시는 길] - 이미지
+			document.querySelector('.store_map').setAttribute('src',displayInfoImage.saveFileName);
+			
+			//[오시는 길] - 장소 명
+			document.querySelector('.store_name').innerText = displayInfo.placeName;
+			
+			//[오시는 길] - 주소
+			var addressWrap = document.querySelector('.store_addr_wrap').querySelectorAll('p');
+			addressWrap[0].innerText = displayInfo.placeStreet;
+			addressWrap[1].querySelectorAll('span')[1].innerText = displayInfo.placeLot;
+			addressWrap[2].innerText = displayInfo.placeName;
+			
+			//[오시는 길] - 전화번호
+			var telephoneArea = document.querySelector('.store_tel');
+			telephoneArea.setAttribute('href',displayInfo.telephone);
+			telephoneArea.innerText = displayInfo.telephone;
+			
+			//상세 정보, 오시는 길 전환 탭
+			var detailTab = document.querySelector('ul.info_tab_lst>._detail');
+			var detailBody = document.querySelector('.detail_area_wrap');
+			
+			var pathTab = document.querySelector('ul.info_tab_lst>._path');
+			var pathBody = document.querySelector('.detail_location');
+			
+			//상세정보, 오시는 길 클릭 이벤트
+			document.querySelector('ul.info_tab_lst').addEventListener('click',function(evt){
+				
+				var clickedTab = evt.target;
+				if(clickedTab.tagName === 'SPAN'){
+					clickedTab = clickedTab.parentElement.parentElement;
+				}else if(clickedTab.tagName === 'A'){
+					clickedTab = clickedTab.parentElement;
+				}
+				
+				//첫번째 탭을 클릭했을 때
+				if(currentTab == 2 && clickedTab.className.indexOf('_detail') != -1){
+					currentTab = 1;
+					
+					pathTab.classList.remove('active');
+					pathTab.firstElementChild.classList.remove('active');
+					
+					pathBody.classList.add('hide');
+					detailBody.classList.remove('hide');
+					
+					detailTab.classList.add('active');
+					detailTab.firstElementChild.classList.add('active');
+					
+				}else if(currentTab == 1 && clickedTab.className.indexOf('_path') != -1){
+					currentTab = 2;
+					detailTab.classList.remove('active');
+					detailTab.firstElementChild.classList.remove('active');
+					
+					detailBody.classList.add('hide');
+					pathBody.classList.remove('hide');
+					
+					
+					pathTab.classList.add('active');
+					pathTab.firstElementChild.classList.add('active');
+				}
+			
+			});
+		}
+	
+		document.addEventListener('DOMContentLoaded', function() {
+			//페이지 첫 로딩시 할 일
+	
+			var id = location.href.split('?')[1].split('=')[1];
+			requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
+		});
+		
+	</script>
 </body>
 
 
