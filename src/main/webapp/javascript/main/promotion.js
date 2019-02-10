@@ -21,5 +21,5 @@ function makePromotionSlideHTML(promotions) {
 
 function makePromotionSlide() {
 	var ul = document.getElementsByClassName("visual_img")[0];
-	makeSlide(ul)
+	makeSlide(ul);
 }
