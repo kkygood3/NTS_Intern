@@ -15,7 +15,7 @@
 		var displayInfo = {
 			"productId" : ${productId},
 			"displayInfoId" : ${displayInfoId}
-		}
+		};
 	</script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
