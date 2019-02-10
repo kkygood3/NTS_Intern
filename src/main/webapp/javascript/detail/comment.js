@@ -1,6 +1,6 @@
 function sendGetCommentsAjax() {
 	var start = calcLoadedComments();
-	sendGETAjax("./comment_display_info?start="+ start + "&product_id=" + productId, makeCommentList);
+	sendGETAjax("./comment_display_info?start="+ start + "&product_id=" + displayInfo.productId, makeCommentList);
 }
 
 function calcLoadedComments() {
@@ -12,20 +12,16 @@ function makeCommentList(commentDisplayInfos) {
 	if (!commentDisplayInfos) {
 		return;
 	}
-	var html = document.getElementById("comment_item").innerHTML;
-
-	var resultHTML = "";
-	var ul = document.getElementsByClassName("list_short_review")[0];
+	var template = document.getElementById("comment_item").innerText;
+	var bindTemplate = Handlebars.compile(template); 
 	
+	var innerHtml = "";
 	commentDisplayInfos.forEach((commentDisplayInfo) => {
-	    resultHTML += html.replace("{comment}", commentDisplayInfo.comment)
-		.replace("{score}", commentDisplayInfo.score)
-		.replace("{reservation_email}", commentDisplayInfo.reservationEmail)
-		.replace("{reservation_date}", commentDisplayInfo.reservationDate)
-		.replace("{save_file_name}", commentDisplayInfo.saveFileName);
+		innerHtml += bindTemplate(commentDisplayInfo);
 	});
-	
-	ul.innerHTML = resultHTML;
+
+	var ul = document.getElementsByClassName("list_short_review")[0];
+	ul.innerHTML = innerHtml;
 }
 
 function endOfComments(productCount) {

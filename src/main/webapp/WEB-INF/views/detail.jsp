@@ -12,14 +12,17 @@
 	<link href="./css/style.css" rel="stylesheet">
 	<link href="./css/detail.css" rel="stylesheet">
 	<script type="text/javascript">
-		var productId = ${productId};
-		var displayInfoId = ${displayInfoId};
+		var displayInfo = {
+			"productId" : ${productId},
+			"displayInfoId" : ${displayInfoId}
+		}
 	</script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <style>
 
     </style>
@@ -211,16 +214,18 @@
 	<li class="list_item">
 		<div class="review_area">
 			<div class="thumb_area img_vertical_top">
-				<img width="90" height="90" class="img_vertical_top" src="./{save_file_name}" alt="리뷰이미지">
+				{{#if saveFileName}}
+				<img width="90" height="90" class="img_vertical_top" src="./{{saveFileName}}" alt="리뷰이미지">
+				{{/if}}
 			</div>
 			<p class="review_tit">${description}</p>
-			<p class="review">{comment}</p>
+			<p class="review">{{comment}}</p>
 		</div>
 		<div class="info_area">
 			<div class="review_info">
-				<span class="grade">{score}</span>
-				<span class="name">{reservation_email}</span>
-				<span class="date">{reservation_date}</span>
+				<span class="grade">{{score}}</span>
+				<span class="name">{{reservationEmail}}</span>
+				<span class="date">{{reservationDate}}</span>
 			</div>
   		</div>
 	</li>
