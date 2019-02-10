@@ -30,6 +30,7 @@ public class DetailController {
 		ModelMap model) {
 		Product product = productService.getProduct(productId);
 		DisplayInfo displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
+		
 		model.addAttribute("productId", productId);
 		model.addAttribute("displayInfoId", displayInfoId);
 		model.addAttribute("description", product.getDescription());
@@ -39,7 +40,7 @@ public class DetailController {
 		model.addAttribute("placeLot", displayInfo.getPlaceLot());
 		model.addAttribute("tel", displayInfo.getTel());
 		model.addAttribute("saveFileName", fileInfoService.getSaveFileName(productId, "ma"));
+		
 		return "detail";
-
 	}
 }
