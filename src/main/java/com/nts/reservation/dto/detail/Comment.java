@@ -7,7 +7,7 @@ public class Comment {
 	private String createDate;
 	private String modifyDate;
 	private int productId;
-	private String reservateionDate;
+	private String reservationDate;
 	private String reservationEmail;
 	private int reservationInfoId;
 	private String reservationName;
@@ -62,12 +62,12 @@ public class Comment {
 		this.productId = productId;
 	}
 
-	public String getReservateionDate() {
-		return reservateionDate;
+	public String getReservationDate() {
+		return reservationDate;
 	}
 
-	public void setReservateionDate(String reservateionDate) {
-		this.reservateionDate = reservateionDate;
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	public String getReservationEmail() {
@@ -109,14 +109,4 @@ public class Comment {
 	public void setScore(double score) {
 		this.score = score;
 	}
-
-	@Override
-	public String toString() {
-		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImage=" + commentImage
-			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
-			+ ", reservateionDate=" + reservateionDate + ", reservationEmail=" + reservationEmail
-			+ ", reservationInfoId=" + reservationInfoId + ", reservationName=" + reservationName
-			+ ", reservationTelephone=" + reservationTelephone + ", score=" + score + "]";
-	}
-
 }
