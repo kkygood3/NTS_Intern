@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -28,5 +29,11 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			return productDao.selectCount(categoryId);
 		}
+	}
+
+	@Override
+	@Transactional
+	public Product getProduct(long productId) {
+		return productDao.selectById(productId);
 	}
 }

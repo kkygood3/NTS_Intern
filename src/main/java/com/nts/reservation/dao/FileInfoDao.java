@@ -1,18 +1,24 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.FileInfoDaoSqls.SELECT_SAVE_FILE_NAME_BY_DISPLAY_INFO_ID_AND_TYPE;
+import static com.nts.reservation.dao.sql.FileInfoDaoSqls.SELECT_BY_DISPLAY_INFO_ID_AND_TYPE;
 import static com.nts.reservation.property.Const.PRODUCT_ID;
 import static com.nts.reservation.property.Const.TYPE;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+
+import com.nts.reservation.dto.FileInfo;
 
 @Repository
 public class FileInfoDao extends BaseDao {
+	RowMapper<FileInfo> rowMapper = BeanPropertyRowMapper.newInstance(FileInfo.class);
 	public FileInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}
@@ -21,10 +27,11 @@ public class FileInfoDao extends BaseDao {
 	 * 해당상품의 파일이름을 셀렉트
 	 * @return save file name
 	 */
-	public String selectSaveFileNameByDisplayInfoIdAndType(long productId, String type) {
+	public List<FileInfo> selectByDisplayInfoIdAndType(long productId, String type) {
 		Map<String, Object> params = new HashMap<>();
 		params.put(PRODUCT_ID, productId);
 		params.put(TYPE, type);
-		return getJDBC().queryForObject(SELECT_SAVE_FILE_NAME_BY_DISPLAY_INFO_ID_AND_TYPE, params, String.class);
+
+		return getJdbc().query(SELECT_BY_DISPLAY_INFO_ID_AND_TYPE, params, rowMapper);
 	}
 }

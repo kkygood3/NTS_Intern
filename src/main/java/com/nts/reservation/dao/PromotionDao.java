@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Promotion;
@@ -28,6 +27,6 @@ public class PromotionDao extends BaseDao {
 	 * @return 전체 프로모션 이미지 이름
 	 */
 	public List<Promotion> selectMaTypeFileNames() {
-		return getJDBC().queryForList(SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
+		return getJdbc().queryForList(SELECT_MA_TYPE_SAVE_FILE_NAMES_IN_PROMOTION, Collections.EMPTY_MAP);
 	}
 }

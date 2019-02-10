@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class FileInfo {
 	private long id;
-	private String file_name;
-	private String save_file_name;
-	private String content_type;
-	private boolean delete_flag;
-	private LocalDateTime create_date;
-	private LocalDateTime modify_date;
+	private String fileName;
+	private String saveFileName;
+	private String contentType;
+	private boolean deleteFlag;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
 
 	public long getId() {
 		return id;
@@ -19,58 +19,58 @@ public class FileInfo {
 		this.id = id;
 	}
 
-	public String getFile_name() {
-		return file_name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-	public String getSave_file_name() {
-		return save_file_name;
+	public String getSaveFileName() {
+		return saveFileName;
 	}
 
-	public void setSave_file_name(String save_file_name) {
-		this.save_file_name = save_file_name;
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 
-	public String getContent_type() {
-		return content_type;
+	public String getContentType() {
+		return contentType;
 	}
 
-	public void setContent_type(String content_type) {
-		this.content_type = content_type;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
-	public boolean isDelete_flag() {
-		return delete_flag;
+	public boolean isDeleteFlag() {
+		return deleteFlag;
 	}
 
-	public void setDelete_flag(boolean delete_flag) {
-		this.delete_flag = delete_flag;
+	public void setDeleteFlag(boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 
-	public LocalDateTime getCreate_date() {
-		return create_date;
+	public LocalDateTime getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreate_date(LocalDateTime create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModify_date() {
-		return modify_date;
+	public LocalDateTime getModifyDate() {
+		return modifyDate;
 	}
 
-	public void setModify_date(LocalDateTime modify_date) {
-		this.modify_date = modify_date;
+	public void setModifyDate(LocalDateTime modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 	@Override
 	public String toString() {
-		return "FileInfo [id=" + id + ", file_name=" + file_name + ", save_file_name=" + save_file_name
-				+ ", content_type=" + content_type + ", delete_flag=" + delete_flag + ", create_date=" + create_date
-				+ ", modify_date=" + modify_date + "]";
+		return "FileInfo [id=" + id + ", fileName=" + fileName + ", saveFileName=" + saveFileName + ", contentType="
+				+ contentType + ", deleteFlag=" + deleteFlag + ", createDate=" + createDate + ", modifyDate="
+				+ modifyDate + "]";
 	}
 }

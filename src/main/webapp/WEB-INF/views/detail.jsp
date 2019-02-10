@@ -13,16 +13,17 @@
 	<link href="./css/detail.css" rel="stylesheet">
 	<script type="text/javascript">
 		var displayInfo = {
-			"productId" : ${productId},
-			"displayInfoId" : ${displayInfoId}
+			"productId" : "${productId}",
+			"displayInfoId" : "${displayInfoId}"
 		};
 	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
+	<script type= "text/javascript" src= "./javascript/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 </head>
 
 <body>
@@ -46,52 +47,8 @@
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
-                    <div class="pagination">
-                        <div class="bg_pagination"></div>
-                        <div class="figure_pagination">
-                            <span class="num">1</span>
-                            <span class="num off">/ <span>2</span></span>
-                        </div>
-                    </div>
-                    <div class="group_visual">
-                        <div>
-                            <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
-								    <li class="item" style="width: 414px;">
-										<img alt="" class="img_thumb" src="./${saveFileName}">
-										<span class="img_bg"></span>
-								    	<div class="visual_txt">
-								    		<div class="visual_txt_inn">
-								    			<h2 class="visual_txt_tit"><span>${description}</span></h2>
-								         	</div>
-								        </div>
-								    </li>
-                                </ul>
-                            </div>
-                            <div class="prev">
-                                <div class="prev_inn">
-                                    <a href="#" class="btn_prev" title="이전">
-                                        <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
-                                        <i class="spr_book2 ico_arr6_lt off"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="nxt">
-                                <div class="nxt_inn">
-                                    <a href="#" class="btn_nxt" title="다음">
-                                        <i class="spr_book2 ico_arr6_rt"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group_btn_goto"  style="display: none;">
-                        <a class="btn_goto_home" title="홈페이지" href="#" target="siteUrl"> <i class="fn fn-home1"></i> </a>
-                        <a class="btn_goto_tel" title="전화" href="#"> <i class="fn fn-call1"></i> </a>
-						<a class="btn_goto_mail" title="이메일" href="#"> <i class="fn fn-mail1"></i> </a>
-                        <a href="#" class="btn_goto_path" title="길찾기"> <i class="fn fn-path-find1"></i> </a>
-                        <a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
-                    </div>
+
+					<!-- content -->
                 </div>
                 <div class="section_store_details">
                     <!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
@@ -168,20 +125,20 @@
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">엔에이치엔티켓링크(주)</h3>
+                            <h3 class="store_name">${description}</h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">서울특별시 종로구 종로33길 15 </p>
+                                    <p class="store_addr store_addr_bold">${placeStreet}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">서울특별시 종로구 연지동 270 </span>
+                                        <span class="addr_old_detail">${placeLot}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">두산아트센터 연강홀</p>
+                                    <p class="store_addr addr_detail">${placeName}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">전화번호</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">02-548-0597</a></span> </li>
+                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">02-548-0597</a></span> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -206,6 +163,49 @@
         </div>
     </footer>
     <div id="photoviwer"></div>
+    
+    <script type="rv-template" id="visual_area">
+	
+	<div class="pagination">
+		<div class="bg_pagination"></div>
+		<div class="figure_pagination">
+			<span class="num">1</span>
+			<span class="num off">/<span>{image_length}</span></span>
+		</div>
+	</div>
+	<div class="group_visual">
+		<div class="container_visual" style="width: 414px;">
+			<ul class="visual_img detail_swipe">
+				<li class="item" style="width: 414px;">
+					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
+					<span class="img_bg"></span>
+					<div class="visual_txt">
+						<div class="visual_txt_inn">
+							<h2 class="visual_txt_tit"><span>${description}</span></h2>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		{{#if etcImage}}
+		<div class="prev">
+			<div class="prev_inn">
+  				<a href="#" class="btn_prev" title="이전">
+					<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
+					<i class="spr_book2 ico_arr6_lt off"></i>
+				</a>
+			</div>
+		</div>
+		<div class="nxt">
+			<div class="nxt_inn">
+				<a href="#" class="btn_nxt" title="다음">
+					<i class="spr_book2 ico_arr6_rt"></i>
+				</a>
+			</div>
+		</div>
+		{{/if}}
+	</div>
+	</script>
     
     <script type="rv-template" id="comment_item">
 	<li class="list_item">
