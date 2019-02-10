@@ -1,14 +1,11 @@
-package com.nts.reservation.container;
+package com.nts.reservation.dto.detail;
 
 import java.util.List;
 
-import com.nts.reservation.dto.detail.Comment;
-import com.nts.reservation.dto.detail.DisplayInfo;
-import com.nts.reservation.dto.detail.DisplayInfoImage;
-import com.nts.reservation.dto.detail.ProductImage;
-import com.nts.reservation.dto.detail.ProductPrice;
-
-public class DetailDisplay {
+/**
+ * /api/products/{displayInfoId} 응답에 사용할 DTO
+ */
+public class DetailResponse {
 	private double averageScore;
 	private List<Comment> comments;
 	private DisplayInfo displayInfo;
@@ -16,7 +13,7 @@ public class DetailDisplay {
 	private List<ProductImage> productImages;
 	private List<ProductPrice> productPrices;
 
-	public DetailDisplay(double averageScore, List<Comment> comments, DisplayInfo displayInfo,
+	public DetailResponse(double averageScore, List<Comment> comments, DisplayInfo displayInfo,
 		DisplayInfoImage displayInfoImage, List<ProductImage> productImages, List<ProductPrice> productPrices) {
 		super();
 		this.averageScore = averageScore;

@@ -8,22 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.container.DetailDisplay;
-import com.nts.reservation.service.DetailDisplayService;
+import com.nts.reservation.dto.detail.DetailResponse;
+import com.nts.reservation.service.DetailResponseService;
 
 @RestController
 public class DetailApiController {
 	@Autowired
-	private DetailDisplayService detailDisplayService;
+	private DetailResponseService detailDisplayService;
 
 	/**
-	 * /categories 요청을 받아 메인 페이지에 카테고리 목록 출력
+	 * /api/products/{displayInfoId} 요청을 받아 detail, review 페이지에 출력
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/products/{displayInfoId}")
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId) {
 		
-		DetailDisplay detailDisplay = detailDisplayService.getDetailDisplay(displayInfoId);
+		DetailResponse detailDisplay = detailDisplayService.getDetailDisplay(displayInfoId);
 		Map<String, Object> map = new HashMap<>();
 		map.put("detailDisplay", detailDisplay);
 

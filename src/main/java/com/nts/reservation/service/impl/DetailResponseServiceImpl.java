@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.container.DetailDisplay;
 import com.nts.reservation.dao.detail.CommentDao;
 import com.nts.reservation.dao.detail.CommentImageDao;
 import com.nts.reservation.dao.detail.DisplayInfoDao;
@@ -13,14 +12,15 @@ import com.nts.reservation.dao.detail.DisplayInfoImageDao;
 import com.nts.reservation.dao.detail.ProductImageDao;
 import com.nts.reservation.dao.detail.ProductPriceDao;
 import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.dto.detail.DisplayInfo;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.detail.ProductImage;
 import com.nts.reservation.dto.detail.ProductPrice;
-import com.nts.reservation.service.DetailDisplayService;
+import com.nts.reservation.service.DetailResponseService;
 
 @Service
-public class DetailDisplayServiceImpl implements DetailDisplayService {
+public class DetailResponseServiceImpl implements DetailResponseService {
 
 	@Autowired
 	private CommentDao commentDao;
@@ -36,7 +36,7 @@ public class DetailDisplayServiceImpl implements DetailDisplayService {
 	private ProductPriceDao productPriceDao;
 
 	@Override
-	public DetailDisplay getDetailDisplay(int displayInfoId) {
+	public DetailResponse getDetailDisplay(int displayInfoId) {
 		DisplayInfo displayInfo = displayInfoDao.selectDisplayInfoById(displayInfoId);
 		DisplayInfoImage displayInfoImage = displayInfoImageDao.selectDisplayInfoImageById(displayInfoId);
 
@@ -51,7 +51,7 @@ public class DetailDisplayServiceImpl implements DetailDisplayService {
 			comment.setCommentImage(commentImageDao.selectCommentImageByCommentId(commentId));
 		}
 		
-		return new DetailDisplay(commentDao.selectAvgScoreByProductId(productId), comments, displayInfo, displayInfoImage, productImages, productPrices);
+		return new DetailResponse(commentDao.selectAvgScoreByProductId(productId), comments, displayInfo, displayInfoImage, productImages, productPrices);
 	}
 
 }
