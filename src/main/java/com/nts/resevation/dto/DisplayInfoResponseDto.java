@@ -8,15 +8,20 @@ import java.util.List;
 
 /**
  * 전시상품 Response용 DTO
+ * 
  * @author jinwoo.bae
  */
 public class DisplayInfoResponseDto {
 	DisplayInfoDto displayInfo;
-	List<ProductImageDto> productImages;
 	DisplayInfoImageDto displayInfoImage;
-	List<CommentDto> comments;
-	double averageScore;
-	List<ProductPriceDto> productPrices;
+	List<ProductImageDto> productImages;
+
+	public DisplayInfoResponseDto(DisplayInfoDto displayInfo, DisplayInfoImageDto displayInfoImage,
+			List<ProductImageDto> productImages) {
+		this.displayInfo = displayInfo;
+		this.displayInfoImage = displayInfoImage;
+		this.productImages = productImages;
+	}
 
 	public DisplayInfoDto getDisplayInfo() {
 		return displayInfo;
@@ -24,14 +29,6 @@ public class DisplayInfoResponseDto {
 
 	public void setDisplayInfo(DisplayInfoDto displayInfo) {
 		this.displayInfo = displayInfo;
-	}
-
-	public List<ProductImageDto> getProductImages() {
-		return productImages;
-	}
-
-	public void setProductImages(List<ProductImageDto> productImages) {
-		this.productImages = productImages;
 	}
 
 	public DisplayInfoImageDto getDisplayInfoImage() {
@@ -42,28 +39,12 @@ public class DisplayInfoResponseDto {
 		this.displayInfoImage = displayInfoImage;
 	}
 
-	public List<CommentDto> getComments() {
-		return comments;
+	public List<ProductImageDto> getProductImages() {
+		return productImages;
 	}
 
-	public void setComments(List<CommentDto> comments) {
-		this.comments = comments;
-	}
-
-	public double getAverageScore() {
-		return averageScore;
-	}
-
-	public void setAverageScore(double averageScore) {
-		this.averageScore = averageScore;
-	}
-
-	public List<ProductPriceDto> getProductPrices() {
-		return productPrices;
-	}
-
-	public void setProductPrices(List<ProductPriceDto> productPrices) {
-		this.productPrices = productPrices;
+	public void setProductImages(List<ProductImageDto> productImages) {
+		this.productImages = productImages;
 	}
 
 }

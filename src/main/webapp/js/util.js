@@ -3,6 +3,10 @@ function isEmpty(value) {
 	return (value == null || value.length === 0);
 }
 
+function isNumber(val) {
+	return val === +val;
+}
+
 /*
  * XMLHttpRequest를 생성하고 반환해주며
  * 미리 헤더값과 transfer error 일때 발생되는 이벤트를 등록해줍니다.

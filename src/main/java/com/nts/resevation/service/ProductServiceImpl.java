@@ -14,6 +14,7 @@ import com.nts.resevation.dao.CommentDao;
 import com.nts.resevation.dao.DisplayInfoDao;
 import com.nts.resevation.dao.ProductDao;
 import com.nts.resevation.dto.CommentDto;
+import com.nts.resevation.dto.CommentResponseDto;
 import com.nts.resevation.dto.DisplayInfoDto;
 import com.nts.resevation.dto.DisplayInfoImageDto;
 import com.nts.resevation.dto.DisplayInfoResponseDto;
@@ -57,21 +58,26 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit,
-		int commentStart, int commentLimit) {
-		DisplayInfoResponseDto displayInfoResponse = new DisplayInfoResponseDto();
+	public DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		List<ProductImageDto> productImages = productDao.selectProductImages(displayInfo.getProductId(),
 			productImageLimit);
 		DisplayInfoImageDto displayInfoImage = displayInfoDao.selectDisplayInfoImage(displayInfoId);
-		List<CommentDto> comments = commentDao.selectComments(displayInfo.getProductId(), commentStart, commentLimit);
-		double averageScore = commentDao.selectCommentAvgScore(displayInfo.getProductId());
-		displayInfoResponse.setDisplayInfo(displayInfo);
-		displayInfoResponse.setProductImages(productImages);
-		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
-		displayInfoResponse.setComments(comments);
-		displayInfoResponse.setAverageScore(averageScore);
-		// TODO: 프로젝트5에서  productPrices 구현 필요
-		return displayInfoResponse;
+
+		return new DisplayInfoResponseDto(displayInfo, displayInfoImage, productImages);
+	}
+
+	@Override
+	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
+		List<CommentDto> comments = Collections.<CommentDto>emptyList();
+		double averageScore = 0;
+
+		int count = commentDao.selectCommentCount(productId);
+		if (count > 0) {
+			comments = commentDao.selectComments(productId, start, limit);
+			averageScore = commentDao.selectCommentAvgScore(productId);
+		}
+
+		return new CommentResponseDto(comments, count, averageScore);
 	}
 }

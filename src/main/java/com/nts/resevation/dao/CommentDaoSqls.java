@@ -56,4 +56,12 @@ public class CommentDaoSqls {
 		+ "    reservation_user_comment "
 		+ "WHERE "
 		+ "    product_id = :productId";
+
+	public static final String SELECT_COMMENT_COUNT = ""
+			+ "SELECT  "
+			+ "    COUNT(id) "
+			+ "FROM "
+			+ "    reservation_user_comment "
+			+ "WHERE "
+			+ "    product_id = :productId";
 }

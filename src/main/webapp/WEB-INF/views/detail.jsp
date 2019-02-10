@@ -143,18 +143,19 @@
 									<span></span> 
 									<em class="total">5.0</em>
 								</strong>
-								<span class="join_count"> <em class="green">52건</em> 등록</span>
+								<span class="join_count"> <em class="green"></em> 등록</span>
 							</div>
 							<!-- 상품평 넣는 구역 -->
 							<ul class="list_short_review"></ul>
 						</div>
 						<p class="guide">
-							<i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한
-								이용자가 남긴 평가입니다.</span>
+							<i class="spr_book2 ico_bell"></i>
+							<span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" href="./review.html"> <span>예매자
-							한줄평 더보기</span> <i class="fn fn-forward1"></i>
+					<a class="btn_review_more" onclick="goReviewPage();">
+						<span>예매자 한줄평 더보기</span>
+						<i class="fn fn-forward1"></i>
 					</a>
 				</div>
 				<!-- 상세정보 / 오시는길 영역 -->
@@ -286,93 +287,95 @@
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
+	<script type="text/javascript" src="/js/ajax.js"></script>
 	<script>
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("id"));
+		var productId;
+
+		function goReviewPage() {
+			location.href="review?productId=" + productId;
+		}
 		var detail = {
-			displayInfo : {},
-			productImages : [],
-			displayInfoImage : {},
-			comments : [],
-			averageScore : 0,
-
-			getDisplayInfoId : function () {
-				var url_string = window.location.href;
-				var url = new URL(url_string);
-				return url.searchParams.get("id");
+			init : function() {
+				displayInfoResponse.loadDisplayInfoResponse(this.initDisplayInfo.bind(this), displayInfoId);
 			},
-			getDisplayInfoResponse : function () {
-				var displayInfoId = this.getDisplayInfoId();
-				if (isEmpty(displayInfoId)) {
-					alert("잘못된 파라미터임니다");
-					window.history.back();
-					return;
-				}
-				var url = "/api/products/" + displayInfoId;
-				var xhr = getXMLHttpRequest(url);
-				xhr.send();
-
-				xhr.addEventListener("load", function(e) {
-					var response = e.target.response;
-					if (response.isError) {
-						alert(response.errorMsg);
-						return;
-					}
-					this.displayInfo = response.displayInfo;
-					this.productImages = response.productImages;
-					this.displayInfoImage = response.displayInfoImage;
-					this.comments = response.comments;
-					this.averageScore = response.averageScore;
-					this.setTitleDOM();
-					this.setProductContentDOM();
-					this.setCommentDOM();
-					this.setDetailInformationDOM();
-				}.bind(this));
+			initDisplayInfo : function(response) {
+				this.setTitleDOM(response);
+				this.setProductContentDOM(response);
+				this.setDetailInformationDOM(response);
+				productId = response.displayInfo.productId;
+				commentResponse.loadCommentResponse(this.initComment.bind(this), productId, 0, 3);
 			},
-			setTitleDOM : function () {
+			initComment : function(response) {
+				this.setCountDOM(response);
+				this.setAvgScoreDOM(response);
+				this.setCommentDOM(response);
+			},
+			
+			// 타이틀 구역 설정
+			setTitleDOM : function(response) {
 				// 이미지 페이징 번호값 지정
 				var currentNumDiv = document.querySelector(".num");
 				var lastNumDiv = document.querySelector(".num.off");
 				currentNumDiv.innerText = 1;
-				lastNumDiv.innerText = "/ " + this.productImages.length;
+				lastNumDiv.innerText = "/ " + response.productImages.length;
 
 				// 상품 이미지 리스트 추가
 				var template = document.querySelector("#template-product-image").innerText;
 				var bindTemplate = Handlebars.compile(template);
 				var resultHTML = "";
-				for (var i in this.productImages) {
+				for (var i in response.productImages) {
 					var data = {
-						saveFileName: this.productImages[i].saveFileName,
-						productDescription: this.displayInfo.productDescription
+						saveFileName: response.productImages[i].saveFileName,
+						productDescription: response.displayInfo.productDescription
 					}
 					resultHTML += bindTemplate(data);
 				}
 				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
 				productImagesDiv.innerHTML = resultHTML;
 			},
-			setProductContentDOM : function () {
+			// 상품 설명 설정
+			setProductContentDOM : function(response) {
 				var productContentTextDiv = document.querySelector(".store_details .dsc");
-				productContentTextDiv.innerText = this.displayInfo.productContent;
+				productContentTextDiv.innerText = response.displayInfo.productContent;
 			},
-			setCommentDOM : function () {
-				// 상품평 평점 설정
+			// TODO: 상세정보 구역 구현
+			setDetailInformationDOM : function(response) {
+			},
+			
+			// 상품평 총 개수 설정
+			setCountDOM : function(response) {
+				var countTextDiv = document.querySelector(".join_count .green");
+				countTextDiv.innerText = response.totalCount + " 건";
+			},
+			// 상품평 평점 설정
+			setAvgScoreDOM : function(response) {
 				var scoreTextDiv = document.querySelector(".text_value span");
-				scoreTextDiv.innerText = this.averageScore.toFixed(1);
+				scoreTextDiv.innerText = response.averageScore.toFixed(1);
 				var maxScore = parseFloat(document.querySelector(".text_value .total").innerText);
-				document.querySelector(".graph_value").style.width = this.averageScore / maxScore * 100 + "%";
-				// 상품평 추가
+				document.querySelector(".graph_value").style.width = response.averageScore
+						/ maxScore * 100 + "%";
+			},
+			// 상품평 추가
+			setCommentDOM : function(response) {
 				var template = document.querySelector("#template-comment").innerText;
 				var bindTemplate = Handlebars.compile(template);
-				var resultHTML = this.comments.reduce(function(prev, comment) {
+				var resultHTML = response.comments.reduce(function(prev, comment) {
 					return prev + bindTemplate(comment);
 				}, "");
 				var commentsDiv = document.querySelector(".list_short_review");
 				commentsDiv.innerHTML = resultHTML;
+
+				if (response.totalCount <= 3) {
+					this.hiddenMoreButton();
+				}
 			},
-			setDetailInformationDOM : function () {
-				// TODO: 상세정보 구역 구현
+			hiddenMoreButton : function() {
+				document.querySelector(".btn_review_more").style.display = "none";
 			}
 		}
-		detail.getDisplayInfoResponse();
-
+		
+		detail.init();
 	</script>
 </body>
 </html>

@@ -4,6 +4,7 @@
  */
 package com.nts.resevation.service;
 
+import com.nts.resevation.dto.CommentResponseDto;
 import com.nts.resevation.dto.DisplayInfoResponseDto;
 import com.nts.resevation.dto.ProductResponseDto;
 
@@ -17,6 +18,7 @@ public interface ProductService {
 
 	ProductResponseDto getProductResponse(int categoryId, int start);
 
-	DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit,
-		int commentStart, int commentLimit);
+	DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit);
+
+	CommentResponseDto getCommentResponse(int productId, int start, int limit);
 }

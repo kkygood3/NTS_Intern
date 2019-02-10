@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.resevation.dto.CommentResponseDto;
 import com.nts.resevation.dto.DisplayInfoResponseDto;
 import com.nts.resevation.dto.ProductResponseDto;
 import com.nts.resevation.service.ProductService;
@@ -37,9 +38,13 @@ public class ProductApiController {
 
 	@GetMapping("/{displayInfoId}")
 	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId,
-		@RequestParam(required = false, defaultValue = "2") int productImageLimit,
-		@RequestParam(required = false, defaultValue = "0") int commentStart,
-		@RequestParam(required = false, defaultValue = "3") int commentLimit) {
-		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit, commentStart, commentLimit);
+		@RequestParam(required = false, defaultValue = "2") int productImageLimit) {
+		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit);
+	}
+
+	@GetMapping("/{productId}/comments")
+	public CommentResponseDto getCommentResponse(@PathVariable int productId, int start,
+			@RequestParam(required = false, defaultValue = "3") int limit) {
+		return productService.getCommentResponse(productId, start, limit);
 	}
 }

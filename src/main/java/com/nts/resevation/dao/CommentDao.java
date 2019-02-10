@@ -65,4 +65,11 @@ public class CommentDao extends BasicDao<CommentDto> {
 		return jdbcTemplate.queryForObject(SELECT_COMMENT_AVG_SCORE, Collections.singletonMap("productId", productId),
 			Double.class);
 	}
+
+	/**
+	 * 해당 프로덕트에 등록된 상품평 개수를 리턴 
+	 */
+	public int selectCommentCount(int productId) {
+		return jdbcTemplate.queryForObject(SELECT_COMMENT_COUNT, Collections.singletonMap("productId", productId), Integer.class);
+	}
 }
