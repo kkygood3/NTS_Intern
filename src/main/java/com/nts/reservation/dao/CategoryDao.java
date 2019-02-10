@@ -27,6 +27,6 @@ public class CategoryDao extends BaseDao {
 	 * @return 전체 카테고리 목록
 	 */
 	public List<Category> selectAll() {
-		return getJDBC().queryForList(SELECT_ALL, Collections.EMPTY_MAP);
+		return getJdbc().queryForList(SELECT_ALL, Collections.EMPTY_MAP);
 	}
 }
