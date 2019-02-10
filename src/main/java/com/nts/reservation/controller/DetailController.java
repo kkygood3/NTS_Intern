@@ -28,7 +28,7 @@ public class DetailController {
 		model.addAttribute("description", description);
 		model.addAttribute("placeName", placeName);
 		model.addAttribute("content", content);
-		model.addAttribute("saveFileName", fileInfoService.getSaveFileNames(productId, "ma"));
+		model.addAttribute("saveFileName", fileInfoService.getSaveFileName(productId, "ma"));
 		return "detail";
 
 	}
