@@ -6,7 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>네이버 예약</title>
 <link href="./css/style.css" rel="stylesheet">
-<link href="./css/main_slide.css" rel="stylesheet">
+<link href="./css/main.css" rel="stylesheet">
+<link href="./css/slide.css" rel="stylesheet">
 <script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 <script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 <script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
