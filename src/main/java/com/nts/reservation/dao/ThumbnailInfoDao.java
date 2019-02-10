@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Category;
@@ -27,11 +26,11 @@ import com.nts.reservation.dto.ThumbnailInfo;
  */
 @Repository
 public class ThumbnailInfoDao extends BaseDao {
+	RowMapper<ThumbnailInfo> rowMapper = BeanPropertyRowMapper.newInstance(ThumbnailInfo.class);
+
 	public ThumbnailInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}
-
-	private RowMapper<ThumbnailInfo> rowMapper = BeanPropertyRowMapper.newInstance(ThumbnailInfo.class);
 
 	/**
 	 * 전체 카테고리의 썸네일정보 셀렉트
@@ -43,8 +42,7 @@ public class ThumbnailInfoDao extends BaseDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(START, start);
 		params.put(LIMIT, limit);
-
-		return getJDBC().query(SELECT_ALL_WITH_PAGING, params, rowMapper);
+		return getJdbc().query(SELECT_ALL_WITH_PAGING, params, rowMapper);
 	}
 
 	/**
@@ -60,6 +58,6 @@ public class ThumbnailInfoDao extends BaseDao {
 		params.put(START, start);
 		params.put(LIMIT, limit);
 
-		return getJDBC().query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
+		return getJdbc().query(SELECT_BY_CATERORY_WITH_PAGING, params, rowMapper);
 	}
 }
