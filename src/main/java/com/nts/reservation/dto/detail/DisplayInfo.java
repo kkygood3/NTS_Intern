@@ -1,5 +1,9 @@
 package com.nts.reservation.dto.detail;
 
+/**
+ * DetailResponse의 displayInfo 멤버 변수로 사용
+ * @see	DetailResponse
+ */
 public class DisplayInfo {
 	private int categoryId;
 	private String categoryName;

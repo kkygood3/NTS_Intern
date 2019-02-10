@@ -1,5 +1,9 @@
 package com.nts.reservation.dto.detail;
 
+/**
+ * DetailResponse의 productPrices 멤버 변수로 사용
+ * @see	DetailResponse
+ */
 public class ProductPrice {
 	private String createDate;
 	private double discountRate;

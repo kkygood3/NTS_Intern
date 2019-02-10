@@ -19,7 +19,7 @@ public class ProductApiController {
 	private MainProductService mainProductService;
 	
 	/**
-	 * /products 요청을 받아 메인 페이지에 상품정보를 출력
+	 * /api/products 요청을 받아 메인 페이지에 상품정보를 출력
 	 * @param	categoryId	해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	JSON text

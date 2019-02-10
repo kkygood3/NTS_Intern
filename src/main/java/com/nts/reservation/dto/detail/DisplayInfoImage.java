@@ -1,5 +1,9 @@
 package com.nts.reservation.dto.detail;
 
+/**
+ * DetailResponse의 displayInfoImage 멤버 변수로 사용
+ * @see	DetailResponse
+ */
 public class DisplayInfoImage {
 	private String contentType;
 	private String createDate;

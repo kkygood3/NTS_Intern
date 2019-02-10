@@ -1,5 +1,9 @@
 package com.nts.reservation.dto.detail;
 
+/**
+ * DetailResponse의 comments 멤버 변수로 사용
+ * @see	DetailResponse 
+ */
 public class Comment {
 	private String comment;
 	private int commentId;

@@ -18,7 +18,7 @@ public class PromotionApiController {
 	private MainPromotionService mainPromotionService;
 	
 	/**
-	 * /promotions 요청을 받아 메인 페이지에 프로모션 정보를 출력
+	 * /api/promotions 요청을 받아 메인 페이지에 프로모션 정보를 출력
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/promotions")

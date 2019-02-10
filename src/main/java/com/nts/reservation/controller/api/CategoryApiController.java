@@ -17,7 +17,7 @@ public class CategoryApiController {
 	private MainCategoryService mainCategoryService;
 	
 	/**
-	 * /categories 요청을 받아 메인 페이지에 카테고리 목록 출력
+	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/categories")

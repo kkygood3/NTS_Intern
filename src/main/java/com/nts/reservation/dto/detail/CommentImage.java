@@ -1,5 +1,9 @@
 package com.nts.reservation.dto.detail;
-
+/**
+ * Comment의 commentImage 멤버 변수로 사용
+ * @see	Comment
+ * @see	DetailResponse
+ */
 public class CommentImage {
 	private String contentType;
 	private String createDate;
