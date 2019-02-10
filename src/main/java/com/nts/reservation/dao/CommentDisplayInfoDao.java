@@ -35,6 +35,6 @@ public class CommentDisplayInfoDao extends BaseDao {
 		params.put(PRODUCT_ID, product.getId());
 		params.put(START, start);
 		params.put(LIMIT, limit);
-		return getJDBC().query(SELECT_COMMENT_WITH_PAGING, params, rowMapper);
+		return getJdbc().query(SELECT_COMMENT_WITH_PAGING, params, rowMapper);
 	}
 }
