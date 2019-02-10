@@ -3,18 +3,18 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+
 .visual_img {
 	left: -414px;
 	top: 0;
 	list-style: none;
 }
-.transition {
-	transition: left 2s;	
-}
+
 .visual_img .item {
 	width: 414px;
 	float: left;
 }
+
 .visual_img img {
 	width: 100%
 }

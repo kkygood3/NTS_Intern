@@ -19,23 +19,7 @@ function makePromotionSlideHTML(promotions) {
 	readyToSlide = true;
 }
 
-function makePromotionSlide(numOfPromotionImgs) {
-	const interval = window.setInterval(()=> {
-		runSlide();
-	}, 5000);
-}
-
-function runSlide() {
-	if (readyToSlide){
-		var ul = document.getElementsByClassName("visual_img")[0];
-		ul.className = "visual_img";
-		ul.style.left = 0;
-		var firstLi = ul.firstElementChild;
-		ul.appendChild(firstLi);
-
-		window.setTimeout(()=> {
-			ul.className = "visual_img transition";
-			ul.style.left = "-414px";
-		}, 1000);
-	}
+function makePromotionSlide() {
+	var ul = document.getElementsByClassName("visual_img")[0];
+	makeSlide(ul)
 }
