@@ -23,21 +23,37 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(long categoryId, long start) {
-		return productDao.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
+		if (start < 0) {
+			start = 0;
+		}
+
+		if (categoryId > 0) {
+			return productDao.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
+		} else {
+			return getProducts(start);
+		}
 	}
 
 	@Override
 	public List<Product> getProducts(long start) {
+		if (start < 0) {
+			start = 0;
+		}
+
 		return productDao.selectProducts(start, PRODUCT_LIMIT);
 	}
 
 	@Override
-	public int getCount(int categoryId) {
-		return productDao.selectProductsCountByCategory(categoryId);
+	public int getProductsCountByCategoryId(int categoryId) {
+		if (categoryId > 0) {
+			return productDao.selectProductsCountByCategory(categoryId);
+		} else {
+			return getProductsCount();
+		}
 	}
 
 	@Override
-	public int getCount() {
+	public int getProductsCount() {
 		return productDao.selectProductsCount();
 	}
 }

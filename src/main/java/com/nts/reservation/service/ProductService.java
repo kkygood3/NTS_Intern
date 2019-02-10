@@ -18,7 +18,7 @@ public interface ProductService {
 
 	List<Product> getProducts(long start);
 
-	int getCount(int categoryId);
+	int getProductsCountByCategoryId(int categoryId);
 
-	int getCount();
+	int getProductsCount();
 }

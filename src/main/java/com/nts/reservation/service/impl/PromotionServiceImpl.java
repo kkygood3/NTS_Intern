@@ -27,7 +27,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public int getCount() {
+	public int getPromotionsCount() {
 		return promotionDao.selectPromotionsCount();
 	}
 }

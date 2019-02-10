@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,14 @@ public class ProductApiController {
 	public Map<String, Object> getProductList(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
-		List<Product> productList = productService.getProducts(start);
-		int productCount = productService.getCount(categoryId);
+
+		List<Product> productList = new ArrayList<>();
+		int productCount = productService.getProductsCountByCategoryId(categoryId);
+		//
+		System.out.println("productCount : " + productCount);
+		if (productCount != 0) {
+			productList = productService.getProducts(start);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productList", productList);

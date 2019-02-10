@@ -16,5 +16,5 @@ public interface PromotionService {
 
 	List<Promotion> getPromotions();
 
-	int getCount();
+	int getPromotionsCount();
 }
