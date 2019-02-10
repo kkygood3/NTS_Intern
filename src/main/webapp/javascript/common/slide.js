@@ -1,21 +1,40 @@
-// TODO: 시간도 입력받을수있게하거나 함수이름바꾸기
-function makeSlide(ul) {
+function makeSlide(ul, dir="left") {
+	if (dir != "left" && dir != "right") {
+		return;
+	}
 	const interval = window.setInterval(()=> {
-		runSlide(ul);
+		runSlide(ul, dir);
 	}, 5000);
 }
 
-function runSlide(ul) {
+function runSlide(ul, dir) {
 	if (readyToSlide){
-		ul.style.transition = "";
-		ul.styp
-		ul.style.left = 0;
-		var firstLi = ul.firstElementChild;
-		ul.appendChild(firstLi);
+		moveLi(ul, dir)
 
 		window.setTimeout(()=> {
-			ul.style.transition = "left 2s";
-			ul.style.left = "-414px";
+			moveUl(ul, dir)
 		}, 1000);
+	}
+}
+
+function moveLi(ul, dir) {
+	ul.classList.remove("transition");
+	ul.style.left = 0;
+	if (dir == "left") {
+		var firstLi = ul.firstElementChild;
+		ul.appendChild(firstLi);
+	} else {
+		var lastLi = ul.lastElementChild;
+		ul.insertBefore(lastLi, ul.firstElementChild);
+	}
+}
+
+function moveUl(ul, dir) {
+	ul.classList.add("transition");
+	if (dir == "left") {
+		ul.style.left = "-414px";
+	} else {
+
+		ul.style.left = "414px";
 	}
 }
