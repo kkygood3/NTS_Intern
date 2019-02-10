@@ -4,18 +4,22 @@ function makeSlide(ul, dir="left") {
 		return;
 	}
 	const interval = window.setInterval(()=> {
-		runSlide(ul, dir);
+		if (readyToSlide){
+			runSlide(ul, dir);
+		}
 	}, 5000);
 }
 
 function runSlide(ul, dir) {
-	if (readyToSlide){
-		moveLi(ul, dir)
-
-		window.setTimeout(()=> {
-			moveUl(ul, dir)
-		}, 1000);
+	if (dir != "left" && dir != "right") {
+		return;
 	}
+
+	moveUl(ul, dir);
+
+	window.setTimeout(()=> {
+		moveLi(ul, dir);
+	}, 2000);
 }
 
 function moveLi(ul, dir) {

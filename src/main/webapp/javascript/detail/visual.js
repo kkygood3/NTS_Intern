@@ -14,4 +14,9 @@ function setVisualArea(etcImage) {
 	}
 	var resultHTML = sectionVisual.innerHTML + bindTemplate(etcImage);
 	sectionVisual.innerHTML = resultHTML;
+	
+	if (etcImage.length > 0) {
+		var ul = document.getElementsByClassName("visual_img");
+		ul[0].style.width="200%";
+	}
 }

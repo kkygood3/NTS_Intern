@@ -20,3 +20,17 @@ function addInfoTabClickEvent() {
 		}
 	});
 }
+
+// TODO: 이미지만 움직이게 변경
+
+function NextButtonClickEvent() {
+		var ul = document.getElementsByClassName("visual_img")[0];
+		runSlide(ul, "left");
+
+}
+
+function PreviousButtonClickEvent() {
+		var ul = document.getElementsByClassName("visual_img")[0];
+		runSlide(ul, "right");
+
+}

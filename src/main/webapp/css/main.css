@@ -4,12 +4,6 @@
 	box-sizing: border-box;
 }
 
-.visual_img {
-	left: -414px;
-	top: 0;
-	list-style: none;
-}
-
 .visual_img .item {
 	width: 414px;
 	float: left;

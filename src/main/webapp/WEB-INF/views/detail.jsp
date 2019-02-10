@@ -11,6 +11,7 @@
     <title>네이버 예약</title>
 	<link href="./css/style.css" rel="stylesheet">
 	<link href="./css/detail.css" rel="stylesheet">
+	<link href="./css/slide.css" rel="stylesheet">
 	<script type="text/javascript">
 		var displayInfo = {
 			"productId" : "${productId}",
@@ -20,6 +21,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
@@ -175,7 +177,7 @@
 	</div>
 	<div class="group_visual">
 		<div class="container_visual" style="width: 414px;">
-			<ul class="visual_img detail_swipe">
+			<ul class="visual_img detail_swipe" style="left:0;">
 				<li class="item" style="width: 414px;">
 					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
 					<span class="img_bg"></span>
@@ -185,12 +187,23 @@
 						</div>
 					</div>
 				</li>
+				{{#if etcImage}}
+				<li class="item" style="width: 414px;">
+					<img alt="" class="img_thumb" src="./{{etcImage}}">
+					<span class="img_bg"></span>
+					<div class="visual_txt">
+						<div class="visual_txt_inn">
+							<h2 class="visual_txt_tit"><span>${description}</span></h2>
+						</div>
+					</div>
+				</li>
+				{{/if}}
 			</ul>
 		</div>
 		{{#if etcImage}}
 		<div class="prev">
 			<div class="prev_inn">
-  				<a href="#" class="btn_prev" title="이전">
+  				<a class="btn_prev" title="이전" onclick="PreviousButtonClickEvent()">
 					<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
 					<i class="spr_book2 ico_arr6_lt off"></i>
 				</a>
@@ -198,7 +211,7 @@
 		</div>
 		<div class="nxt">
 			<div class="nxt_inn">
-				<a href="#" class="btn_nxt" title="다음">
+				<a class="btn_nxt" title="다음" onclick="NextButtonClickEvent()">
 					<i class="spr_book2 ico_arr6_rt"></i>
 				</a>
 			</div>
