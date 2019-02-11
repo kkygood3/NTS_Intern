@@ -20,7 +20,7 @@ import com.nts.reservation.main.promotion.service.MainPromotionService;
 
 @RestController
 @RequestMapping("/api")
-public class PromotionApiController {
+public class MainPromotionApiController {
 
 	@Autowired
 	private MainPromotionService mainPromotionService;

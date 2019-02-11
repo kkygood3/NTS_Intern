@@ -21,7 +21,7 @@ import com.nts.reservation.main.product.service.MainProductService;
 
 @RestController
 @RequestMapping("/api")
-public class ProductApiController {
+public class MainProductApiController {
 
 	@Autowired
 	private MainProductService mainProductService;
@@ -34,6 +34,11 @@ public class ProductApiController {
 	public Map<String, Object> products(
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId) {
+
+		// 잘못된 접근은 default값으로 처리
+		if (start < 0) {
+			start = 0;
+		}
 
 		List<MainProduct> productList = new ArrayList<>();
 		int totalCount = mainProductService.getCount(categoryId);
