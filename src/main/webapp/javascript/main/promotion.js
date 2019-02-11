@@ -1,5 +1,5 @@
 function sendGetPromotionsAjax() {
-	sendGETAjax("./promotion", makePromotionSlideHTML);
+	sendGetAjax("./promotion", makePromotionSlideHTML);
 }
 
 function makePromotionSlideHTML(promotions) {
