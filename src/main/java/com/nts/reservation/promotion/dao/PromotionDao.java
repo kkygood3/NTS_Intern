@@ -38,7 +38,7 @@ public class PromotionDao {
 		return jdbc.query(SELECT_PROMOTION, params, rowMapper);
 	}
 
-	public Integer selectPromotionsCount() {
+	public int selectPromotionsCount() {
 		return jdbc.queryForObject(SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
