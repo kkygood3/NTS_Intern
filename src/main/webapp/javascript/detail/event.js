@@ -12,11 +12,11 @@ function addInfoTabClickEvent() {
 		var as = infoTab.getElementsByTagName("a");
 		var divs = infoSection.querySelectorAll(".section_info_tab > div");
 		
-		changeTabUi(tabs, as, divs);
+		changeTabUi(target, tabs, as, divs);
 	});
 }
 
-function changeTabUi(tabs, as, divs) {
+function changeTabUi(target, tabs, as, divs) {
 	for (var i = 0, len = tabs.length; i < len; i++) {
 		if (tabs[i] == target) {
 			as[i].className += " active";
