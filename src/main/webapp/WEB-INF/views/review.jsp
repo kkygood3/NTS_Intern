@@ -33,7 +33,7 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a onclick="window.history.back();" class="btn_back" title="이전 화면으로 이동"> <i
+						<a onclick="goDetailPage();" class="btn_back" title="이전 화면으로 이동"> <i
 							class="fn fn-backward1"></i>
 						</a>
 						<h2>
@@ -108,7 +108,15 @@
 	<script type="text/javascript" src="/js/comment.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
-		comment.init(productId, 0, 20);
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+
+		function goDetailPage() {
+			location.href="detail?id=" + displayInfoId;
+		}
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			comment.init(productId, 0, 20);
+		});
 	</script>
 </body>
 </html>

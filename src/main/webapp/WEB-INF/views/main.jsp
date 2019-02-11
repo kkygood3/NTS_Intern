@@ -290,7 +290,9 @@
 			loadProductResponse(addDOMProducts, categoryId, listCount);
 		}
 
-		init();
+		document.addEventListener("DOMContentLoaded", function(event) {
+			init();
+		});
 	</script>
 </body>
 </html>

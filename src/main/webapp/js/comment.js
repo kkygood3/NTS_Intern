@@ -1,16 +1,16 @@
 var comment = {
 	init : function(productId, start, limit) {
-		this.loadCommentResponse(productId, start, limit);
+		this.loadCommentResponse(this.initComment.bind(this), productId, start, limit);
 	},
 
-	loadCommentResponse : function(productId, start, limit) {
+	loadCommentResponse : function(callback, productId, start, limit) {
 		if (!isNumber(productId) || !isNumber(start)) {
-			alert("잘못된 파라미터임니다");
-			window.history.back();
+			alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
+			location.href="main";
 			return;
 		}
 		var url = "/api/products/" + productId + "/comments?start=" + start + "&limit=" + limit;
-		ajax(this.initComment.bind(this), url);
+		ajax(callback, url);
 	},
 
 	initComment : function(response) {

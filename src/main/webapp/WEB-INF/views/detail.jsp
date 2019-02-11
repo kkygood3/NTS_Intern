@@ -308,16 +308,16 @@
 			productContentDiv : document.querySelector(".section_store_details"),
 			// init
 			init : function(displayInfoId) {
-				this.loadDisplayInfoResponse(displayInfoId);
+				this.loadDisplayInfoResponse(this.initDisplayInfo.bind(this), displayInfoId);
 			},
-			loadDisplayInfoResponse : function(displayInfoId) {
+			loadDisplayInfoResponse : function(callback, displayInfoId) {
 				if (!isNumber(displayInfoId)) {
-					alert("잘못된 파라미터임니다");
-					window.history.back();
+					alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
+					location.href="main";
 					return;
 				}
 				var url = "/api/products/" + displayInfoId;
-				ajax(this.initDisplayInfo.bind(this), url);
+				ajax(callback, url);
 			},
 			initDisplayInfo : function(response) {
 				this.setTitleDOM(response);
@@ -387,11 +387,15 @@
 			setProductContentDOM : function(response) {
 				this.productContentDiv.querySelector(".dsc").innerText = response.displayInfo.productContent;
 				this.productContentDiv.addEventListener("click", function(evt) {
-					if (evt.target.className === "bk_more _open") {
+					var className = evt.target.className;
+					if (evt.target.parentElement.tagName === "A") {
+						className = evt.target.parentElement.className; 
+					}
+					if (className === "bk_more _open") {
 						this.productContentDiv.querySelector(".bk_more._open").style.display = "none";
 						this.productContentDiv.querySelector(".bk_more._close").style.display = "block";
 						this.productContentDiv.querySelector(".store_details").classList.remove("close3");
-					} else if (evt.target.className === "bk_more _close") {
+					} else if (className === "bk_more _close") {
 						this.productContentDiv.querySelector(".bk_more._open").style.display = "block";
 						this.productContentDiv.querySelector(".bk_more._close").style.display = "none";
 						this.productContentDiv.querySelector(".store_details").classList.add("close3");
@@ -435,11 +439,14 @@
 		}
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("id"));
 		var productId;
-		detail.init(displayInfoId);
 
 		function goReviewPage() {
-			location.href="review?productId=" + productId;
+			location.href="review?productId=" + productId + "&displayInfoId=" + displayInfoId;
 		}
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+			detail.init(displayInfoId);
+		});
 	</script>
 </body>
 </html>
