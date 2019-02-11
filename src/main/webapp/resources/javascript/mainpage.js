@@ -9,16 +9,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 let currentCategory = 0;
 let isClickedAnotherCategory = false;
-const LIMIT = 4;
-const GET = 'GET';
 
 /**
  * DOM content가 load된 후 실행될 초기 설정
  */
 function basicSettings(){
-	ajax(addProductTemplate, GET, "/api/products?categoryId=0");
-	ajax(getPromotions, GET, "/api/promotions");
-	ajax(showCategories, GET, "/api/categories");
+	ajax(addProductTemplate, 'GET', "/api/products?categoryId=0");
+	ajax(getPromotions, 'GET', "/api/promotions");
+	ajax(showCategories, 'GET', "/api/categories");
 }
 
 /**
@@ -29,11 +27,11 @@ function basicSettings(){
  */
 function ajax(perform, method, url) {
 	let oReq = new XMLHttpRequest();
-	oReq.addEventListener('load', (e)=>{
-		let data = JSON.parse(e.currentTarget.responseText);
+	oReq.addEventListener('load', e=>{
+		let data = e.target.response;
 		perform(data);
 	});
-
+	oReq.responseType = 'json';
 	oReq.open(method, url);
 	oReq.send();
 }
@@ -44,18 +42,16 @@ function ajax(perform, method, url) {
  * 더보기 버튼 클릭 시 ajax통신을 통해 product를 받아옴
  */
 function moreButtonListener(e){
-	let buttonValue = parseInt(e.target.dataset.page);
+	let productCount = countProduct();
 	let categoryCount = parseInt(document.getElementById('categoryCount').innerText);
-	
+	let limit = parseInt(e.target.dataset.limit);
+
 	let categoryId = currentCategory;
-	let url = `/api/products?categoryId=${categoryId}&start=${buttonValue}`;
-	
-	ajax(addProductTemplate, GET, url);
-	
-	if(buttonValue < categoryCount - LIMIT){
-		buttonValue += LIMIT;
-		e.target.dataset.page = buttonValue; 
-	}else{
+	let url = `/api/products?categoryId=${categoryId}&start=${productCount}&limit=${limit}`;
+
+	ajax(addProductTemplate, 'GET', url);
+
+	if(productCount >= categoryCount - limit){
 		removeMoreButton();
 	}
 }
@@ -68,7 +64,6 @@ function addProductTemplate(data){
 	if(isClickedAnotherCategory){
 		document.getElementById('productBox1').innerHTML = "";
 		document.getElementById('productBox2').innerHTML = "";
-		document.getElementById('moreButton').dataset.page = LIMIT;
 		isClickedAnotherCategory = false;
 		document.getElementById('moreButton').hidden = false;
 	}
@@ -88,13 +83,19 @@ function addProductTemplate(data){
 			document.getElementById('productBox2').innerHTML += resultHtml;
 		}
 	});
-	
+
 	let categoryCount = data.totalCount;
 	document.getElementById("categoryCount").textContent = categoryCount;
 }
 
 function removeMoreButton(){
 	document.getElementById('moreButton').hidden = true;
+}
+
+function countProduct(){
+	let productUl1 = document.getElementById('productBox1').childElementCount;
+	let productUl2 = document.getElementById('productBox2').childElementCount;
+	return productUl1 + productUl2;
 }
 
 /****************************************/
@@ -141,7 +142,7 @@ function categoryClickEvent(){
 		isClickedAnotherCategory = true;
 		currentCategory = clickedCategory;
 		let url = `/api/products?categoryId=${clickedCategory}`;
-		ajax(addProductTemplate, GET, url);
+		ajax(addProductTemplate, 'GET', url);
 	});
 }
 /**

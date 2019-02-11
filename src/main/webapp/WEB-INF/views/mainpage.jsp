@@ -74,7 +74,7 @@
 					<ul id="productBox2" class="lst_event_box">
 					</ul>
 					<div class="more">
-						<button id="moreButton" class="btn" data-page="4">
+						<button id="moreButton" class="btn" data-limit="4">
 							<span>더보기</span>
 						</button>
 					</div>
@@ -94,6 +94,6 @@
 		</div>
 	</footer>
 
-	<script src="/resources/javascript/script.js"></script>
+	<script src="/resources/javascript/mainpage.js"></script>
 </body>
 </html>
