@@ -60,7 +60,7 @@
 							<span class="num off"></span>
 						</div>
 					</div>
-					<div class="group_visual">
+					<div class="group_visual" style="cursor: default;">
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<!-- 타이틀 이미지 넣는 구역 -->
@@ -68,14 +68,14 @@
 							</div>
 							<div class="prev">
 								<div class="prev_inn">
-									<a href="#" class="btn_prev" title="이전"> <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
+									<a class="btn_prev" title="이전"> <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
 										<i class="spr_book2 ico_arr6_lt off"></i>
 									</a>
 								</div>
 							</div>
 							<div class="nxt">
 								<div class="nxt_inn">
-									<a href="#" class="btn_nxt" title="다음"> <i
+									<a class="btn_nxt" title="다음"> <i
 										class="spr_book2 ico_arr6_rt"></i>
 									</a>
 								</div>
@@ -322,7 +322,6 @@
 				this.setAvgScoreDOM(response);
 				this.setCommentDOM(response);
 			},
-			
 			// 타이틀 구역 설정
 			setTitleDOM : function(response) {
 				// 이미지 페이징 번호값 지정
@@ -344,13 +343,56 @@
 				}
 				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
 				productImagesDiv.innerHTML = resultHTML;
+				this.initSlide(); 
+			},
+			initSlide : function() {
+				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
+				var prevDiv = document.querySelector('.prev');
+				var nextDiv = document.querySelector('.nxt');
+				if (productImagesDiv.childElementCount < 2) {
+					prevDiv.style.display = "none";
+					nextDiv.style.display = "none";
+				} else {
+					productImagesDiv.innerHTML += productImagesDiv.innerHTML;
+					productImagesDiv.style.transform = "translateX(-200%)";
+					var left = 0;
+					var translateX = -200;
+					prevDiv.addEventListener("click", function(evt) {
+						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+							left += 100;
+							translateX -= 100;
+							this.prevSlide(left, translateX);
+						}
+					}.bind(this));
+					nextDiv.addEventListener("click", function(evt) {
+						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+							left -= 100;
+							translateX += 100;
+							this.nextSlide(left, translateX);
+						}
+					}.bind(this));
+				}
+			},
+			prevSlide : function(left, translateX) {
+				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
+				productImagesDiv.style.left = left + "%";
+				if (translateX % 200 == 0) {
+					productImagesDiv.style.transform = "translateX(" + translateX + "%)";
+				}
+			},
+			nextSlide : function(left, translateX) {
+				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
+				productImagesDiv.style.left = left + "%";
+				if (translateX % 200 == 0) {
+					productImagesDiv.style.transform = "translateX(" + translateX + "%)";
+				}
 			},
 			// 상품 설명 설정
 			setProductContentDOM : function(response) {
 				var productContentTextDiv = document.querySelector(".store_details .dsc");
 				productContentTextDiv.innerText = response.displayInfo.productContent;
 			},
-			// TODO: 상세정보 구역 구현
+			// 상세정보 구역 설정
 			setDetailInformationDOM : function(response) {
 				// 상세정보
 				var detailInfoContentDiv = document.querySelector(".detail_info_lst .in_dsc");
