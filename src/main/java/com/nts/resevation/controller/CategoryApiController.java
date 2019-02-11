@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.resevation.dto.CategoryDto;
@@ -27,11 +28,12 @@ public class CategoryApiController {
 	private CategoryService categoryService;
 
 	/**
-	 * 모든 카테고리 정보들을 json형태로 반환해준다 
+	 * 모든 카테고리 정보들을 json형태로 반환 
 	 */
 	@GetMapping
-	public Map<String, Object> getCategoriesWithProductsOnDisplayCount() {
-		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount();
+	public Map<String, Object> getCategoriesWithProductsOnDisplayCount(
+		@RequestParam(required = false, defaultValue = "10") int limit) {
+		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount(limit);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categories", categories);

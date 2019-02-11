@@ -7,6 +7,7 @@ package com.nts.resevation.service;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,29 +30,26 @@ import com.nts.resevation.dto.ProductResponseDto;
 @Service
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
+	@Autowired
 	private ProductDao productDao;
+	@Autowired
 	private DisplayInfoDao displayInfoDao;
+	@Autowired
 	private CommentDao commentDao;
 
-	public ProductServiceImpl(ProductDao productDao, DisplayInfoDao displayInfoDao, CommentDao commentDao) {
-		this.productDao = productDao;
-		this.displayInfoDao = displayInfoDao;
-		this.commentDao = commentDao;
-	}
-
 	@Override
-	public ProductResponseDto getProductResponse(int categoryId, int start) {
+	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
 		List<ProductDto> products = Collections.<ProductDto>emptyList();
 		int count = 0;
 		if (categoryId == CATEGORY_TYPE_ALL) {
 			count = productDao.selectCount();
 			if (count > 0) {
-				products = productDao.selectAllPaging(start, SELECT_LIMIT);
+				products = productDao.selectAllPaging(start, limit);
 			}
 		} else {
 			count = productDao.selectCountByCategoryId(categoryId);
 			if (count > 0) {
-				products = productDao.selectByCategoryIdPaging(categoryId, start, SELECT_LIMIT);
+				products = productDao.selectByCategoryIdPaging(categoryId, start, limit);
 			}
 		}
 		return new ProductResponseDto(products, count);

@@ -13,6 +13,5 @@ import com.nts.resevation.dto.CategoryDto;
  * @author jinwoo.bae
  */
 public interface CategoryService {
-	int SELECT_LIMIT = 10;
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount();
+	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit);
 }

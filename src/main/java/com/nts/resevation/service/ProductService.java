@@ -13,10 +13,9 @@ import com.nts.resevation.dto.ProductResponseDto;
  * @author jinwoo.bae
  */
 public interface ProductService {
-	int SELECT_LIMIT = 4;
 	int CATEGORY_TYPE_ALL = 0;
 
-	ProductResponseDto getProductResponse(int categoryId, int start);
+	ProductResponseDto getProductResponse(int categoryId, int start, int limit);
 
 	DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit);
 

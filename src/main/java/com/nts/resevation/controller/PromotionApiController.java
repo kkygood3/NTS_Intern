@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.resevation.dto.PromotionDto;
@@ -30,8 +31,8 @@ public class PromotionApiController {
 	 *  프로모션 목록들을 가져와 json으로 리턴
 	 */
 	@GetMapping
-	public Map<String, Object> getPromotions() {
-		List<PromotionDto> promotions = promotionService.getPromotions();
+	public Map<String, Object> getPromotions(@RequestParam(required = false, defaultValue = "20") int limit) {
+		List<PromotionDto> promotions = promotionService.getPromotions(limit);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("promotions", promotions);

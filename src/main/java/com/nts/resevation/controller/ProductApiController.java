@@ -32,8 +32,8 @@ public class ProductApiController {
 	 */
 	@GetMapping
 	public ProductResponseDto getProductResponse(@RequestParam(required = false, defaultValue = "0") int categoryId,
-		@RequestParam int start) {
-		return productService.getProductResponse(categoryId, start);
+		@RequestParam int start, @RequestParam(required = false, defaultValue = "4") int limit) {
+		return productService.getProductResponse(categoryId, start, limit);
 	}
 
 	@GetMapping("/{displayInfoId}")
@@ -44,7 +44,7 @@ public class ProductApiController {
 
 	@GetMapping("/{productId}/comments")
 	public CommentResponseDto getCommentResponse(@PathVariable int productId, int start,
-			@RequestParam(required = false, defaultValue = "3") int limit) {
+		@RequestParam(required = false, defaultValue = "3") int limit) {
 		return productService.getCommentResponse(productId, start, limit);
 	}
 }

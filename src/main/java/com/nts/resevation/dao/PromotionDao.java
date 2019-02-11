@@ -31,8 +31,8 @@ public class PromotionDao extends BasicDao<PromotionDto> {
 	 * 모든 프로모션 목록들을 fileInfo의 ImageUrl와 함께 가져온다
 	 * @return
 	 */
-	public List<PromotionDto> selectLimitedList(int limit) {
-		return jdbcTemplate.query(SELECT_LIMITED_LIST, Collections.singletonMap("limit", limit), rowMapper);
+	public List<PromotionDto> selectPromotions(int limit) {
+		return jdbcTemplate.query(SELECT_PRPMOTIONS, Collections.singletonMap("limit", limit), rowMapper);
 	}
 
 }

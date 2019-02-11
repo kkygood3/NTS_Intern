@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDao categoryDao;
 
 	@Override
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount() {
-		return categoryDao.selectLimitedCategoriesWithProductsOnDisplayCount(SELECT_LIMIT);
+	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit) {
+		return categoryDao.selectCategoriesWithProductsOnDisplayCount(limit);
 	}
 }

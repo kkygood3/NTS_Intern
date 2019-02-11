@@ -9,7 +9,7 @@ package com.nts.resevation.dao;
  * @author jinwoo.bae
  */
 public class PromotionDaoSqls {
-	public static final String SELECT_LIMITED_LIST = "SELECT  "
+	public static final String SELECT_PRPMOTIONS = "SELECT  "
 		+ "    p.id AS id, "
 		+ "    p.product_id AS productId, "
 		+ "    fi.save_file_name AS productImageUrl "
