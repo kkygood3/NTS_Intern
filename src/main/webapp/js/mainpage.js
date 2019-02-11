@@ -8,6 +8,7 @@ var mainPage = {
 		this.ajaxGet("./api/products", this.getProductsByCategory);
 		this.ajaxGet("./api/promotions", this.getPromotions);
 		
+		this.setEvent.preventLink();
 		this.setEvent.showMore();
 		this.setEvent.scrollTop();
 		this.setEvent.tabEvent();
@@ -26,6 +27,8 @@ var mainPage = {
 	},
 	
 	elements: {
+		reserveLink : document.querySelector(".lnk_logo[title='예약']"),
+		
 		slides : document.querySelectorAll(".visual_img li"),
 		tab : document.querySelector(".section_event_tab").querySelector(".event_tab_lst"),
 		btnShowMore : document.querySelector(".more"),
@@ -133,8 +136,15 @@ var mainPage = {
 	}.bind(this),
 	
 	setEvent: {
+		preventLink : function(){
+			this.mainPage.elements.reserveLink.addEventListener("click", function(event){
+				event.preventDefault();
+			});
+		}.bind(this),
+		
 		scrollTop: function(){
 			this.mainPage.elements.btnTop.addEventListener("click", function(){
+				event.preventDefault();
 				document.documentElement.scrollTop = 0;
 			});
 		}.bind(this),
@@ -153,7 +163,9 @@ var mainPage = {
 		tabEvent: function(){ 
 			this.mainPage.elements.tab.addEventListener("click", function(event){
 				var anchorElement;
-				let previousActive = document.querySelector(".active");
+				var previousActive = document.querySelector(".active");
+
+ 				event.preventDefault();
 				
 				if(event.target.className === "anchor"){
 					anchorElement = event.target;

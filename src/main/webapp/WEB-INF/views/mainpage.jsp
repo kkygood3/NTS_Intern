@@ -17,7 +17,7 @@
             <header class="header_tit">
                 <h1 class="logo">
                     <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="." class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="./bookinglogin.jsp" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="section_event_tab">
-                <ul class="event_tab_lst tab_lst_min">
+                <ul class="event_tab_lst tab_lst_min" id="categoryContainer">
                     <li class="item">
-                        <a class="anchor active"> <span class="category_name">전체리스트</span> </a>
+                        <a href="#categoryContainer" class="anchor active"> <span class="category_name">전체리스트</span> </a>
                     </li>
                     <!-- li class="item" data-category="1">
                         <a class="anchor"> <span>전시</span> </a>
@@ -94,7 +94,7 @@
     </div>
     <footer>
         <div class="gototop">
-            <a class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
+            <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
         </div>
         <div class="footer">
             <p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
@@ -105,7 +105,7 @@
 	<script type="rv-template" id="categories">
 	{{#each items}}
     <li class="item" data-category="{{id}}">
-        <a class="anchor"> <span class="category_name">{{name}}</span> </a>
+        <a href="#categoryContainer" class="anchor"> <span class="category_name">{{name}}</span> </a>
     </li>
 	{{/each}}
     </script>

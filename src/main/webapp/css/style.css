@@ -3858,8 +3858,12 @@ button {
     display: none;
 }
 
-.nxt, .prev {
+.header {
   z-index: 100;
+}
+
+.nxt, .prev {
+  z-index: 50;
 }
 
 .visual_img.detail_swipe > .item {
