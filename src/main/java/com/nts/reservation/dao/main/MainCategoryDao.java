@@ -19,7 +19,7 @@ import com.nts.reservation.dto.main.MainCategory;
 import com.nts.reservation.queries.main.MainCategoryQueries;
 
 /**
- * DB내의 category_api_view를 조회하는 DAO. /api/categories 요청에 대응
+ * /api/categories 요청에 대응
  */
 @Repository
 public class MainCategoryDao {

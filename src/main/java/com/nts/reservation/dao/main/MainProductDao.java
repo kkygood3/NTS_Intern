@@ -20,7 +20,7 @@ import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.queries.main.MainProductQueries;
 
 /**
- * DB내의 product_api_view를 조회하는 DAO. /api/products 요청에 대응
+ * /api/products 요청에 대응
  */
 @Repository
 public class MainProductDao {

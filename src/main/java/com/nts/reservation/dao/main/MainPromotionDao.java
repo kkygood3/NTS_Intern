@@ -20,7 +20,7 @@ import com.nts.reservation.dto.main.MainPromotion;
 import com.nts.reservation.queries.main.MainPromotionQueries;
 
 /**
- * DB내의 promotion_api_view를 조회하는 DAO. /api/promotions 요청에 대응
+ * /api/promotions 요청에 대응
  */
 @Repository
 public class MainPromotionDao {
