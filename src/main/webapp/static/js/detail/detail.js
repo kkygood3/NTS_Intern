@@ -107,12 +107,13 @@ function addProductImageNextButtonEvent(productImagesUl,firstImageLi,lastImageLi
 
 			firstImageLi.setAttribute('class','single_slide slide_out_left');
 			lastImageLi.setAttribute('class','single_slide slide_in_right');
-
+			
 			globalVariables.showProductNumber = 1;
 		} else {
+			
 			firstImageLi.style.left = '100%';
 			lastImageLi.style.left = 0;
-
+			
 			firstImageLi.setAttribute('class','single_slide slide_in_right');
 			lastImageLi.setAttribute('class','single_slide slide_out_left');
 

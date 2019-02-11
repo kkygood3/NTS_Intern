@@ -47,7 +47,7 @@
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img ct detail_swipe product_images_ul transition_1s">
+                                <ul class="visual_img ct detail_swipe product_images_ul">
                                 	<script id="product_images_template" type="text/x-handlebars-template">
                                 		{{#each productImages}}
 											<li class="item single_slide" style="width: 414px;" data-index="{{@index}}"> <img alt="" class="img_thumb" src="/static/{{saveFileName}}"> <span class="img_bg"></span>

@@ -3823,37 +3823,44 @@ button {
   font-size: 10px;
 }
 
-.single_slide {
-    position: absolute;
-    left: 100%;    
+.product_images_ul{
+    position: relative;
+    width: 100%;
 }
 
-@keyframes slide_in {
+.single_slide {
+    position: absolute;
+    left: 100%;
+    width: 100%;
+    top: 0px;
+}
+
+@-webkit-keyframes slide_in {
     100% { left: 0; }
 }
 
 .slide_in_right {
     left: -100%;
-    animation: slide_in 1s forwards;
+    -webkit-animation: slide_in 1s forwards;
 }
 
 .slide_in_left {
     left: 100%;
-    animation: slide_in 1s forwards;
+    -webkit-animation: slide_in 1s forwards;
 }
 
-@keyframes slide_out_left {
+@-webkit-keyframes slide_out_left {
     100% { left: -100%; }
 }
 
 .slide_out_left {
-    animation: slide_out_left 1s forwards;
+    -webkit-animation: slide_out_left 1s forwards;
 }
 
-@keyframes slide_out_right {
+@-webkit-keyframes slide_out_right {
     100% { left: 100%; }
 }
 
 .slide_out_right {
-    animation: slide_out_right 1s forwards;
+    -webkit-animation: slide_out_right 1s forwards;
 }
