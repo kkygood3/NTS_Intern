@@ -35,6 +35,14 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
+	@Override
+	public void addViewControllers(final ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("main");
+		registry.addViewController("error").setViewName("error");
+	}
+
+
    
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
