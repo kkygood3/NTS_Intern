@@ -115,10 +115,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
     <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/detail.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/review.js" charset="utf-8">
-		reviewDisplayInfoRequestCall()
-	</script>
+	<script type = "text/javascript" src="/js/detail/detail.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/detail/review.js" charset="utf-8"></script>
 </body>
 
 </html>

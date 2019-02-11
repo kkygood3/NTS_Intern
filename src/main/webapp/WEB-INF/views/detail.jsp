@@ -317,7 +317,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
     <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/detail.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/detail/detail.js" charset="utf-8"></script>
 	<script type = "text/javascript" charset="utf-8">
 		document.addEventListener("DOMContentLoaded", ()=> {
 			var displayInfoId = document.location.search.substr(4);
