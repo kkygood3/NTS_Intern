@@ -23,7 +23,6 @@ public class CategoryServiceImplTest {
 		CategoryService categoryService = ac.getBean(CategoryService.class);
 
 		List<Category> categoryList = categoryService.getCategoryList();
-		System.out.println("categoryList.size() : " + categoryList.size());
 	}
 
 }
