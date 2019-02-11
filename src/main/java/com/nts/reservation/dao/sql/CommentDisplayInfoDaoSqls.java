@@ -1,7 +1,7 @@
 package com.nts.reservation.dao.sql;
 
 public class CommentDisplayInfoDaoSqls {
-	public static final String SELECT_COMMENT_WITH_PAGING = "SELECT concat(substr(ri.reservation_email, 1, 4), '****') AS reservation_email, ri.reservation_date, ruc.score, ruc.comment, fi.save_file_name "
+	public static final String SELECT_COMMENT_WITH_PAGING = "SELECT concat(substr(ri.reservation_email, 1, 4), '****') AS reservation_email, ri.reservation_date, round(ruc.score, 1) AS score, ruc.comment, fi.save_file_name "
 		+ "FROM reservation_info AS ri "
 		+ "	INNER JOIN reservation_user_comment AS ruc "
 		+ "		ON ri.id = ruc.reservation_info_id "
