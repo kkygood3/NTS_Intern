@@ -12,63 +12,13 @@ let isClickedAnotherCategory = false;
 const LIMIT = 4;
 const GET = 'GET';
 
-const productTemplate = `<li class="item">
-			<a href="detail.html?id={id}" class="item_book">
-				<div class="item_preview">
-					<img alt="{description}" class="img_thumb" src="/resources/img/product/{productImageUrl}">
-					<span class="img_border"></span>
-				</div>
-				<div class="event_txt">
-					<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-					<p class="event_txt_dsc">{content}</p>
-				</div>
-			</a>
-		</li>`;
-
-const categoryTemplate = `<li class="item" data-category="{categoryId}">
-							<a class="anchor"><span>{categoryName}</span></a>
-						</li>`;
-
-const promotionTemplate = `<li><img src="/resources/img/product/{productImageUrl}"/></li>`;
-
-
+/**
+ * DOM content가 load된 후 실행될 초기 설정
+ */
 function basicSettings(){
 	ajax(addProductTemplate, GET, "/api/products?categoryId=0");
 	ajax(getPromotions, GET, "/api/promotions");
 	ajax(showCategories, GET, "/api/categories");
-}
-
-// slide CSS
-function slidePromotion(count){
-	let promotionSlide = document.getElementById('slide');
-	let slideWidth = promotionSlide.offsetWidth;
-	let promotionCount = count;
-	let duration = promotionCount * 2;
-	
-	let slideCss = document.createElement('style');
-	slideCss.type = 'text/css';
-	
-	cssScript = '100% {right: 0px;}';
-	for(let i = 0; i < promotionCount; i++){
-		cssScript += `${(i / promotionCount) * 100}% {right: ${slideWidth * i}px}`;
-	}
-	slideCss.innerHTML = `.visual_img { padding: 0px;
-		margin: 0px;
-		list-style: none;
-		height: 177px;
-		display: flex;
-		overflow: hidden; }
-	
-	@keyframes slide{${cssScript}}
-
-	.visual_img li img {
-		width: ${slideWidth}px;
-		position: relative;
-		animation-name: slide;
-		animation-duration: ${duration}s;
-		animation-iteration-count: infinite;
-	}`;
-	document.body.appendChild(slideCss);
 }
 
 /**
@@ -91,9 +41,7 @@ function ajax(perform, method, url) {
 /*****************product****************/
 /****************************************/
 /**
- * @desc 더보기 버트 클릭 시 ajax통신을 통해 product를 받아옴
- * @param e
- * @returns
+ * 더보기 버튼 클릭 시 ajax통신을 통해 product를 받아옴
  */
 function moreButtonListener(e){
 	let buttonValue = parseInt(e.target.dataset.page);
@@ -101,7 +49,6 @@ function moreButtonListener(e){
 	
 	let categoryId = currentCategory;
 	let url = `/api/products?categoryId=${categoryId}&start=${buttonValue}`;
-	let param;
 	
 	ajax(addProductTemplate, GET, url);
 	
@@ -113,6 +60,10 @@ function moreButtonListener(e){
 	}
 }
 
+/**
+ * template(HTML)에 product정보를 넣은 후 정해진 위치의 DOM에 추가 
+ * @param data AJAX로부터 받아온 product data(JSON)
+ */
 function addProductTemplate(data){
 	if(isClickedAnotherCategory){
 		document.getElementById('productBox1').innerHTML = "";
@@ -149,7 +100,10 @@ function removeMoreButton(){
 /****************************************/
 /***************category*****************/
 /****************************************/
-
+/**
+ * template(HTML)에 category정보를 넣은 후 정해진 위치의 DOM에 추가 
+ * @param data AJAX로부터 받아온 category data(JSON)
+ */
 function showCategories(data){
 	let items = data.items;
 	items.forEach(function(category){
@@ -162,15 +116,20 @@ function showCategories(data){
 }
 
 /**
- * category 클릭 시 발생하는 event 
- * @returns
+ * category 클릭 시 발생하는 event (Active a tag, change current category, load product list)
  */
 function categoryClickEvent(){
 	document.getElementById('category').addEventListener('click', e=>{
 		let clickedTag = e.target.tagName;
-		
+
 		let clickedCategory;
-		if(clickedTag == 'A'){
+		if(clickedTag == 'UL'){
+			return;
+		}else if(clickedTag == 'LI'){
+			removeActiveCategory();
+			e.target.lastElementChild.className = 'anchor active';
+			clickedCategory = e.target.dataset.category;
+		}else if(clickedTag == 'A'){
 			removeActiveCategory();
 			e.target.className = 'anchor active';
 			clickedCategory = e.target.parentElement.dataset.category;
@@ -178,14 +137,7 @@ function categoryClickEvent(){
 			removeActiveCategory();
 			e.target.parentNode.className = 'anchor active';
 			clickedCategory= e.target.parentElement.parentElement.dataset.category;
-		}else if(clickedTag == 'LI'){
-			removeActiveCategory();
-			e.target.firstChild.className = 'anchor active';
-			clickedCategory = e.target.dataset.category;
 		}
-		/*else if(clickedTag == 'UL'){
-			return;
-		}*/
 		isClickedAnotherCategory = true;
 		currentCategory = clickedCategory;
 		let url = `/api/products?categoryId=${clickedCategory}`;
@@ -194,7 +146,6 @@ function categoryClickEvent(){
 }
 /**
  * category의 활성화(anchor) class 제거
- * @returns
  */
 function removeActiveCategory(){
 	Array.from(document.getElementsByClassName('active')).forEach(tag=>{
@@ -205,13 +156,62 @@ function removeActiveCategory(){
 /****************************************/
 /***************promotion****************/
 /****************************************/
+/**
+ * template(HTML)에 promotion정보를 넣은 후 정해진 위치의 DOM에 추가 
+ * @param data AJAX로부터 받아온 promotion data(JSON)
+ */
 function getPromotions(data){
-	let promotionsHtml;
+	let promotionsHtml = "";
 	let promotions = data.items;
 	promotions.forEach(promotion=>{
 		promotionsHtml += promotionTemplate.replace('{productImageUrl}', promotion.productImageUrl);
 	});
 	document.getElementById('slide').innerHTML += promotionsHtml;
 	
-	slidePromotion(promotions.length);
+	promotionSlide(promotions.length);
 }
+
+/**
+ * promotion이 carousel형태로 slide 
+ * @param promotionCount slide형태로 출력될 promotion의 개수
+ */
+function promotionSlide(promotionCount){
+	let slideUl = document.querySelector('#slide');
+	const duration = 2 * 1000;
+
+	for(let i = 0; i <= promotionCount; i++){
+		let temp = i * -100;
+		setTimeout(()=>{
+			if(i != promotionCount){
+				slideUl.style.transform = `translateX(${temp}%)`;
+			}else{
+				slideUl.style.transform = 'translateX(0%)';
+				promotionSlide(promotionCount);
+			}
+		}, i * duration);
+	}
+}
+
+
+
+/****************************************/
+/****************template****************/
+/****************************************/
+const productTemplate = `<li class="item">
+	<a href="detail.html?id={id}" class="item_book">
+		<div class="item_preview">
+			<img alt="{description}" class="img_thumb" src="/resources/img/product/{productImageUrl}">
+			<span class="img_border"></span>
+		</div>
+		<div class="event_txt">
+			<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+			<p class="event_txt_dsc">{content}</p>
+		</div>
+	</a>
+</li>`;
+
+const categoryTemplate = `<li class="item" data-category="{categoryId}">
+					<a class="anchor"><span>{categoryName}</span></a>
+				</li>`;
+
+const promotionTemplate = `<li><img src="/resources/img/product/{productImageUrl}"/></li>`;

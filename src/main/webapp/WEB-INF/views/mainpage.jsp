@@ -49,8 +49,6 @@
 						</div>
 						<div>
 							<div class="container_visual">
-								<!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-								<% //TODO slide image, link %>
 								<ul id="slide" class="visual_img">
 								</ul>
 							</div>
@@ -71,12 +69,10 @@
 					바로 예매 가능한 행사가  <span id="categoryCount" class="pink"></span>개 있습니다
 				</p>
 				<div class="wrap_event_box">
-					<!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
 					<ul id="productBox1" class="lst_event_box">
 					</ul>
 					<ul id="productBox2" class="lst_event_box">
 					</ul>
-					<!-- 더보기 -->
 					<div class="more">
 						<button id="moreButton" class="btn" data-page="4">
 							<span>더보기</span>
