@@ -122,6 +122,7 @@
         	<a class="anchor"> <span>${name}</span> </a>
         </li> 
     </script>
+    <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/productHandler.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/categoryHandler.js" charset="utf-8"></script>

@@ -3,7 +3,7 @@ function displayInfoRequest(callBack, displayInfoId){
 	var request = {
 			method:"GET",
 			contentType:"application/x-www-form-urlencoded",
-			queryString:"";
+			queryString:""
 	}
 	var requestUri = "/api/products/" + displayInfoId;
 	sendRequest(request, requestUri, callBack);

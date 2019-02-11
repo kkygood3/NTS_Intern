@@ -5,7 +5,7 @@ function promotionListRequest(){
 	var request = {
 			method:"GET",
 			contentType:"application/x-www-form-urlencoded",
-			queryString:"";
+			queryString:""
 	}
 	var uri = "/api/promotions";
 	sendRequest(request, uri, appendPromotionList);

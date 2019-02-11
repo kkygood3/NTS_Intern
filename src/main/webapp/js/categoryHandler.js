@@ -18,7 +18,7 @@ function categoryListRequest(){
 	var request = {
 			method:"GET",
 			contentType:"application/x-www-form-urlencoded",
-			queryString:"";
+			queryString:""
 	}
 	var uri = "/api/categories";
 	sendRequest(request, uri, appendTabList);
