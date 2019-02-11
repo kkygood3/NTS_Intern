@@ -44,3 +44,31 @@ function paginate(movePage) {
 	
 	curSpan.innerText = cur;
 }
+
+function addMoreButtonClickEvent() {
+	var sectionStoreDetails = document.getElementsByClassName("section_store_details")[0];
+	var buttons = sectionStoreDetails.getElementsByClassName("bk_more");
+	var storeDetails = sectionStoreDetails.getElementsByClassName("store_details")[0];
+
+	for (let button of buttons) {
+		button.addEventListener("click", function(event){
+			var target = 0, other = 1;
+			if (event.currentTarget.className == "bk_more _close") {
+				target = 1; other = 0;
+			}
+			
+			buttons[target].style.display = "none";
+			buttons[other].style.display = "block";
+			setStoreDetails(storeDetails, target);
+		});
+	}
+}
+
+function setStoreDetails(storeDetails, target) {
+	if (target == 0) {
+		storeDetails.classList.remove("close3");
+	} else {
+		storeDetails.classList.add("close3");
+	}
+}
+
