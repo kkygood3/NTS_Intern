@@ -15,7 +15,7 @@ function makePromotionSlideHTML(promotions) {
 
 	var ul = document.getElementsByClassName("visual_img")[0];
 	ul.innerHTML = resultHTML;
-	ul.style.width = (100*promotions.length) + "%";
+	ul.style.width = (100 * promotions.length) + "%";
 	readyToSlide = true;
 }
 
