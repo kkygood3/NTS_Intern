@@ -14,8 +14,8 @@
 	<link href="./css/slide.css" rel="stylesheet">
 	<script type="text/javascript">
 		var displayInfo = {
-			"productId" : "${productId}",
-			"displayInfoId" : "${displayInfoId}"
+			"productId" : "${product_id}",
+			"displayInfoId" : "${display_info_id}"
 		};
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
@@ -84,8 +84,8 @@
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
                                 <span class="graph_mask"> <em class="graph_value"></em> </span>
-                                <strong class="text_value"> <span>4.2</span> <em class="total">5.0</em> </strong>
-                                <span class="join_count"><em class="green">52건</em> 등록</span>
+                                <strong class="text_value"> <span>${average_score}</span> <em class="total">5.0</em> </strong>
+                                <span class="join_count"><em class="green">${comment_count}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
                             <!-- content -->
@@ -93,7 +93,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review.html"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="./review?product_id=${product_id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
@@ -136,12 +136,12 @@
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">${placeStreet}</p>
+                                    <p class="store_addr store_addr_bold">${place_street}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">${placeLot}</span>
+                                        <span class="addr_old_detail">${place_lot}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">${placeName}</p>
+                                    <p class="store_addr addr_detail">${place_name}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
@@ -184,7 +184,7 @@
 		<div class="container_visual" style="width: 414px;">
 			<ul class="visual_img detail_swipe" style="left:0;">
 				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
+					<img alt="" class="img_thumb" src="./${save_file_name[0]}">
 				</li>
 				{{#if etcImage}}
 				<li class="item" style="width: 414px;">
@@ -221,14 +221,14 @@
 				<img width="90" height="90" class="img_vertical_top" src="./{{saveFileName}}" alt="리뷰이미지">
 				{{/if}}
 			</div>
-			<p class="review_tit">${description}</p>
+			<h4 class="resoc_name">${description}</h4>
 			<p class="review">{{comment}}</p>
 		</div>
 		<div class="info_area">
 			<div class="review_info">
 				<span class="grade">{{score}}</span>
 				<span class="name">{{reservationEmail}}</span>
-				<span class="date">{{reservationDate}}</span>
+				<span class="date">{{reservationDate}} 방문</span>
 			</div>
   		</div>
 	</li>

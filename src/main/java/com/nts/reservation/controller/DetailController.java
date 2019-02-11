@@ -39,7 +39,7 @@ public class DetailController {
 		model.addAttribute("content", product.getContent());
 		model.addAttribute("place_name", displayInfo.getPlaceName());
 		model.addAttribute("place_street", displayInfo.getPlaceStreet());
-		model.addAttribute("place-lot", displayInfo.getPlaceLot());
+		model.addAttribute("place_lot", displayInfo.getPlaceLot());
 		model.addAttribute("tel", displayInfo.getTel());
 		model.addAttribute("save_file_name", fileInfoService.getSaveFileName(productId, "ma"));
 		model.addAttribute("average_score", reservationUserCommentService.getAverageScore(productId));
