@@ -27,11 +27,16 @@ public class ProductDaoSqls {
 		"LIMIT :start, :limit";
 
 	public static final String GET_ALL_PRODUCTS_COUNT = 
-		"SELECT count(*) " +
-		"FROM product";
+		"SELECT count(category_id) as 'count' " + 
+		"FROM category " + 
+		"INNER JOIN product ON product.category_id = category.id " + 
+		"INNER JOIN display_info ON display_info.product_id = product.id";
 
 	public static final String GET_PRODUCTS_COUNT_BY_CATEGORY = 
-		"SELECT count(*) " +
-		"FROM product " +
-		"WHERE category_id = :categoryId";
+		"SELECT count(category_id) as 'count' " + 
+		"FROM category " + 
+		"INNER JOIN product ON product.category_id = category.id " + 
+		"INNER JOIN display_info ON display_info.product_id = product.id " + 
+		"GROUP BY category_id " + 
+		"HAVING category_id = :categoryId";
 }
