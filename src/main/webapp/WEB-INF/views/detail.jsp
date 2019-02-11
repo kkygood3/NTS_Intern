@@ -27,7 +27,7 @@
                 <a class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
         </div>
-        <div class="ct main">
+        <div id="display_info" class="ct main" data-display-info-id="${displayInfoId}">
             <div>
                 <div class="section_visual">
                     <header>
@@ -37,11 +37,11 @@
                         </h1>
                         <a class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
-                    <div class="pagination">
+                    <div id="display_img_page" class="pagination">
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
-                            <span class="num">1</span>
-                            <span class="num">/ <span>2</span></span>
+                            <span id="display_img_idx" class="num">1</span>
+                            <span class="num">/ <span id="display_img_total_count">2</span></span>
                         </div>
                     </div>
                     <div class="group_visual">
@@ -196,7 +196,8 @@
         </div>
     </footer>
     <div id="photoviwer"></div>
-    <script type="text/template" id="comment_template">
+    
+    <script type="text/template" id="comment_template" class="template" data-parse-name="Comment">
 		<li class="list_item">
 			<div>
 				<div class="review_area {{#unless commentImageUrl}}no_img{{/unless}}">
@@ -221,7 +222,8 @@
 			</div>
 		</li>
 	</script>
-	<script type="text/template" id="product_display_img_template">
+	
+	<script type="text/template" id="product_display_img_template" class="template" data-parse-name="ProductDisplayImg">
 		<li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="/resources/{{productDisplayImageUrl}}"> <span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
@@ -233,153 +235,11 @@
 	</script>
 	
 	<script type="text/javascript" src="/resources/js/handlebars-v4.0.12.js"></script>
-	<script type="text/javascript" src="/resources/js/detail_template.js"></script>
-	<script type="text/javascript" src="/resources/js/common.js"></script>
-	<script>
-	document.addEventListener("DOMContentLoaded", () => {
-		initializeTemplate();
-		
-		ajax("GET", "/api/products/${displayInfoId}", "", printProductDisplay);
-		
-		addEventClickProductContentFoldExpand();
-		addEventClickInfoTabList();
-		addEventClickProductDisplayImgSlide();
-	});
+	<script type="text/javascript" src="/resources/js/template_maker.js"></script>
+	<script type="text/javascript" src="/resources/js/ajax.js"></script>
+	<script type="text/javascript" src="/resources/js/slide.js"></script>
+	<script type="text/javascript" src="/resources/js/detail.js"></script>
 	
-	function printProductDisplay(evt){
-		var response = evt.currentTarget.response;
-		var productDisplayInfo = JSON.parse(response);
-		
-		var productDisplay = productDisplayInfo.productDisplay;
-		var productDisplayImgUrlItems = productDisplay.productDisplayImageUrlList;
-		var commentListInfo = productDisplayInfo.commentListInfo;
-		
-		document.querySelector("#product_content").innerHTML = productDisplay.productContent;
-		document.querySelector("#product_introduce").innerHTML = productDisplay.productContent;
-		
-		printProductDisplayImg(productDisplayImgUrlItems, productDisplay.productDescription);
-		printComment(commentListInfo);
-		printLocationDetail(productDisplay);
-		
-
-	}
-	
-	function printComment(commentListInfo){
-		const SCORE_TO_PERCENT = 20;
-		var commentItems = commentListInfo.commentList;
-		var commentCount = commentListInfo.commentMetaData.totalCount;
-		var commentAvgScore = commentListInfo.commentMetaData.averageScore;
-		
-		document.querySelector("#comment_count").innerHTML = commentCount;
-		document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
-		document.querySelector("#star_score").style.width = commentAvgScore * SCORE_TO_PERCENT + "%";
-		
-		var commentList = document.querySelector("#comment_list");
-		commentItems.forEach((commentItem) =>{
-			commentList.innerHTML += parseCommentToHtml(commentItem);
-		});
-	}
-	
-	function printProductDisplayImg(productDisplayImgUrlItems, productDescription){
-		var productDisplayImgList = document.querySelector("#product_display_img_list");
-		productDisplayImgUrlItems.forEach((imgUrlItem) =>{
-			productDisplayImgList.innerHTML += parseProductDisplayImgToHtml(imgUrlItem, productDescription);
-		});
-	}
-	
-	function printLocationDetail(productDisplay){
-		document.querySelector("#location_display_img").src = "/resources/" +productDisplay.displayInfoImageUrl;
-		document.querySelector("#location_product_description").textContent = productDisplay.productDescription;
-		document.querySelector("#location_place_street").textContent = productDisplay.placeStreet;
-		document.querySelector("#location_place_lot").textContent = productDisplay.placeLot;
-		document.querySelector("#location_place_name").textContent = productDisplay.placeName;
-		document.querySelector("#location_telephone").textContent = productDisplay.telephone;
-	}
-	
-	var slide = {
-		PAGE : 100,
-		direction : {
-			LEFT : 0,
-			RIGHT : -1
-		},
-		action : (target, direction) =>{
-			target.className += " slide";
-			target.style.transform = "translateX(" + slide.PAGE * direction +"%)";
-		},
-		transitionend : () => {
-			slide.callback();
-		},
-		
-	}
-	function addEventClickProductDisplayImgSlide(){
-		var productDisplayImgList = document.querySelector("#product_display_img_list");
-		var btnLeftSlide = document.querySelector("#display_img_left_slide");
-		var btnRightSlide = document.querySelector("#display_img_right_slide");
-		var originalClass = productDisplayImgList.className;
-		
-
-		productDisplayImgList.addEventListener("transitionend", slide.transitionend);
-		
-		btnLeftSlide.addEventListener("click", () =>{
-			slide.callback = readjustImgList.bind(null, productDisplayImgList, originalClass, -100);
-			slide.action(productDisplayImgList, slide.direction.LEFT);
-		});
-		
-		btnRightSlide.addEventListener("click", () =>{
-			slide.callback = readjustImgList.bind(null, productDisplayImgList, originalClass, 0);
-			slide.action(productDisplayImgList, slide.direction.RIGHT);
-		});
-	}
-	
-	function readjustImgList(productDisplayImgList, originalClass, v){
-		productDisplayImgList.className = originalClass;
-		productDisplayImgList.style.transform = "translate("+v+"%)";
-		var img = productDisplayImgList.removeChild(productDisplayImgList.firstElementChild)
-		productDisplayImgList.innerHTML = productDisplayImgList.innerHTML + img.outerHTML;
-	}
-	
-	function addEventClickProductContentFoldExpand(){
-		var btnExpand = document.querySelector("#btn_expand");
-		var btnFold = document.querySelector("#btn_fold");
-		var productContentArea = document.querySelector("#product_content").parentElement;
-		
-		btn_expand.addEventListener("click", () =>{
-			btnExpand.className = "bk_more _open hide";
-			btnFold.className = "bk_more _close";
-			productContentArea.className = "store_details";
-		});
-		
-		btn_fold.addEventListener("click", () =>{
-			btnExpand.className = "bk_more _open";
-			btnFold.className = "bk_more _close hide";
-			productContentArea.className = "store_details close3";
-		});
-	}
-	
-	function addEventClickInfoTabList(){
-		var infoTabList = document.querySelector("#info_tab_list");
-		
-		infoTabList.addEventListener("click", (evt) =>{
-			var paths = evt.path;
-			
-			paths.some((path) => {
-		        if(path.tagName === "A" && path.className === "anchor"){
-					document.querySelector("#detail_area").className = "detail_area_wrap";
-					document.querySelector("#location_area").className = "detail_location";
-		            infoTabList.querySelector(".anchor.active").className = "anchor";
-		            path.className = "anchor active";
-					
-		            var areaId = path.dataset.areaId;
-		            document.querySelector("#"+areaId).className += " show";
-		            
-		            return true;
-		        	}
-		        return false;
-		    });
-		});
-	}
-	
-	</script>
 </body>
 
 

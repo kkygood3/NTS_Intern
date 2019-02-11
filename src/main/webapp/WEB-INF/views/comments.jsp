@@ -23,7 +23,7 @@
 				  <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
 			</header>
 		</div>
-        <div class="ct">
+        <div id="display_info" class="ct" data-display-info-id="${displayInfoId}">
             <div class="wrap_review_list">
                 <div class="review_header">
                     <div class="top_title gr">
@@ -58,7 +58,8 @@
 	            <span class="copyright">© NAVER Corp.</span>
 	        </div>
 	    </footer>
-	    <script type="text/template" id="comment_template">
+	    
+	    <script type="text/template" id="comment_template" class="template" data-parse-name="Comment">
 			<li class="list_item">
 				<div>
 					<div class="review_area {{#unless commentImageUrl}}no_img{{/unless}}">
@@ -83,34 +84,11 @@
 				</div>
 			</li>
 		</script>
+		
+		<script type="text/javascript" src="/resources/js/ajax.js"></script>
 		<script type="text/javascript" src="/resources/js/handlebars-v4.0.12.js"></script>
-		<script type="text/javascript" src="/resources/js/comments_template.js"></script>
-		<script type="text/javascript" src="/resources/js/common.js"></script>
-		<script>
-			document.addEventListener("DOMContentLoaded", () => {
-				initializeTemplate();
-				
-				ajax("GET", "/api/products/${displayInfoId}/comments", "", printComment);
-				
-			});
-			
-			function printComment(evt){
-				const SCORE_TO_PERCENT = 20;
-				var commentListInfo = JSON.parse(evt.currentTarget.response);
-				var commentItems = commentListInfo.commentList;
-				var commentCount = commentListInfo.commentMetaData.totalCount;
-				var commentAvgScore = commentListInfo.commentMetaData.averageScore;
-				
-				document.querySelector("#comment_count").innerHTML = commentCount;
-				document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
-				document.querySelector("#star_score").style.width = commentAvgScore * SCORE_TO_PERCENT + "%";
-				
-				var commentList = document.querySelector("#comment_list");
-				commentItems.forEach((commentItem) =>{
-					commentList.innerHTML += parseCommentToHtml(commentItem);
-				});
-			}
-		</script>
+		<script type="text/javascript" src="/resources/js/template_maker.js"></script>
+		<script type="text/javascript" src="/resources/js/comments.js"></script>
 </body>
 
 </html>

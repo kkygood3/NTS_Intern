@@ -1,57 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+	template.setting();
+	template.setUseDateFormat(0,10);
+	
 	ajax("GET", "/api/promotions", "", printPromotions);
 	ajax("GET", "/api/categories", "", printCategories);
 	ajax("GET", "/api/products", "", printProducts);
 	
 	addClickEventCategoryChange();
 	addClickEventMoreBtn();
-	addSlideEndEvent();
-	slidePromotion();
+	
 });
 
-function ajax(method ,url, data, callback) {
-	var xmlHttpRequest = new XMLHttpRequest();
-	xmlHttpRequest.addEventListener("load", callback);
-	xmlHttpRequest.open(method, url + "?" + data);
-	xmlHttpRequest.send(data);
-}
-
-function printPromotions(evt) {
-	var response = evt.currentTarget.response;
-	
+function printPromotions(data) {
 	var promotionList = document.querySelector("#promotion_list");
-	var promotionItems = JSON.parse(response).promotionList;
+	var promotionItems = JSON.parse(data).promotionList;
 	promotionItems.forEach((promotionItem) => {
-		promotionList.innerHTML += parsePromotionToHtml(promotionItem);
+		promotionList.innerHTML += template.parsePromotionToHtml(promotionItem);
 	});
 
+	slidePromotion();
 }
 
-function printCategories(evt) {
-	var response = evt.currentTarget.response;
-	
+function slidePromotion(){
+	var promotionList = document.querySelector("#promotion_list");
+	slide.make(promotionList);
+	slide.autoSlideRight(2000);
+}
+
+function printCategories(data) {
 	var categoryList = document.querySelector("#category_list");
 
-	var categoryItems = JSON.parse(response).categoryList;
+	var categoryItems = JSON.parse(data).categoryList;
 	categoryItems.forEach((categoryItem) =>{
-		categoryList.innerHTML += parseCategoryToHtml(categoryItem);
+		categoryList.innerHTML += template.parseCategoryToHtml(categoryItem);
 	});
 }
 
-function printProducts(evt) {
-	var response = evt.currentTarget.response;
-	
+function printProducts(data) {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	var productListsLength = productLists.length;
 	var productCount = getProductsCount();
 
-	var responseObject = JSON.parse(response);
+	var responseObject = JSON.parse(data);
 	var totalCount = responseObject.totalCount;
 	var productItems = responseObject.productList;
 
 	document.querySelector("#totalCount").innerText = totalCount;
 	productItems.forEach((productItem) => {
-		productLists[productCount % productListsLength].innerHTML += parseProductToHtml(productItem);
+		productLists[productCount % productListsLength].innerHTML += template.parseProductToHtml(productItem);
 		productCount++;
 	});
 
@@ -67,25 +64,6 @@ function clearProductLists() {
 	productLists.forEach((productList) => {
 		productList.innerHTML = "";
 	});
-}
-
-function slidePromotion(){
-	setTimeout(() =>{
-		var promotionList = document.querySelector("#promotion_list");
-		promotionList.className = "visual_img slide";
-	}, 1000);
-}
-
-function readjustPromotionList(promotionList){
-	promotionList.className = "visual_img";
-	movePromotionHeadToTail(promotionList);
-	slidePromotion();
-}
-
-function movePromotionHeadToTail(promotionList){
-	var promotionItem = promotionList.firstElementChild;
-	promotionList.removeChild(promotionItem);
-	promotionList.appendChild(promotionItem);
 }
 
 function addClickEventCategoryChange(){
@@ -128,11 +106,4 @@ function getProductsCount() {
 	});
 	
 	return productCount;
-}
-
-
-function addSlideEndEvent(){
-	document.querySelector("#promotion_list").addEventListener("transitionend", (evt)=>{
-		readjustPromotionList(evt.currentTarget);
-	});
 }
