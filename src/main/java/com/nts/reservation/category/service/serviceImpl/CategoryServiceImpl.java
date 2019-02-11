@@ -18,5 +18,4 @@ public class CategoryServiceImpl implements CategoryService {
 		return CategoryResponse.builder()
 			.items(categoryDao.selectCategories()).build();
 	}
-
 }
