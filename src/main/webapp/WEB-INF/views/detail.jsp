@@ -124,7 +124,7 @@
                             <h4 class="in_tit"> <i class="spr_book ico_evt"></i> <span>이벤트 정보</span> </h4>
                         </div>
                         <div class="event_info">
-                            <div class="in_dsc">[네이버예약 특별할인]<br>R석 50%, S석 60% 할인</div>
+                            <div class="in_dsc"><!-- [네이버예약 특별할인]<br>R석 50%, S석 60% 할인 --></div>
                         </div>
                     </div>
                 </div>
@@ -277,6 +277,17 @@
     </li>
 	{{/each}}
     </script>
+    <script type="rv-template" id="discountTemplate">
+	[네이버예약 특별할인]<br>
+	<span class="discountInfo">
+	{{#each productPrices}}
+		{{#ifNotZero discountRate}}
+			{{priceTypeName}}석 {{discountRate}}%
+		{{/ifNotZero}} 
+	{{/each}}
+	</span>
+	할인
+    </script>
     <script type="rv-template" id="commentTemplate">
 	{{#each comments}}
     <li class="list_item">
@@ -301,7 +312,7 @@
             <div class="info_area">
                 <div class="review_info">
                     <span class="grade">{{score}}</span>
-                    <span class="name">{{anonymize reservationEmail}}</span>
+                    <span class="name">{{#anonymize reservationEmail}}{{/anonymize}}</span>
                     <span class="date">{{reservationDate}} 방문</span>
                 </div>
             </div>

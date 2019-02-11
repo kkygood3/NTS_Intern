@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 var detailPage = {
 	getDetailPage: function(displayInfoId){
 		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
+		this.compileHendlebars.compareDiscountRateToZero();
 		
 		let httpRequest;
 		
@@ -18,6 +19,7 @@ var detailPage = {
 					jsonResponse = JSON.parse(httpRequest.responseText);
 					
 					this.displayMainInfo(jsonResponse);
+					this.displayDiscountInfo(jsonResponse);
 					this.displayComments(jsonResponse);
 					this.displayDetailInfo(jsonResponse);
 				}
@@ -71,6 +73,7 @@ var detailPage = {
 		telephone : document.querySelector(".store_tel"),
 
 		visualImgContainer : document.querySelector(".visual_img.detail_swipe"),
+		discountContainer : document.querySelector(".in_dsc"),
 		commentsContainer : document.querySelector(".list_short_review"),
 		
 		btnTop : document.querySelector(".lnk_top"),
@@ -78,6 +81,7 @@ var detailPage = {
 	
 	template: {
 		visualImgTemplate : document.querySelector("#visualImgTemplate").innerHTML,
+		discountTemplate : document.querySelector("#discountTemplate").innerHTML,
 		commentTemplate : document.querySelector("#commentTemplate").innerHTML
 	},
 	
@@ -102,6 +106,15 @@ var detailPage = {
 		}
 		
 		this.setEvent.openClose();
+	},
+	
+	displayDiscountInfo: function(jsonResponse){
+		var bindDiscounts = this.compileHendlebars.bindTemplate(this.template.discountTemplate);
+
+ 		this.elements.discountContainer.innerHTML = bindDiscounts(jsonResponse);
+		if(this.elements.discountContainer.querySelector(".discountInfo").innerText.length === 0){
+			this.elements.discountContainer.parentNode.parentNode.style.display = "none";
+		}
 	},
 	
 	displayComments: function(jsonResponse){
@@ -145,6 +158,16 @@ var detailPage = {
 		anonymizeUserId: function(DISPLAYED_ID_LENGTH){
 			Handlebars.registerHelper('anonymize', function(context) {
 				return context.substring(0, DISPLAYED_ID_LENGTH) + "****";
+			});
+		},
+
+ 		compareDiscountRateToZero: function(){
+			Handlebars.registerHelper('ifNotZero', function(value, options) {
+				if(value !== 0) {
+				    return options.fn(this);
+				} else {
+					return options.inverse(this);
+				}
 			});
 		}
 	},
