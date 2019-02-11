@@ -29,57 +29,38 @@ function loadCategoriesCallback(responseData){
 }
 
 
-//페이지 상단에 움직이는 배너를 설정하는 함수 
 function setPromotionMove() {
-	var bannerList = document.querySelectorAll('.visual_img>.item');
+	var promotionList = document.querySelectorAll('.visual_img>.item');
 	var leftDistance = 0;
-	var itemSize = bannerList.length;
+	var itemSize = promotionList.length;
 	var curIdx = 0;
 	
 	setInterval(moveStep, 4000);
-	
 
-	//4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수
 	function moveStep(){
 		
-		//모든 배너 이미지를 매 주기마다 -100% 이동
 		leftDistance -= 100;
 
-		for (var i = 0; i < bannerList.length; i++) {
-			bannerList[i].style.left = leftDistance + '%';
+		for (var i = 0; i < itemSize; ++i) {
+			promotionList[i].style.left = leftDistance + '%';
 		}
 
 		curIdx++;
 
-		//마지막장의 다음장은 미리 첫번째 이미지로 설정
-		//if(마지막장을 넘어 갔을때)
-		if (curIdx >= itemSize - 1) {
+		if (curIdx >= itemSize) {
+			setTimeout(resetPromotionPos, 0);
 			
-			//마지막 +1에 위치한 첫번째 이미지를 출력하는 도중에, 모든 이미지를 왼쪽으로 이동
-			setTimeout(resetPromotionPos, 1100);
-			
-			//마지막장에서 첫장으로 반복하기위해 복구하는 함수
-			//모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시 transitionDuration을 1s로 초기화
 			function resetPromotionPos() {
-				
-				for (var i = 0; i < bannerList.length; i++) {
-					bannerList[i].style.transitionDuration = '0s';
+				for (var i = 0; i < itemSize; i++) {
+					promotionList[i].style.transitionDuration = '0s';
+					promotionList[i].style.left = '0';
 				}
-
-				for (var i = 0; i < bannerList.length; i++) {
-					bannerList[i].style.left = '0';
-				}
-				
-				setTimeout(reattachTransition, 100);
-				
-				function reattachTransition() {
-					for (var i = 0; i < bannerList.length; i++) {
-						bannerList[i].style.transitionDuration = '1s';
-					}
-					curIdx = 0;
-					leftDistance = 0;
+				for (var i = 0; i < itemSize; i++) {
+					promotionList[i].style.transitionDuration = '1s';
 				}
 				
+				curIdx = 0;
+				leftDistance = 0;
 			}
 			
 		}
