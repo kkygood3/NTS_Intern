@@ -6,21 +6,28 @@ function makeCommentList(commentDisplayInfos) {
 	if (!commentDisplayInfos) {
 		return;
 	}
-	var template = document.getElementById("comment_item").innerText;
-	var bindTemplate = Handlebars.compile(template); 
-	
-	var innerHtml = "";
-	commentDisplayInfos.forEach((commentDisplayInfo) => {
-		innerHtml += bindTemplate(commentDisplayInfo);
-	});
+	var bindTemplate = getBindTemplate("comment_item"); 
+	var innerHtml = makeHtmlFromListData(commentDisplayInfos, bindTemplate);
 
 	var ul = document.getElementsByClassName("list_short_review")[0];
 	ul.innerHTML += innerHtml;
 	
-
-	if(endOfProducts(displayInfo.commentCount)) {
+	if (endOfProducts(displayInfo.commentCount)) {
 		setMoreButtonVisibility("hidden");
 	}
+}
+
+function getBindTemplate(templateId) {
+	var template = document.getElementById(templateId).innerText;
+	return Handlebars.compile(template); 
+}
+
+function makeHtmlFromListData(commentDisplayInfos, bindTemplate) {
+	var html = ""
+	commentDisplayInfos.forEach((commentDisplayInfo) => {
+		html += bindTemplate(commentDisplayInfo);
+	});
+	return html;
 }
 
 function calcLoadedComments() {
@@ -28,12 +35,10 @@ function calcLoadedComments() {
 	return ul.childElementCount;
 }
 
-
 function setMoreButtonVisibility(visibility) {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.style.visibility = visibility;
 }
-
 
 function endOfProducts(commentCount) {
 	if (calcLoadedComments() == commentCount) {
