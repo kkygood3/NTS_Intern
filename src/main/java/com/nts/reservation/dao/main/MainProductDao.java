@@ -49,10 +49,20 @@ public class MainProductDao {
 	public int selectCountByCategory(long categoryId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+		if(count == null) {
+			count = 0;
+		}
+		
+		return count;
 	}
 
 	public int selectCount() {
-		return jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
+		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
+		if(count == null) {
+			count = 0;
+		}
+		
+		return count;
 	}
 }
