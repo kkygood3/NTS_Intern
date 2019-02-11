@@ -21,16 +21,26 @@ function addInfoTabClickEvent() {
 	});
 }
 
-// TODO: 이미지만 움직이게 변경
-
 function NextButtonClickEvent() {
-		var ul = document.getElementsByClassName("visual_img")[0];
-		runSlide(ul, "left");
-
+	var ul = document.getElementsByClassName("visual_img")[0];
+	slideLeft(ul);
+	paginate(1);
 }
 
 function PreviousButtonClickEvent() {
-		var ul = document.getElementsByClassName("visual_img")[0];
-		runSlide(ul, "right");
+	var ul = document.getElementsByClassName("visual_img")[0];
+	slideRight(ul);
+	paginate(-1);
+}
 
+function paginate(movePage) {
+	var curSpan = document.querySelector(".pagination .num");
+	var len = document.querySelector(".pagination .off span").innerText * 1;
+	var cur = curSpan.innerText * 1;
+	
+	cur += movePage;
+	cur = cur < 1 ? len : cur;
+	cur = cur > len ? 1 : cur;
+	
+	curSpan.innerText = cur;
 }

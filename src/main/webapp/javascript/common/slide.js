@@ -1,45 +1,45 @@
 // TODO: 함수를 두개만들지 if문으로 처리할지...
-function makeSlide(ul, dir="left") {
-	if (dir != "left" && dir != "right") {
-		return;
-	}
+function makeSlide(ul) {
 	const interval = window.setInterval(()=> {
 		if (readyToSlide){
-			runSlide(ul, dir);
+			slideLeft(ul);
 		}
 	}, 5000);
 }
 
-function runSlide(ul, dir) {
-	if (dir != "left" && dir != "right") {
-		return;
-	}
-
-	moveUl(ul, dir);
-
+function slideLeft(ul) {
+	//위치를 -414로 만든다(트랜지션)
+	//제일뒤로 li를 하나 옮긴다
+	//위치를 0으로 만든다
+	addTransitionAndmoveUl(ul, -414);
 	window.setTimeout(()=> {
-		moveLi(ul, dir);
-	}, 2000);
+		removeTransitionAndmoveUl(ul, 0);
+		moveLiFirstToLast(ul);
+	}, 1000);
 }
 
-function moveLi(ul, dir) {
+function slideRight(ul) {
+	removeTransitionAndmoveUl(ul, -414);
+	moveLiLastToFirst(ul);
+	window.setTimeout(()=> {
+		addTransitionAndmoveUl(ul, 0);
+	}, 1);
+}
+
+function moveLiFirstToLast(ul) {
+	var firstLi = ul.firstElementChild;
+	ul.appendChild(firstLi);
+
+}
+function moveLiLastToFirst(ul) {
+	var lastLi = ul.lastElementChild;
+	ul.insertBefore(lastLi, ul.firstElementChild);
+}
+function removeTransitionAndmoveUl(ul, position) {
 	ul.classList.remove("transition");
-	ul.style.left = 0;
-	if (dir == "left") {
-		var firstLi = ul.firstElementChild;
-		ul.appendChild(firstLi);
-	} else {
-		var lastLi = ul.lastElementChild;
-		ul.insertBefore(lastLi, ul.firstElementChild);
-	}
+	ul.style.left = position + "px";
 }
-
-function moveUl(ul, dir) {
+function addTransitionAndmoveUl(ul, position) {
 	ul.classList.add("transition");
-	if (dir == "left") {
-		ul.style.left = "-414px";
-	} else {
-
-		ul.style.left = "414px";
-	}
+	ul.style.left = position + "px";
 }

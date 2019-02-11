@@ -177,7 +177,7 @@
 		<div class="bg_pagination"></div>
 		<div class="figure_pagination">
 			<span class="num">1</span>
-			<span class="num off">/<span>{image_length}</span></span>
+			<span class="num off">/ <span>{image_length}</span></span>
 		</div>
 	</div>
 	<div class="group_visual">
@@ -185,12 +185,10 @@
 			<ul class="visual_img detail_swipe" style="left:0;">
 				<li class="item" style="width: 414px;">
 					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
-
 				</li>
 				{{#if etcImage}}
 				<li class="item" style="width: 414px;">
 					<img alt="" class="img_thumb" src="./{{etcImage}}">
-					
 				</li>
 				{{/if}}
 			</ul>
