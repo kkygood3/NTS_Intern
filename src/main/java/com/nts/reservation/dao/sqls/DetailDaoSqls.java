@@ -42,7 +42,7 @@ public class DetailDaoSqls {
 		+ " FROM display_info di"
 		+ " INNER JOIN product_image pi ON di.product_id = pi.product_id AND di.id = :display_info_id"
 		+ " INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type <> 'th'"
-		+ " ORDER BY pi.type DESC";
+		+ " ORDER BY pi.type DESC LIMIT 0, 2";
 
 	public static final String SELECT_DETAIL_DISPLAY_INFO_IMAGE = "SELECT dii.id AS displayInfoImageId"
 		+ ", di.id AS displayInfoId"

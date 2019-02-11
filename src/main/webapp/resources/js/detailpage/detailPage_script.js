@@ -79,6 +79,9 @@ var detailPage = {
 	},
 
 	initTab : function(){
+		let detailTab = document.querySelector(".detail_area_wrap");
+		let pathTab = document.querySelector(".detail_location");
+		
 		domElements.INFO_TAB_UL.addEventListener("click", (e) => {
 			let currentScroll = document.documentElement.scrollTop;
 			if(e.target == domElements.INFO_TAB_UL) {
@@ -93,9 +96,6 @@ var detailPage = {
 			});
 			let tab = e.target.closest("li");
 			tab.firstElementChild.classList.add("active");
-			
-			let detailTab = document.querySelector(".detail_area_wrap");
-			let pathTab = document.querySelector(".detail_location");
 			
 			if(tab.classList.contains("_detail")){
 				detailTab.classList.remove("hide");
@@ -113,7 +113,7 @@ var detailPage = {
 	fetchDetailData : function(){
 	    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
 	    	state.detail_data = JSON.parse(respText);
-	    	
+	    	console.log(state.detail_data);
 	        deployDescription();
 	        
 	        deployBottomData();
@@ -247,5 +247,5 @@ var detailPage = {
 		}	
 		document.querySelector(".visual_txt_tit span").innerHTML 
 			= state.detail_data.displayInfo.productDescription;
-	},
+	}
 }
