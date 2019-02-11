@@ -10,7 +10,7 @@
 	<context-param>
 		<!-- ApplicationConfig는 class 이름과 같아야 함 -->
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.nts.reservation.config.ApplicationConfig
+		<param-value>com.nts.reservation.common.config.ApplicationConfig
 		</param-value>
 	</context-param>
 	<!-- Server가 시작될 때(context가 loading될 때) ContextLoaderListener를 실행시킴 -> 위에 
@@ -35,7 +35,7 @@
 		<init-param>
 			<!-- DispatcherServlet이 실행될 때 (WebMvcContextConfiguration)에 들어있는 내용을 참고해라 -->
 			<param-name>contextConfigLocation</param-name>
-			<param-value>com.nts.reservation.config.WebMvcContextConfiguration
+			<param-value>com.nts.reservation.common.config.WebMvcContextConfiguration
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
