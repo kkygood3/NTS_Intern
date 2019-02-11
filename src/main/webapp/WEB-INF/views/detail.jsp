@@ -22,7 +22,7 @@
 	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/comment.js" ></script>
+	<script type= "text/javascript" src= "./javascript/common/comment.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
@@ -83,8 +83,8 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"> <em class="graph_value"></em> </span>
-                                <strong class="text_value"> <span>${average_score}</span> <em class="total">5.0</em> </strong>
+                                <span class="graph_mask"><em class="graph_value" style="width:${average_score * 20}%;"></em></span>
+                                <strong class="text_value"><span>${average_score}</span> <em class="total">5.0</em></strong>
                                 <span class="join_count"><em class="green">${comment_count}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
@@ -93,7 +93,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review?product_id=${product_id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="./review?product_id=${product_id}&display_info_id=${display_info_id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
