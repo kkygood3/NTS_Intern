@@ -3839,7 +3839,7 @@ button {
 
 .slide_in_left {
     left: 100%;
-    animation: slideIn 1s forwards;
+    animation: slide_in 1s forwards;
 }
 
 @keyframes slide_out_left {

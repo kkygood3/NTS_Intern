@@ -137,16 +137,16 @@ function addProductImagePrevButtonEvent(productImagesUl,firstImageLi,lastImageLi
 			firstImageLi.style.left = 0;
 			lastImageLi.style.left = '-100%';
 
-			firstImageLi.setAttribute('class','single_slide slideOutRight');
-			lastImageLi.setAttribute('class','single_slide slideInLeft');
+			firstImageLi.setAttribute('class','single_slide slide_out_right');
+			lastImageLi.setAttribute('class','single_slide slide_in_left');
 
 			globalVariables.showProductNumber = 1;
 		} else {
 			firstImageLi.style.left = '-100%';
 			lastImageLi.style.left = 0;
 
-			firstImageLi.setAttribute('class','single_slide slideInLeft');
-			lastImageLi.setAttribute('class','single_slide slideOutRight');
+			firstImageLi.setAttribute('class','single_slide slide_in_left');
+			lastImageLi.setAttribute('class','single_slide slide_out_right');
 
 			globalVariables.showProductNumber = 0;
 		}
