@@ -6,6 +6,7 @@ var detailPage = {
 	getDetailPage: function(displayInfoId){
 		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
 		this.compileHendlebars.compareDiscountRateToZero();
+		this.compileHendlebars.convertPriceTypeName();
 		
 		let httpRequest;
 		
@@ -153,6 +154,35 @@ var detailPage = {
 	compileHendlebars: {
 		bindTemplate : function(template){
 			return Handlebars.compile(template);
+		},
+		
+		convertPriceTypeName : function(){
+			Handlebars.registerHelper('convertType', function(value) {
+				var typeName = "";
+				switch(value){
+					case "A" : typeName = "성인";
+					break;
+					case "Y" : typeName = "청소년";
+					break;
+					case "B" : typeName = "유아";
+					break;
+					case "D" : typeName = "장애인";
+					break;
+					case "C" : typeName = "지역주민";
+					break;
+					case "E" : typeName = "어얼리버드";
+					break;
+					case "V" : typeName = "VIP";
+					break;
+					case "R" : typeName = "R석";
+					break;
+					case "S" : typeName = "S석";
+					break;
+					default : break;
+				}
+				
+				return typeName;
+			});
 		},
 		
 		anonymizeUserId: function(DISPLAYED_ID_LENGTH){

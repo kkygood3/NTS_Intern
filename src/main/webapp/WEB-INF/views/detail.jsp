@@ -282,7 +282,7 @@
 	<span class="discountInfo">
 	{{#each productPrices}}
 		{{#ifNotZero discountRate}}
-			{{priceTypeName}}석 {{discountRate}}%
+			{{#convertType priceTypeName}}{{/convertType}} {{discountRate}}%
 		{{/ifNotZero}} 
 	{{/each}}
 	</span>
