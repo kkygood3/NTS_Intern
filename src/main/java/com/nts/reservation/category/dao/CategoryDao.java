@@ -2,28 +2,9 @@ package com.nts.reservation.category.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
-
-import com.nts.reservation.category.dao.sqls.CategoryDaoSqls;
 import com.nts.reservation.category.dto.Category;
 
-@Repository
-public class CategoryDao {
-	private NamedParameterJdbcTemplate jdbc;
+public interface CategoryDao {
 
-	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
-
-	public CategoryDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-	}
-
-	public List<Category> selectCategories() {
-		return jdbc.query(CategoryDaoSqls.GET_CATEGORY, rowMapper);
-	}
-
+	List<Category> selectCategories();
 }
