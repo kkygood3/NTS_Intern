@@ -102,9 +102,9 @@
 						<p class="dsc"></p>
 					</div>
 					<!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
-					<a href="#" class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span>
+					<a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span>
 						<i class="fn fn-down2"></i>
-					</a> <a href="#" class="bk_more _close" style="display: none;"> <span
+					</a> <a class="bk_more _close" style="display: none;"> <span
 						class="bk_more_txt">접기</span> <i class="fn fn-up2"></i>
 					</a>
 				</div>
@@ -162,11 +162,12 @@
 				<div class="section_info_tab">
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
-						<li class="item active _detail"><a href="#"
-							class="anchor active"> <span>상세정보</span>
-						</a></li>
-						<li class="item _path"><a href="#" class="anchor"> <span>오시는길</span>
-						</a></li>
+						<li class="item active _detail">
+							<a class="anchor active"> <span>상세정보</span></a>
+						</li>
+						<li class="item _path">
+						<a class="anchor"> <span>오시는길</span></a>
+						</li>
 					</ul>
 					<!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
 					<div class="detail_area_wrap">
@@ -233,10 +234,11 @@
 							</div>
 							<!-- [D] 모바일 브라우저에서 접근 시 column2 추가와 btn_navigation 요소 추가 -->
 							<div class="bottom_common_path column2">
-								<a href="#" class="btn_path"> <i class="fn fn-path-find2"></i>
-									<span>길찾기</span>
-								</a> <a hewf="#" class="btn_navigation before"> <i
-									class="fn fn-navigation2"></i> <span>내비게이션</span>
+								<a class="btn_path">
+									<i class="fn fn-path-find2"></i><span>길찾기</span>
+								</a> 
+								<a class="btn_navigation before"> 
+									<i class="fn fn-navigation2"></i><span>내비게이션</span>
 								</a>
 							</div>
 						</div>
@@ -258,7 +260,7 @@
 	</footer>
 	<div id="photoviwer"></div>
 	<script type="text/template" id="template-product-image">
-		<li class="item" style="width: 414px;">
+		<li class="item" style="width: 414px; height: 414px;">
 			<img alt="" class="img_thumb" src="{{saveFileName}}">
 			<span class="img_bg"></span>
 			<div class="visual_txt">
@@ -307,6 +309,12 @@
 			location.href="review?productId=" + productId;
 		}
 		var detail = {
+			// DIV Elements
+			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
+			currentNumDiv : document.querySelector(".num"),
+			lastNumDiv : document.querySelector(".num.off"),
+			productContentDiv : document.querySelector(".section_store_details"),
+			
 			init : function() {
 				displayInfoResponse.loadDisplayInfoResponse(this.initDisplayInfo.bind(this), displayInfoId);
 			},
@@ -325,10 +333,8 @@
 			// 타이틀 구역 설정
 			setTitleDOM : function(response) {
 				// 이미지 페이징 번호값 지정
-				var currentNumDiv = document.querySelector(".num");
-				var lastNumDiv = document.querySelector(".num.off");
-				currentNumDiv.innerText = 1;
-				lastNumDiv.innerText = "/ " + response.productImages.length;
+				this.currentNumDiv.innerText = 1;
+				this.lastNumDiv.innerText = "/ " + response.productImages.length;
 
 				// 상품 이미지 리스트 추가
 				var template = document.querySelector("#template-product-image").innerText;
@@ -341,62 +347,66 @@
 					}
 					resultHTML += bindTemplate(data);
 				}
-				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
-				productImagesDiv.innerHTML = resultHTML;
+				this.productImagesDiv.innerHTML = resultHTML;
 				this.initSlide(); 
 			},
 			initSlide : function() {
-				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
 				var prevDiv = document.querySelector('.prev');
 				var nextDiv = document.querySelector('.nxt');
-				if (productImagesDiv.childElementCount < 2) {
+				if (this.productImagesDiv.childElementCount < 2) {
 					prevDiv.style.display = "none";
 					nextDiv.style.display = "none";
 				} else {
-					productImagesDiv.innerHTML += productImagesDiv.innerHTML;
-					productImagesDiv.style.transform = "translateX(-200%)";
+					this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML;
+					this.productImagesDiv.style.transform = "translateX(-200%)";
 					var left = 0;
 					var translateX = -200;
 					prevDiv.addEventListener("click", function(evt) {
 						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
 							left += 100;
 							translateX -= 100;
-							this.prevSlide(left, translateX);
+							this.doSlide(left, translateX);
 						}
 					}.bind(this));
 					nextDiv.addEventListener("click", function(evt) {
 						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
 							left -= 100;
 							translateX += 100;
-							this.nextSlide(left, translateX);
+							this.doSlide(left, translateX);
 						}
 					}.bind(this));
 				}
 			},
-			prevSlide : function(left, translateX) {
-				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
-				productImagesDiv.style.left = left + "%";
+			doSlide : function(left, translateX) {
+				this.productImagesDiv.style.left = left + "%";
 				if (translateX % 200 == 0) {
-					productImagesDiv.style.transform = "translateX(" + translateX + "%)";
+					this.productImagesDiv.style.transform = "translateX(" + translateX + "%)";
 				}
-			},
-			nextSlide : function(left, translateX) {
-				var productImagesDiv = document.querySelector('.visual_img.detail_swipe');
-				productImagesDiv.style.left = left + "%";
-				if (translateX % 200 == 0) {
-					productImagesDiv.style.transform = "translateX(" + translateX + "%)";
+				if (this.currentNumDiv.innerText === "1") {
+					this.currentNumDiv.innerText = 2;
+				} else {
+					this.currentNumDiv.innerText = 1;	
 				}
 			},
 			// 상품 설명 설정
 			setProductContentDOM : function(response) {
-				var productContentTextDiv = document.querySelector(".store_details .dsc");
-				productContentTextDiv.innerText = response.displayInfo.productContent;
+				this.productContentDiv.querySelector(".dsc").innerText = response.displayInfo.productContent;
+				this.productContentDiv.addEventListener("click", function(evt) {
+					if (evt.target.className === "bk_more _open") {
+						this.productContentDiv.querySelector(".bk_more._open").style.display = "none";
+						this.productContentDiv.querySelector(".bk_more._close").style.display = "block";
+						this.productContentDiv.querySelector(".store_details").classList.remove("close3");
+					} else if (evt.target.className === "bk_more _close") {
+						this.productContentDiv.querySelector(".bk_more._open").style.display = "block";
+						this.productContentDiv.querySelector(".bk_more._close").style.display = "none";
+						this.productContentDiv.querySelector(".store_details").classList.add("close3");
+					}
+				}.bind(this));
 			},
 			// 상세정보 구역 설정
 			setDetailInformationDOM : function(response) {
-				// 상세정보
-				var detailInfoContentDiv = document.querySelector(".detail_info_lst .in_dsc");
-				detailInfoContentDiv.innerText = response.displayInfo.productContent;
+				// 상세정보 
+				document.querySelector(".detail_info_lst .in_dsc").innerText = response.displayInfo.productContent;
 				// 오시는길
 				document.querySelector(".store_map.img_thumb").src = response.displayInfoImage.saveFileName;
 				document.querySelector(".store_name").innerText = response.displayInfo.productDescription;
@@ -404,6 +414,27 @@
 				document.querySelector(".addr_old_detail").innerText = response.displayInfo.placeStreet;
 				document.querySelector(".store_addr.addr_detail").innerText = response.displayInfo.placeName;
 				document.querySelector(".store_tel").innerText = response.displayInfo.telephone;
+				// 탭UI 이벤트 등록
+				var infoTablistDiv = document.querySelector(".info_tab_lst");
+				infoTablistDiv.addEventListener("click", function(evt) {
+					if (evt.target.tagName === "SPAN") {
+						this.toggleDetailInfoTab(evt.target.parentElement);
+					} else if (evt.target.classList.contains("anchor")) {
+						this.toggleDetailInfoTab(evt.target);
+					}
+				}.bind(this));
+				infoTablistDiv.querySelector("._detail").classList.contains("item2")
+			},
+			toggleDetailInfoTab : function(target) {
+				document.querySelector(".anchor.active").classList.remove("active");
+				target.classList.add("active");
+				if (target.parentElement.innerText === "상세정보") {
+					document.querySelector(".detail_area_wrap").classList.remove("hide");
+					document.querySelector(".detail_location").classList.add("hide");
+				} else {
+					document.querySelector(".detail_area_wrap").classList.add("hide");
+					document.querySelector(".detail_location").classList.remove("hide");
+				}
 			},
 			// 상품평 총 개수 설정
 			setCountDOM : function(response) {
