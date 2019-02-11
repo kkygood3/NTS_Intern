@@ -54,9 +54,9 @@
 					<div class="pagination">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
-							<!-- 현재사진 번호 -->
+							<!-- [D] 출력중인 이미지 인덱스 번호 -->
 							<span class="num"></span>
-							<!-- 총사진 개수 -->
+							<!-- [D] 총이미지 개수 -->
 							<span class="num off"></span>
 						</div>
 					</div>
@@ -108,7 +108,7 @@
 						class="bk_more_txt">접기</span> <i class="fn fn-up2"></i>
 					</a>
 				</div>
-				<!-- 이벤트 정보 영역  -->
+				<!-- [D] 이벤트 정보 영역  -->
 				<div class="section_event">
 					<div class="event_info_box">
 						<div class="event_info_tit">
@@ -123,13 +123,13 @@
 						</div>
 					</div>
 				</div>
-				<!-- 예매하기 버튼 영역  -->
+				<!-- [D] 예매하기 버튼 영역  -->
 				<div class="section_btn">
 					<button type="button" class="bk_btn">
 						<i class="fn fn-nbooking-calender2"></i> <span>예매하기</span>
 					</button>
 				</div>
-				<!-- 상품평 영역  -->
+				<!-- [D] 상품평 영역  -->
 				<div class="section_review_list">
 					<div class="review_box">
 						<h3 class="title_h3">예매자 한줄평</h3>
@@ -145,7 +145,7 @@
 								</strong>
 								<span class="join_count"> <em class="green"></em> 등록</span>
 							</div>
-							<!-- 상품평 넣는 구역 -->
+							<!-- [D] 상품평 넣는 구역 -->
 							<ul class="list_short_review"></ul>
 						</div>
 						<p class="guide">
@@ -158,7 +158,7 @@
 						<i class="fn fn-forward1"></i>
 					</a>
 				</div>
-				<!-- 상세정보 / 오시는길 영역 -->
+				<!-- [D] 상세정보 / 오시는길 영역 -->
 				<div class="section_info_tab">
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
@@ -237,7 +237,7 @@
 								<a class="btn_path">
 									<i class="fn fn-path-find2"></i><span>길찾기</span>
 								</a> 
-								<a class="btn_navigation before"> 
+								<a class="btn_navigation before">
 									<i class="fn fn-navigation2"></i><span>내비게이션</span>
 								</a>
 							</div>
@@ -249,12 +249,10 @@
 	</div>
 	<footer>
 		<div class="gototop">
-			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
-			</a>
+			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span></a>
 		</div>
 		<div class="footer">
-			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및
-				환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
+			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
@@ -300,42 +298,39 @@
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
-	<script type="text/javascript" src="/js/ajax.js"></script>
+	<script type="text/javascript" src="/js/comment.js"></script>
 	<script>
-		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("id"));
-		var productId;
-
-		function goReviewPage() {
-			location.href="review?productId=" + productId;
-		}
 		var detail = {
 			// DIV Elements
 			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
 			currentNumDiv : document.querySelector(".num"),
 			lastNumDiv : document.querySelector(".num.off"),
 			productContentDiv : document.querySelector(".section_store_details"),
-			
-			init : function() {
-				displayInfoResponse.loadDisplayInfoResponse(this.initDisplayInfo.bind(this), displayInfoId);
+			// init
+			init : function(displayInfoId) {
+				this.loadDisplayInfoResponse(displayInfoId);
+			},
+			loadDisplayInfoResponse : function(displayInfoId) {
+				if (!isNumber(displayInfoId)) {
+					alert("잘못된 파라미터임니다");
+					window.history.back();
+					return;
+				}
+				var url = "/api/products/" + displayInfoId;
+				ajax(this.initDisplayInfo.bind(this), url);
 			},
 			initDisplayInfo : function(response) {
 				this.setTitleDOM(response);
 				this.setProductContentDOM(response);
 				this.setDetailInformationDOM(response);
 				productId = response.displayInfo.productId;
-				commentResponse.loadCommentResponse(this.initComment.bind(this), productId, 0, 3);
-			},
-			initComment : function(response) {
-				this.setCountDOM(response);
-				this.setAvgScoreDOM(response);
-				this.setCommentDOM(response);
+				comment.init(productId, 0, 3);
 			},
 			// 타이틀 구역 설정
 			setTitleDOM : function(response) {
 				// 이미지 페이징 번호값 지정
 				this.currentNumDiv.innerText = 1;
 				this.lastNumDiv.innerText = "/ " + response.productImages.length;
-
 				// 상품 이미지 리스트 추가
 				var template = document.querySelector("#template-product-image").innerText;
 				var bindTemplate = Handlebars.compile(template);
@@ -425,6 +420,7 @@
 				}.bind(this));
 				infoTablistDiv.querySelector("._detail").classList.contains("item2")
 			},
+			// 상세정보/오시는길 Tab UI
 			toggleDetailInfoTab : function(target) {
 				document.querySelector(".anchor.active").classList.remove("active");
 				target.classList.add("active");
@@ -435,40 +431,15 @@
 					document.querySelector(".detail_area_wrap").classList.add("hide");
 					document.querySelector(".detail_location").classList.remove("hide");
 				}
-			},
-			// 상품평 총 개수 설정
-			setCountDOM : function(response) {
-				var countTextDiv = document.querySelector(".join_count .green");
-				countTextDiv.innerText = response.totalCount + " 건";
-			},
-			// 상품평 평점 설정
-			setAvgScoreDOM : function(response) {
-				var scoreTextDiv = document.querySelector(".text_value span");
-				scoreTextDiv.innerText = response.averageScore.toFixed(1);
-				var maxScore = parseFloat(document.querySelector(".text_value .total").innerText);
-				document.querySelector(".graph_value").style.width = response.averageScore
-						/ maxScore * 100 + "%";
-			},
-			// 상품평 추가
-			setCommentDOM : function(response) {
-				var template = document.querySelector("#template-comment").innerText;
-				var bindTemplate = Handlebars.compile(template);
-				var resultHTML = response.comments.reduce(function(prev, comment) {
-					return prev + bindTemplate(comment);
-				}, "");
-				var commentsDiv = document.querySelector(".list_short_review");
-				commentsDiv.innerHTML = resultHTML;
-
-				if (response.totalCount <= 3) {
-					this.hiddenMoreButton();
-				}
-			},
-			hiddenMoreButton : function() {
-				document.querySelector(".btn_review_more").style.display = "none";
 			}
 		}
-		
-		detail.init();
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("id"));
+		var productId;
+		detail.init(displayInfoId);
+
+		function goReviewPage() {
+			location.href="review?productId=" + productId;
+		}
 	</script>
 </body>
 </html>
