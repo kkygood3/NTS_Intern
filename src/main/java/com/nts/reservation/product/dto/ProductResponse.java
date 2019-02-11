@@ -7,9 +7,11 @@ package com.nts.reservation.product.dto;
 import java.util.List;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter @Setter @ToString
 @Builder
 public class ProductResponse {
 	private List<Product> items;
