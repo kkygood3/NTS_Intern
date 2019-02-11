@@ -18,7 +18,7 @@ import com.nts.reservation.main.category.service.MainCategoryService;
 public class MainCategoryServiceImpl implements MainCategoryService {
 
 	@Autowired
-	MainCategoryDao mainCategoryDao;
+	private MainCategoryDao mainCategoryDao;
 
 	@Override
 	public List<MainCategory> getCategories() {

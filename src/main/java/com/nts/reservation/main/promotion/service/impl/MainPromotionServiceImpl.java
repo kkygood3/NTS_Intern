@@ -18,7 +18,7 @@ import com.nts.reservation.main.promotion.service.MainPromotionService;
 public class MainPromotionServiceImpl implements MainPromotionService {
 
 	@Autowired
-	MainPromotionDao mainPromotionDao;
+	private MainPromotionDao mainPromotionDao;
 
 	@Override
 	public List<MainPromotion> getPromotions() {

@@ -19,7 +19,7 @@ import com.nts.reservation.main.product.service.MainProductService;
 public class MainProductServiceImpl implements MainProductService {
 
 	@Autowired
-	MainProductDao mainProductDao;
+	private MainProductDao mainProductDao;
 
 	@Override
 	@Transactional
