@@ -229,6 +229,7 @@
 
 	<script>
 		var currentTab = 1;
+		var MAX_SWIPE = 2;
 		
 		function requestAjax(callback, url) {
 			var ajaxReq = new XMLHttpRequest();
@@ -263,93 +264,98 @@
 			return resultDate;
 		}
 		
+		function initDetailBtn(){
+			var unfoldBtn = document.querySelector('a._open');	
+			var foldBtn = document.querySelector('a._close');
+			var foldingText = document.querySelector('div.store_details');
+			
+			document.querySelector('div.section_store_details').addEventListener('click',function(evt){
+				var clickedTag  = evt.target;
+				
+				if(clickedTag.className === 'bk_more _open'){
+					foldingText.classList.remove('close3');
+					
+					unfoldBtn.style.display = 'none';
+					foldBtn.style.display = '';
+				}else if(clickedTag.className === 'bk_more _close'){
+					foldingText.classList.add('close3');
+					
+					unfoldBtn.style.display = '';
+					foldBtn.style.display = 'none';
+				}
+			});
+		}
 		
-		function loadDisplayInfoCallback(responseData) {
-			var JsonData = responseData.detailDisplay;
-			
-			var averageScore = JsonData.averageScore.toFixed(1);
-			var comments = JsonData.comments;
-			var displayInfo = JsonData.displayInfo;
-			var displayInfoImage = JsonData.displayInfoImage;
-			var productImages = JsonData.productImages;
-			
+		function initSwipeImage(jsonData){
 			//상단 Swipe Image 배너 Template
 			var swipeTemplate = document.querySelector('#bannerImageTemplate').innerText;
 			var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
 			var swipeContainer = document.querySelector('ul.detail_swipe');
 			
+			//Swipe 페이지 수, 총량 표시
+			var swipePage = document.querySelector('.figure_pagination').querySelector('.num');
+			var swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
 			
-			var imagePage = document.querySelector('.figure_pagination').querySelector('.num');
-			var imageAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
+			//Swipe 이미지 좌우의 버튼
+			var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
+			var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 			
-			var imageArrowLeft = document.querySelector('.ico_arr6_lt');
-			var imageArrowRight = document.querySelector('.ico_arr6_rt');
 			//공통 할 일 : 숫자 띄우기
-			if(productImages.length == 1){
-				//이미지가 1개면 띄우고 화살표 없앰
-				JsonData.curSaveFileName = JsonData.productImages[0].saveFileName;
-				swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
+			if(jsonData.productImages.length == 1){
+				//이미지가 1개인 경우
+				 
+				jsonData.curSaveFileName = jsonData.productImages[0].saveFileName;
+				swipeContainer.innerHTML += bindSwipeTemplate(jsonData);
 				
-				imageAmount.innerText = '1';
-				document.querySelector('.ico_arr6_lt').style.display='none';
-				document.querySelector('.ico_arr6_rt').style.display='none';
+				swipeAmount.innerText = '1';
+				
+				document.querySelector('.ico_arr6_lt').style.display = 'none';
+				document.querySelector('.ico_arr6_rt').style.display = 'none';
 
-				imageArrowLeft.style.display = 'none';
-				imageArrowRight.style.display = 'none';
+				swipeLeftBtn.style.display = 'none';
+				swipeRightBtn.style.display = 'none';
 				
-			}else if(productImages.length > 1){
-				//이미지가 2개 이상이면 2개만 띄움
-				for(var idx = 0; idx < 2; idx ++){
-					JsonData.curSaveFileName = JsonData.productImages[idx].saveFileName;
-					swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
+			}else if(jsonData.productImages.length > 1){
+				//이미지가 2개 이상인 경우
+				
+				for(var idx = 0; idx < MAX_SWIPE; idx ++){
+					jsonData.curSaveFileName = jsonData.productImages[idx].saveFileName;
+					swipeContainer.innerHTML += bindSwipeTemplate(jsonData);
 				}
 				
-				imageAmount.innerText = '2';
+				swipeAmount.innerText = MAX_SWIPE;
 				
 				//화살표에 클릭이벤트 추가
 				document.querySelector('.group_visual').addEventListener('click',function(evt){
 					
 					var clickedBtn = evt.target;
+					
+					//화살표 버튼 좌우 같은 동작 수행(이미지 2장)
 					if(clickedBtn.tagName === 'I'){
 						var imageItems = document.querySelector('ul.detail_swipe').querySelectorAll('.item');
 						
-						if(imagePage.innerText === '1'){
+						if(swipePage.innerText === '1'){
 							//1번에서 2번으로
-							imagePage.innerText = '2';
+							swipePage.innerText = '2';
 							imageItems.forEach(item => item.style.left = '-100%')
 						}else{
 							//2번에서 1번으로
-							imagePage.innerText = '1';
+							swipePage.innerText = '1';
 							imageItems.forEach(item => item.style.left = '0%')
 						}
 					}
 				});
 			}
 			
-			swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
+			//이미지위에 제목 띄우기
+			document.querySelector('div.store_details>p.dsc').innerHTML = jsonData.displayInfo.productContent;
+		}
+		
+		function initComment(jsonData){
+			var comments = jsonData.comments;
+			var averageScore = jsonData.averageScore.toFixed(1);
 			
-			var moreBtnContainer = document.querySelector('div.section_store_details');
-			var openBtn = moreBtnContainer.querySelector('a._open');	
-			var closeBtn = moreBtnContainer.querySelector('a._close');
-			var moreArea = moreBtnContainer.querySelector('div.store_details');
-			
-			moreBtnContainer.addEventListener('click',function(evt){
-				var clickedTag  = evt.target;
-				
-				if(clickedTag.className === 'bk_more _open'){
-					moreArea.classList.remove('close3');
-					
-					openBtn.style.display = 'none';
-					closeBtn.style.display = '';
-				}else if(clickedTag.className === 'bk_more _close'){
-					moreArea.classList.add('close3');
-					
-					openBtn.style.display = '';
-					closeBtn.style.display = 'none';
-				}
-			});
-			
-			//Comment Template
+			//Comment란 Template
 			var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 			var bindCommentTemplate = Handlebars.compile(commentTemplate);
 			
@@ -357,10 +363,7 @@
 			for(var i = 0 ; i < 3 && i < comments.length; i++){
 				comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
 				commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
-			} 
-			
-			//이미지위에 제목 띄우기
-			document.querySelector('div.store_details>p.dsc').innerHTML = JsonData.displayInfo.productContent;
+			}
 			
 			//별점 그래프, 숫자 조정
 			document.querySelector('em.graph_value').style.width = (averageScore*20)+'%';
@@ -370,7 +373,12 @@
 			document.querySelector('span.join_count>em.green').innerText = comments.length+'건';
 			
 			//Comment 더보기 버튼
-			document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfo.displayInfoId)
+			document.querySelector('a.btn_review_more').setAttribute('href','review?id='+jsonData.displayInfo.displayInfoId)
+		}
+		
+		function initInfoTab(jsonData){
+			var displayInfo = jsonData.displayInfo;
+			var displayInfoImage = jsonData.displayInfoImage;
 			
 			//[소개]란의 글
 			document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
@@ -437,10 +445,25 @@
 			
 			});
 		}
+		
+		function loadDisplayInfoCallback(responseData) {
+			var jsonData = responseData.detailDisplay;
+			
+			//펼쳐보기, 접기 버튼
+			initDetailBtn();
+			
+			//SwipeImage 설정
+			initSwipeImage(jsonData);
+			
+			//Comment 설정
+			initComment(jsonData);
+			
+			//맨 아래의 상세정보, 오시는길 탭 설정
+			initInfoTab(jsonData);
+		}
 	
 		document.addEventListener('DOMContentLoaded', function() {
 			//페이지 첫 로딩시 할 일
-	
 			var id = location.href.split('?')[1].split('=')[1];
 			requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
 		});
