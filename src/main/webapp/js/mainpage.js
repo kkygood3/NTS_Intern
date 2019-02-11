@@ -1,184 +1,187 @@
 document.addEventListener("DOMContentLoaded", function() {
-	getCategories();
-	getProductsByCategory();
-	getPromotions();
+	mainPage.getMainPage();
 });
 
-let selectedCategoryId;
-let start = 0;
-let displayedProduct = 0;
-
-let tab = document.querySelector(".section_event_tab").querySelector(".event_tab_lst");
-tab.addEventListener("click", function(event){
-	let anchorElement;
-	let previousActive = document.querySelector(".active");
-	let productContainer = document.querySelectorAll(".lst_event_box");
-	
-	if(event.target.className === "anchor"){
-		anchorElement = event.target;
-	} else if(event.target.className === "category_name"){
-		anchorElement = event.target.parentNode;
-	} else {
-		return;
-	}
-
-	previousActive.className = "anchor";
-	
-	selectedCategoryId = anchorElement.parentNode.dataset.category;
-	anchorElement.className += " active";
-	
-	productContainer.forEach(function(container){
-		container.innerHTML = "";
-	});
-	
-	start = 0;
-	displayedProduct = 0;
-	btnShowMore.hidden = false;
-	
-	getProductsByCategory(selectedCategoryId, start);
-});
-
-let btnShowMore = document.querySelector(".more");
-btnShowMore.addEventListener("click", function(event){
-	const productsPerPage = 4;
-	start += productsPerPage;
-	getProductsByCategory(selectedCategoryId, start);
-});
-
-function getCategories() {
-	let httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
+var mainPage = {
+	getMainPage: function(){
+		this.ajaxGet("./api/categories", this.getCategories);
+		this.ajaxGet("./api/products", this.getProductsByCategory);
+		this.ajaxGet("./api/promotions", this.getPromotions);
 		
-		httpRequest.onreadystatechange = function() {  
-			let jsonResponse;
-			let categoryContainer = document.querySelector(".event_tab_lst");
-			let categoryTemplate = document.querySelector("#categories").innerHTML;
-			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
-
-				categoryContainer.innerHTML += categoryTemplate.replace("{id}", "")
-															   .replace("{name}", "전체리스트")
-															   .replace("anchor", "anchor active");
-				
-				jsonResponse["items"].forEach(function(item){
-					categoryContainer.innerHTML += categoryTemplate.replace("{id}", item.id)
-																   .replace("{name}", item.name);
-				});
-			}
+		this.setEvent.showMore();
+		this.setEvent.scrollTop();
+		this.setEvent.tabEvent();
+	},
+	
+	variables: {
+		selectedCategoryId : null,
+		start : 0,
+		displayedProduct : 0
+	},
+	
+	constants: {
+		promotionWidth : 414,
+		animationTime : 5000,
+		productsPerPage : 4
+	},
+	
+	elements: {
+		slides : document.querySelectorAll(".visual_img li"),
+		tab : document.querySelector(".section_event_tab").querySelector(".event_tab_lst"),
+		btnShowMore : document.querySelector(".more"),
+		btnTop : document.querySelector(".lnk_top"),
+		
+		countProduct : document.querySelector(".event_lst_txt span"),
+		
+		categoryContainer : document.querySelector(".event_tab_lst"),
+		productContainer : document.querySelectorAll(".lst_event_box"),
+		promotionContainer : document.querySelector(".visual_img")
+	},
+	
+	template: {
+		categoryTemplate : document.querySelector("#categories").innerHTML,
+		productTemplate : document.querySelector("#itemList").innerHTML,
+		promotionTemplate : document.querySelector("#promotionItem").innerHTML
+	},
+	
+	compileHendlebars: {
+		bindTemplate : function(template){
+			return Handlebars.compile(template);
 		}
-		
-		httpRequest.open("GET", "./api/categories");
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
-	}
-}
-
-function getProductsByCategory(categoryId, start = 0) {
-	let httpRequest;
-	let url;
+	},
 	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
+	ajaxGet: function(url, func){
+		let httpRequest;
 		
-		httpRequest.onreadystatechange = function() {
-			let jsonResponse;
-			let countProduct = document.querySelector(".event_lst_txt span");
-			let productContainer = document.querySelectorAll(".lst_event_box");
-			let containerIndex = 0;
-			let productTemplate = document.querySelector("#itemList").innerHTML;
+		if (window.XMLHttpRequest) {
+			httpRequest =  new XMLHttpRequest();
 			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
-
-				countProduct.innerHTML = jsonResponse["totalCount"];
-				displayedProduct += jsonResponse["items"].length;
+			httpRequest.onreadystatechange = function() {
+				let jsonResponse;
 				
-				jsonResponse["items"].forEach(function(item){
-					productContainer[containerIndex].innerHTML += productTemplate.replace("{displayInfoId}", item.displayInfoId)
-																				 .replace(/{description}/gi, item.productDescription)
-																				 .replace("{placeName}", item.placeName)
-																				 .replace("{content}", item.productContent)
-																				 .replace("{imgUrl}", item.productImageUrl);
+				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+					jsonResponse = JSON.parse(httpRequest.responseText);
 					
-					containerIndex = (containerIndex + 1) % productContainer.length;
-				})
-				
-				if(displayedProduct >= jsonResponse["totalCount"]){
-					btnShowMore.hidden = true;
+					func(jsonResponse);
 				}
 			}
+			
+			httpRequest.open("GET", url);
+			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
+			httpRequest.send();
+		}
+	},
+	
+	getCategories: function(jsonResponse){
+		var bindCategory = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.categoryTemplate);
+					
+		this.mainPage.elements.categoryContainer.innerHTML += bindCategory(jsonResponse);
+	},
+	
+	getProductsByCategory: function(jsonResponse){
+		var bindProducts = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.productTemplate);
+		var left = 0;
+		var right = 1;
+		var productArr;
+		
+		this.mainPage.elements.countProduct.innerHTML = jsonResponse["totalCount"];
+		this.mainPage.variables.displayedProduct += jsonResponse["items"].length;
+		
+		productArr = bindProducts(jsonResponse).split("</li>");
+		productArr.forEach(function(product){
+			if(productArr.indexOf(product) % 2 === 0){
+				this.mainPage.elements.productContainer[left].innerHTML += product + "</li>";
+			} else {
+				this.mainPage.elements.productContainer[right].innerHTML += product + "</li>";
+			}
+		});
+
+		if(this.mainPage.variables.displayedProduct >= jsonResponse["totalCount"]){
+			this.mainPage.elements.btnShowMore.hidden = true;
+		}
+	},
+	
+	getPromotions: function(jsonResponse){
+		var bindPromotions = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.promotionTemplate);
+		var executeAnimationTime;
+		
+		this.mainPage.elements.promotionContainer.innerHTML += bindPromotions(jsonResponse);
+
+		executeAnimationTime = performance.now();
+		this.mainPage.slideImage(0, 1, executeAnimationTime);
+	},
+	
+	slideImage: function(slideOut, slideIn, executeAnimationTime){
+		var now = performance.now();
+		var slides = document.querySelectorAll(".visual_img li");
+
+		slides[slideOut].style.left = "0";
+		slides[slideOut].className = "item slide_out";
+		slides[slideIn].style.left = this.mainPage.constants.promotionWidth + "px";
+		slides[slideIn].className = "item slide_in";
+		
+		if(now - executeAnimationTime > this.mainPage.constants.animationTime) {
+			slides[slideOut].className = "item";
+			slideOut = slideIn;
+			slideIn = (slideIn + 1) % slides.length;
+			executeAnimationTime = performance.now();
 		}
 		
-		if(categoryId === null | categoryId === undefined){
-			url = "./api/products?start=" + start;
-		} else {
-			url = "./api/products?categoryId=" + categoryId + "&start=" + start;
-		}
-		httpRequest.open("GET", url);
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
-	}
-}
-
-function getPromotions() {
-	let httpRequest;
+		requestAnimationFrame(function(){
+			this.mainPage.slideImage(slideOut, slideIn, executeAnimationTime);
+		});
+	}.bind(this),
 	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
-
-		httpRequest.onreadystatechange = function() {
-			let jsonResponse;
-			let promotionContainer = document.querySelector(".visual_img");
-			let promotionTemplate = document.querySelector("#promotionItem").innerHTML;
-			let executeAnimationTime;
-			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
-
-				jsonResponse["items"].forEach(function(item){
-					promotionContainer.innerHTML += promotionTemplate.replace("{imgUrl}", item.productImageUrl)
-																	 .replace("{description}", item.productDescription)
-																	 .replace("{placeName}", item.placeName)
-																	 .replace("{content}", item.productContent);
+	setEvent: {
+		scrollTop: function(){
+			this.mainPage.elements.btnTop.addEventListener("click", function(){
+				document.documentElement.scrollTop = 0;
+			});
+		}.bind(this),
+		
+		showMore: function(){
+			this.mainPage.elements.btnShowMore.addEventListener("click", function(event){
+				this.mainPage.variables.start += this.mainPage.constants.productsPerPage;
+				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
+					this.mainPage.ajaxGet("./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+				} else {
+					this.mainPage.ajaxGet("./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+				}
+			}.bind(this));
+		}.bind(this),
+		
+		tabEvent: function(){ 
+			this.mainPage.elements.tab.addEventListener("click", function(event){
+				var anchorElement;
+				let previousActive = document.querySelector(".active");
+				
+				if(event.target.className === "anchor"){
+					anchorElement = event.target;
+				} else if(event.target.className === "category_name"){
+					anchorElement = event.target.parentNode;
+				} else {
+					return;
+				}
+	
+				previousActive.className = "anchor";
+				
+				this.mainPage.variables.selectedCategoryId = anchorElement.parentNode.dataset.category;
+				anchorElement.className += " active";
+				
+				this.mainPage.elements.productContainer.forEach(function(container){
+					container.innerHTML = "";
 				});
-
-				executeAnimationTime = performance.now();
-				slideImage(0, 1, executeAnimationTime);
-			}
-		}
-
-		httpRequest.open("GET", "./api/promotions");
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
+				
+				this.mainPage.variables.start = 0;
+				this.mainPage.variables.displayedProduct = 0;
+				this.mainPage.elements.btnShowMore.hidden = false;
+				
+				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
+					this.mainPage.ajaxGet("./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+				} else {
+					this.mainPage.ajaxGet("./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+				}
+			}.bind(this));
+		}.bind(this)
 	}
 }
-
-function slideImage(slideOut, slideIn, executeAnimationTime){
-	let now = performance.now();
-	let slides = document.querySelectorAll(".visual_img li");
-	const promotionWidth = slides[slideOut].clientWidth;
-	const animationTime = 5000;
-
-	slides[slideOut].style.left = "0";
-	slides[slideOut].className = "item slide_out";
-	slides[slideIn].style.left = promotionWidth + "px";
-	slides[slideIn].className = "item slide_in";
-	
-	if(now - executeAnimationTime > animationTime) {
-		slides[slideOut].className = "item";
-		slideOut = slideIn;
-		slideIn = (slideIn + 1) % slides.length;
-		executeAnimationTime = performance.now();
-	}
-	
-	requestAnimationFrame(function(){
-		slideImage(slideOut, slideIn, executeAnimationTime);
-	});
-}
-
-document.querySelector(".lnk_top").addEventListener("click", function(){
-	document.documentElement.scrollTop = 0;
-});

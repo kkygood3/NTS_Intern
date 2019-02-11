@@ -76,7 +76,7 @@ var detailPage = {
 		discountContainer : document.querySelector(".in_dsc"),
 		commentsContainer : document.querySelector(".list_short_review"),
 		
-		btnTop : document.querySelector(".lnk_top"),
+		btnTop : document.querySelector(".lnk_top")
 	},
 	
 	template: {
