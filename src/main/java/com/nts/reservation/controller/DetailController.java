@@ -6,8 +6,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.Product;
-import com.nts.reservation.service.CommentDisplayInfoService;
 import com.nts.reservation.service.DisplayInfoService;
 import com.nts.reservation.service.FileInfoService;
 import com.nts.reservation.service.ProductService;
@@ -32,12 +32,18 @@ public class DetailController {
 		@RequestParam(name = "display_info_id", required = true) long displayInfoId,
 		ModelMap model) {
 		Product product = productService.getProduct(productId);
-		model.addAttribute("productId", productId);
+		DisplayInfo displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
+		model.addAttribute("product_id", productId);
+		model.addAttribute("display_info_id", displayInfoId);
 		model.addAttribute("description", product.getDescription());
 		model.addAttribute("content", product.getContent());
-		model.addAttribute("saveFileName", fileInfoService.getSaveFileName(productId, "ma"));
-		model.addAttribute("averageScore", reservationUserCommentService.getAverageScore(productId));
-		model.addAttribute("commentCount", reservationUserCommentService.getCount(productId));
+		model.addAttribute("place_name", displayInfo.getPlaceName());
+		model.addAttribute("place_street", displayInfo.getPlaceStreet());
+		model.addAttribute("place-lot", displayInfo.getPlaceLot());
+		model.addAttribute("tel", displayInfo.getTel());
+		model.addAttribute("save_file_name", fileInfoService.getSaveFileName(productId, "ma"));
+		model.addAttribute("average_score", reservationUserCommentService.getAverageScore(productId));
+		model.addAttribute("comment_count", reservationUserCommentService.getCount(productId));
 		
 		return "detail";
 	}
