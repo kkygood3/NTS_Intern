@@ -42,7 +42,7 @@ var comment = {
 		commentsDiv.innerHTML = resultHTML;
 
 		if (response.totalCount <= 3) {
-			this.hiddenMoreButton();
+			document.querySelector(".btn_review_more").style.display = "none";
 		}
 	},
 }

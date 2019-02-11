@@ -96,7 +96,7 @@
 
 	<script type="text/template" id="template-product-list">
 		<li class="item" data-display-info-id={displayInfoId}, data-product-id={productId}>
-			<a href="detail" class="item_book">
+			<a href="detail?id={displayInfoId}" class="item_book">
 			<div class="item_preview">
 				<img alt="{productDescription}" class="img_thumb" src="{productImageUrl}">
 				<span class="img_border"></span>
@@ -117,89 +117,81 @@
 	<script>
 		// 상수
 		const CATEGORY_TYPE_ALL = 0;
-		
+
 		// DOM
 		var slideImages = document.querySelector(".slide_images"); // 프로모션의 슬라이드 영역
 		var categoryTabList = document.querySelector(".tab_lst_min"); // 카테고리 탭 영역
 		var productListBox = document.querySelector(".wrap_event_box"); // 상품들을 보여주는 영역
-
 
 		/*
 		 * DOM 로딩후 한번만 실행되는 초기화 함수로
 		 * ajax를 통해 서버로부터 데이터를 가져와 각 DOM에 알맞게 넣어줍니다.
 		*/
 		function init() {
-			setDOMPromotions();
-			setDOMCategories();
-			setDOMProducts(CATEGORY_TYPE_ALL, 0); // args : categoryId, startNumber
+			loadPromotionResponse(setDOMPromotions);
+			loadCategoryResponse(setDOMCategories);
+			loadProductResponse(setDOMProducts, CATEGORY_TYPE_ALL, 0); // args : categoryId, startNumber
 		}
 
-		// 프로모션정보를 서버로부터 불러와 프로모션 영역에 넣어줍니다.
-		function setDOMPromotions() {
+		function loadPromotionResponse(callback) {
 			var url = "./api/promotions";
-			var xhr = getXMLHttpRequest(url);
-			xhr.send();
-
-			xhr.addEventListener("load", function(e) {
-				var response = e.target.response;
-				if (response.isError) {
-					alert(response.errorMsg);
-					return;
-				}
-				var promotions = response.promotions;
-				var template = document.querySelector("#template-promotion-image").innerHTML;
-
-				var resultHTML = promotions.reduce(function(prev, promotion) {
-					return prev + parseTemplateToHTML(template, promotion)
-				}, "");
-				// 무한 슬라이딩을 위해 프로모션 첫 이미지를 끝에 추가로 삽입
-				resultHTML += parseTemplateToHTML(template, promotions[0]); 
-
-				slideImages.innerHTML = resultHTML;
-				doAutoSlideShowPromotions();
-			});
+			ajax(callback, url);
 		}
 
-		// 카테고리정보를 서버로부터 불러와 카테고리 영역에 넣어줍니다.
-		function setDOMCategories() {
+		function loadCategoryResponse(callback) {
 			var url = "./api/categories";
-			var xhr = getXMLHttpRequest(url);
-			xhr.send();
-
-			xhr.addEventListener("load", function(e) {
-				var response = e.target.response;
-				if (response.isError) {
-					alert(response.errorMsg);
-					return;
-				}
-				var categories = response.categories;
-				var template = document.querySelector("#template-category-ui-list").innerHTML;
-				var totalCount = 0;
-
-				var resultHTML = categories.reduce(function(prev, category) {
-					totalCount += category.count;
-					return prev + parseTemplateToHTML(template, category)
-				}, "");
-
-				setCategoryCount(totalCount);
-				// 모든 카테고리의 개수를 전체리스트탭 속성에 저장합니다.
-				categoryTabList.firstElementChild.setAttribute("data-count", totalCount);
-				categoryTabList.innerHTML += resultHTML;
-				registTabUIEvent();
-			});
+			ajax(callback, url);
 		}
 
-		// 상품정보를 서버로부터 불러와 상품영역에 넣어줍니다.
-		function setDOMProducts(categoryId, start) {
-			var leftList = productListBox.getElementsByTagName("ul")[0];
-			var rightList = productListBox.getElementsByTagName("ul")[1];
-			leftList.innerHTML = "";
-			rightList.innerHTML = "";
+		function loadProductResponse(callback, categoryId, start) {
+			if (isEmpty(categoryId) || isEmpty(start)) {
+				alert("잘못된 입력값입니다.");
+				return;
+			}
+			var url = getProductsApiUrl(categoryId, start);
+			ajax(callback, url);
+		}
 
+		// 프로모션 이미지 설정 및 슬라이딩 애니메이션  추가
+		function setDOMPromotions(response) {
+			var promotions = response.promotions;
+			var template = document.querySelector("#template-promotion-image").innerHTML;
+
+			var resultHTML = promotions.reduce(function(prev, promotion) {
+				return prev + parseTemplateToHTML(template, promotion)
+			}, "");
+
+			// 무한 슬라이딩을 위해 프로모션 첫 이미지를 끝에 추가로 삽입
+			resultHTML += parseTemplateToHTML(template, promotions[0]); 
+			slideImages.innerHTML = resultHTML;
+			doAutoSlideShowPromotions();
+		}
+
+		// 카테고리 내용 설정 및 카테고리 tab ui 이벤트등록
+		function setDOMCategories(response) {
+			var categories = response.categories;
+			var template = document.querySelector("#template-category-ui-list").innerHTML;
+			var totalCount = 0;
+
+			var resultHTML = categories.reduce(function(prev, category) {
+				totalCount += category.count;
+				return prev + parseTemplateToHTML(template, category)
+			}, "");
+
+			setCategoryCount(totalCount);
+			categoryTabList.firstElementChild.setAttribute("data-count", totalCount);
+			categoryTabList.innerHTML += resultHTML;
+			registCategoryTabUIEvent();
+		}
+
+		// 전시상품 내용 설정
+		function setDOMProducts(response) {
+			productListBox.getElementsByTagName("ul")[0].innerHTML = "";
+			productListBox.getElementsByTagName("ul")[1].innerHTML = "";
 			showMoreButton();
-			addDOMProducts(categoryId, start);
+			addDOMProducts(response);
 		}
-		
+
 		function getProductsApiUrl(categoryId, start) {
 			var url;
 			if (categoryId === CATEGORY_TYPE_ALL) {
@@ -210,48 +202,32 @@
 			return url;
 		}
 
-		// 상품정보를 서버로부터 불러와 상품영역에 추가해서 넣어줍니다.
-		function addDOMProducts(categoryId, start) {
-			if (isEmpty(categoryId) || isEmpty(start)) {
-				alert("잘못된 입력값입니다.");
-				return;
+		// 전시 상품 리스트에 내용 추가
+		function addDOMProducts(response) {
+			var products = response.products;
+			var totalCount = response.totalCount;
+			var template = document.querySelector("#template-product-list").innerHTML;
+
+			var leftList = productListBox.getElementsByTagName("ul")[0];
+			var rightList = productListBox.getElementsByTagName("ul")[1];
+			for (var i in products) {
+				var resultHTML = parseTemplateToHTML(template, products[i]);
+				// 템플링된 하나의 상품 HTML를 번갈아가며 왼쪽리스트와 오른쪽리스트에  넣어줍니다.
+				if (i % 2) {
+					rightList.innerHTML += resultHTML;
+				} else {
+					leftList.innerHTML += resultHTML;
+				}
 			}
 
-			var url = getProductsApiUrl(categoryId, start);
-			var xhr = getXMLHttpRequest(url);
-			xhr.send();
-
-			xhr.addEventListener("load", function(e) {
-				var response = e.target.response;
-				if (response.isError) {
-					alert(response.errorMsg);
-					return;
-				}
-				var products = response.products;
-				var totalCount = response.totalCount;
-				var template = document.querySelector("#template-product-list").innerHTML;
-
-				var leftList = productListBox.getElementsByTagName("ul")[0];
-				var rightList = productListBox.getElementsByTagName("ul")[1];
-				for (var i in products) {
-					var resultHTML = parseTemplateToHTML(template, products[i]);
-					// 템플링된 하나의 상품 HTML를 번갈아가며 왼쪽리스트와 오른쪽리스트에  넣어줍니다.
-					if (i % 2) {
-						rightList.innerHTML += resultHTML
-					} else {
-						leftList.innerHTML += resultHTML;
-					}
-				}
-
-				setCategoryCount(totalCount);
-				// 더이상 보여줄 데이터가 없는경우 더보기UI disable
-				if (totalCount <= leftList.childElementCount + rightList.childElementCount) {
-					hideMoreButton();
-				}
-			});
+			setCategoryCount(totalCount);
+			// 더이상 보여줄 데이터가 없는경우 더보기UI hide
+			if (totalCount <= leftList.childElementCount + rightList.childElementCount) {
+				hideMoreButton();
+			}
 		}
 
-		// 프로모션 이미지들을 자동으로 슬라딩해줍니다.
+		// 프로모션 이미지 auto 슬라이딩 효과
 		function doAutoSlideShowPromotions() {
 			var imgCount = slideImages.childElementCount;
 			var i = 1;
@@ -274,24 +250,24 @@
 			pink.innerText = count + "개";
 		}
 
-		// tabUI 영역에 이벤트리스너를 등록해줍니다.
-		function registTabUIEvent() {
+		// 카테고리 tabUI 이벤트리스너 등록
+		function registCategoryTabUIEvent() {
 			categoryTabList.addEventListener("click", function(evt) {
 				if (evt.target.tagName === "SPAN") {
-					clickTabUI(evt.target.parentNode.parentNode);
+					clickCategoryTabUI(evt.target.parentNode.parentNode);
 				}
 			});
 		}
 
-		// 카테고리 클릭시 해당 카레고리의 프로덕트를 가져와 DOM에 설정
-		function clickTabUI(categoryTab) {
+		// 카테고리 클릭시 해당 카테고리 상품 출력
+		function clickCategoryTabUI(categoryTab) {
 			var els = categoryTabList.querySelectorAll("a");
 			for (var i=0; i<els.length; i++) {
 				els[i].setAttribute("class", "anchor");
 			}
 			categoryTab.querySelector("a").setAttribute("class", "anchor active");
-			var categoryId = categoryTab.getAttribute("data-category");
-			setDOMProducts(parseInt(categoryId), 0);
+			var categoryId = parseInt(categoryTab.getAttribute("data-category"));
+			loadProductResponse(setDOMProducts, categoryId, 0);
 		}
 
 		// more 버튼 활성화 
@@ -309,9 +285,9 @@
 		// 프로덕트 더보기
 		function moreProducts() {
 			var el = document.querySelector(".active");
-			var categoryId = el.parentNode.getAttribute("data-category");
+			var categoryId = parseInt(el.parentNode.getAttribute("data-category"));
 			var listCount = productListBox.getElementsByTagName("li").length;
-			addDOMProducts(parseInt(categoryId), listCount);
+			loadProductResponse(addDOMProducts, categoryId, listCount);
 		}
 
 		init();
