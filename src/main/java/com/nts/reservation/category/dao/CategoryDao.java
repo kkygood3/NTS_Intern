@@ -14,16 +14,16 @@ import com.nts.reservation.category.dto.Category;
 
 @Repository
 public class CategoryDao {
-		private NamedParameterJdbcTemplate jdbc;
+	private NamedParameterJdbcTemplate jdbc;
 
-		private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
+	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
-		public CategoryDao(DataSource dataSource) {
-			this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-		}
-		
-		public List<Category> selectCategories() {
-			return jdbc.query(CategoryDaoSqls.GET_CATEGORY, rowMapper);
-		}
-	
+	public CategoryDao(DataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	}
+
+	public List<Category> selectCategories() {
+		return jdbc.query(CategoryDaoSqls.GET_CATEGORY, rowMapper);
+	}
+
 }

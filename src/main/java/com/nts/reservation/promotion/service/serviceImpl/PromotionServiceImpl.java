@@ -12,15 +12,15 @@ import com.nts.reservation.promotion.dto.PromotionResponse;
 import com.nts.reservation.promotion.service.PromotionService;
 
 @Service
-public class PromotionServiceImpl implements PromotionService{
+public class PromotionServiceImpl implements PromotionService {
 
 	@Autowired
-	PromotionDao promotionDao;
-	
+	private PromotionDao promotionDao;
+
 	@Override
 	public PromotionResponse getPromotions() {
 		return PromotionResponse.builder()
 			.items(promotionDao.selectAllPromotions()).build();
 	}
-	
+
 }

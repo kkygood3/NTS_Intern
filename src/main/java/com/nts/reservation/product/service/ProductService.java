@@ -8,7 +8,6 @@ import com.nts.reservation.product.dto.ProductResponse;
 
 public interface ProductService {
 	int LIMIT = 4;
-	
+
 	ProductResponse getProductsByCategory(int categoryId, int start);
-	
 }

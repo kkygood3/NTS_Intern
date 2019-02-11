@@ -8,11 +8,11 @@ import com.nts.reservation.category.dto.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	CategoryDao categoryDao;
-	
+	private CategoryDao categoryDao;
+
 	@Override
 	public CategoryResponse getCategories() {
 		return CategoryResponse.builder()

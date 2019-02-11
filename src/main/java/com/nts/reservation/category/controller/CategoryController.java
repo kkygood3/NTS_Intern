@@ -11,12 +11,12 @@ import com.nts.reservation.category.service.CategoryService;
 @RestController
 @RequestMapping(path = "/api")
 public class CategoryController {
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@GetMapping(path = "/categories")
-	public CategoryResponse getCategory(){
+	public CategoryResponse getCategory() {
 		return categoryService.getCategories();
 	}
 }

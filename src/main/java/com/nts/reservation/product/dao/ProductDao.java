@@ -20,7 +20,7 @@ import com.nts.reservation.product.dto.Product;
 
 @Repository
 public class ProductDao {
-	// 이름이 붙여진 파라미터가 들어간 SQL을 호출 (? -> :id로 사용 가능)
+	// TODO 중복되는 code 줄여보기 (NamedParameterJdbcTemplate, Constructor, RowMapper)
 	private NamedParameterJdbcTemplate jdbc;
 
 	public ProductDao(DataSource dataSource) {
@@ -32,11 +32,6 @@ public class ProductDao {
 
 	private static final int ALL_CATEGORIES = 0;
 
-	/**
-	 * category별 product를 가져옴
-	 * @author yongjoon.Park
-	 * @return
-	 */
 	public List<Product> selectProductsByCategory(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
@@ -50,11 +45,6 @@ public class ProductDao {
 		}
 	}
 
-	/**
-	 * category별 product의 개수를 가져옴
-	 * @author yongjoon.Park
-	 * @return
-	 */
 	public int selectProductCountByCategory(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);

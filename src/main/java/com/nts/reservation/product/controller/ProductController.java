@@ -20,14 +20,14 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-	
-	
+
 	@GetMapping(path = "/products")
-	public ProductResponse productList(@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start){
-		
-		if(Validator.isCategoryInvaild(categoryId, start)) {
-			throw new NumberFormatException("BAD_REQUEST!!<br> Please try agin...");
+	public ProductResponse productList(
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+
+		if (Validator.isCategoryInvaild(categoryId, start)) {
+			throw new IllegalAccessError("BAD_REQUEST!! Please try agin...");
 		}
 		return productService.getProductsByCategory(categoryId, start);
 	}

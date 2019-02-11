@@ -27,11 +27,6 @@ public class PromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	/**
-	 * Promotion를 가져옴
-	 * @author yongjoon.Park
-	 * @return
-	 */
 	public List<Promotion> selectAllPromotions() {
 		return jdbc.query(PromotionDaoSqls.GET_PROMOTION, rowMapper);
 	}

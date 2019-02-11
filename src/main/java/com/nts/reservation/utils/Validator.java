@@ -5,17 +5,18 @@
 package com.nts.reservation.utils;
 
 public class Validator {
-	
+	static final int TOTAL_CATEGORY_COUNT = 5;
+
 	public static boolean isCategoryInvaild(int categoryId, int start) {
-		if(categoryId < 0 || categoryId > 5) {
+		if (categoryId < 0 || categoryId > TOTAL_CATEGORY_COUNT) {
 			return true;
 		}
-		
-		if(start < 0) {
+
+		if (start < 0) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 }
