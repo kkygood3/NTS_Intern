@@ -230,6 +230,7 @@
 	<script>
 		var currentTab = 1;
 		var MAX_SWIPE = 2;
+		var PERCENT_COEF = 20;
 		
 		function requestAjax(callback, url) {
 			var ajaxReq = new XMLHttpRequest();
@@ -355,7 +356,7 @@
 			var comments = jsonData.comments;
 			var averageScore = jsonData.averageScore.toFixed(1);
 			
-			//Comment란 Template
+			//Comment Template
 			var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 			var bindCommentTemplate = Handlebars.compile(commentTemplate);
 			
@@ -366,7 +367,7 @@
 			}
 			
 			//별점 그래프, 숫자 조정
-			document.querySelector('em.graph_value').style.width = (averageScore*20)+'%';
+			document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';
 			document.querySelector('.text_value>span').innerText = averageScore;
 			
 			//우측 상단의 Comment 갯수

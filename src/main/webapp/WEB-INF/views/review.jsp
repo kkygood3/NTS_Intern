@@ -75,6 +75,7 @@
 </script>	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 <script>
+	var PERCENT_COEF = 20;
 
 	function requestAjax(callback, url) {
 		var ajaxReq = new XMLHttpRequest();
@@ -109,12 +110,12 @@
 	}
 	
 	function loadDisplayInfoCallback(responseData) {
-		var JsonData = responseData.detailDisplay;
+		var jsonData = responseData.detailDisplay;
 		
-		var averageScore = JsonData.averageScore.toFixed(1);
-		var comments = JsonData.comments;
+		var averageScore = jsonData.averageScore.toFixed(1);
+		var comments = jsonData.comments;
 		
-		//댓글 컨테이너
+		//Comment Template
 		var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 		var bindCommentTemplate = Handlebars.compile(commentTemplate);
 		
@@ -124,8 +125,11 @@
 			commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
 		} 
 		
+		//맨 위 화면의 title
+		document.querySelector('a.title').innerText = jsonData.displayInfo.productDescription;
+		
 		//별점 그래프, 숫자 조정
-		document.querySelector('em.graph_value').style.width = (averageScore*20)+'%';
+		document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';
 		document.querySelector('.text_value>span').innerText = averageScore;
 		
 		//우측 상단의 Comment 갯수
@@ -134,8 +138,7 @@
 
 	document.addEventListener('DOMContentLoaded', function() {
 		//페이지 첫 로딩시 할 일
-
-		//1. 카테고리 목록 가져오기
+		
 		var id = location.href.split('?')[1].split('=')[1];
 		requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
 	});
