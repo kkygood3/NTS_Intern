@@ -13,7 +13,6 @@ function requestAjax(callback, url){
 	ajaxReq.send()
 }
 
-
 function loadCategoriesCallback(responseData){
 	var categoryList = responseData.categoryList;
 	
@@ -28,7 +27,6 @@ function loadCategoriesCallback(responseData){
 	document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
 }
 
-
 function setPromotionMove() {
 	var promotionList = document.querySelectorAll('.visual_img>.item');
 	var leftDistance = 0;
@@ -38,7 +36,6 @@ function setPromotionMove() {
 	setInterval(moveStep, 4000);
 
 	function moveStep(){
-		
 		leftDistance -= 100;
 
 		for (var i = 0; i < itemSize; ++i) {
@@ -62,9 +59,7 @@ function setPromotionMove() {
 				curIdx = 0;
 				leftDistance = 0;
 			}
-			
 		}
-		
 	}
 }
 
@@ -95,12 +90,8 @@ function loadProductsCallback(responseData) {
 	currentStart += 4;
 
 	var itemCount = responseData.productCount;
-	console.log("productItemCount : " + itemCount);
 	var productList = responseData.productList;
-	console.log("productList : " + productList);
-	console.log("productList[0].productImageUrl : " + productList[0].productImageUrl);
 	var template = document.querySelector('#productItem').innerText;
-	console.log("template : " + template);
 	var resultHtml = new Array(2);
 	resultHtml[0] = '';
 	resultHtml[1] = '';
@@ -133,7 +124,6 @@ function mapProductParameters(categoryId, start) {
 
 function setTabClickEvent() {	
 	document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent) {
-	console.log("document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent)");
 
 		var selectedTab = event.target;
 		
@@ -143,12 +133,8 @@ function setTabClickEvent() {
 
 		if (selectedTab.tagName === 'A') {
 			var categoryId = selectedTab.parentElement.getAttribute('data-category');
-			console.log("clickedCategoryId : " + categoryId);
 			
-			//현재 탭과 다른 탭을 클릭했을 때 
 			if (categoryId != currentCategory) {
-				console.log("categoryId != currentCategory");
-				
 				currentCategory = categoryId;
 				currentStart = 0;
 
