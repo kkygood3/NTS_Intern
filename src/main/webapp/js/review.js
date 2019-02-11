@@ -45,6 +45,7 @@ function loadDisplayInfoCallback(responseData) {
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for(var i = 0 ; i < comments.length; i++){
 		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
+		comments[i].productDescription = jsonData.displayInfo.productDescription;
 		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
 	} 
 	

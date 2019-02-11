@@ -132,7 +132,8 @@ function initComment(jsonData){
 	
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for(var i = 0 ; i < 3 && i < comments.length; i++){
-		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
+		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate);
+		comments[i].productDescription = jsonData.displayInfo.productDescription;
 		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
 	}
 	

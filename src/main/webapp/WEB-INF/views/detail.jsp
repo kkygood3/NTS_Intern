@@ -216,7 +216,7 @@
 						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>												
 					</div>
 					{{/if}}
-						<h4 class="resoc_name"></h4>
+						<h4 class="resoc_name">{{productDescription}}</h4>
 						<p class="review">{{comment}}</p>
 					</div>
 					<div class="info_area">
