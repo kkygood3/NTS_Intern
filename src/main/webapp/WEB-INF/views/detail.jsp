@@ -242,6 +242,7 @@
 			ajaxReq.send()
 		}
 		
+		
 		function convertDateFormat(date){
 			var originDate = date.split(' ')[0];
 			var originDateSplited = originDate.split('-');
@@ -262,23 +263,20 @@
 			return resultDate;
 		}
 		
+		
 		function loadDisplayInfoCallback(responseData) {
 			var JsonData = responseData.detailDisplay;
-			JsonData.averageScore = JsonData.averageScore.toFixed(1);
 			
-			var averageScore = JsonData.averageScore;
+			var averageScore = JsonData.averageScore.toFixed(1);
 			var comments = JsonData.comments;
 			var displayInfo = JsonData.displayInfo;
 			var displayInfoImage = JsonData.displayInfoImage;
 			var productImages = JsonData.productImages;
-			var productPrices = JsonData.productPrices;
-			var itemCount = JsonData.totalCount;
-			var promotionList = JsonData.promotionList;
 			
-			//Image Template
-			var imageTemplate = document.querySelector('#bannerImageTemplate').innerText;
-			var bindImageTemplate = Handlebars.compile(imageTemplate);
-			var imageContainer = document.querySelector('ul.detail_swipe');
+			//상단 Swipe Image 배너 Template
+			var swipeTemplate = document.querySelector('#bannerImageTemplate').innerText;
+			var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
+			var swipeContainer = document.querySelector('ul.detail_swipe');
 			
 			
 			var imagePage = document.querySelector('.figure_pagination').querySelector('.num');
@@ -290,7 +288,7 @@
 			if(productImages.length == 1){
 				//이미지가 1개면 띄우고 화살표 없앰
 				JsonData.curSaveFileName = JsonData.productImages[0].saveFileName;
-				imageContainer.innerHTML += bindImageTemplate(JsonData);
+				swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
 				
 				imageAmount.innerText = '1';
 				document.querySelector('.ico_arr6_lt').style.display='none';
@@ -303,7 +301,7 @@
 				//이미지가 2개 이상이면 2개만 띄움
 				for(var idx = 0; idx < 2; idx ++){
 					JsonData.curSaveFileName = JsonData.productImages[idx].saveFileName;
-					imageContainer.innerHTML += bindImageTemplate(JsonData);
+					swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
 				}
 				
 				imageAmount.innerText = '2';
@@ -328,7 +326,7 @@
 				});
 			}
 			
-			imageContainer.innerHTML += bindImageTemplate(JsonData);
+			swipeContainer.innerHTML += bindSwipeTemplate(JsonData);
 			
 			var moreBtnContainer = document.querySelector('div.section_store_details');
 			var openBtn = moreBtnContainer.querySelector('a._open');	
