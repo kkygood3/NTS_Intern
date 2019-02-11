@@ -49,7 +49,7 @@
 	<!-- Error page 설정 -->
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/common/404.jsp</location>
+		<location>/WEB-INF/views/common/error.jsp</location>
 	</error-page>
 
 	<!-- 요청 전/후로 처리 (encoding, url pattern) -->

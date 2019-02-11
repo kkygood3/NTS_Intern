@@ -6,12 +6,15 @@ package com.nts.reservation.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(value = NumberFormatException.class)  
-	public String handleException(NumberFormatException e) {
-		return e.getMessage();
+	@ExceptionHandler(value = IllegalAccessError.class)
+	public ModelAndView handleException500(IllegalAccessError e) {
+		ModelAndView mav = new ModelAndView("common/error");
+		mav.addObject("errorMessage", e.getMessage());
+		return mav;
 	}
 }
