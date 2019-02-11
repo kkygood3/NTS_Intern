@@ -12,7 +12,7 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener("DOMContentLoaded", function() {
 	reviewPage.init();
 });
 

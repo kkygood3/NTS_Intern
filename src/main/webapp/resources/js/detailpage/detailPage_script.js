@@ -12,7 +12,7 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener("DOMContentLoaded", function() {
 	detailPage.init();
 });
 
@@ -70,14 +70,19 @@ var detailPage = {
 		deployBottomData = this.deployBottomData;
 		deployImages = this.deployImages;
 		resizeImageContainer = this.resizeImageContainer;
+		activateBookBtn = this.activateBookBtn;
 		
-	    var url_string = window.location.href;
-	    var url = new URL(url_string);
-	    constants.DISPLAY_INFO_ID = url.searchParams.get("id");
 	    fetchDetailData();
 	    initTab();
+	    activateBookBtn();
 	},
-
+	
+	activateBookBtn : function(){
+		document.querySelector(".bk_btn").addEventListener("click", (e) => {
+			window.location.href = "/reservation/reserve?id="+constants.DISPLAY_INFO_ID;
+		});
+	},
+	
 	initTab : function(){
 		let detailTab = document.querySelector(".detail_area_wrap");
 		let pathTab = document.querySelector(".detail_location");
@@ -111,6 +116,10 @@ var detailPage = {
 	},
 
 	fetchDetailData : function(){
+	    var url_string = window.location.href;
+	    var url = new URL(url_string);
+	    constants.DISPLAY_INFO_ID = url.searchParams.get("id");
+		
 	    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
 	    	state.detail_data = JSON.parse(respText);
 	    	console.log(state.detail_data);
@@ -247,5 +256,5 @@ var detailPage = {
 		}	
 		document.querySelector(".visual_txt_tit span").innerHTML 
 			= state.detail_data.displayInfo.productDescription;
-	},
+	}
 }
