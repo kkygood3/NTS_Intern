@@ -1,11 +1,5 @@
-function sendGetCommentsAjax() {
-	var start = calcLoadedComments();
-	sendGetAjax("./comment_display_info?start="+ start + "&product_id=" + displayInfo.productId, makeCommentList);
-}
-
-function calcLoadedComments() {
-	// TODO: 구현한거아님 해야함
-	return 0
+function sendGetCommentsAjax(start = 0, limit = 3) {
+	sendGetAjax("./comment_display_info?product_id=" + displayInfo.productId + "&start=" + start + "&limit" + limit, makeCommentList);
 }
 
 function makeCommentList(commentDisplayInfos) {
@@ -21,11 +15,30 @@ function makeCommentList(commentDisplayInfos) {
 	});
 
 	var ul = document.getElementsByClassName("list_short_review")[0];
-	ul.innerHTML = innerHtml;
+	ul.innerHTML += innerHtml;
+	
+
+	if(endOfProducts(displayInfo.commentCount)) {
+		setMoreButtonVisibility("hidden");
+	}
 }
 
-function endOfComments(productCount) {
+function calcLoadedComments() {
+	var ul = document.getElementsByClassName("list_short_review")[0];
+	return ul.childElementCount;
 }
+
 
 function setMoreButtonVisibility(visibility) {
+	var moreButton = document.querySelector(".more > .btn");
+	moreButton.style.visibility = visibility;
+}
+
+
+function endOfProducts(commentCount) {
+	if (calcLoadedComments() == commentCount) {
+		return true;
+	} else {
+		return false;
+	}
 }
