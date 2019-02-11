@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nts.reservation.dao", "com.nts.reservation.service"})
+@ComponentScan(basePackages = {"com.nts.reservation"})
 @Import({DbConfig.class})
 public class ApplicationConfig {
 
