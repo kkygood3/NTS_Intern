@@ -15,26 +15,23 @@ function eventListClear(){
  * @description : get method로 Category List를 요청
  */
 function categoryListRequest(){
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/api/categories", true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState==4 && xhr.status==200){
-			appendTabList(JSON.parse(xhr.responseText).items);
-		}
+	var request = {
+			method:"GET",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:"";
 	}
-
-	xhr.send();
-	
+	var uri = "/api/categories";
+	sendRequest(request, uri, appendTabList);
 }
 
 /**
  * @description : 수신된 Category List를 HTML의 Tab UL에 추가
  */
-function appendTabList(items){
+function appendTabList(categories){
 	var tabUl = document.querySelector("#category_list");
 	var tabListHTML = document.querySelector("#tabList").innerText;
+	
+	var items = categories.items;
 	
 	var allCategories = {
 			"count" : "${count}",

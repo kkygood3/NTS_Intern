@@ -1,15 +1,12 @@
 function displayInfoRequest(callBack, displayInfoId){
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/api/products/" + displayInfoId, true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	xhr.onreadystatechange = () => {
-		if(xhr.readyState==4 && xhr.status==200){
-			callBack(JSON.parse(xhr.responseText));
-		}
-	}
 	
-	xhr.send();
+	var request = {
+			method:"GET",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:"";
+	}
+	var requestUri = "/api/products/" + displayInfoId;
+	sendRequest(request, requestUri, callBack);
 }
 
 

@@ -8,26 +8,24 @@ var moreButton = document.querySelector("#more_button");
  * @description : get method로 Product List를 요청
  */
 function productListRequest(categoryId, start){
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "/api/products"+"?categoryId=" + categoryId + "&start=" + start, true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState==4 && xhr.status==200){
-			appendProductList(JSON.parse(xhr.responseText).items);
-		}
+	var request = {
+			method:"GET",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:"";
 	}
-
-	xhr.send();
+	var uri = "/api/products" + "?categoryId=" + categoryId + "&start=" + start;
+	sendRequest(request, uri, appendProductList);
 }
 
 
 /**
  * @description : 수신된 Product List를 HTML의 Tab UL에 추가
  */
-function appendProductList(items){
+function appendProductList(products){
 	var productUl = document.querySelector("#wrap_lst_event_box").getElementsByTagName("UL");
 	var appendProductHTML = document.querySelector("#itemList").innerText;
+	
+	var items = products.items;
 	
 	for(var i=0, len=items.length;i<len;i++){
 		var li = replaceTemplateHTML(items[i], appendProductHTML);
