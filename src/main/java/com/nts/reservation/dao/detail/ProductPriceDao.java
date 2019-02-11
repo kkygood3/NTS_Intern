@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.queries.ProductPriceQueries;
 import com.nts.reservation.dto.detail.ProductPrice;
+import com.nts.reservation.queries.detail.ProductPriceQueries;
 
 @Repository
 public class ProductPriceDao {

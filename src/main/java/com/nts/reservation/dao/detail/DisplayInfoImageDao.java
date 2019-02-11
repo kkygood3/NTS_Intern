@@ -10,8 +10,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.queries.DisplayInfoImageQueries;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.queries.detail.DisplayInfoImageQueries;
 
 @Repository
 public class DisplayInfoImageDao {

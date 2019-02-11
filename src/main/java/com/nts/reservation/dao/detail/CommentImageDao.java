@@ -11,8 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.queries.CommentImageQueries;
 import com.nts.reservation.dto.detail.CommentImage;
+import com.nts.reservation.queries.detail.CommentImageQueries;
 
 @Repository
 public class CommentImageDao {
