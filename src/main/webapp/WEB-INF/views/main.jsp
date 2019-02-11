@@ -44,7 +44,7 @@
                         <div>
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-                                <ul class="visual_img">
+                                <ul class="visual_img transition">
                                 </ul>
                             </div>
                             <span class="nxt_fix" style="display:none;"></span>

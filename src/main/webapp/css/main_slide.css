@@ -4,11 +4,12 @@
 	box-sizing: border-box;
 }
 .visual_img {
-	left: 0;
+	left: -414px;
 	top: 0;
 	list-style: none;
-	transform: left(-414px);
-	transition: left 1s;
+}
+.transition {
+	transition: left 2s;	
 }
 .visual_img .item {
 	width: 414px;

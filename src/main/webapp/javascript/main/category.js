@@ -1,5 +1,5 @@
 function sendGetCategorissAjax() {
-	sendGETAjax("./category", makeCategoryBar);
+	sendGetAjax("./category", makeCategoryBar);
 }
 
 function makeCategoryBar(categoris) {

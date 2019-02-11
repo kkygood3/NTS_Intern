@@ -1,4 +1,4 @@
-function addButtonClickEvent() {
+function addMoreButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener("click", function(event){
 		var categoryId = moreButton.value;
@@ -17,6 +17,7 @@ function addCategoryClickEvent() {
 		changeCategoryInfo(categoryId);
 		deleteAllThumbnail();
 		sendGetThumbnailsAjax(categoryId);
+		setMoreButtonVisibility("visible");
 	});
 }
 

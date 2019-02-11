@@ -1,6 +1,6 @@
 function sendGetThumbnailsAjax(categoryId = 0) {
 	var start = calcLoadedThumbnails();
-	sendGETAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setCounterAndMakeProductList);
+	sendGetAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setSectionEventLst);
 }
 
 function calcLoadedThumbnails() {
@@ -36,12 +36,16 @@ function makeThumbnailList(thumbnailInfos) {
 	});
 }
 
-function setCounterAndMakeProductList(thumbnailInfos) {
+function setSectionEventLst(thumbnailInfos) {
 	if (!thumbnailInfos) {
 		return false;
 	}
-	setCounterBar(thumbnailInfos.product_count);
-	makeThumbnailList(thumbnailInfos.thumbnail_info_list);
+	var productCount = thumbnailInfos.productCount;
+	setCounterBar(productCount);
+	makeThumbnailList(thumbnailInfos.thumbnailInfoList);
+	if(endOfProducts(productCount)) {
+		setMoreButtonVisibility("hidden");
+	}
 }
 
 function deleteAllThumbnail() {
@@ -49,4 +53,17 @@ function deleteAllThumbnail() {
 	for (let ul of uls) {
 		ul.innerHTML = "";
 	}
+}
+
+function endOfProducts(productCount) {
+	if (calcLoadedThumbnails() == productCount) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function setMoreButtonVisibility(visibility) {
+	var moreButton = document.querySelector(".more > .btn");
+	moreButton.style.visibility = visibility;
 }

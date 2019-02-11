@@ -1,5 +1,5 @@
 function sendGetPromotionsAjax() {
-	sendGETAjax("./promotion", makePromotionSlideHTML);
+	sendGetAjax("./promotion", makePromotionSlideHTML);
 }
 
 function makePromotionSlideHTML(promotions) {
@@ -10,28 +10,32 @@ function makePromotionSlideHTML(promotions) {
 		
 	var resultHTML = "";
 	promotions.forEach((promotion) => {
-		resultHTML += html.replace("{sava_file_name_list}", promotion.save_file_name);
+		resultHTML += html.replace("{sava_file_name_list}", promotion.saveFileName);
 	});
 
 	var ul = document.getElementsByClassName("visual_img")[0];
 	ul.innerHTML = resultHTML;
-	ul.style.width = (100*promotions.length) + "%";
+	ul.style.width = (100 * promotions.length) + "%";
 	readyToSlide = true;
 }
 
-function makePromotionSlide() {
-	var ul = document.getElementsByClassName("visual_img")[0];
-	var time = 0;
+function makePromotionSlide(numOfPromotionImgs) {
 	const interval = window.setInterval(()=> {
-		if (readyToSlide){
-//				if (time == 400) {
-//					time = 0;
-//					var firstLi = ul.firstElementChild;
-//					ul.appendChild(firstLi);
-//					ul.style.left = 0;
-//				} else {
-//					ul.style.left = Math.log(time++/40+1)*-173 + "px";
-//				}
-		}
-	}, 1000);
+		runSlide();
+	}, 5000);
+}
+
+function runSlide() {
+	if (readyToSlide){
+		var ul = document.getElementsByClassName("visual_img")[0];
+		ul.className = "visual_img";
+		ul.style.left = 0;
+		var firstLi = ul.firstElementChild;
+		ul.appendChild(firstLi);
+
+		window.setTimeout(()=> {
+			ul.className = "visual_img transition";
+			ul.style.left = "-414px";
+		}, 1000);
+	}
 }
