@@ -26,7 +26,7 @@ public class CommentServiceTest {
 
 	@Test
 	public void getProductDisplayCommentsInfoTest() {
-		CommentListInfo commentsInfo = commentService.getCommentListInfo(1, CommentService.NOT_LIMITED);
+		CommentListInfo commentsInfo = commentService.getCommentListInfo(1, CommentService.COUNT_NOT_LIMITED);
 		System.out.println(commentsInfo);
 	}
 

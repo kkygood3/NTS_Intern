@@ -29,16 +29,25 @@ public class CommentDao {
 	@Autowired
 	private RowMapper<CommentMetaData> commentMetaDataMapper;
 
+	/**
+	 * 특정 display의 전체 comment 목록 반환
+	 */
 	public List<Comment> getCommentList(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL, param, commentMapper);
 	}
 
+	/**
+	 * 특정 display의 갯수제한된 comment 목록 반환
+	 */
 	public List<Comment> getLimitedCommentList(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT, param, commentMapper);
 	}
 
+	/**
+	 * 특정 display의 comment 관련정보 반환 (평균점수, 총댓글 갯수)
+	 */
 	public CommentMetaData getCommentMetaData(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_META_DATA, param, commentMetaDataMapper);

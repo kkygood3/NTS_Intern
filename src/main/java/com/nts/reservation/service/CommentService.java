@@ -12,8 +12,8 @@ import com.nts.reservation.model.CommentListInfo;
 
 public interface CommentService {
 
-	static final boolean LIMITED = true;
-	static final boolean NOT_LIMITED = false;
+	static final boolean COUNT_LIMITED = true;
+	static final boolean COUNT_NOT_LIMITED = false;
 
 	CommentListInfo getCommentListInfo(int displayInfoId, boolean limit);
 

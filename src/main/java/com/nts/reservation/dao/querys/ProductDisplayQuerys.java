@@ -6,6 +6,8 @@ package com.nts.reservation.dao.querys;
 
 public class ProductDisplayQuerys {
 
+	private static final int LIMIT_COUNT = 2;
+
 	public static final String SELECT_PRODUCT_DISPLAY = "select p.id as product_id"
 		+ ", p.description as product_description"
 		+ ", p.content as product_content"
@@ -30,5 +32,5 @@ public class ProductDisplayQuerys {
 		+ "and i.file_id = f.id "
 		+ "and i.type in ('ma', 'et') "
 		+ "and d.id = :displayInfoId "
-		+ "limit 2";
+		+ " limit " + LIMIT_COUNT;
 }

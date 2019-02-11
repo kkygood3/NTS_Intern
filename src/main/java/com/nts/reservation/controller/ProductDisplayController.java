@@ -24,10 +24,13 @@ public class ProductDisplayController {
 	@Autowired
 	private CommentService commentService;
 
+	/**
+	 * 특정 diplayInfoId의 display정보, comment정보를 가진 객체를 응답
+	 */
 	@GetMapping(value = {"/api/products/{displayInfoId}"})
 	public ProductDisplayResponse getProductDisplayResponse(@PathVariable int displayInfoId) {
 		ProductDisplay productDisplay = productDisplayService.getProductDisplay(displayInfoId);
-		CommentListInfo commentsInfo = commentService.getCommentListInfo(displayInfoId, CommentService.LIMITED);
+		CommentListInfo commentsInfo = commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_LIMITED);
 
 		return new ProductDisplayResponse(productDisplay, commentsInfo);
 	}

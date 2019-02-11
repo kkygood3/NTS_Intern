@@ -19,6 +19,9 @@ public class ProductDisplayServiceLogic implements ProductDisplayService {
 	@Autowired
 	private ProductDisplayDao productDisplayDao;
 
+	/**
+	 * 특정 displayInfo 정보와 관련 이미지 url 목록을 dao에서 받아 조합하여 반환 
+	 */
 	@Override
 	public ProductDisplay getProductDisplay(int displayInfoId) {
 		ProductDisplay productDisplay = productDisplayDao.getProductDisplay(displayInfoId);

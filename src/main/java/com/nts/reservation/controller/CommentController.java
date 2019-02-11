@@ -20,9 +20,12 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	/**
+	 * 특정 displayInfoId의 comment 목록 응답 
+	 */
 	@GetMapping(value = {"/api/products/{displayInfoId}/comments"})
 	public CommentListInfo getCommentsInfo(@PathVariable int displayInfoId) {
-		return commentService.getCommentListInfo(displayInfoId, CommentService.NOT_LIMITED);
+		return commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_NOT_LIMITED);
 	}
 
 }

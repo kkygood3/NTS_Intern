@@ -11,6 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProductDisplayDetailController {
 
+	/**
+	 * 상품 상세 페이지 호출
+	 */
 	@GetMapping(value = {"/product-display"})
 	public ModelAndView productDisplayDetailPage(ModelAndView mv, int displayInfoId) {
 		mv.addObject("displayInfoId", displayInfoId);
@@ -18,6 +21,9 @@ public class ProductDisplayDetailController {
 		return mv;
 	}
 
+	/**
+	 * 특정 상품의 한줄평 페이지 호출
+	 */
 	@GetMapping(value = {"/product-display/comments"})
 	public ModelAndView productDisplayCommentListPage(ModelAndView mv, int displayInfoId) {
 		mv.addObject("displayInfoId", displayInfoId);

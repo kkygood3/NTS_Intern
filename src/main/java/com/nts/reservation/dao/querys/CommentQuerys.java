@@ -6,6 +6,8 @@ package com.nts.reservation.dao.querys;
 
 public class CommentQuerys {
 
+	private static final int LIMIT_COUNT = 3;
+
 	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL = "select p.description as product_description"
 		+ ", ri.reservation_date as reservation_date"
 		+ ", substr(ri.reservation_email, 1, 4) as reservation_email"
@@ -24,7 +26,7 @@ public class CommentQuerys {
 		+ "where ri.display_info_id = :displayInfoId";
 
 	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT = SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL
-		+ " limit 3";
+		+ " limit " + LIMIT_COUNT;
 
 	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_META_DATA = "select ifnull(avg(score), 0) as average_score"
 		+ ", count(*) as total_count "
