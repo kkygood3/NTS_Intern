@@ -40,6 +40,8 @@ public class ProductDao {
 	}
 
 	public List<Product> selectProductsByCategory(long categoryId, long start, long limit) {
+		System.out.println("categoryId : " + categoryId);
+
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);

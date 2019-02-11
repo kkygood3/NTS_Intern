@@ -17,7 +17,7 @@ function requestAjax(callback, url){
 function loadCategoriesCallback(responseData){
 	var categoryList = responseData.categoryList;
 	
-	var template = document.querySelector('script#categoryItem').innerHTML;
+	var template = document.querySelector('#categoryItem').innerHTML;
 	var resultHtml = '';
 	for(var i = 0 ; i < categoryList.length; i++){
 		resultHtml += template
@@ -89,10 +89,9 @@ function setPromotionMove() {
 
 function loadPromotionsCallback(responseData) {
 	var itemCount = responseData.promotionCount;
-	console.log("promotionItemCount : " + itemCount);
 	var promotionList = responseData.promotionList;
 
-	var template = document.querySelector('script#promotionItem').innerHTML;
+	var template = document.querySelector('#promotionItem').innerHTML;
 	var resultHtml = '';
 	for (var i = 0; i < promotionList.length; i++) {
 		resultHtml += template
@@ -117,8 +116,10 @@ function loadProductsCallback(responseData) {
 	var itemCount = responseData.productCount;
 	console.log("productItemCount : " + itemCount);
 	var productList = responseData.productList;
-
-	var template = document.querySelector('script#productItem').innerText;
+	console.log("productList : " + productList);
+	console.log("productList[0].productImageUrl : " + productList[0].productImageUrl);
+	var template = document.querySelector('#productItem').innerText;
+	console.log("template : " + template);
 	var resultHtml = new Array(2);
 	resultHtml[0] = '';
 	resultHtml[1] = '';
@@ -149,8 +150,10 @@ function mapProductParameters(categoryId, start) {
 	return 'products?categoryId=' + categoryId + '&start=' + start;
 }
 
-function setTabClickEvent() {
+function setTabClickEvent() {	
 	document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent) {
+	console.log("document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent)");
+
 		var selectedTab = event.target;
 		
 		if (selectedTab.tagName === 'SPAN') {
@@ -159,9 +162,12 @@ function setTabClickEvent() {
 
 		if (selectedTab.tagName === 'A') {
 			var categoryId = selectedTab.parentElement.getAttribute('data-category');
+			console.log("clickedCategoryId : " + categoryId);
 			
 			//현재 탭과 다른 탭을 클릭했을 때 
 			if (categoryId != currentCategory) {
+				console.log("categoryId != currentCategory");
+				
 				currentCategory = categoryId;
 				currentStart = 0;
 

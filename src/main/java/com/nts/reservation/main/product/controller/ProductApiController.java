@@ -32,10 +32,8 @@ public class ProductApiController {
 
 		List<Product> productList = new ArrayList<>();
 		int productCount = productService.getProductsCountByCategoryId(categoryId);
-		//
-		System.out.println("productCount : " + productCount);
-		if (productCount != 0) {
-			productList = productService.getProducts(start);
+		if (productCount > 0) {
+			productList = productService.getProducts(categoryId, start);
 		}
 
 		Map<String, Object> map = new HashMap<>();
