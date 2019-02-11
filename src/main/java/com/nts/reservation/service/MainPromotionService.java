@@ -13,7 +13,7 @@ public interface MainPromotionService {
 	 * @value	100 
 	 */
 	Integer LIMIT = 100;
-	
+
 	/**
 	 * api/promotions response에 사용
 	 * @return default LIMIT만큼 조회하여 반환

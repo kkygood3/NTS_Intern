@@ -16,14 +16,14 @@ import com.nts.reservation.service.MainPromotionService;
 public class PromotionApiController {
 	@Autowired
 	private MainPromotionService mainPromotionService;
-	
+
 	/**
 	 * /api/promotions 요청을 받아 메인 페이지에 프로모션 정보를 출력
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/promotions")
 	public Map<String, Object> promotions() {
-		
+
 		List<MainPromotion> promotionList = new ArrayList<>();
 		int totalCount = mainPromotionService.getCount();
 

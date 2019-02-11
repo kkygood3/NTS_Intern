@@ -15,7 +15,7 @@ import com.nts.reservation.service.MainCategoryService;
 public class CategoryApiController {
 	@Autowired
 	private MainCategoryService mainCategoryService;
-	
+
 	/**
 	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력
 	 * @return	JSON text

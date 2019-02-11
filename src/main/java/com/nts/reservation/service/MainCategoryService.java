@@ -13,7 +13,7 @@ public interface MainCategoryService {
 	 * @value	10
 	 */
 	Integer LIMIT = 10;
-	
+
 	/**
 	 * api/categories response에 사용
 	 * @return MainCategory List

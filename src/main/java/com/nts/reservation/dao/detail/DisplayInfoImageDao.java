@@ -21,7 +21,7 @@ public class DisplayInfoImageDao {
 	public DisplayInfoImageDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
-	
+
 	public DisplayInfoImage selectDisplayInfoImageById(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

@@ -17,7 +17,7 @@ import com.nts.reservation.service.MainProductService;
 public class ProductApiController {
 	@Autowired
 	private MainProductService mainProductService;
-	
+
 	/**
 	 * /api/products 요청을 받아 메인 페이지에 상품정보를 출력
 	 * @param	categoryId	해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음

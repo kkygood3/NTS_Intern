@@ -38,7 +38,7 @@ public class Comment {
 		return commentImage;
 	}
 
-	public void setCommentImage(CommentImage commentImage) {		
+	public void setCommentImage(CommentImage commentImage) {
 		this.commentImage = commentImage;
 	}
 

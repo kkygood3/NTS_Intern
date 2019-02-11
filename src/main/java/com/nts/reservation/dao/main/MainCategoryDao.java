@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dao;
+package com.nts.reservation.dao.main;
 
 import java.util.HashMap;
 import java.util.List;

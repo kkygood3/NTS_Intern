@@ -1,6 +1,5 @@
 package com.nts.reservation.dao.detail;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class CommentImageDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("commentId", commentId);
 		List<CommentImage> commentImageList = jdbc.query(CommentImageQueries.SELECT_COMMENT_IMAGE, params, rowMapper);
-		
+
 		if (commentImageList.size() > 0) {
 			return commentImageList.get(0);
 		} else {

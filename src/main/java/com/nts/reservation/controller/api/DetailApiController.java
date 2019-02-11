@@ -22,7 +22,7 @@ public class DetailApiController {
 	 */
 	@GetMapping("/api/products/{displayInfoId}")
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId) {
-		
+
 		DetailResponse detailDisplay = detailDisplayService.getDetailDisplay(displayInfoId);
 		Map<String, Object> map = new HashMap<>();
 		map.put("detailDisplay", detailDisplay);

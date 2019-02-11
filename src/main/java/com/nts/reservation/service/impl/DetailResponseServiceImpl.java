@@ -44,14 +44,14 @@ public class DetailResponseServiceImpl implements DetailResponseService {
 		List<ProductImage> productImages = productImageDao.selectProductImageByProductId(productId);
 		List<ProductPrice> productPrices = productPriceDao.selectProductPriceByProductId(productId);
 
-		
 		List<Comment> comments = commentDao.selectCommentByProductId(productId);
-		for(Comment comment : comments) {
+		for (Comment comment : comments) {
 			int commentId = comment.getCommentId();
 			comment.setCommentImage(commentImageDao.selectCommentImageByCommentId(commentId));
 		}
-		
-		return new DetailResponse(commentDao.selectAvgScoreByProductId(productId), comments, displayInfo, displayInfoImage, productImages, productPrices);
+
+		return new DetailResponse(commentDao.selectAvgScoreByProductId(productId), comments, displayInfo,
+			displayInfoImage, productImages, productPrices);
 	}
 
 }

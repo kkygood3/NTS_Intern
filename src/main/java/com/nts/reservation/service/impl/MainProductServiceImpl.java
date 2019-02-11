@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.dao.MainProductDao;
+import com.nts.reservation.dao.main.MainProductDao;
 import com.nts.reservation.dto.MainProduct;
 import com.nts.reservation.service.MainProductService;
 

@@ -75,5 +75,5 @@ public class ProductPrice {
 			+ modifyDate + ", price=" + price + ", priceTypeName=" + priceTypeName + ", productId=" + productId
 			+ ", productPriceId=" + productPriceId + "]";
 	}
-	
+
 }
