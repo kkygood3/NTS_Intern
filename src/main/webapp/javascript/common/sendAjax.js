@@ -1,4 +1,4 @@
-function sendGETAjax(url, action) {
+function sendGetAjax(url, action) {
 	var httpRequest = new XMLHttpRequest();
 	
 	if(!httpRequest) {

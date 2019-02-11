@@ -1,6 +1,6 @@
 function sendGetCommentsAjax() {
 	var start = calcLoadedComments();
-	sendGETAjax("./comment_display_info?start="+ start + "&product_id=" + displayInfo.productId, makeCommentList);
+	sendGetAjax("./comment_display_info?start="+ start + "&product_id=" + displayInfo.productId, makeCommentList);
 }
 
 function calcLoadedComments() {
