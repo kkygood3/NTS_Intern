@@ -73,6 +73,9 @@ function setProductImages(productImages, productDescription){
 	if(productImageLength === 1){
 		document.querySelector('.prev').remove();
 		document.querySelector('.nxt').remove();
+		
+		document.querySelector('.product_images_ul').firstElementChild.classList.remove('single_slide');
+
 	} else {
 		var productImagesUl = document.querySelector('.product_images_ul');
 		
