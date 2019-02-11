@@ -32,10 +32,10 @@
                 <div class="section_visual">
                     <header>
                         <h1 class="logo">
-                            <a class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a href="/main" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                            <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a href="#" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
                     <div id="display_img_page" class="pagination">
                         <div class="bg_pagination"></div>
@@ -200,11 +200,11 @@
     <script type="text/template" id="comment_template" class="template" data-parse-name="Comment">
 		<li class="list_item">
 			<div>
-				<div class="review_area {{#unless commentImageUrl}}no_img{{/unless}}">
-					{{#if commentImageUrl}}
+				<div class="review_area{{#unless commentImageUrlList}} no_img{{/unless}}">
+					{{#if commentImageUrlList}}
 					<div class="thumb_area">
 						<a class="thumb" title="이미지 크게 보기">
-							<img width="90" height="90" class="img_vertical_top" src="/resources/{{commentImageUrl}}" alt="리뷰이미지">
+							<img width="90" height="90" class="img_vertical_top" src="/resources/{{commentImageUrlList.[0]}}" alt="리뷰이미지">
 						</a>
 						<span class="img_count" style="display:none;">1</span>
 					</div>

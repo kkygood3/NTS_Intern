@@ -4,11 +4,17 @@
  */
 package com.nts.reservation.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,7 +40,7 @@ public class CommentDao {
 	 */
 	public List<Comment> getCommentList(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL, param, commentMapper);
+		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL, param, getCommentListResultSetExtractor());
 	}
 
 	/**
@@ -42,7 +48,7 @@ public class CommentDao {
 	 */
 	public List<Comment> getLimitedCommentList(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT, param, commentMapper);
+		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT, param, getCommentListResultSetExtractor());
 	}
 
 	/**
@@ -53,4 +59,29 @@ public class CommentDao {
 		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_META_DATA, param, commentMetaDataMapper);
 	}
 
+	/**
+	 * db에서 얻어온 resultset의 comment image url을 comment 객체 img url list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
+	 */
+	private ResultSetExtractor<List<Comment>> getCommentListResultSetExtractor() {
+		return new ResultSetExtractor<List<Comment>>() {
+			@Override
+			public List<Comment> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<Integer, Comment> commentMap = new HashMap<>();
+				while (rs.next()) {
+					int commentId = rs.getInt("comment_id");
+
+					if (!commentMap.containsKey(commentId)) {
+						commentMap.put(commentId, commentMapper.mapRow(rs, rs.getRow()));
+					}
+
+					String commentImageUrl = rs.getString("comment_image_url");
+					if (commentImageUrl != null) {
+						commentMap.get(commentId).getCommentImageUrlList().add(commentImageUrl);
+					}
+
+				}
+				return new ArrayList<>(commentMap.values());
+			}
+		};
+	}
 }

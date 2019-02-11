@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Comment {
 
 	private String productDescription;
@@ -11,13 +14,17 @@ public class Comment {
 	private String reservationEmail;
 	private String comment;
 	private int score;
-	private String commentImageUrl;
+	private List<String> commentImageUrlList;
+
+	public Comment() {
+		commentImageUrlList = new ArrayList<>();
+	}
 
 	@Override
 	public String toString() {
 		return "Comment [productDescription=" + productDescription + ", reservationDate=" + reservationDate
 			+ ", reservationEmail=" + reservationEmail + ", comment=" + comment + ", score=" + score
-			+ ", commentImageUrl=" + commentImageUrl + "]";
+			+ ", commentImageUrlList=" + commentImageUrlList + "]";
 	}
 
 	public String getProductDescription() {
@@ -60,12 +67,11 @@ public class Comment {
 		this.score = score;
 	}
 
-	public String getCommentImageUrl() {
-		return commentImageUrl;
+	public List<String> getCommentImageUrlList() {
+		return commentImageUrlList;
 	}
 
-	public void setCommentImageUrl(String commentImageUrl) {
-		this.commentImageUrl = commentImageUrl;
+	public void setCommentImageUrlList(List<String> commentImageUrlList) {
+		this.commentImageUrlList = commentImageUrlList;
 	}
-
 }

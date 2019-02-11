@@ -14,5 +14,5 @@ template = {
 		Handlebars.registerHelper('formattingDate', (date) =>{
 			return date.substr(startIndex, length);
 		});
-	}
+	},
 }
