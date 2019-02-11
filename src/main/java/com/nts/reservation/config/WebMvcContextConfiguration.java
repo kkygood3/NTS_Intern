@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nts.reservation"})
+@ComponentScan
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	// 1 년 == 31556926 초
