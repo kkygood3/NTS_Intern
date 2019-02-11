@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.detail.DetailResponse;
-import com.nts.reservation.service.DetailResponseService;
+import com.nts.reservation.service.detail.DetailResponseService;
 
 @RestController
 public class DetailApiController {

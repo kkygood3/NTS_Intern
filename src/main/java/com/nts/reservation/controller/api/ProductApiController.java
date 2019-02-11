@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.MainProduct;
-import com.nts.reservation.service.MainProductService;
+import com.nts.reservation.dto.main.MainProduct;
+import com.nts.reservation.service.main.MainProductService;
 
 @RestController
 public class ProductApiController {

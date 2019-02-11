@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.MainCategory;
-import com.nts.reservation.service.MainCategoryService;
+import com.nts.reservation.dto.main.MainCategory;
+import com.nts.reservation.service.main.MainCategoryService;
 
 @RestController
 public class CategoryApiController {

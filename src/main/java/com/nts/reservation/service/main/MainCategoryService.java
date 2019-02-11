@@ -2,11 +2,11 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service;
+package com.nts.reservation.service.main;
 
 import java.util.List;
 
-import com.nts.reservation.dto.MainCategory;
+import com.nts.reservation.dto.main.MainCategory;
 
 public interface MainCategoryService {
 	/**

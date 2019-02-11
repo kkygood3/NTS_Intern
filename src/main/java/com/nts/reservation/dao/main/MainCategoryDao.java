@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.MainCategory;
+import com.nts.reservation.dto.main.MainCategory;
 import com.nts.reservation.queries.main.MainCategoryQueries;
 
 /**

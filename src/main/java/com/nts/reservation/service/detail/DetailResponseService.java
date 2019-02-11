@@ -1,4 +1,4 @@
-package com.nts.reservation.service;
+package com.nts.reservation.service.detail;
 
 import com.nts.reservation.dto.detail.DetailResponse;
 

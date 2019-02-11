@@ -2,12 +2,12 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.main;
 
 /**
- * 메인 페이지 출력을 위한 /api/promotions 요청을 위한 DTO 
+ * 메인 페이지 출력을 위한 /api/products 요청을 위한 DTO 
  */
-public class MainPromotion {
+public class MainProduct {
 	private long displayInfoId;
 	private String placeName;
 	private String productContent;

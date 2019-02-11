@@ -1,4 +1,4 @@
-package com.nts.reservation.service.impl;
+package com.nts.reservation.service.impl.detail;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import com.nts.reservation.dto.detail.DisplayInfo;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.detail.ProductImage;
 import com.nts.reservation.dto.detail.ProductPrice;
-import com.nts.reservation.service.DetailResponseService;
+import com.nts.reservation.service.detail.DetailResponseService;
 
 @Service
 public class DetailResponseServiceImpl implements DetailResponseService {

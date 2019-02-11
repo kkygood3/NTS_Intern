@@ -1,4 +1,4 @@
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.main;
 
 /**
  * 메인 페이지 출력을 위한 /api/categories 요청을 위한 DTO 
