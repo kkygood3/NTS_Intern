@@ -37,6 +37,7 @@
                     <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+                
             </header>
         </div>
         <div class="ct main">
@@ -48,6 +49,10 @@
                             <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <div class="img_bg">
+								<h2 class="visual_txt_tit"><span>${description}</span></h2>
+                        </div>
+						
                     </header>
 
 					<!-- content -->
@@ -180,22 +185,12 @@
 			<ul class="visual_img detail_swipe" style="left:0;">
 				<li class="item" style="width: 414px;">
 					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
-					<span class="img_bg"></span>
-					<div class="visual_txt">
-						<div class="visual_txt_inn">
-							<h2 class="visual_txt_tit"><span>${description}</span></h2>
-						</div>
-					</div>
+
 				</li>
 				{{#if etcImage}}
 				<li class="item" style="width: 414px;">
 					<img alt="" class="img_thumb" src="./{{etcImage}}">
-					<span class="img_bg"></span>
-					<div class="visual_txt">
-						<div class="visual_txt_inn">
-							<h2 class="visual_txt_tit"><span>${description}</span></h2>
-						</div>
-					</div>
+					
 				</li>
 				{{/if}}
 			</ul>
