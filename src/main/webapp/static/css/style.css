@@ -3825,7 +3825,7 @@ button {
 
 .single_slide {
     position: absolute;
-    left: 100%;
+    left: 100%;    
 }
 
 @keyframes slide_in {
