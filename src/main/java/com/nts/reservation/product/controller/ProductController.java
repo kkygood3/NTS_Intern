@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
-import com.nts.reservation.utils.Validator;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -21,14 +20,19 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	// 한번에 많은 양의 db조회를 막기 위함
+	private static final int MAX_LIMIT = 20;
+
 	@GetMapping(path = "/products")
 	public ProductResponse productList(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (Validator.isCategoryInvaild(categoryId, start)) {
-			throw new IllegalAccessError("BAD_REQUEST!! Please try agin...");
+		if (limit > MAX_LIMIT) {
+			limit = MAX_LIMIT;
 		}
-		return productService.getProductsByCategory(categoryId, start);
+
+		return productService.getProductsByCategory(categoryId, start, limit);
 	}
 }
