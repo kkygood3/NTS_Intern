@@ -22,39 +22,43 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProducts(long categoryId, long start) {
+	public List<Product> getProducts(int categoryId, int start) {
 		//오류 던지는 게 낫다
 		if (start < 0) {
 			//throw error
 		}
-
-		if (categoryId > 0) {
-			return productDao.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
+		if (isAllCategories(categoryId)) {
+			return getProducts(start);
 		}
-		return getProducts(start);
+		return productDao.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
 	}
 
 	@Override
-	public List<Product> getProducts(long start) {
+	public List<Product> getProducts(int start) {
 		//오류 던지는 게 낫다
 		if (start < 0) {
 			//throw error
 		}
-
 		return productDao.selectProducts(start, PRODUCT_LIMIT);
 	}
 
 	@Override
 	public int getProductsCountByCategoryId(int categoryId) {
-		if (categoryId > 0) {
-			return productDao.selectProductsCountByCategory(categoryId);
-		} else {
+		if (isAllCategories(categoryId)) {
 			return getProductsCount();
 		}
+		return productDao.selectProductsCountByCategory(categoryId);
 	}
 
 	@Override
 	public int getProductsCount() {
 		return productDao.selectProductsCount();
+	}
+
+	private boolean isAllCategories(int categoryId) {
+		if (categoryId == 0) {
+			return true;
+		}
+		return false;
 	}
 }
