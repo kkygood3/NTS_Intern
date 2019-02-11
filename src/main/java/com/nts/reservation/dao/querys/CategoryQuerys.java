@@ -6,8 +6,13 @@ package com.nts.reservation.dao.querys;
 
 public class CategoryQuerys {
 
-	public static final String SELECT_CATEGORY_LIST = "select c.id, c.name, count(*) as count "
-		+ "from category c, display_info d, product p  "
-		+ "where p.id = d.product_id and p.category_id = c.id "
-		+ "group by c.id;";
+	public static final String SELECT_CATEGORY_LIST = "select c.id as id"
+		+ ", c.name as name"
+		+ ", count(*) as count "
+		+ "from category c "
+		+ "inner join product p "
+		+ "on c.id = p.category_id "
+		+ "inner join display_info d "
+		+ "on p.id = d.product_id "
+		+ "group by c.id";
 }
