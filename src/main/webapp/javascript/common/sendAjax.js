@@ -5,16 +5,20 @@ function sendGetAjax(url, action) {
 		return false;
 	}
 	httpRequest.open("GET", url);
-	httpRequest.onreadystatechange = function getPromotions() {
-		if (httpRequest.readyState !== XMLHttpRequest.DONE) {
-			return false;
-		}
-		if (httpRequest.status !== 200) {
-			window.location.href = "./error" + getParamsForErrorPage(httpRequest.status);
-			return false;
-		}
-		var resultText = JSON.parse(httpRequest.responseText);
-		action(resultText);
+	httpRequest.onreadystatechange = () => {
+		readyStateChanged(httpRequest, action)
 	};
 	httpRequest.send();
+}
+
+function readyStateChanged(httpRequest, action) {
+	if (httpRequest.readyState !== XMLHttpRequest.DONE) {
+		return false;
+	}
+	if (httpRequest.status !== 200) {
+		window.location.href = "./error" + getParamsForErrorPage(httpRequest.status);
+		return false;
+	}
+	var resultText = JSON.parse(httpRequest.responseText);
+	action(resultText);
 }
