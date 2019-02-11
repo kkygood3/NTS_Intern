@@ -22,7 +22,7 @@ import com.nts.reservation.promotion.service.PromotionService;
 @RestController
 public class PromotionApiController {
 	@Autowired
-	PromotionService promotionService;
+	private PromotionService promotionService;
 
 	@GetMapping("/api/promotions")
 	public Map<String, Object> getProductList() {

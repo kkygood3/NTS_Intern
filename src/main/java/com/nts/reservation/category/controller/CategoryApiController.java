@@ -21,7 +21,7 @@ import com.nts.reservation.category.service.CategoryService;
 @RestController
 public class CategoryApiController {
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@GetMapping("/api/categories")
 	public Map<String, List<Category>> getCategoryList() {
