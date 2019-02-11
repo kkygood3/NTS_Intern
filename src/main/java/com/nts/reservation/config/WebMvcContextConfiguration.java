@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"com.nts.reservation"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
+	// 1 년 == 31556926 초
 	private static final int DEFAULT_PERIOD = 31556926;
 
 	@Override

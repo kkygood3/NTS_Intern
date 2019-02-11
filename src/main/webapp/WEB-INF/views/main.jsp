@@ -145,7 +145,7 @@
         </li>
     </script>
 
-	<script type="text/javascript" src="js/mainPage.js" ></script>
+	<script type="text/javascript" src="js/mainPage.js"></script>
 </body>
 
 </html>

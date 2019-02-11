@@ -17,6 +17,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+ * resources에 있는 properties파일에 있는 mysql 관련 정보를 읽어드려 DB 연결을 관리
+ * @author kkygood3
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")

@@ -16,7 +16,7 @@ function requestAjax(callback, url) {
 function loadProductsCallback(responseData) {
 
     currentStart += 4;
-
+    
     var totalCount = responseData.totalCount;
     var items = responseData.items;
     
@@ -33,6 +33,8 @@ function loadProductsCallback(responseData) {
     }
 
     var moreViewbtn = document.querySelector('.btn');
+    
+    // 더이상 보여줄 컨텐츠가 없을 땐 더보기 버튼 비활성화
     if(currentStart > totalCount) {
         moreViewbtn.style.display = 'none';
     } else {
