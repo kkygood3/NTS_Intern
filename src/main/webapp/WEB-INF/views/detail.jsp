@@ -47,10 +47,10 @@
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe product_images_ul transition_1s">
+                                <ul class="visual_img ct detail_swipe product_images_ul transition_1s">
                                 	<script id="product_images_template" type="text/x-handlebars-template">
                                 		{{#each productImages}}
-											<li class="item" style="width: 414px;" data-index="{{@index}}"> <img alt="" class="img_thumb" src="/static/{{saveFileName}}"> <span class="img_bg"></span>
+											<li class="item single_slide" style="width: 414px;" data-index="{{@index}}"> <img alt="" class="img_thumb" src="/static/{{saveFileName}}"> <span class="img_bg"></span>
                                         		<div class="visual_txt">
                                             		<div class="visual_txt_inn">
                                                 		<h2 class="visual_txt_tit"> <span class="product_title"></span> </h2>
