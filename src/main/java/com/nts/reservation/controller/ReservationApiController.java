@@ -36,6 +36,10 @@ public class ReservationApiController {
 	@Autowired
 	private MainPromotionService mainPromotionService;
 
+	/**
+	 * /products API요청시 totalCount와 product 관련 정보 json 전송
+	 *@author kkygood3
+	 */
 	@GetMapping("/products")
 	public Map<String, Object> products(
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
@@ -55,6 +59,10 @@ public class ReservationApiController {
 		return map;
 	}
 
+	/**
+	 * /categories API요청시 category 관련 id, name, count를 json 전송
+	 *@author kkygood3
+	 */
 	@GetMapping("/categories")
 	public Map<String, Object> categories() {
 		List<MainCategory> categoryList = new ArrayList<>();
@@ -66,6 +74,10 @@ public class ReservationApiController {
 		return map;
 	}
 
+	/**
+	 * /promotions API요청시 promotion 관련 id, ImageUrl을 json 전송
+	 *@author kkygood3
+	 */
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions() {
 		List<MainPromotion> promotionList = new ArrayList<>();
