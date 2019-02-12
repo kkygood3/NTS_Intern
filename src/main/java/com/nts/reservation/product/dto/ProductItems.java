@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
-public class ProductList {
+public class ProductItems {
 	private int productCount;
 	private List<Product> productList;
 

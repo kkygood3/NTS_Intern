@@ -4,16 +4,13 @@
  */
 package com.nts.reservation.promotion.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.promotion.dto.Promotion;
+import com.nts.reservation.promotion.dto.PromotionItems;
 import com.nts.reservation.promotion.service.PromotionService;
 
 /**
@@ -21,21 +18,31 @@ import com.nts.reservation.promotion.service.PromotionService;
  */
 @RestController
 public class PromotionApiController {
+
+	private PromotionItems promotionItems = new PromotionItems();
+
 	@Autowired
 	private PromotionService promotionService;
 
 	@GetMapping("/api/promotions")
-	public Map<String, Object> getProductList() {
-		List<Promotion> promotionList = new ArrayList<>();
+	public PromotionItems getProductList() {
 		int promotionCount = promotionService.getPromotionsCount();
-		if (promotionCount != 0) {
-			promotionList = promotionService.getPromotions();
+		//
+		System.out.println(promotionCount);
+		if (promotionCount == 0) {
+			return getEmptyPromotionList();
 		}
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("promotionList", promotionList);
-		map.put("promotionCount", promotionCount);
+		promotionItems.setPromotionCount(promotionCount);
+		promotionItems.setPromotionList(promotionService.getPromotions());
 
-		return map;
+		return promotionItems;
+	}
+
+	private PromotionItems getEmptyPromotionList() {
+		promotionItems.setPromotionCount(0);
+		promotionItems.setPromotionList(Collections.emptyList());
+
+		return promotionItems;
 	}
 }

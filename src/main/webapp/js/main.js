@@ -88,9 +88,6 @@ function loadPromotionsCallback(responseData) {
 
 function loadProductsCallback(responseData) {
 	currentStart += 4;
-
-	console.log("responseData.productCount : " + responseData.productCount);
-	console.log("responseData.productList : " + responseData.productList);
 	
 	var itemCount = responseData.productCount;
 	var productList = responseData.productList;

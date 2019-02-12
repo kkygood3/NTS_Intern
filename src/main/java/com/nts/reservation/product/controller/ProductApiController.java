@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.product.dto.ProductList;
+import com.nts.reservation.product.dto.ProductItems;
 import com.nts.reservation.product.service.ProductService;
 
 /**
@@ -22,10 +22,10 @@ public class ProductApiController {
 	@Autowired
 	private ProductService productService;
 
-	private ProductList productList = new ProductList();
+	private ProductItems productItems = new ProductItems();
 
 	@GetMapping("/api/products")
-	public ProductList getProductList(
+	public ProductItems getProductList(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
@@ -41,10 +41,10 @@ public class ProductApiController {
 			return getEmptyProductList();
 		}
 
-		productList.setProductCount(productService.getProductsCountByCategoryId(categoryId));
-		productList.setProductList(productService.getProducts(categoryId, start, limit));
+		productItems.setProductCount(productCount);
+		productItems.setProductList(productService.getProducts(categoryId, start, limit));
 
-		return productList;
+		return productItems;
 	}
 
 	private boolean isValidParameter(int categoryId, int limit) {
@@ -58,10 +58,10 @@ public class ProductApiController {
 		return !isValidParameter(categoryId, limit);
 	}
 
-	private ProductList getEmptyProductList() {
-		productList.setProductCount(0);
-		productList.setProductList(Collections.emptyList());
+	private ProductItems getEmptyProductList() {
+		productItems.setProductCount(0);
+		productItems.setProductList(Collections.emptyList());
 
-		return productList;
+		return productItems;
 	}
 }

@@ -20,6 +20,7 @@ import com.nts.reservation.category.service.CategoryService;
  */
 @RestController
 public class CategoryApiController {
+
 	@Autowired
 	private CategoryService categoryService;
 
