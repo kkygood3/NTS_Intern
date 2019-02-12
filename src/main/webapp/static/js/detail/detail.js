@@ -33,23 +33,30 @@ function getDisplayInfos() {
 		uri : '/api/products/'+displayInfoId
 	};
 	
-	sendAjax(displayInfoSendHeader,'',function(displayInfoResponse){
+	sendAjax(displayInfoSendHeader,'',afterGetDisplayInfoData, function(){
 		
-		setProductImages(displayInfoResponse.productImages, displayInfoResponse.displayInfo.productDescription);
-		setProductContent(displayInfoResponse.displayInfo.productContent);
-		setProductEvent({productEvent : displayInfoResponse.displayInfo.productEvent});
-		
-		var start = 0;
-		var end = 3;
-		
-		handlebarsFunction.setHandlebarRegistHelper();
-		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
-		setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
-	}, function(){
 		alert('요청한 페이지가 없거나, 전시가 종료된 상품입니다.');
 		location.href = '/main';
-		return;
+
 	});
+}
+
+/**
+ * @desc displayInfo data를 성공적으로 받앗을 때
+ * @param displayInfoResponse
+ */
+function afterGetDisplayInfoData(displayInfoResponse){
+
+	setProductImages(displayInfoResponse.productImages, displayInfoResponse.displayInfo.productDescription);
+	setProductContent(displayInfoResponse.displayInfo.productContent);
+	setProductEvent({productEvent : displayInfoResponse.displayInfo.productEvent});
+	
+	var start = 0;
+	var end = 3;
+	
+	handlebarsFunction.setHandlebarRegistHelper();
+	setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
+	setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
 }
 
 /**
