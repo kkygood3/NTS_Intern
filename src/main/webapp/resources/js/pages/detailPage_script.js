@@ -138,7 +138,7 @@ var detailPage = {
 	renderComments : function(){
 	    document.querySelector(".btn_review_more").href = "./review?id=" + constants.DISPLAY_INFO_ID;
 		domElements.reviewCount.innerHTML = state.detail_data.comments.length + "건";
-	    arrayToLiRenderer(state.detail_data.comments.slice(0, 3), domElements.reviewArea, templates.reviewItem);
+		arrayToElementRenderer(state.detail_data.comments.slice(0, 3), domElements.reviewArea, templates.reviewItem);
 	},
 
 	/**
@@ -230,7 +230,7 @@ var detailPage = {
 		domElements.figurePagination.querySelector(".off span").innerHTML 
 			= imageList.length;
 		
-		arrayToLiRenderer(imageList, domElements.slideContainer, templates.slideContainerItem)
+		arrayToElementRenderer(imageList, domElements.slideContainer, templates.slideContainerItem)
 		animation = new SlidingAnimation(domElements.slideContainer);
 		animation.init();
 				
