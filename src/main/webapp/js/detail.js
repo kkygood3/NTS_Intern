@@ -33,7 +33,7 @@ var detailPage = {
 		this.setEvent.scrollTop();
 	},
 		
-	displayInfoId : window.location.href.split("/").slice(-1)[0],
+	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
 	constants: {
 		CNT_MAIN_IMAGE : 2,
@@ -77,7 +77,7 @@ var detailPage = {
 		contentContainer : document.querySelector(".store_details"),
 		visualImgContainer : document.querySelector(".visual_img.detail_swipe"),
 		discountContainer : document.querySelector(".in_dsc"),
-		commentsContainer : document.querySelector(".list_short_review"),
+		commentsContainer : document.querySelector(".list_short_review")
 	},
 	
 	template: {
@@ -134,7 +134,7 @@ var detailPage = {
 		if(this.Container.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
 			this.elements.btnMoreReview.style.display = "none";
 		} else {
-			this.elements.btnMoreReview.href = "../review/" + this.displayInfoId;
+			this.elements.btnMoreReview.href = this.displayInfoId + "/reviews";
 		}
 	},
 	

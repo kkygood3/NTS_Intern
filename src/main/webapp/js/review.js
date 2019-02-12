@@ -21,7 +21,7 @@ var reviewPage = {
 				}
 			}.bind(this)
 			
-			httpRequest.open("GET", "../api/products/" + displayInfoId);
+			httpRequest.open("GET", "../../api/products/" + displayInfoId);
 			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 			httpRequest.send();
 		}
@@ -30,7 +30,7 @@ var reviewPage = {
 		this.scrollTop();
 	},
 	
-	displayInfoId : window.location.href.split("/").slice(-1)[0],
+	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
 	elements: {
 		displayTitle : document.querySelector(".title"),
