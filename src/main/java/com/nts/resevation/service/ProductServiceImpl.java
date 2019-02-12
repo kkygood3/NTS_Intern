@@ -39,19 +39,23 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
-		List<ProductDto> products = Collections.<ProductDto>emptyList();
-		int count = 0;
+		int count;
 		if (categoryId == CATEGORY_TYPE_ALL) {
 			count = productDao.selectCount();
-			if (count > 0) {
-				products = productDao.selectAllPaging(start, limit);
-			}
 		} else {
 			count = productDao.selectCountByCategoryId(categoryId);
-			if (count > 0) {
-				products = productDao.selectByCategoryIdPaging(categoryId, start, limit);
-			}
 		}
+		if (count == 0) {
+			return new ProductResponseDto(Collections.<ProductDto>emptyList(), count);
+		}
+
+		List<ProductDto> products = Collections.<ProductDto>emptyList();
+		if (categoryId == CATEGORY_TYPE_ALL) {
+			products = productDao.selectAllPaging(start, limit);
+		} else {
+			products = productDao.selectByCategoryIdPaging(categoryId, start, limit);
+		}
+
 		return new ProductResponseDto(products, count);
 	}
 
@@ -67,15 +71,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
-		List<CommentDto> comments = Collections.<CommentDto>emptyList();
-		double averageScore = 0;
-
 		int count = commentDao.selectCommentCount(productId);
-		if (count > 0) {
-			comments = commentDao.selectComments(productId, start, limit);
-			averageScore = commentDao.selectCommentAvgScore(productId);
+		if (count == 0) {
+			return new CommentResponseDto(Collections.<CommentDto>emptyList(), count, 0);
 		}
-
+		List<CommentDto> comments = commentDao.selectComments(productId, start, limit);
+		double averageScore = commentDao.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
 	}
 }
