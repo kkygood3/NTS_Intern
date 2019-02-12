@@ -23,10 +23,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(int categoryId, int start, int limit) {
-		//오류 던지는 게 낫다
-		if (start < 0) {
-			//throw error
-		}
 		if (isAllCategories(categoryId)) {
 			return getProducts(start, limit);
 		}
@@ -35,10 +31,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(int start, int limit) {
-		//오류 던지는 게 낫다
-		if (start < 0) {
-			//throw error
-		}
 		return productDaoImpl.selectProducts(start, limit);
 	}
 

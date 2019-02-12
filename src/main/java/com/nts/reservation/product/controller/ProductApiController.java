@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.product.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +31,15 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
+		if (isValidParameter(categoryId, start)) {
+			System.out.println("올바르지 않은 categoryId 또는 start");
+			return Collections.emptyMap();
+		}
+
 		int productCount = productService.getProductsCountByCategoryId(categoryId);
 		if (productCount == 0) {
 			//return Collections.emptyList();
+			return Collections.emptyMap();
 		}
 
 		List<Product> productList = productService.getProducts(categoryId, start, limit);
@@ -45,5 +52,16 @@ public class ProductApiController {
 
 		// productCount 처리할 것
 		//return productService.getProducts(categoryId, start);
+	}
+
+	private boolean isValidParameter(int start, int limit) {
+		if (start < 0 || limit < 0) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isInvalidParameter(int start, int limit) {
+		return !isValidParameter(start, limit);
 	}
 }
