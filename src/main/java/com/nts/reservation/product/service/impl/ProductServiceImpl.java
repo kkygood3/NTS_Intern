@@ -32,13 +32,21 @@ public class ProductServiceImpl implements ProductService {
 	public ProductResponse getProducts(int categoryId, int start) {
 		ProductResponse productResponse = new ProductResponse();
 
-		if (categoryId > 0) {
+		if (isTotalCategory(categoryId)) {
+			productResponse = getProducts(start);
+		} else {
 			productResponse.setItems(productDao.selectPagingProductsByCategory(categoryId, start, ProductService.LIMIT));
 			productResponse.setTotalCount(productDao.selectCountByCategory(categoryId));
-		} else {
-			productResponse = getProducts(start);
 		}
 		return productResponse;
+	}
+
+	private boolean isTotalCategory(int categoryId) {
+		if (categoryId > 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 }
