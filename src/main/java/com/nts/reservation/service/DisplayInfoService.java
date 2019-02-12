@@ -8,7 +8,6 @@ package com.nts.reservation.service;
 import java.util.List;
 
 import com.nts.reservation.dto.CommentDto;
-import com.nts.reservation.dto.CommentImageDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductImageDto;
@@ -20,8 +19,6 @@ import com.nts.reservation.dto.ProductPriceDto;
 public interface DisplayInfoService {
 	public List<CommentDto> getCommentList(Long displayInfoId);
 
-	public List<CommentImageDto> getCommentImageList(Long commentId);
-
 	public DisplayInfoDto getDisplayInfo(Long displayInfoId);
 
 	public DisplayInfoImageDto getDisplayInfoImage(Long displayInfoId);
@@ -29,6 +26,6 @@ public interface DisplayInfoService {
 	public List<ProductImageDto> getProductImageList(Long productId);
 
 	public List<ProductPriceDto> getProductPriceList(Long productId);
-	
+
 	public float getCommentAvgScore(Long displayInfoId);
 }

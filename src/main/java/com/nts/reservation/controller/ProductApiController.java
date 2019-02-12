@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CategoryDto;
 import com.nts.reservation.dto.CommentDto;
-import com.nts.reservation.dto.CommentImageDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductDto;
@@ -109,11 +108,6 @@ public class ProductApiController {
 		List<ProductPriceDto> productPrices = displayInfoService.getProductPriceList(displayInfo.getProductId());
 		List<CommentDto> comments = displayInfoService.getCommentList(displayInfoId);
 		float averageScore = displayInfoService.getCommentAvgScore(displayInfoId);
-
-		for (CommentDto item : comments) {
-			List<CommentImageDto> commentImages = displayInfoService.getCommentImageList(item.getCommentId());
-			item.setCommentImages(commentImages);
-		}
 
 		return new DisplayInfoResponseDto(averageScore, comments, displayInfo, displayInfoImage, productImages,
 			productPrices);

@@ -36,16 +36,12 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public List<CommentDto> getCommentList(Long displayInfoId) {
-		return displayInfoDao.selectComments(displayInfoId);
-	}
-
-	/**
-	 * @desc 댓글에 대한 이미지 리스트를 요청한다..
-	 * @param reservationUserCommentId
-	 */
-	@Override
-	public List<CommentImageDto> getCommentImageList(Long reservationUserCommentId) {
-		return displayInfoDao.selectCommentImages(reservationUserCommentId);
+		List<CommentDto> commentList = displayInfoDao.selectComments(displayInfoId);
+		for (CommentDto comment : commentList) {
+			List<CommentImageDto> commentImages = displayInfoDao.selectCommentImages(comment.getCommentId());
+			comment.setCommentImages(commentImages);
+		}
+		return commentList;
 	}
 
 	/**
