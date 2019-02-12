@@ -235,7 +235,7 @@ function xhrGetRequest(url, callback) {
  * 
  * @item : html template in string type
  */
-function arrayToLiRenderer(data, target, item) {
+function arrayToElementRenderer(data, target, item) {
 	let bindTemplate = Handlebars.compile(item);
 	let commentsList = data;
 	
@@ -254,15 +254,15 @@ function arrayToLiRenderer(data, target, item) {
 	Handlebars.registerHelper("commentImageUrl", (item)=> {
 		return item[0].saveFileName;
 	});
-	
-	let newCommentItems = 
-		parser.parseFromString(bindTemplate({data : commentsList}), "text/html")
-					.querySelectorAll("li");
-	
+	let parsedItems = parser.parseFromString(bindTemplate({data : commentsList}), "text/html");
+	let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
+	let newCommentItems = parsedItems.querySelectorAll("."+elementClassName);
+
 	newCommentItems.forEach((item) => {
 		target.append(item);
 	});	
 }
+
 function scrollToTopAttacher(target){
 	target.addEventListener("click", (e) => {
 		document.documentElement.scrollTop = document.body.scrollTop = 0;

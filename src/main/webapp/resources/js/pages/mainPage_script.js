@@ -190,7 +190,7 @@ var mainPage = {
 	 * @renderPromoItems() : Loaded promo items will be deployed on html
 	 */
 	renderPromoItems : function (promotionData) {
-		arrayToLiRenderer(promotionData, domElements.slideContainer, templates.promoTemplate)
+		arrayToElementRenderer(promotionData, domElements.slideContainer, templates.promoTemplate)
 		let animation = new SlidingAnimation(domElements.slideContainer);
 		animation.init({animationSpeed : 4, animationStopDuration : 1000});
 		animation.startAutoAnimation();

@@ -71,8 +71,8 @@ var reviewPage = {
 		 */
 		renderInformation : function(){
 		   	domElements.averageScoreStars.style.width = state.detail_data.averageScore / 5 *100 + "%";
-		    domElements.averageScoreText.innerHTML = 	state.detail_data.averageScore;
+		    domElements.averageScoreText.innerHTML = state.detail_data.averageScore;
 			domElements.reviewCount.innerHTML = state.detail_data.comments.length + "건";
-		    arrayToLiRenderer(state.detail_data.comments, domElements.reviewArea, templates.reviewItem);
+		    arrayToElementRenderer(state.detail_data.comments, domElements.reviewArea, templates.reviewItem);
 		}
 }
