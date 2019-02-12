@@ -11,12 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.CommentDao;
-import com.nts.reservation.dao.CommentImageDao;
 import com.nts.reservation.dao.DisplayInfoDao;
-import com.nts.reservation.dao.DisplayInfoImageDao;
-import com.nts.reservation.dao.ProductImageDao;
-import com.nts.reservation.dao.ProductPriceDao;
 import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.CommentImageDto;
 import com.nts.reservation.dto.DisplayInfoDto;
@@ -33,22 +28,7 @@ import com.nts.reservation.service.DisplayInfoService;
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Autowired
-	private CommentDao commentDao;
-
-	@Autowired
-	private CommentImageDao commentImageDao;
-
-	@Autowired
 	private DisplayInfoDao displayInfoDao;
-
-	@Autowired
-	private DisplayInfoImageDao displayInfoImageDao;
-
-	@Autowired
-	private ProductImageDao productImageDao;
-
-	@Autowired
-	private ProductPriceDao productPriceDao;
 
 	/**
 	 * @desc 상품에 대한 댓글 리스트를 요청한다.
@@ -56,7 +36,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public List<CommentDto> getCommentList(Long displayInfoId) {
-		return commentDao.selectComments(displayInfoId);
+		return displayInfoDao.selectComments(displayInfoId);
 	}
 
 	/**
@@ -65,7 +45,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public List<CommentImageDto> getCommentImageList(Long reservationUserCommentId) {
-		return commentImageDao.selectCommentImages(reservationUserCommentId);
+		return displayInfoDao.selectCommentImages(reservationUserCommentId);
 	}
 
 	/**
@@ -83,7 +63,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public DisplayInfoImageDto getDisplayInfoImage(Long displayInfoId) {
-		return displayInfoImageDao.selectDisplayInfoImage(displayInfoId);
+		return displayInfoDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	/**
@@ -92,7 +72,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public List<ProductImageDto> getProductImageList(Long productId) {
-		return productImageDao.selectProductImages(productId);
+		return displayInfoDao.selectProductImages(productId);
 	}
 
 	/**
@@ -101,7 +81,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public List<ProductPriceDto> getProductPriceList(Long productId) {
-		return productPriceDao.selectProductPrices(productId);
+		return displayInfoDao.selectProductPrices(productId);
 	}
 
 	/**
@@ -110,6 +90,6 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public float getCommentAvgScore(Long displayInfoId) {
-		return commentDao.selectCommentAvgScore(displayInfoId);
+		return displayInfoDao.selectCommentAvgScore(displayInfoId);
 	}
 }
