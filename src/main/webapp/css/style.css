@@ -1408,6 +1408,11 @@ button {
 	box-sizing: border-box
 }
 
+.visual_txt_inn {
+    float: left;
+    margin-top: 45%;
+}
+
 .bottom_common_path {
 	-webkit-box-sizing: border-box;
 	moz-box-sizing: border-box
