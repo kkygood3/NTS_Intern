@@ -52,7 +52,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 상품에 대한 댓글 리스트를 요청한다.
-	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 * @param displayInfoId
 	 */
 	@Override
 	public List<CommentDto> getCommentList(Long displayInfoId) {
@@ -61,7 +61,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 댓글에 대한 이미지 리스트를 요청한다..
-	 * @param reservationUserCommentId 댓글 Id
+	 * @param reservationUserCommentId
 	 */
 	@Override
 	public List<CommentImageDto> getCommentImageList(Long reservationUserCommentId) {
@@ -70,7 +70,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 상품에 대한 상품 상세 정보를 요청한다.
-	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 * @param displayInfoId
 	 */
 	@Override
 	public DisplayInfoDto getDisplayInfo(Long displayInfoId) {
@@ -79,7 +79,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 상품에 대한 상품 상세 정보 이미지를 요청한다.
-	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 * @param displayInfoId
 	 */
 	@Override
 	public DisplayInfoImageDto getDisplayInfoImage(Long displayInfoId) {
@@ -88,7 +88,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 상품에 대한 상품 이미지 리스트를 요청한다.
-	 * @param productId 요청 하는 상품 Id
+	 * @param productId
 	 */
 	@Override
 	public List<ProductImageDto> getProductImageList(Long productId) {
@@ -97,16 +97,16 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	/**
 	 * @desc 상품에 대한 상품 가격 정보 리스트를 요청한다.
-	 * @param productId 요청 하는 상품 Id
+	 * @param productId
 	 */
 	@Override
 	public List<ProductPriceDto> getProductPriceList(Long productId) {
 		return productPriceDao.selectProductPrices(productId);
 	}
-	
+
 	/**
 	 * @desc  display에 해당하는 상품의 코멘트 평점의 평균 값을 반환한다.
-	 * @param displayInfoId 요청 하는 상품 상세 Id
+	 * @param displayInfoId
 	 */
 	@Override
 	public float getCommentAvgScore(Long displayInfoId) {

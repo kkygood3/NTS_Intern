@@ -37,7 +37,7 @@ public class ProductDao {
 		jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	/*
+	/**
 	 * @desc 카테고리와 상관없이 모든 프로덕트들을 start에서부터 limit개 만큼 DB에 요청한다.
 	 * @param start
 	 * @param limit
@@ -50,7 +50,7 @@ public class ProductDao {
 		return jdbc.query(SELECT_PRODUCT, params, rowMapper);
 	}
 
-	/*
+	/**
 	 * @desc 정해진 카테고리에 해당하는 프로덕트들을 start에서부터 limit개만큼 DB에 요청한다.
 	 * @param start
 	 * @param limit
@@ -65,7 +65,7 @@ public class ProductDao {
 		return jdbc.query(SELECT_PRODUCT_BY_CATEGORY, params, rowMapper);
 	}
 
-	/*
+	/**
 	 * @desc 프로모션이 진행 중인 모든 프로덕트를 DB에 요청한다.
 	 * @return List<ProductDto>
 	 */
@@ -73,7 +73,7 @@ public class ProductDao {
 		return jdbc.query(SELECT_PROMOTION_PRODUCT, Collections.emptyMap(), rowMapper);
 	}
 
-	/*
+	/**
 	 * @desc 모든 프로덕트의 갯수를 DB에 요청한다.
 	 * @return Integer 프로덕트의 갯수
 	 */
@@ -81,7 +81,7 @@ public class ProductDao {
 		return jdbc.queryForObject(SELECT_COUNT_PRODUCT, Collections.emptyMap(), Integer.class);
 	}
 
-	/*
+	/**
 	 * @desc 카테고리에 해당하는 프로덕트의 갯수를 DB에 요청한다.
 	 * @param categoryId
 	 * @return 카테고리에 해당하는 프로덕트의 갯수

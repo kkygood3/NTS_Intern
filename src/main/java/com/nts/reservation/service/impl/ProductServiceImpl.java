@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc 카테고리의 구별없이 start 매개변수에서부터 LIMIT개만큼 상품 정보를 반환한다.
-	 * @param start 상품 요청의 시작 번호
+	 * @param start
 	 */
 	@Override
 	public List<ProductDto> getProductList(int start) {
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * @desc 요청하는 카테고리 id에 속하는 카테고리에서 start 매개변수에서부터 LIMIT개만큼 상품 정보를 반환한다.
-	 * @param start 상품 요청의 시작 번호
+	 * @param start
 	 * @param categoryId
 	 */
 	@Override

@@ -43,7 +43,7 @@ public class CommentDao {
 		return jdbc.query(SELECT_COMMENT_BY_DISPLAY_INFO_ID, map, rowMapper);
 	}
 
-	/*
+	/**
 	 * @desc 모든 프로덕트의 갯수를 DB에 요청한다.
 	 * @return Integer 프로덕트의 갯수
 	 */
