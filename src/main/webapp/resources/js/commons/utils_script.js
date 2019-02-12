@@ -46,7 +46,7 @@ SlidingAnimation.prototype.startAutoAnimation = function(){
 	isAutoStart = true;
 	if(isAutoStart) {
 		setTimeout(() => {
-			requestAnimationFrame(() => this.slide(true));
+			requestAnimationFrame(() => this.slide(true, false, false));
 		}, animationStopDuration);
 	}
 }
@@ -60,69 +60,6 @@ SlidingAnimation.prototype.resizeMinMax = function(_minHeight, _maxHeight){
 	maxHeight = _maxHeight;
 	minHeight = _minHeight;
 }
-/**
- * @constants.animationSpeed : to control the speed or animation, declared as
- *                           const in global variable
- * 
- * @needToStop : this boolean indicates when the element is arrived in the right
- *             position to be displayed
- * 
- * @constants.animationStopDuration : in milliseconds, determines the stop
- *                                  duration of the animation when the image
- *                                  arrives in the right position , declared as
- *                                  const in global variable
- * 
- * @promoAnimation() : promotion animation with 2 for loops to control the
- *                   accuracy of the stop-position
- * 
- * @isAutoStart : parameter to control auto-slide animation, if false, manual
- */
-SlidingAnimation.prototype.slide = function(isAutoStart, isResizing) {
-	this.isAnimating = true;
-	
-	let needToStop = false;
-	let currentImage = imageList[currentSlideCount];
-	let nextImage = imageList[nextSlideCount];
-		
-	if(isResizing){
-		this.resizeImageContainer(nextImage);
-	}
-	
-	if(parseInt(nextImage.style.left) == -SLIDE_CONATINER_WIDTH) {
-		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
-	}
-	
-	for(let iter = 0; iter < animationSpeed; iter++) {
-		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
-		nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
-		
-		if(parseInt(currentImage.style.left) <= -SLIDE_CONATINER_WIDTH) {
-			
-			currentImage.style.left = SLIDE_CONATINER_WIDTH + "px";
-			
-			prevSlideCount = currentSlideCount;
-			currentSlideCount = nextSlideCount;
-			nextSlideCount++;
-			
-			if(nextSlideCount == imageList.length) {
-				nextSlideCount = 0;
-			}
-			needToStop = true;
-			break;
-		}
-	}
-	if(needToStop) {
-		if(isAutoStart) {
-			setTimeout(() => {
-				requestAnimationFrame(() => this.slide(isAutoStart));
-			}, animationStopDuration);
-		} else {
-			this.isAnimating = false;
-		}
-	} else {
-		requestAnimationFrame(() => this.slide(isAutoStart));
-	}	
-},
 
 /**
  * @constants.animationSpeed : to control the speed or animation, declared as
@@ -141,41 +78,57 @@ SlidingAnimation.prototype.slide = function(isAutoStart, isResizing) {
  * 
  * @isAutoStart : parameter to control auto-slide animation, if false, manual
  * 
- * @slideAnimationReverse(isAutoStart) diff with slideAnimation => direction of
- *                                     animation and counting system are
- *                                     different, as slideAnimation slides with
- *                                     asc order, Reverse goes desc order
+ * @isReverse : as the meaning of the words, implies if the animation is in
+ *            reversed direction
  */
-SlidingAnimation.prototype.slideReverse = function(isAutoStart, isResizing) {
+SlidingAnimation.prototype.slide = function(isAutoStart, isResizing, isReverse) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
+	
 	let prevImage = imageList[prevSlideCount];
 	let currentImage = imageList[currentSlideCount];
-	
+	let nextImage = imageList[nextSlideCount];
+		
 	if(isResizing){
-		this.resizeImageContainer(prevImage);
+		this.resizeImageContainer(nextImage);
 	}
 	
-	if(parseInt(prevImage.style.left) == SLIDE_CONATINER_WIDTH) {
+	if(isReverse && parseInt(prevImage.style.left) == SLIDE_CONATINER_WIDTH) {
 		prevImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
 	}
 	
+	if(!isReverse && parseInt(nextImage.style.left) == -SLIDE_CONATINER_WIDTH) {
+		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
+	}
+	
 	for(let iter = 0; iter < animationSpeed; iter++) {
-		currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
-		prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
+		if(isReverse){
+			currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
+			prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
+		} else {
+			currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
+			nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
+		}
 		
-		if(parseInt(currentImage.style.left) >= SLIDE_CONATINER_WIDTH) {
+		if((parseInt(currentImage.style.left) <= -SLIDE_CONATINER_WIDTH && !isReverse)
+			|| (parseInt(currentImage.style.left) >= SLIDE_CONATINER_WIDTH && isReverse) ) {
 			
-			currentImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
+			currentImage.style.left = SLIDE_CONATINER_WIDTH + "px";
 			
-			nextSlideCount = currentSlideCount;
-			currentSlideCount = prevSlideCount;
-			prevSlideCount = prevSlideCount - 1;
-			
-			if(prevSlideCount == -1){
-				prevSlideCount = imageList.length - 1;
+			if(isReverse){
+				nextSlideCount += imageList.length-1;
+				currentSlideCount += imageList.length-1;
+				prevSlideCount += imageList.length-1;
+			} else {
+				prevSlideCount ++;
+				currentSlideCount ++;
+				nextSlideCount++;
 			}
+			
+			prevSlideCount %= imageList.length;
+			currentSlideCount %= imageList.length;
+			nextSlideCount %= imageList.length;
 			
 			needToStop = true;
 			break;
@@ -184,15 +137,16 @@ SlidingAnimation.prototype.slideReverse = function(isAutoStart, isResizing) {
 	if(needToStop) {
 		if(isAutoStart) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slideReverse(isAutoStart));
+				requestAnimationFrame(() => this.slide(isAutoStart, isResizing, isReverse));
 			}, animationStopDuration);
 		} else {
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() =>this.slideReverse(isAutoStart));
-	}
-}
+		requestAnimationFrame(() => this.slide(isAutoStart, isResizing, isReverse));
+	}	
+},
+
 
 /**
  * @resizeImageContainer(countTarget) : countTarget represents the next target
@@ -236,6 +190,10 @@ function xhrGetRequest(url, callback) {
  * @item : html template in string type
  */
 function arrayToElementRenderer(data, target, item) {
+	if(!data.length){
+		return;
+	}
+	
 	let bindTemplate = Handlebars.compile(item);
 	let commentsList = data;
 	
