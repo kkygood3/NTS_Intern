@@ -8,10 +8,10 @@ public class DatailPageInfo {
 	private String placeStreet;
 	private String placeLot;
 	private String tel;
-	private String mainImageFileName;
+	private String mainImageFile;
 	private double averageScore;
 	private int commentCount;
-	private String mapFileName;
+	private String mapFile;
 
 	public long getProductId() {
 		return productId;
@@ -69,12 +69,12 @@ public class DatailPageInfo {
 		this.tel = tel;
 	}
 
-	public String getMainImageFileName() {
-		return mainImageFileName;
+	public String getMainImageFile() {
+		return mainImageFile;
 	}
 
-	public void setMainImageFileName(String mainImageFileName) {
-		this.mainImageFileName = mainImageFileName;
+	public void setMainImageFile(String mainImageFile) {
+		this.mainImageFile = mainImageFile;
 	}
 
 	public double getAverageScore() {
@@ -93,19 +93,19 @@ public class DatailPageInfo {
 		this.commentCount = commentCount;
 	}
 
-	public String getMapFileName() {
-		return mapFileName;
+	public String getMapFile() {
+		return mapFile;
 	}
 
-	public void setMapFileName(String mapFileName) {
-		this.mapFileName = mapFileName;
+	public void setMapFile(String mapFile) {
+		this.mapFile = mapFile;
 	}
 
 	@Override
 	public String toString() {
-		return "Datail [productId=" + productId + ", description=" + description + ", content=" + content
+		return "DatailPageInfo [productId=" + productId + ", description=" + description + ", content=" + content
 			+ ", placeName=" + placeName + ", placeStreet=" + placeStreet + ", placeLot=" + placeLot + ", tel=" + tel
-			+ ", mainImageFileName=" + mainImageFileName + ", averageScore=" + averageScore + ", commentCount="
-			+ commentCount + ", mapFileName=" + mapFileName + "]";
+			+ ", mainImageFile=" + mainImageFile + ", averageScore=" + averageScore + ", commentCount=" + commentCount
+			+ ", mapFile=" + mapFile + "]";
 	}
 }
