@@ -219,29 +219,29 @@ var detailPage = {
 				var selectedCategoryId;
 				var previousActive = document.querySelector(".anchor.active");
 	
-			 	if(event.target.className === "anchor"){
+			 	if(event.target.classList.contains("anchor")){
 					anchorElement = event.target;
-				} else if(event.target.className === "info_tab_text"){
+				} else if(event.target.classList.contains("info_tab_text")){
 					anchorElement = event.target.parentNode;
 				} else {
 					return;
 				}
 	
-			 	previousActive.className = "anchor";
+			 	previousActive.classList.remove("active");
 	
 			 	selectedCategoryId = anchorElement.parentNode.dataset.category;
-				anchorElement.className = "anchor active";
+				anchorElement.classList.add("active");
 	
-				if(anchorElement.innerText === "상세정보"){
-					if(!this.detailPage.elements.locationInfo.className.includes("hide")){
-						this.detailPage.elements.locationInfo.className = "detail_area_wrap hide";
+				if(anchorElement.classList.contains("_detail")){
+					if(!this.detailPage.elements.locationInfo.classList.contains("hide")){
+						this.detailPage.elements.locationInfo.classList.add("hide");
 					}
-					this.detailPage.elements.detailInfo.className = this.detailPage.elements.detailInfo.className.replace("hide", "");
-				} else if(anchorElement.innerText === "오시는길") {
-					if(!this.detailPage.elements.detailInfo.className.includes("hide")){
-						this.detailPage.elements.detailInfo.className = "detail_location hide";
+					this.detailPage.elements.detailInfo.classList.remove("hide");
+				} else if(anchorElement.classList.contains("_path")) {
+					if(!this.detailPage.elements.detailInfo.classList.contains("hide")){
+						this.detailPage.elements.detailInfo.classList.add("hide");
 					}
-					this.detailPage.elements.locationInfo.className = this.detailPage.elements.locationInfo.className.replace("hide", "");
+					this.detailPage.elements.locationInfo.classList.remove("hide");
 				}
 			}.bind(this));
 		}.bind(this),
