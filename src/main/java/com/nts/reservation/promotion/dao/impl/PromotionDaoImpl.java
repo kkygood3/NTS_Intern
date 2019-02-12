@@ -7,9 +7,7 @@ package com.nts.reservation.promotion.dao.impl;
 import static com.nts.reservation.promotion.dao.query.PromotionDaoQuerys.*;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -34,10 +32,8 @@ public class PromotionDaoImpl implements PromotionDao {
 	}
 
 	@Override
-	public List<Promotion> selectPromotions(long limit) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("limit", limit);
-		return jdbc.query(SELECT_PROMOTION, params, rowMapper);
+	public List<Promotion> selectPromotions() {
+		return jdbc.query(SELECT_PROMOTION, rowMapper);
 	}
 
 	@Override

@@ -12,8 +12,6 @@ import com.nts.reservation.promotion.dto.Promotion;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface PromotionService {
-	public static final int PROMOTION_LIMIT = 100;
-
 	List<Promotion> getPromotions();
 
 	int getPromotionsCount();

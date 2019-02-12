@@ -13,8 +13,7 @@ public class PromotionDaoQuerys {
 		+ " INNER JOIN product ON promotion.product_id = product.id"
 		+ " INNER JOIN product_image ON promotion.product_id = product_image.product_id AND product_image.type = 'th'"
 		+ " INNER JOIN file_info ON product_image.file_id = file_info.id"
-		+ " GROUP BY promotion.product_id"
-		+ " LIMIT :limit";
+		+ " GROUP BY promotion.product_id";
 
 	public static final String SELECT_PROMOTION_COUNT = "SELECT COUNT(display_info.id)"
 		+ " FROM promotion"

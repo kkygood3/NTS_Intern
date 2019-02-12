@@ -6,9 +6,7 @@ package com.nts.reservation.category.dao.impl;
 
 import static com.nts.reservation.category.dao.query.CategoryDaoQuerys.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -35,9 +33,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
-	public List<Category> selectCategories(int limit) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("limit", limit);
-		return jdbc.query(SELECT_CATEGORY, params, rowMapper);
+	public List<Category> selectCategories() {
+		return jdbc.query(SELECT_CATEGORY, rowMapper);
 	}
 }

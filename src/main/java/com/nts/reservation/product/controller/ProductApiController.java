@@ -27,14 +27,15 @@ public class ProductApiController {
 	@GetMapping("/api/products")
 	public Map<String, Object> getProductList(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start) {
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
 		int productCount = productService.getProductsCountByCategoryId(categoryId);
 		if (productCount == 0) {
 			//return Collections.emptyList();
 		}
 
-		List<Product> productList = productService.getProducts(categoryId, start);
+		List<Product> productList = productService.getProducts(categoryId, start, limit);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productList", productList);

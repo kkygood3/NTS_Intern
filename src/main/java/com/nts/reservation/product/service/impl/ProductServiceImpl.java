@@ -22,24 +22,24 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDaoImpl productDaoImpl;
 
 	@Override
-	public List<Product> getProducts(int categoryId, int start) {
+	public List<Product> getProducts(int categoryId, int start, int limit) {
 		//오류 던지는 게 낫다
 		if (start < 0) {
 			//throw error
 		}
 		if (isAllCategories(categoryId)) {
-			return getProducts(start);
+			return getProducts(start, limit);
 		}
-		return productDaoImpl.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
+		return productDaoImpl.selectProductsByCategory(categoryId, start, limit);
 	}
 
 	@Override
-	public List<Product> getProducts(int start) {
+	public List<Product> getProducts(int start, int limit) {
 		//오류 던지는 게 낫다
 		if (start < 0) {
 			//throw error
 		}
-		return productDaoImpl.selectProducts(start, PRODUCT_LIMIT);
+		return productDaoImpl.selectProducts(start, limit);
 	}
 
 	@Override

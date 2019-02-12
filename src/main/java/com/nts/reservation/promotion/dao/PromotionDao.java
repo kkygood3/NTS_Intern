@@ -12,7 +12,7 @@ import com.nts.reservation.promotion.dto.Promotion;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface PromotionDao {
-	List<Promotion> selectPromotions(long limit);
+	List<Promotion> selectPromotions();
 
 	int selectPromotionsCount();
 }
