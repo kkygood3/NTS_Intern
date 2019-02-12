@@ -312,7 +312,7 @@
             <div class="info_area">
                 <div class="review_info">
                     <span class="grade">{{score}}</span>
-                    <span class="name">{{#anonymize reservationEmail}}{{/anonymize}}</span>
+                    <span class="name">{{reservationEmail}}</span>
                     <span class="date">{{reservationDate}} 방문</span>
                 </div>
             </div>

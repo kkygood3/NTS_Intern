@@ -4,15 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
-		
-		let httpRequest;
+		var httpRequest;
 		
 		if (window.XMLHttpRequest) {
 			httpRequest =  new XMLHttpRequest();
 			
 			httpRequest.onreadystatechange = function() {
-				let jsonResponse;
+				var jsonResponse;
 				
 				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 					jsonResponse = JSON.parse(httpRequest.responseText);
@@ -33,10 +31,6 @@ var reviewPage = {
 	},
 	
 	displayInfoId : window.location.href.split("/").slice(-1)[0],
-	
-	constants: {
-		DISPLAYED_ID_LENGTH : 4,
-	},
 	
 	elements: {
 		displayTitle : document.querySelector(".title"),

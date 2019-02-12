@@ -92,7 +92,7 @@ public class Comment {
 	}
 
 	public void setReservationEmail(String reservationEmail) {
-		this.reservationEmail = reservationEmail;
+		this.reservationEmail = reservationEmail.substring(0, 4) + "****";
 	}
 
 	public int getReservationInfoId() {

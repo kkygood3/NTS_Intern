@@ -4,17 +4,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var detailPage = {
 	getDetailPage: function(displayInfoId){
-		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
+		var httpRequest;
+		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
-		
-		let httpRequest;
 		
 		if (window.XMLHttpRequest) {
 			httpRequest =  new XMLHttpRequest();
 			
 			httpRequest.onreadystatechange = function() {
-				let jsonResponse;
+				var jsonResponse;
 				
 				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 					jsonResponse = JSON.parse(httpRequest.responseText);
@@ -38,7 +37,6 @@ var detailPage = {
 	
 	constants: {
 		CNT_MAIN_IMAGE : 2,
-		DISPLAYED_ID_LENGTH : 4,
 		CONTENT_CONTAINER_HEIGHT : 73,
 		SLIDE_IMG_WIDTH : 414,
 		CNT_COMMENTS_AT_MAIN_PAGE : 3
@@ -174,12 +172,6 @@ var detailPage = {
 				    return this.priceType[typeName] + " " + discountRate + "%";
 				}
 			}.bind(this));
-		},
-		
-		anonymizeUserId: function(DISPLAYED_ID_LENGTH){
-			Handlebars.registerHelper('anonymize', function(context) {
-				return context.substring(0, DISPLAYED_ID_LENGTH) + "****";
-			});
 		},
 
  		compareDiscountRateToZero: function(){
