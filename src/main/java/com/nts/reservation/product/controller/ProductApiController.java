@@ -28,7 +28,8 @@ public class ProductApiController {
 	@GetMapping("/products")
 	public ProductResponse products(
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId) {
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
+		@RequestParam(name = "requestedProductCounts", required = false, defaultValue = "4") int requestedProductCounts) {
 
 		if(isNegativeValue(start, categoryId)) {
 			System.out.printf("허용되지 않은 파라미터 시도입니다. start : %d, categoryId : %d\n", start, categoryId);
@@ -36,7 +37,7 @@ public class ProductApiController {
 			categoryId = 0;
 		}
 
-		return productService.getProducts(categoryId, start);
+		return productService.getProducts(categoryId, start, requestedProductCounts);
 	}
 
 	private boolean isNegativeValue(int start, int categoryId) {

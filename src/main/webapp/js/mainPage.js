@@ -1,5 +1,7 @@
 var currentStart = 0;
 var currentCategory = 0;
+// 한번에 요청할 Product 개수
+const currentProductUnits = 4;
 
 // Rest API로 서버로부터 해당 url의 json데이터를 가져옴
 function requestAjax(callback, url) {
@@ -51,10 +53,8 @@ function setPromotionSlideAnimation() {
     var curIdx = 0;
 
     // 4초간격으로 슬라이딩
-    setInterval(moveStep, 4000);
-
-    function moveStep() {
-
+    // 화면 크기만큼 슬라이딩
+    setInterval(() => {
         leftDistance -= 100;
 
         for (var i = 0; i < promotionLength; ++i) {
@@ -66,23 +66,25 @@ function setPromotionSlideAnimation() {
         // 마지막 슬라이드 옮기고 초기화
         if (curIdx >= promotionLength) {
 
-            setTimeout(initPromotionPos, 0);
-
-            function initPromotionPos() {
+            setTimeout(() => {
+                // transitionDuration을 0으로 바꾸고 left를 0으로 초기화
                 for (var i = 0; i < promotionLength; i++) {
                     promotionList[i].style.transitionDuration = '0s';
                     promotionList[i].style.left = '0';
                 }
+
+                //transitionDuration을 1로 재설정
                 for (var i = 0; i < promotionLength; i++) {
                     promotionList[i].style.transitionDuration = '1s';
                 }
 
                 curIdx = 0;
                 leftDistance = 0;
-            }
+            }, 0);
         }
+    
+    }, 4000);
 
-    }
 }
 
 function setTabButton() {
@@ -105,7 +107,7 @@ function setTabButton() {
                 selectedTab.classList.add('active');
 
                 document.querySelectorAll('.lst_event_box').forEach(element => element.innerHTML = '');
-                requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart));
+                requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, currentProductUnits));
 
             }
         }
@@ -131,15 +133,15 @@ function mapProductParameters(categoryId, start) {
     return 'products?categoryId=' + categoryId + '&start=' + start;
 }
 
+// DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
-    // 초기 설정
 
     // 기본 Products 가져오기
     requestAjax(loadProductsCallback, mapProductParameters(0, 0));
 
     // 더보기 버튼 클릭시 비동기로 추가적인 Products 가져오기
     document.querySelector('.btn').addEventListener('click', () => {
-        requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart))
+        requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, currentProductUnits))
     });
 
     // 기본 Promotion 무한 슬라이딩 동작
