@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.category.dto.CategoryItems;
+import com.nts.reservation.category.dto.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
 
 /**
@@ -20,11 +20,11 @@ public class CategoryApiController {
 	private CategoryService categoryService;
 
 	@GetMapping("/api/categories")
-	public CategoryItems getCategoryList() {
-		CategoryItems categoryItems = new CategoryItems();
-		categoryItems.setCategoryList(categoryService.getCategoryList());
+	public CategoryResponse getItems() {
+		CategoryResponse categoryResponse = new CategoryResponse();
+		categoryResponse.setItems(categoryService.getItems());
 
-		return categoryItems;
+		return categoryResponse;
 	}
 
 }

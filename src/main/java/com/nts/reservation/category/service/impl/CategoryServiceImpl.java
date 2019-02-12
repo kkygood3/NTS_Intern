@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDaoImpl categoryDaoImpl;
 
 	@Override
-	public List<Category> getCategoryList() {
+	public List<Category> getItems() {
 		return categoryDaoImpl.selectCategories();
 	}
 }

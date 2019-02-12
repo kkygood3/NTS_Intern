@@ -43,21 +43,20 @@ function requestAjax(callback, url){
  * @param responseData Ajax 통신을 통해 불러온 promotion 관련 JSON 데이터
  */
 function loadPromotionsCallback(responseData) {
-	var itemCount = responseData.promotionCount;
-	var promotionList = responseData.promotionList;
+	var items = responseData.items;
 
 	var template = document.querySelector('#promotionItem').innerHTML;
 	var resultHtml = '';
-	for (var i = 0; i < promotionList.length; i++) {
+	for (var i = 0; i < items.length; i++) {
 		resultHtml += template
-							.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
-							.replace('{promotionImageUrl}', promotionList[i].productImageUrl);
+							.replace('{promotionImageUrl}', items[i].productImageUrl)
+							.replace('{promotionImageUrl}', items[i].productImageUrl);
 	}
 
-	if (promotionList.length > 0) {
+	if (items.length > 0) {
 		resultHtml += template
-							.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
-							.replace('{promotionImageUrl}', promotionList[0].productImageUrl);
+							.replace('{promotionImageUrl}', items[0].productImageUrl)
+							.replace('{promotionImageUrl}', items[0].productImageUrl);
 	}
 
 	document.querySelector('ul.visual_img').innerHTML = resultHtml;
@@ -70,14 +69,14 @@ function loadPromotionsCallback(responseData) {
  * @param responseData Ajax 통신을 통해 불러온 category 관련 JSON 데이터
  */
 function loadCategoriesCallback(responseData){
-	var categoryList = responseData.categoryList;
+	var items = responseData.items;
 	
 	var template = document.querySelector('#categoryItem').innerHTML;
 	var resultHtml = '';
-	for(var i = 0 ; i < categoryList.length; i++){
+	for(var i = 0 ; i < items.length; i++){
 		resultHtml += template
-							.replace('{name}',categoryList[i].name)
-							.replace('{id}',categoryList[i].id);
+							.replace('{name}',items[i].name)
+							.replace('{id}',items[i].id);
 	}
 	
 	document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
@@ -90,20 +89,20 @@ function loadCategoriesCallback(responseData){
 function loadProductsCallback(responseData) {
 	currentStart += 4;
 	
-	var itemCount = responseData.productCount;
-	var productList = responseData.productList;
+	var itemCount = responseData.totalCount;
+	var items = responseData.items;
 	var template = document.querySelector('#productItem').innerText;
 	var resultHtml = new Array(2);
 	resultHtml[0] = '';
 	resultHtml[1] = '';
-	for (var i = 0; i < productList.length; i++) {
+	for (var i = 0; i < items.length; i++) {
 		resultHtml[i % 2] += template
-										.replace('{productImageUrl}', productList[i].productImageUrl)
-										.replace('{description}', productList[i].productDescription)
-										.replace('{description}', productList[i].productDescription)
-										.replace('{id}', productList[i].displayInfoId)
-										.replace('{placeName}', productList[i].placeName)
-										.replace('{content}', productList[i].productContent);
+										.replace('{productImageUrl}', items[i].productImageUrl)
+										.replace('{description}', items[i].productDescription)
+										.replace('{description}', items[i].productDescription)
+										.replace('{id}', items[i].displayInfoId)
+										.replace('{placeName}', items[i].placeName)
+										.replace('{content}', items[i].productContent);
 	}
 	var containers = document.querySelectorAll('.lst_event_box');
 	containers[0].innerHTML += resultHtml[0];
@@ -166,16 +165,16 @@ function setTabClickEvent() {
  * 프로모션의 슬라이드를 움직이는 함수
  */
 function setPromotionMove() {
-	var promotionList = document.querySelectorAll('.visual_img>.item');
+	var items = document.querySelectorAll('.visual_img>.item');
 	var leftDistance = 0;
-	var itemSize = promotionList.length;
+	var itemSize = items.length;
 	var currentIndex = 0;
 	
 	setInterval(() => {
 		leftDistance -= 100;
 
 		for (var i = 0; i < itemSize; ++i) {
-			promotionList[i].style.left = leftDistance + '%';
+			items[i].style.left = leftDistance + '%';
 		}
 
 		currentIndex++;
@@ -184,11 +183,11 @@ function setPromotionMove() {
 		}
 		
 		for (var i = 0; i < itemSize; i++) {
-			promotionList[i].style.transitionDuration = '0s';
-			promotionList[i].style.left = '0';
+			items[i].style.transitionDuration = '0s';
+			items[i].style.left = '0';
 		}
 		for (var i = 0; i < itemSize; i++) {
-			promotionList[i].style.transitionDuration = '1s';
+			items[i].style.transitionDuration = '1s';
 		}
 		
 		currentIndex = 0;

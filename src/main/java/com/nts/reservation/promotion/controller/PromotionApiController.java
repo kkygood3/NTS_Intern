@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.promotion.dto.PromotionItems;
+import com.nts.reservation.promotion.dto.PromotionResponse;
 import com.nts.reservation.promotion.service.PromotionService;
 
 /**
@@ -22,24 +22,22 @@ public class PromotionApiController {
 	private PromotionService promotionService;
 
 	@GetMapping("/api/promotions")
-	public PromotionItems getProductList() {
+	public PromotionResponse getItems() {
 		int promotionCount = promotionService.getPromotionsCount();
 		if (promotionCount == 0) {
-			return getEmptyPromotionList();
+			return getEmptyitems();
 		}
 
-		PromotionItems promotionItems = new PromotionItems();
-		promotionItems.setPromotionCount(promotionCount);
-		promotionItems.setPromotionList(promotionService.getPromotions());
+		PromotionResponse promotionResponse = new PromotionResponse();
+		promotionResponse.setItems(promotionService.getPromotions());
 
-		return promotionItems;
+		return promotionResponse;
 	}
 
-	private PromotionItems getEmptyPromotionList() {
-		PromotionItems promotionItems = new PromotionItems();
-		promotionItems.setPromotionCount(0);
-		promotionItems.setPromotionList(Collections.emptyList());
+	private PromotionResponse getEmptyitems() {
+		PromotionResponse promotionResponse = new PromotionResponse();
+		promotionResponse.setItems(Collections.emptyList());
 
-		return promotionItems;
+		return promotionResponse;
 	}
 }

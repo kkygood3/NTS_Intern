@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
-public class CategoryItems {
-	private List<Category> categoryList;
+public class CategoryResponse {
+	private List<Category> items;
 
-	public List<Category> getCategoryList() {
-		return categoryList;
+	public List<Category> getItems() {
+		return items;
 	}
 
-	public void setCategoryList(List<Category> categoryList) {
-		this.categoryList = categoryList;
+	public void setItems(List<Category> items) {
+		this.items = items;
 	}
 }

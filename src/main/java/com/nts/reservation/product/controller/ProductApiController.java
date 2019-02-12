@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.product.dto.ProductItems;
+import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
 /**
@@ -23,7 +23,7 @@ public class ProductApiController {
 	private ProductService productService;
 
 	@GetMapping("/api/products")
-	public ProductItems getProductList(
+	public ProductResponse getItems(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
@@ -31,19 +31,19 @@ public class ProductApiController {
 		if (isInvalidParameter(categoryId, start)) {
 			System.out.println("올바르지 않은 categoryId 또는 start");
 
-			return getEmptyProductList();
+			return getEmptyitems();
 		}
 
-		int productCount = productService.getProductsCountByCategoryId(categoryId);
-		if (productCount == 0) {
-			return getEmptyProductList();
+		int totalCount = productService.getProductsCountByCategoryId(categoryId);
+		if (totalCount == 0) {
+			return getEmptyitems();
 		}
 
-		ProductItems productItems = new ProductItems();
-		productItems.setProductCount(productCount);
-		productItems.setProductList(productService.getProducts(categoryId, start, limit));
+		ProductResponse productResponse = new ProductResponse();
+		productResponse.setTotalCount(totalCount);
+		productResponse.setItems(productService.getProducts(categoryId, start, limit));
 
-		return productItems;
+		return productResponse;
 	}
 
 	private boolean isValidParameter(int categoryId, int limit) {
@@ -57,11 +57,11 @@ public class ProductApiController {
 		return !isValidParameter(categoryId, limit);
 	}
 
-	private ProductItems getEmptyProductList() {
-		ProductItems productItems = new ProductItems();
-		productItems.setProductCount(0);
-		productItems.setProductList(Collections.emptyList());
+	private ProductResponse getEmptyitems() {
+		ProductResponse productResponse = new ProductResponse();
+		productResponse.setTotalCount(0);
+		productResponse.setItems(Collections.emptyList());
 
-		return productItems;
+		return productResponse;
 	}
 }

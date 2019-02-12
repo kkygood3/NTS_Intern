@@ -12,5 +12,5 @@ import com.nts.reservation.category.dto.Category;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CategoryService {
-	public List<Category> getCategoryList();
+	public List<Category> getItems();
 }
