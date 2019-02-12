@@ -13,8 +13,6 @@ import com.nts.resevation.dto.ProductResponseDto;
  * @author jinwoo.bae
  */
 public interface ProductService {
-	int CATEGORY_TYPE_ALL = 0;
-
 	ProductResponseDto getProductResponse(int categoryId, int start, int limit);
 
 	DisplayInfoResponseDto getDisplayInfoResponse(int displayInfoId, int productImageLimit);

@@ -4,6 +4,8 @@
  */
 package com.nts.resevation.service;
 
+import static com.nts.resevation.constant.ParameterDefaultValue.*;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
 		int count;
-		if (categoryId == CATEGORY_TYPE_ALL) {
+		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
 			count = productDao.selectCount();
 		} else {
 			count = productDao.selectCountByCategoryId(categoryId);
@@ -50,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		List<ProductDto> products;
-		if (categoryId == CATEGORY_TYPE_ALL) {
+		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
 			products = productDao.selectAllPaging(start, limit);
 		} else {
 			products = productDao.selectByCategoryIdPaging(categoryId, start, limit);

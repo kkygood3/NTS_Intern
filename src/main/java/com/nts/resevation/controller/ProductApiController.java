@@ -4,6 +4,8 @@
  */
 package com.nts.resevation.controller;
 
+import static com.nts.resevation.constant.ParameterDefaultValue.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,20 +33,21 @@ public class ProductApiController {
 	 * 전시되고있는 상품들의 총 개수를 json으로 리턴해준다. 
 	 */
 	@GetMapping
-	public ProductResponseDto getProductResponse(@RequestParam(required = false, defaultValue = "0") int categoryId,
-		@RequestParam int start, @RequestParam(required = false, defaultValue = "4") int limit) {
+	public ProductResponseDto getProductResponse(
+		@RequestParam(required = false, defaultValue = CATEGORY_TYPE_ALL) int categoryId,
+		@RequestParam int start, @RequestParam(required = false, defaultValue = PRODUCTS_LIMIT) int limit) {
 		return productService.getProductResponse(categoryId, start, limit);
 	}
 
 	@GetMapping("/{displayInfoId}")
 	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId,
-		@RequestParam(required = false, defaultValue = "2") int productImageLimit) {
+		@RequestParam(required = false, defaultValue = PRODUCT_IMAGE_LIMIT) int productImageLimit) {
 		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit);
 	}
 
 	@GetMapping("/{productId}/comments")
 	public CommentResponseDto getCommentResponse(@PathVariable int productId, int start,
-		@RequestParam(required = false, defaultValue = "3") int limit) {
+		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int limit) {
 		return productService.getCommentResponse(productId, start, limit);
 	}
 }

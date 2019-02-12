@@ -4,6 +4,8 @@
  */
 package com.nts.resevation.controller;
 
+import static com.nts.resevation.constant.ParameterDefaultValue.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,8 @@ public class PromotionApiController {
 	 *  프로모션 목록들을 가져와 json으로 리턴
 	 */
 	@GetMapping
-	public Map<String, Object> getPromotions(@RequestParam(required = false, defaultValue = "20") int limit) {
+	public Map<String, Object> getPromotions(
+		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit) {
 		List<PromotionDto> promotions = promotionService.getPromotions(limit);
 
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -4,6 +4,8 @@
  */
 package com.nts.resevation.controller;
 
+import static com.nts.resevation.constant.ParameterDefaultValue.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class CategoryApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getCategoriesWithProductsOnDisplayCount(
-		@RequestParam(required = false, defaultValue = "10") int limit) {
+		@RequestParam(required = false, defaultValue = CATEGORIES_LIMIT) int limit) {
 		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount(limit);
 
 		Map<String, Object> map = new HashMap<String, Object>();
