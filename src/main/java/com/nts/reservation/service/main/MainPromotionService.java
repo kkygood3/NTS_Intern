@@ -10,15 +10,10 @@ import com.nts.reservation.dto.main.MainPromotion;
 
 public interface MainPromotionService {
 	/**
-	 * @value	100 
-	 */
-	Integer LIMIT = 100;
-
-	/**
 	 * api/promotions response에 사용
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	List<MainPromotion> getPromotions();
+	List<MainPromotion> getPromotions(int pagingLimit);
 
 	/**
 	 * api/promotions response에 사용

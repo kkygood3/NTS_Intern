@@ -10,25 +10,19 @@ import com.nts.reservation.dto.main.MainProduct;
 
 public interface MainProductService {
 	/**
-	 * product_api_view에 Select 수행시 Paging 처리를 위해 한번에 가져올 row 수
-	 * @value	4 
-	 */
-	Integer LIMIT = 4;
-
-	/**
 	 * api/products response에 사용
 	 * @param	categoryId	해당 카테고리에 속하는 상품
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	인터페이스의 LIMIT만큼 해당 DTO의 List로 반환
 	 */
-	List<MainProduct> getProducts(long categoryId, long start);
+	List<MainProduct> getProducts(int pagingLimit, long categoryId, long start);
 
 	/**
 	 * api/products response에 사용. 카테고리 구분 없음
 	 * @param	start	페이지에 출력할 데이터의 시작 index
 	 * @return	인터페이스의 LIMIT만큼 해당 DTO의 List로 반환
 	 */
-	List<MainProduct> getProducts(long start);
+	List<MainProduct> getProducts(int pagingLimit, long start);
 
 	/**
 	 * api/products response에 사용

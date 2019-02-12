@@ -20,8 +20,8 @@ public class MainPromotionServiceImpl implements MainPromotionService {
 	private MainPromotionDao mainPromotionDao;
 
 	@Override
-	public List<MainPromotion> getPromotions() {
-		return mainPromotionDao.selectPromotions(LIMIT);
+	public List<MainPromotion> getPromotions(int pagingLimit) {
+		return mainPromotionDao.selectPromotions(pagingLimit);
 	}
 
 	@Override

@@ -20,25 +20,25 @@ public class MainProductServiceImpl implements MainProductService {
 	private MainProductDao mainProductDao;
 
 	@Override
-	public List<MainProduct> getProducts(long categoryId, long start) {
+	public List<MainProduct> getProducts(int pagingLimit, long categoryId, long start) {
 		if (start < 0) {
 			start = 0;
 		}
 
 		if (categoryId > 0) {
-			return mainProductDao.selectPagingProductsByCategory(categoryId, start, LIMIT);
+			return mainProductDao.selectPagingProductsByCategory(categoryId, start, pagingLimit);
 		} else {
-			return getProducts(start);
+			return getProducts(pagingLimit, start);
 		}
 	}
 
 	@Override
-	public List<MainProduct> getProducts(long start) {
+	public List<MainProduct> getProducts(int pagingLimit, long start) {
 		if (start < 0) {
 			start = 0;
 		}
 
-		return mainProductDao.selectPagingProducts(start, LIMIT);
+		return mainProductDao.selectPagingProducts(start, pagingLimit);
 	}
 
 	@Override

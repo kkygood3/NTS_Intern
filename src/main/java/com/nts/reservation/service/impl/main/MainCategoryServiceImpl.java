@@ -20,8 +20,8 @@ public class MainCategoryServiceImpl implements MainCategoryService {
 	private MainCategoryDao mainCategoryDao;
 
 	@Override
-	public List<MainCategory> getCategories() {
-		return mainCategoryDao.selectCategories(LIMIT);
+	public List<MainCategory> getCategories(int pagingLimit) {
+		return mainCategoryDao.selectCategories(pagingLimit);
 	}
 
 }
