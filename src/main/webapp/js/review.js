@@ -33,10 +33,10 @@ function convertDateFormat(date){
 }
 
 function loadDisplayInfoCallback(responseData) {
-	var jsonData = responseData.detailDisplay;
+	var displayInfoResponse = responseData.detailDisplay;
 	
-	var averageScore = jsonData.averageScore.toFixed(1);
-	var comments = jsonData.comments;
+	var averageScore = displayInfoResponse.averageScore.toFixed(1);
+	var comments = displayInfoResponse.comments;
 	
 	//Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
@@ -45,12 +45,12 @@ function loadDisplayInfoCallback(responseData) {
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for(var i = 0 ; i < comments.length; i++){
 		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
-		comments[i].productDescription = jsonData.displayInfo.productDescription;
+		comments[i].productDescription = displayInfoResponse.displayInfo.productDescription;
 		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
 	} 
 	
 	//맨 위 화면의 title
-	document.querySelector('a.title').innerText = jsonData.displayInfo.productDescription;
+	document.querySelector('a.title').innerText = displayInfoResponse.displayInfo.productDescription;
 	
 	//별점 그래프, 숫자 조정
 	document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';

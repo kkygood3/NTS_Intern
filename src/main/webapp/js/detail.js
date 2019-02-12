@@ -57,7 +57,7 @@ function initDetailBtn(){
 	});
 }
 
-function initSwipeImage(jsonData){
+function initSwipeImage(displayInfoResponse){
 	// 상단 Swipe Image 배너 Template
 	var swipeTemplate = document.querySelector('#bannerImageTemplate').innerText;
 	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
@@ -72,11 +72,11 @@ function initSwipeImage(jsonData){
 	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	
 	// 공통 할 일 : 숫자 띄우기
-	if(jsonData.productImages.length == 1){
+	if(displayInfoResponse.productImages.length == 1){
 		// 이미지가 1개인 경우
 		 
-		jsonData.curSaveFileName = jsonData.productImages[0].saveFileName;
-		swipeContainer.innerHTML += bindSwipeTemplate(jsonData);
+		displayInfoResponse.curSaveFileName = displayInfoResponse.productImages[0].saveFileName;
+		swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse);
 		
 		swipeAmount.innerText = '1';
 		
@@ -86,12 +86,12 @@ function initSwipeImage(jsonData){
 		swipeLeftBtn.style.display = 'none';
 		swipeRightBtn.style.display = 'none';
 		
-	}else if(jsonData.productImages.length > 1){
+	}else if(displayInfoResponse.productImages.length > 1){
 		// 이미지가 2개 이상인 경우
 		
 		for(var idx = 0; idx < MAX_SWIPE; idx ++){
-			jsonData.curSaveFileName = jsonData.productImages[idx].saveFileName;
-			swipeContainer.innerHTML += bindSwipeTemplate(jsonData);
+			displayInfoResponse.curSaveFileName = displayInfoResponse.productImages[idx].saveFileName;
+			swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse);
 		}
 		
 		swipeAmount.innerText = MAX_SWIPE;
@@ -119,12 +119,12 @@ function initSwipeImage(jsonData){
 	}
 	
 	// 이미지위에 제목 띄우기
-	document.querySelector('div.store_details>p.dsc').innerHTML = jsonData.displayInfo.productContent;
+	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfoResponse.displayInfo.productContent;
 }
 
-function initComment(jsonData){
-	var comments = jsonData.comments;
-	var averageScore = jsonData.averageScore.toFixed(1);
+function initComment(displayInfoResponse){
+	var comments = displayInfoResponse.comments;
+	var averageScore = displayInfoResponse.averageScore.toFixed(1);
 	
 	// Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
@@ -133,7 +133,7 @@ function initComment(jsonData){
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for(var i = 0 ; i < 3 && i < comments.length; i++){
 		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate);
-		comments[i].productDescription = jsonData.displayInfo.productDescription;
+		comments[i].productDescription = displayInfoResponse.displayInfo.productDescription;
 		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
 	}
 	
@@ -145,12 +145,12 @@ function initComment(jsonData){
 	document.querySelector('span.join_count>em.green').innerText = comments.length+'건';
 	
 	// Comment 더보기 버튼
-	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+jsonData.displayInfo.displayInfoId)
+	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfoResponse.displayInfo.displayInfoId)
 }
 
-function initInfoTab(jsonData){
-	var displayInfo = jsonData.displayInfo;
-	var displayInfoImage = jsonData.displayInfoImage;
+function initInfoTab(displayInfoResponse){
+	var displayInfo = displayInfoResponse.displayInfo;
+	var displayInfoImage = displayInfoResponse.displayInfoImage;
 	
 	// [소개]란의 글
 	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
@@ -219,19 +219,19 @@ function initInfoTab(jsonData){
 }
 
 function loadDisplayInfoCallback(responseData) {
-	var jsonData = responseData.detailDisplay;
+	var displayInfoResponse = responseData.detailDisplay;
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn();
 	
 	// SwipeImage 설정
-	initSwipeImage(jsonData);
+	initSwipeImage(displayInfoResponse);
 	
 	// Comment 설정
-	initComment(jsonData);
+	initComment(displayInfoResponse);
 	
 	// 맨 아래의 상세정보, 오시는길 탭 설정
-	initInfoTab(jsonData);
+	initInfoTab(displayInfoResponse);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
