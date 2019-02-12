@@ -55,11 +55,10 @@ public class CommentDaoImpl implements CommentDao {
 		return jdbc.query(CommentDaoSqls.GET_COMMENT_IMAGES_BY_COMMENT_ID, param, commentImageRowMapper);
 	}
 
-	// TODO Double로 ...
 	@Override
-	public int selectCommentAvgScore(int displayInfoId) {
+	public double selectCommentAvgScore(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(CommentDaoSqls.GET_COMMENT_AVG_SCORE, param, Integer.class);
+		return jdbc.queryForObject(CommentDaoSqls.GET_COMMENT_AVG_SCORE, param, Double.class);
 	}
 }
