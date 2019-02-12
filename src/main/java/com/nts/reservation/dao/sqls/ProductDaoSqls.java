@@ -55,5 +55,5 @@ public class ProductDaoSqls {
 		+ " FROM display_info di"
 		+ " INNER JOIN product pdt ON pdt.id = di.product_id"
 		+ " INNER JOIN category ctg ON ctg.id = pdt.category_id"
-		+ " GROUP BY pdt.category_id";
+		+ " GROUP BY ctg.id, ctg.name";
 }
