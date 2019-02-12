@@ -8,5 +8,5 @@ package com.nts.reservation.promotion.service;
 import com.nts.reservation.promotion.dto.PromotionResponse;
 
 public interface PromotionService {
-	public PromotionResponse getPromotions();
+	PromotionResponse getPromotions();
 }
