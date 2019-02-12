@@ -28,15 +28,13 @@ function addThumbnailClickEvent() {
 		if (!event.target.closest("li")) {
 			return;
 		}
-		window.location.href = "./detail" +  makeParamsForDetailPage(event.target.closest("li"));
-
+		window.location.href = "./detail/" + getDisplayInfo(event.target);
 	});
 }
 
-function makeParamsForDetailPage(thumbnail) {
-	var ids = thumbnail.id.split("_");
-	return "?product_id=" + ids[1] +
-		"&display_info_id=" + ids[2];
+function getDisplayInfo(target) {
+	var thumbnailElement = target.closest("li")
+	return thumbnail.id.split("_")[2];
 }
 
 function changeCategoryTabUi(curCategoryId) {
