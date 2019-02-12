@@ -5,10 +5,8 @@
 
 package com.nts.reservation.promotion.service;
 
-import java.util.List;
+import com.nts.reservation.promotion.dto.PromotionResponse;
 
-import com.nts.reservation.promotion.dto.MainPromotion;
-
-public interface MainPromotionService {
-	public List<MainPromotion> getPromotions();
+public interface PromotionService {
+	public PromotionResponse getPromotions();
 }

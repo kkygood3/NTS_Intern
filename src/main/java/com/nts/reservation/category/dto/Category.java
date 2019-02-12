@@ -5,7 +5,7 @@
 
 package com.nts.reservation.category.dto;
 
-public class MainCategory {
+public class Category {
 	private Integer id;
 	private String name;
 	private int count;
@@ -36,6 +36,6 @@ public class MainCategory {
 
 	@Override
 	public String toString() {
-		return "MainCategory [id=" + id + ", name=" + name + ", count=" + count + "]";
+		return "Category [id=" + id + ", name=" + name + ", count=" + count + "]";
 	}
 }

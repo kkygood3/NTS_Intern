@@ -5,7 +5,7 @@
 
 package com.nts.reservation.promotion.dao;
 
-import static com.nts.reservation.promotion.dao.queries.MainPromotionQueries.*;
+import static com.nts.reservation.promotion.dao.queries.PromotionQueries.*;
 
 import java.util.List;
 
@@ -16,18 +16,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.promotion.dto.MainPromotion;
+import com.nts.reservation.promotion.dto.Promotion;
 
 @Repository
-public class MainPromotionDao {
+public class PromotionDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPromotion> rowMapper = BeanPropertyRowMapper.newInstance(MainPromotion.class);
+	private RowMapper<Promotion> rowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
 
-	public MainPromotionDao(DataSource dataSource) {
+	public PromotionDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPromotion> selectPagingCategories() {
+	public List<Promotion> selectPagingCategories() {
 		return jdbc.query(SELECT_PROMOTION_PAGE, rowMapper);
 	}
 }

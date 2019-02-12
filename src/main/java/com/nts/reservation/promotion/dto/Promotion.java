@@ -5,7 +5,7 @@
 
 package com.nts.reservation.promotion.dto;
 
-public class MainPromotion {
+public class Promotion {
 	private Integer id;
 	private Integer productId;
 	private String productImageUrl;
@@ -36,6 +36,6 @@ public class MainPromotion {
 
 	@Override
 	public String toString() {
-		return "MainPromotion [id=" + id + ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
+		return "Promotion [id=" + id + ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
 	}
 }

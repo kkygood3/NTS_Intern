@@ -5,7 +5,7 @@
 
 package com.nts.reservation.product.dao.queries;
 
-public class MainProductQueries {
+public class ProductQueries {
 	public static final String SELECT_PROUDUCT_PAGE = "SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url " +
 		"FROM product " +
 		"INNER JOIN product_image ON product.id = product_image.product_id " +

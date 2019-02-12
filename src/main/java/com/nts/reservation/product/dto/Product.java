@@ -5,7 +5,7 @@
 
 package com.nts.reservation.product.dto;
 
-public class MainProduct {
+public class Product {
 	private Integer displayInfoId;
 	private String placeName;
 	private String productContent;
@@ -54,7 +54,7 @@ public class MainProduct {
 	}
 	@Override
 	public String toString() {
-		return "MainProduct [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
+		return "Product [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", productContent="
 			+ productContent + ", productDescription=" + productDescription + ", productId=" + productId
 			+ ", productImageUrl=" + productImageUrl + "]";
 	}
