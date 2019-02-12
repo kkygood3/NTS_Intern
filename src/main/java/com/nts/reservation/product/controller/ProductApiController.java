@@ -31,10 +31,10 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (isValidParameter(categoryId, start)) {
-			System.out.println("올바르지 않은 categoryId 또는 start");
-			return Collections.emptyMap();
-		}
+		//		if (isValidParameter(categoryId, start)) {
+		//			System.out.println("올바르지 않은 categoryId 또는 start");
+		//			return Collections.emptyMap();
+		//		}
 
 		int productCount = productService.getProductsCountByCategoryId(categoryId);
 		if (productCount == 0) {
@@ -54,14 +54,14 @@ public class ProductApiController {
 		//return productService.getProducts(categoryId, start);
 	}
 
-	private boolean isValidParameter(int start, int limit) {
-		if (start < 0 || limit < 0) {
+	private boolean isValidParameter(int categoryId, int limit) {
+		if (categoryId < 0 || limit < 0) {
 			return false;
 		}
 		return true;
 	}
 
-	private boolean isInvalidParameter(int start, int limit) {
-		return !isValidParameter(start, limit);
+	private boolean isInvalidParameter(int categoryId, int limit) {
+		return !isValidParameter(categoryId, limit);
 	}
 }
