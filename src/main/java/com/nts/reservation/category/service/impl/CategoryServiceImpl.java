@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.category.dao.CategoryDao;
+import com.nts.reservation.category.dao.impl.CategoryDaoImpl;
 import com.nts.reservation.category.dto.Category;
 import com.nts.reservation.category.service.CategoryService;
 
@@ -19,10 +19,10 @@ import com.nts.reservation.category.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	CategoryDao categoryDao;
+	private CategoryDaoImpl categoryDaoImpl;
 
 	@Override
 	public List<Category> getCategoryList() {
-		return categoryDao.selectCategories(CATEGORY_LIMIT);
+		return categoryDaoImpl.selectCategories(CATEGORY_LIMIT);
 	}
 }

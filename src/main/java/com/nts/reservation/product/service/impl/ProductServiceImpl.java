@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.product.dao.ProductDao;
+import com.nts.reservation.product.dao.impl.ProductDaoImpl;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.service.ProductService;
 
@@ -19,7 +19,7 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	ProductDao productDao;
+	private ProductDaoImpl productDaoImpl;
 
 	@Override
 	public List<Product> getProducts(int categoryId, int start) {
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 		if (isAllCategories(categoryId)) {
 			return getProducts(start);
 		}
-		return productDao.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
+		return productDaoImpl.selectProductsByCategory(categoryId, start, PRODUCT_LIMIT);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 		if (start < 0) {
 			//throw error
 		}
-		return productDao.selectProducts(start, PRODUCT_LIMIT);
+		return productDaoImpl.selectProducts(start, PRODUCT_LIMIT);
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class ProductServiceImpl implements ProductService {
 		if (isAllCategories(categoryId)) {
 			return getProductsCount();
 		}
-		return productDao.selectProductsCountByCategory(categoryId);
+		return productDaoImpl.selectProductsCountByCategory(categoryId);
 	}
 
 	@Override
 	public int getProductsCount() {
-		return productDao.selectProductsCount();
+		return productDaoImpl.selectProductsCount();
 	}
 
 	private boolean isAllCategories(int categoryId) {
