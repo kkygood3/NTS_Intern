@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 			return new ProductResponseDto(Collections.<ProductDto>emptyList(), count);
 		}
 
-		List<ProductDto> products = Collections.<ProductDto>emptyList();
+		List<ProductDto> products;
 		if (categoryId == CATEGORY_TYPE_ALL) {
 			products = productDao.selectAllPaging(start, limit);
 		} else {
