@@ -1,7 +1,31 @@
+document.addEventListener('DOMContentLoaded', function() {
+	//페이지 첫 로딩시 할 일
+
+	//1. 카테고리 목록 가져오기
+	requestAjax(loadCategoriesCallback, 'categories');
+
+	//2. 상품 목록 가져오기
+	requestAjax(loadProductsCallback, mapProductParameters(0, 0, productLimit));
+
+	//3. promotion 가져오기
+	requestAjax(loadPromotionsCallback, 'promotions');
+
+	//4. 더보기 버튼 event 등록
+	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, productLimit)));
+
+	//5. 탭 변경 event 등록
+	setTabClickEvent();
+});
+
 var currentStart = 0;
 var currentCategory = 0;
 const productLimit = 4;
 
+/**
+ * api의 Ajax Reqeust를 수행
+ * @param callback 호출 함수
+ * @param url 호출 URL
+ */
 function requestAjax(callback, url){
 	var ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
@@ -14,51 +38,10 @@ function requestAjax(callback, url){
 	ajaxReq.send()
 }
 
-function loadCategoriesCallback(responseData){
-	var categoryList = responseData.categoryList;
-	
-	var template = document.querySelector('#categoryItem').innerHTML;
-	var resultHtml = '';
-	for(var i = 0 ; i < categoryList.length; i++){
-		resultHtml += template
-							.replace('{name}',categoryList[i].name)
-							.replace('{id}',categoryList[i].id);
-	}
-	
-	document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
-}
-
-function setPromotionMove() {
-	var promotionList = document.querySelectorAll('.visual_img>.item');
-	var leftDistance = 0;
-	var itemSize = promotionList.length;
-	var curIdx = 0;
-	
-	setInterval(() => {
-		leftDistance -= 100;
-
-		for (var i = 0; i < itemSize; ++i) {
-			promotionList[i].style.left = leftDistance + '%';
-		}
-
-		curIdx++;
-		if (curIdx < itemSize) {
-			return;
-		}
-		
-		for (var i = 0; i < itemSize; i++) {
-			promotionList[i].style.transitionDuration = '0s';
-			promotionList[i].style.left = '0';
-		}
-		for (var i = 0; i < itemSize; i++) {
-			promotionList[i].style.transitionDuration = '1s';
-		}
-		
-		curIdx = 0;
-		leftDistance = 0;
-	}, 4000);
-}
-
+/**
+ * 페이지 상단의 프로모션을 가져오는 함수
+ * @param responseData Ajax 통신을 통해 불러온 promotion 관련 JSON 데이터
+ */
 function loadPromotionsCallback(responseData) {
 	var itemCount = responseData.promotionCount;
 	var promotionList = responseData.promotionList;
@@ -82,6 +65,28 @@ function loadPromotionsCallback(responseData) {
 	setPromotionMove();
 }
 
+/**
+ * 페이지 중단의 카테고리를 가져오는 함수
+ * @param responseData Ajax 통신을 통해 불러온 category 관련 JSON 데이터
+ */
+function loadCategoriesCallback(responseData){
+	var categoryList = responseData.categoryList;
+	
+	var template = document.querySelector('#categoryItem').innerHTML;
+	var resultHtml = '';
+	for(var i = 0 ; i < categoryList.length; i++){
+		resultHtml += template
+							.replace('{name}',categoryList[i].name)
+							.replace('{id}',categoryList[i].id);
+	}
+	
+	document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
+}
+
+/**
+ * 페이지 하단의 상품을 가져오는 함수
+ * @param responseData Ajax 통신을 통해 불러온 product 관련 JSON 데이터
+ */
 function loadProductsCallback(responseData) {
 	currentStart += 4;
 	
@@ -114,10 +119,20 @@ function loadProductsCallback(responseData) {
 	document.querySelector('.event_lst_txt>span').innerText = itemCount + '개';
 }
 
+/**
+ * URL에 들어가는 상품 관련 parameter를 설정하는 함수
+ * @param categoryId 상품들
+ * @param start 페이징 쿼리로 가져오는 시작 레코드
+ * @param limit 페이징 쿼리에서 레코드 개수를 제한
+ * @returns API Controller 레이어에서 사용되는 URL
+ */
 function mapProductParameters(categoryId, start, limit) {
 	return 'products?categoryId=' + categoryId + '&start=' + start + '&limit=' + limit;
 }
 
+/**
+ * 현재 카테고리에서 다른 카테고리를 클릭하는 이벤트를 통해, 해당 카테고리의 상품을 갱신하는 함수
+ */
 function setTabClickEvent() {	
 	document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent) {
 
@@ -147,21 +162,36 @@ function setTabClickEvent() {
 	});
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	//페이지 첫 로딩시 할 일
+/**
+ * 프로모션의 슬라이드를 움직이는 함수
+ */
+function setPromotionMove() {
+	var promotionList = document.querySelectorAll('.visual_img>.item');
+	var leftDistance = 0;
+	var itemSize = promotionList.length;
+	var currentIndex = 0;
+	
+	setInterval(() => {
+		leftDistance -= 100;
 
-	//1. 카테고리 목록 가져오기
-	requestAjax(loadCategoriesCallback, 'categories');
+		for (var i = 0; i < itemSize; ++i) {
+			promotionList[i].style.left = leftDistance + '%';
+		}
 
-	//2. 상품 목록 가져오기
-	requestAjax(loadProductsCallback, mapProductParameters(0, 0, productLimit));
-
-	//3. promotion 가져오기
-	requestAjax(loadPromotionsCallback, 'promotions');
-
-	//4. 더보기 버튼 event 등록
-	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, productLimit)));
-
-	//5. 탭 변경 event 등록
-	setTabClickEvent();
-});
+		currentIndex++;
+		if (currentIndex < itemSize) {
+			return;
+		}
+		
+		for (var i = 0; i < itemSize; i++) {
+			promotionList[i].style.transitionDuration = '0s';
+			promotionList[i].style.left = '0';
+		}
+		for (var i = 0; i < itemSize; i++) {
+			promotionList[i].style.transitionDuration = '1s';
+		}
+		
+		currentIndex = 0;
+		leftDistance = 0;
+	}, 4000);
+}
