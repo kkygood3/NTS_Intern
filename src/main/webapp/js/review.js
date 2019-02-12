@@ -40,10 +40,12 @@ var reviewPage = {
 		num_rating : document.querySelector(".text_value"),
 		cntComment : document.querySelector(".green"),
 		
-		commentsContainer : document.querySelector(".list_short_review"),
-		
 		btnBack : document.querySelector(".btn_back"),
 		btnTop : document.querySelector(".lnk_top")
+	},
+	
+	Container: {
+		commentsContainer : document.querySelector(".list_short_review")
 	},
 	
 	template: {
@@ -74,7 +76,7 @@ var reviewPage = {
 			comment.score = comment.score.toFixed(1);
 		});
 		
-		this.elements.commentsContainer.innerHTML = bindComments(jsonResponse);
+		this.Container.commentsContainer.innerHTML = bindComments(jsonResponse);
 	},
 	
 	goToPrevPage: function(){
