@@ -14,8 +14,8 @@ public class ProductPrice {
 	private Long productPriceId;
 	private Long productId;
 	private String priceTypeName;
-	private int price;
-	private int discountRate;
+	private Integer price;
+	private Integer discountRate;
 	private String createDate;
 	private String modifyDate;
 
@@ -47,7 +47,7 @@ public class ProductPrice {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -55,7 +55,7 @@ public class ProductPrice {
 		return discountRate;
 	}
 
-	public void setDiscountRate(int discountRate) {
+	public void setDiscountRate(Integer discountRate) {
 		this.discountRate = discountRate;
 	}
 

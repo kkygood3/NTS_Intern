@@ -66,10 +66,10 @@ public class DetailDao {
 			BeanPropertyRowMapper.newInstance(Comment.class));
 	}
 
-	public double getAverageScore(Long displayInfoId) {
+	public Double getAverageScore(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, double.class);
+		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, Double.class);
 	}
 
 	public List<ProductPrice> getProductPrices(Long displayInfoId) {
