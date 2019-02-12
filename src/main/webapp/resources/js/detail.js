@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var detailPage = {
 	values: {
-		MAX_NUMBER_SHOW_COMMENT : 3
+		MAX_NUMBER_SHOW_COMMENT : 3,
+		id: document.querySelector("#container").dataset.displayId
 	},
 	elements: {
 		imageContainer: document.querySelector(".detail_swipe"),
@@ -34,7 +35,7 @@ var detailPage = {
 	 * @function requestDisplayInfo 서버에 displayInfo 정보 요청
 	 */
 	requestDisplayInfo: function() {
-		var id = getDisplayInfoIdFromUrl();
+		var id = this.values.id;
 		
 		sendGet("/reservation-service/api/products/"+id, {}, function(response){
 			this.requestDisplayInfoCallback(response);
@@ -193,7 +194,7 @@ var detailPage = {
 			moreCommentBtn.className += " hide";
 			return;
 		}
-		moreCommentBtn.setAttribute("href", "./review/" + getDisplayInfoIdFromUrl());
+		moreCommentBtn.setAttribute("href", "./" + this.values.id + "/review");
 	},
 	/**
 	 * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수

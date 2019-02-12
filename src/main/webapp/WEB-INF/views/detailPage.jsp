@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <div id="container" data-display-id= ${displayInfoId }>
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">

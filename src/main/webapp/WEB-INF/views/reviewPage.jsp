@@ -9,7 +9,7 @@
 		<link href="../../css/style.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="container">
+		<div id="container" data-display-id= ${displayInfoId }>
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 			<div class="header fade">
 				<header class="header_tit">

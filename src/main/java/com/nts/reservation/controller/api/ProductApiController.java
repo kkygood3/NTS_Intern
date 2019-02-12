@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import java.util.Collections;
 import java.util.List;

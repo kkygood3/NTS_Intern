@@ -11,7 +11,7 @@ var reviewPage = {
 		this.requestDisplayInfo();
 	},
 	values: {
-
+		id: document.querySelector("#container").dataset.displayId
 	},
 	elements: {
 		headerContainer: document.querySelector(".review_header"),
@@ -21,7 +21,7 @@ var reviewPage = {
 	 * @function requestDisplayInfo 서버에 displayInfo 정보 요청
 	 */
 	requestDisplayInfo: function() {
-		var id = getDisplayInfoIdFromUrl();
+		var id = this.values.id;
 		
 		sendGet("/reservation-service/api/products/"+id, {}, function(response){
 			this.requestDisplayInfoCallback(response);

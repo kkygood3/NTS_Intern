@@ -30,15 +30,6 @@ function sendGet(path, params, onCallback) {
 }
 
 /**
- * @function getDisplayInfoIdFromUrl url경로에서 displayInfoId 얻음.
- */
-function getDisplayInfoIdFromUrl () {
-	var path = window.location.pathname;
-	var splitPath = path.split("/");
-	return splitPath[splitPath.length-1];
-}
-
-/**
  * @function getTargetTemplate id를 받아 template을 바인딩하는 함수를 리턴해준다.
  * @param {string} templateId  #아이디 형식을 보낼 것
  * @return {function}  html template를 바인딩하는 함수 리턴
