@@ -18,9 +18,6 @@ import com.nts.reservation.promotion.service.PromotionService;
  */
 @RestController
 public class PromotionApiController {
-
-	private PromotionItems promotionItems = new PromotionItems();
-
 	@Autowired
 	private PromotionService promotionService;
 
@@ -31,6 +28,7 @@ public class PromotionApiController {
 			return getEmptyPromotionList();
 		}
 
+		PromotionItems promotionItems = new PromotionItems();
 		promotionItems.setPromotionCount(promotionCount);
 		promotionItems.setPromotionList(promotionService.getPromotions());
 
@@ -38,6 +36,7 @@ public class PromotionApiController {
 	}
 
 	private PromotionItems getEmptyPromotionList() {
+		PromotionItems promotionItems = new PromotionItems();
 		promotionItems.setPromotionCount(0);
 		promotionItems.setPromotionList(Collections.emptyList());
 

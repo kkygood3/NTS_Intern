@@ -22,8 +22,6 @@ public class ProductApiController {
 	@Autowired
 	private ProductService productService;
 
-	private ProductItems productItems = new ProductItems();
-
 	@GetMapping("/api/products")
 	public ProductItems getProductList(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
@@ -41,6 +39,7 @@ public class ProductApiController {
 			return getEmptyProductList();
 		}
 
+		ProductItems productItems = new ProductItems();
 		productItems.setProductCount(productCount);
 		productItems.setProductList(productService.getProducts(categoryId, start, limit));
 
@@ -59,6 +58,7 @@ public class ProductApiController {
 	}
 
 	private ProductItems getEmptyProductList() {
+		ProductItems productItems = new ProductItems();
 		productItems.setProductCount(0);
 		productItems.setProductList(Collections.emptyList());
 
