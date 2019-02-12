@@ -207,41 +207,45 @@ var detailPage = {
 		
 		tabEvent: function(){
 			this.detailPage.elements.tabUi.addEventListener("click", function(event){
-				var anchorElement;
-				var selectedCategoryId;
-				var previousActive = document.querySelector(".anchor.active");
-	
-			 	if(event.target.classList.contains("anchor")){
-					anchorElement = event.target;
-				} else if(event.target.classList.contains("info_tab_text")){
-					anchorElement = event.target.parentNode;
-				} else {
-					return;
-				}
-	
-			 	previousActive.classList.remove("active");
-	
-			 	selectedCategoryId = anchorElement.parentNode.dataset.category;
-				anchorElement.classList.add("active");
-	
-				if(anchorElement.classList.contains("_detail")){
-					if(!this.detailPage.elements.locationInfo.classList.contains("hide")){
-						this.detailPage.elements.locationInfo.classList.add("hide");
-					}
-					this.detailPage.elements.detailInfo.classList.remove("hide");
-				} else if(anchorElement.classList.contains("_path")) {
-					if(!this.detailPage.elements.detailInfo.classList.contains("hide")){
-						this.detailPage.elements.detailInfo.classList.add("hide");
-					}
-					this.detailPage.elements.locationInfo.classList.remove("hide");
-				}
+					this.detailPage.setEvent.changeTab(event);
 			}.bind(this));
 		}.bind(this),
 		
 		carousel: function(){
 			this.detailPage.elements.btnPrev.addEventListener("click", this.detailPage.imageSlide.slideRight);
 			this.detailPage.elements.btnNxt.addEventListener("click", this.detailPage.imageSlide.slideLeft);
-		}.bind(this)
+		}.bind(this),
+		
+		changeTab: function(event){
+			var anchorElement;
+			var selectedCategoryId;
+			var previousActive = document.querySelector(".anchor.active");
+			
+		 	if(event.target.classList.contains("anchor")){
+				anchorElement = event.target;
+			} else if(event.target.classList.contains("info_tab_text")){
+				anchorElement = event.target.parentNode;
+			} else {
+				return;
+			}
+
+		 	previousActive.classList.remove("active");
+
+		 	selectedCategoryId = anchorElement.parentNode.dataset.category;
+			anchorElement.classList.add("active");
+
+			if(anchorElement.classList.contains("_detail")){
+				if(!this.detailPage.elements.locationInfo.classList.contains("hide")){
+					this.detailPage.elements.locationInfo.classList.add("hide");
+				}
+				this.detailPage.elements.detailInfo.classList.remove("hide");
+			} else if(anchorElement.classList.contains("_path")) {
+				if(!this.detailPage.elements.detailInfo.classList.contains("hide")){
+					this.detailPage.elements.detailInfo.classList.add("hide");
+				}
+				this.detailPage.elements.locationInfo.classList.remove("hide");
+			}
+		}.bind(this),
 	},
 	
 	imageSlide: {
