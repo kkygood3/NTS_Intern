@@ -10,9 +10,11 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.DatailPageInfo;
 
+@Repository
 public class DatailPageInfoDao extends BaseDao {
 	RowMapper<DatailPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(DatailPageInfo.class);
 	DatailPageInfoDao(DataSource dataSource) {
