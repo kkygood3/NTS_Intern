@@ -57,8 +57,8 @@ public class ProductController {
 	 * @throws DisplayInfoNullException
 	 */
 	@GetMapping("/{displayInfoId}")
-	public DisplayInfos getDisplayInfoById(@PathVariable int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfos getDisplayInfoByProductId(@PathVariable int displayInfoId) throws DisplayInfoNullException {
 		
-		return displayInfoService.getDisplayInfos(displayInfoId);
+		return displayInfoService.getDisplayInfosByDisplayInfoId(displayInfoId);
 	}
 }

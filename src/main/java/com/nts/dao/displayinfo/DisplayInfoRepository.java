@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 NaverCorp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ **/
 package com.nts.dao.displayinfo;
 
 import static com.nts.sqls.displayinfo.DisplayInfoSqls.*;
@@ -14,6 +18,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.dto.displayinfo.DisplayInfo;
 import com.nts.dto.displayinfo.DisplayInfoImage;
 
+/**
+ * @author 전연빈
+ */
 @Repository
 public class DisplayInfoRepository {
 
@@ -28,7 +35,7 @@ public class DisplayInfoRepository {
 	 * @param displayInfoId
 	 * @return displayInfo
 	 */
-	public DisplayInfo selectDisplayInfo(int displayInfoId) {
+	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("displayInfoId", displayInfoId);
@@ -41,7 +48,7 @@ public class DisplayInfoRepository {
 	 * @param displayInfoId
 	 * @return displayInfoImage
 	 */
-	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
+	public DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("displayInfoId", displayInfoId);
@@ -49,15 +56,4 @@ public class DisplayInfoRepository {
 		return namedParameterJdbcTemplate.queryForObject(SELECT_DISPLAY_INFO_IMAGE, params, displayInfoImageRowMapper);
 	}
 	
-	/**
-	 * @desc displayInfoId가 있는지 체크
-	 * @param displayInfoId
-	 */
-	public boolean checkDisplayInfoIdIsNull(int displayInfoId) {
-
-		Map<String,Object> params = new HashMap<String,Object>();
-		params.put("displayInfoId", displayInfoId);
-		
-		return namedParameterJdbcTemplate.queryForObject(CHECK_DISPLAY_INFO_ID_IS_NULL, params, Boolean.class);
-	}
 }

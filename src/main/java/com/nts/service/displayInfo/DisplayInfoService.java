@@ -11,5 +11,5 @@ import com.nts.exception.DisplayInfoNullException;
  * @author 전연빈
  */
 public interface DisplayInfoService {
-	public DisplayInfos getDisplayInfos(int displayInfoId) throws DisplayInfoNullException;
+	public DisplayInfos getDisplayInfosByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException;
 }

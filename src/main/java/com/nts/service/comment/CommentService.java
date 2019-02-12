@@ -15,7 +15,7 @@ import com.nts.dto.comment.Comments;
 public interface CommentService {
 	List<Comment> getCommentsByProductId(int productId);
 
-	double getAverageScore(int productId);
+	double getAverageScoreByProductId(int productId);
 
 	Comments getComments(int productId);
 }

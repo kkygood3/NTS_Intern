@@ -6,6 +6,7 @@ package com.nts.service.displayInfo.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.displayinfo.DisplayInfoRepository;
@@ -37,22 +38,28 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 	 * @return displayInfos
 	 */
 	@Override
-	public DisplayInfos getDisplayInfos(int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfos getDisplayInfosByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException {
 		
-		if(displayInfoRepository.checkDisplayInfoIdIsNull(displayInfoId)) {
+		DisplayInfos displayInfos = new DisplayInfos();
+
+		try {
+
+			displayInfos.setDisplayInfo(displayInfoRepository.selectDisplayInfoByDisplayInfoId(displayInfoId));
+		} catch(EmptyResultDataAccessException e) {
+			
+			e.printStackTrace();
 			throw new DisplayInfoNullException("displayInfoId = "+displayInfoId);
 		}
 		
-		DisplayInfos displayInfos = new DisplayInfos();
 		
-		displayInfos.setDisplayInfo(displayInfoRepository.selectDisplayInfo(displayInfoId));
-		displayInfos.setDisplayInfoImage(displayInfoRepository.selectDisplayInfoImage(displayInfoId));
+		displayInfos.setDisplayInfoImage(displayInfoRepository.selectDisplayInfoImageByDisplayInfoId(displayInfoId));
 		
 		int productId = displayInfos.getDisplayInfo().getProductId();
 		
 		displayInfos.setProductImages(productRepository.selectProductImagesByProductId(productId));
-		displayInfos.setProductPrices(productRepository.selectProductPricesById(productId));
-		displayInfos.setAverageScore(commentService.getAverageScore(productId));
+		displayInfos.setProductPrices(productRepository.selectProductPricesByProductId(productId));
+		
+		displayInfos.setAverageScore(commentService.getAverageScoreByProductId(productId));
 		displayInfos.setComments(commentService.getCommentsByProductId(productId));
 		
 		return displayInfos;

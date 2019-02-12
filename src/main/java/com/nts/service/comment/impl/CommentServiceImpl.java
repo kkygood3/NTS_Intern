@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
 	 * @return averageScore
 	 */
 	@Override
-	public double getAverageScore(int productId) {
+	public double getAverageScoreByProductId(int productId) {
 		return commentRepository.selectCommentAverageByProductId(productId);
 	}
 
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService {
 
 		Comments comments = new Comments();
 
-		comments.setAverageScore(getAverageScore(productId));
+		comments.setAverageScore(getAverageScoreByProductId(productId));
 		comments.setComments(getCommentsByProductId(productId));
 
 		return comments;

@@ -111,7 +111,7 @@ public class ProductRepository {
 	 * @param productId
 	 * @return list productPrice
 	 */
-	public List<ProductPrice> selectProductPricesById(int productId) {
+	public List<ProductPrice> selectProductPricesByProductId(int productId) {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("productId", productId);
