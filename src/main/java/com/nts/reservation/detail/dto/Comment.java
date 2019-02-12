@@ -18,7 +18,7 @@ public class Comment {
 	private Long commentId;
 	private Long productId;
 	private Long reservationInfoId;
-	private double score;
+	private Double score;
 	private String comment;
 	private String reservationTelephone;
 	private String reservationName;
@@ -44,11 +44,11 @@ public class Comment {
 		this.productId = productId;
 	}
 
-	public double getScore() {
+	public Double getScore() {
 		return score;
 	}
 
-	public void setScore(double score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 

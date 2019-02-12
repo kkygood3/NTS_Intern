@@ -98,7 +98,7 @@
 						{{#if commentImages}}
 						<a href="#" class="thumb" title="이미지 크게 보기"> 
 							<img width="90" height="90" class="img_vertical_top"
-								src="{{imageUrl commentImages}}"
+								src="{{commentImageUrl commentImages}}"
 								alt="리뷰이미지">
 	
 						</a>
@@ -110,7 +110,7 @@
 				</div>
 				<div class="info_area">
 					<div class="review_info">
-						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
+						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{reservationEmail}}</span>
 						<span class="date">{{{date reservationDate}}} 방문</span>
 					</div>
 				</div>
@@ -121,6 +121,6 @@
 
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript" src="resources/js/reviewpage/reviewPage_script.js"></script>
+	<script type="text/javascript" src="resources/js/pages/reviewPage_script.js"></script>
 </body>
 </html>

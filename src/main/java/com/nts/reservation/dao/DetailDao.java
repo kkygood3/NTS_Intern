@@ -11,7 +11,6 @@ package com.nts.reservation.dao;
  */
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_AVERAGE_SCORE;
-import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_PRODUCT_PRICES;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO;
@@ -67,17 +66,10 @@ public class DetailDao {
 			BeanPropertyRowMapper.newInstance(Comment.class));
 	}
 
-	public List<CommentImage> getCommentsImages(Long displayInfoId) {
+	public Double getAverageScore(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_DETAIL_COMMENTS_IMAGES, params,
-			BeanPropertyRowMapper.newInstance(CommentImage.class));
-	}
-
-	public double getAverageScore(Long displayInfoId) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("display_info_id", displayInfoId);
-		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, double.class);
+		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, Double.class);
 	}
 
 	public List<ProductPrice> getProductPrices(Long displayInfoId) {

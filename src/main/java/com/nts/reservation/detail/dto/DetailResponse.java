@@ -18,7 +18,7 @@ public class DetailResponse {
 	private List<ProductImage> productImages;
 	private DisplayInfoImage displayInfoImage;
 	private List<Comment> comments;
-	private double averageScore;
+	private Double averageScore;
 	private List<ProductPrice> productPrices;
 
 	public DisplayInfo getDisplayInfo() {
@@ -57,7 +57,7 @@ public class DetailResponse {
 		return averageScore;
 	}
 
-	public void setAverageScore(double averageScore) {
+	public void setAverageScore(Double averageScore) {
 		this.averageScore = averageScore;
 	}
 

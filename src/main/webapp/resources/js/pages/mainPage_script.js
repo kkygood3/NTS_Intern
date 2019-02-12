@@ -37,7 +37,7 @@ var mainPage = {
 		PRODUCTS : "/reservation/api/products",
 	},
 	state : {
-		CATEGORY_DATA : "",
+		categoryData : "",
 		loadedProductCount : 0,
 		currentCategory : 0
 	},
@@ -52,6 +52,7 @@ var mainPage = {
 		urls = this.urls;
 		state = this.state;
 		parser = this.parser;
+		templates = this.templates;
 		
 		renderPromoItems = this.renderPromoItems;
 		renderProductItems = this.renderProductItems;
@@ -73,11 +74,11 @@ var mainPage = {
 	 *            control
 	 */
 	initTab : function() {
-		domElements.TAB_BUTTON_UL.addEventListener("click", (e) => {
-			if(e.target == domElements.TAB_BUTTON_UL) {
+		domElements.tabButtonUl.addEventListener("click", (e) => {
+			if(e.target == domElements.tabButtonUl) {
 				return;
 			}
-			domElements.TAB_BUTTON_LI.forEach((item) => {
+			domElements.tabButtonLi.forEach((item) => {
 				let iter = item.firstElementChild;
 				if(iter.classList.contains("active")) {
 					iter.classList.remove("active");
@@ -98,13 +99,13 @@ var mainPage = {
 	 */
 	fetchCategoryCounts : function () {
 		xhrGetRequest(urls.CATEGORIES, (respText) => {
-			state.CATEGORY_DATA = JSON.parse(respText);
+			state.categoryData = JSON.parse(respText);
 			var totalProductsCount = 0; 
-			state.CATEGORY_DATA.items.filter((item) => {
+			state.categoryData.items.filter((item) => {
 				totalProductsCount += item.count; 
 				return;
 			});
-			state.CATEGORY_DATA.items.push({count : totalProductsCount, id : 0, name : "전체"});
+			state.categoryData.items.push({count : totalProductsCount, id : 0, name : "전체"});
 			fetchProducts();
 		});
 	},
@@ -136,7 +137,7 @@ var mainPage = {
 			productData.items.forEach((item) => {
 				item.productImageUrl = "img/" + item.productImageUrl;
 			});
-			domElements.PRODUCT_NUMBER_IND.innerText = productData.totalCount + "개";
+			domElements.productNumberInd.innerText = productData.totalCount + "개";
 			renderProductItems(productData);
 		});
 	},
@@ -152,13 +153,13 @@ var mainPage = {
 		 * page returns to 0;
 		 */
 		if(category != state.currentCategory) {
-			domElements.PRODUCT_LISTS.forEach((list) => {
+			domElements.productLists.forEach((list) => {
 				list.innerHTML = "";
 			});
 			state.currentCategory = category;
 			state.loadedProductCount = 0;
 			fetchProducts();
-			domElements.SHOW_MORE_BUTTON.style.visibility = "visible";
+			domElements.showMoreButton.style.visibility = "visible";
 		}
 	},
 
@@ -168,18 +169,17 @@ var mainPage = {
 	 *                       data;
 	 */
 	renderProductItems : function (productData) {
-
 	    let bindTemplate = Handlebars.compile(templates.newProductItem);
 	    productData.items.forEach((item) => {
 	    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild;
-	    	domElements.PRODUCT_LISTS[state.loadedProductCount % 2].appendChild(newProduct);
+	    	domElements.productLists[state.loadedProductCount % 2].appendChild(newProduct);
 	    	state.loadedProductCount++;
 	    });
-	    if(state.CATEGORY_DATA.items){
-	    	state.CATEGORY_DATA.items.forEach((data) => {
+	    if(state.categoryData.items){
+	    	state.categoryData.items.forEach((data) => {
 		    	if(data.id == state.currentCategory) {
 		    		if(data.count <= state.loadedProductCount) {
-		    			domElements.SHOW_MORE_BUTTON.style.visibility = "hidden";
+		    			domElements.showMoreButton.style.visibility = "hidden";
 		    		} 
 		    	}
 		    });

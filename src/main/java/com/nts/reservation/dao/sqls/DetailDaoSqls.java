@@ -42,7 +42,8 @@ public class DetailDaoSqls {
 		+ " FROM display_info di"
 		+ " INNER JOIN product_image pi ON di.product_id = pi.product_id AND di.id = :display_info_id"
 		+ " INNER JOIN file_info fi ON fi.id = pi.file_id AND pi.type <> 'th'"
-		+ " ORDER BY pi.type DESC";
+		+ " ORDER BY pi.type DESC"
+		+ " LIMIT 0, 2";
 
 	public static final String SELECT_DETAIL_DISPLAY_INFO_IMAGE = "SELECT dii.id AS displayInfoImageId"
 		+ ", di.id AS displayInfoId"
@@ -76,23 +77,10 @@ public class DetailDaoSqls {
 		+ " FROM display_info di "
 		+ " INNER JOIN reservation_user_comment ruc ON ruc.product_id = di.product_id AND di.id = :display_info_id";
 
-	public static final String SELECT_DETAIL_COMMENTS_IMAGES = "SELECT ruci.id as imageId"
-		+ ", ruc.reservation_info_id as reservationInfoId"
-		+ ", fi.id as fileId" + ", fi.file_name as fileName"
-		+ ", fi.save_file_name as saveFileName"
-		+ ", fi.content_type as contentType"
-		+ ", fi.delete_flag as deleteFlag"
-		+ ", fi.create_date as createDate"
-		+ ", fi.modify_date as modifyDate"
-		+ " FROM reservation_user_comment ruc"
-		+ " INNER JOIN display_info di ON di.product_id = ruc.product_id AND di.id = :display_info_id"
-		+ " INNER JOIN reservation_user_comment_image ruci ON ruc.id = ruci.reservation_user_comment_id"
-		+ " INNER JOIN file_info fi ON ruci.file_id = fi.id"
-		+ " ORDER BY ruc.id DESC";
-
 	public static final String SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID = "SELECT ruci.id as imageId"
 		+ ", ruc.reservation_info_id as reservationInfoId"
-		+ ", fi.id as fileId" + ", fi.file_name as fileName"
+		+ ", fi.id as fileId"
+		+ ", fi.file_name as fileName"
 		+ ", fi.save_file_name as saveFileName"
 		+ ", fi.content_type as contentType"
 		+ ", fi.delete_flag as deleteFlag"

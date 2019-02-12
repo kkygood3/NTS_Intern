@@ -6,7 +6,6 @@ package com.nts.reservation.service.impl;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,54 +48,49 @@ public class DetailServiceImpl implements DetailService {
 
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
-		long start;
-		start = System.currentTimeMillis();
-
-		List<CommentImage> commentImages = DetailDao.getCommentsImages(displayInfoId);
 		List<Comment> comments = DetailDao.getComments(displayInfoId);
-		Iterator<CommentImage> imgIter = commentImages.iterator();
-		Iterator<Comment> commIter = comments.iterator();
-		/* since all the comments/images are in DESC order, 
-		 * we can simply iterate and put images to comments
-		 */
-		if (!commIter.hasNext()) {
-			return comments;
+		for (Comment comm : comments) {
+			List<CommentImage> list = DetailDao.getCommentsImagesByCommentId(comm.getCommentId());
+			comm.setCommentImages(list);
 		}
-		Comment currentComment = commIter.next();
-		while (imgIter.hasNext()) {
-			boolean isFound = false;
-			CommentImage currentImage = imgIter.next();
-			Long commentId = currentImage.getReservationInfoId();
-			if (currentComment.getCommentId() == commentId) {
-				currentComment.getCommentImages().add(currentImage);
-			} else {
-				while (commIter.hasNext()) {
-					currentComment = commIter.next();
-					if (commentId == currentComment.getCommentId()) {
-						isFound = true;
-						currentComment.getCommentImages().add(currentImage);
-						break;
-					}
-				}
-				if (!isFound) {
-					break;
-				}
-			}
-		}
-		System.out.println("myWay" + (System.currentTimeMillis() - start));
-		long start2;
-		start2 = System.currentTimeMillis();
 
-		List<Comment> comments2 = DetailDao.getComments(displayInfoId);
-		Iterator<Comment> commIter2 = comments2.iterator();
-		while (commIter2.hasNext()) {
-			currentComment = commIter2.next();
-			List<CommentImage> list = DetailDao.getCommentsImagesByCommentId(currentComment.getCommentId());
-			currentComment.setCommentImages(list);
-		}
-		System.out.println("otherWay" + (System.currentTimeMillis() - start2));
-		System.out.println(comments.equals(comments2));
-		return comments2;
+		return comments;
+
+		/*  
+		 * @Deprecated way through review process
+		 * 
+		 * fetch possible candidates of images and map images in iteration process. 
+		 * total time complexity = O(M+N)
+		 * total space complexity = O(M+2N)
+		 * * N = images.length M = comments.length
+		 * 2 data fetch from db
+		 * 
+		 * Below is the past algorithm for other strategy for mapping comment images to comment, simply fetch all rows, and map through iteration
+		 */
+		//		if (!commIter.hasNext()) {
+		//			return comments;
+		//		}
+		//		while (imgIter.hasNext()) {
+		//			boolean isFound = false;
+		//			CommentImage currentImage = imgIter.next();
+		//			Long commentId = currentImage.getReservationInfoId();
+		//			if (currentComment.getCommentId() == commentId) {
+		//				currentComment.getCommentImages().add(currentImage);
+		//			} else {
+		//				while (commIter.hasNext()) {
+		//					currentComment = commIter.next();
+		//					if (commentId == currentComment.getCommentId()) {
+		//						isFound = true;
+		//						currentComment.getCommentImages().add(currentImage);
+		//						break;
+		//					}
+		//				}
+		//				if (!isFound) {
+		//					break;
+		//				}
+		//			}
+		//		}
+
 	}
 
 	@Override

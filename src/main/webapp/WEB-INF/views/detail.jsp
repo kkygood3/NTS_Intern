@@ -277,7 +277,7 @@
 						{{#if commentImages.length}}
 						<a href="#" class="thumb" title="이미지 크게 보기"> 
 							<img width="90" height="90" class="img_vertical_top"
-								src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300"
+								src="{{commentImageUrl commentImages}}"
 								alt="리뷰이미지">
 						</a> <span class="img_count" style="display: none;">{{commentId}}</span>
 						{{/if}}
@@ -288,7 +288,7 @@
 				</div>
 				<div class="info_area">
 					<div class="review_info">
-						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{emailMask reservationEmail}}</span>
+						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{reservationEmail}}</span>
 						<span class="date">{{{date reservationDate}}} 방문</span>
 					</div>
 				</div>
@@ -299,6 +299,6 @@
 	
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript" src="resources/js/detailpage/detailPage_script.js"></script>
+	<script type="text/javascript" src="resources/js/pages/detailPage_script.js"></script>
 </body>
 </html>

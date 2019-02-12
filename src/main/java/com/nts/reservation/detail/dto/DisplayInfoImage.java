@@ -17,7 +17,7 @@ public class DisplayInfoImage {
 	private String fileName;
 	private String saveFileName;
 	private String contentType;
-	private boolean deleteFlag;
+	private Boolean deleteFlag;
 	private String createDate;
 	private String modifyDate;
 
@@ -69,11 +69,11 @@ public class DisplayInfoImage {
 		this.contentType = contentType;
 	}
 
-	public boolean isDeleteFlag() {
+	public Boolean isDeleteFlag() {
 		return deleteFlag;
 	}
 
-	public void setDeleteFlag(boolean deleteFlag) {
+	public void setDeleteFlag(Boolean deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
 

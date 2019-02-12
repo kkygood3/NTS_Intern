@@ -9,82 +9,80 @@
  */
 
 function SlidingAnimation(_slideContainer){
-	SLIDE_CONTAINER = _slideContainer;
-	SLIDE_WRAPPER = SLIDE_CONTAINER.closest("div");
+	slideContainer = _slideContainer;
+	slideWrapper = slideContainer.closest("div");
 	
-	IMAGE_LIST = SLIDE_CONTAINER.getElementsByTagName("li");
-	SLIDE_CONATINER_WIDTH = SLIDE_CONTAINER.offsetWidth;	
-	
-	prevSlideCount = IMAGE_LIST.length - 1;	
-	currentSlideCount = 0;
-	nextSlideCount = 1;
-	isAnimating = false;
-	
-	maxHeight = SLIDE_WRAPPER.clientHeight;
-	minHeight = 100;
-	isAuto = true;
-	ANIMATION_SPEED = 10;
-	ANIMATION_STOP_DURATION = 1000;
+	imageList = slideContainer.getElementsByTagName("li");
+	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;	
 }
 
 /**
  * @initSlideAnimation() : required setup for the promo animation, and
  *                       initialization of animation frame call
  */
-SlidingAnimation.prototype.init = function(_isAuto) {
-	isAuto = _isAuto;
+SlidingAnimation.prototype.init = function(params) {	
+	prevSlideCount = imageList.length - 1;	
+	currentSlideCount = 0;
+	nextSlideCount = 1;
+	isAnimating = false;
 	
-	IMAGE_LIST.forEach((item) => {
-		if(item == IMAGE_LIST[0]) {
-			IMAGE_LIST[0].style.left = 0 + "px";
+	maxHeight = params && params.maxHeight ? params.maxHeight : slideWrapper.clientHeight;
+	minHeight = params && params.minHeight ? params.minHeight : 100;
+	isAutoStart = false;
+	animationSpeed = params && params.animationSpeed ? params.animationSpeed : 10;
+	animationStopDuration = params && params.animationStopDuration ? params.animationStopDuration : 1000;
+		
+	imageList.forEach((item) => {
+		if(item == imageList[0]) {
+			imageList[0].style.left = 0 + "px";
 		} else {
 			item.style.left = SLIDE_CONATINER_WIDTH + "px";
 		}
 		item.style.position = "absolute";
 	});
-	
-	/*
-	 * timeout because first promo-slide should be displayed before transition
-	 */
-	if(isAuto) {
-		setTimeout(() => {
-			requestAnimationFrame(() => this.slide(true));
-		}, ANIMATION_STOP_DURATION);
-	}
 },
 
-SlidingAnimation.prototype.changeTiming = function(_animationSpeed, _stopDuration){
-	ANIMATION_SPEED = _animationSpeed;
-	ANIMATION_STOP_DURATION = _stopDuration;
+SlidingAnimation.prototype.startAutoAnimation = function(){
+	isAutoStart = true;
+	if(isAutoStart) {
+		setTimeout(() => {
+			requestAnimationFrame(() => this.slide(true));
+		}, animationStopDuration);
+	}
 }
 
-SlidingAnimation.prototype.resizeMinMax = function(minHeight, _maxHeight){
+SlidingAnimation.prototype.changeTiming = function(_animationSpeed, _stopDuration){
+	animationSpeed = _animationSpeed;
+	animationStopDuration = _stopDuration;
+}
+
+SlidingAnimation.prototype.resizeMinMax = function(_minHeight, _maxHeight){
 	maxHeight = _maxHeight;
 	minHeight = _minHeight;
 }
 /**
- * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
- *                            const in global variable
+ * @constants.animationSpeed : to control the speed or animation, declared as
+ *                           const in global variable
  * 
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
  * 
- * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
- *                                    duration of the animation when the image
- *                                    arrives in the right position , declared
- *                                    as const in global variable
+ * @constants.animationStopDuration : in milliseconds, determines the stop
+ *                                  duration of the animation when the image
+ *                                  arrives in the right position , declared as
+ *                                  const in global variable
  * 
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
  * 
- * @isAuto : parameter to control auto-slide animation, if false, manual
+ * @isAutoStart : parameter to control auto-slide animation, if false, manual
  */
-SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
+SlidingAnimation.prototype.slide = function(isAutoStart, isResizing) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
-	let currentImage = IMAGE_LIST[currentSlideCount];
-	let nextImage = IMAGE_LIST[nextSlideCount];
+	let currentImage = imageList[currentSlideCount];
+	let nextImage = imageList[nextSlideCount];
 		
 	if(isResizing){
 		this.resizeImageContainer(nextImage);
@@ -94,7 +92,7 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
 		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
 	}
 	
-	for(let iter = 0; iter < ANIMATION_SPEED; iter++) {
+	for(let iter = 0; iter < animationSpeed; iter++) {
 		currentImage.style.left = parseInt(currentImage.style.left) - 1 + "px";
 		nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
 		
@@ -106,7 +104,7 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
 			currentSlideCount = nextSlideCount;
 			nextSlideCount++;
 			
-			if(nextSlideCount == IMAGE_LIST.length) {
+			if(nextSlideCount == imageList.length) {
 				nextSlideCount = 0;
 			}
 			needToStop = true;
@@ -114,46 +112,46 @@ SlidingAnimation.prototype.slide = function(isAuto, isResizing) {
 		}
 	}
 	if(needToStop) {
-		if(isAuto) {
+		if(isAutoStart) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slide(isAuto));
-			}, ANIMATION_STOP_DURATION);
+				requestAnimationFrame(() => this.slide(isAutoStart));
+			}, animationStopDuration);
 		} else {
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() => this.slide(isAuto));
+		requestAnimationFrame(() => this.slide(isAutoStart));
 	}	
 },
 
 /**
- * @constants.ANIMATION_SPEED : to control the speed or animation, declared as
- *                            const in global variable
+ * @constants.animationSpeed : to control the speed or animation, declared as
+ *                           const in global variable
  * 
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
  * 
- * @constants.ANIMATION_STOP_DURATION : in milliseconds, determines the stop
- *                                    duration of the animation when the image
- *                                    arrives in the right position , declared
- *                                    as const in global variable
+ * @constants.animationStopDuration : in milliseconds, determines the stop
+ *                                  duration of the animation when the image
+ *                                  arrives in the right position , declared as
+ *                                  const in global variable
  * 
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
  * 
- * @isAuto : parameter to control auto-slide animation, if false, manual
+ * @isAutoStart : parameter to control auto-slide animation, if false, manual
  * 
- * @slideAnimationReverse(isAuto) diff with slideAnimation => direction of
- *                                animation and counting system are different,
- *                                as slideAnimation slides with asc order,
- *                                Reverse goes desc order
+ * @slideAnimationReverse(isAutoStart) diff with slideAnimation => direction of
+ *                                     animation and counting system are
+ *                                     different, as slideAnimation slides with
+ *                                     asc order, Reverse goes desc order
  */
-SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing) {
+SlidingAnimation.prototype.slideReverse = function(isAutoStart, isResizing) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
-	let prevImage = IMAGE_LIST[prevSlideCount];
-	let currentImage = IMAGE_LIST[currentSlideCount];
+	let prevImage = imageList[prevSlideCount];
+	let currentImage = imageList[currentSlideCount];
 	
 	if(isResizing){
 		this.resizeImageContainer(prevImage);
@@ -163,7 +161,7 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing) {
 		prevImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
 	}
 	
-	for(let iter = 0; iter < ANIMATION_SPEED; iter++) {
+	for(let iter = 0; iter < animationSpeed; iter++) {
 		currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
 		prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
 		
@@ -176,7 +174,7 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing) {
 			prevSlideCount = prevSlideCount - 1;
 			
 			if(prevSlideCount == -1){
-				prevSlideCount = IMAGE_LIST.length - 1;
+				prevSlideCount = imageList.length - 1;
 			}
 			
 			needToStop = true;
@@ -184,29 +182,29 @@ SlidingAnimation.prototype.slideReverse = function(isAuto, isResizing) {
 		}
 	}
 	if(needToStop) {
-		if(isAuto) {
+		if(isAutoStart) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slideReverse(isAuto));
-			}, ANIMATION_STOP_DURATION);
+				requestAnimationFrame(() => this.slideReverse(isAutoStart));
+			}, animationStopDuration);
 		} else {
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() =>this.slideReverse(isAuto));
+		requestAnimationFrame(() =>this.slideReverse(isAutoStart));
 	}
 }
 
 /**
  * @resizeImageContainer(countTarget) : countTarget represents the next target
- *                                    image index in state.IMAGE_LIST, and set
+ *                                    image index in state.imageList, and set
  *                                    the height of the image container with
  *                                    height obtained from the slide
  */
 SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, minHeight){
 	if(target.clientHeight > SLIDE_CONATINER_WIDTH) {
-		SLIDE_WRAPPER.style.height = SLIDE_CONATINER_WIDTH+"px";
+		slideWrapper.style.height = SLIDE_CONATINER_WIDTH+"px";
 	} else {
-		SLIDE_WRAPPER.style.height = target.clientHeight + "px";
+		slideWrapper.style.height = target.clientHeight + "px";
 	}
 }
 
@@ -247,16 +245,13 @@ function arrayToLiRenderer(data, target, item) {
 	Handlebars.registerHelper("date", (item) => {
 		return item.split(" ")[0];
 	});
-	Handlebars.registerHelper("emailMask", (item) => {
-		return item + "****";
-	});
 	Handlebars.registerHelper("scoreToDouble", (item) => {
 		return item.toFixed(1);
 	});
 	Handlebars.registerHelper("isImagePresent", (item) => {
-		return item.length>0?"":"no_img";
+		return item.length>0 ? "" : "no_img";
 	});
-	Handlebars.registerHelper("imageUrl", (item)=> {
+	Handlebars.registerHelper("commentImageUrl", (item)=> {
 		return item[0].saveFileName;
 	});
 	
@@ -268,3 +263,9 @@ function arrayToLiRenderer(data, target, item) {
 		target.append(item);
 	});	
 }
+function scrollToTopAttacher(target){
+	target.addEventListener("click", (e) => {
+		document.documentElement.scrollTop = document.body.scrollTop = 0;
+	});
+}
+
