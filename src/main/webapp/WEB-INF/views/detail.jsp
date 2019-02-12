@@ -9,23 +9,23 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-	<link href="./css/style.css" rel="stylesheet">
-	<link href="./css/detail.css" rel="stylesheet">
-	<link href="./css/slide.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/detail.css" rel="stylesheet">
+	<link href="/css/slide.css" rel="stylesheet">
 	<script type="text/javascript">
 		var displayInfo = {
-			"productId" : "${productId}",
+			"productId" : "${datailPageInfo.productId}",
 			"displayInfoId" : "${displayInfoId}"
 		};
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/comment.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/visual.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
+	<script type= "text/javascript" src= "/javascript/common/error.js" ></script>
+	<script type= "text/javascript" src= "/javascript/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/javascript/common/slide.js" ></script>
+	<script type= "text/javascript" src= "/javascript/common/comment.js" ></script>
+	<script type= "text/javascript" src= "/javascript/detail/visual.js" ></script>
+	<script type= "text/javascript" src= "/javascript/detail/event.js" ></script>
+	<script type= "text/javascript" src= "/javascript/detail/detail.js" ></script>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                         <div class="img_bg">
-								<h2 class="visual_txt_tit"><span>${description}</span></h2>
+								<h2 class="visual_txt_tit"><span>${datailPageInfo.description}</span></h2>
                         </div>
 						
                     </header>
@@ -60,7 +60,7 @@
                 <div class="section_store_details">
                     <!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
                     <div class="store_details close3">
-                        <p class="dsc">${content}</p>
+                        <p class="dsc">${datailPageInfo.content}</p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
                     <a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
@@ -83,9 +83,9 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"><em class="graph_value" style="width:${averageScore * 20}%;"></em></span>
-                                <strong class="text_value"><span>${averageScore}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${commentCount}건</em> 등록</span>
+                                <span class="graph_mask"><em class="graph_value" style="width:${datailPageInfo.averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${datailPageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${datailPageInfo.commentCount}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
                             <!-- content -->
@@ -93,7 +93,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review?product_id=${productId}&display_info_id=${displayInfoId}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="./review"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
@@ -113,7 +113,7 @@
                                 <ul class="detail_info_group">
                                     <li class="detail_info_lst">
                                         <strong class="in_tit">[소개]</strong>
-                                        <p class="in_dsc">${content}</p>
+                                        <p class="in_dsc">${datailPageInfo.content}</p>
                                     </li>
                                     <li class="detail_info_lst"> <strong class="in_tit">[공지사항]</strong>
                                         <ul class="in_img_group">
@@ -128,24 +128,24 @@
                     <div class="detail_location hide">
                         <div class="box_store_info no_topline">
                             <a href="#" class="store_location" title="지도웹으로 연결">
-                                <img class="store_map img_thumb" alt="map" src="https://simg.pstatic.net/static.map/image?version=1.1&amp;crs=EPSG:4326&amp;baselayer=bl_vc_bg&amp;exception=xml&amp;scale=2&amp;caller=mw_smart_booking&amp;overlayers=ol_vc_an&amp;center=127.0011948,37.5717079&amp;markers=type,default2,127.0011948,37.5717079&amp;level=11&amp;w=340&amp;h=150">
+                                <img class="store_map img_thumb" alt="map" src="/${datailPageInfo.mapFile}">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">${description}</h3>
+                            <h3 class="store_name">${datailPageInfo.description}</h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">${placeStreet}</p>
+                                    <p class="store_addr store_addr_bold">${datailPageInfo.placeStreet}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">${placeLot}</span>
+                                        <span class="addr_old_detail">${datailPageInfo.placeLot}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">${placeName}</p>
+                                    <p class="store_addr addr_detail">${datailPageInfo.placeName}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${tel}</a></span> </li>
+                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${datailPageInfo.tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${datailPageInfo.tel}</a></span> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -184,11 +184,11 @@
 		<div class="container_visual" style="width: 414px;">
 			<ul class="visual_img detail_swipe" style="left:0;">
 				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="./${saveFileName[0]}">
+					<img alt="" class="img_thumb" src="/${datailPageInfo.mainImageFile}">
 				</li>
 				{{#if etcImage}}
 				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="./{{etcImage}}">
+					<img alt="" class="img_thumb" src="/{{etcImage}}">
 				</li>
 				{{/if}}
 			</ul>
@@ -218,10 +218,10 @@
 		<div class="review_area">
 			<div class="thumb_area img_vertical_top">
 				{{#if saveFileName}}
-				<img width="90" height="90" class="img_vertical_top" src="./{{saveFileName}}" alt="리뷰이미지">
+				<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
 				{{/if}}
 			</div>
-			<h4 class="resoc_name">${description}</h4>
+			<h4 class="resoc_name">${datailPageInfo.description}</h4>
 			<p class="review">{{comment}}</p>
 		</div>
 		<div class="info_area">

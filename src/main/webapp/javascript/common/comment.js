@@ -1,5 +1,5 @@
 function sendGetCommentsAjax(start = 0, limit = 3) {
-	sendGetAjax("./comment_display_info?product_id=" + displayInfo.productId + "&start=" + start + "&limit" + limit, makeCommentList);
+	sendGetAjax("/comment_display_info?product_id=" + displayInfo.productId + "&start=" + start + "&limit" + limit, makeCommentList);
 }
 
 function makeCommentList(commentDisplayInfos) {

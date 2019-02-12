@@ -20,6 +20,8 @@ public class DetailController {
 	public String detail(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		DatailPageInfo datailPageInfo = datailPageInfoService.getDetailPageInfo(displayInfoId);
+
+		model.addAttribute("displayInfoId", displayInfoId);
 		model.addAttribute("datailPageInfo", datailPageInfo);
 		
 		return "detail";

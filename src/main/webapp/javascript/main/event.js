@@ -28,12 +28,11 @@ function addThumbnailClickEvent() {
 		if (!event.target.closest("li")) {
 			return;
 		}
-		window.location.href = "./detail/" + getDisplayInfo(event.target);
+		window.location.href = "./detail/" + getDisplayInfo(event.target.closest("li"));
 	});
 }
 
-function getDisplayInfo(target) {
-	var thumbnailElement = target.closest("li")
+function getDisplayInfo(thumbnail) {
 	return thumbnail.id.split("_")[2];
 }
 
