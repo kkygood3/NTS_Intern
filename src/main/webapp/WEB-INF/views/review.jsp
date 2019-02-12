@@ -26,8 +26,6 @@
 		</div>
 
 
-
-
 		<div class="ct">
 			<div class="wrap_review_list">
 				<div class="review_header">
@@ -44,29 +42,11 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"> <em class="graph_value" style="width: 88%;"></em>
+								<span class="graph_mask"> <em class="graph_value" style="width: ${ (avgScore / 5) * 100 }%;"></em>
 								</span> <strong class="text_value"> <span>${ avgScore }</span> <em class="total">5.0</em>
 								</strong> <span class="join_count"><em class="green">${ comments.size() }건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-
-
-								<li class="list_item">
-									<div>
-										<div class="review_area no_img">
-											<h4 class="resoc_name">Sample Review (Comment ^^7)</h4>
-											<p class="review">
-												2층에 있었어도 목소리에 압도당한 느낌!<br>너무 재미있었어요^^!!!!!!
-											</p>
-										</div>
-										<div class="info_area">
-											<div class="review_info">
-												<span class="grade">5.0</span> <span class="name">vida****</span> <span class="date">2017.4.9. 방문</span>
-											</div>
-										</div>
-									</div>
-								</li>
-
 
 								<c:forEach var="comment" items="${ comments }">
 									<li class="list_item">
@@ -107,5 +87,4 @@
 		</div>
 	</footer>
 </body>
-
 </html>
