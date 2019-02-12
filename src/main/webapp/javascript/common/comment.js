@@ -12,7 +12,7 @@ function makeCommentList(commentDisplayInfos) {
 	var ul = document.getElementsByClassName("list_short_review")[0];
 	ul.innerHTML += innerHtml;
 	
-	if (endOfProducts(displayInfo.commentCount)) {
+	if (endOfComment(displayInfo.commentCount)) {
 		setMoreButtonVisibility("hidden");
 	}
 }
@@ -40,7 +40,7 @@ function setMoreButtonVisibility(visibility) {
 	moreButton.style.visibility = visibility;
 }
 
-function endOfProducts(commentCount) {
+function endOfComment(commentCount) {
 	if (calcLoadedComments() == commentCount) {
 		return true;
 	} else {
