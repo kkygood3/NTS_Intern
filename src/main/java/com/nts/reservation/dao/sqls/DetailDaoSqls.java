@@ -64,7 +64,7 @@ public class DetailDaoSqls {
 		+ ", IFNULL(CONVERT( ruc.score, DECIMAL(2,1)), 0 ) AS score"
 		+ ", ruc.comment AS comment "
 		+ ", ri.reservation_name AS reservationName"
-		+ ", SUBSTRING(ri.reservation_email , 1, 4) AS reservationEmail"
+		+ ", CONCAT(SUBSTRING(ri.reservation_email , 1, 4), '****') AS reservationEmail"
 		+ ", ri.reservation_date AS reservationDate"
 		+ ", ri.create_date AS createDate"
 		+ ", ri.modify_date AS modifyDate"
