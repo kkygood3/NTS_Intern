@@ -81,7 +81,7 @@ SlidingAnimation.prototype.resizeMinMax = function(_minHeight, _maxHeight){
  * @isReverse : as the meaning of the words, implies if the animation is in
  *            reversed direction
  */
-SlidingAnimation.prototype.slide = function(isAutoStart, isResizing, isReverse) {
+SlidingAnimation.prototype.slide = function(isAutoStart, isReverse, isResizing) {
 	this.isAnimating = true;
 	
 	let needToStop = false;
@@ -137,13 +137,13 @@ SlidingAnimation.prototype.slide = function(isAutoStart, isResizing, isReverse) 
 	if(needToStop) {
 		if(isAutoStart) {
 			setTimeout(() => {
-				requestAnimationFrame(() => this.slide(isAutoStart, isResizing, isReverse));
+				requestAnimationFrame(() => this.slide(isAutoStart, isReverse, isResizing));
 			}, animationStopDuration);
 		} else {
 			this.isAnimating = false;
 		}
 	} else {
-		requestAnimationFrame(() => this.slide(isAutoStart, isResizing, isReverse));
+		requestAnimationFrame(() => this.slide(isAutoStart, isReverse, isResizing));
 	}	
 },
 

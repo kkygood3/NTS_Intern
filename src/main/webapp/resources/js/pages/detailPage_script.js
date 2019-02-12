@@ -237,7 +237,7 @@ var detailPage = {
 		if(imageList.length > 1) {
 			domElements.slideLeft.addEventListener("click", (e) => {
 				if(!animation.isAnimating) {
-					animation.slide(false, true, false);
+					animation.slide(false, false, true);
 				}
 			});
 			
