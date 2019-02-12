@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.comment.dto.Comment;
@@ -21,8 +21,8 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
-	@GetMapping(path = "/comment")
-	public ModelAndView commentPage(@RequestParam(name = "displayInfoId") int displayInfoId) {
+	@GetMapping(path = "/comment/{diplayInfoId}")
+	public ModelAndView commentPage(@PathVariable("diplayInfoId") int displayInfoId) {
 		ModelAndView modelAndView = new ModelAndView("review");
 
 		List<Comment> comments = commentService.getComments(displayInfoId);
@@ -30,5 +30,11 @@ public class CommentController {
 		modelAndView.addObject("comments", comments);
 		modelAndView.addObject("avgScore", avgScore);
 		return modelAndView;
+	}
+	
+	// TODO 임시 (자리 이동)
+	@GetMapping(path = "/test")
+	public String asdf() {
+		return "detail";
 	}
 }
