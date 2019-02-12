@@ -43,6 +43,10 @@ function initDetailBtn(){
 	document.querySelector('div.section_store_details').addEventListener('click',function(evt){
 		var clickedTag  = evt.target;
 		
+		if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
+			clickedTag = clickedTag.parentElement;
+		} 
+		
 		if(clickedTag.className === 'bk_more _open'){
 			foldingText.classList.remove('close3');
 			
