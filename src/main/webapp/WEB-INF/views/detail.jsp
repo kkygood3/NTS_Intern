@@ -281,5 +281,8 @@
 		</div>
 	</footer>
 	<div id="photoviwer"></div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.js"></script>	
+	<script src="/resources/javascript/detail.js"></script>
 </body>
 </html>
