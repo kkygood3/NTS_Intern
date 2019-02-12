@@ -1429,6 +1429,13 @@ INNER JOIN product ON display_info.product_id = product.id
 INNER JOIN category ON product.category_id = category.id
 WHERE display_info.id = 1;
 
+-- DISPLAY INFO IMAGE (LIST)
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', display_info.id 'displayInfoId', display_info_image.id 'displayInfoImageId', file_info.save_file_name 'saveFileName'
+FROM display_info
+INNER JOIN display_info_image ON display_info_image.display_info_id = display_info.id
+INNER JOIN file_info ON file_info.id = display_info_image.file_id
+WHERE display_info.id = 1;
+
 -- PRODUCT IMAGES (only 'ma') => etc는 따로 AJAX 처리?
 SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type'
 FROM product
