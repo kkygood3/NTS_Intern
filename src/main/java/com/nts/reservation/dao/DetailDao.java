@@ -11,7 +11,6 @@ package com.nts.reservation.dao;
  */
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_AVERAGE_SCORE;
-import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_PRODUCT_PRICES;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO;
@@ -65,13 +64,6 @@ public class DetailDao {
 		params.put("display_info_id", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_COMMENTS, params,
 			BeanPropertyRowMapper.newInstance(Comment.class));
-	}
-
-	public List<CommentImage> getCommentsImages(Long displayInfoId) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_DETAIL_COMMENTS_IMAGES, params,
-			BeanPropertyRowMapper.newInstance(CommentImage.class));
 	}
 
 	public double getAverageScore(Long displayInfoId) {

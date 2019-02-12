@@ -26,11 +26,11 @@ SlidingAnimation.prototype.init = function(params) {
 	nextSlideCount = 1;
 	isAnimating = false;
 	
-	maxHeight = params.maxHeight ? params.maxHeight : slideWrapper.clientHeight;
-	minHeight = params.minHeight ? params.minHeight : 100;
+	maxHeight = params && params.maxHeight ? params.maxHeight : slideWrapper.clientHeight;
+	minHeight = params && params.minHeight ? params.minHeight : 100;
 	isAutoStart = false;
-	animationSpeed = params.animationSpeed ? params.animationSpeed : 10;
-	animationStopDuration = params.animationStopDuration ? params.animationStopDuration : 1000;
+	animationSpeed = params && params.animationSpeed ? params.animationSpeed : 10;
+	animationStopDuration = params && params.animationStopDuration ? params.animationStopDuration : 1000;
 		
 	imageList.forEach((item) => {
 		if(item == imageList[0]) {
@@ -245,16 +245,13 @@ function arrayToLiRenderer(data, target, item) {
 	Handlebars.registerHelper("date", (item) => {
 		return item.split(" ")[0];
 	});
-	Handlebars.registerHelper("emailMask", (item) => {
-		return item + "****";
-	});
 	Handlebars.registerHelper("scoreToDouble", (item) => {
 		return item.toFixed(1);
 	});
 	Handlebars.registerHelper("isImagePresent", (item) => {
-		return item.length>0?"":"no_img";
+		return item.length>0 ? "" : "no_img";
 	});
-	Handlebars.registerHelper("imageUrl", (item)=> {
+	Handlebars.registerHelper("commentImageUrl", (item)=> {
 		return item[0].saveFileName;
 	});
 	
@@ -266,3 +263,9 @@ function arrayToLiRenderer(data, target, item) {
 		target.append(item);
 	});	
 }
+function scrollToTopAttacher(target){
+	target.addEventListener("click", (e) => {
+		document.documentElement.scrollTop = document.body.scrollTop = 0;
+	});
+}
+

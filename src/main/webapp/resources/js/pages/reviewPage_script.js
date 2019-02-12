@@ -22,7 +22,8 @@ var reviewPage = {
 			averageScoreText : document.querySelector(".text_value span"),
 			reviewArea : document.querySelector(".list_short_review"),
 			reviewItem : document.querySelector("#commentItem").innerHTML,
-			reviewCount : document.querySelector(".green")
+			reviewCount : document.querySelector(".green"),
+			scrollToTop : document.querySelector(".gototop")
 		},
 		
 		urls : {
@@ -47,16 +48,17 @@ var reviewPage = {
 			state = this.state;
 			templates = this.templates;
 			parser = this.parser;
-			
+						
 		    // parse initial id value from url;
 		    constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
 		    this.fetchDetailData();
+		    
+		    scrollToTopAttacher(domElements.scrollToTop)
 		},
 		
 		fetchDetailData : function(){
 		    xhrGetRequest(urls.DETAIL+constants.DISPLAY_INFO_ID,(respText) => {
 		    	state.detail_data = JSON.parse(respText); 
-		    	console.log(state.detail_data);
 		        this.renderInformation();
 		    });
 		},

@@ -111,10 +111,7 @@ var detailPage = {
 			}
 			document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
 		});
-		domElements.scrollToTop.addEventListener("click", (e) => {
-			document.documentElement.scrollTop = document.body.scrollTop = 0;
-		});
-		
+	    scrollToTopAttacher(domElements.scrollToTop)
 	},
 
 	fetchDetailData : function(){
@@ -235,7 +232,7 @@ var detailPage = {
 		
 		arrayToLiRenderer(imageList, domElements.slideContainer, templates.slideContainerItem)
 		animation = new SlidingAnimation(domElements.slideContainer);
-		animation.init(false);
+		animation.init();
 				
 		if(imageList.length > 1) {
 			domElements.slideLeft.addEventListener("click", (e) => {
