@@ -3,7 +3,7 @@ package com.nts.reservation.dao.sql;
 public class DatailPageInfoDaoSqls {
 	public static final String SELECT_BY_DISPLAY_INFO_ID = "SELECT * "
 		+ "FROM ( "
-		+ "	SELECT p.product_id, p.description, p.content, p.save_file_name AS main_image_file, count(u_comment.score) AS comment_count, avg(u_comment.score) AS average_score "
+		+ "	SELECT p.product_id, p.description, p.content, p.save_file_name AS main_image_file, count(u_comment.score) AS comment_count, nvl(avg(u_comment.score), 0) AS average_score "
 		+ "	FROM ( "
 		+ "		SELECT pi.product_id, pi.description, pi.content, file_info.save_file_name "
 		+ "		FROM ( "
