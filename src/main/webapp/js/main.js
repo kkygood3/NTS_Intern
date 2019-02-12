@@ -1,5 +1,6 @@
 var currentStart = 0;
 var currentCategory = 0;
+const productLimit = 4;
 
 function requestAjax(callback, url){
 	var ajaxReq = new XMLHttpRequest();
@@ -41,21 +42,20 @@ function setPromotionMove() {
 		}
 
 		curIdx++;
-
-		if (curIdx >= itemSize) {
-			setTimeout(() => {
-				for (var i = 0; i < itemSize; i++) {
-					promotionList[i].style.transitionDuration = '0s';
-					promotionList[i].style.left = '0';
-				}
-				for (var i = 0; i < itemSize; i++) {
-					promotionList[i].style.transitionDuration = '1s';
-				}
-				
-				curIdx = 0;
-				leftDistance = 0;
-			}, 0);
+		if (curIdx < itemSize) {
+			return;
 		}
+		
+		for (var i = 0; i < itemSize; i++) {
+			promotionList[i].style.transitionDuration = '0s';
+			promotionList[i].style.left = '0';
+		}
+		for (var i = 0; i < itemSize; i++) {
+			promotionList[i].style.transitionDuration = '1s';
+		}
+		
+		curIdx = 0;
+		leftDistance = 0;
 	}, 4000);
 }
 
@@ -114,8 +114,8 @@ function loadProductsCallback(responseData) {
 	document.querySelector('.event_lst_txt>span').innerText = itemCount + '개';
 }
 
-function mapProductParameters(categoryId, start) {
-	return 'products?categoryId=' + categoryId + '&start=' + start;
+function mapProductParameters(categoryId, start, limit) {
+	return 'products?categoryId=' + categoryId + '&start=' + start + '&limit=' + limit;
 }
 
 function setTabClickEvent() {	
@@ -141,7 +141,7 @@ function setTabClickEvent() {
 				containers[0].innerHTML = '';
 				containers[1].innerHTML = '';
 
-				requestAjax(loadProductsCallback,mapProductParameters(currentCategory,currentStart));
+				requestAjax(loadProductsCallback,mapProductParameters(currentCategory,currentStart, productLimit));
 			}
 		}
 	});
@@ -154,13 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	requestAjax(loadCategoriesCallback, 'categories');
 
 	//2. 상품 목록 가져오기
-	requestAjax(loadProductsCallback, mapProductParameters(0, 0));
+	requestAjax(loadProductsCallback, mapProductParameters(0, 0, productLimit));
 
 	//3. promotion 가져오기
 	requestAjax(loadPromotionsCallback, 'promotions');
 
 	//4. 더보기 버튼 event 등록
-	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart)));
+	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart, productLimit)));
 
 	//5. 탭 변경 event 등록
 	setTabClickEvent();
