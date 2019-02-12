@@ -8,7 +8,7 @@ package com.nts.reservation.category.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.category.dao.CategoryDao;
+import com.nts.reservation.category.dao.Impl.CategoryDaoImpl;
 import com.nts.reservation.category.dto.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
 
@@ -16,12 +16,12 @@ import com.nts.reservation.category.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryDaoImpl categoryDaoImpl;
 
 	@Override
 	public CategoryResponse getCategories() {
 		CategoryResponse categoryResponse = new CategoryResponse();
-		categoryResponse.setItems(categoryDao.selectPagingCategories());
+		categoryResponse.setItems(categoryDaoImpl.selectPagingCategories());
 
 		return categoryResponse;
 	}

@@ -8,7 +8,7 @@ package com.nts.reservation.product.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.product.dao.ProductDao;
+import com.nts.reservation.product.dao.Impl.ProductDaoImpl;
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
@@ -16,14 +16,14 @@ import com.nts.reservation.product.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductDao productDao;
+	private ProductDaoImpl productDaoImpl;
 
 	@Override
 	public ProductResponse getProducts(int start, int count) {
 		ProductResponse productResponse = new ProductResponse();
 
-		productResponse.setItems(productDao.selectPagingProducts(start, count));
-		productResponse.setTotalCount(productDao.selectCount());
+		productResponse.setItems(productDaoImpl.selectPagingProducts(start, count));
+		productResponse.setTotalCount(productDaoImpl.selectCount());
 
 		return productResponse;
 	}
@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
 		if (isTotalCategory(categoryId)) {
 			productResponse = getProducts(start, count);
 		} else {
-			productResponse.setItems(productDao.selectPagingProductsByCategory(categoryId, start, count));
-			productResponse.setTotalCount(productDao.selectCountByCategory(categoryId));
+			productResponse.setItems(productDaoImpl.selectPagingProductsByCategory(categoryId, start, count));
+			productResponse.setTotalCount(productDaoImpl.selectCountByCategory(categoryId));
 		}
 		return productResponse;
 	}
