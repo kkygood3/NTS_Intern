@@ -38,7 +38,6 @@ public class ProductApiController {
 
 		int productCount = productService.getProductsCountByCategoryId(categoryId);
 		if (productCount == 0) {
-			//return Collections.emptyList();
 			return Collections.emptyMap();
 		}
 
@@ -49,9 +48,6 @@ public class ProductApiController {
 		map.put("productCount", productCount);
 
 		return map;
-
-		// productCount 처리할 것
-		//return productService.getProducts(categoryId, start);
 	}
 
 	private boolean isValidParameter(int categoryId, int limit) {
