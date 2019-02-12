@@ -4,15 +4,11 @@
  */
 package com.nts.reservation.category.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.category.dto.Category;
+import com.nts.reservation.category.dto.CategoryItems;
 import com.nts.reservation.category.service.CategoryService;
 
 /**
@@ -20,18 +16,16 @@ import com.nts.reservation.category.service.CategoryService;
  */
 @RestController
 public class CategoryApiController {
+	private CategoryItems categoryItems = new CategoryItems();
 
 	@Autowired
 	private CategoryService categoryService;
 
 	@GetMapping("/api/categories")
-	public Map<String, List<Category>> getCategoryList() {
-		List<Category> categoryList = categoryService.getCategoryList();
+	public CategoryItems getCategoryList() {
+		categoryItems.setCategoryList(categoryService.getCategoryList());
 
-		Map<String, List<Category>> map = new HashMap<>();
-		map.put("categoryList", categoryList);
-
-		return map;
+		return categoryItems;
 	}
 
 }

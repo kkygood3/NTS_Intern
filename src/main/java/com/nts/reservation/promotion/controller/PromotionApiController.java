@@ -27,8 +27,6 @@ public class PromotionApiController {
 	@GetMapping("/api/promotions")
 	public PromotionItems getProductList() {
 		int promotionCount = promotionService.getPromotionsCount();
-		//
-		System.out.println(promotionCount);
 		if (promotionCount == 0) {
 			return getEmptyPromotionList();
 		}
