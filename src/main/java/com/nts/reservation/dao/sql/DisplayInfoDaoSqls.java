@@ -16,7 +16,8 @@ public class DisplayInfoDaoSqls {
 		+ " display.place_lot,"
 		+ " display.place_street,"
 		+ " display.tel AS telephone,"
-		+ " display.homepage, display.email,"
+		+ " display.homepage,"
+		+ " display.email,"
 		+ " display.create_date,"
 		+ " display.modify_date,"
 		+ " product.content AS product_content,"
@@ -24,8 +25,10 @@ public class DisplayInfoDaoSqls {
 		+ " product.description AS product_description,"
 		+ " category.id AS category_id,"
 		+ " category.name AS category_name"
-		+ " FROM display_info AS display, product, category"
-		+ " WHERE display.id = :id"
-		+ " AND product.id = display.product_id"
-		+ " AND product.category_id = category.id";
+		+ " FROM display_info AS display"
+		+ " INNER JOIN product"
+		+ " ON product.id = display.product_id"
+		+ " INNER JOIN category"
+		+ " ON product.category_id = category.id"
+		+ " WHERE display.id = :id";
 }

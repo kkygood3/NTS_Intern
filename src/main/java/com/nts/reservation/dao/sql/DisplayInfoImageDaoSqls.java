@@ -18,8 +18,8 @@ public class DisplayInfoImageDaoSqls {
 		+ " file.id AS file_id,"
 		+ " image.display_info_id,"
 		+ " image.id AS display_info_image_id"
-		+ " FROM  display_info_image AS image,"
-		+ " file_info AS file"
-		+ " WHERE image.file_id = file.id"
-		+ " AND image.display_info_id = :id";
+		+ " FROM  display_info_image AS image"
+		+ " INNER JOIN file_info AS file"
+		+ " ON image.file_id = file.id"
+		+ " WHERE image.display_info_id = :id";
 }

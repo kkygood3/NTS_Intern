@@ -20,8 +20,8 @@ public class CommentImageDaoSqls {
 		+ " image.reservation_user_comment_id,"
 		+ " file.save_file_name"
 		+ " FROM reservation_user_comment_image AS image"
-		+ ", file_info AS file"
-		+ " WHERE file.id = image.file_id"
-		+ " AND image.reservation_user_comment_id = :id"
+		+ " INNER JOIN file_info AS file"
+		+ " ON file.id = image.file_id"
+		+ " WHERE image.reservation_user_comment_id = :id"
 		+ " ORDER BY file.create_date DESC";
 }
