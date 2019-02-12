@@ -11,17 +11,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class ProductImage {
-	private String contentType;
+public class ProductPrice {
 	private LocalDateTime createDate;
-	private boolean deleteFlag;
-	private int fileInfoId;
-	private String fileName;
+	private double discountRate;
 	private LocalDateTime modifyDate;
+	private int price;
+	private String priceTypeName;
 	private int productId;
-	private int productImageId;
-	private String saveFileName;
-	private String type;
-	
-	// TODO Enum
+	private int productPriceId;
 }
