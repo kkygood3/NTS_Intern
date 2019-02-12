@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS reservation;
 CREATE DATABASE reservation;
 USE reservation;
-drop table if exists reservation_user_comment_image;
+﻿drop table if exists reservation_user_comment_image;
 drop table if exists reservation_user_comment;
 drop table if exists reservation_info_price;
 drop table if exists reservation_info;
@@ -204,12 +204,11 @@ CREATE TABLE `reservation_user_comment_image` (
   FOREIGN KEY (`file_id`)
   REFERENCES `file_info` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+insert into category values (1, '전시');
 insert into category values (2, '뮤지컬');
 insert into category values (3, '콘서트');
 insert into category values (4, '클래식');
 insert into category values (5, '연극');
-insert into category values (1,'전시');
 
 insert into file_info (id, file_name, save_file_name, content_type, delete_flag, create_date, modify_date ) values ( 1,'1_map_1.png', 'img_map/1_map_1.png', 'image/png', 0, now(), now());
 insert into file_info (id, file_name, save_file_name, content_type, delete_flag, create_date, modify_date ) values ( 2,'2_map_2.png', 'img_map/2_map_2.png', 'image/png', 0, now(), now());
@@ -1370,23 +1369,41 @@ insert into reservation_user_comment_image(id, reservation_info_id, reservation_
 
 -------------------------------------------------------------------
 -- 상품 목록 구하기
-SELECT display_info.id as 'displayInfoId', place_name, product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', file_info.file_name as 'productImageUrl'
+SELECT display_info.id as 'displayInfoId', place_name as 'placeName', product.content as 'productContent', product.description as 'productDescription', product.id as 'productId', IF(product_image.type = 'th', file_info.file_name, null) as 'productImageUrl'
 FROM category
 INNER JOIN product ON product.category_id = category.id
 INNER JOIN display_info ON display_info.product_id = product.id
 INNER JOIN product_image ON product_image.product_id = product.id
 INNER JOIN file_info ON file_info.id = product_image.file_id
-WHERE category.id = 1;
+WHERE category.id = 3
+GROUP BY display_info.id;
 
-SELECT count(*)
+select IF(product_image.type = 'th', 0, 1)
+FROM product_image;
+
+SELECT id, product_id, IF(product_image.type = 'th', type, null) as 'type', file_id
+FROM product_image
+GROUP BY product_id
+;
+
+SELECT *
 FROM product
-WHERE category_id = 1;
+INNER JOIN category ON product.category_id = category.id
+LEFT JOIN product_image ON product_image.product_id = product.id
+WHERE category.id = 3
+GROUP BY product.id;
 
--- 총 목록 구하기
-SELECT count(*)
+
+select * from product_image ;
+rollback;
+UPDATE product_image SET type = null WHERE file_id = 114;
+
+SELECT count(category_id) as 'count'
 FROM category
 INNER JOIN product ON product.category_id = category.id
-WHERE category.id = 1;
+INNER JOIN display_info ON display_info.product_id = product.id
+GROUP BY category_id
+HAVING category_id = 1;
 
 -----------------------------------------------------------
 -- 카테고리 목록 구하기
@@ -1397,9 +1414,58 @@ GROUP BY category_id;
 
 -----------------------------------------------------------
 -- 프로모션 목록 구하기
-SELECT display_info.id, display_info.place_name, product.content, product.description, product.id, file_info.file_name
+SELECT promotion.id as 'id', product.id as 'productId', file_info.file_name as 'productImageUrl'
 FROM product
 INNER JOIN promotion ON promotion.product_id = product.id
-INNER JOIN display_info ON display_info.product_id = product.id
 INNER JOIN product_image ON product_image.product_id = product.id
-INNER JOIN file_info ON file_info.id = product_image.file_id;
+INNER JOIN file_info ON file_info.id = product_image.file_id
+WHERE product_image.type = 'th';
+
+-----------------------------------------------------------
+-- DISPLAY INFO
+SELECT category.id as 'categoryId', category.name as 'categoryName', display_info.create_date as 'createDate', display_info.id as 'displayInfoId', display_info.email as 'email', display_info.homepage as 'homepage', display_info.modify_date as 'modiftyDate', display_info.opening_hours as 'openingHours', display_info.place_lot as 'placeLot', display_info.place_name as 'placeName', display_info.place_street as 'placeStreet', product.content as 'productContent', product.description as 'productDescription', product.event as 'productEvent', product.id as 'productId', display_info.tel as 'telephone'
+FROM display_info
+INNER JOIN product ON display_info.product_id = product.id
+INNER JOIN category ON product.category_id = category.id
+WHERE display_info.id = 1;
+
+-- PRODUCT IMAGES (only 'ma') => etc는 따로 AJAX 처리?
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type'
+FROM product
+INNER JOIN product_image ON product_image.product_id = product.id
+INNER JOIN display_info ON display_info.product_id = product.id
+INNER JOIN file_info ON file_info.id = product_image.file_id
+WHERE display_info.id = 1
+AND product_image.type = 'ma';
+
+
+-- COMMENT (LIST) + Comment Images 처리
+SELECT reservation_user_comment.id 'commentId', reservation_user_comment.product_id 'productId', reservation_info.id 'reservationInfoId', score 'score', comment, reservation_name 'reservationName', reservation_tel 'reservationTelephone', reservation_email 'reservationEmail', reservation_date 'reservationDate', reservation_info.create_date 'createDate', reservation_info.modify_date 'modifyDate'
+FROM reservation_user_comment
+INNER JOIN reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id
+WHERE reservation_info.display_info_id = 1
+ORDER BY reservation_user_comment.id DESC;
+
+-- COMMENT IMAGES (LIST)
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileId', file_info.file_name 'fileName', reservation_user_comment_image.id 'imageId', file_info.modify_date 'modifyDate',  file_info.save_file_name 'saveFileName'
+FROM reservation_user_comment
+INNER JOIN reservation_user_comment_image ON reservation_user_comment_image.reservation_user_comment_id = reservation_user_comment.id
+INNER JOIN file_info ON file_info.id = reservation_user_comment_image.file_id
+INNER JOIN display_info_image ON display_info_image.file_id = file_info.id
+WHERE display_info_image.display_info_id = 1
+AND reservation_user_comment.id = 1;
+
+-- COMMENT AVG(score)
+SELECT ROUND(AVG(score), 1) as 'averageScore'
+FROM reservation_user_comment
+INNER JOIN product ON product.id = reservation_user_comment.product_id
+INNER JOIN display_info ON display_info.product_id = product.id
+WHERE display_info.id = 1;
+
+-- PRODUCT PRICE (LIST)
+SELECT product_price.id 'productPriceId', product.id 'productId', price_type_name 'priceTypeName', price 'price', discount_rate 'discountRate', product_price.create_date 'createDate', product_price.modify_date 'modifyDate'
+FROM product_price
+INNER JOIN product ON product.id = product_price.product_id
+INNER JOIN display_info ON display_info.product_id = product.id
+WHERE display_info.id = 1;
+------------------------------------------------------------
