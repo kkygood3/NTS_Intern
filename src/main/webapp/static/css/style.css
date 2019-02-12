@@ -1051,7 +1051,7 @@ button {
 .img_bg:after {
     left: 0;
     border-bottom: 1px solid #000;
-    opacity: .1;
+    opacity: 0;
     filter: alpha(opacity=10);
     vertical-align: bottom;
     box-sizing: border-box
@@ -1278,7 +1278,7 @@ button {
 .group_visual .visual_img {
     position: relative;
     min-height: 210px;
-    font: 0/0 a;
+    font: 0/1 a;
     color: #fff;
     white-space: nowrap
 }
@@ -1313,7 +1313,7 @@ button {
 
 .group_visual .visual_img .item .img_bg:before {
     content: '';
-    background-color: rgba(0,0,0,.2)
+    background-color: rgba(0,0,0,.2);
 }
 
 .group_visual .visual_img .item .visual_txt:before {
@@ -3863,4 +3863,17 @@ button {
 
 .slide_out_right {
     -webkit-animation: slide_out_right 1s forwards;
+}
+
+.product_title{
+    display: block;
+    font-size: 40px;
+    position: relative;
+    margin-top: 40%;
+    text-align: center;
+}
+
+.transition_1s{
+	transform: translateX(0%);
+    transition: 1s ease-in;
 }
