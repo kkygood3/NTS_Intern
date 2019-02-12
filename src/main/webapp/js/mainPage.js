@@ -64,23 +64,20 @@ function setPromotionSlideAnimation() {
         curIdx++;
 
         // 마지막 슬라이드 옮기고 초기화
-        if (curIdx >= promotionLength) {
+        if (curIdx >= promotionLength - 1) {
 
-            setTimeout(() => {
-                // transitionDuration을 0으로 바꾸고 left를 0으로 초기화
-                for (var i = 0; i < promotionLength; i++) {
-                    promotionList[i].style.transitionDuration = '0s';
-                    promotionList[i].style.left = '0';
-                }
+            for (var i = 0; i < promotionLength; ++i) {
+                // transitionDuration => 0s, 위치 초기화, transitionDuration => 1s
+                promotionList[i].style.transitionDuration = '0s';
 
-                //transitionDuration을 1로 재설정
-                for (var i = 0; i < promotionLength; i++) {
-                    promotionList[i].style.transitionDuration = '1s';
-                }
+                recoverDistance = promotionList[i].style.left + promotionLength * 100;
+                promotionList[i].style.left = recoverDistance;
 
-                curIdx = 0;
-                leftDistance = 0;
-            }, 0);
+                promotionList[i].style.transitionDuration = '1s';
+            }
+
+            curIdx = 0;
+            leftDistance = 0;
         }
     
     }, 4000);
