@@ -73,7 +73,7 @@ var detailPage = {
 		btnTop : document.querySelector(".lnk_top")
 	},
 	
-	Container: {
+	container: {
 		contentContainer : document.querySelector(".store_details"),
 		visualImgContainer : document.querySelector(".visual_img.detail_swipe"),
 		discountContainer : document.querySelector(".in_dsc"),
@@ -98,7 +98,7 @@ var detailPage = {
 		}
 		
 		this.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
-		this.Container.visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
+		this.container.visualImgContainer.innerHTML = bindVisualImgs(jsonResponse);
 		this.setEvent.carousel();
 		
 		this.elements.content.innerHTML = jsonResponse["displayInfo"].productContent;
@@ -112,9 +112,9 @@ var detailPage = {
 	displayDiscountInfo: function(jsonResponse){
 		var bindDiscounts = this.compileHendlebars.bindTemplate(this.template.discountTemplate);
 
- 		this.Container.discountContainer.innerHTML = bindDiscounts(jsonResponse);
-		if(this.Container.discountContainer.querySelector(".discountInfo").innerText.length === 0){
-			this.Container.discountContainer.parentNode.parentNode.style.display = "none";
+ 		this.container.discountContainer.innerHTML = bindDiscounts(jsonResponse);
+		if(this.container.discountContainer.querySelector(".discountInfo").innerText.length === 0){
+			this.container.discountContainer.parentNode.parentNode.style.display = "none";
 		}
 	},
 	
@@ -130,8 +130,8 @@ var detailPage = {
 			comment.score = comment.score.toFixed(1);
 		});
 		
-		this.Container.commentsContainer.innerHTML = bindComments(jsonResponse);
-		if(this.Container.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
+		this.container.commentsContainer.innerHTML = bindComments(jsonResponse);
+		if(this.container.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
 			this.elements.btnMoreReview.style.display = "none";
 		} else {
 			this.elements.btnMoreReview.href = this.displayInfoId + "/reviews";
@@ -192,12 +192,12 @@ var detailPage = {
 			this.detailPage.elements.btnOpen.addEventListener("click", function(){
 				this.detailPage.elements.btnOpen.style.display = "none";
 				this.detailPage.elements.btnClose.style.display = "block";
-				this.detailPage.Container.contentContainer.classList.remove("close3");
+				this.detailPage.container.contentContainer.classList.remove("close3");
 			}.bind(this));
 			this.detailPage.elements.btnClose.addEventListener("click", function(){
 				this.detailPage.elements.btnClose.style.display = "none";
 				this.detailPage.elements.btnOpen.style.display = "block";
-				this.detailPage.Container.contentContainer.classList.add("close3");
+				this.detailPage.container.contentContainer.classList.add("close3");
 			}.bind(this));
 		}.bind(this),
 		
@@ -254,10 +254,10 @@ var detailPage = {
 		visualImageIndex : 0,
 		
 		setCntImage: function(){
-			return this.detailPage.Container.visualImgContainer.querySelectorAll("li").length;
+			return this.detailPage.container.visualImgContainer.querySelectorAll("li").length;
 		}.bind(this),
 		setImage: function(index){
-			return this.detailPage.Container.visualImgContainer.querySelector("li[data-index='" + index + "']");
+			return this.detailPage.container.visualImgContainer.querySelector("li[data-index='" + index + "']");
 		}.bind(this),
 		
 		slideRight: function(){
@@ -290,7 +290,7 @@ var detailPage = {
 			var slideImageIndex = this.detailPage.imageSlide.visualImageIndex;
 			var cntImages = this.detailPage.constants.CNT_MAIN_IMAGE;
 			var nowImage = this.detailPage.imageSlide.setImage(this.detailPage.imageSlide.visualImageIndex);
-			var nextImage = this.detailPage.Container.visualImgContainer.querySelector("li[data-index='" + (slideImageIndex + 1) % cntImages + "']");
+			var nextImage = this.detailPage.container.visualImgContainer.querySelector("li[data-index='" + (slideImageIndex + 1) % cntImages + "']");
 			
 			nowImage.style.left = "0";
 			nowImage.className = "item slide_left_out";

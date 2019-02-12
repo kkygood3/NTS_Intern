@@ -44,7 +44,7 @@ var reviewPage = {
 		btnTop : document.querySelector(".lnk_top")
 	},
 	
-	Container: {
+	container: {
 		commentsContainer : document.querySelector(".list_short_review")
 	},
 	
@@ -76,7 +76,7 @@ var reviewPage = {
 			comment.score = comment.score.toFixed(1);
 		});
 		
-		this.Container.commentsContainer.innerHTML = bindComments(jsonResponse);
+		this.container.commentsContainer.innerHTML = bindComments(jsonResponse);
 	},
 	
 	goToPrevPage: function(){
