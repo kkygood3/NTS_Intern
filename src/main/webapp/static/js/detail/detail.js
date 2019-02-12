@@ -45,6 +45,10 @@ function getDisplayInfos() {
 		handlebarsFunction.setHandlebarRegistHelper();
 		setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
 		setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
+	}, function(){
+		alert('요청한 페이지가 없거나, 전시가 종료된 상품입니다.');
+		location.href = '/main';
+		return;
 	});
 }
 
