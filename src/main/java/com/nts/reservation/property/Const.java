@@ -20,7 +20,7 @@ public class Const {
 	public static final String DISPLAY_INFO_ID = "displayInfoId";
 	public static final String FILE_ID = "fileId";
 	public static final String FILE_NAME = "fileName";
-	public static final String SAVA_FILE_NAME = "savaFileName";
+	public static final String SAVA_FILE_NAME = "saveFileName";
 	public static final String CONTENT_TYPE = "contentType";
 	public static final String DELETE_FLAG = "deleteFlag";
 	public static final String CREATE_DATE = "createDate";
@@ -46,9 +46,18 @@ public class Const {
 	public static final String COMMENT = "comment";
 	public static final String RESERVATION_USER_COMMENT = "reservationUserComment";
 	public static final String SAVE_FILE_NAME = "saveFileName";
+	public static final String AVERAGE_SCORE = "averageScore";
+	public static final String COMMENT_COUNT = "commentCount";
+	
 	
 	public static final String START = "start";
 	public static final String LIMIT = "limit";
 	
+	public static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
+	public static final String COMMENT_DEFAULT_PAGING_SIZE = "3";
+	public static final String ALL_CATEGORIES_STR = "0";
+	
 	public static final int ALL_CATEGORIES = 0;
+	
+	
 }

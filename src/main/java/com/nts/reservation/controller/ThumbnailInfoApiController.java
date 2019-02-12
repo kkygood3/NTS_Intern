@@ -17,6 +17,7 @@ import com.nts.reservation.dto.ThumbnailInfo;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ThumbnailInfoService;
 
+import static com.nts.reservation.property.Const.*;
 /**
  * 썸네일 관련 API 클래스
  * @author USER
@@ -42,8 +43,8 @@ public class ThumbnailInfoApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> getProductCountAndThumbnailInfos(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit,
-		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
+		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
+		@RequestParam(name = "category_id", required = false, defaultValue = ALL_CATEGORIES_STR) int categoryId) {
 		int productCount = productService.getCount(categoryId);
 		List<ThumbnailInfo> thumbnailInfoList = Collections.EMPTY_LIST;
 

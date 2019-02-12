@@ -1,6 +1,6 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.FileInfoDaoSqls.SELECT_BY_DISPLAY_INFO_ID_AND_TYPE;
+import static com.nts.reservation.dao.sql.FileInfoDaoSqls.SELECT_BY_PRODUCT_ID_AND_TYPE;
 import static com.nts.reservation.property.Const.PRODUCT_ID;
 import static com.nts.reservation.property.Const.TYPE;
 
@@ -32,6 +32,6 @@ public class FileInfoDao extends BaseDao {
 		params.put(PRODUCT_ID, productId);
 		params.put(TYPE, type);
 
-		return getJdbc().query(SELECT_BY_DISPLAY_INFO_ID_AND_TYPE, params, rowMapper);
+		return getJdbc().query(SELECT_BY_PRODUCT_ID_AND_TYPE, params, rowMapper);
 	}
 }

@@ -11,9 +11,9 @@
     <link href="./css/style.css" rel="stylesheet">
 	<script type="text/javascript">
 		var displayInfo = {
-			"productId" : "${product_id}",
-			"displayInfoId" : "${display_info_id}",
-			"commentCount" : "${comment_count}"
+			"productId" : "${productId}",
+			"displayInfoId" : "${displayInfoId}",
+			"commentCount" : "${commentCount}"
 		};
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
@@ -40,7 +40,7 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="./detail?product_id=${product_id}&display_info_id=${display_info_id}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
+						<a href="./detail?product_id=${productId}&display_info_id=${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
 						<h2><a class="title" href="#">${description}</a></h2>
 					</div>
 				</div>
@@ -49,9 +49,9 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"><em class="graph_value" style="width:${average_score * 20}%;"></em></span>
-                                <strong class="text_value"><span>${average_score}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${comment_count}건</em> 등록</span>
+								<span class="graph_mask"><em class="graph_value" style="width:${averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${commentCount}건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
                             <!-- content -->

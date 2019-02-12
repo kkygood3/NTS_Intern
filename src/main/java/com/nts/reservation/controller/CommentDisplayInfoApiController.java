@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.service.CommentDisplayInfoService;
+import static com.nts.reservation.property.Const.*;
 
 /**
  * 코멘트관련 API 클래스
@@ -27,7 +28,7 @@ public class CommentDisplayInfoApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit,
+		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "product_id", required = true) int productId) {
 		List<CommentDisplayInfo> thumbnailInfoList = commentDisplayInfoService.getCommentDisplayInfos(productId, start, limit);
 		return thumbnailInfoList;

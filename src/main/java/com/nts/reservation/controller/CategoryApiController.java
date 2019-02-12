@@ -31,7 +31,6 @@ public class CategoryApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Category> getCategoris() {
 		List<Category> CategoryList = categoryService.getCategoris();
-		
 		return CategoryList;
 	}
 

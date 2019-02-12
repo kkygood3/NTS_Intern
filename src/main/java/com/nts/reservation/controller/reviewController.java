@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationUserCommentService;
-
+import static com.nts.reservation.property.Const.*;
 @Controller
 public class reviewController {
 	@Autowired
@@ -26,11 +26,11 @@ public class reviewController {
 		@RequestParam(name = "display_info_id", required = true) long displayInfoId,
 		ModelMap model) {
 		Product product = productService.getProduct(productId);
-		model.addAttribute("display_info_id", displayInfoId);
-		model.addAttribute("product_id", productId);
-		model.addAttribute("description", product.getDescription());
-		model.addAttribute("average_score", reservationUserCommentService.getAverageScore(productId));
-		model.addAttribute("comment_count", reservationUserCommentService.getCount(productId));
+		model.addAttribute(DISPLAY_INFO_ID, displayInfoId);
+		model.addAttribute(PRODUCT_ID, productId);
+		model.addAttribute(DESCRIPTION, product.getDescription());
+		model.addAttribute(AVERAGE_SCORE, reservationUserCommentService.getAverageScore(productId));
+		model.addAttribute(COMMENT_COUNT, reservationUserCommentService.getCount(productId));
 		
 		return "review";
 	}
