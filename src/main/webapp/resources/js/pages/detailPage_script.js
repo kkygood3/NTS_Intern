@@ -34,7 +34,8 @@ var detailPage = {
 		infoTabUl : document.querySelector(".info_tab_lst"),
 		infoTabLi : document.querySelectorAll(".info_tab_lst li"),
 		bottomDescription : document.querySelector(".detail_info_group"),
-		bottomPath : document.querySelector(".detail_location")
+		bottomPath : document.querySelector(".detail_location"),
+		scrollToTop : document.querySelector(".gototop")
 	},
 	
 	templates : {
@@ -110,6 +111,10 @@ var detailPage = {
 			}
 			document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
 		});
+		domElements.scrollToTop.addEventListener("click", (e) => {
+			document.documentElement.scrollTop = document.body.scrollTop = 0;
+		});
+		
 	},
 
 	fetchDetailData : function(){
