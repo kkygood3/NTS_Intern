@@ -33,9 +33,7 @@ function setPromotionMove() {
 	var itemSize = promotionList.length;
 	var curIdx = 0;
 	
-	setInterval(moveStep, 4000);
-
-	function moveStep(){
+	setInterval(() => {
 		leftDistance -= 100;
 
 		for (var i = 0; i < itemSize; ++i) {
@@ -45,9 +43,7 @@ function setPromotionMove() {
 		curIdx++;
 
 		if (curIdx >= itemSize) {
-			setTimeout(resetPromotionPos, 0);
-			
-			function resetPromotionPos() {
+			setTimeout(() => {
 				for (var i = 0; i < itemSize; i++) {
 					promotionList[i].style.transitionDuration = '0s';
 					promotionList[i].style.left = '0';
@@ -58,9 +54,9 @@ function setPromotionMove() {
 				
 				curIdx = 0;
 				leftDistance = 0;
-			}
+			}, 0);
 		}
-	}
+	}, 4000);
 }
 
 function loadPromotionsCallback(responseData) {
