@@ -279,6 +279,6 @@
 	
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript" src="resources/js/reservepage/reservePage_script.js"></script>
+	<script type="text/javascript" src="resources/js/pages/reservePage_script.js"></script>
 </body>
 </html>

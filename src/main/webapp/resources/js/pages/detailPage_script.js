@@ -67,7 +67,7 @@ var detailPage = {
 		templates = this.templates;
 		parser = this.parser;
 		
-		initTab = this.initTab;
+		initButtons = this.initButtons;
 		fetchDetailData = this.fetchDetailData;
 		renderComments = this.renderComments;
 		renderEventSection = this.renderEventSection;
@@ -76,14 +76,18 @@ var detailPage = {
 		renderImages = this.renderImages;
 		resizeImageContainer = this.resizeImageContainer;
 		
-	    constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
-	    fetchDetailData();
-	    initTab();
+		constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
+		fetchDetailData();
+		initButtons();
 	},
 
-	initTab : function(){
+	initButtons : function(){
 		let detailTab = document.querySelector(".detail_area_wrap");
 		let pathTab = document.querySelector(".detail_location");
+		
+		document.querySelector(".bk_btn").addEventListener("click", (e) => {
+			window.location.href = "./reserve?id="+constants.DISPLAY_INFO_ID;
+		});
 		
 		domElements.infoTabUl.addEventListener("click", (e) => {
 			let currentScroll = document.documentElement.scrollTop;
@@ -111,7 +115,7 @@ var detailPage = {
 			}
 			document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
 		});
-	    scrollToTopAttacher(domElements.scrollToTop)
+	    scrollToTopAttacher(domElements.scrollToTop);
 	},
 
 	fetchDetailData : function(){
