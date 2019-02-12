@@ -27,7 +27,7 @@ import com.nts.reservation.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ProductApiController {
+public class ApplicationApiController {
 	@Autowired
 	ProductService productService;
 	@Autowired

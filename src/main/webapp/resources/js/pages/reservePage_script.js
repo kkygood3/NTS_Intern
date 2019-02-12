@@ -12,6 +12,7 @@
 HTMLCollection.prototype.forEach = Array.prototype.forEach;
 NodeList.prototype.forEach = Array.prototype.forEach;
 
+
 window.addEventListener("DOMContentLoaded", function() {
 	reservePage.init();
 });
@@ -67,7 +68,9 @@ const HALL_TYPES = {
 
 var reservePage = {
 	domElements : {
-		countControlContainer : document.querySelector(".ticket_body")
+		countControlContainer : document.querySelector(".ticket_body"),
+		totalCountBottom : document.querySelector("#totalCount"),
+		bookButton : document.querySelector(".bk_btn_wrap")
 	},
 
 	constants : {
@@ -102,6 +105,7 @@ var reservePage = {
 		renderData = this.renderData;
 		priceInterpreter = this.priceInterpreter;
 		priceControllerInit = this.priceControllerInit;
+		updateTotalCountBottom = this.updateTotalCountBottom;
 		
 		constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
 		fetchDetailData();
@@ -130,10 +134,77 @@ var reservePage = {
     	// add priceController with interpreted data
     	arrayToElementRenderer(state.detail_data.productPrices,domElements.countControlContainer,templates.countControlItem);
     	priceControllerInit();
+    	updateTotalCountBottom();
 	},
 	
 	priceControllerInit : function() {
-		domElements.countControlContainer.querySelectorAll(".qty")
+		let controllers = domElements.countControlContainer.querySelectorAll(".qty");
+		controllers.forEach((item) => {
+			let addButton = item.querySelector("a[title='더하기']");
+			let reduceButton = item.querySelector("a[title='빼기']");
+			console.log(addButton, reduceButton);
+			
+			addButton.addEventListener("click", (e) => {
+				let wrapper = addButton.closest(".qty");
+				let id = addButton.closest(".qty").dataset.id;
+				let product = state.prices[id]; 
+				product.qty++;
+				
+				let qtyArea = wrapper.querySelector(".count_control_input");
+				qtyArea.value = product.qty;
+				if(qtyArea.classList.contains("disabled")){
+					qtyArea.classList.remove("disabled");
+				}
+				if(reduceButton.classList.contains("disabled")){
+					reduceButton.classList.remove("disabled");
+				}
+				
+				let totalPriceArea = wrapper.querySelector(".total_price");
+				totalPriceArea.innerHTML = product.price * product.qty;
+				totalPriceArea.parentElement.style.color = "black";
+				
+				updateTotalCountBottom();
+			});
+			
+			reduceButton.addEventListener("click", (e) => {
+				let wrapper = addButton.closest(".qty");
+				let id = addButton.closest(".qty").dataset.id;
+				let product = state.prices[id]; 
+				
+				if(product.qty == 0){
+					return;
+				}
+				product.qty--;
+				
+				let qtyArea = wrapper.querySelector(".count_control_input");
+				qtyArea.value = product.qty;
+				if(product.qty == 0){
+					if(!qtyArea.classList.contains("disabled")){
+						qtyArea.classList.add("disabled");
+					}
+					if(!reduceButton.classList.contains("disabled")){
+						reduceButton.classList.add("disabled");
+					}
+				}
+
+				let totalPriceArea = wrapper.querySelector(".total_price");
+				totalPriceArea.innerHTML = product.price * product.qty;
+				if(product.qty == 0){
+					totalPriceArea.parentElement.style.color = "";
+				}
+				
+				updateTotalCountBottom();
+			});
+		});
+	},
+	
+	updateTotalCountBottom : function() {
+		let totalCount = 0;
+		for (var key in state.prices){
+		    var value = state.prices[key];
+		    totalCount += value.qty;
+		}
+		domElements.totalCountBottom.innerHTML = totalCount;
 	},
 	
 	priceInterpreter : function() {
@@ -149,7 +220,7 @@ var reservePage = {
 		 */
     	let priceString = "";
     	state.detail_data.productPrices.forEach((item) => {
-    		state.prices[item.productPriceId] = {price : item.price, total: 0, qty :0};
+    		state.prices[item.productPriceId] = {price : item.price, qty :0};
     		let currentType = state.pricingType[item.priceTypeName];
     		let currentString = "";
     		for (var key in currentType) {
@@ -167,5 +238,7 @@ var reservePage = {
     	return priceString;
 	},
 	
-	
+	inputValidation : function() { 
+		
+	},
 }

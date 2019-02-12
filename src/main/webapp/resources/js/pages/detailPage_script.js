@@ -77,6 +77,7 @@ var detailPage = {
 		resizeImageContainer = this.resizeImageContainer;
 		
 		constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
+
 		fetchDetailData();
 		initButtons();
 	},
