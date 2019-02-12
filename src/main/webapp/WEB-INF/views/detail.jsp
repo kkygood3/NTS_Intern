@@ -282,7 +282,7 @@
 	<span class="discountInfo">
 	{{#each productPrices}}
 		{{#ifNotZero discountRate}}
-			{{#convertType priceTypeName}}{{/convertType}} {{discountRate}}%
+			{{#noticeDiscountRate priceTypeName discountRate}}{{/noticeDiscountRate}}
 		{{/ifNotZero}} 
 	{{/each}}
 	</span>

@@ -6,7 +6,7 @@ var detailPage = {
 	getDetailPage: function(displayInfoId){
 		this.compileHendlebars.anonymizeUserId(this.constants.DISPLAYED_ID_LENGTH);
 		this.compileHendlebars.compareDiscountRateToZero();
-		this.compileHendlebars.convertPriceTypeName();
+		this.compileHendlebars.noticeDiscountRate();
 		
 		let httpRequest;
 		
@@ -156,33 +156,24 @@ var detailPage = {
 			return Handlebars.compile(template);
 		},
 		
-		convertPriceTypeName : function(){
-			Handlebars.registerHelper('convertType', function(value) {
-				var typeName = "";
-				switch(value){
-					case "A" : typeName = "성인";
-					break;
-					case "Y" : typeName = "청소년";
-					break;
-					case "B" : typeName = "유아";
-					break;
-					case "D" : typeName = "장애인";
-					break;
-					case "C" : typeName = "지역주민";
-					break;
-					case "E" : typeName = "어얼리버드";
-					break;
-					case "V" : typeName = "VIP";
-					break;
-					case "R" : typeName = "R석";
-					break;
-					case "S" : typeName = "S석";
-					break;
-					default : break;
+		priceType : {
+			A : "성인",
+			Y : "청소년",
+			B : "유아",
+			D : "장애인",
+			C : "지역주민",
+			E : "어얼리버드",
+			V : "VIP",
+			R : "R석",
+			S : "S석"
+		},
+		
+		noticeDiscountRate : function(){
+			Handlebars.registerHelper('noticeDiscountRate', function(typeName, discountRate) {
+				if(this.priceType[typeName] !== undefined && this.priceType[typeName] !== null) {
+				    return this.priceType[typeName] + " " + discountRate + "%";
 				}
-				
-				return typeName;
-			});
+			}.bind(this));
 		},
 		
 		anonymizeUserId: function(DISPLAYED_ID_LENGTH){
