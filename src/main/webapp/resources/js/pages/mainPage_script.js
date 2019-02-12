@@ -27,8 +27,8 @@ var mainPage = {
 	},
 	
 	templates: {
-		NEW_PRODUCT_ITEM : document.querySelector("#itemList").innerHTML,
-		PROMO_TEMPLATE : document.querySelector("#promotionItem").innerHTML
+		newProductItem : document.querySelector("#itemList").innerHTML,
+		promoTemplate : document.querySelector("#promotionItem").innerHTML
 	},
 	
 	urls : {
@@ -169,7 +169,7 @@ var mainPage = {
 	 *                       data;
 	 */
 	renderProductItems : function (productData) {
-	    let bindTemplate = Handlebars.compile(templates.NEW_PRODUCT_ITEM);
+	    let bindTemplate = Handlebars.compile(templates.newProductItem);
 	    productData.items.forEach((item) => {
 	    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild;
 	    	domElements.productLists[state.loadedProductCount % 2].appendChild(newProduct);
@@ -190,7 +190,7 @@ var mainPage = {
 	 * @renderPromoItems() : Loaded promo items will be deployed on html
 	 */
 	renderPromoItems : function (promotionData) {
-		arrayToLiRenderer(promotionData, domElements.slideContainer, templates.PROMO_TEMPLATE)
+		arrayToLiRenderer(promotionData, domElements.slideContainer, templates.promoTemplate)
 		let animation = new SlidingAnimation(domElements.slideContainer);
 		animation.init({animationSpeed : 4, animationStopDuration : 1000});
 		animation.startAutoAnimation();
