@@ -77,7 +77,7 @@
 		</div>
 		{{#if comments}}
 			<ul class="list_short_review">
-				{{#print_comments_all comments}}
+				{{#print_comments_all this}}
 	    			
 				{{/print_comments_all}}
 			</ul>
@@ -96,8 +96,7 @@
    					</div>
 				{{/if}}
    				<h4 class="resoc_name">
-					{{#convert_to_product_title}}
-					{{/convert_to_product_title}}
+					${description}
 				</h4>
 				<p class="review">{{this.comment}}</p>
 			</div>
@@ -112,11 +111,11 @@
 	</li>
     </script>
     
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script type = "text/javascript" src="/js/handlebars-v4.1.0.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/detail/detail.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/detail/review.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/mapper/displayinfo-mapper.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/review/review-handlebars.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/review/review.js" charset="utf-8"></script>
 </body>
 
 </html>

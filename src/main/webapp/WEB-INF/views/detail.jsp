@@ -69,7 +69,7 @@
 							</div>
 							<div class="prev">
 								<div class="prev_inn">
-									<a href="#" class="btn_prev" id="prev_button" title="이전"> 
+									<a href="javascript:void(0)" class="btn_prev" id="prev_button" title="이전"> 
 										<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
 										<i class="spr_book2 ico_arr6_lt"></i>
 									</a>
@@ -77,7 +77,7 @@
 							</div>
 							<div class="nxt">
 								<div class="nxt_inn">
-									<a href="#" class="btn_nxt" id="next_button" title="다음"> 
+									<a href="javascript:void(0)" class="btn_nxt" id="next_button" title="다음"> 
 										<i class="spr_book2 ico_arr6_rt"></i>
 									</a>
 								</div>
@@ -183,8 +183,7 @@
 					<div class="visual_txt_inn">
 					<h2 class="visual_txt_tit">
 						<span>
-							{{#convert_to_product_title}}
-							{{/convert_to_product_title}}
+							${description}
 						</span>
 					</h2>
 					<p class="visual_txt_dsc"></p>
@@ -208,7 +207,7 @@
 		</div>
 		{{#if comments}}
 			<ul class="list_short_review">
-				{{#print_comments_limit_3 comments}}
+				{{#print_comments_limit_3 this}}
 	    			
 				{{/print_comments_limit_3}}
 			</ul>
@@ -218,17 +217,16 @@
     <li class="list_item">
 		<div>
 			<div class="review_area">
-				{{#if commentImages}}
+				{{#if comment.commentImages}}
    					<div class="thumb_area">
        					<a href="#" class="thumb" title="이미지 크게 보기">
-							<img width="90" height="90" class="img_vertical_top" src="{{commentImages.productImageUrl}}" alt="ë¦¬ë·°ì´ë¯¸ì§"> 
+							<img width="90" height="90" class="img_vertical_top" src="{{commentImages.productImageUrl}}" alt="리뷰이미지"> 
 						</a> 
 						<span class="img_count" style="display:none;">{{@index}}</span>  
    					</div>
 				{{/if}}
    				<h4 class="resoc_name">
-					{{#convert_to_product_title}}
-					{{/convert_to_product_title}}
+					${description}
 				</h4>
 				<p class="review">{{this.comment}}</p>
 			</div>
@@ -247,7 +245,7 @@
 			<div class="detail_info">
 				<h3 class="blind">상세정보</h3>
 				<ul class="detail_info_group">
-					<li class="detail_info_lst"><strong class="in_tit">[소개]</strong>
+					<li class="detail_info_lst"><strong class="in_tit">[소개]</strong>
 						<p class="in_dsc">{{content}}</p></li>
 					<li class="detail_info_lst"><strong class="in_tit">[공지사항]</strong>
 						<ul class="in_img_group">
@@ -314,16 +312,12 @@
 		</div>
 	</script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+	<script type = "text/javascript" src="/js/handlebars-v4.1.0.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
-	<script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/mapper/displayinfo-mapper.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/detail/detail-events.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/detail/detail-handlebars.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/detail/detail.js" charset="utf-8"></script>
-	<script type = "text/javascript" charset="utf-8">
-		document.addEventListener("DOMContentLoaded", ()=> {
-			var displayInfoId = document.location.search.substr(4);
-			displayInfoRequest(detailsInit, displayInfoId);
-		});
-	</script>
 	<footer>
 		<div class="gototop">
 			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
