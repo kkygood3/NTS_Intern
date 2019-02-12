@@ -10,16 +10,19 @@ import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
+@Builder
 public class DisplayResponse {
+	private double averageScore;
 	private List<Comment> comments;
 	private DisplayInfo displayInfo;
 	private DisplayInfoImage displayInfoImage;
 	private List<ProductImage> productImages;
-	private List<ProductPrice> ProductPrices;
+	private List<ProductPrice> productPrices;
 	
 }

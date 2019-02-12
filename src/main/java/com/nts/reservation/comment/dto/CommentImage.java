@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.comment.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,12 +11,12 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class CommentImage {
 	private String contentType;
-	private LocalDateTime createDate;
+	private String createDate;
 	private boolean deleteFlag;
 	private int fileId;
 	private String fileName;
 	private int imageId;
-	private LocalDateTime modifyDate;
+	private String modifyDate;
 	private int reservationInfoId;
 	private int reservationUserCommentId;
 	private String saveFileName;

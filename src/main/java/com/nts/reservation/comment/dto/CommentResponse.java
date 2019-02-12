@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.comment.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Getter;
@@ -16,8 +15,8 @@ public class CommentResponse {
 	private String comment;
 	private int commentId;
 	private List<CommentImage> commentImages;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
+	private String createDate;
+	private String modifyDate;
 	private int productId;
 	private int reservationInfoId;
 	private double score;

@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.product.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,11 +11,11 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class ProductImage {
 	private String contentType;
-	private LocalDateTime createDate;
+	private String createDate;
 	private boolean deleteFlag;
 	private int fileInfoId;
 	private String fileName;
-	private LocalDateTime modifyDate;
+	private String modifyDate;
 	private int productId;
 	private int productImageId;
 	private String saveFileName;

@@ -13,12 +13,12 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class DisplayInfoImage {
 	private String contentType;
-	private LocalDateTime createDate;
+	private String createDate;
 	private boolean deleteFlag;
 	private int displayInfoId;
 	private int displayInfoImageId;
 	private int fileId;
 	private String fileName;
-	private LocalDateTime modifyDate;
+	private String modifyDate;
 	private String saveFileName;
 }

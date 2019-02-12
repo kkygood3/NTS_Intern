@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.display.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,11 +12,11 @@ import lombok.ToString;
 public class DisplayInfo {
 	private int categoryId;
 	private String categoryName;
-	private LocalDateTime createDate;
+	private String createDate;
 	private int displayInfoId;
 	private String email;
 	private String homepage;
-	private LocalDateTime modifyDate;
+	private String modifyDate;
 	private String openingHours;
 	private String placeLot;
 	private String placeName;

@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.comment.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Getter;
@@ -16,10 +15,10 @@ public class Comment {
 	private String comment;
 	private int commentId;
 	private List<CommentImage> commentImages;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
+	private String createDate;
+	private String modifyDate;
 	private int productId;
-	private LocalDateTime reservationDate;
+	private String reservationDate;
 	private String reservationEmail;
 	private int reservationInfoId;
 	private String reservationName;
