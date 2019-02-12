@@ -6,7 +6,7 @@ var comment = {
 	loadCommentResponse : function(callback, productId, start, limit) {
 		if (!isNumber(productId) || !isNumber(start)) {
 			alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
-			location.href="main";
+			location.href="/main";
 			return;
 		}
 		var url = "/api/products/" + productId + "/comments?start=" + start + "&limit=" + limit;

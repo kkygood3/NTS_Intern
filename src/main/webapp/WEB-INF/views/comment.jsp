@@ -85,7 +85,7 @@
 					{{#if commentImage}}
 						<div class="thumb_area">
 							<a href="#" class="thumb" title="이미지 크게 보기"> 
-								<img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/{{commentImage.saveFileName}}" alt="리뷰이미지">
 							</a> 
 							<span class="img_count" style="display: none;">1</span>
 						</div>
@@ -107,11 +107,11 @@
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript" src="/js/comment.js"></script>
 	<script type="text/javascript">
-		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
+		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
 
 		function goDetailPage() {
-			location.href="detail?id=" + displayInfoId;
+			location.href="detail?displayInfoId=" + displayInfoId;
 		}
 
 		document.addEventListener("DOMContentLoaded", function(event) {

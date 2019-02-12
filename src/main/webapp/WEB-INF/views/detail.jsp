@@ -153,7 +153,7 @@
 							<span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" onclick="goReviewPage();">
+					<a class="btn_review_more" onclick="goCommentPage();">
 						<span>예매자 한줄평 더보기</span>
 						<i class="fn fn-forward1"></i>
 					</a>
@@ -259,7 +259,7 @@
 	<div id="photoviwer"></div>
 	<script type="text/template" id="template-product-image">
 		<li class="item" style="width: 414px; height: 414px;">
-			<img alt="" class="img_thumb" src="{{saveFileName}}">
+			<img alt="" class="img_thumb" src="/{{saveFileName}}">
 			<span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
@@ -278,7 +278,7 @@
 					{{#if commentImage}}
 						<div class="thumb_area">
 							<a href="#" class="thumb" title="이미지 크게 보기"> 
-								<img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/{{commentImage.saveFileName}}" alt="리뷰이미지">
 							</a> 
 							<span class="img_count" style="display: none;">1</span>
 						</div>
@@ -313,7 +313,7 @@
 			loadDisplayInfoResponse : function(callback, displayInfoId) {
 				if (!isNumber(displayInfoId)) {
 					alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
-					location.href="main";
+					location.href="/main";
 					return;
 				}
 				var url = "/api/products/" + displayInfoId;
@@ -407,7 +407,7 @@
 				// 상세정보 
 				document.querySelector(".detail_info_lst .in_dsc").innerText = response.displayInfo.productContent;
 				// 오시는길
-				document.querySelector(".store_map.img_thumb").src = response.displayInfoImage.saveFileName;
+				document.querySelector(".store_map.img_thumb").src = "/" + response.displayInfoImage.saveFileName;
 				document.querySelector(".store_name").innerText = response.displayInfo.productDescription;
 				document.querySelector(".store_addr.store_addr_bold").innerText = response.displayInfo.placeLot;
 				document.querySelector(".addr_old_detail").innerText = response.displayInfo.placeStreet;
@@ -437,11 +437,11 @@
 				}
 			}
 		}
-		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("id"));
-		var productId;
+		var productId = parseInt(window.location.pathname.split("/")[2]);
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
 
-		function goReviewPage() {
-			location.href="review?productId=" + productId + "&displayInfoId=" + displayInfoId;
+		function goCommentPage() {
+			location.href="comment?displayInfoId=" + displayInfoId;
 		}
 
 		document.addEventListener("DOMContentLoaded", function(event) {

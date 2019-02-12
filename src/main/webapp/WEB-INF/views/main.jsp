@@ -96,7 +96,7 @@
 
 	<script type="text/template" id="template-product-list">
 		<li class="item" data-display-info-id={displayInfoId}, data-product-id={productId}>
-			<a href="detail?id={displayInfoId}" class="item_book">
+			<a onclick="goDetailPage({productId}, {displayInfoId})" class="item_book">
 			<div class="item_preview">
 				<img alt="{productDescription}" class="img_thumb" src="{productImageUrl}">
 				<span class="img_border"></span>
@@ -288,6 +288,10 @@
 			var categoryId = parseInt(el.parentNode.getAttribute("data-category"));
 			var listCount = productListBox.getElementsByTagName("li").length;
 			loadProductResponse(addDOMProducts, categoryId, listCount);
+		}
+		
+		function goDetailPage(productId, displayInfoId) {
+			location.href="products/" + productId + "/detail?displayInfoId=" + displayInfoId;
 		}
 
 		document.addEventListener("DOMContentLoaded", function(event) {
