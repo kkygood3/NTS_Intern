@@ -55,6 +55,7 @@ var detailPage = {
 			this.updateEventTextUi(productPrices);
 			this.updateBottomSection(displayInfo, displayInfoImage);
 			this.updateCommentsContainer(averageScore, comments);
+			this.addEventListeners();
 			
         }else if(response.status == 500) {
             alert("서버 내부 오류 : 상세 정보 로딩에 실패하였습니다.");
@@ -101,13 +102,6 @@ var detailPage = {
 			nextBtn.style.display = "none";
 			return;
 		}
-
-		prevBtn.addEventListener("click", function(event){
-			this.onClickSlideBtn("left")
-		}.bind(this));
-		nextBtn.addEventListener("click", function(event){
-			this.onClickSlideBtn("right");
-		}.bind(this));
 	},
 	/**
 	 * @function updateContentContainer 컨텐트 컨테이너 UI 업데이트
@@ -115,21 +109,7 @@ var detailPage = {
 	 */
 	updateContentContainer: function(contents) {
 		var contentContainer = this.elements.contentContainer;
-		var openMoreBtn = this.elements.contentOpenMoreBtn;
-		var closeMoreBtn = this.elements.contentCloseMoreBtn;
-
-		
 		contentContainer.querySelector("p").innerHTML = contents;
-		openMoreBtn.addEventListener("click", function() {
-			contentContainer.classList.remove("close3");
-			openMoreBtn.style.display = "none";
-			closeMoreBtn.style.display = "";
-		})
-		closeMoreBtn.addEventListener("click", function() {
-			contentContainer.classList.add("close3");
-			openMoreBtn.style.display = "";
-			closeMoreBtn.style.display = "none";
-		})
 	},
 	/**
 	 * @function updateEventTextUi 이벤트 표기 부분 UI 업데이트
@@ -154,18 +134,8 @@ var detailPage = {
 	 * @param {JSON} displayInfoImage 
 	 */
 	updateBottomSection: function(displayInfo, displayInfoImage) {
-		var detailTabBtn = this.elements.detailTabBtn;
-		var contactTabBtn = this.elements.contactTabBtn;
 		var detailContainer = this.elements.detailContainer;
 		var contactContainer = this.elements.contactContainer;
-
-		detailTabBtn.addEventListener("click", function() {
-			this.onClickBottomTabBtn(detailTabBtn, contactTabBtn, detailContainer, contactContainer)
-		}.bind(this));
-		contactTabBtn.addEventListener("click", function() {
-			this.onClickBottomTabBtn(contactTabBtn, detailTabBtn, contactContainer, detailContainer)
-		}.bind(this));
-
 		this.bindDataToBottomSection(detailContainer, contactContainer, displayInfo, displayInfoImage);
 	},
 	/**
@@ -339,7 +309,7 @@ var detailPage = {
 	 * @param {JSON[]} comments
 	 * @return {String}
 	 */
-	getCommentListHtml(comments) {
+	getCommentListHtml: function(comments) {
 		
 		var resultHtml = "";
 		var bindTemplate = getTargetTemplate("#commentItem");
@@ -362,5 +332,64 @@ var detailPage = {
 			resultHtml += bindTemplate(data).trim();
 		}
 		return resultHtml;
+	},
+	/**
+	 * @function addEventListeners page 내 이벤트 리스너들 추가.
+	 */
+	addEventListeners: function() {
+		this.addSlideImageBtnEventListener();
+		this.addShowMoreBtnEventListener();
+		this.addBottomTabEventListener();
+	},
+
+	/**
+	 * @function addSlideImageBtnEventListener
+	 */
+	addSlideImageBtnEventListener: function() {
+		var prevBtn = this.elements.prevBtn;
+		var nextBtn = this.elements.nextBtn;
+		if(prevBtn.style.display !== "none" && nextBtn.style.display !== "none"){
+			prevBtn.addEventListener("click", function(event){
+				this.onClickSlideBtn("left")
+			}.bind(this));
+			nextBtn.addEventListener("click", function(event){
+				this.onClickSlideBtn("right");
+			}.bind(this));
+		}
+	},
+
+	/**
+	 * @function addShowMoreBtnEventListener
+	 */
+	addShowMoreBtnEventListener: function() {
+		var contentContainer = this.elements.contentContainer;
+		var openMoreBtn = this.elements.contentOpenMoreBtn;
+		var closeMoreBtn = this.elements.contentCloseMoreBtn;
+
+		openMoreBtn.addEventListener("click", function() {
+			contentContainer.classList.remove("close3");
+			openMoreBtn.style.display = "none";
+			closeMoreBtn.style.display = "";
+		})
+		closeMoreBtn.addEventListener("click", function() {
+			contentContainer.classList.add("close3");
+			openMoreBtn.style.display = "";
+			closeMoreBtn.style.display = "none";
+		})
+	},
+
+	addBottomTabEventListener: function() {
+		var detailTabBtn = this.elements.detailTabBtn;
+		var contactTabBtn = this.elements.contactTabBtn;
+		var detailContainer = this.elements.detailContainer;
+		var contactContainer = this.elements.contactContainer;
+		
+		detailTabBtn.addEventListener("click", function() {
+			this.onClickBottomTabBtn(detailTabBtn, contactTabBtn, detailContainer, contactContainer)
+		}.bind(this));
+		contactTabBtn.addEventListener("click", function() {
+			this.onClickBottomTabBtn(contactTabBtn, detailTabBtn, contactContainer, detailContainer)
+		}.bind(this));
 	}
+
 }
