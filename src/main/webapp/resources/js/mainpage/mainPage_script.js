@@ -18,14 +18,17 @@ window.addEventListener("DOMContentLoaded", function() {
 
 var mainPage = {
 	domElements : {
-		TAB_BUTTON_UL :	document.querySelector(".section_event_tab ul"),
-		TAB_BUTTON_LI : document.querySelectorAll(".section_event_tab ul li"),
-		SHOW_MORE_BUTTON : document.querySelector(".more button"),
-		SLIDE_CONTAINER : document.querySelector(".visual_img"),
-		PRODUCT_LISTS : document.querySelectorAll(".lst_event_box"),
-		NEW_PRODUCT_ITEM : document.querySelector("#itemList").innerHTML,
-		PRODUCT_NUMBER_IND : document.querySelector(".event_lst_txt span"),
-		PROMO_TEMPLATE : document.querySelector("#promotionItem").innerHTML
+		tabButtonUl :	document.querySelector(".section_event_tab ul"),
+		tabButtonLi : document.querySelectorAll(".section_event_tab ul li"),
+		showMoreButton : document.querySelector(".more button"),
+		slideContainer : document.querySelector(".visual_img"),
+		productLists : document.querySelectorAll(".lst_event_box"),
+		productNumberInd : document.querySelector(".event_lst_txt span"),
+	},
+	
+	templates: {
+		newProductItem : document.querySelector("#itemList").innerHTML,
+		promoTemplate : document.querySelector("#promotionItem").innerHTML
 	},
 	
 	urls : {
@@ -165,7 +168,8 @@ var mainPage = {
 	 *                       data;
 	 */
 	renderProductItems : function (productData) {
-	    let bindTemplate = Handlebars.compile(domElements.NEW_PRODUCT_ITEM);
+
+	    let bindTemplate = Handlebars.compile(templates.newProductItem);
 	    productData.items.forEach((item) => {
 	    	let newProduct = parser.parseFromString(bindTemplate(item), "text/html").body.firstChild;
 	    	domElements.PRODUCT_LISTS[state.loadedProductCount % 2].appendChild(newProduct);
@@ -186,9 +190,9 @@ var mainPage = {
 	 * @renderPromoItems() : Loaded promo items will be deployed on html
 	 */
 	renderPromoItems : function (promotionData) {
-		arrayToLiRenderer(promotionData, domElements.SLIDE_CONTAINER, domElements.PROMO_TEMPLATE)
-		let animation = new SlidingAnimation(domElements.SLIDE_CONTAINER);
-		animation.changeTiming(4, 1000)
-		animation.init(true);
+		arrayToLiRenderer(promotionData, domElements.slideContainer, templates.promoTemplate)
+		let animation = new SlidingAnimation(domElements.slideContainer);
+		animation.init({animationSpeed : 4, animationStopDuration : 1000});
+		animation.startAutoAnimation();
 	}
 };
