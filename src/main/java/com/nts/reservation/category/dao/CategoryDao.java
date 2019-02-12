@@ -11,5 +11,5 @@ import com.nts.reservation.category.dto.Category;
 
 public interface CategoryDao {
 
-	public List<Category> selectPagingCategories();
+	List<Category> selectPagingCategories();
 }
