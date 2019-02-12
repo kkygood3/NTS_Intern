@@ -21,9 +21,12 @@ var reviewPage = {
 			averageScoreStars : document.querySelector(".graph_value"),
 			averageScoreText : document.querySelector(".text_value span"),
 			reviewArea : document.querySelector(".list_short_review"),
-			reviewItem : document.querySelector("#commentItem").innerHTML,
 			reviewCount : document.querySelector(".green"),
 			scrollToTop : document.querySelector(".gototop")
+		},
+		
+		templates : {
+			reviewItem : document.querySelector("#commentItem").innerHTML,
 		},
 		
 		urls : {
@@ -70,6 +73,6 @@ var reviewPage = {
 		   	domElements.averageScoreStars.style.width = state.detail_data.averageScore / 5 *100 + "%";
 		    domElements.averageScoreText.innerHTML = 	state.detail_data.averageScore;
 			domElements.reviewCount.innerHTML = state.detail_data.comments.length + "건";
-		    arrayToLiRenderer(state.detail_data.comments, domElements.reviewArea, domElements.reviewItem);
+		    arrayToLiRenderer(state.detail_data.comments, domElements.reviewArea, templates.reviewItem);
 		}
 }
