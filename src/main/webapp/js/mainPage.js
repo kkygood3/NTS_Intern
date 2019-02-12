@@ -88,7 +88,7 @@ function setPromotionSlideAnimation() {
 }
 
 function setTabButton() {
-    document.querySelector('.tab_lst_min').addEventListener('click', (btnEvent) => {
+    document.querySelector('.tab_lst_min').addEventListener('click', btnEvent => {
         var selectedTab = event.target;
 
         if (selectedTab.tagName === 'SPAN') {
