@@ -1,4 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-	sendGetCommentsAjax();
+	sendGetCommentsAjax(0, 10);
 	addMoreButtonClickEvent();
 });
