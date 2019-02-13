@@ -343,7 +343,7 @@
 				this.productImagesDiv.innerHTML = resultHTML;
 				this.initSlide();
 			},
-			// 타이틀 구역 설정
+			// 슬라이드 애니메이션 설정
 			initSlide : function() {
 				var prevDiv = document.querySelector('.prev');
 				var nextDiv = document.querySelector('.nxt');
@@ -374,6 +374,7 @@
 				}.bind(this));
 				
 			},
+			// left값을 기준으로 이미지를 슬라이드 무한슬라이드를 위해 이미지가 두번 이동될때마다 translateX를 조정
 			doSlide : function(left, translateX) {
 				this.productImagesDiv.style.left = left + "%";
 				if (translateX % 200 == 0) {
