@@ -26,6 +26,4 @@ public class ReviewController {
 		
 		return "review";
 	}
-	
-
 }
