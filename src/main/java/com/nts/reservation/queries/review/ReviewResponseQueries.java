@@ -9,10 +9,12 @@ public class ReviewResponseQueries {
 		" LEFT JOIN reservation_user_comment_image ON reservation_user_comment.id = reservation_user_comment_image.reservation_user_comment_id " + 
 		" LEFT JOIN product ON display_info.product_id = product.id " + 
 		" LEFT JOIN file_info ON reservation_user_comment_image.file_id = file_info.id" + 
+		
 		" INNER JOIN (SELECT display_info.id, ROUND(AVG(reservation_user_comment.score),1)  AS average_score, COUNT(reservation_user_comment.id) AS comment_count FROM reservation_user_comment " + 
 		" INNER JOIN product ON reservation_user_comment.product_id = product.id " + 
 		" INNER JOIN display_info ON product.id = display_info.id " + 
-		" WHERE display_info.id = :displayInfoId) AS average_score_subquery ON display_info.id = average_score_subquery.id" + 
+		" WHERE display_info.id = :displayInfoId) AS average_score_subquery ON display_info.id = average_score_subquery.id" +
+		
 		" WHERE display_info.id = :displayInfoId " + 
 		" ORDER BY reservation_user_comment.id DESC " + 
 		" LIMIT :limit";
