@@ -1,4 +1,4 @@
-template = {
+var template = {
 	setting : function(){
 		var templateList = document.querySelectorAll(".template");
 		

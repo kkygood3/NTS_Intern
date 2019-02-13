@@ -4,11 +4,13 @@ var slide = {
 		RIGHT : 1
 	},
 	
-	make : function(view){
+	make : function(view, items){
 		this.view = view;
-		this.items = Array.from(view.children);
+		this.items = items;
+		if(this.items === undefined){
+			this.items = Array.from(view.children);
+		}
 		this.index = 0;
-		
 		var originalClass = view.className;
 		
 		this.view.innerHTML = this.items[this.index].outerHTML;
