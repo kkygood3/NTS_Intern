@@ -9,23 +9,27 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-	<link href="./css/style.css" rel="stylesheet">
-	<link href="./css/detail.css" rel="stylesheet">
-	<link href="./css/slide.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/detail.css" rel="stylesheet">
+	<link href="/css/slide.css" rel="stylesheet">
 	<script type="text/javascript">
-		var displayInfo = {
-			"productId" : "${product_id}",
-			"displayInfoId" : "${display_info_id}"
-		};
+		function displayInfo() {
+			return {
+				"productId" : "${pageInfo.productId}",
+				"displayInfoId" : "${displayInfoId}",
+				"commentCount" : "${pageInfo.commentCount}"
+			};
+		}
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/comment.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/visual.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/event.js" ></script>
-	<script type= "text/javascript" src= "./javascript/detail/detail.js" ></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
+	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/button_display.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/visual.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/event.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/detail.js" ></script>
 </head>
 
 <body>
@@ -33,8 +37,8 @@
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="./" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
                 
@@ -45,12 +49,12 @@
                 <div class="section_visual">
                     <header>
                         <h1 class="logo">
-                            <a href="./" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                            <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a href="/reservation" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                         <div class="img_bg">
-								<h2 class="visual_txt_tit"><span>${description}</span></h2>
+								<h2 class="visual_txt_tit"><span>${pageInfo.description}</span></h2>
                         </div>
 						
                     </header>
@@ -60,7 +64,7 @@
                 <div class="section_store_details">
                     <!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
                     <div class="store_details close3">
-                        <p class="dsc">${content}</p>
+                        <p class="dsc">${pageInfo.content}</p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
                     <a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
@@ -83,9 +87,9 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"><em class="graph_value" style="width:${average_score * 20}%;"></em></span>
-                                <strong class="text_value"><span>${average_score}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${comment_count}건</em> 등록</span>
+                                <span class="graph_mask"><em class="graph_value" style="width:${pageInfo.averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
                             <!-- content -->
@@ -93,7 +97,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review?product_id=${product_id}&display_info_id=${display_info_id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="./${displayInfoId}/review"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->
@@ -113,7 +117,7 @@
                                 <ul class="detail_info_group">
                                     <li class="detail_info_lst">
                                         <strong class="in_tit">[소개]</strong>
-                                        <p class="in_dsc">${content}</p>
+                                        <p class="in_dsc">${pageInfo.content}</p>
                                     </li>
                                     <li class="detail_info_lst"> <strong class="in_tit">[공지사항]</strong>
                                         <ul class="in_img_group">
@@ -128,24 +132,24 @@
                     <div class="detail_location hide">
                         <div class="box_store_info no_topline">
                             <a href="#" class="store_location" title="지도웹으로 연결">
-                                <img class="store_map img_thumb" alt="map" src="https://simg.pstatic.net/static.map/image?version=1.1&amp;crs=EPSG:4326&amp;baselayer=bl_vc_bg&amp;exception=xml&amp;scale=2&amp;caller=mw_smart_booking&amp;overlayers=ol_vc_an&amp;center=127.0011948,37.5717079&amp;markers=type,default2,127.0011948,37.5717079&amp;level=11&amp;w=340&amp;h=150">
+                                <img class="store_map img_thumb" alt="map" src="/${pageInfo.mapFile}">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">${description}</h3>
+                            <h3 class="store_name">${pageInfo.description}</h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">${place_street}</p>
+                                    <p class="store_addr store_addr_bold">${pageInfo.placeStreet}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">${place_lot}</span>
+                                        <span class="addr_old_detail">${pageInfo.placeLot}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">${place_name}</p>
+                                    <p class="store_addr addr_detail">${pageInfo.placeName}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">02-548-0597</a></span> </li>
+                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${pageInfo.tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${pageInfo.tel}</a></span> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -171,67 +175,7 @@
     </footer>
     <div id="photoviwer"></div>
     
-    <script type="rv-template" id="visual_area">
-	
-	<div class="pagination">
-		<div class="bg_pagination"></div>
-		<div class="figure_pagination">
-			<span class="num">1</span>
-			<span class="num off">/ <span>{image_length}</span></span>
-		</div>
-	</div>
-	<div class="group_visual">
-		<div class="container_visual" style="width: 414px;">
-			<ul class="visual_img detail_swipe" style="left:0;">
-				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="./${save_file_name[0]}">
-				</li>
-				{{#if etcImage}}
-				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="./{{etcImage}}">
-				</li>
-				{{/if}}
-			</ul>
-		</div>
-		{{#if etcImage}}
-		<div class="prev">
-			<div class="prev_inn">
-  				<a class="btn_prev" title="이전" onclick="PreviousButtonClickEvent()">
-					<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
-					<i class="spr_book2 ico_arr6_lt off"></i>
-				</a>
-			</div>
-		</div>
-		<div class="nxt">
-			<div class="nxt_inn">
-				<a class="btn_nxt" title="다음" onclick="NextButtonClickEvent()">
-					<i class="spr_book2 ico_arr6_rt"></i>
-				</a>
-			</div>
-		</div>
-		{{/if}}
-	</div>
-	</script>
-    
-    <script type="rv-template" id="comment_item">
-	<li class="list_item">
-		<div class="review_area">
-			<div class="thumb_area img_vertical_top">
-				{{#if saveFileName}}
-				<img width="90" height="90" class="img_vertical_top" src="./{{saveFileName}}" alt="리뷰이미지">
-				{{/if}}
-			</div>
-			<h4 class="resoc_name">${description}</h4>
-			<p class="review">{{comment}}</p>
-		</div>
-		<div class="info_area">
-			<div class="review_info">
-				<span class="grade">{{score}}</span>
-				<span class="name">{{reservationEmail}}</span>
-				<span class="date">{{reservationDate}} 방문</span>
-			</div>
-  		</div>
-	</li>
-	</script>
+	<%@ include file="/template/comment_item.jsp"%>
+	<%@ include file="/template/detail.jsp"%>
 </body>
 </html>

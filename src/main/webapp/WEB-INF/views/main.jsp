@@ -8,14 +8,14 @@
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main.css" rel="stylesheet">
 <link href="./css/slide.css" rel="stylesheet">
-<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
-<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/category.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/promotion.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/thumbnail.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/event.js" ></script>
-<script type= "text/javascript" src= "./javascript/main/main.js" ></script>
+<script type= "text/javascript" src= "./js/common/error.js" ></script>
+<script type= "text/javascript" src= "./js/common/sendAjax.js" ></script>
+<script type= "text/javascript" src= "./js/slide/slide.js" ></script>
+<script type= "text/javascript" src= "./js/main/category.js" ></script>
+<script type= "text/javascript" src= "./js/main/promotion.js" ></script>
+<script type= "text/javascript" src= "./js/main/thumbnail.js" ></script>
+<script type= "text/javascript" src= "./js/main/event.js" ></script>
+<script type= "text/javascript" src= "./js/main/main.js" ></script>
 </head>
 <body>
     <div id="container">
@@ -76,35 +76,7 @@
             <span class="copyright">© NAVER Corp.</span>
         </div>
     </footer>
-
-    <script type="rv-template" id="promotion_item">
-    <li class="item" style="background-image: url(./{sava_file_name_list});">
-    </li>
-    </script>
-
-    <script type="rv-template" id="product_item">
-	<li class="item" id="thumb_{product_id}_{display_info_id}">
-		<a class="anchor">
-			<div class="item_preview">
-				<img alt="{description}" class="img_thumb" src="./{save_file_name}">
-			</div>
-			<div class="event_txt">
-				<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{place_name}</small> </h4>
-				<p class="event_txt_dsc">{content}</p>
-			</div>
-		</a>
-	</li>
-    </script>
     
-    <script type="rv-template" id="category_item">
-    <li class="item">
-		<a class="anchor"><span id="category_{id}">{name}</span><a>
-	</li>
-	</script>
-	<script type="rv-template" id="post_form_template">
-    <form class="post_form" action="" method="post" style="visibility: hidden; width: 0; height: 0;">
-		<input class="data" type="text" name="data">
-	</form>
-	</script>
+	<%@ include file="/template/main.jsp"%>
 </body>
 </html>

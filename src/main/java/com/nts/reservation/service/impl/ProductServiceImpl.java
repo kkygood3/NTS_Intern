@@ -5,22 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.ProductService;
 
-/**
- * 상품관련 서비스 로직 수행하는 클래스
- * @author si yoon
- *
- */
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 
-	/**
-	 * 0일경우 전체 그외 해당 카테고리의 상품수 리턴
-	 */
 	@Override
 	@Transactional
 	public int getCount(int categoryId) {
@@ -29,11 +20,5 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			return productDao.selectCount(categoryId);
 		}
-	}
-
-	@Override
-	@Transactional
-	public Product getProduct(long productId) {
-		return productDao.selectById(productId);
 	}
 }

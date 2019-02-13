@@ -1,6 +1,9 @@
 package com.nts.reservation.controller;
 
-import java.util.Collections;
+import static com.nts.reservation.property.Const.DEFAULT_SATRT;
+import static com.nts.reservation.property.Const.SELECT_ALL;
+import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,21 +44,20 @@ public class ThumbnailInfoApiController {
 	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> getProductCountAndThumbnailInfos(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit,
-		@RequestParam(name = "category_id", required = false, defaultValue = "0") int categoryId) {
+	public Map<String, Object> getProductCountAndThumbnailInfos(
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
+		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getCount(categoryId);
-		List<ThumbnailInfo> thumbnailInfoList = Collections.EMPTY_LIST;
+		List<ThumbnailInfo> thumbnailInfoList = null;
 
 		if (productCount > 0) {
-			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(start, categoryId, limit);
+			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(categoryId, start, limit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
-
 		map.put("productCount", productCount);
 		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
 	}
-
 }

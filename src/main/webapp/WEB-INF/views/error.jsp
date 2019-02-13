@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="code" value="<%= request.getParameter(\"code\")%>"/>
-<c:set var="message" value="<%= request.getParameter(\"message\")%>"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +9,10 @@
 <link href="./css/error.css" rel="stylesheet">
 </head>
 <body>
-	<h1>
-		<c:if test="${code != null}">${code} : ${message}</c:if> 
-	</h1>
-	<button onclick="location.href='./'">메인페이지로 이동</button>
+	<div class="message_holder">
+		<h1>${errorInfo.status} : ${errorInfo.statusName}</h1>
+		<h3>${errorInfo.message}</h3>
+	</div>
+	<button onclick="location.href='/'">메인페이지로 이동</button>
 </body>
 </html>

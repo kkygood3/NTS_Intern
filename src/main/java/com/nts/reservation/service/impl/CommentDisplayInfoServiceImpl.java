@@ -8,21 +8,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CommentDisplayInfoDao;
 import com.nts.reservation.dto.CommentDisplayInfo;
-import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.CommentDisplayInfoService;
 
 @Service
 public class CommentDisplayInfoServiceImpl implements CommentDisplayInfoService {
 	@Autowired
 	private CommentDisplayInfoDao commentDisplayInfoDao;
-	
+
 	@Override
 	@Transactional
 	public List<CommentDisplayInfo> getCommentDisplayInfos(long productId, int start, int limit) {
 		List<CommentDisplayInfo> commentDisplayInfoList;
-		Product p = new Product();
-		p.setId(productId);
-		commentDisplayInfoList = commentDisplayInfoDao.selectFromTheProductWithPageing(p, start, limit);
+		commentDisplayInfoList = commentDisplayInfoDao.selectFromTheProductWithPageing(productId, start, limit);
 
 		return commentDisplayInfoList;
 	}

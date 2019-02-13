@@ -8,20 +8,22 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="./css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 	<script type="text/javascript">
-		var displayInfo = {
-			"productId" : "${product_id}",
-			"displayInfoId" : "${display_info_id}",
-			"commentCount" : "${comment_count}"
-		};
+		function displayInfo() {
+			return {
+				"displayInfoId" : "${displayInfoId}",
+				"productId" : "${pageInfo.productId}",
+				"commentCount" : "${pageInfo.commentCount}"
+			};
+		}
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "./javascript/common/error.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "./javascript/common/comment.js" ></script>
-	<script type= "text/javascript" src= "./javascript/review/event.js" ></script>
-	<script type= "text/javascript" src= "./javascript/review/review.js" ></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/review/event.js" ></script>
+	<script type= "text/javascript" src= "/js/review/review.js" ></script>
 </head>
 
 <body>
@@ -40,8 +42,8 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="./detail?product_id=${product_id}&display_info_id=${display_info_id}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
-						<h2><a class="title" href="#">${description}</a></h2>
+						<a href="/detail/${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
+						<h2><a class="title" href="#">${pageInfo.description}</a></h2>
 					</div>
 				</div>
 				<div class="section_review_list">
@@ -49,9 +51,9 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"><em class="graph_value" style="width:${average_score * 20}%;"></em></span>
-                                <strong class="text_value"><span>${average_score}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${comment_count}건</em> 등록</span>
+								<span class="graph_mask"><em class="graph_value" style="width:${pageInfo.averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
                             <!-- content -->
@@ -79,26 +81,6 @@
 		</div>
 	</footer>
 	
-	
-	<script type="rv-template" id="comment_item">
-	<li class="list_item">
-		<div class="review_area">
-			<div class="thumb_area img_vertical_top">
-				{{#if saveFileName}}
-				<img width="90" height="90" class="img_vertical_top" src="./{{saveFileName}}" alt="리뷰이미지">
-				{{/if}}
-			</div>
-			<h4 class="resoc_name">${description}</h4>
-			<p class="review">{{comment}}</p>
-		</div>
-		<div class="info_area">
-			<div class="review_info">
-				<span class="grade">{{score}}</span>
-				<span class="name">{{reservationEmail}}</span>
-				<span class="date">{{reservationDate}} 방문</span>
-			</div>
-  		</div>
-	</li>
-	</script>
+	<%@ include file="/template/comment_item.jsp"%>
 </body>
 </html>

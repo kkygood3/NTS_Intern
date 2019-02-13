@@ -31,13 +31,31 @@ function changeTabUi(target, tabs, as, divs) {
 function NextButtonClickEvent() {
 	var ul = document.getElementsByClassName("visual_img")[0];
 	slideLeft(ul);
+	disablePrevAndNextButton();
 	paginate(1);
 }
 
 function PreviousButtonClickEvent() {
 	var ul = document.getElementsByClassName("visual_img")[0];
 	slideRight(ul);
+	disablePrevAndNextButton();
 	paginate(-1);
+}
+
+function disablePrevAndNextButton() {
+	var groupVisual = document.getElementsByClassName("group_visual")[0];
+	var nextButton = groupVisual.getElementsByClassName("btn_nxt")[0];
+	var prevButton = groupVisual.getElementsByClassName("btn_prev")[0];
+	disableElement(nextButton, 1000);
+	disableElement(prevButton, 1000);
+}
+
+function disableElement(element, time) {
+	var orgDisplay = element.style.display;
+	element.style.display = "none";
+	window.setTimeout(()=> {
+		element.style.display = orgDisplay;
+	}, time);
 }
 
 function paginate(movePage) {
