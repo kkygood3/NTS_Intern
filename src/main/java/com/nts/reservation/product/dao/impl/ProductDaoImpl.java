@@ -50,10 +50,12 @@ public class ProductDaoImpl implements ProductDao {
 		return jdbc.query(SELECT_PRODUCT_BY_CATEGORY, params, rowMapper);
 	}
 
+	@Override
 	public int selectProductsCount() {
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
+	@Override
 	public int selectProductsCountByCategory(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
