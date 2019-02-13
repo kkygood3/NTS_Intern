@@ -109,31 +109,15 @@ var reviewPage = {
 	 *            productTitle
 	 */
 	getCommentElement: function(comment, productTitle) {
-		var bindTemplate = "";
-		var data = {};
-		if(comment.commentImages.length > 0) {
-			bindTemplate = getTargetTemplate("#imageComment");
-			data = {
-				productName: productTitle,
-				comment: comment.comment,
-				score: comment.score.toFixed(1),
-				name: comment.reservationName,
-				commentDate: toDateString(comment.reservationDate) + "방문",
-				imageUrl: "../../" + comment.commentImages[0].saveFileName,
-				imageCount: comment.commentImages.length
-			};
-			
-		} else {
-			bindTemplate = getTargetTemplate("#noImageComment");
-			data = {
-				productName: productTitle,
-				comment: comment.comment,
-				score: comment.score.toFixed(1),
-				name: comment.reservationName,
-				commentDate: toDateString(comment.reservationDate) + "방문"
-			};
-		}
-
+		var bindTemplate = getTargetTemplate("#commentItem");
+		var data = {
+			productName: productTitle,
+			comment: comment.comment,
+			score: comment.score.toFixed(1),
+			name: comment.reservationName,
+			commentDate: toDateString(comment.reservationDate) + "방문",
+			commentImages: comment.commentImages
+		};
 		return bindTemplate(data).trim();
 	}
 };

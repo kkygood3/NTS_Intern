@@ -52,33 +52,37 @@
 	            <span class="copyright">© NAVER Corp.</span>
 	        </div>
 		</footer>
-		<script type="rv-template" id="noImageComment">
-			<li class="list_item">
-				<div>
-					<div class="review_area no_img">
-						<h4 class="resoc_name">{{productName}}</h4>
-						<p class="review">{{comment}}</p>
+		<script type="rv-template" id="commentItem">
+			{{#if commentImages.length}}
+				<li class="list_item">
+					<div>
+						<div class="review_area">
+							<div class="thumb_area">
+								<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="../../{{commentImages.0.saveFileName}}" alt="리뷰이미지"> </a> <span class="img_count">{{commentImages.length}}</span>                                                </div>
+							<h4 class="resoc_name">{{productName}}</h4>
+							<p class="review">{{comment}}</p>
+						</div>
+						<div class="info_area">
+							<div class="review_info"> <span class="grade">{{score}}</span> <span class="name">{{name}}</span> <span class="date">{{commentDate}}</span> </div>
+						</div>
 					</div>
-					<div class="info_area">
-						<div class="review_info"> <span class="grade">{{score}}</span> <span class="name">{{name}}</span> <span class="date">{{commentDate}}</span> </div>
+				</li>
+			{{else}}
+				<li class="list_item">
+					<div>
+						<div class="review_area no_img">
+							<h4 class="resoc_name">{{productName}}</h4>
+							<p class="review">{{comment}}</p>
+						</div>
+						<div class="info_area">
+							<div class="review_info"> <span class="grade">{{score}}</span> <span class="name">{{name}}</span> <span class="date">{{commentDate}}</span> </div>
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
+			{{/if}}
 		</script>
 		<script type="rv-template" id="imageComment">
-			<li class="list_item">
-				<div>
-					<div class="review_area">
-						<div class="thumb_area">
-							<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src={{imageUrl}} alt="리뷰이미지"> </a> <span class="img_count">{{imageCount}}</span>                                                </div>
-						<h4 class="resoc_name">{{productName}}</h4>
-						<p class="review">{{comment}}</p>
-					</div>
-					<div class="info_area">
-						<div class="review_info"> <span class="grade">{{score}}</span> <span class="name">{{name}}</span> <span class="date">{{commentDate}}</span> </div>
-					</div>
-				</div>
-			</li>
+			
 		</script>
 		<script src="../../js/lib/handlebars.min-v4.0.13.js"></script>
 		<script src="../../js/util.js"></script>
