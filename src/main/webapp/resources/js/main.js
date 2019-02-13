@@ -60,8 +60,9 @@ var mainPage = {
 		if (categoryId) {
 			params.categoryId = categoryId;
 		}
-		sendGet("/reservation-service/api/products", params,
-				function(response) {
+		sendGet("/reservation-service/api/products", params
+				, null
+				, function(response) {
 					this.requestProductsCallback(response);
 				}.bind(this))
 	},
@@ -69,8 +70,9 @@ var mainPage = {
 	 * @function requestCategories 카테고리 정보 요청
 	 */
 	requestCategories : function() {
-		sendGet("/reservation-service/api/categories", null,
-				function(response) {
+		sendGet("/reservation-service/api/categories", null
+				, null
+				, function(response) {
 					this.requestCategoriesCallback(response);
 				}.bind(this))
 	},
@@ -78,8 +80,9 @@ var mainPage = {
 	 * @function requestPromotions 프로모션 상품 요청 함수
 	 */
 	requestPromotions : function() {
-		sendGet("/reservation-service/api/promotions", null,
-				function(response) {
+		sendGet("/reservation-service/api/promotions", null
+				, null
+				, function(response) {
 					this.requestPromotionsCallback(response);
 				}.bind(this))
 	},

@@ -26,10 +26,12 @@ var detailPage = {
 		contactTabBtn: document.querySelector("._path > a"),
 		detailContainer: document.querySelector(".detail_area_wrap"),
 		contactContainer: document.querySelector(".detail_location"),
-		commentsContainer: document.querySelector(".section_review_list")
+		commentsContainer: document.querySelector(".section_review_list"),
+		reservationBtn: document.querySelector(".section_btn > button")
 	},
 	init: function () {
 		this.requestDisplayInfo();
+		this.initReservationBtn();
 	},
 	/**
 	 * @function requestDisplayInfo 서버에 displayInfo 정보 요청
@@ -37,7 +39,7 @@ var detailPage = {
 	requestDisplayInfo: function() {
 		var id = this.values.id;
 		
-		sendGet("/reservation-service/api/products/"+id, {}, function(response){
+		sendGet("/reservation-service/api/products/"+id, {}, {}, function(response){
 			this.requestDisplayInfoCallback(response);
 		}.bind(this));
 	},
@@ -165,6 +167,14 @@ var detailPage = {
 			return;
 		}
 		moreCommentBtn.setAttribute("href", "./" + this.values.id + "/review");
+	},
+	/**
+	 * @function initReservationBtn 예매하기 버튼 설정
+	 */
+	initReservationBtn: function() {
+		this.elements.reservationBtn.addEventListener("click", function() {
+			window.location.href = "./reservation/" + getDisplayInfoIdFromUrl();
+		})
 	},
 	/**
 	 * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수

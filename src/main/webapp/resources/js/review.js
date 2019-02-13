@@ -23,7 +23,7 @@ var reviewPage = {
 	requestDisplayInfo: function() {
 		var id = this.values.id;
 		
-		sendGet("/reservation-service/api/products/"+id, {}, function(response){
+		sendGet("/reservation-service/api/products/"+id, {}, {}, function(response){
 			this.requestDisplayInfoCallback(response);
 		}.bind(this));
 	},
