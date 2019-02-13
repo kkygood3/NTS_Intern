@@ -16,6 +16,15 @@ public class DetailResponse {
 	private Double averageScore;
 	private String displayInfoImage;
 	private String productImage;
+	private Integer commentCount;
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
+	}
 
 	public String getProductImage() {
 		return productImage;

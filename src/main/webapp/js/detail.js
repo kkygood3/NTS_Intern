@@ -84,12 +84,7 @@ function initSwipeImage(displayInfoResponse){
 }
 
 function initComment(displayInfoResponse){	
-	var commentCount = displayInfoResponse.length;
-	for(var i = 0 ; i < commentCount; i++){
-		if(displayInfoResponse[i].score == null){
-			commentCount--;
-		}
-	}
+	var commentCount = displayInfoResponse[0].commentCount;
 	
 	var averageScore = displayInfoResponse[0].averageScore;
 	
@@ -113,7 +108,7 @@ function initComment(displayInfoResponse){
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
 	// Comment 더보기 버튼
-	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfoResponse[0].displayInfoId)
+	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfoResponse[0].displayInfoId);
 }
 
 function initInfoTab(displayInfoResponse){

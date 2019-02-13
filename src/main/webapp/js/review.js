@@ -35,12 +35,8 @@ function convertDateFormat(date){
 function loadDisplayInfoCallback(responseData) 
 {
 	var reviewResponse = responseData.comments;
-	var commentCount = reviewResponse.length;
-	for(var i = 0 ; i < commentCount; i++){
-		if(reviewResponse[i].score == null){
-			commentCount--;
-		}
-	}
+	var commentCount = reviewResponse[0].commentCount;
+	
 	var averageScore = reviewResponse[0].averageScore;
 	
 	//Comment Template
