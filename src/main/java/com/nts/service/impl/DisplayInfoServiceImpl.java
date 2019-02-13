@@ -1,8 +1,12 @@
+/*
+ * Copyright 2019 by NAVER Corp. All rights reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
 package com.nts.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.dao.displayinfodao.DisplayInfoDao;
 import com.nts.dto.displayinfodto.DisplayInfo;
