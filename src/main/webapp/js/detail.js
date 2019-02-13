@@ -175,28 +175,89 @@ function loadExtraImageCallback(responseData){
 		var image = responseData.productImage.productImage;
 		
 		displayInfomation.productImage = image;
-		swipeContainer.innerHTML += bindSwipeTemplate(displayInfomation);
 		
+		var firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
+		var secondItem = bindSwipeTemplate(displayInfomation);
+		
+		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
+		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
+		swipeContainer.innerHTML = secondItem + firstItem + secondItem + firstItem ;
+
+		var swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
+				
+		// 시작점을 두번째 자리의 1로 변경
+		swipeItems.forEach(item => item.style.left = '-100%');
+		
+		var eventContainer = document.querySelector('.group_visual');
+		
+		var currentPage = 1;
+		var currentLeft = -100;
 		// 화살표에 클릭이벤트 추가
-		document.querySelector('.group_visual').addEventListener('click',function(evt){
+		function arrowEventHandler(evt){
 			
 			var clickedBtn = evt.target;
 			
-			// 화살표 버튼 좌우 같은 동작 수행(이미지 2장)
-			if(clickedBtn.tagName === 'I'){
-				var imageItems = document.querySelector('ul.detail_swipe').querySelectorAll('.item');
-				
-				if(swipePage.innerText === '1'){
-					// 1번에서 2번으로
-					swipePage.innerText = '2';
-					imageItems.forEach(item => item.style.left = '-100%')
-				}else{
-					// 2번에서 1번으로
-					swipePage.innerText = '1';
-					imageItems.forEach(item => item.style.left = '0%')
+			var isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
+			var isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
+			if(isLeftBtnClicked | isRightBtnClicked){
+				eventContainer.removeEventListener('click',arrowEventHandler);
+				if(isLeftBtnClicked){// 왼쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft += 100;
+					currentPage--;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
+				} else{// 오른쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft -= 100;
+					currentPage++;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
 				}
+
+				setTimeout(function(){
+					// currentPage가 0이나 3이면
+					// 애니메이션 끄고 0->2 3->1로 옮긴다
+					if(currentPage == 0){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-200%');
+						
+						currentLeft = -200;
+						currentPage = 2;
+					}else if(currentPage == 3){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-100%');
+						
+						currentLeft = -100;
+						currentPage = 1;
+					}
+					// 애니메이션 ON
+					setTimeout(()=>{
+						swipeItems.forEach(item => item.style.transitionDuration = '1s');
+						// 버튼이벤트 ON
+						eventContainer.addEventListener('click',arrowEventHandler);
+						},50);
+				},1100);
 			}
-		});
+		}
+		
+		eventContainer.addEventListener('click',arrowEventHandler);
 	} else {
 		swipeAmount.innerText = '1';
 		
