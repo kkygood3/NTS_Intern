@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDaoImpl productDaoImpl;
 
 	@Override
-	public List<Product> getProducts(int categoryId, int start, int limit) {
+	public List<Product> getProductsByCategoryId(int categoryId, int start, int limit) {
 		if (isAllCategories(categoryId)) {
 			return getProducts(start, limit);
 		}

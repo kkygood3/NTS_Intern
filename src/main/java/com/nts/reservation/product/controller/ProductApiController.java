@@ -41,7 +41,7 @@ public class ProductApiController {
 
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(totalCount);
-		productResponse.setItems(productService.getProducts(categoryId, start, limit));
+		productResponse.setItems(productService.getProductsByCategoryId(categoryId, start, limit));
 
 		return productResponse;
 	}
