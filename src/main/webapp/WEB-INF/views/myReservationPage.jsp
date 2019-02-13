@@ -664,7 +664,7 @@
 				</a>
 			</article>
 		</script>
-		<script src="./js/handlebars.min-v4.0.13.js"></script>
+		<script src="./js/lib/handlebars.min-v4.0.13.js"></script>
 		<script src="./js/util.js"></script>
     	<script src="./js/myReservation.js"></script>
 	</body>
