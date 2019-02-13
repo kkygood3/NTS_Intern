@@ -11,14 +11,14 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.nts.reservation.model.Category;
 import com.nts.reservation.model.Comment;
-import com.nts.reservation.model.CommentMetaData;
+import com.nts.reservation.model.CommentListInfo;
 import com.nts.reservation.model.Product;
 import com.nts.reservation.model.ProductDisplay;
 import com.nts.reservation.model.Promotion;
 
 /**
- * model class 를 sql query로 사용할 수 있게 변환하는 Bean 생성 설정 class
  * @author 임상현, life4lord93@nts-corp.com
+ * model class 를 sql query로 사용할 수 있게 변환하는 Bean 생성 설정 class
  */
 @Configuration
 public class MapperConfig {
@@ -49,8 +49,8 @@ public class MapperConfig {
 	}
 
 	@Bean
-	public RowMapper<CommentMetaData> commentMetaDataMapper() {
-		return BeanPropertyRowMapper.newInstance(CommentMetaData.class);
+	public RowMapper<CommentListInfo> commentListInfoMapper() {
+		return BeanPropertyRowMapper.newInstance(CommentListInfo.class);
 	}
 
 }

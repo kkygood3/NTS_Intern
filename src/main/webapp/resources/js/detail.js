@@ -31,8 +31,8 @@ function printComment(commentListInfo){
 	const SCORE_TO_PERCENT = 20;
 	
 	var commentItems = commentListInfo.commentList;
-	var commentCount = commentListInfo.commentMetaData.totalCount;
-	var commentAvgScore = commentListInfo.commentMetaData.averageScore;
+	var commentCount = commentListInfo.totalCount;
+	var commentAvgScore = commentListInfo.averageScore;
 	
 	document.querySelector("#comment_count").innerHTML = commentCount;
 	document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
@@ -101,13 +101,13 @@ function addEventClickProductContentFoldExpand(){
 	var btnFold = document.querySelector("#btn_fold");
 	var productContentArea = document.querySelector("#product_content").parentElement;
 	
-	btn_expand.addEventListener("click", () =>{
+	btnExpand.addEventListener("click", () =>{
 		btnExpand.className = "bk_more _open hide";
 		btnFold.className = "bk_more _close";
 		productContentArea.className = "store_details";
 	});
 	
-	btn_fold.addEventListener("click", () =>{
+	btnFold.addEventListener("click", () =>{
 		btnExpand.className = "bk_more _open";
 		btnFold.className = "bk_more _close hide";
 		productContentArea.className = "store_details close3";

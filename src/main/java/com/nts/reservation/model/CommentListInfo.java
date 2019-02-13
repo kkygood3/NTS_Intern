@@ -8,27 +8,30 @@ import java.util.List;
 
 public class CommentListInfo {
 
-	private CommentMetaData commentMetaData;
+	private double averageScore;
+	private int totalCount;
 	private List<Comment> commentList;
-
-	public CommentListInfo() {}
-
-	public CommentListInfo(CommentMetaData commentMetaData, List<Comment> commentList) {
-		this.commentMetaData = commentMetaData;
-		this.commentList = commentList;
-	}
 
 	@Override
 	public String toString() {
-		return "CommentsInfo [commentMetaData=" + commentMetaData + ", commentList=" + commentList + "]";
+		return "CommentListInfo [averageScore=" + averageScore + ", totalCount=" + totalCount + ", commentList="
+			+ commentList + "]";
 	}
 
-	public CommentMetaData getCommentMetaData() {
-		return commentMetaData;
+	public double getAverageScore() {
+		return averageScore;
 	}
 
-	public void setCommentMetaData(CommentMetaData commentMetaData) {
-		this.commentMetaData = commentMetaData;
+	public void setAverageScore(double averageScore) {
+		this.averageScore = averageScore;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public List<Comment> getCommentList() {

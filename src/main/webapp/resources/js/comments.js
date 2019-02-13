@@ -12,8 +12,8 @@ function printComment(data){
 	
 	var commentListInfo = JSON.parse(data);
 	var commentItems = commentListInfo.commentList;
-	var commentCount = commentListInfo.commentMetaData.totalCount;
-	var commentAvgScore = commentListInfo.commentMetaData.averageScore;
+	var commentCount = commentListInfo.totalCount;
+	var commentAvgScore = commentListInfo.averageScore;
 	
 	document.querySelector("#comment_count").innerHTML = commentCount;
 	document.querySelector("#comment_avg_score").innerHTML = commentAvgScore.toFixed(1);
