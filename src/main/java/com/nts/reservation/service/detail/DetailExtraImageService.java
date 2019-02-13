@@ -4,10 +4,8 @@ import com.nts.reservation.dto.detail.DetailExtraImage;
 
 public interface DetailExtraImageService {
 	/**
-	 * api/products response에 사용.
-	 * Comment, CommentImage, DisplayInfo, DisplayImage, ProductImage, ProductImage를 조회하고 DetailResponse를 생성
-	 * @param	조회할 DisplayInfo의 ID
-	 * @return	DetailResponse Object
+	 * api/products/{diplayInfoId}/extra response에 사용
+	 * @return 페이지에서 'et' 타입 이미지가 있을때 첫 번째 row를 return
 	 */
 	DetailExtraImage getExtraImage(int displayInfoId);
 }

@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
+import com.nts.reservation.finalvariables.DefaultPagingLimit;
 import com.nts.reservation.service.detail.DetailExtraImageService;
 import com.nts.reservation.service.impl.detail.DetailResponseServiceImpl;
 
 @RestController
 public class DetailApiController {
-	private final String DEFAULT_PAGING_LIMIT = "3";
 	@Autowired
 	private DetailResponseServiceImpl detailDisplayService;
 	@Autowired
@@ -29,7 +29,7 @@ public class DetailApiController {
 	 */
 	@GetMapping("/api/products/{displayInfoId}")
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<DetailResponse> detailDisplay = detailDisplayService.getDetailDisplay(displayInfoId,pagingLimit);
 		Map<String, Object> map = new HashMap<>();
