@@ -2,6 +2,8 @@ package com.nts.reservation.dto.reservation;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
@@ -11,6 +13,7 @@ import java.util.List;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class ReservationInput {
 	private Long displayInfoId;

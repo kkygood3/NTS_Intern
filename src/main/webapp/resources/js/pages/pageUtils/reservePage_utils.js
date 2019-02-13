@@ -34,14 +34,25 @@ function SubmitButton(item) {
 				priceDataArr.push(state.prices[key]);
 			}
 		}
-		console.log(priceDataArr);
-		formData.append("prices", JSON.stringify(priceDataArr));
-		console.log(formData.get("name"));
-		console.log(formData.get("prices"));
-		 xhrPostMultipartRequest("/reservation/api/reservations", () =>
-		 console.log("transfered")
-		 // window.location.href ="/reservation"
-			 , formData);
+		
+		var d = new Date();
+		let dataToSend = {
+				displayInfoId :  state.detail_data.displayInfo.displayInfoId
+				, prices : priceDataArr
+				, productId : state.detail_data.displayInfo.productId
+				, reservationEmail : formData.get("email")
+				, reservationName : formData.get("name")
+				, reservationTelephone : formData.get("tel")
+				, reservationYearMonthDay : d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
+				} 
+		let formDataToSend = new FormData();
+		
+		formDataToSend.append("totalData", JSON.stringify(dataToSend));
+		console.log(formDataToSend.get("totalData"));
+		xhrPostMultipartRequest("/reservation/api/reservations", () =>
+		console.log("transfered")
+		// window.location.href ="/reservation"
+			, formDataToSend);
 	});
 }
 
