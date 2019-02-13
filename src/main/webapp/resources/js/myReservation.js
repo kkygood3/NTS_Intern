@@ -78,7 +78,7 @@ var myReservationPage = {
             var filteredData = this.filterReservations(data.reservations);
             this.values.filteredData = filteredData;
             this.values.reservationSize = data.size + filteredData.finishReservations.length;
-            this.updateMyReservationPage(filteredData, data.size);
+            this.updateMyReservationPage(filteredData, this.values.reservationSize);
 
         } else {
             alert("예약 목록을 불러오는 데 실패했습니다.");

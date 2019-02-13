@@ -65,6 +65,7 @@ function sendPutWithPathVariable(path, variable, onCallback) {
 	request.setRequestHeader("Content-Type", "charset=UTF-8");
 	request.send();
 }
+/**
  * @function getTargetTemplate id를 받아 template을 바인딩하는 함수를 리턴해준다.
  * @param {string} templateId  #아이디 형식을 보낼 것
  * @return {function}  html template를 바인딩하는 함수 리턴

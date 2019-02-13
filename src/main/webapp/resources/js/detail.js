@@ -172,8 +172,9 @@ var detailPage = {
 	 * @function initReservationBtn 예매하기 버튼 설정
 	 */
 	initReservationBtn: function() {
+		var self = this;
 		this.elements.reservationBtn.addEventListener("click", function() {
-			window.location.href = "./reservation/" + getDisplayInfoIdFromUrl();
+			window.location.href = "./reservation/" + self.values.id;
 		})
 	},
 	/**
