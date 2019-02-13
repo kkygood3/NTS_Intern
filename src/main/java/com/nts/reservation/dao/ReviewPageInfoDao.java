@@ -15,11 +15,13 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.ReviewPageInfo;
 
 @Repository
-public class ReviewPageInfoDao extends BaseDao{
+public class ReviewPageInfoDao extends BaseDao {
 	RowMapper<ReviewPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(ReviewPageInfo.class);
+
 	ReviewPageInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}
+
 	public ReviewPageInfo selectByDisplayInfoId(long displayInfoId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put(DISPLAY_INFO_ID, displayInfoId);
