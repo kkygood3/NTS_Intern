@@ -87,10 +87,10 @@
     <li class="list_item">
 		<div>
 			<div class="review_area">
-				{{#if commentImages}}
+				{{#if commentImages.productImageUrl}}
    					<div class="thumb_area">
        					<a href="#" class="thumb" title="이미지 크게 보기">
-							<img width="90" height="90" class="img_vertical_top" src="{{commentImages.productImageUrl}}" alt="ë¦¬ë·°ì´ë¯¸ì§"> 
+							<img width="90" height="90" class="img_vertical_top" src="{{commentImages.productImageUrl}}" alt="리뷰이미지"> 
 						</a> 
 						<span class="img_count" style="display:none;">{{@index}}</span>  
    					</div>
@@ -111,8 +111,8 @@
 	</li>
     </script>
     
-	<script type = "text/javascript" src="/js/handlebars-v4.1.0.js" charset="utf-8"></script>
-    <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/common/handlebars-v4.1.0.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/common/ajax.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/mapper/displayinfo-mapper.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/review/review-handlebars.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/review/review.js" charset="utf-8"></script>
