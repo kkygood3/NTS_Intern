@@ -32,74 +32,38 @@ public class DetailServiceImpl implements DetailService {
 	DetailDao DetailDao;
 
 	@Override
-	public DisplayInfo getDisplayInfo(Long displayInfoId) {
-		return DetailDao.getDisplayInfo(displayInfoId);
+	public DisplayInfo selectDisplayInfo(Long displayInfoId) {
+		return DetailDao.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
-	public List<ProductImage> getProductImages(Long displayInfoId) {
-		return DetailDao.getProductImages(displayInfoId);
+	public List<ProductImage> selectProductImages(Long displayInfoId) {
+		return DetailDao.selectProductImages(displayInfoId);
 	}
 
 	@Override
-	public DisplayInfoImage getDisplayInfoImage(Long displayInfoId) {
-		return DetailDao.getDisplayInfoImage(displayInfoId);
+	public DisplayInfoImage selectDisplayInfoImage(Long displayInfoId) {
+		return DetailDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
-	public List<Comment> getComments(Long displayInfoId) {
-		List<Comment> comments = DetailDao.getComments(displayInfoId);
+	public List<Comment> selectComments(Long displayInfoId) {
+		List<Comment> comments = DetailDao.selectComments(displayInfoId);
 		for (Comment comm : comments) {
-			List<CommentImage> list = DetailDao.getCommentsImagesByCommentId(comm.getCommentId());
+			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comm.getCommentId());
 			comm.setCommentImages(list);
 		}
 
 		return comments;
-
-		/*  
-		 * @Deprecated way through review process
-		 * 
-		 * fetch possible candidates of images and map images in iteration process. 
-		 * total time complexity = O(M+N)
-		 * total space complexity = O(M+2N)
-		 * * N = images.length M = comments.length
-		 * 2 data fetch from db
-		 * 
-		 * Below is the past algorithm for other strategy for mapping comment images to comment, simply fetch all rows, and map through iteration
-		 */
-		//		if (!commIter.hasNext()) {
-		//			return comments;
-		//		}
-		//		while (imgIter.hasNext()) {
-		//			boolean isFound = false;
-		//			CommentImage currentImage = imgIter.next();
-		//			Long commentId = currentImage.getReservationInfoId();
-		//			if (currentComment.getCommentId() == commentId) {
-		//				currentComment.getCommentImages().add(currentImage);
-		//			} else {
-		//				while (commIter.hasNext()) {
-		//					currentComment = commIter.next();
-		//					if (commentId == currentComment.getCommentId()) {
-		//						isFound = true;
-		//						currentComment.getCommentImages().add(currentImage);
-		//						break;
-		//					}
-		//				}
-		//				if (!isFound) {
-		//					break;
-		//				}
-		//			}
-		//		}
-
 	}
 
 	@Override
-	public double getAverageScore(Long displayInfoId) {
-		return DetailDao.getAverageScore(displayInfoId);
+	public double selectAverageScore(Long displayInfoId) {
+		return DetailDao.selectAverageScore(displayInfoId);
 	}
 
 	@Override
-	public List<ProductPrice> getProductPrices(Long displayInfoId) {
-		return DetailDao.getProductPrices(displayInfoId);
+	public List<ProductPrice> selectProductPrices(Long displayInfoId) {
+		return DetailDao.selectProductPrices(displayInfoId);
 	}
 }

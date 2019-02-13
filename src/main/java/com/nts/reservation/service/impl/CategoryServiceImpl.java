@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 	ProductDao productDao;
 
 	@Override
-	public List<Category> getAllProductsCountByCategory() {
-		return productDao.getAllProductsCountByCategory();
+	public List<Category> selectAllProductsCountByCategory() {
+		return productDao.selectAllProductsCountByCategory();
 	}
 }

@@ -36,46 +36,46 @@ public class ApplicationApiController {
 	CategoryService categoryService;
 
 	@GetMapping("/products")
-	public Map<String, Object> getProductsByCategory(
+	public Map<String, Object> selectProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.getProductsByCategory(categoryId, start));
+		result.put("items", productService.selectProductsByCategory(categoryId, start));
 		if (categoryId == 0) {
-			result.put("totalCount", productService.getProductsCount());
+			result.put("totalCount", productService.selectProductsCount());
 		} else {
-			result.put("totalCount", productService.getProductsCountByCategory(categoryId));
+			result.put("totalCount", productService.selectProductsCountByCategory(categoryId));
 		}
 
 		return result;
 	}
 
 	@GetMapping("/products/{displayInfoId}")
-	public DetailResponse getProductDetailByDisplayInfoId(
+	public DetailResponse selectProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
 		DetailResponse result = new DetailResponse.Builder()
-			.displayInfo(detailService.getDisplayInfo(displayInfoId))
-			.productImages(detailService.getProductImages(displayInfoId))
-			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
-			.averageScore(detailService.getAverageScore(displayInfoId))
-			.productPrices(detailService.getProductPrices(displayInfoId))
-			.comments(detailService.getComments(displayInfoId))
+			.displayInfo(detailService.selectDisplayInfo(displayInfoId))
+			.productImages(detailService.selectProductImages(displayInfoId))
+			.displayInfoImage(detailService.selectDisplayInfoImage(displayInfoId))
+			.averageScore(detailService.selectAverageScore(displayInfoId))
+			.productPrices(detailService.selectProductPrices(displayInfoId))
+			.comments(detailService.selectComments(displayInfoId))
 			.build();
 		return result;
 	}
 
 	@GetMapping("/categories")
-	public Map<String, Object> getAllProductsCountByCategory() {
+	public Map<String, Object> selectAllProductsCountByCategory() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", categoryService.getAllProductsCountByCategory());
+		result.put("items", categoryService.selectAllProductsCountByCategory());
 		return result;
 	}
 
 	@GetMapping("/promotions")
-	public Map<String, Object> getPromotions() {
+	public Map<String, Object> selectPromotions() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.getPromotions());
+		result.put("items", productService.selectPromotions());
 		return result;
 	}
 }

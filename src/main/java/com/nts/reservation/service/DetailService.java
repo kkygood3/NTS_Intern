@@ -19,15 +19,15 @@ import com.nts.reservation.detail.dto.ProductPrice;
  */
 
 public interface DetailService {
-	DisplayInfo getDisplayInfo(Long displayInfoId);
+	DisplayInfo selectDisplayInfo(Long displayInfoId);
 
-	List<ProductImage> getProductImages(Long displayInfoId);
+	List<ProductImage> selectProductImages(Long displayInfoId);
 
-	DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
+	DisplayInfoImage selectDisplayInfoImage(Long displayInfoId);
 
-	List<Comment> getComments(Long displayInfoId);
+	List<Comment> selectComments(Long displayInfoId);
 
-	double getAverageScore(Long displayInfoId);
+	double selectAverageScore(Long displayInfoId);
 
-	List<ProductPrice> getProductPrices(Long displayInfoId);
+	List<ProductPrice> selectProductPrices(Long displayInfoId);
 }
