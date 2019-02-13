@@ -196,7 +196,7 @@
 	</footer>
 	<div id="photoviwer"></div>
 	
-	<script type="htmlTemplate" id="bannerImageTemplate">
+	<script type="htmlTemplate" id="swipeTemplate">
 		<li class="item" style="width: 414px;"> <img alt="{{productDescription}}" class="img_thumb" src="{{productImage}}"> <span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
