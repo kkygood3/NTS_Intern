@@ -51,7 +51,7 @@ public class ThumbnailInfoApiController {
 		List<ThumbnailInfo> thumbnailInfoList = null;
 
 		if (productCount > 0) {
-			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(start, categoryId, limit);
+			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(categoryId, start, limit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
