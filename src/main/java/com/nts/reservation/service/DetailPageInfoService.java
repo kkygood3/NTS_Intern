@@ -7,7 +7,7 @@ import com.nts.reservation.dto.DatailPageInfo;
  * @author si yoon
  *
  */
-public interface DatailPageInfoService {
+public interface DetailPageInfoService {
 	/**
 	 * 상품에 맞는 상세페이지 정보 가져온다
 	 * @param displayInfoId 조회할 상품
