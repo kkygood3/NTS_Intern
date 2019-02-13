@@ -10,7 +10,7 @@
 <link href="./css/slide.css" rel="stylesheet">
 <script type= "text/javascript" src= "./javascript/common/error.js" ></script>
 <script type= "text/javascript" src= "./javascript/common/sendAjax.js" ></script>
-<script type= "text/javascript" src= "./javascript/common/slide.js" ></script>
+<script type= "text/javascript" src= "./javascript/slide/slide.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/category.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/promotion.js" ></script>
 <script type= "text/javascript" src= "./javascript/main/thumbnail.js" ></script>

@@ -23,8 +23,8 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/javascript/common/error.js" ></script>
 	<script type= "text/javascript" src= "/javascript/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "/javascript/common/slide.js" ></script>
-	<script type= "text/javascript" src= "/javascript/common/comment.js" ></script>
+	<script type= "text/javascript" src= "/javascript/slide/slide.js" ></script>
+	<script type= "text/javascript" src= "/javascript/comment/comment.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/detail.js" ></script>
