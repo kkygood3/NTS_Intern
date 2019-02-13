@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <script type="rv-template" id="promotion_item">
 <li class="item" style="background-image: url(./{sava_file_name_list});"></li>
 </script>

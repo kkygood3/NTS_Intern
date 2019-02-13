@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <script type="rv-template" id="visual_area">
 <div class="pagination">
 	<div class="bg_pagination"></div>

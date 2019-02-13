@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <script type="rv-template" id="comment_item">
 <li class="list_item">
 	<div class="review_area">
