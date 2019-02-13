@@ -14,12 +14,12 @@ import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.finalvariables.DefaultPagingLimit;
 import com.nts.reservation.service.detail.DetailExtraImageService;
-import com.nts.reservation.service.impl.detail.DetailResponseServiceImpl;
+import com.nts.reservation.service.detail.DetailResponseService;
 
 @RestController
 public class DetailApiController {
 	@Autowired
-	private DetailResponseServiceImpl detailDisplayService;
+	private DetailResponseService detailDisplayService;
 	@Autowired
 	private DetailExtraImageService detailExtraImageService;
 
