@@ -1,75 +1,140 @@
 package com.nts.reservation.dto.detail;
 
-import java.util.List;
-
-/**
- * /api/products/{displayInfoId} 응답에 사용할 DTO
- */
 public class DetailResponse {
-	private double averageScore;
-	private List<Comment> comments;
-	private DisplayInfo displayInfo;
-	private DisplayInfoImage displayInfoImage;
-	private List<ProductImage> productImages;
-	private List<ProductPrice> productPrices;
+	private Integer displayInfoId;
+	private String comment;
+	private String commentImage;
+	private String reservationName;
+	private String reservationDate;
+	private Integer score;
+	private String productDescription;
+	private String productContent;
+	private String placeName;
+	private String placeLot;
+	private String placeStreet;
+	private String telephone;
+	private Double averageScore;
+	private String displayInfoImage;
+	private String productImage;
 
-	public DetailResponse(double averageScore, List<Comment> comments, DisplayInfo displayInfo,
-		DisplayInfoImage displayInfoImage, List<ProductImage> productImages, List<ProductPrice> productPrices) {
-		super();
-		this.averageScore = averageScore;
-		this.comments = comments;
-		this.displayInfo = displayInfo;
-		this.displayInfoImage = displayInfoImage;
-		this.productImages = productImages;
-		this.productPrices = productPrices;
+	public String getProductImage() {
+		return productImage;
 	}
 
-	public double getAverageScore() {
-		return averageScore;
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 
-	public void setAverageScore(double averageScore) {
-		this.averageScore = averageScore;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public DisplayInfo getDisplayInfo() {
-		return displayInfo;
-	}
-
-	public void setDisplayInfo(DisplayInfo displayInfo) {
-		this.displayInfo = displayInfo;
-	}
-
-	public DisplayInfoImage getDisplayInfoImage() {
+	public String getDisplayInfoImage() {
 		return displayInfoImage;
 	}
 
-	public void setDisplayInfoImage(DisplayInfoImage displayInfoImage) {
+	public void setDisplayInfoImage(String displayInfoImage) {
 		this.displayInfoImage = displayInfoImage;
 	}
 
-	public List<ProductImage> getProductImages() {
-		return productImages;
+	public Integer getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setProductImages(List<ProductImage> productImages) {
-		this.productImages = productImages;
+	public void setDisplayInfoId(Integer displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
-	public List<ProductPrice> getProductPrices() {
-		return productPrices;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setProductPrices(List<ProductPrice> productPrices) {
-		this.productPrices = productPrices;
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public String getCommentImage() {
+		return commentImage;
+	}
+
+	public void setCommentImage(String commentImage) {
+		this.commentImage = commentImage;
+	}
+
+	public String getReservationName() {
+		return reservationName;
+	}
+
+	public void setReservationName(String reservationName) {
+		this.reservationName = reservationName;
+	}
+
+	public String getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public String getProductContent() {
+		return productContent;
+	}
+
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getPlaceLot() {
+		return placeLot;
+	}
+
+	public void setPlaceLot(String placeLot) {
+		this.placeLot = placeLot;
+	}
+
+	public String getPlaceStreet() {
+		return placeStreet;
+	}
+
+	public void setPlaceStreet(String placeStreet) {
+		this.placeStreet = placeStreet;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Double getAverageScore() {
+		return averageScore;
+	}
+
+	public void setAverageScore(Double averageScore) {
+		this.averageScore = averageScore;
 	}
 
 }
