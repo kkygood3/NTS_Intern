@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div class="message_holder">
-		<h1>${status} : ${statusName}</h1>
-		<h3>${message}</h3>
+		<h1>${errorInfo.status} : ${errorInfo.statusName}</h1>
+		<h3>${errorInfo.message}</h3>
 	</div>
 	<button onclick="location.href='/'">메인페이지로 이동</button>
 </body>

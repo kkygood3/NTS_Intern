@@ -18,26 +18,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class ErrorController {
 	public static final String DEFAULT_ERROR_VIEW = "error";
 
-	/**
-	 * 404에러 처리
-	 * @throws IOException 
-	 */
-	@ExceptionHandler(NoHandlerFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ModelAndView notFound(NoHandlerFoundException nhfe, ServletException se) throws IOException {
-		ModelAndView mav = new ModelAndView();
-
-		if (nhfe != null) {
-			mav.addObject("message", nhfe.getMessage());
-		} else if (se != null) {
-			mav.addObject("message", se.getMessage());
-		}
-		mav.addObject("status", "404");
-		mav.addObject("statusName", "Page Not Found");
-		mav.setViewName(DEFAULT_ERROR_VIEW);
-		return mav;
-	}
-
 	/*
 	 * 400에러 처리
 	 */
@@ -46,16 +26,37 @@ public class ErrorController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ModelAndView badRequest(MissingServletRequestParameterException msrpe,
 		MethodArgumentTypeMismatchException matme, IllegalStateException ise) throws IOException {
-		ModelAndView mav = new ModelAndView();
+		String message = null;
 		if (msrpe != null) {
-			mav.addObject("message", msrpe.getMessage());
+			message = msrpe.getMessage();
 		} else if (matme != null) {
-			mav.addObject("message", matme.getMessage());
+			message = matme.getMessage();
 		} else if (ise != null) {
-			mav.addObject("message", ise.getMessage());
+			message = ise.getMessage();
 		}
-		mav.addObject("status", "400");
-		mav.addObject("statusName", "Bad Request");
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("errorInfo", new ErrorInfo(500, "Internal Server Error", message));
+		mav.setViewName(DEFAULT_ERROR_VIEW);
+		return mav;
+	}
+
+	/**
+	 * 404에러 처리
+	 * @throws IOException 
+	 */
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ModelAndView notFound(NoHandlerFoundException nhfe, ServletException se) throws IOException {
+		String message = null;
+		if (nhfe != null) {
+			message = nhfe.getMessage();
+		} else if (se != null) {
+			message = se.getMessage();
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("errorInfo", new ErrorInfo(404, "Page Not Found", message));
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
 	}
@@ -67,9 +68,7 @@ public class ErrorController {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView intervalServerError(BadSqlGrammarException bsge) throws IOException {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("message", bsge.getMessage());
-		mav.addObject("status", "500");
-		mav.addObject("statusName", "Internal Server Error");
+		mav.addObject("errorInfo", new ErrorInfo(500, "Internal Server Error", bsge.getMessage()));
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
 	}
@@ -81,9 +80,32 @@ public class ErrorController {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView unknown(Exception e) throws IOException {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("message", e.getMessage());
-		mav.addObject("statusName", "KNOWN");
+		mav.addObject("errorInfo", new ErrorInfo(0, "KNOWN", e.getMessage()));
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
+	}
+
+	public class ErrorInfo {
+		private String message;
+		private String statusName;
+		private int status;
+
+		ErrorInfo(int status, String statusName, String message) {
+			this.status = status;
+			this.statusName = statusName;
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public String getStatusName() {
+			return statusName;
+		}
+
+		public int getStatus() {
+			return status;
+		}
 	}
 }
