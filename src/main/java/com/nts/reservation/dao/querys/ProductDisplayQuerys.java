@@ -26,11 +26,13 @@ public class ProductDisplayQuerys {
 		+ "on i.file_id = f.id "
 		+ "where d.id = :displayInfoId";
 
-	public static final String SELECT_PRODUCT_DISPLAY_IMAGE_URL_LIST = "select save_file_name "
-		+ "from display_info d, product_image i, file_info f "
-		+ "where d.product_id = i.product_id "
-		+ "and i.file_id = f.id "
-		+ "and i.type in ('ma', 'et') "
+	public static final String SELECT_PRODUCT_DISPLAY_IMAGE_URL_LIST = "select f.save_file_name "
+		+ "from display_info d "
+		+ "inner join product_image i "
+		+ "on d.product_id = i.product_id "
+		+ "inner join file_info f "
+		+ "on i.file_id = f.id "
+		+ "where i.type in ('ma', 'et') "
 		+ "and d.id = :displayInfoId "
-		+ " limit " + LIMIT_COUNT;
+		+ "limit " + LIMIT_COUNT;
 }

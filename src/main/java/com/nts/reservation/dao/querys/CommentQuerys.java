@@ -6,8 +6,6 @@ package com.nts.reservation.dao.querys;
 
 public class CommentQuerys {
 
-	private static final int LIMIT_COUNT = 3;
-
 	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL = "select rc.id as comment_id"
 		+ ", p.description as product_description"
 		+ ", ri.reservation_date as reservation_date"
@@ -42,7 +40,7 @@ public class CommentQuerys {
 		+ 				"inner join reservation_info ri "
 		+ 				"on rc.reservation_info_id = ri.id "
 		+ 				"where ri.display_info_id = :displayInfoId "
-		+ 				"limit " + LIMIT_COUNT
+		+ 				"limit :limitCount"
 		+ 			   ") as rc "
 		+ "on ri.id = rc.reservation_info_id "
 		+ "left outer join reservation_user_comment_image ci "
@@ -51,7 +49,7 @@ public class CommentQuerys {
 		+ "on ci.file_id = fi.id "
 		+ "where ri.display_info_id = :displayInfoId";
 
-	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_META_DATA = "select ifnull(avg(score), 0) as average_score"
+	public static final String SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO = "select coalesce(avg(score), 0) as average_score"
 		+ ", count(*) as total_count "
 		+ "from reservation_user_comment rc "
 		+ "inner join product p "
