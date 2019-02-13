@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.product.dao.Impl;
+package com.nts.reservation.product.dao.impl;
 
 import static com.nts.reservation.product.dao.queries.ProductQueries.*;
 
@@ -21,11 +21,15 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
+	private RowMapper<Product> rowMapperProduct = BeanPropertyRowMapper.newInstance(Product.class);
+	private RowMapper<ProductImage> rowMapperProductImage = BeanPropertyRowMapper.newInstance(ProductImage.class);
+	private RowMapper<ProductPrice> rowMapperProductPrice = BeanPropertyRowMapper.newInstance(ProductPrice.class);
 
 	public ProductDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -36,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PROUDUCT_PAGE, params, rowMapper);
+		return jdbc.query(SELECT_PROUDUCT_PAGE, params, rowMapperProduct);
 	}
 
 	@Override
@@ -45,7 +49,7 @@ public class ProductDaoImpl implements ProductDao {
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PROUDUCT_PAGE_BY_CATEGORY, params, rowMapper);
+		return jdbc.query(SELECT_PROUDUCT_PAGE_BY_CATEGORY, params, rowMapperProduct);
 	}
 
 	@Override
@@ -59,5 +63,21 @@ public class ProductDaoImpl implements ProductDao {
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
+
+	@Override
+	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+
+		return jdbc.query(SELECT_PROUDUCT_IMAGE, params, rowMapperProductImage);
+	}
+
+	@Override
+	public List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_PROUDUCT_PRICE, params, rowMapperProductPrice);
+	}
+
 
 }

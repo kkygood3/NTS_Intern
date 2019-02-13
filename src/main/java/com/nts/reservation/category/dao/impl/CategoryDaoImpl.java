@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.category.dao.Impl;
+package com.nts.reservation.category.dao.impl;
 
 import static com.nts.reservation.category.dao.queries.CategoryQueries.*;
 
