@@ -110,7 +110,6 @@ function getComments(displayInfo, maxCommentNum = -1){
 				}
 				
 				this.displayInfo.comments.forEach((comment)=>{
-					comment.commentImages = JSON.parse(comment.commentImages);
 					comment.reservationEmail = comment.reservationEmail.split("@")[0].substr(0, 4) + "****";
 					comment.reservationDate = comment.reservationDate.split(" ")[0].split("-").join(".");
 				});

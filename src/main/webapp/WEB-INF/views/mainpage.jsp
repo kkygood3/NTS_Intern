@@ -122,8 +122,8 @@
         	<a class="anchor"> <span>${name}</span> </a>
         </li> 
     </script>
-    <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
-    <script type = "text/javascript" src="/js/utils.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/common/ajax.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/common/utils.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/mainpage/product-handler.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/mainpage/category-handler.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/mainpage/promotion-handler.js" charset="utf-8"></script>

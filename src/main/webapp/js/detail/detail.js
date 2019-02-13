@@ -10,6 +10,7 @@ function displayInfoRequest(callBack, displayInfoId){
 }
 
 function detailsInit(displayInfo){
+	console.log(displayInfo);
 	var displayInfoObject = displayInfoToObj(displayInfo, 3);
 	displayInfoObject.init();
 	displayInfoObject.render();
