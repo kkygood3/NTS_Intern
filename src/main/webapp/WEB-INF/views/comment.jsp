@@ -62,6 +62,10 @@
 							<i class="spr_book2 ico_bell"></i> 
 							<span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span>
 						</p>
+						<a class="btn_review_more" onclick="comment.moreComments();">
+							<span>예매자 한줄평 더보기</span>
+							<i class="fn fn-forward1"></i>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -82,10 +86,10 @@
 		<li class="list_item">
 			<div>
 				<div class="review_area">
-					{{#if commentImage}}
+					{{#if saveFileName}}
 						<div class="thumb_area">
 							<a href="#" class="thumb" title="이미지 크게 보기"> 
-								<img width="90" height="90" class="img_vertical_top" src="/{{commentImage.saveFileName}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
 							</a> 
 							<span class="img_count" style="display: none;">1</span>
 						</div>
@@ -105,17 +109,72 @@
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
-	<script type="text/javascript" src="/js/comment.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+		const REQUEST_COMMENT_LIMIT = 10;
+		
+		var comment = {
+			init : function(productId, start, limit) {
+				this.loadCommentResponse(this.initComment.bind(this), productId, start, limit);
+			},
+
+			loadCommentResponse : function(callback, productId, start, limit) {
+				if (!isNumber(productId) || !isNumber(start)) {
+					alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
+					location.href="/main";
+					return;
+				}
+				var url = "/api/products/" + productId + "/comments?start=" + start + "&limit=" + limit;
+				ajax(callback, url);
+			},
+
+			initComment : function(response) {
+				this.setCountDOM(response);
+				this.setAvgScoreDOM(response);
+				this.setCommentDOM(response);
+			},
+			// 상품평 총 개수 설정
+			setCountDOM : function(response) {
+				var countTextDiv = document.querySelector(".join_count .green");
+				countTextDiv.innerText = response.totalCount + " 건";
+			},
+			// 상품평 평점 설정
+			setAvgScoreDOM : function(response) {
+				var scoreTextDiv = document.querySelector(".text_value span");
+				scoreTextDiv.innerText = response.averageScore.toFixed(1);
+				var maxScore = parseFloat(document.querySelector(".text_value .total").innerText);
+				document.querySelector(".graph_value").style.width = response.averageScore
+						/ maxScore * 100 + "%";
+			},
+			// 상품평 추가
+			setCommentDOM : function(response) {
+				var template = document.querySelector("#template-comment").innerText;
+				var bindTemplate = Handlebars.compile(template);
+				var resultHTML = response.comments.reduce(function(prev, comment) {
+					return prev + bindTemplate(comment);
+				}, "");
+				var commentsDiv = document.querySelector(".list_short_review");
+				commentsDiv.innerHTML += resultHTML;
+				
+				var currCount = document.querySelector(".list_short_review").childElementCount;
+				if (response.totalCount <= currCount) {
+					document.querySelector(".btn_review_more").style.display = "none";
+				}
+			},
+			// 상품평 더보기
+			moreComments : function() {
+				var currCount = document.querySelector(".list_short_review").childElementCount;
+				this.loadCommentResponse(this.setCommentDOM.bind(this), productId, currCount, REQUEST_COMMENT_LIMIT);
+			}
+		}
 
 		function goDetailPage() {
 			location.href="detail?displayInfoId=" + displayInfoId;
 		}
 
 		document.addEventListener("DOMContentLoaded", function(event) {
-			comment.init(productId, 0, 20);
+			comment.init(productId, 0, REQUEST_COMMENT_LIMIT);
 		});
 	</script>
 </body>
