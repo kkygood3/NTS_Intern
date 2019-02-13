@@ -21,7 +21,16 @@
                     <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                     <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+                <c:choose>
+					<c:when test="${sessionScope.userEmail == null }">
+						<a href="./bookingLogin" class="btn_my"> <span
+							class="viewReservation" title="예약확인"> 예약 확인</span>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="#" class="btn_my"> <span title="내예약" class="viewReservation">${sessionScope.userEmail }</span> </a>
+					</c:otherwise>
+				</c:choose>
             </header>
         </div>
         <div class="ct" data-display-id = ${reservationResponseDto.displayInfo.displayInfoId } data-product-id = ${reservationResponseDto.displayInfo.productId }>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -24,7 +25,6 @@
                     <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                     <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
         </div>
         <div class="ct main">
@@ -35,7 +35,16 @@
                             <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                             <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <c:choose>
+							<c:when test="${sessionScope.userEmail == null }">
+								<a href="../bookingLogin" class="btn_my"> <span
+									class="viewReservation" title="예약확인"> 예약 확인</span>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="../myReservation?userEmail=${sessionScope.userEmail }" class="btn_my"> <span title="내예약" class="viewReservation">${sessionScope.userEmail }</span> </a>
+							</c:otherwise>
+						</c:choose>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
