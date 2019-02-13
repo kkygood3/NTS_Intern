@@ -8,7 +8,7 @@ package com.nts.reservation.category.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.category.dao.Impl.CategoryDaoImpl;
+import com.nts.reservation.category.dao.impl.CategoryDaoImpl;
 import com.nts.reservation.category.dto.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
 
