@@ -58,6 +58,9 @@ function loadDisplayInfoCallback(responseData)
 	
 	//우측 상단의 Comment 갯수
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
+	
+	//뒤로가기 버튼 클릭 이벤트
+	document.querySelector('.btn_back').setAttribute('href','detail?id='+displayInfomation.displayInfoId);
 } 
 
 document.addEventListener('DOMContentLoaded', function() {
