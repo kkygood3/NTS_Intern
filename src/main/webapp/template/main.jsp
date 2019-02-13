@@ -14,7 +14,7 @@
 		</div>
 	</a>
 </li>
-   </script>
+</script>
     
 <script type="rv-template" id="category_item">
 <li class="item">
