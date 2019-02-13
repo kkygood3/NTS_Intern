@@ -12,6 +12,11 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
+/**
+ * 파일 관련 정보 접근하는 클래스
+ * @author si yoon
+ *
+ */
 @Repository
 public class FileInfoDao extends BaseDao {
 	public FileInfoDao(DataSource dataSource) {
@@ -19,8 +24,10 @@ public class FileInfoDao extends BaseDao {
 	}
 
 	/**
-	 * 해당상품의 파일이름을 셀렉트
-	 * @return save file name
+	 * 상품이랑 타입에 따라 파일이름 가져오는 메소드
+	 * @param productId 조회할 상품 id
+	 * @param type 조회할 타입  ma(main), et(etc), th(thumbnail)
+	 * @return 쿼리 실행결과 파일이름 리스트
 	 */
 	public List<String> selectByDisplayInfoIdAndType(long productId, String type) {
 		Map<String, Object> params = new HashMap<>();

@@ -27,6 +27,13 @@ public class CommentDisplayInfoApiController {
 	@Autowired
 	private CommentDisplayInfoService commentDisplayInfoService;
 
+	/**
+	 * productId에 해당하는 리뷰를 페이징해서 가져온다
+	 * @param productId 조회할 상품 id
+	 * @param start 페이징 시작 인덱스
+	 * @param limit 페이징 사이즈
+	 * @return 코멘트 리스트
+	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(

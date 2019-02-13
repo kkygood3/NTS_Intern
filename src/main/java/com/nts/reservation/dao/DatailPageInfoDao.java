@@ -14,13 +14,24 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.DatailPageInfo;
 
+/**
+ * 상품상세화면 관련 정보 접근하는 클래스 
+ * @author si yoon
+ *
+ */
 @Repository
 public class DatailPageInfoDao extends BaseDao {
 	RowMapper<DatailPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(DatailPageInfo.class);
+
 	DatailPageInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}
 
+	/**
+	 * displayInfoId에 따라 상품상세정보 셀렉트한다
+	 * @param displayInfoId 조화할 id
+	 * @return 쿼리실행결과 상세페이지 정보
+	 */
 	public DatailPageInfo selectDetailPageInfo(long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put(DISPLAY_INFO_ID, displayInfoId);
