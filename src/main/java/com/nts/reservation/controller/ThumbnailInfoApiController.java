@@ -1,6 +1,8 @@
 package com.nts.reservation.controller;
 
-import java.util.Collections;
+import static com.nts.reservation.property.Const.SELECT_ALL;
+import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.ThumbnailInfo;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ThumbnailInfoService;
-
-import static com.nts.reservation.property.Const.*;
 /**
  * 썸네일 관련 API 클래스
  * @author USER
@@ -53,10 +53,8 @@ public class ThumbnailInfoApiController {
 		}
 
 		Map<String, Object> map = new HashMap<>();
-
 		map.put("productCount", productCount);
 		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
 	}
-
 }
