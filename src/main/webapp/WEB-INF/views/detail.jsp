@@ -217,18 +217,18 @@
     <li class="list_item">
 		<div>
 			<div class="review_area">
-				{{#if comment.commentImages}}
+				{{#if commentImages.productImageUrl}}
    					<div class="thumb_area">
        					<a href="#" class="thumb" title="이미지 크게 보기">
 							<img width="90" height="90" class="img_vertical_top" src="{{commentImages.productImageUrl}}" alt="리뷰이미지"> 
 						</a> 
-						<span class="img_count" style="display:none;">{{@index}}</span>  
+						<span class="img_count" style="display:none;"></span>  
    					</div>
 				{{/if}}
    				<h4 class="resoc_name">
 					${description}
 				</h4>
-				<p class="review">{{this.comment}}</p>
+				<p class="review">{{comment}}</p>
 			</div>
 			<div class="info_area">
    				<div class="review_info"> 
@@ -312,8 +312,8 @@
 		</div>
 	</script>
 	
-	<script type = "text/javascript" src="/js/handlebars-v4.1.0.js" charset="utf-8"></script>
-    <script type = "text/javascript" src="/js/ajax.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/common/handlebars-v4.1.0.js" charset="utf-8"></script>
+    <script type = "text/javascript" src="/js/common/ajax.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/mapper/displayinfo-mapper.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/detail/detail-events.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/detail/detail-handlebars.js" charset="utf-8"></script>
