@@ -10,15 +10,10 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.nts.reservation.dto.FileInfo;
 
 @Repository
 public class FileInfoDao extends BaseDao {
-	RowMapper<FileInfo> rowMapper = BeanPropertyRowMapper.newInstance(FileInfo.class);
 	public FileInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}
@@ -27,11 +22,11 @@ public class FileInfoDao extends BaseDao {
 	 * 해당상품의 파일이름을 셀렉트
 	 * @return save file name
 	 */
-	public List<FileInfo> selectByDisplayInfoIdAndType(long productId, String type) {
+	public List<String> selectByDisplayInfoIdAndType(long productId, String type) {
 		Map<String, Object> params = new HashMap<>();
 		params.put(PRODUCT_ID, productId);
 		params.put(TYPE, type);
-
-		return getJdbc().query(SELECT_BY_PRODUCT_ID_AND_TYPE, params, rowMapper);
+		
+		return getJdbc().queryForList(SELECT_BY_PRODUCT_ID_AND_TYPE, params, String.class);
 	}
 }

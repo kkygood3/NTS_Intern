@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CommentDisplayInfoDao;
 import com.nts.reservation.dto.CommentDisplayInfo;
-import com.nts.reservation.dto.Product;
 import com.nts.reservation.service.CommentDisplayInfoService;
 
 @Service
