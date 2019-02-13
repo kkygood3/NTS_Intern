@@ -101,10 +101,5 @@
 		<a class="anchor"><span id="category_{id}">{name}</span><a>
 	</li>
 	</script>
-	<script type="rv-template" id="post_form_template">
-    <form class="post_form" action="" method="post" style="visibility: hidden; width: 0; height: 0;">
-		<input class="data" type="text" name="data">
-	</form>
-	</script>
 </body>
 </html>
