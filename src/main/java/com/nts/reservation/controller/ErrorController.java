@@ -17,29 +17,30 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class ErrorController {
-//	/**
-//	 * 404에러 처리
-//	 * @throws IOException 
-//	 */
-//	@ExceptionHandler(NoHandlerFoundException.class)
-//	@ResponseStatus(HttpStatus.NOT_FOUND)
-//	public void notFound(NoHandlerFoundException nhfe, ServletException se) throws IOException {
-//	}
-//
-//	/*
-//	 * 400에러 처리
-//	 */
-//	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
-//	@ResponseStatus(HttpStatus.BAD_REQUEST)
-//	public void badRequest(MissingServletRequestParameterException msrpe, MethodArgumentTypeMismatchException matme) throws IOException {
-//	}
-//	
-//	/*
-//	 * 500에러 처리
-//	 */
-//	@ExceptionHandler(BadSqlGrammarException.class)
-//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//	public void intervalServerError(BadSqlGrammarException bsge) throws IOException {
-//		System.out.println(bsge);
-//	}
+	/**
+	 * 404에러 처리
+	 * @throws IOException 
+	 */
+	@ExceptionHandler(NoHandlerFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public void notFound(NoHandlerFoundException nhfe, ServletException se) throws IOException {
+	}
+
+	/*
+	 * 400에러 처리
+	 */
+	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class, IllegalStateException.class})
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public void badRequest(MissingServletRequestParameterException msrpe, MethodArgumentTypeMismatchException matme, IllegalStateException ise) throws IOException {
+		System.out.println(ise);
+	}
+	
+	/*
+	 * 500에러 처리
+	 */
+	@ExceptionHandler(BadSqlGrammarException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public void intervalServerError(BadSqlGrammarException bsge) throws IOException {
+		System.out.println(bsge);
+	}
 }
