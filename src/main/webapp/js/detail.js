@@ -13,15 +13,19 @@ function initDetailBtn(){
 			} 
 			
 			if(clickedTag.className === 'bk_more _open'){
+				
 				foldingText.classList.remove('close3');
 				
 				unfoldBtn.style.display = 'none';
 				foldBtn.style.display = '';
+				
 			}else if(clickedTag.className === 'bk_more _close'){
+				
 				foldingText.classList.add('close3');
 				
 				unfoldBtn.style.display = '';
 				foldBtn.style.display = 'none';
+				
 			}
 		});
 	} else {
@@ -61,7 +65,6 @@ function initComment(displayInfoResponse){
 	
 	var commentContainer = document.querySelector('ul.list_short_review');
 	
-	//TODO 3개만 받아오도록 LIMIT 걸어야함
 	for(var i = 0 ; i < 3 && i < commentCount; i++){
 		displayInfoResponse[i].reservationDate = convertDateFormat(displayInfoResponse[i].reservationDate);
 		commentContainer.innerHTML += bindCommentTemplate(displayInfoResponse[i]);	

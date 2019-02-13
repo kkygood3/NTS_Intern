@@ -38,11 +38,12 @@ public class MainPromotionDao {
 	}
 
 	public int selectCount() {
-		Integer count = jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
-		if(count == null) {
+		Integer count = jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(),
+			Integer.class);
+		if (count == null) {
 			count = 0;
 		}
-		
+
 		return count;
 	}
 }

@@ -8,7 +8,7 @@ import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.service.detail.DetailExtraImageService;
 
 @Service
-public class DetailExtraImageServiceImpl implements DetailExtraImageService{
+public class DetailExtraImageServiceImpl implements DetailExtraImageService {
 	@Autowired
 	DetailExtraImageDao detailExtraImageDao;
 
@@ -16,6 +16,5 @@ public class DetailExtraImageServiceImpl implements DetailExtraImageService{
 	public DetailExtraImage getExtraImage(int displayInfoId) {
 		return detailExtraImageDao.selectDetailExtraImageById(displayInfoId);
 	}
-	
 
 }

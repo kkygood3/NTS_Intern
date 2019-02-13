@@ -10,10 +10,10 @@ import com.nts.reservation.dto.review.ReviewResponse;
 import com.nts.reservation.service.review.ReviewResponseService;
 
 @Service
-public class ReviewResponseServiceImpl implements ReviewResponseService{
+public class ReviewResponseServiceImpl implements ReviewResponseService {
 	@Autowired
 	ReviewResponseDao reviewResponseDao;
-	
+
 	@Override
 	public List<ReviewResponse> getReviewResponse(int displayInfoId, int limit) {
 		return reviewResponseDao.selectDetailPageById(displayInfoId, limit);

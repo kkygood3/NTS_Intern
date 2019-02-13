@@ -50,19 +50,20 @@ public class MainProductDao {
 		Map<String, Long> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
-		if(count == null) {
+		if (count == null) {
 			count = 0;
 		}
-		
+
 		return count;
 	}
 
 	public int selectCount() {
-		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
-		if(count == null) {
+		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(),
+			Integer.class);
+		if (count == null) {
 			count = 0;
 		}
-		
+
 		return count;
 	}
 }

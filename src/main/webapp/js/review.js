@@ -1,22 +1,21 @@
-function loadDisplayInfoCallback(responseData) 
-{
+function loadDisplayInfoCallback(responseData) {
 	var reviewResponse = responseData.comments;
 	var displayInfomation = reviewResponse[0];
 	var commentCount = displayInfomation.commentCount;
-	
+
 	var averageScore = displayInfomation.averageScore;
-	
-	//Comment Template
+
+	// Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 	var bindCommentTemplate = Handlebars.compile(commentTemplate);
-	
+
 	var commentContainer = document.querySelector('ul.list_short_review');
-	for(var i = 0 ; i < commentCount; i++){
+	for (var i = 0; i < commentCount; i++) {
 		reviewResponse[i].reservationDate = convertDateFormat(reviewResponse[i].reservationDate);
-		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);	
+		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);
 	} 
 	
-	//맨 위 화면의 title
+	// 맨 위 화면의 title
 	document.querySelector('a.title').innerText = displayInfomation.productDescription;
 	
 	//별점 그래프, 숫자 조정

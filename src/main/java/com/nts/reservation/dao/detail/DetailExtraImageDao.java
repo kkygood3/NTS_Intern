@@ -27,7 +27,7 @@ public class DetailExtraImageDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		List<DetailExtraImage> imageList = jdbc.query(DetailExtraImageQueries.SELECT_EXTRA_IMAGE, params, rowMapper);
-		
+
 		if (imageList.size() > 0) {
 			return imageList.get(0);
 		} else {

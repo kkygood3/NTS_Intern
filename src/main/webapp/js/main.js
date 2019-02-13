@@ -16,7 +16,7 @@ function loadCategoriesCallback(responseData){
 }
 
 
-//페이지 상단에 움직이는 배너를 설정하는 함수 
+// 페이지 상단에 움직이는 배너를 설정하는 함수
 function setPromotionMove() {
 	var bannerList = document.querySelectorAll('.visual_img>.item');
 	var leftDistance = 0;
@@ -26,10 +26,10 @@ function setPromotionMove() {
 	setInterval(moveStep, 4000);
 	
 
-	//4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수
+	// 4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수
 	function moveStep(){
 		
-		//모든 배너 이미지를 매 주기마다 -100% 이동
+		// 모든 배너 이미지를 매 주기마다 -100% 이동
 		leftDistance -= 100;
 
 		for (var i = 0; i < bannerList.length; i++) {
@@ -38,15 +38,16 @@ function setPromotionMove() {
 
 		curIdx++;
 
-		//마지막장의 다음장은 미리 첫번째 이미지로 설정
-		//if(마지막장을 넘어 갔을때)
+		// 마지막장의 다음장은 미리 첫번째 이미지로 설정
+		// if(마지막장을 넘어 갔을때)
 		if (curIdx >= itemSize - 1) {
 			
-			//마지막 +1에 위치한 첫번째 이미지를 출력하는 도중에, 모든 이미지를 왼쪽으로 이동
+			// 마지막 +1에 위치한 첫번째 이미지를 출력하는 도중에, 모든 이미지를 왼쪽으로 이동
 			setTimeout(resetPromotionPos, 1100);
 			
-			//마지막장에서 첫장으로 반복하기위해 복구하는 함수
-			//모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시 transitionDuration을 1s로 초기화
+			// 마지막장에서 첫장으로 반복하기위해 복구하는 함수
+			// 모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시
+			// transitionDuration을 1s로 초기화
 			function resetPromotionPos() {
 				
 				for (var i = 0; i < bannerList.length; i++) {
@@ -113,14 +114,14 @@ function loadProductsCallback(responseData) {
 	resultHtml[1] = '';
 	for (var i = 0; i < productList.length; i++) {
 		resultHtml[i % 2] += template
-										.replace('{productImageUrl}', productList[i].productImageUrl)
-										.replace('{description}', productList[i].productDescription)
-										.replace('{description}', productList[i].productDescription)
-										.replace('{id}', productList[i].displayInfoId)
-										.replace('{placeName}', productList[i].placeName)
-										.replace('{content}', productList[i].productContent)
-										.replace('{productId}', productList[i].productId)
-										.replace('{displayInfoId}', productList[i].displayInfoId);
+							.replace('{productImageUrl}', productList[i].productImageUrl)
+							.replace('{description}', productList[i].productDescription)
+							.replace('{description}', productList[i].productDescription)
+							.replace('{id}', productList[i].displayInfoId)
+							.replace('{placeName}', productList[i].placeName)
+							.replace('{content}', productList[i].productContent)
+							.replace('{productId}', productList[i].productId)
+							.replace('{displayInfoId}', productList[i].displayInfoId);
 	}
 	var containers = document.querySelectorAll('.lst_event_box');
 	containers[0].innerHTML += resultHtml[0];
@@ -151,7 +152,7 @@ function setTabClickEvent() {
 		if (selectedTab.tagName === 'A') {
 			var categoryId = selectedTab.parentElement.getAttribute('data-category');
 			
-			//현재 탭과 다른 탭을 클릭했을 때 
+			// 현재 탭과 다른 탭을 클릭했을 때
 			if (categoryId != currentCategory) {
 				currentCategory = categoryId;
 				currentStart = 0;
@@ -170,20 +171,20 @@ function setTabClickEvent() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	//페이지 첫 로딩시 할 일
+	// 페이지 첫 로딩시 할 일
 
-	//1. 카테고리 목록 가져오기
+	// 1. 카테고리 목록 가져오기
 	requestAjax(loadCategoriesCallback, 'api/categories');
 
-	//2. 상품 목록 가져오기
+	// 2. 상품 목록 가져오기
 	requestAjax(loadProductsCallback, mapProductParameters(0, 0));
 
-	//3. promotion 가져오기
+	// 3. promotion 가져오기
 	requestAjax(loadPromotionsCallback, 'api/promotions');
 
-	//4. 더보기 버튼 event 등록
+	// 4. 더보기 버튼 event 등록
 	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart)));
 
-	//5. 탭 변경 event 등록
+	// 5. 탭 변경 event 등록
 	setTabClickEvent();
 });

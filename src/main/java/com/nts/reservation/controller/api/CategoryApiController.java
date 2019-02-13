@@ -23,7 +23,8 @@ public class CategoryApiController {
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/categories")
-	public Map<String, Object> categories(@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+	public Map<String, Object> categories(
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainCategory> categoryList = mainCategoryService.getCategories(pagingLimit);
 		Map<String, Object> map = new HashMap<>();

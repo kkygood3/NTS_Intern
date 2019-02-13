@@ -16,7 +16,7 @@ import com.nts.reservation.service.main.MainPromotionService;
 
 @RestController
 public class PromotionApiController {
-	
+
 	@Autowired
 	private MainPromotionService mainPromotionService;
 
@@ -25,7 +25,8 @@ public class PromotionApiController {
 	 * @return	JSON text
 	 */
 	@GetMapping("/api/promotions")
-	public Map<String, Object> promotions(@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+	public Map<String, Object> promotions(
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainPromotion> promotionList = new ArrayList<>();
 		int totalCount = mainPromotionService.getCount();
