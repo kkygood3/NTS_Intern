@@ -7,8 +7,6 @@ public class DefaultPagingLimit {
 	public final static String DETAIL_DEFAULT_PAGING_LIMIT = "3";
 	
 	public static final String PRODUCT_DEFAULT_PAGING_LIMIT = "4";
-	public static final String PRODUCT_DEFAULT_CATEGORY_ID = "0";
-	public static final String PRODUCT_DEFAULT_START = "0";
 	
 	public static final String PROMOTION_DEFAULT_PAGING_LIMIT = "20";
 	
