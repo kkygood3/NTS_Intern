@@ -77,8 +77,8 @@ public class DatailPageInfo {
 		this.mainImageFile = mainImageFile;
 	}
 
-	public double getAverageScore() {
-		return averageScore;
+	public String getAverageScore() {
+		return String.format("%.1f", averageScore);
 	}
 
 	public void setAverageScore(double averageScore) {

@@ -18,8 +18,8 @@ public class CommentDisplayInfo {
 		this.comment = comment;
 	}
 
-	public double getScore() {
-		return score;
+	public String getScore() {
+		return String.format("%.1f", score);
 	}
 
 	public void setScore(double score) {

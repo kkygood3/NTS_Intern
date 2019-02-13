@@ -22,8 +22,9 @@ public class ReviewPageInfo {
 		this.description = description;
 	}
 
-	public double getAverageScore() {
-		return averageScore;
+	public String getAverageScore() {
+		return String.format("%.1f", averageScore);
+
 	}
 
 	public void setAverageScore(double averageScore) {

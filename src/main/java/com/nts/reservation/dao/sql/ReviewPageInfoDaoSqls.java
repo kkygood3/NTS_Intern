@@ -1,7 +1,7 @@
 package com.nts.reservation.dao.sql;
 
 public class ReviewPageInfoDaoSqls {
-	public static final String SELECT_BY_DISPLAY_INFO_ID = "SELECT p.product_id, p.description, round(ifnull(avg(ruc.score), 0), 1) AS averageScore, count(ruc.score) AS commentCount "
+	public static final String SELECT_BY_DISPLAY_INFO_ID = "SELECT p.product_id, p.description, ifnull(avg(ruc.score), 0), count(ruc.score) AS commentCount "
 			+ "FROM ( "
 			+ "	SELECT product.id AS product_id, product.description " 
 			+ "    FROM product INNER JOIN display_info ON product.id = display_info.product_id " 
