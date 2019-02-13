@@ -9,41 +9,19 @@ package com.nts.reservation.dto;
  * @author jinwoo.bae
  */
 public class CommentDto {
-	int commentId; // 상품평 Id
-	int productId;
-	int reservationInfoId;
-	double score;
-	String comment; // 상품평
-	String reservationName;
-	String reservationTelephone;
-	String reservationEmail;
-	String reservationDate;
-	String createDate;
-	String modifyDate;
-	CommentImageDto commentImage; // 상품평 이미지
+	int id;
+	double score; // 상품평 점수
+	String comment; // 상품평 내용
+	String reservationName; // 예약자 명
+	String reservationDate; // 예약일
+	String saveFileName; // 상품평에 등록한 이미지 파일 경로
 
-	public int getCommentId() {
-		return commentId;
+	public int getId() {
+		return id;
 	}
 
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public int getReservationInfoId() {
-		return reservationInfoId;
-	}
-
-	public void setReservationInfoId(int reservationInfoId) {
-		this.reservationInfoId = reservationInfoId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public double getScore() {
@@ -70,22 +48,6 @@ public class CommentDto {
 		this.reservationName = reservationName;
 	}
 
-	public String getReservationTelephone() {
-		return reservationTelephone;
-	}
-
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
-	}
-
-	public String getReservationEmail() {
-		return reservationEmail;
-	}
-
-	public void setReservationEmail(String reservationEmail) {
-		this.reservationEmail = reservationEmail;
-	}
-
 	public String getReservationDate() {
 		return reservationDate;
 	}
@@ -94,28 +56,11 @@ public class CommentDto {
 		this.reservationDate = reservationDate;
 	}
 
-	public String getCreateDate() {
-		return createDate;
+	public String getSaveFileName() {
+		return saveFileName;
 	}
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public CommentImageDto getCommentImage() {
-		return commentImage;
-	}
-
-	public void setCommentImage(CommentImageDto commentImage) {
-		this.commentImage = commentImage;
-	}
-
 }

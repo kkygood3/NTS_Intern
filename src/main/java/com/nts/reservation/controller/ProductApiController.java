@@ -39,10 +39,10 @@ public class ProductApiController {
 		return productService.getProductResponse(categoryId, start, limit);
 	}
 
-	@GetMapping("/{displayInfoId}")
-	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int displayInfoId,
-		@RequestParam(required = false, defaultValue = PRODUCT_IMAGE_LIMIT) int productImageLimit) {
-		return productService.getDisplayInfoResponse(displayInfoId, productImageLimit);
+	@GetMapping("{productId}/displayInfos/{displayInfoId}")
+	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int productId,
+		@PathVariable int displayInfoId, @RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit) {
+		return productService.getDisplayInfoResponse(productId, displayInfoId, commentLimit);
 	}
 
 	@GetMapping("/{productId}/comments")

@@ -13,12 +13,9 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.CommentDto;
-import com.nts.reservation.dto.CommentImageDto;
 
 /**
  * 상품평 정보를 가져오는 Dao 클래스
@@ -40,22 +37,7 @@ public class CommentDao extends BasicDao<CommentDto> {
 		params.put("start", start);
 		params.put("limit", limit);
 		List<CommentDto> comments = jdbcTemplate.query(SELECT_COMMENTS, params, rowMapper);
-		for (CommentDto comment : comments) {
-			comment.setCommentImage(selectCommentImage(comment.getCommentId()));
-		}
 		return comments;
-	}
-
-	/**
-	 * 해당 commentId의 상품 이미지를 가져옵니다. 등록된 이미지가 없으면 null 반환
-	 */
-	public CommentImageDto selectCommentImage(int commentId) {
-		try {
-			return jdbcTemplate.queryForObject(SELECT_COMMENT_IMAGE, Collections.singletonMap("commentId", commentId),
-				BeanPropertyRowMapper.newInstance(CommentImageDto.class));
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
 	}
 
 	/**

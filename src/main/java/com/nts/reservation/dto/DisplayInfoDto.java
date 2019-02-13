@@ -9,53 +9,21 @@ package com.nts.reservation.dto;
  * @author jinwoo.bae
  */
 public class DisplayInfoDto {
-	int productId; // 상품 id
-	int categoryId; // 카테고리 id
-	int displayInfoId; // 전시 id
-	String categoryName; // 카테고리 이름
+	int id;
 	String productDescription; // 상품 설명
 	String productContent; // 상품 내용
-	String productEvent; // 상품 이벤트
-	String openingHours; // 전시시간
 	String placeName; // 전시장
 	String placeLot; // 전시 번지명
 	String placeStreet; // 전시 도로명
 	String telephone;
-	String homepage;
-	String email;
-	String createDate;
-	String modifyDate;
+	String saveFileName; // 이미지파일 저장경로
 
-	public int getProductId() {
-		return productId;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
-
-	public int getDisplayInfoId() {
-		return displayInfoId;
-	}
-
-	public void setDisplayInfoId(int displayInfoId) {
-		this.displayInfoId = displayInfoId;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getProductDescription() {
@@ -72,22 +40,6 @@ public class DisplayInfoDto {
 
 	public void setProductContent(String productContent) {
 		this.productContent = productContent;
-	}
-
-	public String getProductEvent() {
-		return productEvent;
-	}
-
-	public void setProductEvent(String productEvent) {
-		this.productEvent = productEvent;
-	}
-
-	public String getOpeningHours() {
-		return openingHours;
-	}
-
-	public void setOpeningHours(String openingHours) {
-		this.openingHours = openingHours;
 	}
 
 	public String getPlaceName() {
@@ -122,35 +74,12 @@ public class DisplayInfoDto {
 		this.telephone = telephone;
 	}
 
-	public String getHomepage() {
-		return homepage;
+	public String getSaveFileName() {
+		return saveFileName;
 	}
 
-	public void setHomepage(String homepage) {
-		this.homepage = homepage;
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
 }

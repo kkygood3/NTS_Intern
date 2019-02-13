@@ -275,10 +275,10 @@
 		<li class="list_item">
 			<div>
 				<div class="review_area">
-					{{#if commentImage}}
+					{{#if saveFileName}}
 						<div class="thumb_area">
 							<a href="#" class="thumb" title="이미지 크게 보기"> 
-								<img width="90" height="90" class="img_vertical_top" src="/{{commentImage.saveFileName}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
 							</a> 
 							<span class="img_count" style="display: none;">1</span>
 						</div>
@@ -300,6 +300,9 @@
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript" src="/js/comment.js"></script>
 	<script>
+		var productId = parseInt(window.location.pathname.split("/")[2]);
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+
 		var detail = {
 			// DIV Elements
 			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
@@ -307,23 +310,22 @@
 			lastNumDiv : document.querySelector(".num.off"),
 			productContentDiv : document.querySelector(".section_store_details"),
 			// init
-			init : function(displayInfoId) {
-				this.loadDisplayInfoResponse(this.initDisplayInfo.bind(this), displayInfoId);
-			},
-			loadDisplayInfoResponse : function(callback, displayInfoId) {
-				if (!isNumber(displayInfoId)) {
+			init : function() {
+				if (!isNumber(productId) || !isNumber(displayInfoId)) {
 					alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
 					location.href="/main";
 					return;
 				}
-				var url = "/api/products/" + displayInfoId;
+				this.loadDisplayInfoResponse(this.initDisplayInfo.bind(this));
+			},
+			loadDisplayInfoResponse : function(callback) {
+				var url = "/api/products/" + productId + "/displayInfos/" + displayInfoId;
 				ajax(callback, url);
 			},
 			initDisplayInfo : function(response) {
 				this.setTitleDOM(response);
 				this.setProductContentDOM(response);
 				this.setDetailInformationDOM(response);
-				productId = response.displayInfo.productId;
 				comment.init(productId, 0, 3);
 			},
 			// 타이틀 구역 설정
@@ -332,6 +334,7 @@
 				this.currentNumDiv.innerText = 1;
 				this.lastNumDiv.innerText = "/ " + response.productImages.length;
 				// 상품 이미지 리스트 추가
+				/*
 				var template = document.querySelector("#template-product-image").innerText;
 				var bindTemplate = Handlebars.compile(template);
 				var resultHTML = "";
@@ -343,7 +346,8 @@
 					resultHTML += bindTemplate(data);
 				}
 				this.productImagesDiv.innerHTML = resultHTML;
-				this.initSlide(); 
+				this.initSlide();
+				*/
 			},
 			initSlide : function() {
 				var prevDiv = document.querySelector('.prev');
@@ -437,8 +441,6 @@
 				}
 			}
 		}
-		var productId = parseInt(window.location.pathname.split("/")[2]);
-		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
 
 		function goCommentPage() {
 			location.href="comment?displayInfoId=" + displayInfoId;

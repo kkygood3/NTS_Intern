@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dto;
 
-import java.util.List;
-
 /**
  * 전시상품 Response용 DTO
  * 
@@ -13,14 +11,11 @@ import java.util.List;
  */
 public class DisplayInfoResponseDto {
 	DisplayInfoDto displayInfo;
-	DisplayInfoImageDto displayInfoImage;
-	List<ProductImageDto> productImages;
+	CommentResponseDto comments;
 
-	public DisplayInfoResponseDto(DisplayInfoDto displayInfo, DisplayInfoImageDto displayInfoImage,
-			List<ProductImageDto> productImages) {
+	public DisplayInfoResponseDto(DisplayInfoDto displayInfo, CommentResponseDto comments) {
 		this.displayInfo = displayInfo;
-		this.displayInfoImage = displayInfoImage;
-		this.productImages = productImages;
+		this.comments = comments;
 	}
 
 	public DisplayInfoDto getDisplayInfo() {
@@ -31,20 +26,12 @@ public class DisplayInfoResponseDto {
 		this.displayInfo = displayInfo;
 	}
 
-	public DisplayInfoImageDto getDisplayInfoImage() {
-		return displayInfoImage;
+	public CommentResponseDto getComments() {
+		return comments;
 	}
 
-	public void setDisplayInfoImage(DisplayInfoImageDto displayInfoImage) {
-		this.displayInfoImage = displayInfoImage;
-	}
-
-	public List<ProductImageDto> getProductImages() {
-		return productImages;
-	}
-
-	public void setProductImages(List<ProductImageDto> productImages) {
-		this.productImages = productImages;
+	public void setComments(CommentResponseDto comments) {
+		this.comments = comments;
 	}
 
 }
