@@ -17,6 +17,10 @@ public class CommentImage {
 	private int reservationUserCommentId;
 	private String productImageUrl;
 
+	public CommentImage() {
+		
+	}
+	
 	public String getContentType() {
 		return contentType;
 	}

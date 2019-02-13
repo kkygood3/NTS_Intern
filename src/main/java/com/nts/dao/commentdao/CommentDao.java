@@ -15,6 +15,17 @@ import com.nts.dto.commentdto.CommentImage;
 
 import static com.nts.dao.commentdao.CommentDaoSqls.*;
 
+/**
+*
+* @description : CommentDao
+* @package : com.nts.dao.commentdao
+* @filename : CommentDao.java
+* @author : 최석현
+* @method : List<Comment> selectCommentsByDisplayInfoId(int displayInfoId)
+* @method : List<CommentImage> selectCommentImagesByDisplayInfoId(int displayInfoId)
+* @method : double selectAverageScoreByDisplayInfoId(int displayInfoId)
+* 
+*/
 @Repository
 public class CommentDao {
 
@@ -29,9 +40,9 @@ public class CommentDao {
 		return jdbc.query(SELECT_COMMENTS_BY_DISPLAY_INFO_ID, param, commentRowMapper);
 	}
 	
-	public List<CommentImage> selectCommentImagesByDisplayInfoId(int displayInfoId) {
-		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_COMMENT_IMAGES_BY_DISPLAY_INFO_ID, param, commentImageRowMapper);
+	public CommentImage selectCommentImageByReservationUserCommentId(int reservationUserCommentId) {
+		Map<String, ?> param = Collections.singletonMap("reservationUserCommentId", reservationUserCommentId);
+		return jdbc.queryForObject(SELECT_COMMENT_IMAGES_BY_DISPLAY_INFO_ID, param, commentImageRowMapper);
 	}
 
 	public double selectAverageScoreByDisplayInfoId(int displayInfoId) {

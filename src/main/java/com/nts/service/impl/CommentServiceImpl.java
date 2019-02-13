@@ -3,6 +3,7 @@ package com.nts.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +30,11 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<CommentImage> getCommentImagesByDisplayInfoId(int displayInfoId) {
-		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId) {
+		if (reservationUserCommentId < 0) {
+			throw new ValidationException("reservationUserCommentId : " + reservationUserCommentId);
 		}
-		return commentDao.selectCommentImagesByDisplayInfoId(displayInfoId);
+		return commentDao.selectCommentImageByReservationUserCommentId(reservationUserCommentId);
 	}
 
 	@Override
@@ -42,7 +43,19 @@ public class CommentServiceImpl implements CommentService {
 		if (displayInfoId < 0) {
 			throw new ValidationException("displayInfoId : " + displayInfoId);
 		}
-		return commentDao.selectCommentsByDisplayInfoId(displayInfoId);
-
+		
+		List<Comment> comments = commentDao.selectCommentsByDisplayInfoId(displayInfoId);
+		
+		for(Comment comment : comments) {
+			
+			try { 
+				comment.setCommentImages(getCommentImageByReservationUserCommentId(comment.getId()));
+				
+			} catch(EmptyResultDataAccessException e) {
+				comment.setCommentImages(new CommentImage());
+				
+			}
+		}
+		return comments;
 	}
 }

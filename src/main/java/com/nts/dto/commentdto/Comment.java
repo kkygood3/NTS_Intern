@@ -4,11 +4,12 @@
  */
 package com.nts.dto.commentdto;
 
+import java.util.List;
 
 public class Comment {
 	private String comment;
 	private int id;
-	private String commentImages;
+	private CommentImage commentImages;
 	private String createDate;
 	private String modifyDate;
 	private int productId;
@@ -36,11 +37,11 @@ public class Comment {
 		this.id = id;
 	}
 
-	public String getCommentImages() {
+	public CommentImage getCommentImages() {
 		return commentImages;
 	}
 
-	public void setCommentImages(String commentImages) {
+	public void setCommentImages(CommentImage commentImages) {
 		this.commentImages = commentImages;
 	}
 

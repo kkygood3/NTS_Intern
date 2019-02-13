@@ -1,5 +1,14 @@
 package com.nts.dao.commentdao;
 
+
+/**
+*
+* @description : CommentDaoSqls
+* @package : com.nts.dao.commentdao
+* @filename : CommentDaoSqls.java
+* @author : 최석현
+* 
+*/
 public class CommentDaoSqls {
 	public static final String SELECT_AVERAGE_SCORE_BY_DISPLAY_INFO_ID = "SELECT "
 																			+ "IFNULL( ROUND( AVG(score), 1), '0.0') as average_score "
@@ -11,6 +20,24 @@ public class CommentDaoSqls {
 																			+ "and display_info.product_id = reservation_user_comment.product_id ";
 	
 	public static final String SELECT_COMMENT_IMAGES_BY_DISPLAY_INFO_ID = " SELECT "
+			+ " file_info.content_type "
+			+ ", file_info.create_date "
+			+ ", file_info.delete_flag "
+			+ ", file_info.file_name "
+			+ ", file_info.modify_date "
+			+ ", file_info.save_file_name as product_image_url "
+			+ ", reservation_user_comment_image.file_id "
+			+ ", reservation_user_comment_image.id "
+			+ ", reservation_user_comment_image.reservation_info_id "
+			+ ", reservation_user_comment_image.reservation_user_comment_id "
+		+ "FROM "
+			+ "  reservation_user_comment_image "
+			+ ", file_info "
+		+ "WHERE "
+			+ "    reservation_user_comment_image.reservation_user_comment_id = :reservationUserCommentId "
+			+ "and reservation_user_comment_image.file_id = file_info.id "
+			+ "LIMIT 1";
+			/*" SELECT "
 																			+ "CONCAT( "
 																			+ "  '{'"
 																			+ ",   '\"contentType\":'			  ,CHAR(34), file_info.content_type, CHAR(34)"
@@ -31,12 +58,11 @@ public class CommentDaoSqls {
 																		+ "WHERE "
 																			+ "    reservation_user_comment.id = reservation_user_comment_image.reservation_user_comment_id "
 																			+ "and reservation_user_comment_image.file_id = file_info.id "
-																			+ "LIMIT 1";
+																			+ "LIMIT 1";*/
 	
 	public static final String SELECT_COMMENTS_BY_DISPLAY_INFO_ID = "SELECT "
 																	+ "  reservation_user_comment.comment "
 																	+ ", reservation_user_comment.id "
-																	+ ", ("+SELECT_COMMENT_IMAGES_BY_DISPLAY_INFO_ID+") as comment_images "
 																	+ ", reservation_info.create_date "
 																	+ ", reservation_info.modify_date "
 																	+ ", reservation_info.product_id "

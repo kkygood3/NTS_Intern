@@ -11,5 +11,5 @@ public interface CommentService {
 
 	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId);
 	
-	public List<CommentImage> getCommentImagesByDisplayInfoId(int displayInfoId);
+	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId);
 }
