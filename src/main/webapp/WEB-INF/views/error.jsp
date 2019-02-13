@@ -13,6 +13,8 @@
 		<h1>${errorInfo.status} : ${errorInfo.statusName}</h1>
 		<h3>${errorInfo.message}</h3>
 	</div>
-	<button onclick="location.href='/'">메인페이지로 이동</button>
+	<button class="goto_main">메인페이지로 이동</button>
+	
+	<script type= "text/javascript" src= "/js/error/error.js" ></script>
 </body>
 </html>
