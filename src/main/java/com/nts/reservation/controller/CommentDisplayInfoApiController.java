@@ -33,7 +33,7 @@ public class CommentDisplayInfoApiController {
 		@PathVariable(name = "productId", required = true) long productId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
-		List<CommentDisplayInfo> thumbnailInfoList = commentDisplayInfoService.getCommentDisplayInfos(productId, start, limit);
-		return thumbnailInfoList;
+		List<CommentDisplayInfo> commentDisplayInfos = commentDisplayInfoService.getCommentDisplayInfos(productId, start, limit);
+		return commentDisplayInfos;
 	}
 }
