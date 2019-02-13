@@ -13,8 +13,8 @@
 		function displayInfo() {
 			return {
 				"displayInfoId" : "${displayInfoId}",
-				"productId" : "${reviewPageInfo.productId}",
-				"commentCount" : "${reviewPageInfo.commentCount}"
+				"productId" : "${pageInfo.productId}",
+				"commentCount" : "${pageInfo.commentCount}"
 			};
 		}
 	</script>
@@ -43,7 +43,7 @@
 				<div class="review_header">
 					<div class="top_title gr">
 						<a href="/detail/${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
-						<h2><a class="title" href="#">${reviewPageInfo.description}</a></h2>
+						<h2><a class="title" href="#">${pageInfo.description}</a></h2>
 					</div>
 				</div>
 				<div class="section_review_list">
@@ -51,9 +51,9 @@
 						<h3 class="title_h3">예매자 한줄평</h3>
 						<div class="short_review_area">
 							<div class="grade_area">
-								<span class="graph_mask"><em class="graph_value" style="width:${reviewPageInfo.averageScore * 20}%;"></em></span>
-                                <strong class="text_value"><span>${reviewPageInfo.averageScore}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${reviewPageInfo.commentCount}건</em> 등록</span>
+								<span class="graph_mask"><em class="graph_value" style="width:${pageInfo.averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
                             <!-- content -->

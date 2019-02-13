@@ -33,7 +33,7 @@ public class DetailController {
 		DatailPageInfo datailPageInfo = datailPageInfoService.getDetailPageInfo(displayInfoId);
 
 		model.addAttribute("displayInfoId", displayInfoId);
-		model.addAttribute("datailPageInfo", datailPageInfo);
+		model.addAttribute("pageInfo", datailPageInfo);
 
 		return "detail";
 	}

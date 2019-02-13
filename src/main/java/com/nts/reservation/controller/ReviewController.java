@@ -28,7 +28,7 @@ public class ReviewController {
 	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		ReviewPageInfo reviewPageInfo = reviewPageInfoService.getReviewPageInfo(displayInfoId);
-		model.addAttribute("reviewPageInfo", reviewPageInfo);
+		model.addAttribute("pageInfo", reviewPageInfo);
 		model.addAttribute("displayInfoId", displayInfoId);
 
 		return "review";

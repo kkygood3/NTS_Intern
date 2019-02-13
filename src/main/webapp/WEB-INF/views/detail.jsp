@@ -15,9 +15,9 @@
 	<script type="text/javascript">
 		function displayInfo() {
 			return {
-				"productId" : "${datailPageInfo.productId}",
+				"productId" : "${pageInfo.productId}",
 				"displayInfoId" : "${displayInfoId}",
-				"commentCount" : "${datailPageInfo.commentCount}"
+				"commentCount" : "${pageInfo.commentCount}"
 			};
 		}
 	</script>
@@ -54,7 +54,7 @@
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                         <div class="img_bg">
-								<h2 class="visual_txt_tit"><span>${datailPageInfo.description}</span></h2>
+								<h2 class="visual_txt_tit"><span>${pageInfo.description}</span></h2>
                         </div>
 						
                     </header>
@@ -64,7 +64,7 @@
                 <div class="section_store_details">
                     <!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
                     <div class="store_details close3">
-                        <p class="dsc">${datailPageInfo.content}</p>
+                        <p class="dsc">${pageInfo.content}</p>
                     </div>
                     <!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
                     <a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span> <i class="fn fn-down2"></i> </a>
@@ -87,9 +87,9 @@
                         <div class="short_review_area">
                             <div class="grade_area">
                                 <!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
-                                <span class="graph_mask"><em class="graph_value" style="width:${datailPageInfo.averageScore * 20}%;"></em></span>
-                                <strong class="text_value"><span>${datailPageInfo.averageScore}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${datailPageInfo.commentCount}건</em> 등록</span>
+                                <span class="graph_mask"><em class="graph_value" style="width:${pageInfo.averageScore * 20}%;"></em></span>
+                                <strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+                                <span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
                             </div>
                             <ul class="list_short_review">
                             <!-- content -->
@@ -117,7 +117,7 @@
                                 <ul class="detail_info_group">
                                     <li class="detail_info_lst">
                                         <strong class="in_tit">[소개]</strong>
-                                        <p class="in_dsc">${datailPageInfo.content}</p>
+                                        <p class="in_dsc">${pageInfo.content}</p>
                                     </li>
                                     <li class="detail_info_lst"> <strong class="in_tit">[공지사항]</strong>
                                         <ul class="in_img_group">
@@ -132,24 +132,24 @@
                     <div class="detail_location hide">
                         <div class="box_store_info no_topline">
                             <a href="#" class="store_location" title="지도웹으로 연결">
-                                <img class="store_map img_thumb" alt="map" src="/${datailPageInfo.mapFile}">
+                                <img class="store_map img_thumb" alt="map" src="/${pageInfo.mapFile}">
                                 <span class="img_border"></span>
                                 <span class="btn_map"><i class="spr_book2 ico_mapview"></i></span>
                             </a>
-                            <h3 class="store_name">${datailPageInfo.description}</h3>
+                            <h3 class="store_name">${pageInfo.description}</h3>
                             <div class="store_info">
                                 <div class="store_addr_wrap">
                                     <span class="fn fn-pin2"></span>
-                                    <p class="store_addr store_addr_bold">${datailPageInfo.placeStreet}</p>
+                                    <p class="store_addr store_addr_bold">${pageInfo.placeStreet}</p>
                                     <p class="store_addr">
                                         <span class="addr_old">지번</span>
-                                        <span class="addr_old_detail">${datailPageInfo.placeLot}</span>
+                                        <span class="addr_old_detail">${pageInfo.placeLot}</span>
                                     </p>
-                                    <p class="store_addr addr_detail">${datailPageInfo.placeName}</p>
+                                    <p class="store_addr addr_detail">${pageInfo.placeName}</p>
                                 </div>
                                 <div class="lst_store_info_wrap">
                                     <ul class="lst_store_info">
-                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${datailPageInfo.tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${datailPageInfo.tel}</a></span> </li>
+                                        <li class="item"> <span class="item_lt"> <i class="fn fn-call2"></i> <span class="sr_only">${pageInfo.tel}</span> </span> <span class="item_rt"> <a href="tel:02-548-0597" class="store_tel">${pageInfo.tel}</a></span> </li>
                                     </ul>
                                 </div>
                             </div>
