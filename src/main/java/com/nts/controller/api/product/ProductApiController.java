@@ -56,7 +56,7 @@ public class ProductApiController {
 	public ProductResponse products(@RequestParam(name = "categoryId") int categoryId,
 			@RequestParam(name = "start", required = false, defaultValue = "0") int start) throws InvalidParameterException {
 
-		if (categoryId <= 0) {
+		if (categoryId < 0) {
 			throw new InvalidParameterException("categoryId : " + categoryId);
 		}
 		if (start < 0) {

@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getItems(int categoryId, int start) throws InvalidParameterException {
 
-		if (categoryId <= 0) {
+		if (categoryId < 0) {
 
 			throw new InvalidParameterException("categoryId : " + categoryId);
 
