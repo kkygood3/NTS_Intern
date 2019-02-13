@@ -1,7 +1,5 @@
 package com.nts.reservation.controller;
 
-import static com.nts.reservation.property.Const.SELECT_ALL;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ public class FileInfoApiController {
 	@GetMapping("/{type}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<String> getProductCountAndThumbnailInfos(@PathVariable(name = "productId", required = true) int productId,
-		@PathVariable(name = "type", required = false) String type) {
+		@PathVariable(name = "type", required = true) String type) {
 		return fileInfoService.getSaveFileName(productId, type);
 	}
 }
