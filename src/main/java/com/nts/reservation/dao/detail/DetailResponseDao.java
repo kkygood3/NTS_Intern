@@ -23,10 +23,10 @@ public class DetailResponseDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int limit) {
+	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		params.put("limit", limit);
+		params.put("pagingLimit", pagingLimit);
 		List<DetailResponse> detailList = jdbc.query(DetailResponseQueries.SELECT_DETAIL, params, rowMapper);
 
 		return detailList;

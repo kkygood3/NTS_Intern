@@ -8,20 +8,12 @@ package com.nts.reservation.dto.main;
  * 메인 페이지 출력을 위한 /api/products 요청을 위한 DTO 
  */
 public class MainProduct {
-	private long displayInfoId;
+	private Integer displayInfoId;
 	private String placeName;
 	private String productContent;
 	private String productDescription;
-	private long productId;
+	private Integer productId;
 	private String productImageUrl;
-
-	public long getDisplayInfoId() {
-		return displayInfoId;
-	}
-
-	public void setDisplayInfoId(long displayInfoId) {
-		this.displayInfoId = displayInfoId;
-	}
 
 	public String getPlaceName() {
 		return placeName;
@@ -47,11 +39,19 @@ public class MainProduct {
 		this.productDescription = productDescription;
 	}
 
-	public long getProductId() {
+	public Integer getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(Integer displayInfoId) {
+		this.displayInfoId = displayInfoId;
+	}
+
+	public Integer getProductId() {
 		return productId;
 	}
 
-	public void setProductId(long productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 

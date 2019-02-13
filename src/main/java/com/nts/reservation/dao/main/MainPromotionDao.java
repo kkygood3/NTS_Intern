@@ -31,9 +31,9 @@ public class MainPromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainPromotion> selectPromotions(long limit) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("limit", limit);
+	public List<MainPromotion> selectPromotions(int pagingLimit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("pagingLimit", pagingLimit);
 		return jdbc.query(MainPromotionQueries.SELECT_PROMOTION, params, rowMapper);
 	}
 

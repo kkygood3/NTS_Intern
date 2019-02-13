@@ -23,10 +23,10 @@ public class ReviewResponseDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<ReviewResponse> selectDetailPageById(int displayInfoId, int limit) {
+	public List<ReviewResponse> selectDetailPageById(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		params.put("limit", limit);
+		params.put("pagingLimit", pagingLimit);
 		List<ReviewResponse> reviewList = jdbc.query(ReviewResponseQueries.SELECT_REVIEW, params, rowMapper);
 
 		return reviewList;

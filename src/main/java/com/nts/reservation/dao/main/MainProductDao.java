@@ -31,23 +31,23 @@ public class MainProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainProduct> selectPagingProducts(long start, long limit) {
-		Map<String, Long> params = new HashMap<>();
+	public List<MainProduct> selectPagingProducts(int start, int pagingLimit) {
+		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
-		params.put("limit", limit);
+		params.put("pagingLimit", pagingLimit);
 		return jdbc.query(MainProductQueries.SELECT_PRODUCT_PAGE, params, rowMapper);
 	}
 
-	public List<MainProduct> selectPagingProductsByCategory(long categoryId, long start, long limit) {
-		Map<String, Long> params = new HashMap<>();
+	public List<MainProduct> selectPagingProductsByCategory(int categoryId, int start, int pagingLimit) {
+		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
-		params.put("limit", limit);
+		params.put("pagingLimit", pagingLimit);
 		return jdbc.query(MainProductQueries.SELECT_PRODUCT_PAGE_BY_CATEGORY, params, rowMapper);
 	}
 
-	public int selectCountByCategory(long categoryId) {
-		Map<String, Long> params = new HashMap<>();
+	public int selectCountByCategory(int categoryId) {
+		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 		if (count == null) {

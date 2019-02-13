@@ -30,9 +30,9 @@ public class MainCategoryDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<MainCategory> selectCategories(long limit) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("limit", limit);
+	public List<MainCategory> selectCategories(int pagingLimit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("pagingLimit", pagingLimit);
 		return jdbc.query(MainCategoryQueries.SELECT_CATEGORIES, params, rowMapper);
 	}
 }

@@ -17,5 +17,5 @@ public class ReviewResponseQueries {
 		
 		" WHERE display_info.id = :displayInfoId " + 
 		" ORDER BY reservation_user_comment.id DESC " + 
-		" LIMIT :limit";
+		" LIMIT :pagingLimit";
 }
