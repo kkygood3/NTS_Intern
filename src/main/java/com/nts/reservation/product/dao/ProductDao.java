@@ -15,4 +15,8 @@ public interface ProductDao {
 	List<Product> selectProducts(int start, int limit);
 
 	List<Product> selectProductsByCategory(int categoryId, int start, int limit);
+
+	int selectProductsCount();
+
+	int selectProductsCountByCategory(int categoryId);
 }
