@@ -108,4 +108,20 @@ public class DisplayInfoDaoSqls {
 		+ " price.id AS product_price_id"
 		+ " FROM product_price AS price"
 		+ " WHERE price.product_id = :id";
+
+	public static final String SELECT_MAIN_PRODUCT_IMAGE_BY_ID = "SELECT file_info.content_type,"
+		+ " file_info.create_date,"
+		+ " file_info.delete_flag,"
+		+ " file_info.id AS file_info_id,"
+		+ " file_info.file_name,"
+		+ " file_info.modify_date,"
+		+ " image.product_id,"
+		+ " image.id AS product_image_id,"
+		+ " file_info.save_file_name,"
+		+ " image.type FROM file_info,"
+		+ " product_image AS image"
+		+ " WHERE image.file_id = file_info.id"
+		+ " AND image.type != \"th\""
+		+ " AND image.product_id = :id"
+		+ " Limit 1";
 }

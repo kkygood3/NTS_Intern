@@ -12,6 +12,7 @@ import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.ProductPriceForClientDto;
 
 /**
  * @author 육성렬
@@ -27,5 +28,9 @@ public interface DisplayInfoService {
 
 	public List<ProductPriceDto> getProductPriceList(Long productId);
 
+	public List<ProductPriceForClientDto> getProductPriceForClietList(Long productId);
+
 	public float getCommentAvgScore(Long displayInfoId);
+
+	public ProductImageDto getProductMainImage(Long productId);
 }
