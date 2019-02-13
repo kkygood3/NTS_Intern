@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.finalvariables.DefaultPagingLimit;
+import com.nts.reservation.finalvariables.ProductFinalVariables;
 import com.nts.reservation.service.main.MainProductService;
 
 @RestController
@@ -28,9 +29,9 @@ public class ProductApiController {
 	 */
 	@GetMapping("/api/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "categoryId", required = false, defaultValue = DefaultPagingLimit.PRODUCT_DEFAULT_PAGING_LIMIT) Integer categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = DefaultPagingLimit.PRODUCT_DEFAULT_CATEGORY_ID) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PRODUCT_DEFAULT_START) Integer pagingLimit) {
+		@RequestParam(name = "categoryId", required = false, defaultValue = ProductFinalVariables.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
+		@RequestParam(name = "start", required = false, defaultValue = ProductFinalVariables.PRODUCT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainProduct> productList = new ArrayList<>();
 		int totalCount = mainProductService.getCount(categoryId);
