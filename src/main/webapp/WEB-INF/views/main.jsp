@@ -165,7 +165,8 @@
 			}, "");
 
 			// 무한 슬라이딩을 위해 프로모션 첫 이미지를 끝에 추가로 삽입
-			resultHTML += parseTemplateToHTML(template, promotions[0]);
+			var lastIndex = promotions.length-1;
+			resultHTML = parseTemplateToHTML(template, promotions[lastIndex]) + resultHTML;
 			slideImages.innerHTML = resultHTML;
 			doAutoSlideShowPromotions();
 		}
