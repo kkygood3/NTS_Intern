@@ -12,7 +12,7 @@ import com.nts.reservation.comment.dto.Comment;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CommentService {
-	List<Comment> selectCommentByProductId(int productId);
+	List<Comment> getCommentByProductId(int productId);
 
-	double selectAverageScoreByProductId(int productId);
+	double getAverageScoreByProductId(int productId);
 }

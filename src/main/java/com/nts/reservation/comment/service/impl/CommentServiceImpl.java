@@ -22,12 +22,12 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDaoImpl commentDaoImpl;
 
 	@Override
-	public List<Comment> selectCommentByProductId(int productId) {
+	public List<Comment> getCommentByProductId(int productId) {
 		return commentDaoImpl.selectCommentByProductId(productId);
 	}
 
 	@Override
-	public double selectAverageScoreByProductId(int productId) {
+	public double getAverageScoreByProductId(int productId) {
 		return commentDaoImpl.selectAverageScoreByProductId(productId);
 	}
 }
