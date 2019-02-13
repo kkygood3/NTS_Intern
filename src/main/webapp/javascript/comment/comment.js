@@ -37,6 +37,9 @@ function calcLoadedComments() {
 
 function setMoreButtonVisibility(visibility) {
 	var moreButton = document.querySelector(".more > .btn");
+	if (!moreButton) {
+		return;
+	}
 	moreButton.style.visibility = visibility;
 }
 
