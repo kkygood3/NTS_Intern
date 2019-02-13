@@ -300,21 +300,48 @@
 			</div>
 		</li>
 	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script>
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+		const PRODUCT_IMAGE_LIMIT = 2;
 
 		var detail = {
 			// DIV Elements
 			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
-			currentNumDiv : document.querySelector(".num"),
-			lastNumDiv : document.querySelector(".num.off"),
 			// init
 			init : function() {
-				this.initSlide();
+				this.loadProductImagesResponse(this.initTitleImages.bind(this), PRODUCT_IMAGE_LIMIT);
 				this.registMoreCotentEvent();
 				this.registDetailInfoTabUI();
+			},
+			// ajax request ProductImages
+			loadProductImagesResponse : function(callback, limit) {
+				if (!isNumber(productId)) {
+					alert("잘못된 productId임니다 프로덕트 이미지를 불러올수 없습니다.");
+					return;
+				}
+				var url = "/api/products/" + productId + "/images?limit=" + limit;
+				ajax(callback, url);
+			},
+			// 타이틀 이미지 구역 설정
+			initTitleImages : function(response) {
+				document.querySelector(".num").innerText = 1;
+				document.querySelector(".num.off").innerText = "/ " + response.productImages.length;
+
+				var template = document.querySelector("#template-product-image").innerText;
+				var bindTemplate = Handlebars.compile(template);
+				var resultHTML = "";
+				for (var i in response.productImages) {
+					var data = {
+						saveFileName : response.productImages[i].saveFileName,
+						productDescription : response.productDescription
+					}
+					resultHTML += bindTemplate(data);
+				}
+				this.productImagesDiv.innerHTML = resultHTML;
+				this.initSlide();
 			},
 			// 타이틀 구역 설정
 			initSlide : function() {
@@ -326,7 +353,7 @@
 					return;
 				}
 
-				productImagesDiv.innerHTML += productImagesDiv.innerHTML; 
+				this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML; 
 				var left = 0;
 				var translateX = -200;
 
@@ -352,10 +379,11 @@
 				if (translateX % 200 == 0) {
 					this.productImagesDiv.style.transform = "translateX(" + translateX + "%)";
 				}
-				if (this.currentNumDiv.innerText === "1") {
-					this.currentNumDiv.innerText = 2;
+				var productImagesIndexDiv = document.querySelector(".num");
+				if (productImagesIndexDiv.innerText === "1") {
+					productImagesIndexDiv.innerText = 2;
 				} else {
-					this.currentNumDiv.innerText = 1;	
+					productImagesIndexDiv.innerText = 1;	
 				}
 			},
 			// 상품 설명 더보기 이벤트 등록

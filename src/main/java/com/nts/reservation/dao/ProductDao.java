@@ -77,4 +77,20 @@ public class ProductDao extends BasicDao<ProductDto> {
 			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
 	}
 
+	/**
+	 * 프로덕트 ID에 해당하는 이미지 개수를 count
+	 */
+	public int selectProductImageCount(int productId) {
+		return jdbcTemplate.queryForObject(SELECT_PRODUCT_IMAGE_COUNT, Collections.singletonMap("productId", productId),
+			Integer.class);
+	}
+
+	/**
+	 * 프로덕트 ID에 해당하는 프로덕트를 select
+	 */
+	public ProductDto selectProduct(int productId) {
+		return jdbcTemplate.queryForObject(SELECT_PRODUCT, Collections.singletonMap("productId", productId),
+			rowMapper);
+	}
+
 }

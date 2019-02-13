@@ -88,4 +88,20 @@ public class ProductDaoSqls {
 		+ "        AND pi.product_id = :productId "
 		+ "ORDER BY pi.id "
 		+ "LIMIT :limit";
+	public static final String SELECT_PRODUCT_IMAGE_COUNT = ""
+		+ "SELECT "
+		+ "    COUNT(id) "
+		+ "FROM "
+		+ "    product_image "
+		+ "WHERE "
+		+ "    product_id = :productId AND type != 'th'";
+	public static final String SELECT_PRODUCT = ""
+		+ "SELECT "
+		+ "    id AS productId, "
+		+ "    content AS productContent, "
+		+ "    description AS productDescription "
+		+ "FROM "
+		+ "    product "
+		+ "WHERE "
+		+ "    id = :productId ";
 }

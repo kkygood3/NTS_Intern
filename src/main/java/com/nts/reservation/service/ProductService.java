@@ -6,6 +6,7 @@ package com.nts.reservation.service;
 
 import com.nts.reservation.dto.CommentResponseDto;
 import com.nts.reservation.dto.DetailResponseDto;
+import com.nts.reservation.dto.ProductImageResponseDto;
 import com.nts.reservation.dto.ProductResponseDto;
 
 /**
@@ -14,6 +15,8 @@ import com.nts.reservation.dto.ProductResponseDto;
  */
 public interface ProductService {
 	ProductResponseDto getProductResponse(int categoryId, int start, int limit);
+
+	ProductImageResponseDto getProductImageResponse(int productId, int limit);
 
 	DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit);
 

@@ -21,6 +21,8 @@ import com.nts.reservation.dto.CommentResponseDto;
 import com.nts.reservation.dto.DetailResponseDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductImageResponseDto;
 import com.nts.reservation.dto.ProductResponseDto;
 
 /**
@@ -60,6 +62,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public ProductImageResponseDto getProductImageResponse(int productId, int limit) {
+		int count = productDao.selectProductImageCount(productId);
+		if (count == 0) {
+			return new ProductImageResponseDto(Collections.<ProductImageDto>emptyList(), count, "");
+		}
+		List<ProductImageDto> productImages = productDao.selectProductImages(productId, limit);
+		String productDescription = productDao.selectProduct(productId).getProductDescription();
+		return new ProductImageResponseDto(productImages, count, productDescription);
+	}
+
+	@Override
 	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
@@ -76,4 +89,5 @@ public class ProductServiceImpl implements ProductService {
 		double averageScore = commentDao.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
 	}
+
 }

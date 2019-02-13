@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentResponseDto;
-import com.nts.reservation.dto.DetailResponseDto;
+import com.nts.reservation.dto.ProductImageResponseDto;
 import com.nts.reservation.dto.ProductResponseDto;
 import com.nts.reservation.service.ProductService;
 
@@ -39,10 +39,10 @@ public class ProductApiController {
 		return productService.getProductResponse(categoryId, start, limit);
 	}
 
-	@GetMapping("/{productId}/displayInfos/{displayInfoId}")
-	public DetailResponseDto getDetailResponse(@PathVariable int productId,
-		@PathVariable int displayInfoId, @RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit) {
-		return productService.getDetailResponse(productId, displayInfoId, commentLimit);
+	@GetMapping("/{productId}/images")
+	public ProductImageResponseDto getProductImageResponse(@PathVariable int productId,
+		@RequestParam(required = false, defaultValue = PRODUCT_IMAGE_LIMIT) int limit) {
+		return productService.getProductImageResponse(productId, limit);
 	}
 
 	@GetMapping("/{productId}/comments")
