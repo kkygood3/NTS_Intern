@@ -30,8 +30,7 @@ public class PromotionApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Promotion> getPromotions() {
-		List<Promotion> savaFileNameList = promotionService.getPromotions();
-
-		return savaFileNameList;
+		List<Promotion> promotionImages = promotionService.getPromotionImages();
+		return promotionImages;
 	}
 }
