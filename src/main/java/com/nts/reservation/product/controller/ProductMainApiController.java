@@ -18,7 +18,7 @@ import com.nts.reservation.product.service.ProductService;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
-public class ProductApiController {
+public class ProductMainApiController {
 	@Autowired
 	private ProductService productService;
 
@@ -41,7 +41,7 @@ public class ProductApiController {
 
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(totalCount);
-		productResponse.setItems(productService.getProducts(categoryId, start, limit));
+		productResponse.setItems(productService.getProductsByCategoryId(categoryId, start, limit));
 
 		return productResponse;
 	}
