@@ -390,6 +390,12 @@
 			// 상품 설명 더보기 이벤트 등록
 			registMoreCotentEvent : function(response) {
 				var productContentDiv = document.querySelector(".section_store_details");
+				var textArea = productContentDiv.querySelector(".dsc");
+				// 텍스트 영역이 충분한경우 버튼을 숨기고 이벤트를 등록하지않음
+				if (textArea.scrollHeight <= textArea.clientHeight) {
+					productContentDiv.querySelector(".bk_more._open").style.display = "none"
+					return;
+				}
 				productContentDiv.addEventListener("click", function(evt) {
 					var className = evt.target.className;
 					if (evt.target.parentElement.tagName === "A") {
