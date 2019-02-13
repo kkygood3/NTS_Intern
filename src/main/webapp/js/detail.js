@@ -41,26 +41,31 @@ function initDetailBtn(){
 	var unfoldBtn = document.querySelector('a._open');	
 	var foldBtn = document.querySelector('a._close');
 	var foldingText = document.querySelector('div.store_details');
-	
-	document.querySelector('div.section_store_details').addEventListener('click',function(evt){
-		var clickedTag  = evt.target;
-		
-		if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
-			clickedTag = clickedTag.parentElement;
-		} 
-		
-		if(clickedTag.className === 'bk_more _open'){
-			foldingText.classList.remove('close3');
+	var textArea = document.querySelector('p.dsc');
+
+	if(textArea.scrollHeight > textArea.clientHeight){
+		document.querySelector('div.section_store_details').addEventListener('click',function(evt){
+			var clickedTag  = evt.target;
 			
-			unfoldBtn.style.display = 'none';
-			foldBtn.style.display = '';
-		}else if(clickedTag.className === 'bk_more _close'){
-			foldingText.classList.add('close3');
+			if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
+				clickedTag = clickedTag.parentElement;
+			} 
 			
-			unfoldBtn.style.display = '';
-			foldBtn.style.display = 'none';
-		}
-	});
+			if(clickedTag.className === 'bk_more _open'){
+				foldingText.classList.remove('close3');
+				
+				unfoldBtn.style.display = 'none';
+				foldBtn.style.display = '';
+			}else if(clickedTag.className === 'bk_more _close'){
+				foldingText.classList.add('close3');
+				
+				unfoldBtn.style.display = '';
+				foldBtn.style.display = 'none';
+			}
+		});
+	} else {
+		unfoldBtn.style.display = 'none';
+	}
 }
 
 function initSwipeImage(displayInfoResponse){
@@ -242,8 +247,6 @@ function loadDisplayInfoCallback(responseData) {
 	displayInfoResponse = responseData.detailDisplay;
 	displayInfomation = displayInfoResponse[0];
 	
-	// 펼쳐보기, 접기 버튼
-	initDetailBtn();
 	
 	// SwipeImage 설정
 	initSwipeImage(displayInfoResponse);
@@ -253,6 +256,9 @@ function loadDisplayInfoCallback(responseData) {
 	
 	// 맨 아래의 상세정보, 오시는길 탭 설정
 	initInfoTab(displayInfoResponse);
+	
+	// 펼쳐보기, 접기 버튼
+	initDetailBtn();
 	
 	requestAjax(loadExtraImageCallback,'api/products/'+displayInfomation.displayInfoId+'/extra');
 }
