@@ -17,55 +17,6 @@ window.addEventListener("DOMContentLoaded", function() {
 	reservePage.init();
 });
 
-const TICKET_TYPES = {
-	A : {
-		name : "성인",
-		requirement : "(만 19~64세)"
-	},
-	Y : {
-		name : "청소년",
-		requirement : "(만 13~18세)"
-	},
-	B : {
-		name : "유아",
-		requirement : "(만 4~12세)"
-	},
-	S : {
-		name : "셋트",
-		requirement : "(만 19~64세)"
-	},
-	D : {
-		name : "장애인",
-	},
-	C : {
-		name : "지역주민",
-	},
-	E : {
-		name : "얼리버드",
-	},
-};
-
-const HALL_TYPES = {
-	V : {
-		name : "VIP",
-	},
-	R : {
-		name : "R석",
-	},
-	S : {
-		name : "S석",
-	},
-	A :{
-		name : "A석",
-	}, 
-	B :{
-		name : "B석",
-	}, 
-	D :{
-		name :  "평일",
-	},
-};
-
 var reservePage = {
 	domElements : {
 		countControlContainer : document.querySelector(".ticket_body"),
@@ -117,6 +68,7 @@ var reservePage = {
 	fetchDetailData : function(){
 	    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
 	    	state.detail_data = JSON.parse(respText);
+	    	console.log(state.detail_data);
 	    	renderData();
 	    });
 	},

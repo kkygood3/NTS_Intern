@@ -1,5 +1,7 @@
 package com.nts.reservation.dto.detail;
 
+import java.time.LocalDateTime;
+
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
@@ -23,9 +25,9 @@ public class Comment {
 	private String reservationTelephone;
 	private String reservationName;
 	private String reservationEmail;
-	private String reservationDate;
-	private String createDate;
-	private String modifyDate;
+	private LocalDateTime reservationDate;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
 	private List<CommentImage> commentImages = new ArrayList<CommentImage>();
 
 	public Long getCommentId() {
@@ -76,27 +78,27 @@ public class Comment {
 		this.reservationEmail = reservationEmail;
 	}
 
-	public String getReservationDate() {
+	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(String reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
-	public String getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getModifyDate() {
+	public LocalDateTime getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(LocalDateTime modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

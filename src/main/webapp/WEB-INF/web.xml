@@ -35,6 +35,11 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>5242880</max-file-size>
+			<max-request-size>27262979</max-request-size>
+			<file-size-threshold>1048576</file-size-threshold>
+		</multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>mvc</servlet-name>

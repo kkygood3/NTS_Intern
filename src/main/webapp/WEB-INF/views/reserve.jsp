@@ -83,7 +83,8 @@
 							<div class="agreement_nessasary help_txt">
 								<span class="spr_book ico_nessasary"></span> <span>필수입력</span>
 							</div>
-							<form class="form_horizontal">
+							<form class="form_horizontal" action="/reservation/api/reservations" method="post" enctype="multipart/form-data">
+							
 								<div class="inline_form">
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>

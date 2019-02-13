@@ -122,7 +122,7 @@ var detailPage = {
 	fetchDetailData : function(){
 	    xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID,(respText) => {
 	    	state.detail_data = JSON.parse(respText);
-
+	    	console.log(state.detail_data)
 	    	renderDescription();
 	        
 	        renderBottomData();

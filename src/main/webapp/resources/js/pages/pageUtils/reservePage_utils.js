@@ -8,37 +8,6 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-
-function priceToStrInterpreter() {
-	// checkType
-	state.detail_data.productPrices.forEach((item) => {
-		if(item.priceTypeName === "V" || item.priceTypeName === "R"){
-			state.pricingType = HALL_TYPES;
-		}
-	});    	
-	/*
-	 * accumulate strings and render information, init control data by pushing
-	 * JSON object to prices array
-	 */
-	let priceString = "";
-	state.detail_data.productPrices.forEach((item) => {
-		state.prices[item.productPriceId] = {price : item.price, qty :0};
-		let currentType = state.pricingType[item.priceTypeName];
-		let currentString = "";
-		for (var key in currentType) {
-		    if (currentType.hasOwnProperty(key)) {
-		        currentString += currentType[key];
-		        if(key === "name") {
-		        	item.name = currentType[key];
-		        }
-		    }
-		}
-		currentString += " " + item.price + "원 할인율 " + item.discountRate + "%<br>";
-		priceString += currentString;
-	});
-	return priceString;
-}
-
 function SubmitButton(item) {
 	item.addEventListener("click",(e) => {
 		e.preventDefault();
@@ -57,8 +26,22 @@ function SubmitButton(item) {
 			inputValidationErrorMsg(email);
 			return;
 		} 
-		
-		domElements.reservationForm.submit();
+		var formData = new FormData(domElements.reservationForm);
+		let priceDataArr =[];
+		for (var key in state.prices) {
+			if (state.prices.hasOwnProperty(key)) {
+				console.log(key + ": " + state.prices[key]);
+				priceDataArr.push(state.prices[key]);
+			}
+		}
+		console.log(priceDataArr);
+		formData.append("prices", JSON.stringify(priceDataArr));
+		console.log(formData.get("name"));
+		console.log(formData.get("prices"));
+		 xhrPostMultipartRequest("/reservation/api/reservations", () =>
+		 console.log("transfered")
+		 // window.location.href ="/reservation"
+			 , formData);
 	});
 }
 
@@ -113,10 +96,10 @@ CountController.prototype.increment = function(){
 	let wrapper = this.addButton.closest(".qty");
 	let id = this.addButton.closest(".qty").dataset.id;
 	let product = state.prices[id]; 
-	product.qty++;
+	product.count++;
 
 	let qtyArea = wrapper.querySelector(".count_control_input");
-	qtyArea.value = product.qty;
+	qtyArea.value = product.count;
 	if(qtyArea.classList.contains("disabled")){
 		qtyArea.classList.remove("disabled");
 	}
@@ -125,7 +108,7 @@ CountController.prototype.increment = function(){
 	}
 	
 	let totalPriceArea = wrapper.querySelector(".total_price");
-	totalPriceArea.innerHTML = product.price * product.qty;
+	totalPriceArea.innerHTML = product.price * product.count;
 	totalPriceArea.parentElement.style.color = "black";
 }
 
@@ -134,14 +117,14 @@ CountController.prototype.decrement= function() {
 	let id = this.addButton.closest(".qty").dataset.id;
 	let product = state.prices[id]; 
 	
-	if(product.qty == 0){
+	if(product.count == 0){
 		return;
 	}
-	product.qty--;
+	product.count--;
 	
 	let qtyArea = wrapper.querySelector(".count_control_input");
-	qtyArea.value = product.qty;
-	if(product.qty == 0){
+	qtyArea.value = product.count;
+	if(product.count == 0){
 		if(!qtyArea.classList.contains("disabled")){
 			qtyArea.classList.add("disabled");
 		}
@@ -151,8 +134,8 @@ CountController.prototype.decrement= function() {
 	}
 
 	let totalPriceArea = wrapper.querySelector(".total_price");
-	totalPriceArea.innerHTML = product.price * product.qty;
-	if(product.qty == 0){
+	totalPriceArea.innerHTML = product.price * product.count;
+	if(product.count == 0){
 		totalPriceArea.parentElement.style.color = "";
 	}
 }
@@ -160,7 +143,7 @@ CountController.prototype.updateTotalCountBottom = function() {
 	let totalCount = 0;
 	for (var key in state.prices){
 	    var value = state.prices[key];
-	    totalCount += value.qty;
+	    totalCount += value.count;
 	}
 	this.totalCountBottom.innerHTML = totalCount;
 }

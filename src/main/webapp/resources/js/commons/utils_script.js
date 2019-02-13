@@ -8,6 +8,86 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
+
+const TICKET_TYPES = {
+	A : {
+		name : "성인",
+		requirement : "(만 19~64세)"
+	},
+	Y : {
+		name : "청소년",
+		requirement : "(만 13~18세)"
+	},
+	B : {
+		name : "유아",
+		requirement : "(만 4~12세)"
+	},
+	S : {
+		name : "셋트",
+		requirement : "(만 19~64세)"
+	},
+	D : {
+		name : "장애인",
+	},
+	C : {
+		name : "지역주민",
+	},
+	E : {
+		name : "얼리버드",
+	},
+};
+
+const HALL_TYPES = {
+	V : {
+		name : "VIP",
+	},
+	R : {
+		name : "R석",
+	},
+	S : {
+		name : "S석",
+	},
+	A :{
+		name : "A석",
+	}, 
+	B :{
+		name : "B석",
+	}, 
+	D :{
+		name :  "평일",
+	},
+};
+
+function priceToStrInterpreter() {
+	// checkType
+	state.detail_data.productPrices.forEach((item) => {
+		if(item.priceTypeName === "V" || item.priceTypeName === "R"){
+			state.pricingType = HALL_TYPES;
+		}
+	});    	
+	/*
+	 * accumulate strings and render information, init control data by pushing
+	 * JSON object to prices array
+	 */
+	let priceString = "";
+	state.detail_data.productPrices.forEach((item) => {
+		state.prices[item.productPriceId] = {price : item.price, count :0, productPriceId : item.productPriceId};
+		let currentType = state.pricingType[item.priceTypeName];
+		let currentString = "";
+		for (var key in currentType) {
+		    if (currentType.hasOwnProperty(key)) {
+		        currentString += currentType[key];
+		        if(key === "name") {
+		        	item.name = currentType[key];
+		        }
+		    }
+		}
+		currentString += " " + item.price + "원 할인율 " + item.discountRate + "%<br>";
+		priceString += currentString;
+	});
+	return priceString;
+}
+
 function SlidingAnimation(_slideContainer){
 	this.slideContainer = _slideContainer;
 	this.slideWrapper = this.slideContainer.closest("div");
@@ -186,10 +266,9 @@ function xhrGetRequest(url, callback) {
  * @xhrPostRequest() : pre-defined XmlHttpRequest Get method since get method
  *                   will be used frequently
  */
-function xhrPostRequest(url, callback) {
+function xhrPostMultipartRequest(url, callback, data) {
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
@@ -199,7 +278,7 @@ function xhrPostRequest(url, callback) {
 			}
 		}
 	};
-	xhr.send();
+	xhr.send(data);
 }
 
 /**
@@ -221,7 +300,7 @@ function arrayToElementRenderer(data, target, item) {
 		return state.detail_data.displayInfo.productDescription;
 	});
 	Handlebars.registerHelper("date", (item) => {
-		return item.split(" ")[0];
+		return item.year+"년 "+item.monthValue+"월 "+item.dayOfMonth+"일 ";
 	});
 	Handlebars.registerHelper("scoreToDouble", (item) => {
 		return item.toFixed(1);
@@ -246,4 +325,3 @@ function scrollToTopAttacher(target){
 		document.documentElement.scrollTop = document.body.scrollTop = 0;
 	});
 }
-
