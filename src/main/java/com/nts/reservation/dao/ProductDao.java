@@ -33,22 +33,22 @@ public class ProductDao extends BasicDao<ProductDto> {
 	/**
 	 * 모든 카테고리의 상품들을 가져온다 
 	 */
-	public List<ProductDto> selectAllPaging(int start, int limit) {
+	public List<ProductDto> selectProducts(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_ALL_PAGING, params, rowMapper);
+		return jdbcTemplate.query(SELECT_PRODUCTS, params, rowMapper);
 	}
 
 	/**
 	 * 특정 카테고리의 상품들을 가져온다.
 	 */
-	public List<ProductDto> selectByCategoryIdPaging(int categoryId, int start, int limit) {
+	public List<ProductDto> selectProductsByCategoryId(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_BY_CATEGORY_ID_PAGING, params, rowMapper);
+		return jdbcTemplate.query(SELECT_PRODUCTS_BY_CATEGORY_ID, params, rowMapper);
 	}
 
 	/**

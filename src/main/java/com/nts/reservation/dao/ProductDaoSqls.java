@@ -9,7 +9,7 @@ package com.nts.reservation.dao;
  * @author jinwoo.bae
  */
 public class ProductDaoSqls {
-	public static final String SELECT_ALL_PAGING = ""
+	public static final String SELECT_PRODUCTS = ""
 		+ "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "
@@ -30,7 +30,7 @@ public class ProductDaoSqls {
 		+ "        AND di.id = dii.display_info_id "
 		+ "        AND fi.id = pi.file_id "
 		+ "ORDER BY di.id ASC LIMIT :start, :limit";
-	public static final String SELECT_BY_CATEGORY_ID_PAGING = ""
+	public static final String SELECT_PRODUCTS_BY_CATEGORY_ID = ""
 		+ "SELECT  "
 		+ "    di.id AS displayInfoId, "
 		+ "    p.id AS productId, "

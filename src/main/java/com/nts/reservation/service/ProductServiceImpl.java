@@ -53,9 +53,9 @@ public class ProductServiceImpl implements ProductService {
 
 		List<ProductDto> products;
 		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			products = productDao.selectAllPaging(start, limit);
+			products = productDao.selectProducts(start, limit);
 		} else {
-			products = productDao.selectByCategoryIdPaging(categoryId, start, limit);
+			products = productDao.selectProductsByCategoryId(categoryId, start, limit);
 		}
 
 		return new ProductResponseDto(products, count);
