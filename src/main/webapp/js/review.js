@@ -1,37 +1,5 @@
 var PERCENT_COEF = 20;
 
-function requestAjax(callback, url) {
-	var ajaxReq = new XMLHttpRequest();
-	ajaxReq.callback = callback;
-	ajaxReq.addEventListener('load', function(evt) {
-		this.callback(evt.target.response);
-	});
-
-	ajaxReq.open('GET', url);
-	ajaxReq.responseType = 'json';
-	ajaxReq.send()
-}
-
-function convertDateFormat(date){
-	var originDate = date.split(' ')[0];
-	var originDateSplited = originDate.split('-');
-	var resultDate = originDateSplited[0];
-	
-	if(originDateSplited[1].charAt(0) === '0'){
-		originDateSplited[1] = originDateSplited[1].charAt(1); 
-	}
-	
-	resultDate += '.'+originDateSplited[1];
-	
-	if(originDateSplited[2].charAt(0) === '0'){
-		originDateSplited[2] = originDateSplited[2].charAt(1); 
-	}
-	
-	resultDate += '.'+originDateSplited[2];
-	
-	return resultDate;
-}
-
 function loadDisplayInfoCallback(responseData) 
 {
 	var reviewResponse = responseData.comments;
@@ -46,6 +14,7 @@ function loadDisplayInfoCallback(responseData)
 	
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for(var i = 0 ; i < commentCount; i++){
+		reviewResponse[i].reservationDate = convertDateFormat(reviewResponse[i].reservationDate);
 		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);	
 	} 
 	
@@ -65,7 +34,5 @@ function loadDisplayInfoCallback(responseData)
 
 document.addEventListener('DOMContentLoaded', function() {
 	//페이지 첫 로딩시 할 일
-	
-	var id = location.href.split('?')[1].split('=')[1];
-	requestAjax(loadDisplayInfoCallback, 'api/products/' + id + '/review');
+	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('id') + '/review');
 });

@@ -113,7 +113,8 @@
 			<a class="anchor"> <span>{name}</span> </a>
 		</li>
 	</script>
-
+	
+	<script src="js/common.js"></script>
 	<script src="js/main.js"></script>
 </body>
 

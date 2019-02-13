@@ -1,24 +1,6 @@
 var currentStart = 0;
 var currentCategory = 0;
 
-/**
-* 메인 페이지에서 호출할 /api의 Ajax Reqeust를 전담.
-* @param	callback	페이지 로드후에 실행할 callback function
-* @param	url	api/ 뒤에 붙일 url
-*/
-function requestAjax(callback, url){
-	var ajaxReq = new XMLHttpRequest();
-	ajaxReq.callback = callback;
-	ajaxReq.addEventListener('load', function(evt) {
-		this.callback(evt.target.response);
-	});
-	
-	ajaxReq.open('GET', 'api/'+url);
-	ajaxReq.responseType = 'json';
-	ajaxReq.send()
-}
-
-
 function loadCategoriesCallback(responseData){
 	var categoryList = responseData.categoryList;
 	
@@ -155,7 +137,7 @@ function loadProductsCallback(responseData) {
 }
 
 function mapProductParameters(categoryId, start) {
-	return 'products?categoryId=' + categoryId + '&start=' + start;
+	return 'api/products?categoryId=' + categoryId + '&start=' + start;
 }
 
 function setTabClickEvent() {
@@ -191,13 +173,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	//페이지 첫 로딩시 할 일
 
 	//1. 카테고리 목록 가져오기
-	requestAjax(loadCategoriesCallback, 'categories');
+	requestAjax(loadCategoriesCallback, 'api/categories');
 
 	//2. 상품 목록 가져오기
 	requestAjax(loadProductsCallback, mapProductParameters(0, 0));
 
 	//3. promotion 가져오기
-	requestAjax(loadPromotionsCallback, 'promotions');
+	requestAjax(loadPromotionsCallback, 'api/promotions');
 
 	//4. 더보기 버튼 event 등록
 	document.querySelector('.btn').addEventListener('click',evt=>requestAjax(loadProductsCallback, mapProductParameters(currentCategory, currentStart)));
