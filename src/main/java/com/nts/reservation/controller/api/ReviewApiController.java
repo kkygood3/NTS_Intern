@@ -19,7 +19,11 @@ public class ReviewApiController {
 
 	@Autowired
 	private ReviewResponseService reviewResponseService;
-
+	
+	/**
+	 * /api/products/{displayInfoId}/review 요청을 받아 해당 상품의 코멘트를 조회 
+	 * @return	JSON text
+	 */
 	@GetMapping("/api/products/{displayInfoId}/review")
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {

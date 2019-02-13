@@ -38,6 +38,10 @@ public class DetailApiController {
 		return map;
 	}
 
+	/**
+	 * /api/products/{displayInfoId}/extra 요청을 받아 추가로 노출할 이미지를 출력 
+	 * @return	JSON text
+	 */
 	@GetMapping("/api/products/{displayInfoId}/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
 		DetailExtraImage productImage = detailExtraImageService.getExtraImage(displayInfoId);
