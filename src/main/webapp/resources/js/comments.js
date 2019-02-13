@@ -9,8 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function printComment(data){
 	const SCORE_TO_PERCENT = 20;
-	
-	var commentListInfo = JSON.parse(data);
+	var commentListInfo = JSON.parse(data).commentListInfo;
 	var commentItems = commentListInfo.commentList;
 	var commentCount = commentListInfo.totalCount;
 	var commentAvgScore = commentListInfo.averageScore;

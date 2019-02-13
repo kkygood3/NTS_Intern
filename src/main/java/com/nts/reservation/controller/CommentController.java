@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import com.nts.reservation.model.CommentListInfo;
+import com.nts.reservation.model.CommentResponse;
 import com.nts.reservation.service.CommentService;
 
 @RestController
@@ -24,8 +25,8 @@ public class CommentController {
 	 * 특정 displayInfoId의 comment 목록 응답 
 	 */
 	@GetMapping(value = {"/api/products/{displayInfoId}/comments"})
-	public CommentListInfo getCommentsInfo(@PathVariable int displayInfoId) {
-		return commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_NOT_LIMITED);
+	public CommentResponse getCommentResponse(@PathVariable int displayInfoId) {
+		return new CommentResponse(commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_NOT_LIMITED));
 	}
 
 }
