@@ -35,9 +35,10 @@ function convertDateFormat(date){
 function loadDisplayInfoCallback(responseData) 
 {
 	var reviewResponse = responseData.comments;
-	var commentCount = reviewResponse[0].commentCount;
+	var displayInfomation = reviewResponse[0];
+	var commentCount = displayInfomation.commentCount;
 	
-	var averageScore = reviewResponse[0].averageScore;
+	var averageScore = displayInfomation.averageScore;
 	
 	//Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
@@ -49,7 +50,7 @@ function loadDisplayInfoCallback(responseData)
 	} 
 	
 	//맨 위 화면의 title
-	document.querySelector('a.title').innerText = reviewResponse[0].productDescription;
+	document.querySelector('a.title').innerText = displayInfomation.productDescription;
 	
 	//별점 그래프, 숫자 조정
 	document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';

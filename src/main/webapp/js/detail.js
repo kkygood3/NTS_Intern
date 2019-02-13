@@ -2,6 +2,7 @@ var currentTab = 1;
 var MAX_SWIPE = 2;
 var PERCENT_COEF = 20;
 var displayInfoResponse; 
+var displayInformation;
 
 function requestAjax(callback, url) {
 	var ajaxReq = new XMLHttpRequest();
@@ -78,15 +79,15 @@ function initSwipeImage(displayInfoResponse){
 	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	// 이미지가 1개인 경우
 	
-	swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse[0]);
+	swipeContainer.innerHTML += bindSwipeTemplate(displayInfomation);
 	
-	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfoResponse[0].productContent;
+	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfomation.productContent;
 }
 
 function initComment(displayInfoResponse){	
-	var commentCount = displayInfoResponse[0].commentCount;
+	var commentCount = displayInfomation.commentCount;
 	
-	var averageScore = displayInfoResponse[0].averageScore;
+	var averageScore = displayInfomation.averageScore;
 	
 	// Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
@@ -107,12 +108,18 @@ function initComment(displayInfoResponse){
 	// 우측 상단의 Comment 갯수
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
+	
 	// Comment 더보기 버튼
-	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfoResponse[0].displayInfoId);
+	var reviewMoreBtn = document.querySelector('a.btn_review_more');
+	if(commentCount > 3){
+		reviewMoreBtn.setAttribute('href','review?id='+displayInfomation.displayInfoId);
+	} else{
+		reviewMoreBtn.style.display = 'none';
+	}
 }
 
 function initInfoTab(displayInfoResponse){
-	var displayInfo = displayInfoResponse[0];
+	var displayInfo = displayInfomation;
 	
 	// [소개]란의 글
 	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
@@ -197,8 +204,8 @@ function loadExtraImageCallback(responseData){
 	if(responseData.productImage){
 		var image = responseData.productImage.productImage;
 		
-		displayInfoResponse[0].productImage = image;
-		swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse[0]);
+		displayInfomation.productImage = image;
+		swipeContainer.innerHTML += bindSwipeTemplate(displayInfomation);
 		
 		// 화살표에 클릭이벤트 추가
 		document.querySelector('.group_visual').addEventListener('click',function(evt){
@@ -233,6 +240,7 @@ function loadExtraImageCallback(responseData){
 
 function loadDisplayInfoCallback(responseData) {
 	displayInfoResponse = responseData.detailDisplay;
+	displayInfomation = displayInfoResponse[0];
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn();
@@ -246,7 +254,7 @@ function loadDisplayInfoCallback(responseData) {
 	// 맨 아래의 상세정보, 오시는길 탭 설정
 	initInfoTab(displayInfoResponse);
 	
-	requestAjax(loadExtraImageCallback,'api/products/'+displayInfoResponse[0].displayInfoId+'/extra');
+	requestAjax(loadExtraImageCallback,'api/products/'+displayInfomation.displayInfoId+'/extra');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
