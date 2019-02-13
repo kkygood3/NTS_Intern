@@ -15,8 +15,8 @@ public class DetailResponseServiceImpl implements DetailResponseService {
 	DetailResponseDao detailPageDao;
 
 	@Override
-	public List<DetailResponse> getDetailDisplay(int displayInfoId, int limit) {
-		return detailPageDao.selectDetailPageById(displayInfoId, limit);
+	public List<DetailResponse> getDetailResponse(int displayInfoId, int limit) {
+		return detailPageDao.selectDetailResponsePageByDisplayInfoId(displayInfoId, limit);
 	}
 
 }

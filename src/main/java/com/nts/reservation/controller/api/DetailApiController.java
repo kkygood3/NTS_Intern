@@ -31,7 +31,7 @@ public class DetailApiController {
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<DetailResponse> detailDisplay = detailDisplayService.getDetailDisplay(displayInfoId, pagingLimit);
+		List<DetailResponse> detailDisplay = detailDisplayService.getDetailResponse(displayInfoId, pagingLimit);
 		Map<String, Object> map = new HashMap<>();
 		map.put("detailDisplay", detailDisplay);
 

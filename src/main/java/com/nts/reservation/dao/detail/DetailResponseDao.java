@@ -23,7 +23,7 @@ public class DetailResponseDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<DetailResponse> selectDetailPageById(int displayInfoId, int limit) {
+	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("limit", limit);

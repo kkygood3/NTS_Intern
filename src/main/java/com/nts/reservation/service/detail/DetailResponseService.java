@@ -9,5 +9,5 @@ public interface DetailResponseService {
 	 * api/products/{diplayInfoId} response에 사용
 	 * @return displayInfoId에 속하는 displayInfo, commentList
 	 */
-	List<DetailResponse> getDetailDisplay(int displayInfoId, int limit);
+	List<DetailResponse> getDetailResponse(int displayInfoId, int limit);
 }
