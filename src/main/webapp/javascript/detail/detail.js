@@ -3,4 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	sendGetEtcImageAjax();
 	addInfoTabClickEvent();
 	addMoreButtonClickEvent();
+	setContentAreaMoreButtonDisplay();
+	setCommentAreaMoreButtonDisplay();
 });

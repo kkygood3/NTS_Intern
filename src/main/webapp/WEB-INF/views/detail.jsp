@@ -16,7 +16,8 @@
 		function displayInfo() {
 			return {
 				"productId" : "${datailPageInfo.productId}",
-				"displayInfoId" : "${displayInfoId}"
+				"displayInfoId" : "${displayInfoId}",
+				"commentCount" : "${datailPageInfo.commentCount}"
 			};
 		}
 	</script>
@@ -25,6 +26,7 @@
 	<script type= "text/javascript" src= "/javascript/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "/javascript/slide/slide.js" ></script>
 	<script type= "text/javascript" src= "/javascript/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/javascript/detail/button_display.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/event.js" ></script>
 	<script type= "text/javascript" src= "/javascript/detail/detail.js" ></script>
