@@ -14,10 +14,10 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-
 @ControllerAdvice
 public class ErrorController {
 	public static final String DEFAULT_ERROR_VIEW = "error";
+
 	/**
 	 * 404에러 처리
 	 * @throws IOException 
@@ -41,9 +41,11 @@ public class ErrorController {
 	/*
 	 * 400에러 처리
 	 */
-	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class, IllegalStateException.class})
+	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class,
+		IllegalStateException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ModelAndView badRequest(MissingServletRequestParameterException msrpe, MethodArgumentTypeMismatchException matme, IllegalStateException ise) throws IOException {
+	public ModelAndView badRequest(MissingServletRequestParameterException msrpe,
+		MethodArgumentTypeMismatchException matme, IllegalStateException ise) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		if (msrpe != null) {
 			mav.addObject("message", msrpe.getMessage());
@@ -57,7 +59,7 @@ public class ErrorController {
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
 	}
-	
+
 	/*
 	 * 500에러 처리
 	 */
@@ -71,7 +73,7 @@ public class ErrorController {
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
 	}
-	
+
 	/*
 	 *  기타 에러 처리
 	 */
