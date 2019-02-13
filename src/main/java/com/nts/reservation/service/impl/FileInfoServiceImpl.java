@@ -13,11 +13,11 @@ import com.nts.reservation.service.FileInfoService;
 public class FileInfoServiceImpl implements FileInfoService {
 	@Autowired
 	FileInfoDao fileInfoDao;
-	
+
 	@Override
 	@Transactional
 	public List<String> getSaveFileName(long productId, String type) {
-		List <String> saveFileNames = fileInfoDao.selectByDisplayInfoIdAndType(productId, type);
+		List<String> saveFileNames = fileInfoDao.selectByDisplayInfoIdAndType(productId, type);
 		return saveFileNames;
 	}
 }

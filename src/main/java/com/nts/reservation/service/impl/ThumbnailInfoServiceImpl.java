@@ -22,7 +22,7 @@ import com.nts.reservation.service.ThumbnailInfoService;
 public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 	@Autowired
 	private ThumbnailInfoDao thumbnailInfoDao;
-	
+
 	/**
 	 * 해당카테고리 (0이면 전체)에서 start부터 limit개 썸네일정보 리턴 
 	 */
@@ -40,5 +40,4 @@ public class ThumbnailInfoServiceImpl implements ThumbnailInfoService {
 		}
 		return thumbnailInfoList;
 	}
-
 }

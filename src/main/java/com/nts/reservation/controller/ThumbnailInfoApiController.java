@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.ThumbnailInfo;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ThumbnailInfoService;
+
 /**
  * 썸네일 관련 API 클래스
  * @author USER
@@ -42,7 +43,8 @@ public class ThumbnailInfoApiController {
 	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> getProductCountAndThumbnailInfos(@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+	public Map<String, Object> getProductCountAndThumbnailInfos(
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getCount(categoryId);

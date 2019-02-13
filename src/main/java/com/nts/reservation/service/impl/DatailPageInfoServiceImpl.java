@@ -8,7 +8,6 @@ import com.nts.reservation.dao.DatailPageInfoDao;
 import com.nts.reservation.dto.DatailPageInfo;
 import com.nts.reservation.service.DatailPageInfoService;
 
-
 @Service
 public class DatailPageInfoServiceImpl implements DatailPageInfoService {
 	@Autowired
@@ -19,5 +18,4 @@ public class DatailPageInfoServiceImpl implements DatailPageInfoService {
 	public DatailPageInfo getDetailPageInfo(long displayInfoId) {
 		return datailPageInfoDao.selectDetailPageInfo(displayInfoId);
 	}
-	
 }

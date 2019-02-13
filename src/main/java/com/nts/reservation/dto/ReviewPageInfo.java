@@ -41,6 +41,6 @@ public class ReviewPageInfo {
 	@Override
 	public String toString() {
 		return "ReviewPageInfo [productId=" + productId + ", description=" + description + ", averageScore="
-				+ averageScore + ", commentCount=" + commentCount + "]";
+			+ averageScore + ", commentCount=" + commentCount + "]";
 	}
 }

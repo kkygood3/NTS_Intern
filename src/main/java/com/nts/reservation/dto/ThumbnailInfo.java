@@ -61,5 +61,4 @@ public class ThumbnailInfo {
 		return "ThumbnailInfo [productId=" + displayInfoId + ", description=" + description + ", content=" + content
 			+ ", placeName=" + placeName + ", saveFileName=" + saveFileName + "]";
 	}
-
 }

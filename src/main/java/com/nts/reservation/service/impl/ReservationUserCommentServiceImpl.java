@@ -11,7 +11,7 @@ import com.nts.reservation.service.ReservationUserCommentService;
 public class ReservationUserCommentServiceImpl implements ReservationUserCommentService {
 	@Autowired
 	private ReservationUserCommentDao reservationUserCommentDao;
-	
+
 	@Override
 	@Transactional
 	public double getAverageScore(long productId) {

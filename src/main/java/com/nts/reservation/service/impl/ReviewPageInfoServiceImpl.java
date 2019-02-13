@@ -12,10 +12,10 @@ import com.nts.reservation.service.ReviewPageInfoService;
 public class ReviewPageInfoServiceImpl implements ReviewPageInfoService {
 	@Autowired
 	ReviewPageInfoDao reviewPageInfoDao;
+
 	@Override
 	@Transactional
 	public ReviewPageInfo getReviewPageInfo(long displayInfoId) {
 		return reviewPageInfoDao.selectByDisplayInfoId(displayInfoId);
 	}
-
 }

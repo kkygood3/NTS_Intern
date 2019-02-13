@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nts.reservation.dto.DatailPageInfo;
 import com.nts.reservation.service.DatailPageInfoService;
+
 @Controller
 public class DetailController {
 	@Autowired
 	private DatailPageInfoService datailPageInfoService;
+
 	/**
 	 * 상세페이지 URL 맵핑 
 	 * @return 메인페이지
@@ -23,7 +25,7 @@ public class DetailController {
 
 		model.addAttribute("displayInfoId", displayInfoId);
 		model.addAttribute("datailPageInfo", datailPageInfo);
-		
+
 		return "detail";
 	}
 }

@@ -1,8 +1,8 @@
 package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sql.CommentDisplayInfoDaoSqls.SELECT_COMMENT_WITH_PAGING;
-import static com.nts.reservation.property.Const.*;
 import static com.nts.reservation.property.Const.LIMIT;
+import static com.nts.reservation.property.Const.PRODUCT_ID;
 import static com.nts.reservation.property.Const.START;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import com.nts.reservation.dto.CommentDisplayInfo;
 @Repository
 public class CommentDisplayInfoDao extends BaseDao {
 	private RowMapper<CommentDisplayInfo> rowMapper = BeanPropertyRowMapper.newInstance(CommentDisplayInfo.class);
-	
+
 	public CommentDisplayInfoDao(DataSource dataSource) {
 		super(dataSource);
 	}

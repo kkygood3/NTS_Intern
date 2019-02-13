@@ -14,7 +14,7 @@ import com.nts.reservation.service.CommentDisplayInfoService;
 public class CommentDisplayInfoServiceImpl implements CommentDisplayInfoService {
 	@Autowired
 	private CommentDisplayInfoDao commentDisplayInfoDao;
-	
+
 	@Override
 	@Transactional
 	public List<CommentDisplayInfo> getCommentDisplayInfos(long productId, int start, int limit) {

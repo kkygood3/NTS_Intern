@@ -24,5 +24,4 @@ public class Promotion {
 	public String toString() {
 		return "Promotion [id=" + id + ", productId=" + productId + "]";
 	}
-
 }

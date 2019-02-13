@@ -16,18 +16,18 @@ public class ReservationUserCommentDao extends BaseDao {
 	public ReservationUserCommentDao(DataSource dataSource) {
 		super(dataSource);
 	}
-	
+
 	public Double selectAverageScore(long productId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put(PRODUCT_ID, productId);
-		Double averageScore = getJdbc().queryForObject(SELECT_AVERAGE_SCORE_BY_ID,  params, Double.class);
+		Double averageScore = getJdbc().queryForObject(SELECT_AVERAGE_SCORE_BY_ID, params, Double.class);
 		if (averageScore == null) {
 			return 0.0;
 		} else {
 			return averageScore;
 		}
 	}
-	
+
 	/**
 	 * 모든 리뷰수 리턴하는 메소드
 	 * @return 전체 상품 수

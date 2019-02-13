@@ -52,7 +52,8 @@ public class CommentDisplayInfo {
 
 	@Override
 	public String toString() {
-		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail=" + reservationEmail
+		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail="
+			+ reservationEmail
 			+ ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
 	}
 }

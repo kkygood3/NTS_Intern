@@ -26,7 +26,7 @@ public class FileInfoDao extends BaseDao {
 		Map<String, Object> params = new HashMap<>();
 		params.put(PRODUCT_ID, productId);
 		params.put(TYPE, type);
-		
+
 		return getJdbc().queryForList(SELECT_BY_PRODUCT_ID_AND_TYPE, params, String.class);
 	}
 }

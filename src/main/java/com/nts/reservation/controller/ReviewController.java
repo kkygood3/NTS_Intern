@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nts.reservation.dto.ReviewPageInfo;
 import com.nts.reservation.service.ReviewPageInfoService;
+
 @Controller
 public class ReviewController {
 	@Autowired
 	private ReviewPageInfoService reviewPageInfoService;
-	
+
 	/**
 	 * 리뷰페이지 URL 맵핑 
 	 * @return 리뷰페이지
@@ -23,7 +24,7 @@ public class ReviewController {
 		ReviewPageInfo reviewPageInfo = reviewPageInfoService.getReviewPageInfo(displayInfoId);
 		model.addAttribute("reviewPageInfo", reviewPageInfo);
 		model.addAttribute("displayInfoId", displayInfoId);
-		
+
 		return "review";
 	}
 }

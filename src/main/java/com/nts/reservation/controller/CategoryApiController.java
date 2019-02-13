@@ -33,5 +33,4 @@ public class CategoryApiController {
 		List<Category> CategoryList = categoryService.getCategoris();
 		return CategoryList;
 	}
-
 }
