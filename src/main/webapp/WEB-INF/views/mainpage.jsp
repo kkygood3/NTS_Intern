@@ -17,7 +17,7 @@
             <header class="header_tit">
                 <h1 class="logo">
                     <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./myreservation.jsp" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="." class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="./bookinglogin.jsp" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
@@ -29,12 +29,12 @@
                     <div class="container_visual">
                         <div class="prev_e" style="display:none;">
                             <div class="prev_inn">
-                                <a href="#" class="btn_pre_e" title="이전"> <i class="spr_book_event spr_event_pre">이전</i> </a>
+                                <a class="btn_pre_e" title="이전"> <i class="spr_book_event spr_event_pre">이전</i> </a>
                             </div>
                         </div>
                         <div class="nxt_e" style="display:none;">
                             <div class="nxt_inn">
-                                <a href="#" class="btn_nxt_e" title="다음"> <i class="spr_book_event spr_event_nxt">다음</i> </a>
+                                <a class="btn_nxt_e" title="다음"> <i class="spr_book_event spr_event_nxt">다음</i> </a>
                             </div>
                         </div>
                         <div>
@@ -49,11 +49,11 @@
                 </div>
             </div>
             <div class="section_event_tab">
-                <ul class="event_tab_lst tab_lst_min">
-                    <!-- li class="item" data-category="0">
-                        <a class="anchor active"> <span>전체리스트</span> </a>
+                <ul class="event_tab_lst tab_lst_min" id="categoryContainer">
+                    <li class="item">
+                        <a href="#categoryContainer" class="anchor active"> <span class="category_name">전체리스트</span> </a>
                     </li>
-                    <li class="item" data-category="1">
+                    <!-- li class="item" data-category="1">
                         <a class="anchor"> <span>전시</span> </a>
                     </li>
                     <li class="item" data-category="2">
@@ -103,39 +103,45 @@
     </footer>
 
 	<script type="rv-template" id="categories">
-    <li class="item" data-category="{id}">
-        <a class="anchor"> <span class="category_name">{name}</span> </a>
+	{{#each items}}
+    <li class="item" data-category="{{id}}">
+        <a href="#categoryContainer" class="anchor"> <span class="category_name">{{name}}</span> </a>
     </li>
+	{{/each}}
     </script>
 
     <script type="rv-template" id="promotionItem">
-    <li class="item" style="background-image: url({imgUrl});">
-        <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+	{{#each items}}
+    <li class="item" style="background-image: url({{productImageUrl}});">
+        <a> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
-                <h4 class="event_txt_tit">{description}</h4>
-                <p class="event_txt_adr">{placeName}</p>
-                <p class="event_txt_dsc">{content}</p>
+                <h4 class="event_txt_tit">{{productDescription}}</h4>
+                <p class="event_txt_adr">{{placeName}}</p>
+                <p class="event_txt_dsc">{{productContent}}</p>
             </div>
         </a>
     </li>
+	{{/each}}
     </script>
 
     <script type="rv-template" id="itemList">
-        <li class="item">
-            <a href="detail.jsp?id={id}" class="item_book">
-                <div class="item_preview">
-                    <img alt="{description}" class="img_thumb" src="{imgUrl}">
-                    <span class="img_border"></span>
-                </div>
-                <div class="event_txt">
-                    <h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
-                    <p class="event_txt_dsc">{content}</p>
-                </div>
-            </a>
-        </li>
+	{{#each items}}
+    <li class="item">
+       <a href="detail/{{displayInfoId}}" class="item_book">
+            <div class="item_preview">
+                <img alt="{{description}}" class="img_thumb" src="{{productImageUrl}}">
+                <span class="img_border"></span>
+            </div>
+            <div class="event_txt">
+                <h4 class="event_txt_tit"> <span>{{description}}</span> <small class="sm">{{placeName}}</small> </h4>
+                <p class="event_txt_dsc">{{productContent}}</p>
+            </div>
+        </a>
+    </li>
+	{{/each}}
     </script>
 
-	<script src="js/common.js"></script>
+	<script src="js/handlebars.min.js"></script>
+	<script src="js/mainpage.js"></script>
 </body>
-
 </html>

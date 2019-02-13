@@ -8,7 +8,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,27 +17,31 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a href="#" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+					<a class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+					<a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
 				</h1>
-				  <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+				  <a class="btn_my"> <span title="예약확인">예약확인</span> </a>
 			</header>
 		</div>
         <div class="ct">
             <div class="wrap_review_list">
                 <div class="review_header">
                     <div class="top_title gr">
-                        <a href="./detail.jsp" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                        <h2><a class="title" href="#">오디컴퍼니 주식회사</a></h2>
+                        <a class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+                        <h2><a class="title"></a></h2>
                     </div>
                 </div>
                 <div class="section_review_list">
                     <div class="review_box">
                         <h3 class="title_h3">예매자 한줄평</h3>
                         <div class="short_review_area">
-                            <div class="grade_area"> <span class="graph_mask"> <em class="graph_value" style="width: 88%;"></em> </span> <strong class="text_value"> <span>4.4</span> <em class="total">5.0</em> </strong> <span class="join_count"><em class="green">20건</em> 등록</span>                                </div>
+                            <div class="grade_area">
+	                            <span class="graph_mask"><em class="graph_value"></em></span>
+	                            <strong class="text_value"><em class="total">5.0</em></strong>
+	                            <span class="join_count"><em class="green"></em>등록</span>
+                            </div>
                             <ul class="list_short_review">
-                                <li class="list_item">
+                                <!-- li class="list_item">
                                     <div>
                                         <div class="review_area no_img">
                                             <h4 class="resoc_name">뮤지컬_드림걸즈(DREAMGIRLS)_최초_내한</h4>
@@ -85,7 +89,7 @@
                                     <div>
                                         <div class="review_area">
                                             <div class="thumb_area">
-                                                <a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="https://ssl.phinf.net/naverbooking/20170410_7/1491785083711GqT4T_PNG/image.png?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count">1</span>                                                </div>
+                                                <a class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="https://ssl.phinf.net/naverbooking/20170410_7/1491785083711GqT4T_PNG/image.png?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count">1</span>                                                </div>
                                             <h4 class="resoc_name">뮤지컬_드림걸즈(DREAMGIRLS)_최초_내한</h4>
                                             <p class="review">넘넘 재밌었어요!!!에피랑 지미 짱!!!!!</p>
                                         </div>
@@ -131,7 +135,7 @@
                                     <div>
                                         <div class="review_area">
                                             <div class="thumb_area">
-                                                <a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="https://ssl.phinf.net/naverbooking/20170409_273/1491699111250gxiyJ_JPEG/image.jpg?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count">1</span>                                                </div>
+                                                <a class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="https://ssl.phinf.net/naverbooking/20170409_273/1491699111250gxiyJ_JPEG/image.jpg?type=f300_300" alt="리뷰이미지"> </a> <span class="img_count">1</span>                                                </div>
                                             <h4 class="resoc_name">뮤지컬_드림걸즈(DREAMGIRLS)_최초_내한</h4>
                                             <p class="review">작품이 너무 좋았어요 .</p>
                                         </div>
@@ -150,7 +154,7 @@
                                             <div class="review_info"> <span class="grade">5.0</span> <span class="name">khw5****</span> <span class="date">2017.4.8. 방문</span> </div>
                                         </div>
                                     </div>
-                                </li>
+                                </li -->
                             </ul>
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
@@ -161,13 +165,50 @@
         <hr> </div>
 		<footer>
 	        <div class="gototop">
-	            <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
+	            <a class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
 	        </div>
 	        <div id="footer" class="footer">
 	            <p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 	            <span class="copyright">© NAVER Corp.</span>
 	        </div>
 	    </footer>
+	    
+	
+	<script type="rv-template" id="commentTemplate">
+	{{#each comments}}
+    <li class="list_item">
+        <div>
+			{{#if commentImages}}
+                <div class="review_area">
+                    <div class="thumb_area">
+                        <a class="thumb" title="이미지 크게 보기">
+                            <img width="90" height="90" class="img_vertical_top" src="../../{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
+                        </a>
+                        <span class="img_count">{{commentImages.length}}</span>
+                    </div>
+                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <p class="review">{{comment}}</p>
+                </div>
+			{{else}}
+                <div class="review_area no_img">
+                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <p class="review">{{comment}}</p>
+                </div>
+			{{/if}}
+            <div class="info_area">
+                <div class="review_info">
+                    <span class="grade">{{score}}</span>
+                    <span class="name">{{reservationEmail}}</span>
+                    <span class="date">{{reservationDate}} 방문</span>
+                </div>
+            </div>
+        </div>
+    </li>
+	{{/each}}
+    </script>
+    
+    <script src="../../js/handlebars.min.js"></script>
+    <script src="../../js/review.js"></script>
 </body>
 
 </html>

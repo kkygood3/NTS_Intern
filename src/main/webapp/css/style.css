@@ -3853,3 +3853,78 @@ button {
     transform: translateX(-100%);
   }
 }
+
+.list_short_review.mainpage_review li:nth-of-type(n+4) { 
+    display: none;
+}
+
+.header {
+  z-index: 100;
+}
+
+.nxt, .prev {
+  z-index: 50;
+}
+
+.visual_img.detail_swipe > .item {
+  position: absolute;
+  left: 0;
+  visibility: hidden;
+  animation-fill-mode: forwards;
+}
+
+.visual_img.detail_swipe > .item[data-index="0"] {
+  visibility: visible;
+}
+
+.slide_left_in {
+  z-index: 20;
+  animation-name: slide_in;
+  animation-duration: 1s;
+}
+
+.slide_left_out {
+  z-index: 20;
+  animation-name: slide_out;
+  animation-duration: 1s;
+}
+
+.slide_right_in {
+  z-index: 20;
+  animation-name: slide_right_in;
+  animation-duration: 1s;
+}
+
+ .slide_right_out {
+  z-index: 20;
+  animation-name: slide_right_out;
+  animation-duration: 1s;
+}
+
+@keyframes slide_right_in {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide_right_out {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.display_title {
+  position: absolute;
+  text-align: center;
+  width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  font-family: -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',Helvetica Nenu,Helvetica,Roboto,Arial,NanumGothicWebB,'맑은고딕',MalgunGothic,'돋움',Dotum,sans-serif;
+  font-weight: 600;
+  text-shadow: 0 0 1px rgba(0,0,0,.2);
+  font-size: 35px;
+  line-height: 40px;
+  color: #fff;
+}
