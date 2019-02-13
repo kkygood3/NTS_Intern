@@ -8,7 +8,7 @@ package com.nts.dao.promotiondao;
 /**
  *
  * @description : PromotionDaoSqls
- * @package : com.nts.dao
+ * @package : com.nts.dao.promotiondao
  * @filename : PromotionDaoSqls.java
  * @author : 최석현
  * 

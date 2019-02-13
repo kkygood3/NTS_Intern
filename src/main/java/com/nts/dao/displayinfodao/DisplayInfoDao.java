@@ -14,6 +14,17 @@ import static com.nts.dao.displayinfodao.DisplayInfoDaoSqls.*;
 import java.util.Collections;
 import java.util.Map;
 
+
+/**
+*
+* @description : DisplayInfoDao
+* @package : com.nts.dao.displayinfodao
+* @filename : DisplayInfoDao.java
+* @author : 최석현
+* @method : DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId)
+* @method : DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId)
+* 
+*/
 @Repository
 public class DisplayInfoDao {
 

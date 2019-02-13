@@ -28,7 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDao categoryDao;
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<Category> getItems() {
 		return categoryDao.selectCategoriesGroupById();
 	}

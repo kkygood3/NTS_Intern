@@ -1,8 +1,14 @@
 
+/**
+ * @description : product 내용을 100글자로 자른 후 return
+ */
 Handlebars.registerHelper("product_content", (content)=>{
 	return content.substr(0, 100) + "...";
 });
 
+/**
+ * @description : 최대 3개의 Comment 출력
+ */
 Handlebars.registerHelper("print_comments_limit_3", (displayInfo)=> {
 	var len = displayInfo.comments.length > 3 ? 3 : displayInfo.comments.length;
 
@@ -18,6 +24,9 @@ Handlebars.registerHelper("print_comments_limit_3", (displayInfo)=> {
 });
 
 
+/**
+ * @description : 스코어 -> 퍼센트 변환
+ */
 Handlebars.registerHelper("percentage_score",(score)=>{
 	return score*20;
 });

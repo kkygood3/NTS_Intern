@@ -21,11 +21,10 @@ import com.nts.dto.promotiondto.Promotion;
 /**
  *
  * @description : PromotionDao
- * @package : com.nts.dao
+ * @package : com.nts.dao.promotiondao
  * @filename : PromotionDao.java
  * @author : 최석현
- * @method : PromotionDao(DataSource dataSource)
- * @method : List<Promotion> selectAll()
+ * @method : List<Promotion> selectPromotionsAll()
  * 
  */
 @Repository

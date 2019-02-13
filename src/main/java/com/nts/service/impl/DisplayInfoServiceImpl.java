@@ -7,28 +7,44 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nts.dao.displayinfodao.DisplayInfoDao;
 import com.nts.dto.displayinfodto.DisplayInfo;
 import com.nts.dto.displayinfodto.DisplayInfoImage;
-import com.nts.exception.ValidationException;
+import com.nts.exception.InvalidParameterException;
 import com.nts.service.DisplayInfoService;
 
+/**
+ * 
+ *
+ * @description : 
+ * @package : com.nts.service.impl
+ * @filename : DisplayInfoServiceImpl.java
+ * @author : 최석현
+ * @method : DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId)
+ * @method : DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId)
+ */
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 	@Autowired
 	private DisplayInfoDao displayInfoDao;
 
+	/**
+	 * @description : displayInfoId 값을 검증 후 Dao로부터 DisplayInfo를 받음
+	 * @throws : InvalidParameterException
+	 */
 	@Override
-	@Transactional(readOnly = true)
-	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws ValidationException {
+	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
 		}
 		return displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
 	}
-
+	
+	/**
+	 * @description : displayInfoId 값을 검증 후 Dao로부터 DisplayInfoImage를 받음
+	 * @throws : InvalidParameterException
+	 */
 	@Override
-	@Transactional(readOnly = true)
-	public DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId) throws ValidationException {
+	public DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
 		}
 		return displayInfoDao.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
 	}

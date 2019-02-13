@@ -25,12 +25,15 @@ import com.nts.dto.productdto.ProductPrice;
 /**
  *
  * @description : ProductDao
- * @package : com.nts.dao
+ * @package : com.nts.dao.productdao
  * @filename : ProductDao.java
  * @author : 최석현
- * @method : ProductDao(DataSource dataSource)
- * @method : List<Product> selectPagingById(int categoryId, int start)
- * @method : int selectCount(int categoryId)
+ * @method : List<Product> selectProductsByCategoryId(int categoryId, int start)
+ * @method : List<Product> selectProductsAll(int start)
+ * @method : int selectProductCountByCategoryId(int categoryId) 
+ * @method : int selectProductCountAll()
+ * @method : List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId)
+ * @method : List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId)
  * 
  */
 @Repository
@@ -56,15 +59,15 @@ public class ProductDao {
 		return jdbc.query(SELECT_PRODUCTS + LIMIT_4, param, productRowMapper);
 	}
 
-	public int selectProductCountAll() {
-
-		return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
-	}
-
 	public int selectProductCountByCategoryId(int categoryId) {
 		Map<String, ?> param = Collections.singletonMap("categoryId", categoryId);
 
 		return jdbc.queryForObject(SELECT_COUNT + BY_ID, param, Integer.class);
+	}
+	
+	public int selectProductCountAll() {
+
+		return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {

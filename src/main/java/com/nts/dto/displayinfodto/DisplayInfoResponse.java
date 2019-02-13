@@ -18,16 +18,7 @@ public class DisplayInfoResponse {
 	private List<ProductImage> productImages;
 	private List<ProductPrice> productPrices;
 
-	public DisplayInfoResponse(double averageScore, List<Comment> comments, DisplayInfo displayInfo,
-			DisplayInfoImage displayInfoImage, List<ProductImage> productImages, List<ProductPrice> productPrices) {
-
-		this.averageScore = averageScore;
-		this.comments = comments;
-		this.displayInfo = displayInfo;
-		this.displayInfoImage = displayInfoImage;
-		this.productImages = productImages;
-		this.productPrices = productPrices;
-	}
+	public DisplayInfoResponse() {}
 
 	public double getAverageScore() {
 		return averageScore;

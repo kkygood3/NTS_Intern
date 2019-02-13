@@ -10,7 +10,7 @@ import java.util.List;
 import com.nts.dto.productdto.Product;
 import com.nts.dto.productdto.ProductImage;
 import com.nts.dto.productdto.ProductPrice;
-import com.nts.exception.ValidationException;
+import com.nts.exception.InvalidParameterException;
 
 /**
  *
@@ -20,11 +20,13 @@ import com.nts.exception.ValidationException;
  * @author : 최석현
  * @method : List<Product> getItems(int categoryId, int start)
  * @method : int getCount(int categoryId)
+ * @method : List<ProductImage> getProductImagesByDisplayInfoId(int displayInfoId)
+ * @method : List<ProductPrice> getProductPricesByDisplayInfoId(int displayInfoId)
  * 
  */
 public interface ProductService {
 
-	public List<Product> getItems(int categoryId, int start) throws ValidationException;
+	public List<Product> getItems(int categoryId, int start) throws InvalidParameterException;
 
 	public int getCount(int categoryId);
 

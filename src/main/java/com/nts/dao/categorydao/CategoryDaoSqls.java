@@ -8,7 +8,7 @@ package com.nts.dao.categorydao;
 /**
  *
  * @description : CategoryDaoSqls
- * @package : com.nts.dao
+ * @package : com.nts.dao.categorydao
  * @filename : CategoryDaoSqls.java
  * @author : 최석현
  * 

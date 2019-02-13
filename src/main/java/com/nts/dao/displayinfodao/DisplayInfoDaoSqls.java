@@ -1,5 +1,14 @@
 package com.nts.dao.displayinfodao;
 
+
+/**
+*
+* @description : DisplayInfoDaoSqls
+* @package : com.nts.dao.displayinfodao
+* @filename : DisplayInfoDaoSqls.java
+* @author : 최석현
+* 
+*/
 public class DisplayInfoDaoSqls {
 	public static final String SELECT_DISPLAY_INFO_BY_DISPLAY_INFO_ID = "SELECT "
 																			+ "  display_info.id"

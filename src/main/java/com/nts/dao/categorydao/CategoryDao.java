@@ -21,12 +21,10 @@ import com.nts.dto.categorydto.Category;
 /**
  *
  * @description : CategoryDao
- * @package : com.nts.dao
+ * @package : com.nts.dao.categorydao
  * @filename : CategoryDao.java
  * @author : 최석현
- * @method : CategoryDao(DataSource dataSource)
- * @method : List<Category> selectGroup()
- * @method : List<Integer> selectCounts()
+ * @method : List<Category> selectCategoriesGroupById()
  * 
  */
 @Repository

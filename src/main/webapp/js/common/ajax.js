@@ -1,4 +1,7 @@
 
+/**
+ * @description : ajax 요청
+ */
 function sendRequest(request, uri, callBack){
 	var xhr = new XMLHttpRequest();
 	xhr.open(request.method, uri, true);

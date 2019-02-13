@@ -1,3 +1,7 @@
+
+/**
+ * @description : displayInfo ajax 요청
+ */
 function displayInfoRequest(callBack, displayInfoId){
 	
 	var request = {
@@ -9,6 +13,9 @@ function displayInfoRequest(callBack, displayInfoId){
 	sendRequest(request, requestUri, callBack);
 }
 
+/**
+ * @description : detail page initialization
+ */
 function detailsInit(displayInfo){
 	console.log(displayInfo);
 	var displayInfoObject = displayInfoToObj(displayInfo, 3);
@@ -16,6 +23,9 @@ function detailsInit(displayInfo){
 	displayInfoObject.render();
 }
 
+/**
+ * @description : mapper로부터 각 속성들을 구한 후 object 생성
+ */
 function displayInfoToObj(displayInfo, maxCommentNum){
 	
 	var displayInfoObject = {

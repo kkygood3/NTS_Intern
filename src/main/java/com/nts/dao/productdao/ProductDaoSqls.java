@@ -9,7 +9,7 @@ package com.nts.dao.productdao;
 /**
  *
  * @description : ProductDaoSqls
- * @package : com.nts.dao
+ * @package : com.nts.dao.productdao
  * @filename : ProductDaoSqls.java
  * @author : 최석현
  * 

@@ -1,3 +1,7 @@
+
+/**
+ * @description : displayInfo로부터 Contents 생성
+ */
 function getContents(displayInfo){
 	
 	var contents = {
@@ -31,6 +35,9 @@ function getContents(displayInfo){
 	return contents;
 }
 
+/**
+ * @description : displayInfo로부터 ProductImages 생성
+ */
 function getProductImages(displayInfo){
 	
 	var productImages = {
@@ -82,6 +89,9 @@ function getProductImages(displayInfo){
 	return productImages;
 }
 
+/**
+ * @description : displayInfo로부터 Comments 생성
+ */
 function getComments(displayInfo, maxCommentNum = -1){
 	
 	var comments = {
@@ -126,6 +136,9 @@ function getComments(displayInfo, maxCommentNum = -1){
 	return comments;
 }
 
+/**
+ * @description : displayInfo로부터 DetailInfo 생성
+ */
 function getDetailInfo(displayInfo){
 	
 	var detailInfo = {
@@ -160,6 +173,9 @@ function getDetailInfo(displayInfo){
 	return detailInfo;
 }
 
+/**
+ * @description : displayInfo로부터 Path 생성
+ */
 function getPath(displayInfo){
 	
 	var path = {

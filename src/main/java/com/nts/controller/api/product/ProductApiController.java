@@ -5,7 +5,6 @@
 
 package com.nts.controller.api.product;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.dto.commentdto.Comment;
+import com.nts.dto.displayinfodto.DisplayInfo;
+import com.nts.dto.displayinfodto.DisplayInfoImage;
 import com.nts.dto.displayinfodto.DisplayInfoResponse;
 import com.nts.dto.productdto.Product;
+import com.nts.dto.productdto.ProductImage;
+import com.nts.dto.productdto.ProductPrice;
 import com.nts.dto.productdto.ProductResponse;
-import com.nts.exception.ValidationException;
+import com.nts.exception.InvalidParameterException;
 import com.nts.service.CommentService;
 import com.nts.service.DisplayInfoService;
 import com.nts.service.ProductService;
@@ -45,21 +49,18 @@ public class ProductApiController {
 	private CommentService commentService;
 
 	/**
-	 * @throws ValidationException
-	 * @throws IOException
-	 * @throws IllegalStateException
+	 * @throws InvalidParameterException
 	 * @description : Get 요청을 받으면 Service를 호출해 얻은 결과를 Response로 변환 후 return
 	 */
 	@GetMapping
 	public ProductResponse products(@RequestParam(name = "categoryId") int categoryId,
-			@RequestParam(name = "start", required = false, defaultValue = "0") int start)
-			throws ValidationException {
+			@RequestParam(name = "start", required = false, defaultValue = "0") int start) throws InvalidParameterException {
 
 		if (categoryId < 0) {
-			throw new ValidationException("categoryId : " + categoryId);
+			throw new InvalidParameterException("categoryId : " + categoryId);
 		}
 		if (start < 0) {
-			throw new ValidationException("start : " + start);
+			throw new InvalidParameterException("start : " + start);
 		}
 
 		List<Product> items = productService.getItems(categoryId, start);
@@ -70,20 +71,33 @@ public class ProductApiController {
 		return productResponse;
 	}
 
+	/**
+	 * @throws InvalidParameterException
+	 * @description : Get 요청을 받으면 Service를 호출해 얻은 결과를 Response로 변환 후 return
+	 */
 	@GetMapping("/{id}")
 	public DisplayInfoResponse displayInfo(@PathVariable(name = "id") int displayInfoId)
-			throws ValidationException{
-		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+			throws InvalidParameterException{
+		
+		if (displayInfoId <= 0) {
+			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
 		}
-		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse(
-				commentService.getAverageScoreByDisplayInfoId(displayInfoId),
-				commentService.getCommentsByDisplayInfoId(displayInfoId), 
-				displayInfoService.getDisplayInfoByDisplayInfoId(displayInfoId),
-				displayInfoService.getDisplayInfoImageByDisplayInfoId(displayInfoId),
-				productService.getProductImagesByDisplayInfoId(displayInfoId),
-				productService.getProductPricesByDisplayInfoId(displayInfoId));
-		System.out.println(displayInfoResponse.getAverageScore());
+		double averageScore = commentService.getAverageScoreByDisplayInfoId(displayInfoId);
+		List<Comment> comments = commentService.getCommentsByDisplayInfoId(displayInfoId);
+		DisplayInfo displayInfo = displayInfoService.getDisplayInfoByDisplayInfoId(displayInfoId);
+		DisplayInfoImage displayInfoImage = displayInfoService.getDisplayInfoImageByDisplayInfoId(displayInfoId);
+		List<ProductImage> productImages = productService.getProductImagesByDisplayInfoId(displayInfoId);
+		List<ProductPrice> productPrices = productService.getProductPricesByDisplayInfoId(displayInfoId);
+		
+		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
+		displayInfoResponse.setAverageScore(averageScore);
+		displayInfoResponse.setComments(comments);
+		displayInfoResponse.setDisplayInfo(displayInfo);
+		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
+		displayInfoResponse.setProductImages(productImages);
+		displayInfoResponse.setProductPrices(productPrices);
+		
 		return displayInfoResponse;
 	}
+	
 }

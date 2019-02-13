@@ -10,38 +10,59 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nts.dao.commentdao.CommentDao;
 import com.nts.dto.commentdto.Comment;
 import com.nts.dto.commentdto.CommentImage;
-import com.nts.exception.ValidationException;
+import com.nts.exception.InvalidParameterException;
 import com.nts.service.CommentService;
 
+
+/**
+ * 
+ *
+ * @description : Comment Service
+ * @package : com.nts.service.impl
+ * @filename : CommentServiceImpl.java
+ * @author : 최석현
+ * @method :double getAverageScoreByDisplayInfoId(int displayInfoId)
+ * @method :List<Comment> getCommentsByDisplayInfoId(int displayInfoId)
+ * @method :CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId)
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentDao commentDao;
 
+	/**
+	 * @description : displayInfoId 값을 검증 후 Dao로부터 AverageScore를 받음
+	 * @throws : InvalidParameterException
+	 */
 	@Override
-	@Transactional(readOnly = true)
-	public double getAverageScoreByDisplayInfoId(int displayInfoId) throws ValidationException {
+	public double getAverageScoreByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
 		}
 		return commentDao.selectAverageScoreByDisplayInfoId(displayInfoId);
 	}
 
+	/**
+	 * @description : displayInfoId 값을 검증 후 Dao로부터 CommentImage를 받음
+	 * @throws : InvalidParameterException
+	 */
 	@Override
-	@Transactional(readOnly = true)
 	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId) {
 		if (reservationUserCommentId < 0) {
-			throw new ValidationException("reservationUserCommentId : " + reservationUserCommentId);
+			throw new InvalidParameterException("reservationUserCommentId : " + reservationUserCommentId);
 		}
 		return commentDao.selectCommentImageByReservationUserCommentId(reservationUserCommentId);
 	}
 
+	/**
+	 * @description : displayInfoId 값을 검증 후 Dao로부터 List를 받은 후 comment id에 맞게 image 넣어줌
+	 * @throws : InvalidParameterException
+	 */
 	@Override
-	@Transactional(readOnly = true)
 	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId) {
 		if (displayInfoId < 0) {
-			throw new ValidationException("displayInfoId : " + displayInfoId);
+			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
 		}
 		
 		List<Comment> comments = commentDao.selectCommentsByDisplayInfoId(displayInfoId);
