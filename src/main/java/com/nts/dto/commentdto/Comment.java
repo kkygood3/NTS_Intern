@@ -4,8 +4,6 @@
  */
 package com.nts.dto.commentdto;
 
-import java.util.List;
-
 public class Comment {
 	private String comment;
 	private int id;
