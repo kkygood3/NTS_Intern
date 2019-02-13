@@ -2,7 +2,7 @@ package com.nts.reservation.queries.detail;
 
 public class DetailResponseQueries {
 	public static String SELECT_DETAIL = 
-		"SELECT display_info.id AS display_info_id,reservation_user_comment.comment,file_info.save_file_name AS comment_image, reservation_info.reservation_name, reservation_info.reservation_date,reservation_user_comment.score,product.description AS product_description, product.content AS product_content, display_info.place_name, display_info.place_lot, display_info.place_street, display_info.tel AS telephone, display_info_image_subquery.display_info_image, product_image_subquery.product_image, average_score_subquery.average_score, average_score_subquery.comment_count" + 
+		"SELECT display_info.id AS display_info_id,reservation_user_comment.comment,file_info.save_file_name AS comment_image, reservation_info.reservation_name, DATE_FORMAT(reservation_info.reservation_date,'%Y.%c.%d') AS reservation_date,reservation_user_comment.score,product.description AS product_description, product.content AS product_content, display_info.place_name, display_info.place_lot, display_info.place_street, display_info.tel AS telephone, display_info_image_subquery.display_info_image, product_image_subquery.product_image, average_score_subquery.average_score, average_score_subquery.comment_count" + 
 		" FROM display_info" + 
 		" INNER JOIN product ON display_info.product_id = product.id" + 
 		" LEFT JOIN reservation_info ON display_info.id = reservation_info.display_info_id" + 

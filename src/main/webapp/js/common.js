@@ -16,26 +16,6 @@ function requestAjax(callback, url) {
 	ajaxReq.send()
 }
 
-function convertDateFormat(date) {
-	var originDate = date.split(' ')[0];
-	var originDateSplited = originDate.split('-');
-	var resultDate = originDateSplited[0];
-
-	if (originDateSplited[1].charAt(0) === '0') {
-		originDateSplited[1] = originDateSplited[1].charAt(1);
-	}
-
-	resultDate += '.' + originDateSplited[1];
-
-	if (originDateSplited[2].charAt(0) === '0') {
-		originDateSplited[2] = originDateSplited[2].charAt(1);
-	}
-
-	resultDate += '.' + originDateSplited[2];
-
-	return resultDate;
-}
-
 function getUrlParameter(name) {
 	var params = location.href.split('?')[1].split('&');
 	for (var i = 0; i < params.length; i++) {

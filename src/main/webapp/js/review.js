@@ -11,7 +11,6 @@ function loadDisplayInfoCallback(responseData) {
 
 	var commentContainer = document.querySelector('ul.list_short_review');
 	for (var i = 0; i < commentCount; i++) {
-		reviewResponse[i].reservationDate = convertDateFormat(reviewResponse[i].reservationDate);
 		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);
 	} 
 	

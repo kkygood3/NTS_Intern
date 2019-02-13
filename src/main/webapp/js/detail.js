@@ -58,7 +58,6 @@ function initComment(displayInfoResponse){
 	var commentContainer = document.querySelector('ul.list_short_review');
 	
 	for(var i = 0 ; i < 3 && i < commentCount; i++){
-		displayInfoResponse[i].reservationDate = convertDateFormat(displayInfoResponse[i].reservationDate);
 		commentContainer.innerHTML += bindCommentTemplate(displayInfoResponse[i]);	
 	}
 	
