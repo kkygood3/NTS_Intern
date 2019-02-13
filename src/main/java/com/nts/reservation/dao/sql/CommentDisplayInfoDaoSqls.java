@@ -18,4 +18,3 @@ public class CommentDisplayInfoDaoSqls {
 			+ "LEFT JOIN file_info AS fi ON ri.file_id = fi.id "
 			+ "LIMIT :start, :limit";
 }
-	

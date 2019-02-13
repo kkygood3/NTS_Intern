@@ -1,7 +1,17 @@
+/**
+ * 페이지 상단 프로모션 슬라이드영역 관련
+ * @author 시윤
+ *
+ */
+
 function sendGetPromotionsAjax() {
 	sendGetAjax("./promotion", makePromotionSlideHTML);
 }
 
+/**
+ * 프로모션 슬라이드영역 html생성
+ * @param promotions 프로모션 이미지 리스트
+ */
 function makePromotionSlideHTML(promotions) {
 	if (!promotions) {
 		return false;
@@ -21,5 +31,5 @@ function makePromotionSlideHTML(promotions) {
 
 function makePromotionSlide() {
 	var ul = document.getElementsByClassName("visual_img")[0];
-	makeSlide(ul);
+	makeInfiniteSlide(ul);
 }

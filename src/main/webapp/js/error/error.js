@@ -1,3 +1,9 @@
+/**
+ * 에러페이지 로직 처리
+ * @author 시윤
+ *
+ */
+
 document.addEventListener("DOMContentLoaded", function() {
 	addGotoMainButtonClickEvent();
 });

@@ -1,7 +1,22 @@
+/**
+ * 사용자 코멘트 처리
+ * @author 시윤
+ *
+ */
+
 function sendGetCommentsAjax(start = 0, limit = 3) {
-	sendGetAjax("/product/" + displayInfo().productId + "/comment?start=" + start + "&limit" + limit, makeCommentList);
+	sendGetAjax("/product/" + displayInfo().productId + "/comment?start=" + start + "&limit=" + limit, makeCommentList);
 }
 
+/**
+ * 사용자 코멘트 handlebar로 html 생성
+ * @param commentDisplayInfos사용자 코멘트 데이터
+ * comment 사용자 코멘트
+ * score 별점
+ * reservationEmail 사용자
+ * reservationDate 방문일
+ * saveFileName 이미지 이름
+ */
 function makeCommentList(commentDisplayInfos) {
 	if (!commentDisplayInfos) {
 		return;

@@ -1,3 +1,9 @@
+/**
+ * 더보기버튼 style.display 설정
+ * @author 시윤
+ *
+ */
+
 function setContentAreaMoreButtonDisplay() {
 	var moreButton = document.getElementsByClassName("bk_more")[0];
 	if (!exsitsMoreContents()) {
