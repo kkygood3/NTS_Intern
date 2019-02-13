@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDisplay {
@@ -18,6 +19,10 @@ public class ProductDisplay {
 	private String placeStreet;
 	private String telephone;
 	private String displayInfoImageUrl;
+
+	public ProductDisplay() {
+		productDisplayImageUrlList = new ArrayList<>();
+	}
 
 	@Override
 	public String toString() {
@@ -107,4 +112,16 @@ public class ProductDisplay {
 		this.displayInfoImageUrl = displayInfoImageUrl;
 	}
 
+	public boolean isEmpty() {
+		return productId == 0
+			&& displayInfoId == 0
+			&& productDescription == null
+			&& productContent == null
+			&& productDisplayImageUrlList.isEmpty()
+			&& placeName == null
+			&& placeLot == null
+			&& placeStreet == null
+			&& telephone == null
+			&& displayInfoImageUrl == null;
+	}
 }

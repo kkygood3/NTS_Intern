@@ -34,7 +34,6 @@ public class ProductDisplayDao {
 		try {
 			return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY, param, productDisplayMapper);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace(); // log처리로..
 			return new ProductDisplay();
 		}
 	}
