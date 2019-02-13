@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2019 by NAVER Corp. All rights reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
@@ -5,13 +6,14 @@
 
 package com.nts.exception;
 
-public class InvalidParameterException extends RuntimeException {
 
+public class EmptyResultException extends RuntimeException {
+	
 	private static final long serialVersionUID = 1L;
 	private String paramName;
 	private String paramValue;
 
-	public InvalidParameterException(String paramName, String paramValue) {
+	public EmptyResultException(String paramName, String paramValue) {
 		this.paramName = paramName;
 		this.paramValue = paramValue;
 	}
@@ -30,6 +32,6 @@ public class InvalidParameterException extends RuntimeException {
 
 	public void setParamValue(String paramValue) {
 		this.paramValue = paramValue;
-	}
+	}   
 
 }

@@ -57,10 +57,10 @@ public class ProductApiController {
 			@RequestParam(name = "start", required = false, defaultValue = "0") int start) throws InvalidParameterException {
 
 		if (categoryId < 0) {
-			throw new InvalidParameterException("categoryId : " + categoryId);
+			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
 		}
 		if (start < 0) {
-			throw new InvalidParameterException("start : " + start);
+			throw new InvalidParameterException("start", Integer.toString(start));
 		}
 
 		List<Product> items = productService.getItems(categoryId, start);
@@ -80,8 +80,11 @@ public class ProductApiController {
 			throws InvalidParameterException{
 		
 		if (displayInfoId <= 0) {
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			
 		}
+		
 		double averageScore = commentService.getAverageScoreByDisplayInfoId(displayInfoId);
 		List<Comment> comments = commentService.getCommentsByDisplayInfoId(displayInfoId);
 		DisplayInfo displayInfo = displayInfoService.getDisplayInfoByDisplayInfoId(displayInfoId);

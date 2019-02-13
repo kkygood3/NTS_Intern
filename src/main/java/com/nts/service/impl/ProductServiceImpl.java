@@ -43,11 +43,11 @@ public class ProductServiceImpl implements ProductService {
 
 		if (categoryId < 0) {
 
-			throw new InvalidParameterException("categoryId : " + categoryId);
+			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
 
 		} else if (start < 0) {
 
-			throw new InvalidParameterException("start : " + start);
+			throw new InvalidParameterException("start", Integer.toString(start));
 
 		} else if (categoryId == ALL_CATEGORIES) {
 
@@ -68,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 
 		if (categoryId < 0) {
 
-			throw new InvalidParameterException("categoryId : " + categoryId);
+			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
 
 		} else if (categoryId == ALL_CATEGORIES) {
 
@@ -88,8 +88,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductImage> getProductImagesByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		
 		if (displayInfoId <= 0) {
-			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		
@@ -104,8 +104,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductPrice> getProductPricesByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		
 		if (displayInfoId <= 0) {
-			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		

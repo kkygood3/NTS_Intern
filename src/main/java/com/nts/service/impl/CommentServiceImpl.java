@@ -38,8 +38,8 @@ public class CommentServiceImpl implements CommentService {
 	public double getAverageScoreByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		
 		if (displayInfoId <= 0) {
-			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		
@@ -54,8 +54,8 @@ public class CommentServiceImpl implements CommentService {
 	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId) {
 		
 		if (reservationUserCommentId <= 0) {
-			
-			throw new InvalidParameterException("reservationUserCommentId : " + reservationUserCommentId);
+
+			throw new InvalidParameterException("reservationUserCommentId", Integer.toString(reservationUserCommentId));
 			
 		}
 		
@@ -70,8 +70,8 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId) {
 		
 		if (displayInfoId <= 0) {
-			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		

@@ -22,6 +22,8 @@ public class DisplayInfo {
 	private int productId;
 	private String tel;
 
+	public DisplayInfo() {}
+	
 	public int getCategoryId() {
 		return categoryId;
 	}

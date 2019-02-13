@@ -6,11 +6,13 @@
 package com.nts.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.displayinfodao.DisplayInfoDao;
 import com.nts.dto.displayinfodto.DisplayInfo;
 import com.nts.dto.displayinfodto.DisplayInfoImage;
+import com.nts.exception.EmptyResultException;
 import com.nts.exception.InvalidParameterException;
 import com.nts.service.DisplayInfoService;
 
@@ -37,12 +39,23 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
 		
 		if (displayInfoId <= 0) {
-			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		
-		return displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
+		DisplayInfo displayInfo = new DisplayInfo();
+		
+		try {
+			
+			displayInfo = displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
+			return displayInfo;
+			
+		} catch(EmptyResultDataAccessException e) {
+			
+			throw new EmptyResultException("cause", "closedPerformance");
+			
+		}
 	}
 	
 	/**
@@ -54,7 +67,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		
 		if (displayInfoId <= 0) {
 			
-			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
 			
 		}
 		

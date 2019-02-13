@@ -51,7 +51,9 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("mainpage");
         registry.addViewController("/detail").setViewName("detail");
-        registry.addViewController("/review").setViewName("review"); 
+        registry.addViewController("/review").setViewName("review");
+        registry.addViewController("/error/invalid-parameter-error"); 
+        registry.addViewController("/error/empty-resultset-error");   
 	}
 
 	@Bean
