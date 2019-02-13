@@ -22,13 +22,16 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
+	static final int CACHE_PERIOD = 31556926;
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(31556926);
-		registry.addResourceHandler("/image/**").addResourceLocations("/resources/img/").setCachePeriod(31556926);
-		registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/").setCachePeriod(31556926);
-		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(31556926);
-		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+		registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/").setCachePeriod(CACHE_PERIOD);
+		registry.addResourceHandler("/image/**").addResourceLocations("/resources/img/").setCachePeriod(CACHE_PERIOD);
+		registry.addResourceHandler("/font/**").addResourceLocations("/resources/font/").setCachePeriod(CACHE_PERIOD);
+		registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/").setCachePeriod(CACHE_PERIOD);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(CACHE_PERIOD);
+		registry.addResourceHandler("/img_map/**").addResourceLocations("/img_map/").setCachePeriod(CACHE_PERIOD);
 	}
 
 	@Override

@@ -1,3 +1,7 @@
+/**
+ * @author 육성렬
+ */
+
 document.addEventListener("DOMContentLoaded", function() {
 	mainPage.init();
 })

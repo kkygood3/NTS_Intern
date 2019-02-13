@@ -1,4 +1,8 @@
 /**
+ * @author 육성렬
+ */
+
+/**
  * @function sendGet 서버에 Get 메서드 요청 함수.
  * @param {String}
  *            path 요청 URL
@@ -23,4 +27,23 @@ function sendGet(path, params, onCallback) {
 	request.open("GET", url);
 	request.setRequestHeader("Content-type", "charset=utf-8");
 	request.send();
+}
+
+/**
+ * @function getTargetTemplate id를 받아 template을 바인딩하는 함수를 리턴해준다.
+ * @param {string} templateId  #아이디 형식을 보낼 것
+ * @return {function}  html template를 바인딩하는 함수 리턴
+ */
+function getTargetTemplate (templateId){
+	var template = document.querySelector(templateId).innerText;
+	return Handlebars.compile(template);
+}
+
+/**
+ * @function toDateString timestamp를 등록 날짜 형식으로 변환해줌.
+ * @param {Number} timestamp 
+ */
+function toDateString (timestamp) {
+	var date = new Date(timestamp);
+	return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." +date.getDay() + "."
 }

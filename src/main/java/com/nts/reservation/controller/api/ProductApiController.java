@@ -3,23 +3,31 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.CommentDto;
+import com.nts.reservation.dto.DisplayInfoDto;
+import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CategoryResponseDto;
+import com.nts.reservation.dto.response.DisplayInfoResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.PromotionResponseDto;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.DisplayInfoService;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -27,7 +35,7 @@ import com.nts.reservation.service.ProductService;
  */
 @RestController
 @RequestMapping(path = "/api")
-public class MainPageApiController {
+public class ProductApiController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -35,10 +43,13 @@ public class MainPageApiController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private DisplayInfoService displayInfoService;
+
 	/**
 	 * @desc 카테고리 별 프로덕트 리스트 요청하는 Api
-	 * @param start - 요구하는 상품의 시작 순번
-	 * @param categoryId - 요청하는 카테고리의 id
+	 * @param start
+	 * @param categoryId
 	 * @return ProductResponseDto(items [프로덕트 리스트] , totalCount [카테고리 별 총 갯수 ] )
 	 */
 	@GetMapping("/products")
@@ -80,5 +91,25 @@ public class MainPageApiController {
 
 		List<CategoryDto> items = categoryService.getCategoryList();
 		return new CategoryResponseDto(items);
+	}
+
+	/**
+	 * @desc 상품에 대한 상세 정보를 요청하는 Api
+	 * @param displayInfoId
+	 * @return DisplayInfoResponseDto (averageScore [평균 점수], comments [댓글 리스트] displayInfo [상세정보],
+	 * 						 displayInfoImage [상세 정보 이미지], productImages [상품이미지 리스트], productPrices [가격정보 리스트])
+	 */
+	@GetMapping("/products/{displayInfoId}")
+	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable Long displayInfoId) {
+
+		DisplayInfoDto displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
+		DisplayInfoImageDto displayInfoImage = displayInfoService.getDisplayInfoImage(displayInfoId);
+		List<ProductImageDto> productImages = displayInfoService.getProductImageList(displayInfo.getProductId());
+		List<ProductPriceDto> productPrices = displayInfoService.getProductPriceList(displayInfo.getProductId());
+		List<CommentDto> comments = displayInfoService.getCommentList(displayInfoId);
+		float averageScore = displayInfoService.getCommentAvgScore(displayInfoId);
+
+		return new DisplayInfoResponseDto(averageScore, comments, displayInfo, displayInfoImage, productImages,
+			productPrices);
 	}
 }

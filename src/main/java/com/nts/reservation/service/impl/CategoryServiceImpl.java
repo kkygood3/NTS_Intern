@@ -25,6 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
+	/**
+	 * @desc 카테고리 리스트를 반환한다.
+	 */
 	@Override
 	public List<CategoryDto> getCategoryList() {
 		List<CategoryDto> list = categoryDao.selectCategory();
