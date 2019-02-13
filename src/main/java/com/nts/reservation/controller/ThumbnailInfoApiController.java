@@ -46,7 +46,7 @@ public class ThumbnailInfoApiController {
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getCount(categoryId);
-		List<ThumbnailInfo> thumbnailInfoList = Collections.EMPTY_LIST;
+		List<ThumbnailInfo> thumbnailInfoList = null;
 
 		if (productCount > 0) {
 			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(start, categoryId, limit);
