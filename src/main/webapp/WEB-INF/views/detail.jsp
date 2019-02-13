@@ -12,24 +12,6 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/css/detail.css" rel="stylesheet">
 	<link href="/css/slide.css" rel="stylesheet">
-	<script type="text/javascript">
-		function displayInfo() {
-			return {
-				"productId" : "${pageInfo.productId}",
-				"displayInfoId" : "${displayInfoId}",
-				"commentCount" : "${pageInfo.commentCount}"
-			};
-		}
-	</script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/common/error.js" ></script>
-	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
-	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
-	<script type= "text/javascript" src= "/js/detail/button_display.js" ></script>
-	<script type= "text/javascript" src= "/js/detail/visual.js" ></script>
-	<script type= "text/javascript" src= "/js/detail/event.js" ></script>
-	<script type= "text/javascript" src= "/js/detail/detail.js" ></script>
 </head>
 
 <body>
@@ -177,5 +159,25 @@
     
 	<%@ include file="/template/comment_item.jsp"%>
 	<%@ include file="/template/detail.jsp"%>
+	
+	
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"productId" : "${pageInfo.productId}",
+				"displayInfoId" : "${displayInfoId}",
+				"commentCount" : "${pageInfo.commentCount}"
+			};
+		}
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
+	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/button_display.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/visual.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/event.js" ></script>
+	<script type= "text/javascript" src= "/js/detail/detail.js" ></script>
 </body>
 </html>

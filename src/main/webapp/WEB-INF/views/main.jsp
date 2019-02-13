@@ -8,14 +8,6 @@
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main.css" rel="stylesheet">
 <link href="./css/slide.css" rel="stylesheet">
-<script type= "text/javascript" src= "./js/common/error.js" ></script>
-<script type= "text/javascript" src= "./js/common/sendAjax.js" ></script>
-<script type= "text/javascript" src= "./js/slide/slide.js" ></script>
-<script type= "text/javascript" src= "./js/main/category.js" ></script>
-<script type= "text/javascript" src= "./js/main/promotion.js" ></script>
-<script type= "text/javascript" src= "./js/main/thumbnail.js" ></script>
-<script type= "text/javascript" src= "./js/main/event.js" ></script>
-<script type= "text/javascript" src= "./js/main/main.js" ></script>
 </head>
 <body>
     <div id="container">
@@ -78,5 +70,14 @@
     </footer>
     
 	<%@ include file="/template/main.jsp"%>
+	
+	<script type= "text/javascript" src= "./js/common/error.js" ></script>
+	<script type= "text/javascript" src= "./js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "./js/slide/slide.js" ></script>
+	<script type= "text/javascript" src= "./js/main/category.js" ></script>
+	<script type= "text/javascript" src= "./js/main/promotion.js" ></script>
+	<script type= "text/javascript" src= "./js/main/thumbnail.js" ></script>
+	<script type= "text/javascript" src= "./js/main/event.js" ></script>
+	<script type= "text/javascript" src= "./js/main/main.js" ></script>
 </body>
 </html>

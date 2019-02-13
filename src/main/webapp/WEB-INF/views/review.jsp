@@ -9,21 +9,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
     <link href="/css/style.css" rel="stylesheet">
-	<script type="text/javascript">
-		function displayInfo() {
-			return {
-				"displayInfoId" : "${displayInfoId}",
-				"productId" : "${pageInfo.productId}",
-				"commentCount" : "${pageInfo.commentCount}"
-			};
-		}
-	</script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/common/error.js" ></script>
-	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
-	<script type= "text/javascript" src= "/js/review/event.js" ></script>
-	<script type= "text/javascript" src= "/js/review/review.js" ></script>
 </head>
 
 <body>
@@ -82,5 +67,21 @@
 	</footer>
 	
 	<%@ include file="/template/comment_item.jsp"%>
+	
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"displayInfoId" : "${displayInfoId}",
+				"productId" : "${pageInfo.productId}",
+				"commentCount" : "${pageInfo.commentCount}"
+			};
+		}
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/review/event.js" ></script>
+	<script type= "text/javascript" src= "/js/review/review.js" ></script>
 </body>
 </html>
