@@ -47,7 +47,7 @@
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="/main" class="btn_my"> 
+						<a href="/main" class="btn_my">
 							<span class="viewReservation" title="예약확인">예약확인</span>
 						</a>
 					</header>
@@ -139,9 +139,9 @@
 								<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
 								<span class="graph_mask">
 									<em class="graph_value" style="width: ${commentResponse.averageScore / 5 * 100}%;"></em>
-								</span> 
+								</span>
 								<strong class="text_value">
-									<span>${commentResponse.averageScore}</span> 
+									<span>${commentResponse.averageScore}</span>
 									<em class="total">5.0</em>
 								</strong>
 								<span class="join_count"> <em class="green">${commentResponse.totalCount} 건</em> 등록</span>
@@ -154,9 +154,9 @@
 											<div class="review_area">
 												<c:if test="${comment.saveFileName != null}">
 													<div class="thumb_area">
-														<a href="#" class="thumb" title="이미지 크게 보기"> 
+														<a href="#" class="thumb" title="이미지 크게 보기">
 															<img width="90" height="90" class="img_vertical_top" src="/${comment.saveFileName}" alt="리뷰이미지">
-														</a> 
+														</a>
 														<span class="img_count" style="display: none;">1</span>
 													</div>
 												</c:if>
@@ -212,7 +212,7 @@
 										<strong class="in_tit">[공지사항]</strong>
 										<ul class="in_img_group">
 											<li class="in_img_lst">
-												<img alt="" class="img_thumb" 
+												<img alt="" class="img_thumb"
 													src="https://ssl.phinf.net/naverbooking/20170131_238/14858250829398Pnx6_JPEG/%B0%F8%C1%F6%BB%E7%C7%D7.jpg?type=a1000">
 											</li>
 										</ul>
@@ -253,7 +253,7 @@
 											<span class="item_lt">
 												<i class="fn fn-call2"></i>
 												<span class="sr_only">전화번호</span>
-											</span> 
+											</span>
 											<span class="item_rt">
 												<a class="store_tel">${displayInfo.telephone}</a>
 											</span>
@@ -265,7 +265,7 @@
 							<div class="bottom_common_path column2">
 								<a class="btn_path">
 									<i class="fn fn-path-find2"></i><span>길찾기</span>
-								</a> 
+								</a>
 								<a class="btn_navigation before">
 									<i class="fn fn-navigation2"></i><span>내비게이션</span>
 								</a>
@@ -345,34 +345,37 @@
 			},
 			// 슬라이드 애니메이션 설정
 			initSlide : function() {
-				var prevDiv = document.querySelector('.prev');
-				var nextDiv = document.querySelector('.nxt');
+				var prevButton = document.querySelector('.btn_prev');
+				var nextButton = document.querySelector('.btn_nxt');
 				if (this.productImagesDiv.childElementCount <= 1) {
-					prevDiv.style.display = "none";
-					nextDiv.style.display = "none";
+					prevButton.style.display = "none";
+					nextButton.style.display = "none";
 					return;
 				}
 
-				this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML; 
+				this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML;
 				var left = 0;
 				var translateX = -200;
 
 				this.productImagesDiv.style.transform = "translateX(" + translateX + "%)";
-				prevDiv.addEventListener("click", function(evt) {
-					if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+				var titleDiv = document.querySelector('.group_visual');
+				titleDiv.addEventListener("click", function(evt) {
+					if (evt.target !== prevButton && evt.target !== nextButton) {
+						return;
+					}
+					// 완전히 이동된후에 작동
+					if (this.productImagesDiv.offsetLeft % 414) {
+						return;
+					}
+					if (evt.target === prevButton) {
 						left += 100;
 						translateX -= 100;
-						this.doSlide(left, translateX);
-					}
-				}.bind(this));
-				nextDiv.addEventListener("click", function(evt) {
-					if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+					} else {
 						left -= 100;
-						translateX += 100;
-						this.doSlide(left, translateX);
+						translateX += 100
 					}
+					this.doSlide(left, translateX);
 				}.bind(this));
-				
 			},
 			// left값을 기준으로 이미지를 슬라이드 무한슬라이드를 위해 이미지가 두번 이동될때마다 translateX를 조정
 			doSlide : function(left, translateX) {
@@ -384,7 +387,7 @@
 				if (productImagesIndexDiv.innerText === "1") {
 					productImagesIndexDiv.innerText = 2;
 				} else {
-					productImagesIndexDiv.innerText = 1;	
+					productImagesIndexDiv.innerText = 1;
 				}
 			},
 			// 상품 설명 더보기 이벤트 등록
@@ -399,7 +402,7 @@
 				productContentDiv.addEventListener("click", function(evt) {
 					var className = evt.target.className;
 					if (evt.target.parentElement.tagName === "A") {
-						className = evt.target.parentElement.className; 
+						className = evt.target.parentElement.className;
 					}
 					if (className === "bk_more _open") {
 						this.openMoreContent(productContentDiv)
