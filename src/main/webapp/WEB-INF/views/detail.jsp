@@ -175,67 +175,7 @@
     </footer>
     <div id="photoviwer"></div>
     
-    <script type="rv-template" id="visual_area">
-	
-	<div class="pagination">
-		<div class="bg_pagination"></div>
-		<div class="figure_pagination">
-			<span class="num">1</span>
-			<span class="num off">/ <span>{image_length}</span></span>
-		</div>
-	</div>
-	<div class="group_visual">
-		<div class="container_visual" style="width: 414px;">
-			<ul class="visual_img detail_swipe" style="left:0;">
-				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="/${datailPageInfo.mainImageFile}">
-				</li>
-				{{#if etcImage}}
-				<li class="item" style="width: 414px;">
-					<img alt="" class="img_thumb" src="/{{etcImage}}">
-				</li>
-				{{/if}}
-			</ul>
-		</div>
-		{{#if etcImage}}
-		<div class="prev">
-			<div class="prev_inn">
-  				<a class="btn_prev" title="이전" onclick="PreviousButtonClickEvent()">
-					<!-- [D] 첫 이미지 이면 off 클래스 추가 -->
-					<i class="spr_book2 ico_arr6_lt off"></i>
-				</a>
-			</div>
-		</div>
-		<div class="nxt">
-			<div class="nxt_inn">
-				<a class="btn_nxt" title="다음" onclick="NextButtonClickEvent()">
-					<i class="spr_book2 ico_arr6_rt"></i>
-				</a>
-			</div>
-		</div>
-		{{/if}}
-	</div>
-	</script>
-    
-    <script type="rv-template" id="comment_item">
-	<li class="list_item">
-		<div class="review_area">
-			<div class="thumb_area img_vertical_top">
-				{{#if saveFileName}}
-				<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
-				{{/if}}
-			</div>
-			<h4 class="resoc_name">${datailPageInfo.description}</h4>
-			<p class="review">{{comment}}</p>
-		</div>
-		<div class="info_area">
-			<div class="review_info">
-				<span class="grade">{{score}}</span>
-				<span class="name">{{reservationEmail}}</span>
-				<span class="date">{{reservationDate}} 방문</span>
-			</div>
-  		</div>
-	</li>
-	</script>
+	<%@ include file="/template/comment_item.jsp"%>
+	<%@ include file="/template/detail.jsp"%>
 </body>
 </html>
