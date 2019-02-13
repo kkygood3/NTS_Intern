@@ -102,14 +102,16 @@ function loadPromotionsCallback(responseData) {
 		resultHtml += template
 							.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
 							.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
-							.replace('{productId}', promotionList[i].productId);
+							.replace('{productId}', promotionList[i].productId)
+							.replace('{displayInfoId}', promotionList[i].displayInfoId);
 	}
 
 	if (promotionList.length > 0) {
 		resultHtml += template
 							.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
 							.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
-							.replace('{productId}', promotionList[0].productId);
+							.replace('{productId}', promotionList[0].productId)
+							.replace('{displayInfoId}', promotionList[0].displayInfoId);
 	}
 
 	document.querySelector('ul.visual_img').innerHTML = resultHtml;
@@ -135,7 +137,8 @@ function loadProductsCallback(responseData) {
 										.replace('{id}', productList[i].displayInfoId)
 										.replace('{placeName}', productList[i].placeName)
 										.replace('{content}', productList[i].productContent)
-										.replace('{productId}', productList[i].productId);
+										.replace('{productId}', productList[i].productId)
+										.replace('{displayInfoId}', productList[i].displayInfoId);
 	}
 	var containers = document.querySelectorAll('.lst_event_box');
 	containers[0].innerHTML += resultHtml[0];
