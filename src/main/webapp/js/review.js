@@ -32,37 +32,40 @@ function convertDateFormat(date){
 	return resultDate;
 }
 
-function loadDisplayInfoCallback(responseData) {
-	var displayInfoResponse = responseData.detailDisplay;
-	
-	var averageScore = displayInfoResponse.averageScore.toFixed(1);
-	var comments = displayInfoResponse.comments;
+function loadDisplayInfoCallback(responseData) 
+{
+	var reviewResponse = responseData.comments;
+	var commentCount = reviewResponse.length;
+	for(var i = 0 ; i < commentCount; i++){
+		if(reviewResponse[i].score == null){
+			commentCount--;
+		}
+	}
+	var averageScore = reviewResponse[0].averageScore;
 	
 	//Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 	var bindCommentTemplate = Handlebars.compile(commentTemplate);
 	
 	var commentContainer = document.querySelector('ul.list_short_review');
-	for(var i = 0 ; i < comments.length; i++){
-		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate); 
-		comments[i].productDescription = displayInfoResponse.displayInfo.productDescription;
-		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
+	for(var i = 0 ; i < commentCount; i++){
+		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);	
 	} 
 	
 	//맨 위 화면의 title
-	document.querySelector('a.title').innerText = displayInfoResponse.displayInfo.productDescription;
+	document.querySelector('a.title').innerText = reviewResponse[0].productDescription;
 	
 	//별점 그래프, 숫자 조정
 	document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';
 	document.querySelector('.text_value>span').innerText = averageScore;
 	
 	//우측 상단의 Comment 갯수
-	document.querySelector('span.join_count>em.green').innerText = comments.length+'건';
+	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 } 
 
 document.addEventListener('DOMContentLoaded', function() {
 	//페이지 첫 로딩시 할 일
 	
 	var id = location.href.split('?')[1].split('=')[1];
-	requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
+	requestAjax(loadDisplayInfoCallback, 'api/products/' + id + '/review');
 });

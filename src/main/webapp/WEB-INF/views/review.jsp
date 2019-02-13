@@ -58,18 +58,18 @@
 	<script type="htmlTemplate" id="commentItemTemplate">
 		<li class="list_item">
 			<div>
-			<div class="review_area">
-			{{#if commentImage}}
-			<div class="thumb_area">
-				<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt="리뷰이미지"> </a> <span class="img_count">1</span>	
-			</div>
-			{{/if}}
-			<h4 class="resoc_name">{{productDescription}}</h4>
-			<p class="review">{{comment}}</p>
-			</div>
-			<div class="info_area">
-			<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
-			</div>
+				<div class="review_area">
+					{{#if commentImage}}
+					<div class="thumb_area">
+						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>												
+					</div>
+					{{/if}}
+					<h4 class="resoc_name">{{productDescription}}</h4>
+					<p class="review">{{comment}}</p>
+					</div>
+					<div class="info_area">
+					<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
+				</div>
 			</div>
 		</li>
 	</script>
