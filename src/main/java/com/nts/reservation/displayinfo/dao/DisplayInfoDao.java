@@ -12,5 +12,5 @@ public interface DisplayInfoDao {
 
 	DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId);
 	DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId);
-
+	double selectAverageScore(int displayInfoId);
 }

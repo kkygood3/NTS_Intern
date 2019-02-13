@@ -30,7 +30,7 @@ public class DisplayInfoApiController {
 
 		if(NegativeValueValidator.isNegativeValue(displayInfoId, limit)) {
 			System.out.printf("허용되지 않은 파라미터 시도입니다. displayInfoId : %d, limit : %d\n", displayInfoId, limit);
-			displayInfoId = 0;
+			displayInfoId = 1;
 			limit = 3;
 		}
 

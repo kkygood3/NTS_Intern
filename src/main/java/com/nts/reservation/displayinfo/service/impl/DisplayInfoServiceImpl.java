@@ -31,6 +31,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
 		displayInfoResponse.setComments(commentDaoImpl.selectCommentByDisplayInfoIdByLimit(displayInfoId, limit));
+		// 댓글이 없을 경우엔 0 대입
+		if (displayInfoResponse.getComments().isEmpty()) {
+			displayInfoResponse.setAverageScore(0);
+		// 댓글이 있으면 Average값 가져오기.
+		} else {
+			displayInfoResponse.setAverageScore(displayInfoDaoImpl.selectAverageScore(displayInfoId));
+		}
 		displayInfoResponse.setDisplayInfo(displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId));
 		displayInfoResponse.setDisplayInfoImage(displayInfoDaoImpl.selectDisplayInfoImageByDisplayInfoId(displayInfoId));
 		displayInfoResponse.setProductImages(productDaoImpl.selectProductImagesByDisplayInfoId(displayInfoId));
@@ -38,5 +45,4 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 		return displayInfoResponse;
 	}
-
 }

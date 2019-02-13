@@ -24,4 +24,10 @@ public class DisplayInfoQueries {
 		"INNER JOIN file_info ON display_info_image.file_id = file_info.id " +
 		"INNER JOIN display_info ON display_info.id = display_info_image.display_info_id " +
 		"WHERE display_info.id = :displayInfoId;";
+
+	public static final String SELECT_AVERAGE_SCORE =
+		"SELECT ROUND(avg(reservation_user_comment.score), 1) AS average_score " +
+		"FROM reservation_user_comment " +
+		"INNER JOIN reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id " +
+		"WHERE reservation_info.display_info_id = :displayInfoId";
 }

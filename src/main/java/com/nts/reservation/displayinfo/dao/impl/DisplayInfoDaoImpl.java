@@ -45,4 +45,11 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE, params, rowMapperDisplayInfoImage);
 	}
 
+	@Override
+	public double selectAverageScore(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_AVERAGE_SCORE, params, Double.class);
+	}
+
 }
