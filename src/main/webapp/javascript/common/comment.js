@@ -1,5 +1,5 @@
 function sendGetCommentsAjax(start = 0, limit = 3) {
-	sendGetAjax("/comment_display_info?product_id=" + displayInfo.productId + "&start=" + start + "&limit" + limit, makeCommentList);
+	sendGetAjax("/product/" + displayInfo().productId + "/comment?start=" + start + "&limit" + limit, makeCommentList);
 }
 
 function makeCommentList(commentDisplayInfos) {
@@ -12,7 +12,7 @@ function makeCommentList(commentDisplayInfos) {
 	var ul = document.getElementsByClassName("list_short_review")[0];
 	ul.innerHTML += innerHtml;
 	
-	if (endOfComment(displayInfo.commentCount)) {
+	if (endOfComment(displayInfo().commentCount)) {
 		setMoreButtonVisibility("hidden");
 	}
 }

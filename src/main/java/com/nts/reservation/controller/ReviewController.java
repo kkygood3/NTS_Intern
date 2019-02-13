@@ -14,19 +14,15 @@ public class ReviewController {
 	private ReviewPageInfoService reviewPageInfoService;
 	
 	/**
-	 * 상세페이지 URL 맵핑 
-	 * @return 메인페이지
+	 * 리뷰페이지 URL 맵핑 
+	 * @return 리뷰페이지
 	 */
 	@GetMapping(path = "detail/{displayInfoId}/review")
 	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		ReviewPageInfo reviewPageInfo = reviewPageInfoService.getReviewPageInfo(displayInfoId);
-//		Product product = productService.getProduct(productId);
-//		model.addAttribute(DISPLAY_INFO_ID, displayInfoId);
-//		model.addAttribute(PRODUCT_ID, productId);
-//		model.addAttribute(DESCRIPTION, product.getDescription());
-//		model.addAttribute(AVERAGE_SCORE, reservationUserCommentService.getAverageScore(productId));
-//		model.addAttribute(COMMENT_COUNT, reservationUserCommentService.getCount(productId));
+		model.addAttribute("reviewPageInfo", reviewPageInfo);
+		model.addAttribute("displayInfoId", displayInfoId);
 		
 		return "review";
 	}

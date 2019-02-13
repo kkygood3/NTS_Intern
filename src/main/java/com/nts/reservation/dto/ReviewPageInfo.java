@@ -1,17 +1,17 @@
 package com.nts.reservation.dto;
 
 public class ReviewPageInfo {
-	private long displayInfoId;
+	private long productId;
 	private String description;
 	private double averageScore;
 	private int commentCount;
 
-	public long getDisplayInfoId() {
-		return displayInfoId;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setDisplayInfoId(long displayInfoId) {
-		this.displayInfoId = displayInfoId;
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public String getDescription() {
@@ -40,7 +40,7 @@ public class ReviewPageInfo {
 
 	@Override
 	public String toString() {
-		return "ReviewPageInfo [displayInfoId=" + displayInfoId + ", description=" + description + ", averageScore="
-			+ averageScore + ", commentCount=" + commentCount + "]";
+		return "ReviewPageInfo [productId=" + productId + ", description=" + description + ", averageScore="
+				+ averageScore + ", commentCount=" + commentCount + "]";
 	}
 }

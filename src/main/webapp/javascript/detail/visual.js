@@ -1,5 +1,5 @@
 function sendGetEtcImageAjax() {
-	sendGetAjax("/file_info?product_id="+ displayInfo.productId + "&type=et", setVisualArea);
+	sendGetAjax("/product/" + displayInfo().productId + "/file_info/et", setVisualArea);
 }
 
 function setVisualArea(etcImage) {

@@ -20,9 +20,7 @@ public class CommentDisplayInfoServiceImpl implements CommentDisplayInfoService 
 	@Transactional
 	public List<CommentDisplayInfo> getCommentDisplayInfos(long productId, int start, int limit) {
 		List<CommentDisplayInfo> commentDisplayInfoList;
-		Product p = new Product();
-		p.setId(productId);
-		commentDisplayInfoList = commentDisplayInfoDao.selectFromTheProductWithPageing(p, start, limit);
+		commentDisplayInfoList = commentDisplayInfoDao.selectFromTheProductWithPageing(productId, start, limit);
 
 		return commentDisplayInfoList;
 	}

@@ -13,10 +13,12 @@
 	<link href="/css/detail.css" rel="stylesheet">
 	<link href="/css/slide.css" rel="stylesheet">
 	<script type="text/javascript">
-		var displayInfo = {
-			"productId" : "${datailPageInfo.productId}",
-			"displayInfoId" : "${displayInfoId}"
-		};
+		function displayInfo() {
+			return {
+				"productId" : "${datailPageInfo.productId}",
+				"displayInfoId" : "${displayInfoId}"
+			};
+		}
 	</script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/javascript/common/error.js" ></script>
@@ -33,8 +35,8 @@
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="./" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
                 
@@ -45,8 +47,8 @@
                 <div class="section_visual">
                     <header>
                         <h1 class="logo">
-                            <a href="./" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a href="./" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                            <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
                         <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                         <div class="img_bg">
@@ -93,7 +95,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="./review"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="./${displayInfoId}/review"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->

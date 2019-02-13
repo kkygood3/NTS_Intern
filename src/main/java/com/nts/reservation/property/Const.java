@@ -55,7 +55,7 @@ public class Const {
 	
 	public static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
 	public static final String COMMENT_DEFAULT_PAGING_SIZE = "3";
-	public static final String ALL_CATEGORIES_STR = "0";
+	public static final String SELECT_ALL = "0";
 	
 	public static final int ALL_CATEGORIES = 0;
 	

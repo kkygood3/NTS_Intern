@@ -10,9 +10,11 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ReviewPageInfo;
 
+@Repository
 public class ReviewPageInfoDao extends BaseDao{
 	RowMapper<ReviewPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(ReviewPageInfo.class);
 	ReviewPageInfoDao(DataSource dataSource) {
