@@ -1,5 +1,3 @@
-var PERCENT_COEF = 20;
-
 function loadDisplayInfoCallback(responseData) 
 {
 	var reviewResponse = responseData.comments;
@@ -22,7 +20,7 @@ function loadDisplayInfoCallback(responseData)
 	document.querySelector('a.title').innerText = displayInfomation.productDescription;
 	
 	//별점 그래프, 숫자 조정
-	document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';
+	document.querySelector('em.graph_value').style.width = (averageScore * 20) + '%';
 	document.querySelector('.text_value>span').innerText = averageScore;
 	
 	//우측 상단의 Comment 갯수
