@@ -26,8 +26,8 @@ var reviewPage = {
 			httpRequest.send();
 		}
 		
-		this.goToPrevPage();
-		this.scrollTop();
+		this.setPrevPageLink();
+		this.setScrollTopEvent();
 	},
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
@@ -79,13 +79,13 @@ var reviewPage = {
 		this.container.commentsContainer.innerHTML = bindComments(jsonResponse);
 	},
 	
-	goToPrevPage: function(){
+	setPrevPageLink: function(){
 		this.elements.btnBack.addEventListener("click", function(){
 			history.back();
 		});
 	},
 	
-	scrollTop: function(){
+	setScrollTopEvent: function(){
 		this.elements.btnTop.addEventListener("click", function(){
 			document.documentElement.scrollTop = 0;
 		});
