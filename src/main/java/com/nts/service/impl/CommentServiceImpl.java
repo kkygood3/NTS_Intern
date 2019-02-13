@@ -37,9 +37,13 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	@Override
 	public double getAverageScoreByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
+		
 		return commentDao.selectAverageScoreByDisplayInfoId(displayInfoId);
 	}
 
@@ -49,9 +53,13 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	@Override
 	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId) {
-		if (reservationUserCommentId < 0) {
+		
+		if (reservationUserCommentId <= 0) {
+			
 			throw new InvalidParameterException("reservationUserCommentId : " + reservationUserCommentId);
+			
 		}
+		
 		return commentDao.selectCommentImageByReservationUserCommentId(reservationUserCommentId);
 	}
 
@@ -61,8 +69,11 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	@Override
 	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId) {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
 		
 		List<Comment> comments = commentDao.selectCommentsByDisplayInfoId(displayInfoId);
@@ -70,9 +81,11 @@ public class CommentServiceImpl implements CommentService {
 		for(Comment comment : comments) {
 			
 			try { 
+				
 				comment.setCommentImages(getCommentImageByReservationUserCommentId(comment.getId()));
 				
 			} catch(EmptyResultDataAccessException e) {
+				
 				comment.setCommentImages(new CommentImage());
 				
 			}

@@ -31,9 +31,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
+		
 		return displayInfoDao.selectDisplayInfoByDisplayInfoId(displayInfoId);
 	}
 	
@@ -43,9 +47,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 */
 	@Override
 	public DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
+		
 		return displayInfoDao.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
 	}
 

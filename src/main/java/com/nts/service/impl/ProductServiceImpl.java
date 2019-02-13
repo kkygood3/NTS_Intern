@@ -33,6 +33,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
 
+	private static final int ALL_CATEGORIES = 0;
+	
 	/**
 	 * @description : categoryId와 start 값을 검증 후 Dao로부터 List를 받음
 	 * @throws : InvalidParameterException
@@ -40,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getItems(int categoryId, int start) throws InvalidParameterException {
 
-		if (categoryId < 0) {
+		if (categoryId <= 0) {
 
 			throw new InvalidParameterException("categoryId : " + categoryId);
 
@@ -48,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
 			throw new InvalidParameterException("start : " + start);
 
-		} else if (categoryId == 0) {
+		} else if (categoryId == ALL_CATEGORIES) {
 
 			return productDao.selectProductsAll(start);
 
@@ -69,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 
 			throw new InvalidParameterException("categoryId : " + categoryId);
 
-		} else if (categoryId == 0) {
+		} else if (categoryId == ALL_CATEGORIES) {
 
 			return productDao.selectProductCountAll();
 
@@ -85,9 +87,13 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public List<ProductImage> getProductImagesByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
+		
 		return productDao.selectProductImagesByDisplayInfoId(displayInfoId);
 	}
 
@@ -97,9 +103,13 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public List<ProductPrice> getProductPricesByDisplayInfoId(int displayInfoId) throws InvalidParameterException {
-		if (displayInfoId < 0) {
+		
+		if (displayInfoId <= 0) {
+			
 			throw new InvalidParameterException("displayInfoId : " + displayInfoId);
+			
 		}
+		
 		return productDao.selectProductPricesByDisplayInfoId(displayInfoId);
 	}
 
