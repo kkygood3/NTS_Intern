@@ -17,7 +17,6 @@ function displayInfoRequest(callBack, displayInfoId){
  * @description : detail page initialization
  */
 function detailsInit(displayInfo){
-	console.log(displayInfo);
 	var displayInfoObject = displayInfoToObj(displayInfo, 3);
 	displayInfoObject.init();
 	displayInfoObject.render();

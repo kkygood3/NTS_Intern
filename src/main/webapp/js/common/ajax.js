@@ -2,10 +2,6 @@
 /**
  * @description : ajax 요청
  */
-var t;
-function tot(xhr){
-	t=xhr;
-}
 function sendRequest(request, uri, callBack){
 	var xhr = new XMLHttpRequest();
 	xhr.open(request.method, uri, true);
@@ -13,7 +9,6 @@ function sendRequest(request, uri, callBack){
 
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState === 4 && xhr.status === 200){
-			tot(xhr);
 			if(xhr.responseURL.includes("error")){
 				location = xhr.responseURL;
 			}
