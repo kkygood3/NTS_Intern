@@ -30,15 +30,15 @@ public class ProductApiController {
 	 */
 	@GetMapping("/api/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		@RequestParam(name = "categoryId", required = false, defaultValue = DEFAULT_CATEGORY_ID) Integer categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_START) Integer start) {
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainProduct> productList = new ArrayList<>();
 		int totalCount = mainProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			productList = mainProductService.getProducts(pagingLimit, categoryId, start);
+			productList = mainProductService.getProducts(categoryId, start, pagingLimit);
 		}
 
 		Map<String, Object> map = new HashMap<>();

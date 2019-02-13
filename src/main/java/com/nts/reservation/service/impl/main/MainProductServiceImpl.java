@@ -20,7 +20,7 @@ public class MainProductServiceImpl implements MainProductService {
 	private MainProductDao mainProductDao;
 
 	@Override
-	public List<MainProduct> getProducts(int pagingLimit, long categoryId, long start) {
+	public List<MainProduct> getProducts(long categoryId, long start,int pagingLimit) {
 		if (start < 0) {
 			start = 0;
 		}
@@ -28,12 +28,12 @@ public class MainProductServiceImpl implements MainProductService {
 		if (categoryId > 0) {
 			return mainProductDao.selectPagingProductsByCategory(categoryId, start, pagingLimit);
 		} else {
-			return getProducts(pagingLimit, start);
+			return getProducts(start, pagingLimit);
 		}
 	}
 
 	@Override
-	public List<MainProduct> getProducts(int pagingLimit, long start) {
+	public List<MainProduct> getProducts(long start,int pagingLimit) {
 		if (start < 0) {
 			start = 0;
 		}
