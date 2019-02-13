@@ -5,10 +5,15 @@
 
 package com.nts.reservation.product.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.product.dao.Impl.ProductDaoImpl;
+import com.nts.reservation.product.dao.impl.ProductDaoImpl;
+import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
@@ -47,6 +52,24 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<ProductImage> getProductImages(int displayInfoId) {
+		List<ProductImage> comment = new ArrayList<ProductImage>();
+
+		comment = productDaoImpl.selectProductImagesByDisplayInfoId(displayInfoId);
+
+		return comment;
+	}
+
+	@Override
+	public List<ProductPrice> getProductPrices(int displayInfoId) {
+		List<ProductPrice> comment = new ArrayList<ProductPrice>();
+
+		comment = productDaoImpl.selectProductPricesByDisplayInfoId(displayInfoId);
+
+		return comment;
 	}
 
 }

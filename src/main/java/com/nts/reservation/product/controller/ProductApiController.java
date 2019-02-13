@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.commons.validator.NegativeValueValidator;
 import com.nts.reservation.product.dto.ProductResponse;
-import com.nts.reservation.product.service.ProductService;
+import com.nts.reservation.product.service.impl.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/api")
 public class ProductApiController {
 
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImpl productServiceImpl;
 
 	/**
 	 * /products API요청시 totalCount와 product 관련 정보 json 전송
@@ -31,19 +32,13 @@ public class ProductApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
 		@RequestParam(name = "requestedProductCounts", required = false, defaultValue = "4") int requestedProductCounts) {
 
-		if(isNegativeValue(start, categoryId)) {
+		if(NegativeValueValidator.isNegativeValue(start, categoryId)) {
 			System.out.printf("허용되지 않은 파라미터 시도입니다. start : %d, categoryId : %d\n", start, categoryId);
 			start = 0;
 			categoryId = 0;
 		}
 
-		return productService.getProducts(categoryId, start, requestedProductCounts);
+		return productServiceImpl.getProducts(categoryId, start, requestedProductCounts);
 	}
 
-	private boolean isNegativeValue(int start, int categoryId) {
-		if(start < 0 || categoryId < 0) {
-			return true;
-		}
-		return false;
-	}
 }
