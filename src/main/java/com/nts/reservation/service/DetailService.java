@@ -8,11 +8,11 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.DisplayInfo;
-import com.nts.reservation.detail.dto.DisplayInfoImage;
-import com.nts.reservation.detail.dto.ProductImage;
-import com.nts.reservation.detail.dto.ProductPrice;
+import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.detail.ProductImage;
+import com.nts.reservation.dto.detail.ProductPrice;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -27,7 +27,7 @@ public interface DetailService {
 
 	List<Comment> getComments(Long displayInfoId);
 
-	double getAverageScore(Long displayInfoId);
+	Double getAverageScore(Long displayInfoId);
 
 	List<ProductPrice> getProductPrices(Long displayInfoId);
 }

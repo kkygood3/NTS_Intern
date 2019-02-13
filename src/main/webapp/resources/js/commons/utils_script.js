@@ -9,11 +9,11 @@
  */
 
 function SlidingAnimation(_slideContainer){
-	slideContainer = _slideContainer;
-	slideWrapper = slideContainer.closest("div");
+	this.slideContainer = _slideContainer;
+	this.slideWrapper = this.slideContainer.closest("div");
 	
-	imageList = slideContainer.getElementsByTagName("li");
-	SLIDE_CONATINER_WIDTH = slideContainer.offsetWidth;	
+	this.imageList = this.slideContainer.getElementsByTagName("li");
+	this.SLIDE_CONATINER_WIDTH = this.slideContainer.offsetWidth;	
 }
 
 /**
@@ -21,44 +21,44 @@ function SlidingAnimation(_slideContainer){
  *                       initialization of animation frame call
  */
 SlidingAnimation.prototype.init = function(params) {	
-	prevSlideCount = imageList.length - 1;	
-	currentSlideCount = 0;
-	nextSlideCount = 1;
-	isAnimating = false;
+	this.prevSlideCount = this.imageList.length - 1;	
+	this.currentSlideCount = 0;
+	this.nextSlideCount = 1;
+	this.isAnimating = false;
 	
-	maxHeight = params && params.maxHeight ? params.maxHeight : slideWrapper.clientHeight;
-	minHeight = params && params.minHeight ? params.minHeight : 100;
-	isAutoStart = false;
-	animationSpeed = params && params.animationSpeed ? params.animationSpeed : 10;
-	animationStopDuration = params && params.animationStopDuration ? params.animationStopDuration : 1000;
+	this.maxHeight = params && params.maxHeight ? params.maxHeight : this.slideWrapper.clientHeight;
+	this.minHeight = params && params.minHeight ? params.minHeight : 100;
+	this.isAutoStart = false;
+	this.animationSpeed = params && params.animationSpeed ? params.animationSpeed : 10;
+	this.animationStopDuration = params && params.animationStopDuration ? params.animationStopDuration : 1000;
 		
-	imageList.forEach((item) => {
-		if(item == imageList[0]) {
-			imageList[0].style.left = 0 + "px";
+	this.imageList.forEach((item) => {
+		if(item == this.imageList[0]) {
+			this.imageList[0].style.left = 0 + "px";
 		} else {
-			item.style.left = SLIDE_CONATINER_WIDTH + "px";
+			item.style.left = this.SLIDE_CONATINER_WIDTH + "px";
 		}
 		item.style.position = "absolute";
 	});
 },
 
 SlidingAnimation.prototype.startAutoAnimation = function(){
-	isAutoStart = true;
-	if(isAutoStart) {
+	this.isAutoStart = true;
+	if(this.isAutoStart) {
 		setTimeout(() => {
 			requestAnimationFrame(() => this.slide(true, false, false));
-		}, animationStopDuration);
+		}, this.animationStopDuration);
 	}
 }
 
 SlidingAnimation.prototype.changeTiming = function(_animationSpeed, _stopDuration){
-	animationSpeed = _animationSpeed;
-	animationStopDuration = _stopDuration;
+	this.animationSpeed = _animationSpeed;
+	this.animationStopDuration = _stopDuration;
 }
 
 SlidingAnimation.prototype.resizeMinMax = function(_minHeight, _maxHeight){
-	maxHeight = _maxHeight;
-	minHeight = _minHeight;
+	this.maxHeight = _maxHeight;
+	this.minHeight = _minHeight;
 }
 
 /**
@@ -86,23 +86,23 @@ SlidingAnimation.prototype.slide = function(isAutoStart, isReverse, isResizing) 
 	
 	let needToStop = false;
 	
-	let prevImage = imageList[prevSlideCount];
-	let currentImage = imageList[currentSlideCount];
-	let nextImage = imageList[nextSlideCount];
+	let prevImage = this.imageList[this.prevSlideCount];
+	let currentImage = this.imageList[this.currentSlideCount];
+	let nextImage = this.imageList[this.nextSlideCount];
 		
 	if(isResizing){
 		this.resizeImageContainer(nextImage);
 	}
 	
-	if(isReverse && parseInt(prevImage.style.left) == SLIDE_CONATINER_WIDTH) {
-		prevImage.style.left = -SLIDE_CONATINER_WIDTH + "px";
+	if(isReverse && parseInt(prevImage.style.left) == this.SLIDE_CONATINER_WIDTH) {
+		prevImage.style.left = -this.SLIDE_CONATINER_WIDTH + "px";
 	}
 	
-	if(!isReverse && parseInt(nextImage.style.left) == -SLIDE_CONATINER_WIDTH) {
-		nextImage.style.left = SLIDE_CONATINER_WIDTH + "px";
+	if(!isReverse && parseInt(nextImage.style.left) == -this.SLIDE_CONATINER_WIDTH) {
+		nextImage.style.left = this.SLIDE_CONATINER_WIDTH + "px";
 	}
 	
-	for(let iter = 0; iter < animationSpeed; iter++) {
+	for(let iter = 0; iter < this.animationSpeed; iter++) {
 		if(isReverse){
 			currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
 			prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
@@ -111,34 +111,34 @@ SlidingAnimation.prototype.slide = function(isAutoStart, isReverse, isResizing) 
 			nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
 		}
 		
-		if((parseInt(currentImage.style.left) <= -SLIDE_CONATINER_WIDTH && !isReverse)
-			|| (parseInt(currentImage.style.left) >= SLIDE_CONATINER_WIDTH && isReverse) ) {
+		if((parseInt(currentImage.style.left) <= -this.SLIDE_CONATINER_WIDTH && !isReverse)
+			|| (parseInt(currentImage.style.left) >= this.SLIDE_CONATINER_WIDTH && isReverse) ) {
 			
-			currentImage.style.left = SLIDE_CONATINER_WIDTH + "px";
+			currentImage.style.left = this.SLIDE_CONATINER_WIDTH + "px";
 			
 			if(isReverse){
-				nextSlideCount += imageList.length-1;
-				currentSlideCount += imageList.length-1;
-				prevSlideCount += imageList.length-1;
+				this.nextSlideCount += this.imageList.length-1;
+				this.currentSlideCount += this.imageList.length-1;
+				this.prevSlideCount += this.imageList.length-1;
 			} else {
-				prevSlideCount ++;
-				currentSlideCount ++;
-				nextSlideCount++;
+				this.prevSlideCount ++;
+				this.currentSlideCount ++;
+				this.nextSlideCount++;
 			}
 			
-			prevSlideCount %= imageList.length;
-			currentSlideCount %= imageList.length;
-			nextSlideCount %= imageList.length;
+			this.prevSlideCount %= this.imageList.length;
+			this.currentSlideCount %= this.imageList.length;
+			this.nextSlideCount %= this.imageList.length;
 			
 			needToStop = true;
 			break;
 		}
 	}
 	if(needToStop) {
-		if(isAutoStart) {
+		if(this.isAutoStart) {
 			setTimeout(() => {
 				requestAnimationFrame(() => this.slide(isAutoStart, isReverse, isResizing));
-			}, animationStopDuration);
+			}, this.animationStopDuration);
 		} else {
 			this.isAnimating = false;
 		}
@@ -155,10 +155,10 @@ SlidingAnimation.prototype.slide = function(isAutoStart, isReverse, isResizing) 
  *                                    height obtained from the slide
  */
 SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, minHeight){
-	if(target.clientHeight > SLIDE_CONATINER_WIDTH) {
-		slideWrapper.style.height = SLIDE_CONATINER_WIDTH+"px";
+	if(target.clientHeight > this.SLIDE_CONATINER_WIDTH) {
+		this.slideWrapper.style.height = this.SLIDE_CONATINER_WIDTH+"px";
 	} else {
-		slideWrapper.style.height = target.clientHeight + "px";
+		this.slideWrapper.style.height = target.clientHeight + "px";
 	}
 }
 
@@ -169,6 +169,26 @@ SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, min
 function xhrGetRequest(url, callback) {
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	xhr.onreadystatechange = function(aEvt) {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				callback(xhr.responseText);
+			} else {
+				alert("Error fetching");
+			}
+		}
+	};
+	xhr.send();
+}
+
+/**
+ * @xhrPostRequest() : pre-defined XmlHttpRequest Get method since get method
+ *                   will be used frequently
+ */
+function xhrPostRequest(url, callback) {
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {

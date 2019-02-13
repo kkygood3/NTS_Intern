@@ -1,4 +1,4 @@
-package com.nts.reservation.detail.dto;
+package com.nts.reservation.dto.detail;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -7,6 +7,8 @@ package com.nts.reservation.detail.dto;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 import java.util.List;
+
+import com.nts.reservation.dto.common.DisplayInfo;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com

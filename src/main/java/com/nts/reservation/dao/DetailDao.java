@@ -26,12 +26,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.CommentImage;
-import com.nts.reservation.detail.dto.DisplayInfo;
-import com.nts.reservation.detail.dto.DisplayInfoImage;
-import com.nts.reservation.detail.dto.ProductImage;
-import com.nts.reservation.detail.dto.ProductPrice;
+import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.CommentImage;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.detail.ProductImage;
+import com.nts.reservation.dto.detail.ProductPrice;
 
 @Repository
 public class DetailDao {

@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailDao;
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.CommentImage;
-import com.nts.reservation.detail.dto.DisplayInfo;
-import com.nts.reservation.detail.dto.DisplayInfoImage;
-import com.nts.reservation.detail.dto.ProductImage;
-import com.nts.reservation.detail.dto.ProductPrice;
+import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.CommentImage;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.detail.ProductImage;
+import com.nts.reservation.dto.detail.ProductPrice;
 import com.nts.reservation.service.DetailService;
 
 /**
@@ -94,7 +94,7 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
-	public double getAverageScore(Long displayInfoId) {
+	public Double getAverageScore(Long displayInfoId) {
 		return DetailDao.getAverageScore(displayInfoId);
 	}
 

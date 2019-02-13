@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.products.dto.Category;
+import com.nts.reservation.dto.product.Category;
 import com.nts.reservation.service.CategoryService;
 
 @Service

@@ -69,7 +69,6 @@ const HALL_TYPES = {
 var reservePage = {
 	domElements : {
 		countControlContainer : document.querySelector(".ticket_body"),
-		totalCountBottom : document.querySelector("#totalCount"),
 		bookButtonWrapper : document.querySelector(".bk_btn_wrap"),
 		agreementButton : document.querySelector(".chk_agree"),
 		reservationForm : document.querySelector(".form_horizontal")
@@ -105,7 +104,6 @@ var reservePage = {
 		
 		fetchDetailData = this.fetchDetailData;
 		renderData = this.renderData;
-		priceInterpreter = this.priceInterpreter;
 		priceControllerInit = this.priceControllerInit;
 		updateTotalCountBottom = this.updateTotalCountBottom;
 		inputValidationAttachment = this.inputValidationAttachment;
@@ -133,12 +131,11 @@ var reservePage = {
     	
     	details[1].innerHTML = state.detail_data.displayInfo.openingHours;
     	
-    	details[2].innerHTML = priceInterpreter();
+    	details[2].innerHTML = priceToStrInterpreter();
     	
     	// add priceController with interpreted data
     	arrayToElementRenderer(state.detail_data.productPrices,domElements.countControlContainer,templates.countControlItem);
     	priceControllerInit();
-    	updateTotalCountBottom();
     	inputValidationAttachment();
     	agreementShowBtnInit();
 	},
@@ -146,116 +143,13 @@ var reservePage = {
 	priceControllerInit : function() {
 		let controllers = domElements.countControlContainer.querySelectorAll(".qty");
 		controllers.forEach((item) => {
-			let addButton = item.querySelector("a[title='더하기']");
-			let reduceButton = item.querySelector("a[title='빼기']");
-			
-			addButton.addEventListener("click", (e) => {
-				let wrapper = addButton.closest(".qty");
-				let id = addButton.closest(".qty").dataset.id;
-				let product = state.prices[id]; 
-				product.qty++;
-				
-				let qtyArea = wrapper.querySelector(".count_control_input");
-				qtyArea.value = product.qty;
-				if(qtyArea.classList.contains("disabled")){
-					qtyArea.classList.remove("disabled");
-				}
-				if(reduceButton.classList.contains("disabled")){
-					reduceButton.classList.remove("disabled");
-				}
-				
-				let totalPriceArea = wrapper.querySelector(".total_price");
-				totalPriceArea.innerHTML = product.price * product.qty;
-				totalPriceArea.parentElement.style.color = "black";
-				
-				updateTotalCountBottom();
-			});
-			
-			reduceButton.addEventListener("click", (e) => {
-				let wrapper = addButton.closest(".qty");
-				let id = addButton.closest(".qty").dataset.id;
-				let product = state.prices[id]; 
-				
-				if(product.qty == 0){
-					return;
-				}
-				product.qty--;
-				
-				let qtyArea = wrapper.querySelector(".count_control_input");
-				qtyArea.value = product.qty;
-				if(product.qty == 0){
-					if(!qtyArea.classList.contains("disabled")){
-						qtyArea.classList.add("disabled");
-					}
-					if(!reduceButton.classList.contains("disabled")){
-						reduceButton.classList.add("disabled");
-					}
-				}
-
-				let totalPriceArea = wrapper.querySelector(".total_price");
-				totalPriceArea.innerHTML = product.price * product.qty;
-				if(product.qty == 0){
-					totalPriceArea.parentElement.style.color = "";
-				}
-				
-				updateTotalCountBottom();
-			});
+			var controller = new CountController(item);
 		});
 	},
 	
-	updateTotalCountBottom : function() {
-		let totalCount = 0;
-		for (var key in state.prices){
-		    var value = state.prices[key];
-		    totalCount += value.qty;
-		}
-		domElements.totalCountBottom.innerHTML = totalCount;
-	},
-	
-	priceInterpreter : function() {
-		// checkType
-    	state.detail_data.productPrices.forEach((item) => {
-    		if(item.priceTypeName === "V" || item.priceTypeName === "R"){
-    			state.pricingType = HALL_TYPES;
-    		}
-    	});    	
-    	/*
-		 * accumulate strings and render information, init control data by
-		 * pushing JSON object to prices array
-		 */
-    	let priceString = "";
-    	state.detail_data.productPrices.forEach((item) => {
-    		state.prices[item.productPriceId] = {price : item.price, qty :0};
-    		let currentType = state.pricingType[item.priceTypeName];
-    		let currentString = "";
-    		for (var key in currentType) {
-    		    if (currentType.hasOwnProperty(key)) {
-    		        currentString += currentType[key];
-    		        if(key === "name") {
-    		        	item.name = currentType[key];
-    		        }
-    		    }
-    		}
-    		currentString += " " + item.price + "원 할인율 " + item.discountRate + "%<br>";
-    		priceString += currentString;
-    	});
-    	return priceString;
-	},
-	
-	agreementShowBtnInit : function(){
+	agreementShowBtnInit : function() {
 		document.querySelectorAll(".btn_agreement").forEach((item) => {
-			item.addEventListener("click", (e) => {
-				let container = item.parentElement;
-				if(container.classList.contains("open")){
-					container.classList.remove("open");
-					item.querySelector(".btn_text").innerText ="보기";
-					item.querySelector(".fn").classList.replace("fn-up2", "fn-down2");
-				} else {
-					container.classList.add("open");
-					item.querySelector(".btn_text").innerText = "접기";
-					item.querySelector(".fn").classList.replace("fn-down2", "fn-up2");
-				}
-			});
+			new EulaButton(item);
 		});
 	},
 	
@@ -271,34 +165,10 @@ var reservePage = {
 		let tel = domElements.reservationForm.querySelector("#tel");
 		let email = domElements.reservationForm.querySelector("#email");
 		
-		domElements.bookButtonWrapper.querySelector("button").addEventListener("click",(e) => {
-			e.preventDefault();
-			
-			let nameValid = (/[가-힣a-zA-Z]+$/).test(name.value);
-			let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
-			let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value); 
-				
-			if(!nameValid) {
-				inputValidationErrorMsg(name);
-			} else if(!telValid){
-				inputValidationErrorMsg(tel);
-			} else if(!emailValid) {
-				inputValidationErrorMsg(email);
-			} else {
-				domElements.reservationForm.submit();
-			}
-		});
+		new SubmitButton(domElements.bookButtonWrapper.querySelector("button"));
 		
-		domElements.agreementButton.addEventListener("click", (e) => { 
-			let bookButton = domElements.bookButtonWrapper;
-
-			if(domElements.agreementButton.checked){
-				if(bookButton.classList.contains("disable")){
-					bookButton.classList.remove("disable");
-				} 
-			} else if(!bookButton.classList.contains("disable")){
-				bookButton.classList.add("disable");
-			}
-		});
+		new AgreementButton(domElements.agreementButton);
 	},
 }
+
+

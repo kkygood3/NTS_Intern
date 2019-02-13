@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.detail.dto.DetailResponse;
+import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
@@ -27,7 +27,7 @@ import com.nts.reservation.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ApplicationApiController {
+public class ApplicationGetApiController {
 	@Autowired
 	ProductService productService;
 	@Autowired
@@ -76,6 +76,12 @@ public class ApplicationApiController {
 	public Map<String, Object> getPromotions() {
 		Map<String, Object> result = new HashMap<>();
 		result.put("items", productService.getPromotions());
+		return result;
+	}
+
+	@GetMapping("/reservations")
+	public Map<String, Object> getReservation() {
+		Map<String, Object> result = new HashMap<>();
 		return result;
 	}
 }

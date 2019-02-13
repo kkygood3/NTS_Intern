@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.products.dto.Product;
-import com.nts.reservation.products.dto.Promotion;
+import com.nts.reservation.dto.product.Product;
+import com.nts.reservation.dto.product.Promotion;
 import com.nts.reservation.service.ProductService;
 
 /**

@@ -23,9 +23,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.products.dto.Category;
-import com.nts.reservation.products.dto.Product;
-import com.nts.reservation.products.dto.Promotion;
+import com.nts.reservation.dto.product.Category;
+import com.nts.reservation.dto.product.Product;
+import com.nts.reservation.dto.product.Promotion;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
