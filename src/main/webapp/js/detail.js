@@ -261,8 +261,8 @@ function loadExtraImageCallback(responseData){
 }
 
 function loadDisplayInfoCallback(responseData) {
-	displayInfoResponse = responseData.detailDisplay;
-	displayInfomation = displayInfoResponse[0];
+	var displayInfoResponse = responseData.detailDisplay;
+	var displayInfomation = displayInfoResponse[0];
 	
 	// SwipeImage 설정
 	initSwipeImage(displayInfoResponse);
