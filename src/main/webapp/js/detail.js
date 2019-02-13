@@ -40,15 +40,7 @@ function initSwipeImage(displayInfoResponse){
 	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
 	var swipeContainer = document.querySelector('ul.detail_swipe');
 	
-	// Swipe 페이지 수, 총량 표시
-	var swipePage = document.querySelector('.figure_pagination').querySelector('.num');
-	var swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
-	
-	// Swipe 이미지 좌우의 버튼
-	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
-	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	// 이미지가 1개인 경우
-	
 	swipeContainer.innerHTML += bindSwipeTemplate(displayInfomation);
 	
 	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfomation.productContent;
