@@ -1,5 +1,6 @@
 package com.nts.reservation.controller;
 
+import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 import static com.nts.reservation.property.Const.SELECT_ALL;
 import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
 
@@ -44,7 +45,7 @@ public class ThumbnailInfoApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> getProductCountAndThumbnailInfos(
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getCount(categoryId);

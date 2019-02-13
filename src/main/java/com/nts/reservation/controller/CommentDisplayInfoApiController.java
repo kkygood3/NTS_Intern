@@ -1,6 +1,7 @@
 package com.nts.reservation.controller;
 
 import static com.nts.reservation.property.Const.COMMENT_DEFAULT_PAGING_SIZE;
+import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class CommentDisplayInfoApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(
 		@PathVariable(name = "productId", required = true) long productId,
-		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
 		List<CommentDisplayInfo> commentDisplayInfos = commentDisplayInfoService.getCommentDisplayInfos(productId, start, limit);
 		return commentDisplayInfos;
