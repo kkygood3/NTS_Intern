@@ -20,17 +20,17 @@ function SlidingAnimation(_slideContainer){
  * @initSlideAnimation() : required setup for the promo animation, and
  *                       initialization of animation frame call
  */
-SlidingAnimation.prototype.init = function(params) {	
+SlidingAnimation.prototype.init = function(optionals) {	
 	prevSlideCount = imageList.length - 1;	
 	currentSlideCount = 0;
 	nextSlideCount = 1;
 	isAnimating = false;
 	isAutoStart = false;
 	debugger;
-	maxHeight = params["maxHeight"] ? params.maxHeight : slideWrapper.clientHeight;
-	minHeight = params["minHeight"] ? params.minHeight : 100;
-	animationSpeed = params["animationSpeed"] ? params.animationSpeed : 10;
-	animationStopDuration = params["animationStopDuration"] ? params.animationStopDuration : 1000;
+	maxHeight = optionals["maxHeight"] ? params.maxHeight : slideWrapper.clientHeight;
+	minHeight = optionals["minHeight"] ? params.minHeight : 100;
+	animationSpeed = optionals["animationSpeed"] ? params.animationSpeed : 10;
+	animationStopDuration = optionals["animationStopDuration"] ? params.animationStopDuration : 1000;
 		
 	imageList.forEach((item) => {
 		if(item == imageList[0]) {
