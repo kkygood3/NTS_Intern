@@ -12,7 +12,7 @@
 	<div class="container_visual" style="width: 414px;">
 		<ul class="visual_img detail_swipe" style="left:0;">
 			<li class="item" style="width: 414px;">
-				<img alt="" class="img_thumb" src="/${datailPageInfo.mainImageFile}">
+				<img alt="" class="img_thumb" src="/${pageInfo.mainImageFile}">
 			</li>
 			{{#if etcImage}}
 			<li class="item" style="width: 414px;"><img alt="" class="img_thumb" src="/{{etcImage}}"></li>
