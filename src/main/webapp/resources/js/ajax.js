@@ -1,6 +1,10 @@
 function ajax(method ,url, data, callback) {
 	var xmlHttpRequest = new XMLHttpRequest();
 	
+	if(data !== ""){
+		url += "?" + data;
+	}
+	
 	xmlHttpRequest.addEventListener("load", (evt) =>{
 		var response = evt.currentTarget;
 		if(response.status === HTTP_STATUS.OK){
@@ -13,7 +17,7 @@ function ajax(method ,url, data, callback) {
 		}
 	});
 	
-	xmlHttpRequest.open(method, url + "?" + data);
+	xmlHttpRequest.open(method, url);
 	xmlHttpRequest.send(data);
 }
 
