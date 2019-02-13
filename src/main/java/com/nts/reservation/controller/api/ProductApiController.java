@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.constant.ParameterDefaultValue.*;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentResponseDto;
-import com.nts.reservation.dto.DisplayInfoResponseDto;
+import com.nts.reservation.dto.DetailResponseDto;
 import com.nts.reservation.dto.ProductResponseDto;
 import com.nts.reservation.service.ProductService;
 
@@ -39,10 +39,10 @@ public class ProductApiController {
 		return productService.getProductResponse(categoryId, start, limit);
 	}
 
-	@GetMapping("{productId}/displayInfos/{displayInfoId}")
-	public DisplayInfoResponseDto getDisplayInfoResponse(@PathVariable int productId,
+	@GetMapping("/{productId}/displayInfos/{displayInfoId}")
+	public DetailResponseDto getDetailResponse(@PathVariable int productId,
 		@PathVariable int displayInfoId, @RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit) {
-		return productService.getDisplayInfoResponse(productId, displayInfoId, commentLimit);
+		return productService.getDetailResponse(productId, displayInfoId, commentLimit);
 	}
 
 	@GetMapping("/{productId}/comments")

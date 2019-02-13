@@ -9,13 +9,13 @@ package com.nts.reservation.dto;
  * 
  * @author jinwoo.bae
  */
-public class DisplayInfoResponseDto {
+public class DetailResponseDto {
 	DisplayInfoDto displayInfo;
-	CommentResponseDto comments;
+	CommentResponseDto commentResponse;
 
-	public DisplayInfoResponseDto(DisplayInfoDto displayInfo, CommentResponseDto comments) {
+	public DetailResponseDto(DisplayInfoDto displayInfo, CommentResponseDto commentResponse) {
 		this.displayInfo = displayInfo;
-		this.comments = comments;
+		this.commentResponse = commentResponse;
 	}
 
 	public DisplayInfoDto getDisplayInfo() {
@@ -26,12 +26,12 @@ public class DisplayInfoResponseDto {
 		this.displayInfo = displayInfo;
 	}
 
-	public CommentResponseDto getComments() {
-		return comments;
+	public CommentResponseDto getCommentResponse() {
+		return commentResponse;
 	}
 
-	public void setComments(CommentResponseDto comments) {
-		this.comments = comments;
+	public void setCommentResponse(CommentResponseDto commentResponse) {
+		this.commentResponse = commentResponse;
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -99,7 +100,7 @@
 				<div class="section_store_details">
 					<!-- [D] 펼쳐보기 클릭 시 store_details에 close3 제거 -->
 					<div class="store_details close3">
-						<p class="dsc"></p>
+						<p class="dsc">${displayInfo.productContent}</p>
 					</div>
 					<!-- [D] 토글 상황에 따라 bk_more에 display:none 추가 -->
 					<a class="bk_more _open"> <span class="bk_more_txt">펼쳐보기</span>
@@ -137,26 +138,54 @@
 							<div class="grade_area">
 								<!-- [D] 별점 graph_value는 퍼센트 환산하여 width 값을 넣어줌 -->
 								<span class="graph_mask">
-									<em class="graph_value" style="width: 84%;"></em>
+									<em class="graph_value" style="width: ${commentResponse.averageScore / 5 * 100}%;"></em>
 								</span> 
 								<strong class="text_value">
-									<span></span> 
+									<span>${commentResponse.averageScore}</span> 
 									<em class="total">5.0</em>
 								</strong>
-								<span class="join_count"> <em class="green"></em> 등록</span>
+								<span class="join_count"> <em class="green">${commentResponse.totalCount} 건</em> 등록</span>
 							</div>
 							<!-- [D] 상품평 넣는 구역 -->
-							<ul class="list_short_review"></ul>
+							<ul class="list_short_review">
+								<c:forEach var="comment" items="${commentResponse.comments}">
+									<li class="list_item">
+										<div>
+											<div class="review_area">
+												<c:if test="${comment.saveFileName != null}">
+													<div class="thumb_area">
+														<a href="#" class="thumb" title="이미지 크게 보기"> 
+															<img width="90" height="90" class="img_vertical_top" src="/${comment.saveFileName}" alt="리뷰이미지">
+														</a> 
+														<span class="img_count" style="display: none;">1</span>
+													</div>
+												</c:if>
+												<h4 class="resoc_name"></h4>
+												<p class="review">${comment.comment}</p>
+											</div>
+											<div class="info_area">
+												<div class="review_info">
+													<span class="grade">${comment.score}</span>
+													<span class="name">${comment.reservationName}</span>
+													<span class="date">${comment.reservationDate} 방문</span>
+												</div>
+											</div>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
 						</div>
 						<p class="guide">
 							<i class="spr_book2 ico_bell"></i>
 							<span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" onclick="goCommentPage();">
-						<span>예매자 한줄평 더보기</span>
-						<i class="fn fn-forward1"></i>
-					</a>
+					<c:if test="${commentResponse.totalCount > 4}">
+						<a class="btn_review_more" onclick="detail.goCommentPage();">
+							<span>예매자 한줄평 더보기</span>
+							<i class="fn fn-forward1"></i>
+						</a>
+					</c:if>
 				</div>
 				<!-- [D] 상세정보 / 오시는길 영역 -->
 				<div class="section_info_tab">
@@ -177,7 +206,7 @@
 								<ul class="detail_info_group">
 									<li class="detail_info_lst">
 										<strong class="in_tit">[소개]</strong>
-										<p class="in_dsc"></p>
+										<p class="in_dsc">${displayInfo.productContent}</p>
 									</li>
 									<li class="detail_info_lst">
 										<strong class="in_tit">[공지사항]</strong>
@@ -200,23 +229,23 @@
 					<!-- [D] 오시는길 외 다른 탭 선택 시 detail_location에 hide 추가 -->
 					<div class="detail_location hide">
 						<div class="box_store_info no_topline">
-							<a href="#" class="store_location" title="지도웹으로 연결">
-								<img class="store_map img_thumb" alt="map">
+							<a class="store_location" title="지도웹으로 연결">
+								<img class="store_map img_thumb" alt="map" src="/${displayInfo.saveFileName}">
 								<span class="img_border"></span>
 								<span class="btn_map">
 									<i class="spr_book2 ico_mapview"></i>
 								</span>
 							</a>
-							<h3 class="store_name">{{productDescription}}</h3>
+							<h3 class="store_name">${displayInfo.productDescription}</h3>
 							<div class="store_info">
 								<div class="store_addr_wrap">
 									<span class="fn fn-pin2"></span>
-									<p class="store_addr store_addr_bold">{{placeLot}}</p>
+									<p class="store_addr store_addr_bold">${displayInfo.placeLot}</p>
 									<p class="store_addr">
 										<span class="addr_old">지번</span>
-										<span class="addr_old_detail">{{placeStreet}}</span>
+										<span class="addr_old_detail">${displayInfo.placeStreet}</span>
 									</p>
-									<p class="store_addr addr_detail">{{placeName}}</p>
+									<p class="store_addr addr_detail">${displayInfo.placeName}</p>
 								</div>
 								<div class="lst_store_info_wrap">
 									<ul class="lst_store_info">
@@ -226,7 +255,7 @@
 												<span class="sr_only">전화번호</span>
 											</span> 
 											<span class="item_rt">
-												<a class="store_tel">{{telephone}}</a>
+												<a class="store_tel">${displayInfo.telephone}</a>
 											</span>
 										</li>
 									</ul>
@@ -271,34 +300,7 @@
 			</div>
 		</li>
 	</script>
-	<script type="text/template" id="template-comment">
-		<li class="list_item">
-			<div>
-				<div class="review_area">
-					{{#if saveFileName}}
-						<div class="thumb_area">
-							<a href="#" class="thumb" title="이미지 크게 보기"> 
-								<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
-							</a> 
-							<span class="img_count" style="display: none;">1</span>
-						</div>
-					{{/if}}
-					<h4 class="resoc_name"></h4>
-					<p class="review">{{comment}}</p>
-				</div>
-				<div class="info_area">
-					<div class="review_info">
-						<span class="grade">{{score}}</span>
-						<span class="name">{{reservationName}}</span>
-						<span class="date">{{reservationDate}} 방문</span>
-					</div>
-				</div>
-			</div>
-		</li>
-	</script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
-	<script type="text/javascript" src="/js/comment.js"></script>
 	<script>
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
@@ -308,73 +310,42 @@
 			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
 			currentNumDiv : document.querySelector(".num"),
 			lastNumDiv : document.querySelector(".num.off"),
-			productContentDiv : document.querySelector(".section_store_details"),
 			// init
 			init : function() {
-				if (!isNumber(productId) || !isNumber(displayInfoId)) {
-					alert("잘못된 파라미터임니다 메인페이지로 이동합니다.");
-					location.href="/main";
-					return;
-				}
-				this.loadDisplayInfoResponse(this.initDisplayInfo.bind(this));
-			},
-			loadDisplayInfoResponse : function(callback) {
-				var url = "/api/products/" + productId + "/displayInfos/" + displayInfoId;
-				ajax(callback, url);
-			},
-			initDisplayInfo : function(response) {
-				this.setTitleDOM(response);
-				this.setProductContentDOM(response);
-				this.setDetailInformationDOM(response);
-				comment.init(productId, 0, 3);
+				this.initSlide();
+				this.registMoreCotentEvent();
+				this.registDetailInfoTabUI();
 			},
 			// 타이틀 구역 설정
-			setTitleDOM : function(response) {
-				// 이미지 페이징 번호값 지정
-				this.currentNumDiv.innerText = 1;
-				this.lastNumDiv.innerText = "/ " + response.productImages.length;
-				// 상품 이미지 리스트 추가
-				/*
-				var template = document.querySelector("#template-product-image").innerText;
-				var bindTemplate = Handlebars.compile(template);
-				var resultHTML = "";
-				for (var i in response.productImages) {
-					var data = {
-						saveFileName: response.productImages[i].saveFileName,
-						productDescription: response.displayInfo.productDescription
-					}
-					resultHTML += bindTemplate(data);
-				}
-				this.productImagesDiv.innerHTML = resultHTML;
-				this.initSlide();
-				*/
-			},
 			initSlide : function() {
 				var prevDiv = document.querySelector('.prev');
 				var nextDiv = document.querySelector('.nxt');
-				if (this.productImagesDiv.childElementCount < 2) {
+				if (this.productImagesDiv.childElementCount <= 1) {
 					prevDiv.style.display = "none";
 					nextDiv.style.display = "none";
-				} else {
-					this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML;
-					this.productImagesDiv.style.transform = "translateX(-200%)";
-					var left = 0;
-					var translateX = -200;
-					prevDiv.addEventListener("click", function(evt) {
-						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
-							left += 100;
-							translateX -= 100;
-							this.doSlide(left, translateX);
-						}
-					}.bind(this));
-					nextDiv.addEventListener("click", function(evt) {
-						if (evt.target.tagName === "A" || evt.target.tagName === "I") {
-							left -= 100;
-							translateX += 100;
-							this.doSlide(left, translateX);
-						}
-					}.bind(this));
+					return;
 				}
+
+				productImagesDiv.innerHTML += productImagesDiv.innerHTML; 
+				var left = 0;
+				var translateX = -200;
+
+				this.productImagesDiv.style.transform = "translateX(" + translateX + "%)";
+				prevDiv.addEventListener("click", function(evt) {
+					if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+						left += 100;
+						translateX -= 100;
+						this.doSlide(left, translateX);
+					}
+				}.bind(this));
+				nextDiv.addEventListener("click", function(evt) {
+					if (evt.target.tagName === "A" || evt.target.tagName === "I") {
+						left -= 100;
+						translateX += 100;
+						this.doSlide(left, translateX);
+					}
+				}.bind(this));
+				
 			},
 			doSlide : function(left, translateX) {
 				this.productImagesDiv.style.left = left + "%";
@@ -387,48 +358,45 @@
 					this.currentNumDiv.innerText = 1;	
 				}
 			},
-			// 상품 설명 설정
-			setProductContentDOM : function(response) {
-				this.productContentDiv.querySelector(".dsc").innerText = response.displayInfo.productContent;
-				this.productContentDiv.addEventListener("click", function(evt) {
+			// 상품 설명 더보기 이벤트 등록
+			registMoreCotentEvent : function(response) {
+				var productContentDiv = document.querySelector(".section_store_details");
+				productContentDiv.addEventListener("click", function(evt) {
 					var className = evt.target.className;
 					if (evt.target.parentElement.tagName === "A") {
 						className = evt.target.parentElement.className; 
 					}
 					if (className === "bk_more _open") {
-						this.productContentDiv.querySelector(".bk_more._open").style.display = "none";
-						this.productContentDiv.querySelector(".bk_more._close").style.display = "block";
-						this.productContentDiv.querySelector(".store_details").classList.remove("close3");
+						this.openMoreContent(productContentDiv)
 					} else if (className === "bk_more _close") {
-						this.productContentDiv.querySelector(".bk_more._open").style.display = "block";
-						this.productContentDiv.querySelector(".bk_more._close").style.display = "none";
-						this.productContentDiv.querySelector(".store_details").classList.add("close3");
+						this.closeMoreContent(productContentDiv)
 					}
 				}.bind(this));
 			},
-			// 상세정보 구역 설정
-			setDetailInformationDOM : function(response) {
-				// 상세정보 
-				document.querySelector(".detail_info_lst .in_dsc").innerText = response.displayInfo.productContent;
-				// 오시는길
-				document.querySelector(".store_map.img_thumb").src = "/" + response.displayInfoImage.saveFileName;
-				document.querySelector(".store_name").innerText = response.displayInfo.productDescription;
-				document.querySelector(".store_addr.store_addr_bold").innerText = response.displayInfo.placeLot;
-				document.querySelector(".addr_old_detail").innerText = response.displayInfo.placeStreet;
-				document.querySelector(".store_addr.addr_detail").innerText = response.displayInfo.placeName;
-				document.querySelector(".store_tel").innerText = response.displayInfo.telephone;
-				// 탭UI 이벤트 등록
-				var infoTablistDiv = document.querySelector(".info_tab_lst");
-				infoTablistDiv.addEventListener("click", function(evt) {
+			// 더 보기 open
+			openMoreContent : function(contentDiv) {
+				contentDiv.querySelector(".bk_more._open").style.display = "none";
+				contentDiv.querySelector(".bk_more._close").style.display = "block";
+				contentDiv.querySelector(".store_details").classList.remove("close3");
+			},
+			// 더 보기 close
+			closeMoreContent : function(contentDiv) {
+				contentDiv.querySelector(".bk_more._open").style.display = "block";
+				contentDiv.querySelector(".bk_more._close").style.display = "none";
+				contentDiv.querySelector(".store_details").classList.add("close3");
+			},
+			// 상세정보/오시는길 Tab UI 등록
+			registDetailInfoTabUI : function() {
+				var DetailinfoTablistDiv = document.querySelector(".info_tab_lst");
+				DetailinfoTablistDiv.addEventListener("click", function(evt) {
 					if (evt.target.tagName === "SPAN") {
 						this.toggleDetailInfoTab(evt.target.parentElement);
 					} else if (evt.target.classList.contains("anchor")) {
 						this.toggleDetailInfoTab(evt.target);
 					}
 				}.bind(this));
-				infoTablistDiv.querySelector("._detail").classList.contains("item2")
 			},
-			// 상세정보/오시는길 Tab UI
+			// 상세정보, 오시는길 TabUI Toggle
 			toggleDetailInfoTab : function(target) {
 				document.querySelector(".anchor.active").classList.remove("active");
 				target.classList.add("active");
@@ -439,15 +407,14 @@
 					document.querySelector(".detail_area_wrap").classList.add("hide");
 					document.querySelector(".detail_location").classList.remove("hide");
 				}
+			},
+			goCommentPage : function() {
+				location.href="comment?displayInfoId=" + displayInfoId;
 			}
 		}
 
-		function goCommentPage() {
-			location.href="comment?displayInfoId=" + displayInfoId;
-		}
-
 		document.addEventListener("DOMContentLoaded", function(event) {
-			detail.init(displayInfoId);
+			detail.init();
 		});
 	</script>
 </body>

@@ -12,7 +12,7 @@ public class CommentDaoSqls {
 	public static final String SELECT_COMMENTS = ""
 		+ "SELECT  "
 		+ "    ruc.id AS id, "
-		+ "    ruc.score AS scroe, "
+		+ "    ruc.score AS score, "
 		+ "    ruc.comment AS comment, "
 		+ "    ri.reservation_name AS reservationName, "
 		+ "    ri.reservation_date AS reservationDate, "
@@ -34,7 +34,7 @@ public class CommentDaoSqls {
 
 	public static final String SELECT_COMMENT_AVG_SCORE = ""
 		+ "SELECT  "
-		+ "    IFNULL(AVG(score), 0) "
+		+ "    ROUND(IFNULL(AVG(score), 0), 1) "
 		+ "FROM "
 		+ "    reservation_user_comment "
 		+ "WHERE "

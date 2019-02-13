@@ -18,8 +18,8 @@ import com.nts.reservation.dao.DisplayInfoDao;
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.CommentResponseDto;
+import com.nts.reservation.dto.DetailResponseDto;
 import com.nts.reservation.dto.DisplayInfoDto;
-import com.nts.reservation.dto.DisplayInfoResponseDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductResponseDto;
 
@@ -60,11 +60,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public DisplayInfoResponseDto getDisplayInfoResponse(int productId, int displayInfoId, int commentLimit) {
+	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
-
-		return new DisplayInfoResponseDto(displayInfo, commentResponse);
+		return new DetailResponseDto(displayInfo, commentResponse);
 	}
 
 	@Override
