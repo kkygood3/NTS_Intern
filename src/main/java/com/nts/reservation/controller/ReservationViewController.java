@@ -4,9 +4,13 @@
  */
 package com.nts.reservation.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,7 +53,13 @@ public class ReservationViewController {
 	}
 
 	@GetMapping("/detail/{displayInfoId}/reserve")
-	public String reservePage() {
+	public String reservePage(ModelMap model) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_YEAR, (int)(Math.random() * 5 + 1));
+		Date createdDate = calendar.getTime();
+		String reservationDate = new java.text.SimpleDateFormat("yyyy.MM.dd").format(createdDate);
+
+		model.addAttribute("reservationDate", reservationDate);
 		return "reserve";
 	}
 }
