@@ -24,6 +24,7 @@ import com.nts.reservation.dto.reservation.ReservationInput;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.service.ReservationService;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -38,15 +39,18 @@ public class ApplicationPostApiController {
 	DetailService detailService;
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	ReservationService reservationService;
 
 	@PostMapping(path = "/reservations", consumes = {"multipart/form-data"})
 
 	public Map<String, Object> postReservation(@RequestParam("totalData") String input)
 		throws JsonParseException, JsonMappingException, IOException {
+		System.out.println(input);
 		ObjectMapper objectMapper = new ObjectMapper();
 		ReservationInput resInput = objectMapper.readValue(input, ReservationInput.class);
 		System.out.println(resInput.toString());
-
+		reservationService.postReservations(resInput);
 		Map<String, Object> result = new HashMap<>();
 		return result;
 	}

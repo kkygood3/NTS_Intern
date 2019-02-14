@@ -2,8 +2,6 @@ package com.nts.reservation.dto.reservation;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
@@ -13,11 +11,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  *
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class ReservationInput {
 	private Long displayInfoId;
 	private List<Price> prices;
+	private Long productId;
+	private String reservationName;
 	private String reservationEmail;
 	private String reservationTelephone;
 	private String reservationYearMonthDay;
@@ -62,10 +61,28 @@ public class ReservationInput {
 		this.reservationYearMonthDay = reservationYearMonthDay;
 	}
 
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+
+	public String getReservationName() {
+		return reservationName;
+	}
+
+	public void setReservationName(String reservationName) {
+		this.reservationName = reservationName;
+	}
+
 	@Override
 	public String toString() {
-		return "ReservationInput [displayInfoId=" + displayInfoId + ", prices=" + prices + ", reservationEmail="
-			+ reservationEmail + ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay="
-			+ reservationYearMonthDay + "]";
+		return "ReservationInput [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId=" + productId
+			+ ", reservationName=" + reservationName + ", reservationEmail=" + reservationEmail
+			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
+			+ "]";
 	}
+
 }
