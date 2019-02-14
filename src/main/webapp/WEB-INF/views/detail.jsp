@@ -148,10 +148,9 @@
 				<div class="section_info_tab">
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
-						<li class="item active _detail"><a href="#"
-							class="anchor active"> <span>상세정보</span>
+						<li class="item active _detail"><a class="anchor active"> <span>상세정보</span>
 						</a></li>
-						<li class="item _path"><a href="#" class="anchor"> <span>오시는길</span>
+						<li class="item _path"><a class="anchor"> <span>오시는길</span>
 						</a></li>
 					</ul>
 					<!-- [D] 상세정보 외 다른 탭 선택 시 detail_area_wrap에 hide 추가 -->
@@ -243,7 +242,7 @@
             </div>
         </li>
 	</script>
-	
+
 	<script type="rv-template" id="commentItem">
 		<li class="list_item">
 			<div>
@@ -264,7 +263,8 @@
 			</div>
 		</li>
 	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script src="js/detailPage.js"></script>
 </body>
 

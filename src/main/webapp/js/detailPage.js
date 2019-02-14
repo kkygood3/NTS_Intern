@@ -106,13 +106,14 @@ function initComment(displayCommentInfo) {
 }
 
 function initBottomInfoTab(displayInfoResponse){
-	var displayInfo = displayInfomation;
+    var displayInfo = displayInfoResponse["displayInfo"];
+    var displayInfoImage = displayInfoResponse["displayInfoImage"];
 	
 	// [소개]란의 글
 	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
 	
 	// [오시는 길] - 이미지
-	document.querySelector('.store_map').setAttribute('src',displayInfo.displayInfoImage);
+	document.querySelector('.store_map').setAttribute('src',displayInfoImage.saveFileName);
 	
 	// [오시는 길] - 장소 명
 	document.querySelector('.store_name').innerText = displayInfo.placeName;
@@ -122,7 +123,7 @@ function initBottomInfoTab(displayInfoResponse){
 	addressWrap[0].innerText = displayInfo.placeStreet;
 	addressWrap[1].querySelectorAll('span')[1].innerText = displayInfo.placeLot;
 	addressWrap[2].innerText = displayInfo.placeName;
-	
+
 	// [오시는 길] - 전화번호
 	var telephoneArea = document.querySelector('.store_tel');
 	telephoneArea.setAttribute('href',displayInfo.telephone);
@@ -175,15 +176,31 @@ function initBottomInfoTab(displayInfoResponse){
 	});
 }
 
+function setTitleSlide(displayInfo) {
+    var titleTemplate = document.querySelector('#bannerImage').innerText;
+    var bindTitleTemplate = Handlebars.compile(titleTemplate);
+    var titleContainer = document.querySelector('ul.detail_swipe');
+
+    titleContainer.innerHTML += bindTitleTemplate(displayInfo);
+	
+    document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+    
+    
+}
 
 function loadDisplayInfoCallback(responseData) {
     var displayInfoResponse = responseData;
     var displayInfo = displayInfoResponse["displayInfo"];
     var displayProductImages = displayInfoResponse["productImages"];
 
+    var isAdditionalDsiplay = false;
     // ma 타입의 이미지 정보를 displayInfo에 추가
+    // ta 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
     displayProductImages.forEach(image => {
         if(image.type === 'ma') displayInfo.saveFileName = image.saveFileName;
+        if(image.type === 'et') {
+            isAdditionalDsiplay = true;
+        }
     });
     
 	// TitleImage 설정
@@ -207,6 +224,17 @@ function loadDisplayInfoCallback(responseData) {
 
     // 하단 정보 설정
     initBottomInfoTab(displayInfoResponse);
+
+    // init이 모두 끝난 이후 추가적인 etc image가 있었을 경우 슬라이드 작업 진행
+    if(isAdditionalDsiplay) {
+        // 요구사항 - et 이미지가 많아도 최대 1개 등록
+        displayProductImages.forEach(image => {
+        if(image.type === 'et') displayInfo.saveFileName = image.saveFileName;
+        });
+
+        setTitleSlide(displayInfo);
+    }
+
 }
 
 
