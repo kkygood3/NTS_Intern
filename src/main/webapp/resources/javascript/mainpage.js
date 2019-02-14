@@ -167,7 +167,7 @@ function getPromotions(data){
 	promotions.forEach(promotion=>{
 		promotionsHtml += promotionTemplate.replace('{productImageUrl}', promotion.productImageUrl);
 	});
-	document.getElementById('slide').innerHTML += promotionsHtml;
+	document.getElementById('main_slide').innerHTML += promotionsHtml;
 	
 	promotionSlide(promotions.length);
 }
@@ -177,7 +177,7 @@ function getPromotions(data){
  * @param promotionCount slide형태로 출력될 promotion의 개수
  */
 function promotionSlide(promotionCount){
-	let slideUl = document.querySelector('#slide');
+	let slideUl = document.querySelector('#main_slide');
 	const duration = 2 * 1000;
 
 	for(let i = 0; i <= promotionCount; i++){
@@ -199,9 +199,9 @@ function promotionSlide(promotionCount){
 /****************template****************/
 /****************************************/
 const productTemplate = `<li class="item">
-	<a href="detail.html?id={id}" class="item_book">
+	<a href="/detail?displayInfoId={id}" class="item_book">
 		<div class="item_preview">
-			<img alt="{description}" class="img_thumb" src="/resources/img/product/{productImageUrl}">
+			<img alt="{description}" class="img_thumb" src="/resources/img/img/{productImageUrl}">
 			<span class="img_border"></span>
 		</div>
 		<div class="event_txt">
@@ -215,4 +215,4 @@ const categoryTemplate = `<li class="item" data-category="{categoryId}">
 					<a class="anchor"><span>{categoryName}</span></a>
 				</li>`;
 
-const promotionTemplate = `<li><img src="/resources/img/product/{productImageUrl}"/></li>`;
+const promotionTemplate = `<li><img src="/resources/img/img/{productImageUrl}"/></li>`;
