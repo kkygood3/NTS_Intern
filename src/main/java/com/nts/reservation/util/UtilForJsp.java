@@ -7,6 +7,7 @@ package com.nts.reservation.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
@@ -17,13 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UtilForJsp {
 	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy.M.d");
+	private static Random random = new Random();
 
 	/**
-	 * @desc 오늘의 날짜를 리턴해줍니다. 예) 2019.2.7
+	 * @desc 오늘의 날짜에 1~5일을 추가해준 값을 리턴해줍니다. 예) 2019.2.7
 	 * @return
 	 */
-	public static String getCurrentDate() {
-		LocalDateTime currentTime = LocalDateTime.now();
-		return currentTime.format(dateFormatter);
+	public static String getReservationDate() {
+		int addDay = random.nextInt(4) + 1;
+		LocalDateTime reservationTime = LocalDateTime.now().plusDays(addDay);
+		return reservationTime.format(dateFormatter);
 	}
 }
