@@ -36,4 +36,14 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationDao.setReservationPrice(reservationInfoPrice);
 		}
 	}
+
+	@Override
+	public List<Reservation> getAvailableReservations(String userEmail) {
+		return reservationDao.getReservations(userEmail, 0);
+	}
+
+	@Override
+	public List<Reservation> getCanceledReservations(String userEmail) {
+		return reservationDao.getReservations(userEmail, 1);
+	}
 }

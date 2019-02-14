@@ -47,4 +47,9 @@ public class ReservationSqls {
 		+ "(:reservationInfoId"
 		+ ", :productPriceId"
 		+ ", :count)";
+
+	public static final String GET_RESERVATIONS = "SELECT * "
+		+ "FROM reservation_info "
+		+ "WHERE reservation_email = :userEmail "
+		+ "AND cancel_flag = :cancelFlag";
 }

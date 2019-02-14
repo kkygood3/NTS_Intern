@@ -18,13 +18,13 @@ public class Reservation {
 	private Date createDate;
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private Date modifyDate;
-	private int reservationInfoId;
+	private int id;
 	private int displayInfoId;
 	private List<ReservationPrice> prices;
 	private int productId;
 	private String reservationEmail;
 	private String reservationName;
-	private String reservationTelephone;
+	private String reservationTel;
 	private String reservationDate;
 
 	public int getDisplayInfoId() {
@@ -67,12 +67,12 @@ public class Reservation {
 		this.reservationName = reservationName;
 	}
 
-	public String getReservationTelephone() {
-		return reservationTelephone;
+	public String getReservationTel() {
+		return reservationTel;
 	}
 
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
+	public void setReservationTel(String reservationTel) {
+		this.reservationTel = reservationTel;
 	}
 
 	public String getReservationDate() {
@@ -107,11 +107,11 @@ public class Reservation {
 		this.modifyDate = modifyDate;
 	}
 
-	public int getReservationInfoId() {
-		return reservationInfoId;
+	public int getId() {
+		return id;
 	}
 
-	public void setReservationInfoId(int reservationInfoId) {
-		this.reservationInfoId = reservationInfoId;
+	public void setId(int reservationInfoId) {
+		this.id = reservationInfoId;
 	}
 }

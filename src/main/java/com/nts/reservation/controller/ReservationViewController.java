@@ -6,9 +6,11 @@ package com.nts.reservation.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
@@ -16,11 +18,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.service.ReservationService;
+
 /**
 * @author  : 이승수
 */
 @Controller
 public class ReservationViewController {
+	@Autowired
+	ReservationService reservationService;
+
 	@GetMapping("/")
 	public String mainPage() {
 		return "mainpage";
@@ -38,7 +46,14 @@ public class ReservationViewController {
 	}
 
 	@GetMapping("/history")
-	public String myReservationPage() {
+	public String myReservationPage(HttpSession session, ModelMap model) {
+		List<Reservation> availableReservations = reservationService
+			.getAvailableReservations(String.valueOf(session.getAttribute("userEmail")));
+		List<Reservation> canceledReservations = reservationService
+			.getCanceledReservations(String.valueOf(session.getAttribute("userEmail")));
+
+		session.setAttribute("availableCnt", availableReservations.size());
+		session.setAttribute("canceledCnt", canceledReservations.size());
 		return "myreservation";
 	}
 

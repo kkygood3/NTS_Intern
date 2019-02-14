@@ -4,12 +4,19 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATION_INFO_ID;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -25,6 +32,7 @@ import com.nts.reservation.dto.ReservationPrice;
 @Transactional
 public class ReservationDao {
 	private NamedParameterJdbcTemplate jdbc;
+	private RowMapper<Reservation> rowMapper = BeanPropertyRowMapper.newInstance(Reservation.class);
 
 	public ReservationDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -42,5 +50,13 @@ public class ReservationDao {
 
 	public void setReservationPrice(ReservationPrice reservationInfoPrice) {
 		jdbc.update(INSERT_RESERVATION_INFO_PRICE, new BeanPropertySqlParameterSource(reservationInfoPrice));
+	}
+
+	@Transactional(readOnly = true)
+	public List<Reservation> getReservations(String userEmail, int cancelFlag) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userEmail", userEmail);
+		params.put("cancelFlag", cancelFlag);
+		return jdbc.query(GET_RESERVATIONS, params, rowMapper);
 	}
 }
