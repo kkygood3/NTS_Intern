@@ -47,13 +47,13 @@ public class ReservationViewController {
 
 	@GetMapping("/history")
 	public String myReservationPage(HttpSession session, ModelMap model) {
-		List<Reservation> availableReservations = reservationService
-			.getAvailableReservations(String.valueOf(session.getAttribute("userEmail")));
-		List<Reservation> canceledReservations = reservationService
-			.getCanceledReservations(String.valueOf(session.getAttribute("userEmail")));
+		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 
-		session.setAttribute("availableCnt", availableReservations.size());
-		session.setAttribute("canceledCnt", canceledReservations.size());
+		List<Reservation> availableReservations = reservationService.getAvailableReservations(userEmail);
+		List<Reservation> canceledReservations = reservationService.getCanceledReservations(userEmail);
+
+		session.setAttribute("availableReservations", availableReservations);
+		session.setAttribute("canceledReservations", canceledReservations);
 		return "myreservation";
 	}
 
