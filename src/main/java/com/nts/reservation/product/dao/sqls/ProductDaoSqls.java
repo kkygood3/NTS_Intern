@@ -48,9 +48,19 @@ public class ProductDaoSqls {
 		"WHERE display_info.id = :displayInfoId " + 
 		"AND product_image.type = 'ma'";
 	
+	public static final String GET_PRODUCT_ECT_IMAGES = "SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type' " + 
+		"FROM product " + 
+		"INNER JOIN product_image ON product_image.product_id = product.id " + 
+		"INNER JOIN display_info ON display_info.product_id = product.id " + 
+		"INNER JOIN file_info ON file_info.id = product_image.file_id " + 
+		"WHERE display_info.id = :displayInfoId " + 
+		"AND product_image.type = 'et' " + 
+		"LIMIT 1";
+	
 	public static final String GET_PRODUCT_PRICES = "SELECT product_price.id 'productPriceId', product.id 'productId', price_type_name 'priceTypeName', price 'price', discount_rate 'discountRate', product_price.create_date 'createDate', product_price.modify_date 'modifyDate' " + 
 		"FROM product_price " + 
 		"INNER JOIN product ON product.id = product_price.product_id " + 
 		"INNER JOIN display_info ON display_info.product_id = product.id " + 
 		"WHERE display_info.id = :displayInfoId";
+	
 }

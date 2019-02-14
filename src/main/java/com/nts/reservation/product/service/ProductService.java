@@ -12,6 +12,6 @@ import com.nts.reservation.product.dto.ProductResponse;
 
 public interface ProductService {
 	ProductResponse getProductsByCategory(int categoryId, int start, int limit);
-	List<ProductImage> getProductImages(int displayInfoId);
+	List<ProductImage> getProductImages(int displayInfoId, String type);
 	List<ProductPrice> getProductPrices(int displayInfoId);
 }

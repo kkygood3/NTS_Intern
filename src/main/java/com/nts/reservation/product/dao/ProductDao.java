@@ -15,7 +15,7 @@ public interface ProductDao {
 
 	int selectProductCountByCategory(int categoryId);
 
-	List<ProductImage> selectProductImages(int displayInfoId);
+	List<ProductImage> selectProductImages(int displayInfoId, String type);
 
 	List<ProductPrice> selectProductPrices(int displayInfoId);
 }

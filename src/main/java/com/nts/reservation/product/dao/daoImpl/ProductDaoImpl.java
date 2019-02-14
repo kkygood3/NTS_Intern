@@ -62,10 +62,15 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<ProductImage> selectProductImages(int displayInfoId) {
-		Map<String, Integer> param = new HashMap<>();
+	public List<ProductImage> selectProductImages(int displayInfoId, String type) {
+		Map<String, Object> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		return jdbc.query(ProductDaoSqls.GET_PRODUCT_IMAGES, param, productImageRowMapper);
+		param.put("type", type);
+		if (type.equals("ma")) {
+			return jdbc.query(ProductDaoSqls.GET_PRODUCT_IMAGES, param, productImageRowMapper);
+		} else {
+			return jdbc.query(ProductDaoSqls.GET_PRODUCT_ECT_IMAGES, param, productImageRowMapper);
+		}
 	}
 
 	@Override

@@ -5,7 +5,6 @@
 package com.nts.reservation.product.controller;
 
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.comment.dto.Comment;
-import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.display.dto.DisplayInfo;
-import com.nts.reservation.display.dto.DisplayInfoImage;
 import com.nts.reservation.display.dto.DisplayResponse;
 import com.nts.reservation.display.service.DisplayService;
 import com.nts.reservation.product.dto.ProductImage;
-import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
@@ -33,9 +27,6 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private CommentService commentService;
 
 	@Autowired
 	private DisplayService displayService;
@@ -65,21 +56,16 @@ public class ProductController {
 		if (displayInfoId < 0) {
 			throw new IllegalArgumentException();
 		}
-		
-		// TODO 임시
-		double averageScore = commentService.getCommentAvgScore(displayInfoId);
-		List<Comment> comments = commentService.getComments(displayInfoId);
-		DisplayInfo displayInfo = displayService.getDisplayInfo(displayInfoId);
-		DisplayInfoImage displayInfoImage = displayService.getDisplayInfoImage(displayInfoId);
-		List<ProductImage> productImages = productService.getProductImages(displayInfoId);
-		List<ProductPrice> productPrices = productService.getProductPrices(displayInfoId);
 
-		return DisplayResponse.builder()
-			.comments(comments)
-			.displayInfo(displayInfo)
-			.displayInfoImage(displayInfoImage)
-			.productImages(productImages)
-			.productPrices(productPrices)
-			.averageScore(averageScore).build();
+		return displayService.getDisplayInfo(displayInfoId);
+	}
+	
+	@GetMapping(path = "/products/etc/{displayInfoId}")
+	public ProductImage getProductEtcImage(@PathVariable("displayInfoId") int displayInfoId) {
+		// TODO LIST -> ProductImage
+		if(productService.getProductImages(displayInfoId, "et").size() == 0) {
+			return new ProductImage();
+		}
+		return productService.getProductImages(displayInfoId, "et").get(0);
 	}
 }
