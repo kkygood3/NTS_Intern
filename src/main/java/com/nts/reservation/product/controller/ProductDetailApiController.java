@@ -56,8 +56,6 @@ public class ProductDetailApiController {
 			return getEmptyDisplayInfoResponse();
 		}
 
-		//return getLimitCommentResponse(displayInfoId, start, limit);
-		//return getAllCommentResponse(displayInfoId);
 		return getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
@@ -141,42 +139,4 @@ public class ProductDetailApiController {
 
 		return displayInfoResponse;
 	}
-
-	//	private CommentResponse getEmptyCommentResponse() {
-	//		CommentResponse commentResponse = new CommentResponse();
-	//		commentResponse.setItems(Collections.emptyList());
-	//
-	//		return commentResponse;
-	//	}
-	//
-	//	private CommentResponse getAllCommentResponse(int displayInfoId) {
-	//		List<Comment> commentList = commentService.getAllCommentByDisplayInfoId(displayInfoId);
-	//		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
-	//
-	//		for (Comment comment : commentList) {
-	//			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
-	//			comment.setCommentImages(commentImageList);
-	//		}
-	//
-	//		CommentResponse commentResponse = new CommentResponse();
-	//		commentResponse.setItems(commentList);
-	//
-	//		return commentResponse;
-	//	}
-	//
-	//	private CommentResponse getLimitCommentResponse(int displayInfoId, int start, int limit) {
-	//		List<Comment> commentList = commentService.getLimitCommentByDisplayInfoId(displayInfoId, start, limit);
-	//		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
-	//
-	//		for (Comment comment : commentList) {
-	//			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
-	//			comment.setCommentImages(commentImageList);
-	//		}
-	//
-	//		CommentResponse commentResponse = new CommentResponse();
-	//		commentResponse.setItems(commentList);
-	//
-	//		return commentResponse;
-	//	}
-	//
 }
