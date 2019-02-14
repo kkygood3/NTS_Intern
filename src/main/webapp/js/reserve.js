@@ -36,6 +36,9 @@ var bookingPage = {
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
 	elements: {
+		title : document.querySelector(".top_title").querySelector(".title"),
+		mainImage : document.querySelector(".img_thumb"),
+		
 		btnBack : document.querySelector(".btn_back"),
 		btnTop : document.querySelector(".lnk_top")
 	},
@@ -87,6 +90,8 @@ var bookingPage = {
 	renderDisplayInfo: function(jsonResponse){
 		var bindDisplayInfo = this.compileHendlebars.bindTemplate(this.template.displayInfoTemplate);
 		
+		this.elements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
+		this.elements.mainImage.src = "../../" + jsonResponse["productImages"][0].saveFileName;
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 	
