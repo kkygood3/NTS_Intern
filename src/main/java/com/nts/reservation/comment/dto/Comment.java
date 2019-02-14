@@ -15,6 +15,7 @@ public class Comment {
 	private String comment;
 	private int commentId;
 	private List<CommentImage> commentImages;
+	private int imageCount;
 	private String createDate;
 	private String modifyDate;
 	private int productId;

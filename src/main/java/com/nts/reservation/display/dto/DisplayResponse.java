@@ -6,7 +6,7 @@ package com.nts.reservation.display.dto;
 
 import java.util.List;
 
-import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.dto.CommentResponse;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
 
@@ -18,8 +18,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @Builder
 public class DisplayResponse {
-	private double averageScore;
-	private List<Comment> comments;
+	private CommentResponse comments;
 	private DisplayInfo displayInfo;
 	private DisplayInfoImage displayInfoImage;
 	private List<ProductImage> productImages;

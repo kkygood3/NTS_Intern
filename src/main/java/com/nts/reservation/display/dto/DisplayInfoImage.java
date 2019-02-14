@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.display.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
