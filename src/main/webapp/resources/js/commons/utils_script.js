@@ -105,13 +105,19 @@ SlidingAnimation.prototype.init = function(params) {
 	this.currentSlideCount = 0;
 	this.nextSlideCount = 1;
 	this.isAnimating = false;
-	
-	this.maxHeight = params && params.maxHeight ? params.maxHeight : this.slideWrapper.clientHeight;
-	this.minHeight = params && params.minHeight ? params.minHeight : 100;
 	this.isAutoStart = false;
-	this.animationSpeed = params && params.animationSpeed ? params.animationSpeed : 10;
-	this.animationStopDuration = params && params.animationStopDuration ? params.animationStopDuration : 1000;
-		
+
+	this.maxHeight = slideWrapper.clientHeight;
+	this.minHeight = 100;
+	this.animationSpeed = 10;
+	this.animationStopDuration = 1000;
+
+	if(optionals){
+		this.maxHeight = optionals.maxHeight ? optionals.maxHeight : slideWrapper.clientHeight;
+		this.minHeight = optionals.minHeight ? optionals.minHeight : 100;
+		this.animationSpeed = optionals.animationSpeed ? optionals.animationSpeed : 10;
+		this.animationStopDuration = optionals.animationStopDuration ? optionals.animationStopDuration : 1000;
+	}
 	this.imageList.forEach((item) => {
 		if(item == this.imageList[0]) {
 			this.imageList[0].style.left = 0 + "px";
