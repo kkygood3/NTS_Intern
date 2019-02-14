@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.service.ReservationService;
 
 /**
 * @author  : 이승수
@@ -44,6 +47,9 @@ public class ReservationApiController {
 
 	@Autowired
 	DetailProductService detailProductService;
+
+	@Autowired
+	ReservationService reservationService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
@@ -106,7 +112,7 @@ public class ReservationApiController {
 	}
 
 	@PostMapping(path = "/reservations")
-	public void serReservation(@RequestBody Reservation body) {
-		System.out.println(body);
+	public void serReservation(HttpSession session, @RequestBody Reservation reserveInfo) {
+		reservationService.setReservation(session, reserveInfo);
 	}
 }

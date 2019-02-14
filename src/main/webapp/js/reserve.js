@@ -19,7 +19,7 @@ function _test(){
 	var _test_data = {
 		displayInfoId: domElements.displayInfoId,
 		prices: _test_prices,
-		productId: 073,
+		productId: domElements.getElements.title.dataset.productId,
 		reservationEmail: domElements.getElements.bkEmail.value,
 		reservationName: domElements.getElements.bkName.value,
 		reservationTelephone: domElements.getElements.bkTel.value,
