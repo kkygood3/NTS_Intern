@@ -1324,6 +1324,7 @@ button {
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden
+	cursor: default;
 }
 
 .group_visual {
@@ -4170,4 +4171,8 @@ button {
 /* 더보기 버튼이 필표하지 않은 상황에서 숨기기 위해 기본 display속성 정의 */
 .btn {
 	display: initial;
+}
+
+.detail_swipe>li.item {
+	cursor: default;
 }
