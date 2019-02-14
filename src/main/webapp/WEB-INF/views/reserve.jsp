@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected">2017.2.17, 총 <span id="totalCount">16</span>매</p>
+                                        <p class="inline_txt selected"><!-- 2017.2.17, 총 <span id="totalCount">0</span>매--></p>
                                     </div>
                                 </div>
                             </form>
@@ -196,7 +196,7 @@
                 <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
             </div>
             <div class="individual_price on_color">
-                    <span class="total_price"></span>
+                    <span class="total_price">0</span>
                     <span class="price_type">원</span>
             </div>
         </div>

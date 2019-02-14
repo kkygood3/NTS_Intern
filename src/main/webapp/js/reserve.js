@@ -29,8 +29,9 @@ var bookingPage = {
 			httpRequest.send();
 		}
 		
-		this.goToPrevPage();
-		this.scrollTop();
+		this.setEvent.changeTicketCount();
+		this.setEvent.goToPrevPage();
+		this.setEvent.scrollTop();
 	},
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
@@ -38,6 +39,9 @@ var bookingPage = {
 	elements: {
 		title : document.querySelector(".top_title").querySelector(".title"),
 		mainImage : document.querySelector(".img_thumb"),
+		
+		ticketCounts : [],
+		totalCount : document.querySelector(".inline_txt.selected"),
 		
 		btnBack : document.querySelector(".btn_back"),
 		btnTop : document.querySelector(".lnk_top")
@@ -99,19 +103,86 @@ var bookingPage = {
 		var bindTicketPrice = this.compileHendlebars.bindTemplate(this.template.priceTemplate);
 		
 		this.container.priceContainer.innerHTML = bindTicketPrice(jsonResponse);
+		
+		this.elements.ticketCounts = document.querySelectorAll(".count_control_input");
+		this.setAmountOfPayment.checkTicketCount();
 	},
 	
-	goToPrevPage: function(){
-		this.elements.btnBack.addEventListener("click", function(){
-			event.preventDefault();
-			history.back();
-		});
+	setEvent: {
+		changeTicketCount: function(){
+			this.bookingPage.container.priceContainer.addEventListener("click", function(event){
+				this.bookingPage.setAmountOfPayment.changeTicketCount(event);
+			}.bind(this));
+		}.bind(this),
+		
+		goToPrevPage: function(){
+			this.bookingPage.elements.btnBack.addEventListener("click", function(){
+				event.preventDefault();
+				history.back();
+			});
+		}.bind(this),
+		
+		scrollTop: function(){
+			this.bookingPage.elements.btnTop.addEventListener("click", function(){
+				event.preventDefault();
+				document.documentElement.scrollTop = 0;
+			});
+		}.bind(this)
 	},
 	
-	scrollTop: function(){
-		this.elements.btnTop.addEventListener("click", function(){
+	setAmountOfPayment: {
+		amountOfPayment: function(){
+			var amountOfPayment = 0;
+			
+			document.querySelectorAll(".total_price").forEach(function(price){
+				amountOfPayment += parseInt(price.innerHTML);
+			});
+			
+			return amountOfPayment;
+		},
+		
+		checkTicketCount: function(){
+			var totalCount = 0;
+			this.bookingPage.elements.ticketCounts.forEach(function(ticketCnt){
+				if(ticketCnt.value === "0"){
+					ticketCnt.previousElementSibling.classList.add("disabled");
+					ticketCnt.classList.add("disabled");
+				}
+				else {
+					ticketCnt.previousElementSibling.classList.remove("disabled");
+					ticketCnt.classList.remove("disabled");
+				}
+				totalCount += parseInt(ticketCnt.value);
+			});
+			
+			if(totalCount === 0) {
+				this.bookingPage.elements.totalCount.innerHTML = "선택된 티켓이 없습니다.";
+			} else {
+				this.bookingPage.elements.totalCount.innerHTML = "총 " + totalCount + "매, " + this.bookingPage.setAmountOfPayment.amountOfPayment() + "원"
+			}
+		}.bind(this),
+		
+		changeTicketCount: function(event){
+			var ticketPrice;
+			var ticketCnt;
+			var totalPrice;
+			
 			event.preventDefault();
-			document.documentElement.scrollTop = 0;
-		});
+			
+			if(event.target.classList.contains("btn_plus_minus")){
+				ticketPrice = event.target.parentNode.parentNode.parentNode.querySelector(".price").innerHTML
+				ticketCnt = event.target.parentNode.querySelector(".count_control_input")
+				totalPrice = event.target.parentNode.parentNode.querySelector(".total_price");
+				
+				if(event.target.classList.contains("ico_plus3")) {
+					ticketCnt.value++;
+				} else if(!event.target.classList.contains("disabled") && event.target.classList.contains("ico_minus3")) {
+					ticketCnt.value--;
+				}
+				
+				totalPrice.innerHTML = ticketPrice * ticketCnt.value;
+				this.checkTicketCount();
+			}
+		}
 	}
 }
