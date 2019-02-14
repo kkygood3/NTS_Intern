@@ -32,4 +32,10 @@ public class ProductDaoQuerys {
 		+ " INNER JOIN display_info ON product.id = display_info.product_id"
 		+ " WHERE product.category_id = :categoryId"
 		+ " GROUP BY product.category_id";
+
+	public static final String SELECT_PRODUCT_IMAGE_BY_DISPLAY_INFO_ID = "SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', display_info.product_id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type'"
+		+ " FROM display_info"
+		+ " INNER JOIN product_image ON display_info.product_id = product_image.product_id"
+		+ " INNER JOIN file_info ON product_image.file_id = file_info.id"
+		+ " WHERE display_info.id = :displayInfo";
 }

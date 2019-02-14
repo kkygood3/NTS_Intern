@@ -18,7 +18,7 @@ import com.nts.reservation.product.service.ProductService;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
-public class ProductMainApiController {
+public class ProductApiController {
 	@Autowired
 	private ProductService productService;
 
@@ -28,15 +28,15 @@ public class ProductMainApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (isInvalidParameter(categoryId, start)) {
+		if (isInvalidCategoryIdAndStart(categoryId, start)) {
 			System.out.println("올바르지 않은 categoryId 또는 start");
 
-			return getEmptyitems();
+			return getEmptyItems();
 		}
 
 		int totalCount = productService.getProductsCountByCategoryId(categoryId);
 		if (totalCount == 0) {
-			return getEmptyitems();
+			return getEmptyItems();
 		}
 
 		ProductResponse productResponse = new ProductResponse();
@@ -46,18 +46,18 @@ public class ProductMainApiController {
 		return productResponse;
 	}
 
-	private boolean isValidParameter(int categoryId, int limit) {
+	private boolean isValidCategoryIdAndStart(int categoryId, int limit) {
 		if (categoryId < 0 || limit < 0) {
 			return false;
 		}
 		return true;
 	}
 
-	private boolean isInvalidParameter(int categoryId, int limit) {
-		return !isValidParameter(categoryId, limit);
+	private boolean isInvalidCategoryIdAndStart(int categoryId, int limit) {
+		return !isValidCategoryIdAndStart(categoryId, limit);
 	}
 
-	private ProductResponse getEmptyitems() {
+	private ProductResponse getEmptyItems() {
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(0);
 		productResponse.setItems(Collections.emptyList());

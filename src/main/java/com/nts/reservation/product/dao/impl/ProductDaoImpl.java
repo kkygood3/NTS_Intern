@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -27,7 +28,8 @@ import com.nts.reservation.product.dto.Product;
 @Repository
 public class ProductDaoImpl implements ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
+	private RowMapper<Product> productRowMapper = BeanPropertyRowMapper.newInstance(Product.class);
+	private RowMapper<ProductImage> productImageRowMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
 
 	public ProductDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -38,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PRODUCT, params, rowMapper);
+		return jdbc.query(SELECT_PRODUCT, params, productRowMapper);
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class ProductDaoImpl implements ProductDao {
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PRODUCT_BY_CATEGORY, params, rowMapper);
+		return jdbc.query(SELECT_PRODUCT_BY_CATEGORY, params, productRowMapper);
 	}
 
 	@Override
@@ -60,5 +62,12 @@ public class ProductDaoImpl implements ProductDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+	}
+
+	@Override
+	public List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("DisplayInfoId", displayInfoId);
+		return jdbc.query(SELECT_PRODUCT_IMAGE_BY_DISPLAY_INFO_ID, params, productImageRowMapper);
 	}
 }

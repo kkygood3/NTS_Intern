@@ -25,7 +25,7 @@ public class PromotionApiController {
 	public PromotionResponse getItems() {
 		int promotionCount = promotionService.getPromotionsCount();
 		if (promotionCount == 0) {
-			return getEmptyitems();
+			return getEmptyItems();
 		}
 
 		PromotionResponse promotionResponse = new PromotionResponse();
@@ -34,7 +34,7 @@ public class PromotionApiController {
 		return promotionResponse;
 	}
 
-	private PromotionResponse getEmptyitems() {
+	private PromotionResponse getEmptyItems() {
 		PromotionResponse promotionResponse = new PromotionResponse();
 		promotionResponse.setItems(Collections.emptyList());
 

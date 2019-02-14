@@ -7,6 +7,7 @@ package com.nts.reservation.product.dao;
 import java.util.List;
 
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -19,4 +20,6 @@ public interface ProductDao {
 	int selectProductsCount();
 
 	int selectProductsCountByCategory(int categoryId);
+
+	List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId);
 }

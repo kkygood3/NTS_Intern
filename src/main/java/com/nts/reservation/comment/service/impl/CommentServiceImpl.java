@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.comment.dao.impl.CommentDaoImpl;
 import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.dto.CommentImage;
 import com.nts.reservation.comment.service.CommentService;
 
 /**
@@ -22,12 +23,22 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDaoImpl commentDaoImpl;
 
 	@Override
-	public List<Comment> getCommentByProductId(int productId) {
-		return commentDaoImpl.selectCommentByProductId(productId);
+	public List<Comment> getAllCommentByDisplayInfoId(int displayInfoId) {
+		return commentDaoImpl.selectAllCommentByDisplayInfoId(displayInfoId);
 	}
 
 	@Override
-	public double getAverageScoreByProductId(int productId) {
-		return commentDaoImpl.selectAverageScoreByProductId(productId);
+	public List<Comment> getLimitCommentByDisplayInfoId(int displayInfoId, int start, int limit) {
+		return commentDaoImpl.selectLimitCommentByDisplayInfoId(displayInfoId, start, limit);
+	}
+
+	@Override
+	public List<CommentImage> getCommentImageByCommentId(int commentId) {
+		return commentDaoImpl.selectCommentImageByCommentId(commentId);
+	}
+
+	@Override
+	public double getAverageScoreByDisplayInfoId(int displayInfoId) {
+		return commentDaoImpl.selectAverageScoreByDisplayInfoId(displayInfoId);
 	}
 }
