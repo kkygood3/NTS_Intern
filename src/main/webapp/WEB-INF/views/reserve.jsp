@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매일자</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected">${reservationDate}</p>
+                                        <p class="inline_txt selected" id="reservation_date">${reservationDate}</p>
                                     </div>
                                 </div>
                             </form>
@@ -208,7 +208,7 @@
         <div class="count_control">
             <div class="clearfix">
                 <a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"></a>
-                    <input type="tel" class="count_control_input" value="0" readonly title="수량">
+                    <input type="tel" data-product-price-id = "{{productPriceId}}" class="count_control_input" value="0" readonly title="수량">
                 <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
             </div>
             <div class="individual_price on_color">

@@ -12,6 +12,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +25,7 @@ import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
+import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
@@ -100,5 +103,10 @@ public class ReservationApiController {
 		map.put("items", categories);
 
 		return map;
+	}
+
+	@PostMapping(path = "/reservations")
+	public void serReservation(@RequestBody Reservation body) {
+		System.out.println(body);
 	}
 }

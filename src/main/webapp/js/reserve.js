@@ -2,6 +2,47 @@ document.addEventListener("DOMContentLoaded", function() {
 	getBookingPage();
 });
 
+function _test(){
+	var domElements = new DomElements();
+	
+	var _test_prices = []
+	domElements.container.priceContainer.querySelectorAll(".count_control").forEach(function(elements){
+		var _test_price = {
+				count : elements.querySelector(".count_control_input").value,
+				productPriceId : elements.querySelector(".count_control_input").dataset.productPriceId,
+		}
+		if(_test_price.count !== "0"){
+			_test_prices.push(_test_price)
+		}
+	});
+	
+	var _test_data = {
+		displayInfoId: domElements.displayInfoId,
+		prices: _test_prices,
+		productId: 073,
+		reservationEmail: domElements.getElements.bkEmail.value,
+		reservationName: domElements.getElements.bkName.value,
+		reservationTelephone: domElements.getElements.bkTel.value,
+		reservationYearMonthDay: domElements.getElements.bkDate.innerHTML,
+	}
+	
+	var httpRequest;
+	
+	if (window.XMLHttpRequest) {
+		httpRequest =  new XMLHttpRequest();
+		
+		httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				window.location.href = "../.."
+			}
+		}
+		
+		httpRequest.open("POST", "../../api/reservations");
+		httpRequest.setRequestHeader("Content-type", "application/json");
+		httpRequest.send(JSON.stringify(_test_data));
+	}
+}
+
 function getBookingPage(){
 	var domElements = new DomElements();
 	var template = new Templating();
@@ -42,6 +83,7 @@ function getBookingPage(){
 	setEvent.acceptTerms();
 	setEvent.goToPrevPage();
 	setEvent.scrollTop();
+	setEvent._test_sendPost();
 }
 
 
@@ -62,6 +104,7 @@ DomElements.prototype.getElements = {
 	bkName : document.querySelector("#name"),
 	bkTel : document.querySelector("#tel"),
 	bkEmail : document.querySelector("#email"),
+	bkDate : document.querySelector("#reservation_date"),
 	
 	btnShowMore : document.querySelectorAll(".btn_agreement"),
 	btnAgree : document.querySelector(".chk_agree")
@@ -270,6 +313,14 @@ SetEvent.prototype.scrollTop = function(){
 	this.domElements.getElements.btnTop.addEventListener("click", function(){
 		event.preventDefault();
 		document.documentElement.scrollTop = 0;
+	});
+}
+
+SetEvent.prototype._test_sendPost = function(){
+	this.domElements.container.bkBtnContainer.addEventListener("click", function(){
+		if(!this.classList.contains("disable")){
+			_test();
+		}
 	});
 }
 
