@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service;
+package com.nts.reservation.service.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.service.CategoryService;
 
 /**
  * 카테고리 서비스 인터페이스 구현로직

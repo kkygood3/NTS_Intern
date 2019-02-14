@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service;
+package com.nts.reservation.service.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.service.PromotionService;
 
 /**
  * 프로모션에 대한 서비스 로직
