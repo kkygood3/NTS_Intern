@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.queries.detail.DetailResponseQueries;
 
+/**
+ * /api/products/{displayInfoId} 요청에 대응
+ */
 @Repository
 public class DetailResponseDao {
 	private NamedParameterJdbcTemplate jdbc;
@@ -23,6 +26,9 @@ public class DetailResponseDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
+	/**
+	 * detail 페이지를 로드할 때 필요한 정보를 조회
+	 */
 	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

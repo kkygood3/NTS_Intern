@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.main;
 
 /**
- * 메인 페이지 출력을 위한 /api/products 요청을 위한 DTO 
+ * 메인 페이지 로드시 /api/products 요청에 Product 정보를 담는 DTO 
  */
 public class MainProduct {
 	private Integer displayInfoId;

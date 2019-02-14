@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.queries.detail.DetailExtraImageQueries;
 
+/**
+ * /api/products/{displayInfoId}/extra 요청에 대응
+ */
 @Repository
 public class DetailExtraImageDao {
 	private NamedParameterJdbcTemplate jdbc;
@@ -23,6 +26,9 @@ public class DetailExtraImageDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
+	/**
+	 * 화면에 표시할 추가 이미지를 조회하여 반환
+	 */
 	public DetailExtraImage selectDetailExtraImageById(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

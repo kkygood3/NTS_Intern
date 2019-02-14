@@ -1,5 +1,8 @@
 package com.nts.reservation.dto.detail;
 
+/**
+ * /api/products/{displayInfoId}/extra요청에 추가 이미지를 담는 DTO
+ */
 public class DetailExtraImage {
 	private String productImage;
 	private String productDescription;

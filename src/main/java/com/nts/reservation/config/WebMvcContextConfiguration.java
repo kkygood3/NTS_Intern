@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * Controller Config
+ * MVC에서 Controller단을 관리.
  */
 @Configuration
 @EnableWebMvc

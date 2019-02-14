@@ -13,7 +13,9 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.review.ReviewResponse;
 import com.nts.reservation.queries.review.ReviewResponseQueries;
-
+/**
+ * /api/products/{displayInfoId}/review 요청에 대응
+ */
 @Repository
 public class ReviewResponseDao {
 	private NamedParameterJdbcTemplate jdbc;
@@ -22,7 +24,10 @@ public class ReviewResponseDao {
 	public ReviewResponseDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
-
+	
+	/**
+	 * review 페이지를 로드할 때 필요한 정보를 조회
+	 */
 	public List<ReviewResponse> selectDetailPageById(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

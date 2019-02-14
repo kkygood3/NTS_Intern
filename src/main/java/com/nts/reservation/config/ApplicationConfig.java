@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * Service, Repository Config
+ * Service, Dao를 관리.
+ * DBConfig를 Import하고 있음
  */
 @Configuration
 @ComponentScan({"com.nts.reservation.dao", "com.nts.reservation.service"})
