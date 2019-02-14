@@ -13,9 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.Product;
-import com.nts.reservation.dto.Promotion;
+import com.nts.reservation.products.dto.Product;
+import com.nts.reservation.products.dto.Promotion;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -30,32 +29,26 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> getProductsByCategory(Integer categoryId, Integer start) {
+	public List<Product> selectProductsByCategory(Integer categoryId, Integer start) {
 		if (categoryId > 0) {
-			return productDao.getProductsByCategory(categoryId, start, LIMIT);
+			return productDao.selectProductsByCategory(categoryId, start, LIMIT);
 		} else {
-			return productDao.getProducts(start, LIMIT);
+			return productDao.selectProducts(start, LIMIT);
 		}
 	}
 
 	@Override
-	public Long getProductsCount() {
-		return productDao.getProductsCount();
+	public Long selectProductsCount() {
+		return productDao.selectProductsCount();
 	}
 
 	@Override
-	public Long getProductsCountByCategory(Integer categoryId) {
-		return productDao.getProductsCountByCategory(categoryId);
+	public Long selectProductsCountByCategory(Integer categoryId) {
+		return productDao.selectProductsCountByCategory(categoryId);
 	}
 
 	@Override
-	public List<Promotion> getPromotions() {
-		return productDao.getPromotions();
+	public List<Promotion> selectPromotions() {
+		return productDao.selectPromotions();
 	}
-
-	@Override
-	public List<Category> getAllProductsCountByCategory() {
-		return productDao.getAllProductsCountByCategory();
-	}
-
 }

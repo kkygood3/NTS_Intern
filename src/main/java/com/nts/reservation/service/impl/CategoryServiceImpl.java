@@ -1,0 +1,23 @@
+package com.nts.reservation.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.products.dto.Category;
+import com.nts.reservation.service.CategoryService;
+
+@Service
+@Transactional(readOnly = true)
+public class CategoryServiceImpl implements CategoryService {
+	@Autowired
+	ProductDao productDao;
+
+	@Override
+	public List<Category> selectAllProductsCountByCategory() {
+		return productDao.selectAllProductsCountByCategory();
+	}
+}

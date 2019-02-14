@@ -1,4 +1,4 @@
-package com.nts.reservation.dao;
+package com.nts.reservation.dao.sqls;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -35,7 +35,8 @@ public class ProductDaoSqls {
 		+ " INNER JOIN product pdt ON pdt.id = di.product_id"
 		+ " INNER JOIN product_image pi ON pi.product_id = di.product_id AND pi.type = 'th'"
 		+ " INNER JOIN file_info fi ON fi.id = pi.file_id"
-		+ " ORDER BY di.product_id ASC LIMIT :start, :limit";
+		+ " ORDER BY di.product_id ASC"
+		+ " LIMIT :start, :limit";
 
 	public static final String SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING = "SELECT di.id AS displayInfoId "
 		+ ", di.product_id AS productId"
@@ -55,5 +56,5 @@ public class ProductDaoSqls {
 		+ " FROM display_info di"
 		+ " INNER JOIN product pdt ON pdt.id = di.product_id"
 		+ " INNER JOIN category ctg ON ctg.id = pdt.category_id"
-		+ " GROUP BY pdt.category_id";
+		+ " GROUP BY ctg.id, ctg.name";
 }

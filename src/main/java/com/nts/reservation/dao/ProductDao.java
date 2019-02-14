@@ -6,12 +6,12 @@ package com.nts.reservation.dao;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_ALL_PRODUCTS_PAGING;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PRODUCTS_COUNT_BY_CATEGORY;
-import static com.nts.reservation.dao.ProductDaoSqls.SELECT_PROMOTION;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_BY_CATEGORY_PAGING;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_ALL_PRODUCTS_PAGING;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PRODUCTS_COUNT;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PRODUCTS_COUNT_BY_CATEGORY;
+import static com.nts.reservation.dao.sqls.ProductDaoSqls.SELECT_PROMOTION;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,9 +23,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.Product;
-import com.nts.reservation.dto.Promotion;
+import com.nts.reservation.products.dto.Category;
+import com.nts.reservation.products.dto.Product;
+import com.nts.reservation.products.dto.Promotion;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -36,18 +36,18 @@ public class ProductDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
 
-	public List<Promotion> getPromotions() {
+	public List<Promotion> selectPromotions() {
 		return jdbc.query(SELECT_PROMOTION, BeanPropertyRowMapper.newInstance(Promotion.class));
 	}
 
-	public List<Product> getProducts(Integer start, Integer limit) {
+	public List<Product> selectProducts(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 		return jdbc.query(SELECT_ALL_PRODUCTS_PAGING, params, BeanPropertyRowMapper.newInstance(Product.class));
 	}
 
-	public List<Product> getProductsByCategory(Integer category, Integer start, Integer limit) {
+	public List<Product> selectProductsByCategory(Integer category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
@@ -56,17 +56,17 @@ public class ProductDao {
 			BeanPropertyRowMapper.newInstance(Product.class));
 	}
 
-	public Long getProductsCount() {
+	public Long selectProductsCount() {
 		return jdbc.queryForObject(SELECT_PRODUCTS_COUNT, Collections.emptyMap(), Long.class);
 	}
 
-	public Long getProductsCountByCategory(Integer category) {
+	public Long selectProductsCountByCategory(Integer category) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("category_id", category);
 		return jdbc.queryForObject(SELECT_PRODUCTS_COUNT_BY_CATEGORY, params, Long.class);
 	}
 
-	public List<Category> getAllProductsCountByCategory() {
+	public List<Category> selectAllProductsCountByCategory() {
 		return jdbc.query(SELECT_ALL_PRODUCTS_COUNT_BY_CATEGORY, BeanPropertyRowMapper.newInstance(Category.class));
 	}
 }

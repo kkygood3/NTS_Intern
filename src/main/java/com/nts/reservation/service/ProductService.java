@@ -8,9 +8,8 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.Product;
-import com.nts.reservation.dto.Promotion;
+import com.nts.reservation.products.dto.Product;
+import com.nts.reservation.products.dto.Promotion;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -19,14 +18,12 @@ import com.nts.reservation.dto.Promotion;
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 
-	public List<Product> getProductsByCategory(Integer categoryId, Integer start);
+	List<Product> selectProductsByCategory(Integer categoryId, Integer start);
 
-	public List<Promotion> getPromotions();
+	List<Promotion> selectPromotions();
 
-	public Long getProductsCount();
+	Long selectProductsCount();
 
-	public Long getProductsCountByCategory(Integer categoryId);
-
-	public List<Category> getAllProductsCountByCategory();
+	Long selectProductsCountByCategory(Integer categoryId);
 
 }
