@@ -7,7 +7,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetCommentsAjax();
 	sendGetEtcImageAjax();
-	addMoreButtonClickEvent();
+	addBkButtonClickEvent();
 	addInfoTabClickEvent();
 	addMoreButtonClickEvent();
 	setContentAreaMoreButtonDisplay();

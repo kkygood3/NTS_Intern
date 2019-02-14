@@ -115,7 +115,7 @@ function setStoreDetails(storeDetails, target) {
 /**
  * 예약버튼 이벤트
  */
-function addMoreButtonClickEvent() {
+function addBkButtonClickEvent() {
 	var bkButton = document.getElementsByClassName("bk_btn")[0]
 	bkButton.addEventListener("click", function(event){
 		location.href="./" + displayInfo().displayInfoId + "/reserve";
