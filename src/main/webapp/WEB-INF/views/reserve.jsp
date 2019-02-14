@@ -41,7 +41,7 @@
                 </div>
                 <div class="section_store_details">
                     <div class="store_details">
-                        <h3 class="in_tit"></h3>
+                        <!-- h3 class="in_tit"></h3>
                         <p class="dsc">
                             장소 : <br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
                         </p>
@@ -52,7 +52,7 @@
                         <h3 class="in_tit">요금</h3>
                         <p class="dsc">
                             성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
-                        </p>
+                        </p -->
                     </div>
                 </div>
                 <div class="section_booking_ticket">
@@ -169,7 +169,21 @@
         </div>
     </footer>
 
-    <script src="../../js/reserve.js"></script>
+    <script type="rv-template" id="diplayInfoTemplate">
+    <h3 class="in_tit">관람시간</h3>
+    <p class="dsc">
+        {{displayInfo.openingHours}}
+    </p>
+    <h3 class="in_tit">요금</h3>
+    <p class="dsc">
+    {{#each productPrices}}
+        {{#convertTypeName priceTypeName}}{{/convertTypeName}} {{price}}원<br>
+    {{/each}}
+    </p>
+    </script>
+
+     <script src="../../js/handlebars.min.js"></script>
+     <script src="../../js/reserve.js"></script>
 </body>
 
 </html>

@@ -30,6 +30,7 @@ var detailPage = {
 			httpRequest.send();
 		}
 		
+		this.setEvent.bkBtnEvent();
 		this.setEvent.scrollTop();
 	},
 		
@@ -57,6 +58,7 @@ var detailPage = {
 		btnOpen : document.querySelector(".bk_more._open"),
 		btnClose : document.querySelector(".bk_more._close"),
 		
+		btnBooking : document.querySelector(".bk_btn"),
 		btnMoreReview : document.querySelector(".btn_review_more"),
 		
 		tabUi : document.querySelector(".info_tab_lst"),
@@ -216,6 +218,12 @@ var detailPage = {
 		carousel: function(){
 			this.detailPage.elements.btnPrev.addEventListener("click", this.detailPage.imageSlide.slideRight);
 			this.detailPage.elements.btnNxt.addEventListener("click", this.detailPage.imageSlide.slideLeft);
+		}.bind(this),
+		
+		bkBtnEvent: function(){
+			this.detailPage.elements.btnBooking.addEventListener("click", function(){
+				location.href = this.detailPage.displayInfoId + "/reserve";
+			}.bind(this));
 		}.bind(this),
 		
 		changeTab: function(event){

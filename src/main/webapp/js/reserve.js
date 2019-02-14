@@ -6,6 +6,8 @@ var bookingPage = {
 	getBookingPage: function(displayInfoId){
 		let httpRequest;
 		
+		this.compileHendlebars.convertTypeName();
+		
 		if (window.XMLHttpRequest) {
 			httpRequest =  new XMLHttpRequest();
 			
@@ -15,6 +17,7 @@ var bookingPage = {
 				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 					jsonResponse = JSON.parse(httpRequest.responseText);
 					
+					this.renderDisplayInfo(jsonResponse);
 				}
 			}.bind(this)
 			
@@ -32,6 +35,44 @@ var bookingPage = {
 	elements: {
 		btnBack : document.querySelector(".btn_back"),
 		btnTop : document.querySelector(".lnk_top")
+	},
+	
+	container: {
+		displayInfoContainer : document.querySelector(".store_details")
+	},
+	
+	template: {
+		displayInfoTemplate : document.querySelector("#diplayInfoTemplate").innerHTML
+	},
+
+	compileHendlebars: {
+		bindTemplate : function(template){
+			return Handlebars.compile(template);
+		},
+		
+		priceType : {
+			A : "성인",
+			Y : "청소년",
+			B : "유아",
+			D : "장애인",
+			C : "지역주민",
+			E : "어얼리버드",
+			V : "VIP",
+			R : "R석",
+			S : "S석"
+		},
+		
+		convertTypeName: function(){
+			Handlebars.registerHelper('convertTypeName', function(typeName) {
+				return this.priceType[typeName];
+			}.bind(this));
+		}
+	},
+	
+	renderDisplayInfo: function(jsonResponse){
+		var bindDisplayInfo = this.compileHendlebars.bindTemplate(this.template.displayInfoTemplate);
+		
+		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 	
 	goToPrevPage: function(){
