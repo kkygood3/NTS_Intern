@@ -4,6 +4,10 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATION_INFO_ID;
+import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO;
+import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -27,56 +31,16 @@ public class ReservationDao {
 	}
 
 	public void setReservation(Reservation reservationInfo) {
-		String sql = "Insert Into "
-			+ "reservation_info"
-			+ "(product_id"
-			+ ", display_info_id"
-			+ ", reservation_name"
-			+ ", reservation_tel"
-			+ ", reservation_email"
-			+ ", reservation_date"
-			+ ", create_date"
-			+ ", modify_date) "
-			+ "VALUES"
-			+ "(:productId"
-			+ ", :displayInfoId"
-			+ ", :reservationName"
-			+ ", :reservationTelephone"
-			+ ", :reservationEmail"
-			+ ", :reservationYearMonthDay"
-			+ ", NOW()"
-			+ ", NOW())";
-
-		jdbc.update(sql, new BeanPropertySqlParameterSource(reservationInfo));
+		jdbc.update(INSERT_RESERVATION_INFO, new BeanPropertySqlParameterSource(reservationInfo));
 	}
 
 	@Transactional(readOnly = true)
 	public int getReservationInfoId(Reservation reservationInfo) {
-		String sql = "SELECT id "
-			+ "FROM "
-			+ "reservation_info "
-			+ "WHERE "
-			+ "product_id = :productId "
-			+ "AND display_info_id = :displayInfoId "
-			+ "AND reservation_name = :reservationName "
-			+ "AND reservation_tel = :reservationTelephone "
-			+ "AND reservation_email = :reservationEmail "
-			+ "AND reservation_date = :reservationYearMonthDay ";
-
-		return jdbc.queryForObject(sql, new BeanPropertySqlParameterSource(reservationInfo), Integer.class);
+		return jdbc.queryForObject(GET_RESERVATION_INFO_ID, new BeanPropertySqlParameterSource(reservationInfo),
+			Integer.class);
 	}
 
 	public void setReservationPrice(ReservationPrice reservationInfoPrice) {
-		String sql = "Insert Into "
-			+ "reservation_info_price"
-			+ "(reservation_info_id"
-			+ ", product_price_id"
-			+ ", count) "
-			+ "VALUES"
-			+ "(:reservationInfoId"
-			+ ", :productPriceId"
-			+ ", :count)";
-
-		jdbc.update(sql, new BeanPropertySqlParameterSource(reservationInfoPrice));
+		jdbc.update(INSERT_RESERVATION_INFO_PRICE, new BeanPropertySqlParameterSource(reservationInfoPrice));
 	}
 }
