@@ -1,4 +1,4 @@
-var categories;
+
 
 /**
  * @description : EventList 내용 제거 
@@ -53,17 +53,14 @@ function appendTabList(categories){
 	document.querySelector("#event_num").innerText = count;
 	
 	allCategories.count = count;
-	categories = [];
-	categories.push(allCategories);
-	categories = categories.concat(items);
-	
-	addCategoryButtonListener();
+	items.unshift(allCategories);
+	addCategoryButtonListener(items);
 }
 
 /**
  * @description : category에 Event Listener 추가
  */
-function addCategoryButtonListener(){
+function addCategoryButtonListener(categories){
 	var tabList = document.querySelector("#category_list").getElementsByClassName("item");
 	for(var i=0, len=tabList.length; i<len; i++){
 		
