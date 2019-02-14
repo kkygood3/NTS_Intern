@@ -27,6 +27,7 @@ function loadProductsCallback(responseData) {
 
     for (var i = 0, len = items.length; i < len; ++i) {
         containers[i % 2].innerHTML += template
+                                                .replace('{displayInfoId}', items[i].displayInfoId)
                                                 .replace('{productImageUrl}', items[i].productImageUrl)
                                                 .replace(/{description}/g, items[i].productDescription)
                                                 .replace('{id}', items[i].productId)
