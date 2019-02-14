@@ -3,6 +3,7 @@
  * @author 시윤
  *
  */
+
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetCommentsAjax(0, 6);
 	addMoreButtonClickEvent();
