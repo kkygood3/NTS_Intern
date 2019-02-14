@@ -7,7 +7,7 @@ package com.nts.reservation.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,19 +32,31 @@ public class ErrorController {
 	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String errorPage(NoHandlerFoundException ex, ServletException sex) {
+	public String errorPage(NoHandlerFoundException ex, HttpServletRequest req) {
+		req.setAttribute("javax.servlet.error.status_code", 404);
 		return "error";
 	}
 
 	/*
 	 * @RequestParam 에러 처리
 	 */
-	@ResponseBody
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
 	public ResponseEntity<Map<String, Object>> handleRestApiValidationException() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("isError", true);
 		map.put("errorMsg", "wrong input");
 		return new ResponseEntity<Map<String, Object>>(map, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	}
+	/**
+	 *  그외 모든 익셉션 처리
+	 */
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public String errorPage(Exception ex, HttpServletRequest req) {
+		ex.printStackTrace();
+		req.setAttribute("javax.servlet.error.status_code", 500);
+		return "error";
 	}
 }
