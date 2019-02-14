@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.dto.DetailResponseDto;
+import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.service.ProductService;
 
 /**

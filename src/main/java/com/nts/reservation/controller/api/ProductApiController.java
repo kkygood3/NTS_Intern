@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.CommentResponseDto;
-import com.nts.reservation.dto.ProductImageResponseDto;
-import com.nts.reservation.dto.ProductResponseDto;
+import com.nts.reservation.dto.response.CommentResponseDto;
+import com.nts.reservation.dto.response.ProductImageResponseDto;
+import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.service.ProductService;
 
 /**

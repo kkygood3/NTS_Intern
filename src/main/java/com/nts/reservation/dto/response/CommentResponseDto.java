@@ -2,9 +2,11 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.response;
 
 import java.util.List;
+
+import com.nts.reservation.dto.CommentDto;
 
 /**
  * 상품평 정보들과 해당 프로덕트의 상품평 개수를 담는 response용 DTO 클래스

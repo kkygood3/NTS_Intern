@@ -2,9 +2,11 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.response;
 
 import java.util.List;
+
+import com.nts.reservation.dto.ProductImageDto;
 
 /**
  * 프로덕트별 이미지 response용 Dto

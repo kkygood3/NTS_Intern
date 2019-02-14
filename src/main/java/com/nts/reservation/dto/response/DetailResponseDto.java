@@ -2,7 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.response;
+
+import com.nts.reservation.dto.DisplayInfoDto;
 
 /**
  * 전시상품 Response용 DTO

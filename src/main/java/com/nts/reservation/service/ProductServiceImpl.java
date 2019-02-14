@@ -17,13 +17,13 @@ import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dao.DisplayInfoDao;
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dto.CommentDto;
-import com.nts.reservation.dto.CommentResponseDto;
-import com.nts.reservation.dto.DetailResponseDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
-import com.nts.reservation.dto.ProductImageResponseDto;
-import com.nts.reservation.dto.ProductResponseDto;
+import com.nts.reservation.dto.response.CommentResponseDto;
+import com.nts.reservation.dto.response.DetailResponseDto;
+import com.nts.reservation.dto.response.ProductImageResponseDto;
+import com.nts.reservation.dto.response.ProductResponseDto;
 
 /**
  * 상품 서비스 인터페이스 구현로직

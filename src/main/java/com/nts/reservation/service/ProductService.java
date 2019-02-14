@@ -4,10 +4,10 @@
  */
 package com.nts.reservation.service;
 
-import com.nts.reservation.dto.CommentResponseDto;
-import com.nts.reservation.dto.DetailResponseDto;
-import com.nts.reservation.dto.ProductImageResponseDto;
-import com.nts.reservation.dto.ProductResponseDto;
+import com.nts.reservation.dto.response.CommentResponseDto;
+import com.nts.reservation.dto.response.DetailResponseDto;
+import com.nts.reservation.dto.response.ProductImageResponseDto;
+import com.nts.reservation.dto.response.ProductResponseDto;
 
 /**
  * 상품에 대한 서비스 인터페이스
