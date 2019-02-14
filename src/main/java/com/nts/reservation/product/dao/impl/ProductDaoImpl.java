@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -30,6 +31,7 @@ public class ProductDaoImpl implements ProductDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Product> productRowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 	private RowMapper<ProductImage> productImageRowMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
+	private RowMapper<ProductPrice> productPriceRowMapper = BeanPropertyRowMapper.newInstance(ProductPrice.class);
 
 	public ProductDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -67,7 +69,14 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("DisplayInfoId", displayInfoId);
+		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_PRODUCT_IMAGE_BY_DISPLAY_INFO_ID, params, productImageRowMapper);
+	}
+
+	@Override
+	public List<ProductPrice> selectProductPriceByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_PRODUCT_PRICE_BY_DISPLAY_INFO_ID, params, productPriceRowMapper);
 	}
 }

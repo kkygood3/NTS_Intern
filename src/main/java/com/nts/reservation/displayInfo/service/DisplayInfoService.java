@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.displayInfo.dao;
+package com.nts.reservation.displayInfo.service;
 
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
 import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
@@ -10,8 +10,8 @@ import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
-public interface DisplayInfoDao {
-	DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId);
+public interface DisplayInfoService {
+	DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId);
 
-	DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId);
+	DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId);
 }

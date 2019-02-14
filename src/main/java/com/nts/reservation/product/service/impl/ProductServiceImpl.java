@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.product.dao.impl.ProductDaoImpl;
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.product.service.ProductService;
 
 /**
@@ -52,5 +54,15 @@ public class ProductServiceImpl implements ProductService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<ProductImage> getProductImageByDisplayInfoId(int displayInfoId) {
+		return productDaoImpl.selectProductImageByDisplayInfoId(displayInfoId);
+	}
+
+	@Override
+	public List<ProductPrice> getProductPriceByDisplayInfoId(int displayInfoId) {
+		return productDaoImpl.selectProductPriceByDisplayInfoId(displayInfoId);
 	}
 }

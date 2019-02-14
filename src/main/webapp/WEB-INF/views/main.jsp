@@ -82,7 +82,7 @@
 
 	<script type="rv-template" id="promotionItem">
 	<li class="item" style="background-image: url({promotionImageUrl});">
-		<a href="{promotionImageUrl}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+		<a href="detail?id={displayInfoId}"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
 			<div class="event_txt">
 				<h4 class="event_txt_tit"></h4>
 				<p class="event_txt_adr"></p>
@@ -94,7 +94,7 @@
 
 	<script type="rv-template" id="productItem">
 		<li class="item">
-			<a href="detail.html?id={id}" class="item_book">
+			<a href="detail?id={displayInfoId}" class="item_book">
 				<div class="item_preview">
 					<img alt="{description}" class="img_thumb" src="{productImageUrl}">
 					<span class="img_border"></span>
@@ -113,7 +113,7 @@
 		</li>
 	</script>
 	
-	<script type="text/javascript" src="js/main.js" ></script>
+	<script type="text/javascript" src="js/detail.js" ></script>
 </body>
 
 </html>

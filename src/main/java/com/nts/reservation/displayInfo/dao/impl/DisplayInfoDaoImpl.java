@@ -7,7 +7,6 @@ package com.nts.reservation.displayInfo.dao.impl;
 import static com.nts.reservation.displayInfo.dao.query.DisplayInfoQuerys.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -36,17 +35,17 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 	}
 
 	@Override
-	public List<DisplayInfo> selectDisplayInfoByDisplayInfoId(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_DISPLAY_INFO_BY_DISPLAY_INFO_ID, params, displayInfoRowMapper);
+	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO_BY_DISPLAY_INFO_ID, param, displayInfoRowMapper);
 	}
 
 	@Override
-	public List<DisplayInfoImage> selectDisplayInfoImageByDisplayInfoId(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_DISPLAY_INFO_IMAGE_BY_DISPLAY_INFO_ID, params, displayInfoImageRowMapper);
+	public DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId) {
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE_BY_DISPLAY_INFO_ID, param, displayInfoImageRowMapper);
 	}
 
 }

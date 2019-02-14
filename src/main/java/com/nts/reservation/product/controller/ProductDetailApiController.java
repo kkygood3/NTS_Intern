@@ -18,7 +18,13 @@ import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
 import com.nts.reservation.comment.dto.CommentResponse;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.displayInfo.dto.DisplayInfo;
+import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
 import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
+import com.nts.reservation.displayInfo.service.DisplayInfoService;
+import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
+import com.nts.reservation.product.service.ProductService;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -26,31 +32,33 @@ import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
 @RestController
 public class ProductDetailApiController {
 	@Autowired
+	private ProductService productService;
+
+	@Autowired
 	private CommentService commentService;
 
+	@Autowired
+	private DisplayInfoService displayInfoService;
+
 	@GetMapping("/api/products/{displayInfoId}")
-	public CommentResponse getItems(@PathVariable int displayInfoId,
+	public DisplayInfoResponse getItems(@PathVariable int displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 
 		if (isInvalidDisplayInfoId(displayInfoId)) {
 			System.out.println("올바르지 않은 displayInfoId");
 
-			return getEmptyCommentResponse();
+			return getEmptyDisplayInfoResponse();
 		}
 		if (isInvalidStartAndLimit(start, limit)) {
 			System.out.println("올바르지 않은 start, limit");
 
-			return getEmptyCommentResponse();
+			return getEmptyDisplayInfoResponse();
 		}
 
-		// 아니면 평균 점수 계산을 쿼리문 없이 프론트에서?
-		double averageScore = commentService.getAverageScoreByDisplayInfoId(displayInfoId);
-
-		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
-
-		return getLimitCommentResponse(displayInfoId, start, limit);
+		//return getLimitCommentResponse(displayInfoId, start, limit);
 		//return getAllCommentResponse(displayInfoId);
+		return getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
 	private boolean isValidDisplayInfoId(int displayInfoId) {
@@ -75,29 +83,7 @@ public class ProductDetailApiController {
 		return !isValidStartAndLimit(start, limit);
 	}
 
-	private CommentResponse getEmptyCommentResponse() {
-		CommentResponse commentResponse = new CommentResponse();
-		commentResponse.setItems(Collections.emptyList());
-
-		return commentResponse;
-	}
-
-	private CommentResponse getAllCommentResponse(int displayInfoId) {
-		List<Comment> commentList = commentService.getAllCommentByDisplayInfoId(displayInfoId);
-		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
-
-		for (Comment comment : commentList) {
-			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
-			comment.setCommentImages(commentImageList);
-		}
-
-		CommentResponse commentResponse = new CommentResponse();
-		commentResponse.setItems(commentList);
-
-		return commentResponse;
-	}
-
-	private CommentResponse getLimitCommentResponse(int displayInfoId, int start, int limit) {
+	private List<Comment> getLimitCommentList(int displayInfoId, int start, int limit) {
 		List<Comment> commentList = commentService.getLimitCommentByDisplayInfoId(displayInfoId, start, limit);
 		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
 
@@ -109,6 +95,88 @@ public class ProductDetailApiController {
 		CommentResponse commentResponse = new CommentResponse();
 		commentResponse.setItems(commentList);
 
-		return commentResponse;
+		return commentList;
 	}
+
+	private List<Comment> getAllCommentList(int displayInfoId) {
+		List<Comment> commentList = commentService.getAllCommentByDisplayInfoId(displayInfoId);
+		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+
+		for (Comment comment : commentList) {
+			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
+			comment.setCommentImages(commentImageList);
+		}
+
+		return commentList;
+	}
+
+	private DisplayInfoResponse getEmptyDisplayInfoResponse() {
+		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
+		displayInfoResponse.setProductImages(Collections.emptyList());
+		displayInfoResponse.setProductPrices(Collections.emptyList());
+		displayInfoResponse.setComments(Collections.emptyList());
+		//displayInfoResponse.setDisplayInfo();
+		//displayInfoResponse.setDisplayInfoImage();
+		displayInfoResponse.setAverageScore(0.0);
+
+		return displayInfoResponse;
+	}
+
+	private DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
+		List<ProductImage> productImages = productService.getProductImageByDisplayInfoId(displayInfoId);
+		List<ProductPrice> productPrices = productService.getProductPriceByDisplayInfoId(displayInfoId);
+		List<Comment> comments = getLimitCommentList(displayInfoId, start, limit); // List<Comment> comments = getAllCommentList(displayInfoId);
+		DisplayInfo displayInfo = displayInfoService.getDisplayInfoByDisplayInfoId(displayInfoId);
+		DisplayInfoImage displayInfoImage = displayInfoService.getDisplayInfoImageByDisplayInfoId(displayInfoId);
+		double averageScore = commentService.getAverageScoreByDisplayInfoId(displayInfoId);
+
+		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
+
+		displayInfoResponse.setProductImages(productImages);
+		displayInfoResponse.setProductPrices(productPrices);
+		displayInfoResponse.setComments(comments);
+		displayInfoResponse.setDisplayInfo(displayInfo);
+		displayInfoResponse.setDisplayInfoImage(displayInfoImage);
+		displayInfoResponse.setAverageScore(averageScore);
+
+		return displayInfoResponse;
+	}
+
+	//	private CommentResponse getEmptyCommentResponse() {
+	//		CommentResponse commentResponse = new CommentResponse();
+	//		commentResponse.setItems(Collections.emptyList());
+	//
+	//		return commentResponse;
+	//	}
+	//
+	//	private CommentResponse getAllCommentResponse(int displayInfoId) {
+	//		List<Comment> commentList = commentService.getAllCommentByDisplayInfoId(displayInfoId);
+	//		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+	//
+	//		for (Comment comment : commentList) {
+	//			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
+	//			comment.setCommentImages(commentImageList);
+	//		}
+	//
+	//		CommentResponse commentResponse = new CommentResponse();
+	//		commentResponse.setItems(commentList);
+	//
+	//		return commentResponse;
+	//	}
+	//
+	//	private CommentResponse getLimitCommentResponse(int displayInfoId, int start, int limit) {
+	//		List<Comment> commentList = commentService.getLimitCommentByDisplayInfoId(displayInfoId, start, limit);
+	//		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+	//
+	//		for (Comment comment : commentList) {
+	//			commentImageList = commentService.getCommentImageByCommentId(comment.getCommentId());
+	//			comment.setCommentImages(commentImageList);
+	//		}
+	//
+	//		CommentResponse commentResponse = new CommentResponse();
+	//		commentResponse.setItems(commentList);
+	//
+	//		return commentResponse;
+	//	}
+	//
 }

@@ -37,5 +37,11 @@ public class ProductDaoQuerys {
 		+ " FROM display_info"
 		+ " INNER JOIN product_image ON display_info.product_id = product_image.product_id"
 		+ " INNER JOIN file_info ON product_image.file_id = file_info.id"
-		+ " WHERE display_info.id = :displayInfo";
+		+ " WHERE display_info.id = :displayInfoId";
+
+	public static final String SELECT_PRODUCT_PRICE_BY_DISPLAY_INFO_ID = "SELECT product_price.create_date 'createDate', product_price.discount_rate 'discountRate', product_price.modify_date 'modifyDate', product_price.price 'price', product_price.price_type_name 'priceTypeName', product_price.product_id 'productId', product_price.id 'productPriceId'"
+		+ " FROM display_info"
+		+ " INNER JOIN product ON display_info.product_id = product.id"
+		+ " INNER JOIN product_price ON product.id = product_price.product_id"
+		+ " WHERE display_info.id = :displayInfoId";
 }

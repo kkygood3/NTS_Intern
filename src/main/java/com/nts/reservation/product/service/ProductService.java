@@ -7,6 +7,8 @@ package com.nts.reservation.product.service;
 import java.util.List;
 
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -19,4 +21,8 @@ public interface ProductService {
 	int getProductsCountByCategoryId(int categoryId);
 
 	int getProductsCount();
+
+	List<ProductImage> getProductImageByDisplayInfoId(int displayInfoId);
+
+	List<ProductPrice> getProductPriceByDisplayInfoId(int displayInfoId);
 }

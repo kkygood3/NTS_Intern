@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductImage;
+import com.nts.reservation.product.dto.ProductPrice;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -22,4 +23,6 @@ public interface ProductDao {
 	int selectProductsCountByCategory(int categoryId);
 
 	List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId);
+
+	List<ProductPrice> selectProductPriceByDisplayInfoId(int displayInfoId);
 }
