@@ -1,4 +1,5 @@
 package com.nts.reservation.dto.review;
+
 /**
  * review 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 정보를 담는 DTO
  */

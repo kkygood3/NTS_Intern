@@ -22,7 +22,8 @@ public class PromotionApiController {
 
 	/**
 	 * /api/promotions 요청을 받아 메인 페이지에 프로모션 정보를 출력
-	 * @return	JSON text
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 * @return promotionList JSON text
 	 */
 	@GetMapping("/api/promotions")
 	public Map<String, Object> promotions(

@@ -25,7 +25,9 @@ public class DetailApiController {
 
 	/**
 	 * /api/products/{displayInfoId} 요청을 받아 detail, review 페이지에 출력
-	 * @return	JSON text
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 * @return detailDisplay JSON text
 	 */
 	@GetMapping("/api/products/{displayInfoId}")
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
@@ -40,7 +42,8 @@ public class DetailApiController {
 
 	/**
 	 * /api/products/{displayInfoId}/extra 요청을 받아 추가로 노출할 이미지를 출력 
-	 * @return	JSON text
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @return productImage JSON text
 	 */
 	@GetMapping("/api/products/{displayInfoId}/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {

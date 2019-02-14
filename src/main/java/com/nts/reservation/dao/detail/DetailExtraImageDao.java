@@ -27,7 +27,8 @@ public class DetailExtraImageDao {
 	}
 
 	/**
-	 * 화면에 표시할 추가 이미지를 조회하여 반환
+	 * detail의 swipeImage 영역에 추가할수 있는 item을 조회
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
 	public DetailExtraImage selectDetailExtraImageById(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();

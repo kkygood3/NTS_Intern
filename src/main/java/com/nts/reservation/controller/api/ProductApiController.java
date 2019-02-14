@@ -23,9 +23,10 @@ public class ProductApiController {
 
 	/**
 	 * /api/products 요청을 받아 메인 페이지에 상품정보를 출력
-	 * @param	categoryId	해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
-	 * @param	start	페이지에 출력할 데이터의 시작 index
-	 * @return	JSON text
+	 * @param categoryId 해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
+	 * @param start 페이지에 출력할 데이터의 시작 index
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 * @return productList JSON text
 	 */
 	@GetMapping("/api/products")
 	public Map<String, Object> products(

@@ -20,7 +20,8 @@ public class CategoryApiController {
 
 	/**
 	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력
-	 * @return	JSON text
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 * @return categoryList JSON text
 	 */
 	@GetMapping("/api/categories")
 	public Map<String, Object> categories(

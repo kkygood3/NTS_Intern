@@ -31,12 +31,19 @@ public class MainPromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
+	/**
+	 * main 페이지를 로드할 때 필요한 promotion정보 조회
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 */
 	public List<MainPromotion> selectPromotions(int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("pagingLimit", pagingLimit);
 		return jdbc.query(MainPromotionQueries.SELECT_PROMOTION, params, rowMapper);
 	}
 
+	/**
+	 * main 페이지를 로드할 때 필요한 promotion 갯수 조회
+	 */
 	public int selectCount() {
 		Integer count = jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(),
 			Integer.class);

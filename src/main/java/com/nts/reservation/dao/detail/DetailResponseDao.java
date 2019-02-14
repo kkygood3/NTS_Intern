@@ -28,6 +28,8 @@ public class DetailResponseDao {
 
 	/**
 	 * detail 페이지를 로드할 때 필요한 정보를 조회
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
 	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
