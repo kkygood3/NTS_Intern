@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(path="detail/{displayInfoId}/reservation")
+@RequestMapping(path="reservation")
 public class ReserveController {
-	@GetMapping
-	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
+	@GetMapping(path = "/{productId}")
+	public String reservation(@PathVariable(name="productId", required= true) long productId,
 		ModelMap model) {
+		
 		return "reservation";
 	}
 	
-	@GetMapping(path = "/{reservationEmail}")
+	@GetMapping
 	public String myReservation() {
 		return "myreservation";
 	}
