@@ -49,7 +49,7 @@
 						</div>
 						<div>
 							<div class="container_visual">
-								<ul id="slide" class="visual_img">
+								<ul id="main_slide" class="visual_img">
 								</ul>
 							</div>
 							<span class="nxt_fix" style="display: none;"></span>
