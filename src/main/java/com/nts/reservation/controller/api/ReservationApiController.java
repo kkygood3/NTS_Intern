@@ -48,6 +48,14 @@ public class ReservationApiController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
+	/**
+	 * @desc 예약 추가.
+	 * @param requestParams
+	 * @param bindingResult
+	 * @param uriBuilder
+	 * @return
+	 * @throws BindException
+	 */
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Map<String, String>> postReservation(@Valid @RequestBody ReservationRequestDto requestParams,
 		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
@@ -66,6 +74,12 @@ public class ReservationApiController {
 			HttpStatus.OK);
 	}
 
+	/**
+	 * @desc 이메일에 해당하는 예약 정보 조회
+	 * @param reservationEmail
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@GetMapping
 	public MyReservationResponseDto getReservationResponse(
 		@RequestParam(name = "reservationEmail", required = true) String reservationEmail) throws BadRequestException {
@@ -79,6 +93,12 @@ public class ReservationApiController {
 		return new MyReservationResponseDto(list, count);
 	}
 
+	/**
+	 * @desc 예약 취소.
+	 * @param reservationId
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@PutMapping(path = "/{reservationId}")
 	public Long putCancelReservation(@PathVariable Long reservationId) throws BadRequestException {
 

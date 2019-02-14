@@ -33,6 +33,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	DisplayInfoDao displayDao;
 
+	/**
+	 * @desc 예약 정보 입력.
+	 * @param reservation
+	 */
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
 	@Override
 	public void addReservation(ReservationRequestDto reservation) {
@@ -44,6 +48,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationDao.insertReservationPrices(priceList);
 	}
 
+	/**
+	 * @desc 예약 목록 조회
+	 * @param email
+	 * @return List<ReservationInfoDto>
+	 */
 	@Override
 	public List<ReservationInfoDto> getReservationList(String email) {
 		List<ReservationInfoDto> list = reservationDao.selectReservationsByEmail(email);
@@ -55,11 +64,21 @@ public class ReservationServiceImpl implements ReservationService {
 		return list;
 	}
 
+	/**
+	 * @desc 예약 갯수 조회
+	 * @param email
+	 * @return Integer
+	 */
 	@Override
 	public Integer getReservationCount(String email) {
 		return reservationDao.countReservationsByEmail(email);
 	}
 
+	/**
+	 * @desc 예약 취소
+	 * @param reservationId
+	 * @return Boolean
+	 */
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
 	@Override
 	public Boolean cancelReservation(Long reservationId) {

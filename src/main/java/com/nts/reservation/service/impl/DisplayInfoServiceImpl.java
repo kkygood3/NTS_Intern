@@ -90,11 +90,19 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		return displayInfoDao.selectCommentAvgScore(displayInfoId);
 	}
 
+	/**
+	 * @desc 티켓 가격 목록을 뷰에 렌더링하기 위한 데이터 조회
+	 * @param productId
+	 */
 	@Override
 	public List<ProductPriceForRenderDto> getProductPriceListForRender(Long productId) {
 		return displayInfoDao.selectProductPricesForRender(productId);
 	}
 
+	/**
+	 * @desc 첫번째 이미지를 메인 이미지로 하여 가져옴.
+	 * @param productId
+	 */
 	@Override
 	public ProductImageDto getProductMainImage(Long productId) {
 		return displayInfoDao.selectMainProductImage(productId);

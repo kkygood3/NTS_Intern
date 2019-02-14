@@ -26,6 +26,13 @@ public class MyReservationPageController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
+	/** 
+	 * @desc 이메일에 해당하는 예약 확인 목록 조회 페이지 
+	 * @param userEmail
+	 * @param session
+	 * @return
+	 * @throws BadRequestException
+	 */
 	@GetMapping("/myReservation")
 	public String myReservationPage(
 		@RequestParam(name = "userEmail", required = true) String userEmail,

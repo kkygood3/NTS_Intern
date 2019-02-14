@@ -45,6 +45,11 @@ public class ReservationDao {
 		jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
+	/**
+	 * @desc 예약 정보 DB에 추가.
+	 * @param reservation
+	 * @return
+	 */
 	public Long insertReservation(ReservationRequestDto reservation) {
 		SqlParameterSource params = new BeanPropertySqlParameterSource(reservation);
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -52,6 +57,13 @@ public class ReservationDao {
 		return holder.getKey().longValue();
 	}
 
+	/**
+	 * @desc 예약된 전시 티켓 DB에 추가.
+	 * @param reservationInfoId
+	 * @param productPriceId
+	 * @param count
+	 * @return
+	 */
 	public int insertReservationPrice(long reservationInfoId, long productPriceId, int count) {
 		Map<String, Object> map = new HashMap();
 		map.put("reservationInfoId", reservationInfoId);
@@ -60,21 +72,41 @@ public class ReservationDao {
 		return jdbc.update(INSERT_RESERVATION_INFO_PRICE, map);
 	}
 
+	/**
+	 * @desc 예약된 전시 티켓들 DB에 추가.
+	 * @param priceList
+	 * @return
+	 */
 	public int[] insertReservationPrices(List<ReservationPriceRequestDto> priceList) {
 		SqlParameterSource[] batchs = SqlParameterSourceUtils.createBatch(priceList.toArray());
 		return jdbc.batchUpdate(INSERT_RESERVATION_INFO_PRICE, batchs);
 	}
 
+	/**
+	 * @desc 이메일에 해당하는 예약 목록 조회
+	 * @param email
+	 * @return
+	 */
 	public List<ReservationInfoDto> selectReservationsByEmail(String email) {
 		Map<String, Object> map = Collections.singletonMap("email", email);
 		return jdbc.query(SELECT_RESERVATION_INFO_BY_EMAIL, map, reservationRowMapper);
 	}
 
+	/**
+	 * @desc 이메일에 해당하는 예약 목록 갯수 조회
+	 * @param email
+	 * @return
+	 */
 	public int countReservationsByEmail(String email) {
 		Map<String, Object> map = Collections.singletonMap("email", email);
 		return jdbc.queryForObject(SELECT_COUNT_RESERVATION_BY_EMAIL, map, Integer.class);
 	}
 
+	/**
+	 * @desc 예약 취소 업데이트.
+	 * @param reservationInfoId
+	 * @return
+	 */
 	public Integer updateCancelReservation(Long reservationInfoId) {
 		Map<String, Object> map = Collections.singletonMap("id", reservationInfoId);
 		int resultRows = jdbc.update(UPDATE_CANCEL_RESERVATION_BY_RESERVATION_ID, map);
