@@ -28,7 +28,6 @@ public class CommentApiController {
 		@RequestParam(name = "displayInfoId", required = false, defaultValue = "0") int displayInfoId,
 		@RequestParam(name = "count", required = false, defaultValue = "0") int requestedCommentCounts) {
 
-
 		return commentServiceImpl.getComments(displayInfoId, requestedCommentCounts);
 	}
 }
