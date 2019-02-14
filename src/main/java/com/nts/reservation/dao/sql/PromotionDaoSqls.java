@@ -5,6 +5,6 @@ public class PromotionDaoSqls {
 	= "SELECT save_file_name AS saveFileName "
 	+ "FROM promotion AS prom "
 	+ "INNER JOIN product AS prod ON prom.product_id = prod.id "
-	+ "INNER JOIN product_image AS prodi ON prodi.type = 'ma' AND prodi.product_id = prod.id "
+	+ "INNER JOIN product_image AS prodi ON prodi.type = 'th' AND prodi.product_id = prod.id "
 	+ "INNER JOIN file_info AS fi ON fi.id = prodi.file_id";
 }
