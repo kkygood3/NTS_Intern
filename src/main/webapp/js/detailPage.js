@@ -30,7 +30,7 @@ function initDetailBtn(){
 	var textArea = document.querySelector('p.dsc');
 
 	if(textArea.scrollHeight > textArea.clientHeight){
-		document.querySelector('div.section_store_details').addEventListener('click',function(evt){
+		document.querySelector('div.section_store_details').addEventListener('click', evt => {
 			var clickedTag  = evt.target;
 			
 			if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
@@ -66,7 +66,13 @@ function initTitleImage(displayInfo) {
 
     titleContainer.innerHTML += bindTitleTemplate(displayInfo);
 	
-	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+    document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+    
+    // next, prev 버튼 비활성화
+    document.querySelector('div.prev').style.display = 'none';
+    document.querySelector('div.nxt').style.display = 'none';
+
+    document.querySelector('div.figure_pagination').firstElementChild.classList.add('off');
 
 }
 
@@ -138,7 +144,7 @@ function initBottomInfoTab(displayInfoResponse){
 	
 	var currentTab = 1;
 	// 상세정보, 오시는 길 클릭 이벤트
-	document.querySelector('ul.info_tab_lst').addEventListener('click',function(evt){
+	document.querySelector('ul.info_tab_lst').addEventListener('click', evt => {
 		
 		var clickedTab = evt.target;
 		if(clickedTab.tagName === 'SPAN'){
@@ -176,16 +182,72 @@ function initBottomInfoTab(displayInfoResponse){
 	});
 }
 
-function setTitleSlide(displayInfo) {
+function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     var titleTemplate = document.querySelector('#bannerImage').innerText;
     var bindTitleTemplate = Handlebars.compile(titleTemplate);
     var titleContainer = document.querySelector('ul.detail_swipe');
 
-    titleContainer.innerHTML += bindTitleTemplate(displayInfo);
-	
-    document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
     
+    addtionalDisplayInfo.saveFileName = TitleDisplayImage;
+    titleContainer.innerHTML += bindTitleTemplate(addtionalDisplayInfo);
+
+    document.querySelector('div.store_details>p.dsc').innerHTML = addtionalDisplayInfo.productContent;
     
+    // next, prev 버튼 활성화
+    document.querySelector('div.prev').style.display = '';
+    document.querySelector('div.nxt').style.display = '';
+
+    document.querySelector('div.figure_pagination').firstElementChild.classList.remove('off');
+    document.querySelector('div.figure_pagination').lastElementChild.innerText = '/ 2';
+
+    var currentTitle = 1;
+    var titleImageList = document.querySelectorAll('.visual_img > .item');
+    var promotionLength = titleImageList.length;
+    var leftDistance = 0;
+
+    document.querySelector('a.btn_nxt').addEventListener('click', evt => {
+        currentTitle++;
+
+        if(currentTitle > 2) {
+            currentTitle = 1;
+            leftDistance -= 100;
+            for (var i = 0; i < promotionLength; ++i) {
+                titleImageList[i].style.left = leftDistance + '%';
+            }
+
+            leftDistance = 0;
+            setTimeout(() => {
+                for (var i = 0; i < promotionLength; ++i) {
+                titleImageList[i].style.transitionDuration = '0s';
+                titleImageList[i].style.left = leftDistance + '%';
+                }
+            }, 1000);
+
+            for (var i = 0; i < promotionLength; ++i) {
+                titleImageList[i].style.transitionDuration = '1s';
+            }
+
+        } else {
+            leftDistance -= 100;
+            for (var i = 0; i < promotionLength; ++i) {
+                titleImageList[i].style.left = leftDistance + '%';
+                }
+        }
+
+        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
+    });
+
+    document.querySelector('a.btn_prev').addEventListener('click', evt => {
+        var clickedPrevBtn = evt.target;
+        currentTitle--;
+
+        if(currentTitle < 1) {
+            currentTitle = 2;
+        }
+
+        document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
+    });
 }
 
 function loadDisplayInfoCallback(responseData) {
@@ -193,13 +255,17 @@ function loadDisplayInfoCallback(responseData) {
     var displayInfo = displayInfoResponse["displayInfo"];
     var displayProductImages = displayInfoResponse["productImages"];
 
-    var isAdditionalDsiplay = false;
+    var isAddtionalDisplayImage = false;
+    var TitleDisplayImage = "";
     // ma 타입의 이미지 정보를 displayInfo에 추가
     // ta 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
     displayProductImages.forEach(image => {
-        if(image.type === 'ma') displayInfo.saveFileName = image.saveFileName;
-        if(image.type === 'et') {
-            isAdditionalDsiplay = true;
+        if(image.type === 'ma') {
+            displayInfo.saveFileName = image.saveFileName;
+            TitleDisplayImage = image.saveFileName;
+        }
+        else if(image.type === 'et') {
+            isAddtionalDisplayImage = true;
         }
     });
     
@@ -226,13 +292,15 @@ function loadDisplayInfoCallback(responseData) {
     initBottomInfoTab(displayInfoResponse);
 
     // init이 모두 끝난 이후 추가적인 etc image가 있었을 경우 슬라이드 작업 진행
-    if(isAdditionalDsiplay) {
+    if(isAddtionalDisplayImage) {
+        var addtionalDisplayInfo = displayInfoResponse["displayInfo"];
+
         // 요구사항 - et 이미지가 많아도 최대 1개 등록
         displayProductImages.forEach(image => {
-        if(image.type === 'et') displayInfo.saveFileName = image.saveFileName;
+        if(image.type === 'et') addtionalDisplayInfo.saveFileName = image.saveFileName;
         });
 
-        setTitleSlide(displayInfo);
+        setTitleSlide(addtionalDisplayInfo, TitleDisplayImage);
     }
 
 }
