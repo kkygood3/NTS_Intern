@@ -4176,3 +4176,8 @@ button {
 .detail_swipe>li.item {
 	cursor: default;
 }
+
+.detail_swipe>li.item>img {
+	width: 414px;
+	height: 414px;
+}
