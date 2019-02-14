@@ -13,5 +13,5 @@ import com.nts.reservation.dto.CategoryDto;
  * @author jinwoo.bae
  */
 public interface CategoryService {
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit);
+	List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit);
 }
