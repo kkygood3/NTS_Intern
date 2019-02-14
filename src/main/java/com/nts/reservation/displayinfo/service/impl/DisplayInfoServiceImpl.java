@@ -27,10 +27,10 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	private ProductDaoImpl productDaoImpl;
 
 	@Override
-	public DisplayInfoResponse getDisplayInfos(int displayInfoId, int limit) {
+	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
-		displayInfoResponse.setComments(commentDaoImpl.selectCommentByDisplayInfoIdByLimit(displayInfoId, limit));
+		displayInfoResponse.setComments(commentDaoImpl.selectCommentByDisplayInfoId(displayInfoId));
 		// 댓글이 없을 경우엔 0 대입
 		if (displayInfoResponse.getComments().isEmpty()) {
 			displayInfoResponse.setAverageScore(0);

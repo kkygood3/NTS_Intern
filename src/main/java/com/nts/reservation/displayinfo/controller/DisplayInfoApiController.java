@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.commons.validator.NegativeValueValidator;
@@ -25,15 +24,13 @@ public class DisplayInfoApiController {
 
 	@RequestMapping(value = "/products/{displayInfoId}", method=RequestMethod.GET)
 	public DisplayInfoResponse displayInfos(
-		@PathVariable("displayInfoId") int displayInfoId,
-		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
+		@PathVariable("displayInfoId") int displayInfoId) {
 
-		if(NegativeValueValidator.isNegativeValue(displayInfoId, limit)) {
-			System.out.printf("허용되지 않은 파라미터 시도입니다. displayInfoId : %d, limit : %d\n", displayInfoId, limit);
+		if(NegativeValueValidator.isNegativeValue(displayInfoId)) {
+			System.out.printf("허용되지 않은 파라미터 시도입니다. displayInfoId : %d\n", displayInfoId);
 			displayInfoId = 1;
-			limit = 3;
 		}
 
-		return displayInfoServiceImpl.getDisplayInfos(displayInfoId, limit);
+		return displayInfoServiceImpl.getDisplayInfos(displayInfoId);
 	}
 }
