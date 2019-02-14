@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservationPrice;
 
 /**
 * @author  : 이승수
@@ -25,9 +26,7 @@ public class ReservationDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public void setReservation(Reservation reserveInfo) {
-		//		System.out.println(reserveInfo);
-
+	public void setReservation(Reservation reservationInfo) {
 		String sql = "Insert Into "
 			+ "reservation_info"
 			+ "(product_id"
@@ -48,6 +47,36 @@ public class ReservationDao {
 			+ ", NOW()"
 			+ ", NOW())";
 
-		jdbc.update(sql, new BeanPropertySqlParameterSource(reserveInfo));
+		jdbc.update(sql, new BeanPropertySqlParameterSource(reservationInfo));
+	}
+
+	@Transactional(readOnly = true)
+	public int getReservationInfoId(Reservation reservationInfo) {
+		String sql = "SELECT id "
+			+ "FROM "
+			+ "reservation_info "
+			+ "WHERE "
+			+ "product_id = :productId "
+			+ "AND display_info_id = :displayInfoId "
+			+ "AND reservation_name = :reservationName "
+			+ "AND reservation_tel = :reservationTelephone "
+			+ "AND reservation_email = :reservationEmail "
+			+ "AND reservation_date = :reservationYearMonthDay ";
+
+		return jdbc.queryForObject(sql, new BeanPropertySqlParameterSource(reservationInfo), Integer.class);
+	}
+
+	public void setReservationPrice(ReservationPrice reservationInfoPrice) {
+		String sql = "Insert Into "
+			+ "reservation_info_price"
+			+ "(reservation_info_id"
+			+ ", product_price_id"
+			+ ", count) "
+			+ "VALUES"
+			+ "(:reservationInfoId"
+			+ ", :productPriceId"
+			+ ", :count)";
+
+		jdbc.update(sql, new BeanPropertySqlParameterSource(reservationInfoPrice));
 	}
 }

@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.ReservationDao;
 import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservationPrice;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -22,9 +25,15 @@ public class ReservationServiceImpl implements ReservationService {
 	ReservationDao reservationDao;
 
 	@Override
-	public void setReservation(HttpSession session, Reservation reserveInfo) {
-		session.setAttribute("userEmail", reserveInfo.getReservationEmail());
+	public void setReservation(HttpSession session, Reservation reservationInfo) {
+		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
 
-		reservationDao.setReservation(reserveInfo);
+		reservationDao.setReservation(reservationInfo);
+
+		List<ReservationPrice> reservationInfoPrices = reservationInfo.getPrices();
+		for (ReservationPrice reservationInfoPrice : reservationInfoPrices) {
+			reservationInfoPrice.setReservationInfoId(reservationDao.getReservationInfoId(reservationInfo));
+			reservationDao.setReservationPrice(reservationInfoPrice);
+		}
 	}
 }
