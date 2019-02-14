@@ -57,6 +57,7 @@
                 </div>
                 <div class="section_booking_ticket">
                     <div class="ticket_body">
+                    <% /*
                         <div class="qty">
                             <div class="count_control">
                                 <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
@@ -104,6 +105,7 @@
                             <div class="qty_info_icon"> <strong class="product_amount"> <span>청소년</span> </strong> <strong class="product_price"> <span class="price">8,500</span> <span class="price_type">원</span> </strong> <em class="product_dsc">8,500원 (15% 할인가)</em> </div>
                         </div>
                     </div>
+                    */ %>
                 </div>
                 <div class="section_booking_form">
                     <div class="booking_form_wrap">
@@ -182,8 +184,40 @@
     </p>
     </script>
 
-     <script src="../../js/handlebars.min.js"></script>
-     <script src="../../js/reserve.js"></script>
+    <script type="rv-template" id="priceTemplate">
+    {{#each productPrices}}
+    <div class="qty">
+        <div class="count_control">
+            <div class="clearfix">
+                <a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"></a>
+                    <input type="tel" class="count_control_input" value="0" readonly title="수량">
+                <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
+            </div>
+            <div class="individual_price on_color">
+                    <span class="total_price"></span>
+                    <span class="price_type">원</span>
+            </div>
+        </div>
+        <div class="qty_info_icon">
+            <strong class="product_amount">
+                <span>{{#convertTypeName priceTypeName}}{{/convertTypeName}}</span>
+            </strong>
+            <strong class="product_price">
+                <span class="price">{{price}}</span>
+                <span class="price_type">원</span>
+            </strong>
+            {{#ifNotZero discountRate}}
+            <em class="product_dsc">{{price}}원 ({{discountRate}}% 할인가)</em>
+            {{else}}
+            <em class="product_dsc">할인 정보가 없습니다.</em>
+            {{/ifNotZero}}
+        </div>
+    </div>
+    {{/each}}
+    </script>
+    
+    <script src="../../js/handlebars.min.js"></script>
+    <script src="../../js/reserve.js"></script>
 </body>
 
 </html>

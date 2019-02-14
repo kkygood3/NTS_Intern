@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var bookingPage = {
 	getBookingPage: function(displayInfoId){
-		let httpRequest;
+		var httpRequest;
+		
+		this.compileHendlebars.compareDiscountRateToZero();
 		
 		this.compileHendlebars.convertTypeName();
 		
@@ -12,12 +14,13 @@ var bookingPage = {
 			httpRequest =  new XMLHttpRequest();
 			
 			httpRequest.onreadystatechange = function() {
-				let jsonResponse;
+				var jsonResponse;
 				
 				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 					jsonResponse = JSON.parse(httpRequest.responseText);
 					
 					this.renderDisplayInfo(jsonResponse);
+					this.displayTicketPrice(jsonResponse);
 				}
 			}.bind(this)
 			
@@ -38,11 +41,13 @@ var bookingPage = {
 	},
 	
 	container: {
-		displayInfoContainer : document.querySelector(".store_details")
+		displayInfoContainer : document.querySelector(".store_details"),
+		priceContainer : document.querySelector(".ticket_body")
 	},
 	
 	template: {
-		displayInfoTemplate : document.querySelector("#diplayInfoTemplate").innerHTML
+		displayInfoTemplate : document.querySelector("#diplayInfoTemplate").innerHTML,
+		priceTemplate : document.querySelector("#priceTemplate").innerHTML,
 	},
 
 	compileHendlebars: {
@@ -66,6 +71,16 @@ var bookingPage = {
 			Handlebars.registerHelper('convertTypeName', function(typeName) {
 				return this.priceType[typeName];
 			}.bind(this));
+		},
+		
+		compareDiscountRateToZero: function(){
+			Handlebars.registerHelper('ifNotZero', function(value, options) {
+				if(value !== 0) {
+				    return options.fn(this);
+				} else {
+					return options.inverse(this);
+				}
+			});
 		}
 	},
 	
@@ -73,6 +88,12 @@ var bookingPage = {
 		var bindDisplayInfo = this.compileHendlebars.bindTemplate(this.template.displayInfoTemplate);
 		
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
+	},
+	
+	displayTicketPrice: function(jsonResponse){
+		var bindTicketPrice = this.compileHendlebars.bindTemplate(this.template.priceTemplate);
+		
+		this.container.priceContainer.innerHTML = bindTicketPrice(jsonResponse);
 	},
 	
 	goToPrevPage: function(){
