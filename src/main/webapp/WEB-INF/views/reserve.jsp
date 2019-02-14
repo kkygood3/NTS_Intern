@@ -181,6 +181,10 @@
     </footer>
     
     <script type="rv-template" id="diplayInfoTemplate">
+    <h3 class="in_tit">장소</h3>
+    <p class="dsc">
+        {{displayInfo.placeName}}
+    </p>
     <h3 class="in_tit">관람시간</h3>
     <p class="dsc">
         {{displayInfo.openingHours}}
