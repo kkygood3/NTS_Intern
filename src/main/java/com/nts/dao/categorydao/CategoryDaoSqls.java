@@ -16,16 +16,16 @@ package com.nts.dao.categorydao;
 public class CategoryDaoSqls {
 	
 	public static final String SELECT_CATEGORIES_GROUP_BY_ID = "SELECT "
-																+ "count(*) AS count"
-																+ ", category.id AS id"
-																+ ", category.name AS name "
+																+ "  count(c.id) AS count"
+																+ ", c.id AS id"
+																+ ", c.name AS name "
 															 + "FROM "
-															 	+ "category"
-															 	+ ", product"
-															 	+ ", display_info "
+															 	+ "  category c "
+															 	+ ", product p "
+															 	+ ", display_info di "
 															 + "WHERE "
-															 	+ "category.id = product.category_id "
-															    + "and product.id = display_info.product_id "
+															 	+ "    c.id = p.category_id "
+															    + "and p.id = di.product_id "
 															 + "GROUP BY "
-															 	+ "category.id";
+															 	+ "c.id";
 }

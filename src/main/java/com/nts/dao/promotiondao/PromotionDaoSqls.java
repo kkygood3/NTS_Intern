@@ -15,20 +15,21 @@ package com.nts.dao.promotiondao;
  */
 public class PromotionDaoSqls {
 	public static final String SELECT_PROMOTIONS_ALL = "SELECT "
-														+ "promotion.id AS id"
-														+ ", promotion.product_id AS product_id"
-														+ ", save_file_name AS product_image_url "
+														+ "  pm.id "
+														+ ", pm.product_id "
+														+ ", fi.save_file_name AS product_image_url "
 													 + "FROM "
-													 	+ "product"
-													 	+ ", promotion"
-													 	+ ", product_image"
-													 	+ ", file_info "
-													 + "WHERE product_image.type = 'th' "
-													 	+ "AND product.id = promotion.product_id "
-													 	+ "AND product.id = product_image.product_id "
-													 	+ "AND file_info.id = product_image.file_id "
+													 	+ "  product p "
+													 	+ ", promotion pm "
+													 	+ ", product_image pimg "
+													 	+ ", file_info fi "
+													 + "WHERE "
+													 	+ "    pimg.type = 'th' "
+													 	+ "and p.id = pm.product_id "
+													 	+ "and p.id = pimg.product_id "
+													 	+ "and fi.id = pimg.file_id "
 													 + "ORDER BY "
-													 	+ "promotion.id "
+													 	+ "pm.id "
 													 + "ASC";
 
 }
