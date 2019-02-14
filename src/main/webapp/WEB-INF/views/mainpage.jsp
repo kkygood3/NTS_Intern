@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,7 +20,14 @@
                     <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                     <a href="." class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="./bookinglogin.jsp" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                <c:choose>
+                    <c:when test="${sessionScope.userEmail == null}">
+                        <a href="history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
+                    </c:otherwise>
+                </c:choose>
             </header>
         </div>
         <hr>
