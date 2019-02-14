@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ReservationSqls.GET_CATEGORIES;
+import static com.nts.reservation.dao.sqls.ProductSqls.GET_CATEGORIES;
 
 import java.util.List;
 

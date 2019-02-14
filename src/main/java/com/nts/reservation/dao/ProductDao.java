@@ -4,11 +4,11 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ReservationSqls.COUNT_BY_CATEGORY_ID;
-import static com.nts.reservation.dao.ReservationSqls.GET_PRODUCTS;
-import static com.nts.reservation.dao.ReservationSqls.GET_PRODUCTS_BY_CATEGORY_ID;
-import static com.nts.reservation.dao.ReservationSqls.LIMIT;
-import static com.nts.reservation.dao.ReservationSqls.SELECT_COUNT_ALL;
+import static com.nts.reservation.dao.sqls.ProductSqls.COUNT_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.sqls.ProductSqls.GET_PRODUCTS;
+import static com.nts.reservation.dao.sqls.ProductSqls.GET_PRODUCTS_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.sqls.ProductSqls.LIMIT;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_COUNT_ALL;
 
 import java.util.Collections;
 import java.util.HashMap;

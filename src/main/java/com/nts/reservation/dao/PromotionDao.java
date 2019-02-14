@@ -4,8 +4,8 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ReservationSqls.COUNT_PROMOTION;
-import static com.nts.reservation.dao.ReservationSqls.GET_PROMOTION_PRODUCTS;
+import static com.nts.reservation.dao.sqls.ProductSqls.COUNT_PROMOTION;
+import static com.nts.reservation.dao.sqls.ProductSqls.GET_PROMOTION_PRODUCTS;
 
 import java.util.Collections;
 import java.util.List;

@@ -2,12 +2,12 @@
  * Copyright 2015 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dao;
+package com.nts.reservation.dao.sqls;
 
 /**
 * @author  : 이승수
 */
-public class ReservationSqls {
+public class ProductSqls {
 	private static final String PRODUCT_TABLE = "product as p "
 		+ "INNER JOIN display_info as d "
 		+ "ON p.id = d.product_id "
