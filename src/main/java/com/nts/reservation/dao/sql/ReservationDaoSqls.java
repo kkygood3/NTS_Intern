@@ -23,7 +23,7 @@ public class ReservationDaoSqls {
 		+ ", :reservationName"
 		+ ", :reservationTel"
 		+ ", :reservationEmail"
-		+ ", NOW()"
+		+ ", :reservationDate"
 		+ ", NOW()"
 		+ ", NOW())";
 	public static final String INSERT_RESERVATION_INFO_PRICE = "INSERT INTO reservation_info_price"

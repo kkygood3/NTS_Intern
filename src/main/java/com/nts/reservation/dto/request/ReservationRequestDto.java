@@ -9,9 +9,11 @@ import static com.nts.reservation.dto.request.regex.RegexPattern.EMAIL_REGEX;
 import static com.nts.reservation.dto.request.regex.RegexPattern.PHONE_NUMBER_REGEX;
 import static com.nts.reservation.dto.request.regex.RegexPattern.RESERVER_NAME_REGEX;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -21,18 +23,26 @@ import javax.validation.constraints.Size;
  * @author 육성렬
  */
 public class ReservationRequestDto {
+
 	@NotNull
 	@Min(0)
 	private Long displayInfoId;
+
 	@NotNull
 	@Min(0)
 	private Long productId;
+
 	@Pattern(regexp = EMAIL_REGEX)
 	private String reservationEmail;
+
 	@Pattern(regexp = RESERVER_NAME_REGEX)
 	private String reservationName;
+
 	@Pattern(regexp = PHONE_NUMBER_REGEX)
 	private String reservationTel;
+
+	@Future
+	private Date reservationDate;
 
 	@Valid
 	@NotNull
@@ -75,8 +85,16 @@ public class ReservationRequestDto {
 		return reservationTel;
 	}
 
-	public void setReservationTel(String reservationTelephone) {
-		this.reservationTel = reservationTelephone;
+	public void setReservationTel(String reservationTel) {
+		this.reservationTel = reservationTel;
+	}
+
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	public List<ReservationPriceRequestDto> getPrices() {
@@ -90,8 +108,8 @@ public class ReservationRequestDto {
 	@Override
 	public String toString() {
 		return "ReservationRequestDto [displayInfoId=" + displayInfoId + ", productId=" + productId
-			+ ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-			+ ", reservationTel=" + reservationTel + ", prices=" + prices + "]";
+			+ ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName + ", reservationTel="
+			+ reservationTel + ", reservationDate=" + reservationDate + ", prices=" + prices + "]";
 	}
 
 }
