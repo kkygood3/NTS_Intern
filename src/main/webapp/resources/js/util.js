@@ -83,7 +83,7 @@ function getTargetTemplate(templateId) {
  */
 function toDateString(timestamp) {
     var date = new Date(timestamp);
-    return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." + date.getDay() + ".";
+    return date.getUTCFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".";
 }
 
 /**
