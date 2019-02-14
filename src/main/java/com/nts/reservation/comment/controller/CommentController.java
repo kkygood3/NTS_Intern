@@ -4,37 +4,26 @@
  */
 package com.nts.reservation.comment.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.dto.CommentResponse;
 import com.nts.reservation.comment.service.CommentService;
 
-@Controller
+@RestController
+@RequestMapping(path = "/api")
 public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
 
-	@GetMapping(path = "/comment/{diplayInfoId}")
-	public ModelAndView commentPage(@PathVariable("diplayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("review");
-
-		List<Comment> comments = commentService.getComments(displayInfoId);
-		double avgScore = commentService.getCommentAvgScore(displayInfoId);
-		modelAndView.addObject("comments", comments);
-		modelAndView.addObject("avgScore", avgScore);
-		return modelAndView;
-	}
-	
-	// TODO 임시 (자리 이동)
-	@GetMapping(path = "/test")
-	public String asdf() {
-		return "detail";
+	@GetMapping(path = "/comment/{displayInfoId}")
+	public CommentResponse commentPage(@PathVariable("displayInfoId") int displayInfoId,
+		@RequestParam(name = "limit", required = false, defaultValue = "0")int limit) {
+		return commentService.getComments(displayInfoId, limit);
 	}
 }

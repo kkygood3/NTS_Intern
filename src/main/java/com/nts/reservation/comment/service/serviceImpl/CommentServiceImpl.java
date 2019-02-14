@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.CommentResponse;
 import com.nts.reservation.comment.service.CommentService;
 
 @Service
@@ -22,27 +23,28 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDao commentDao;
 
 	@Override
-	public List<Comment> getComments(int displayInfoId) {
-		List<Comment> comments = commentDao.selectAllCommentBydisplayInfoId(displayInfoId);
+	public CommentResponse getComments(int displayInfoId, int limit) {
+		List<Comment> comments = commentDao.selectCommentBydisplayInfoId(displayInfoId, limit);
 
 		if (comments.size() == 0) {
-			return Collections.emptyList();
+			return CommentResponse.builder()
+				.comments(Collections.emptyList())
+				.avgScore(0)
+				.build();
 		}
 
 		comments.forEach(comment -> {
-			List<CommentImage> commentImages = commentDao.selectCommentImage(displayInfoId, comment.getCommentId());
-
-
-			comment.setCommentImages(commentImages);
+			if (comment.getImageCount() > 0) {
+				List<CommentImage> commentImages = commentDao.selectCommentImage(displayInfoId, comment.getCommentId());
+				comment.setCommentImages(commentImages);
+			}
 			comment.setReservationEmail(makeBlindEmail(comment.getReservationEmail()));
 		});
 
-		return comments;
-	}
-	
-	@Override
-	public double getCommentAvgScore(int displayInfoId) {
-		return commentDao.selectCommentAvgScore(displayInfoId);
+		double avgScore = commentDao.selectCommentAvgScore(displayInfoId);
+		return CommentResponse.builder()
+			.comments(comments)
+			.avgScore(avgScore).build();
 	}
 
 	private String makeBlindEmail(String email) {

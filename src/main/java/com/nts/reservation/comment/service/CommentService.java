@@ -4,11 +4,9 @@
  */
 package com.nts.reservation.comment.service;
 
-import java.util.List;
-
-import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.dto.CommentResponse;
 
 public interface CommentService {
-	List<Comment> getComments(int displayInfoId);
-	double getCommentAvgScore(int displayInfoId);
+
+	CommentResponse getComments(int displayInfoId, int limit);
 }
