@@ -29,6 +29,10 @@ var bookingPage = {
 			httpRequest.send();
 		}
 		
+		this.setEvent.validation(this.elements.bkName, /(^[가-힣]*$|^[a-zA-Z]*$)/);
+		this.setEvent.validation(this.elements.bkTel, /^[0-9]{9,}$/);
+		this.setEvent.validation(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+		
 		this.setEvent.changeTicketCount();
 		this.setEvent.goToPrevPage();
 		this.setEvent.scrollTop();
@@ -44,7 +48,11 @@ var bookingPage = {
 		totalCount : document.querySelector(".inline_txt.selected"),
 		
 		btnBack : document.querySelector(".btn_back"),
-		btnTop : document.querySelector(".lnk_top")
+		btnTop : document.querySelector(".lnk_top"),
+		
+		bkName : document.querySelector("#name"),
+		bkTel : document.querySelector("#tel"),
+		bkEmail : document.querySelector("#email")
 	},
 	
 	container: {
@@ -114,6 +122,20 @@ var bookingPage = {
 				this.bookingPage.setAmountOfPayment.changeTicketCount(event);
 			}.bind(this));
 		}.bind(this),
+		
+		validation: function(inputTag, regularExpression){
+			inputTag.addEventListener("input", function(){
+				if(this.value.length === 0 || regularExpression.test(this.value)){
+					this.classList.add("valid_value");
+					this.classList.remove("wrong_value");
+					this.parentNode.querySelector(".warning_msg").style.display = "none";
+				} else {
+					this.classList.add("wrong_value");
+					this.classList.remove("valid_value");
+					this.parentNode.querySelector(".warning_msg").style.display = "inline";
+				}
+			});
+		},
 		
 		goToPrevPage: function(){
 			this.bookingPage.elements.btnBack.addEventListener("click", function(){
