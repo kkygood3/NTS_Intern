@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var mainPage = {
+
     /**
      * @function init 페이지 Content 로드 완료시 초기 설정 함수.
      */
@@ -16,6 +17,7 @@ var mainPage = {
         this.requestPromotions();
         this.initMoreBtn();
     },
+
     values: {
         /**
          * @val {number} 프로모션 애니메이션 tick을 위한 값
@@ -27,28 +29,30 @@ var mainPage = {
         promotionAnimationRequestId: 0,
         PROMOTION_ANIMATION_TICK: 3000
     },
+
     elements: {
         tabContainer: document.querySelector(".event_tab_lst"),
         moreBtn: document.querySelector(".btn"),
         productContainers: document.querySelectorAll(".lst_event_box"),
         promotionContainer: document.querySelector(".visual_img")
     },
+
     /**
      * @function initMoreBtn 더 보기 버튼 초기 설정 함수.
      */
     initMoreBtn: function() {
+        
         var moreBtn = this.elements.moreBtn;
-        moreBtn.addEventListener(
-            "click",
-            function() {
-                var tabContainer = this.elements.tabContainer;
-                this.requestProducts(
-                    tabContainer.dataset.currentCount,
-                    tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex
-                );
-            }.bind(this)
-        );
+        var self = this;
+        moreBtn.addEventListener( "click", function() {
+            var tabContainer = self.elements.tabContainer;
+            this.requestProducts(
+                tabContainer.dataset.currentCount,
+                tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex
+            );
+        });
     },
+
     /**
      * @function requestProducts 프로덕트 정보 요청 함수.
      * @param {Number}
@@ -64,41 +68,35 @@ var mainPage = {
         if (categoryId) {
             params.categoryId = categoryId;
         }
-        sendGet(
-            "/reservation-service/api/products",
-            params,
-            null,
-            function(response) {
-                this.requestProductsCallback(response);
-            }.bind(this)
-        );
+        
+        var self = this;
+        sendGet( "/reservation-service/api/products", params, null, function(response) {
+            self.requestProductsCallback(response);
+        });
     },
+
     /**
      * @function requestCategories 카테고리 정보 요청
      */
     requestCategories: function() {
-        sendGet(
-            "/reservation-service/api/categories",
-            null,
-            null,
-            function(response) {
-                this.requestCategoriesCallback(response);
-            }.bind(this)
-        );
+
+        var self = this;
+        sendGet( "/reservation-service/api/categories", null, null, function(response) {
+            self.requestCategoriesCallback(response);
+        });
     },
+
     /**
      * @function requestPromotions 프로모션 상품 요청 함수
      */
     requestPromotions: function() {
-        sendGet(
-            "/reservation-service/api/promotions",
-            null,
-            null,
-            function(response) {
-                this.requestPromotionsCallback(response);
-            }.bind(this)
-        );
+
+        var self = this;
+        sendGet( "/reservation-service/api/promotions", null, null, function(response) {
+            self.requestPromotionsCallback(response);
+        });
     },
+
     /**
      * @function responseProducts 프로덕트 정보 요청에 대한 콜백 함수.
      * @param {XMLHttpRequest}
@@ -112,6 +110,7 @@ var mainPage = {
             alert("상품 목록을 불러오는데 실패했습니다.");
         }
     },
+
     /**
      * @function responseCategories 카테고리 정보 요청에 대한 콜백 함수.
      * @param {XMLHttpRequest}
@@ -125,6 +124,7 @@ var mainPage = {
             alert("카테고리를 불러오는데 실패했습니다.");
         }
     },
+
     /**
      * @function responsePromotions 프로모션 정보 요청에 대한 콜백 함수.
      * @param {XMLHttpRequest}
@@ -138,6 +138,7 @@ var mainPage = {
             alert("프로모션 상품들을 불러오는데 실패했습니다.");
         }
     },
+
     /**
      * @function updateProductList 상품 정보에 대한 상품 리스트 UI 갱신 함수.
      * @param {JSON}
@@ -146,6 +147,7 @@ var mainPage = {
      *            totalCount 해당 카테고리의 전체 상품 갯수. (products와 갯수 일치 X)
      */
     updateProductList: function(products, totalCount) {
+
         var tabContainer = this.elements.tabContainer;
         tabContainer.dataset.currentTotalCount = totalCount;
         tabContainer.dataset.currentCount = Number(tabContainer.dataset.currentCount) + products.length;
@@ -169,6 +171,7 @@ var mainPage = {
             productContainers[i % column].innerHTML += this.replaceTemplate(template, params);
         }
     },
+
     /**
      * @function updateCategories 카테고리 정보에 대한 카테고리 UI 갱신 함수.
      * @param {JSON[]}
@@ -180,6 +183,7 @@ var mainPage = {
         var tabContainer = this.elements.tabContainer;
         var sum = 0;
         var params = {};
+
         categories.forEach(
             function(category) {
                 sum += category.count;
@@ -192,12 +196,14 @@ var mainPage = {
                 resultHtml += this.replaceTemplate(template, params);
             }.bind(this)
         );
+
         params = {
             categoryId: 0,
             count: sum,
             name: "전체리스트",
             active: "active"
         };
+
         resultHtml = this.replaceTemplate(template, params) + resultHtml;
         tabContainer.innerHTML = resultHtml;
         tabContainer.dataset.selectedTabIndex = 0;
@@ -208,27 +214,31 @@ var mainPage = {
 
         this.addCategoryEventListner();
     },
+
     /**
      * @function updatePromtions 프로모션 정보에 대한 프로모션 UI 갱신 함수.
      * @param {JSON[]}
      *            promotions 프로모션 리스트
      */
     updatePromtions: function(promotions) {
+
         var promotionContainer = this.elements.promotionContainer;
         var template = document.querySelector("#promotionItem").innerHTML;
         var resultHtml = "";
-        var test = [];
-        promotions.forEach(
-            function(promotion, index) {
-                var params = {
-                    image_url: "./" + promotion.productImageUrl,
-                    index: index,
-                    place: promotion.placeName,
-                    description: promotion.productDescription
-                };
-                resultHtml += this.replaceTemplate(template, params);
-            }.bind(this)
-        );
+
+        var self = this;
+        promotions.forEach( function(promotion, index) {
+
+            var params = {
+                image_url: "./" + promotion.productImageUrl,
+                index: index,
+                place: promotion.placeName,
+                description: promotion.productDescription
+            };
+
+            resultHtml += self.replaceTemplate(template, params);
+        });
+
         promotionContainer.innerHTML = resultHtml;
         promotionContainer.dataset.current = 0;
 
@@ -236,17 +246,20 @@ var mainPage = {
         this.values.executionTime = new Date().getTime();
         this.updatePromotionAnimation();
     },
+
     /**
      * @function setupClassNameForPromotionAnimation 프로모션 UI 애니메이션 시작 전의 사전 세팅
      *           함수.
      */
     setupClassNameForPromotionAnimation: function() {
+
         var childNodes = this.elements.promotionContainer.children;
         for (var i = 1; i < childNodes.length; i++) {
             childNodes[i].className = "item prev_promotion";
         }
         childNodes[0].className = "item current_promotion";
     },
+
     /**
      * @function updatePromotionAnimation 프로모션 UI 애니메이션 구동 함수.
      */
@@ -270,24 +283,23 @@ var mainPage = {
             this.values.executionTime = new Date().getTime();
         }
 
-        this.values.promotionAnimationRequestId = requestAnimationFrame(
-            function() {
-                this.updatePromotionAnimation();
-            }.bind(this)
-        );
+        var self = this;
+        this.values.promotionAnimationRequestId = requestAnimationFrame( function() {
+            self.updatePromotionAnimation();
+        });
     },
+
     /**
      * @function addCategoryEventListner 카테고리 탭 별 이벤트 리스너 추가 함수
      */
     addCategoryEventListner: function() {
+
         var tabContainer = this.elements.tabContainer;
-        tabContainer.addEventListener(
-            "click",
-            function(event) {
-                this.onClickTabContainer(event, tabContainer);
-            }.bind(this),
-            false
-        );
+        var self = this;
+
+        tabContainer.addEventListener( "click", function(event) {
+                self.onClickTabContainer(event, tabContainer);
+            }, false);
     },
 
     /**
@@ -296,8 +308,10 @@ var mainPage = {
      * @param {Element} tabContainer
      */
     onClickTabContainer: function(event, tabContainer) {
+
         var liElement;
         var aElement;
+
         if (event.target.tagName == "A") {
             aElement = event.target;
             liElement = event.target.parentNode;
@@ -323,8 +337,7 @@ var mainPage = {
             productContainers.forEach(function(container) {
                 container.innerHTML = "";
             });
-            this.requestProducts(
-                0,
+            this.requestProducts( 0,
                 tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex
             );
         }

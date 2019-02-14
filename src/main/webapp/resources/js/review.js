@@ -14,31 +14,31 @@ var reviewPage = {
     values: {
         id: document.querySelector("#container").dataset.displayId
     },
+
     elements: {
         headerContainer: document.querySelector(".review_header"),
         reviewContainer: document.querySelector(".review_box")
     },
+
     /**
      * @function requestDisplayInfo 서버에 displayInfo 정보 요청
      */
     requestDisplayInfo: function() {
         var id = this.values.id;
 
-        sendGet(
-            "/reservation-service/api/products/" + id,
-            {},
-            {},
-            function(response) {
-                this.requestDisplayInfoCallback(response);
-            }.bind(this)
-        );
+        var self = this;
+        sendGet( "/reservation-service/api/products/" + id, {}, {}, function(response) {
+            self.requestDisplayInfoCallback(response);
+        });
     },
+
     /**
      * @function responseDisplayInfo displayInfo 요청에 대한 처리.
      * @param {XMLHttpRequest}
      *            response
      */
     requestDisplayInfoCallback: function(response) {
+
         if (response.status == 200) {
             var data = JSON.parse(response.responseText);
             const { averageScore, comments, displayInfo, displayInfoImage, productImages, productPrices } = data;
@@ -50,6 +50,7 @@ var reviewPage = {
             alert("잘못된 요청입니다.");
         }
     },
+
     /**
      * @function updateHeader 헤더의 UI를 갱신시켜준다.
      * @param {String}
@@ -59,6 +60,7 @@ var reviewPage = {
         var headerTitleTextUi = this.elements.headerContainer.querySelector(".title");
         headerTitleTextUi.textContent = placeName;
     },
+
     /**
      * @function updateReviewContainer 코멘트 리스트를 갱신시켜준다.
      * @param {JSON[]}
@@ -100,15 +102,16 @@ var reviewPage = {
      *            productTitle
      */
     updateCommentList: function(comments, commentListContainer, productTitle) {
+
+        var self = this;
         var resultHtml = comments.reduce(
             function(prevValue, comment) {
-                var commentElement = this.getCommentElement(comment, productTitle);
+                var commentElement = self.getCommentElement(comment, productTitle);
                 return prevValue + commentElement;
-            }.bind(this),
-            ""
-        );
+            },  "");
         commentListContainer.innerHTML = resultHtml;
     },
+    
     /**
      * @function getCommentElement 코멘트 템플릿 리턴
      * @param {JSON}
@@ -117,6 +120,7 @@ var reviewPage = {
      *            productTitle
      */
     getCommentElement: function(comment, productTitle) {
+
         var bindTemplate = getTargetTemplate("#commentItem");
         var data = {
             productName: productTitle,

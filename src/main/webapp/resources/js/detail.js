@@ -11,6 +11,7 @@ var detailPage = {
         MAX_NUMBER_SHOW_COMMENT: 3,
         id: document.querySelector("#container").dataset.displayId
     },
+
     elements: {
         imageContainer: document.querySelector(".detail_swipe"),
         imageCurrentIndexTextUi: document.querySelector(".figure_pagination > .num"),
@@ -29,30 +30,30 @@ var detailPage = {
         commentsContainer: document.querySelector(".section_review_list"),
         reservationBtn: document.querySelector(".section_btn > button")
     },
+
     init: function() {
         this.requestDisplayInfo();
         this.initReservationBtn();
     },
+
     /**
      * @function requestDisplayInfo 서버에 displayInfo 정보 요청
      */
     requestDisplayInfo: function() {
         var id = this.values.id;
 
-        sendGet(
-            "/reservation-service/api/products/" + id,
-            {},
-            {},
-            function(response) {
-                this.requestDisplayInfoCallback(response);
-            }.bind(this)
-        );
+        var self = this;
+        sendGet( "/reservation-service/api/products/" + id, {}, {}, function(response) {
+            self.requestDisplayInfoCallback(response);
+        });
     },
+
     /**
      * @function responseDisplayInfo displayInfo 요청에 대한 처리.
      * @param {XMLHttpRequest} response
      */
     requestDisplayInfoCallback: function(response) {
+
         if (response.status == 200) {
             var data = JSON.parse(response.responseText);
             const { averageScore, comments, displayInfo, displayInfoImage, productImages, productPrices } = data;
@@ -69,6 +70,7 @@ var detailPage = {
             alert("잘못된 요청입니다.");
         }
     },
+
     /**
      * @function updateImageSlide 이미지들을 이용한 이미지 슬라이더 UI 업데이트
      * @param {JSON[]} images
@@ -82,6 +84,7 @@ var detailPage = {
             };
             return prevValue + bindTemplate(data).trim();
         }, "");
+
         var imageContainer = this.elements.imageContainer;
         imageContainer.innerHTML = convertImages;
         imageContainer.dataset.currentIndex = 0;
@@ -95,6 +98,7 @@ var detailPage = {
         this.elements.imageCurrentIndexTextUi.innerHTML = Number(imageContainer.dataset.currentIndex) + 1;
         this.elements.imageMaxIndexTextUi.innerHTML = imageContainer.dataset.maxIndex;
     },
+
     /**
      * @function updateImageSlideBtn 이미지 슬라이더 양옆 버튼 UI 업데이트.
      * @param {JSON[]} images
@@ -109,6 +113,7 @@ var detailPage = {
             return;
         }
     },
+
     /**
      * @function updateContentContainer 컨텐트 컨테이너 UI 업데이트
      * @param {String} contents
@@ -117,6 +122,7 @@ var detailPage = {
         var contentContainer = this.elements.contentContainer;
         contentContainer.querySelector("p").innerHTML = contents;
     },
+
     /**
      * @function updateEventTextUi 이벤트 표기 부분 UI 업데이트
      * @param {JSON[]} priceInfos
@@ -127,6 +133,7 @@ var detailPage = {
                 return prevValue + priceInfo.priceTypeName + "석 " + priceInfo.discountRate + "%, ";
             }
         }, "");
+
         if (eventText != undefined) {
             eventText = eventText.substr(0, eventText.length - 2) + " 할인";
             this.elements.eventTextUi.innerHTML += eventText;
@@ -134,6 +141,7 @@ var detailPage = {
             this.elements.eventContainer.hidden = true;
         }
     },
+
     /**
      * @function updateBottomSection 하단 영역 UI 업데이트
      * @param {JSON} displayInfo
@@ -144,6 +152,7 @@ var detailPage = {
         var contactContainer = this.elements.contactContainer;
         this.bindDataToBottomSection(detailContainer, contactContainer, displayInfo, displayInfoImage);
     },
+
     /**
      * @function updateCommentsContainer 댓글 컨테이너 UI 업데이트
      * @param {Number} averageScore
@@ -172,6 +181,7 @@ var detailPage = {
         }
         moreCommentBtn.setAttribute("href", "./" + this.values.id + "/review");
     },
+
     /**
      * @function initReservationBtn 예매하기 버튼 설정
      */
@@ -181,6 +191,7 @@ var detailPage = {
             window.location.href = "./reservation/" + self.values.id;
         });
     },
+
     /**
      * @function onClickSlideBtn 이미지 슬라이더 버튼 클릭에 대한 콜백함수
      * @param {String} direction
@@ -211,6 +222,7 @@ var detailPage = {
             100
         );
     },
+
     /**
      * @typedef {Object} ReturnIndexAndStyleForNext
      * @property {number} nextIndex
@@ -243,6 +255,7 @@ var detailPage = {
             moveToCurrentStyle: moveToCurrentStyle
         };
     },
+
     /**
      * @function moveToNextSlideImage 이미지를 슬라이드를 작동 시키고
      * 									라벨 값을 갱신한다.
@@ -276,6 +289,7 @@ var detailPage = {
             deselectedTabBtn.classList.remove("active");
         }
     },
+
     /**
      * @function registerCommentImagesLogicForHelper commentImages 부분의 템플릿 제작을 위한 헬퍼등록 메소드
      * @param {JSON[]} commentImage
@@ -290,6 +304,7 @@ var detailPage = {
         };
         return bindTemplate(data).trim();
     },
+
     /**
      *
      * @param {Element} image
@@ -330,6 +345,7 @@ var detailPage = {
             telTextUi.innerHTML = displayInfo.telephone;
         }
     },
+
     /**
      * @function getCommentListHtml comments에 대한 html 값을 얻는다.
      * @param {JSON[]} comments
@@ -338,12 +354,11 @@ var detailPage = {
     getCommentListHtml: function(comments) {
         var resultHtml = "";
         var bindTemplate = getTargetTemplate("#commentItem");
-        Handlebars.registerHelper(
-            "commentImage",
-            function(commentImages) {
-                return this.registerCommentImagesLogicForHelper(commentImages);
-            }.bind(this)
-        );
+
+        var self = this;
+        Handlebars.registerHelper( "commentImage", function(commentImages) {
+            return self.registerCommentImagesLogicForHelper(commentImages);
+        });
 
         for (var i = 0; i < this.values.MAX_NUMBER_SHOW_COMMENT; i++) {
             if (comments.length < i + 1) {
@@ -361,6 +376,7 @@ var detailPage = {
         }
         return resultHtml;
     },
+
     /**
      * @function addEventListeners page 내 이벤트 리스너들 추가.
      */
@@ -377,18 +393,14 @@ var detailPage = {
         var prevBtn = this.elements.prevBtn;
         var nextBtn = this.elements.nextBtn;
         if (prevBtn.style.display !== "none" && nextBtn.style.display !== "none") {
-            prevBtn.addEventListener(
-                "click",
-                function(event) {
-                    this.onClickSlideBtn("left");
-                }.bind(this)
-            );
-            nextBtn.addEventListener(
-                "click",
-                function(event) {
-                    this.onClickSlideBtn("right");
-                }.bind(this)
-            );
+
+            var self = this;
+            prevBtn.addEventListener("click", function(event) {
+                self.onClickSlideBtn("left");
+            });
+            nextBtn.addEventListener("click", function(event) {
+                self.onClickSlideBtn("right");
+            });
         }
     },
 
@@ -418,17 +430,12 @@ var detailPage = {
         var detailContainer = this.elements.detailContainer;
         var contactContainer = this.elements.contactContainer;
 
-        detailTabBtn.addEventListener(
-            "click",
-            function() {
-                this.onClickBottomTabBtn(detailTabBtn, contactTabBtn, detailContainer, contactContainer);
-            }.bind(this)
-        );
-        contactTabBtn.addEventListener(
-            "click",
-            function() {
-                this.onClickBottomTabBtn(contactTabBtn, detailTabBtn, contactContainer, detailContainer);
-            }.bind(this)
-        );
+        var self = this;
+        detailTabBtn.addEventListener("click", function() {
+            self.onClickBottomTabBtn(detailTabBtn, contactTabBtn, detailContainer, contactContainer);
+        });
+        contactTabBtn.addEventListener("click", function() {
+            self.onClickBottomTabBtn(contactTabBtn, detailTabBtn, contactContainer, detailContainer);
+        });
     }
 };

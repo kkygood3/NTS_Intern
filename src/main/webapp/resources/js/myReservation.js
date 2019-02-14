@@ -13,6 +13,7 @@ var myReservationPage = {
         path: "/reservation-service/api/reservations",
         reservationSize: 0
     },
+
     objs: {
         header: null,
         okReservationList: null,
@@ -20,16 +21,19 @@ var myReservationPage = {
         finishReservationList: null,
         popup: null
     },
+
     init: function() {
         this.requestMyReservations();
         this.initHeader();
         this.initReservationList();
         this.initPopup();
     },
+
     initHeader: function() {
         var headerContainer = document.querySelector(".my_summary");
         this.objs.header = new Header(headerContainer);
     },
+
     initReservationList: function() {
         var okReservationContainer = document.querySelector(".confirmed");
         this.objs.okReservationList = new ReservationList(okReservationContainer);
@@ -48,10 +52,12 @@ var myReservationPage = {
         this.objs.finishReservationList.setBtnMsg("예매자 리뷰 남기기");
         this.subscribe(this.objs.finishReservationList);
     },
+
     initPopup: function() {
         this.objs.popup = new Popup(document.querySelector(".popup_booking_wrapper"));
         this.subscribe(this.objs.popup);
     },
+
     requestMyReservations: function() {
         var path = this.values.path;
         var header = {};
@@ -63,6 +69,7 @@ var myReservationPage = {
             self.requestMyReservationsCallback(response);
         });
     },
+
     requestCancelMyReservation: function(reservationId) {
         var path = this.values.path;
         var reservationId = reservationId;
@@ -72,22 +79,27 @@ var myReservationPage = {
             self.requestCancelMyReservationCallback(response);
         });
     },
+
     requestMyReservationsCallback: function(response) {
+
         if (response.status === 200) {
             var data = JSON.parse(response.responseText);
             var filteredData = this.filterReservations(data.reservations);
             this.values.filteredData = filteredData;
-            this.values.reservationSize = data.size + filteredData.finishReservations.length;
+            this.values.reservationSize = data.size;
             this.updateMyReservationPage(filteredData, this.values.reservationSize);
         } else {
             alert("예약 목록을 불러오는 데 실패했습니다.");
         }
     },
+
     requestCancelMyReservationCallback: function(response) {
+
         if (response.status == 200) {
             var reservationId = Number(response.responseText);
             var okReservations = this.values.filteredData.okReservations;
             var targetReservation = {};
+
             for (var i = 0; i < okReservations.length; i++) {
                 if (okReservations[i].reservationInfoId === reservationId) {
                     targetReservation = okReservations[i];
@@ -95,13 +107,16 @@ var myReservationPage = {
                     break;
                 }
             }
+
             this.values.filteredData.cancelReservaions.push(targetReservation);
             this.updateMyReservationPage(this.values.filteredData, this.values.reservationSize);
         } else {
             alert("예약을 취소하는 데 실패했습니다.");
         }
     },
+
     updateMyReservationPage: function(filteredData, size) {
+
         this.updateHeader(filteredData, size);
         if (size == 0) {
             this.updateEmptyReservation(true);
@@ -136,19 +151,27 @@ var myReservationPage = {
         this.objs.finishReservationList.setItems(filteredData.finishReservations);
         this.objs.finishReservationList.updateUi();
     },
+
     /**
      * @function filterReservationList 받은 예약 목록을 필터링 한다.
-     * @param {JSON[]} reservationList
+     * @param {JSON[]} reservations
+     * @return {Object} 예매되있는 예약목록은 okReservations 배열 
+     * 취소된 목록은 cancelReservations 배열
+     * 관람 완료된 목록은 finishReservations 배열
      */
     filterReservations: function(reservations) {
         var initParam = {
             okReservations: [],
             cancelReservaions: [],
-            finishReservations: this.createSampleList()
+            finishReservations: []
         };
+        var now = Date.now();
+
         var filteredReservations = reservations.reduce(function(prevValue, reservation) {
             if (reservation.cancelYn === true) {
                 prevValue.cancelReservaions.push(reservation);
+            } else if (reservation.reservationDate < now) {
+                prevValue.finishReservations.push(reservation);
             } else {
                 prevValue.okReservations.push(reservation);
             }
@@ -157,34 +180,12 @@ var myReservationPage = {
 
         return filteredReservations;
     },
-    createSampleList: function() {
-        return [
-            {
-                productId: 1,
-                displayInfoId: 1,
-                totalPrice: 600
-            },
-            {
-                productid: 2,
-                displayInfoId: 2,
-                totalPrice: 1300
-            }
-        ];
-    },
 
-    /**
-     * @function subscribe 구독할 대상 추가.
-     * @param {Object} target 해당 객체를 구독한다.
-     */
     subscribe: function(target) {
         this.values.subjectList.push(target);
         target.addObserver(this);
     },
 
-    /**
-     * @function unsubscribe 구독 해지.
-     * @param {Object} target
-     */
     unsubscribe: function(target) {
         this.values.subjectList = this.subjectList.filter(function(subject) {
             if (target !== subject) {
@@ -209,6 +210,7 @@ var myReservationPage = {
     }
 };
 var Header = (function() {
+
     /**
      * @function Header header Contructor
      * @param {Element} headerContainer
@@ -228,6 +230,7 @@ var Header = (function() {
 })();
 
 var ReservationList = (function() {
+
     /**
      * @function ReservationList Constructor
      * @param {Element} container
@@ -253,10 +256,6 @@ var ReservationList = (function() {
         this.items = items;
     };
 
-    /**
-     * @function addObserver 옵저버 리스트에 추가.
-     * @param {Object} 옵저버.
-     */
     ReservationList.prototype.addObserver = function(target) {
         this.observerList.push(target);
     };
@@ -289,7 +288,11 @@ var ReservationList = (function() {
                 reservationId: item.reservationInfoId,
                 btnMsg: self.btnMsg,
                 isHideBtn: self.isHideBtn,
-                price: item.totalPrice
+                price: convertNumberToFormattedNumber(item.totalPrice),
+                placeName: item.displayInfo.placeName,
+                productName: item.displayInfo.productDescription,
+                placeStreet: item.displayInfo.placeStreet,
+                reservationDate: toDateString(item.reservationDate)
             };
             resultHtml += bindTemplate(param).trim();
         });
@@ -322,6 +325,7 @@ var ReservationList = (function() {
 })();
 
 var Popup = (function() {
+
     function Popup(container) {
         this.container = container;
         this.observerList = [];
@@ -354,10 +358,6 @@ var Popup = (function() {
         this.container.style.display = "none";
     };
 
-    /**
-     * @function addObserver 옵저버 리스트에 추가.
-     * @param {Object} 옵저버.
-     */
     Popup.prototype.addObserver = function(target) {
         this.observerList.push(target);
     };
