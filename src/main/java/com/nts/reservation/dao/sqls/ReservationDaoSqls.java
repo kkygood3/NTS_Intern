@@ -36,7 +36,29 @@ public class ReservationDaoSqls {
 		+ ", count"
 		+ ")"
 		+ " VALUES ("
-		+ " :reservation_info_id"
-		+ ", :product_price_id"
+		+ " :reservationInfoId"
+		+ ", :productPriceId"
 		+ ", :count)";
+
+	public static final String SELECT_RESERVATIONS = "SELECT * FROM( "
+		+ "(SELECT ri.id as id"
+		+ ", SUM(rip.count * pp.price) as totalPrice"
+		+ " from reservation_info ri"
+		+ " INNER JOIN reservation_info_price rip ON ri.id = rip.reservation_info_id"
+		+ " INNER JOIN product_price pp ON rip.product_price_id = pp.id AND ri.reservation_email = :email"
+		+ " GROUP BY ri.id) as table1"
+		+ " INNER JOIN "
+		+ "(SELECT id AS id, product_id AS productId"
+		+ ", display_info_id AS displayInfoId"
+		+ ", reservation_name AS reservationName"
+		+ ", reservation_tel AS reservationTelephone"
+		+ ", reservation_email AS reservationEmail"
+		+ ", reservation_date AS reservationDate"
+		+ ", cancel_flag AS cancelFlag"
+		+ ", create_date AS createDate"
+		+ ", modify_date AS modifyDate FROM reservation_info WHERE reservation_email = :email) "
+		+ "AS table2 ON table1.id = table2.id"
+		+ ");";
+
+	public static final String SELECT_RESERVATIONS_COUNT = "SELECT count(id) FROM reservation_info WHERE reservation_email = :email";
 }

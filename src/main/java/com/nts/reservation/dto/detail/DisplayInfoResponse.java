@@ -14,7 +14,7 @@ import com.nts.reservation.dto.common.DisplayInfo;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-public class DetailResponse {
+public class DisplayInfoResponse {
 
 	private DisplayInfo displayInfo;
 	private List<ProductImage> productImages;
@@ -71,7 +71,7 @@ public class DetailResponse {
 		this.productPrices = productPrices;
 	}
 
-	public DetailResponse(Builder builder) {
+	public DisplayInfoResponse(Builder builder) {
 		displayInfo = builder.displayInfo;
 		productImages = builder.productImages;
 		displayInfoImage = builder.displayInfoImage;
@@ -118,8 +118,8 @@ public class DetailResponse {
 			return this;
 		}
 
-		public DetailResponse build() {
-			return new DetailResponse(this);
+		public DisplayInfoResponse build() {
+			return new DisplayInfoResponse(this);
 		}
 	}
 }

@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.dao.DetailDao;
 import com.nts.reservation.dao.ReservationDao;
-import com.nts.reservation.dto.reservation.Reservation;
-import com.nts.reservation.dto.reservation.ReservationInput;
+import com.nts.reservation.dto.reservation.ReservationPrice;
+import com.nts.reservation.dto.reservation.ReservationInfo;
+import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -25,18 +27,26 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
+	DetailDao detailDao;
+	@Autowired
 	ReservationDao reservationDao;
 
 	@Override
-	public List<Reservation> getReservations(String email) {
-
-		return null;
+	public List<ReservationInfo> selectReservations(String email) {
+		List<ReservationInfo> reservationList = reservationDao.selectResevations(email);
+		for (ReservationInfo rsv : reservationList) {
+			rsv.setDisplayInfo(detailDao.selectDisplayInfo(rsv.getDisplayInfoId()));
+		}
+		return reservationList;
 	}
 
 	@Override
-	public List<Reservation> postReservations(ReservationInput input) {
-		System.out.println(reservationDao.insertReservationInfo(input));
-		return null;
+	public void insertReservations(ReservationParam input) {
+		Long reservationInfoId = reservationDao.insertReservationInfo(input);
+		List<ReservationPrice> priceList = input.getPrices();
+		for (ReservationPrice p : priceList) {
+			p.setReservationInfoId(reservationInfoId);
+			reservationDao.insertReservationPrice(p);
+		}
 	}
-
 }

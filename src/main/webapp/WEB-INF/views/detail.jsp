@@ -43,7 +43,7 @@
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
+				<a href="./bookinglogin" class="btn_my"> <span title="예약확인"><%=session.getAttribute("email")%></span>
 				</a>
 			</header>
 		</div>
@@ -58,8 +58,12 @@
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation.html" class="btn_my"> <span
-							class="viewReservation" title="예약확인">예약확인</span>
+						<a href="./myreservation" class="btn_my"> <span
+							class="viewReservation" title="예약확인"><%if(session.getAttribute("email")==null){
+								%>"예약확인"<%
+							} else { %>
+							<%=session.getAttribute("email")%><%
+							}%></span>
 						</a>
 					</header>
 					<div class="pagination">

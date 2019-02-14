@@ -16,10 +16,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.nts.reservation.interceptor.UserEmailCheckInterceptor;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -46,6 +49,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/detail").setViewName("detail");
 		registry.addViewController("/review").setViewName("review");
 		registry.addViewController("/reserve").setViewName("reserve");
+		registry.addViewController("/bookinglogin").setViewName("bookinglogin");
+		registry.addViewController("/myreservation").setViewName("myreservation");
 	}
 
 	@Bean
@@ -54,6 +59,11 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		return resolver;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new UserEmailCheckInterceptor()).addPathPatterns("/myreservation");
 	}
 
 	@Bean

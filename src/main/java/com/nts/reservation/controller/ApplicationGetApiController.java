@@ -9,6 +9,8 @@ package com.nts.reservation.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.detail.DetailResponse;
+import com.nts.reservation.dto.detail.DisplayInfoResponse;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.service.ReservationService;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -30,17 +33,20 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/api/", method = {RequestMethod.GET})
 public class ApplicationGetApiController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 	@Autowired
-	DetailService detailService;
+	private DetailService detailService;
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
+	@Autowired
+	private ReservationService reservationService;
+	@Autowired
+	private HttpSession session;
 
 	@GetMapping("/products")
 	public Map<String, Object> selectProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
-
 		Map<String, Object> result = new HashMap<>();
 		result.put("items", productService.selectProductsByCategory(categoryId, start));
 		if (categoryId == 0) {
@@ -53,9 +59,9 @@ public class ApplicationGetApiController {
 	}
 
 	@GetMapping("/products/{displayInfoId}")
-	public DetailResponse selectProductDetailByDisplayInfoId(
+	public DisplayInfoResponse selectProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		DetailResponse result = new DetailResponse.Builder()
+		DisplayInfoResponse result = new DisplayInfoResponse.Builder()
 			.displayInfo(detailService.selectDisplayInfo(displayInfoId))
 			.productImages(detailService.selectProductImages(displayInfoId))
 			.displayInfoImage(detailService.selectDisplayInfoImage(displayInfoId))
@@ -81,8 +87,9 @@ public class ApplicationGetApiController {
 	}
 
 	@GetMapping("/reservations")
-	public Map<String, Object> selectReservation() {
+	public Map<String, Object> selectreservations() {
 		Map<String, Object> result = new HashMap<>();
+		result.put("reservations", reservationService.selectReservations(session.getAttribute("email").toString()));
 		return result;
 	}
 }

@@ -8,8 +8,8 @@ package com.nts.reservation.service;
  */
 import java.util.List;
 
-import com.nts.reservation.dto.reservation.Reservation;
-import com.nts.reservation.dto.reservation.ReservationInput;
+import com.nts.reservation.dto.reservation.ReservationInfo;
+import com.nts.reservation.dto.reservation.ReservationParam;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -17,7 +17,7 @@ import com.nts.reservation.dto.reservation.ReservationInput;
  */
 
 public interface ReservationService {
-	List<Reservation> getReservations(String email);
+	List<ReservationInfo> selectReservations(String email);
 
-	List<Reservation> postReservations(ReservationInput resInput);
+	void insertReservations(ReservationParam resInput);
 }

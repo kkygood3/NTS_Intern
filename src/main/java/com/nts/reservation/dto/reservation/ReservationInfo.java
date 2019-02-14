@@ -15,8 +15,9 @@ import com.nts.reservation.dto.common.DisplayInfo;
  *
  */
 
-public class Reservation {
-	private Boolean cancelYn;
+public class ReservationInfo {
+	private Long id;
+	private Boolean cancelFlag;
 	private LocalDateTime createDate;
 	private DisplayInfo displayInfo;
 	private Long displayInfoId;
@@ -29,12 +30,20 @@ public class Reservation {
 	private String reservationTelephone;
 	private Integer totalPrice;
 
-	public Boolean getCancelYn() {
-		return cancelYn;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCancelYn(Boolean cancelYn) {
-		this.cancelYn = cancelYn;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Boolean getCancelFlag() {
+		return cancelFlag;
+	}
+
+	public void setCancelFlag(Boolean cancelFlag) {
+		this.cancelFlag = cancelFlag;
 	}
 
 	public LocalDateTime getCreateDate() {
@@ -127,10 +136,10 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [cancelYn=" + cancelYn + ", createDate=" + createDate + ", displayInfo=" + displayInfo
-			+ ", displayInfoId=" + displayInfoId + ", modifydate=" + modifydate + ", productId=" + productId
-			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
-			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="
-			+ reservationTelephone + ", totalPrice=" + totalPrice + "]";
+		return "Reservation [id=" + id + ", cancelFlag=" + cancelFlag + ", createDate=" + createDate + ", displayInfo="
+			+ displayInfo + ", displayInfoId=" + displayInfoId + ", modifydate=" + modifydate + ", productId="
+			+ productId + ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail
+			+ ", reservationInfoId=" + reservationInfoId + ", reservationName=" + reservationName
+			+ ", reservationTelephone=" + reservationTelephone + ", totalPrice=" + totalPrice + "]";
 	}
 }

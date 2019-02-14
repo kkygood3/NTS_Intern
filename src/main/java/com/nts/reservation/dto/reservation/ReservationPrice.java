@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Price {
+public class ReservationPrice {
 	private Integer count;
 	private Long productPriceId;
 	private Long reservationInfoId;

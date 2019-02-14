@@ -12,9 +12,9 @@ import java.util.List;
  *
  */
 
-public class ReservationInput {
+public class ReservationParam {
 	private Long displayInfoId;
-	private List<Price> prices;
+	private List<ReservationPrice> prices;
 	private Long productId;
 	private String reservationName;
 	private String reservationEmail;
@@ -29,11 +29,11 @@ public class ReservationInput {
 		this.displayInfoId = displayInfoId;
 	}
 
-	public List<Price> getPrices() {
+	public List<ReservationPrice> getPrices() {
 		return prices;
 	}
 
-	public void setPrices(List<Price> prices) {
+	public void setPrices(List<ReservationPrice> prices) {
 		this.prices = prices;
 	}
 

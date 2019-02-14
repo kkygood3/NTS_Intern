@@ -9,8 +9,8 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
-	<link href="resources/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+<link href="resources/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
 <body>
@@ -25,7 +25,17 @@
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
+				<a href="./myreservation" class="btn_my"> <span
+					class="viewReservation" title="예약확인">
+						<%
+							if (session.getAttribute("email") == null) {
+						%>"예약확인"<%
+							} else {
+						%> <%=session.getAttribute("email")%>
+						<%
+							}
+						%>
+				</span>
 				</a>
 			</header>
 		</div>
@@ -43,9 +53,7 @@
 					<div class="container_visual" style="width: 414px;">
 						<ul class="visual_img">
 							<li class="item" style="width: 414px;"><img alt=""
-								class="img_thumb"
-								src="">
-								<span class="img_bg"></span>
+								class="img_thumb" src=""> <span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit"></h2>
 									<em class="preview_txt_dsc">₩12,000 ~ </em><em
@@ -59,22 +67,16 @@
 					<div class="store_details">
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
-							장소 : <br> 
+							장소 : <br>
 						</p>
 						<h3 class="in_tit">관람시간</h3>
-						<p class="dsc">
-							
-						</p>
+						<p class="dsc"></p>
 						<h3 class="in_tit">요금</h3>
-						<p class="dsc">
-							
-						</p>
+						<p class="dsc"></p>
 					</div>
 				</div>
 				<div class="section_booking_ticket">
-					<div class="ticket_body">
-						
-					</div>
+					<div class="ticket_body"></div>
 				</div>
 				<div class="section_booking_form">
 					<div class="booking_form_wrap">
@@ -83,8 +85,10 @@
 							<div class="agreement_nessasary help_txt">
 								<span class="spr_book ico_nessasary"></span> <span>필수입력</span>
 							</div>
-							<form class="form_horizontal" action="/reservation/api/reservations" method="post" enctype="multipart/form-data">
-							
+							<form class="form_horizontal"
+								action="/reservation/api/reservations" method="post"
+								enctype="multipart/form-data">
+
 								<div class="inline_form">
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
@@ -100,8 +104,8 @@
 										class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input required type="tel" name="tel" id="tel" class="tel" value=""
-											placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<input required type="tel" name="tel" id="tel" class="tel"
+											value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
 										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
@@ -110,8 +114,9 @@
 										class="spr_book ico_nessasary">필수</span> <span>이메일</span>
 									</label>
 									<div class="inline_control">
-										<input required type="email" name="email" id="email" class="email"
-											value="" placeholder="crong@codesquad.kr" maxlength="50">
+										<input required type="email" name="email" id="email"
+											class="email" value="" placeholder="crong@codesquad.kr"
+											maxlength="50">
 										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
@@ -140,8 +145,8 @@
 						<div class="agreement">
 							<span class="chk_txt_span"> <i
 								class="spr_book ico_arr_ipc2"></i> <span>개인정보 수집 및 이용 동의</span>
-							</span> <a class="btn_agreement"> <span class="btn_text">보기</span>
-								<i class="fn fn-down2"></i>
+							</span> <a class="btn_agreement"> <span class="btn_text">보기</span> <i
+								class="fn fn-down2"></i>
 							</a>
 							<div class="useragreement_details">
 								&lt;개인정보 수집 및 이용 동의&gt;<br> <br> 1. 수집항목 : [필수] 이름,
@@ -158,8 +163,8 @@
 						<div class="agreement">
 							<span class="chk_txt_span"> <i
 								class="spr_book ico_arr_ipc2"></i> <span>개인정보 제3자 제공 동의</span>
-							</span> <a class="btn_agreement"> <span class="btn_text">보기</span>
-								<i class="fn fn-down2"></i>
+							</span> <a class="btn_agreement"> <span class="btn_text">보기</span> <i
+								class="fn fn-down2"></i>
 							</a>
 							<div class="useragreement_details custom_details_wrap">
 								<div class="custom_details">
@@ -198,8 +203,8 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
-	
-	<script type="rv-template" id ="countControlItem">
+
+	<script type="rv-template" id="countControlItem">
 	{{#each data}}
 	<div class="qty" data-id="{{productPriceId}}">
 		<div class="count_control">

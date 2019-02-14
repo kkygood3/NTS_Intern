@@ -100,20 +100,20 @@ function SlidingAnimation(_slideContainer){
  * @initSlideAnimation() : required setup for the promo animation, and
  *                       initialization of animation frame call
  */
-SlidingAnimation.prototype.init = function(params) {	
+SlidingAnimation.prototype.init = function(optionals) {	
 	this.prevSlideCount = this.imageList.length - 1;	
 	this.currentSlideCount = 0;
 	this.nextSlideCount = 1;
 	this.isAnimating = false;
 	this.isAutoStart = false;
 
-	this.maxHeight = slideWrapper.clientHeight;
+	this.maxHeight = this.slideWrapper.clientHeight;
 	this.minHeight = 100;
 	this.animationSpeed = 10;
 	this.animationStopDuration = 1000;
 
 	if(optionals){
-		this.maxHeight = optionals.maxHeight ? optionals.maxHeight : slideWrapper.clientHeight;
+		this.maxHeight = optionals.maxHeight ? optionals.maxHeight : this.slideWrapper.clientHeight;
 		this.minHeight = optionals.minHeight ? optionals.minHeight : 100;
 		this.animationSpeed = optionals.animationSpeed ? optionals.animationSpeed : 10;
 		this.animationStopDuration = optionals.animationStopDuration ? optionals.animationStopDuration : 1000;
@@ -272,7 +272,7 @@ function xhrGetRequest(url, callback) {
  * @xhrPostRequest() : pre-defined XmlHttpRequest Get method since get method
  *                   will be used frequently
  */
-function xhrPostMultipartRequest(url, callback, data) {
+function xhrPostMultipartRequest(url, data, callback) {
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.onreadystatechange = function(aEvt) {
@@ -318,10 +318,11 @@ function arrayToElementRenderer(data, target, item) {
 		return item[0].saveFileName;
 	});
 	let parsedItems = parser.parseFromString(bindTemplate({data : commentsList}), "text/html");
+	console.log(parsedItems)
 	let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
 	let newCommentItems = parsedItems.querySelectorAll("."+elementClassName);
-
 	newCommentItems.forEach((item) => {
+		
 		target.append(item);
 	});	
 }

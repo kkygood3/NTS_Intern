@@ -12,6 +12,7 @@ function SubmitButton(item) {
 	item.addEventListener("click",(e) => {
 		e.preventDefault();
 		
+		// form check
 		let nameValid = (/[가-힣a-zA-Z]+$/).test(name.value);
 		let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
 		let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value); 
@@ -26,33 +27,53 @@ function SubmitButton(item) {
 			inputValidationErrorMsg(email);
 			return;
 		} 
-		var formData = new FormData(domElements.reservationForm);
+		
+		// agreement check
+		if(!domElements.agreementButton.checked){
+			alert("Please check agreement");
+			return;
+		}	
+		
+		// tickets count check
 		let priceDataArr =[];
 		for (var key in state.prices) {
 			if (state.prices.hasOwnProperty(key)) {
 				console.log(key + ": " + state.prices[key]);
-				priceDataArr.push(state.prices[key]);
+				if(state.prices[key].count>0){
+					priceDataArr.push(state.prices[key]);
+				}
 			}
 		}
 		
-		var d = new Date();
-		let dataToSend = {
-				displayInfoId :  state.detail_data.displayInfo.displayInfoId
-				, prices : priceDataArr
-				, productId : state.detail_data.displayInfo.productId
-				, reservationEmail : formData.get("email")
-				, reservationName : formData.get("name")
-				, reservationTelephone : formData.get("tel")
-				, reservationYearMonthDay : d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
-				} 
-		let formDataToSend = new FormData();
+		if(priceDataArr.length==0){
+			alert("No tickets Added to reserve");
+			return;
+		}
 		
-		formDataToSend.append("totalData", JSON.stringify(dataToSend));
-		console.log(formDataToSend.get("totalData"));
-		xhrPostMultipartRequest("/reservation/api/reservations", () =>
-		console.log("transfered")
-		// window.location.href ="/reservation"
-			, formDataToSend);
+		sendReservation(priceDataArr);
+	});
+}
+
+function sendReservation(priceDataArr){
+	var formData = new FormData(domElements.reservationForm);	
+	
+	var d = new Date();
+	let dataToSend = {
+			displayInfoId :  state.detail_data.displayInfo.displayInfoId
+			, prices : priceDataArr
+			, productId : state.detail_data.displayInfo.productId
+			, reservationEmail : formData.get("email")
+			, reservationName : formData.get("name")
+			, reservationTelephone : formData.get("tel")
+			, reservationYearMonthDay : d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
+			} 
+	let formDataToSend = new FormData();
+	
+	formDataToSend.append("totalData", JSON.stringify(dataToSend));
+	console.log(formDataToSend.get("totalData"));
+	xhrPostMultipartRequest("/reservation/api/reservations", formDataToSend, () =>{
+		alert("SUCCESS");
+		window.location.href ="/reservation";
 	});
 }
 
