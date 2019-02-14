@@ -33,11 +33,13 @@ public class ReviewResponseDao {
 	/**
 	 * review 페이지를 로드할 때 필요한 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @param start - 한 페이지에 출력할 item 개수
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<ReviewResponse> selectDetailPageById(int displayInfoId, int pagingLimit) {
+	public List<ReviewResponse> selectDetailPageById(int displayInfoId, int start, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
+		params.put("start", start);
 		params.put("pagingLimit", pagingLimit);
 		List<ReviewResponse> reviewList = jdbc.query(ReviewResponseSqls.SELECT_REVIEW, params, rowMapper);
 

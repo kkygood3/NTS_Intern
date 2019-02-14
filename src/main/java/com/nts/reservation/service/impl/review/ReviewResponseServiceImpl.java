@@ -19,8 +19,8 @@ public class ReviewResponseServiceImpl implements ReviewResponseService {
 	ReviewResponseDao reviewResponseDao;
 
 	@Override
-	public List<ReviewResponse> getReviewResponse(int displayInfoId, int pagingLimit) {
-		return reviewResponseDao.selectDetailPageById(displayInfoId, pagingLimit);
+	public List<ReviewResponse> getReviewResponse(int displayInfoId, int start, int pagingLimit) {
+		return reviewResponseDao.selectDetailPageById(displayInfoId, start, pagingLimit);
 	}
 
 }

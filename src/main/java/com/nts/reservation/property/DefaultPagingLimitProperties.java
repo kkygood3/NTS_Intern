@@ -16,5 +16,5 @@ public class DefaultPagingLimitProperties {
 
 	public static final String PROMOTION_DEFAULT_PAGING_LIMIT = "20";
 
-	public static final String REVIEW_DEFAULT_PAGING_LIMIT = "20";
+	public static final String REVIEW_DEFAULT_PAGING_LIMIT = "10";
 }

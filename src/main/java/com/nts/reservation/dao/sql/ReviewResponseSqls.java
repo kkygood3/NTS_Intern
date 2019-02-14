@@ -21,5 +21,5 @@ public class ReviewResponseSqls {
 		
 		" WHERE display_info.id = :displayInfoId " + 
 		" ORDER BY reservation_user_comment.id DESC " + 
-		" LIMIT :pagingLimit";
+		" LIMIT :start, :pagingLimit";
 }
