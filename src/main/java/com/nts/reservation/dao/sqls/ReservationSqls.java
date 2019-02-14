@@ -24,7 +24,7 @@ public class ReservationSqls {
 		+ ", :reservationName"
 		+ ", :reservationTelephone"
 		+ ", :reservationEmail"
-		+ ", :reservationYearMonthDay"
+		+ ", :reservationDate"
 		+ ", NOW()"
 		+ ", NOW())";
 
@@ -37,7 +37,7 @@ public class ReservationSqls {
 		+ "AND reservation_name = :reservationName "
 		+ "AND reservation_tel = :reservationTelephone "
 		+ "AND reservation_email = :reservationEmail "
-		+ "AND reservation_date = :reservationYearMonthDay ";
+		+ "AND reservation_date = :reservationDate ";
 
 	public static final String INSERT_RESERVATION_INFO_PRICE = "INSERT INTO "
 		+ "reservation_info_price"

@@ -4,19 +4,28 @@
  */
 package com.nts.reservation.dto;
 
+import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
 * @author  : 이승수
 */
 public class Reservation {
+	private boolean cancelYn;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date createDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date modifyDate;
+	private int reservationInfoId;
 	private int displayInfoId;
 	private List<ReservationPrice> prices;
 	private int productId;
 	private String reservationEmail;
 	private String reservationName;
 	private String reservationTelephone;
-	private String reservationYearMonthDay;
+	private String reservationDate;
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -66,19 +75,43 @@ public class Reservation {
 		this.reservationTelephone = reservationTelephone;
 	}
 
-	public String getReservationYearMonthDay() {
-		return reservationYearMonthDay;
+	public String getReservationDate() {
+		return reservationDate;
 	}
 
-	public void setReservationYearMonthDay(String reservationYearMonthDay) {
-		this.reservationYearMonthDay = reservationYearMonthDay;
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Reservation [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId=" + productId
-			+ ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
-			+ "]";
+	public boolean isCancelYn() {
+		return cancelYn;
+	}
+
+	public void setCancelYn(boolean cancelYn) {
+		this.cancelYn = cancelYn;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public int getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(int reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
 	}
 }

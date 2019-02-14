@@ -23,7 +23,7 @@ function _test(){
 		reservationEmail: domElements.getElements.bkEmail.value,
 		reservationName: domElements.getElements.bkName.value,
 		reservationTelephone: domElements.getElements.bkTel.value,
-		reservationYearMonthDay: domElements.getElements.bkDate.innerHTML,
+		reservationDate: domElements.getElements.bkDate.innerHTML,
 	}
 	
 	var httpRequest;
