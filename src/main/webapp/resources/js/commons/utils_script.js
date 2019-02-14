@@ -300,7 +300,7 @@ function arrayToElementRenderer(data, target, item) {
 	}
 	
 	let bindTemplate = Handlebars.compile(item);
-	let commentsList = data;
+	let list = data;
 	
 	Handlebars.registerHelper("productName", () => {
 		return state.detail_data.displayInfo.productDescription;
@@ -317,12 +317,14 @@ function arrayToElementRenderer(data, target, item) {
 	Handlebars.registerHelper("commentImageUrl", (item)=> {
 		return item[0].saveFileName;
 	});
-	let parsedItems = parser.parseFromString(bindTemplate({data : commentsList}), "text/html");
+	Handlebars.registerHelper("rsvDateSplit", (item) => {
+		return item.split(" ")[0];
+	});
+	let parsedItems = parser.parseFromString(bindTemplate({data : list}), "text/html");
 	console.log(parsedItems)
 	let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
 	let newCommentItems = parsedItems.querySelectorAll("."+elementClassName);
 	newCommentItems.forEach((item) => {
-		
 		target.append(item);
 	});	
 }

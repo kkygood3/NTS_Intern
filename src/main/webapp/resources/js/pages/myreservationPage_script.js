@@ -74,7 +74,7 @@ var myReservation = {
 	
 	renderReservations : function() {
 		console.log(state.reservation_data.reservations)
-		arrayToElementRenderer(state.reservation_data.reservations,domElements.sectionProcessing,templates.reservationItem);
+		arrayToElementRenderer(state.reservation_data.reservations,domElements.sectionConfirmed,templates.reservationItem);
 	}
 
 }
