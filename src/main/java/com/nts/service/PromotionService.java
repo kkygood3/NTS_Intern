@@ -20,7 +20,7 @@ import com.nts.dto.promotiondto.Promotion;
  */
 public interface PromotionService {
 	
-	public List<Promotion> getItems();
+	List<Promotion> getItems();
 	
 }
 

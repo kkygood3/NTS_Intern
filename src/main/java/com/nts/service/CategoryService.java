@@ -21,6 +21,6 @@ import com.nts.dto.categorydto.Category;
  */
 public interface CategoryService {
 
-	public List<Category> getItems();
+	List<Category> getItems();
 	
 }

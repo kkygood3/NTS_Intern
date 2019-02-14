@@ -23,9 +23,9 @@ import com.nts.dto.commentdto.CommentImage;
  */
 public interface CommentService {
 
-	public double getAverageScoreByDisplayInfoId(int displayInfoId);
+	double getAverageScoreByDisplayInfoId(int displayInfoId);
 
-	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId);
+	List<Comment> getCommentsByDisplayInfoId(int displayInfoId);
 	
-	public CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId);
+	CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId);
 }

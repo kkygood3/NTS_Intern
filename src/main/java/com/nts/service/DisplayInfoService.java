@@ -21,7 +21,7 @@ import com.nts.dto.displayinfodto.DisplayInfoImage;
  */
 public interface DisplayInfoService {
 
-	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId);
+	DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId);
 
-	public DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId);
+	DisplayInfoImage getDisplayInfoImageByDisplayInfoId(int displayInfoId);
 }

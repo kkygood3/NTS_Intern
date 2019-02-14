@@ -26,12 +26,12 @@ import com.nts.exception.InvalidParameterException;
  */
 public interface ProductService {
 
-	public List<Product> getItems(int categoryId, int start) throws InvalidParameterException;
+	List<Product> getItems(int categoryId, int start) throws InvalidParameterException;
 
-	public int getCount(int categoryId);
+	int getCount(int categoryId);
 
-	public List<ProductImage> getProductImagesByDisplayInfoId(int displayInfoId);
+	List<ProductImage> getProductImagesByDisplayInfoId(int displayInfoId);
 	
-	public List<ProductPrice> getProductPricesByDisplayInfoId(int displayInfoId);
+	List<ProductPrice> getProductPricesByDisplayInfoId(int displayInfoId);
 
 }
