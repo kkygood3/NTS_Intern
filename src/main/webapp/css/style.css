@@ -3929,16 +3929,17 @@ button {
   color: #fff;
 }
 
-.wrong_value {
+#name.wrong_value, #tel.wrong_value, #email.wrong_value {
   border: 1px solid red;
   outline: none;
 }
 
-.valid_value {
+.valid_value, #name, #tel, #email {
   border: 1px solid #eee;
 }
 
 .warning_msg {
   color: red;
   display: none;
+  text-align: center;
 }

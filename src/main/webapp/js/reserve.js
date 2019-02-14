@@ -29,11 +29,13 @@ var bookingPage = {
 			httpRequest.send();
 		}
 		
-		this.setEvent.validation(this.elements.bkName, /(^[가-힣]*$|^[a-zA-Z]*$)/);
-		this.setEvent.validation(this.elements.bkTel, /^[0-9]{9,}$/);
-		this.setEvent.validation(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+		this.setEvent.validateInputValue(this.elements.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
+		this.setEvent.validateInputValue(this.elements.bkTel, /^[0-9]{9,}$/);
+		this.setEvent.validateInputValue(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
 		
 		this.setEvent.changeTicketCount();
+		this.setEvent.openTerms();
+		this.setEvent.acceptTerms();
 		this.setEvent.goToPrevPage();
 		this.setEvent.scrollTop();
 	},
@@ -52,12 +54,16 @@ var bookingPage = {
 		
 		bkName : document.querySelector("#name"),
 		bkTel : document.querySelector("#tel"),
-		bkEmail : document.querySelector("#email")
+		bkEmail : document.querySelector("#email"),
+		
+		btnShowMore : document.querySelectorAll(".btn_agreement"),
+		btnAgree : document.querySelector(".chk_agree")
 	},
 	
 	container: {
 		displayInfoContainer : document.querySelector(".store_details"),
-		priceContainer : document.querySelector(".ticket_body")
+		priceContainer : document.querySelector(".ticket_body"),
+		bkBtnContainer : document.querySelector(".bk_btn_wrap") 
 	},
 	
 	template: {
@@ -119,23 +125,83 @@ var bookingPage = {
 	setEvent: {
 		changeTicketCount: function(){
 			this.bookingPage.container.priceContainer.addEventListener("click", function(event){
+				if(!event.target.classList.contains("disabled")){
+					this.bookingPage.elements.btnAgree.checked = false;
+					this.bookingPage.container.bkBtnContainer.classList.add("disable");
+				};
+				
 				this.bookingPage.setAmountOfPayment.changeTicketCount(event);
 			}.bind(this));
 		}.bind(this),
 		
-		validation: function(inputTag, regularExpression){
-			inputTag.addEventListener("input", function(){
-				if(this.value.length === 0 || regularExpression.test(this.value)){
-					this.classList.add("valid_value");
-					this.classList.remove("wrong_value");
-					this.parentNode.querySelector(".warning_msg").style.display = "none";
+		validateInputValue: function(inputTag, regularExpression){
+			inputTag.addEventListener("input", function(event){
+				this.bookingPage.elements.btnAgree.checked = false;
+				this.bookingPage.container.bkBtnContainer.classList.add("disable");
+				
+				if(regularExpression.test(event.target.value)){
+					event.target.classList.add("valid_value");
+					event.target.classList.remove("wrong_value");
+					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
 				} else {
-					this.classList.add("wrong_value");
-					this.classList.remove("valid_value");
-					this.parentNode.querySelector(".warning_msg").style.display = "inline";
+					event.target.classList.add("wrong_value");
+					event.target.classList.remove("valid_value");
+					event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
 				}
+
+				if(event.target.value.length === 0){
+					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+				}
+			}.bind(this));
+		}.bind(this),
+		
+		openTerms: function(){
+			this.bookingPage.elements.btnShowMore.forEach(function(btnOpen){
+				btnOpen.addEventListener("click", function(){
+					event.preventDefault();
+					
+					if(this.parentNode.classList.contains("open")){
+						this.parentNode.classList.remove("open");
+						this.querySelector(".btn_text").innerHTML = "보기";
+						this.querySelector(".fn").classList.add("fn-down2");
+						this.querySelector(".fn").classList.remove("fn-up2");
+					} else {
+						this.parentNode.classList.add("open");
+						this.querySelector(".btn_text").innerHTML = "닫기";
+						this.querySelector(".fn").classList.add("fn-up2");
+						this.querySelector(".fn").classList.remove("fn-down2");
+					}
+				});
 			});
-		},
+		}.bind(this),
+		
+		acceptTerms: function(){
+			var bkName = this.bookingPage.elements.bkName;
+			var bkTel = this.bookingPage.elements.bkTel;
+			var bkEmail = this.bookingPage.elements.bkEmail;
+			var ticketCnt = this.bookingPage.elements.totalCount;
+			var lastMsg = this.bookingPage.container.bkBtnContainer.parentNode.querySelector(".warning_msg");
+			
+			this.bookingPage.elements.btnAgree.addEventListener("change", function(){
+				if(bkName.classList.contains("valid_value")
+					&& bkTel.classList.contains("valid_value")
+					&& bkEmail.classList.contains("valid_value")
+					&& ticketCnt.value !== 0){
+
+					lastMsg.style.display = "none";
+					
+					if(this.bookingPage.container.bkBtnContainer.classList.contains("disable")){
+						this.bookingPage.container.bkBtnContainer.classList.remove("disable");
+					} else {
+						this.bookingPage.container.bkBtnContainer.classList.add("disable");
+					}
+				} else {
+					lastMsg.style.display = "block";
+					this.bookingPage.elements.btnAgree.checked = false;
+					this.bookingPage.container.bkBtnContainer.classList.add("disable");
+				}
+			}.bind(this));
+		}.bind(this),
 		
 		goToPrevPage: function(){
 			this.bookingPage.elements.btnBack.addEventListener("click", function(){
@@ -177,6 +243,7 @@ var bookingPage = {
 				totalCount += parseInt(ticketCnt.value);
 			});
 			
+			this.bookingPage.elements.totalCount.value = totalCount;
 			if(totalCount === 0) {
 				this.bookingPage.elements.totalCount.innerHTML = "선택된 티켓이 없습니다.";
 			} else {

@@ -118,19 +118,19 @@
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
                                     <div class="inline_control">
                                         <span class="warning_msg">이름이 올바르지 않습니다.</span>
-                                        <input type="text" name="name" id="name" class="text valid_value" placeholder="예매자 이름을 입력하세요" maxlength="17">
+                                        <input type="text" name="name" id="name" class="text" placeholder="예매자 이름을 입력하세요" maxlength="17">
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"><span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
                                     <div class="inline_control">
                                         <span class="warning_msg">길이가 짧거나 형식이 올바르지 않습니다.</span>
-                                        <input type="tel" name="tel" id="tel" class="tel valid_value" value="" placeholder="휴대폰 번호를 - 없이 숫자만 입력하세요">
+                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 번호를 - 없이 숫자만 입력하세요">
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
                                     <div class="inline_control">
                                         <span class="warning_msg">이메일 주소가 올바르지 않습니다.</span>
-                                        <input type="email" name="email" id="email" class="email valid_value" value="" placeholder="이메일을 입력하세요" maxlength="50">
+                                        <input type="email" name="email" id="email" class="email" value="" placeholder="이메일을 입력하세요" maxlength="50">
                                     </div>
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
@@ -164,6 +164,7 @@
                 </div>
                 <div class="box_bk_btn">
                     <!-- [D] 약관 전체 동의가 되면 disable 제거 -->
+                    <p class="warning_msg">예매자 정보와 티켓 수량을 확인해주세요.</p>
                     <div class="bk_btn_wrap disable"> <button type="button" class="bk_btn"> <i class="spr_book ico_naver_s"></i>  <span>예약하기</span> </button> </div>
                 </div>
             </div>
