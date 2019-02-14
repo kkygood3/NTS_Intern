@@ -284,6 +284,7 @@ Display.prototype.displayInfo = function(jsonResponse){
 	var bindDisplayInfo = this.template.bindTemplate(this.domElements.template.displayInfoTemplate);
 	
 	this.domElements.getElements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
+	this.domElements.getElements.title.dataset.productId = jsonResponse["displayInfo"].productId;
 	this.domElements.getElements.mainImage.src = "../../" + jsonResponse["productImages"][0].saveFileName;
 	this.domElements.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 }
