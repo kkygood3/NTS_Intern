@@ -34,6 +34,7 @@ public class MyReservationPageController {
 		if (!emailPattern.matcher(userEmail).find()) {
 			throw new BadRequestException();
 		}
+
 		session.removeAttribute("userEmail");
 		session.setAttribute("userEmail", userEmail);
 		return "myReservationPage";

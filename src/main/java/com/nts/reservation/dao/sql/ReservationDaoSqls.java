@@ -26,6 +26,7 @@ public class ReservationDaoSqls {
 		+ ", :reservationDate"
 		+ ", NOW()"
 		+ ", NOW())";
+
 	public static final String INSERT_RESERVATION_INFO_PRICE = "INSERT INTO reservation_info_price"
 		+ " ( reservation_info_id"
 		+ ", product_price_id"
@@ -34,6 +35,7 @@ public class ReservationDaoSqls {
 		+ " :reservationInfoId"
 		+ ", :productPriceId"
 		+ ", :count)";
+
 	public static final String SELECT_RESERVATION_INFO_BY_EMAIL = "SELECT SUM(pd_price.price * rv_price.count) AS total_price,"
 		+ "reservation.cancel_flag AS cancel_yn"
 		+ ", reservation.create_date"

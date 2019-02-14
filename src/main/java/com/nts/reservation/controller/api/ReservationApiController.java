@@ -56,6 +56,7 @@ public class ReservationApiController {
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
 		}
+
 		URI redirectUri = uriBuilder.path("/")
 			.build()
 			.toUri();
