@@ -39,14 +39,20 @@ public class ProductApiController {
 		return productService.getProductResponse(categoryId, start, limit);
 	}
 
+	/**
+	 * 프로덕트 id에 해당하는 이미지들과 이미지 개수 그리고 해당 프로덕트의 description를 가져와 반환 
+	 */
 	@GetMapping("/{productId}/images")
-	public ProductImageResponseDto getProductImages(@PathVariable int productId,
+	public ProductImageResponseDto getProductImagesAndProductDescription(@PathVariable int productId,
 		@RequestParam(required = false, defaultValue = PRODUCT_IMAGE_LIMIT) int limit) {
 		return productService.getProductImageResponse(productId, limit);
 	}
 
+	/**
+	 * 프로덕트 id에 해당하는 상품평들과 상품평 개수, 그리고 상품평 평균점수를 가져와 반환
+	 */
 	@GetMapping("/{productId}/comments")
-	public CommentResponseDto getComments(@PathVariable int productId, int start,
+	public CommentResponseDto getCommentsAndAverageScore(@PathVariable int productId, int start,
 		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int limit) {
 		return productService.getCommentResponse(productId, start, limit);
 	}
