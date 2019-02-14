@@ -44,7 +44,11 @@
 				</div>
 			</div>
 		</div>
-		<hr> </div>
+		<div class="more">
+			<button class="btn" style="display: initial;"><span>더보기</span></button>
+		</div>
+		<hr>
+	</div>
 		<footer>
 			<div class="gototop">
 				<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
