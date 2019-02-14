@@ -8,7 +8,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <div class="ct">
             <div class="ct_wrap">
                 <div class="top_title">
-                    <a href="./detail.jsp" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+                    <a href="#" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
                     <h2><span class="title"></span></h2>
                 </div>
                 <div class="group_visual">
@@ -169,7 +169,7 @@
         </div>
     </footer>
 
-
+    <script src="../../js/reserve.js"></script>
 </body>
 
 </html>
