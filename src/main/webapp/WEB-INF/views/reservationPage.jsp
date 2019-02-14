@@ -76,7 +76,7 @@
 	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
 	                            </div>
-	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${price.name }</span> </strong> <strong class="product_price"> <span class="price">${price.price }</span> <span class="price_type">원</span> </strong> <em class="product_dsc">${price.description }</em> </div>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${util.getTicketNameByType(price.name) }</span> </strong> <strong class="product_price"> <span class="price">${price.price }</span> <span class="price_type">원</span> </strong> <em class="product_dsc">${price.description }</em> </div>
 	                        </div>
 						</c:forEach>
                     </div>

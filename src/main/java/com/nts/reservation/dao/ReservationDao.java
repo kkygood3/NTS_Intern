@@ -62,7 +62,6 @@ public class ReservationDao {
 
 	public int[] insertReservationPrices(List<ReservationPriceRequestDto> priceList) {
 		SqlParameterSource[] batchs = SqlParameterSourceUtils.createBatch(priceList.toArray());
-
 		return jdbc.batchUpdate(INSERT_RESERVATION_INFO_PRICE, batchs);
 	}
 

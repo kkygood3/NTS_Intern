@@ -5,7 +5,6 @@
 
 package com.nts.reservation.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
-import com.nts.reservation.dto.ProductPriceForClientDto;
+import com.nts.reservation.dto.ProductPriceForRenderDto;
 import com.nts.reservation.service.DisplayInfoService;
 
 /**
@@ -92,15 +91,8 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	}
 
 	@Override
-	public List<ProductPriceForClientDto> getProductPriceForClietList(Long productId) {
-		List<ProductPriceDto> productPriceList = displayInfoDao.selectProductPrices(productId);
-		List<ProductPriceForClientDto> productPriceForClientList = new ArrayList();
-
-		for (ProductPriceDto price : productPriceList) {
-			productPriceForClientList.add(new ProductPriceForClientDto(price));
-		}
-
-		return productPriceForClientList;
+	public List<ProductPriceForRenderDto> getProductPriceListForRender(Long productId) {
+		return displayInfoDao.selectProductPricesForRender(productId);
 	}
 
 	@Override

@@ -11,6 +11,8 @@ import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
+import com.nts.reservation.dto.tag.PriceTag;
+
 /**
  * @desc jsp에서 사용할 메서드들을 제공하는 클래스.
  * @author 육성렬
@@ -28,5 +30,9 @@ public class UtilForJsp {
 		int addDay = random.nextInt(4) + 1;
 		LocalDateTime reservationTime = LocalDateTime.now().plusDays(addDay);
 		return reservationTime.format(dateFormatter);
+	}
+
+	public static String getTicketNameByType(String type) {
+		return PriceTag.valueOf(type).getName();
 	}
 }
