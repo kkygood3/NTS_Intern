@@ -45,12 +45,6 @@ public class MainPromotionDao {
 	 * main 페이지를 로드할 때 필요한 promotion 갯수 조회
 	 */
 	public int selectCount() {
-		Integer count = jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(),
-			Integer.class);
-		if (count == null) {
-			count = 0;
-		}
-
-		return count;
+		return jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }

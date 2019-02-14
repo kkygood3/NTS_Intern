@@ -64,24 +64,13 @@ public class MainProductDao {
 	public int selectCountByCategory(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
-		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
-		if (count == null) {
-			count = 0;
-		}
-
-		return count;
+		return jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 
 	/**
 	 * main 페이지를 로드할 때 필요한 product 갯수 조회. 카테고리 구분 없음
 	 */
 	public int selectCount() {
-		Integer count = jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(),
-			Integer.class);
-		if (count == null) {
-			count = 0;
-		}
-
-		return count;
+		return jdbc.queryForObject(MainProductQueries.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }
