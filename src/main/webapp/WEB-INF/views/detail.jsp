@@ -174,7 +174,7 @@
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
-	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/comment_data/comment.js" ></script>
 	<script type= "text/javascript" src= "/js/detail/button_display.js" ></script>
 	<script type= "text/javascript" src= "/js/detail/visual.js" ></script>
 	<script type= "text/javascript" src= "/js/detail/event.js" ></script>
