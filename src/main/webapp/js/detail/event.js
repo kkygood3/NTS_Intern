@@ -111,4 +111,3 @@ function setStoreDetails(storeDetails, target) {
 		storeDetails.classList.add("close3");
 	}
 }
-
