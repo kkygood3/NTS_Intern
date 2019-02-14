@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.PromotionDaoSqls.*;
+import static com.nts.reservation.dao.sql.PromotionDaoSqls.*;
 
 import java.util.Collections;
 import java.util.List;
