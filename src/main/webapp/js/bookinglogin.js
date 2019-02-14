@@ -10,7 +10,6 @@ function getBookingLoginPage(){
 	setEvent.validateInputValue(bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
 	
 	setEvent.scrollTop();
-	setEvent.linkToMainPage();
 	setEvent.login();
 }
 
@@ -32,13 +31,6 @@ SetEvent.prototype.scrollTop = function(){
 	document.querySelector(".lnk_top").addEventListener("click", function(){
 		event.preventDefault();
 		document.documentElement.scrollTop = 0;
-	});
-}
-
-SetEvent.prototype.linkToMainPage = function(){
-	document.querySelector(".nbooking_logo.spr_bi.txt_logo").addEventListener("click", function(){
-		event.preventDefault();
-		window.location.href = "/reservation";
 	});
 }
 

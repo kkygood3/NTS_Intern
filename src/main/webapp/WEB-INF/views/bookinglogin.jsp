@@ -32,7 +32,7 @@
       <app>
          <toast-alert class="top_info hide booking_alert">
             <p class="top_info_txt"> <i class="fn fn-info1" aria-hidden="true"></i> <span class="_toast_alert_text"></span> </p>
-            <a href="#" class="top_info_close"  data-tst_alt_close="0"> <i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only" translate="CM-CLOSE">닫기</span> </a> 
+            <a href="/reservation" class="top_info_close"  data-tst_alt_close="0"> <i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only" translate="CM-CLOSE">닫기</span> </a> 
          </toast-alert>
          <!---->
          <div class="_view_content" ui-view="content" id="container" >
