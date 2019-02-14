@@ -26,12 +26,14 @@ SlidingAnimation.prototype.init = function(optionals) {
 	nextSlideCount = 1;
 	isAnimating = false;
 	isAutoStart = false;
-	debugger;
-	maxHeight = optionals["maxHeight"] ? params.maxHeight : slideWrapper.clientHeight;
-	minHeight = optionals["minHeight"] ? params.minHeight : 100;
-	animationSpeed = optionals["animationSpeed"] ? params.animationSpeed : 10;
-	animationStopDuration = optionals["animationStopDuration"] ? params.animationStopDuration : 1000;
-		
+	
+	if(optionals){
+		maxHeight = optionals.maxHeight ? params.maxHeight : slideWrapper.clientHeight;
+		minHeight = optionals.minHeight ? params.minHeight : 100;
+		animationSpeed = optionals.animationSpeed ? params.animationSpeed : 10;
+		animationStopDuration = optionals.animationStopDuration ? params.animationStopDuration : 1000;
+	}
+	
 	imageList.forEach((item) => {
 		if(item == imageList[0]) {
 			imageList[0].style.left = 0 + "px";
