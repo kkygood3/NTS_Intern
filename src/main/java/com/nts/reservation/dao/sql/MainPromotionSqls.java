@@ -2,9 +2,9 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.queries.main;
+package com.nts.reservation.dao.sql;
 
-public class MainPromotionQueries {
+public class MainPromotionSqls {
 	public static final String SELECT_PROMOTION_COUNT = 
 			"SELECT COUNT(display_info.id)"
 			+ " FROM promotion"

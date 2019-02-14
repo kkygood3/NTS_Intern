@@ -2,9 +2,9 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.finalvariables;
+package com.nts.reservation.property;
 
-public class ProductFinalVariables {
+public class ProductProperties {
 	/**
 	 * /api/products 요청시 categoryId를 명시하지 않는다면, 카테고리 구별없이 모두 출력하는 기본 값(0)
 	 */

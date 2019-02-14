@@ -2,9 +2,9 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.queries.main;
+package com.nts.reservation.dao.sql;
 
-public class MainProductQueries {
+public class MainProductSqls {
 	public static final String SELECT_PRODUCT_COUNT_BY_CATEGORY = 
 			"SELECT COUNT(display_info.id) FROM product"
 			+ " INNER JOIN product_image ON product.id = product_image.product_id and product_image.type = 'th'"

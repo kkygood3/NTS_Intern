@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dao.sql.MainPromotionSqls;
 import com.nts.reservation.dto.main.MainPromotion;
-import com.nts.reservation.queries.main.MainPromotionQueries;
 
 /**
  * /api/promotions 요청에 대응
@@ -38,13 +38,13 @@ public class MainPromotionDao {
 	public List<MainPromotion> selectPromotions(int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(MainPromotionQueries.SELECT_PROMOTION, params, rowMapper);
+		return jdbc.query(MainPromotionSqls.SELECT_PROMOTION, params, rowMapper);
 	}
 
 	/**
 	 * main 페이지를 로드할 때 필요한 promotion 갯수 조회
 	 */
 	public int selectCount() {
-		return jdbc.queryForObject(MainPromotionQueries.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(MainPromotionSqls.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
 	}
 }

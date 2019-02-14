@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dao.sql.DetailExtraImageSqls;
 import com.nts.reservation.dto.detail.DetailExtraImage;
-import com.nts.reservation.queries.detail.DetailExtraImageQueries;
 
 /**
  * /api/products/{displayInfoId}/extra 요청에 대응
@@ -36,6 +36,6 @@ public class DetailExtraImageDao {
 	public DetailExtraImage selectDetailExtraImageById(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(DetailExtraImageQueries.SELECT_EXTRA_IMAGE, params, rowMapper);
+		return jdbc.queryForObject(DetailExtraImageSqls.SELECT_EXTRA_IMAGE, params, rowMapper);
 	}
 }

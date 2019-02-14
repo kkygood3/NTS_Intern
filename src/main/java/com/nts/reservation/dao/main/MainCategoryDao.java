@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dao.sql.MainCategorySqls;
 import com.nts.reservation.dto.main.MainCategory;
-import com.nts.reservation.queries.main.MainCategoryQueries;
 
 /**
  * /api/categories 요청에 대응
@@ -37,6 +37,6 @@ public class MainCategoryDao {
 	public List<MainCategory> selectCategories(int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(MainCategoryQueries.SELECT_CATEGORIES, params, rowMapper);
+		return jdbc.query(MainCategorySqls.SELECT_CATEGORIES, params, rowMapper);
 	}
 }

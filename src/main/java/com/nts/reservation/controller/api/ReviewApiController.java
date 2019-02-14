@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.review.ReviewResponse;
-import com.nts.reservation.finalvariables.DefaultPagingLimit;
+import com.nts.reservation.property.DefaultPagingLimitProperties;
 import com.nts.reservation.service.review.ReviewResponseService;
 
 @RestController
@@ -32,7 +32,7 @@ public class ReviewApiController {
 	 */
 	@GetMapping("/api/products/{displayInfoId}/review")
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<ReviewResponse> comments = reviewResponseService.getReviewResponse(displayInfoId, pagingLimit);
 		Map<String, Object> map = new HashMap<>();

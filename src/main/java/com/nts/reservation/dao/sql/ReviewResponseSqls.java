@@ -2,9 +2,9 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.queries.review;
+package com.nts.reservation.dao.sql;
 
-public class ReviewResponseQueries {
+public class ReviewResponseSqls {
 	public static String SELECT_REVIEW = 
 		"SELECT display_info.id AS display_info_id,reservation_user_comment.comment,file_info.save_file_name AS comment_image, reservation_info.reservation_name, DATE_FORMAT(reservation_info.reservation_date,'%Y.%c.%d') AS reservation_date,reservation_user_comment.score,product.description AS product_description, average_score_subquery.average_score, average_score_subquery.comment_count" + 
 		" FROM display_info " + 

@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dao.sql.DetailResponseSqls;
 import com.nts.reservation.dto.detail.DetailResponse;
-import com.nts.reservation.queries.detail.DetailResponseQueries;
 
 /**
  * /api/products/{displayInfoId} 요청에 대응
@@ -39,7 +39,7 @@ public class DetailResponseDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("pagingLimit", pagingLimit);
-		List<DetailResponse> detailList = jdbc.query(DetailResponseQueries.SELECT_DETAIL, params, rowMapper);
+		List<DetailResponse> detailList = jdbc.query(DetailResponseSqls.SELECT_DETAIL, params, rowMapper);
 
 		return detailList;
 	}

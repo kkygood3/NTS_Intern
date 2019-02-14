@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.main.MainPromotion;
-import com.nts.reservation.finalvariables.DefaultPagingLimit;
+import com.nts.reservation.property.DefaultPagingLimitProperties;
 import com.nts.reservation.service.main.MainPromotionService;
 
 @RestController
@@ -34,7 +34,7 @@ public class PromotionApiController {
 	 */
 	@GetMapping("/api/promotions")
 	public Map<String, Object> promotions(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainPromotion> promotionList = new ArrayList<>();
 		int totalCount = mainPromotionService.getCount();
