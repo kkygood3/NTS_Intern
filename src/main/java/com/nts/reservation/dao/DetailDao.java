@@ -38,48 +38,48 @@ public class DetailDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
 
-	public DisplayInfo getDisplayInfo(Long displayInfoId) {
+	public DisplayInfo selectDisplayInfo(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.queryForObject(SELECT_DETAIL_DISPLAY_INFO, params,
 			BeanPropertyRowMapper.newInstance(DisplayInfo.class));
 	}
 
-	public List<ProductImage> getProductImages(Long displayInfoId) {
+	public List<ProductImage> selectProductImages(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_PRODUCT_IMAGES, params,
 			BeanPropertyRowMapper.newInstance(ProductImage.class));
 	}
 
-	public DisplayInfoImage getDisplayInfoImage(Long displayInfoId) {
+	public DisplayInfoImage selectDisplayInfoImage(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.queryForObject(SELECT_DETAIL_DISPLAY_INFO_IMAGE, params,
 			BeanPropertyRowMapper.newInstance(DisplayInfoImage.class));
 	}
 
-	public List<Comment> getComments(Long displayInfoId) {
+	public List<Comment> selectComments(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_COMMENTS, params,
 			BeanPropertyRowMapper.newInstance(Comment.class));
 	}
 
-	public Double getAverageScore(Long displayInfoId) {
+	public Double selectAverageScore(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.queryForObject(SELECT_DETAIL_COMMENTS_AVERAGE_SCORE, params, Double.class);
 	}
 
-	public List<ProductPrice> getProductPrices(Long displayInfoId) {
+	public List<ProductPrice> selectProductPrices(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_COMMENTS_PRODUCT_PRICES, params,
 			BeanPropertyRowMapper.newInstance(ProductPrice.class));
 	}
 
-	public List<CommentImage> getCommentsImagesByCommentId(Long CommentId) {
+	public List<CommentImage> selectCommentsImagesByCommentId(Long CommentId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("commentId", CommentId);
 		return jdbc.query(SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID, params,

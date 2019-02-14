@@ -15,5 +15,5 @@ import com.nts.reservation.dto.product.Category;
  */
 
 public interface CategoryService {
-	List<Category> getAllProductsCountByCategory();
+	List<Category> selectAllProductsCountByCategory();
 }
