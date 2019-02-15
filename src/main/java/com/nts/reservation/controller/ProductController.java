@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nts.reservation.dto.DatailPageInfo;
+import com.nts.reservation.dto.ReviewPageInfo;
+import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailPageInfoService;
 
 /**
@@ -36,5 +38,22 @@ public class ProductController {
 		model.addAttribute("pageInfo", datailPageInfo);
 
 		return "detail";
+	}
+	
+	@Autowired
+	private CommentService commentService;
+
+	/**
+	 * 리뷰페이지에 표시할 정보 담아서 url맵핑한다
+	 * @return 리뷰페이지
+	 */
+	@GetMapping(path = "/{displayInfoId}/review")
+	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
+		ModelMap model) {
+		ReviewPageInfo reviewPageInfo = commentService.getReviewPageInfo(displayInfoId);
+		model.addAttribute("pageInfo", reviewPageInfo);
+		model.addAttribute("displayInfoId", displayInfoId);
+
+		return "review";
 	}
 }
