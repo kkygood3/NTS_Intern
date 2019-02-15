@@ -4,7 +4,9 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.sqls.ReservationSqls.AVAILABLE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.CANCEL_RESERVATION;
+import static com.nts.reservation.dao.sqls.ReservationSqls.EXPIRED;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATION_INFO_ID;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_TOTAL_PRICE;
@@ -56,10 +58,26 @@ public class ReservationDao {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Reservation> getReservations(String userEmail, int cancelFlag) {
+	public List<Reservation> getAvailableReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
-		params.put("cancelFlag", cancelFlag);
+		params.put("cancelFlag", 0);
+		return jdbc.query(GET_RESERVATIONS + AVAILABLE, params, rowMapper);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Reservation> getExpiredReservations(String userEmail) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userEmail", userEmail);
+		params.put("cancelFlag", 0);
+		return jdbc.query(GET_RESERVATIONS + EXPIRED, params, rowMapper);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Reservation> getCanceledReservations(String userEmail) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userEmail", userEmail);
+		params.put("cancelFlag", 1);
 		return jdbc.query(GET_RESERVATIONS, params, rowMapper);
 	}
 

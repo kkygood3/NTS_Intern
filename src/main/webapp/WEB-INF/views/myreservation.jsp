@@ -40,7 +40,7 @@
 							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt">${fn: length(sessionScope.availableReservedItems)}</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="alreadyCnt">2</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="alreadyCnt">${fn: length(sessionScope.usedReservedItems)}</span> </a>
 						</li>
 						<li class="item">
 							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure" id="canceldCnt">${fn: length(sessionScope.canceledReservedItems)}</span> </a>
@@ -263,44 +263,39 @@
 										<div class="right"></div>
 									</div>
 								</div>
-								<article class="card_item">
+								<c:forEach var="usedReservation" items="${sessionScope.usedReservedItems}" varStatus="status">
+								<article class="card_item" id="reservation_number_${usedReservation.reservation.id}">
 									<a href="#" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
 												<div class="card_detail">
-													<em class="booking_number">No.0000000</em>
-													<h4 class="tit">서비스명/상품명</h4>
+													<em class="booking_number">No.${usedReservation.reservation.id}</em>
+													<h4 class="tit">${usedReservation.displayInfo.productDescription}</h4>
 													<ul class="detail">
 														<li class="item">
-															<span class="item_tit">일정</span>
+															<span class="item_tit">구분</span>
 															<em class="item_dsc">
-																2000.0.00.(월)2000.0.00.(일)
+																${usedReservation.displayInfo.categoryName}
 															</em>
 														</li>
 														<li class="item">
-															<span class="item_tit">내역</span>
+															<span class="item_tit">일자</span>
 															<em class="item_dsc">
-																내역이 없습니다.
+																<fmt:formatDate value="${usedReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
 															</em>
 														</li>
 														<li class="item">
 															<span class="item_tit">장소</span>
 															<em class="item_dsc">
-																내역이 없습니다.
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">업체</span>
-															<em class="item_dsc">
-																업체명이 없습니다.
+																${usedReservation.displayInfo.placeName}
 															</em>
 														</li>
 													</ul>
 													<div class="price_summary">
 														<span class="price_tit">결제 예정금액</span>
 														<em class="price_amount">
-															<span>000,000,000</span>
+															<span>${usedReservation.totalPrice}</span>
 															<span class="unit">원</span>
 														</em>
 													</div>
@@ -317,62 +312,9 @@
 											<div class="right"></div>
 										</div>
 									</a>
+									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 								</article>
-								<article class="card_item">
-									<a href="#" class="link_booking_details">
-										<div class="card_body">
-											<div class="left"></div>
-											<div class="middle">
-												<div class="card_detail">
-													<em class="booking_number">No.0000000</em>
-													<h4 class="tit">서비스명/상품명</h4>
-													<ul class="detail">
-														<li class="item">
-															<span class="item_tit">일정</span>
-															<em class="item_dsc">
-																2000.0.00.(월)2000.0.00.(일)
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">내역</span>
-															<em class="item_dsc">
-																내역이 없습니다.
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">장소</span>
-															<em class="item_dsc">
-																내역이 없습니다.
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">업체</span>
-															<em class="item_dsc">
-																업체명이 없습니다.
-															</em>
-														</li>
-													</ul>
-													<div class="price_summary">
-														<span class="price_tit">결제 예정금액</span>
-														<em class="price_amount">
-															<span>000,000,000</span>
-															<span class="unit">원</span>
-														</em>
-													</div>
-													<div class="booking_cancel">
-														<a href="./reviewWrite.jsp"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
-													</div>
-												</div>
-											</div>
-											<div class="right"></div>
-										</div>
-										<div class="card_footer">
-											<div class="left"></div>
-											<div class="middle"></div>
-											<div class="right"></div>
-										</div>
-									</a>
-								</article>
+							</c:forEach>
 							</li>
 							<li class="card used cancel">
 								<div class="link_booking_details">

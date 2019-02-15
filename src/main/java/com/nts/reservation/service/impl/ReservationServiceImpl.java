@@ -43,33 +43,32 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<Reservation> getAvailableReservations(String userEmail) {
-		List<Reservation> availableReservations = reservationDao.getReservations(userEmail, 0);
-		return availableReservations;
-	}
+	public List<ReservedItem> getReservedItems(String userEmail, boolean isCanceled, boolean isExpired) {
+		List<ReservedItem> reservedItems = new ArrayList<>();
 
-	@Override
-	public List<Reservation> getCanceledReservations(String userEmail) {
-		List<Reservation> canceledReservations = reservationDao.getReservations(userEmail, 1);
-		return canceledReservations;
-	}
+		List<Reservation> reservations;
 
-	@Override
-	public List<ReservedItem> getReservedItems(String userEmail, int cancelFlag) {
-		List<ReservedItem> availableReservedItems = new ArrayList<>();
+		if (isCanceled) {
+			reservations = reservationDao.getCanceledReservations(userEmail);
+		} else {
+			if (isExpired) {
+				reservations = reservationDao.getExpiredReservations(userEmail);
+			} else {
+				reservations = reservationDao.getAvailableReservations(userEmail);
+			}
+		}
 
-		List<Reservation> availableReservations = reservationDao.getReservations(userEmail, cancelFlag);
-		for (Reservation reservation : availableReservations) {
+		for (Reservation reservation : reservations) {
 			ReservedItem reservedItem = new ReservedItem();
 
 			reservedItem.setReservation(reservation);
 			reservedItem.setTotalPrice(reservationDao.getTotalPrice(reservation.getId()));
 			reservedItem.setDisplayInfo(detailProductDao.getDisplayInfo(reservation.getDisplayInfoId()));
 
-			availableReservedItems.add(reservedItem);
+			reservedItems.add(reservedItem);
 		}
 
-		return availableReservedItems;
+		return reservedItems;
 	}
 
 	@Override

@@ -48,10 +48,12 @@ public class ReservationSqls {
 		+ ", :productPriceId"
 		+ ", :count)";
 
+	public static final String AVAILABLE = "AND reservation_date > NOW()";
+	public static final String EXPIRED = "AND reservation_date < NOW()";
 	public static final String GET_RESERVATIONS = "SELECT * "
 		+ "FROM reservation_info "
 		+ "WHERE reservation_email = :userEmail "
-		+ "AND cancel_flag = :cancelFlag";
+		+ "AND cancel_flag = :cancelFlag ";
 
 	public static final String GET_TOTAL_PRICE = "SELECT SUM(count * price) "
 		+ "FROM reservation_info_price "

@@ -49,10 +49,12 @@ public class ReservationViewController {
 	public String myReservationPage(HttpSession session, ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 
-		List<ReservedItem> availableReservedItems = reservationService.getReservedItems(userEmail, 0);
-		List<ReservedItem> canceledReservedItems = reservationService.getReservedItems(userEmail, 1);
+		List<ReservedItem> availableReservedItems = reservationService.getReservedItems(userEmail, false, false);
+		List<ReservedItem> usedReservedItems = reservationService.getReservedItems(userEmail, false, true);
+		List<ReservedItem> canceledReservedItems = reservationService.getReservedItems(userEmail, true, false);
 
 		session.setAttribute("availableReservedItems", availableReservedItems);
+		session.setAttribute("usedReservedItems", usedReservedItems);
 		session.setAttribute("canceledReservedItems", canceledReservedItems);
 		return "myreservation";
 	}
