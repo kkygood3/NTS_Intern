@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.ProductThumbnail;
 import com.nts.reservation.service.FileInfoService;
 import com.nts.reservation.service.ProductService;
-import com.nts.reservation.service.ProductThumbnailService;
 
 /**
  * 썸네일 관련 API 클래스
@@ -31,7 +30,7 @@ import com.nts.reservation.service.ProductThumbnailService;
 @RequestMapping(path = "/product")
 public class ProductApiController {
 	@Autowired
-	private ProductThumbnailService thumbnailInfoService;
+	private ProductService thumbnailInfoService;
 
 	@Autowired
 	private ProductService productService;
