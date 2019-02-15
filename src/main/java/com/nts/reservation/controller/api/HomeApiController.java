@@ -100,7 +100,7 @@ public class HomeApiController {
 	}
 
 	/**
-	 * /api 결과값이 없을때 발생하는 예외 처리
+	 * queryForObject 요청의 결과값이 없을때 발생하는 예외 처리
 	 * @return emptyMap
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)

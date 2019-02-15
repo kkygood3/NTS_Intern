@@ -9,7 +9,7 @@ import java.util.List;
 import com.nts.reservation.dto.common.Comment;
 
 /**
- * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 정보를 담는 DTO
+ * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 정보 DTO
  */
 public class DetailResponse {
 	private DetailDisplayInfo detailDisplayInfo;
