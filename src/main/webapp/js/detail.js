@@ -284,6 +284,15 @@ function loadExtraImageCallback(response){
 	}
 }
 
+/**
+ * 예매하기 버튼을 눌렀을 때 상품에 해당하는 예약페이지로 이동
+ * @param displayInfoId
+ */
+function initReserveBtn(displayInfoId){
+	var reserveBtn = document.querySelector('.bk_btn');
+	reserveBtn.addEventListener('click',()=>location.href = 'reserve?id='+displayInfoId);
+}
+
 function setCommonInfo(displayComment,displayInfo){
 	displayComment[0].commentCount = displayInfo.commentCount;
 	displayComment[0].averageScore = displayInfo.averageScore;
@@ -298,6 +307,9 @@ function loadDisplayInfoCallback(response) {
 	
 	// SwipeImage 설정
 	initSwipeImage(displayInfo);
+	
+	// 예매하기 버튼 이벤트 등록
+	initReserveBtn(displayInfo.displayInfoId);
 	
 	// 맨 아래의 상세정보, 오시는길 탭 설정
 	initInfoTab(displayInfo);
