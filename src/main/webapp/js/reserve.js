@@ -2,23 +2,23 @@ document.addEventListener("DOMContentLoaded", function() {
 	getBookingPage();
 });
 
-function _test(){
+function makeReservation(){
 	var domElements = new DomElements();
 	
-	var _test_prices = []
+	var reservationPrices = []
 	domElements.container.priceContainer.querySelectorAll(".count_control").forEach(function(elements){
-		var _test_price = {
+		var price = {
 				count : elements.querySelector(".count_control_input").value,
 				productPriceId : elements.querySelector(".count_control_input").dataset.productPriceId,
 		}
-		if(_test_price.count !== "0"){
-			_test_prices.push(_test_price)
+		if(price.count !== "0"){
+			reservationPrices.push(price)
 		}
 	});
 	
-	var _test_data = {
+	var reservationInfo = {
 		displayInfoId: domElements.displayInfoId,
-		prices: _test_prices,
+		prices: reservationPrices,
 		productId: domElements.getElements.title.dataset.productId,
 		reservationEmail: domElements.getElements.bkEmail.value,
 		reservationName: domElements.getElements.bkName.value,
@@ -39,7 +39,7 @@ function _test(){
 		
 		httpRequest.open("POST", "../../api/reservations");
 		httpRequest.setRequestHeader("Content-type", "application/json");
-		httpRequest.send(JSON.stringify(_test_data));
+		httpRequest.send(JSON.stringify(reservationInfo));
 	}
 }
 
@@ -83,7 +83,7 @@ function getBookingPage(){
 	setEvent.acceptTerms();
 	setEvent.goToPrevPage();
 	setEvent.scrollTop();
-	setEvent._test_sendPost();
+	setEvent.postReservation();
 }
 
 
@@ -316,10 +316,10 @@ SetEvent.prototype.scrollTop = function(){
 	});
 }
 
-SetEvent.prototype._test_sendPost = function(){
+SetEvent.prototype.postReservation = function(){
 	this.domElements.container.bkBtnContainer.addEventListener("click", function(){
 		if(!this.classList.contains("disable")){
-			_test();
+			makeReservation();
 		}
 	});
 }
