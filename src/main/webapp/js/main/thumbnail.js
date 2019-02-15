@@ -6,7 +6,7 @@
 
 function sendGetThumbnailsAjax(categoryId = 0) {
 	var start = calcLoadedThumbnails();
-	sendGetAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setSectionEventLst);
+	sendGetAjax("./product?start="+ start + "&category_id=" + categoryId, setSectionEventLst);
 }
 
 function calcLoadedThumbnails() {
