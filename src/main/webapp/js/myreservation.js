@@ -33,13 +33,19 @@ function getMyReservationPage(){
 		document.querySelector(".wrap_mylist").style.display = "none";
 		document.querySelector(".err").style.display = "block";
 	}
-	
+
+	setEvent.preventLink();
 	setEvent.scrollTop();
 	setEvent.showCanclePopup();
 	setEvent.cancelReservation();
 }
 
 function SetEvent(){}
+SetEvent.prototype.preventLink = function(){
+	document.querySelector(".btn_my").addEventListener("click", function(){
+		event.preventDefault();
+	});
+}
 
 SetEvent.prototype.scrollTop = function(){
 	document.querySelector(".lnk_top").addEventListener("click", function(){
