@@ -53,9 +53,9 @@ public class ReservationViewController {
 		List<ReservedItem> usedReservedItems = reservationService.getReservedItems(userEmail, false, true);
 		List<ReservedItem> canceledReservedItems = reservationService.getReservedItems(userEmail, true, false);
 
-		session.setAttribute("availableReservedItems", availableReservedItems);
-		session.setAttribute("usedReservedItems", usedReservedItems);
-		session.setAttribute("canceledReservedItems", canceledReservedItems);
+		model.put("availableReservedItems", availableReservedItems);
+		model.put("usedReservedItems", usedReservedItems);
+		model.put("canceledReservedItems", canceledReservedItems);
 		return "myreservation";
 	}
 

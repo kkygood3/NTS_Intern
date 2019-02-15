@@ -37,13 +37,13 @@
 							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure" id="totalCnt">6</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt">${fn: length(sessionScope.availableReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt">${fn: length(availableReservedItems)}</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="alreadyCnt">${fn: length(sessionScope.usedReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="alreadyCnt">${fn: length(usedReservedItems)}</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure" id="canceldCnt">${fn: length(sessionScope.canceledReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure" id="canceldCnt">${fn: length(canceledReservedItems)}</span> </a>
 						</li>
 					</ul>
 				</div>
@@ -192,7 +192,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<c:forEach var="availableReservation" items="${sessionScope.availableReservedItems}" varStatus="status">
+							<c:forEach var="availableReservation" items="${availableReservedItems}" varStatus="status">
 								<article class="card_item" id="reservation_number_${availableReservation.reservation.id}">
 									<a href="#" class="link_booking_details">
 										<div class="card_body">
@@ -263,7 +263,7 @@
 										<div class="right"></div>
 									</div>
 								</div>
-								<c:forEach var="usedReservation" items="${sessionScope.usedReservedItems}" varStatus="status">
+								<c:forEach var="usedReservation" items="${usedReservedItems}" varStatus="status">
 									<article class="card_item" id="reservation_number_${usedReservation.reservation.id}">
 										<a href="#" class="link_booking_details">
 											<div class="card_body">
@@ -328,7 +328,7 @@
 										<div class="right"></div>
 									</div>
 								</div>
-								<c:forEach var="canceledReservation" items="${sessionScope.canceledReservedItems}" varStatus="status">
+								<c:forEach var="canceledReservation" items="${canceledReservedItems}" varStatus="status">
 									<article class="card_item">
 										<a href="#" class="link_booking_details">
 											<div class="card_body">
