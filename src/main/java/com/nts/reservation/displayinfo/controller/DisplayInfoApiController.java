@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.commons.validator.NegativeValueValidator;
 import com.nts.reservation.displayinfo.dto.DisplayInfoResponse;
-import com.nts.reservation.displayinfo.service.impl.DisplayInfoServiceImpl;
+import com.nts.reservation.displayinfo.service.DisplayInfoService;
 
 @RestController
 @RequestMapping("/api")
 public class DisplayInfoApiController {
 
 	@Autowired
-	private DisplayInfoServiceImpl displayInfoServiceImpl;
+	private DisplayInfoService displayInfoServiceImpl;
 
 	@RequestMapping(value = "/products/{displayInfoId}", method=RequestMethod.GET)
 	public DisplayInfoResponse displayInfos(

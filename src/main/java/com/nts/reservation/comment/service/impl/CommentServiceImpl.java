@@ -11,7 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.comment.dao.impl.CommentDaoImpl;
+import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.service.CommentService;
 
@@ -19,7 +19,7 @@ import com.nts.reservation.comment.service.CommentService;
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
-	CommentDaoImpl commentDaoImpl;
+	private CommentDao commentDaoImpl;
 
 	@Override
 	public List<Comment> getComments(int displayInfoId, int count) {

@@ -8,23 +8,23 @@ package com.nts.reservation.displayinfo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.comment.dao.impl.CommentDaoImpl;
-import com.nts.reservation.displayinfo.dao.impl.DisplayInfoDaoImpl;
+import com.nts.reservation.comment.dao.CommentDao;
+import com.nts.reservation.displayinfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayinfo.dto.DisplayInfoResponse;
 import com.nts.reservation.displayinfo.service.DisplayInfoService;
-import com.nts.reservation.product.dao.impl.ProductDaoImpl;
+import com.nts.reservation.product.dao.ProductDao;
 
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Autowired
-	private DisplayInfoDaoImpl displayInfoDaoImpl;
+	private DisplayInfoDao displayInfoDaoImpl;
 
 	@Autowired
-	private CommentDaoImpl commentDaoImpl;
+	private CommentDao commentDaoImpl;
 
 	@Autowired
-	private ProductDaoImpl productDaoImpl;
+	private ProductDao productDaoImpl;
 
 	@Override
 	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {

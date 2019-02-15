@@ -18,7 +18,7 @@ import com.nts.reservation.promotion.service.PromotionService;
 public class PromotionApiController {
 
 	@Autowired
-	private PromotionService promotionService;
+	private PromotionService promotionServiceImpl;
 
 	/**
 	 * /promotions API요청시 promotion 관련 id, ImageUrl을 json 전송
@@ -26,6 +26,6 @@ public class PromotionApiController {
 	 */
 	@GetMapping("/promotions")
 	public PromotionResponse promotions() {
-		return promotionService.getPromotions();
+		return promotionServiceImpl.getPromotions();
 	}
 }

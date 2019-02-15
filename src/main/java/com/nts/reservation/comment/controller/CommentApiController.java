@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.comment.dto.Comment;
-import com.nts.reservation.comment.service.impl.CommentServiceImpl;
+import com.nts.reservation.comment.service.CommentService;
 import com.nts.reservation.commons.validator.NegativeValueValidator;
 
 @RestController
@@ -22,7 +22,7 @@ import com.nts.reservation.commons.validator.NegativeValueValidator;
 public class CommentApiController {
 
 	@Autowired
-	private CommentServiceImpl commentServiceImpl;
+	private CommentService commentServiceImpl;
 
 	@GetMapping("/comments")
 	public List<Comment> products(

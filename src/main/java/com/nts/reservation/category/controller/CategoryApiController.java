@@ -18,7 +18,7 @@ import com.nts.reservation.category.service.CategoryService;
 public class CategoryApiController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService categoryServiceImpl;
 
 	/**
 	 * /categories API요청시 category 관련 id, name, count를 json 전송
@@ -26,6 +26,6 @@ public class CategoryApiController {
 	 */
 	@GetMapping("/categories")
 	public CategoryResponse categories() {
-		return categoryService.getCategories();
+		return categoryServiceImpl.getCategories();
 	}
 }

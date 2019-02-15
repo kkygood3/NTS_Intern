@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.commons.validator.NegativeValueValidator;
 import com.nts.reservation.product.dto.ProductResponse;
-import com.nts.reservation.product.service.impl.ProductServiceImpl;
+import com.nts.reservation.product.service.ProductService;
 
 @RestController
 @RequestMapping("/api")
 public class ProductApiController {
 
 	@Autowired
-	private ProductServiceImpl productServiceImpl;
+	private ProductService productServiceImpl;
 
 	/**
 	 * /products API요청시 totalCount와 product 관련 정보 json 전송
