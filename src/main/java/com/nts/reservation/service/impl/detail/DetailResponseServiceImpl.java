@@ -18,12 +18,13 @@ public class DetailResponseServiceImpl implements DetailResponseService {
 	DetailCommentDao detailCommentDao;
 	@Autowired
 	DetailDisplayInfoDao detailDisplayInfoDao;
-	
+
 	@Override
 	public DetailResponse getDetailResponse(int displayInfoId, int pagingLimit) {
 		DetailResponse detailResponse = new DetailResponse();
 		detailResponse.setDetailComment(detailCommentDao.selectCommentPageByDisplayInfoId(displayInfoId, pagingLimit));
 		detailResponse.setDetailDisplayInfo(detailDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
+
 		return detailResponse;
 	}
 

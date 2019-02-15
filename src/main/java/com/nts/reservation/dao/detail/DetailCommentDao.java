@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dao.sql.DetailCommentSqls;
 import com.nts.reservation.dto.detail.DetailComment;
-import com.nts.reservation.dto.detail.DetailResponse;
 
 /**
  * /api/products/{displayInfoId} 요청에 대응
