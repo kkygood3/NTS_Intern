@@ -22,31 +22,29 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(int displayInfoId, int count) {
-		if(isRequiredTotalComments(count)) {
-			return getComments(displayInfoId);
-		}
-
 		List<Comment> comment = commentDaoImpl.selectCommentByLimit(displayInfoId, count);
-		comment.forEach(commentItem -> {
-			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
-		});
+
+		setCommentImagesByDisplayInfoId(comment, displayInfoId);
 
 		return comment;
 	}
 
 	@Override
-	public List<Comment> getComments(int displayInfoId) {
+	public List<Comment> getTotalComments(int displayInfoId) {
 		List<Comment> comment = commentDaoImpl.selectComment(displayInfoId);
+
+		setCommentImagesByDisplayInfoId(comment, displayInfoId);
+
+		return comment;
+	}
+
+	private List<Comment> setCommentImagesByDisplayInfoId(List<Comment> comment, int displayInfoId){
 
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
 		});
 
 		return comment;
-	}
-
-	private boolean isRequiredTotalComments(int count) {
-		return (count == 0);
 	}
 
 }

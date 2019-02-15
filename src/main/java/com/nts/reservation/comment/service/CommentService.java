@@ -11,5 +11,5 @@ import com.nts.reservation.comment.dto.Comment;
 
 public interface CommentService {
 	List<Comment> getComments(int displayInfoId, int count);
-	List<Comment> getComments(int displayInfoId);
+	List<Comment> getTotalComments(int displayInfoId);
 }
