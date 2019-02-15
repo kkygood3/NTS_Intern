@@ -1,162 +1,90 @@
-var currentTab = 1;
-var MAX_SWIPE = 2;
-var PERCENT_COEF = 20;
-
-function requestAjax(callback, url) {
-	var ajaxReq = new XMLHttpRequest();
-	ajaxReq.callback = callback;
-	ajaxReq.addEventListener('load', function(evt) {
-		this.callback(evt.target.response);
-	});
-
-	ajaxReq.open('GET', url);
-	ajaxReq.responseType = 'json';
-	ajaxReq.send()
-}
-
-
-function convertDateFormat(date){
-	var originDate = date.split(' ')[0];
-	var originDateSplited = originDate.split('-');
-	var resultDate = originDateSplited[0];
-	
-	if(originDateSplited[1].charAt(0) === '0'){
-		originDateSplited[1] = originDateSplited[1].charAt(1); 
-	}
-	
-	resultDate += '.'+originDateSplited[1];
-	
-	if(originDateSplited[2].charAt(0) === '0'){
-		originDateSplited[2] = originDateSplited[2].charAt(1); 
-	}
-	
-	resultDate += '.'+originDateSplited[2];
-	
-	return resultDate;
-}
-
 function initDetailBtn(){
 	var unfoldBtn = document.querySelector('a._open');	
 	var foldBtn = document.querySelector('a._close');
 	var foldingText = document.querySelector('div.store_details');
-	
-	document.querySelector('div.section_store_details').addEventListener('click',function(evt){
-		var clickedTag  = evt.target;
-		
-		if(clickedTag.className === 'bk_more _open'){
-			foldingText.classList.remove('close3');
+	var textArea = document.querySelector('p.dsc');
+
+	if(textArea.scrollHeight > textArea.clientHeight){
+		document.querySelector('div.section_store_details').addEventListener('click',function(evt){
+			evt.preventDefault();
+			var clickedTag  = evt.target;
 			
-			unfoldBtn.style.display = 'none';
-			foldBtn.style.display = '';
-		}else if(clickedTag.className === 'bk_more _close'){
-			foldingText.classList.add('close3');
+			if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
+				clickedTag = clickedTag.parentElement;
+			} 
 			
-			unfoldBtn.style.display = '';
-			foldBtn.style.display = 'none';
-		}
-	});
+			if(clickedTag.className === 'bk_more _open'){
+				
+				foldingText.classList.remove('close3');
+				
+				unfoldBtn.style.display = 'none';
+				foldBtn.style.display = '';
+				
+			}else if(clickedTag.className === 'bk_more _close'){
+				
+				foldingText.classList.add('close3');
+				
+				unfoldBtn.style.display = '';
+				foldBtn.style.display = 'none';
+				
+			}
+		});
+	} else {
+		unfoldBtn.style.display = 'none';
+	}
 }
 
-function initSwipeImage(displayInfoResponse){
+function initSwipeImage(displayInfo){
+	
 	// 상단 Swipe Image 배너 Template
-	var swipeTemplate = document.querySelector('#bannerImageTemplate').innerText;
+	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
 	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
 	var swipeContainer = document.querySelector('ul.detail_swipe');
 	
-	// Swipe 페이지 수, 총량 표시
-	var swipePage = document.querySelector('.figure_pagination').querySelector('.num');
-	var swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
+	// 이미지가 1개인 경우
+	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
 	
-	// Swipe 이미지 좌우의 버튼
-	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
-	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
-	
-	// 공통 할 일 : 숫자 띄우기
-	if(displayInfoResponse.productImages.length == 1){
-		// 이미지가 1개인 경우
-		 
-		displayInfoResponse.curSaveFileName = displayInfoResponse.productImages[0].saveFileName;
-		swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse);
-		
-		swipeAmount.innerText = '1';
-		
-		document.querySelector('.ico_arr6_lt').style.display = 'none';
-		document.querySelector('.ico_arr6_rt').style.display = 'none';
-
-		swipeLeftBtn.style.display = 'none';
-		swipeRightBtn.style.display = 'none';
-		
-	}else if(displayInfoResponse.productImages.length > 1){
-		// 이미지가 2개 이상인 경우
-		
-		for(var idx = 0; idx < MAX_SWIPE; idx ++){
-			displayInfoResponse.curSaveFileName = displayInfoResponse.productImages[idx].saveFileName;
-			swipeContainer.innerHTML += bindSwipeTemplate(displayInfoResponse);
-		}
-		
-		swipeAmount.innerText = MAX_SWIPE;
-		
-		// 화살표에 클릭이벤트 추가
-		document.querySelector('.group_visual').addEventListener('click',function(evt){
-			
-			var clickedBtn = evt.target;
-			
-			// 화살표 버튼 좌우 같은 동작 수행(이미지 2장)
-			if(clickedBtn.tagName === 'I'){
-				var imageItems = document.querySelector('ul.detail_swipe').querySelectorAll('.item');
-				
-				if(swipePage.innerText === '1'){
-					// 1번에서 2번으로
-					swipePage.innerText = '2';
-					imageItems.forEach(item => item.style.left = '-100%')
-				}else{
-					// 2번에서 1번으로
-					swipePage.innerText = '1';
-					imageItems.forEach(item => item.style.left = '0%')
-				}
-			}
-		});
-	}
-	
-	// 이미지위에 제목 띄우기
-	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfoResponse.displayInfo.productContent;
+	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
 }
 
-function initComment(displayInfoResponse){
-	var comments = displayInfoResponse.comments;
-	var averageScore = displayInfoResponse.averageScore.toFixed(1);
+function initComment(displayInfo, displayComment){	
+	var commentCount = displayInfo.commentCount;
+	var averageScore = displayInfo.averageScore;
 	
 	// Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 	var bindCommentTemplate = Handlebars.compile(commentTemplate);
 	
 	var commentContainer = document.querySelector('ul.list_short_review');
-	for(var i = 0 ; i < 3 && i < comments.length; i++){
-		comments[i].reservationDate = convertDateFormat(comments[i].reservationDate);
-		comments[i].productDescription = displayInfoResponse.displayInfo.productDescription;
-		commentContainer.innerHTML += bindCommentTemplate(comments[i]);	
+	
+	for(var i = 0 ; i < 3 && i < commentCount; i++){
+		commentContainer.innerHTML += bindCommentTemplate(displayComment[i]);	
 	}
 	
 	// 별점 그래프, 숫자 조정
-	document.querySelector('em.graph_value').style.width = (averageScore * PERCENT_COEF) + '%';
+	document.querySelector('em.graph_value').style.width = (averageScore * 20) + '%';
 	document.querySelector('.text_value>span').innerText = averageScore;
 	
 	// 우측 상단의 Comment 갯수
-	document.querySelector('span.join_count>em.green').innerText = comments.length+'건';
+	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
+	
 	
 	// Comment 더보기 버튼
-	document.querySelector('a.btn_review_more').setAttribute('href','review?id='+displayInfoResponse.displayInfo.displayInfoId)
+	var reviewMoreBtn = document.querySelector('a.btn_review_more');
+	if(commentCount > 3){
+		reviewMoreBtn.setAttribute('href','review?id='+displayInfo.displayInfoId);
+	} else{
+		reviewMoreBtn.style.display = 'none';
+	}
 }
 
-function initInfoTab(displayInfoResponse){
-	var displayInfo = displayInfoResponse.displayInfo;
-	var displayInfoImage = displayInfoResponse.displayInfoImage;
+function initInfoTab(displayInfo){
 	
 	// [소개]란의 글
 	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
 	
 	// [오시는 길] - 이미지
-	document.querySelector('.store_map').setAttribute('src',displayInfoImage.saveFileName);
+	document.querySelector('.store_map').setAttribute('src',displayInfo.displayInfoImage);
 	
 	// [오시는 길] - 장소 명
 	document.querySelector('.store_name').innerText = displayInfo.placeName;
@@ -179,6 +107,7 @@ function initInfoTab(displayInfoResponse){
 	var pathTab = document.querySelector('ul.info_tab_lst>._path');
 	var pathBody = document.querySelector('.detail_location');
 	
+	var currentTab = 1;
 	// 상세정보, 오시는 길 클릭 이벤트
 	document.querySelector('ul.info_tab_lst').addEventListener('click',function(evt){
 		
@@ -218,24 +147,140 @@ function initInfoTab(displayInfoResponse){
 	});
 }
 
+function loadExtraImageCallback(responseData){
+	var extraImageInformation = responseData.productImage;
+	
+	// 상단 Swipe Image 배너 Template
+	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
+	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
+	var swipeContainer = document.querySelector('ul.detail_swipe');
+	
+	// Swipe 페이지 수, 총량 표시
+	var swipePage = document.querySelector('.figure_pagination').querySelector('.num');
+	var swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
+	
+	// Swipe 이미지 좌우의 버튼
+	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
+	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
+	
+	if(extraImageInformation){		
+		var firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
+		var secondItem = bindSwipeTemplate(extraImageInformation);
+		
+		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
+		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
+		swipeContainer.innerHTML = secondItem + firstItem + secondItem + firstItem ;
+
+		var swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
+				
+		// 시작점을 두번째 자리의 1로 변경
+		swipeItems.forEach(item => item.style.left = '-100%');
+		
+		var eventContainer = document.querySelector('.group_visual');
+		
+		var currentPage = 1;
+		var currentLeft = -100;
+		// 화살표에 클릭이벤트 추가
+		function arrowEventHandler(evt){
+			
+			var clickedBtn = evt.target;
+			
+			var isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
+			var isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
+			if(isLeftBtnClicked | isRightBtnClicked){
+				eventContainer.removeEventListener('click',arrowEventHandler);
+				if(isLeftBtnClicked){// 왼쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft += 100;
+					currentPage--;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
+				} else{// 오른쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft -= 100;
+					currentPage++;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
+				}
+
+				setTimeout(function(){
+					// currentPage가 0이나 3이면
+					// 애니메이션 끄고 0->2 3->1로 옮긴다
+					if(currentPage == 0){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-200%');
+						
+						currentLeft = -200;
+						currentPage = 2;
+					}else if(currentPage == 3){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-100%');
+						
+						currentLeft = -100;
+						currentPage = 1;
+					}
+					// 애니메이션 ON
+					setTimeout(()=>{
+						swipeItems.forEach(item => item.style.transitionDuration = '1s');
+						// 버튼이벤트 ON
+						eventContainer.addEventListener('click',arrowEventHandler);
+						},50);
+				},1100);
+			}
+		}
+		
+		eventContainer.addEventListener('click',arrowEventHandler);
+	} else {
+		swipeAmount.innerText = '1';
+		
+		document.querySelector('.ico_arr6_lt').style.display = 'none';
+		document.querySelector('.ico_arr6_rt').style.display = 'none';
+
+		swipeLeftBtn.style.display = 'none';
+		swipeRightBtn.style.display = 'none';
+	}
+}
+
+function setCommonInfo(displayComment,displayInfo){
+	displayComment[0].commentCount = displayInfo.commentCount;
+	displayComment[0].averageScore = displayInfo.averageScore;
+}
+
 function loadDisplayInfoCallback(responseData) {
-	var displayInfoResponse = responseData.detailDisplay;
+	var displayComment = responseData.detailDisplay.detailComment;
+	var displayInfo = responseData.detailDisplay.detailDisplayInfo;
+
+	// SwipeImage 설정
+	initSwipeImage(displayInfo);
+	
+	// 맨 아래의 상세정보, 오시는길 탭 설정
+	initInfoTab(displayInfo);
+	
+	// Comment 설정
+	initComment(displayInfo, displayComment);
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn();
 	
-	// SwipeImage 설정
-	initSwipeImage(displayInfoResponse);
-	
-	// Comment 설정
-	initComment(displayInfoResponse);
-	
-	// 맨 아래의 상세정보, 오시는길 탭 설정
-	initInfoTab(displayInfoResponse);
+	requestAjax(loadExtraImageCallback,'api/products/'+displayInfo.displayInfoId+'/extra');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	// 페이지 첫 로딩시 할 일
-	var id = location.href.split('?')[1].split('=')[1];
-	requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
+	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('id'));
 });

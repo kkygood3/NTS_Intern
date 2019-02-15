@@ -16,6 +16,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
+/**
+ * DB를 이용하는 DataSource와 트랜섹션 처리를 설정.
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")

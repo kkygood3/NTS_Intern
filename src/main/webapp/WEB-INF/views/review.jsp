@@ -27,8 +27,8 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="javascript:history.back()" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-						<h2><a class="title" href="#">오디컴퍼니 주식회사</a></h2>
+						<a href="" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+						<h2><a class="title" href="#" style="cursor: default;">오디컴퍼니 주식회사</a></h2>
 					</div>
 				</div>
 				<div class="section_review_list">
@@ -44,7 +44,11 @@
 				</div>
 			</div>
 		</div>
-		<hr> </div>
+		<div class="more">
+			<button class="btn" style="display: initial;"><span>더보기</span></button>
+		</div>
+		<hr>
+	</div>
 		<footer>
 			<div class="gototop">
 				<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
@@ -58,23 +62,24 @@
 	<script type="htmlTemplate" id="commentItemTemplate">
 		<li class="list_item">
 			<div>
-			<div class="review_area">
-			{{#if commentImage}}
-			<div class="thumb_area">
-				<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage.saveFileName}}" alt="리뷰이미지"> </a> <span class="img_count">1</span>	
-			</div>
-			{{/if}}
-			<h4 class="resoc_name">{{productDescription}}</h4>
-			<p class="review">{{comment}}</p>
-			</div>
-			<div class="info_area">
-			<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
-			</div>
+				<div class="review_area">
+					{{#if commentImage}}
+					<div class="thumb_area">
+						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>												
+					</div>
+					{{/if}}
+					<h4 class="resoc_name">{{productDescription}}</h4>
+					<p class="review">{{comment}}</p>
+					</div>
+					<div class="info_area">
+					<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
+				</div>
 			</div>
 		</li>
 	</script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script src="js/common.js"></script>
 	<script src="js/review.js"></script>
 </body>
 

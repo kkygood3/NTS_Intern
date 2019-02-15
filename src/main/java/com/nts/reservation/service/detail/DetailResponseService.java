@@ -1,13 +1,17 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.reservation.service.detail;
 
 import com.nts.reservation.dto.detail.DetailResponse;
 
 public interface DetailResponseService {
 	/**
-	 * api/products response에 사용.
-	 * Comment, CommentImage, DisplayInfo, DisplayImage, ProductImage, ProductImage를 조회하고 DetailResponse를 생성
-	 * @param	조회할 DisplayInfo의 ID
-	 * @return	DetailResponse Object
+	 * api/products/{diplayInfoId} response에 사용
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @param pagingLimit - 한 페이지에 출력할 item 개수
+	 * @return displayInfoId에 속하는 displayInfo, commentList
 	 */
-	DetailResponse getDetailDisplay(int displayInfoId);
+	DetailResponse getDetailResponse(int displayInfoId, int pagingLimit);
 }

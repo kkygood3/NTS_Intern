@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * Controller Config
+ * MVC에서 Controller단을 관리.
  */
 @Configuration
 @EnableWebMvc
@@ -43,7 +43,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("main");
+		registry.addViewController("/").setViewName("home");
 		registry.addViewController("error").setViewName("error/invalidAccess");
 	}
 
