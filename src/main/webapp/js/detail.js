@@ -266,13 +266,13 @@ function loadExtraImageCallback(response){
 							currentLeft = -100;
 							currentPage = 1;
 						}
-						
-						// 애니메이션 ON, 버튼 이벤트 재등록
-						setTimeout(()=>{
-							swipeItems.forEach(item => item.style.transitionDuration = '1s');
-							eventContainer.addEventListener('click',arrowEventHandler);
-							},50);
 					}
+					
+					// 애니메이션 ON, 버튼 이벤트 재등록
+					setTimeout(()=>{
+						swipeItems.forEach(item => item.style.transitionDuration = '1s');
+						eventContainer.addEventListener('click',arrowEventHandler);
+						},50);
 				},1100);
 			}
 		}
