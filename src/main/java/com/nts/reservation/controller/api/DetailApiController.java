@@ -29,7 +29,7 @@ import com.nts.reservation.service.review.ReviewResponseService;
 
 @RestController
 @RequestMapping("/api/products/{displayInfoId}")
-public class ProductDetailApiController {
+public class DetailApiController {
 	@Autowired
 	private DetailResponseService detailDisplayService;
 	@Autowired
