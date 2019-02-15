@@ -15,7 +15,7 @@ import lombok.ToString;
 public class CommentResponse {
 	private String comment;
 	private Integer commentId;
-	private List<CommentImage> commentImage;
+	private List<CommentImage> commentImages;
 	private String createDate;
 	private String modifyDate;
 	private Integer productId;

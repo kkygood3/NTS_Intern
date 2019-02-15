@@ -249,7 +249,7 @@
 				<div class="review_area">
 					{{#if commentImages}}
 					<div class="thumb_area">
-						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{commentImage}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>
+						<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="{{saveFileName}}" alt=""> </a> <span class="img_count" style="display:none;">1</span>
 					</div>
 					{{/if}}
 						<h4 class="resoc_name">{{productDescription}}</h4>
@@ -263,6 +263,7 @@
 			</div>
 		</li>
 	</script>
+	
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js">
 	</script>

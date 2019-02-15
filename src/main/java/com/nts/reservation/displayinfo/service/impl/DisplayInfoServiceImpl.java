@@ -10,8 +10,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.service.CommentService;
 import com.nts.reservation.displayinfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayinfo.dto.DisplayInfo;
 import com.nts.reservation.displayinfo.dto.DisplayInfoImage;
@@ -28,7 +28,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	private DisplayInfoDao displayInfoDaoImpl;
 
 	@Autowired
-	private CommentDao commentDaoImpl;
+	private CommentService commentServiceImpl;
 
 	@Autowired
 	private ProductDao productDaoImpl;
@@ -37,7 +37,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
-		List<Comment> selectComments = commentDaoImpl.selectComment(displayInfoId);
+		List<Comment> selectComments = commentServiceImpl.getTotalComments(displayInfoId);
 		double selectAverageScore;
 		// 댓글이 없을 경우엔 average Score : 0 대입
 		if (selectComments.isEmpty()) {

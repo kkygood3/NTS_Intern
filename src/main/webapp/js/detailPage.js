@@ -84,10 +84,16 @@ function initComment(displayCommentInfo) {
 
     if(displayCommentInfo.length <= 3){
         displayCommentInfo.forEach(comment => {
+            if(comment.commentImages != 0) {
+                comment.saveFileName = comment.commentImages[0].saveFileName;
+            }
             commentContainer.innerHTML += bindCommentTemplate(comment);
         });
     } else {
         for(let i = 0; i < 3; ++i) {
+            if(displayCommentInfo[i].commentImages != 0) {
+                displayCommentInfo[i].saveFileName = displayCommentInfo[i].commentImages[0].saveFileName;
+            }
             commentContainer.innerHTML += bindCommentTemplate(displayCommentInfo[i]);
         }
     }
@@ -317,6 +323,7 @@ function loadDisplayInfoCallback(responseData) {
     let displayInfoResponse = responseData;
     let displayInfo = displayInfoResponse["displayInfo"];
     let displayProductImages = displayInfoResponse["productImages"];
+    let productPrices = displayInfoResponse["productPrices"];
 
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
