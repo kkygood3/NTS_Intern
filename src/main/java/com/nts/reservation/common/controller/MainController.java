@@ -35,7 +35,4 @@ public class MainController {
 	public String goError() {
 		return "common/error";
 	}
-	// TODO etc image없을 때
-	// TODO loadEtcImage
-	// TODO refactoring
 }

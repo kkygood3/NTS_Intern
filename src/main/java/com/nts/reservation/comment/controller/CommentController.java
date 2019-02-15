@@ -23,7 +23,7 @@ public class CommentController {
 
 	@GetMapping(path = "/comment/{displayInfoId}")
 	public CommentResponse commentPage(@PathVariable("displayInfoId") int displayInfoId,
-		@RequestParam(name = "limit", required = false, defaultValue = "0")int limit) {
+		@RequestParam(name = "limit", required = false, defaultValue = "0") int limit) {
 		return commentService.getComments(displayInfoId, limit);
 	}
 }

@@ -33,7 +33,6 @@ public class DisplayDaoImpl implements DisplayDao {
 	public DisplayInfo selectDisplayInfo(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-
 		return DataAccessUtils.singleResult(jdbc.query(DisplayDaoSqls.GET_DISPLAY_BY_ID, param, displayInfoRowMapper));
 	}
 
