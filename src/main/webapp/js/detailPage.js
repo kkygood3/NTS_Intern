@@ -206,64 +206,101 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
     let promotionLength = titleImageList.length;
     let leftDistance = 0;
 
-    let btn_nxt = document.querySelector('a.btn_nxt');
+    let btnNext = document.querySelector('a.btn_nxt');
 
-    function arrowEventHandler(evt) {
+    function nextArrowEventHandler() {
         currentTitle++;
-        btn_nxt.removeEventListener('click',arrowEventHandler);
+        btnNext.removeEventListener('click',nextArrowEventHandler);
+        btnPrev.removeEventListener('click', prevArrowEventHandler);
 
         if(currentTitle > 2) {
             currentTitle = 1;
             leftDistance -= 100;
             
-            titleImageList.forEach(list => {
+            titleImageList.forEach((list) => {
                 list.style.left = leftDistance + '%';
             });
             
             setTimeout(() => {
                 leftDistance = 0;
-                for (let i = 0; i < promotionLength; ++i) {
-                titleImageList[i].style.transitionDuration = '0s';
-                titleImageList[i].style.left = leftDistance + '%';
-                }
+                titleImageList.forEach((list) => {
+                list.style.transitionDuration = '0s';
+                list.style.left = leftDistance + '%';
+                });
 
                 setTimeout(() => {
-                    for (let i = 0; i < promotionLength; ++i) {
-                    titleImageList[i].style.transitionDuration = '1s';
-                    }
-                    btn_nxt.addEventListener('click', arrowEventHandler);
+                    titleImageList.forEach((list) => {
+                    list.style.transitionDuration = '1s';
+                    });
+                    btnNext.addEventListener('click', nextArrowEventHandler);
+                    btnPrev.addEventListener('click', prevArrowEventHandler);
                     }, 50);
                 
-            }, 1100);
-
-            
+            }, 1150);
 
         } else {
             leftDistance -= 100;
-            for (let i = 0; i < promotionLength; ++i) {
-                titleImageList[i].style.left = leftDistance + '%';
-                }
+            titleImageList.forEach((list) => {
+                list.style.left = leftDistance + '%';
+                });
             setTimeout(() => {
-                btn_nxt.addEventListener('click', arrowEventHandler);
-            }, 1100);
+                btnNext.addEventListener('click', nextArrowEventHandler);
+                btnPrev.addEventListener('click', prevArrowEventHandler);
+            }, 1150);
         }
 
         document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
     }
 
-    btn_nxt.addEventListener('click', arrowEventHandler);
+    let btnPrev = document.querySelector('a.btn_prev');
 
-    document.querySelector('a.btn_prev').addEventListener('click', evt => {
-        let clickedPrevBtn = evt.target;
+    function prevArrowEventHandler() {
         currentTitle--;
+        btnNext.removeEventListener('click',nextArrowEventHandler);
+        btnPrev.removeEventListener('click',prevArrowEventHandler);
 
         if(currentTitle < 1) {
             currentTitle = 2;
+
+            leftDistance = (promotionLength - 1) * -100;
+
+            titleImageList.forEach((list) => {
+            list.style.transitionDuration = '0s';
+            list.style.left = leftDistance + '%';
+            });
+            
+            setTimeout(() =>{
+                leftDistance += 100;
+
+                titleImageList.forEach((list) => {
+                list.style.transitionDuration = '1s';
+                list.style.left = leftDistance + '%';
+                });
+            },0);
+            
+            
+            setTimeout(() => {
+                btnNext.addEventListener('click',nextArrowEventHandler);
+                btnPrev.addEventListener('click', prevArrowEventHandler);
+            }, 1150);
+        } else {
+            leftDistance += 100;
+                titleImageList.forEach((list) => {
+                list.style.left = leftDistance + '%';
+                });
+            setTimeout(() => {
+                btnNext.addEventListener('click',nextArrowEventHandler);
+                btnPrev.addEventListener('click', prevArrowEventHandler);
+            }, 1150);
         }
 
         document.querySelector('div.figure_pagination').firstElementChild.innerText = currentTitle;
-    });
+    }
+    
+    btnNext.addEventListener('click', nextArrowEventHandler);
+    btnPrev.addEventListener('click', prevArrowEventHandler);
 }
+
 
 function loadDisplayInfoCallback(responseData) {
     let displayInfoResponse = responseData;
