@@ -40,7 +40,7 @@
 					class="viewReservation" title="예약확인">
 						<%
 							if (session.getAttribute("email") == null) {
-						%>"예약확인"<%
+						%>예약확인<%
 							} else {
 						%> <%=session.getAttribute("email")%>
 						<%

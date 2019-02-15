@@ -60,7 +60,7 @@
 						</h1>
 						<a href="./myreservation" class="btn_my"> <span
 							class="viewReservation" title="예약확인"><%if(session.getAttribute("email")==null){
-								%>"예약확인"<%
+								%>예약확인<%
 							} else { %>
 							<%=session.getAttribute("email")%><%
 							}%></span>
