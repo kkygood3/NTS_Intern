@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao.sql;
 
-public class DetailResponseSqls {
+public class DetailSqls {
 	public static final String SELECT_DETAIL_DISPLAY_INFO = 
 		"SELECT display_info.id AS display_info_id, product.description AS product_description, product.content AS product_content, display_info.place_name, display_info.place_lot, display_info.place_street, display_info.tel AS telephone, product_file_info.save_file_name AS product_image, IFNULL(ROUND(AVG(reservation_user_comment.score),1),0) AS average_score, COUNT(reservation_user_comment.id) as comment_count, display_file_info.save_file_name AS display_info_image" + 
 		" FROM display_info" + 

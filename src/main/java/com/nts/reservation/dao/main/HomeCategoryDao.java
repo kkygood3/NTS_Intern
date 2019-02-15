@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.HomeResponseSqls;
+import com.nts.reservation.dao.sql.HomeSqls;
 import com.nts.reservation.dto.main.HomeCategory;
 
 /**
@@ -37,6 +37,6 @@ public class HomeCategoryDao {
 	public List<HomeCategory> selectCategories(int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(HomeResponseSqls.SELECT_CATEGORIES, params, rowMapper);
+		return jdbc.query(HomeSqls.SELECT_CATEGORIES, params, rowMapper);
 	}
 }

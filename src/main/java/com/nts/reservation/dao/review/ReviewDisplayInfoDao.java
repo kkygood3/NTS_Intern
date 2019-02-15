@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.DetailResponseSqls;
-import com.nts.reservation.dao.sql.ReviewResponseSqls;
+import com.nts.reservation.dao.sql.DetailSqls;
+import com.nts.reservation.dao.sql.ReviewSqls;
 import com.nts.reservation.dto.detail.DetailDisplayInfo;
 import com.nts.reservation.dto.review.ReviewDisplayInfo;
 
@@ -38,6 +38,6 @@ public class ReviewDisplayInfoDao {
 	public ReviewDisplayInfo selectDetailDisplayInfoByDisplayInfoId(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(ReviewResponseSqls.SELECT_REVIEW_DISPLAY_INFO, params, rowMapper);
+		return jdbc.queryForObject(ReviewSqls.SELECT_REVIEW_DISPLAY_INFO, params, rowMapper);
 	}
 }
