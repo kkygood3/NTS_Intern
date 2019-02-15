@@ -1,3 +1,7 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.reservation.controller.api;
 
 import java.util.ArrayList;
@@ -43,6 +47,7 @@ public class HomeApiController {
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<HomeCategory> categoryList = homeCategoryService.getCategories(pagingLimit);
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("categoryList", categoryList);
 
