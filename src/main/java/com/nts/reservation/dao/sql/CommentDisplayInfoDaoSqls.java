@@ -1,21 +1,11 @@
 package com.nts.reservation.dao.sql;
 
 public class CommentDisplayInfoDaoSqls {
-	public static final String SELECT_COMMENT_WITH_PAGING = "SELECT ri.comment, ri.score, concat(left(ri.reservation_email, 4), '****') AS reservation_email, ri.reservation_date, fi.save_file_name "
-			+ "FROM ( " + "	SELECT ri.comment, ri.score, ri.reservation_email, ri.reservation_date, ruci.file_id "
-			+ "	FROM ( "
-			+ "		SELECT ri.reservation_email, ri.reservation_date, ruc.comment, ruc.score, ruc.id AS reservation_user_comment_id "
-			+ "		FROM ( "
-			+ "			SELECT ri.id AS reservation_info_id, ri.reservation_email, ri.reservation_date "
-			+ "			FROM reservation_info AS ri "
-			+ "			INNER JOIN product AS p ON p.id = ri.product_id "
-			+ "			WHERE p.id = :productId "
-			+ "		) AS ri "
-			+ "		INNER JOIN reservation_user_comment AS ruc ON ruc.reservation_info_id = ri.reservation_info_id "
-			+ "	) AS ri "
-			+ "	LEFT JOIN reservation_user_comment_image AS ruci ON ri.reservation_user_comment_id = ruci.reservation_user_comment_id "
-			+ ") AS ri "
-			+ "LEFT JOIN file_info AS fi ON ri.file_id = fi.id "
-			+ "LIMIT :start, :limit";
+	public static final String SELECT_COMMENT_WITH_PAGING
+	= "SELECT uc.comment, uc.score, concat(left(ri.reservation_email, 4), '****') AS reservation_email, ri.reservation_date, ifnull(fi.save_file_name, '') AS save_file_name "
+	+ "FROM reservation_info AS ri "
+	+ "INNER JOIN reservation_user_comment AS uc ON ri.id = uc.reservation_info_id AND ri.product_id = :productId AND uc.product_id = :productId "
+	+ "LEFT JOIN reservation_user_comment_image AS uci ON uci.reservation_user_comment_id = uc.id "
+	+ "LEFT JOIN file_info AS fi ON fi.id = uci.file_id "
+	+ "LIMIT :start, :limit";
 }
-	

@@ -1,3 +1,12 @@
+/**
+ * detail 페이지 이벤트 처리
+ * @author 시윤
+ *
+ */
+
+/**
+ * 상세정보/오시는길 탭메뉴 클릭이벤트
+ */
 function addInfoTabClickEvent() {
 	var infoTab = document.getElementsByClassName("info_tab_lst")[0];
 	var infoSection = document.getElementsByClassName("section_info_tab")[0];
@@ -28,6 +37,9 @@ function changeTabUi(target, tabs, as, divs) {
 	}
 }
 
+/**
+ * 상단 비주얼영역 버튼 이벤트
+ */
 function NextButtonClickEvent() {
 	var ul = document.getElementsByClassName("visual_img")[0];
 	slideLeft(ul);
@@ -70,6 +82,9 @@ function paginate(movePage) {
 	curSpan.innerText = cur;
 }
 
+/**
+ * 비주얼영영 밑부분 더보기버튼 이벤트
+ */
 function addMoreButtonClickEvent() {
 	var sectionStoreDetails = document.getElementsByClassName("section_store_details")[0];
 	var buttons = sectionStoreDetails.getElementsByClassName("bk_more");
@@ -97,3 +112,12 @@ function setStoreDetails(storeDetails, target) {
 	}
 }
 
+/**
+ * 예약버튼 이벤트
+ */
+function addBkButtonClickEvent() {
+	var bkButton = document.getElementsByClassName("bk_btn")[0]
+	bkButton.addEventListener("click", function(event){
+		location.href="./" + displayInfo().displayInfoId + "/reservation";
+	});
+}

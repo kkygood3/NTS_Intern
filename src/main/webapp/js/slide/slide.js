@@ -1,5 +1,14 @@
-// TODO: 함수를 두개만들지 if문으로 처리할지...
-function makeSlide(ul) {
+/**
+ * 슬라이드 처리
+ * @author 시윤
+ *
+ */
+
+/**
+ * ul안의 li들 무한슬라이드
+ * @param ul
+ */
+function makeInfiniteSlide(ul) {
 	const interval = window.setInterval(()=> {
 		if (readyToSlide){
 			slideLeft(ul);
@@ -7,10 +16,11 @@ function makeSlide(ul) {
 	}, 5000);
 }
 
+/**
+ * ul안의 li들 왼쪽으로 한번 슬라이드
+ * @param ul
+ */
 function slideLeft(ul) {
-	//위치를 -414로 만든다(트랜지션)
-	//제일뒤로 li를 하나 옮긴다
-	//위치를 0으로 만든다
 	addTransitionAndmoveUl(ul, -414);
 	window.setTimeout(()=> {
 		removeTransitionAndmoveUl(ul, 0);
@@ -18,6 +28,10 @@ function slideLeft(ul) {
 	}, 1000);
 }
 
+/**
+ * ul안의 li들 오른쪽으로 한번 슬라이드
+ * @param ul
+ */
 function slideRight(ul) {
 	removeTransitionAndmoveUl(ul, -414);
 	moveLiLastToFirst(ul);

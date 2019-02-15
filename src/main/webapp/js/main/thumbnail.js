@@ -1,3 +1,9 @@
+/**
+ * 상품 썸네일 관련
+ * @author 시윤
+ *
+ */
+
 function sendGetThumbnailsAjax(categoryId = 0) {
 	var start = calcLoadedThumbnails();
 	sendGetAjax("./thumbnail_info?start="+ start + "&category_id=" + categoryId, setSectionEventLst);
@@ -8,13 +14,16 @@ function calcLoadedThumbnails() {
 	return uls[0].childElementCount + uls[1].childElementCount;
 }
 
-function setCounterBar(count) {
-	if (!parseInt(count)) {
-		return false;
-	}
-	document.querySelector(".event_lst_txt > .pink").innerText = count + "개";
-}
-
+/**
+ * 썸네일 html 생성
+ * @param thumbnailInfos
+ * 		product_id 상품id
+ *		display_info_id 화면 id
+ *		description 상품 이름
+ *		place_name 장소
+ *		content 상품 설명
+ *		save_file_name 썸네일 이미지
+ */
 function makeThumbnailList(thumbnailInfos) {
 	if (!thumbnailInfos) {
 		return false;
@@ -48,11 +57,11 @@ function setSectionEventLst(thumbnailInfos) {
 	}
 }
 
-function deleteAllThumbnail() {
-	var uls = document.getElementsByClassName("lst_event_box");
-	for (let ul of uls) {
-		ul.innerHTML = "";
+function setCounterBar(count) {
+	if (!parseInt(count)) {
+		return false;
 	}
+	document.querySelector(".event_lst_txt > .pink").innerText = count + "개";
 }
 
 function endOfProducts(productCount) {
@@ -66,4 +75,11 @@ function endOfProducts(productCount) {
 function setMoreButtonVisibility(visibility) {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.style.visibility = visibility;
+}
+
+function deleteAllThumbnail() {
+	var uls = document.getElementsByClassName("lst_event_box");
+	for (let ul of uls) {
+		ul.innerHTML = "";
+	}
 }

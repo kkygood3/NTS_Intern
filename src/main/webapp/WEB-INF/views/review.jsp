@@ -1,29 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-    <title>네이버 예약</title>
-    <link href="/css/style.css" rel="stylesheet">
-	<script type="text/javascript">
-		function displayInfo() {
-			return {
-				"displayInfoId" : "${displayInfoId}",
-				"productId" : "${pageInfo.productId}",
-				"commentCount" : "${pageInfo.commentCount}"
-			};
-		}
-	</script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/common/error.js" ></script>
-	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "/js/comment/comment.js" ></script>
-	<script type= "text/javascript" src= "/js/review/event.js" ></script>
-	<script type= "text/javascript" src= "/js/review/review.js" ></script>
+	<meta charset="utf-8">
+	<meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<title>네이버 예약</title>
+	<link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,20 +37,20 @@
 						<div class="short_review_area">
 							<div class="grade_area">
 								<span class="graph_mask"><em class="graph_value" style="width:${pageInfo.averageScore * 20}%;"></em></span>
-                                <strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
-                                <span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
+								<strong class="text_value"><span>${pageInfo.averageScore}</span> <em class="total">5.0</em></strong>
+								<span class="join_count"><em class="green">${pageInfo.commentCount}건</em> 등록</span>
 							</div>
 							<ul class="list_short_review">
-                            <!-- content -->
+							<!-- content -->
 							</ul>
 						</div>
 						<p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
 					</div>
 					
-                    <!-- 더보기 -->
-                    <div class="more">
-                        <button class="btn" value="0"><span>더보기</span></button>
-                    </div>
+					<!-- 더보기 -->
+					<div class="more">
+						<button class="btn" value="0"><span>더보기</span></button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -82,5 +67,21 @@
 	</footer>
 	
 	<%@ include file="/template/comment_item.jsp"%>
+	
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"displayInfoId" : "${displayInfoId}",
+				"productId" : "${pageInfo.productId}",
+				"commentCount" : "${pageInfo.commentCount}"
+			};
+		}
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/comment_data/comment.js" ></script>
+	<script type= "text/javascript" src= "/js/review/event.js" ></script>
+	<script type= "text/javascript" src= "/js/review/review.js" ></script>
 </body>
 </html>

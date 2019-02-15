@@ -1,3 +1,14 @@
+/**
+ * ajax 처리
+ * @author 시윤
+ *
+ */
+
+/**
+ * GET방식으로 ajax 요청
+ * @param url 요청할 url
+ * @param action 응답받은후 실행할 함수
+ */
 function sendGetAjax(url, action) {
 	var httpRequest = new XMLHttpRequest();
 	

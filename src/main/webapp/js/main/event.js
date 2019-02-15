@@ -1,3 +1,13 @@
+/**
+ * main 페이지 이벤트 처리
+ * @author 시윤
+ *
+ */
+
+/**
+ * 썸네일 더보기 버튼 클릭이벤트
+ * 4개씩 더받아온다
+ */
 function addMoreButtonClickEvent() {
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.addEventListener("click", function(event){
@@ -6,6 +16,9 @@ function addMoreButtonClickEvent() {
 	});
 }
 
+/**
+ * 카테고리 탭메뉴 클릭이벤트
+ */
 function addCategoryClickEvent() {
 	var categoryButton = document.querySelector(".section_event_tab > .event_tab_lst");
 	categoryButton.addEventListener("click", function(event){
@@ -19,21 +32,6 @@ function addCategoryClickEvent() {
 		sendGetThumbnailsAjax(categoryId);
 		setMoreButtonVisibility("visible");
 	});
-}
-
-function addThumbnailClickEvent() {
-	var ul = document.getElementsByClassName("wrap_event_box")[0];
-	
-	ul.addEventListener("click", function(event) {
-		if (!event.target.closest("li")) {
-			return;
-		}
-		window.location.href = "./detail/" + getDisplayInfo(event.target.closest("li"));
-	});
-}
-
-function getDisplayInfo(thumbnail) {
-	return thumbnail.id.split("_")[2];
 }
 
 function changeCategoryTabUi(curCategoryId) {
@@ -52,4 +50,23 @@ function changeCategoryInfo(categoryId) {
 	}
 	var moreButton = document.querySelector(".more > .btn");
 	moreButton.value = categoryId;
+}
+
+/**
+ * 썸네일 클릭이벤트
+ * 상세페이지로 이동한다
+ */
+function addThumbnailClickEvent() {
+	var ul = document.getElementsByClassName("wrap_event_box")[0];
+	
+	ul.addEventListener("click", function(event) {
+		if (!event.target.closest("li")) {
+			return;
+		}
+		window.location.href = "./detail/" + getDisplayInfo(event.target.closest("li"));
+	});
+}
+
+function getDisplayInfo(thumbnail) {
+	return thumbnail.id.split("_")[2];
 }

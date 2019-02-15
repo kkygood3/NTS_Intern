@@ -14,9 +14,14 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+/**
+ * 에러 처리하는 클래스
+ * @author si yoon
+ *
+ */
 @ControllerAdvice
 public class ErrorController {
-	public static final String DEFAULT_ERROR_VIEW = "error";
+	public static final String DEFAULT_ERROR_VIEW = "/error";
 
 	/*
 	 * 400에러 처리
@@ -43,7 +48,6 @@ public class ErrorController {
 
 	/**
 	 * 404에러 처리
-	 * @throws IOException 
 	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
@@ -85,6 +89,11 @@ public class ErrorController {
 		return mav;
 	}
 
+	/**
+	 * 에러정보를 담는 클래스
+	 * @author si yoon
+	 *
+	 */
 	public class ErrorInfo {
 		private String message;
 		private String statusName;
