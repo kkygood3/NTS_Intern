@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductThumbnail;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.FileInfoService;
@@ -95,5 +96,16 @@ public class ProductApiController {
 		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
 		List<CommentDisplayInfo> commentDisplayInfos = commentService.getCommentsByProductIdWithPaging(productId, start, limit);
 		return commentDisplayInfos;
+	}
+	
+	/**
+	 * productId에 해당하는 가격을 가져온다
+	 * @param productId 조회할 상품 id
+	 * @return
+	 */
+	@GetMapping("/{productId}/price")
+	@ResponseStatus(HttpStatus.OK)
+	public List<PriceInfo> getProductPrice(@PathVariable(name = "productId", required = true) long productId) {
+		return productService.getPriceInfoByProductId(productId);
 	}
 }

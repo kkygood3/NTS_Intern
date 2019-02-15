@@ -2,6 +2,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductThumbnail;
 
@@ -33,4 +34,11 @@ public interface ProductService {
 	 * @return 상세페이지 정보
 	 */
 	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId);
+
+	/**
+	 * 상품에 맞는 가격정보를 가져온다
+	 * @param productId 조회할 상품
+	 * @return 상세페이지 정보
+	 */
+	public List<PriceInfo> getPriceInfoByProductId(long productId);
 }
