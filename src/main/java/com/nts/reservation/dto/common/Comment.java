@@ -2,12 +2,12 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto.detail;
+package com.nts.reservation.dto.common;
 
 /**
- * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 Comment 정보를 담는 DTO
+ * detail, review 페이지에서 사용하는 Comment 정보 DTO
  */
-public class DetailComment {
+public class Comment {
 	private Integer displayInfoId;
 	private String comment;
 	private String commentImage;
