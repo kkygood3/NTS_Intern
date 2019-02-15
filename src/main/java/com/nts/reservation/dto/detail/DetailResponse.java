@@ -6,12 +6,14 @@ package com.nts.reservation.dto.detail;
 
 import java.util.List;
 
+import com.nts.reservation.dto.common.Comment;
+
 /**
  * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 정보를 담는 DTO
  */
 public class DetailResponse {
 	private DetailDisplayInfo detailDisplayInfo;
-	private List<DetailComment> detailComment;
+	private List<Comment> detailComment;
 
 	public DetailDisplayInfo getDetailDisplayInfo() {
 		return detailDisplayInfo;
@@ -21,11 +23,11 @@ public class DetailResponse {
 		this.detailDisplayInfo = detailDisplayInfo;
 	}
 
-	public List<DetailComment> getDetailComment() {
+	public List<Comment> getDetailComment() {
 		return detailComment;
 	}
 
-	public void setDetailComment(List<DetailComment> detailComment) {
+	public void setDetailComment(List<Comment> detailComment) {
 		this.detailComment = detailComment;
 	}
 }
