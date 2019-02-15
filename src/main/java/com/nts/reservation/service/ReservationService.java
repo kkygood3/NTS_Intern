@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservedItem;
 
 /**
 * @author  : 이승수
@@ -19,4 +20,6 @@ public interface ReservationService {
 	List<Reservation> getAvailableReservations(String userEmail);
 
 	List<Reservation> getCanceledReservations(String userEmail);
+
+	List<ReservedItem> getReservedItems(String userEmail, int cancelFlag);
 }

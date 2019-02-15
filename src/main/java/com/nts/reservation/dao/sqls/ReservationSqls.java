@@ -52,4 +52,10 @@ public class ReservationSqls {
 		+ "FROM reservation_info "
 		+ "WHERE reservation_email = :userEmail "
 		+ "AND cancel_flag = :cancelFlag";
+
+	public static final String GET_TOTAL_PRICE = "SELECT SUM(count * price) "
+		+ "FROM reservation_info_price "
+		+ "INNER JOIN product_price "
+		+ "ON reservation_info_price.product_price_id = product_price.id "
+		+ "WHERE reservation_info_id = :reservationInfoId";
 }

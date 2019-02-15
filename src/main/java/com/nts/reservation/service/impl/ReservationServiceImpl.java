@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nts.reservation.dao.DetailProductDao;
 import com.nts.reservation.dao.ReservationDao;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationPrice;
+import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -23,6 +26,8 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	ReservationDao reservationDao;
+	@Autowired
+	DetailProductDao detailProductDao;
 
 	@Override
 	public void setReservation(HttpSession session, Reservation reservationInfo) {
@@ -39,11 +44,31 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<Reservation> getAvailableReservations(String userEmail) {
-		return reservationDao.getReservations(userEmail, 0);
+		List<Reservation> availableReservations = reservationDao.getReservations(userEmail, 0);
+		return availableReservations;
 	}
 
 	@Override
 	public List<Reservation> getCanceledReservations(String userEmail) {
-		return reservationDao.getReservations(userEmail, 1);
+		List<Reservation> canceledReservations = reservationDao.getReservations(userEmail, 1);
+		return canceledReservations;
+	}
+
+	@Override
+	public List<ReservedItem> getReservedItems(String userEmail, int cancelFlag) {
+		List<ReservedItem> availableReservedItems = new ArrayList<>();
+
+		List<Reservation> availableReservations = reservationDao.getReservations(userEmail, cancelFlag);
+		for (Reservation reservation : availableReservations) {
+			ReservedItem reservedItem = new ReservedItem();
+
+			reservedItem.setReservation(reservation);
+			reservedItem.setTotalPrice(reservationDao.getTotalPrice(reservation.getId()));
+			reservedItem.setDisplayInfo(detailProductDao.getDisplayInfo(reservation.getDisplayInfoId()));
+
+			availableReservedItems.add(reservedItem);
+		}
+
+		return availableReservedItems;
 	}
 }

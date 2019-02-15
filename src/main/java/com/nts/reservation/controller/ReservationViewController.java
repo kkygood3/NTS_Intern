@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -49,11 +49,11 @@ public class ReservationViewController {
 	public String myReservationPage(HttpSession session, ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 
-		List<Reservation> availableReservations = reservationService.getAvailableReservations(userEmail);
-		List<Reservation> canceledReservations = reservationService.getCanceledReservations(userEmail);
+		List<ReservedItem> availableReservedItems = reservationService.getReservedItems(userEmail, 0);
+		List<ReservedItem> canceledReservedItems = reservationService.getReservedItems(userEmail, 1);
 
-		session.setAttribute("availableReservations", availableReservations);
-		session.setAttribute("canceledReservations", canceledReservations);
+		session.setAttribute("availableReservedItems", availableReservedItems);
+		session.setAttribute("canceledReservedItems", canceledReservedItems);
 		return "myreservation";
 	}
 

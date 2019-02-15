@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -140,7 +141,7 @@
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매일자</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected" id="reservation_date">${reservationDate}</p>
+                                        <p class="inline_txt selected" id="reservation_date"><fmt:formatDate value="${reservationDate}" pattern="yyyy.MM.dd"/></p>
                                     </div>
                                 </div>
                             </form>

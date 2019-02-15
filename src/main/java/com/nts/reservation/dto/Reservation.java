@@ -25,7 +25,16 @@ public class Reservation {
 	private String reservationEmail;
 	private String reservationName;
 	private String reservationTel;
-	private String reservationDate;
+	@JsonFormat(pattern = "yyyy.MM.dd")
+	private Date reservationDate;
+
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
+	}
 
 	public int getDisplayInfoId() {
 		return displayInfoId;
@@ -73,14 +82,6 @@ public class Reservation {
 
 	public void setReservationTel(String reservationTel) {
 		this.reservationTel = reservationTel;
-	}
-
-	public String getReservationDate() {
-		return reservationDate;
-	}
-
-	public void setReservationDate(String reservationDate) {
-		this.reservationDate = reservationDate;
 	}
 
 	public boolean isCancelYn() {
