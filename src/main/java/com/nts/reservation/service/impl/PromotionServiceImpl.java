@@ -28,8 +28,8 @@ public class PromotionServiceImpl implements PromotionService {
 	 * 먼저 등록된 순으로 SELECT_LIMIT값 수만큼 프로모션을 가져옵니다.
 	 */
 	@Override
-	public List<PromotionDto> getPromotions(int limit) {
-		return promotionDao.selectPromotions(limit);
+	public List<PromotionDto> getPromotions(int limit, String type) {
+		return promotionDao.selectPromotions(limit, type);
 	}
 
 }

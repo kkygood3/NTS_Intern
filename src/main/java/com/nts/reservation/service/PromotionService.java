@@ -13,5 +13,5 @@ import com.nts.reservation.dto.PromotionDto;
  * @author jinwoo.bae
  */
 public interface PromotionService {
-	List<PromotionDto> getPromotions(int limit);
+	List<PromotionDto> getPromotions(int limit, String type);
 }

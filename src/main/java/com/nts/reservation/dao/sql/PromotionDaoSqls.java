@@ -9,17 +9,22 @@ package com.nts.reservation.dao.sql;
  * @author jinwoo.bae
  */
 public class PromotionDaoSqls {
-	public static final String SELECT_PRPMOTIONS = "SELECT  "
+	public static final String SELECT_PRPMOTIONS = ""
+		+ "SELECT  "
 		+ "    p.id AS id, "
 		+ "    p.product_id AS productId, "
-		+ "    fi.save_file_name AS productImageUrl "
+		+ "    di.id AS displayInfoId, "
+		+ "    fi.save_file_name AS productImageUrl, "
+		+ "    di.place_Street AS placeStreet "
 		+ "FROM "
-		+ "    promotion p, "
-		+ "    product_image pi, "
-		+ "    file_info fi "
+		+ "    promotion p "
+		+ "        INNER JOIN "
+		+ "    product_image pi ON p.product_id = pi.product_id "
+		+ "        INNER JOIN "
+		+ "    file_info fi ON pi.file_id = fi.id "
+		+ "        INNER JOIN "
+		+ "    display_info di ON p.product_id = di.product_id "
 		+ "WHERE "
-		+ "    p.product_id = pi.product_id "
-		+ "        AND pi.type = 'th' "
-		+ "        AND pi.file_id = fi.id "
-		+ "ORDER BY p.id ASC LIMIT :limit;";
+		+ "    pi.type = :type "
+		+ "ORDER BY p.id ASC LIMIT :limit";
 }

@@ -11,7 +11,9 @@ package com.nts.reservation.dto;
 public class PromotionDto {
 	private int id;
 	private int productId;
+	private int displayInfoId;
 	private String productImageUrl;
+	private String placeStreet;
 
 	public int getId() {
 		return id;
@@ -29,6 +31,14 @@ public class PromotionDto {
 		this.productId = productId;
 	}
 
+	public int getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
+	}
+
 	public String getProductImageUrl() {
 		return productImageUrl;
 	}
@@ -37,9 +47,12 @@ public class PromotionDto {
 		this.productImageUrl = productImageUrl;
 	}
 
-	@Override
-	public String toString() {
-		return "Promotion [id=" + id + ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
+	public String getPlaceStreet() {
+		return placeStreet;
+	}
+
+	public void setPlaceStreet(String placeStreet) {
+		this.placeStreet = placeStreet;
 	}
 
 }

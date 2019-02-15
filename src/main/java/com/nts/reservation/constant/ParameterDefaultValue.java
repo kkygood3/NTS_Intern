@@ -13,7 +13,11 @@ public class ParameterDefaultValue {
 	public static final String PRODUCTS_LIMIT = "4";
 	public static final String PRODUCT_IMAGE_LIMIT = "2";
 	public static final String COMMENTS_LIMIT = "3";
-	public static final String PROMOTIONS_LIMIT = "10";
+	public static final String PROMOTIONS_LIMIT = "20";
 
-	public static final String CATEGORY_TYPE_ALL = "0"; 
+	public static final String CATEGORY_TYPE_ALL = "0";
+
+	public static final String THUMBNAIL = "th";
+	public static final String MAIN = "ma";
+	public static final String ETC = "et";
 }

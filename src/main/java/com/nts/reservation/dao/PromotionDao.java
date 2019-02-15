@@ -6,8 +6,9 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sql.PromotionDaoSqls.*;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -31,8 +32,11 @@ public class PromotionDao extends BasicDao<PromotionDto> {
 	 * 모든 프로모션 목록들을 fileInfo의 ImageUrl와 함께 가져온다
 	 * @return
 	 */
-	public List<PromotionDto> selectPromotions(int limit) {
-		return jdbcTemplate.query(SELECT_PRPMOTIONS, Collections.singletonMap("limit", limit), rowMapper);
+	public List<PromotionDto> selectPromotions(int limit, String type) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("limit", limit);
+		params.put("type", type);
+		return jdbcTemplate.query(SELECT_PRPMOTIONS, params, rowMapper);
 	}
 
 }
