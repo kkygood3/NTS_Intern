@@ -16,7 +16,7 @@ function init(data){
 function loadComments(data){
 	let commentTemplate = document.querySelector("#comment_template").innerText;
 	let bindTemplate = Handlebars.compile(commentTemplate);
-	
+
 	if(data == null) {
 		return;
 	}

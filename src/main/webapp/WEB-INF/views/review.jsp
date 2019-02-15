@@ -33,7 +33,7 @@
 						<a href="/detail?displayInfoId=${ displayInfoId }" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i>
 						</a>
 						<h2>
-							<a class="title" href="#">오디컴퍼니 주식회사????</a>
+							<a class="title" href="#">오디컴퍼니 주식회사</a>
 						</h2>
 					</div>
 				</div>
@@ -88,19 +88,19 @@
 						<span class="img_count">{{commentImages.length}}</span> 
 					{{/each}}
 				</div>
-				<h4 class="resoc_name">제목은 어디서??</h4>
-				<p class="review"></p>
+				<h4 class="resoc_name">{{productDescription}}</h4>
+				<p class="review">{{comment}}</p>
 			</div>
 		{{else}}
 			<div class="review_area no_img">
-				<h4 class="resoc_name">제목은 어디서??</h4>
+				<h4 class="resoc_name">{{productDescription}}</h4>
 				<p class="review">{{comment}}</p>
 			</div>
 		{{/if}}
 	
 		<div class="info_area">
 			<div class="review_info">
-				<span class="grade">{{score}}</span> <span class="name">{{reservationEmail}}</span> <span class="date">{{reservationDate}} 방문</span>
+				<span class="grade">{{score}}.0</span> <span class="name">{{reservationEmail}}</span> <span class="date">{{reservationDate}} 방문</span>
 			</div>
 		</div>
 	</div>
