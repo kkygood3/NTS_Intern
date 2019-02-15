@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.comment.dto;
 
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Builder;
@@ -16,4 +17,9 @@ import lombok.ToString;
 public class CommentResponse {
 	private List<Comment> comments;
 	private double avgScore;
+	
+	public static CommentResponse emptyCommentResponse() {
+		return CommentResponse.builder()
+			.comments(Collections.emptyList()).build();
+	}
 }

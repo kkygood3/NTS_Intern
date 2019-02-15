@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.comment.service.serviceImpl;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,18 @@ public class CommentServiceImpl implements CommentService {
 		List<Comment> comments = commentDao.selectCommentBydisplayInfoId(displayInfoId, limit);
 
 		if (comments.size() == 0) {
-			return CommentResponse.builder()
-				.comments(Collections.emptyList())
-				.avgScore(0)
-				.build();
+			return CommentResponse.emptyCommentResponse();
 		}
 
-		comments.forEach(comment -> {
-			if (comment.getImageCount() > 0) {
-				List<CommentImage> commentImages = commentDao.selectCommentImage(displayInfoId, comment.getCommentId());
-				comment.setCommentImages(commentImages);
-			}
+		for (Comment comment : comments) {
 			comment.setReservationEmail(makeBlindEmail(comment.getReservationEmail()));
-		});
+			comment.setReservationDate(formattingDate(comment.getReservationDate()));
+			if (comment.getImageCount() < 0) {
+				continue;
+			}
+			List<CommentImage> commentImages = commentDao.selectCommentImage(comment.getCommentId());
+			comment.setCommentImages(commentImages);
+		}
 
 		double avgScore = commentDao.selectCommentAvgScore(displayInfoId);
 		return CommentResponse.builder()
@@ -53,5 +51,9 @@ public class CommentServiceImpl implements CommentService {
 		String blindEmail = splicedEmail.substring(0, blindPoint)
 			+ splicedEmail.substring(blindPoint).replaceAll("[a-zA-Z0-9]", "*");
 		return blindEmail;
+	}
+	
+	private String formattingDate(String date) {
+		return date.split(" ")[0].replaceAll("-", ". ") + ". ";
 	}
 }
