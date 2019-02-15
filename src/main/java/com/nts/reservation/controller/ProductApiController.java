@@ -1,5 +1,6 @@
 package com.nts.reservation.controller;
 
+import static com.nts.reservation.property.Const.COMMENT_DEFAULT_PAGING_SIZE;
 import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 import static com.nts.reservation.property.Const.SELECT_ALL;
 import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.FileInfoService;
 import com.nts.reservation.service.ProductService;
 
@@ -31,10 +34,13 @@ import com.nts.reservation.service.ProductService;
 public class ProductApiController {
 	@Autowired
 	private ProductService thumbnailInfoService;
-
 	@Autowired
 	private ProductService productService;
-
+	@Autowired
+	private FileInfoService fileInfoService;
+	@Autowired
+	private CommentService commentDisplayInfoService;
+	
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
@@ -61,9 +67,6 @@ public class ProductApiController {
 		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
 	}
-	
-	@Autowired
-	private FileInfoService fileInfoService;
 
 	/**
 	 * 상품명이랑 타입에 맞는 이미지 가져온다
@@ -77,5 +80,22 @@ public class ProductApiController {
 		@PathVariable(name = "productId", required = true) int productId,
 		@PathVariable(name = "type", required = true) String type) {
 		return fileInfoService.getProductFileNameByProductIdAndType(productId, type);
+	}
+
+	/**
+	 * productId에 해당하는 리뷰를 페이징해서 가져온다
+	 * @param productId 조회할 상품 id
+	 * @param start 페이징 시작 인덱스
+	 * @param limit 페이징 사이즈
+	 * @return 코멘트 리스트
+	 */
+	@GetMapping("/{productId}/comment")
+	@ResponseStatus(HttpStatus.OK)
+	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(
+		@PathVariable(name = "productId", required = true) long productId,
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
+		List<CommentDisplayInfo> commentDisplayInfos = commentDisplayInfoService.getCommentsByProductIdWithPaging(productId, start, limit);
+		return commentDisplayInfos;
 	}
 }
