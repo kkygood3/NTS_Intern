@@ -84,10 +84,33 @@ var reservationPage = {
         var agreementTextUis = document.querySelectorAll(".agreement:not(.all)");
         var self = this;
         agreementTextUis.forEach(function(textUi) {
-            self.objs.agreementTextUiList.push(new AgreementTextUi(textUi));
+
+            self.initAgreementTextUi(textUi);
         });
     },
 
+    initAgreementTextUi: function(textUi) {
+        
+        this.objs.agreementTextUiList.push(textUi);
+        var self = this;
+        
+        textUi.addEventListener("click", function(event) {
+            self.onClickAgreementOpenBtn(event.target, textUi);
+        })
+    },
+
+    onClickAgreementOpenBtn: function(target, textUi) {
+        if(textUi.classList.contains("open")) {
+            return;
+        }
+        
+        var classList = target.classList;
+        if(classList.contains("btn_agreement") || classList.contains("fn")
+         || classList.contains("btn_text")) {
+            textUi.classList.add("open");
+        }
+        
+    },
     initObserverPattern: function() {
 
         var self = this;
@@ -428,32 +451,6 @@ var InputCheckboxUi = (function() {
     };
 
     return InputCheckboxUi;
-})();
-
-/**
- * @constructor
- */
-var AgreementTextUi = (function() {
-
-    /**
-     * @param {Element} agreementTextContainer
-     */
-    function AgreementTextUi(agreementTextContainer) {
-
-        this.container = agreementTextContainer;
-
-        var self = this;
-        this.container.querySelector(".btn_agreement").addEventListener("click", function(event) {
-            self.onClickOpenBtn();
-        });
-    }
-
-    AgreementTextUi.prototype.onClickOpenBtn = function() {
-
-        this.container.classList.add("open");
-    };
-
-    return AgreementTextUi;
 })();
 
 /**
