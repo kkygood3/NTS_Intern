@@ -84,8 +84,17 @@
 
 
 	<script type="text/template" id="template-promotion-image">
-		<li class="item" style="width: 414px; height: 209px;">
-			<img style="width: 414px; height: 209px;" data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
+		<li onclick="goDetailPage({productId}, {displayInfoId})" class="item" style="width: 414px; height: 209px;">
+			<img style="width: 414px; height: 209px;" class="img_thumb" data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
+			<span class="img_bg"></span>
+			<div class="visual_txt">
+				<div class="visual_txt_inn">
+					<h2 class="visual_txt_tit"></h2>
+					<p class="visual_txt_dsc" style="padding-top: 170px; font-size: 15px">
+						<span>장소 : {placeStreet}</span>
+					</p>
+				</div>
+			</div>
 		</li>
 	</script>
 

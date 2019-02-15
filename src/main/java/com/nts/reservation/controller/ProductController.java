@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.dto.response.DetailResponseDto;
+import com.nts.reservation.dto.response.ReserveResponseDto;
 import com.nts.reservation.service.ProductService;
 
 /**
+ * 프로덕트 관련 페이지 컨트롤러
  * @author jinwoo.bae
- *
  */
 
 @Controller
@@ -28,6 +29,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	/**
+	 * detail 페이지 
+	 */
 	@GetMapping("/{productId}/detail")
 	public String getDetailPage(@PathVariable int productId,
 		@RequestParam int displayInfoId,
@@ -35,7 +39,20 @@ public class ProductController {
 		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, commentLimit);
 		model.addAttribute("displayInfo", detailResponse.getDisplayInfo());
 		model.addAttribute("commentResponse", detailResponse.getCommentResponse());
-
 		return "detail";
+	}
+
+	/**
+	 * 예약 페이지
+	 */
+	@GetMapping("/{productId}/reserve")
+	public String getReservePage(@PathVariable int productId,
+		@RequestParam int displayInfoId, Model model) {
+		ReserveResponseDto reserveResponse = productService.getReserveResponse(productId, displayInfoId);
+		model.addAttribute("displayInfo", reserveResponse.getDisplayInfo());
+		model.addAttribute("productPrices", reserveResponse.getProductPrices());
+		model.addAttribute("productImageUrl", reserveResponse.getProductImageUrl());
+		model.addAttribute("minPrice", reserveResponse.getMinPrice());
+		return "reserve";
 	}
 }

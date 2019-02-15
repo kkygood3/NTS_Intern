@@ -10,6 +10,7 @@ package com.nts.reservation.dto;
  */
 public class DisplayInfoDto {
 	int id;
+	String openingHours; // 공연시간
 	String productDescription; // 상품 설명
 	String productContent; // 상품 내용
 	String placeName; // 전시장
@@ -24,6 +25,14 @@ public class DisplayInfoDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getOpeningHours() {
+		return openingHours;
+	}
+
+	public void setOpeningHours(String openingHours) {
+		this.openingHours = openingHours;
 	}
 
 	public String getProductDescription() {

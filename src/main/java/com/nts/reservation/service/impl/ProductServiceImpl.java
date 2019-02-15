@@ -16,14 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dao.DisplayInfoDao;
 import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.dao.ProductImageDao;
 import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductImageResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
+import com.nts.reservation.dto.response.ReserveResponseDto;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -35,6 +38,8 @@ import com.nts.reservation.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDao productDao;
+	@Autowired
+	private ProductImageDao productImageDao;
 	@Autowired
 	private DisplayInfoDao displayInfoDao;
 	@Autowired
@@ -64,11 +69,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductImageResponseDto getProductImageResponse(int productId, int limit) {
-		int count = productDao.selectProductImageCount(productId);
+		int count = productImageDao.selectProductImageCount(productId);
 		if (count == 0) {
 			return new ProductImageResponseDto(Collections.<ProductImageDto>emptyList(), count, "");
 		}
-		List<ProductImageDto> productImages = productDao.selectProductImages(productId, limit);
+		List<ProductImageDto> productImages = productImageDao.selectProductImages(productId, limit);
 		String productDescription = productDao.selectProduct(productId).getProductDescription();
 		return new ProductImageResponseDto(productImages, count, productDescription);
 	}
@@ -89,6 +94,14 @@ public class ProductServiceImpl implements ProductService {
 		List<CommentDto> comments = commentDao.selectComments(productId, start, limit);
 		double averageScore = commentDao.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
+	}
+
+	@Override
+	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId) {
+		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
+		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
+		String productImageUrl = productImageDao.selectProductImagesByType(productId, "ma", 1).get(0).getSaveFileName();
+		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
 
 }

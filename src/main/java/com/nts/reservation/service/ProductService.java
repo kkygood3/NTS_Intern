@@ -8,6 +8,7 @@ import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductImageResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
+import com.nts.reservation.dto.response.ReserveResponseDto;
 
 /**
  * 상품에 대한 서비스 인터페이스
@@ -21,4 +22,6 @@ public interface ProductService {
 	DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit);
 
 	CommentResponseDto getCommentResponse(int productId, int start, int limit);
+
+	ReserveResponseDto getReserveResponse(int productId, int displayInfoId);
 }

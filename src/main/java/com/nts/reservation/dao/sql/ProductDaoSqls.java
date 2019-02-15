@@ -68,33 +68,6 @@ public class ProductDaoSqls {
 		+ "WHERE "
 		+ "    p.id = di.product_id"
 		+ "        AND p.category_id = :categoryId";
-	public static final String SELECT_PRODUCT_IMAGES = ""
-		+ "SELECT "
-		+ "    pi.product_id AS productId, "
-		+ "    pi.id AS productImageId, "
-		+ "    pi.type AS type, "
-		+ "    fi.id AS fileInfoId, "
-		+ "    fi.file_name AS fileName, "
-		+ "    fi.save_file_name AS saveFileName, "
-		+ "    fi.content_type AS contentType, "
-		+ "    fi.delete_flag AS deleteFlag, "
-		+ "    fi.create_date AS createDate, "
-		+ "    fi.modify_date AS modifyDate "
-		+ "FROM "
-		+ "    product_image pi, "
-		+ "    file_info fi "
-		+ "WHERE "
-		+ "    pi.file_id = fi.id AND pi.type != 'th' "
-		+ "        AND pi.product_id = :productId "
-		+ "ORDER BY pi.id "
-		+ "LIMIT :limit";
-	public static final String SELECT_PRODUCT_IMAGE_COUNT = ""
-		+ "SELECT "
-		+ "    COUNT(id) "
-		+ "FROM "
-		+ "    product_image "
-		+ "WHERE "
-		+ "    product_id = :productId AND type != 'th'";
 	public static final String SELECT_PRODUCT = ""
 		+ "SELECT "
 		+ "    id AS productId, "
@@ -104,4 +77,13 @@ public class ProductDaoSqls {
 		+ "    product "
 		+ "WHERE "
 		+ "    id = :productId ";
+	public static final String SELECT_PRODUCT_PRICES = ""
+		+ "SELECT "
+		+ "    id, price_type_name, price, discount_rate "
+		+ "FROM "
+		+ "    product_price "
+		+ "WHERE "
+		+ "    product_id = :productId "
+		+ "ORDER BY id ";
+
 }

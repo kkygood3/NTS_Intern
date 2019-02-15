@@ -9,8 +9,7 @@ package com.nts.reservation.dto;
  * @author jinwoo.bae
  */
 public class ProductPriceDto {
-	int productPriceId;
-	int productId;
+	int id;
 	/**
 	 * 가격 타입명 변수
 	 * 성인(A), 청소년(Y), 유아(B), 셋트(S), 장애인(D), 지역주민(C), 어얼리버드(E) 
@@ -19,23 +18,13 @@ public class ProductPriceDto {
 	String priceTypeName;
 	int price; // 상품 가격
 	double discountRate; // 할인율
-	String createDate;
-	String modifyDate;
 
-	public int getProductPriceId() {
-		return productPriceId;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductPriceId(int productPriceId) {
-		this.productPriceId = productPriceId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getPriceTypeName() {
@@ -60,22 +49,6 @@ public class ProductPriceDto {
 
 	public void setDiscountRate(double discountRate) {
 		this.discountRate = discountRate;
-	}
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
 	}
 
 }

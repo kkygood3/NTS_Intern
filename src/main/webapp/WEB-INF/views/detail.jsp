@@ -126,7 +126,7 @@
 				</div>
 				<!-- [D] 예매하기 버튼 영역  -->
 				<div class="section_btn">
-					<button type="button" class="bk_btn">
+					<button type="button" class="bk_btn" onclick="detail.goReservePage()">
 						<i class="fn fn-nbooking-calender2"></i> <span>예매하기</span>
 					</button>
 				</div>
@@ -448,6 +448,9 @@
 			},
 			goCommentPage : function() {
 				location.href="comment?displayInfoId=" + displayInfoId;
+			},
+			goReservePage : function() {
+				location.href="reserve?displayInfoId=" + displayInfoId;
 			}
 		}
 

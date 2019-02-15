@@ -34,8 +34,9 @@ public class PromotionApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getPromotions(
-		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit) {
-		List<PromotionDto> promotions = promotionService.getPromotions(limit);
+		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit,
+		@RequestParam(required = false, defaultValue = THUMBNAIL) String type) {
+		List<PromotionDto> promotions = promotionService.getPromotions(limit, type);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("promotions", promotions);
