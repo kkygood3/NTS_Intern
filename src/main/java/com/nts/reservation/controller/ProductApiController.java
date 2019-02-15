@@ -62,7 +62,6 @@ public class ProductApiController {
 		return map;
 	}
 	
-
 	@Autowired
 	private FileInfoService fileInfoService;
 

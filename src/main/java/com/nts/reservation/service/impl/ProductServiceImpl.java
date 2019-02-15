@@ -31,7 +31,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 	}
 
-
 	@Override
 	@Transactional
 	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit) {
