@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ProductDto;
-import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
 
 /**
@@ -68,25 +67,6 @@ public class ProductDao extends BasicDao<ProductDto> {
 	}
 
 	/**
-	 * 해당 상품 id의 이미지들을 가져옵니다.
-	 */
-	public List<ProductImageDto> selectProductImages(int productId, int limit) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("productId", productId);
-		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES, params,
-			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
-	}
-
-	/**
-	 * 프로덕트 ID에 해당하는 이미지 개수를 count
-	 */
-	public int selectProductImageCount(int productId) {
-		return jdbcTemplate.queryForObject(SELECT_PRODUCT_IMAGE_COUNT, Collections.singletonMap("productId", productId),
-			Integer.class);
-	}
-
-	/**
 	 * 프로덕트 ID에 해당하는 프로덕트를 select
 	 */
 	public ProductDto selectProduct(int productId) {
@@ -100,18 +80,6 @@ public class ProductDao extends BasicDao<ProductDto> {
 	public List<ProductPriceDto> selectProductPrices(int productId) {
 		return jdbcTemplate.query(SELECT_PRODUCT_PRICES, Collections.singletonMap("productId", productId),
 			BeanPropertyRowMapper.newInstance(ProductPriceDto.class));
-	}
-
-	/**
-	 * id, type에 해당하는 이미지들을 가져옵니다.
-	 */
-	public List<ProductImageDto> selectProductImagesByType(int productId, String type, int limit) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("productId", productId);
-		params.put("type", type);
-		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_TYPE, params,
-			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
 	}
 
 }
