@@ -27,7 +27,7 @@ import com.nts.reservation.service.ProductThumbnailService;
  */
 @RestController
 @RequestMapping(path = "/thumbnail_info")
-public class ThumbnailInfoApiController {
+public class ProductApiController {
 	@Autowired
 	private ProductThumbnailService thumbnailInfoService;
 
