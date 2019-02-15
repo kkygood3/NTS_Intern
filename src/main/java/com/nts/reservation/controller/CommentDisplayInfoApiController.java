@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
-import com.nts.reservation.service.CommentDisplayInfoService;
+import com.nts.reservation.service.CommentService;
 
 /**
  * 코멘트관련 API 클래스
@@ -26,7 +26,7 @@ import com.nts.reservation.service.CommentDisplayInfoService;
 @RequestMapping("/product/{productId}/comment")
 public class CommentDisplayInfoApiController {
 	@Autowired
-	private CommentDisplayInfoService commentDisplayInfoService;
+	private CommentService commentDisplayInfoService;
 
 	/**
 	 * productId에 해당하는 리뷰를 페이징해서 가져온다
