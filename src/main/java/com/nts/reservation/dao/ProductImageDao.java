@@ -6,7 +6,6 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sql.ProductImageDaoSqls.*;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,25 +29,17 @@ public class ProductImageDao extends BasicDao<ProductImageDto> {
 	}
 
 	/**
-	 * 프로덕트 ID에 해당하는 이미지 개수를 count
+	 * 프로덕트 id, type에 해당하는 이미지 개수를 반환
 	 */
-	public int selectProductImageCount(int productId) {
-		return jdbcTemplate.queryForObject(SELECT_PRODUCT_IMAGE_COUNT, Collections.singletonMap("productId", productId),
-			Integer.class);
-	}
-
-	/**
-	 * 해당 상품 id의 이미지들을 가져옵니다.
-	 */
-	public List<ProductImageDto> selectProductImages(int productId, int limit) {
-		Map<String, Integer> params = new HashMap<>();
+	public int selectProductImageCount(int productId, ImageType type) {
+		Map<String, Object> params = new HashMap<>();
 		params.put("productId", productId);
-		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES, params, rowMapper);
+		params.put("type", type.getName());
+		return jdbcTemplate.queryForObject(SELECT_PRODUCT_IMAGE_COUNT_BY_PRODUCT_ID_AND_TYPE, params, Integer.class);
 	}
 
 	/**
-	 * id, type에 해당하는 이미지들을 가져옵니다.
+	 * 프로덕트 id, type에 해당하는 이미지들을 반환
 	 */
 	public List<ProductImageDto> selectProductImagesByType(int productId, ImageType type, int limit) {
 		Map<String, Object> params = new HashMap<>();

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.ProductImageResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
@@ -44,8 +45,9 @@ public class ProductApiController {
 	 */
 	@GetMapping("/{productId}/images")
 	public ProductImageResponseDto getProductImagesAndProductDescription(@PathVariable int productId,
+		@RequestParam(required = false, defaultValue = IMAGE_TYPE_ETC) String type,
 		@RequestParam(required = false, defaultValue = PRODUCT_IMAGE_LIMIT) int limit) {
-		return productService.getProductImageResponse(productId, limit);
+		return productService.getProductImageResponse(productId, ImageType.valueOf(type), limit);
 	}
 
 	/**

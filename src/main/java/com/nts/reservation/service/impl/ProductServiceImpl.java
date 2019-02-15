@@ -69,12 +69,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductImageResponseDto getProductImageResponse(int productId, int limit) {
-		int count = productImageDao.selectProductImageCount(productId);
+	public ProductImageResponseDto getProductImageResponse(int productId, ImageType type, int limit) {
+		int count = productImageDao.selectProductImageCount(productId, type);
 		if (count == 0) {
 			return new ProductImageResponseDto(Collections.<ProductImageDto>emptyList(), count, "");
 		}
-		List<ProductImageDto> productImages = productImageDao.selectProductImages(productId, limit);
+		List<ProductImageDto> productImages = productImageDao.selectProductImagesByType(productId, type, limit);
 		String productDescription = productDao.selectProduct(productId).getProductDescription();
 		return new ProductImageResponseDto(productImages, count, productDescription);
 	}

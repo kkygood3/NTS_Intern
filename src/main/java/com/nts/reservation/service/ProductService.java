@@ -18,7 +18,7 @@ import com.nts.reservation.dto.response.ReserveResponseDto;
 public interface ProductService {
 	ProductResponseDto getProductResponse(int categoryId, int start, int limit);
 
-	ProductImageResponseDto getProductImageResponse(int productId, int limit);
+	ProductImageResponseDto getProductImageResponse(int productId, ImageType type, int limit);
 
 	DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit);
 
