@@ -18,16 +18,7 @@ import com.nts.reservation.service.ReservationService;
 @Controller
 @RequestMapping(path="reservation")
 public class ReservationController {
-	@Autowired
-	private ReservationService reservationService;
-	
-	@GetMapping(path = "/{displayInfoId}")
-	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
-		ModelMap model) {
-		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
-		model.addAttribute("reservationPageInfo", reservationPageInfo);
-		return "reservation";
-	}
+
 	
 	@GetMapping
 	public String myReservation() {

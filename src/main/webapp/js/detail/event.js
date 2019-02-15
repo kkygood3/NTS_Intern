@@ -118,6 +118,6 @@ function setStoreDetails(storeDetails, target) {
 function addBkButtonClickEvent() {
 	var bkButton = document.getElementsByClassName("bk_btn")[0]
 	bkButton.addEventListener("click", function(event){
-		location.href="/reservation/" + displayInfo().displayInfoId;
+		location.href="./" + displayInfo().displayInfoId + "/reservation";
 	});
 }

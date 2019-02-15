@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nts.reservation.dto.DatailPageInfo;
+import com.nts.reservation.dto.ReservationPageInfo;
 import com.nts.reservation.dto.ReviewPageInfo;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailPageInfoService;
+import com.nts.reservation.service.ReservationService;
 
 /**
  * 디테일 페이지 url 맵핑
@@ -55,5 +57,16 @@ public class ProductController {
 		model.addAttribute("displayInfoId", displayInfoId);
 
 		return "review";
+	}
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+	@GetMapping(path = "/{displayInfoId}/reservation")
+	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
+		ModelMap model) {
+		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
+		model.addAttribute("reservationPageInfo", reservationPageInfo);
+		return "reservation";
 	}
 }
