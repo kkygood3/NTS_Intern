@@ -15,7 +15,7 @@ import com.nts.reservation.service.DetailPageInfoService;
 import com.nts.reservation.service.ReservationService;
 
 /**
- * 디테일 페이지 url 맵핑
+ * 상품관련 페이지 url 맵핑
  * @author si yoon
  *
  */
