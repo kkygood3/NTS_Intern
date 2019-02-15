@@ -1,12 +1,17 @@
-var currentCount = 0;
+// 다음번 가져올 comment 시작점. 페이징 처리에 사용.
+var commentStart = 0;
 
-function loadDisplayInfoCallback(responseData) {
+/**
+ * /api/products 응답 결과로 home 페이지 하단에 product item 출력.
+ * @param ajax JSON response
+ */
+function loadDisplayInfoCallback(response) {
 	var PAGING_LIMIT = 10;
 	
 	//매 요청시 start부터 10개 요청
 	//전체 개수가 count보다 적으면 버튼을 숨긴다. 
 	
-	var reviewResponse = responseData.comments;
+	var reviewResponse = response.comments;
 	var displayInfomation = reviewResponse[0];
 	var commentCount = displayInfomation.commentCount;
 
@@ -17,12 +22,12 @@ function loadDisplayInfoCallback(responseData) {
 	var bindCommentTemplate = Handlebars.compile(commentTemplate);
 
 	var commentContainer = document.querySelector('ul.list_short_review');
-	for (var i = 0; i < commentCount - currentCount && i < PAGING_LIMIT; i++) {
+	for (var i = 0; i < commentCount - commentStart && i < PAGING_LIMIT; i++) {
 		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);
 	}
 	
 	//맨 첫 요청시에만 초기화
-	if(currentCount == 0){
+	if(commentStart == 0){
 		// 맨 위 화면의 title
 		document.querySelector('a.title').innerText = displayInfomation.productDescription;
 		
@@ -37,16 +42,16 @@ function loadDisplayInfoCallback(responseData) {
 		document.querySelector('.btn_back').setAttribute('href','detail?id='+displayInfomation.displayInfoId);
 	}
 	
-	currentCount += PAGING_LIMIT;
+	commentStart += PAGING_LIMIT;
 	
-	if(commentCount <= currentCount){
+	if(commentCount <= commentStart){
 		document.querySelector('div.more').style.display = 'none';
 	}
 }
 
 function initMoreCommentBtn(){
 	document.querySelector('div.more').addEventListener('click',function(){
-		requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('id') + '/review?start='+currentCount);
+		requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('id') + '/review?start='+commentStart);
 	});
 }
 
