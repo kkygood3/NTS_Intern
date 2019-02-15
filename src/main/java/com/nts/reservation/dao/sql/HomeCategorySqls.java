@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao.sql;
 
-public class MainCategorySqls {
+public class HomeCategorySqls {
 	public static final String SELECT_CATEGORIES = 
 			"SELECT category.id, category.name, COUNT(display_info.id) AS count" + 
 			"  FROM category" + 

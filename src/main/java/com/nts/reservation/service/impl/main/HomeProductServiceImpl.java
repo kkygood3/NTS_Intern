@@ -9,42 +9,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.dao.main.MainProductDao;
-import com.nts.reservation.dto.main.MainProduct;
-import com.nts.reservation.service.main.MainProductService;
+import com.nts.reservation.dao.main.HomeProductDao;
+import com.nts.reservation.dto.main.HomeProduct;
+import com.nts.reservation.service.main.HomeProductService;
 
 @Service
-public class MainProductServiceImpl implements MainProductService {
+public class HomeProductServiceImpl implements HomeProductService {
 
 	@Autowired
-	private MainProductDao mainProductDao;
+	private HomeProductDao homeProductDao;
 
 	@Override
-	public List<MainProduct> getProducts(int categoryId, int start, int pagingLimit) {
+	public List<HomeProduct> getProducts(int categoryId, int start, int pagingLimit) {
 		if (start < 0) {
 			start = 0;
 		}
 
 		if (categoryId > 0) {
-			return mainProductDao.selectPagingProductsByCategory(categoryId, start, pagingLimit);
+			return homeProductDao.selectPagingProductsByCategory(categoryId, start, pagingLimit);
 		} else {
 			return getProducts(start, pagingLimit);
 		}
 	}
 
 	@Override
-	public List<MainProduct> getProducts(int start, int pagingLimit) {
+	public List<HomeProduct> getProducts(int start, int pagingLimit) {
 		if (start < 0) {
 			start = 0;
 		}
 
-		return mainProductDao.selectPagingProducts(start, pagingLimit);
+		return homeProductDao.selectPagingProducts(start, pagingLimit);
 	}
 
 	@Override
 	public int getCount(int categoryId) {
 		if (categoryId > 0) {
-			return mainProductDao.selectCountByCategory(categoryId);
+			return homeProductDao.selectCountByCategory(categoryId);
 		} else {
 			return getCount();
 		}
@@ -52,6 +52,6 @@ public class MainProductServiceImpl implements MainProductService {
 
 	@Override
 	public int getCount() {
-		return mainProductDao.selectCount();
+		return homeProductDao.selectCount();
 	}
 }

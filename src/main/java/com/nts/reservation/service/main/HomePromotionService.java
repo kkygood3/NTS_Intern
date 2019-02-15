@@ -6,15 +6,15 @@ package com.nts.reservation.service.main;
 
 import java.util.List;
 
-import com.nts.reservation.dto.main.MainPromotion;
+import com.nts.reservation.dto.main.HomePromotion;
 
-public interface MainPromotionService {
+public interface HomePromotionService {
 	/**
 	 * api/promotions response에 사용
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 * @return default LIMIT만큼 조회하여 반환
 	 */
-	List<MainPromotion> getPromotions(int pagingLimit);
+	List<HomePromotion> getPromotions(int pagingLimit);
 
 	/**
 	 * api/promotions response에 사용

@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao.sql;
 
-public class MainPromotionSqls {
+public class HomePromotionSqls {
 	public static final String SELECT_PROMOTION_COUNT = 
 			"SELECT COUNT(display_info.id)" + 
 			" FROM promotion" + 

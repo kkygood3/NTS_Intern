@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao.sql;
 
-public class MainProductSqls {
+public class HomeProductSqls {
 	public static final String SELECT_PRODUCT_COUNT_BY_CATEGORY = 
 			"SELECT COUNT(display_info.id) FROM product" + 
 			" INNER JOIN display_info ON product.id = display_info.product_id" + 

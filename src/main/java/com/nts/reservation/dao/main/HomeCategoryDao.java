@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.dao.main;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,35 +15,28 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.MainPromotionSqls;
-import com.nts.reservation.dto.main.MainPromotion;
+import com.nts.reservation.dao.sql.HomeCategorySqls;
+import com.nts.reservation.dto.main.HomeCategory;
 
 /**
- * /api/promotions 요청에 대응
+ * /api/categories 요청에 대응
  */
 @Repository
-public class MainPromotionDao {
+public class HomeCategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainPromotion> rowMapper = BeanPropertyRowMapper.newInstance(MainPromotion.class);
+	private RowMapper<HomeCategory> rowMapper = BeanPropertyRowMapper.newInstance(HomeCategory.class);
 
-	public MainPromotionDao(DataSource dataSource) {
+	public HomeCategoryDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	/**
-	 * main 페이지를 로드할 때 필요한 promotion정보 조회
+	 * main 페이지를 로드할 때 필요한 category정보 조회
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<MainPromotion> selectPromotions(int pagingLimit) {
+	public List<HomeCategory> selectCategories(int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(MainPromotionSqls.SELECT_PROMOTION, params, rowMapper);
-	}
-
-	/**
-	 * main 페이지를 로드할 때 필요한 promotion 갯수 조회
-	 */
-	public int selectCount() {
-		return jdbc.queryForObject(MainPromotionSqls.SELECT_PROMOTION_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.query(HomeCategorySqls.SELECT_CATEGORIES, params, rowMapper);
 	}
 }
