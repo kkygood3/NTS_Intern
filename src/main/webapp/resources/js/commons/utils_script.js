@@ -260,8 +260,6 @@ function xhrGetRequest(url, callback) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
-			} else {
-				alert("Error getting");
 			}
 		}
 	};
@@ -279,8 +277,6 @@ function xhrPostMultipartRequest(url, data, callback, isAsync) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
-			} else {
-				alert("Error posting");
 			}
 		}
 	};
@@ -299,8 +295,6 @@ function xhrPostRequest(url, data, callback, isAsync) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
-			} else {
-				alert("Error posting");
 			}
 		}
 	};
