@@ -21,19 +21,23 @@ public class HomeProductServiceImpl implements HomeProductService {
 
 	@Override
 	public List<HomeProduct> getProducts(int categoryId, int start, int pagingLimit) {
+		//조회 시작점이 음수일때 맨 처음부터 조회
 		if (start < 0) {
 			start = 0;
 		}
 
+		//categoryId는 1부터 시작
 		if (categoryId > 0) {
 			return homeProductDao.selectPagingProductsByCategory(categoryId, start, pagingLimit);
 		} else {
+			//1보다 작은 값일때 카테고리 구분 없이 조회
 			return getProducts(start, pagingLimit);
 		}
 	}
 
 	@Override
 	public List<HomeProduct> getProducts(int start, int pagingLimit) {
+		//조회 시작점이 음수일때 맨 처음부터 조회
 		if (start < 0) {
 			start = 0;
 		}
@@ -43,9 +47,11 @@ public class HomeProductServiceImpl implements HomeProductService {
 
 	@Override
 	public int getCount(int categoryId) {
+		//categoryId는 1부터 시작
 		if (categoryId > 0) {
 			return homeProductDao.selectCountByCategory(categoryId);
 		} else {
+			//1보다 작은 값일때 카테고리 구분 없이 조회
 			return getCount();
 		}
 	}
