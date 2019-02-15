@@ -15,31 +15,32 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.DetailResponseSqls;
+import com.nts.reservation.dao.sql.DetailCommentSqls;
+import com.nts.reservation.dto.detail.DetailComment;
 import com.nts.reservation.dto.detail.DetailResponse;
 
 /**
  * /api/products/{displayInfoId} 요청에 대응
  */
 @Repository
-public class DetailResponseDao {
+public class DetailCommentDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<DetailResponse> rowMapper = BeanPropertyRowMapper.newInstance(DetailResponse.class);
+	private RowMapper<DetailComment> rowMapper = BeanPropertyRowMapper.newInstance(DetailComment.class);
 
-	public DetailResponseDao(DataSource dataSource) {
+	public DetailCommentDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
 	/**
-	 * detail 페이지를 로드할 때 필요한 정보를 조회
+	 * detail 페이지를 로드할 때 Comment 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<DetailResponse> selectDetailResponsePageByDisplayInfoId(int displayInfoId, int pagingLimit) {
+	public List<DetailComment> selectCommentPageByDisplayInfoId(int displayInfoId, int pagingLimit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("pagingLimit", pagingLimit);
-		List<DetailResponse> detailList = jdbc.query(DetailResponseSqls.SELECT_DETAIL, params, rowMapper);
+		List<DetailComment> detailList = jdbc.query(DetailCommentSqls.SELECT_DETAIL_COMMENT, params, rowMapper);
 
 		return detailList;
 	}

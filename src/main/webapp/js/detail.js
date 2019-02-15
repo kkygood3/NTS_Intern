@@ -34,7 +34,7 @@ function initDetailBtn(){
 	}
 }
 
-function initSwipeImage(displayInfomation){
+function initSwipeImage(displayInfo){
 	
 	// 상단 Swipe Image 배너 Template
 	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
@@ -42,16 +42,14 @@ function initSwipeImage(displayInfomation){
 	var swipeContainer = document.querySelector('ul.detail_swipe');
 	
 	// 이미지가 1개인 경우
-	swipeContainer.innerHTML += bindSwipeTemplate(displayInfomation);
+	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
 	
-	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfomation.productContent;
+	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
 }
 
-function initComment(displayInfoResponse){	
-	var displayInfomation = displayInfoResponse[0];
-	var commentCount = displayInfomation.commentCount;
-	
-	var averageScore = displayInfomation.averageScore;
+function initComment(displayInfo, displayComment){	
+	var commentCount = displayInfo.commentCount;
+	var averageScore = displayInfo.averageScore;
 	
 	// Comment Template
 	var commentTemplate = document.querySelector('#commentItemTemplate').innerText;
@@ -60,7 +58,7 @@ function initComment(displayInfoResponse){
 	var commentContainer = document.querySelector('ul.list_short_review');
 	
 	for(var i = 0 ; i < 3 && i < commentCount; i++){
-		commentContainer.innerHTML += bindCommentTemplate(displayInfoResponse[i]);	
+		commentContainer.innerHTML += bindCommentTemplate(displayComment[i]);	
 	}
 	
 	// 별점 그래프, 숫자 조정
@@ -74,33 +72,33 @@ function initComment(displayInfoResponse){
 	// Comment 더보기 버튼
 	var reviewMoreBtn = document.querySelector('a.btn_review_more');
 	if(commentCount > 3){
-		reviewMoreBtn.setAttribute('href','review?id='+displayInfomation.displayInfoId);
+		reviewMoreBtn.setAttribute('href','review?id='+displayInfo.displayInfoId);
 	} else{
 		reviewMoreBtn.style.display = 'none';
 	}
 }
 
-function initInfoTab(displayInfomation){
+function initInfoTab(displayInfo){
 	
 	// [소개]란의 글
-	document.querySelector('p.in_dsc').innerText = displayInfomation.productContent;
+	document.querySelector('p.in_dsc').innerText = displayInfo.productContent;
 	
 	// [오시는 길] - 이미지
-	document.querySelector('.store_map').setAttribute('src',displayInfomation.displayInfoImage);
+	document.querySelector('.store_map').setAttribute('src',displayInfo.displayInfoImage);
 	
 	// [오시는 길] - 장소 명
-	document.querySelector('.store_name').innerText = displayInfomation.placeName;
+	document.querySelector('.store_name').innerText = displayInfo.placeName;
 	
 	// [오시는 길] - 주소
 	var addressWrap = document.querySelector('.store_addr_wrap').querySelectorAll('p');
-	addressWrap[0].innerText = displayInfomation.placeStreet;
-	addressWrap[1].querySelectorAll('span')[1].innerText = displayInfomation.placeLot;
-	addressWrap[2].innerText = displayInfomation.placeName;
+	addressWrap[0].innerText = displayInfo.placeStreet;
+	addressWrap[1].querySelectorAll('span')[1].innerText = displayInfo.placeLot;
+	addressWrap[2].innerText = displayInfo.placeName;
 	
 	// [오시는 길] - 전화번호
 	var telephoneArea = document.querySelector('.store_tel');
-	telephoneArea.setAttribute('href',displayInfomation.telephone);
-	telephoneArea.innerText = displayInfomation.telephone;
+	telephoneArea.setAttribute('href',displayInfo.telephone);
+	telephoneArea.innerText = displayInfo.telephone;
 	
 	// 상세 정보, 오시는 길 전환 탭
 	var detailTab = document.querySelector('ul.info_tab_lst>._detail');
@@ -259,23 +257,28 @@ function loadExtraImageCallback(responseData){
 	}
 }
 
+function setCommonInfo(displayComment,displayInfo){
+	displayComment[0].commentCount = displayInfo.commentCount;
+	displayComment[0].averageScore = displayInfo.averageScore;
+}
+
 function loadDisplayInfoCallback(responseData) {
-	var displayInfoResponse = responseData.detailDisplay;
-	var displayInfomation = displayInfoResponse[0];
-	
+	var displayComment = responseData.detailDisplay.detailComment;
+	var displayInfo = responseData.detailDisplay.detailDisplayInfo;
+
 	// SwipeImage 설정
-	initSwipeImage(displayInfomation);
+	initSwipeImage(displayInfo);
 	
 	// 맨 아래의 상세정보, 오시는길 탭 설정
-	initInfoTab(displayInfomation);
+	initInfoTab(displayInfo);
 	
 	// Comment 설정
-	initComment(displayInfoResponse);
+	initComment(displayInfo, displayComment);
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn();
 	
-	requestAjax(loadExtraImageCallback,'api/products/'+displayInfomation.displayInfoId+'/extra');
+	requestAjax(loadExtraImageCallback,'api/products/'+displayInfo.displayInfoId+'/extra');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
