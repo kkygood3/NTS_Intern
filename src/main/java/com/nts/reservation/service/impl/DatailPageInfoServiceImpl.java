@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DatailPageInfoDao;
-import com.nts.reservation.dto.DatailPageInfo;
+import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.service.DetailPageInfoService;
 
 @Service
@@ -15,7 +15,7 @@ public class DatailPageInfoServiceImpl implements DetailPageInfoService {
 
 	@Override
 	@Transactional
-	public DatailPageInfo getDetailPageInfo(long displayInfoId) {
+	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId) {
 		return datailPageInfoDao.selectDetailPageInfo(displayInfoId);
 	}
 }

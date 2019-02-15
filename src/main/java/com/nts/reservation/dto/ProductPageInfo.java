@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class DatailPageInfo {
+public class ProductPageInfo {
 	private long productId;
 	private String description;
 	private String content;

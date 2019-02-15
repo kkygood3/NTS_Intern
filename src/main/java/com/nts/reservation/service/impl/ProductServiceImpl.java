@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public int getCount(int categoryId) {
+	public int getProductCountByCategoryId(int categoryId) {
 		if (categoryId == 0) {
 			return productDao.selectCount();
 		} else {

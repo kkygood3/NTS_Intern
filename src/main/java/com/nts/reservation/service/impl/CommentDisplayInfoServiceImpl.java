@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nts.reservation.dao.CommentDisplayInfoDao;
 import com.nts.reservation.dao.ReviewPageInfoDao;
 import com.nts.reservation.dto.CommentDisplayInfo;
-import com.nts.reservation.dto.ReviewPageInfo;
+import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
 
 @Service
@@ -21,14 +21,14 @@ public class CommentDisplayInfoServiceImpl implements CommentService {
 
 	@Override
 	@Transactional
-	public List<CommentDisplayInfo> getCommentDisplayInfos(long productId, int start, int limit) {
+	public List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
 		List<CommentDisplayInfo> commentDisplayInfoList = commentDisplayInfoDao.selectFromTheProductWithPageing(productId, start, limit);
 		return commentDisplayInfoList;
 	}
 
 	@Override
 	@Transactional
-	public ReviewPageInfo getReviewPageInfo(long displayInfoId) {
+	public CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId) {
 		return reviewPageInfoDao.selectByDisplayInfoId(displayInfoId);
 	}
 }

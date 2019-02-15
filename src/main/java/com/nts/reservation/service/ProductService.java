@@ -11,5 +11,5 @@ public interface ProductService {
 	 * @param categoryId 조회할 카테고리. 0이면 모든카테고리에서 가져온다.
 	 * @return 상품 갯수
 	 */
-	public int getCount(int categoryId);
+	public int getProductCountByCategoryId(int categoryId);
 }

@@ -20,7 +20,7 @@ public class ProductThumbnailServiceImpl implements ProductThumbnailService {
 
 	@Override
 	@Transactional
-	public List<ProductThumbnail> getThumbnailInfos(int categoryId, int start, int limit) {
+	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit) {
 		List<ProductThumbnail> thumbnailInfoList;
 		if (categoryId == ALL_CATEGORIES) {
 			thumbnailInfoList = thumbnailInfoDao.selectFromAllCategorisWithPaging(start, limit);

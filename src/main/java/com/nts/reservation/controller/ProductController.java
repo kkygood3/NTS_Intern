@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nts.reservation.dto.DatailPageInfo;
+import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.dto.ReviewPageInfo;
+import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailPageInfoService;
 import com.nts.reservation.service.ReservationService;
@@ -38,7 +38,7 @@ public class ProductController {
 	@GetMapping(path = "/{displayInfoId}")
 	public String detail(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
-		DatailPageInfo datailPageInfo = detailPageInfoService.getDetailPageInfo(displayInfoId);
+		ProductPageInfo datailPageInfo = detailPageInfoService.getProductPageInfoByDisplayInfoId(displayInfoId);
 
 		model.addAttribute("displayInfoId", displayInfoId);
 		model.addAttribute("pageInfo", datailPageInfo);
@@ -55,7 +55,7 @@ public class ProductController {
 	@GetMapping(path = "/{displayInfoId}/review")
 	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
-		ReviewPageInfo reviewPageInfo = commentService.getReviewPageInfo(displayInfoId);
+		CommentPageInfo reviewPageInfo = commentService.getCommentPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reviewPageInfo);
 		model.addAttribute("displayInfoId", displayInfoId);
 

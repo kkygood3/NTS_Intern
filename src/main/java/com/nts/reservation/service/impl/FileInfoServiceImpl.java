@@ -16,7 +16,7 @@ public class FileInfoServiceImpl implements FileInfoService {
 
 	@Override
 	@Transactional
-	public List<String> getSaveFileName(long productId, String type) {
+	public List<String> getProductFileNameByProductIdAndType(long productId, String type) {
 		List<String> saveFileNames = fileInfoDao.selectByDisplayInfoIdAndType(productId, type);
 		return saveFileNames;
 	}

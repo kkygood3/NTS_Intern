@@ -50,11 +50,11 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
-		int productCount = productService.getCount(categoryId);
+		int productCount = productService.getProductCountByCategoryId(categoryId);
 		List<ProductThumbnail> thumbnailInfoList = null;
 
 		if (productCount > 0) {
-			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(categoryId, start, limit);
+			thumbnailInfoList = thumbnailInfoService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -78,6 +78,6 @@ public class ProductApiController {
 	public List<String> getProductCountAndThumbnailInfos(
 		@PathVariable(name = "productId", required = true) int productId,
 		@PathVariable(name = "type", required = true) String type) {
-		return fileInfoService.getSaveFileName(productId, type);
+		return fileInfoService.getProductFileNameByProductIdAndType(productId, type);
 	}
 }

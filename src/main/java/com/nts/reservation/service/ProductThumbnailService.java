@@ -17,5 +17,5 @@ public interface ProductThumbnailService {
 	 * @param limit 페이징 사이즈
 	 * @return 썸네일정보 리스트
 	 */
-	public List<ProductThumbnail> getThumbnailInfos(int categoryId, int start, int limit);
+	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit);
 }

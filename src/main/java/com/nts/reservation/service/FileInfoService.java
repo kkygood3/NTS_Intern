@@ -14,5 +14,5 @@ public interface FileInfoService {
 	 * @param type 조회할 타입 ma(main), et(etc), th(thumbnail)
 	 * @return 해당 파일 이름들
 	 */
-	public List<String> getSaveFileName(long productId, String type);
+	public List<String> getProductFileNameByProductIdAndType(long productId, String type);
 }
