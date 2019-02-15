@@ -1,19 +1,19 @@
 let detailContent = {
-		displayInfoId : document.querySelector('#reservation').dataset.id,
-		productInformation : document.querySelector('#product_information'),
-		infomation : document.querySelector('#information'),
-		content : document.querySelector('#content'),
-		detailContent : document.querySelector('#detail_content'),
-		placeInformation : document.querySelector('#place_information'),
-		score : document.querySelector('#score'),
-		limit : 3
+	displayInfoId : document.querySelector('#reservation').dataset.id,
+	productInformation : document.querySelector('#product_information'),
+	infomation : document.querySelector('#information'),
+	content : document.querySelector('#content'),
+	detailContent : document.querySelector('#detail_content'),
+	placeInformation : document.querySelector('#place_information'),
+	score : document.querySelector('#score'),
+	discount : document.querySelector('#discount'),
+	limit : 3
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
 	basicSettings();
-	addOpenAndCloseEvent();
-	addTabEvent();
-	addSlideEvent();
+	addTabToggleEvent();
+	addTabActiveEvent();
 });
 
 function basicSettings(){
@@ -22,34 +22,22 @@ function basicSettings(){
 	ajax(loadProductEtcImage, 'GET', '/api/products/etc/' + detailContent.displayInfoId);
 }
 
-function loadProductEtcImage(data){
-	if(data == null){
-		return;
-	}
-	let etcImageTemplate = document.querySelector('#etc_image_template');
-	applyTemplate(detailContent.productInformation, etcImageTemplate, data);
-	detailContent.productInformation.innerHTML += detailContent.productInformation.innerHTML;
-}
-
 function loadDisplayData(data){
-	loadProductInformation(data);
-	loadInformation(data);
-	loadContent(data);
-	loadDetailContent(data);
-	loadPlaceInformation(data);
+	templatingProductInformation(data);
+	templatingInformation(data.displayInfo);
+	templatingContent(data.displayInfo);
+	templatingDetailContent(data.displayInfo);
+	templatingPlaceInformation(data);
+	templatingDiscount(data.productPrices);
 }
 
 function loadCommentData(data){
-	loadComments(data);
-	loadScore(data);
+	templatingComments(data.comments);
+	templatingScore(data);
 }
 
 
-function applyTemplate(parent, template, data){
-	if(data == null) {
-		return;
-	}
-	
+function templatingHandlebar(parent, template, data){
 	let templateText = template.innerText;
 	let bindTemplate = Handlebars.compile(templateText);
 	let resultHtml = bindTemplate(data);
@@ -57,40 +45,41 @@ function applyTemplate(parent, template, data){
 }
 
 
-function loadProductInformation(data){
+function templatingProductInformation(data){
 	let productInformationTemplate = document.querySelector('#product_information_template');
-	applyTemplate(detailContent.productInformation, productInformationTemplate, data);
+	templatingHandlebar(detailContent.productInformation, productInformationTemplate, data);
 }
 
-function loadInformation(data){
+function templatingInformation(displayInfo){
 	let informationTemplate = document.querySelector('#information_template');
-	applyTemplate(detailContent.infomation, informationTemplate, data);
+	templatingHandlebar(detailContent.infomation, informationTemplate, displayInfo);
 }
 
-function loadContent(data){
+function templatingContent(displayInfo){
 	let contentTemplate = document.querySelector('#content_template');
-	applyTemplate(detailContent.content, contentTemplate, data);
+	templatingHandlebar(detailContent.content, contentTemplate, displayInfo);
 }
 
-function loadDetailContent(data){
+function templatingDetailContent(displayInfo){
 	let detailContentTemplate = document.querySelector('#detail_content_template');
-	applyTemplate(detailContent.detailContent, detailContentTemplate, data);
+	templatingHandlebar(detailContent.detailContent, detailContentTemplate, displayInfo);
 }
 
-function loadPlaceInformation(data){
+function templatingPlaceInformation(data){
 	let placeInformationTemplate = document.querySelector('#place_information_template');
-	applyTemplate(detailContent.placeInformation, placeInformationTemplate, data);
+	templatingHandlebar(detailContent.placeInformation, placeInformationTemplate, data);
 }
 
-function loadComments(data){
-	if(data == null) {
+function templatingComments(comments){
+	if(comments.length === 0) {
+		document.querySelector('.btn_review_more').classList.add('hide');
 		return;
 	}
-
+	
 	let commentTemplate = document.querySelector("#comment_template").innerText;
 	let bindTemplate = Handlebars.compile(commentTemplate);
 
-	let resultHtml = data.comments.reduce((prev, next)=>{
+	let resultHtml = comments.reduce((prev, next)=>{
 		return prev + bindTemplate(next);
 	}, "");
 
@@ -99,13 +88,35 @@ function loadComments(data){
 	
 }
 
-function loadScore(data){
-	if(data == null) {
+function templatingDiscount(prices){
+	let resultHtml = "";
+	prices.forEach((price, index)=>{
+		if(!price.priceTypeName.match(/[VRS]/)){
+			return;
+		}
+		if(price.discountRate > 0){
+			resultHtml += price.priceTypeName + "석 " + price.discountRate + "%";
+			
+			if(index === prices.length - 1){
+				return;
+			}
+			resultHtml += ", "
+		}
+	});
+	if(resultHtml === ""){
+		document.querySelector('.section_event').classList.add('hide');
+	}else{
+		discount.innerHTML += resultHtml;
+	}
+}
+
+function templatingScore(data){
+	if(data.comments.length === 0) {
 		return;
 	}
 
 	let scoreTemplate = document.querySelector("#score_template");
-	applyTemplate(detailContent.score, scoreTemplate, data);
+	templatingHandlebar(detailContent.score, scoreTemplate, data);
 
 	let scoreValue = document.querySelector('#avgerage_score');
 	let starWidth = document.querySelector('.graph_value');
@@ -114,12 +125,24 @@ function loadScore(data){
 }
 
 
-function loadEtcImage(data){
+function loadProductEtcImage(data){
+	if(data.saveFileName === null){
+		return;
+	}
+	let etcImageTemplate = document.querySelector('#etc_image_template');
+	templatingHandlebar(detailContent.productInformation, etcImageTemplate, data);
 	
+	setTimeout(()=>{
+		detailContent.productInformation.innerHTML += detailContent.productInformation.innerHTML;
+	}, 100);
+	
+	document.querySelector("#product_title");
+	
+	addSlideButtonEvent();
 }
 
 
-function addOpenAndCloseEvent(){
+function addTabToggleEvent(){
 	
 	let openButton = document.querySelector('._open');
 	let closeButton = document.querySelector('._close');
@@ -137,7 +160,7 @@ function addOpenAndCloseEvent(){
 	});
 }
 
-function addTabEvent(){
+function addTabActiveEvent(){
 	
 	document.querySelector('.info_tab_lst').addEventListener('click', e=>{
 		let target = e.target;
@@ -146,14 +169,14 @@ function addTabEvent(){
 		if(tagName == 'LI'){
 			removeTabActive();
 			target.firstElementChild.classList.add('active');
-			tabShowAndHide(target.classList);
+			toggleTab(target.classList);
 		}else if(tagName == 'A'){
 			removeTabActive();
 			target.classList.add('active');
-			tabShowAndHide(target.parentElement.classList);
+			toggleTab(target.parentElement.classList);
 		}else if(tagName == 'SPAN'){
 			removeTabActive();
-			tabShowAndHide(target.parentElement.parentElement.classList);
+			toggleTab(target.parentElement.parentElement.classList);
 			target.parentElement.classList.add('active');
 		}
 		
@@ -166,7 +189,7 @@ function removeTabActive(){
 	});
 }
 
-function tabShowAndHide(classList){
+function toggleTab(classList){
 	let detailArea = document.querySelector('.detail_area_wrap');
 	let location = document.querySelector('.detail_location');
 	if(classList.contains('_detail')){
@@ -179,50 +202,66 @@ function tabShowAndHide(classList){
 }
 
 
-
-function addSlideEvent(){
+function addSlideButtonEvent(){
+	document.querySelector('#pagination').classList.remove('hide');
+	document.querySelector('#slide_button').classList.remove('hide');
+	
 	document.querySelector('.detail_swipe').style.transform = 'translateX(-828px)';
-	  document.querySelector('.btn_prev').addEventListener('click', ()=>{
-	    movePrev();
-	  });
-	  document.querySelector('.btn_nxt').addEventListener('click', ()=>{
-	    moveNext();
-	  });
+	document.querySelector('.btn_prev').addEventListener('click', ()=>{
+		movePrev();
+	});
+	document.querySelector('.btn_nxt').addEventListener('click', ()=>{
+		moveNext();
+	});
 }
 
 function movePrev(){
-	  let slider = document.querySelector('.detail_swipe');
-	  let leftValue = slider.offsetLeft;
-	  let translateValue = 0;
+	let paginationNum = parseInt(document.querySelector('#pagination_num').innerText);
+	paginationNum--;
+	if(paginationNum < 1){
+		paginationNum = 2;
+	}
+	document.querySelector('#pagination_num').innerText = paginationNum;
+	
+	let slider = document.querySelector('.detail_swipe');
+	let leftValue = slider.offsetLeft;
+	let translateValue = 0;
 
-	  if(slider.style.transform != ''){
-	    translateValue = parseInt(slider.style.transform.split('(')[1].split('p')[0]);
-	  }
-
-	  slider.style.left = leftValue + 414 + 'px';
-	  if(leftValue + translateValue == -414){
-	    setTimeout(()=>{
-	      slider.style.transform = 'translateX(' + (-1242 - leftValue) + 'px)';
-	    }, 100);
-	  }
+	if(slider.style.transform != ''){
+		translateValue = parseInt(slider.style.transform.split('(')[1].split('p')[0]);
 	}
 
-	function moveNext(){
-	  let slider = document.querySelector('.detail_swipe');
-	  let leftValue = slider.offsetLeft;
-	  let translateValue = 0;
-
-	  if(slider.style.transform != ''){
-	    translateValue = parseInt(slider.style.transform.split('(')[1].split('p')[0]);
-	  }
-
-	  slider.style.left = leftValue - 414 + 'px';
-	  if(leftValue + translateValue == -828){
-	    setTimeout(()=>{
-	      slider.style.transform = 'translateX(' + (0 - leftValue) + 'px)';
-	    }, 100);
-	  }
+	slider.style.left = leftValue + 414 + 'px';
+	if(leftValue + translateValue == -414){
+		setTimeout(()=>{
+			slider.style.transform = 'translateX(' + (-1242 - leftValue) + 'px)';
+		}, 100);
+		}
 	}
+
+function moveNext(){
+	let paginationNum = parseInt(document.querySelector('#pagination_num').innerText);
+	paginationNum++;
+	if(paginationNum > 2){
+		paginationNum = 1;
+	}
+	document.querySelector('#pagination_num').innerText = paginationNum;
+	
+	let slider = document.querySelector('.detail_swipe');
+	let leftValue = slider.offsetLeft;
+	let translateValue = 0;
+
+	if(slider.style.transform != ''){
+		translateValue = parseInt(slider.style.transform.split('(')[1].split('p')[0]);
+	}
+
+	slider.style.left = leftValue - 414 + 'px';
+	if(leftValue + translateValue == -828){
+		setTimeout(()=>{
+			slider.style.transform = 'translateX(' + (0 - leftValue) + 'px)';
+		}, 100);
+	}
+}
 
 
 
