@@ -47,6 +47,7 @@ function initDetailBtn() {
 	let foldingText = document.querySelector('div.store_details');
 	let textArea = document.querySelector('p.dsc');
 
+    // text가 기준치보다 많으면 DetailBtn 활성화
 	if(textArea.scrollHeight > textArea.clientHeight){
 		document.querySelector('div.section_store_details').addEventListener('click', evt => {
 			let clickedTag  = evt.target;
@@ -112,6 +113,7 @@ function initComment(displayCommentInfo) {
 }
 
 function initMoreCommentBtn(displayInfoId) {
+    // review 페이지 이동
     document.querySelector('.btn_review_more').setAttribute('href','review?id=' + displayInfoId);
 }
 
@@ -214,6 +216,7 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
 
     function nextArrowEventHandler() {
         currentTitle++;
+        // 애니메이션 도중 click EventListner 중지
         btnNext.removeEventListener('click',nextArrowEventHandler);
         btnPrev.removeEventListener('click', prevArrowEventHandler);
 
@@ -236,6 +239,7 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
                     titleImageList.forEach((list) => {
                     list.style.transitionDuration = '1s';
                     });
+                    // 애니메이션이 끝나면 click EventListner 활성화
                     btnNext.addEventListener('click', nextArrowEventHandler);
                     btnPrev.addEventListener('click', prevArrowEventHandler);
                     }, 50);
@@ -260,6 +264,7 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
 
     function prevArrowEventHandler() {
         currentTitle--;
+        // 애니메이션 도중 click EventListner 중지
         btnNext.removeEventListener('click',nextArrowEventHandler);
         btnPrev.removeEventListener('click',prevArrowEventHandler);
 
@@ -273,6 +278,7 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
             list.style.left = leftDistance + '%';
             });
             
+            // 이미지 위치를 초기화 시키고 애니메이션 실행
             setTimeout(() =>{
                 leftDistance += 100;
 
@@ -293,6 +299,7 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
                 list.style.left = leftDistance + '%';
                 });
             setTimeout(() => {
+                // 애니메이션이 끝나면 click EventListner 활성화
                 btnNext.addEventListener('click',nextArrowEventHandler);
                 btnPrev.addEventListener('click', prevArrowEventHandler);
             }, 1150);

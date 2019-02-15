@@ -39,10 +39,11 @@ function loadDisplayInfoCallback(displayInfoData) {
 function loadCommentInfoCallback(commentsData) {
     
     commentsData.forEach((comment) => {
+        // commentIamge가 있을 경우 saveFileName 추가
         if(comment.commentImages.length != 0) {
             comment.saveFileName = comment['commentImages'][0].saveFileName;
         }
-        
+
         comment.productDescription = productDescription;
         let commentTemplate = document.querySelector('#commentList').innerText;
         let bindTitleTemplate = Handlebars.compile(commentTemplate);
@@ -56,7 +57,9 @@ function loadCommentInfoCallback(commentsData) {
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
 
+    // DisplayInfo관련 설정 (averageScore, productDescription)
     requestAjax(loadDisplayInfoCallback, 'products/' + getUrlParameter('id'));
 
+    // Comment 설정
     requestAjax(loadCommentInfoCallback, 'comments?id=' + getUrlParameter('id'));
 });
