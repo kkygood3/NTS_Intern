@@ -8,16 +8,17 @@ import com.nts.reservation.dto.DisplayInfoDto;
 
 /**
  * 전시상품 Response용 DTO
- * 
  * @author jinwoo.bae
  */
 public class DetailResponseDto {
-	DisplayInfoDto displayInfo;
-	CommentResponseDto commentResponse;
+	private DisplayInfoDto displayInfo;
+	private CommentResponseDto commentResponse;
+	private String productImageUrl;
 
-	public DetailResponseDto(DisplayInfoDto displayInfo, CommentResponseDto commentResponse) {
+	public DetailResponseDto(DisplayInfoDto displayInfo, CommentResponseDto commentResponse, String productImageUrl) {
 		this.displayInfo = displayInfo;
 		this.commentResponse = commentResponse;
+		this.productImageUrl = productImageUrl;
 	}
 
 	public DisplayInfoDto getDisplayInfo() {
@@ -34,6 +35,14 @@ public class DetailResponseDto {
 
 	public void setCommentResponse(CommentResponseDto commentResponse) {
 		this.commentResponse = commentResponse;
+	}
+
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
 	}
 
 }

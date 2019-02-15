@@ -36,10 +36,12 @@ public class ProductController {
 	@GetMapping("/{productId}/detail")
 	public String getDetailPage(@PathVariable int productId,
 		@RequestParam int displayInfoId,
+		@RequestParam(required = false, defaultValue = IMAGE_TYPE_MAIN) String type,
 		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit, Model model) {
-		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, commentLimit);
+		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, ImageType.valueOf(type), commentLimit);
 		model.addAttribute("displayInfo", detailResponse.getDisplayInfo());
 		model.addAttribute("commentResponse", detailResponse.getCommentResponse());
+		model.addAttribute("productImageUrl", detailResponse.getProductImageUrl());
 		return "detail";
 	}
 

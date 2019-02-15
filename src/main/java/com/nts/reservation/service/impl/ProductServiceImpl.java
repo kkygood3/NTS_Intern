@@ -25,7 +25,6 @@ import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
-import com.nts.reservation.dto.response.ProductImageResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.ReserveResponseDto;
 import com.nts.reservation.service.ProductService;
@@ -69,23 +68,24 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductImageResponseDto getProductImageResponse(int productId, ImageType type, int limit) {
-		int count = productImageDao.selectProductImageCount(productId, type);
-		if (count == 0) {
-			return new ProductImageResponseDto(Collections.<ProductImageDto>emptyList(), count, "");
-		}
-		List<ProductImageDto> productImages = productImageDao.selectProductImagesByType(productId, type, limit);
-		String productDescription = productDao.selectProduct(productId).getProductDescription();
-		return new ProductImageResponseDto(productImages, count, productDescription);
+	public ProductImageDto getProductImage(int productId, ImageType type) {
+		return productImageDao.selectProductImage(productId, type);
 	}
 
+	/**
+	 * detail Page
+	 */
 	@Override
-	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, int commentLimit) {
+	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, int commentLimit) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
-		return new DetailResponseDto(displayInfo, commentResponse);
+		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
+		return new DetailResponseDto(displayInfo, commentResponse, productImageUrl);
 	}
 
+	/**
+	 * comment
+	 */
 	@Override
 	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
 		int count = commentDao.selectCommentCount(productId);
@@ -97,12 +97,14 @@ public class ProductServiceImpl implements ProductService {
 		return new CommentResponseDto(comments, count, averageScore);
 	}
 
+	/**
+	 * reserver Page
+	 */
 	@Override
 	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
-		String productImageUrl = productImageDao.selectProductImagesByType(productId, type, 1).get(0).getSaveFileName();
+		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
 		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
-
 }
