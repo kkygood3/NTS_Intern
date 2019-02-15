@@ -282,12 +282,12 @@ var detailPage = {
     onClickBottomTabBtn: function(selectedTabBtn, deselectedTabBtn, selectedContainer, deselectedContainer) {
         if (selectedTabBtn.classList.contains("active")) {
             return;
-        } else {
-            selectedContainer.classList.remove("hide");
-            deselectedContainer.classList.add("hide");
-            selectedTabBtn.classList.add("active");
-            deselectedTabBtn.classList.remove("active");
         }
+        selectedContainer.classList.remove("hide");
+        deselectedContainer.classList.add("hide");
+        selectedTabBtn.classList.add("active");
+        deselectedTabBtn.classList.remove("active");
+        
     },
 
     /**
