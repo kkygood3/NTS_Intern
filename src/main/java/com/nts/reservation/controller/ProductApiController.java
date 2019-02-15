@@ -33,13 +33,11 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/product")
 public class ProductApiController {
 	@Autowired
-	private ProductService thumbnailInfoService;
-	@Autowired
 	private ProductService productService;
 	@Autowired
 	private FileInfoService fileInfoService;
 	@Autowired
-	private CommentService commentDisplayInfoService;
+	private CommentService commentService;
 	
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
@@ -59,7 +57,7 @@ public class ProductApiController {
 		List<ProductThumbnail> thumbnailInfoList = null;
 
 		if (productCount > 0) {
-			thumbnailInfoList = thumbnailInfoService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
+			thumbnailInfoList = productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -95,7 +93,7 @@ public class ProductApiController {
 		@PathVariable(name = "productId", required = true) long productId,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
-		List<CommentDisplayInfo> commentDisplayInfos = commentDisplayInfoService.getCommentsByProductIdWithPaging(productId, start, limit);
+		List<CommentDisplayInfo> commentDisplayInfos = commentService.getCommentsByProductIdWithPaging(productId, start, limit);
 		return commentDisplayInfos;
 	}
 }
