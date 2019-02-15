@@ -183,7 +183,7 @@ function initInfoTab(displayInfo){
  * @param response - 추가 이미지 정보
  */
 function loadExtraImageCallback(response){
-	var extraImageInformation = response.productImage;
+	var extraImage = response.extraImageResponse;
 	
 	// 상단 Swipe Image 배너 Template
 	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
@@ -198,9 +198,9 @@ function loadExtraImageCallback(response){
 	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
 	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	
-	if(extraImageInformation){		
+	if(extraImage){		
 		var firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
-		var secondItem = bindSwipeTemplate(extraImageInformation);
+		var secondItem = bindSwipeTemplate(extraImage);
 		
 		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
 		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
@@ -299,8 +299,8 @@ function setCommonInfo(displayComment,displayInfo){
 }
 
 function loadDisplayInfoCallback(response) {
-	var displayComment = response.detailDisplay.detailComment;
-	var displayInfo = response.detailDisplay.detailDisplayInfo;
+	var displayComment = response.detailResponse.detailComment;
+	var displayInfo = response.detailResponse.detailDisplayInfo;
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn(displayInfo);

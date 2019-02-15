@@ -47,9 +47,9 @@ public class DetailApiController {
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		DetailResponse detailDisplay = detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit);
+		DetailResponse detailResponse = detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit);
 		Map<String, Object> map = new HashMap<>();
-		map.put("detailDisplay", detailDisplay);
+		map.put("detailResponse", detailResponse);
 
 		return map;
 	}
@@ -61,10 +61,10 @@ public class DetailApiController {
 	 */
 	@GetMapping("/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
-		DetailExtraImage productImage = detailExtraImageService.getExtraImage(displayInfoId);
+		DetailExtraImage extraImageResponse = detailExtraImageService.getExtraImage(displayInfoId);
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("productImage", productImage);
+		map.put("extraImageResponse", extraImageResponse);
 
 		return map;
 	}
@@ -80,9 +80,9 @@ public class DetailApiController {
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		ReviewResponse comments = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
+		ReviewResponse reviewResponse = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
 		Map<String, Object> map = new HashMap<>();
-		map.put("comments", comments);
+		map.put("reviewResponse", reviewResponse);
 		return map;
 	}
 
