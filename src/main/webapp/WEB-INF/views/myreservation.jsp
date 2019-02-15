@@ -264,57 +264,57 @@
 									</div>
 								</div>
 								<c:forEach var="usedReservation" items="${sessionScope.usedReservedItems}" varStatus="status">
-								<article class="card_item" id="reservation_number_${usedReservation.reservation.id}">
-									<a href="#" class="link_booking_details">
-										<div class="card_body">
-											<div class="left"></div>
-											<div class="middle">
-												<div class="card_detail">
-													<em class="booking_number">No.${usedReservation.reservation.id}</em>
-													<h4 class="tit">${usedReservation.displayInfo.productDescription}</h4>
-													<ul class="detail">
-														<li class="item">
-															<span class="item_tit">구분</span>
-															<em class="item_dsc">
-																${usedReservation.displayInfo.categoryName}
+									<article class="card_item" id="reservation_number_${usedReservation.reservation.id}">
+										<a href="#" class="link_booking_details">
+											<div class="card_body">
+												<div class="left"></div>
+												<div class="middle">
+													<div class="card_detail">
+														<em class="booking_number">No.${usedReservation.reservation.id}</em>
+														<h4 class="tit">${usedReservation.displayInfo.productDescription}</h4>
+														<ul class="detail">
+															<li class="item">
+																<span class="item_tit">구분</span>
+																<em class="item_dsc">
+																	${usedReservation.displayInfo.categoryName}
+																</em>
+															</li>
+															<li class="item">
+																<span class="item_tit">일자</span>
+																<em class="item_dsc">
+																	<fmt:formatDate value="${usedReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
+																</em>
+															</li>
+															<li class="item">
+																<span class="item_tit">장소</span>
+																<em class="item_dsc">
+																	${usedReservation.displayInfo.placeName}
+																</em>
+															</li>
+														</ul>
+														<div class="price_summary">
+															<span class="price_tit">결제 예정금액</span>
+															<em class="price_amount">
+																<span>${usedReservation.totalPrice}</span>
+																<span class="unit">원</span>
 															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">일자</span>
-															<em class="item_dsc">
-																<fmt:formatDate value="${usedReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">장소</span>
-															<em class="item_dsc">
-																${usedReservation.displayInfo.placeName}
-															</em>
-														</li>
-													</ul>
-													<div class="price_summary">
-														<span class="price_tit">결제 예정금액</span>
-														<em class="price_amount">
-															<span>${usedReservation.totalPrice}</span>
-															<span class="unit">원</span>
-														</em>
-													</div>
-													<div class="booking_cancel">
-														<a href="./reviewWrite.jsp"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+														</div>
+														<div class="booking_cancel">
+															<button class="btn"><span>예매자 리뷰 남기기</span></button>
+														</div>
 													</div>
 												</div>
+												<div class="right"></div>
 											</div>
-											<div class="right"></div>
-										</div>
-										<div class="card_footer">
-											<div class="left"></div>
-											<div class="middle"></div>
-											<div class="right"></div>
-										</div>
-									</a>
-									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
-								</article>
-							</c:forEach>
+											<div class="card_footer">
+												<div class="left"></div>
+												<div class="middle"></div>
+												<div class="right"></div>
+											</div>
+										</a>
+										<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+									</article>
+								</c:forEach>
 							</li>
 							<li class="card used cancel">
 								<div class="link_booking_details">
