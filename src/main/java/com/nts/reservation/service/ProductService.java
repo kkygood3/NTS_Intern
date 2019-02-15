@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.service;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductImageResponseDto;
@@ -23,5 +24,5 @@ public interface ProductService {
 
 	CommentResponseDto getCommentResponse(int productId, int start, int limit);
 
-	ReserveResponseDto getReserveResponse(int productId, int displayInfoId);
+	ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type);
 }

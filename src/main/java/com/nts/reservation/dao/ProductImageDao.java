@@ -13,9 +13,9 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.ProductImageDto;
 
 /**
@@ -44,19 +44,17 @@ public class ProductImageDao extends BasicDao<ProductImageDto> {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("productId", productId);
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES, params,
-			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
+		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES, params, rowMapper);
 	}
 
 	/**
 	 * id, type에 해당하는 이미지들을 가져옵니다.
 	 */
-	public List<ProductImageDto> selectProductImagesByType(int productId, String type, int limit) {
+	public List<ProductImageDto> selectProductImagesByType(int productId, ImageType type, int limit) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("productId", productId);
-		params.put("type", type);
+		params.put("type", type.getName());
 		params.put("limit", limit);
-		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_TYPE, params,
-			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
+		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_TYPE, params, rowMapper);
 	}
 }

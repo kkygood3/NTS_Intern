@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dao.DisplayInfoDao;
 import com.nts.reservation.dao.ProductDao;
@@ -97,10 +98,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId) {
+	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type) {
 		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
 		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
-		String productImageUrl = productImageDao.selectProductImagesByType(productId, "ma", 1).get(0).getSaveFileName();
+		String productImageUrl = productImageDao.selectProductImagesByType(productId, type, 1).get(0).getSaveFileName();
 		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
 
