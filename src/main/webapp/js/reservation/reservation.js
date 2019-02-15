@@ -7,4 +7,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 	sendGetPriceAjax();
 	addagreementClickEvent();
+	addPlusMiusButtonClickEvent();
 });

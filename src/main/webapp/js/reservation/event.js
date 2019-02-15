@@ -19,3 +19,13 @@ function addagreementClickEvent() {
 		});
 	}
 }
+
+function addPlusMiusButtonClickEvent() {
+	var buttonHolder = document.getElementsByClassName("ticket_body")[0];
+
+	buttonHolder.addEventListener("click", function(event){
+		if (event.target.tagName != "A") {
+			return;
+		}
+	});
+}
