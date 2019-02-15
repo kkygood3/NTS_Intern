@@ -4,8 +4,10 @@
  */
 package com.nts.reservation.product.controller;
 
-import java.util.Collections;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.display.dto.DisplayResponse;
 import com.nts.reservation.display.service.DisplayService;
+import com.nts.reservation.product.dto.ImageType;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
@@ -23,7 +26,7 @@ import com.nts.reservation.product.service.ProductService;
 @RequestMapping(path = "/api")
 public class ProductController {
 
-	// TODO 어짜피 싱글톤이면 autowired를 한곳에 쳐박아두면 안되나?
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ProductService productService;
@@ -45,7 +48,8 @@ public class ProductController {
 		}
 
 		if (start < 0) {
-			return ProductResponse.builder().items(Collections.emptyList()).build();
+			logger.warn("{} - displayInfoId : {} / Can't use Navgative Value!!!", this.getClass(), start);
+			throw new IllegalArgumentException("Bad Request! Parameter (start)");
 		}
 
 		return productService.getProductsByCategory(categoryId, start, limit);
@@ -54,18 +58,21 @@ public class ProductController {
 	@GetMapping(path = "/products/{displayInfoId}")
 	public DisplayResponse getDisplay(@PathVariable("displayInfoId") int displayInfoId) {
 		if (displayInfoId < 0) {
-			throw new IllegalArgumentException();
+			logger.warn("{} - displayInfoId : {} / Can't use Navgative Value!!!", this.getClass(), displayInfoId);
+			throw new IllegalArgumentException("Bad Request! Parameter (displayInfoId)");
 		}
 
 		return displayService.getDisplayInfo(displayInfoId);
 	}
-	
+
 	@GetMapping(path = "/products/etc/{displayInfoId}")
 	public ProductImage getProductEtcImage(@PathVariable("displayInfoId") int displayInfoId) {
-		// TODO LIST -> ProductImage
-		if(productService.getProductImages(displayInfoId, "et").size() == 0) {
+		List<ProductImage> productImages = productService.getProductImages(displayInfoId, ImageType.et);
+
+		if (productImages.size() == 0) {
 			return new ProductImage();
 		}
-		return productService.getProductImages(displayInfoId, "et").get(0);
+
+		return productImages.get(0);
 	}
 }
