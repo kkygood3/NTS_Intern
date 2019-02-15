@@ -75,7 +75,7 @@ function getBookingPage(){
 	}
 	
 	setEvent.validateInputValue(domElements.getElements.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
-	setEvent.validateInputValue(domElements.getElements.bkTel, /^[0-9]{9,}$/);
+	setEvent.formattingTelNumber();
 	setEvent.validateInputValue(domElements.getElements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
 	
 	setEvent.changeTicketCount();
@@ -230,6 +230,28 @@ SetEvent.prototype.changeTicketCount = function(){
 		};
 		
 		this.setAmountOfPayment.changeTicketCount(event);
+	}.bind(this));
+}
+
+SetEvent.prototype.formattingTelNumber = function(){
+	this.domElements.getElements.bkTel.addEventListener("input", function(event){
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+
+		if(event.target.value.length > 10){
+			event.target.value = event.target.value.substring(0,3) + "-" + event.target.value.substring(3,7) + "-" + event.target.value.substring(7);
+		} else if(event.target.value.length > 9) {
+			event.target.value = event.target.value.substring(0,3) + "-" + event.target.value.substring(3,6) + "-" + event.target.value.substring(6);
+		} else if(event.target.value.length === 8) {
+			event.target.value = event.target.value.substring(0,4) + "-" + event.target.value.substring(4);
+		} else if(event.target.value.length > 6) {
+			event.target.value = event.target.value.substring(0,2) + "-" + event.target.value.substring(2,5) + "-" + event.target.value.substring(5);
+		} else if(event.target.value.length > 2) {
+			event.target.value = event.target.value.substring(0,2) + "-" + event.target.value.substring(2);
+		} else {
+			event.target.value = event.target.value;
+		}
+		
+		this.validateInputValue(event.target, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
 	}.bind(this));
 }
 

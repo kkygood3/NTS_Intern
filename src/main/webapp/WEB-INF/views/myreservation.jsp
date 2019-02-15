@@ -335,7 +335,7 @@
 												<div class="left"></div>
 												<div class="middle">
 													<div class="card_detail">
-														<em class="booking_number">No.${canceledReservation.displayInfo.displayInfoId}</em>
+														<em class="booking_number">No.${canceledReservation.reservation.id}</em>
 														<h4 class="tit">${canceledReservation.displayInfo.productDescription}</h4>
 														<ul class="detail">
 															<li class="item">
