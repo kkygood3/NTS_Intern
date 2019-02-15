@@ -22,15 +22,15 @@
 			<div class="ct_wrap">
 				<div class="top_title">
 					<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">${reservationPageInfo.description}</span></h2>
+					<h2><span class="title">${pageInfo.description}</span></h2>
 				</div>
 				<div class="group_visual">
 					<div class="container_visual" style="width: 414px;">
 						<ul class="visual_img">
 							<li class="item" style="width: 414px;">
-								<img alt="" class="img_thumb" src="/${reservationPageInfo.mainImageName}"> <span class="img_bg"></span>
+								<img alt="" class="img_thumb" src="/${pageInfo.mainImageName}"> <span class="img_bg"></span>
 								<div class="preview_txt">
-									<h2 class="preview_txt_tit">${reservationPageInfo.description}</h2>
+									<h2 class="preview_txt_tit">${pageInfo.description}</h2>
 								</div>
 							</li>
 						</ul>
@@ -40,11 +40,11 @@
 					<div class="store_details">
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
-							장소 : ${reservationPageInfo.placeName}
+							장소 : ${pageInfo.placeName}
 						</p>
 						<h3 class="in_tit">관람시간</h3>
 						<p class="dsc">
-						   ${reservationPageInfo.openingHours}
+						   ${pageInfo.openingHours}
 						</p>
 						<h3 class="in_tit">요금</h3>
 						<p class="dsc">
@@ -159,9 +159,19 @@
 	</div>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"productId" : "${pageInfo.productId}",
+			};
+		}
+	</script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/event.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>
 </body>
 
 </html>

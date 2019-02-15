@@ -72,7 +72,7 @@ public class ProductController {
 	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
 		ModelMap model) {
 		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
-		model.addAttribute("reservationPageInfo", reservationPageInfo);
+		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
 	}
 }
