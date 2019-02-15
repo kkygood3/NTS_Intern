@@ -113,13 +113,9 @@ var reservePage = {
 	},
 	
 	inputValidationAttachment : function() { 
-		let name = domElements.reservationForm.querySelector("#name");
-		let tel = domElements.reservationForm.querySelector("#tel");
-		let email = domElements.reservationForm.querySelector("#email");
+		new SubmitButtonWithValidation(domElements.bookButtonWrapper.querySelector("button"));
 		
-		new SubmitButton(domElements.bookButtonWrapper.querySelector("button"));
-		
-		new AgreementButton(domElements.agreementButton);
+		new FormWatcher();
 	},
 }
 

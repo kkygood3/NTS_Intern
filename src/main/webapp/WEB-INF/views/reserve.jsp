@@ -94,7 +94,7 @@
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
 									</label>
 									<div class="inline_control">
-										<input required type="text" name="name" id="name" class="text"
+										<input required type="text" name="rsvname" id="rsvname" class="rsvname"
 											placeholder="네이버" maxlength="17">
 										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>

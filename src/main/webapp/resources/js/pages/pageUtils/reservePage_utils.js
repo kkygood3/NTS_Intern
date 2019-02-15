@@ -8,17 +8,19 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-function SubmitButton(item) {
+function SubmitButtonWithValidation(item) {
 	item.addEventListener("click",(e) => {
 		e.preventDefault();
-		
-		// form check
-		let nameValid = (/[가-힣a-zA-Z]+$/).test(name.value);
+		/*
+		 * form check, getting name, email, tel from form directly, since this
+		 * params "item" is equal to submit button.
+		 */
+		let nameValid = (/[가-힣a-zA-Z]+$/).test(rsvname.value);
 		let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
-		let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value); 
-			
+		let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value);
+
 		if(!nameValid) {
-			inputValidationErrorMsg(name);
+			inputValidationErrorMsg(rsvname);
 			return;
 		} else if(!telValid){
 			inputValidationErrorMsg(tel);
@@ -32,7 +34,7 @@ function SubmitButton(item) {
 		if(!domElements.agreementButton.checked){
 			alert("Please check agreement");
 			return;
-		}	
+		}
 		
 		// tickets count check
 		let priceDataArr =[];
@@ -44,7 +46,6 @@ function SubmitButton(item) {
 				}
 			}
 		}
-		
 		if(priceDataArr.length==0){
 			alert("No tickets Added to reserve");
 			return;
@@ -63,7 +64,7 @@ function sendReservation(priceDataArr){
 			, prices : priceDataArr
 			, productId : state.detail_data.displayInfo.productId
 			, reservationEmail : formData.get("email")
-			, reservationName : formData.get("name")
+			, reservationName : formData.get("rsvname")
 			, reservationTelephone : formData.get("tel")
 			, reservationYearMonthDay : d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
 			} 
@@ -77,18 +78,29 @@ function sendReservation(priceDataArr){
 	});
 }
 
-function AgreementButton(item) {
-	item.addEventListener("click", (e) => { 
-		let bookButton = domElements.bookButtonWrapper;
-
-		if(domElements.agreementButton.checked){
-			if(bookButton.classList.contains("disable")){
-				bookButton.classList.remove("disable");
-			} 
-		} else {
-			bookButton.classList.add("disable");
-		}
+function FormWatcher() {
+	domElements.reservationForm.addEventListener("change",(e) => {
+		formWatching();
 	});
+	domElements.agreementButton.addEventListener("change",(e) => {
+		formWatching();
+	});
+	
+}
+function formWatching() {
+	let bookButton = domElements.bookButtonWrapper;
+	let formData = new FormData(domElements.reservationForm);
+	if(formData.get("email").length > 0
+		&& formData.get("rsvname").length > 0
+		&& formData.get("tel").length > 0
+		&& domElements.agreementButton.checked){
+		if(bookButton.classList.contains("disable")){
+			bookButton.classList.remove("disable");
+		} 
+	}
+	else {
+		bookButton.classList.add("disable");
+	}
 }
 
 function EulaButton (item) {
