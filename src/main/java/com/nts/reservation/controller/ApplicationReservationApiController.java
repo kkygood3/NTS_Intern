@@ -6,7 +6,6 @@ package com.nts.reservation.controller;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
@@ -41,14 +38,13 @@ public class ApplicationReservationApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/reservations")
-	public ReservationInfo postReservation(@RequestBody ReservationParam resInput)
-		throws JsonParseException, JsonMappingException, IOException {
+	public ReservationInfo postReservation(@RequestBody ReservationParam resInput) {
 		reservationService.addReservations(resInput);
 		return new ReservationInfo();
 	}
 
 	@PutMapping(path = "/reservations/{reservationId}")
-	public boolean postReservation(
+	public boolean cancelReservation(
 		@PathVariable(name = "reservationId", required = true) Long reservationId) {
 		reservationService.cancelReservation(reservationId);
 		return true;
