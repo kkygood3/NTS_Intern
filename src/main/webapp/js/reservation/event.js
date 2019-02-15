@@ -54,13 +54,14 @@ function addPlusMiusButtonClickEvent() {
 			}
 		}
 	});
-}
+	}
 
-function test() {
+function addBookingFormInputChangeEvent() {
 	var inputs = document.querySelectorAll(".section_booking_form input");
-	var userInput = userInputData();
+	var userInput = "A";
 	for (var i = 0, len = inputs.length; i < len; i++) {
 		inputs[i].addEventListener("click", function(event){
+			alert(userInput);
 		});
 	}
 }
