@@ -3943,3 +3943,7 @@ button {
   display: none;
   text-align: center;
 }
+
+.pop_tit {
+	text-align: center;
+}

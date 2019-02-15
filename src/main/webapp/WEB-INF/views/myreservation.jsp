@@ -193,7 +193,7 @@
 								</div>
 							</div>
 							<c:forEach var="availableReservation" items="${sessionScope.availableReservedItems}" varStatus="status">
-								<article class="card_item">
+								<article class="card_item" id="reservation_number_${availableReservation.reservation.id}">
 									<a href="#" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
@@ -230,7 +230,11 @@
 													</div>
 													<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 													<div class="booking_cancel">
-														<button class="btn" data-reservation-info-id="${availableReservation.reservation.id}"><span>취소</span></button>
+														<button class="btn" 
+															data-reservation-info-id="${availableReservation.reservation.id}"
+															data-title="${availableReservation.displayInfo.productDescription}">
+																<span class="btn_text">취소</span>
+														</button>
 													</div>
 
 												</div>
@@ -460,22 +464,22 @@
 			<div class="dimm_dark" style="display:block"></div>
 			<div class="popup_booking refund">
 				<h1 class="pop_tit">
-					<span>서비스명/상품명</span>
-					<small class="sm">2000.0.00.(월)2000.0.00.(일)</small>
 				</h1>
 				<div class="nomember_alert">
 					<p>취소하시겠습니까?</p>
 				</div>
 				<div class="pop_bottom_btnarea">
 					<div class="btn_gray">
-						<a href="#" class="btn_bottom"><span>아니오</span></a>
+						<a href="#" class="btn_bottom popup_close"><span>아니오</span></a>
 					</div>
 					<div class="btn_green">
-						<a href="#" class="btn_bottom"><span>예</span></a>
+						<a href="#" class="btn_bottom popup_close" id="reservation_cancle_btn">
+							<span>예</span>
+						</a>
 					</div>
 				</div>
 				<!-- 닫기 -->
-				<a href="#" class="popup_btn_close" title="close">
+				<a href="#" class="popup_btn_close popup_close" title="close">
 					<i class="spr_book2 ico_cls"></i>
 				</a>
 				<!--// 닫기 -->

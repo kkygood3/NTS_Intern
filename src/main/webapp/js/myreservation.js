@@ -35,6 +35,7 @@ function getMyReservationPage(){
 	}
 	
 	setEvent.scrollTop();
+	setEvent.showCanclePopup();
 	setEvent.cancelReservation();
 }
 
@@ -47,11 +48,42 @@ SetEvent.prototype.scrollTop = function(){
 	});
 }
 
-SetEvent.prototype.cancelReservation = function(){
+SetEvent.prototype.showCanclePopup = function(){
 	document.querySelector(".card.confirmed").addEventListener("click", function(event){
+		var btnCancel;
 		event.preventDefault();
+		
 		if(event.target.className === "btn"){
-			changeCancelFlag(event.target.dataset.reservationInfoId);
+			btnCancel = event.target;
+		} else if (event.target.className === "btn_text"){
+			btnCancel = event.target.parentNode;
 		}
+		else {
+			return;
+		}
+		document.querySelector(".popup_booking_wrapper").querySelector(".pop_tit").innerHTML = btnCancel.dataset.title;
+		document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId = btnCancel.dataset.reservationInfoId;
+		document.querySelector(".popup_booking_wrapper").style.display = "block";
+	});
+}
+
+SetEvent.prototype.cancelReservation = function(){
+	document.querySelectorAll(".popup_close").forEach(function(btn){
+		btn.addEventListener("click", function(event){
+			var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;
+			var cancelList = document.querySelector(".card.used.cancel");
+			event.preventDefault();
+
+			if(btn.id === "reservation_cancle_btn"){
+				document.querySelector("#avilableCnt").innerHTML = Number(document.querySelector("#avilableCnt").innerHTML) - 1;
+				document.querySelector("#canceldCnt").innerHTML = Number(document.querySelector("#canceldCnt").innerHTML) + 1;
+				
+				cancelList.appendChild(document.querySelector("#reservation_number_"+reservationInfoId));
+				
+				changeCancelFlag(reservationInfoId);
+			}
+			
+			document.querySelector(".popup_booking_wrapper").style.display = "none";
+		});
 	});
 }
