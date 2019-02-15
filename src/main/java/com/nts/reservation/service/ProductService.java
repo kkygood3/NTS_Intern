@@ -2,6 +2,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductThumbnail;
 
 /**
@@ -25,4 +26,11 @@ public interface ProductService {
 	 * @return 썸네일정보 리스트
 	 */
 	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit);
+	
+	/**
+	 * 상품에 맞는 상세페이지 정보 가져온다
+	 * @param displayInfoId 조회할 상품
+	 * @return 상세페이지 정보
+	 */
+	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId);
 }

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
-import com.nts.reservation.service.DetailPageInfoService;
+import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -23,7 +23,7 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/detail")
 public class ProductController {
 	@Autowired
-	private DetailPageInfoService detailPageInfoService;
+	private ProductService productService;
 	@Autowired
 	private CommentService commentService;
 	@Autowired
@@ -38,7 +38,7 @@ public class ProductController {
 	@GetMapping(path = "/{displayInfoId}")
 	public String detail(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
-		ProductPageInfo datailPageInfo = detailPageInfoService.getProductPageInfoByDisplayInfoId(displayInfoId);
+		ProductPageInfo datailPageInfo = productService.getProductPageInfoByDisplayInfoId(displayInfoId);
 
 		model.addAttribute("displayInfoId", displayInfoId);
 		model.addAttribute("pageInfo", datailPageInfo);

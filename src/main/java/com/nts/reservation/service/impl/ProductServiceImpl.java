@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.dao.DatailPageInfoDao;
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dao.ProductThumbnailDao;
 import com.nts.reservation.dto.Category;
+import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductThumbnail;
 import com.nts.reservation.service.ProductService;
 
@@ -44,5 +46,14 @@ public class ProductServiceImpl implements ProductService {
 			thumbnailInfoList = thumbnailInfoDao.selectFromTheCategoryWithPaging(c, start, limit);
 		}
 		return thumbnailInfoList;
+	}
+
+	@Autowired
+	DatailPageInfoDao datailPageInfoDao;
+
+	@Override
+	@Transactional
+	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId) {
+		return datailPageInfoDao.selectDetailPageInfo(displayInfoId);
 	}
 }
