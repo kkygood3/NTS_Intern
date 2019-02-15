@@ -1027,7 +1027,11 @@ button {
 
 .img_thumb {
     width: 100%;
-    vertical-align: top
+    vertical-align: top;
+}
+
+ul.detail_swipe > .item > img.img_thumb {
+    height: 414px;
 }
 
 .img_bg {
@@ -1217,7 +1221,7 @@ button {
     height: 30px;
     background-color: #fff;
     font-size: 15px;
-    //color: #989898;
+    /*--color: #989898;*/
     color: #000;
     line-height: 30px;
     -webkit-box-sizing: border-box;

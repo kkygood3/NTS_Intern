@@ -30,15 +30,13 @@ public class ProductApiController {
 	public ProductResponse products(
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "requestedProductCounts", required = false, defaultValue = "4") int requestedProductCounts) {
+		@RequestParam(name = "ProductUnits", required = false, defaultValue = "4") int ProductUnits) {
 
 		if(NegativeValueValidator.isNegativeValue(start, categoryId)) {
-			System.out.printf("허용되지 않은 파라미터 시도입니다. start : %d, categoryId : %d\n", start, categoryId);
-			start = 0;
-			categoryId = 0;
+			throw new IllegalArgumentException("start : " + start + ", cateegoryId : " + categoryId + ", ProductUnits : " + ProductUnits);
 		}
 
-		return productServiceImpl.getProducts(categoryId, start, requestedProductCounts);
+		return productServiceImpl.getProducts(categoryId, start, ProductUnits);
 	}
 
 }

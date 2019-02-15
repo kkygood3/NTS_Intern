@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.service.impl.CommentServiceImpl;
+import com.nts.reservation.commons.validator.NegativeValueValidator;
 
 @RestController
 @RequestMapping("/api")
@@ -26,8 +27,12 @@ public class CommentApiController {
 	@GetMapping("/comments")
 	public List<Comment> products(
 		@RequestParam(name = "displayInfoId", required = false, defaultValue = "0") int displayInfoId,
-		@RequestParam(name = "count", required = false, defaultValue = "0") int requestedCommentCounts) {
+		@RequestParam(name = "commentUnits", required = false, defaultValue = "0") int commentUnits) {
 
-		return commentServiceImpl.getComments(displayInfoId, requestedCommentCounts);
+		if(NegativeValueValidator.isNegativeValue(displayInfoId, commentUnits)) {
+			throw new IllegalArgumentException("displayInfoId : " + displayInfoId + ", commentUnits : " + commentUnits);
+		}
+
+		return commentServiceImpl.getComments(displayInfoId, commentUnits);
 	}
 }

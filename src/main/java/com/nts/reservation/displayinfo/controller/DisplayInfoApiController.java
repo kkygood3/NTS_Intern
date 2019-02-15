@@ -27,8 +27,7 @@ public class DisplayInfoApiController {
 		@PathVariable("displayInfoId") int displayInfoId) {
 
 		if(NegativeValueValidator.isNegativeValue(displayInfoId)) {
-			System.out.printf("허용되지 않은 파라미터 시도입니다. displayInfoId : %d\n", displayInfoId);
-			displayInfoId = 1;
+			throw new IllegalArgumentException("displayInfoId : " + displayInfoId );
 		}
 
 		return displayInfoServiceImpl.getDisplayInfos(displayInfoId);
