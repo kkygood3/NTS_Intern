@@ -19,7 +19,6 @@ public class ProductImage {
 	private int productId;
 	private int productImageId;
 	private String saveFileName;
-	private String type;
-	
-	// TODO Enum
+	private String productDescription;
+	private ImageType type;
 }

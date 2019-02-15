@@ -1,6 +1,11 @@
-DROP DATABASE IF EXISTS reservation;
-CREATE DATABASE reservation;
-USE reservation;
+-- DROP DATABASE IF EXISTS reservation;
+-- CREATE DATABASE reservation;
+-- USE reservation;
+
+
+
+
+
 ﻿drop table if exists reservation_user_comment_image;
 drop table if exists reservation_user_comment;
 drop table if exists reservation_info_price;
@@ -1429,15 +1434,8 @@ INNER JOIN product ON display_info.product_id = product.id
 INNER JOIN category ON product.category_id = category.id
 WHERE display_info.id = 1;
 
--- DISPLAY INFO IMAGE (LIST)
-SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', display_info.id 'displayInfoId', display_info_image.id 'displayInfoImageId', file_info.save_file_name 'saveFileName'
-FROM display_info
-INNER JOIN display_info_image ON display_info_image.display_info_id = display_info.id
-INNER JOIN file_info ON file_info.id = display_info_image.file_id
-WHERE display_info.id = 1;
-
 -- PRODUCT IMAGES (only 'ma') => etc는 따로 AJAX 처리?
-SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type'
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type', product.description 'description'
 FROM product
 INNER JOIN product_image ON product_image.product_id = product.id
 INNER JOIN display_info ON display_info.product_id = product.id
@@ -1445,13 +1443,35 @@ INNER JOIN file_info ON file_info.id = product_image.file_id
 WHERE display_info.id = 1
 AND product_image.type = 'ma';
 
+-- PRODUCT IMAGES (only 'et')
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type', product.description 'description'
+FROM product
+INNER JOIN product_image ON product_image.product_id = product.id
+INNER JOIN display_info ON display_info.product_id = product.id
+INNER JOIN file_info ON file_info.id = product_image.file_id
+WHERE display_info.id = 2
+AND product_image.type = 'et'
+LIMIT 1;
+
+-- PRODUCT PRICE (LIST)
+SELECT product_price.id 'productPriceId', product.id 'productId', price_type_name 'priceTypeName', price 'price', discount_rate 'discountRate', product_price.create_date 'createDate', product_price.modify_date 'modifyDate'
+FROM product_price
+INNER JOIN product ON product.id = product_price.product_id
+INNER JOIN display_info ON display_info.product_id = product.id
+WHERE display_info.id = 1;
+
 
 -- COMMENT (LIST) + Comment Images 처리
-SELECT reservation_user_comment.id 'commentId', reservation_user_comment.product_id 'productId', reservation_info.id 'reservationInfoId', score 'score', comment, reservation_name 'reservationName', reservation_tel 'reservationTelephone', reservation_email 'reservationEmail', reservation_date 'reservationDate', reservation_info.create_date 'createDate', reservation_info.modify_date 'modifyDate'
+SELECT reservation_user_comment.id 'commentId', reservation_user_comment.product_id 'productId', reservation_info.id 'reservationInfoId', score 'score', comment, reservation_name 'reservationName', reservation_tel 'reservationTelephone', reservation_email 'reservationEmail', reservation_date 'reservationDate', reservation_info.create_date 'createDate', reservation_info.modify_date 'modifyDate', COUNT(reservation_user_comment_image.file_id) 'imageCount', product.description 'description'
 FROM reservation_user_comment
 INNER JOIN reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id
+INNER JOIN product ON reservation_info.product_id = product.id
+LEFT JOIN reservation_user_comment_image ON reservation_user_comment_image.reservation_user_comment_id = reservation_user_comment.id
 WHERE reservation_info.display_info_id = 1
+GROUP BY reservation_user_comment.id
 ORDER BY reservation_user_comment.id DESC;
+
+
 
 -- COMMENT IMAGES (LIST)
 SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileId', file_info.file_name 'fileName', reservation_user_comment_image.id 'imageId', file_info.modify_date 'modifyDate',  file_info.save_file_name 'saveFileName'
@@ -1463,16 +1483,16 @@ WHERE display_info_image.display_info_id = 1
 AND reservation_user_comment.id = 1;
 
 -- COMMENT AVG(score)
-SELECT ROUND(AVG(score), 1) as 'averageScore'
+SELECT score, display_info.id -- ROUND(AVG(score), 1) as 'averageScore'
 FROM reservation_user_comment
 INNER JOIN product ON product.id = reservation_user_comment.product_id
 INNER JOIN display_info ON display_info.product_id = product.id
-WHERE display_info.id = 1;
+WHERE display_info.id = 2;
 
--- PRODUCT PRICE (LIST)
-SELECT product_price.id 'productPriceId', product.id 'productId', price_type_name 'priceTypeName', price 'price', discount_rate 'discountRate', product_price.create_date 'createDate', product_price.modify_date 'modifyDate'
-FROM product_price
-INNER JOIN product ON product.id = product_price.product_id
-INNER JOIN display_info ON display_info.product_id = product.id
-WHERE display_info.id = 1;
 ------------------------------------------------------------
+-- TEST
+SELECT ROUND(AVG(score), 1) as 'averageScore'
+FROM reservation_user_comment
+INNER JOIN reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id
+WHERE reservation_info.display_info_id = 2;
+

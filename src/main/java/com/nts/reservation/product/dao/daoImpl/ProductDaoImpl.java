@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dao.sqls.ProductDaoSqls;
+import com.nts.reservation.product.dto.ImageType;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
@@ -62,15 +63,11 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<ProductImage> selectProductImages(int displayInfoId, String type) {
+	public List<ProductImage> selectProductImages(int displayInfoId, ImageType type) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		param.put("type", type);
-		if (type.equals("ma")) {
-			return jdbc.query(ProductDaoSqls.GET_PRODUCT_IMAGES, param, productImageRowMapper);
-		} else {
-			return jdbc.query(ProductDaoSqls.GET_PRODUCT_ECT_IMAGES, param, productImageRowMapper);
-		}
+		param.put("type", type.getImageType());
+		return jdbc.query(ProductDaoSqls.GET_PRODUCT_IMAGES, param, productImageRowMapper);
 	}
 
 	@Override
