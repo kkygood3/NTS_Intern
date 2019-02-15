@@ -146,7 +146,6 @@
 	<%@ include file="/template/comment_item.jsp"%>
 	<%@ include file="/template/detail.jsp"%>
 	
-	
 	<script type="text/javascript">
 		function displayInfo() {
 			return {
