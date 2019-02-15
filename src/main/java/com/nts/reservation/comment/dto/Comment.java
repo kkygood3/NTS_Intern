@@ -24,5 +24,6 @@ public class Comment {
 	private int reservationInfoId;
 	private String reservationName;
 	private String reservationTelephone;
+	private String productDescription;
 	private double score;
 }

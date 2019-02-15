@@ -32,24 +32,24 @@ public class CommentDaoImpl implements CommentDao {
 	private RowMapper<Comment> commentRowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
 	private RowMapper<CommentImage> commentImageRowMapper = BeanPropertyRowMapper.newInstance(CommentImage.class);
 
+	private static final int MAX_LIMIT = 20;
 
 	@Override
 	public List<Comment> selectCommentBydisplayInfoId(int displayInfoId, int limit) {
 		Map<String, Integer> param = new HashMap<>();
-		param.put("displayInfoId", displayInfoId);
-		
-		if(limit == 0) {
-			return jdbc.query(CommentDaoSqls.GET_ALL_COMMENT, param, commentRowMapper);
-		}else {
-			param.put("limit", limit);
-			return jdbc.query(CommentDaoSqls.GET_LIMIT_COMMENT, param, commentRowMapper);
+
+		if (limit == 0) {
+			limit = MAX_LIMIT;
 		}
+
+		param.put("displayInfoId", displayInfoId);
+		param.put("limit", limit);
+		return jdbc.query(CommentDaoSqls.GET_LIMIT_COMMENT, param, commentRowMapper);
 	}
 
 	@Override
-	public List<CommentImage> selectCommentImage(int displayInfoId, int commentId) {
+	public List<CommentImage> selectCommentImage(int commentId) {
 		Map<String, Integer> param = new HashMap<>();
-		param.put("displayInfoId", displayInfoId);
 		param.put("commentId", commentId);
 		return jdbc.query(CommentDaoSqls.GET_COMMENT_IMAGES_BY_COMMENT_ID, param, commentImageRowMapper);
 	}

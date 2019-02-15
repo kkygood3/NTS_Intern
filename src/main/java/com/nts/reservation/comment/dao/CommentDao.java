@@ -12,7 +12,7 @@ import com.nts.reservation.comment.dto.CommentImage;
 public interface CommentDao {
 	List<Comment> selectCommentBydisplayInfoId(int displayInfoId, int limit);
 
-	List<CommentImage> selectCommentImage(int displayInfoId, int commentId);
+	List<CommentImage> selectCommentImage(int commentId);
 
 	double selectCommentAvgScore(int displayInfoId);
 }
