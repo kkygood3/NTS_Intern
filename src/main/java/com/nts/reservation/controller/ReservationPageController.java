@@ -33,7 +33,7 @@ public class ReservationPageController {
 		Long productId = displayInfo.getProductId();
 		ProductImageDto productImage = displayService.getProductMainImage(productId);
 		List<ProductPriceForRenderDto> productPriceListForRender = displayService
-			.getProductPriceListForRender(productId);
+			.getProductPriceForRenderList(productId);
 
 		map.addAttribute("reservationResponseDto",
 			new ReservationResponseDto(displayInfo, productImage, productPriceListForRender));

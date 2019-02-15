@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="util" class="com.nts.reservation.util.UtilForJsp"/>
+<jsp:useBean id="util" class="com.nts.reservation.util.DateUtil"/>
 <%@ page import="java.util.*" %>
+<%@ page import="com.nts.reservation.dto.tag.PriceTag" %>
 <c:set var="reservationDate" scope="request" value="${util.getReservationDate() }"/>
 <!DOCTYPE html>
 <html lang="ko">
@@ -76,7 +77,7 @@
 	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
 	                            </div>
-	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${util.getTicketNameByType(price.name) }</span> </strong> <strong class="product_price"> <span class="price">${price.price }</span> <span class="price_type">원</span> </strong> <em class="product_dsc">${price.description }</em> </div>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${PriceTag.valueOf(price.name).getName() }</span> </strong> <strong class="product_price"> <span class="price">${price.price }</span> <span class="price_type">원</span> </strong> <em class="product_dsc">${price.description }</em> </div>
 	                        </div>
 						</c:forEach>
                     </div>
