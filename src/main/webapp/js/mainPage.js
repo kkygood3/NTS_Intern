@@ -1,11 +1,11 @@
-var currentStart = 0;
-var currentCategory = 0;
+let currentStart = 0;
+let currentCategory = 0;
 // 한번에 요청할 Product 개수
 const currentProductUnits = 4;
 
 // Rest API로 서버로부터 해당 url의 json데이터를 가져옴
 function requestAjax(callback, url) {
-    var ajaxReq = new XMLHttpRequest();
+    let ajaxReq = new XMLHttpRequest();
     ajaxReq.callback = callback;
     ajaxReq.addEventListener('load', evt => {
         callback(evt.target.response)
@@ -19,13 +19,13 @@ function loadProductsCallback(responseData) {
 
     currentStart += 4;
 
-    var totalCount = responseData.totalCount;
-    var items = responseData.items;
+    let totalCount = responseData.totalCount;
+    let items = responseData.items;
 
-    var template = document.querySelector('#itemList').innerHTML;
-    var containers = document.querySelectorAll('.lst_event_box');
+    let template = document.querySelector('#itemList').innerHTML;
+    let containers = document.querySelectorAll('.lst_event_box');
 
-    for (var i = 0, len = items.length; i < len; ++i) {
+    for (let i = 0, len = items.length; i < len; ++i) {
         containers[i % 2].innerHTML += template
                                                 .replace('{displayInfoId}', items[i].displayInfoId)
                                                 .replace('{productImageUrl}', items[i].productImageUrl)
@@ -35,7 +35,7 @@ function loadProductsCallback(responseData) {
                                                 .replace('{content}', items[i].productContent);
     }
 
-    var moreViewbtn = document.querySelector('.btn');
+    let moreViewbtn = document.querySelector('.btn');
 
     // 더이상 보여줄 컨텐츠가 없을 땐 더보기 버튼 비활성화
     if (currentStart >= totalCount) {
@@ -48,17 +48,17 @@ function loadProductsCallback(responseData) {
 }
 
 function setPromotionSlideAnimation() {
-    var promotionList = document.querySelectorAll('.visual_img > .item');
-    var leftDistance = 0;
-    var promotionLength = promotionList.length;
-    var curIdx = 0;
+    let promotionList = document.querySelectorAll('.visual_img > .item');
+    let leftDistance = 0;
+    let promotionLength = promotionList.length;
+    let curIdx = 0;
 
     // 4초간격으로 슬라이딩
     // 화면 크기만큼 슬라이딩
     setInterval(() => {
         leftDistance -= 100;
 
-        for (var i = 0; i < promotionLength; ++i) {
+        for (let i = 0; i < promotionLength; ++i) {
             promotionList[i].style.left = leftDistance + '%';
         }
 
@@ -67,7 +67,7 @@ function setPromotionSlideAnimation() {
         // 마지막 슬라이드 옮기고 초기화
         if (curIdx >= promotionLength - 1) {
 
-            for (var i = 0; i < promotionLength; ++i) {
+            for (let i = 0; i < promotionLength; ++i) {
                 // transitionDuration => 0s, 위치 초기화, transitionDuration => 1s
                 promotionList[i].style.transitionDuration = '0s';
 
@@ -87,14 +87,14 @@ function setPromotionSlideAnimation() {
 
 function setTabButton() {
     document.querySelector('.tab_lst_min').addEventListener('click', btnEvent => {
-        var selectedTab = event.target;
+        let selectedTab = event.target;
 
         if (selectedTab.tagName === 'SPAN') {
             selectedTab = selectedTab.parentElement;
         }
 
         if (selectedTab.tagName === 'A') {
-            var categoryId = selectedTab.parentElement.getAttribute('data-category');
+            let categoryId = selectedTab.parentElement.getAttribute('data-category');
 
             // 다른 탭 클릭 이벤트 발생 시에만 동작
             if (categoryId != currentCategory) {
@@ -114,12 +114,12 @@ function setTabButton() {
 }
 
 function loadPromotionsCallback(responseData) {
-    var items = responseData.items;
+    let items = responseData.items;
 
-    var template = document.querySelector('#promotionItem').innerHTML;
-    var containers = document.querySelector('.visual_img');
+    let template = document.querySelector('#promotionItem').innerHTML;
+    let containers = document.querySelector('.visual_img');
 
-    for (var i = 0, len = items.length; i < len; ++i) {
+    for (let i = 0, len = items.length; i < len; ++i) {
         containers.innerHTML += template
             .replace(/{productImageUrl}/g, items[i].productImageUrl);
     }
