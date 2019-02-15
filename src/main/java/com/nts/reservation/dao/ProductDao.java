@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 
 /**
  * 상품 정보들을 가져오는 클래스
@@ -91,6 +92,26 @@ public class ProductDao extends BasicDao<ProductDto> {
 	public ProductDto selectProduct(int productId) {
 		return jdbcTemplate.queryForObject(SELECT_PRODUCT, Collections.singletonMap("productId", productId),
 			rowMapper);
+	}
+
+	/**
+	 * 프로덕트 ID에 해당하는 가격리스트들 select 
+	 */
+	public List<ProductPriceDto> selectProductPrices(int productId) {
+		return jdbcTemplate.query(SELECT_PRODUCT_PRICES, Collections.singletonMap("productId", productId),
+			BeanPropertyRowMapper.newInstance(ProductPriceDto.class));
+	}
+
+	/**
+	 * id, type에 해당하는 이미지들을 가져옵니다.
+	 */
+	public List<ProductImageDto> selectProductImagesByType(int productId, String type, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("productId", productId);
+		params.put("type", type);
+		params.put("limit", limit);
+		return jdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_TYPE, params,
+			BeanPropertyRowMapper.newInstance(ProductImageDto.class));
 	}
 
 }

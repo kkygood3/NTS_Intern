@@ -12,6 +12,7 @@ public class DisplayInfoDaoSqls {
 	public static final String SELECT_DISPLAY_INFO = ""
 		+ "SELECT "
 		+ "    di.id AS id, "
+		+ "    di.opening_hours AS openingHours, "
 		+ "    p.description AS productDescription, "
 		+ "    p.content AS productContent, "
 		+ "    di.place_name AS placeName, "

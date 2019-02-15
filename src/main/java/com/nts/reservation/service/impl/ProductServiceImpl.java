@@ -20,10 +20,12 @@ import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductImageResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
+import com.nts.reservation.dto.response.ReserveResponseDto;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -89,6 +91,14 @@ public class ProductServiceImpl implements ProductService {
 		List<CommentDto> comments = commentDao.selectComments(productId, start, limit);
 		double averageScore = commentDao.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
+	}
+
+	@Override
+	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId) {
+		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
+		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
+		String productImageUrl = productDao.selectProductImagesByType(productId, "ma", 1).get(0).getSaveFileName();
+		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
 
 }
