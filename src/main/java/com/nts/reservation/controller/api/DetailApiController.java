@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.dto.review.ReviewResponse;
-import com.nts.reservation.property.DefaultPagingLimitProperties;
+import com.nts.reservation.property.DefaultPagingLimit;
 import com.nts.reservation.property.ReviewProperties;
 import com.nts.reservation.service.detail.DetailExtraImageService;
 import com.nts.reservation.service.detail.DetailResponseService;
@@ -45,7 +45,7 @@ public class DetailApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		DetailResponse detailDisplay = detailDisplayService.getDetailResponse(displayInfoId, pagingLimit);
 		Map<String, Object> map = new HashMap<>();
@@ -78,7 +78,7 @@ public class DetailApiController {
 	@GetMapping("/review")
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = ReviewProperties.PRODUCT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<ReviewResponse> comments = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
 		Map<String, Object> map = new HashMap<>();

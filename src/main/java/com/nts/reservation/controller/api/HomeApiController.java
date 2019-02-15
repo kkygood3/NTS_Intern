@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.main.HomeCategory;
 import com.nts.reservation.dto.main.HomeProduct;
 import com.nts.reservation.dto.main.HomePromotion;
-import com.nts.reservation.property.DefaultPagingLimitProperties;
+import com.nts.reservation.property.DefaultPagingLimit;
 import com.nts.reservation.property.ProductProperties;
 import com.nts.reservation.service.main.HomeCategoryService;
 import com.nts.reservation.service.main.HomeProductService;
@@ -40,7 +40,7 @@ public class HomeApiController {
 	 */
 	@GetMapping("/categories")
 	public Map<String, Object> categories(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<HomeCategory> categoryList = homeCategoryService.getCategories(pagingLimit);
 		Map<String, Object> map = new HashMap<>();
@@ -60,7 +60,7 @@ public class HomeApiController {
 	public Map<String, Object> products(
 		@RequestParam(name = "categoryId", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<HomeProduct> productList = new ArrayList<>();
 		int totalCount = homeProductService.getCount(categoryId);
@@ -83,7 +83,7 @@ public class HomeApiController {
 	 */
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimitProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<HomePromotion> promotionList = new ArrayList<>();
 		int totalCount = homePromotionService.getCount();
