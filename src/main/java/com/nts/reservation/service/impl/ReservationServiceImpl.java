@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailProductDao;
 import com.nts.reservation.dao.ReservationDao;
@@ -23,6 +24,7 @@ import com.nts.reservation.service.ReservationService;
 * @author  : 이승수
 */
 @Service
+@Transactional
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	ReservationDao reservationDao;
@@ -30,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 	DetailProductDao detailProductDao;
 
 	@Override
-	public void setReservation(HttpSession session, Reservation reservationInfo) {
+	public void makeReservation(HttpSession session, Reservation reservationInfo) {
 		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
 
 		reservationDao.setReservation(reservationInfo);
@@ -42,6 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<ReservedItem> getReservedItems(String userEmail, boolean isCanceled, boolean isExpired) {
 		List<ReservedItem> reservedItems = new ArrayList<>();

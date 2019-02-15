@@ -25,7 +25,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservationPrice;
@@ -34,7 +33,6 @@ import com.nts.reservation.dto.ReservationPrice;
 * @author  : 이승수
 */
 @Repository
-@Transactional
 public class ReservationDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Reservation> rowMapper = BeanPropertyRowMapper.newInstance(Reservation.class);
@@ -47,7 +45,6 @@ public class ReservationDao {
 		jdbc.update(INSERT_RESERVATION_INFO, new BeanPropertySqlParameterSource(reservationInfo));
 	}
 
-	@Transactional(readOnly = true)
 	public int getReservationInfoId(Reservation reservationInfo) {
 		return jdbc.queryForObject(GET_RESERVATION_INFO_ID, new BeanPropertySqlParameterSource(reservationInfo),
 			Integer.class);
@@ -57,7 +54,6 @@ public class ReservationDao {
 		jdbc.update(INSERT_RESERVATION_INFO_PRICE, new BeanPropertySqlParameterSource(reservationInfoPrice));
 	}
 
-	@Transactional(readOnly = true)
 	public List<Reservation> getAvailableReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
@@ -65,7 +61,6 @@ public class ReservationDao {
 		return jdbc.query(GET_RESERVATIONS + AVAILABLE, params, rowMapper);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Reservation> getExpiredReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
@@ -73,7 +68,6 @@ public class ReservationDao {
 		return jdbc.query(GET_RESERVATIONS + EXPIRED, params, rowMapper);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Reservation> getCanceledReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);

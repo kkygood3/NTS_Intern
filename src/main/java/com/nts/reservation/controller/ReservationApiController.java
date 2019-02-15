@@ -114,7 +114,7 @@ public class ReservationApiController {
 
 	@PostMapping(path = "/reservations")
 	public void makeReservation(HttpSession session, @RequestBody Reservation reserveInfo) {
-		reservationService.setReservation(session, reserveInfo);
+		reservationService.makeReservation(session, reserveInfo);
 	}
 
 	@PutMapping(path = "/reservations/{reservaionInfoId}")
