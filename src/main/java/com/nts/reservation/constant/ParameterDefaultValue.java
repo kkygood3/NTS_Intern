@@ -17,7 +17,7 @@ public class ParameterDefaultValue {
 
 	public static final String CATEGORY_TYPE_ALL = "0";
 
-	public static final String IMAGE_TYPE_THUMBNAIL = "THUMBNAIL";
-	public static final String IMAGE_TYPE_MAIN = "MAIN";
-	public static final String IMAGE_TYPE_ETC = "ETC";
+	public static final String IMAGE_TYPE_THUMBNAIL = "th";
+	public static final String IMAGE_TYPE_MAIN = "ma";
+	public static final String IMAGE_TYPE_ETC = "et";
 }

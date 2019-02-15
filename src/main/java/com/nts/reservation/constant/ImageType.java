@@ -13,13 +13,22 @@ public enum ImageType {
 	MAIN("ma"),
 	ETC("et");
 
+	private ImageType(String name) {
+		this.name = name;
+	}
+
 	private final String name;
 
 	public String getName() {
 		return name;
 	}
 
-	private ImageType(String name) {
-		this.name = name;
+	public static ImageType getEnum(String name) {
+		for (ImageType v : values()) {
+			if (v.getName().equalsIgnoreCase(name)) {
+				return v;
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 }

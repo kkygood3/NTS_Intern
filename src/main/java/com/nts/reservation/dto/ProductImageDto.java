@@ -4,13 +4,15 @@
  */
 package com.nts.reservation.dto;
 
+import com.nts.reservation.constant.ImageType;
+
 /**
  * 상품 이미지 모델
  * @author jinwoo.bae
  */
 public class ProductImageDto {
 	int id;
-	String type; // 이미지 타입 (main, thumbnail, etc)
+	ImageType type; // 이미지 타입 (main, thumbnail, etc)
 	String saveFileName; // 이미지 저장 경로
 	Boolean deleteFlag; // 삭제 여부
 
@@ -22,12 +24,12 @@ public class ProductImageDto {
 		this.id = id;
 	}
 
-	public String getType() {
+	public ImageType getType() {
 		return type;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type = ImageType.getEnum(type);
 	}
 
 	public String getSaveFileName() {

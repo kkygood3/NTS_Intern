@@ -48,7 +48,7 @@ public class ProductApiController {
 	@GetMapping("/{productId}/image")
 	public Map<String, Object> getProductImageUrl(@PathVariable int productId,
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_ETC) String type) {
-		String productImageUrl = productService.getProductImage(productId, ImageType.valueOf(type)).getSaveFileName();
+		String productImageUrl = productService.getProductImage(productId, ImageType.getEnum(type)).getSaveFileName();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productImageUrl", productImageUrl);
 		return map;

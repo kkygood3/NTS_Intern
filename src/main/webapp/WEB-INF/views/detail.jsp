@@ -318,7 +318,7 @@
 	<script>
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
-		const PRODUCT_IMAGE_TYPE = "ETC";
+		const PRODUCT_IMAGE_TYPE = "et";
 
 		var detail = {
 			// DIV Elements

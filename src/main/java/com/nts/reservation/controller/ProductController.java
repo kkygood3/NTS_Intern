@@ -38,7 +38,7 @@ public class ProductController {
 		@RequestParam int displayInfoId,
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_MAIN) String type,
 		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit, Model model) {
-		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, ImageType.valueOf(type), commentLimit);
+		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, ImageType.getEnum(type), commentLimit);
 		model.addAttribute("displayInfo", detailResponse.getDisplayInfo());
 		model.addAttribute("commentResponse", detailResponse.getCommentResponse());
 		model.addAttribute("productImageUrl", detailResponse.getProductImageUrl());
@@ -52,7 +52,7 @@ public class ProductController {
 	public String getReservePage(@PathVariable int productId,
 		@RequestParam int displayInfoId,
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_MAIN) String type, Model model) {
-		ReserveResponseDto reserveResponse = productService.getReserveResponse(productId, displayInfoId, ImageType.valueOf(type));
+		ReserveResponseDto reserveResponse = productService.getReserveResponse(productId, displayInfoId, ImageType.getEnum(type));
 		model.addAttribute("displayInfo", reserveResponse.getDisplayInfo());
 		model.addAttribute("productPrices", reserveResponse.getProductPrices());
 		model.addAttribute("productImageUrl", reserveResponse.getProductImageUrl());
