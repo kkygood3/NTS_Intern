@@ -17,6 +17,6 @@
 		<li><strong>Error Object</strong> : ${requestScope['javax.servlet.error.exception']}</li>
 		<li><strong>Error URI</strong> : ${requestScope['javax.servlet.error.request_uri']}</li>
 	</ul>
-	<a href="./main">메인페이지로 이동</a>
+	<a href="/main">메인페이지로 이동</a>
 </body>
 </html>

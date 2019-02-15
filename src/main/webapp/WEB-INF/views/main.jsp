@@ -35,7 +35,8 @@
 			<div class="section_visual">
 				<div class="group_visual">
 					<div class="container_visual">
-						<div class="slide_images"></div>
+						<ul class="visual_img detail_swipe">
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -83,7 +84,9 @@
 
 
 	<script type="text/template" id="template-promotion-image">
-		<img data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
+		<li class="item" style="width: 414px; height: 209px;">
+			<img style="width: 414px; height: 209px;" data-id="{id}" data-product-id="{productId}" src="{productImageUrl}"/>
+		</li>
 	</script>
 
 	<script type="text/template" id="template-category-ui-list">
@@ -96,7 +99,7 @@
 
 	<script type="text/template" id="template-product-list">
 		<li class="item" data-display-info-id={displayInfoId}, data-product-id={productId}>
-			<a href="detail?id={displayInfoId}" class="item_book">
+			<a onclick="goDetailPage({productId}, {displayInfoId})" class="item_book">
 			<div class="item_preview">
 				<img alt="{productDescription}" class="img_thumb" src="{productImageUrl}">
 				<span class="img_border"></span>
@@ -119,7 +122,7 @@
 		const CATEGORY_TYPE_ALL = 0;
 
 		// DOM
-		var slideImages = document.querySelector(".slide_images"); // 프로모션의 슬라이드 영역
+		var slideImages = document.querySelector(".detail_swipe"); // 프로모션의 슬라이드 영역
 		var categoryTabList = document.querySelector(".tab_lst_min"); // 카테고리 탭 영역
 		var productListBox = document.querySelector(".wrap_event_box"); // 상품들을 보여주는 영역
 
@@ -162,7 +165,8 @@
 			}, "");
 
 			// 무한 슬라이딩을 위해 프로모션 첫 이미지를 끝에 추가로 삽입
-			resultHTML += parseTemplateToHTML(template, promotions[0]); 
+			var lastIndex = promotions.length-1;
+			resultHTML = parseTemplateToHTML(template, promotions[lastIndex]) + resultHTML;
 			slideImages.innerHTML = resultHTML;
 			doAutoSlideShowPromotions();
 		}
@@ -230,17 +234,16 @@
 		// 프로모션 이미지 auto 슬라이딩 효과
 		function doAutoSlideShowPromotions() {
 			var imgCount = slideImages.childElementCount;
+			slideImages.style.left = 0;
+			slideImages.style.transform = "translateX(-100%)";
 			var i = 1;
+			var isFirst = true;
 			setInterval(function() {
-				if (i == imgCount) {
-					slideImages.style.transitionProperty = "none"
-					slideImages.style.transform = "translateX(0px)";
-					i = 1;
-				} else {
-					slideImages.style.transitionProperty = "all"
-					slideImages.style.transform = "translateX(" + i * -414 + "px)";
-					i += 1;
+				if (i % (imgCount-1) === 0) {
+					slideImages.style.transform = "translateX(" + (i-1) * 100 + "%)";
 				}
+				slideImages.style.left = i * -100 + "%";
+				i += 1;
 			}, 2000);
 		}
 
@@ -270,13 +273,13 @@
 			loadProductResponse(setDOMProducts, categoryId, 0);
 		}
 
-		// more 버튼 활성화 
+		// more 버튼 활성화
 		function showMoreButton() {
 			var button = document.querySelector(".more .btn");
 			button.style.display = "block";
 		}
 
-		// more 버튼 비활성화 
+		// more 버튼 비활성화
 		function hideMoreButton() {
 			var button = document.querySelector(".more .btn");
 			button.style.display = "none";
@@ -288,6 +291,10 @@
 			var categoryId = parseInt(el.parentNode.getAttribute("data-category"));
 			var listCount = productListBox.getElementsByTagName("li").length;
 			loadProductResponse(addDOMProducts, categoryId, listCount);
+		}
+
+		function goDetailPage(productId, displayInfoId) {
+			location.href="products/" + productId + "/detail?displayInfoId=" + displayInfoId;
 		}
 
 		document.addEventListener("DOMContentLoaded", function(event) {

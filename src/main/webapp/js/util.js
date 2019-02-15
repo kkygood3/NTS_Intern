@@ -8,21 +8,6 @@ function isNumber(val) {
 }
 
 /**
- * XMLHttpRequest를 생성하고 반환해주며
- * 미리 헤더값과 transfer error 일때 발생되는 이벤트를 등록해줍니다.
- */
-function getXMLHttpRequest(url) {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url);
-	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-	xhr.responseType = "json";
-
-	xhr.addEventListener("error", function(e) {
-		alert("An error occurred while transferring the file.");
-	});
-	return xhr;
-}
-/**
  * XMLHttpRequest를 생성하고 서버로부터 request후 응답결과를 매개변수로 callback함수를 실행 
  */
 function ajax(callback, url) {

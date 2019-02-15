@@ -1240,7 +1240,7 @@ button {
 .form_horizontal .inline_form .inline_control.tel_wrap {
     position: relative;
 }
-    
+
 
 .form_horizontal .inline_form .inline_control.tel_wrap .warning_msg {
     position: relative;
@@ -2994,9 +2994,10 @@ button {
 }
 
 .event .section_visual .group_visual .container_visual .slide_images  {
-	width: 10000px;
+	position: relative;
 	height: 177px;
-	transition: 1.0s ease-in-out;
+	transition: left 1.0s ease-in-out;
+	left: 0;
 }
 .event .section_visual .group_visual .container_visual .slide_images img {
 	width: 414px;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-	<display-name>Resevation</display-name>
+	<display-name>Reservation</display-name>
 
 	<!-- Spring DI 등록 -->
 	<context-param>
@@ -10,7 +10,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.nts.resevation.config.ApplicationConfig
+		<param-value>com.nts.reservation.config.ApplicationConfig
 		</param-value>
 	</context-param>
 	<listener>
@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>com.nts.resevation.config.WebMvcContextConfiguration
+			<param-value>com.nts.reservation.config.WebMvcContextConfiguration
 			</param-value>
 		</init-param>
 		<init-param>
