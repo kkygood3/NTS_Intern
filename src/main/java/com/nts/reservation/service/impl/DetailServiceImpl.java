@@ -32,22 +32,22 @@ public class DetailServiceImpl implements DetailService {
 	DetailDao DetailDao;
 
 	@Override
-	public DisplayInfo selectDisplayInfo(Long displayInfoId) {
+	public DisplayInfo getDisplayInfo(Long displayInfoId) {
 		return DetailDao.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
-	public List<ProductImage> selectProductImages(Long displayInfoId) {
+	public List<ProductImage> getProductImages(Long displayInfoId) {
 		return DetailDao.selectProductImages(displayInfoId);
 	}
 
 	@Override
-	public DisplayInfoImage selectDisplayInfoImage(Long displayInfoId) {
+	public DisplayInfoImage getDisplayInfoImage(Long displayInfoId) {
 		return DetailDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
-	public List<Comment> selectComments(Long displayInfoId) {
+	public List<Comment> getComments(Long displayInfoId) {
 		List<Comment> comments = DetailDao.selectComments(displayInfoId);
 		for (Comment comm : comments) {
 			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comm.getCommentId());
@@ -58,12 +58,12 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
-	public Double selectAverageScore(Long displayInfoId) {
+	public Double getAverageScore(Long displayInfoId) {
 		return DetailDao.selectAverageScore(displayInfoId);
 	}
 
 	@Override
-	public List<ProductPrice> selectProductPrices(Long displayInfoId) {
+	public List<ProductPrice> getProductPrices(Long displayInfoId) {
 		return DetailDao.selectProductPrices(displayInfoId);
 	}
 }

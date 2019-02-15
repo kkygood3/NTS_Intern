@@ -63,19 +63,15 @@ function sendReservation(priceDataArr){
 			displayInfoId :  state.detail_data.displayInfo.displayInfoId
 			, prices : priceDataArr
 			, productId : state.detail_data.displayInfo.productId
-			, reservationEmail : formData.get("email")
-			, reservationName : formData.get("rsvname")
-			, reservationTelephone : formData.get("tel")
+			, reservationEmail : formData.get("email").toString()
+			, reservationName : formData.get("rsvname").toString()
+			, reservationTelephone : formData.get("tel").toString()
 			, reservationYearMonthDay : d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
 			} 
-	let formDataToSend = new FormData();
-	
-	formDataToSend.append("totalData", JSON.stringify(dataToSend));
-	console.log(formDataToSend.get("totalData"));
-	xhrPostMultipartRequest("/reservation/api/reservations", formDataToSend, () =>{
+	xhrPostRequest("/reservation/api/reservations", JSON.stringify(dataToSend), () =>{
 		alert("SUCCESS");
 		window.location.href ="/reservation";
-	});
+	}, false);
 }
 
 function FormWatcher() {

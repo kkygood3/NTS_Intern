@@ -7,19 +7,22 @@ package com.nts.reservation.controller;
  */
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
@@ -29,28 +32,33 @@ import com.nts.reservation.service.ReservationService;
  */
 
 @RestController
-@RequestMapping(path = "/api/", method = {RequestMethod.POST})
-public class ApplicationPostApiController {
+@RequestMapping(path = "/api/")
+public class ApplicationReservationApiController {
 
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
 	private HttpSession session;
 
-	@PostMapping(path = "/reservations", consumes = {"multipart/form-data"})
-	public ReservationInfo postReservation(@RequestParam(name = "totalData", required = true) String input)
+	@PostMapping(path = "/reservations")
+	public ReservationInfo postReservation(@RequestBody ReservationParam resInput)
 		throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		ReservationParam resInput = objectMapper.readValue(input, ReservationParam.class);
-		reservationService.insertReservations(resInput);
+		reservationService.addReservations(resInput);
 		return new ReservationInfo();
 	}
 
-	@PostMapping(path = "/loginform", consumes = {"multipart/form-data"})
-	public Boolean loginProcess(@RequestParam(name = "resrv_email", required = true) String email) {
-		session.setAttribute("email", email);
-		System.out.println(session.getAttribute("email"));
+	@PutMapping(path = "/reservations/{reservationId}")
+	public boolean postReservation(
+		@PathVariable(name = "reservationId", required = true) Long reservationId) {
+		reservationService.cancelReservation(reservationId);
 		return true;
+	}
+
+	@GetMapping("/reservations")
+	public Map<String, Object> getReservations() {
+		Map<String, Object> result = new HashMap<>();
+		result.put("reservations", reservationService.getReservations(session.getAttribute("email").toString()));
+		return result;
 	}
 
 }

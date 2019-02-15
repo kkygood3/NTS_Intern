@@ -17,9 +17,9 @@ import com.nts.reservation.dto.reservation.ReservationParam;
  */
 
 public interface ReservationService {
-	List<ReservationInfo> selectReservations(String email);
+	List<ReservationInfo> getReservations(String email);
 
-	void insertReservations(ReservationParam resInput);
+	void addReservations(ReservationParam resInput);
 
-	void updateReservationCancelFlag(Long reservationId);
+	void cancelReservation(Long reservationId);
 }

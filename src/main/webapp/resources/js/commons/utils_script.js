@@ -269,12 +269,32 @@ function xhrGetRequest(url, callback) {
 }
 
 /**
- * @xhrPostRequest() : pre-defined XmlHttpRequest Post method since post method
- *                   will be used multiple times
+ * @xhrPostMultipartRequest() : pre-defined XmlHttpRequest Post method since
+ *                            post method will be used multiple times
  */
 function xhrPostMultipartRequest(url, data, callback, isAsync) {
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, isAsync);
+	xhr.onreadystatechange = function(aEvt) {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				callback(xhr.responseText);
+			} else {
+				alert("Error posting");
+			}
+		}
+	};
+	xhr.send(data);
+}
+
+/**
+ * @xhrPostRequest() : pre-defined XmlHttpRequest Post method since post method
+ *                   will be used multiple times
+ */
+function xhrPostRequest(url, data, callback, isAsync) {
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, isAsync);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {

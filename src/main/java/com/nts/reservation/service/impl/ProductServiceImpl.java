@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao productDao;
 
 	@Override
-	public List<Product> selectProductsByCategory(Integer categoryId, Integer start) {
+	public List<Product> getProductsByCategory(Integer categoryId, Integer start) {
 		if (categoryId > 0) {
 			return productDao.selectProductsByCategory(categoryId, start, LIMIT);
 		} else {
@@ -38,17 +38,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Long selectProductsCount() {
+	public Long getProductsCount() {
 		return productDao.selectProductsCount();
 	}
 
 	@Override
-	public Long selectProductsCountByCategory(Integer categoryId) {
+	public Long getProductsCountByCategory(Integer categoryId) {
 		return productDao.selectProductsCountByCategory(categoryId);
 	}
 
 	@Override
-	public List<Promotion> selectPromotions() {
+	public List<Promotion> getPromotions() {
 		return productDao.selectPromotions();
 	}
 }

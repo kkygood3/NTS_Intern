@@ -31,7 +31,7 @@ import com.nts.reservation.service.ReservationService;
 
 @RestController
 @RequestMapping(path = "/api/", method = {RequestMethod.GET})
-public class ApplicationGetApiController {
+public class ApplicationProductApiController {
 	@Autowired
 	private ProductService productService;
 	@Autowired
@@ -44,52 +44,46 @@ public class ApplicationGetApiController {
 	private HttpSession session;
 
 	@GetMapping("/products")
-	public Map<String, Object> selectProductsByCategory(
+	public Map<String, Object> getProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.selectProductsByCategory(categoryId, start));
+		result.put("items", productService.getProductsByCategory(categoryId, start));
 		if (categoryId == 0) {
-			result.put("totalCount", productService.selectProductsCount());
+			result.put("totalCount", productService.getProductsCount());
 		} else {
-			result.put("totalCount", productService.selectProductsCountByCategory(categoryId));
+			result.put("totalCount", productService.getProductsCountByCategory(categoryId));
 		}
 
 		return result;
 	}
 
 	@GetMapping("/products/{displayInfoId}")
-	public DisplayInfoResponse selectProductDetailByDisplayInfoId(
+	public DisplayInfoResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
 		DisplayInfoResponse result = new DisplayInfoResponse.Builder()
-			.displayInfo(detailService.selectDisplayInfo(displayInfoId))
-			.productImages(detailService.selectProductImages(displayInfoId))
-			.displayInfoImage(detailService.selectDisplayInfoImage(displayInfoId))
-			.averageScore(detailService.selectAverageScore(displayInfoId))
-			.productPrices(detailService.selectProductPrices(displayInfoId))
-			.comments(detailService.selectComments(displayInfoId))
+			.displayInfo(detailService.getDisplayInfo(displayInfoId))
+			.productImages(detailService.getProductImages(displayInfoId))
+			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
+			.averageScore(detailService.getAverageScore(displayInfoId))
+			.productPrices(detailService.getProductPrices(displayInfoId))
+			.comments(detailService.getComments(displayInfoId))
 			.build();
 		return result;
 	}
 
 	@GetMapping("/categories")
-	public Map<String, Object> selectAllProductsCountByCategory() {
+	public Map<String, Object> getAllProductsCountByCategory() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", categoryService.selectAllProductsCountByCategory());
+		result.put("items", categoryService.getAllProductsCountByCategory());
 		return result;
 	}
 
 	@GetMapping("/promotions")
-	public Map<String, Object> selectPromotions() {
+	public Map<String, Object> getPromotions() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.selectPromotions());
+		result.put("items", productService.getPromotions());
 		return result;
 	}
 
-	@GetMapping("/reservations")
-	public Map<String, Object> selectreservations() {
-		Map<String, Object> result = new HashMap<>();
-		result.put("reservations", reservationService.selectReservations(session.getAttribute("email").toString()));
-		return result;
-	}
 }

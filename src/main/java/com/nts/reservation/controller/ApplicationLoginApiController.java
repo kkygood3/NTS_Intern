@@ -9,9 +9,9 @@ package com.nts.reservation.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.service.ReservationService;
@@ -22,17 +22,16 @@ import com.nts.reservation.service.ReservationService;
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ApplicationPutApiController {
+public class ApplicationLoginApiController {
 
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
 	private HttpSession session;
 
-	@PutMapping(path = "/reservations/{reservationId}")
-	public boolean postReservation(
-		@PathVariable(name = "reservationId", required = true) Long reservationId) {
-		reservationService.updateReservationCancelFlag(reservationId);
+	@PostMapping(path = "/loginform", consumes = {"multipart/form-data"})
+	public Boolean loginProcess(@RequestParam(name = "resrv_email", required = true) String email) {
+		session.setAttribute("email", email);
 		return true;
 	}
 

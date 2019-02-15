@@ -70,9 +70,9 @@ ReservationCard.prototype.cancelProcess = function(){
 }
 
 ReservationCard.prototype.renderPageDetails = function(){
-	let yet = domElements.sectionConfirmed.childElementCount-1;
-	let used = domElements.sectionUsed.childElementCount-1;
-	let canceled = domElements.sectionCanceled.childElementCount-1;
+	let yet = domElements.sectionConfirmed.querySelectorAll("article").length;
+	let used = domElements.sectionUsed.querySelectorAll("article").length;
+	let canceled = domElements.sectionCanceled.querySelectorAll("article").length;
 	let total = yet+used+canceled;
 	
 	this.yetFigure.innerText = yet
