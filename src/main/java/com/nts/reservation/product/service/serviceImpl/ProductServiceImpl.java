@@ -4,13 +4,15 @@
  */
 package com.nts.reservation.product.service.serviceImpl;
 
-import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.product.dao.ProductDao;
+import com.nts.reservation.product.dto.ImageType;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
@@ -20,20 +22,22 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private ProductDao productDao;
 
 	@Override
 	public ProductResponse getProductsByCategory(int categoryId, int start, int limit) {
 		List<Product> products = productDao.selectProductsByCategory(categoryId, start, limit);
+		
 		if (products.size() == 0) {
-			return ProductResponse.builder()
-				.items(Collections.emptyList())
-				.totalCount(0)
-				.build();
+			logger.warn("{} - displayInfoId : {} / Does not exist categoryId", this.getClass(), categoryId);
+			throw new IllegalArgumentException("Bad Request! Parameter (categoryId)");
 		}
-
+		
 		int productCount = productDao.selectProductCountByCategory(categoryId);
+
 		return ProductResponse.builder()
 			.items(products)
 			.totalCount(productCount)
@@ -41,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductImage> getProductImages(int displayInfoId, String type) {
+	public List<ProductImage> getProductImages(int displayInfoId, ImageType type) {
 		return productDao.selectProductImages(displayInfoId, type);
 	}
 
