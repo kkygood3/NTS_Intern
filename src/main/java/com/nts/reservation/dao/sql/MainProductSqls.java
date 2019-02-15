@@ -6,30 +6,28 @@ package com.nts.reservation.dao.sql;
 
 public class MainProductSqls {
 	public static final String SELECT_PRODUCT_COUNT_BY_CATEGORY = 
-			"SELECT COUNT(display_info.id) FROM product"
-			+ " INNER JOIN product_image ON product.id = product_image.product_id and product_image.type = 'th'"
-			+ " INNER JOIN display_info ON product.id = display_info.product_id"
-			+ " WHERE product.category_id = :categoryId" 
-			+ " GROUP BY product.category_id";
+			"SELECT COUNT(display_info.id) FROM product" + 
+			" INNER JOIN display_info ON product.id = display_info.product_id" + 
+			" WHERE product.category_id = :categoryId";
 
 	public static final String SELECT_PRODUCT_COUNT = 
-			"SELECT COUNT(display_info.id) FROM product"
-			+ " INNER JOIN product_image ON product.id = product_image.product_id and product_image.type = 'th'"
-			+ " INNER JOIN display_info ON product.id = display_info.product_id";
+			"SELECT COUNT(display_info.id) FROM product" + 
+			" INNER JOIN display_info ON product.id = display_info.product_id";
 
 	public static final String SELECT_PRODUCT_PAGE_BY_CATEGORY = 
-			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url"
-			+ " FROM product" 
-			+ " INNER JOIN product_image ON product.id = product_image.product_id"
-			+ " INNER JOIN display_info ON product.id = display_info.product_id"
-			+ " INNER JOIN file_info ON product_image.file_id = file_info.id and product_image.type='th'"
-			+ " WHERE category_id = :categoryId" 
-			+ " LIMIT :start, :pagingLimit";
+			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url" + 
+			" FROM product" + 
+			" INNER JOIN display_info ON product.id = display_info.product_id" + 
+			" INNER JOIN product_image ON product.id = product_image.product_id AND product_image.type='th'" + 
+			" INNER JOIN file_info ON product_image.file_id = file_info.id" + 
+			" WHERE category_id = :categoryId" + 
+			" LIMIT :start, :pagingLimit";
 
 	public static final String SELECT_PRODUCT_PAGE = 
-			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url"
-			+ " FROM product " + "LEFT JOIN product_image ON product.id = product_image.product_id"
-			+ " LEFT JOIN display_info ON product.id = display_info.product_id"
-			+ " INNER JOIN file_info ON product_image.file_id = file_info.id and product_image.type='th'"
-			+ " LIMIT :start, :pagingLimit";
+			"SELECT display_info.id AS display_info_id, display_info.place_name, product.content AS product_content, product.description AS product_description, product.id AS product_id, file_info.save_file_name AS product_image_url" + 
+			" FROM product" + 
+			" INNER JOIN display_info ON product.id = display_info.product_id" + 
+			" INNER JOIN product_image ON product.id = product_image.product_id AND product_image.type='th'" + 
+			" INNER JOIN file_info ON product_image.file_id = file_info.id" + 
+			" LIMIT :start, :pagingLimit";
 }

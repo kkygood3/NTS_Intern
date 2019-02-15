@@ -6,9 +6,10 @@ package com.nts.reservation.dao.sql;
 
 public class MainCategorySqls {
 	public static final String SELECT_CATEGORIES = 
-			"SELECT category.id, category.name, count_table.count"
-			+ " FROM category,"
-			+ " (SELECT product.category_id,count(display_info.id) AS count FROM display_info left join product on product.id = display_info.product_id group by product.category_id)count_table"
-			+ " WHERE category.id = count_table.category_id"
-			+ " LIMIT :pagingLimit";
+			"SELECT category.id, category.name, COUNT(display_info.id) AS count" + 
+			"  FROM category" + 
+			"  INNER JOIN product ON category.id = product.category_id" + 
+			"  INNER JOIN display_info ON product.id = display_info.product_id" + 
+			"  GROUP BY category.id" + 
+			"  LIMIT :pagingLimit";
 }
