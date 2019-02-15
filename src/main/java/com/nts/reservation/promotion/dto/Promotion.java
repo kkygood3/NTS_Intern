@@ -5,37 +5,13 @@
 
 package com.nts.reservation.promotion.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class Promotion {
 	private Integer id;
 	private Integer productId;
 	private String productImageUrl;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public String getProductImageUrl() {
-		return productImageUrl;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
-	public void setProductImageUrl(String productImageUrl) {
-		this.productImageUrl = productImageUrl;
-	}
-
-	@Override
-	public String toString() {
-		return "Promotion [id=" + id + ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
-	}
 }

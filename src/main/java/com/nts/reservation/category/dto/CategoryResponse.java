@@ -7,19 +7,11 @@ package com.nts.reservation.category.dto;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class CategoryResponse {
 	private List<Category> items;
-
-	public List<Category> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Category> list) {
-		this.items = list;
-	}
-
-	@Override
-	public String toString() {
-		return "CategoryResponse [items=" + items + "]";
-	}
 }

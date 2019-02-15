@@ -7,29 +7,12 @@ package com.nts.reservation.product.dto;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class ProductResponse {
 	private List<Product> items;
 	private int totalCount;
-
-	public List<Product> getItems() {
-		return items;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setItems(List<Product> items) {
-		this.items = items;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductResponse [items=" + items + ", totalCount=" + totalCount + "]";
-	}
-
 }

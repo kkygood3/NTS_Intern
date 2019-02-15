@@ -7,19 +7,11 @@ package com.nts.reservation.promotion.dto;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class PromotionResponse {
 	private List<Promotion> items;
-
-	public List<Promotion> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Promotion> items) {
-		this.items = items;
-	}
-
-	@Override
-	public String toString() {
-		return "PromotionResponse [items=" + items + "]";
-	}
 }
