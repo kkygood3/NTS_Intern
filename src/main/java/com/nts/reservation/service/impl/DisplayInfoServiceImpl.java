@@ -95,7 +95,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 * @param productId
 	 */
 	@Override
-	public List<ProductPriceForRenderDto> getProductPriceListForRender(Long productId) {
+	public List<ProductPriceForRenderDto> getProductPriceForRenderList(Long productId) {
 		return displayInfoDao.selectProductPricesForRender(productId);
 	}
 

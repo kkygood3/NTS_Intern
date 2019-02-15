@@ -28,7 +28,7 @@ public interface DisplayInfoService {
 
 	public List<ProductPriceDto> getProductPriceList(Long productId);
 
-	public List<ProductPriceForRenderDto> getProductPriceListForRender(Long productId);
+	public List<ProductPriceForRenderDto> getProductPriceForRenderList(Long productId);
 
 	public float getCommentAvgScore(Long displayInfoId);
 
