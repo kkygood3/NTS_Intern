@@ -15,13 +15,7 @@
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
-			<header class="header_tit">
-				<h1 class="logo">
-					<a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a href="#" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
-				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
-			</header>
+		<%@ include file="/WEB-INF/views/header.jsp"%>
 		</div>
 		<div class="ct">
 			<div class="wrap_review_list">
@@ -56,16 +50,7 @@
 		</div>
 		<hr>
 	</div>
-	<footer>
-		<div class="gototop">
-			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
-		</div>
-		<div id="footer" class="footer">
-			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
-			<span class="copyright">© NAVER Corp.</span>
-		</div>
-	</footer>
-	
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	<%@ include file="/template/comment_item.jsp"%>
 	
 	<script type="text/javascript">

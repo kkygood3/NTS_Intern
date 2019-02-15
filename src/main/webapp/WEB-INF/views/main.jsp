@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>네이버 예약</title>
+<title>네이버 예약!!</title>
 <link href="./css/style.css" rel="stylesheet">
 <link href="./css/main.css" rel="stylesheet">
 <link href="./css/slide.css" rel="stylesheet">
@@ -12,15 +12,9 @@
 <body>
 	<div id="container">
 		<div class="header">
-			<header class="header_tit">
-				<h1 class="logo">
-					<a class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
-				</h1>
-				<a href="/reservation" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
-			</header>
+		<%@ include file="/WEB-INF/views/header.jsp"%>
 		</div>
-
+		
 		<hr>
 
 		<div class="event">
@@ -59,15 +53,8 @@
 		</div>
 	</div>
 
-	<footer>
-		<div class="gototop">
-			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
-		</div>
-		<div class="footer">
-			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
-			<span class="copyright">© NAVER Corp.</span>
-		</div>
-	</footer>
+
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
 	<%@ include file="/template/main.jsp"%>
 
