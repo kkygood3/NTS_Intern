@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.sqls.ReservationSqls.CANCEL_RESERVATION;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATION_INFO_ID;
 import static com.nts.reservation.dao.sqls.ReservationSqls.GET_TOTAL_PRICE;
@@ -65,5 +66,10 @@ public class ReservationDao {
 	public int getTotalPrice(int reservationInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
 		return jdbc.queryForObject(GET_TOTAL_PRICE, param, Integer.class);
+	}
+
+	public void cancelReservations(Integer reservationInfoId) {
+		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
+		jdbc.update(CANCEL_RESERVATION, param);
 	}
 }

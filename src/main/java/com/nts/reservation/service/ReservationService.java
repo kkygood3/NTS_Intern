@@ -22,4 +22,6 @@ public interface ReservationService {
 	List<Reservation> getCanceledReservations(String userEmail);
 
 	List<ReservedItem> getReservedItems(String userEmail, int cancelFlag);
+
+	void cancelReservation(Integer reservationInfoId);
 }

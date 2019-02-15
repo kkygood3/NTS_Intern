@@ -58,4 +58,6 @@ public class ReservationSqls {
 		+ "INNER JOIN product_price "
 		+ "ON reservation_info_price.product_price_id = product_price.id "
 		+ "WHERE reservation_info_id = :reservationInfoId";
+
+	public static final String CANCEL_RESERVATION = "UPDATE reservation_info SET cancel_flag = 1 WHERE id = :reservationInfoId";
 }

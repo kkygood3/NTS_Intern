@@ -71,4 +71,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 		return availableReservedItems;
 	}
+
+	@Override
+	public void cancelReservation(Integer reservationInfoId) {
+		reservationDao.cancelReservations(reservationInfoId);
+	}
 }
