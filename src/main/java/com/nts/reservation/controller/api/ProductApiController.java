@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,11 +24,11 @@ import com.nts.reservation.property.ProductProperties;
 import com.nts.reservation.service.main.MainProductService;
 
 @RestController
+@RequestMapping("/api/products")
 public class ProductApiController {
-
 	@Autowired
 	private MainProductService mainProductService;
-
+	
 	/**
 	 * /api/products 요청을 받아 메인 페이지에 상품정보를 출력
 	 * @param categoryId 해당 카테고리에 속하는 상품 요청. 0일때 카테고리 구분 없음
@@ -35,7 +36,7 @@ public class ProductApiController {
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 * @return productList JSON text
 	 */
-	@GetMapping("/api/products")
+	@GetMapping
 	public Map<String, Object> products(
 		@RequestParam(name = "categoryId", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_START) Integer start,

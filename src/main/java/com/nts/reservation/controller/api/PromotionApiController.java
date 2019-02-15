@@ -23,7 +23,6 @@ import com.nts.reservation.service.main.MainPromotionService;
 
 @RestController
 public class PromotionApiController {
-
 	@Autowired
 	private MainPromotionService mainPromotionService;
 
