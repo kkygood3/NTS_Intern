@@ -54,7 +54,7 @@ function addPlusMiusButtonClickEvent() {
 			}
 		}
 	});
-	}
+}
 
 function test() {
 	var inputs = document.querySelectorAll(".section_booking_form input");
