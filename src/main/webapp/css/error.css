@@ -1,0 +1,16 @@
+body * {
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.message_holder {
+	margin: 120px; 
+}
+
+button {
+	background-color: #10BA16;
+	border: 0;
+	color: #FFF;
+}
