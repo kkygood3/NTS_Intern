@@ -17,8 +17,6 @@ function makePriceInfoHTML(priceInfos) {
 		return false;
 	}
 	
-	alert(JSON.stringify(priceInfos));
-
 	var bindTemplate = getBindTemplate("ticket_item");
 	var innerHtml = makeHtmlFromListData(priceInfos, bindTemplate);
 
