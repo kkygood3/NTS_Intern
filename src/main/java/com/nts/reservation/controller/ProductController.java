@@ -17,7 +17,7 @@ import com.nts.reservation.service.DetailPageInfoService;
  */
 @Controller
 @RequestMapping(path = "/detail")
-public class DetailController {
+public class ProductController {
 	@Autowired
 	private DetailPageInfoService detailPageInfoService;
 
