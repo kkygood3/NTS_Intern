@@ -24,7 +24,11 @@ import com.nts.reservation.service.ReservationService;
 public class ProductController {
 	@Autowired
 	private DetailPageInfoService detailPageInfoService;
-
+	@Autowired
+	private CommentService commentService;
+	@Autowired
+	private ReservationService reservationService;
+	
 	/**
 	 * 디테일 페이지에 표시할 정보 담아서 url맵핑한다
 	 * @param displayInfoId 조회할 상품 정보
@@ -41,13 +45,12 @@ public class ProductController {
 
 		return "detail";
 	}
-	
-	@Autowired
-	private CommentService commentService;
 
 	/**
 	 * 리뷰페이지에 표시할 정보 담아서 url맵핑한다
-	 * @return 리뷰페이지
+	 * @param displayInfoId 조회할 상품
+	 * @param model 표시할 정보를 담는다
+	 * @return 뷰이름 리턴
 	 */
 	@GetMapping(path = "/{displayInfoId}/review")
 	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
@@ -58,10 +61,13 @@ public class ProductController {
 
 		return "review";
 	}
-	
-	@Autowired
-	private ReservationService reservationService;
-	
+
+	/**
+	 * 예약페이지에 표시할 정보 담아서 url맵핑한다
+	 * @param displayInfoId 조회할 상품
+	 * @param model 표시할 정보를 담는다
+	 * @return 뷰이름 리턴
+	 */
 	@GetMapping(path = "/{displayInfoId}/reservation")
 	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
 		ModelMap model) {
