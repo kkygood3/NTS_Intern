@@ -44,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<Product> selectPagingProductsByCategory(int categoryId, int start, int limit) {
+	public List<Product> selectPagingProductsByCategoryId(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -65,7 +65,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {
+	public List<ProductImage> selectProductImages(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 
@@ -73,7 +73,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId) {
+	public List<ProductPrice> selectProductPrices(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_PROUDUCT_PRICE, params, rowMapperProductPrice);

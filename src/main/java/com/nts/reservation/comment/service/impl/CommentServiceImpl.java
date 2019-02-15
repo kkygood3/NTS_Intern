@@ -29,9 +29,9 @@ public class CommentServiceImpl implements CommentService {
 			return getComments(displayInfoId);
 		}
 
-		comment = commentDaoImpl.selectCommentByDisplayInfoIdByLimit(displayInfoId, count);
+		comment = commentDaoImpl.selectCommentByLimit(displayInfoId, count);
 		comment.forEach(commentItem -> {
-			commentItem.setCommentImages(commentDaoImpl.selectCommentImagesByDisplayInfoId(displayInfoId));
+			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
 		});
 
 		return comment;
@@ -41,9 +41,9 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getComments(int displayInfoId) {
 		List<Comment> comment = new ArrayList<Comment>();
 
-		comment = commentDaoImpl.selectCommentByDisplayInfoId(displayInfoId);
+		comment = commentDaoImpl.selectComment(displayInfoId);
 		comment.forEach(commentItem -> {
-			commentItem.setCommentImages(commentDaoImpl.selectCommentImagesByDisplayInfoId(displayInfoId));
+			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
 		});
 
 		return comment;

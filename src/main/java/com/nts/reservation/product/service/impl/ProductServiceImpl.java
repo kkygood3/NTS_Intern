@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 		if (isTotalCategory(categoryId)) {
 			productResponse = getProducts(start, count);
 		} else {
-			productResponse.setItems(productDaoImpl.selectPagingProductsByCategory(categoryId, start, count));
+			productResponse.setItems(productDaoImpl.selectPagingProductsByCategoryId(categoryId, start, count));
 			productResponse.setTotalCount(productDaoImpl.selectCountByCategory(categoryId));
 		}
 		return productResponse;
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductImage> getProductImages(int displayInfoId) {
 		List<ProductImage> comment = new ArrayList<ProductImage>();
 
-		comment = productDaoImpl.selectProductImagesByDisplayInfoId(displayInfoId);
+		comment = productDaoImpl.selectProductImages(displayInfoId);
 
 		return comment;
 	}
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductPrice> getProductPrices(int displayInfoId) {
 		List<ProductPrice> comment = new ArrayList<ProductPrice>();
 
-		comment = productDaoImpl.selectProductPricesByDisplayInfoId(displayInfoId);
+		comment = productDaoImpl.selectProductPrices(displayInfoId);
 
 		return comment;
 	}

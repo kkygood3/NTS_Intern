@@ -14,11 +14,11 @@ import com.nts.reservation.product.dto.ProductPrice;
 public interface ProductDao {
 	List<Product> selectPagingProducts(int start, int limit);
 
-	List<Product> selectPagingProductsByCategory(int categoryId, int start, int limit);
+	List<Product> selectPagingProductsByCategoryId(int categoryId, int start, int limit);
 
-	List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId);
+	List<ProductImage> selectProductImages(int displayInfoId);
 
-	List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId);
+	List<ProductPrice> selectProductPrices(int displayInfoId);
 
 	int selectCount();
 

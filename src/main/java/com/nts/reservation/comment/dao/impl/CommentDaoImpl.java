@@ -33,14 +33,14 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<CommentImage> selectCommentImagesByDisplayInfoId(int displayInfoId) {
+	public List<CommentImage> selectCommentImages(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_COMMENT_IMAGES, params, rowMapperCommentImage);
 	}
 
 	@Override
-	public List<Comment> selectCommentByDisplayInfoIdByLimit(int displayInfoId, int limit) {
+	public List<Comment> selectCommentByLimit(int displayInfoId, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("limit", limit);
@@ -48,7 +48,7 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> selectCommentByDisplayInfoId(int displayInfoId) {
+	public List<Comment> selectComment(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_COMMENT, params, rowMapperComment);
