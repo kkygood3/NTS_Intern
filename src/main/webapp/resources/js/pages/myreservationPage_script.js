@@ -22,15 +22,17 @@ window.addEventListener("DOMContentLoaded", function() {
 
 var myReservation = {
 	domElements : {
-		totalfigure : document.querySelector("#total_figure"),
-		yetfigure : document.querySelector("#yet_figure"),
-		usedfigure : document.querySelector("#used_figure"),
-		cancelfigure : document.querySelector("#cancel_figure"),
+		totalFigure : document.querySelector("#_total_figure"),
+		yetFigure : document.querySelector("#_yet_figure"),
+		usedFigure : document.querySelector("#_used_figure"),
+		cancelFigure : document.querySelector("#_cancel_figure"),
 		
-		sectionProcessing : document.querySelector(".card.processing"),
+		sectionProcessing : document.querySelector(".card._processing"),
 		sectionConfirmed : document.querySelector(".card.confirmed"),
 		sectionUsed : document.querySelector(".card.used"),
 		sectionCanceled : document.querySelector(".card.used.cancel"),
+		
+		cancelPopup : document.querySelector(".popup_booking_wrapper")
 	},
 
 	constants : {
@@ -60,6 +62,7 @@ var myReservation = {
 		
 		fetchData = this.fetchData;
 		renderReservations = this.renderReservations;
+		processCancellation = this.processCancellation;
 		
 		fetchData();
 	},
@@ -67,14 +70,16 @@ var myReservation = {
 	fetchData : function() {
 		xhrGetRequest(urls.RESERVATION, (respText) => {
 			state.reservation_data = JSON.parse(respText);
-			console.log(state.reservation_data);
 			renderReservations();
 		});
 	},
 	
 	renderReservations : function() {
-		console.log(state.reservation_data.reservations)
 		arrayToElementRenderer(state.reservation_data.reservations,domElements.sectionConfirmed,templates.reservationItem);
+		let reservations = domElements.sectionConfirmed.querySelectorAll("article");
+		
+		reservations.forEach((item) => {
+			new ReservationCard(item, state.reservation_data.reservations,domElements.cancelPopup);
+		});
 	}
-
 }

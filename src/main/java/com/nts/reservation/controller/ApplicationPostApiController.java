@@ -29,7 +29,7 @@ import com.nts.reservation.service.ReservationService;
  */
 
 @RestController
-@RequestMapping(path = "/api/", method = {RequestMethod.POST, RequestMethod.GET})
+@RequestMapping(path = "/api/", method = {RequestMethod.POST})
 public class ApplicationPostApiController {
 
 	@Autowired

@@ -20,4 +20,6 @@ public interface ReservationService {
 	List<ReservationInfo> selectReservations(String email);
 
 	void insertReservations(ReservationParam resInput);
+
+	void updateReservationCancelFlag(Long reservationId);
 }

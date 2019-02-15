@@ -261,7 +261,7 @@ function xhrGetRequest(url, callback) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
 			} else {
-				alert("Error fetching");
+				alert("Error getting");
 			}
 		}
 	};
@@ -269,19 +269,35 @@ function xhrGetRequest(url, callback) {
 }
 
 /**
- * @xhrPostRequest() : pre-defined XmlHttpRequest Get method since get method
- *                   will be used frequently
+ * @xhrPostRequest() : pre-defined XmlHttpRequest Post method since post method
+ *                   will be used multiple times
  */
-function xhrPostMultipartRequest(url, data, callback) {
+function xhrPostMultipartRequest(url, data, callback, isAsync) {
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+	xhr.open("POST", url, isAsync);
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
 			} else {
-				alert("Error fetching");
+				alert("Error posting");
 			}
+		}
+	};
+	xhr.send(data);
+}
+
+/**
+ * @xhrPutRequest() : pre-defined XmlHttpRequest Put method since put method
+ *                  will be used multiple times
+ */
+function xhrPutRequest(url, data, callback) {
+	let xhr = new XMLHttpRequest();
+	xhr.open("PUT", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	xhr.onreadystatechange = function(aEvt) {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			callback(xhr.responseText);
 		}
 	};
 	xhr.send(data);
@@ -320,8 +336,12 @@ function arrayToElementRenderer(data, target, item) {
 	Handlebars.registerHelper("rsvDateSplit", (item) => {
 		return item.split(" ")[0];
 	});
+	Handlebars.registerHelper("rsvIdFix", (item) => {
+		let width = 8;
+		item = item + '';
+		return item.length >= width ? n : new Array(width - item.length + 1).join('0') + item;
+	});
 	let parsedItems = parser.parseFromString(bindTemplate({data : list}), "text/html");
-	console.log(parsedItems)
 	let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
 	let newCommentItems = parsedItems.querySelectorAll("."+elementClassName);
 	newCommentItems.forEach((item) => {

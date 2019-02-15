@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailDao;
 import com.nts.reservation.dao.ReservationDao;
-import com.nts.reservation.dto.reservation.ReservationPrice;
 import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.dto.reservation.ReservationParam;
+import com.nts.reservation.dto.reservation.ReservationPrice;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -48,5 +48,10 @@ public class ReservationServiceImpl implements ReservationService {
 			p.setReservationInfoId(reservationInfoId);
 			reservationDao.insertReservationPrice(p);
 		}
+	}
+
+	@Override
+	public void updateReservationCancelFlag(Long reservationId) {
+		reservationDao.updateResevationCancelFlag(reservationId);
 	}
 }

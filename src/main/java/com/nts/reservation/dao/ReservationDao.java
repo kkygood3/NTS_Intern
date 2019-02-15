@@ -4,6 +4,7 @@ import static com.nts.reservation.dao.sqls.ReservationDaoSqls.INSERT_RESERVATION
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.INSERT_RESERVATION_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.SELECT_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.SELECT_RESERVATIONS_COUNT;
+import static com.nts.reservation.dao.sqls.ReservationDaoSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.reservation.ReservationPrice;
 import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.dto.reservation.ReservationParam;
+import com.nts.reservation.dto.reservation.ReservationPrice;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -61,5 +62,11 @@ public class ReservationDao {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("email", email);
 		return jdbc.queryForObject(SELECT_RESERVATIONS_COUNT, params, BeanPropertyRowMapper.newInstance(Long.class));
+	}
+
+	public int updateResevationCancelFlag(Long reservationId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("reservationId", reservationId);
+		return jdbc.update(UPDATE_RESERVATION_CANCEL_FLAG, params);
 	}
 }

@@ -61,4 +61,6 @@ public class ReservationDaoSqls {
 		+ ");";
 
 	public static final String SELECT_RESERVATIONS_COUNT = "SELECT count(id) FROM reservation_info WHERE reservation_email = :email";
+
+	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info SET cancel_flag = true WHERE id = :reservationId";
 }
