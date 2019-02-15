@@ -71,8 +71,7 @@ public class ReservationViewController {
 	public String reservePage(ModelMap model) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_YEAR, (int)(Math.random() * 5 + 1));
-		Date createdDate = calendar.getTime();
-		String reservationDate = new java.text.SimpleDateFormat("yyyy.MM.dd").format(createdDate);
+		Date reservationDate = calendar.getTime();
 
 		model.addAttribute("reservationDate", reservationDate);
 		return "reserve";

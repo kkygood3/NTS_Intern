@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	getBookingPage();
 });
 
-function makeReservation(){
+function setReservationInfo(){
 	var domElements = new DomElements();
 	
 	var reservationPrices = []
@@ -22,7 +22,7 @@ function makeReservation(){
 		productId: domElements.getElements.title.dataset.productId,
 		reservationEmail: domElements.getElements.bkEmail.value,
 		reservationName: domElements.getElements.bkName.value,
-		reservationTelephone: domElements.getElements.bkTel.value,
+		reservationTel: domElements.getElements.bkTel.value,
 		reservationDate: domElements.getElements.bkDate.innerHTML,
 	}
 	
@@ -83,7 +83,7 @@ function getBookingPage(){
 	setEvent.acceptTerms();
 	setEvent.goToPrevPage();
 	setEvent.scrollTop();
-	setEvent.postReservation();
+	setEvent.makeReservation();
 }
 
 
@@ -316,10 +316,10 @@ SetEvent.prototype.scrollTop = function(){
 	});
 }
 
-SetEvent.prototype.postReservation = function(){
+SetEvent.prototype.makeReservation = function(){
 	this.domElements.container.bkBtnContainer.addEventListener("click", function(){
 		if(!this.classList.contains("disable")){
-			makeReservation();
+			setReservationInfo();
 		}
 	});
 }

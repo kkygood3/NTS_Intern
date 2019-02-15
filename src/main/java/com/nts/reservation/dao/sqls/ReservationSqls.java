@@ -22,7 +22,7 @@ public class ReservationSqls {
 		+ "(:productId"
 		+ ", :displayInfoId"
 		+ ", :reservationName"
-		+ ", :reservationTelephone"
+		+ ", :reservationTel"
 		+ ", :reservationEmail"
 		+ ", :reservationDate"
 		+ ", NOW()"
@@ -35,7 +35,7 @@ public class ReservationSqls {
 		+ "product_id = :productId "
 		+ "AND display_info_id = :displayInfoId "
 		+ "AND reservation_name = :reservationName "
-		+ "AND reservation_tel = :reservationTelephone "
+		+ "AND reservation_tel = :reservationTel "
 		+ "AND reservation_email = :reservationEmail "
 		+ "AND reservation_date = :reservationDate ";
 
