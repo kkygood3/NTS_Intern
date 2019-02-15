@@ -6,7 +6,8 @@
 package com.nts.reservation.displayinfo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.commons.validator.NegativeValueValidator;
@@ -14,7 +15,7 @@ import com.nts.reservation.commons.validator.NegativeValueValidator;
 @Controller
 public class DisplayInfoController {
 
-	@GetMapping("/detail")
+	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String requestDetailPage(@RequestParam(name = "id", required = true) Integer id) {
 
 		if(NegativeValueValidator.isNegativeValue(id)) {

@@ -5,7 +5,6 @@
 
 package com.nts.reservation.comment.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,11 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(int displayInfoId, int count) {
-		List<Comment> comment = new ArrayList<Comment>();
-
 		if(isRequiredTotalComments(count)) {
 			return getComments(displayInfoId);
 		}
 
-		comment = commentDaoImpl.selectCommentByLimit(displayInfoId, count);
+		List<Comment> comment = commentDaoImpl.selectCommentByLimit(displayInfoId, count);
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
 		});
@@ -39,9 +36,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(int displayInfoId) {
-		List<Comment> comment = new ArrayList<Comment>();
+		List<Comment> comment = commentDaoImpl.selectComment(displayInfoId);
 
-		comment = commentDaoImpl.selectComment(displayInfoId);
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(displayInfoId));
 		});
@@ -50,10 +46,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	private boolean isRequiredTotalComments(int count) {
-		if(count > 0) {
-			return false;
-		}
-		return true;
+		return (count == 0);
 	}
 
 }

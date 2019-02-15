@@ -8,10 +8,7 @@ package com.nts.reservation.commons.validator;
 public class NegativeValueValidator {
 
 	public static boolean isNegativeValue(int first) {
-		if(first < 0) {
-			return true;
-		}
-		return false;
+		return (first < 0);
 	}
 
 	public static boolean isNegativeValue(int first, int second) {

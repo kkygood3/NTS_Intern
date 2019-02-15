@@ -5,7 +5,6 @@
 
 package com.nts.reservation.product.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,29 +46,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	private boolean isTotalCategory(int categoryId) {
-		if (categoryId == 0) {
-			return true;
-		}
-
-		return false;
+		return (categoryId == 0);
 	}
 
 	@Override
 	public List<ProductImage> getProductImages(int displayInfoId) {
-		List<ProductImage> comment = new ArrayList<ProductImage>();
-
-		comment = productDaoImpl.selectProductImages(displayInfoId);
-
-		return comment;
+		return productDaoImpl.selectProductImages(displayInfoId);
 	}
 
 	@Override
 	public List<ProductPrice> getProductPrices(int displayInfoId) {
-		List<ProductPrice> comment = new ArrayList<ProductPrice>();
-
-		comment = productDaoImpl.selectProductPrices(displayInfoId);
-
-		return comment;
+		return productDaoImpl.selectProductPrices(displayInfoId);
 	}
 
 }
