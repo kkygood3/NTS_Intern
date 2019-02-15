@@ -10,9 +10,9 @@ public class DetailDisplayInfoSqls {
 		" FROM display_info" + 
 		" INNER JOIN product ON display_info.product_id = product.id" + 
 		" INNER JOIN product_image ON product.id = product_image.product_id AND product_image.type = 'th'" + 
-		" INNER JOIN reservation_user_comment ON product.id = reservation_user_comment.product_id" + 
+		" LEFT JOIN reservation_user_comment ON product.id = reservation_user_comment.product_id" + 
 		" INNER JOIN display_info_image ON display_info.id = display_info_image.display_info_id" + 
 		" INNER JOIN file_info AS product_file_info ON product_image.file_id = product_file_info.id" + 
 		" INNER JOIN file_info AS display_file_info ON display_info_image.file_id = display_file_info.id" + 
-		" WHERE display_info.id = :displayInfoId;";
+		" WHERE display_info.id = :displayInfoId";
 }
