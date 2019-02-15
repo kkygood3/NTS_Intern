@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.ThumbnailInfo;
+import com.nts.reservation.dto.ProductThumbnail;
 import com.nts.reservation.service.ProductService;
-import com.nts.reservation.service.ThumbnailInfoService;
+import com.nts.reservation.service.ProductThumbnailService;
 
 /**
  * 썸네일 관련 API 클래스
@@ -29,7 +29,7 @@ import com.nts.reservation.service.ThumbnailInfoService;
 @RequestMapping(path = "/thumbnail_info")
 public class ThumbnailInfoApiController {
 	@Autowired
-	private ThumbnailInfoService thumbnailInfoService;
+	private ProductThumbnailService thumbnailInfoService;
 
 	@Autowired
 	private ProductService productService;
@@ -49,7 +49,7 @@ public class ThumbnailInfoApiController {
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getCount(categoryId);
-		List<ThumbnailInfo> thumbnailInfoList = null;
+		List<ProductThumbnail> thumbnailInfoList = null;
 
 		if (productCount > 0) {
 			thumbnailInfoList = thumbnailInfoService.getThumbnailInfos(categoryId, start, limit);

@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class ThumbnailInfo {
+public class ProductThumbnail {
 	private long productId;
 	private long displayInfoId;
 	private String description;

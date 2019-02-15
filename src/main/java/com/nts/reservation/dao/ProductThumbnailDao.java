@@ -1,7 +1,7 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_ALL_WITH_PAGING;
-import static com.nts.reservation.dao.sql.ThumbnailInfoDaoSqls.SELECT_BY_CATERORY_WITH_PAGING;
+import static com.nts.reservation.dao.sql.ProductThumbnailDaoSqls.SELECT_ALL_WITH_PAGING;
+import static com.nts.reservation.dao.sql.ProductThumbnailDaoSqls.SELECT_BY_CATERORY_WITH_PAGING;
 import static com.nts.reservation.property.Const.CATEGORY_ID;
 import static com.nts.reservation.property.Const.LIMIT;
 import static com.nts.reservation.property.Const.START;
@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Category;
-import com.nts.reservation.dto.ThumbnailInfo;
+import com.nts.reservation.dto.ProductThumbnail;
 
 /**
  * 썸네일 정보에 접근하는 클래스
@@ -25,10 +25,10 @@ import com.nts.reservation.dto.ThumbnailInfo;
  *
  */
 @Repository
-public class ThumbnailInfoDao extends BaseDao {
-	RowMapper<ThumbnailInfo> rowMapper = BeanPropertyRowMapper.newInstance(ThumbnailInfo.class);
+public class ProductThumbnailDao extends BaseDao {
+	RowMapper<ProductThumbnail> rowMapper = BeanPropertyRowMapper.newInstance(ProductThumbnail.class);
 
-	public ThumbnailInfoDao(DataSource dataSource) {
+	public ProductThumbnailDao(DataSource dataSource) {
 		super(dataSource);
 	}
 
@@ -38,7 +38,7 @@ public class ThumbnailInfoDao extends BaseDao {
 	 * @param limit 셀렉트할 갯수
 	 * @return 썸네일 정보
 	 */
-	public List<ThumbnailInfo> selectFromAllCategorisWithPaging(Integer start, Integer limit) {
+	public List<ProductThumbnail> selectFromAllCategorisWithPaging(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(START, start);
 		params.put(LIMIT, limit);
@@ -52,7 +52,7 @@ public class ThumbnailInfoDao extends BaseDao {
 	 * @param limit 셀렉트할 갯수
 	 * @return 해당 카테고리의 썸네일 정보
 	 */
-	public List<ThumbnailInfo> selectFromTheCategoryWithPaging(Category category, Integer start, Integer limit) {
+	public List<ProductThumbnail> selectFromTheCategoryWithPaging(Category category, Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put(CATEGORY_ID, category.getId());
 		params.put(START, start);

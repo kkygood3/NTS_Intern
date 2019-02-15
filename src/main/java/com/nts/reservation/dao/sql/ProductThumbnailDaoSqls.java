@@ -1,6 +1,6 @@
 package com.nts.reservation.dao.sql;
 
-public class ThumbnailInfoDaoSqls {
+public class ProductThumbnailDaoSqls {
 	public static final String SELECT_ALL_WITH_PAGING
 	= "SELECT d.product_id, d.id AS display_info_id, p.description, p.content, d.place_name, pf.save_file_name "
 	+ "FROM product AS p "
