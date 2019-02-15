@@ -33,9 +33,9 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<CommentImage> selectCommentImages(int displayInfoId) {
+	public List<CommentImage> selectCommentImages(int commentId) {
 		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
+		params.put("commentId", commentId);
 		return jdbc.query(SELECT_COMMENT_IMAGES, params, rowMapperCommentImage);
 	}
 

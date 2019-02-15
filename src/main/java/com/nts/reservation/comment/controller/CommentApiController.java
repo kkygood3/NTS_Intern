@@ -27,13 +27,12 @@ public class CommentApiController {
 
 	@RequestMapping(value = "/comments", method=RequestMethod.GET)
 	public List<Comment> products(
-		@RequestParam(name = "displayInfoId", required = false, defaultValue = "0") int displayInfoId,
-		@RequestParam(name = "commentUnits", required = false, defaultValue = "0") int commentUnits) {
+		@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
 
-		if(NegativeValueValidator.isNegativeValue(displayInfoId, commentUnits)) {
-			throw new IllegalArgumentException("displayInfoId : " + displayInfoId + ", commentUnits : " + commentUnits);
+		if(NegativeValueValidator.isNegativeValue(displayInfoId)) {
+			throw new IllegalArgumentException("displayInfoId : " + displayInfoId);
 		}
 
-		return commentServiceImpl.getComments(displayInfoId, commentUnits);
+		return commentServiceImpl.getTotalComments(displayInfoId);
 	}
 }

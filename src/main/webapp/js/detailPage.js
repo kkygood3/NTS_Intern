@@ -10,6 +10,7 @@ function requestAjax(callback, url) {
     ajaxReq.send();
 }
 
+// Url의 name에  해당하는 Parameter 추출
 function getUrlParameter(name) {
 	let params = location.href.split('?')[1].split('&');
 	for (let i = 0; i < params.length; i++) {
@@ -23,7 +24,24 @@ function getUrlParameter(name) {
 	}
 }
 
-function initDetailBtn(){
+function initTitleImage(displayInfo) {
+    let titleTemplate = document.querySelector('#bannerImage').innerText;
+    let bindTitleTemplate = Handlebars.compile(titleTemplate);
+    let titleContainer = document.querySelector('ul.detail_swipe');
+
+    titleContainer.innerHTML += bindTitleTemplate(displayInfo);
+	
+    document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+    
+    // next, prev 버튼 비활성화
+    document.querySelector('div.prev').style.display = 'none';
+    document.querySelector('div.nxt').style.display = 'none';
+
+    document.querySelector('div.figure_pagination').firstElementChild.classList.add('off');
+
+}
+
+function initDetailBtn() {
 	let unfoldBtn = document.querySelector('a._open');	
 	let foldBtn = document.querySelector('a._close');
 	let foldingText = document.querySelector('div.store_details');
@@ -56,24 +74,6 @@ function initDetailBtn(){
 	} else {
 		unfoldBtn.style.display = 'none';
 	}
-}
-
-
-function initTitleImage(displayInfo) {
-    let titleTemplate = document.querySelector('#bannerImage').innerText;
-    let bindTitleTemplate = Handlebars.compile(titleTemplate);
-    let titleContainer = document.querySelector('ul.detail_swipe');
-
-    titleContainer.innerHTML += bindTitleTemplate(displayInfo);
-	
-    document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
-    
-    // next, prev 버튼 비활성화
-    document.querySelector('div.prev').style.display = 'none';
-    document.querySelector('div.nxt').style.display = 'none';
-
-    document.querySelector('div.figure_pagination').firstElementChild.classList.add('off');
-
 }
 
 function initComment(displayCommentInfo) {
@@ -109,6 +109,10 @@ function initComment(displayCommentInfo) {
 		reviewMoreBtn.style.display = 'none';
 	}
 
+}
+
+function initMoreCommentBtn(displayInfoId) {
+    document.querySelector('.btn_review_more').setAttribute('href','review?id=' + displayInfoId);
 }
 
 function initBottomInfoTab(displayInfoResponse){
@@ -339,6 +343,9 @@ function loadDisplayInfoCallback(responseData) {
 
     // Comment 설정
     initComment(displayCommentInfo);
+
+    // Comment 더보기 버튼 설정
+    initMoreCommentBtn(displayInfo.displayInfoId);
 
     // 하단 정보 설정
     initBottomInfoTab(displayInfoResponse);
