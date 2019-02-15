@@ -13,10 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.ReservationService;
@@ -40,9 +39,9 @@ public class ReservationViewController {
 	}
 
 	@PostMapping("/loginConfirm")
-	public String Login(HttpSession session, @RequestBody MultiValueMap<String, String> formData) {
-		session.setAttribute("userEmail", formData.getFirst("userEmail"));
-		return "myreservation";
+	public String Login(HttpSession session, @RequestParam(name = "userEmail", required = true) String userEmail) {
+		session.setAttribute("userEmail", userEmail);
+		return "redirect:/history";
 	}
 
 	@GetMapping("/history")
