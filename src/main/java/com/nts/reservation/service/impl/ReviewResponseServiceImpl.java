@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service.impl.review;
+package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.common.CommentDao;
 import com.nts.reservation.dao.review.ReviewDisplayInfoDao;
 import com.nts.reservation.dto.review.ReviewResponse;
-import com.nts.reservation.service.review.ReviewResponseService;
+import com.nts.reservation.service.ReviewResponseService;
 
 @Service
 public class ReviewResponseServiceImpl implements ReviewResponseService {

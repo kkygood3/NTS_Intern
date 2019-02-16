@@ -6,7 +6,6 @@ package com.nts.reservation.controller.api;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,14 @@ import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.dto.review.ReviewResponse;
 import com.nts.reservation.property.CommonProperties;
-import com.nts.reservation.service.detail.DetailExtraImageService;
-import com.nts.reservation.service.detail.DetailResponseService;
-import com.nts.reservation.service.review.ReviewResponseService;
+import com.nts.reservation.service.DetailResponseService;
+import com.nts.reservation.service.ReviewResponseService;
 
 @RestController
 @RequestMapping("/api/products/{displayInfoId}")
 public class DetailApiController {
 	@Autowired
 	private DetailResponseService detailDisplayService;
-	@Autowired
-	private DetailExtraImageService detailExtraImageService;
 	@Autowired
 	private ReviewResponseService reviewResponseService;
 
@@ -63,7 +59,7 @@ public class DetailApiController {
 	@GetMapping("/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
 		
-		DetailExtraImage extraImageResponse = detailExtraImageService.getExtraImage(displayInfoId);
+		DetailExtraImage extraImageResponse = detailDisplayService.getExtraImage(displayInfoId);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("extraImageResponse", extraImageResponse);

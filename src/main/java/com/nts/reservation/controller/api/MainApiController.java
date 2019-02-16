@@ -23,19 +23,13 @@ import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.dto.main.MainPromotion;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.property.ProductProperties;
-import com.nts.reservation.service.main.MainCategoryService;
-import com.nts.reservation.service.main.MainProductService;
-import com.nts.reservation.service.main.MainPromotionService;
+import com.nts.reservation.service.MainResponseService;
 
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
 	@Autowired
-	private MainCategoryService mainCategoryService;
-	@Autowired
-	private MainProductService mainProductService;
-	@Autowired
-	private MainPromotionService mainPromotionService;
+	private MainResponseService mainResponseService;
 
 	/**
 	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력
@@ -46,7 +40,7 @@ public class MainApiController {
 	public Map<String, Object> categories(
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<MainCategory> categoryList = mainCategoryService.getCategories(pagingLimit);
+		List<MainCategory> categoryList = mainResponseService.getCategories(pagingLimit);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("categoryList", categoryList);
@@ -68,10 +62,10 @@ public class MainApiController {
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainProduct> productList = new ArrayList<>();
-		int totalCount = mainProductService.getCount(categoryId);
+		int totalCount = mainResponseService.getProductCount(categoryId);
 
 		if (totalCount > 0) {
-			productList = mainProductService.getProducts(categoryId, start, pagingLimit);
+			productList = mainResponseService.getProducts(categoryId, start, pagingLimit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -91,10 +85,10 @@ public class MainApiController {
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainPromotion> promotionList = new ArrayList<>();
-		int totalCount = mainPromotionService.getCount();
+		int totalCount = mainResponseService.getPromotionCount();
 
 		if (totalCount > 0) {
-			promotionList = mainPromotionService.getPromotions(pagingLimit);
+			promotionList = mainResponseService.getPromotions(pagingLimit);
 		}
 
 		Map<String, Object> map = new HashMap<>();

@@ -2,8 +2,9 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.service.detail;
+package com.nts.reservation.service;
 
+import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 
 public interface DetailResponseService {
@@ -15,4 +16,11 @@ public interface DetailResponseService {
 	 * @return displayInfoId에 속하는 displayInfo, commentList
 	 */
 	DetailResponse getDetailResponse(int displayInfoId, int start, int pagingLimit);
+
+	/**
+	 * api/products/{diplayInfoId}/extra response에 사용
+	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @return 해당 ID에 속하는 'et' 타입 파일이 있을때의 첫 번째
+	 */
+	DetailExtraImage getExtraImage(int displayInfoId);
 }

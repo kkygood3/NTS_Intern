@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.dto.reserve.ReserveResponse;
-import com.nts.reservation.service.reserve.ReserveResponseService;
+import com.nts.reservation.service.ReserveResponseService;
 
 @Controller
 public class ReserveContorller {
