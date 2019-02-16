@@ -30,6 +30,7 @@ function loadDisplayInfoCallback(displayInfoData) {
     let averageScore = displayInfoData.averageScore;
     productDescription = displayInfoData['displayInfo'].productDescription;
     document.querySelector('div.grade_area > .text_value').firstElementChild.innerText = averageScore;
+    document.querySelector('em.graph_value').style.width = (averageScore * 20) + '%';
     
     let displayInfoId = displayInfoData['displayInfo'].displayInfoId;
     document.querySelector('.btn_back').setAttribute('href','detail?id=' + displayInfoId);
