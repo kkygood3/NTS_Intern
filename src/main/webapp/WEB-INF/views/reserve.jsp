@@ -395,7 +395,8 @@
 			}
 			
 			if(isValid){
-				location.href = "myreservation";
+				// TODO: form submit으로 결과를 서버에 전송해야 한다.
+				alert('OK');
 			}
 		}
 		
