@@ -7,7 +7,7 @@ package com.nts.reservation.dto.main;
 /**
  * 메인 페이지 로드시 /api/products 요청에 Product 정보 DTO 
  */
-public class HomeProduct {
+public class MainProduct {
 	private Integer displayInfoId;
 	private String placeName;
 	private String productContent;

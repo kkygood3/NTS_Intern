@@ -7,7 +7,7 @@ package com.nts.reservation.dto.main;
 /**
  * 메인 페이지 로드시 /api/categories 요청에 Category 정보 DTO 
  */
-public class HomeCategory {
+public class MainCategory {
 	private Integer id;
 	private String name;
 	private Integer count;

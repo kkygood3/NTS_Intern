@@ -18,24 +18,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.main.HomeCategory;
-import com.nts.reservation.dto.main.HomeProduct;
-import com.nts.reservation.dto.main.HomePromotion;
+import com.nts.reservation.dto.main.MainCategory;
+import com.nts.reservation.dto.main.MainProduct;
+import com.nts.reservation.dto.main.MainPromotion;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.property.ProductProperties;
-import com.nts.reservation.service.main.HomeCategoryService;
-import com.nts.reservation.service.main.HomeProductService;
-import com.nts.reservation.service.main.HomePromotionService;
+import com.nts.reservation.service.main.MainCategoryService;
+import com.nts.reservation.service.main.MainProductService;
+import com.nts.reservation.service.main.MainPromotionService;
 
 @RestController
 @RequestMapping("/api")
-public class HomeApiController {
+public class MainApiController {
 	@Autowired
-	private HomeCategoryService homeCategoryService;
+	private MainCategoryService mainCategoryService;
 	@Autowired
-	private HomeProductService homeProductService;
+	private MainProductService mainProductService;
 	@Autowired
-	private HomePromotionService homePromotionService;
+	private MainPromotionService mainPromotionService;
 
 	/**
 	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력
@@ -46,7 +46,7 @@ public class HomeApiController {
 	public Map<String, Object> categories(
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<HomeCategory> categoryList = homeCategoryService.getCategories(pagingLimit);
+		List<MainCategory> categoryList = mainCategoryService.getCategories(pagingLimit);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("categoryList", categoryList);
@@ -67,11 +67,11 @@ public class HomeApiController {
 		@RequestParam(name = "start", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<HomeProduct> productList = new ArrayList<>();
-		int totalCount = homeProductService.getCount(categoryId);
+		List<MainProduct> productList = new ArrayList<>();
+		int totalCount = mainProductService.getCount(categoryId);
 
 		if (totalCount > 0) {
-			productList = homeProductService.getProducts(categoryId, start, pagingLimit);
+			productList = mainProductService.getProducts(categoryId, start, pagingLimit);
 		}
 
 		Map<String, Object> map = new HashMap<>();
@@ -90,11 +90,11 @@ public class HomeApiController {
 	public Map<String, Object> promotions(
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<HomePromotion> promotionList = new ArrayList<>();
-		int totalCount = homePromotionService.getCount();
+		List<MainPromotion> promotionList = new ArrayList<>();
+		int totalCount = mainPromotionService.getCount();
 
 		if (totalCount > 0) {
-			promotionList = homePromotionService.getPromotions(pagingLimit);
+			promotionList = mainPromotionService.getPromotions(pagingLimit);
 		}
 
 		Map<String, Object> map = new HashMap<>();

@@ -7,7 +7,7 @@ package com.nts.reservation.dto.main;
 /**
  * 메인 페이지 로드시 /api/promotions 요청에 Promotion 정보 DTO 
  */
-public class HomePromotion {
+public class MainPromotion {
 	private Integer displayInfoId;
 	private String productImageUrl;
 
