@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.DetailSqls;
+import com.nts.reservation.dao.sql.CommonSqls;
 import com.nts.reservation.dto.common.Comment;
 
 /**
@@ -39,7 +39,7 @@ public class CommentDao {
 		params.put("displayInfoId", displayInfoId);
 		params.put("start", start);
 		params.put("pagingLimit", pagingLimit);
-		List<Comment> detailList = jdbc.query(com.nts.reservation.dao.sql.common.CommonSqls.SELECT_COMMENT, params, rowMapper);
+		List<Comment> detailList = jdbc.query(CommonSqls.SELECT_COMMENT, params, rowMapper);
 
 		return detailList;
 	}
