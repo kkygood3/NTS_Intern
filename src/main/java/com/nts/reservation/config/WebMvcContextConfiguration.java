@@ -44,7 +44,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("error").setViewName("error/invalidAccess");
-		registry.addViewController("bookinglogin").setViewName("bookinglogin");
 	}
 
 	@Bean

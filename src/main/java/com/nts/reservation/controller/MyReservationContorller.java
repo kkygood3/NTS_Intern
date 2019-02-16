@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MyReservationContorller {
 	/**
-	 * /myreservation 요청을 받아 myreservation view로 넘겨주는 역할.
+	 * /myreservation 요청을 받아 myreservation view로 넘김.
 	 */
 	@GetMapping("/myreservation")
 	public String requestMyReservation(@RequestParam(name = "email", required = false) String email,
@@ -31,7 +31,16 @@ public class MyReservationContorller {
 			return "redirect:bookinglogin";
 		}
 	}
-
+	
+	/**
+	 * 비로그인 상태로 /myreservation을 요청하면 redirect하는 view.
+	 * 비회원 로그인 페이지 
+	 */
+	@GetMapping("/bookinglogin")
+	public String requestLogin() {
+		return "bookinglogin";
+	}
+	
 	/**
 	 * bookinglogin에서 비회원 조회 요청을 받고 myreservation 페이지로 넘김. 
 	 */
