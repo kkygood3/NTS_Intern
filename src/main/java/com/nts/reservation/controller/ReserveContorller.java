@@ -22,7 +22,7 @@ public class ReserveContorller {
 	 * @param id - displayInfo 테이블의 id 
 	 */
 	@GetMapping("/reserve")
-	public String requestDetailPage(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {
+	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {
 		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
 		map.addAttribute("reserveDisplayInfo",reserveResponse.getReserveDisplayInfo());
 		map.addAttribute("reservePrice",reserveResponse.getReservePrice());
