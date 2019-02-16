@@ -33,7 +33,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 		<meta name="format-detection" content="telephone=no, address=no, email=no">
 		<title translate="CM-NBOOKING">네이버 예약</title>
-		<link rel="stylesheet" href="../css/bookinglogin.css">
+		<link rel="stylesheet" href="css/bookinglogin">
 	</head>
 	<body class="biz  ko" >
 		<app>
@@ -45,7 +45,7 @@
 			<div class="_view_content" ui-view="content" id="container" >
 				<booked-confirm>
 					<div class="booking_login">
-						<h1 class="login_header"> <a href="./mainpage.html"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
+						<h1 class="login_header"> <a href="/"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
 						<!---->
 						<div >
 							<form name="confirm_form" class="ng-pristine ng-valid" id="form1" action="myreservation" method="post">
