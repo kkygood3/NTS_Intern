@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.reserve;
 
 /**
- * /api/products/{displayInfoId}/extra요청에 추가 이미지 DTO
+ * reserve 페이지 로드시 필요한 상품 전시 정보 DTO
  */
 public class ReserveDisplayInfo {
 	private Integer id;
@@ -13,6 +13,15 @@ public class ReserveDisplayInfo {
 	private String placeName;
 	private String placeStreet;
 	private String productImage;
+	private String productDescription;
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
 
 	public Integer getId() {
 		return id;

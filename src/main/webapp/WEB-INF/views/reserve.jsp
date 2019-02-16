@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -27,14 +30,22 @@
             <div class="ct_wrap">
                 <div class="top_title">
                     <a href="detail" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                    <h2><span class="title"></span></h2>
+                    <h2><span class="title">${reserveDisplayInfo.productDescription}</span></h2>
                 </div>
                 <div class="group_visual">
                     <div class="container_visual" style="width: 414px;">
                         <ul class="visual_img">
-                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170217_264/1487312141947lTddT_JPEG/%B3%D7%C0%CC%B9%F6.jpg?type=ff1242_816"> <span class="img_bg"></span>
+                            <li class="item" style="width: 414px; cursor: default;"> <img alt="" class="img_thumb" src="${reserveDisplayInfo.productImage}"> <span class="img_bg"></span>
                                 <div class="preview_txt">
-                                    <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩12,000 ~ </em><em class="preview_txt_dsc"><span class='date_area'>2017.2.17.(금)~2017.4.18.(화)</span>, 잔여티켓 2769매</em> </div>
+                                    <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩
+                                    <c:set var="minValue" scope="page" value="${reservePrice[0].price}"/>
+									<c:forEach items="${reservePrice}" var="item">
+										<c:if test="${minValue > item.price}">
+											<c:set var="minValue" scope="page" value="${item.price}"/>
+										</c:if>
+									</c:forEach>
+									${minValue}
+									 ~ </em><em class="preview_txt_dsc"><span class='date_area'>2017.2.17.(금)~2017.4.18.(화)</span>, 잔여티켓 2769매</em> </div>
                             </li>
                         </ul>
                     </div>
@@ -43,20 +54,41 @@
                     <div class="store_details">
                         <h3 class="in_tit"></h3>
                         <p class="dsc">
-                            장소 : <br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
+                            장소 : ${reserveDisplayInfo.placeName}<br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
                         </p>
                         <h3 class="in_tit">관람시간</h3>
                         <p class="dsc">
-                            화, 목, 금 일요일 10:00am~06:00pm(입장마감 05:30pm)<br> ‘문화가 있는 날’ 매월 마지막 주 수요일은 오후 8시까지 연장
+                            ${reserveDisplayInfo.openingHours}
                         </p>
                         <h3 class="in_tit">요금</h3>
                         <p class="dsc">
                             성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
+                            
                         </p>
                     </div>
                 </div>
                 <div class="section_booking_ticket">
                     <div class="ticket_body">
+                       	<c:forEach items="${reservePrice}" var="item">
+                       		<c:set var="cost" scope="page" value="${fn:substringBefore(item.price * (100-item.discountRate) / 100,'.')}"/>
+	                    	<div class="qty" cost="${cost}">
+	                            <div class="count_control">
+	                                <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
+	                                <div class="clearfix">
+	                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
+	                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
+	                                    </a>
+	                                </div>
+	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
+	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
+	                            </div>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${item.priceTypeName}</span> </strong> <strong class="product_price"> <span class="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/></span> <span class="price_type">원</span> </strong>
+	                            <c:if test="${item.discountRate > 0}">
+									<em class="product_dsc"><fmt:formatNumber value="${cost}" pattern="#,###"/>원 (${item.discountRate}% 할인가)</em>
+								</c:if>
+	                             </div>
+	                        </div>
+                    	</c:forEach>
                     </div>
                 </div>
                 <div class="section_booking_form">
@@ -66,16 +98,22 @@
                             <div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
-                                    <div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
+                                    <div class="inline_control tel_wrap"> 
+	                                    <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
+	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div> 
+                                    </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
                                     <div class="inline_control tel_wrap">
                                         <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-                                        <div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+                                        <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
-                                    <div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+                                    <div class="inline_control tel_wrap">
+                                    	<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+                                    	<div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
+                                    </div>
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
@@ -123,137 +161,42 @@
         </div>
     </footer>
 	
-	<script type="customTemplate" id="ticketItem">
-		<div class="qty" cost="{{cost}}">
-			<div class="count_control" ticket>
-				<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
-				<div class="clearfix">
-					<a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a>
-					<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-					<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
-				</div>
-				<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
-				<div class="individual_price">
-					<span class="total_price">0</span><span class="price_type">원</span>
-				</div>
-			</div>
-
-			<div class="qty_info_icon">
-				<strong class="product_amount"> <span>{{typeLabel}}</span> </strong> <strong class="product_price"> <span class="price">{{priceWithComma}}</span> <span class="price_type">원</span> </strong> {{#discount discountRate price}}{{discountRate}}{{/discount}}
-			</div>
-		</div>
-	</script>
-	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script src="js/common.js"></script>
 	<script>
-		var PRICE_TYPE ={
-			    A : "성인",
-			    Y : "청소년",
-				B : "유아",
-			    S : "셋트",
-			    D : "장애인",
-			    C : "지역주민",
-			    E : "얼리버드",
-			    V : "VIP",
-			    D : "평일"
-			}
-		
-		function getTypeLabel(priceTypeName){
-			var priceType = PRICE_TYPE[priceTypeName];
-			
-			if(!priceType){
-				priceType = priceTypeName + '석';
-			}
-			
-			return priceType
+		function ReservePrice(price, priceTypeName) {
+			this.price = price.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+			this.label = getTypeLabel(priceTypeName);
 		}
 		
-		function getPriceNotice(productPrices){
-			var resultStr = '';
-			var pricesLen = productPrices.length;
-			for(var idx = 0 ; idx < pricesLen; idx++){
-				if(idx != 0){
-					resultStr += '<br>';
+		//요금 설명문 정보 출력
+		function initPriceDescription(){
+			var priceDescriptionArea = document.querySelector('.store_details :nth-child(6)');
+			
+			var priceList = new Array();
+			<c:forEach var="i" begin="0" end="${fn:length(reservePrice)-1}">
+				priceList[${i}] = new ReservePrice('${reservePrice[i].price}','${reservePrice[i].priceTypeName}');
+			</c:forEach> 
+			
+			var resultText = '';
+			for(var i = 0; i < priceList.length; i++){
+				if(i != 0 ){
+					resultText += '\r\n';
 				}
-				
-				var curPrice = productPrices[idx];
-				
-				resultStr += getTypeLabel(curPrice.priceTypeName)+' '+curPrice.price.toLocaleString()+'원';
+				resultText += priceList[i].label + ' ' + priceList[i].price+'원';
 			}
-			return resultStr;
+			
+			priceDescriptionArea.innerText = resultText;
+			
+			//티켓 영역의 타입 변경
+			var ticketPriceAreas = document.querySelectorAll('.product_amount>span');
+			ticketPriceAreas.forEach(item => item.innerText = getTypeLabel(item.innerText));
 		}
 		
-		function loadDisplayInfoCallback(responseData) {
-			var displayInfoResponse = responseData.detailDisplay;
-			
-			var displayInfo = displayInfoResponse.displayInfo;
-			var productImages = displayInfoResponse.productImages;
-			var productPrices = displayInfoResponse.productPrices;
-			
-			//페이지 최상단 제목
-			document.querySelector('span.title').innerText = displayInfo.productDescription;
-			
-			//섬네일 이미지
-			document.querySelector("img.img_thumb").setAttribute('src',productImages[0].saveFileName);
-			
-			var minPrice = productPrices[0].price;
-			var priceLen = productPrices.length;
-			for(var i = 1; i < priceLen; i++){
-				var curPrice = productPrices[i].price;
-				if(curPrice < minPrice){
-					minPrice = curPrice;
-				}
-			}
-			
-			//썸네일 최저가 표시
-			document.querySelectorAll('em.preview_txt_dsc')[0].innerText = '₩'+minPrice.toLocaleString()+'~';
-			
-			//썸네일 날짜 표시
-			//TODO: 어디서 꺼내야 할지 몰라서 보류
-			//document.querySelector('span.date_area').innerText = displayInfo.
-			
-			var detailDescArea = document.querySelectorAll('.store_details>.dsc');
-			
-			//장소, 기간
-			detailDescArea[0].innerHTML = '장소 : '+displayInfo.placeName;
-			detailDescArea[0].innerHTML += '<br>기간 : '+'~기간~';
-			
-			//관람 시간
-			detailDescArea[1].innerHTML = displayInfo.openingHours;
-			//요금
-			detailDescArea[2].innerHTML = getPriceNotice(productPrices);
-			
-			
+		// 티켓 수량 증가, 감소 클릭 이벤트 등록 
+		function setTicketClick(){
 			var ticketContainer = document.querySelector('.ticket_body');
-			
-			// ticket Template
-			var ticketTemplate = document.querySelector('#ticketItem').innerText;
-			var bindTicketTemplate = Handlebars.compile(ticketTemplate);
-			
-			Handlebars.registerHelper("discount", function (discountRate, price) {
-			    if (discountRate > 0) {
-			        return "<em class='product_dsc'>"+((price*(100-discountRate))/100).toFixed(0).toLocaleString()+"원 ("+discountRate+"% 할인가)</em>";
-			    }else{
-			    	return "";
-			    }
-			});
-			
-			for(var i = 0 ; i < 3 && i < productPrices.length; i++){
-				var cost = productPrices[i].price;
-				if(productPrices[i].discountRate > 0){
-					cost = (cost*(100-productPrices[i].discountRate)/100).toFixed(0);
-				}
-				
-				productPrices[i].priceWithComma = productPrices[i].price.toLocaleString(); 
-				productPrices[i].typeLabel = getTypeLabel(productPrices[i].priceTypeName);
-				productPrices[i].cost = cost;
-				
-				ticketContainer.innerHTML += bindTicketTemplate(productPrices[i]);
-			}
-			
-			// ticket 가격 변동 Event 등록
-			var totalCountArea = document.querySelector('#totalCount');
+			var ticketTotalArea = document.querySelector('#totalCount');
 			
 			ticketContainer.addEventListener('click',function(evt){
 				evt.preventDefault();
@@ -280,7 +223,7 @@
 						item.querySelector('.total_price').innerText = (cost * (amountValue - 1)).toLocaleString();
 						amountArea.setAttribute('value',amountValue - 1);
 						
-						totalCountArea.innerText = parseInt(totalCountArea.innerText) - 1;
+						ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) - 1;
 					}else if(isPlus){
 						if(amountValue == 0){
 							btnMinus.classList.remove('disabled');
@@ -289,40 +232,85 @@
 						item.querySelector('.total_price').innerText = (cost * (amountValue + 1)).toLocaleString();
 						amountArea.setAttribute('value',amountValue + 1);
 						
-						totalCountArea.innerText = parseInt(totalCountArea.innerText) + 1;
+						ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) + 1;
 					}
 				}
 			});
-			
-			
+		}
+		
+		
+		function setAgreementDesciptionClick(){
 			//약관 보기 버튼
-			document.querySelector('.section_booking_agreement').addEventListener('click',function(evt){
-				
+			var agreementDescriptionWrap = document.querySelector('.section_booking_agreement');
+			agreementDescriptionWrap.addEventListener('click',function(evt){
 			    var clickedBtn = evt.target;
-				if(clickedBtn.classList.contains('fn-down2') || clickedBtn.classList.contains('btn_text')){
+			    
+			    var isClickedChild = (clickedBtn.classList.contains('fn') || clickedBtn.classList.contains('btn_text'));
+				if(isClickedChild){
 					clickedBtn = clickedBtn.parentElement;
 			    }
 
 			    if(clickedBtn.classList.contains('btn_agreement')){
 			    	evt.preventDefault();
-					clickedBtn.parentElement.classList.add('open');
+			    	var btnTextArea = clickedBtn.querySelector('.btn_text');
+			    	var btnArrow = clickedBtn.querySelector('i.fn');
+			    	
+			    	var isFold = btnArrow.classList.contains('fn-down2');
+			    	
+			    	if(isFold){
+			    		btnTextArea.innerText = '접기';
+			    		btnArrow.classList.add('fn-up2');
+			    		btnArrow.classList.remove('fn-down2');
+			    		
+			    		clickedBtn.parentElement.classList.add('open');
+			    	} else {
+			    		btnTextArea.innerText = '보기';
+			    		btnArrow.classList.add('fn-down2');
+			    		btnArrow.classList.remove('fn-up2');
+			    		
+			    		clickedBtn.parentElement.classList.remove('open');
+			    	}
 			    }
 			});
 		}
 		
 		//예약하기 버튼 활성화 가능 여부 체크
-		function initReserveBtn(){
+		function setReserveClick(){
 			var reserveBtn = document.querySelector('.bk_btn_wrap');
-			var inputs = document.querySelectorAll('.form_horizontal input');
+			
+			var ticketInputsWrap = document.querySelector('.section_booking_ticket');
+			var bookerInputsWrap = document.querySelector('.section_booking_form');
+			
+			var ticketInputs = ticketInputsWrap.querySelectorAll('.ticket_body input');
+			var bookerInputs = bookerInputsWrap.querySelectorAll('.form_horizontal input');
+			
 			var agreementCheckBox = document.querySelector('#chk3');
-			//예매하기 버튼을 클릭할 수 있는지 체크.
-			//유효성 검증은 버튼 클릭시 하므로. 이 함수에서는 버튼 활성/비활성화만 검증한다.
+			
+			ticketInputsWrap.addEventListener('click',checkAvailableReserve);
+			bookerInputsWrap.addEventListener('change',checkAvailableReserve);
+			
+			/**
+			 * 예매하기 버튼을 클릭할 수 있는지 체크.
+			 * 유효성 검증은 버튼 클릭시 하므로 버튼 활성/비활성화만 검증한다.
+			 */
 			function checkAvailableReserve(){
 				var isAvailableBtn = true;
 				
 				if(agreementCheckBox.checked){
-					for(var i = 0 ; i < inputs.length; i++){
-						var targetInput = inputs[i];
+					//티켓을 하나라도 선택했는지 확인
+					for(var i = 0 ; i < ticketInputs.length; i++){
+						var targetInput = ticketInputs[i];
+						if(targetInput.value > 0){
+							isAvailableBtn = true;
+							break;
+						}else{
+							isAvailableBtn = false;
+						}
+					}
+					
+					//예약자 정보가 빈 칸인지 확인
+					for(var i = 0 ; i < bookerInputs.length; i++){
+						var targetInput = bookerInputs[i];
 						if(targetInput.value.length == 0){
 							isAvailableBtn = false;
 							break;
@@ -332,35 +320,91 @@
 					isAvailableBtn = false;
 				}
 				
-				function aa(){
-					alert('aa');
-				}
-				
 				if(isAvailableBtn) {
-					//예약하기 버튼 사용 가능
 					reserveBtn.classList.remove('disable');
-					reserveBtn.addEventListener('click',aa);
+					reserveBtn.addEventListener('click',onReserveClicked);
 				} else {
 					//예약하기 버튼 사용 불가
 					reserveBtn.classList.add('disable');
-					reserveBtn.removeEventListener('click',aa);
+					reserveBtn.removeEventListener('click',onReserveClicked);
 				}
 				
 				return isAvailableBtn;
 			}
+		}
+		
+		//클릭 이벤트 등록을 전담
+		function initClickEvents(){
+			setTicketClick();
+			setAgreementDesciptionClick();
+			setReserveClick();
+		}
+		
+		/**
+		 * 예약하기 버튼을 클릭했을때 이벤트
+		 * 예약자 정보를 검증하고 이상이 없다면 예약 페이지로 이동한다.
+		 */
+		function onReserveClicked(){
+			var bookerInputs = document.querySelectorAll('.form_horizontal input');
+			var warningAreas = document.querySelectorAll('.warning_msg');
 			
-			//input의 ParentElement인 form.section_booking_form을 찾고 change Event를 등록한다
-			//onchange시 예약가능한지 체크하는 함수를 호출한다.
-			document.querySelector('.section_booking_form').addEventListener('change',checkAvailableReserve);
+			var bookerName = bookerInputs[0].value;
+			var bookerTelephone = bookerInputs[1].value;
+			var bookerEmail = bookerInputs[2].value;
+			
+			var telephoneRegExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+			var emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+			
+			// 틀린 영역에 표시하는데 사용할 boolean Array
+			var validationArr = new Array(bookerInputs.length);
+			for(var i = 0 ; i < validationArr.length; i++){
+				validationArr[i] = true;
+			}
+			
+			var isValidName = (bookerName.length > 1);
+			var isValidTelephone = telephoneRegExp.test(bookerTelephone); 
+			var isValidEmail = emailRegExp.test(bookerEmail);
+			
+			if(!isValidName){
+				validationArr[0] = false;
+			}
+			
+			if(!isValidTelephone){
+				validationArr[1] = false;
+			}
+			
+			if(!isValidEmail){
+				validationArr[2] = false;
+			}
+			
+			/**
+			 * 전부 TRUE이면 예약 페이지로 이동
+			 * 하나라도 FALSE이면 형식이 틀렸다는 메세지 출력
+			 */
+			var isValid = true;
+			for(var i = 0 ; i < validationArr.length; i++){
+				isValid = isValid && validationArr[i];
+				
+				if(!validationArr[i]){
+					warningAreas[i].style.visibility = 'visible';
+					(function(index){
+					setTimeout(function(){
+						warningAreas[index].style.visibility = 'hidden';
+					},1000)})(i);
+				}
+			}
+			
+			if(isValid){
+				location.href = "myreservation";
+			}
 		}
 		
 		document.addEventListener('DOMContentLoaded', function() {
-			// 페이지 첫 로딩시 할 일
 			var id = location.href.split('?')[1].split('=')[1];
 			
-			requestAjax(loadDisplayInfoCallback, 'api/products/' + id);
+			initPriceDescription();
 			
-			initReserveBtn();
+			initClickEvents();
 		});
 	</script>
 </body>

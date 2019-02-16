@@ -7,6 +7,7 @@ package com.nts.reservation.controller.api;
 import java.util.Collections;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,25 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.service.reserve.ReserveResponseService;
+
 @RestController
 @RequestMapping("/api/reservations")
 public class ReserveApiController {
-	/**
-	 * Reservation 대상 상품 조회
-	 * @param email
-	 * @return 예약 목록 Response
-	 */
-	@GetMapping
-	public Map<String, Object> getReservationDisplayInfo(
-		@RequestParam(name = "displayInfoId", required = true) String displayInfoId) {
-
-		return Collections.emptyMap();
-	}
+	@Autowired
+	ReserveResponseService reserveResponseService;
 	
 	/**
 	 * Reservation 정보 조회
 	 * @param email
-	 * @return 예약 목록 Response
+	 * @return 예약 목록
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
@@ -48,7 +42,6 @@ public class ReserveApiController {
 	 * 새로운 Reservation 등록
 	 * @param email
 	 * @param displayInfoId
-	 * @return
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(
@@ -62,7 +55,6 @@ public class ReserveApiController {
 	 * Reservation을 취소
 	 * @param email
 	 * @param reservationInfoId
-	 * @return
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public Map<String, Object> cancelReservation(

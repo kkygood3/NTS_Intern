@@ -1,3 +1,15 @@
+const PRICE_TYPE ={
+	    A : "성인",
+	    Y : "청소년",
+		B : "유아",
+	    S : "셋트",
+	    D : "장애인",
+	    C : "지역주민",
+	    E : "얼리버드",
+	    V : "VIP",
+	    D : "평일"
+	}
+
 /**
  * 반복적으로 호출하는 XMLHttpRequest를 전담하는 함수
  * @param 페이지 로드후에 실행할 callback function. 매개변수로 response를 가져아 함 
@@ -30,4 +42,14 @@ function getUrlParameter(name) {
 			return paramValue;
 		}
 	}
+}
+
+function getTypeLabel(priceTypeName){
+	var priceType = PRICE_TYPE[priceTypeName];
+	
+	if(!priceType){
+		priceType = priceTypeName + '석';
+	}
+	
+	return priceType
 }

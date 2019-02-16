@@ -5,12 +5,12 @@
 package com.nts.reservation.dto.reserve;
 
 /**
- * /api/products/{displayInfoId}/extra요청에 추가 이미지를 담는 DTO
+ * reserve 페이지 로드시 필요한 가격 정보 DTO
  */
 public class ReservePrice {
 	private Integer price;
 	private String priceTypeName;
-	private Double discountRate;
+	private Integer discountRate;
 
 	public Integer getPrice() {
 		return price;
@@ -28,11 +28,11 @@ public class ReservePrice {
 		this.priceTypeName = priceTypeName;
 	}
 
-	public Double getDiscountRate() {
+	public Integer getDiscountRate() {
 		return discountRate;
 	}
 
-	public void setDiscountRate(Double discountRate) {
+	public void setDiscountRate(Integer discountRate) {
 		this.discountRate = discountRate;
 	}
 }
