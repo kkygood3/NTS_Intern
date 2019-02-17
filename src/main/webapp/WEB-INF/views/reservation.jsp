@@ -62,7 +62,7 @@
 						<div class="form_wrap">
 							<h3 class="out_tit">예매자 정보</h3>
 							<div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
-							<form class="form_horizontal">
+							<form class="form_horizontal" action="/detail/${pageInfo.displayInfoId}/reservation" accept-charset="utf-8" name="user_reservation_input" method="post">
 								<div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
 									<div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
 								</div>
@@ -118,13 +118,15 @@
 	<script type="text/javascript">
 		function displayInfo() {
 			return {
+				"displayInfoId" : "${pageInfo.displayInfoId}",
 				"productId" : "${pageInfo.productId}",
 			};
 		}
 	</script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/reservation/userInputObject.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/event.js" ></script>

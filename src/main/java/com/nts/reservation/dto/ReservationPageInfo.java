@@ -2,6 +2,7 @@ package com.nts.reservation.dto;
 
 public class ReservationPageInfo {
 	private long productId;
+	private long displayInfoId;
 	private String description;
 	private String placeName;
 	private String openingHours;
@@ -13,6 +14,14 @@ public class ReservationPageInfo {
 
 	public void setProductId(long productId) {
 		this.productId = productId;
+	}
+
+	public long getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(long displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
 	public String getDescription() {
@@ -49,7 +58,8 @@ public class ReservationPageInfo {
 
 	@Override
 	public String toString() {
-		return "ReservationPageInfo [productId=" + productId + ", description=" + description + ", placeName="
-			+ placeName + ", openingHours=" + openingHours + ", mainImageName=" + mainImageName + "]";
+		return "ReservationPageInfo [productId=" + productId + ", displayInfoId=" + displayInfoId + ", description="
+			+ description + ", placeName=" + placeName + ", openingHours=" + openingHours + ", mainImageName="
+			+ mainImageName + "]";
 	}
 }

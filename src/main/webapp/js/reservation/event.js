@@ -58,7 +58,6 @@ function addPlusMiusButtonClickEvent() {
 
 function addBookingFormInputChangeEvent() {
 	var inputs = document.querySelectorAll(".section_booking_form input");
-	var userInput = "A";
 	for (var i = 0, len = inputs.length; i < len; i++) {
 		inputs[i].addEventListener("change", function(event){
 			var value = event.target.value;
@@ -87,4 +86,40 @@ function addBookingFormInputChangeEvent() {
 			}
 		});
 	}
+}
+
+
+function addBookingButtonClickEvent() {
+	var bookingButton = document.getElementsByClassName("bk_btn")[0];
+	bookingButton.addEventListener("click", function(event){
+		var reservationForm = document.querySelector("form.form_horizontal");
+		var reservationData = {};
+		reservationData.name = document.getElementById("name").value;
+		reservationData.tel = document.getElementById("tel").value;
+		reservationData.email = document.getElementById("email").value	;
+		reservationData.price = makePriceData();
+		console.log(JSON.stringify(reservationData));
+		$.ajax({
+			method: "POST",
+			url: "/detail/" + displayInfo().displayInfoId + "/reservation",
+			data: JSON.stringify(reservationData),
+			dataType: "json",
+			contentType : "application/json"
+		});
+	});
+}
+
+function makePriceData() {
+	var priceDatas = [];
+	var priceInfos = document.querySelectorAll(".ticket_body .qty");
+	for (var i = 0, len = priceInfos.length; i < len; i++) {
+		var count = priceInfos[i].getElementsByClassName("count_control_input")[0].value;
+		var price = priceInfos[i].getElementsByClassName("price")[0].innerText;
+		var priceData = {};
+		priceData.productPriceId = priceInfos[i].id.replace("product_price_id_", "");
+		priceData.price = price;
+		priceData.count = count;
+		priceDatas.push(priceData);
+	}
+	return priceDatas;
 }

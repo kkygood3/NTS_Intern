@@ -13,4 +13,5 @@ function makePriceData() {
 	var input = document.createElement("input");
 	input.name = "price";
 	input.value = priceDatas;
+	alert(input.value);
 }

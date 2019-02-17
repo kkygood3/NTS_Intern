@@ -5,11 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
+import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
@@ -69,10 +72,25 @@ public class ProductController {
 	 * @return 뷰이름 리턴
 	 */
 	@GetMapping(path = "/{displayInfoId}/reservation")
-	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
+	public String getReservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
 		ModelMap model) {
 		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
+	}
+	
+	/**
+	 * 예약페이지에 표시할 정보 담아서 url맵핑한다
+	 * @param displayInfoId 조회할 상품
+	 * @param model 표시할 정보를 담는다
+	 * @return 뷰이름 리턴
+	 */
+	@PostMapping(path = "/{displayInfoId}/reservation")
+	public String postReservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
+		@RequestBody UserReservationInput userReservationInput,
+		ModelMap model) {
+		System.out.println(userReservationInput);
+//		reservationService.addReservation(userReservationInput);
+		return "redirect:detail/" + displayInfoId;
 	}
 }
