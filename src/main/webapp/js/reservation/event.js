@@ -118,9 +118,8 @@ function makePriceData() {
 		var price = priceInfos[i].getElementsByClassName("price")[0].innerText;
 		var priceData = {};
 		priceData.productPriceId = priceInfos[i].id.replace("product_price_id_", "");
-//		priceData.price = price;
 		priceData.count = count;
-		if(count) {
+		if(count > 0) {
 			priceDatas.push(priceData);
 		}
 	}
