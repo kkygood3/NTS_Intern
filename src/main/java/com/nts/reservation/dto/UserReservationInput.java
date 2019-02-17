@@ -1,12 +1,23 @@
 package com.nts.reservation.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserReservationInput {
+	private long productId;
 	private String name;
 	private String tel;
 	private String email;
-	private List<UserPriceInput> price;
+	private Date reservationDate;
+	private List<ReservationInfoPrice> price;
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
 
 	public String getName() {
 		return name;
@@ -32,11 +43,19 @@ public class UserReservationInput {
 		this.email = email;
 	}
 
-	public List<UserPriceInput> getPrice() {
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
+	public List<ReservationInfoPrice> getPrice() {
 		return price;
 	}
 
-	public void setPrice(List<UserPriceInput> price) {
+	public void setPrice(List<ReservationInfoPrice> price) {
 		this.price = price;
 	}
 
@@ -45,11 +64,9 @@ public class UserReservationInput {
 		String pre = "UserReservationInput [name=" + name + ", tel=" + tel + ", email=" + email + ", price=\n\t";
 		String post = "\n]";
 		String mid = "";
-		for (UserPriceInput p : price) {
+		for (ReservationInfoPrice p : price) {
 			mid += p + "\n";
 		}
 		return pre + mid + post;
 	}
-
-
 }

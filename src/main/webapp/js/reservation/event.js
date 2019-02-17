@@ -94,6 +94,7 @@ function addBookingButtonClickEvent() {
 	bookingButton.addEventListener("click", function(event){
 		var reservationForm = document.querySelector("form.form_horizontal");
 		var reservationData = {};
+		reservationData.productId = displayInfo().productId;
 		reservationData.name = document.getElementById("name").value;
 		reservationData.tel = document.getElementById("tel").value;
 		reservationData.email = document.getElementById("email").value	;
@@ -117,7 +118,7 @@ function makePriceData() {
 		var price = priceInfos[i].getElementsByClassName("price")[0].innerText;
 		var priceData = {};
 		priceData.productPriceId = priceInfos[i].id.replace("product_price_id_", "");
-		priceData.price = price;
+//		priceData.price = price;
 		priceData.count = count;
 		priceDatas.push(priceData);
 	}
