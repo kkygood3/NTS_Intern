@@ -54,14 +54,37 @@ function addPlusMiusButtonClickEvent() {
 			}
 		}
 	});
-	}
+}
 
 function addBookingFormInputChangeEvent() {
 	var inputs = document.querySelectorAll(".section_booking_form input");
 	var userInput = "A";
 	for (var i = 0, len = inputs.length; i < len; i++) {
-		inputs[i].addEventListener("click", function(event){
-			alert(userInput);
+		inputs[i].addEventListener("change", function(event){
+			var value = event.target.value;
+			
+			var emailValue = document.querySelector("[name='email']").value;
+		    var bValid = (/^[\w+_]\w+@\w+\.\w+$/).test(emailValue);
+			if (event.target.id == "name") {
+				if ((/^([가-힣]{2,})|(([A-Z][a-z]*\s)+[A-Z][a-z]*)$/).test(value)) {
+					return;
+				}
+				console.log("잘못된 이름");
+			} else if (event.target.id == "tel") {
+				if ((/^01[016-9]-[0-9]{3,4}-[0-9]{4}$/).test(value)) {
+					return;
+				} else if (value.match(/^01[01(6-9)][0-9]{7,8}$/)) {
+					var midLength = value.length == 11 ? 4 : 3;
+					event.target.value = value.substr(0, 3) + "-" + value.substr(3, midLength) + "-" + value.substr(3 + midLength, 4);
+					return;
+				}
+				console.log("잘못된 전화번호");
+			} else if (event.target.id == "email") {
+				if ((/^[a-z][-\.\w]*@[a-z][-\.\w]*\.[a-z]{2,3}$/i).test(value)) {
+					return;
+				}
+				console.log("잘못된 메일");
+			}
 		});
 	}
 }
