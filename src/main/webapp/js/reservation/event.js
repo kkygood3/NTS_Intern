@@ -120,7 +120,9 @@ function makePriceData() {
 		priceData.productPriceId = priceInfos[i].id.replace("product_price_id_", "");
 //		priceData.price = price;
 		priceData.count = count;
-		priceDatas.push(priceData);
+		if(count) {
+			priceDatas.push(priceData);
+		}
 	}
 	return priceDatas;
 }
