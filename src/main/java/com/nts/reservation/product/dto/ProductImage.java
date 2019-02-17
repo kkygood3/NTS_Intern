@@ -20,5 +20,5 @@ public class ProductImage {
 	private Integer productId;
 	private Integer productImageId;
 	private String saveFileName;
-	private String type;	// TODO ENUM 적용
+	private ImageType type;
 }
