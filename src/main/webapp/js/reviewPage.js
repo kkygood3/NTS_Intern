@@ -29,9 +29,15 @@ let productDescription;
 function loadDisplayInfoCallback(displayInfoData) {
     let averageScore = displayInfoData.averageScore;
     productDescription = displayInfoData['displayInfo'].productDescription;
+
+    // 별점 설정
     document.querySelector('div.grade_area > .text_value').firstElementChild.innerText = averageScore;
     document.querySelector('em.graph_value').style.width = (averageScore * 20) + '%';
     
+    // 총 댓글 갯수
+    let commentCount = displayInfoData.comments.length;
+	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
+
     let displayInfoId = displayInfoData['displayInfo'].displayInfoId;
     document.querySelector('.btn_back').setAttribute('href','detail?id=' + displayInfoId);
 

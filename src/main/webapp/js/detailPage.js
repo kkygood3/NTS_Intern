@@ -10,7 +10,7 @@ function requestAjax(callback, url) {
     ajaxReq.send();
 }
 
-// Url의 name에  해당하는 Parameter 추출
+// Url의 name에 해당하는 Parameter 추출
 function getUrlParameter(name) {
 	let params = location.href.split('?')[1].split('&');
 	for (let i = 0; i < params.length; i++) {
@@ -108,7 +108,7 @@ function initComment(displayCommentInfo) {
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
 	
-	// 댓글  더보기 버튼
+	// 댓글 더보기 버튼
 	let reviewMoreBtn = document.querySelector('a.btn_review_more');
 	if(commentCount > 3){
 		reviewMoreBtn.setAttribute('href','/');
@@ -293,7 +293,6 @@ function setTitleSlide(addtionalDisplayInfo, TitleDisplayImage) {
                 list.style.left = leftDistance + '%';
                 });
             },0);
-            
             
             setTimeout(() => {
                 btnNext.addEventListener('click',nextArrowEventHandler);
