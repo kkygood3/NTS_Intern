@@ -27,5 +27,5 @@ SetEvent.prototype.validateInputValue = function(inputTag, regularExpression){
 }
 
 SetEvent.prototype.scrollTop = function(){
-	scrollTopEvent(document.querySelector(".lnk_top"));
+	addScrollTopEvent(document.querySelector(".lnk_top"));
 }

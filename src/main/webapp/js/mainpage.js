@@ -121,7 +121,7 @@ var mainPage = {
 		}.bind(this),
 		
 		scrollTop: function(){
-			scrollTopEvent(this.mainPage.elements.btnTop);
+			addScrollTopEvent(this.mainPage.elements.btnTop);
 		}.bind(this),
 		
 		showMore: function(){

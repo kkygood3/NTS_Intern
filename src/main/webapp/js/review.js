@@ -71,6 +71,6 @@ var reviewPage = {
 	},
 	
 	setScrollTopEvent: function(){
-		scrollTopEvent(this.elements.btnTop);
+		addScrollTopEvent(this.elements.btnTop);
 	}
 }

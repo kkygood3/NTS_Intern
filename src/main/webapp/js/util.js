@@ -1,4 +1,4 @@
-/*
+/**
  * data : required = false
  */
 var ajaxSend = function(method, url, callBack, contentType, data){
@@ -23,7 +23,7 @@ var ajaxSend = function(method, url, callBack, contentType, data){
 	}
 }
 
-var scrollTopEvent = function(btnElement){
+var addScrollTopEvent = function(btnElement){
 	btnElement.addEventListener("click", function(){
 		event.preventDefault();
 		document.documentElement.scrollTop = 0;

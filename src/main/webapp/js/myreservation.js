@@ -34,7 +34,7 @@ SetEvent.prototype.preventLink = function(){
 }
 
 SetEvent.prototype.scrollTop = function(){
-	scrollTopEvent(document.querySelector(".lnk_top"))
+	addScrollTopEvent(document.querySelector(".lnk_top"))
 }
 
 SetEvent.prototype.showCanclePopup = function(){
