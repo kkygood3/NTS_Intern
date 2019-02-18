@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.common.CommentDao;
 import com.nts.reservation.dao.review.ReviewDisplayInfoDao;
 import com.nts.reservation.dto.review.ReviewResponse;
-import com.nts.reservation.service.ReviewResponseService;
+import com.nts.reservation.service.ReviewService;
 
 @Service
-public class ReviewResponseServiceImpl implements ReviewResponseService {
+public class ReviewServiceImpl implements ReviewService {
 	@Autowired
 	CommentDao commentDao;
 	@Autowired

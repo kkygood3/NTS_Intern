@@ -23,13 +23,13 @@ import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.dto.main.MainPromotion;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.property.ProductProperties;
-import com.nts.reservation.service.MainResponseService;
+import com.nts.reservation.service.MainService;
 
 @RestController
 @RequestMapping("/api")
 public class MainApiController {
 	@Autowired
-	private MainResponseService mainResponseService;
+	private MainService mainResponseService;
 
 	/**
 	 * /api/categories 요청을 받아 메인 페이지에 카테고리 목록 출력

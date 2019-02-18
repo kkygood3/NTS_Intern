@@ -7,7 +7,7 @@ package com.nts.reservation.service;
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 
-public interface DetailResponseService {
+public interface DetailService {
 	/**
 	 * api/products/{diplayInfoId} response에 사용
 	 * @param displayInfoId - 조회할 displayInfo table의 ID

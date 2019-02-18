@@ -10,7 +10,7 @@ import com.nts.reservation.dto.main.MainCategory;
 import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.dto.main.MainPromotion;
 
-public interface MainResponseService {
+public interface MainService {
 	/**
 	 * api/products response에 사용
 	 * @param categoryId	해당 카테고리에 속하는 상품

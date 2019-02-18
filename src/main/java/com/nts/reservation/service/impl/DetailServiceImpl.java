@@ -12,10 +12,10 @@ import com.nts.reservation.dao.detail.DetailDisplayInfoDao;
 import com.nts.reservation.dao.detail.DetailExtraImageDao;
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
-import com.nts.reservation.service.DetailResponseService;
+import com.nts.reservation.service.DetailService;
 
 @Service
-public class DetailResponseServiceImpl implements DetailResponseService {
+public class DetailServiceImpl implements DetailService {
 	@Autowired
 	CommentDao detailCommentDao;
 	@Autowired

@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.dto.reserve.ReserveResponse;
-import com.nts.reservation.service.ReserveResponseService;
+import com.nts.reservation.service.ReserveService;
 
 @Controller
 public class ReserveContorller {
 	@Autowired
-	ReserveResponseService reserveResponseService;
+	ReserveService reserveResponseService;
 	/**
 	 * /reserve 요청을 받아 reserve view로 넘겨주는 역할.
 	 * @param id - displayInfo 테이블의 id 

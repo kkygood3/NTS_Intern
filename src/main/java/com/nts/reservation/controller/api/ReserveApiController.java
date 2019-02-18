@@ -5,7 +5,11 @@
 package com.nts.reservation.controller.api;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,14 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.service.ReserveResponseService;
+import com.nts.reservation.dto.myreservation.MyReservationInfo;
+import com.nts.reservation.service.MyReservationService;
+import com.nts.reservation.service.ReserveService;
 
 @RestController
 @RequestMapping("/api/reservations")
 public class ReserveApiController {
 	@Autowired
-	ReserveResponseService reserveResponseService;
-	
+	ReserveService reserveResponseService;
+	@Autowired
+	MyReservationService myReservationService;
 	/**
 	 * Reservation 정보 조회
 	 * @param email
@@ -33,9 +40,14 @@ public class ReserveApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
-		@RequestParam(name = "email", required = true) String email) {
-
-		return Collections.emptyMap();
+		@RequestParam(name = "reservationEmail", required = true) String reservationEmail) {
+		
+		List<MyReservationInfo> myReservationResponse = myReservationService.getMyReservationInfoList(reservationEmail);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("myReservationResponse", myReservationResponse);
+		
+		return map;
 	}
 
 	/**
@@ -46,8 +58,13 @@ public class ReserveApiController {
 	@PostMapping
 	public Map<String, Object> reserve(
 		@RequestParam(name = "email", required = true) String email,
-		@RequestParam(name = "displayInfoId", required = true) String displayInfoId) {
-
+		@RequestParam(name = "displayInfoId", required = true) String displayInfoId,
+		HttpServletRequest request) {
+		/*
+		System.out.println(request.getParameter("email"));
+		System.out.println(request.getParameter("displayInfoId"));
+		System.out.println(request.getParameter("telephone"));
+		*/
 		return Collections.emptyMap();
 	}
 
@@ -60,7 +77,7 @@ public class ReserveApiController {
 	public Map<String, Object> cancelReservation(
 		@RequestParam(name = "email", required = true) String email,
 		@PathVariable Integer reservationInfoId) {
-		
+
 		return Collections.emptyMap();
 	}
 

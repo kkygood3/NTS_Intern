@@ -6,7 +6,7 @@ package com.nts.reservation.service;
 
 import com.nts.reservation.dto.review.ReviewResponse;
 
-public interface ReviewResponseService {
+public interface ReviewService {
 	/**
 	 * api/products/{diplayInfoId}/review response에 사용
 	 * @param displayInfoId - 조회할 displayInfo table의 ID

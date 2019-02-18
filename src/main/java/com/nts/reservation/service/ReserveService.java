@@ -6,7 +6,7 @@ package com.nts.reservation.service;
 
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
-public interface ReserveResponseService {
+public interface ReserveService {
 	/**
 	 * reserve 페이지 로드시 상품 전시 정보와 가격을 가져온다. 
 	 * @param displayInfoId - 조회할 displayInfo table의 ID

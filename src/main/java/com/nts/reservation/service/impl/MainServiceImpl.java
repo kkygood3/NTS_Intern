@@ -15,10 +15,10 @@ import com.nts.reservation.dao.main.MainPromotionDao;
 import com.nts.reservation.dto.main.MainCategory;
 import com.nts.reservation.dto.main.MainProduct;
 import com.nts.reservation.dto.main.MainPromotion;
-import com.nts.reservation.service.MainResponseService;
+import com.nts.reservation.service.MainService;
 
 @Service
-public class MainResponseServiceImpl implements MainResponseService {
+public class MainServiceImpl implements MainService {
 	@Autowired
 	private MainProductDao mainProductDao;
 	@Autowired

@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
 import com.nts.reservation.dto.reserve.ReserveResponse;
-import com.nts.reservation.service.ReserveResponseService;
+import com.nts.reservation.service.ReserveService;
 
 @Service
-public class ReserveResponseServiceImpl implements ReserveResponseService {
+public class ReserveServiceImpl implements ReserveService {
 	@Autowired
 	ReservePriceDao reservePriceDao;
 	@Autowired

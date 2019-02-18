@@ -21,16 +21,16 @@ import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.dto.review.ReviewResponse;
 import com.nts.reservation.property.CommonProperties;
-import com.nts.reservation.service.DetailResponseService;
-import com.nts.reservation.service.ReviewResponseService;
+import com.nts.reservation.service.DetailService;
+import com.nts.reservation.service.ReviewService;
 
 @RestController
 @RequestMapping("/api/products/{displayInfoId}")
 public class DetailApiController {
 	@Autowired
-	private DetailResponseService detailDisplayService;
+	private DetailService detailDisplayService;
 	@Autowired
-	private ReviewResponseService reviewResponseService;
+	private ReviewService reviewResponseService;
 
 	/**
 	 * /api/products/{displayInfoId} 요청을 받아 detail, review 페이지에 출력
