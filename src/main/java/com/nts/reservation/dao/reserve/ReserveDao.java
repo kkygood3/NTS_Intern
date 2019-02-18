@@ -39,7 +39,8 @@ public class ReserveDao {
 		params.addValue("email", email);
 		params.addValue("displayInfoId", displayInfoId);
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 
-		return jdbc.update(ReserveSqls.INSERT_RESERVE, params, keyHolder, new String[]{"ID"});
+		jdbc.update(ReserveSqls.INSERT_RESERVE, params, keyHolder, new String[]{"ID"});
+		return keyHolder.getKey().intValue();
 	}
 	
 	/**
