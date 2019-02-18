@@ -130,7 +130,7 @@
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected"><span id='total_count'>0</span></p>
+										<p class="inline_txt selected">${reservationDate} ,총 <span id='total_count'>0</span>매</p>
 									</div>
 								</div>
 							</form>
@@ -214,12 +214,15 @@
 		}
 
 		BookingTicket.prototype = {
-			init : function () {
+			init: function () {
 				var ticketElements = ticketBody.querySelectorAll(".qty");
-				for (var i=0; i<ticketElements.length; i++) {
+				for (var i = 0; i < ticketElements.length; i++) {
 					var type = ticketElements[i].querySelector('.product_amount span').innerText;
 					var price = ticketElements[i].querySelector('.price').innerText;
-					this.tickets[type] = { "price" : price, count : 0 };
+					this.tickets[type] = {
+						"price": price,
+						count: 0
+					};
 				}
 			},
 			registerEvents: function () {
@@ -290,32 +293,30 @@
 		}
 
 		BookingForm.prototype = {
-			init : function () {
+			init: function () {
 				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
 				var inputElements = bookingFormWrap.querySelectorAll("input");
-				for (var i=0; i<inputElements.length; i++) {
+				for (var i = 0; i < inputElements.length; i++) {
 					this.isValids[inputElements[i].name] = false;
 					this.inputValues[inputElements[i].name] = inputElements[i].value;
 				}
-				var resultTextElement = this.bookingForm.querySelector(".inline_txt.selected");
-				resultTextElement.innerHTML = this.getToday() + ", 총 <span id='total_count'>0</span>매"
 			},
 			// yyyy.mm.dd 포맷의 현재날짜를 가져옴
-			getToday : function () {
+			getToday: function () {
 				var today = new Date();
 				var yyyy = today.getFullYear();
 				var mm = today.getMonth() + 1; //January is 0!
 				var dd = today.getDate();
 
 				if (dd < 10) {
-				  dd = '0' + dd;
+					dd = '0' + dd;
 				}
 				if (mm < 10) {
-				  mm = '0' + mm;
+					mm = '0' + mm;
 				}
 				return yyyy + '.' + mm + '.' + dd;
 			},
-			registerEvents : function () {
+			registerEvents: function () {
 				// 예매자 정보 입력폼 영역 이벤트등록
 				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
 				bookingFormWrap.addEventListener("change", function (evt) {
@@ -336,8 +337,7 @@
 				var bookingAgreement = this.bookingForm.querySelector(".section_booking_agreement");
 				bookingAgreement.addEventListener("click", function (evt) {
 					var agreementContainer = evt.target.closest(".agreement");
-					if (evt.target.className === "btn_agreement" ||
-							evt.target.parentElement.className === "btn_agreement") {
+					if (evt.target.className === "btn_agreement" || evt.target.parentElement.className === "btn_agreement") {
 						this.toggleAgreementContent(agreementContainer);
 					}
 					if (evt.target.className === "chk_agree") {
@@ -345,7 +345,7 @@
 					}
 				}.bind(this));
 			},
-			validNameField : function (warningElement, text) {
+			validNameField: function (warningElement, text) {
 				var isVaild = (/^[가-힣|a-z|A-Z]+$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
@@ -355,7 +355,7 @@
 					return false;
 				}
 			},
-			validTelField : function (warningElement, text) {
+			validTelField: function (warningElement, text) {
 				var isVaild = (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
@@ -365,7 +365,7 @@
 					return false;
 				}
 			},
-			vaildEmailField : function (warningElement, text) {
+			vaildEmailField: function (warningElement, text) {
 				var isVaild = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
@@ -376,17 +376,17 @@
 				}
 			},
 			// 경고메시지 출력
-			showWarningMsg : function (warningElement) {
+			showWarningMsg: function (warningElement) {
 				warningElement.style.visibility = "visible";
 				warningElement.style.position = "relative";
 			},
 			// 경고메시지 숨김
-			hideWarningMsg : function (warningElement) {
+			hideWarningMsg: function (warningElement) {
 				warningElement.style.visibility = "hidden";
 				warningElement.style.position = "absolute";
 			},
 			// 약관내용 보기/닫기
-			toggleAgreementContent : function (container) {
+			toggleAgreementContent: function (container) {
 				if (container.classList.contains("open")) {
 					container.classList.remove("open");
 					container.querySelector(".btn_text").innerText = "보기";
@@ -399,11 +399,11 @@
 					container.querySelector(".fn").classList.add("fn-up2");
 				}
 			},
-			toggleIsAgree : function () {
+			toggleIsAgree: function () {
 				this.isAgree = !this.isAgree;
 				this.checkTotalVaild();
 			},
-			checkTotalVaild : function () {
+			checkTotalVaild: function () {
 				var submitWrap = document.querySelector(".bk_btn_wrap");
 				if (this.isAgree === false || this.ticket.totalCount === 0) {
 					this.disableSubmitBtn(submitWrap);
@@ -417,12 +417,12 @@
 				}
 				this.enableSubmitBtn(submitWrap);
 			},
-			disableSubmitBtn : function (submitWrap) {
+			disableSubmitBtn: function (submitWrap) {
 				if (submitWrap.classList.contains("disable") === false) {
 					submitWrap.classList.add("disable");
 				}
 			},
-			enableSubmitBtn : function (submitWrap) {
+			enableSubmitBtn: function (submitWrap) {
 				if (submitWrap.classList.contains("disable") === true) {
 					submitWrap.classList.remove("disable");
 				}
@@ -436,7 +436,7 @@
 		}
 
 		BookingSubmit.prototype = {
-			registerEvents : function () {
+			registerEvents: function () {
 				this.submitWrap.addEventListener("click", function (evt) {
 					if (this.submitWrap.classList.contains("disable")) {
 						return;
@@ -452,15 +452,14 @@
 					this.postAjax(formData);
 				}.bind(this));
 			},
-			postAjax : function (formData) {
+			postAjax: function (formData) {
 				var xhr = new XMLHttpRequest();
 				var url = "/api/reservations";
 				xhr.open("POST", url);
 				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
-				xhr.addEventListener("load", function(e) {
-				});
-				xhr.addEventListener("error", function(e) {
+				xhr.addEventListener("load", function (e) {});
+				xhr.addEventListener("error", function (e) {
 					alert("An error occurred while transferring the file.");
 				});
 				xhr.send(formData);
