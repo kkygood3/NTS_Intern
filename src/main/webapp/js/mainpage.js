@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var mainPage = {
 	getMainPage: function(){
-		this.ajaxGet("./api/categories", this.getCategories);
-		this.ajaxGet("./api/products", this.getProductsByCategory);
-		this.ajaxGet("./api/promotions", this.getPromotions);
+		ajaxSend("GET", "./api/categories", this.getCategories, "charset=utf-8");
+		ajaxSend("GET", "./api/products", this.getProductsByCategory, "charset=utf-8");
+		ajaxSend("GET", "./api/promotions", this.getPromotions, "charset=utf-8");
 		
 		this.setEvent.preventLink();
 		this.setEvent.showMore();
@@ -50,28 +50,6 @@ var mainPage = {
 	compileHendlebars: {
 		bindTemplate : function(template){
 			return Handlebars.compile(template);
-		}
-	},
-	
-	ajaxGet: function(url, func){
-		let httpRequest;
-		
-		if (window.XMLHttpRequest) {
-			httpRequest =  new XMLHttpRequest();
-			
-			httpRequest.onreadystatechange = function() {
-				let jsonResponse;
-				
-				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					func(jsonResponse);
-				}
-			}
-			
-			httpRequest.open("GET", url);
-			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-			httpRequest.send();
 		}
 	},
 	
@@ -153,9 +131,9 @@ var mainPage = {
 			this.mainPage.elements.btnShowMore.addEventListener("click", function(event){
 				this.mainPage.variables.start += this.mainPage.constants.productsPerPage;
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					this.mainPage.ajaxGet("./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+					ajaxSend("GET", "./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				} else {
-					this.mainPage.ajaxGet("./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+					ajaxSend("GET", "./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				}
 			}.bind(this));
 		}.bind(this),
@@ -189,9 +167,9 @@ var mainPage = {
 				this.mainPage.elements.btnShowMore.hidden = false;
 				
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					this.mainPage.ajaxGet("./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+					ajaxSend("GET", "./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				} else {
-					this.mainPage.ajaxGet("./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory);
+					ajaxSend("GET", "./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				}
 			}.bind(this));
 		}.bind(this)

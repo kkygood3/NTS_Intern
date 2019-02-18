@@ -208,6 +208,7 @@
     </script>
     
     <script src="../../js/handlebars.min.js"></script>
+	<script src="../../js/util.js"></script>
     <script src="../../js/review.js"></script>
 </body>
 

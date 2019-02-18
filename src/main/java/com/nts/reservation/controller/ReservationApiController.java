@@ -113,14 +113,18 @@ public class ReservationApiController {
 	}
 
 	@PostMapping(path = "/reservations")
-	public void makeReservation(HttpSession session, @RequestBody Reservation reservationInfo) {
+	public boolean makeReservation(HttpSession session, @RequestBody Reservation reservationInfo) {
 		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
 
 		reservationService.makeReservation(reservationInfo);
+
+		return true;
 	}
 
 	@PutMapping(path = "/reservations/{reservaionInfoId}")
-	public void cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
+	public boolean cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
 		reservationService.cancelReservation(reservationInfoId);
+
+		return true;
 	}
 }

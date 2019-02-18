@@ -4,31 +4,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		var httpRequest;
-		
-		if (window.XMLHttpRequest) {
-			httpRequest =  new XMLHttpRequest();
-			
-			httpRequest.onreadystatechange = function() {
-				var jsonResponse;
-				
-				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					this.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
-					
-					this.displayComments(jsonResponse);
-				}
-			}.bind(this)
-			
-			httpRequest.open("GET", "../../api/products/" + displayInfoId);
-			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-			httpRequest.send();
-		}
+		ajaxSend("GET", "../../api/products/" + displayInfoId, this.displayContents, "charset=utf-8")
 		
 		this.setPrevPageLink();
 		this.setScrollTopEvent();
 	},
+	
+	displayContents: function(data){
+		this.reviewPage.elements.displayTitle.innerHTML = data["displayInfo"].productDescription;
+		this.reviewPage.displayComments(data);
+	}.bind(this),
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	

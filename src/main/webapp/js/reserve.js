@@ -10,29 +10,15 @@ function getReservePage(){
 	var paymentInfo = new PaymentInfo();
 	var displayHelper = new DisplayHelper();
 	
-	var httpRequest;
+	var callBack = function(data){
+		displayHelper.displayExhibitionInfo(data);
+		displayHelper.displayTicketPrice(data);
+	}
 	
 	template.compareDiscountRateToZero();
 	template.convertTypeName();
 	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
-		
-		httpRequest.onreadystatechange = function() {
-			var jsonResponse;
-			
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				jsonResponse = JSON.parse(httpRequest.responseText);
-				
-				displayHelper.displayExhibitionInfo(jsonResponse);
-				displayHelper.displayTicketPrice(jsonResponse);
-			}
-		}
-		
-		httpRequest.open("GET", "../../api/products/" + displayHelper.displayInfoId);
-		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-		httpRequest.send();
-	}
+	ajaxSend("GET", "../../api/products/" + displayHelper.displayInfoId, callBack, "charset=utf-8");
 	
 	inputTagValidator.validateInputTag(domElements.elementList.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
 	inputTagValidator.validateInputTag(domElements.elementList.bkTel, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
@@ -249,9 +235,12 @@ EventAdder.prototype.addEventToBtnScrollTop = function(){
 EventAdder.prototype.addEventToBtnReserve = function(){
 	this.domElements.elementList.bkBtn.addEventListener("click", function(event){
 		var reservationInfo = new ReservationInfo(this.displayHelper.displayInfoId);
-
+		var callBack = function(){
+			window.location = "../..";
+		}
+		
 		if(!event.target.classList.contains("disable")){
-			ajaxPost(reservationInfo.reservationData);
+			ajaxSend("POST", "../../api/reservations", callBack, "application/json", JSON.stringify(reservationInfo.reservationData));
 		}
 	}.bind(this));
 }
@@ -360,23 +349,4 @@ InputTagValidator.prototype.setTelNumberformat = function(telNumber){
 	}
 	
 	return formattedTelNumber;
-}
-
-
-function ajaxPost(reservationData){
-	var httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
-		
-		httpRequest.onreadystatechange = function() {
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				window.location.href = "../.."
-			}
-		}
-		
-		httpRequest.open("POST", "../../api/reservations");
-		httpRequest.setRequestHeader("Content-type", "application/json");
-		httpRequest.send(JSON.stringify(reservationData));
-	}
 }

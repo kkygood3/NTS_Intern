@@ -4,35 +4,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var detailPage = {
 	getDetailPage: function(displayInfoId){
-		var httpRequest;
-		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		if (window.XMLHttpRequest) {
-			httpRequest =  new XMLHttpRequest();
-			
-			httpRequest.onreadystatechange = function() {
-				var jsonResponse;
-				
-				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					this.displayMainInfo(jsonResponse);
-					this.displayDiscountInfo(jsonResponse);
-					this.displayComments(jsonResponse);
-					this.displayDetailInfo(jsonResponse);
-				}
-			}.bind(this)
-			
-			httpRequest.open("GET", "../api/products/" + displayInfoId);
-			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-			httpRequest.send();
-		}
+		ajaxSend("GET", "../api/products/" + displayInfoId, this.displayContents, "charset=utf-8");
 		
 		this.setEvent.bkBtnEvent();
 		this.setEvent.scrollTop();
 	},
+	
+	displayContents: function(data){
+		this.detailPage.displayMainInfo(data);
+		this.detailPage.displayDiscountInfo(data);
+		this.detailPage.displayComments(data);
+		this.detailPage.displayDetailInfo(data);
+	}.bind(this),
 		
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	

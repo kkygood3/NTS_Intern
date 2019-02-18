@@ -441,6 +441,7 @@
 		</div>
 		<!--// 취소 팝업 -->
 
+	<script src="js/util.js"></script>
 	<script src="js/myreservation.js"></script>
 	</body>
 </html>
