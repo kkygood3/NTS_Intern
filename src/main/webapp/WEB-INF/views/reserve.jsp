@@ -72,9 +72,9 @@
 								<div class="count_control">
 									<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 									<div class="clearfix">
-										<a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"></a>
+										<a class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"></a>
 										<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-										<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
+										<a class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
 									</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 									<div class="individual_price">
@@ -178,9 +178,60 @@
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+
 		function goDetailPage() {
 			location.href = "detail?displayInfoId=" + displayInfoId;
 		}
+
+		function BookingTicket(ticketBody) {
+			this.ticketBody = ticketBody;
+			this.registerEvents();
+		}
+
+		BookingTicket.prototype = {
+			registerEvents: function () {
+				this.ticketBody.addEventListener("click", function (evt) {
+					var ticketContainer = evt.target.closest(".qty");
+					if (evt.target.classList.contains("disabled")) {
+						return;
+					}
+					if (evt.target.title === "더하기") {
+						this.plusTicket(ticketContainer);
+					} else if (evt.target.title === "빼기") {
+						this.minusTicket(ticketContainer);
+					}
+				}.bind(this));
+			},
+			plusTicket: function (container) {
+				var countControlInput = container.querySelector('.count_control_input');
+				var totalPrice = container.querySelector('.total_price');
+				var price = container.querySelector(".price");
+
+				if (countControlInput.value === "0") {
+					countControlInput.classList.remove("disabled");
+					totalPrice.parentElement.classList.add("on_color");
+					container.querySelector('.ico_minus3').classList.remove("disabled");
+				}
+				countControlInput.value = parseInt(countControlInput.value) + 1;
+				totalPrice.innerText = countControlInput.value * price.innerText;
+			},
+			minusTicket: function (container) {
+				var countControlInput = container.querySelector('.count_control_input');
+				var totalPrice = container.querySelector('.total_price');
+				var price = container.querySelector(".price");
+
+				if (countControlInput.value === "1") {
+					countControlInput.classList.add("disabled");
+					totalPrice.parentElement.classList.remove("on_color");
+					container.querySelector('.ico_minus3').classList.add("disabled");
+				}
+				countControlInput.value = parseInt(countControlInput.value) - 1;
+				totalPrice.innerText = countControlInput.value * price.innerText;
+			}
+		}
+
+		var ticketBody = document.querySelector(".ticket_body");
+		var o = new BookingTicket(ticketBody);
 	</script>
 
 </body>
