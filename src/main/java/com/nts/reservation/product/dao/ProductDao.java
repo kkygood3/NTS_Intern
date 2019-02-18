@@ -16,13 +16,13 @@ import com.nts.reservation.product.dto.ProductPrice;
 public interface ProductDao {
 	List<Product> selectProducts(int start, int limit);
 
-	List<Product> selectProductsByCategory(int categoryId, int start, int limit);
+	List<Product> selectProductsByCategoryId(int categoryId, int start, int limit);
 
 	int selectProductsCount();
 
-	int selectProductsCountByCategory(int categoryId);
+	int selectProductsCountByCategoryId(int categoryId);
 
-	List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId);
+	List<ProductImage> selectProductImage(int displayInfoId);
 
-	List<ProductPrice> selectProductPriceByDisplayInfoId(int displayInfoId);
+	List<ProductPrice> selectProductPrice(int displayInfoId);
 }

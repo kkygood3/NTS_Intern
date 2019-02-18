@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.nts.reservation")
+@ComponentScan(basePackages = {"com.nts.reservation"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	private static final int DEFAULT_PERIOD = 31556926;
@@ -40,7 +40,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
-		System.out.println("addViewControllers가 호출됩니다.");
 		registry.addViewController("/").setViewName("main");
 		registry.addViewController("error").setViewName("error/invalidAccess");
 	}

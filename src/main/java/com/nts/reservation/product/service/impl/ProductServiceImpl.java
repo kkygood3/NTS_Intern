@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.product.dao.impl.ProductDaoImpl;
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.product.service.ProductService;
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 		if (isAllCategories(categoryId)) {
 			return getProducts(start, limit);
 		}
-		return productDaoImpl.selectProductsByCategory(categoryId, start, limit);
+		return productDaoImpl.selectProductsByCategoryId(categoryId, start, limit);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 		if (isAllCategories(categoryId)) {
 			return getProductsCount();
 		}
-		return productDaoImpl.selectProductsCountByCategory(categoryId);
+		return productDaoImpl.selectProductsCountByCategoryId(categoryId);
 	}
 
 	@Override
@@ -57,12 +58,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductImage> getProductImageByDisplayInfoId(int displayInfoId) {
-		return productDaoImpl.selectProductImageByDisplayInfoId(displayInfoId);
+	public List<ProductImage> getProductImage(int displayInfoId) {
+		return productDaoImpl.selectProductImage(displayInfoId);
 	}
 
 	@Override
-	public List<ProductPrice> getProductPriceByDisplayInfoId(int displayInfoId) {
-		return productDaoImpl.selectProductPriceByDisplayInfoId(displayInfoId);
+	public List<ProductPrice> getProductPrice(int displayInfoId) {
+		return productDaoImpl.selectProductPrice(displayInfoId);
+	}
+
+	@Override
+	public ProductExtraImage getProductExtraImage(int displayInfoId) {
+		return productDaoImpl.selectProductExtraImage(displayInfoId);
 	}
 }

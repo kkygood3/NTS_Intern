@@ -35,17 +35,17 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 	}
 
 	@Override
-	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) {
+	public DisplayInfo selectDisplayInfo(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_DISPLAY_INFO_BY_DISPLAY_INFO_ID, param, displayInfoRowMapper);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO, param, displayInfoRowMapper);
 	}
 
 	@Override
-	public DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId) {
+	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE_BY_DISPLAY_INFO_ID, param, displayInfoImageRowMapper);
+		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE, param, displayInfoImageRowMapper);
 	}
 
 }

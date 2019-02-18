@@ -13,11 +13,11 @@ import com.nts.reservation.comment.dto.CommentImage;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CommentDao {
-	List<Comment> selectAllCommentByDisplayInfoId(int displayInfoId);
+	List<Comment> selectAllComment(int displayInfoId);
 
-	List<Comment> selectLimitCommentByDisplayInfoId(int displayInfoId, int start, int limit);
+	List<Comment> selectLimitComment(int displayInfoId, int start, int limit);
 
-	List<CommentImage> selectCommentImageByCommentId(int commentId);
+	List<CommentImage> selectCommentImage(int commentId);
 
-	double selectAverageScoreByDisplayInfoId(int displayInfoId);
+	double selectAverageScore(int displayInfoId);
 }

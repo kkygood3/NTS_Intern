@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.comment.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,38 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDaoImpl commentDaoImpl;
 
 	@Override
-	public List<Comment> getAllCommentByDisplayInfoId(int displayInfoId) {
-		return commentDaoImpl.selectAllCommentByDisplayInfoId(displayInfoId);
+	public List<Comment> getAllComment(int displayInfoId) {
+		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
+		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+
+		for (Comment comment : commentList) {
+			commentImageList = getCommentImage(comment.getCommentId());
+			comment.setCommentImages(commentImageList);
+		}
+
+		return commentList;
 	}
 
 	@Override
-	public List<Comment> getLimitCommentByDisplayInfoId(int displayInfoId, int start, int limit) {
-		return commentDaoImpl.selectLimitCommentByDisplayInfoId(displayInfoId, start, limit);
+	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
+		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
+		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+
+		for (Comment comment : commentList) {
+			commentImageList = getCommentImage(comment.getCommentId());
+			comment.setCommentImages(commentImageList);
+		}
+
+		return commentList;
 	}
 
 	@Override
-	public List<CommentImage> getCommentImageByCommentId(int commentId) {
-		return commentDaoImpl.selectCommentImageByCommentId(commentId);
+	public List<CommentImage> getCommentImage(int commentId) {
+		return commentDaoImpl.selectCommentImage(commentId);
 	}
 
 	@Override
-	public double getAverageScoreByDisplayInfoId(int displayInfoId) {
-		return commentDaoImpl.selectAverageScoreByDisplayInfoId(displayInfoId);
+	public double getAverageScore(int displayInfoId) {
+		return commentDaoImpl.selectAverageScore(displayInfoId);
 	}
 }

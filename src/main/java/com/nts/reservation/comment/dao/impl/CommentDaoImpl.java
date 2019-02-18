@@ -35,32 +35,32 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> selectAllCommentByDisplayInfoId(int displayInfoId) {
+	public List<Comment> selectAllComment(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_ALL_COMMENT_BY_DISPLAY_INFO_ID, params, commentRowMapper);
+		return jdbc.query(SELECT_ALL_COMMENT, params, commentRowMapper);
 	}
 
 	@Override
-	public List<Comment> selectLimitCommentByDisplayInfoId(int displayInfoId, int start, int limit) {
+	public List<Comment> selectLimitComment(int displayInfoId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("start", limit);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_LIMIT_COMMENT_BY_DISPLAY_INFO_ID, params, commentRowMapper);
+		return jdbc.query(SELECT_LIMIT_COMMENT, params, commentRowMapper);
 	}
 
 	@Override
-	public List<CommentImage> selectCommentImageByCommentId(int commentId) {
+	public List<CommentImage> selectCommentImage(int commentId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("commentId", commentId);
-		return jdbc.query(SELECT_COMMENT_IMAGE_BY_COMMENT_ID, params, commentImageRowMapper);
+		return jdbc.query(SELECT_COMMENT_IMAGE, params, commentImageRowMapper);
 	}
 
 	@Override
-	public double selectAverageScoreByDisplayInfoId(int displayInfoId) {
+	public double selectAverageScore(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_AVERAGE_SCORE_BY_DISPLAY_INFO_ID, param, Double.class);
+		return jdbc.queryForObject(SELECT_AVERAGE_SCORE, param, Double.class);
 	}
 }

@@ -24,6 +24,7 @@ public class DisplayInfo {
 	private String productEvent;
 	private int productId;
 	private String telephone;
+	private String displayInfoImage;
 
 	public int getCategoryId() {
 		return categoryId;
@@ -151,6 +152,14 @@ public class DisplayInfo {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getDisplayInfoImage() {
+		return displayInfoImage;
+	}
+
+	public void setDisplayInfoImage(String displayInfoImage) {
+		this.displayInfoImage = displayInfoImage;
 	}
 
 	@Override

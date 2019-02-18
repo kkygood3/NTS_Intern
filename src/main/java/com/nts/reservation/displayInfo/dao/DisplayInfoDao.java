@@ -11,7 +11,7 @@ import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface DisplayInfoDao {
-	DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId);
+	DisplayInfo selectDisplayInfo(int displayInfoId);
 
-	DisplayInfoImage selectDisplayInfoImageByDisplayInfoId(int displayInfoId);
+	DisplayInfoImage selectDisplayInfoImage(int displayInfoId);
 }

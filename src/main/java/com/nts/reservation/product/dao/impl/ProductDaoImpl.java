@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
+import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
 
@@ -32,6 +34,8 @@ public class ProductDaoImpl implements ProductDao {
 	private RowMapper<Product> productRowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 	private RowMapper<ProductImage> productImageRowMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
 	private RowMapper<ProductPrice> productPriceRowMapper = BeanPropertyRowMapper.newInstance(ProductPrice.class);
+	private RowMapper<ProductExtraImage> productExtraImageRowMapper = BeanPropertyRowMapper
+		.newInstance(ProductExtraImage.class);
 
 	public ProductDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -42,11 +46,11 @@ public class ProductDaoImpl implements ProductDao {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		return jdbc.query(SELECT_PRODUCT, params, productRowMapper);
+		return jdbc.query(SELECT_ALL_PRODUCT, params, productRowMapper);
 	}
 
 	@Override
-	public List<Product> selectProductsByCategory(int categoryId, int start, int limit) {
+	public List<Product> selectProductsByCategoryId(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -56,27 +60,33 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int selectProductsCount() {
-		return jdbc.queryForObject(SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
+		return jdbc.queryForObject(SELECT_ALL_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 	@Override
-	public int selectProductsCountByCategory(int categoryId) {
+	public int selectProductsCountByCategoryId(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
 
 	@Override
-	public List<ProductImage> selectProductImageByDisplayInfoId(int displayInfoId) {
+	public List<ProductImage> selectProductImage(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_PRODUCT_IMAGE_BY_DISPLAY_INFO_ID, params, productImageRowMapper);
+		return jdbc.query(SELECT_PRODUCT_IMAGE, params, productImageRowMapper);
 	}
 
 	@Override
-	public List<ProductPrice> selectProductPriceByDisplayInfoId(int displayInfoId) {
+	public List<ProductPrice> selectProductPrice(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_PRODUCT_PRICE_BY_DISPLAY_INFO_ID, params, productPriceRowMapper);
+		return jdbc.query(SELECT_PRODUCT_PRICE, params, productPriceRowMapper);
+	}
+
+	public ProductExtraImage selectProductExtraImage(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return DataAccessUtils.singleResult(jdbc.query(SELECT_PRODUCT_EXTRA_IMAGE, params, productExtraImageRowMapper));
 	}
 }

@@ -5,12 +5,20 @@
 package com.nts.reservation.product.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
+import com.nts.reservation.displayInfo.service.DisplayInfoService;
+import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
@@ -18,43 +26,76 @@ import com.nts.reservation.product.service.ProductService;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
+@RequestMapping("/api/products")
 public class ProductApiController {
 	@Autowired
-	private ProductService productService;
+	private ProductService productServiceImpl;
 
-	@GetMapping("/api/products")
-	public ProductResponse getItems(
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
+	@Autowired
+	private DisplayInfoService displayInfoServiceImpl;
+
+	private static final String All_CATEGORIES = "0";
+
+	@GetMapping
+	public ProductResponse getProductResponses(
+		@RequestParam(name = "categoryId", required = false, defaultValue = All_CATEGORIES) int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (isInvalidCategoryIdAndStart(categoryId, start)) {
-			System.out.println("올바르지 않은 categoryId 또는 start");
+		if (categoryId < 0 || start < 0) {
+			System.out.println("올바르지 않은 categoryId : " + categoryId + " 또는 start : " + start);
 
-			return getEmptyItems();
+			throw new IllegalArgumentException("올바르지 않은 categoryId : " + categoryId + " 또는 start : " + start);
 		}
 
-		int totalCount = productService.getProductsCountByCategoryId(categoryId);
+		int totalCount = productServiceImpl.getProductsCountByCategoryId(categoryId);
 		if (totalCount == 0) {
 			return getEmptyItems();
 		}
 
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(totalCount);
-		productResponse.setItems(productService.getProductsByCategoryId(categoryId, start, limit));
+		productResponse.setItems(productServiceImpl.getProductsByCategoryId(categoryId, start, limit));
 
 		return productResponse;
 	}
 
-	private boolean isValidCategoryIdAndStart(int categoryId, int limit) {
-		if (categoryId < 0 || limit < 0) {
-			return false;
+	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
+	public DisplayInfoResponse getDisplayInfoResponses(@PathVariable int displayInfoId,
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
+
+		if (displayInfoId <= 0) {
+			System.out.println("올바르지 않은 displayInfoId : " + displayInfoId);
+
+			throw new IllegalArgumentException("올바르지 않은 displayInfoId : " + displayInfoId);
 		}
-		return true;
+		if (start < 0 || limit < 0) {
+			System.out.println("올바르지 않은 start : " + start + " 또는 limit" + limit);
+
+			throw new IllegalArgumentException("올바르지 않은 start : " + start + " 또는 limit" + limit);
+		}
+
+		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
-	private boolean isInvalidCategoryIdAndStart(int categoryId, int limit) {
-		return !isValidCategoryIdAndStart(categoryId, limit);
+	@RequestMapping(value = "/{displayInfoId}/extraImage", method = RequestMethod.GET)
+	public Map<String, Object> getProductExtraImage(@PathVariable int displayInfoId) {
+		ProductExtraImage productExtraImage = new ProductExtraImage();
+		if (productServiceImpl.getProductExtraImage(displayInfoId) == null) {
+			System.out.println("displayInfoId : " + displayInfoId + " productExtraImage is null");
+		} else {
+			productExtraImage = productServiceImpl.getProductExtraImage(displayInfoId);
+			System.out.println("productExtraImage : " + productExtraImage);
+		}
+
+		System.out.println("displayInfoId : " + displayInfoId + " productExtraImage.getProductImage() : "
+			+ productExtraImage.getProductImage());
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("productExtraImage", productExtraImage);
+
+		return map;
 	}
 
 	private ProductResponse getEmptyItems() {

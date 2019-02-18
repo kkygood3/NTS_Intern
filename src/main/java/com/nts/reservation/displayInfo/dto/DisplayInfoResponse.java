@@ -17,7 +17,7 @@ public class DisplayInfoResponse {
 	private double averageScore;
 	private List<Comment> comments;
 	private DisplayInfo displayInfo;
-	private DisplayInfoImage displayInfoImage;
+	private String displayInfoImage;
 	private List<ProductImage> productImages;
 	private List<ProductPrice> productPrices;
 
@@ -45,11 +45,11 @@ public class DisplayInfoResponse {
 		this.displayInfo = displayInfo;
 	}
 
-	public DisplayInfoImage getDisplayInfoImage() {
+	public String getDisplayInfoImage() {
 		return displayInfoImage;
 	}
 
-	public void setDisplayInfoImage(DisplayInfoImage displayInfoImage) {
+	public void setDisplayInfoImage(String displayInfoImage) {
 		this.displayInfoImage = displayInfoImage;
 	}
 

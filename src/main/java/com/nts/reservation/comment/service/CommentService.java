@@ -13,11 +13,11 @@ import com.nts.reservation.comment.dto.CommentImage;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CommentService {
-	List<Comment> getAllCommentByDisplayInfoId(int displayInfoId);
+	List<Comment> getAllComment(int displayInfoId);
 
-	List<Comment> getLimitCommentByDisplayInfoId(int displayInfoId, int start, int limit);
+	List<Comment> getLimitComment(int displayInfoId, int start, int limit);
 
-	List<CommentImage> getCommentImageByCommentId(int commentId);
+	List<CommentImage> getCommentImage(int commentId);
 
-	double getAverageScoreByDisplayInfoId(int displayInfoId);
+	double getAverageScore(int displayInfoId);
 }

@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	setTabClickEvent();
 });
 
-var currentStart = 0;
-var currentCategory = 0;
+let currentStart = 0;
+let currentCategory = 0;
 const productLimit = 4;
 
 /**
@@ -27,7 +27,7 @@ const productLimit = 4;
  * @param url 호출 URL
  */
 function requestAjax(callback, url){
-	var ajaxReq = new XMLHttpRequest();
+	let ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
 	ajaxReq.addEventListener('load', function(evt) {
 		this.callback(evt.target.response);
@@ -43,20 +43,25 @@ function requestAjax(callback, url){
  * @param responseData Ajax 통신을 통해 불러온 promotion 관련 JSON 데이터
  */
 function loadPromotionsCallback(responseData) {
-	var items = responseData.items;
+	let promotionList = responseData.items;
 
-	var template = document.querySelector('#promotionItem').innerHTML;
-	var resultHtml = '';
-	for (var i = 0; i < items.length; i++) {
+	let template = document.querySelector('#promotionItem').innerHTML;
+	let resultHtml = '';
+	for (let i = 0; i < promotionList.length; i++) {
 		resultHtml += template
-							.replace('{promotionImageUrl}', items[i].productImageUrl)
-							.replace('{promotionImageUrl}', items[i].productImageUrl);
+							.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
+							.replace('{promotionImageUrl}', promotionList[i].productImageUrl)
+							.replace('{productId}', promotionList[i].productId)
+							.replace('{displayInfoId}', promotionList[i].displayInfoId);
 	}
 
-	if (items.length > 0) {
+	if (promotionList.length > 0) {
 		resultHtml += template
-							.replace('{promotionImageUrl}', items[0].productImageUrl)
-							.replace('{promotionImageUrl}', items[0].productImageUrl);
+							.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
+							.replace('{promotionImageUrl}', promotionList[0].productImageUrl)
+							.replace('{productId}', promotionList[0].productId)
+							.replace('{displayInfoId}', promotionList[0].displayInfoId);
+
 	}
 
 	document.querySelector('ul.visual_img').innerHTML = resultHtml;
@@ -69,14 +74,14 @@ function loadPromotionsCallback(responseData) {
  * @param responseData Ajax 통신을 통해 불러온 category 관련 JSON 데이터
  */
 function loadCategoriesCallback(responseData){
-	var items = responseData.items;
+	let categoryList = responseData.items;
 	
-	var template = document.querySelector('#categoryItem').innerHTML;
-	var resultHtml = '';
-	for(var i = 0 ; i < items.length; i++){
+	let template = document.querySelector('#categoryItem').innerHTML;
+	let resultHtml = '';
+	for(let i = 0 ; i < categoryList.length; i++){
 		resultHtml += template
-							.replace('{name}',items[i].name)
-							.replace('{id}',items[i].id);
+							.replace('{name}',categoryList[i].name)
+							.replace('{id}',categoryList[i].id);
 	}
 	
 	document.querySelector('ul.event_tab_lst').innerHTML += resultHtml;
@@ -89,26 +94,28 @@ function loadCategoriesCallback(responseData){
 function loadProductsCallback(responseData) {
 	currentStart += 4;
 	
-	var itemCount = responseData.totalCount;
-	var items = responseData.items;
-	var template = document.querySelector('#productItem').innerText;
-	var resultHtml = new Array(2);
+	let itemCount = responseData.totalCount;
+	let productList = responseData.items;
+	let template = document.querySelector('#productItem').innerText;
+	let resultHtml = new Array(2);
 	resultHtml[0] = '';
 	resultHtml[1] = '';
-	for (var i = 0; i < items.length; i++) {
+	for (let i = 0; i < productList.length; i++) {
 		resultHtml[i % 2] += template
-										.replace('{productImageUrl}', items[i].productImageUrl)
-										.replace('{description}', items[i].productDescription)
-										.replace('{description}', items[i].productDescription)
-										.replace('{id}', items[i].displayInfoId)
-										.replace('{placeName}', items[i].placeName)
-										.replace('{content}', items[i].productContent);
+										.replace('{productImageUrl}', productList[i].productImageUrl)
+										.replace('{description}', productList[i].productDescription)
+										.replace('{description}', productList[i].productDescription)
+										.replace('{id}', productList[i].displayInfoId)
+										.replace('{placeName}', productList[i].placeName)
+										.replace('{content}', productList[i].productContent)
+										.replace('{productId}', productList[i].productId)
+										.replace('{displayInfoId}', productList[i].displayInfoId);
 	}
-	var containers = document.querySelectorAll('.lst_event_box');
+	let containers = document.querySelectorAll('.lst_event_box');
 	containers[0].innerHTML += resultHtml[0];
 	containers[1].innerHTML += resultHtml[1];
 
-	var moreProductBtn = document.querySelector('.btn');
+	let moreProductBtn = document.querySelector('.btn');
 	if (itemCount <= currentStart) {
 		moreProductBtn.style.display = 'none';
 	} else {
@@ -135,14 +142,14 @@ function mapProductParameters(categoryId, start, limit) {
 function setTabClickEvent() {	
 	document.querySelector('ul.event_tab_lst').addEventListener('click',function(btnEvent) {
 
-		var selectedTab = event.target;
+		let selectedTab = event.target;
 		
 		if (selectedTab.tagName === 'SPAN') {
 			selectedTab = selectedTab.parentElement;
 		}
 
 		if (selectedTab.tagName === 'A') {
-			var categoryId = selectedTab.parentElement.getAttribute('data-category');
+			let categoryId = selectedTab.parentElement.getAttribute('data-category');
 			
 			if (categoryId != currentCategory) {
 				currentCategory = categoryId;
@@ -151,7 +158,7 @@ function setTabClickEvent() {
 				document.querySelectorAll('a.anchor').forEach(element=>element.classList.remove('active'));
 				selectedTab.classList.add('active');
 
-				var containers = document.querySelectorAll('.lst_event_box');
+				let containers = document.querySelectorAll('.lst_event_box');
 				containers[0].innerHTML = '';
 				containers[1].innerHTML = '';
 
@@ -165,15 +172,15 @@ function setTabClickEvent() {
  * 프로모션의 슬라이드를 움직이는 함수
  */
 function setPromotionMove() {
-	var items = document.querySelectorAll('.visual_img>.item');
-	var leftDistance = 0;
-	var itemSize = items.length;
-	var currentIndex = 0;
+	let items = document.querySelectorAll('.visual_img>.item');
+	let leftDistance = 0;
+	let itemSize = items.length;
+	let currentIndex = 0;
 	
 	setInterval(() => {
 		leftDistance -= 100;
 
-		for (var i = 0; i < itemSize; ++i) {
+		for (let i = 0; i < itemSize; ++i) {
 			items[i].style.left = leftDistance + '%';
 		}
 
@@ -182,11 +189,11 @@ function setPromotionMove() {
 			return;
 		}
 		
-		for (var i = 0; i < itemSize; i++) {
+		for (let i = 0; i < itemSize; i++) {
 			items[i].style.transitionDuration = '0s';
 			items[i].style.left = '0';
 		}
-		for (var i = 0; i < itemSize; i++) {
+		for (let i = 0; i < itemSize; i++) {
 			items[i].style.transitionDuration = '1s';
 		}
 		

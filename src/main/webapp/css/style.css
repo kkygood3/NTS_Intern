@@ -1324,6 +1324,7 @@ button {
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
 	backface-visibility: hidden
+	cursor: default;
 }
 
 .group_visual {
@@ -1406,6 +1407,11 @@ button {
 	-webkit-box-sizing: border-box;
 	moz-box-sizing: border-box;
 	box-sizing: border-box
+}
+
+.visual_txt_inn {
+    float: left;
+    margin-top: 45%;
 }
 
 .bottom_common_path {
@@ -4152,12 +4158,26 @@ button {
 	top: 0;
 	font-size: 10px;
 }
+/* 여기까지 처음에 제공받은 CSS */
 
+
+
+/* Image의 애니메이션을 처리하기위해 transaction-duration과 left속성 정의 */
 .visual_img>.item {
 	transition-duration: 1s;
 	left: 0;
 }
 
+/* 더보기 버튼이 필표하지 않은 상황에서 숨기기 위해 기본 display속성 정의 */
 .btn {
 	display: initial;
+}
+
+.detail_swipe>li.item {
+	cursor: default;
+}
+
+.detail_swipe>li.item>img {
+	width: 414px;
+	height: 414px;
 }
