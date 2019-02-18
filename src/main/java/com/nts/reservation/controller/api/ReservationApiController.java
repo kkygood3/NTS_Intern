@@ -29,7 +29,6 @@ public class ReservationApiController {
 	// TODO: 파라미터 검증 추후 구현
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
-		System.out.println(reservationParam.toString());
 		reservationService.makeReservation(reservationParam);
 		return Collections.singletonMap("isSuccess", true);
 	}

@@ -35,7 +35,6 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationInfo.setReservationEmail(reservationParam.getReservationEmail());
 		reservationInfo.setReservationDate(reservationParam.getReservationDate());
 		reservationInfo.setCancelFlag(false);
-		System.out.println(reservationInfo.toString());
 		int reservationInfoId = reservationInfoDao.insert(reservationInfo);
 
 		for (ReservationInfoPriceDto reservationInfoPrice : reservationParam.getPrices()) {
