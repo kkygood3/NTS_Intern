@@ -32,6 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 	ReservationDao reservationDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ReservationInfo> getReservations(String email) {
 		List<ReservationInfo> reservationList = reservationDao.selectResevations(email);
 		for (ReservationInfo rsv : reservationList) {
