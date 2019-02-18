@@ -37,9 +37,9 @@ public class ReserveServiceImpl implements ReserveService {
 	@Transactional
 	@Override
 	public void postReserve(String name, String telephone, String email, int displayInfoId, List<PriceInfo> priceInfoList) {
+		int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId);
 		for(int i = 0 ; i < priceInfoList.size(); i++) {
 			PriceInfo targetPriceInfo = priceInfoList.get(i);
-			int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId);
 			reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);	
 		}
 	}
