@@ -8,18 +8,6 @@
 <meta name="wport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
 <link href="/resources/css/style.css" rel="stylesheet">
-<style>
-.container_visual {
-	height: 414px;
-}
-
-.detail_swipe {
-	padding: 0px;
-	margin: 0px;
-	left: 0;
-	transition: left 0.1s;
-}
-</style>
 </head>
 
 <body>
