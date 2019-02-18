@@ -34,7 +34,6 @@ public class ProductController {
 	@Autowired
 	private DisplayService displayService;
 
-	// 한번에 많은 양의 db조회를 막기 위함
 	private static final int MAX_LIMIT = 20;
 
 	@GetMapping(path = "/products")
@@ -48,8 +47,8 @@ public class ProductController {
 		}
 
 		if (start < 0) {
-			logger.warn("{} - displayInfoId : {} / Can't use Navgative Value!!!", this.getClass(), start);
-			throw new IllegalArgumentException("Bad Request! Parameter (start)");
+			logger.warn("Bad Request! Parameter / {} - start : {}", this.getClass(), start);
+			throw new IllegalArgumentException("Can't use Navgative Value!!! (start)");
 		}
 
 		return productService.getProductsByCategory(categoryId, start, limit);
@@ -58,8 +57,8 @@ public class ProductController {
 	@GetMapping(path = "/products/{displayInfoId}")
 	public DisplayResponse getDisplay(@PathVariable("displayInfoId") int displayInfoId) {
 		if (displayInfoId < 0) {
-			logger.warn("{} - displayInfoId : {} / Can't use Navgative Value!!!", this.getClass(), displayInfoId);
-			throw new IllegalArgumentException("Bad Request! Parameter (displayInfoId)");
+			logger.warn("Bad Request! Parameter / {} - displayInfoId : {}", this.getClass(), displayInfoId);
+			throw new IllegalArgumentException("Can't use Navgative Value!!! (displayInfoId)");
 		}
 
 		return displayService.getDisplayInfo(displayInfoId);

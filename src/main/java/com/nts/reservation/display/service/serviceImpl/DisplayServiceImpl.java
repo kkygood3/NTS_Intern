@@ -33,6 +33,15 @@ public class DisplayServiceImpl implements DisplayService {
 
 	@Override
 	public DisplayResponse getDisplayInfo(int displayInfoId) {
+		DisplayResponse displayInfo = getDisplayInfoWithoutComments(displayInfoId);
+		CommentResponse comments = commentService.getComments(displayInfoId, 0);
+		displayInfo.setComments(comments);
+		return displayInfo;
+	}
+
+	@Override
+	public DisplayResponse getDisplayInfoWithoutComments(int displayInfoId) {
+
 		DisplayInfo displayInfo = displayDao.selectDisplayInfo(displayInfoId);
 
 		if (displayInfo == null) {
@@ -40,13 +49,11 @@ public class DisplayServiceImpl implements DisplayService {
 			throw new IllegalArgumentException("Bad Request! Parameter (displayInfo)");
 		}
 
-		CommentResponse comments = commentService.getComments(displayInfoId, 0);
 		DisplayInfoImage displayInfoImage = displayDao.selectDisplayInfoImage(displayInfoId);
 		List<ProductImage> productImages = productDao.selectProductImages(displayInfoId, ImageType.ma);
 		List<ProductPrice> productPrices = productDao.selectProductPrices(displayInfoId);
 
 		return DisplayResponse.builder()
-			.comments(comments)
 			.displayInfo(displayInfo)
 			.displayInfoImage(displayInfoImage)
 			.productImages(productImages)
