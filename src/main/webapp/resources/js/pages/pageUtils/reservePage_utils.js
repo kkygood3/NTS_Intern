@@ -40,7 +40,6 @@ function SubmitButtonWithValidation(item) {
         let priceDataArr = [];
         for (var key in state.prices) {
             if (state.prices.hasOwnProperty(key)) {
-                console.log(key + ": " + state.prices[key]);
                 if (state.prices[key].count > 0) {
                     priceDataArr.push(state.prices[key]);
                 }
