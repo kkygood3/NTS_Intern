@@ -130,7 +130,7 @@
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected"></p>
+										<p class="inline_txt selected"><span id='total_count'>0</span></p>
 									</div>
 								</div>
 							</form>
@@ -207,10 +207,21 @@
 		// 티켓수 선택 이벤트
 		function BookingTicket(ticketBody) {
 			this.ticketBody = ticketBody;
+			this.tickets = {};
+			this.totalCount = 0;
+			this.init();
 			this.registerEvents();
 		}
 
 		BookingTicket.prototype = {
+			init : function () {
+				var ticketElements = ticketBody.querySelectorAll(".qty");
+				for (var i=0; i<ticketElements.length; i++) {
+					var type = ticketElements[i].querySelector('.product_amount span').innerText;
+					var price = ticketElements[i].querySelector('.price').innerText;
+					this.tickets[type] = { "price" : price, count : 0 };
+				}
+			},
 			registerEvents: function () {
 				this.ticketBody.addEventListener("click", function (evt) {
 					var ticketContainer = evt.target.closest(".qty");
@@ -226,43 +237,68 @@
 			},
 			plusTicket: function (container) {
 				var countControlInput = container.querySelector('.count_control_input');
-				var totalPrice = container.querySelector('.total_price');
-				var price = container.querySelector(".price");
+				var totalPriceElement = container.querySelector('.total_price');
+				var price = container.querySelector(".price").innerText;
+				var type = container.querySelector(".product_amount span").innerText;
 
 				if (countControlInput.value === "0") {
 					countControlInput.classList.remove("disabled");
-					totalPrice.parentElement.classList.add("on_color");
+					totalPriceElement.parentElement.classList.add("on_color");
 					container.querySelector('.ico_minus3').classList.remove("disabled");
 				}
 				countControlInput.value = parseInt(countControlInput.value) + 1;
-				totalPrice.innerText = countControlInput.value * price.innerText;
+				totalPriceElement.innerText = countControlInput.value * price;
+
+				this.tickets[type].count += 1;
+				this.totalCount += 1;
+				this.showTotalCount();
 			},
 			minusTicket: function (container) {
 				var countControlInput = container.querySelector('.count_control_input');
-				var totalPrice = container.querySelector('.total_price');
-				var price = container.querySelector(".price");
+				var totalPriceElement = container.querySelector('.total_price');
+				var price = container.querySelector(".price").innerText;
+				var type = container.querySelector(".product_amount span").innerText;
 
 				if (countControlInput.value === "1") {
 					countControlInput.classList.add("disabled");
-					totalPrice.parentElement.classList.remove("on_color");
+					totalPriceElement.parentElement.classList.remove("on_color");
 					container.querySelector('.ico_minus3').classList.add("disabled");
 				}
 				countControlInput.value = parseInt(countControlInput.value) - 1;
-				totalPrice.innerText = countControlInput.value * price.innerText;
+				totalPriceElement.innerText = countControlInput.value * price;
+
+				this.tickets[type].count -= 1;
+				this.totalCount -= 1;
+				this.showTotalCount();
+			},
+			showTotalCount: function () {
+				var totalCountElemnet = document.querySelector("#total_count");
+				totalCountElemnet.innerText = this.totalCount;
 			}
 		}
 
 		// 예매자 정보 영역
-		function BookingForm(bookingForm) {
+		function BookingForm(bookingForm, ticket) {
 			this.bookingForm = bookingForm;
+			this.ticket = ticket;
+			this.inputValues = {};
+			this.reservationDate = "";
+			this.isAgree = false;
+			this.isValids = {};
 			this.init();
 			this.registerEvents();
 		}
 
 		BookingForm.prototype = {
 			init : function () {
+				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
+				var inputElements = bookingFormWrap.querySelectorAll("input");
+				for (var i=0; i<inputElements.length; i++) {
+					this.isValids[inputElements[i].name] = false;
+					this.inputValues[inputElements[i].name] = inputElements[i].value;
+				}
 				var resultTextElement = this.bookingForm.querySelector(".inline_txt.selected");
-				resultTextElement.innerHTML = this.getToday() + ", 총 <span id='totalCount'>0</span>매"
+				resultTextElement.innerHTML = this.getToday() + ", 총 <span id='total_count'>0</span>매"
 			},
 			// yyyy.mm.dd 포맷의 현재날짜를 가져옴
 			getToday : function () {
@@ -286,12 +322,15 @@
 					var formContainer = evt.target.closest(".inline_control");
 					var warningElement = formContainer.querySelector(".warning_msg");
 					if (evt.target.name === "name") {
-						this.validNameField(warningElement, evt.target.value);
+						this.isValids["name"] = this.validNameField(warningElement, evt.target.value);
 					} else if (evt.target.name === "tel") {
-						this.validTelField(warningElement, evt.target.value);
+						this.isValids["tel"] = this.validTelField(warningElement, evt.target.value);
 					} else if (evt.target.name === "email") {
-						this.vaildEmailField(warningElement, evt.target.value);
+						this.isValids["email"] = this.vaildEmailField(warningElement, evt.target.value);
+					} else {
+						return;
 					}
+					this.checkTotalVaild();
 				}.bind(this));
 				// 약관정보 영역 이벤트 등록
 				var bookingAgreement = this.bookingForm.querySelector(".section_booking_agreement");
@@ -301,31 +340,39 @@
 							evt.target.parentElement.className === "btn_agreement") {
 						this.toggleAgreementContent(agreementContainer);
 					}
+					if (evt.target.className === "chk_agree") {
+						this.toggleIsAgree();
+					}
 				}.bind(this));
 			},
 			validNameField : function (warningElement, text) {
-				console.log(warningElement);
 				var isVaild = (/^[가-힣|a-z|A-Z]+$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
+					return true;
 				} else {
 					this.showWarningMsg(warningElement);
+					return false;
 				}
 			},
 			validTelField : function (warningElement, text) {
 				var isVaild = (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
+					return true;
 				} else {
 					this.showWarningMsg(warningElement);
+					return false;
 				}
 			},
 			vaildEmailField : function (warningElement, text) {
 				var isVaild = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(text);
 				if (isVaild) {
 					this.hideWarningMsg(warningElement);
+					return true;
 				} else {
 					this.showWarningMsg(warningElement);
+					return false;
 				}
 			},
 			// 경고메시지 출력
@@ -351,15 +398,81 @@
 					container.querySelector(".fn").classList.remove("fn-donw2");
 					container.querySelector(".fn").classList.add("fn-up2");
 				}
+			},
+			toggleIsAgree : function () {
+				this.isAgree = !this.isAgree;
+				this.checkTotalVaild();
+			},
+			checkTotalVaild : function () {
+				var submitWrap = document.querySelector(".bk_btn_wrap");
+				if (this.isAgree === false || this.ticket.totalCount === 0) {
+					this.disableSubmitBtn(submitWrap);
+					return;
+				}
+				for (var i in this.isValids) {
+					if (this.isValids[i] === false) {
+						this.disableSubmitBtn(submitWrap);
+						return;
+					}
+				}
+				this.enableSubmitBtn(submitWrap);
+			},
+			disableSubmitBtn : function (submitWrap) {
+				if (submitWrap.classList.contains("disable") === false) {
+					submitWrap.classList.add("disable");
+				}
+			},
+			enableSubmitBtn : function (submitWrap) {
+				if (submitWrap.classList.contains("disable") === true) {
+					submitWrap.classList.remove("disable");
+				}
 			}
 		}
 
+		function BookingSubmit(submitWrap, form) {
+			this.submitWrap = submitWrap;
+			this.form = form;
+			this.registerEvents();
+		}
 
+		BookingSubmit.prototype = {
+			registerEvents : function () {
+				this.submitWrap.addEventListener("click", function (evt) {
+					if (this.submitWrap.classList.contains("disable")) {
+						return;
+					}
+					var formData = new FormData();
+					formData.append("displayInfoId", displayInfoId);
+					formData.append("productId", productId);
+					formData.append("prices", this.form.tickets);
+					formData.append("reservationName", this.form.inputValues["name"]);
+					formData.append("reservationTelephone", this.form.inputValues["tel"]);
+					formData.append("reservationEmail", this.form.inputValues["email"]);
+					formData.append("reservationYearMonthDay", this.form.reservationDate);
+					this.postAjax(formData);
+				}.bind(this));
+			},
+			postAjax : function (formData) {
+				var xhr = new XMLHttpRequest();
+				var url = "/api/reservations";
+				xhr.open("POST", url);
+				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+				xhr.addEventListener("load", function(e) {
+				});
+				xhr.addEventListener("error", function(e) {
+					alert("An error occurred while transferring the file.");
+				});
+				xhr.send(formData);
+			}
+		}
 
 		var ticketBody = document.querySelector(".ticket_body");
 		var ticket = new BookingTicket(ticketBody);
 		var bookingForm = document.querySelector(".section_booking_form");
-		var form = new BookingForm(bookingForm);
+		var form = new BookingForm(bookingForm, ticket);
+		var submitWrap = document.querySelector(".bk_btn_wrap");
+		var bookingSubmit = new BookingSubmit(submitWrap, form);
 	</script>
 
 </body>
