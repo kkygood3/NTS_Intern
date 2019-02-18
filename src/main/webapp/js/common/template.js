@@ -5,8 +5,8 @@ function getBindTemplate(templateId) {
 
 function makeHtmlFromListData(datas, bindTemplate) {
 	var html = ""
-	commentDisplayInfos.forEach((commentDisplayInfo) => {
-		html += bindTemplate(commentDisplayInfo);
+		datas.forEach((data) => {
+		html += bindTemplate(data);
 	});
 	return html;
 }
