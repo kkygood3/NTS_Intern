@@ -13,7 +13,7 @@ import com.nts.dto.comment.Comments;
  * @author 전연빈
  */
 public interface CommentService {
-	List<Comment> getCommentsByProductId(int productId);
+	List<Comment> getCommentListByProductId(int productId);
 
 	double getAverageScoreByProductId(int productId);
 

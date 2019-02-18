@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 	 * @return comment list
 	 */
 	@Override
-	public List<Comment> getCommentsByProductId(int productId) {
+	public List<Comment> getCommentListByProductId(int productId) {
 
 		List<Comment> commentList = commentRepository.selectCommentByProductId(productId);
 
@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
 		Comments comments = new Comments();
 
 		comments.setAverageScore(getAverageScoreByProductId(productId));
-		comments.setComments(getCommentsByProductId(productId));
+		comments.setComments(getCommentListByProductId(productId));
 
 		return comments;
 	}

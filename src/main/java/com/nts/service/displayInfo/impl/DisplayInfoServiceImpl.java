@@ -48,6 +48,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 		} catch(EmptyResultDataAccessException e) {
 			
 			e.printStackTrace();
+			System.err.println("해당 displayInfo는 없는 displayInfo 없어 에러 발생");
 			throw new DisplayInfoNullException("displayInfoId = "+displayInfoId);
 		}
 		
@@ -60,7 +61,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService{
 		displayInfos.setProductPrices(productRepository.selectProductPricesByProductId(productId));
 		
 		displayInfos.setAverageScore(commentService.getAverageScoreByProductId(productId));
-		displayInfos.setComments(commentService.getCommentsByProductId(productId));
+		displayInfos.setComments(commentService.getCommentListByProductId(productId));
 		
 		return displayInfos;
 	}
