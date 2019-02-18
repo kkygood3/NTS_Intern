@@ -38,7 +38,7 @@
 ]
 </script>
 
-<script type="rv-template" id="card_item">
+<script type="rv-template" id="card_item_confirmed">
 <article class="card_item">
 	<a href="#" class="link_booking_details">
 		<div class="card_body">
@@ -50,7 +50,7 @@
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDateFormat}}</em>
+							<em class="item_dsc">{{reservationDate}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
@@ -74,6 +74,85 @@
 		</div>
 	</a>
 	<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+</article>
+</script>
+
+<script type="rv-template" id="card_item_used">
+<article class="card_item">
+	<a href="#" class="link_booking_details">
+		<div class="card_body">
+			<div class="left"></div>
+			<div class="middle">
+				<div class="card_detail">
+					<em class="booking_number">No.{{reservationId}}</em>
+					<h4 class="tit">{{description}}</h4>
+					<ul class="detail">
+						<li class="item">
+							<span class="item_tit">일정</span>
+							<em class="item_dsc">{{reservationDate}}</em>
+						</li>
+						<li class="item">
+							<span class="item_tit">장소</span>
+							<em class="item_dsc">{{placeName}}</em>
+						</li>
+					</ul>
+					<div class="price_summary">
+						<span class="price_tit">결제 예정금액</span>
+						<em class="price_amount">
+							<span>{{price}}</span><span class="unit">원</span>
+						</em>
+					</div>
+					<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+					<div class="booking_cancel">
+						<a href="./reviewWrite"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+					</div>
+				</div>
+			</div>
+			<div class="right"></div>
+		</div>
+		<div class="card_footer">
+			<div class="left"></div><div class="middle"></div><div class="right"></div>
+		</div>
+	</a>
+</article>
+</script>
+
+<script type="rv-template" id="card_item_cancel">
+<article class="card_item">
+	<a href="#" class="link_booking_details">
+		<div class="card_body">
+			<div class="left"></div>
+			<div class="middle">
+				<div class="card_detail">
+					<em class="booking_number">No.{{reservationId}}</em>
+					<h4 class="tit">{{description}}</h4>
+					<ul class="detail">
+						<li class="item">
+							<span class="item_tit">일정</span>
+							<em class="item_dsc">{{reservationDate}}</em>
+						</li>
+						<li class="item">
+							<span class="item_tit">장소</span>
+							<em class="item_dsc">{{placeName}}</em>
+						</li>
+					</ul>
+					<div class="price_summary">
+						<span class="price_tit">결제 예정금액</span>
+						<em class="price_amount">
+							<span>{{price}}</span>
+							<span class="unit">원</span>
+						</em>
+					</div>
+				</div>
+			</div>
+			<div class="right"></div>
+		</div>
+		<div class="card_footer">
+			<div class="left"></div>
+			<div class="middle"></div>
+			<div class="right"></div>
+		</div>
+	</a>
 </article>
 </script>
 

@@ -30,24 +30,40 @@ function makeSummaryBoard(data) {
 
 
 function makeConfirmedCard(confirmedList) {
-	var bindTemplate = getBindTemplate("card_item");
-	var innerHtml = makeHtmlFromListData(confirmedList, bindTemplate);
+	confirmedList.confirmed = "confirmed";
+	var innerHtml;
+	if (confirmedList.length) {
+		var bindTemplate = getBindTemplate("card_item_confirmed");
+		innerHtml = makeHtmlFromListData(confirmedList, bindTemplate);
+	} else {
+		innerHtml = document.getElementById("card_item_err").innerText;
+	}
 
 	var ul = document.getElementsByClassName("confirmed")[0];
 	ul.innerHTML += innerHtml;
 }
 
 function makeUsedCard(usedList) {
-	var bindTemplate = getBindTemplate("card_item");
-	var innerHtml = makeHtmlFromListData(usedList, bindTemplate);
+	if (usedList.length) {
+		var bindTemplate = getBindTemplate("card_item_used");
+		innerHtml = makeHtmlFromListData(usedList, bindTemplate);
+	} else {
+		innerHtml = document.getElementById("card_item_err").innerText;
+	}
 
 	var ul = document.getElementsByClassName("used")[0];
 	ul.innerHTML += innerHtml;
 }
 
 function makeCancelCard(cancelList) {
-	var bindTemplate = getBindTemplate("card_item");
-	var innerHtml = makeHtmlFromListData(cancelList, bindTemplate);
+	cancelList.cancel = "cancel";
+	var innerHtml;
+	if (cancelList.length) {
+		var bindTemplate = getBindTemplate("card_item_cancel");
+		innerHtml = makeHtmlFromListData(cancelList, bindTemplate);
+	} else {
+		innerHtml = document.getElementById("card_item_err").innerText;
+	}
 
 	var ul = document.getElementsByClassName("cancel")[0];
 	ul.innerHTML += innerHtml;
