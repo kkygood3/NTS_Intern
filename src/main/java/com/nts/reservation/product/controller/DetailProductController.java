@@ -7,6 +7,7 @@ package com.nts.reservation.product.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DetailProductController {
 	@GetMapping("/detailProduct")
-	public String requestProductDetail(@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
-		System.out.println("displayInfoId : " + displayInfoId);
-
-		return "detailProduct";
+	public ModelAndView requestProductDetail(
+		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
+		ModelAndView modelAndMap = new ModelAndView("detailProduct");
+		modelAndMap.addObject("displayInfoId", displayInfoId);
+		return modelAndMap;
 	}
 }

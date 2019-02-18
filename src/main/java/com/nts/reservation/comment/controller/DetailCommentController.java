@@ -16,7 +16,6 @@ public class DetailCommentController {
 	@GetMapping("/detailComment")
 	public String requestProductDetailComment(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
-		System.out.println("displayInfoId : " + displayInfoId);
 
 		return "detailComment";
 	}

@@ -83,14 +83,14 @@ public class ProductApiController {
 	public Map<String, Object> getProductExtraImage(@PathVariable int displayInfoId) {
 		ProductExtraImage productExtraImage = new ProductExtraImage();
 		if (productServiceImpl.getProductExtraImage(displayInfoId) == null) {
-			System.out.println("displayInfoId : " + displayInfoId + " productExtraImage is null");
+			//			System.out.println("displayInfoId : " + displayInfoId + " productExtraImage is null");
 		} else {
 			productExtraImage = productServiceImpl.getProductExtraImage(displayInfoId);
-			System.out.println("productExtraImage : " + productExtraImage);
+			//			System.out.println("productExtraImage : " + productExtraImage);
 		}
 
-		System.out.println("displayInfoId : " + displayInfoId + " productExtraImage.getProductImage() : "
-			+ productExtraImage.getProductImage());
+		//		System.out.println("displayInfoId : " + displayInfoId + " productExtraImage.getProductImage() : "
+		//			+ productExtraImage.getProductImage());
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productExtraImage", productExtraImage);

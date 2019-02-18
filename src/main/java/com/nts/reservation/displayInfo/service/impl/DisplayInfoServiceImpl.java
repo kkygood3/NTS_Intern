@@ -50,11 +50,11 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		DisplayInfo displayInfo = getDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = getDisplayInfoImage(displayInfoId);
 		//
-		if (displayInfoImage == null) {
-			System.out.println("displayInfoImage is null");
-		} else {
-			System.out.println("displayInfoImage.getSaveFileName() : " + displayInfoImage.getSaveFileName());
-		}
+		//		if (displayInfoImage == null) {
+		//			System.out.println("displayInfoImage is null");
+		//		} else {
+		//			System.out.println("displayInfoImage.getSaveFileName() : " + displayInfoImage.getSaveFileName());
+		//		}
 		double averageScore = commentServiceImpl.getAverageScore(displayInfoId);
 
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();

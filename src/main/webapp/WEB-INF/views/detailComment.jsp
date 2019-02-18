@@ -27,14 +27,14 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+						<a href="/detailProduct?displayInfoId=${ displayInfoId }" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
 						<h2><a class="title" href="#" style="cursor: default;">오디컴퍼니 주식회사</a></h2>
 					</div>
 				</div>
 				<div class="section_review_list">
 					<div class="review_box">
 						<h3 class="title_h3">예매자 한줄평</h3>
-						<div class="short_review_area">
+						<div class="short_review_area" data-id="${ displayInfoId }">
 							<div class="grade_area"> <span class="graph_mask"> <em class="graph_value" style="width: 88%;"></em> </span> <strong class="text_value"> <span>4.4</span> <em class="total">5.0</em> </strong> <span class="join_count"><em class="green">20건</em> 등록</span>								</div>
 							<ul class="list_short_review">
 							</ul>
@@ -79,7 +79,7 @@
 	</script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script src="js/detailComment.js"></script>
+	<script type="text/javascript" src="js/detailComment.js"></script>
 </body>
 
 </html>

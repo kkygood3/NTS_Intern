@@ -1,3 +1,6 @@
+let displayInfoId = document.querySelector('#reservation').dataset.id;
+console.log(displayInfoId);
+
 document.addEventListener('DOMContentLoaded', function() {
 	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('displayInfoId'));
 });
@@ -21,7 +24,7 @@ function loadDisplayInfoCallback(responseData) {
 	// 펼쳐보기 및 닫기
 	loadShowMoreButton();
 	
-	//requestAjax(loadExtraImageCallback,'api/products/' + displayInfo.displayInfoId + '/extra');
+	requestAjax(loadExtraImageCallback,'api/products/' + displayInfo.displayInfoId + '/extraImage');
 }
 
 function requestAjax(callback, url){
