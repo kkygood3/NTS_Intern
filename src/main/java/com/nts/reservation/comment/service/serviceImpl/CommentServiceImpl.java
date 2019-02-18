@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public CommentResponse getComments(int displayInfoId, int limit) {
-		List<Comment> comments = commentDao.selectCommentBydisplayInfoId(displayInfoId, limit);
+		List<Comment> comments = commentDao.selectComments(displayInfoId, limit);
 
 		if (comments.size() == 0) {
 			return CommentResponse.emptyCommentResponse();

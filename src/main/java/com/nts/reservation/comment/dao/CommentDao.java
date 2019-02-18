@@ -10,7 +10,7 @@ import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
 
 public interface CommentDao {
-	List<Comment> selectCommentBydisplayInfoId(int displayInfoId, int limit);
+	List<Comment> selectComments(int displayInfoId, int limit);
 
 	List<CommentImage> selectCommentImage(int commentId);
 
