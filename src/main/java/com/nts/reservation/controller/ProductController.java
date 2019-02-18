@@ -59,7 +59,6 @@ public class ProductController {
 		model.addAttribute("productPrices", reserveResponse.getProductPrices());
 		model.addAttribute("productImageUrl", reserveResponse.getProductImageUrl());
 		model.addAttribute("minPrice", reserveResponse.getMinPrice());
-		System.out.println(reserveResponse.getReservationDate());
 		model.addAttribute("reservationDate", reserveResponse.getReservationDate());
 		return "reserve";
 	}

@@ -300,6 +300,7 @@
 					this.isValids[inputElements[i].name] = false;
 					this.inputValues[inputElements[i].name] = inputElements[i].value;
 				}
+				this.reservationDate = bookingFormWrap.querySelector(".inline_txt.selected").innerText.split(" ")[0];
 			},
 			// yyyy.mm.dd 포맷의 현재날짜를 가져옴
 			getToday: function () {
@@ -328,8 +329,6 @@
 						this.isValids["tel"] = this.validTelField(warningElement, evt.target.value);
 					} else if (evt.target.name === "email") {
 						this.isValids["email"] = this.vaildEmailField(warningElement, evt.target.value);
-					} else {
-						return;
 					}
 					this.checkTotalVaild();
 				}.bind(this));
