@@ -20,8 +20,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 function basicSettings(){
-	ajax(loadDisplayData, 'GET', '/api/products/' + detailContent.displayInfoId);
-	ajax(loadCommentData, 'GET', '/api/comment/' + detailContent.displayInfoId + '?limit=' + detailContent.limit);
+	ajax(loadDisplayData, 'GET', '/api/products/' + detailContent.displayInfoId + '?limit=' + detailContent.limit);
 	ajax(loadProductEtcImage, 'GET', '/api/products/etc/' + detailContent.displayInfoId);
 }
 
@@ -32,10 +31,7 @@ function loadDisplayData(data){
 	templatingDetailContent(data.displayInfo);
 	templatingPlaceInformation(data);
 	templatingDiscount(data.productPrices);
-}
-
-function loadCommentData(data){
-	templatingComments(data.comments);
+	templatingComments(data.commentResponse.comments);
 	templatingScore(data);
 }
 
@@ -114,7 +110,7 @@ function templatingDiscount(prices){
 }
 
 function templatingScore(data){
-	if(data.comments.length === 0) {
+	if(data.commentResponse.comments.length === 0) {
 		return;
 	}
 

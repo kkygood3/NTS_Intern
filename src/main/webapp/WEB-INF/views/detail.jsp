@@ -8,8 +8,19 @@
 <meta name="wport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
 <link href="/resources/css/style.css" rel="stylesheet">
-</head>
+<style>
+.container_visual {
+	height: 414px;
+}
 
+.detail_swipe {
+	padding: 0px;
+	margin: 0px;
+	left: 0;
+	transition: left 0.1s;
+}
+</style>
+</head>
 <body>
 	<div id="container">
 		<div class="header fade">
@@ -298,8 +309,8 @@
 
 	<script id="score_template" type="text/template">
 		<span class="graph_mask"> <em class="graph_value" style="width: 0;"></em></span>
-		<strong class="text_value"> <span id="avgerage_score">{{avgScore}}</span> <em class="total">5.0</em>
-		</strong> <span class="join_count"><em class="green">{{comments.length}}건</em> 등록</span>
+		<strong class="text_value"> <span id="avgerage_score">{{commentResponse.avgScore}}</span> <em class="total">5.0</em>
+		</strong> <span class="join_count"><em class="green">{{displayInfo.commentCount}}건</em> 등록</span>
 	</script>
 	
 	<script id="etc_image_template" type="text/template">
