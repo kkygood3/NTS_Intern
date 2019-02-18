@@ -144,10 +144,10 @@
 		</translater-modal>
 	</app>
 	<script type="text/javascript">
-		var form = doqument.querySelector("#form1");
+		var form = document.querySelector("#form1");
 		form.addEventListener("submit", function (evt) {
 			evt.preventDefault();
-			var email = form.querySelector("input[id='resrv_id']");
+			var email = form.querySelector("input[id='resrv_id']").value;
 			var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(email);
 			if (!isValid) {
 				alert("이메일 형식이 틀렸거나 너무 짧습니다.");
