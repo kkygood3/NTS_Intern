@@ -1,6 +1,7 @@
 package com.nts.reservation.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
@@ -12,5 +13,5 @@ public interface ReservationService {
 
 	public ReservationInfo addReservation(UserReservationInput userReservationInput, Long displayInfoId);
 
-	public List<List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start,	int limit);
+	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start,	int limit);
 }

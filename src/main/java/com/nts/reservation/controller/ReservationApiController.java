@@ -4,6 +4,7 @@ import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_LIMIT_MONTH
 import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_START_MONTH;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +23,7 @@ public class ReservationApiController {
 	@Autowired
 	ReservationService reservationService;
 	@GetMapping
-	public List<List<ReservationDisplayItem>> myReservation(HttpSession session,
+	public Map<String, List<ReservationDisplayItem>> myReservation(HttpSession session,
 		@RequestParam(name="start", required=false, defaultValue = RESERVATION_DEFAULT_START_MONTH) int start,
 		@RequestParam(name="limit", required=false, defaultValue = RESERVATION_DEFAULT_LIMIT_MONTH) int limit) {
 		String email = (String) session.getAttribute("email");

@@ -2,7 +2,9 @@ package com.nts.reservation.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,24 +50,27 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	@Transactional
-	public List<List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail (String reservationEmail, int start, int limit) {
+	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail (String reservationEmail, int start, int limit) {
 		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
 
 		List<List<ReservationDisplayItem>> ReservationDisplayItemLists = new ArrayList<List<ReservationDisplayItem>>();
-		
-		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
-		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
-		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
+		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
+		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
+		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
+		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
 		
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
-				ReservationDisplayItemLists.get(2).add(reservationDisplayItem);
+				cancel.add(reservationDisplayItem);
 			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) < 0) {
-				ReservationDisplayItemLists.get(1).add(reservationDisplayItem);
+				used.add(reservationDisplayItem);
 			} else {
-				ReservationDisplayItemLists.get(0).add(reservationDisplayItem);
+				confirmed.add(reservationDisplayItem);
 			}
 		}
-		return ReservationDisplayItemLists;
+		ReservationDisplayItemListMap.put("confirmed", confirmed);
+		ReservationDisplayItemListMap.put("used", used);
+		ReservationDisplayItemListMap.put("cancel", cancel);
+		return ReservationDisplayItemListMap;
 	}
 }
