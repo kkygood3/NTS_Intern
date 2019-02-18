@@ -105,6 +105,7 @@
          </translater-modal>
       </app>
       
+      <script src="js/util.js"></script>
       <script src="js/bookinglogin.js"></script>
    </body>
 </html>

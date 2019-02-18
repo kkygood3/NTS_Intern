@@ -226,10 +226,7 @@ EventAdder.prototype.addEventToBtnBack = function(){
 }
 
 EventAdder.prototype.addEventToBtnScrollTop = function(){
-	this.domElements.elementList.btnTop.addEventListener("click", function(){
-		event.preventDefault();
-		document.documentElement.scrollTop = 0;
-	});
+	scrollTopEvent(this.domElements.elementList.btnTop);
 }
 
 EventAdder.prototype.addEventToBtnReserve = function(){

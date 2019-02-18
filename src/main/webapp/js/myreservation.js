@@ -34,10 +34,7 @@ SetEvent.prototype.preventLink = function(){
 }
 
 SetEvent.prototype.scrollTop = function(){
-	document.querySelector(".lnk_top").addEventListener("click", function(){
-		event.preventDefault();
-		document.documentElement.scrollTop = 0;
-	});
+	scrollTopEvent(document.querySelector(".lnk_top"))
 }
 
 SetEvent.prototype.showCanclePopup = function(){

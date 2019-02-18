@@ -121,10 +121,7 @@ var mainPage = {
 		}.bind(this),
 		
 		scrollTop: function(){
-			this.mainPage.elements.btnTop.addEventListener("click", function(){
-				event.preventDefault();
-				document.documentElement.scrollTop = 0;
-			});
+			scrollTopEvent(this.mainPage.elements.btnTop);
 		}.bind(this),
 		
 		showMore: function(){

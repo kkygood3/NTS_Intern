@@ -22,3 +22,10 @@ var ajaxSend = function(method, url, callBack, contentType, data){
 		httpRequest.send(data);
 	}
 }
+
+var scrollTopEvent = function(btnElement){
+	btnElement.addEventListener("click", function(){
+		event.preventDefault();
+		document.documentElement.scrollTop = 0;
+	});
+}

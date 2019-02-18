@@ -190,9 +190,7 @@ var detailPage = {
 		}.bind(this),
 		
 		scrollTop: function(){
-			this.detailPage.elements.btnTop.addEventListener("click", function(){
-				document.documentElement.scrollTop = 0;
-			});
+			scrollTopEvent(this.detailPage.elements.btnTop);
 		}.bind(this),
 		
 		tabEvent: function(){
