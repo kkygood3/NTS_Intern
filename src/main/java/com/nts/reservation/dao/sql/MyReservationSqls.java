@@ -23,4 +23,11 @@ public class MyReservationSqls {
 		" INNER JOIN product_price ON reservation_info_price.product_price_id = product_price.id" + 
 		" WHERE reservation_info.reservation_email = :reservationEmail" + 
 		" GROUP BY reservation_info_id";
+	
+	public static final String CANCEL_RESERVE =
+		"UPDATE" + 
+		" reservation_info" + 
+		" SET" + 
+		" cancel_flag = 1" + 
+		" WHERE id = :reservationInfoId";
 }
