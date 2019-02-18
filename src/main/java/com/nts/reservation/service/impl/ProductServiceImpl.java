@@ -26,6 +26,8 @@ public class ProductServiceImpl implements ProductService {
 	private ProductThumbnailDao thumbnailInfoDao;
 	@Autowired
 	private PriceDao priceDao;
+	@Autowired
+	private DatailPageInfoDao datailPageInfoDao;
 
 	@Override
 	@Transactional
@@ -51,9 +53,6 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return thumbnailInfoList;
 	}
-
-	@Autowired
-	DatailPageInfoDao datailPageInfoDao;
 
 	@Override
 	@Transactional
