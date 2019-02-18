@@ -44,6 +44,7 @@ public class ReservationInfoDao extends BaseDao {
 	}
 	
 	public List<ReservationDisplayItem> selectReservationInfoByReservationEmail(String reservationEmail, int start, int end) {
+		System.out.println("3");
 		Map<String, Object> params = new HashMap<>();
 		params.put(RESERVATION_EMAIL, reservationEmail);
 		params.put(START, start);

@@ -53,7 +53,6 @@ public class ReservationServiceImpl implements ReservationService {
 	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail (String reservationEmail, int start, int limit) {
 		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
 
-		List<List<ReservationDisplayItem>> ReservationDisplayItemLists = new ArrayList<List<ReservationDisplayItem>>();
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
 		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
@@ -62,7 +61,7 @@ public class ReservationServiceImpl implements ReservationService {
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
-			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) < 0) {
+			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) > 0) {
 				used.add(reservationDisplayItem);
 			} else {
 				confirmed.add(reservationDisplayItem);
