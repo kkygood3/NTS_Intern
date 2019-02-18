@@ -226,13 +226,47 @@ function onReserveClicked() {
 
 	if (isValid) {
 		// TODO: form submit으로 결과를 서버에 전송해야 한다.
+		postReserve();		
 		alert('OK');
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	var id = location.href.split('?')[1].split('=')[1];
+function PriceInfo(type, count){
+	this.type = type;
+	this.count = count;
+};
 
+function postReserve(){
+	var ticketInputs = document.querySelectorAll('.section_booking_ticket input');
+	
+	var bookerInputs = document.querySelectorAll('.form_horizontal input');
+	var bookerName = bookerInputs[0].value;
+	var bookerTelephone = bookerInputs[1].value;
+	var bookerEmail = bookerInputs[2].value;
+	
+	var reserveForm = document.querySelector('.reserve_form');
+	var reserveInputs = reserveForm.querySelectorAll('input');
+	
+	var priceInfoArray = new Array();
+	for(var i = 0 ; i < ticketInputs.length; i++){
+		var isContainTicket = (ticketInputs[i].value > 0);
+		if(isContainTicket){
+			var type = ticketInputs[i].getAttribute('pricetype');
+			var count = ticketInputs[i].value;
+			priceInfoArray.push(new PriceInfo(type, count));
+		}
+	}
+	
+	reserveInputs[0].setAttribute("value",bookerName);
+	reserveInputs[1].setAttribute("value",bookerTelephone);
+	reserveInputs[2].setAttribute("value",bookerEmail);
+	reserveInputs[3].setAttribute("value",getUrlParameter('id'));
+	reserveInputs[4].setAttribute("value",JSON.stringify(priceInfoArray));
+	
+	reserveForm.submit();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
 	initPriceDescription();
 
 	initClickEvents();
