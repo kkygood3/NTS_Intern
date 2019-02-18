@@ -82,7 +82,7 @@ public class ReservationApiController {
 	 */
 	@GetMapping
 	public MyReservationResponseDto getReservationResponse(
-		@RequestParam(name = "reservationEmail", required = true) String reservationEmail) throws BadRequestException {
+		@RequestParam String reservationEmail) throws BadRequestException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
 			throw new BadRequestException();
