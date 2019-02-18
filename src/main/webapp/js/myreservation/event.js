@@ -5,13 +5,16 @@ function addCancelButtonClickEvent() {
 		if (cancelButton.tagName != "BUTTON") {
 			return;
 		}
-		var cardBody = cancelButton.closest(".card_body");
-		var reservationId = cardBody.querySelector(".booking_number").innerText.replace("No.", "");
+		var cardItem = cancelButton.closest(".card_item");
+		var reservationId = cardItem.querySelector(".booking_number").innerText.replace("No.", "");
 		$.ajax({
 			method: "PUT",
 			url: "/reservation_info/" + reservationId,
 			success: function(data){
 				alert(data);
+				var canceled = document.querySelector(".card.cancel");
+				canceled.appendChild(cardItem);
+				cardItem.querySelector("button").remove();
             }
 		});
 	});
