@@ -1,22 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!-- saved from url=(0042)https://m.booking.naver.com/booked/confirm -->
 <html lang="ko" class="no-js" >
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
-      <!--<base href="/">-->
       <base href=".">
-      <!--[if IE]>
-      <script type="text/javascript">
-         // Fix for IE ignoring relative base tags.
-         (function () {
-             var baseTag = document.getElementsByTagName('base')[ 0 ];
-             baseTag.href = baseTag.href;
-         })();
-      </script>
-      <![endif]-->  
       <meta http-equiv="X-UA-Compatible" content="IE=Edge">
       <meta http-equiv="cache-control" content="no-cache">
       <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
@@ -28,7 +17,6 @@
       <link rel="stylesheet" href="../css/bookinglogin.css">
    </head>
    <body class="biz  ko" >
-      
       <app>
          <toast-alert class="top_info hide booking_alert">
             <p class="top_info_txt"> <i class="fn fn-info1" aria-hidden="true"></i> <span class="_toast_alert_text"></span> </p>
