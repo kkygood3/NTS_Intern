@@ -72,7 +72,7 @@
 						</a>
 					</h1>
 					<div>
-						<form name="confirm_form" class="ng-pristine ng-valid" id="form1" action="./myreservation.html">
+						<form name="confirm_form" class="ng-pristine ng-valid" id="form1" action="/myreservation">
 							<h2 class="login_header_sub border_bottom">
 								<span translate="CM-NON_MEMBER_BK_CONFIRMATION">비회원 예약확인</span>
 							</h2>
@@ -143,5 +143,19 @@
 			</div>
 		</translater-modal>
 	</app>
+	<script type="text/javascript">
+		var form = doqument.querySelector("#form1");
+		form.addEventListener("submit", function (evt) {
+			evt.preventDefault();
+			var email = form.querySelector("input[id='resrv_id']");
+			var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(email);
+			if (!isValid) {
+				alert("이메일 형식이 틀렸거나 너무 짧습니다.");
+				return;
+			}
+			var url = "/myreservations?reservationEmail=" + email;
+			location.href = url;
+		})
+	</script>
 </body>
 </html>
