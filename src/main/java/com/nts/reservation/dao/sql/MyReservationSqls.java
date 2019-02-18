@@ -22,5 +22,5 @@ public class MyReservationSqls {
 		" INNER JOIN reservation_info_price ON reservation_info.id = reservation_info_price.reservation_info_id" + 
 		" INNER JOIN product_price ON reservation_info_price.product_price_id = product_price.id" + 
 		" WHERE reservation_info.reservation_email = :reservationEmail" + 
-		" GROUP BY reservation_info_id;";
+		" GROUP BY reservation_info_id";
 }
