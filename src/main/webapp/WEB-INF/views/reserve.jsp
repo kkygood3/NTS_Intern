@@ -130,21 +130,26 @@
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected">?(YYYY.MM.DD), 총 <span id="totalCount">?(totalCount)</span>매</p>
+										<p class="inline_txt selected"></p>
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="section_booking_agreement">
-						<div class="agreement all"> <input type="checkbox" id="chk3" class="chk_agree"> <label for="chk3" class="label chk_txt_label"> <span>이용자 약관 전체동의</span> </label>
+						<div class="agreement all">
+							<input type="checkbox" id="chk3" class="chk_agree">
+							<label for="chk3" class="label chk_txt_label">
+								<span>이용자 약관 전체동의</span>
+							</label>
 							<div class="agreement_nessasary">
-								<span>필수동의</span> </div>
+								<span>필수동의</span>
+							</div>
 						</div>
 						<!-- [D] 약관 보기 클릭 시 agreement에 open 클래스 추가 -->
 						<div class="agreement">
 							<span class="chk_txt_span"> <i class="spr_book ico_arr_ipc2"></i> <span>개인정보 수집 및 이용 동의</span> </span>
-							<a href="#" class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
+							<a class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
 							<div class="useragreement_details">
 								&lt;개인정보 수집 및 이용 동의&gt;<br><br>
 								1. 수집항목 : [필수] 이름, 연락처, [선택] 이메일주소<br><br>
@@ -156,7 +161,7 @@
 						<!-- [D] 약관 보기 클릭 시 agreement에 open 클래스 추가 -->
 						<div class="agreement">
 							<span class="chk_txt_span"> <i class="spr_book ico_arr_ipc2"></i> <span>개인정보 제3자 제공 동의</span> </span>
-							<a href="#" class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
+							<a class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
 							<div class="useragreement_details custom_details_wrap">
 								<div class="custom_details">
 									&lt;개인정보 제3자 제공 동의&gt;<br><br>
@@ -275,8 +280,9 @@
 				return yyyy + '.' + mm + '.' + dd;
 			},
 			registerEvents : function () {
-				this.bookingForm.addEventListener("change", function (evt) {
-					debugger;
+				// 예매자 정보 입력폼 영역 이벤트등록
+				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
+				bookingFormWrap.addEventListener("change", function (evt) {
 					var formContainer = evt.target.closest(".inline_control");
 					var warningElement = formContainer.querySelector(".warning_msg");
 					if (evt.target.name === "name") {
@@ -285,6 +291,15 @@
 						this.validTelField(warningElement, evt.target.value);
 					} else if (evt.target.name === "email") {
 						this.vaildEmailField(warningElement, evt.target.value);
+					}
+				}.bind(this));
+				// 약관정보 영역 이벤트 등록
+				var bookingAgreement = this.bookingForm.querySelector(".section_booking_agreement");
+				bookingAgreement.addEventListener("click", function (evt) {
+					var agreementContainer = evt.target.closest(".agreement");
+					if (evt.target.className === "btn_agreement" ||
+							evt.target.parentElement.className === "btn_agreement") {
+						this.toggleAgreementContent(agreementContainer);
 					}
 				}.bind(this));
 			},
@@ -322,6 +337,20 @@
 			hideWarningMsg : function (warningElement) {
 				warningElement.style.visibility = "hidden";
 				warningElement.style.position = "absolute";
+			},
+			// 약관내용 보기/닫기
+			toggleAgreementContent : function (container) {
+				if (container.classList.contains("open")) {
+					container.classList.remove("open");
+					container.querySelector(".btn_text").innerText = "보기";
+					container.querySelector(".fn").classList.remove("fn-up2");
+					container.querySelector(".fn").classList.add("fn-down2");
+				} else {
+					container.classList.add("open");
+					container.querySelector(".btn_text").innerText = "닫기";
+					container.querySelector(".fn").classList.remove("fn-donw2");
+					container.querySelector(".fn").classList.add("fn-up2");
+				}
 			}
 		}
 
