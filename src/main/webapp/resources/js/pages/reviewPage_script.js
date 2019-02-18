@@ -60,18 +60,18 @@ var reviewPage = {
     },
 
     fetchDetailData: function () {
-        xhrRequest("GET"
-            , urls.DETAIL + constants.DISPLAY_INFO_ID
-            , null
-            , (respText) => {
-                state.detail_data = JSON.parse(respText);
-                this.renderInformation();
-            }, true);
+    	xhrRequest("GET"
+    			, urls.DETAIL + constants.DISPLAY_INFO_ID
+    			, null
+    			, (respText) => {
+    	            state.detail_data = JSON.parse(respText);
+    	            this.renderInformation();
+    	        }, true);
     },
 
     /**
-     * @renderInformation() : put data into corresponding section
-     */
+	 * @renderInformation() : put data into corresponding section
+	 */
     renderInformation: function () {
         domElements.averageScoreStars.style.width = state.detail_data.averageScore / 5 * 100 + "%";
         domElements.averageScoreText.innerHTML = state.detail_data.averageScore;

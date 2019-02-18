@@ -9,8 +9,6 @@ package com.nts.reservation.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,6 @@ import com.nts.reservation.dto.detail.DisplayInfoResponse;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
-import com.nts.reservation.service.ReservationService;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -38,10 +35,6 @@ public class ApplicationProductApiController {
 	private DetailService detailService;
 	@Autowired
 	private CategoryService categoryService;
-	@Autowired
-	private ReservationService reservationService;
-	@Autowired
-	private HttpSession session;
 
 	@GetMapping("/products")
 	public Map<String, Object> getProductsByCategory(

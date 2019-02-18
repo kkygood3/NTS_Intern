@@ -35,8 +35,6 @@ var myReservation = {
         cancelPopup: document.querySelector(".popup_booking_wrapper")
     },
 
-    constants: {},
-
     urls: {
         RESERVATION: "/reservation/api/reservations/",
     },
@@ -54,7 +52,6 @@ var myReservation = {
     init: function () {
         domElements = this.domElements;
         urls = this.urls;
-        constants = this.constants;
         state = this.state;
         templates = this.templates;
         parser = this.parser;
@@ -62,7 +59,9 @@ var myReservation = {
         fetchData = this.fetchData;
         renderReservations = this.renderReservations;
         processCancellation = this.processCancellation;
-
+        initDomWatcher = this.initDomWatcher;
+        
+        initDomWatcher();
         fetchData();
     },
 
@@ -83,5 +82,21 @@ var myReservation = {
         reservations.forEach((item) => {
             new ReservationCard(item, state.reservation_data.reservations, domElements.cancelPopup);
         });
+    },
+    initDomWatcher : function () {
+    	let observer = new MutationObserver(function(mutations) {
+			let yet = domElements.sectionConfirmed.querySelectorAll("article").length;
+	        let used = domElements.sectionUsed.querySelectorAll("article").length;
+	        let canceled = domElements.sectionCanceled.querySelectorAll("article").length;
+	        let total = yet + used + canceled;
+	        
+	        domElements.yetFigure.innerText = yet
+	        domElements.usedFigure.innerText = used
+	        domElements.cancelFigure.innerText = canceled
+	        domElements.totalFigure.innerText = total;  
+    	});
+    	let config = { attributes: true, childList: true, characterData: true };
+    	observer.observe(domElements.sectionConfirmed, config);
+    	observer.observe(domElements.sectionCanceled, config);
     }
 }

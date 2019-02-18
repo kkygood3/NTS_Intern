@@ -30,8 +30,12 @@ public class ApplicationLoginApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/login")
-	public Boolean loginProcess(@RequestBody String resrv_email) {
+	public void loginProcess(@RequestBody String resrv_email) {
 		session.setAttribute("email", resrv_email);
-		return true;
+	}
+
+	@PostMapping(path = "/logout")
+	public void logoutProcess() {
+		session.invalidate();
 	}
 }

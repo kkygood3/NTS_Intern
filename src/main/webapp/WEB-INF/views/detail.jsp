@@ -39,7 +39,7 @@
 				<h1 class="logo">
 					<a href="./" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+					</a> <a href="./" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
@@ -52,7 +52,7 @@
 				<div class="section_visual">
 					<header>
 						<h1 class="logo">
-							<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
+							<a href="./" class="lnk_logo" title="네이버"> <span
 								class="spr_bi ico_n_logo">네이버</span>
 							</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
@@ -250,6 +250,14 @@
 				환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
+		<%
+			if (session.getAttribute("email") != null) {
+		%>
+		<div class="logout">
+			<a href="#" onClick ="logout()"> <span class="lnk_top_text">로그아웃</span>
+			</a>
+		</div>
+		<%}%> 
 	</footer>
 	
 	<div id="photoviwer"></div>

@@ -13,14 +13,10 @@ function ReservationCard(_reservation, reservationData, _popup) {
     this.reservationDesc = "";
     this.reservationDate = "";
 
-    this.totalFigure = domElements.totalFigure;
-    this.yetFigure = domElements.yetFigure;
-    this.usedFigure = domElements.usedFigure;
-    this.cancelFigure = domElements.cancelFigure;
     popup = _popup;
+
     // search for corresponding data;
     for (var key in reservationData) {
-
         if (reservationData.hasOwnProperty(key)) {
             if (reservationData[key].id == this.ReservationId) {
                 this.reservationDesc = reservationData[key].displayInfo.productDescription;
@@ -37,7 +33,6 @@ function ReservationCard(_reservation, reservationData, _popup) {
             this.cancelAlert();
         });
     }
-    this.renderPageDetails();
 }
 
 ReservationCard.prototype.cancelAlert = function () {
@@ -58,10 +53,9 @@ ReservationCard.prototype.cancelAlert = function () {
 }
 
 ReservationCard.prototype.cancelProcess = function () {
-    let id = this.ReservationId;
 
     xhrRequest("PUT"
-        , "/reservation/api/reservations/" + id
+        , "/reservation/api/reservations/" + this.ReservationId
         , null
         , () => {
             alert("\"" + this.reservationDesc + "\"에 대한 예약이 취소되었습니다.")
@@ -69,19 +63,4 @@ ReservationCard.prototype.cancelProcess = function () {
             this.cancelButtonWrapper.style.display = "none";
         });
     popup.style.display = "none";
-    this.renderPageDetails();
 }
-
-ReservationCard.prototype.renderPageDetails = function () {
-    let yet = domElements.sectionConfirmed.querySelectorAll("article").length;
-    let used = domElements.sectionUsed.querySelectorAll("article").length;
-    let canceled = domElements.sectionCanceled.querySelectorAll("article").length;
-    let total = yet + used + canceled;
-
-    this.yetFigure.innerText = yet
-    this.usedFigure.innerText = used
-    this.cancelFigure.innerText = canceled
-    this.totalFigure.innerText = total;
-}
-
-

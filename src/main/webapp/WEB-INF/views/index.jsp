@@ -140,6 +140,15 @@
 				환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
+		<%
+			if (session.getAttribute("email") != null) {
+		%>
+		<div class="logout">
+			<a href="#" onClick ="logout()"> <span class="lnk_top_text">로그아웃</span>
+			</a>
+		</div>
+		<%}%> 
+		
 	</footer>
 
 	<script type="rv-template" id="promotionItem">

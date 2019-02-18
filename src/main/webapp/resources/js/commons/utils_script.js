@@ -147,9 +147,9 @@ function convertPriceArrToHtmlStr(data) {
         }
     });
     /*
-     * accumulate strings and render information, init control data by pushing
-     * JSON object to prices array
-     */
+	 * accumulate strings and render information, init control data by pushing
+	 * JSON object to prices array
+	 */
     let priceString = "";
     state.detail_data.productPrices.forEach((item) => {
         state.prices[item.productPriceId] = {price: item.price, count: 0, productPriceId: item.productPriceId};
@@ -231,20 +231,20 @@ SlidingAnimation.prototype.resizeMinMax = function (_minHeight, _maxHeight) {
 /**
  * @constants.animationSpeed : to control the speed or animation, declared as
  *                           const in global variable
- *
+ * 
  * @needToStop : this boolean indicates when the element is arrived in the right
  *             position to be displayed
- *
+ * 
  * @constants.animationStopDuration : in milliseconds, determines the stop
  *                                  duration of the animation when the image
  *                                  arrives in the right position , declared as
  *                                  const in global variable
- *
+ * 
  * @promoAnimation() : promotion animation with 2 for loops to control the
  *                   accuracy of the stop-position
- *
+ * 
  * @isAutoStart : parameter to control auto-slide animation, if false, manual
- *
+ * 
  * @isReverse : as the meaning of the words, implies if the animation is in
  *            reversed direction
  */
@@ -316,11 +316,12 @@ SlidingAnimation.prototype.slide = function (isAutoStart, isReverse, isResizing)
 
 
     /**
-     * @resizeImageContainer(countTarget) : countTarget represents the next target
-     *                                    image index in state.imageList, and set
-     *                                    the height of the image container with
-     *                                    height obtained from the slide
-     */
+	 * @resizeImageContainer(countTarget) : countTarget represents the next
+	 *                                    target image index in state.imageList,
+	 *                                    and set the height of the image
+	 *                                    container with height obtained from
+	 *                                    the slide
+	 */
     SlidingAnimation.prototype.resizeImageContainer = function (target, maxHeight, minHeight) {
         if (target.clientHeight > this.SLIDE_CONATINER_WIDTH) {
             this.slideWrapper.style.height = this.SLIDE_CONATINER_WIDTH + "px";
@@ -349,9 +350,9 @@ function xhrRequest(method, url, data, callback, isAsync) {
 
 /**
  * @data: data to be rendered, and mapped with handlebar, in array type.
- *
+ * 
  * @target: dom element where the rendered item should be attached.
- *
+ * 
  * @item : html template in string type
  */
 function arrayToElementRenderer(data, target, item) {
@@ -391,6 +392,10 @@ function arrayToElementRenderer(data, target, item) {
     newCommentItems.forEach((item) => {
         target.append(item);
     });
+}
+
+function logout(){
+	xhrRequest("POST", "./api/logout", null, () =>{alert("Logout"), window.location.href = "./", true} )
 }
 
 function scrollToTopAttacher(target) {

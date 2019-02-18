@@ -128,7 +128,6 @@ var reservePage = {
 
     inputValidationAttachment: function () {
         new SubmitButtonWithValidation(domElements.bookButtonWrapper.querySelector("button"));
-
         new FormWatcher();
     },
 }
