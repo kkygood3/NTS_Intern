@@ -5,4 +5,5 @@ import com.nts.reservation.display.dto.DisplayResponse;
 public interface DisplayService {
 
 	DisplayResponse getDisplayInfo(int displayInfoId);
+	DisplayResponse getDisplayInfoWithoutComments(int displayInfoId);
 }
