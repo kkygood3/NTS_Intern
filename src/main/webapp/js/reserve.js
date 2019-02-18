@@ -1,54 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-	getBookingPage();
+	getReservePage();
 });
 
-function setReservationInfo(){
+function getReservePage(){
 	var domElements = new DomElements();
-	
-	var reservationPrices = []
-	domElements.container.priceContainer.querySelectorAll(".count_control").forEach(function(elements){
-		var price = {
-				count : elements.querySelector(".count_control_input").value,
-				productPriceId : elements.querySelector(".count_control_input").dataset.productPriceId,
-		}
-		if(price.count !== "0"){
-			reservationPrices.push(price)
-		}
-	});
-	
-	var reservationInfo = {
-		displayInfoId: domElements.displayInfoId,
-		prices: reservationPrices,
-		productId: domElements.getElements.title.dataset.productId,
-		reservationEmail: domElements.getElements.bkEmail.value,
-		reservationName: domElements.getElements.bkName.value,
-		reservationTel: domElements.getElements.bkTel.value,
-		reservationDate: domElements.getElements.bkDate.innerHTML,
-	}
-	
-	var httpRequest;
-	
-	if (window.XMLHttpRequest) {
-		httpRequest =  new XMLHttpRequest();
-		
-		httpRequest.onreadystatechange = function() {
-			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				window.location.href = "../.."
-			}
-		}
-		
-		httpRequest.open("POST", "../../api/reservations");
-		httpRequest.setRequestHeader("Content-type", "application/json");
-		httpRequest.send(JSON.stringify(reservationInfo));
-	}
-}
-
-function getBookingPage(){
-	var domElements = new DomElements();
-	var template = new Templating();
-	var setEvent = new SetEvent();
-	var setAmountOfPayment = new SetAmountOfPayment();
-	var display = new Display();
+	var template = new Template();
+	var eventAdder = new EventAdder();
+	var inputTagValidator = new InputTagValidator();
+	var paymentInfo = new PaymentInfo();
+	var displayHelper = new DisplayHelper();
 	
 	var httpRequest;
 	
@@ -64,34 +24,30 @@ function getBookingPage(){
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				jsonResponse = JSON.parse(httpRequest.responseText);
 				
-				display.displayInfo(jsonResponse);
-				display.ticketPrice(jsonResponse);
+				displayHelper.displayExhibitionInfo(jsonResponse);
+				displayHelper.displayTicketPrice(jsonResponse);
 			}
 		}
 		
-		httpRequest.open("GET", "../../api/products/" + domElements.displayInfoId);
+		httpRequest.open("GET", "../../api/products/" + displayHelper.displayInfoId);
 		httpRequest.setRequestHeader("Content-type", "charset=utf-8");
 		httpRequest.send();
 	}
 	
-	setEvent.validateInputValue(domElements.getElements.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
-	setEvent.formattingTelNumber();
-	setEvent.validateInputValue(domElements.getElements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+	inputTagValidator.validateInputTag(domElements.elementList.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
+	inputTagValidator.validateInputTag(domElements.elementList.bkTel, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
+	inputTagValidator.validateInputTag(domElements.elementList.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
 	
-	setEvent.changeTicketCount();
-	setEvent.openTerms();
-	setEvent.acceptTerms();
-	setEvent.goToPrevPage();
-	setEvent.scrollTop();
-	setEvent.makeReservation();
+	eventAdder.addEventToTicketInfoContainer();
+	eventAdder.addEventToBtnShowDetailTerms();
+	eventAdder.addEventToBtnAgree();
+	eventAdder.addEventToBtnBack();
+	eventAdder.addEventToBtnScrollTop();
+	eventAdder.addEventToBtnReserve();
 }
 
-
 function DomElements(){}
-
-DomElements.prototype.displayInfoId = window.location.href.match(/detail\/\d+/)[0].split("/")[1]
-
-DomElements.prototype.getElements = {
+DomElements.prototype.elementList = {
 	title : document.querySelector(".top_title").querySelector(".title"),
 	mainImage : document.querySelector(".img_thumb"),
 	
@@ -106,47 +62,44 @@ DomElements.prototype.getElements = {
 	bkEmail : document.querySelector("#email"),
 	bkDate : document.querySelector("#reservation_date"),
 	
-	btnShowMore : document.querySelectorAll(".btn_agreement"),
-	btnAgree : document.querySelector(".chk_agree")
+	btnShowDtailTerms : document.querySelectorAll(".btn_agreement"),
+	btnAgree : document.querySelector(".chk_agree"),
+
+	bkBtn : document.querySelector(".bk_btn_wrap")
 }
 
-DomElements.prototype.container = {
-	displayInfoContainer : document.querySelector(".store_details"),
-	priceContainer : document.querySelector(".ticket_body"),
-	bkBtnContainer : document.querySelector(".bk_btn_wrap") 
-}
 
-DomElements.prototype.template = {
+function Template(){}
+Template.prototype = {
 	displayInfoTemplate : document.querySelector("#diplayInfoTemplate").innerHTML,
-	priceTemplate : document.querySelector("#priceTemplate").innerHTML,
+	displayInfoContainer : document.querySelector(".store_details"),
+	ticketInfoTemplate : document.querySelector("#ticketInfoTemplate").innerHTML,
+	ticketInfoContainer : document.querySelector(".ticket_body"),
+	
+	priceType : {
+		A : "성인",
+		Y : "청소년",
+		B : "유아",
+		D : "장애인",
+		C : "지역주민",
+		E : "어얼리버드",
+		V : "VIP",
+		R : "R석",
+		S : "S석"
+	}
 }
 
-
-function Templating(){}
-
-Templating.prototype.bindTemplate = function(template){
+Template.prototype.bindTemplate = function(template){
 	return Handlebars.compile(template);
 }
 
-Templating.prototype.priceType = {
-	A : "성인",
-	Y : "청소년",
-	B : "유아",
-	D : "장애인",
-	C : "지역주민",
-	E : "어얼리버드",
-	V : "VIP",
-	R : "R석",
-	S : "S석"
-}
-
-Templating.prototype.convertTypeName = function(){
+Template.prototype.convertTypeName = function(){
 	Handlebars.registerHelper('convertTypeName', function(typeName) {
 		return this.priceType[typeName];
 	}.bind(this));
 }
 
-Templating.prototype.compareDiscountRateToZero = function(){
+Template.prototype.compareDiscountRateToZero = function(){
 	Handlebars.registerHelper('ifNotZero', function(value, options) {
 		if(value !== 0) {
 		    return options.fn(this);
@@ -157,11 +110,11 @@ Templating.prototype.compareDiscountRateToZero = function(){
 }
 
 
-function SetAmountOfPayment(){
+function PaymentInfo(){
 	this.domElements = new DomElements();
 }
 
-SetAmountOfPayment.prototype.amountOfPayment = function(){
+PaymentInfo.prototype.setAmountOfPayment = function(){
 	var amountOfPayment = 0;
 	
 	document.querySelectorAll(".total_price").forEach(function(price){
@@ -171,9 +124,9 @@ SetAmountOfPayment.prototype.amountOfPayment = function(){
 	return amountOfPayment;
 }
 
-SetAmountOfPayment.prototype.checkTicketCount = function(){
+PaymentInfo.prototype.displaySelectedTicketInfo = function(){
 	var totalCount = 0;
-	this.domElements.getElements.ticketCounts.forEach(function(ticketCnt){
+	this.domElements.elementList.ticketCounts.forEach(function(ticketCnt){
 		if(ticketCnt.value === "0"){
 			ticketCnt.previousElementSibling.classList.add("disabled");
 			ticketCnt.classList.add("disabled");
@@ -185,99 +138,54 @@ SetAmountOfPayment.prototype.checkTicketCount = function(){
 		totalCount += parseInt(ticketCnt.value);
 	});
 	
-	this.domElements.getElements.totalCount.value = totalCount;
+	this.domElements.elementList.totalCount.value = totalCount;
 	if(totalCount === 0) {
-		this.domElements.getElements.totalCount.innerHTML = "선택된 티켓이 없습니다.";
+		this.domElements.elementList.totalCount.innerHTML = "선택된 티켓이 없습니다.";
 	} else {
-		this.domElements.getElements.totalCount.innerHTML = "총 " + totalCount + "매, " + this.amountOfPayment() + "원"
+		this.domElements.elementList.totalCount.innerHTML = "총 " + totalCount + "매, " + this.setAmountOfPayment() + "원"
 	}
 }
 
-SetAmountOfPayment.prototype.changeTicketCount = function(event){
-	var ticketPrice;
-	var ticketCnt;
-	var totalPrice;
+PaymentInfo.prototype.setTotalPrice = function(classListOfBtn){
+	var ticketPrice = event.target.parentNode.parentNode.parentNode.querySelector(".price").innerHTML;
+	var ticketCnt = event.target.parentNode.querySelector(".count_control_input");
+	var totalPrice = event.target.parentNode.parentNode.querySelector(".total_price");
 	
-	event.preventDefault();
-	
-	if(event.target.classList.contains("btn_plus_minus")){
-		ticketPrice = event.target.parentNode.parentNode.parentNode.querySelector(".price").innerHTML
-		ticketCnt = event.target.parentNode.querySelector(".count_control_input")
-		totalPrice = event.target.parentNode.parentNode.querySelector(".total_price");
-		
-		if(event.target.classList.contains("ico_plus3")) {
-			ticketCnt.value++;
-		} else if(!event.target.classList.contains("disabled") && event.target.classList.contains("ico_minus3")) {
-			ticketCnt.value--;
-		}
-		
-		totalPrice.innerHTML = ticketPrice * ticketCnt.value;
-		this.checkTicketCount();
+	if(classListOfBtn.contains("ico_plus3")) {
+		ticketCnt.value++;
+	} else if(!classListOfBtn.contains("disabled") && classListOfBtn.contains("ico_minus3")) {
+		ticketCnt.value--;
 	}
+	
+	totalPrice.innerHTML = ticketPrice * ticketCnt.value;
+	this.displaySelectedTicketInfo();
 }
 
 
-function SetEvent(){
+function EventAdder(){
 	this.domElements = new DomElements();
-	this.setAmountOfPayment = new SetAmountOfPayment();
+	this.template = new Template();
+	this.displayHelper = new DisplayHelper();
+	this.paymentInfo = new PaymentInfo();
 }
 
-SetEvent.prototype.changeTicketCount = function(){
-	this.domElements.container.priceContainer.addEventListener("click", function(event){
+EventAdder.prototype.addEventToTicketInfoContainer = function(){
+	this.template.ticketInfoContainer.addEventListener("click", function(event){
+		event.preventDefault();
+		
 		if(!event.target.classList.contains("disabled")){
-			this.domElements.getElements.btnAgree.checked = false;
-			this.domElements.container.bkBtnContainer.classList.add("disable");
+			this.domElements.elementList.btnAgree.checked = false;
+			this.domElements.elementList.bkBtn.classList.add("disable");
 		};
 		
-		this.setAmountOfPayment.changeTicketCount(event);
-	}.bind(this));
-}
-
-SetEvent.prototype.formattingTelNumber = function(){
-	this.domElements.getElements.bkTel.addEventListener("input", function(event){
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
-
-		if(event.target.value.length > 10){
-			event.target.value = event.target.value.substring(0,3) + "-" + event.target.value.substring(3,7) + "-" + event.target.value.substring(7);
-		} else if(event.target.value.length > 9) {
-			event.target.value = event.target.value.substring(0,3) + "-" + event.target.value.substring(3,6) + "-" + event.target.value.substring(6);
-		} else if(event.target.value.length === 8) {
-			event.target.value = event.target.value.substring(0,4) + "-" + event.target.value.substring(4);
-		} else if(event.target.value.length > 6) {
-			event.target.value = event.target.value.substring(0,2) + "-" + event.target.value.substring(2,5) + "-" + event.target.value.substring(5);
-		} else if(event.target.value.length > 2) {
-			event.target.value = event.target.value.substring(0,2) + "-" + event.target.value.substring(2);
-		} else {
-			event.target.value = event.target.value;
-		}
-		
-		this.validateInputValue(event.target, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
-	}.bind(this));
-}
-
-SetEvent.prototype.validateInputValue = function(inputTag, regularExpression){
-	inputTag.addEventListener("input", function(event){
-		this.domElements.getElements.btnAgree.checked = false;
-		this.domElements.container.bkBtnContainer.classList.add("disable");
-		
-		if(regularExpression.test(event.target.value)){
-			event.target.classList.add("valid_value");
-			event.target.classList.remove("wrong_value");
-			event.target.parentNode.querySelector(".warning_msg").style.display = "none";
-		} else {
-			event.target.classList.add("wrong_value");
-			event.target.classList.remove("valid_value");
-			event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
-		}
-
-		if(event.target.value.length === 0){
-			event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+		if(event.target.classList.contains("btn_plus_minus")){
+			this.paymentInfo.setTotalPrice(event.target.classList);
 		}
 	}.bind(this));
 }
 
-SetEvent.prototype.openTerms = function(){
-	this.domElements.getElements.btnShowMore.forEach(function(btnOpen){
+EventAdder.prototype.addEventToBtnShowDetailTerms = function(){
+	this.domElements.elementList.btnShowDtailTerms.forEach(function(btnOpen){
 		btnOpen.addEventListener("click", function(){
 			event.preventDefault();
 			
@@ -296,14 +204,14 @@ SetEvent.prototype.openTerms = function(){
 	});
 }
 
-SetEvent.prototype.acceptTerms = function(){
-	var bkName = this.domElements.getElements.bkName;
-	var bkTel = this.domElements.getElements.bkTel;
-	var bkEmail = this.domElements.getElements.bkEmail;
-	var ticketCnt = this.domElements.getElements.totalCount;
-	var lastMsg = this.domElements.container.bkBtnContainer.parentNode.querySelector(".warning_msg");
+EventAdder.prototype.addEventToBtnAgree = function(){
+	var bkName = this.domElements.elementList.bkName;
+	var bkTel = this.domElements.elementList.bkTel;
+	var bkEmail = this.domElements.elementList.bkEmail;
+	var ticketCnt = this.domElements.elementList.totalCount;
+	var lastMsg = this.domElements.elementList.bkBtn.parentNode.querySelector(".warning_msg");
 	
-	this.domElements.getElements.btnAgree.addEventListener("change", function(){
+	this.domElements.elementList.btnAgree.addEventListener("change", function(){
 		if(bkName.classList.contains("valid_value")
 			&& bkTel.classList.contains("valid_value")
 			&& bkEmail.classList.contains("valid_value")
@@ -311,62 +219,164 @@ SetEvent.prototype.acceptTerms = function(){
 
 			lastMsg.style.display = "none";
 			
-			if(this.domElements.container.bkBtnContainer.classList.contains("disable")){
-				this.domElements.container.bkBtnContainer.classList.remove("disable");
+			if(this.domElements.elementList.bkBtn.classList.contains("disable")){
+				this.domElements.elementList.bkBtn.classList.remove("disable");
 			} else {
-				this.domElements.container.bkBtnContainer.classList.add("disable");
+				this.domElements.elementList.bkBtn.classList.add("disable");
 			}
 		} else {
 			lastMsg.style.display = "block";
-			this.domElements.getElements.btnAgree.checked = false;
-			this.domElements.container.bkBtnContainer.classList.add("disable");
+			this.domElements.elementList.btnAgree.checked = false;
+			this.domElements.elementList.bkBtn.classList.add("disable");
 		}
 	}.bind(this));
 }
 
-SetEvent.prototype.goToPrevPage = function(){
-	this.domElements.getElements.btnBack.addEventListener("click", function(){
+EventAdder.prototype.addEventToBtnBack = function(){
+	this.domElements.elementList.btnBack.addEventListener("click", function(){
 		event.preventDefault();
 		history.back();
 	});
 }
 
-SetEvent.prototype.scrollTop = function(){
-	this.domElements.getElements.btnTop.addEventListener("click", function(){
+EventAdder.prototype.addEventToBtnScrollTop = function(){
+	this.domElements.elementList.btnTop.addEventListener("click", function(){
 		event.preventDefault();
 		document.documentElement.scrollTop = 0;
 	});
 }
 
-SetEvent.prototype.makeReservation = function(){
-	this.domElements.container.bkBtnContainer.addEventListener("click", function(){
-		if(!this.classList.contains("disable")){
-			setReservationInfo();
+EventAdder.prototype.addEventToBtnReserve = function(){
+	this.domElements.elementList.bkBtn.addEventListener("click", function(event){
+		var reservationInfo = new ReservationInfo(this.displayHelper.displayInfoId);
+
+		if(!event.target.classList.contains("disable")){
+			ajaxPost(reservationInfo.reservationData);
 		}
-	});
+	}.bind(this));
 }
 
 
-function Display(){
+function DisplayHelper(){
 	this.domElements = new DomElements();
-	this.template = new Templating();
-	this.setAmountOfPayment = new SetAmountOfPayment();
+	this.template = new Template();
+	this.paymentInfo = new PaymentInfo();
 }
 
-Display.prototype.displayInfo = function(jsonResponse){
-	var bindDisplayInfo = this.template.bindTemplate(this.domElements.template.displayInfoTemplate);
+DisplayHelper.prototype.displayInfoId = window.location.href.match(/detail\/\d+/)[0].split("/")[1];
+
+DisplayHelper.prototype.displayExhibitionInfo = function(jsonResponse){
+	var bindDisplayInfo = this.template.bindTemplate(this.template.displayInfoTemplate);
 	
-	this.domElements.getElements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
-	this.domElements.getElements.title.dataset.productId = jsonResponse["displayInfo"].productId;
-	this.domElements.getElements.mainImage.src = "../../" + jsonResponse["productImages"][0].saveFileName;
-	this.domElements.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
+	this.domElements.elementList.title.innerHTML = jsonResponse["displayInfo"].productDescription;
+	this.domElements.elementList.title.dataset.productId = jsonResponse["displayInfo"].productId;
+	this.domElements.elementList.mainImage.src = "../../" + jsonResponse["productImages"][0].saveFileName;
+	this.template.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 }
 
-Display.prototype.ticketPrice = function(jsonResponse){
-	var bindTicketPrice = this.template.bindTemplate(this.domElements.template.priceTemplate);
+DisplayHelper.prototype.displayTicketPrice = function(jsonResponse){
+	var bindTicketInfo = this.template.bindTemplate(this.template.ticketInfoTemplate);
 	
-	this.domElements.container.priceContainer.innerHTML = bindTicketPrice(jsonResponse);
+	this.template.ticketInfoContainer.innerHTML = bindTicketInfo(jsonResponse);
 	
-	this.domElements.getElements.ticketCounts = document.querySelectorAll(".count_control_input");
-	this.setAmountOfPayment.checkTicketCount();
+	this.domElements.elementList.ticketCounts = document.querySelectorAll(".count_control_input");
+	this.paymentInfo.displaySelectedTicketInfo();
+}
+
+
+function ReservationInfo(displayInfoId){
+	var domElements = new DomElements();
+	var template = new Template();
+	
+	this.displayInfoId = displayInfoId;
+	this.reservationPrices = []
+	template.ticketInfoContainer.querySelectorAll(".count_control").forEach(function(elements){
+		var price = {
+				count : elements.querySelector(".count_control_input").value,
+				productPriceId : elements.querySelector(".count_control_input").dataset.productPriceId,
+		}
+		if(price.count !== "0"){
+			this.reservationPrices.push(price)
+		}
+	}.bind(this));
+	
+	this.reservationData = {
+		displayInfoId: this.displayInfoId,
+		prices: this.reservationPrices,
+		productId: domElements.elementList.title.dataset.productId,
+		reservationEmail: domElements.elementList.bkEmail.value,
+		reservationName: domElements.elementList.bkName.value,
+		reservationTel: domElements.elementList.bkTel.value,
+		reservationDate: domElements.elementList.bkDate.innerHTML,
+	}
+}
+
+
+function InputTagValidator(){
+	this.domElements = new DomElements();
+}
+
+InputTagValidator.prototype.validateInputTag = function(inputTag, regularExpression){
+	inputTag.addEventListener("input", function(event){
+		this.domElements.elementList.btnAgree.checked = false;
+		this.domElements.elementList.bkBtn.classList.add("disable");
+		
+		if(event.target.id === "tel") {
+			event.target.value = this.setTelNumberformat(event.target.value);
+		}
+		
+		if(regularExpression.test(event.target.value)){
+			event.target.classList.add("valid_value");
+			event.target.classList.remove("wrong_value");
+			event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+		} else {
+			event.target.classList.add("wrong_value");
+			event.target.classList.remove("valid_value");
+			event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
+		}
+	
+		if(event.target.value.length === 0){
+			event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+		}
+	}.bind(this));
+}
+
+InputTagValidator.prototype.setTelNumberformat = function(telNumber){
+	var formattedTelNumber;
+	telNumber = telNumber.replace(/[^0-9]/g, "");
+	
+	if(telNumber.length > 10){
+		formattedTelNumber = telNumber.substring(0,3) + "-" + telNumber.substring(3,7) + "-" + telNumber.substring(7);
+	} else if(telNumber.length > 9) {
+		formattedTelNumber = telNumber.substring(0,3) + "-" + telNumber.substring(3,6) + "-" + telNumber.substring(6);
+	} else if(telNumber.length === 8) {
+		formattedTelNumber = telNumber.substring(0,4) + "-" + telNumber.substring(4);
+	} else if(telNumber.length > 6) {
+		formattedTelNumber = telNumber.substring(0,2) + "-" + telNumber.substring(2,5) + "-" + telNumber.substring(5);
+	} else if(telNumber.length > 2) {
+		formattedTelNumber = telNumber.substring(0,2) + "-" + telNumber.substring(2);
+	} else {
+		formattedTelNumber = telNumber;
+	}
+	
+	return formattedTelNumber;
+}
+
+
+function ajaxPost(reservationData){
+	var httpRequest;
+	
+	if (window.XMLHttpRequest) {
+		httpRequest =  new XMLHttpRequest();
+		
+		httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				window.location.href = "../.."
+			}
+		}
+		
+		httpRequest.open("POST", "../../api/reservations");
+		httpRequest.setRequestHeader("Content-type", "application/json");
+		httpRequest.send(JSON.stringify(reservationData));
+	}
 }

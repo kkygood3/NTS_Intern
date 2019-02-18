@@ -203,7 +203,7 @@
     </p>
     </script>
     
-    <script type="rv-template" id="priceTemplate">
+    <script type="rv-template" id="ticketInfoTemplate">
     {{#each productPrices}}
     <div class="qty">
         <div class="count_control">
