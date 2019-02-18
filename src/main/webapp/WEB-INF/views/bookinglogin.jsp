@@ -153,7 +153,7 @@
 				alert("이메일 형식이 틀렸거나 너무 짧습니다.");
 				return;
 			}
-			var url = "/myreservations?reservationEmail=" + email;
+			var url = "/myreservation?reservationEmail=" + email;
 			location.href = url;
 		})
 	</script>
