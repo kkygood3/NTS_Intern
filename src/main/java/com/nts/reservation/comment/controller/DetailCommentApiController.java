@@ -25,8 +25,6 @@ public class DetailCommentApiController {
 	@RequestMapping(value = "/{displayInfoId}/detailComment", method = RequestMethod.GET)
 	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
 		DetailCommentResponse detailCommentResponse = commentServiceImpl.getDetailCommentResponse(displayInfoId);
-		System.out.println("detailCommentResponse.getCommentCount() : " + detailCommentResponse.getCommentCount());
-		System.out.println("detailCommentResponse.getAverageScore() : " + detailCommentResponse.getAverageScore());
 
 		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
 	}

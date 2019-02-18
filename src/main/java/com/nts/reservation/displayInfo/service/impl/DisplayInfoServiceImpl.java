@@ -46,17 +46,26 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
-		List<Comment> comments = commentServiceImpl.getLimitComment(displayInfoId, start, limit);
+		List<Comment> commentList = commentServiceImpl.getLimitComment(displayInfoId, start, limit);
 		DisplayInfo displayInfo = getDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = getDisplayInfoImage(displayInfoId);
-		double averageScore = commentServiceImpl.getAverageScore(displayInfoId);
+		double sumScore = 0.0;
+		for (Comment comment : commentList) {
+			sumScore = sumScore + comment.getScore();
+		}
+		double averageScore = 0.0;
+		if (commentList.size() == 0) {
+			averageScore = 0.0;
+		} else {
+			averageScore = sumScore / commentList.size();
+		}
 
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 		List<ProductImage> productImages = productServiceImpl.getProductImage(displayInfoId);
 		displayInfoResponse.setProductImages(productImages);
 		List<ProductPrice> productPrices = productServiceImpl.getProductPrice(displayInfoId);
 		displayInfoResponse.setProductPrices(productPrices);
-		displayInfoResponse.setComments(comments);
+		displayInfoResponse.setComments(commentList);
 		displayInfoResponse.setDisplayInfo(displayInfo);
 		displayInfoResponse.setDisplayInfoImage(displayInfoImage.getSaveFileName());
 		displayInfoResponse.setAverageScore(averageScore);

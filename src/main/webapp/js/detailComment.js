@@ -59,8 +59,9 @@ function loadAllComments(responseData){
 	// 코멘트 개수
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
-	//뒤로가기 버튼 클릭 이벤트
+	// 뒤로가기 버튼 클릭 이벤트
 	document.querySelector('.btn_back').setAttribute('href','detailProduct?displayInfoId='+displayInfomation.displayInfoId);
 	
+	// 펼치기 버튼 가리기
 	document.querySelector('div.more').style.display = 'none';
 }
