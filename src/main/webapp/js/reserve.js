@@ -169,8 +169,12 @@ function initClickEvents() {
 	setTicketClick();
 	setAgreementDesciptionClick();
 	setReserveClick();
+	setPageBackClick();
 }
 
+function setPageBackClick(){
+	document.querySelector('.btn_back').setAttribute('href','detail?id='+getUrlParameter('id'));
+}
 /**
  * 예약하기 버튼을 클릭했을때 이벤트 예약자 정보를 검증하고 이상이 없다면 예약 페이지로 이동한다.
  */
@@ -225,9 +229,7 @@ function onReserveClicked() {
 	}
 
 	if (isValid) {
-		// TODO: form submit으로 결과를 서버에 전송해야 한다.
-		postReserve();		
-		alert('OK');
+		postReserve();
 	}
 }
 

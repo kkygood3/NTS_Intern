@@ -72,8 +72,9 @@ public class ReserveApiController {
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId,
 		@RequestParam(name = "priceInfo", required = true) String priceInfo,
 		HttpServletResponse response) throws IOException {
+		
 		response.setContentType("text/html; charset=UTF-8");
-
+		
 		boolean isInsertComplete = reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfo);
 
 		PrintWriter out = response.getWriter();
