@@ -101,17 +101,32 @@
 							<h3 class="out_tit">예매자 정보</h3>
 							<div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
 							<form class="form_horizontal">
-								<div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
-									<div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
-								</div>
-								<div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
-									<div class="inline_control tel_wrap">
-										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+								<div class="inline_form">
+									<label class="label" for="name">
+										<span class="spr_book ico_nessasary">필수</span> <span>예매자</span>
+									</label>
+									<div class="inline_control">
+										<input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
+										<div class="warning_msg">한글 및 영문자만 입력가능합니다.</div>
 									</div>
 								</div>
-								<div class="inline_form"> <label class="label" for="email"> <span class="spr_book ico_nessasary">필수</span> <span>이메일</span> </label>
-									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+								<div class="inline_form">
+									<label class="label" for="tel">
+										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
+									</label>
+									<div class="inline_control tel_wrap">
+										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<div class="warning_msg">000-000(0)-0000 형식만 가능합니다.</div>
+									</div>
+								</div>
+								<div class="inline_form">
+									<label class="label" for="email">
+										<span class="spr_book ico_nessasary">필수</span> <span>이메일</span>
+									</label>
+									<div class="inline_control">
+										<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+										<div class="warning_msg">이메일 형식이 틀렸거나 너무 짧아요</div>
+									</div>
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
@@ -230,8 +245,86 @@
 			}
 		}
 
+		function BookingForm(bookingFormWrap) {
+			this.bookingForm = bookingFormWrap;
+			this.init();
+			this.registerEvents();
+		}
+
+		BookingForm.prototype = {
+			init : function () {
+				var resultTextElement = this.bookingForm.querySelector(".inline_txt.selected");
+				resultTextElement.innerHTML = this.getToday() + ", 총 <span id='totalCount'>0</span>매"
+			},
+			getToday : function () {
+				var today = new Date();
+				var yyyy = today.getFullYear();
+				var mm = today.getMonth() + 1; //January is 0!
+				var dd = today.getDate();
+
+				if (dd < 10) {
+				  dd = '0' + dd;
+				}
+				if (mm < 10) {
+				  mm = '0' + mm;
+				}
+				return yyyy + '.' + mm + '.' + dd;
+			},
+			registerEvents : function () {
+				this.bookingForm.addEventListener("change", function (evt) {
+					debugger;
+					var formContainer = evt.target.closest(".inline_control");
+					var warningElement = formContainer.querySelector(".warning_msg");
+					if (evt.target.name === "name") {
+						this.validNameField(warningElement, evt.target.value);
+					} else if (evt.target.name === "tel") {
+						this.validTelField(warningElement, evt.target.value);
+					} else if (evt.target.name === "email") {
+						this.vaildEmailField(warningElement, evt.target.value);
+					}
+				}.bind(this))
+			},
+			validNameField : function (warningElement, text) {
+				console.log(warningElement);
+				var isVaild = (/^[가-힣|a-z|A-Z]+$/).test(text);
+				if (isVaild) {
+					this.hideWarningMsg(warningElement);
+				} else {
+					this.showWarningMsg(warningElement);
+				}
+			},
+			validTelField : function (warningElement, text) {
+				var isVaild = (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/).test(text);
+				if (isVaild) {
+					this.hideWarningMsg(warningElement);
+				} else {
+					this.showWarningMsg(warningElement);
+				}
+			},
+			vaildEmailField : function (warningElement, text) {
+				var isVaild = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(text);
+				if (isVaild) {
+					this.hideWarningMsg(warningElement);
+				} else {
+					this.showWarningMsg(warningElement);
+				}
+			},
+			showWarningMsg : function (warningElement) {
+				warningElement.style.visibility = "visible";
+				warningElement.style.position = "relative";
+			},
+			hideWarningMsg : function (warningElement) {
+				warningElement.style.visibility = "hidden";
+				warningElement.style.position = "absolute";
+			}
+		}
+
+
+
 		var ticketBody = document.querySelector(".ticket_body");
-		var o = new BookingTicket(ticketBody);
+		var ticket = new BookingTicket(ticketBody);
+		var bookingFormWrap = document.querySelector(".booking_form_wrap");
+		var form = new BookingForm(bookingFormWrap);
 	</script>
 
 </body>
