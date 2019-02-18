@@ -1,10 +1,13 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL;
+import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.*;
 import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.SELECT_RESERVATION_PAGE_INFO_BY_DISPLAY_INFO_ID;
 import static com.nts.reservation.property.Const.*;
+import static com.nts.reservation.property.Const.END;
 import static com.nts.reservation.property.Const.RESERVATION_EMAIL;
+import static com.nts.reservation.property.Const.START;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +47,17 @@ public class ReservationInfoDao extends BaseDao {
 	}
 	
 	public List<ReservationDisplayItem> selectReservationInfoByReservationEmail(String reservationEmail, int start, int end) {
-		System.out.println("3");
 		Map<String, Object> params = new HashMap<>();
 		params.put(RESERVATION_EMAIL, reservationEmail);
 		params.put(START, start);
 		params.put(END, end);
 		return getJdbc().query(SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL, params, reservationDisplayItemRowMapper);
+	}
+	
+	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
+		Map<String, Object> params = new HashMap<>();
+		params.put(RESERVATION_INFO_ID, reservationInfoId);
+		params.put(RESERVATION_EMAIL, reservationEmail);
+		return getJdbc().update(UPDATE_CANCEL_FLAG_TO_FALSE_BY_RESERVATION_INFO_ID, params);
 	}
 }

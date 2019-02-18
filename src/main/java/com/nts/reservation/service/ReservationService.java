@@ -14,4 +14,6 @@ public interface ReservationService {
 	public ReservationInfo addReservation(UserReservationInput userReservationInput, Long displayInfoId);
 
 	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start,	int limit);
+
+	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail);
 }

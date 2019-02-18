@@ -61,7 +61,8 @@ public class ReservationServiceImpl implements ReservationService {
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
-			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) > 0) {
+			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) < 0) {
+				// TODO: 부등호 방향 변경
 				used.add(reservationDisplayItem);
 			} else {
 				confirmed.add(reservationDisplayItem);
@@ -71,5 +72,11 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationDisplayItemListMap.put("used", used);
 		ReservationDisplayItemListMap.put("cancel", cancel);
 		return ReservationDisplayItemListMap;
+	}
+	
+	@Override
+	@Transactional(readOnly=false)
+	public int updateCancelFlagToFalseByReservationInfoId (long reservationInfoId, String reservationEmail) {
+		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
 	}
 }

@@ -9,7 +9,7 @@ public class ReservationPageInfoDaoSqls {
 	+ "JOIN file_info AS pf ON pf.id = pi.file_id";
 	
 	public static final String SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL
-	= "SELECT r.id AS reservation_id, p.description, r.reservation_date, r.cancel_flag, d.place_name, sum(pp.price) AS price "
+	= "SELECT r.id AS reservation_id, p.description, r.reservation_date, r.cancel_flag AS canceled, d.place_name, sum(pp.price) AS price "
 	+ "FROM reservation_info AS r "
 	+ "INNER JOIN product AS p "
 	+ "	ON r.reservation_email = :reservationEmail "
@@ -18,4 +18,7 @@ public class ReservationPageInfoDaoSqls {
 	+ "INNER JOIN display_info AS d ON r.display_info_id = d.id "
 	+ "INNER JOIN product_price AS pp ON pp.product_id = p.id "
 	+ "GROUP BY d.id";
+
+	public static final String UPDATE_CANCEL_FLAG_TO_FALSE_BY_RESERVATION_INFO_ID
+	= "UPDATE reservation_info SET cancel_flag = true, modify_date = now() WHERE id = :reservationInfoId AND reservation_email = :reservationEmail";
 }

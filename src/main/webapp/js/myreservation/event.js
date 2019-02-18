@@ -7,6 +7,12 @@ function addCancelButtonClickEvent() {
 		}
 		var cardBody = cancelButton.closest(".card_body");
 		var reservationId = cardBody.querySelector(".booking_number").innerText.replace("No.", "");
-		alert(reservationId);
+		$.ajax({
+			method: "PUT",
+			url: "/reservation_info/" + reservationId,
+			success: function(data){
+				alert(data);
+            }
+		});
 	});
 }
