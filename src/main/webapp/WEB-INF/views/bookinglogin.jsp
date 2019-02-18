@@ -54,24 +54,6 @@
             </booked-confirm>
          </div>
          <%@ include file="/WEB-INF/views/footer.jsp"%>
-         <dialog-alert>
-            <!----> 
-         </dialog-alert>
-         <translater-modal style="display: none;">
-            <div class="sel_box_on">
-               <div class="dimm_dark"  role="button" tabindex="0"></div>
-               <div class="select_layer">
-                  <div class="select_tit">
-                     <h4 class="header_h4"> <span>언어선택</span> </h4>
-                     <a href="https://m.booking.naver.com/#"  class="close"  title="MBK-selectBox-CLOSE"> <i class="fn fn-close" aria-hidden="true"></i> </a> 
-                  </div>
-                  <ul class="lst_select">
-                     <li class="item" > <a href="https://m.booking.naver.com/#" class="anchor" > <span>한국어</span> </a> </li>
-                     <li class="item" > <a href="https://m.booking.naver.com/#" class="anchor" > <span>English</span> </a> </li>
-                  </ul>
-               </div>
-            </div>
-         </translater-modal>
       </app>
    </body>
 </html>
