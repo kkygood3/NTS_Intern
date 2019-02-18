@@ -1,6 +1,8 @@
 package com.nts.reservation.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ReservationInfoDao;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
+import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
@@ -41,5 +44,28 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
 		return reservationInfo;
+	}
+	
+	@Override
+	@Transactional
+	public List<List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail (String reservationEmail, int start, int limit) {
+		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
+
+		List<List<ReservationDisplayItem>> ReservationDisplayItemLists = new ArrayList<List<ReservationDisplayItem>>();
+		
+		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
+		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
+		ReservationDisplayItemLists.add(new ArrayList<ReservationDisplayItem>());
+		
+		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
+			if (reservationDisplayItem.isCanceled()) {
+				ReservationDisplayItemLists.get(2).add(reservationDisplayItem);
+			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) < 0) {
+				ReservationDisplayItemLists.get(1).add(reservationDisplayItem);
+			} else {
+				ReservationDisplayItemLists.get(0).add(reservationDisplayItem);
+			}
+		}
+		return ReservationDisplayItemLists;
 	}
 }

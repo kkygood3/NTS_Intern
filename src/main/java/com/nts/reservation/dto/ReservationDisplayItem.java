@@ -6,6 +6,7 @@ public class ReservationDisplayItem {
 	private long reservationId;
 	private String description;
 	private Date reservationDate;
+	private boolean canceled;
 	private String placeName;
 	private long price;
 
@@ -33,6 +34,14 @@ public class ReservationDisplayItem {
 		this.reservationDate = reservationDate;
 	}
 
+	public boolean isCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled(boolean canceled) {
+		this.canceled = canceled;
+	}
+
 	public String getPlaceName() {
 		return placeName;
 	}
@@ -52,6 +61,7 @@ public class ReservationDisplayItem {
 	@Override
 	public String toString() {
 		return "ReservationDisplayItem [reservationId=" + reservationId + ", description=" + description
-			+ ", reservationDate=" + reservationDate + ", placeName=" + placeName + ", price=" + price + "]";
+			+ ", reservationDate=" + reservationDate + ", canceled=" + canceled + ", placeName=" + placeName
+			+ ", price=" + price + "]";
 	}
 }
