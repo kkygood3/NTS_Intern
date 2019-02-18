@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductThumbnailDao thumbnailInfoDao;
 	@Autowired
-	private PriceDao priceInfoDao;
+	private PriceDao priceDao;
 
 	@Override
 	@Transactional
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<PriceInfo> getPriceInfoByProductId(long productId) {
-		return priceInfoDao.selectPriceInfoByProductId(productId);
+		return priceDao.selectPriceInfoByProductId(productId);
 	}
 	@Override
 	@Transactional
