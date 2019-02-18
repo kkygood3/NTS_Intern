@@ -31,16 +31,16 @@
 					<ul class="summary_board">
 						<li class="item">
 							<!--[D] 선택 후 .on 추가 link_summary_board -->
-							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure">6</span> </a>
+							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure">0</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure">2</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure">0</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure">2</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure">0</span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure">2</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure">0</span> </a>
 						</li>
 					</ul>
 				</div>
@@ -196,17 +196,23 @@
 										<span>{{price}}</span>
 										<span class="unit">원</span>
 									</em>
+									</div>
+									<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+									<div class="booking_cancel">
+									<button class="btn"><span>취소</span></button>
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="right"></div>
 					</div>
 					<div class="card_footer">
-						<div class="left"></div>
-						<div class="middle"></div>
-						<div class="right"></div>
-					</div>
+					<div class="left"></div>
+					<div class="middle"></div>
+					<div class="right"></div>
+				</div>
 				</a>
+				<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 			</article>
 		</script>
 		<script>
@@ -223,6 +229,10 @@
 				var completeContainer = containers[2];
 				var cancelContainer = containers[3];
 				
+				var confirmCount = 0;
+				var completeCount = 0;
+				var cancelCount = 0;
+				
 				for(var i = 0 ; i < reservationList.length; i++){
 					var targetReservation = reservationList[i];
 					
@@ -238,23 +248,44 @@
 					 */
 					if(targetReservation.cancelFlag > 0){
 						cancelContainer.innerHTML += reservationItem;
-						cancelContainer.style.display = 'initial';
+						cancelCount++;
 					} else {
 						var today = new Date();
 						var targetDate = new Date(targetReservation.displayDate)
 						// 오늘보다 이전이라면
 						if(targetDate < today) {
 							completeContainer.innerHTML += reservationItem;
-							completeContainer.style.display = 'initial';
+							completeCount++;
 						} else {
 							confirmContainer.innerHTML += reservationItem;
-							confirmContainer.style.display = 'initial';
+							confirmCount++;
 						}
-					}	
+					}
 				}
+				
+				var reservationCountAreas = document.querySelectorAll('.link_summary_board>.figure');
+				reservationCountAreas[0].innerText = confirmCount+completeCount+cancelCount;
+				
+				if(confirmCount > 0){
+					confirmContainer.style.display = '';
+					reservationCountAreas[1].innerText = confirmCount;
+				}
+				
+				if(completeCount > 0){
+					completeContainer.style.display = '';
+					reservationCountAreas[2].innerText = completeCount;
+				}
+				
+				if(cancelCount > 0){
+					cancelContainer.style.display = '';
+					reservationCountAreas[3].innerText = cancelCount;
+				}
+				
 			} else {
-				var emptyReserveMsg = document.querySelector('.err');
-				emptyReserveMsg.style.display = 'initial';
+				var listWrap = document.querySelector('.wrap_mylist');
+				var emptyMsgWrap = document.querySelector('.err');
+				listWrap.remove();
+				emptyMsgWrap.style.display = '';
 			}
 		}
 			
