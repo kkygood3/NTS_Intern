@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -64,31 +66,29 @@ public class ReserveApiController {
 	 * @throws JsonParseException 
 	 */
 	@PostMapping
-	public Map<String, Object> reserve(
+	public void reserve(
 		@RequestParam(name = "name", required = true) String name,
 		@RequestParam(name = "telephone", required = true) String telephone,
 		@RequestParam(name = "email", required = true) String email,
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId,
-		@RequestParam(name = "priceInfo", required = true) String priceInfo) throws JsonParseException, JsonMappingException, IOException {
+		@RequestParam(name = "priceInfo", required = true) String priceInfo,
+		HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeFactory typeFactory = objectMapper.getTypeFactory();
 		List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo, typeFactory.constructCollectionType(List.class, PriceInfo.class));
 		reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfoList);
-		return Collections.emptyMap();
+		response.sendRedirect("/detail?id="+displayInfoId);
 	}
 
 	/**
 	 * Reservation을 취소
-	 * @param email
 	 * @param reservationInfoId
 	 */
 	@PutMapping("/{reservationInfoId}")
-	public Map<String, Object> cancelReservation(
-		@RequestParam(name = "email", required = true) String email,
+	public void cancelReservation(
 		@PathVariable Integer reservationInfoId) {
-
-		return Collections.emptyMap();
+		myReservationService.cancelMyReservation(reservationInfoId);
 	}
 
 	/**

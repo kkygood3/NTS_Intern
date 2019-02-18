@@ -14,4 +14,11 @@ public interface MyReservationService{
 	 * @param email
 	 */
 	List<MyReservationInfo> getMyReservationInfoList(String reservationEmail);
+	
+	/**
+	 * 예약 목록에서 선택한 항목을 cancel 처리
+	 * @param reservationInfoId
+	 * @return cancel 성공시 TRUE
+	 */
+	boolean cancelMyReservation(Integer reservationInfoId);
 }

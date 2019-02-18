@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dao.sql.MyReservationSqls;
+import com.nts.reservation.dao.sql.ReserveSqls;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 
 /**
@@ -38,5 +39,11 @@ public class MyReservationDao {
 		Map<String, String> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
 		return jdbc.query(MyReservationSqls.SELECT_MY_RESERVATION_INFO, params, rowMapper);
+	}
+	
+	public Integer updateMyReservationCancelById(Integer reservationInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("reservationInfoId", reservationInfoId);
+		return jdbc.update(MyReservationSqls.CANCEL_RESERVE, params);
 	}
 }
