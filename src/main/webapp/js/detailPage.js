@@ -104,7 +104,7 @@ function initComment(displayCommentInfo, totalComments) {
 	document.querySelector('.text_value>span').innerText = averageScore;
 	
     // 총 댓글 갯수
-    let commentCount = displayCommentInfo.commentCount;
+    let commentCount = totalComments;
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
 	
