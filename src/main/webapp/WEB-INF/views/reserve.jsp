@@ -58,7 +58,6 @@
 						<h3 class="in_tit">요금</h3>
 						<p class="dsc">
 							<c:forEach var="productPrice" items="${productPrices}">
-								<!-- TODO: 타입을 설명해주는 키값형태의 priceTypeInfoMap 구현 -->
 								${productPrice.typeDescription} ${productPrice.price} <br />
 							</c:forEach>
 							<!-- 성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원 -->
@@ -68,7 +67,9 @@
 				<div class="section_booking_ticket">
 					<div class="ticket_body">
 						<c:forEach var="productPrice" items="${productPrices}">
-							<div class="qty" data-id=${productPrice.id}>
+							<div class="qty" data-id=${productPrice.id}
+																data-type=${productPrice.type}
+																data-price=${productPrice.price * (100-productPrice.discountRate) / 100}>
 								<div class="count_control">
 									<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 									<div class="clearfix">
@@ -215,80 +216,61 @@
 
 		BookingTicket.prototype = {
 			init: function () {
-				var ticketElements = ticketBody.querySelectorAll(".qty");
-				for (var i = 0; i < ticketElements.length; i++) {
-					var type = ticketElements[i].querySelector('.product_amount span').innerText;
-					var productPriceId = ticketElements[i].getAttribute("data-id");
+				ticketBody.querySelectorAll(".qty").forEach(function (element) {
+					var type = element.getAttribute("data-type");
+					var productPriceId = element.getAttribute("data-id");
 					this.tickets[type] = {
 						"productPriceId": productPriceId,
-						count: 0
-					};
-				}
-			},
-			registerEvents: function () {
-				this.ticketBody.addEventListener("click", function (evt) {
-					var ticketContainer = evt.target.closest(".qty");
-					if (evt.target.classList.contains("disabled")) {
-						return;
-					}
-					if (evt.target.title === "더하기") {
-						this.plusTicket(ticketContainer);
-					} else if (evt.target.title === "빼기") {
-						this.minusTicket(ticketContainer);
+						"count": 0
 					}
 				}.bind(this));
 			},
-			plusTicket: function (container) {
-				var countControlInput = container.querySelector('.count_control_input');
-				var totalPriceElement = container.querySelector('.total_price');
-				var price = container.querySelector(".price").innerText;
-				var type = container.querySelector(".product_amount span").innerText;
+			registerEvents: function () {
+				this.ticketBody.addEventListener("click", function (evt) {
+					if (evt.target.classList.contains("disabled")) {
+						return;
+					}
+					var wrapper = evt.target.closest(".qty");
+					if (evt.target.title === "더하기") {
+						this.changeTicket(wrapper, + 1);
+					} else if (evt.target.title === "빼기") {
+						this.changeTicket(wrapper, -1);
+					}
+				}.bind(this));
+			},
+			changeTicket: function (wrapper, value) {
+				var countControlInput = wrapper.querySelector('.count_control_input');
+				var totalPriceElement = wrapper.querySelector('.total_price');
+				var price = wrapper.getAttribute("data-price");
+				var type = wrapper.getAttribute("data-type");
 
-				if (countControlInput.value === "0") {
+				if (this.tickets[type].count === 0) {
 					countControlInput.classList.remove("disabled");
 					totalPriceElement.parentElement.classList.add("on_color");
-					container.querySelector('.ico_minus3').classList.remove("disabled");
+					wrapper.querySelector('.ico_minus3').classList.remove("disabled");
 				}
-				countControlInput.value = parseInt(countControlInput.value) + 1;
-				totalPriceElement.innerText = countControlInput.value * price;
 
-				this.tickets[type].count += 1;
-				this.totalCount += 1;
-				this.showTotalCount();
-			},
-			minusTicket: function (container) {
-				var countControlInput = container.querySelector('.count_control_input');
-				var totalPriceElement = container.querySelector('.total_price');
-				var price = container.querySelector(".price").innerText;
-				var type = container.querySelector(".product_amount span").innerText;
+				this.tickets[type].count += value;
+				this.totalCount += value;
+				countControlInput.value = this.tickets[type].count
+				totalPriceElement.innerText = this.tickets[type].count * price;
 
-				if (countControlInput.value === "1") {
+				if (this.tickets[type].count === 0) {
 					countControlInput.classList.add("disabled");
 					totalPriceElement.parentElement.classList.remove("on_color");
-					container.querySelector('.ico_minus3').classList.add("disabled");
+					wrapper.querySelector('.ico_minus3').classList.add("disabled");
 				}
-				countControlInput.value = parseInt(countControlInput.value) - 1;
-				totalPriceElement.innerText = countControlInput.value * price;
-
-				this.tickets[type].count -= 1;
-				this.totalCount -= 1;
-				this.showTotalCount();
-			},
-			showTotalCount: function () {
-
-				var totalCountElemnet = document.querySelector("#total_count");
-				totalCountElemnet.innerText = this.totalCount;
+				document.querySelector("#total_count").innerText = this.totalCount;
 			}
 		}
 
 		// 예매자 정보 영역
-		function BookingForm(bookingForm, ticket) {
+		function BookingForm(bookingForm) {
 			this.bookingForm = bookingForm;
-			this.ticket = ticket;
-			this.inputValues = {};
-			this.reservationDate = "";
 			this.isAgree = false;
 			this.isValids = {};
+			this.inputValues = {};
+			this.reservationDate = "";
 			this.init();
 			this.registerEvents();
 		}
@@ -297,26 +279,11 @@
 			init: function () {
 				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
 				var inputElements = bookingFormWrap.querySelectorAll("input");
-				for (var i = 0; i < inputElements.length; i++) {
-					this.isValids[inputElements[i].name] = false;
-					this.inputValues[inputElements[i].name] = "";
-				}
+				bookingFormWrap.querySelectorAll("input").forEach(function (element) {
+					this.isValids[element.name] = false;
+					this.inputValues[element.name] = false;
+				}.bind(this));
 				this.reservationDate = bookingFormWrap.querySelector(".inline_txt.selected").innerText.split(" ")[0];
-			},
-			// yyyy.mm.dd 포맷의 현재날짜를 가져옴
-			getToday: function () {
-				var today = new Date();
-				var yyyy = today.getFullYear();
-				var mm = today.getMonth() + 1; //January is 0!
-				var dd = today.getDate();
-
-				if (dd < 10) {
-					dd = '0' + dd;
-				}
-				if (mm < 10) {
-					mm = '0' + mm;
-				}
-				return yyyy + '.' + mm + '.' + dd;
 			},
 			registerEvents: function () {
 				// 예매자 정보 입력폼 영역 이벤트등록
@@ -324,18 +291,28 @@
 				bookingFormWrap.addEventListener("change", function (evt) {
 					var formContainer = evt.target.closest(".inline_control");
 					var warningElement = formContainer.querySelector(".warning_msg");
-					if (evt.target.name === "name") {
-						this.isValids["name"] = this.validNameField(warningElement, evt.target.value);
-						this.inputValues["name"] = evt.target.value;
-					} else if (evt.target.name === "tel") {
-						this.isValids["tel"] = this.validTelField(warningElement, evt.target.value);
-						this.inputValues["tel"] = evt.target.value;
-					} else if (evt.target.name === "email") {
-						this.isValids["email"] = this.vaildEmailField(warningElement, evt.target.value);
-						this.inputValues["email"] = evt.target.value;
+					var name = evt.target.name;
+					var text = evt.target.value;
+					var isValid = false;
+
+					if (name === "name") {
+						isValid = this.validText(/^[가-힣|a-z|A-Z]+$/, text);
+					} else if (name === "tel") {
+						isValid = this.validText(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/, text);
+					} else if (name === "email") {
+						isValid = this.validText(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/, text);
+					} else {
+						return;
 					}
-					this.checkTotalVaild();
+					this.isValids[name] = isValid;
+					this.inputValues[name] = text;
+					if (isValid) {
+						this.hideWarningMsg(warningElement);
+					} else {
+						this.showWarningMsg(warningElement);
+					}
 				}.bind(this));
+
 				// 약관정보 영역 이벤트 등록
 				var bookingAgreement = this.bookingForm.querySelector(".section_booking_agreement");
 				bookingAgreement.addEventListener("click", function (evt) {
@@ -348,35 +325,8 @@
 					}
 				}.bind(this));
 			},
-			validNameField: function (warningElement, text) {
-				var isVaild = (/^[가-힣|a-z|A-Z]+$/).test(text);
-				if (isVaild) {
-					this.hideWarningMsg(warningElement);
-					return true;
-				} else {
-					this.showWarningMsg(warningElement);
-					return false;
-				}
-			},
-			validTelField: function (warningElement, text) {
-				var isVaild = (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/).test(text);
-				if (isVaild) {
-					this.hideWarningMsg(warningElement);
-					return true;
-				} else {
-					this.showWarningMsg(warningElement);
-					return false;
-				}
-			},
-			vaildEmailField: function (warningElement, text) {
-				var isVaild = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(text);
-				if (isVaild) {
-					this.hideWarningMsg(warningElement);
-					return true;
-				} else {
-					this.showWarningMsg(warningElement);
-					return false;
-				}
+			validText: function (regExp, text) {
+				return regExp.test(text);
 			},
 			// 경고메시지 출력
 			showWarningMsg: function (warningElement) {
@@ -404,42 +354,22 @@
 			},
 			toggleIsAgree: function () {
 				this.isAgree = !this.isAgree;
-				this.checkTotalVaild();
-			},
-			checkTotalVaild: function () {
-				var submitWrap = document.querySelector(".bk_btn_wrap");
-				if (this.isAgree === false || this.ticket.totalCount === 0) {
-					this.disableSubmitBtn(submitWrap);
-					return;
-				}
-				for (var i in this.isValids) {
-					if (this.isValids[i] === false) {
-						this.disableSubmitBtn(submitWrap);
-						return;
-					}
-				}
-				this.enableSubmitBtn(submitWrap);
-			},
-			disableSubmitBtn: function (submitWrap) {
-				if (submitWrap.classList.contains("disable") === false) {
-					submitWrap.classList.add("disable");
-				}
-			},
-			enableSubmitBtn: function (submitWrap) {
-				if (submitWrap.classList.contains("disable") === true) {
-					submitWrap.classList.remove("disable");
-				}
 			}
 		}
 
-		function BookingSubmit(submitWrap, form) {
+		function BookingSubmit(submitWrap, ticket, form) {
 			this.submitWrap = submitWrap;
+			this.ticket = ticket;
 			this.form = form;
 			this.registerEvents();
 		}
 
 		BookingSubmit.prototype = {
 			registerEvents: function () {
+				// watch All is Valid
+				this.ticket.ticketBody.addEventListener("click", this.checkTotalValid.bind(this));
+				this.form.bookingForm.addEventListener("change", this.checkTotalValid.bind(this));
+				// post Submit
 				this.submitWrap.addEventListener("click", function (evt) {
 					if (this.submitWrap.classList.contains("disable")) {
 						return;
@@ -447,8 +377,7 @@
 					var data = {
 						"displayInfoId": displayInfoId,
 						"productId": productId,
-						// TODO: prices에서 count가 0인것은 포함되지않도록 수정
-						"prices": Object.values(this.form.ticket.tickets),
+						"prices": Object.values(this.ticket.tickets).filter(price => price.count > 0),
 						"reservationName": this.form.inputValues["name"],
 						"reservationTelephone": this.form.inputValues["tel"],
 						"reservationEmail": this.form.inputValues["email"],
@@ -456,6 +385,30 @@
 					}
 					this.postAjax(data);
 				}.bind(this));
+			},
+			// 모든 정보가 유효한지 검증 유효한지에 따라  submit 버튼 enable/disable
+			checkTotalValid: function () {
+				if (this.form.isAgree === false || this.ticket.totalCount === 0) {
+					this.disableSubmitBtn();
+					return;
+				}
+				for (var i in this.form.isValids) {
+					if (this.form.isValids[i] === false) {
+						this.disableSubmitBtn();
+						return;
+					}
+				}
+				this.enableSubmitBtn();
+			},
+			disableSubmitBtn: function () {
+				if (this.submitWrap.classList.contains("disable") === false) {
+					this.submitWrap.classList.add("disable");
+				}
+			},
+			enableSubmitBtn: function () {
+				if (submitWrap.classList.contains("disable") === true) {
+					this.submitWrap.classList.remove("disable");
+				}
 			},
 			postAjax: function (data) {
 				var xhr = new XMLHttpRequest();
@@ -474,9 +427,9 @@
 		var ticketBody = document.querySelector(".ticket_body");
 		var ticket = new BookingTicket(ticketBody);
 		var bookingForm = document.querySelector(".section_booking_form");
-		var form = new BookingForm(bookingForm, ticket);
+		var form = new BookingForm(bookingForm);
 		var submitWrap = document.querySelector(".bk_btn_wrap");
-		var bookingSubmit = new BookingSubmit(submitWrap, form);
+		var bookingSubmit = new BookingSubmit(submitWrap, ticket, form);
 	</script>
 
 </body>
