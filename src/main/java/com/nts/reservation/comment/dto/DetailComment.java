@@ -13,6 +13,7 @@ public class DetailComment {
 	private String commentImage;
 	private String reservationName;
 	private String reservationDate;
+	private String reservationEmail;
 	private Integer score;
 	private String productDescription;
 
@@ -54,6 +55,14 @@ public class DetailComment {
 
 	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
+	}
+
+	public String getReservationEmail() {
+		return reservationEmail;
+	}
+
+	public void setReservationEmail(String reservationEmail) {
+		this.reservationEmail = reservationEmail;
 	}
 
 	public Integer getScore() {

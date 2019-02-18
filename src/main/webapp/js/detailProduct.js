@@ -72,6 +72,7 @@ function loadComments(responseData){
 	let commentContainer = document.querySelector('ul.list_short_review');
 	
 	for(let i = 0 ; i < 3 && i < commentCount; i++){
+		displayComment[i].reservationEmail = displayComment[i].reservationEmail.substring(0,4) + "****";
 		commentContainer.innerHTML += bindCommentTemplate(displayComment[i]);	
 	}
 	
@@ -81,8 +82,6 @@ function loadComments(responseData){
 	
 	// 코멘트 개수
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
-	
-	// 코멘트 더보기 버튼 생성하기
 }
 
 function loadInfoTab(displayInfo){

@@ -72,7 +72,7 @@
 					<p class="review">{{comment}}</p>
 					</div>
 					<div class="info_area">
-					<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationName}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
+					<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationEmail}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
 				</div>
 			</div>
 		</li>

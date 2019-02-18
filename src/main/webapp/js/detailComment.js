@@ -45,6 +45,7 @@ function loadAllComments(responseData){
 
 	let commentContainer = document.querySelector('ul.list_short_review');
 	for (let i = 0; i < commentCount; i++) {
+		reviewResponse[i].reservationEmail = reviewResponse[i].reservationEmail.substring(0,4) + "****";
 		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);
 	}
 	
