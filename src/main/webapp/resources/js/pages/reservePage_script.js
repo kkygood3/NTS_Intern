@@ -66,11 +66,13 @@ var reservePage = {
     },
 
     fetchDetailData: function () {
-        xhrGetRequest(urls.DETAIL + constants.DISPLAY_INFO_ID, (respText) => {
-            state.detail_data = JSON.parse(respText);
-            console.log(state.detail_data);
-            renderData();
-        });
+    	xhrRequest("GET"
+    			, urls.DETAIL + constants.DISPLAY_INFO_ID
+    			, null
+    			, (respText) => {
+    	            state.detail_data = JSON.parse(respText);
+    	            renderData();
+    	        }, true);
     },
 
     renderData: function () {

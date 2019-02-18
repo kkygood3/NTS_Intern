@@ -12,9 +12,9 @@ function SubmitButtonWithValidation(item) {
     item.addEventListener("click", (e) => {
         e.preventDefault();
         /*
-         * form check, getting name, email, tel from form directly, since this
-         * params "item" is equal to submit button.
-         */
+		 * form check, getting name, email, tel from form directly, since this
+		 * params "item" is equal to submit button.
+		 */
         let nameValid = (/[가-힣a-zA-Z]+$/).test(rsvname.value);
         let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
         let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value);
@@ -68,10 +68,14 @@ function sendReservation(priceDataArr) {
         , reservationTelephone: formData.get("tel").toString()
         , reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
     }
-    xhrPostRequest("/reservation/api/reservations", JSON.stringify(dataToSend), () => {
-        alert("SUCCESS");
-        window.location.href = "/reservation";
-    }, false);
+    
+    xhrRequest("POST"
+    		, "/reservation/api/reservations"
+    		, JSON.stringify(dataToSend)
+    		, () => {
+    			alert("SUCCESS");
+    			window.location.href = "/reservation";
+    		}, false);
 }
 
 function FormWatcher() {

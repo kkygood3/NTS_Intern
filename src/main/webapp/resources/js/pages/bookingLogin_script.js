@@ -21,16 +21,12 @@ function init() {
         document.querySelector("#form1")
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "/reservation/api/loginform", true);
-        xhr.onreadystatechange = function (aEvt) {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    window.location.href = "./myreservation"
-                } else {
-                    alert("Error fetching");
-                }
-            }
-        };
-        xhr.send(new FormData(document.querySelector("#form1")));
+        xhrRequest("POST"
+        		, "/reservation/api/login"
+        		, new FormData(document.querySelector("#form1"))
+        		, () => {
+        				window.location.href = "./myreservation"
+        			}
+        		, true)
     });
 }

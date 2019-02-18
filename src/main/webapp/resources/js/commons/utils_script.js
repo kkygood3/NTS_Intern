@@ -248,70 +248,19 @@ SlidingAnimation.prototype.resizeImageContainer= function(target, maxHeight, min
 	}
 }
 
+
 /**
- * @xhrGetRequest() : pre-defined XmlHttpRequest Get method since get method
- *                  will be used frequently
+ * @xhrRequest() : pre-defined XmlHttpRequest
  */
-function xhrGetRequest(url, callback) {
+function xhrRequest(method, url, data, callback, isAsync) {
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", url, true);
+	xhr.open(method, url, isAsync);
 	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhr.onreadystatechange = function(aEvt) {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
 				callback(xhr.responseText);
 			}
-		}
-	};
-	xhr.send();
-}
-
-/**
- * @xhrPostMultipartRequest() : pre-defined XmlHttpRequest Post method since
- *                            post method will be used multiple times
- */
-function xhrPostMultipartRequest(url, data, callback, isAsync) {
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, isAsync);
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				callback(xhr.responseText);
-			}
-		}
-	};
-	xhr.send(data);
-}
-
-/**
- * @xhrPostRequest() : pre-defined XmlHttpRequest Post method since post method
- *                   will be used multiple times
- */
-function xhrPostRequest(url, data, callback, isAsync) {
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, isAsync);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				callback(xhr.responseText);
-			}
-		}
-	};
-	xhr.send(data);
-}
-
-/**
- * @xhrPutRequest() : pre-defined XmlHttpRequest Put method since put method
- *                  will be used multiple times
- */
-function xhrPutRequest(url, data, callback) {
-	let xhr = new XMLHttpRequest();
-	xhr.open("PUT", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-	xhr.onreadystatechange = function(aEvt) {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			callback(xhr.responseText);
 		}
 	};
 	xhr.send(data);
