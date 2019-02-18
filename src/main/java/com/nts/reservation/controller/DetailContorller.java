@@ -21,7 +21,7 @@ public class DetailContorller {
 	public String requestDetail(@RequestParam(name = "id", required = true) Integer id, HttpSession session,
 		ModelMap map) {
 		String email = (String)session.getAttribute("email");
-		if(email != null) {
+		if (email != null) {
 			map.addAttribute("email", email);
 		}
 		return "detail";

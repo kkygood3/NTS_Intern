@@ -17,7 +17,7 @@ public interface ReserveService {
 	 * @return ReserveResponse
 	 */
 	ReserveResponse getReserveResponse(int displayInfoId);
-	
+
 	/**
 	 * 새로운 reserve 등록
 	 * @param name
@@ -29,5 +29,6 @@ public interface ReserveService {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo) throws JsonParseException, JsonMappingException, IOException;
+	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo)
+		throws JsonParseException, JsonMappingException, IOException;
 }

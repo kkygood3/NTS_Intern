@@ -66,7 +66,7 @@ function checkTicketCount(){
 }
 
 function cancelResultCallback(response){
-	if(reponse.result != 'OK'){
+	if(!response || response.result != 'OK'){
 		alert('예약을 취소할 수 없습니다.');
 		location.reload();
 	}
@@ -106,8 +106,7 @@ function setBtnClickEvents(){
 	    
 	    var isBtnClicked = (clickedBtn.classList.contains('btn'));
 	    if (isBtnClicked){
-	    	
-	    	// 취소 처리
+	    	// PJT6 : 예매자 리뷰 남기기 Event 처리
 	    }
 	    checkTicketCount();
 	});

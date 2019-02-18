@@ -8,13 +8,13 @@ import java.util.List;
 
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 
-public interface MyReservationService{
+public interface MyReservationService {
 	/**
 	 * myreservation 페이지 로드시 api/reservations 요청에 사용
 	 * @param email
 	 */
 	List<MyReservationInfo> getMyReservationInfoList(String email);
-	
+
 	/**
 	 * 예약 목록에서 선택한 항목을 cancel 처리
 	 * @param reservationInfoId

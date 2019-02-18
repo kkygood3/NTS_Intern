@@ -76,7 +76,7 @@ public class ReserveApiController {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		boolean isInsertComplete = reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfo);
-
+		
 		PrintWriter out = response.getWriter();
 		if (isInsertComplete) {
 			out.print("<script>alert('행사 예약에 성공했습니다.'); location.href='/detail?id=" + displayInfoId + "'</script>");
@@ -91,17 +91,20 @@ public class ReserveApiController {
 	 * @param reservationInfoId
 	 */
 	@PutMapping("/{reservationInfoId}")
-	public void cancelReservation(
-		@PathVariable Integer reservationInfoId, HttpServletResponse response,
-		ModelMap map) {
+	public Map<String, Object> cancelReservation(
+		@PathVariable Integer reservationInfoId, HttpServletResponse response) {
 		boolean isUpdateComplete = myReservationService.cancelMyReservation(reservationInfoId);
+		
+		Map<String, Object> map = new HashMap<>();
 		String resultStr = "";
+		
 		if (isUpdateComplete) {
 			resultStr = "OK";
 		} else {
 			resultStr = "FAIL";
 		}
-		map.addAttribute("result", resultStr);
+		map.put("result", resultStr);
+		return map;
 	}
 
 	/**

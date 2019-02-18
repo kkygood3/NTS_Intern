@@ -5,7 +5,9 @@ var currentCategory = 0;
 
 /**
  * /api/categories 응답 결과로 home 페이지 상단의 카테고리 item 출력
- * @param ajax JSON response
+ * 
+ * @param ajax
+ *            JSON response
  */
 function loadCategoriesCallback(response){
 	var categoryList = response.categoryList;
@@ -32,7 +34,7 @@ function setPromotionMove() {
 	
 	setInterval(moveStep, 4000);
 
-	// 4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수 
+	// 4초에 한번 배너를 다음 페이지로 넘기는 역할을 하는 함수
 	function moveStep(){
 		
 		// 모든 배너 이미지를 매 주기마다 -100% 이동
@@ -44,8 +46,7 @@ function setPromotionMove() {
 
 		curIdx++;
 		/**
-		 * 마지막장의 다음장은 미리 첫번째 이미지로 설정
-		 * if(마지막장을 넘어 갔을때)
+		 * 마지막장의 다음장은 미리 첫번째 이미지로 설정 if(마지막장을 넘어 갔을때)
 		 */
 		if (curIdx >= itemSize - 1) {
 			
@@ -53,9 +54,8 @@ function setPromotionMove() {
 			setTimeout(resetPromotionPos, 1100);
 			
 			/**
-			 * 마지막장에서 첫장으로 반복하기위해 복구하는 함수
-			 * 모든 이미지의 transitionDuration을 0s로 초기화 -> 모든 이미지를 다시 시작점으로 이동 -> 다시
-			 * transitionDuration을 1s로 초기화
+			 * 마지막장에서 첫장으로 반복하기위해 복구하는 함수 모든 이미지의 transitionDuration을 0s로 초기화 ->
+			 * 모든 이미지를 다시 시작점으로 이동 -> 다시 transitionDuration을 1s로 초기화
 			 */
 			function resetPromotionPos() {
 				
@@ -86,7 +86,9 @@ function setPromotionMove() {
 
 /**
  * /api/promotions 응답 결과로 home 페이지 상단의 프로모션 이미지 item 출력
- * @param ajax JSON response
+ * 
+ * @param ajax
+ *            JSON response
  */
 function loadPromotionsCallback(response) {
 	var itemCount = response.totalCount;
@@ -119,10 +121,12 @@ function loadPromotionsCallback(response) {
 
 /**
  * /api/products 응답 결과로 home 페이지 하단에 product item 출력.
- * @param ajax JSON response
+ * 
+ * @param ajax
+ *            JSON response
  */
 function loadProductsCallback(response) {
-	//한 페이지에 출력할 상품 개수
+	// 한 페이지에 출력할 상품 개수
 	const PAGING_LIMIT = 4;
 
 	var itemCount = response.totalCount;
@@ -153,7 +157,7 @@ function loadProductsCallback(response) {
 	
 	var moreProductBtn = document.querySelector('.btn');
 	
-	//더이상 가져올 상품이 없으면 더보기 버튼 숨기기
+	// 더이상 가져올 상품이 없으면 더보기 버튼 숨기기
 	if (itemCount <= productStart) {
 		moreProductBtn.style.display = 'none';
 	} else {

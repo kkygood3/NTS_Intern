@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.nts.reservation.controller","com.nts.reservation.error"})
+@ComponentScan({"com.nts.reservation.controller", "com.nts.reservation.error"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	/**
 	 * 31556926 seconds = 1 year

@@ -45,7 +45,9 @@ function initDetailBtn(displayInfo){
 
 /**
  * Swipe image 첫장을 등록
- * @param displayInfo - 해당 상품의 정보
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
  */
 function initSwipeImage(displayInfo){
 	// 상단 Swipe Image 배너 Template
@@ -58,8 +60,11 @@ function initSwipeImage(displayInfo){
 
 /**
  * 댓글 정보 출력
- * @param displayInfo - 해당 상품의 정보
- * @param displayComment - 상품을 평가한 댓글(Array)
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
+ * @param displayComment -
+ *            상품을 평가한 댓글(Array)
  */
 function initComment(displayInfo, displayComment){
 	// 페이지에 출력할 Comment 갯수
@@ -91,8 +96,7 @@ function initComment(displayInfo, displayComment){
 	commentCountTextArea.innerText = commentCount+'건';
 	
 	/**
-	 * 전체 Comment가 화면에 출력한 갯수보다 크다면 review페이지로 리다이렉트 링크 삽입
-	 * 작거나 같다면 버튼을 숨김
+	 * 전체 Comment가 화면에 출력한 갯수보다 크다면 review페이지로 리다이렉트 링크 삽입 작거나 같다면 버튼을 숨김
 	 */
 	if(commentCount > COMMENT_PAGING_LIMIT){
 		moreCommentBtn.setAttribute('href','review?id='+displayInfo.displayInfoId);
@@ -102,15 +106,16 @@ function initComment(displayInfo, displayComment){
 }
 /**
  * 페이지 하단의 상품 소개, 오시는 길 등의 정보를 출력
- * @param displayInfo - 해당 상품의 정보
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
  */
 function initInfoTab(displayInfo){
 	// [상세 정보] 탭의 소개
 	var descriptionTextArea = document.querySelector('p.in_dsc');
 	
 	/**
-	 * [오시는 길] 탭의
-	 * 이미지, 장소, 주소, 전화번호
+	 * [오시는 길] 탭의 이미지, 장소, 주소, 전화번호
 	 */
 	var imageArea = document.querySelector('.store_map');
 	var placeTextArea = document.querySelector('.store_name');
@@ -180,7 +185,9 @@ function initInfoTab(displayInfo){
 
 /**
  * 해당 상품에 추가로 표시할 이미지가 있을때 swipe에 등록
- * @param response - 추가 이미지 정보
+ * 
+ * @param response -
+ *            추가 이미지 정보
  */
 function loadExtraImageCallback(response){
 	var extraImage = response.extraImageResponse;
@@ -227,7 +234,7 @@ function loadExtraImageCallback(response){
 			var isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
 			
 			if(isLeftBtnClicked | isRightBtnClicked){
-				//애니메이션 실행 도중에 새로운 버튼 이벤트를 받지 않음
+				// 애니메이션 실행 도중에 새로운 버튼 이벤트를 받지 않음
 				eventContainer.removeEventListener('click',arrowEventHandler);
 				
 				if(isLeftBtnClicked){
@@ -286,6 +293,7 @@ function loadExtraImageCallback(response){
 
 /**
  * 예매하기 버튼을 눌렀을 때 상품에 해당하는 예약페이지로 이동
+ * 
  * @param displayInfoId
  */
 function initReserveBtn(displayInfoId){

@@ -172,8 +172,9 @@ function initClickEvents() {
 	setPageBackClick();
 }
 
-function setPageBackClick(){
-	document.querySelector('.btn_back').setAttribute('href','detail?id='+getUrlParameter('id'));
+function setPageBackClick() {
+	document.querySelector('.btn_back').setAttribute('href',
+			'detail?id=' + getUrlParameter('id'));
 }
 /**
  * 예약하기 버튼을 클릭했을때 이벤트 예약자 정보를 검증하고 이상이 없다면 예약 페이지로 이동한다.
@@ -185,7 +186,7 @@ function onReserveClicked() {
 	var bookerName = bookerInputs[0].value;
 	var bookerTelephone = bookerInputs[1].value;
 	var bookerEmail = bookerInputs[2].value;
-	
+
 	// 틀린 영역에 표시하는데 사용할 boolean Array
 	var validationArr = new Array(bookerInputs.length);
 	for (var i = 0; i < validationArr.length; i++) {
@@ -230,38 +231,39 @@ function onReserveClicked() {
 	}
 }
 
-function PriceInfo(type, count){
+function PriceInfo(type, count) {
 	this.type = type;
 	this.count = count;
 };
 
-function postReserve(){
-	var ticketInputs = document.querySelectorAll('.section_booking_ticket input');
-	
+function postReserve() {
+	var ticketInputs = document
+			.querySelectorAll('.section_booking_ticket input');
+
 	var bookerInputs = document.querySelectorAll('.form_horizontal input');
 	var bookerName = bookerInputs[0].value;
 	var bookerTelephone = bookerInputs[1].value;
 	var bookerEmail = bookerInputs[2].value;
-	
+
 	var reserveForm = document.querySelector('.reserve_form');
 	var reserveInputs = reserveForm.querySelectorAll('input');
-	
+
 	var priceInfoArray = new Array();
-	for(var i = 0 ; i < ticketInputs.length; i++){
+	for (var i = 0; i < ticketInputs.length; i++) {
 		var isContainTicket = (ticketInputs[i].value > 0);
-		if(isContainTicket){
+		if (isContainTicket) {
 			var type = ticketInputs[i].getAttribute('pricetype');
 			var count = ticketInputs[i].value;
 			priceInfoArray.push(new PriceInfo(type, count));
 		}
 	}
-	
-	reserveInputs[0].setAttribute("value",bookerName);
-	reserveInputs[1].setAttribute("value",bookerTelephone);
-	reserveInputs[2].setAttribute("value",bookerEmail);
-	reserveInputs[3].setAttribute("value",getUrlParameter('id'));
-	reserveInputs[4].setAttribute("value",JSON.stringify(priceInfoArray));
-	
+
+	reserveInputs[0].setAttribute("value", bookerName);
+	reserveInputs[1].setAttribute("value", bookerTelephone);
+	reserveInputs[2].setAttribute("value", bookerEmail);
+	reserveInputs[3].setAttribute("value", getUrlParameter('id'));
+	reserveInputs[4].setAttribute("value", JSON.stringify(priceInfoArray));
+
 	reserveForm.submit();
 }
 

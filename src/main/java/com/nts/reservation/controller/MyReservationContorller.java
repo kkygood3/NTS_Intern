@@ -31,7 +31,7 @@ public class MyReservationContorller {
 			return "redirect:bookinglogin";
 		}
 	}
-	
+
 	/**
 	 * 비로그인 상태로 /myReservation을 요청하면 redirect하는 view.
 	 * 비회원 로그인 페이지 
@@ -40,12 +40,13 @@ public class MyReservationContorller {
 	public String requestLogin() {
 		return "bookinglogin";
 	}
-	
+
 	/**
 	 * bookinglogin에서 비회원 조회 요청을 받고 myReservation 페이지로 넘김. 
 	 */
 	@PostMapping("/myreservation")
-	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session, ModelMap map) {
+	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session,
+		ModelMap map) {
 		session.setAttribute("email", email);
 		map.addAttribute("email", email);
 		return "myreservation";

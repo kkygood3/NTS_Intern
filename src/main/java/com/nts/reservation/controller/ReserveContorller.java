@@ -17,6 +17,7 @@ import com.nts.reservation.service.ReserveService;
 public class ReserveContorller {
 	@Autowired
 	ReserveService reserveResponseService;
+
 	/**
 	 * /reserve 요청을 받아 reserve view로 넘겨주는 역할.
 	 * @param id - displayInfo 테이블의 id 
@@ -24,8 +25,8 @@ public class ReserveContorller {
 	@GetMapping("/reserve")
 	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {
 		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
-		map.addAttribute("reserveDisplayInfo",reserveResponse.getReserveDisplayInfo());
-		map.addAttribute("reservePrice",reserveResponse.getReservePrice());
+		map.addAttribute("reserveDisplayInfo", reserveResponse.getReserveDisplayInfo());
+		map.addAttribute("reservePrice", reserveResponse.getReservePrice());
 		return "reserve";
 	}
 }
