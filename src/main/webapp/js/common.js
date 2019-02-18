@@ -1,3 +1,7 @@
+/**
+ * product_price의 product_type_name에 대응하는 한글 매핑
+ * 없는 문자가 들어오면 문자에 '석'을 붙여서 사용
+ */
 const PRICE_TYPE ={
 	    A : "성인",
 	    Y : "청소년",
@@ -43,7 +47,12 @@ function getUrlParameter(name) {
 		}
 	}
 }
-
+/**
+ * priceTypeName을 실제 출력하는 문자로 변환
+ * example) A -> 성인
+ * @param priceTypeName - 타입을 나타내는 영문자
+ * @return 변환 값
+ */
 function getTypeLabel(priceTypeName){
 	var priceType = PRICE_TYPE[priceTypeName];
 	
@@ -52,4 +61,16 @@ function getTypeLabel(priceTypeName){
 	}
 	
 	return priceType
+}
+
+
+/**
+ * Input 생성자
+ * @param name
+ * @param value
+ */
+function DefaultInput(name, value){
+	this.input = document.createElement('input');
+	this.input.setAttribute("name", name);
+	this.input.setAttribute("value", value);
 }
