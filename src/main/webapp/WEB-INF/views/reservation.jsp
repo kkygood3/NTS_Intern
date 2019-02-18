@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<title>네이버 예약</title>
 	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/reservationInput.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<a href="/detail/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
 					<h2><span class="title">${pageInfo.description}</span></h2>
 				</div>
 				<div class="group_visual">
@@ -69,7 +70,6 @@
 								<div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
 									<div class="inline_control tel_wrap">
 										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
 								<div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
@@ -127,7 +127,8 @@
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/reservation/userInputObject.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/validation.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/event.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>

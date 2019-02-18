@@ -89,6 +89,7 @@ public class ProductController {
 	public String postReservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput,
 		ModelMap model) {
+		System.out.println(userReservationInput);
 		reservationService.addReservation(userReservationInput, displayInfoId);
 		return "redirect:../../detail/" + displayInfoId;
 	}

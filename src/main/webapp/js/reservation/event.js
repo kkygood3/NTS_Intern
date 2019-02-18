@@ -53,53 +53,90 @@ function addPlusMiusButtonClickEvent() {
 				minusButton.classList.add("disabled");
 			}
 		}
+		setReservationButtonDisable();
 	});
 }
 
+function setReservationButtonDisable() {
+	var bkButton = document.querySelector(".box_bk_btn .bk_btn_wrap");
+	if (isValidAllReservationInputs()) {
+		bkButton.classList.remove("disable");
+	} else {
+		bkButton.classList.add("disable");
+	}
+}
+
 function addBookingFormInputChangeEvent() {
+	var regex = new RegularExpression();
 	var inputs = document.querySelectorAll(".section_booking_form input");
 	for (var i = 0, len = inputs.length; i < len; i++) {
 		inputs[i].addEventListener("change", function(event){
 			var value = event.target.value;
-			
-			var emailValue = document.querySelector("[name='email']").value;
-		    var bValid = (/^[\w+_]\w+@\w+\.\w+$/).test(emailValue);
+			if (!value) {
+				event.target.classList.remove("warning");
+				return;
+			}
+			var regExp;
 			if (event.target.id == "name") {
-				if ((/^([가-힣]{2,})|(([A-Z][a-z]*\s)+[A-Z][a-z]*)$/).test(value)) {
-					return;
-				}
-				console.log("잘못된 이름");
+				regExp = regex.name;
 			} else if (event.target.id == "tel") {
-				if ((/^01[016-9]-[0-9]{3,4}-[0-9]{4}$/).test(value)) {
-					return;
-				} else if (value.match(/^01[01(6-9)][0-9]{7,8}$/)) {
-					var midLength = value.length == 11 ? 4 : 3;
-					event.target.value = value.substr(0, 3) + "-" + value.substr(3, midLength) + "-" + value.substr(3 + midLength, 4);
-					return;
-				}
-				console.log("잘못된 전화번호");
+				value = adjustTel(value);
+				event.target.value = value;
+				regExp = regex.tel;
 			} else if (event.target.id == "email") {
-				if ((/^[a-z][-\.\w]*@[a-z][-\.\w]*\.[a-z]{2,3}$/i).test(value)) {
-					return;
-				}
-				console.log("잘못된 메일");
+				regExp = regex.email;
+			}
+			setReservationButtonDisable();
+			if (!isValidReservationInput(value, regExp)){
+				event.target.classList.add("warning");
+			} else {
+				event.target.classList.remove("warning");
 			}
 		});
 	}
 }
 
 
+function adjustTel(tel) {
+	if (tel.length != 10 && tel.length != 11) {
+		return tel;
+	}
+	var midLength = tel.length == 11 ? 4 : 3;
+	return tel.substr(0, 3) + "-" + tel.substr(3, midLength) + "-" + tel.substr(3 + midLength, 4);
+}
+
+function imformWarning(element) {
+	element.classList.add("warning");
+}
+
+
+function agreed() {
+	return document.getElementById("chk3").checked
+}
+
+function existCountOverZero() {
+	var priceInfos = document.querySelectorAll(".ticket_body .qty");
+	for (var i = 0, len = priceInfos.length; i < len; i++) {
+		var count = priceInfos[i].getElementsByClassName("count_control_input")[0].value;
+		if (count > 0) return true;
+	}
+	return false;
+}
+
 function addBookingButtonClickEvent() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
 	bookingButton.addEventListener("click", function(event){
+		if (!isValidAllReservationInputs()) {
+			console.log("disable");
+			return;
+		}
 		var reservationForm = document.querySelector("form.form_horizontal");
 		var reservationData = {};
 		reservationData.productId = displayInfo().productId;
 		reservationData.name = document.getElementById("name").value;
 		reservationData.tel = document.getElementById("tel").value;
-		reservationData.email = document.getElementById("email").value	;
+		reservationData.email = document.getElementById("email").value;
 		reservationData.price = makePriceData();
-		console.log(JSON.stringify(reservationData));
 		$.ajax({
 			method: "POST",
 			url: "/detail/" + displayInfo().displayInfoId + "/reservation",

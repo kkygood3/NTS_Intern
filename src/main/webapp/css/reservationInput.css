@@ -1,0 +1,7 @@
+#name, #tel, #email {
+	transition: all 1s;
+}
+
+.warning {
+	background-color: mistyrose;
+}
