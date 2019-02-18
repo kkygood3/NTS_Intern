@@ -32,16 +32,7 @@ public class DisplayServiceImpl implements DisplayService {
 	ProductDao productDao;
 
 	@Override
-	public DisplayResponse getDisplayInfo(int displayInfoId) {
-		DisplayResponse displayInfo = getDisplayInfoWithoutComments(displayInfoId);
-		CommentResponse comments = commentService.getComments(displayInfoId, 0);
-		displayInfo.setComments(comments);
-		return displayInfo;
-	}
-
-	@Override
-	public DisplayResponse getDisplayInfoWithoutComments(int displayInfoId) {
-
+	public DisplayResponse getDisplayInfo(int displayInfoId, int limit) {
 		DisplayInfo displayInfo = displayDao.selectDisplayInfo(displayInfoId);
 
 		if (displayInfo == null) {
@@ -52,9 +43,11 @@ public class DisplayServiceImpl implements DisplayService {
 		DisplayInfoImage displayInfoImage = displayDao.selectDisplayInfoImage(displayInfoId);
 		List<ProductImage> productImages = productDao.selectProductImages(displayInfoId, ImageType.ma);
 		List<ProductPrice> productPrices = productDao.selectProductPrices(displayInfoId);
-
+		CommentResponse comments = commentService.getComments(displayInfoId, limit);
+		
 		return DisplayResponse.builder()
 			.displayInfo(displayInfo)
+			.commentResponse(comments)
 			.displayInfoImage(displayInfoImage)
 			.productImages(productImages)
 			.productPrices(productPrices).build();

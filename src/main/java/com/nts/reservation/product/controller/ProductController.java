@@ -55,13 +55,18 @@ public class ProductController {
 	}
 
 	@GetMapping(path = "/products/{displayInfoId}")
-	public DisplayResponse getDisplay(@PathVariable("displayInfoId") int displayInfoId) {
+	public DisplayResponse getDisplay(@PathVariable("displayInfoId") int displayInfoId,
+		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
+		
+		if(limit > MAX_LIMIT) {
+			limit = MAX_LIMIT;
+		}
+		
 		if (displayInfoId < 0) {
 			logger.warn("Bad Request! Parameter / {} - displayInfoId : {}", this.getClass(), displayInfoId);
 			throw new IllegalArgumentException("Can't use Navgative Value!!! (displayInfoId)");
 		}
-
-		return displayService.getDisplayInfo(displayInfoId);
+		return displayService.getDisplayInfo(displayInfoId, limit);
 	}
 
 	@GetMapping(path = "/products/etc/{displayInfoId}")
