@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.service.ReservationService;
@@ -29,10 +29,9 @@ public class ApplicationLoginApiController {
 	@Autowired
 	private HttpSession session;
 
-	@PostMapping(path = "/loginform", consumes = {"multipart/form-data"})
-	public Boolean loginProcess(@RequestParam(name = "resrv_email", required = true) String email) {
-		session.setAttribute("email", email);
+	@PostMapping(path = "/login")
+	public Boolean loginProcess(@RequestBody String resrv_email) {
+		session.setAttribute("email", resrv_email);
 		return true;
 	}
-
 }

@@ -18,15 +18,16 @@ function init() {
             return;
         }
         
-        document.querySelector("#form1")
-
-        let xhr = new XMLHttpRequest();
+        console.log(new FormData(document.querySelector("#form1")).get("resrv_email"))
+        let data = {resrv_email : new FormData(document.querySelector("#form1")).get("resrv_email")}
+        console.log(JSON.stringify(data));
+        console.log(data)
         xhrRequest("POST"
         		, "/reservation/api/login"
-        		, new FormData(document.querySelector("#form1"))
+        		, new FormData(document.querySelector("#form1")).get("resrv_email")
         		, () => {
         				window.location.href = "./myreservation"
         			}
-        		, true)
+        		, true);
     });
 }

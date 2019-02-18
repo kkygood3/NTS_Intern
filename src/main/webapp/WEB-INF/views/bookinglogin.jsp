@@ -198,7 +198,8 @@ ng\:form {
 		</div>
 	</div>
 	</translater-modal> </app>
-
+	
+	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript" src="resources/js/pages/bookingLogin_script.js"></script>
 
 </body>
