@@ -8,9 +8,9 @@ package com.nts.reservation.dto;
 * @author  : 이승수
 */
 public class ReservedItem {
-	Reservation reservation;
-	int totalPrice;
-	DisplayInfo displayInfo;
+	private Reservation reservation;
+	private int totalPrice;
+	private DisplayInfo displayInfo;
 
 	public Reservation getReservation() {
 		return reservation;

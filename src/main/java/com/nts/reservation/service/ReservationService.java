@@ -15,9 +15,9 @@ import com.nts.reservation.dto.ReservedItem;
 * @author  : 이승수
 */
 public interface ReservationService {
-	void makeReservation(HttpSession session, Reservation reserveInfo);
+	public void makeReservation(HttpSession session, Reservation reserveInfo);
 
-	List<ReservedItem> getReservedItems(String userEmail, boolean isCanceled, boolean isExpired);
+	public List<ReservedItem> getReservedItems(String userEmail, boolean isCanceled, boolean isExpired);
 
-	void cancelReservation(Integer reservationInfoId);
+	public void cancelReservation(Integer reservationInfoId);
 }
