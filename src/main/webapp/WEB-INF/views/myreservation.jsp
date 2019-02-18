@@ -63,7 +63,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="card confirmed" style="display: none;">
+						<li class="card confirmed">
 							<div class="link_booking_details" style="margin-top: 5px;">
 								<div class="card_header">
 									<div class="left"></div>
@@ -76,7 +76,7 @@
 								</div>
 							</div>
 							</li>
-							<li class="card used" style="display: none;">
+							<li class="card used">
 								<div class="link_booking_details" style="margin-top: 5px;">
 									<div class="card_header">
 										<div class="left"></div>
@@ -89,7 +89,7 @@
 									</div>
 								</div>
 							</li>
-							<li class="card used cancel" style="display: none;">
+							<li class="card used cancel">
 								<div class="link_booking_details" style="margin-top: 5px;">
 									<div class="card_header">
 										<div class="left"></div>
@@ -224,14 +224,10 @@
 				var reservationTemplate = document.querySelector('#reservationTemplate').innerText;
 				var bindCommentTemplate = Handlebars.compile(reservationTemplate);
 				
-				var containers = document.querySelectorAll('li.card');
-				var confirmContainer = containers[1];
-				var completeContainer = containers[2];
-				var cancelContainer = containers[3];
-				
-				var confirmCount = 0;
-				var completeCount = 0;
-				var cancelCount = 0;
+				var ticketContainers = document.querySelectorAll('li.card');
+				var confirmContainer = ticketContainers[1];
+				var completeContainer = ticketContainers[2];
+				var cancelContainer = ticketContainers[3];
 				
 				for(var i = 0 ; i < reservationList.length; i++){
 					var targetReservation = reservationList[i];
@@ -255,32 +251,14 @@
 						// 오늘보다 이전이라면
 						if(targetDate < today) {
 							completeContainer.innerHTML += reservationItem;
-							completeCount++;
 						} else {
 							confirmContainer.innerHTML += reservationItem;
-							confirmCount++;
 						}
 					}
 				}
 				
-				var reservationCountAreas = document.querySelectorAll('.link_summary_board>.figure');
-				reservationCountAreas[0].innerText = confirmCount+completeCount+cancelCount;
-				
-				if(confirmCount > 0){
-					confirmContainer.style.display = '';
-					reservationCountAreas[1].innerText = confirmCount;
-				}
-				
-				if(completeCount > 0){
-					completeContainer.style.display = '';
-					reservationCountAreas[2].innerText = completeCount;
-				}
-				
-				if(cancelCount > 0){
-					cancelContainer.style.display = '';
-					reservationCountAreas[3].innerText = cancelCount;
-				}
-				
+				checkTicketCount();
+				setBtnClickEvents();
 			} else {
 				var listWrap = document.querySelector('.wrap_mylist');
 				var emptyMsgWrap = document.querySelector('.err');
@@ -288,18 +266,70 @@
 				emptyMsgWrap.style.display = '';
 			}
 		}
+		
+		function checkTicketCount(){
+			var ticketContainers = document.querySelectorAll('li.card');
+			var reservationCountAreas = document.querySelectorAll('.link_summary_board>.figure');
+			var sumOfCount = 0;
+			
+			for(var i = 1 ; i < 4; i++){
+				var countOfChild = (ticketContainers[i].querySelectorAll('.card_item').length);
+				reservationCountAreas[i].innerText = countOfChild;
+				sumOfCount += countOfChild;
+				
+				if(countOfChild > 0){
+					ticketContainers[i].style.display = '';
+				} else {
+					ticketContainers[i].style.display = 'none';
+				}
+			}
+			reservationCountAreas[0].innerText = sumOfCount;
+		}
+			
+		function setBtnClickEvents(){
+			var ticketContainers = document.querySelectorAll('li.card')
 			
 			
+			ticketContainers[1].addEventListener('click',function(evt){
+			    var clickedBtn = evt.target;
+			    
+			    var isClickedChild = (clickedBtn.tagName == 'SPAN')
+			    if (isClickedChild){
+			    	clickedBtn = clickedBtn.parentElement;
+			    }
+			    
+			    var isBtnClicked = (clickedBtn.classList.contains('btn'));
+			    if (isBtnClicked){
+			    	ticketContainers[3].appendChild(clickedBtn.offsetParent);
+			    	
+			    	//취소 처리 ajax
+			    }
+			    checkTicketCount();
+			});
 			
+			ticketContainers[2].querySelectorAll('.btn').forEach(item => item.innerText = '예매자 리뷰 남기기');
+			ticketContainers[2].addEventListener('click',function(evt){
+			    var clickedBtn = evt.target;
+			    
+			    var isClickedChild = (clickedBtn.tagName == 'SPAN')
+			    if (isClickedChild){
+			    	clickedBtn = clickedBtn.parentElement;
+			    }
+			    
+			    var isBtnClicked = (clickedBtn.classList.contains('btn'));
+			    if (isBtnClicked){
+			    	
+			    	//취소 처리
+			    }
+			    checkTicketCount();
+			});
+			
+			ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
+		}
 			
 		document.addEventListener('DOMContentLoaded', function() {
-			//alert('${email}');
-			//1. api/reservations get으로 예약정보를 가져오기
+			//api/reservations get으로 예약정보를 가져오기
 			requestAjax(loadReservationInfoCallback, 'api/reservations?reservationEmail=${email}');
-			//2. 화면에 예약정보 뿌려주기
-			
-			
-			
 		});
 		</script>
 			
