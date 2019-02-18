@@ -4,11 +4,14 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.ReservationInfoDao;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
+import com.nts.reservation.dto.MyReservationDto;
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.ReservationInfoPriceDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
@@ -41,5 +44,10 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insert(reservationInfoPrice);
 		}
+	}
+
+	@Override
+	public List<MyReservationDto> getMyReservations(String reservationEmail) {
+		return reservationInfoDao.selectMyReservations(reservationEmail);
 	}
 }

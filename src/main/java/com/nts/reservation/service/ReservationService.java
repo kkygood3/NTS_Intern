@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.service;
 
+import java.util.List;
+
+import com.nts.reservation.dto.MyReservationDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 
 /**
@@ -12,4 +15,6 @@ import com.nts.reservation.dto.param.ReservationParamDto;
  */
 public interface ReservationService {
 	void makeReservation(ReservationParamDto reservationParam);
+
+	List<MyReservationDto> getMyReservations(String reservationEmail);
 }
