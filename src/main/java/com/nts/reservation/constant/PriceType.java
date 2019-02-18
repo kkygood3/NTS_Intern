@@ -13,29 +13,24 @@ package com.nts.reservation.constant;
  * @author jinwoo.bae
  */
 public enum PriceType {
-	ADULT("A", "성인(만 19~64세)"),
-	YOUNG("Y", "청소년(만 13~18세)"),
-	BABY("B", "어린이(만 4~12세)"),
-	SET("S", "단체"),
-	DISABLED("D", "장애인"),
-	CITIZEN("C", "지역주민"),
-	EARLY_BIRD("E", "어얼리버드"),
-	VIP("V", "VIP석"),
-	ROYAL("R", "ROYAL석");
+	A("성인(만 19~64세)"),
+	Y("청소년(만 13~18세)"),
+	B("어린이(만 4~12세)"),
+	S("단체"),
+	D("장애인"),
+	C("지역주민"),
+	E("어얼리버드"),
+	V("VIP석"),
+	R("ROYAL석");
 
-	private String code;
 	private String description;
 
-	private PriceType(String code, String description) {
-		this.code = code;
+	private PriceType(String description) {
 		this.description = description;
-	}
-
-	public String getCode() {
-		return code;
 	}
 
 	public String getDescription() {
 		return description;
 	}
+
 }

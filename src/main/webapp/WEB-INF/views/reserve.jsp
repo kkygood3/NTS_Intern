@@ -59,7 +59,7 @@
 						<p class="dsc">
 							<c:forEach var="productPrice" items="${productPrices}">
 								<!-- TODO: 타입을 설명해주는 키값형태의 priceTypeInfoMap 구현 -->
-								${priceTypeInfoMap[productPrice.TypeName]} ${productPrice.price} <br />
+								${productPrice.typeDescription} ${productPrice.price} <br />
 							</c:forEach>
 							<!-- 성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원 -->
 						</p>
@@ -82,7 +82,7 @@
 									</div>
 								</div>
 								<div class="qty_info_icon">
-									<strong class="product_amount"><span>${productPrice.priceTypeName}</span></strong>
+									<strong class="product_amount"><span>${productPrice.type}</span></strong>
 									<strong class="product_price"><span class="price">${productPrice.price * (100-productPrice.discountRate) / 100} </span><span class="price_type">원</span></strong>
 									<em class="product_dsc">
 										${productPrice.price}원
