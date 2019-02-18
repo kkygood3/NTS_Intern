@@ -69,8 +69,12 @@ var mainPage = {
             params.categoryId = categoryId;
         }
         
+        var options = {
+            params: params
+        }
+
         var self = this;
-        sendGet( "/reservation-service/api/products", params, null, function(response) {
+        sendGet( "/reservation-service/api/products", options, function(response) {
             self.requestProductsCallback(response);
         });
     },
@@ -81,7 +85,7 @@ var mainPage = {
     requestCategories: function() {
 
         var self = this;
-        sendGet( "/reservation-service/api/categories", null, null, function(response) {
+        sendGet( "/reservation-service/api/categories", {}, function(response) {
             self.requestCategoriesCallback(response);
         });
     },
@@ -92,7 +96,7 @@ var mainPage = {
     requestPromotions: function() {
 
         var self = this;
-        sendGet( "/reservation-service/api/promotions", null, null, function(response) {
+        sendGet( "/reservation-service/api/promotions", {}, function(response) {
             self.requestPromotionsCallback(response);
         });
     },

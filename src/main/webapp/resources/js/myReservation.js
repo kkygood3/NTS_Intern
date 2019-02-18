@@ -60,12 +60,14 @@ var myReservationPage = {
 
     requestMyReservations: function() {
         var path = this.values.path;
-        var header = {};
         var params = {
             reservationEmail: this.values.userEmail
         };
+        var options = {
+            params: params
+        }
         var self = this;
-        sendGet(path, params, header, function(response) {
+        sendGet(path, options, function(response) {
             self.requestMyReservationsCallback(response);
         });
     },

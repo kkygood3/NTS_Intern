@@ -7,18 +7,17 @@
  * @param {String}
  *            path 요청 URL
  * @param {JSON}
- *            params value 값에 Array 형태 넣지말것.
- * @param {JSON}
- * 			headers 세팅을 위한 매개변수 Default로 "Content-type", "charset=utf-8" 가 설정된다.
+ *            options 해당 부분에 params값과 header 값을 넣으면됨
+ *  참고로 params의 value 값에 Array 형태 넣지말것.
  * @param {Function}
  *            onCallback 콜백 함수.
  */
-function sendGet(path, params, headers, onCallback) {
+function sendGet(path, options, onCallback) {
     var data = "";
-    if (params) {
-        data = Object.keys(params)
+    if (options.params) {
+        data = Object.keys(options.params)
             .map(function(key) {
-                return key + "=" + encodeURI(params[key]);
+                return key + "=" + encodeURI(options.params[key]);
             })
             .join("&");
     }
@@ -30,9 +29,9 @@ function sendGet(path, params, headers, onCallback) {
     var url = path + (data.length == 0 ? "" : "?") + data;
     request.open("GET", url);
     request.setRequestHeader("Content-type", "charset=utf-8");
-    if (headers) {
-        Object.keys(headers).map(function(key) {
-            request.setRequestHeader(key, headers[key]);
+    if (options.headers) {
+        Object.keys(options.headers).map(function(key) {
+            request.setRequestHeader(key, options.headers[key]);
         });
     }
     request.send();
