@@ -68,7 +68,7 @@
 				<div class="section_booking_ticket">
 					<div class="ticket_body">
 						<c:forEach var="productPrice" items="${productPrices}">
-							<div class="qty">
+							<div class="qty" data-id=${productPrice.id}>
 								<div class="count_control">
 									<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 									<div class="clearfix">
@@ -218,9 +218,9 @@
 				var ticketElements = ticketBody.querySelectorAll(".qty");
 				for (var i = 0; i < ticketElements.length; i++) {
 					var type = ticketElements[i].querySelector('.product_amount span').innerText;
-					var price = ticketElements[i].querySelector('.price').innerText;
+					var productPriceId = ticketElements[i].getAttribute("data-id");
 					this.tickets[type] = {
-						"price": price,
+						"productPriceId": productPriceId,
 						count: 0
 					};
 				}
@@ -275,6 +275,7 @@
 				this.showTotalCount();
 			},
 			showTotalCount: function () {
+
 				var totalCountElemnet = document.querySelector("#total_count");
 				totalCountElemnet.innerText = this.totalCount;
 			}
@@ -298,7 +299,7 @@
 				var inputElements = bookingFormWrap.querySelectorAll("input");
 				for (var i = 0; i < inputElements.length; i++) {
 					this.isValids[inputElements[i].name] = false;
-					this.inputValues[inputElements[i].name] = inputElements[i].value;
+					this.inputValues[inputElements[i].name] = "";
 				}
 				this.reservationDate = bookingFormWrap.querySelector(".inline_txt.selected").innerText.split(" ")[0];
 			},
@@ -325,10 +326,13 @@
 					var warningElement = formContainer.querySelector(".warning_msg");
 					if (evt.target.name === "name") {
 						this.isValids["name"] = this.validNameField(warningElement, evt.target.value);
+						this.inputValues["name"] = evt.target.value;
 					} else if (evt.target.name === "tel") {
 						this.isValids["tel"] = this.validTelField(warningElement, evt.target.value);
+						this.inputValues["tel"] = evt.target.value;
 					} else if (evt.target.name === "email") {
 						this.isValids["email"] = this.vaildEmailField(warningElement, evt.target.value);
+						this.inputValues["email"] = evt.target.value;
 					}
 					this.checkTotalVaild();
 				}.bind(this));
@@ -440,18 +444,20 @@
 					if (this.submitWrap.classList.contains("disable")) {
 						return;
 					}
-					var formData = new FormData();
-					formData.append("displayInfoId", displayInfoId);
-					formData.append("productId", productId);
-					formData.append("prices", this.form.tickets);
-					formData.append("reservationName", this.form.inputValues["name"]);
-					formData.append("reservationTelephone", this.form.inputValues["tel"]);
-					formData.append("reservationEmail", this.form.inputValues["email"]);
-					formData.append("reservationYearMonthDay", this.form.reservationDate);
-					this.postAjax(formData);
+					var data = {
+						"displayInfoId": displayInfoId,
+						"productId": productId,
+						// TODO: prices에서 count가 0인것은 포함되지않도록 수정
+						"prices": Object.values(this.form.ticket.tickets),
+						"reservationName": this.form.inputValues["name"],
+						"reservationTelephone": this.form.inputValues["tel"],
+						"reservationEmail": this.form.inputValues["email"],
+						"reservationDate": this.form.reservationDate
+					}
+					this.postAjax(data);
 				}.bind(this));
 			},
-			postAjax: function (formData) {
+			postAjax: function (data) {
 				var xhr = new XMLHttpRequest();
 				var url = "/api/reservations";
 				xhr.open("POST", url);
@@ -461,7 +467,7 @@
 				xhr.addEventListener("error", function (e) {
 					alert("An error occurred while transferring the file.");
 				});
-				xhr.send(formData);
+				xhr.send(JSON.stringify(data));
 			}
 		}
 
