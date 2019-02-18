@@ -5,6 +5,7 @@
 package com.nts.reservation.controller.api;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
-import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
 
@@ -40,6 +38,7 @@ public class ReserveApiController {
 	ReserveService reserveResponseService;
 	@Autowired
 	MyReservationService myReservationService;
+
 	/**
 	 * Reservation 정보 조회
 	 * @param email
@@ -48,12 +47,12 @@ public class ReserveApiController {
 	@GetMapping
 	public Map<String, Object> getReservations(
 		@RequestParam(name = "reservationEmail", required = true) String reservationEmail) {
-		
+
 		List<MyReservationInfo> myReservationResponse = myReservationService.getMyReservationInfoList(reservationEmail);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("myReservationResponse", myReservationResponse);
-		
+
 		return map;
 	}
 
@@ -72,13 +71,18 @@ public class ReserveApiController {
 		@RequestParam(name = "email", required = true) String email,
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId,
 		@RequestParam(name = "priceInfo", required = true) String priceInfo,
-		HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException {
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		TypeFactory typeFactory = objectMapper.getTypeFactory();
-		List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo, typeFactory.constructCollectionType(List.class, PriceInfo.class));
-		reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfoList);
-		response.sendRedirect("/detail?id="+displayInfoId);
+		HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset=UTF-8");
+
+		boolean isInsertComplete = reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfo);
+
+		PrintWriter out = response.getWriter();
+		if (isInsertComplete) {
+			out.print("<script>alert('행사 예약에 성공했습니다.'); location.href='/detail?id=" + displayInfoId + "'</script>");
+		} else {
+			out.print("<script>alert('예약에 실패했습니다.'); location.href='/reserve?id=" + displayInfoId + "'</script>");
+		}
+		out.flush();
 	}
 
 	/**
@@ -87,8 +91,16 @@ public class ReserveApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public void cancelReservation(
-		@PathVariable Integer reservationInfoId) {
-		myReservationService.cancelMyReservation(reservationInfoId);
+		@PathVariable Integer reservationInfoId, HttpServletResponse response,
+		ModelMap map) {
+		boolean isUpdateComplete = myReservationService.cancelMyReservation(reservationInfoId);
+		String resultStr = "";
+		if (isUpdateComplete) {
+			resultStr = "OK";
+		} else {
+			resultStr = "FAIL";
+		}
+		map.addAttribute("result", resultStr);
 	}
 
 	/**

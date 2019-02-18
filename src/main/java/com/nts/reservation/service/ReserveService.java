@@ -4,8 +4,11 @@
  */
 package com.nts.reservation.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
@@ -24,6 +27,9 @@ public interface ReserveService {
 	 * @param email
 	 * @param displayInfoId
 	 * @param priceInfoList
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	void postReserve(String name, String telephone, String email, int displayInfoId, List<PriceInfo> priceInfoList);
+	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo) throws JsonParseException, JsonMappingException, IOException;
 }

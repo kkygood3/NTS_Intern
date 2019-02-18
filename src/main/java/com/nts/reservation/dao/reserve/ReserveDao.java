@@ -47,7 +47,7 @@ public class ReserveDao {
 	 * api/reservation post로 새로운 예약의 가격 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public int insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
+	public Integer insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
 		MapSqlParameterSource  params = new MapSqlParameterSource();
 		params.addValue("type", type);
 		params.addValue("count", count);

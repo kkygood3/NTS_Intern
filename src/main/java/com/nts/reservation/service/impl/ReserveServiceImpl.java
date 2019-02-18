@@ -4,12 +4,17 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
@@ -36,12 +41,21 @@ public class ReserveServiceImpl implements ReserveService {
 
 	@Transactional
 	@Override
-	public void postReserve(String name, String telephone, String email, int displayInfoId, List<PriceInfo> priceInfoList) {
+	public boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo) throws JsonParseException, JsonMappingException, IOException {
+		boolean isInsertComplete = true;
+		Integer insertRow;
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		TypeFactory typeFactory = objectMapper.getTypeFactory();
+		List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo,typeFactory.constructCollectionType(List.class, PriceInfo.class));
+		
 		int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId);
 		for(int i = 0 ; i < priceInfoList.size(); i++) {
 			PriceInfo targetPriceInfo = priceInfoList.get(i);
-			reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);	
+			insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);
+			isInsertComplete = (isInsertComplete && (insertRow != null));	
 		}
+		return isInsertComplete;
 	}
 
 }
