@@ -65,4 +65,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<PriceInfo> getPriceInfoByProductId(long productId) {
 		return priceInfoDao.selectPriceInfoByProductId(productId);
 	}
+	@Override
+	@Transactional
+	public List<String> getProductFileNameByProductIdAndType(long productId, String type) {
+		List<String> saveFileNames = productDao.selectByDisplayInfoIdAndType(productId, type);
+		return saveFileNames;
+	}
 }

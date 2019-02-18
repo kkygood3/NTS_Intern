@@ -41,4 +41,12 @@ public interface ProductService {
 	 * @return 상세페이지 정보
 	 */
 	public List<PriceInfo> getPriceInfoByProductId(long productId);
+	
+	/**
+	 * 상품명과 타입에 따라 파일이름 가져온다
+	 * @param productId 조회할 상품
+	 * @param type 조회할 타입 ma(main), et(etc), th(thumbnail)
+	 * @return 해당 파일 이름들
+	 */
+	List<String> getProductFileNameByProductIdAndType(long productId, String type);
 }

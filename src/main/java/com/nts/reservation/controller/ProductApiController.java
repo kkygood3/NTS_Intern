@@ -22,7 +22,6 @@ import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductThumbnail;
 import com.nts.reservation.service.CommentService;
-import com.nts.reservation.service.FileInfoService;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -35,8 +34,6 @@ import com.nts.reservation.service.ProductService;
 public class ProductApiController {
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private FileInfoService fileInfoService;
 	@Autowired
 	private CommentService commentService;
 	
@@ -78,7 +75,7 @@ public class ProductApiController {
 	public List<String> getProductCountAndThumbnailInfos(
 		@PathVariable(name = "productId", required = true) int productId,
 		@PathVariable(name = "type", required = true) String type) {
-		return fileInfoService.getProductFileNameByProductIdAndType(productId, type);
+		return productService.getProductFileNameByProductIdAndType(productId, type);
 	}
 
 	/**
