@@ -416,7 +416,12 @@
 				xhr.open("POST", url);
 				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
-				xhr.addEventListener("load", function (e) {});
+				xhr.addEventListener("load", function (e) {
+					var response = e.target.response;
+					if (response.isSuccess) {
+						alert("예약 성공");
+					}
+				});
 				xhr.addEventListener("error", function (e) {
 					alert("An error occurred while transferring the file.");
 				});
