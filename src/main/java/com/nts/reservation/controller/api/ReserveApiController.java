@@ -4,12 +4,11 @@
  */
 package com.nts.reservation.controller.api;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,7 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
+import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
 
@@ -54,17 +59,22 @@ public class ReserveApiController {
 	 * 새로운 Reservation 등록
 	 * @param email
 	 * @param displayInfoId
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(
+		@RequestParam(name = "name", required = true) String name,
+		@RequestParam(name = "telephone", required = true) String telephone,
 		@RequestParam(name = "email", required = true) String email,
-		@RequestParam(name = "displayInfoId", required = true) String displayInfoId,
-		HttpServletRequest request) {
-		/*
-		System.out.println(request.getParameter("email"));
-		System.out.println(request.getParameter("displayInfoId"));
-		System.out.println(request.getParameter("telephone"));
-		*/
+		@RequestParam(name = "displayInfoId", required = true) int displayInfoId,
+		@RequestParam(name = "priceInfo", required = true) String priceInfo) throws JsonParseException, JsonMappingException, IOException {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		TypeFactory typeFactory = objectMapper.getTypeFactory();
+		List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo, typeFactory.constructCollectionType(List.class, PriceInfo.class));
+		reserveResponseService.postReserve(name, telephone, email, displayInfoId, priceInfoList);
 		return Collections.emptyMap();
 	}
 

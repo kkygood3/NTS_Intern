@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.service;
 
+import java.util.List;
+
+import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
 public interface ReserveService {
@@ -13,4 +16,14 @@ public interface ReserveService {
 	 * @return ReserveResponse
 	 */
 	ReserveResponse getReserveResponse(int displayInfoId);
+	
+	/**
+	 * 새로운 reserve 등록
+	 * @param name
+	 * @param telephone
+	 * @param email
+	 * @param displayInfoId
+	 * @param priceInfoList
+	 */
+	void postReserve(String name, String telephone, String email, int displayInfoId, List<PriceInfo> priceInfoList);
 }

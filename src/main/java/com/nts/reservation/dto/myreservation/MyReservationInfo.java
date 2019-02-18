@@ -1,6 +1,8 @@
 package com.nts.reservation.dto.myreservation;
 
 public class MyReservationInfo {
+	private Integer reservationInfoId;
+	private Integer reservationInfoPriceId;
 	private String reservationName;
 	private Integer displayInfoId;
 	private String productDescription;
@@ -9,6 +11,22 @@ public class MyReservationInfo {
 	private Integer price;
 	private Integer cancelFlag;
 	private String displayDate;
+
+	public Integer getReservationInfoPriceId() {
+		return reservationInfoPriceId;
+	}
+
+	public void setReservationInfoPriceId(Integer reservationInfoPriceId) {
+		this.reservationInfoPriceId = reservationInfoPriceId;
+	}
+
+	public Integer getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(Integer reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
 
 	public String getDisplayDate() {
 		return displayDate;
