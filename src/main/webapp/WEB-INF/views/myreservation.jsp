@@ -101,6 +101,7 @@
 	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/myreservation/reservationCard.js" ></script>
+	<script type= "text/javascript" src= "/js/myreservation/event.js" ></script>
 	<script type= "text/javascript" src= "/js/myreservation/myreservation.js" ></script>
 </body>
 </html>

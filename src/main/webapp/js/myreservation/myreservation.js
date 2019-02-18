@@ -4,5 +4,7 @@
  *
  */
 document.addEventListener("DOMContentLoaded", function() {
-
+	makeReservationCardHtml();
+	sendGetCardItemsAjax();
+	addCancelButtonClickEvent();
 });
