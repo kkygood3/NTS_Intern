@@ -62,9 +62,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public List<PriceInfo> getPriceInfoByProductId(long productId) {
 		return priceDao.selectPriceInfoByProductId(productId);
 	}
+
 	@Override
 	@Transactional
 	public List<String> getProductFileNameByProductIdAndType(long productId, String type) {
