@@ -21,9 +21,12 @@ function ajaxPut(reservationInfoId){
 
 function getMyReservationPage(){
 	this.setEvent = new SetEvent();
+	document.querySelector("#avilableCnt").innerHTML = document.querySelector(".card.confirmed").querySelectorAll(".card_item").length;
+	document.querySelector("#usedCnt").innerHTML = document.querySelector(".card.used").querySelectorAll(".card_item").length;
+	document.querySelector("#canceldCnt").innerHTML = document.querySelector(".card.used.cancel").querySelectorAll(".card_item").length;
 	
 	document.querySelector("#totalCnt").innerHTML = Number(document.querySelector("#avilableCnt").innerHTML) 
-												+ Number(document.querySelector("#alreadyCnt").innerHTML)
+												+ Number(document.querySelector("#usedCnt").innerHTML)
 												+ Number(document.querySelector("#canceldCnt").innerHTML);
 	
 	if(document.querySelector("#totalCnt").innerHTML !== "0"){

@@ -42,20 +42,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<ReservedItem> getReservedItems(String userEmail, boolean isCanceled, boolean isExpired) {
+	public List<ReservedItem> getReservedItems(String userEmail) {
 		List<ReservedItem> reservedItems = new ArrayList<>();
-
-		List<Reservation> reservations;
-
-		if (isCanceled) {
-			reservations = reservationDao.selectCanceledReservations(userEmail);
-		} else {
-			if (isExpired) {
-				reservations = reservationDao.selectExpiredReservations(userEmail);
-			} else {
-				reservations = reservationDao.selectAvailableReservations(userEmail);
-			}
-		}
+		List<Reservation> reservations = reservationDao.selectReservations(userEmail);
 
 		for (Reservation reservation : reservations) {
 			ReservedItem reservedItem = new ReservedItem();

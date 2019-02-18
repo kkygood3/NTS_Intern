@@ -34,22 +34,23 @@
 					<ul class="summary_board">
 						<li class="item">
 							<!--[D] 선택 후 .on 추가 link_summary_board -->
-							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure" id="totalCnt">6</span> </a>
+							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure" id="totalCnt"></span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt">${fn: length(availableReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt"></span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="alreadyCnt">${fn: length(usedReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="usedCnt"></span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure" id="canceldCnt">${fn: length(canceledReservedItems)}</span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span class="figure" id="canceldCnt"></span> </a>
 						</li>
 					</ul>
 				</div>
 				<!--// 예약 현황 -->
 
 				<!-- 내 예약 리스트 -->
+				<jsp:useBean id="today" class="java.util.Date"/>
 				<div class="wrap_mylist">
 					<ul class="list_cards" ng-if="bookedLists.length > 0">
 						<!--[D] 예약확정: .confirmed, 취소된 예약&이용완료: .used 추가 card -->
@@ -192,63 +193,66 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<c:forEach var="availableReservation" items="${availableReservedItems}" varStatus="status">
-								<article class="card_item" id="reservation_number_${availableReservation.reservation.id}">
-									<a href="#" class="link_booking_details">
-										<div class="card_body">
-											<div class="left"></div>
-											<div class="middle">
-												<div class="card_detail">
-													<em class="booking_number">No.${availableReservation.reservation.id}</em>
-													<h4 class="tit">${availableReservation.displayInfo.productDescription}</h4>
-													<ul class="detail">
-														<li class="item">
-															<span class="item_tit">구분</span>
-															<em class="item_dsc">
-																${availableReservation.displayInfo.categoryName}
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">일자</span>
-															<em class="item_dsc">
-																<fmt:formatDate value="${availableReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
-															</em>
-														</li>
-														<li class="item">
-															<span class="item_tit">장소</span>
-															<em class="item_dsc">
-																${availableReservation.displayInfo.placeName}
-															</em>
-														</li>
-													</ul>
-													<div class="price_summary">
-														<span class="price_tit">결제 예정금액</span>
-														<em class="price_amount">
-															<span>${availableReservation.totalPrice}</span>
-															<span class="unit">원</span>
-														</em>
+							<c:forEach var="availableReservedItem" items="${reservedItems}" varStatus="status">
+								<c:choose>
+									<c:when test="${availableReservedItem.reservation.cancelYn eq false && availableReservedItem.reservation.reservationDate > today}">
+										<article class="card_item" id="reservation_number_${availableReservedItem.reservation.id}">
+											<a href="#" class="link_booking_details">
+												<div class="card_body">
+													<div class="left"></div>
+													<div class="middle">
+														<div class="card_detail">
+															<em class="booking_number">No.${availableReservedItem.reservation.id}</em>
+															<h4 class="tit">${availableReservedItem.displayInfo.productDescription}</h4>
+															<ul class="detail">
+																<li class="item">
+																	<span class="item_tit">구분</span>
+																	<em class="item_dsc">
+																		${availableReservedItem.displayInfo.categoryName}
+																	</em>
+																</li>
+																<li class="item">
+																	<span class="item_tit">일자</span>
+																	<em class="item_dsc">
+																		<fmt:formatDate value="${availableReservedItem.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
+																	</em>
+																</li>
+																<li class="item">
+																	<span class="item_tit">장소</span>
+																	<em class="item_dsc">
+																		${availableReservedItem.displayInfo.placeName}
+																	</em>
+																</li>
+															</ul>
+															<div class="price_summary">
+																<span class="price_tit">결제 예정금액</span>
+																<em class="price_amount">
+																	<span>${availableReservedItem.totalPrice}</span>
+																	<span class="unit">원</span>
+																</em>
+															</div>
+															<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+															<div class="booking_cancel">
+																<button class="btn" 
+																	data-reservation-info-id="${availableReservedItem.reservation.id}"
+																	data-title="${availableReservedItem.displayInfo.productDescription}">
+																		<span class="btn_text">취소</span>
+																</button>
+															</div>
+														</div>
 													</div>
-													<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
-													<div class="booking_cancel">
-														<button class="btn" 
-															data-reservation-info-id="${availableReservation.reservation.id}"
-															data-title="${availableReservation.displayInfo.productDescription}">
-																<span class="btn_text">취소</span>
-														</button>
-													</div>
-
+													<div class="right"></div>
 												</div>
-											</div>
-											<div class="right"></div>
-										</div>
-										<div class="card_footer">
-											<div class="left"></div>
-											<div class="middle"></div>
-											<div class="right"></div>
-										</div>
-									</a>
-									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
-								</article>
+												<div class="card_footer">
+													<div class="left"></div>
+													<div class="middle"></div>
+													<div class="right"></div>
+												</div>
+											</a>
+											<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+										</article>
+									</c:when>
+								</c:choose>
 							</c:forEach>
 							</li>
 							<li class="card used">
@@ -263,57 +267,61 @@
 										<div class="right"></div>
 									</div>
 								</div>
-								<c:forEach var="usedReservation" items="${usedReservedItems}" varStatus="status">
-									<article class="card_item" id="reservation_number_${usedReservation.reservation.id}">
-										<a href="#" class="link_booking_details">
-											<div class="card_body">
-												<div class="left"></div>
-												<div class="middle">
-													<div class="card_detail">
-														<em class="booking_number">No.${usedReservation.reservation.id}</em>
-														<h4 class="tit">${usedReservation.displayInfo.productDescription}</h4>
-														<ul class="detail">
-															<li class="item">
-																<span class="item_tit">구분</span>
-																<em class="item_dsc">
-																	${usedReservation.displayInfo.categoryName}
-																</em>
-															</li>
-															<li class="item">
-																<span class="item_tit">일자</span>
-																<em class="item_dsc">
-																	<fmt:formatDate value="${usedReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
-																</em>
-															</li>
-															<li class="item">
-																<span class="item_tit">장소</span>
-																<em class="item_dsc">
-																	${usedReservation.displayInfo.placeName}
-																</em>
-															</li>
-														</ul>
-														<div class="price_summary">
-															<span class="price_tit">결제 예정금액</span>
-															<em class="price_amount">
-																<span>${usedReservation.totalPrice}</span>
-																<span class="unit">원</span>
-															</em>
+								<c:forEach var="usedReservedItem" items="${reservedItems}" varStatus="status">
+									<c:choose>
+										<c:when test="${usedReservedItem.reservation.cancelYn eq false && usedReservedItem.reservation.reservationDate < today}">
+											<article class="card_item" id="reservation_number_${usedReservedItem.reservation.id}">
+												<a href="#" class="link_booking_details">
+													<div class="card_body">
+														<div class="left"></div>
+														<div class="middle">
+															<div class="card_detail">
+																<em class="booking_number">No.${usedReservedItem.reservation.id}</em>
+																<h4 class="tit">${usedReservedItem.displayInfo.productDescription}</h4>
+																<ul class="detail">
+																	<li class="item">
+																		<span class="item_tit">구분</span>
+																		<em class="item_dsc">
+																			${usedReservedItem.displayInfo.categoryName}
+																		</em>
+																	</li>
+																	<li class="item">
+																		<span class="item_tit">일자</span>
+																		<em class="item_dsc">
+																			<fmt:formatDate value="${usedReservedItem.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
+																		</em>
+																	</li>
+																	<li class="item">
+																		<span class="item_tit">장소</span>
+																		<em class="item_dsc">
+																			${usedReservedItem.displayInfo.placeName}
+																		</em>
+																	</li>
+																</ul>
+																<div class="price_summary">
+																	<span class="price_tit">결제 예정금액</span>
+																	<em class="price_amount">
+																		<span>${usedReservedItem.totalPrice}</span>
+																		<span class="unit">원</span>
+																	</em>
+																</div>
+																<div class="booking_cancel">
+																	<button class="btn"><span>예매자 리뷰 남기기</span></button>
+																</div>
+															</div>
 														</div>
-														<div class="booking_cancel">
-															<button class="btn"><span>예매자 리뷰 남기기</span></button>
-														</div>
+														<div class="right"></div>
 													</div>
-												</div>
-												<div class="right"></div>
-											</div>
-											<div class="card_footer">
-												<div class="left"></div>
-												<div class="middle"></div>
-												<div class="right"></div>
-											</div>
-										</a>
-										<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
-									</article>
+													<div class="card_footer">
+														<div class="left"></div>
+														<div class="middle"></div>
+														<div class="right"></div>
+													</div>
+												</a>
+												<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+											</article>
+										</c:when>
+									</c:choose>
 								</c:forEach>
 							</li>
 							<li class="card used cancel">
@@ -328,53 +336,57 @@
 										<div class="right"></div>
 									</div>
 								</div>
-								<c:forEach var="canceledReservation" items="${canceledReservedItems}" varStatus="status">
-									<article class="card_item">
-										<a href="#" class="link_booking_details">
-											<div class="card_body">
-												<div class="left"></div>
-												<div class="middle">
-													<div class="card_detail">
-														<em class="booking_number">No.${canceledReservation.reservation.id}</em>
-														<h4 class="tit">${canceledReservation.displayInfo.productDescription}</h4>
-														<ul class="detail">
-															<li class="item">
-																<span class="item_tit">구분</span>
-																<em class="item_dsc">
-																	${canceledReservation.displayInfo.categoryName}
-																</em>
-															</li>
-															<li class="item">
-																<span class="item_tit">일자</span>
-																<em class="item_dsc">
-																	<fmt:formatDate value="${canceledReservation.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
-																</em>
-															</li>
-															<li class="item">
-																<span class="item_tit">장소</span>
-																<em class="item_dsc">
-																	${canceledReservation.displayInfo.placeName}
-																</em>
-															</li>
-														</ul>
-														<div class="price_summary">
-															<span class="price_tit">결제 예정금액</span>
-															<em class="price_amount">
-																<span>${canceledReservation.totalPrice}</span>
-																<span class="unit">원</span>
-															</em>
+								<c:forEach var="canceledReservedItem" items="${reservedItems}" varStatus="status">
+									<c:choose>
+										<c:when test="${canceledReservedItem.reservation.cancelYn eq true}">
+											<article class="card_item">
+												<a href="#" class="link_booking_details">
+													<div class="card_body">
+														<div class="left"></div>
+														<div class="middle">
+															<div class="card_detail">
+																<em class="booking_number">No.${canceledReservedItem.reservation.id}</em>
+																<h4 class="tit">${canceledReservedItem.displayInfo.productDescription}</h4>
+																<ul class="detail">
+																	<li class="item">
+																		<span class="item_tit">구분</span>
+																		<em class="item_dsc">
+																			${canceledReservedItem.displayInfo.categoryName}
+																		</em>
+																	</li>
+																	<li class="item">
+																		<span class="item_tit">일자</span>
+																		<em class="item_dsc">
+																			<fmt:formatDate value="${canceledReservedItem.reservation.reservationDate}" pattern="yyyy.MM.dd"/>
+																		</em>
+																	</li>
+																	<li class="item">
+																		<span class="item_tit">장소</span>
+																		<em class="item_dsc">
+																			${canceledReservedItem.displayInfo.placeName}
+																		</em>
+																	</li>
+																</ul>
+																<div class="price_summary">
+																	<span class="price_tit">결제 예정금액</span>
+																	<em class="price_amount">
+																		<span>${canceledReservedItem.totalPrice}</span>
+																		<span class="unit">원</span>
+																	</em>
+																</div>
+															</div>
 														</div>
+														<div class="right"></div>
 													</div>
-												</div>
-												<div class="right"></div>
-											</div>
-											<div class="card_footer">
-												<div class="left"></div>
-												<div class="middle"></div>
-												<div class="right"></div>
-											</div>
-										</a>
-									</article>
+													<div class="card_footer">
+														<div class="left"></div>
+														<div class="middle"></div>
+														<div class="right"></div>
+													</div>
+												</a>
+											</article>
+										</c:when>
+									</c:choose>
 								</c:forEach>
 							</li>
 						</ul>

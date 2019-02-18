@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sqls.ReservationSqls.AVAILABLE;
-import static com.nts.reservation.dao.sqls.ReservationSqls.EXPIRED;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATIONS;
@@ -14,7 +12,6 @@ import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_TOTAL_PRICE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,25 +51,9 @@ public class ReservationDao {
 		jdbc.update(INSERT_RESERVATION_INFO_PRICE, new BeanPropertySqlParameterSource(reservationInfoPrice));
 	}
 
-	public List<Reservation> selectAvailableReservations(String userEmail) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("userEmail", userEmail);
-		params.put("cancelFlag", 0);
-		return jdbc.query(SELECT_RESERVATIONS + AVAILABLE, params, rowMapper);
-	}
-
-	public List<Reservation> selectExpiredReservations(String userEmail) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("userEmail", userEmail);
-		params.put("cancelFlag", 0);
-		return jdbc.query(SELECT_RESERVATIONS + EXPIRED, params, rowMapper);
-	}
-
-	public List<Reservation> selectCanceledReservations(String userEmail) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("userEmail", userEmail);
-		params.put("cancelFlag", 1);
-		return jdbc.query(SELECT_RESERVATIONS, params, rowMapper);
+	public List<Reservation> selectReservations(String userEmail) {
+		Map<String, String> param = Collections.singletonMap("userEmail", userEmail);
+		return jdbc.query(SELECT_RESERVATIONS, param, rowMapper);
 	}
 
 	public int selectTotalPrice(int reservationInfoId) {
