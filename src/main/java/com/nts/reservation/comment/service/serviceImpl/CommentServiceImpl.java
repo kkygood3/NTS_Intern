@@ -45,6 +45,11 @@ public class CommentServiceImpl implements CommentService {
 			.avgScore(avgScore).build();
 	}
 
+	/**
+	 * 이메일의 아이디 부분을 split한 후 뒷글자를 블라인드 처리
+	 * @param email 
+	 * @return
+	 */
 	private String makeBlindEmail(String email) {
 		String splicedEmail = email.split("@")[0];
 		int blindPoint = splicedEmail.length() / 2;
@@ -52,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
 			+ splicedEmail.substring(blindPoint).replaceAll("[a-zA-Z0-9]", "*");
 		return blindEmail;
 	}
-	
+
 	private String formattingDate(String date) {
 		return date.split(" ")[0].replaceAll("-", ". ") + ". ";
 	}
