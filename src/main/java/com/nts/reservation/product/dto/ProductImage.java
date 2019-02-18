@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.product.dto;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,5 +21,6 @@ public class ProductImage {
 	private int productImageId;
 	private String saveFileName;
 	private String productDescription;
+	@Setter(AccessLevel.NONE)
 	private ImageType type;
 }
