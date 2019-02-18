@@ -18,7 +18,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 @Builder
 public class DisplayResponse {
-	private CommentResponse comments;
+	private CommentResponse commentResponse;
 	private DisplayInfo displayInfo;
 	private DisplayInfoImage displayInfoImage;
 	private List<ProductImage> productImages;
