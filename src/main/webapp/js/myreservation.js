@@ -9,7 +9,11 @@ function ajaxPut(reservationInfoId){
 		
 		httpRequest.onreadystatechange = function() {
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				console.log("success");
+				document.querySelector("#avilableCnt").innerHTML = Number(document.querySelector("#avilableCnt").innerHTML) - 1;
+				document.querySelector("#canceldCnt").innerHTML = Number(document.querySelector("#canceldCnt").innerHTML) + 1;
+
+				document.querySelector("#reservation_number_"+reservationInfoId).querySelector(".booking_cancel").style.display = "none";
+				document.querySelector(".card.used.cancel").appendChild(document.querySelector("#reservation_number_"+reservationInfoId));
 			}
 		}
 		
@@ -80,15 +84,9 @@ SetEvent.prototype.cancelReservation = function(){
 	document.querySelectorAll(".popup_close").forEach(function(btn){
 		btn.addEventListener("click", function(event){
 			var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;
-			var cancelList = document.querySelector(".card.used.cancel");
 			event.preventDefault();
 
 			if(btn.id === "reservation_cancle_btn"){
-				document.querySelector("#avilableCnt").innerHTML = Number(document.querySelector("#avilableCnt").innerHTML) - 1;
-				document.querySelector("#canceldCnt").innerHTML = Number(document.querySelector("#canceldCnt").innerHTML) + 1;
-				
-				cancelList.appendChild(document.querySelector("#reservation_number_"+reservationInfoId));
-				
 				ajaxPut(reservationInfoId);
 			}
 			
