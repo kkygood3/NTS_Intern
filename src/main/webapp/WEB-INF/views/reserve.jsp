@@ -248,8 +248,8 @@
 		}
 
 		// 예매자 정보 영역
-		function BookingForm(bookingFormWrap) {
-			this.bookingForm = bookingFormWrap;
+		function BookingForm(bookingForm) {
+			this.bookingForm = bookingForm;
 			this.init();
 			this.registerEvents();
 		}
@@ -286,7 +286,7 @@
 					} else if (evt.target.name === "email") {
 						this.vaildEmailField(warningElement, evt.target.value);
 					}
-				}.bind(this))
+				}.bind(this));
 			},
 			validNameField : function (warningElement, text) {
 				console.log(warningElement);
@@ -329,8 +329,8 @@
 
 		var ticketBody = document.querySelector(".ticket_body");
 		var ticket = new BookingTicket(ticketBody);
-		var bookingFormWrap = document.querySelector(".booking_form_wrap");
-		var form = new BookingForm(bookingFormWrap);
+		var bookingForm = document.querySelector(".section_booking_form");
+		var form = new BookingForm(bookingForm);
 	</script>
 
 </body>
