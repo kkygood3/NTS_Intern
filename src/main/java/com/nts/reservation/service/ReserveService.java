@@ -5,11 +5,9 @@
 package com.nts.reservation.service;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
 public interface ReserveService {
