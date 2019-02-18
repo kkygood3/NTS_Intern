@@ -38,7 +38,7 @@ public class CommentDaoImpl implements CommentDao {
 	public List<Comment> selectLimitComment(int displayInfoId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
-		params.put("start", limit);
+		params.put("start", start);
 		params.put("limit", limit);
 		return jdbc.query(SELECT_LIMIT_COMMENT, params, commentRowMapper);
 	}

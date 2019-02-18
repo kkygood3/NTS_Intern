@@ -24,26 +24,19 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDaoImpl commentDaoImpl;
 
 	@Override
-	public List<Comment> getAllComment(int displayInfoId) {
-		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
-		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
-
-		for (Comment comment : commentList) {
-			commentImageList = getCommentImage(comment.getCommentId());
-			comment.setCommentImages(commentImageList);
-		}
-
-		return commentList;
-	}
-
-	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
+		System.out.println("[CommentServiceImpl.java] displayInfoId : " + displayInfoId);
+		System.out.println("start : " + start);
+		System.out.println("limit : " + limit);
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
+		System.out.println("[CommentServiceImpl.java] commentList.size() : " + commentList.size());
 		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
 
 		for (Comment comment : commentList) {
 			commentImageList = getCommentImage(comment.getCommentId());
-			comment.setCommentImages(commentImageList);
+			if (commentImageList.size() != 0) {
+				comment.setCommentImage(commentImageList.get(0).getSaveFileName());
+			}
 		}
 
 		return commentList;
