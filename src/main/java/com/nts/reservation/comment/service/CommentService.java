@@ -8,6 +8,8 @@ import java.util.List;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.DetailComment;
+import com.nts.reservation.comment.dto.DetailCommentResponse;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -18,4 +20,8 @@ public interface CommentService {
 	List<CommentImage> getCommentImage(int commentId);
 
 	double getAverageScore(int displayInfoId);
+
+	List<DetailComment> getDetailComment(int displayInfoId);
+
+	DetailCommentResponse getDetailCommentResponse(int displayInfoId);
 }

@@ -46,15 +46,9 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
-		List<Comment> comments = commentServiceImpl.getLimitComment(displayInfoId, start, limit); // List<Comment> comments = getAllCommentList(displayInfoId);
+		List<Comment> comments = commentServiceImpl.getLimitComment(displayInfoId, start, limit);
 		DisplayInfo displayInfo = getDisplayInfo(displayInfoId);
 		DisplayInfoImage displayInfoImage = getDisplayInfoImage(displayInfoId);
-		//
-		//		if (displayInfoImage == null) {
-		//			System.out.println("displayInfoImage is null");
-		//		} else {
-		//			System.out.println("displayInfoImage.getSaveFileName() : " + displayInfoImage.getSaveFileName());
-		//		}
 		double averageScore = commentServiceImpl.getAverageScore(displayInfoId);
 
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();

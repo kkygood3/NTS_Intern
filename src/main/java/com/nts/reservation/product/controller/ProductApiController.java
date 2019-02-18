@@ -37,7 +37,7 @@ public class ProductApiController {
 	private static final String All_CATEGORIES = "0";
 
 	@GetMapping
-	public ProductResponse getProductResponses(
+	public ProductResponse getProductResponse(
 		@RequestParam(name = "categoryId", required = false, defaultValue = All_CATEGORIES) int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
@@ -61,7 +61,7 @@ public class ProductApiController {
 	}
 
 	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
-	public DisplayInfoResponse getDisplayInfoResponses(@PathVariable int displayInfoId,
+	public DisplayInfoResponse getDisplayInfoResponse(@PathVariable int displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 

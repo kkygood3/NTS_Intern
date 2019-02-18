@@ -1,13 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('displayInfoId'));
+	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('displayInfoId') + '/detailComment');
 });
 
 function loadDisplayInfoCallback(responseData) {
-	// 코멘트
-	loadComments(responseData);
-	
-	// 펼쳐보기 및 닫기
-	loadShowMoreButton();
+	// 모든 코멘트 보여주기
+	loadAllComments(responseData);
 }
 
 function requestAjax(callback, url){
@@ -35,65 +32,34 @@ function getUrlParameter(name) {
 	}
 }
 
-function loadComments(responseData){
-	displayInfo = responseData.displayInfo;
-	displayComment = responseData.comments;
+function loadAllComments(responseData){
+	let reviewResponse = responseData.detailCommentList;
+	let displayInfomation = reviewResponse[0];
 	
-	let commentCount = responseData.comments.length;
-	let averageScore = responseData.averageScore;
-	
+	let commentCount = responseData.commentCount;
+	let averageScore = responseData.averageScore.toFixed(1);
+
 	// 코멘트 템플릿
 	let commentTemplate = document.querySelector('#commentItemTemplate').innerText;
 	let bindCommentTemplate = Handlebars.compile(commentTemplate);
-	
+
 	let commentContainer = document.querySelector('ul.list_short_review');
-	
-	for(let i = 0 ; i < 3 && i < commentCount; i++){
-		commentContainer.innerHTML += bindCommentTemplate(displayComment[i]);	
+	for (let i = 0; i < commentCount; i++) {
+		commentContainer.innerHTML += bindCommentTemplate(reviewResponse[i]);
 	}
+	
+	// 타이틀 제목
+	document.querySelector('a.title').innerText = displayInfomation.productDescription;
 	
 	// 별점 그래프 및 코멘트 평균 점수
 	document.querySelector('em.graph_value').style.width = (averageScore * 20) + '%';
-	document.querySelector('.text_value>span').innerText = averageScore.toFixed(1);
+	document.querySelector('.text_value>span').innerText = averageScore;
 	
 	// 코멘트 개수
 	document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
 	
-	// 코멘트 더보기 버튼 생성하기
-}
-
-function loadShowMoreButton(){
-	let unfoldBtn = document.querySelector('a._open');	
-	let foldBtn = document.querySelector('a._close');
-	let foldingText = document.querySelector('div.store_details');
-	let textArea = document.querySelector('p.dsc');
-
-	if(textArea.scrollHeight > textArea.clientHeight){
-		document.querySelector('div.section_store_details').addEventListener('click',function(evt){
-			evt.preventDefault();
-			let clickedTag  = evt.target;
-			
-			if(clickedTag.tagName == 'SPAN' || clickedTag.tagName == 'I'){
-				clickedTag = clickedTag.parentElement;
-			} 
-			
-			if(clickedTag.className === 'bk_more _open'){
-				
-				foldingText.classList.remove('close3');
-				
-				unfoldBtn.style.display = 'none';
-				foldBtn.style.display = '';
-				
-			}else if(clickedTag.className === 'bk_more _close'){
-				
-				foldingText.classList.add('close3');
-				
-				unfoldBtn.style.display = '';
-				foldBtn.style.display = 'none';
-				
-			}
-		});
-	} else {
-		unfoldBtn.style.display = 'none';
-	}
+	//뒤로가기 버튼 클릭 이벤트
+	document.querySelector('.btn_back').setAttribute('href','detailProduct?displayInfoId='+displayInfomation.displayInfoId);
+	
+	document.querySelector('div.more').style.display = 'none';
 }

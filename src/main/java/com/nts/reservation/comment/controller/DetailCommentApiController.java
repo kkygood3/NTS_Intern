@@ -4,17 +4,14 @@
  */
 package com.nts.reservation.comment.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.product.dto.ProductExtraImage;
-import com.nts.reservation.product.service.ProductService;
+import com.nts.reservation.comment.dto.DetailCommentResponse;
+import com.nts.reservation.comment.service.CommentService;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -23,24 +20,14 @@ import com.nts.reservation.product.service.ProductService;
 @RequestMapping("/api/products")
 public class DetailCommentApiController {
 	@Autowired
-	private ProductService productServiceImpl;
+	private CommentService commentServiceImpl;
 
 	@RequestMapping(value = "/{displayInfoId}/detailComment", method = RequestMethod.GET)
-	public Map<String, Object> getProductExtraImage(@PathVariable int displayInfoId) {
-		ProductExtraImage productExtraImage = new ProductExtraImage();
-		if (productServiceImpl.getProductExtraImage(displayInfoId) == null) {
-			//			System.out.println("displayInfoId : " + displayInfoId + " productExtraImage is null");
-		} else {
-			productExtraImage = productServiceImpl.getProductExtraImage(displayInfoId);
-			//			System.out.println("productExtraImage : " + productExtraImage);
-		}
+	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
+		DetailCommentResponse detailCommentResponse = commentServiceImpl.getDetailCommentResponse(displayInfoId);
+		System.out.println("detailCommentResponse.getCommentCount() : " + detailCommentResponse.getCommentCount());
+		System.out.println("detailCommentResponse.getAverageScore() : " + detailCommentResponse.getAverageScore());
 
-		//		System.out.println("displayInfoId : " + displayInfoId + " productExtraImage.getProductImage() : "
-		//			+ productExtraImage.getProductImage());
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("productExtraImage", productExtraImage);
-
-		return map;
+		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
 	}
 }

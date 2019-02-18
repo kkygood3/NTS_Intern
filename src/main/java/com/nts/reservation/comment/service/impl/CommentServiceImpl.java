@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.comment.dao.impl.CommentDaoImpl;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.DetailComment;
+import com.nts.reservation.comment.dto.DetailCommentResponse;
 import com.nts.reservation.comment.service.CommentService;
 
 /**
@@ -25,11 +27,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
-		System.out.println("[CommentServiceImpl.java] displayInfoId : " + displayInfoId);
-		System.out.println("start : " + start);
-		System.out.println("limit : " + limit);
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
-		System.out.println("[CommentServiceImpl.java] commentList.size() : " + commentList.size());
 		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
 
 		for (Comment comment : commentList) {
@@ -50,5 +48,29 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public double getAverageScore(int displayInfoId) {
 		return commentDaoImpl.selectAverageScore(displayInfoId);
+	}
+
+	@Override
+	public List<DetailComment> getDetailComment(int displayInfoId) {
+		return commentDaoImpl.selectDetailComment(displayInfoId);
+	}
+
+	@Override
+	public DetailCommentResponse getDetailCommentResponse(int displayInfoId) {
+		DetailCommentResponse detailCommentResponse = new DetailCommentResponse();
+
+		List<DetailComment> commentList = commentDaoImpl.selectDetailComment(displayInfoId);
+		detailCommentResponse.setDetailCommentList(commentList);
+
+		int commentListSize = commentList.size();
+		detailCommentResponse.setCommentCount(commentListSize);
+
+		double sumScore = 0.0;
+		for (DetailComment comment : commentList) {
+			sumScore = sumScore + comment.getScore();
+		}
+		detailCommentResponse.setAverageScore(sumScore / commentListSize);
+
+		return detailCommentResponse;
 	}
 }

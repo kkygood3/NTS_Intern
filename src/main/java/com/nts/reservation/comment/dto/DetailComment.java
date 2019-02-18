@@ -14,6 +14,7 @@ public class DetailComment {
 	private String reservationName;
 	private String reservationDate;
 	private Integer score;
+	private String productDescription;
 
 	public Integer getDisplayInfoId() {
 		return displayInfoId;
@@ -61,5 +62,20 @@ public class DetailComment {
 
 	public void setScore(Integer score) {
 		this.score = score;
+	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	@Override
+	public String toString() {
+		return "DetailComment [displayInfoId=" + displayInfoId + ", comment=" + comment + ", commentImage="
+			+ commentImage + ", reservationName=" + reservationName + ", reservationDate=" + reservationDate
+			+ ", score=" + score + ", productDescription=" + productDescription + "]";
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.DetailComment;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -29,6 +30,7 @@ public class CommentDaoImpl implements CommentDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<Comment> commentRowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
 	private RowMapper<CommentImage> commentImageRowMapper = BeanPropertyRowMapper.newInstance(CommentImage.class);
+	private RowMapper<DetailComment> detailCommentRowMapper = BeanPropertyRowMapper.newInstance(DetailComment.class);
 
 	public CommentDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -55,5 +57,12 @@ public class CommentDaoImpl implements CommentDao {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_AVERAGE_SCORE, param, Double.class);
+	}
+
+	@Override
+	public List<DetailComment> selectDetailComment(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_DETAIL_COMMENT, params, detailCommentRowMapper);
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.DetailComment;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -18,4 +19,6 @@ public interface CommentDao {
 	List<CommentImage> selectCommentImage(int commentId);
 
 	double selectAverageScore(int displayInfoId);
+
+	List<DetailComment> selectDetailComment(int displayInfoId);
 }
