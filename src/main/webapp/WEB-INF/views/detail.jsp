@@ -129,7 +129,6 @@
 						</div>
 						<div class="event_info">
 							<div class="in_dsc">
-								[네이버예약 특별할인]<br>R석 50%, S석 60% 할인
 							</div>
 						</div>
 					</div>
