@@ -38,12 +38,25 @@ function loadReservationInfoCallback(response){
 		
 		checkTicketCount();
 		setBtnClickEvents();
+		initUnclickableBtn();
 	} else {
 		var listWrap = document.querySelector('.wrap_mylist');
 		var emptyMsgWrap = document.querySelector('.err');
 		listWrap.remove();
 		emptyMsgWrap.style.display = '';
 	}
+}
+
+function initUnclickableBtn(){
+	// 상단 네비게이션 a tag
+	document.querySelectorAll('a.link_summary_board').forEach(item=>item.style.cursor='default');
+	
+	// myreservation item a tag
+	document.querySelectorAll('a.link_booking_details').forEach(item=>{
+		item.style.cursor='default';
+		item.addEventListener('click',(evt)=>evt.preventDefault());
+	});
+	
 }
 
 function checkTicketCount(){
