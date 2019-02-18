@@ -118,27 +118,27 @@ var detailPage = {
     },
 
     fetchDetailData: function () {
-    	xhrRequest("GET", urls.DETAIL + constants.DISPLAY_INFO_ID
-    			, null, (respText) => {
-		            state.detail_data = JSON.parse(respText);
-		            
-		            renderDescription();
-		
-		            renderBottomData();
-		
-		            renderEventSection();
-		
-		            renderImages();
-		
-		            renderComments();
-		        }, true);
+        xhrRequest("GET", urls.DETAIL + constants.DISPLAY_INFO_ID
+            , null, (respText) => {
+                state.detail_data = JSON.parse(respText);
+
+                renderDescription();
+
+                renderBottomData();
+
+                renderEventSection();
+
+                renderImages();
+
+                renderComments();
+            }, true);
     },
 
     /**
-	 * @renderComments() : calling render function to render 3 comments as
-	 *                   specification mentioned, and re-establishment of more
-	 *                   comments button to id;
-	 */
+     * @renderComments() : calling render function to render 3 comments as
+     *                   specification mentioned, and re-establishment of more
+     *                   comments button to id;
+     */
     renderComments: function () {
         document.querySelector(".btn_review_more").href = "./review?id=" + constants.DISPLAY_INFO_ID;
         domElements.reviewCount.innerHTML = state.detail_data.comments.length + "건";
@@ -146,26 +146,26 @@ var detailPage = {
     },
 
     /**
-	 * @renderEventSection() : if there is no event specified, remove the
-	 *                       corresponding section, else put event information
-	 *                       inside the section
-	 */
+     * @renderEventSection() : if there is no event specified, remove the
+     *                       corresponding section, else put event information
+     *                       inside the section
+     */
     renderEventSection: function () {
         if (state.detail_data.displayInfo.productEvent == "") {
             domElements.eventContainer.innerHTML = "";
         } else {
             domElements.eventContainer.querySelector(".dsc").innerHTML
-                = state.detail_data.displayInfo.productEvent +"<br>"+ convertPriceArrToHtmlStr(state.detail_data);
+                = state.detail_data.displayInfo.productEvent + "<br>" + convertPriceArrToHtmlStr(state.detail_data);
         }
     },
 
     /**
-	 * @renderDescription() this puts description in the section right below the
-	 *                      images carousel detect scroll height, and client
-	 *                      height to check whether the string has more than 3
-	 *                      lines. If there is less than 3 lines, hide the
-	 *                      buttons.
-	 */
+     * @renderDescription() this puts description in the section right below the
+     *                      images carousel detect scroll height, and client
+     *                      height to check whether the string has more than 3
+     *                      lines. If there is less than 3 lines, hide the
+     *                      buttons.
+     */
     renderDescription: function () {
         domElements.productContent.innerHTML = state.detail_data.displayInfo.productContent;
         if (domElements.productContent.clientHeight == domElements.productContent.scrollHeight) {
@@ -192,8 +192,8 @@ var detailPage = {
     },
 
     /**
-	 * @renderBottomData() : put information into corresponding section
-	 */
+     * @renderBottomData() : put information into corresponding section
+     */
     renderBottomData: function () {
         domElements.bottomDescription.querySelector(".in_dsc").innerHTML
             = state.detail_data.displayInfo.productContent;
@@ -224,8 +224,8 @@ var detailPage = {
     },
 
     /**
-	 * @renderImages() : render and attach functionality to product images part
-	 */
+     * @renderImages() : render and attach functionality to product images part
+     */
     renderImages: function () {
         domElements.slideContainer.innerHTML = "";
 

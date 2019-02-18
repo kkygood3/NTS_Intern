@@ -67,13 +67,13 @@ var myReservation = {
     },
 
     fetchData: function () {
-    	xhrRequest("GET"
-    			, urls.RESERVATION
-    			, null
-    			, (respText) => {
-    	            state.reservation_data = JSON.parse(respText);
-    	            renderReservations();
-    	        }, true);
+        xhrRequest("GET"
+            , urls.RESERVATION
+            , null
+            , (respText) => {
+                state.reservation_data = JSON.parse(respText);
+                renderReservations();
+            }, true);
     },
 
     renderReservations: function () {

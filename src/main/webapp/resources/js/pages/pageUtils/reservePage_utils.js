@@ -67,14 +67,14 @@ function sendReservation(priceDataArr) {
         , reservationTelephone: formData.get("tel").toString()
         , reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
     }
-    
+
     xhrRequest("POST"
-    		, "/reservation/api/reservations"
-    		, JSON.stringify(dataToSend)
-    		, () => {
-    			alert("SUCCESS");
-    			window.location.href = "/reservation";
-    		}, false);
+        , "/reservation/api/reservations"
+        , JSON.stringify(dataToSend)
+        , () => {
+            alert("SUCCESS");
+            window.location.href = "/reservation";
+        }, false);
 }
 
 function FormWatcher() {
@@ -118,27 +118,25 @@ function EulaButton(item) {
 }
 
 
-function CountController(item) {
+function CountController(item, _prices) {
     this.addButton = item.querySelector("a[title='더하기']");
     this.reduceButton = item.querySelector("a[title='빼기']");
-
-    this.totalCountBottom = document.querySelector("#totalCount");
+    prices = _prices
 
     this.addButton.addEventListener("click", (e) => {
         this.increment();
-        this.updateTotalCountBottom();
     });
 
     this.reduceButton.addEventListener("click", (e) => {
         this.decrement();
-        this.updateTotalCountBottom();
     });
 }
 
 CountController.prototype.increment = function () {
     let wrapper = this.addButton.closest(".qty");
     let id = this.addButton.closest(".qty").dataset.id;
-    let product = state.prices[id];
+    let product = prices[id];
+    debugger;
     product.count++;
 
     let qtyArea = wrapper.querySelector(".count_control_input");
@@ -158,7 +156,7 @@ CountController.prototype.increment = function () {
 CountController.prototype.decrement = function () {
     let wrapper = this.addButton.closest(".qty");
     let id = this.addButton.closest(".qty").dataset.id;
-    let product = state.prices[id];
+    let product = prices[id];
 
     if (product.count == 0) {
         return;
@@ -182,6 +180,7 @@ CountController.prototype.decrement = function () {
         totalPriceArea.parentElement.style.color = "";
     }
 }
+
 CountController.prototype.updateTotalCountBottom = function () {
     let totalCount = 0;
     for (var key in state.prices) {

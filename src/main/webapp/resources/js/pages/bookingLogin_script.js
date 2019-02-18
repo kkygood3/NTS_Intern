@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 window.addEventListener("DOMContentLoaded", function () {
     this.init();
@@ -17,16 +17,16 @@ function init() {
             alert("Wrong email type");
             return;
         }
-        
-        let data = {resrv_email : new FormData(document.querySelector("#form1")).get("resrv_email")}
+
+        let data = {resrv_email: new FormData(document.querySelector("#form1")).get("resrv_email")}
         console.log(JSON.stringify(data));
         console.log(data)
         xhrRequest("POST"
-        		, "/reservation/api/login"
-        		, new FormData(document.querySelector("#form1")).get("resrv_email")
-        		, () => {
-        				window.location.href = "./myreservation"
-        			}
-        		, true);
+            , "/reservation/api/login"
+            , new FormData(document.querySelector("#form1")).get("resrv_email")
+            , () => {
+                window.location.href = "./myreservation"
+            }
+            , true);
     });
 }

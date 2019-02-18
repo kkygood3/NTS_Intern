@@ -45,8 +45,8 @@ var mainPage = {
     parser: new DOMParser(),
 
     /**
-	 * @init() : will be loaded with body onload, initialization function group
-	 */
+     * @init() : will be loaded with body onload, initialization function group
+     */
     init: function () {
         domElements = this.domElements;
         urls = this.urls;
@@ -70,9 +70,9 @@ var mainPage = {
     },
 
     /**
-	 * @initTab() : tab active css change and load more button visibility
-	 *            control
-	 */
+     * @initTab() : tab active css change and load more button visibility
+     *            control
+     */
     initTab: function () {
         domElements.tabButtonUl.addEventListener("click", (e) => {
             if (e.target == domElements.tabButtonUl) {
@@ -95,66 +95,66 @@ var mainPage = {
     },
 
     /**
-	 * @fetchCategoryCounts() : fetch total number of rows in db by category
-	 */
+     * @fetchCategoryCounts() : fetch total number of rows in db by category
+     */
     fetchCategoryCounts: function () {
-    	xhrRequest("GET", urls.CATEGORIES, null
-    			, (respText) => {
-    	            state.categoryData = JSON.parse(respText);
-    	            var totalProductsCount = 0;
-    	            state.categoryData.items.filter((item) => {
-    	                totalProductsCount += item.count;
-    	                return;
-    	            });
-    	            state.categoryData.items.push({count: totalProductsCount, id: 0, name: "전체"});
-    	            fetchProducts();
-    	        },true);
+        xhrRequest("GET", urls.CATEGORIES, null
+            , (respText) => {
+                state.categoryData = JSON.parse(respText);
+                var totalProductsCount = 0;
+                state.categoryData.items.filter((item) => {
+                    totalProductsCount += item.count;
+                    return;
+                });
+                state.categoryData.items.push({count: totalProductsCount, id: 0, name: "전체"});
+                fetchProducts();
+            }, true);
     },
 
     /**
-	 * @fetchPromos() : fetch all information related to promotions
-	 */
+     * @fetchPromos() : fetch all information related to promotions
+     */
     fetchPromos: function () {
-    	xhrRequest("GET"
-    			, urls.PROMOS
-    			, null
-    			, (respText) => {
-    	            let promotionData = JSON.parse(respText).items;
-    	            promotionData.forEach((item) => {
-    	                item.productImageUrl = "img/" + item.productImageUrl;
-    	            });
-    	            renderPromoItems(promotionData);
-    	        }
-    			,true);
+        xhrRequest("GET"
+            , urls.PROMOS
+            , null
+            , (respText) => {
+                let promotionData = JSON.parse(respText).items;
+                promotionData.forEach((item) => {
+                    item.productImageUrl = "img/" + item.productImageUrl;
+                });
+                renderPromoItems(promotionData);
+            }
+            , true);
     },
 
     /**
-	 * @fetchProducts() : fetch products to be loaded on the next step by
-	 *                  category, if categoryId == 0 || not in between 1 to 5,
-	 *                  all category will be searched
-	 */
+     * @fetchProducts() : fetch products to be loaded on the next step by
+     *                  category, if categoryId == 0 || not in between 1 to 5,
+     *                  all category will be searched
+     */
     fetchProducts: function () {
         products_params = "?start=" + state.loadedProductCount
             + "&categoryId=" + state.currentCategory;
         let getProductUrl = urls.PRODUCTS + products_params;
-        
+
         xhrRequest("GET"
-        		, getProductUrl
-        		, null
-        		,(respText) => {
-                    let productData = JSON.parse(respText);
-                    productData.items.forEach((item) => {
-                        item.productImageUrl = "img/" + item.productImageUrl;
-                    });
-                    domElements.productNumberInd.innerText = productData.totalCount + "개";
-                    renderProductItems(productData);
-                }, true);
+            , getProductUrl
+            , null
+            , (respText) => {
+                let productData = JSON.parse(respText);
+                productData.items.forEach((item) => {
+                    item.productImageUrl = "img/" + item.productImageUrl;
+                });
+                domElements.productNumberInd.innerText = productData.totalCount + "개";
+                renderProductItems(productData);
+            }, true);
     },
 
     /**
-	 * @switchCategory() : current category will be switched, and related
-	 *                   operation will be done
-	 */
+     * @switchCategory() : current category will be switched, and related
+     *                   operation will be done
+     */
     switchCategory: function (category) {
         /*
 		 * When category switch action, remove all the elements in the list and
@@ -173,10 +173,10 @@ var mainPage = {
     },
 
     /**
-	 * @renderProductItems() : Loaded product items will be deployed on html,
-	 *                       split the list of products by the order in the
-	 *                       data;
-	 */
+     * @renderProductItems() : Loaded product items will be deployed on html,
+     *                       split the list of products by the order in the
+     *                       data;
+     */
     renderProductItems: function (productData) {
         let bindTemplate = Handlebars.compile(templates.newProductItem);
         productData.items.forEach((item) => {
@@ -196,8 +196,8 @@ var mainPage = {
     },
 
     /**
-	 * @renderPromoItems() : Loaded promo items will be deployed on html
-	 */
+     * @renderPromoItems() : Loaded promo items will be deployed on html
+     */
     renderPromoItems: function (promotionData) {
         arrayToElementRenderer(promotionData, domElements.slideContainer, templates.promoTemplate)
         let animation = new SlidingAnimation(domElements.slideContainer);
