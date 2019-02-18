@@ -91,6 +91,6 @@ public class ProductController {
 		ModelMap model) {
 		System.out.println(userReservationInput);
 		reservationService.addReservation(userReservationInput, displayInfoId);
-		return "redirect:../../detail/" + displayInfoId;
+		return "redirect:/detail/" + displayInfoId;
 	}
 }

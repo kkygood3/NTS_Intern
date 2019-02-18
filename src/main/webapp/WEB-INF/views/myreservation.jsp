@@ -15,7 +15,6 @@
 <body>
 	<div id="container">
 		<div class="header">
-			
 		<%@ include file="/WEB-INF/views/header.jsp"%>
 		</div>
 		<hr>
@@ -58,88 +57,90 @@
 								</div>
 							</div>
 							<!-- content -->
-							</li>
-							<li class="card used">
-								<div class="link_booking_details">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_check2"></i>
-											<span class="tit">이용 완료</span>
-										</div>
-										<div class="right"></div>
+						</li>
+						<li class="card used">
+							<div class="link_booking_details">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_check2"></i>
+										<span class="tit">이용 완료</span>
 									</div>
+									<div class="right"></div>
 								</div>
-								<!-- content -->
-							</li>
-							<li class="card used cancel">
-								<div class="link_booking_details">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_cancel"></i>
-											<span class="tit">취소된 예약</span>
-										</div>
-										<div class="right"></div>
+							</div>
+							<!-- content -->
+						</li>
+						<li class="card used cancel">
+							<div class="link_booking_details">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_cancel"></i>
+										<span class="tit">취소된 예약</span>
 									</div>
+									<div class="right"></div>
 								</div>
+							</div>
 								<!-- content -->
-								
-							</li>
-						</ul>
-					</div>
-					<!--// 내 예약 리스트 -->
+						</li>
+					</ul>
+				</div>
+				<!--// 내 예약 리스트 -->
 
-					<!-- 예약 리스트 없음 -->
-					<div class="err"> <i class="spr_book ico_info_nolist"></i>
-						<h1 class="tit">예약 리스트가 없습니다</h1>
-					</div>
-					<!--// 예약 리스트 없음 -->
+				<!-- 예약 리스트 없음 -->
+				<div class="err"> <i class="spr_book ico_info_nolist"></i>
+					<h1 class="tit">예약 리스트가 없습니다</h1>
 				</div>
-			</div>
-			<hr>
-		</div>
-		<footer>
-			<div class="gototop">
-				<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
-			</div>
-			<div id="footer" class="footer">
-				<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
-				<span class="copyright">© NAVER Corp.</span>
-			</div>
-		</footer>
-
-		<!-- 취소 팝업 -->
-		<!-- [D] 활성화 display:block, 아니오 버튼 or 닫기 버튼 클릭 시 숨김 display:none; -->
-		<div class="popup_booking_wrapper" style="display:none;">
-			<div class="dimm_dark" style="display:block"></div>
-			<div class="popup_booking refund">
-				<h1 class="pop_tit">
-					<span>서비스명/상품명</span>
-					<small class="sm">2000.0.00.(월)2000.0.00.(일)</small>
-				</h1>
-				<div class="nomember_alert">
-					<p>취소하시겠습니까?</p>
-				</div>
-				<div class="pop_bottom_btnarea">
-					<div class="btn_gray">
-						<a href="#" class="btn_bottom"><span>아니오</span></a>
-					</div>
-					<div class="btn_green">
-						<a href="#" class="btn_bottom"><span>예</span></a>
-					</div>
-				</div>
-				<!-- 닫기 -->
-				<a href="#" class="popup_btn_close" title="close">
-					<i class="spr_book2 ico_cls"></i>
-				</a>
-				<!--// 닫기 -->
+				<!--// 예약 리스트 없음 -->
 			</div>
 		</div>
-		<!--// 취소 팝업 -->
+	<hr>
+	</div>
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 
-	</body>
+	<!-- 취소 팝업 -->
+	<!-- [D] 활성화 display:block, 아니오 버튼 or 닫기 버튼 클릭 시 숨김 display:none; -->
+	<div class="popup_booking_wrapper" style="display:none;">
+		<div class="dimm_dark" style="display:block"></div>
+		<div class="popup_booking refund">
+			<h1 class="pop_tit">
+				<span>서비스명/상품명</span>
+				<small class="sm">2000.0.00.(월)2000.0.00.(일)</small>
+			</h1>
+			<div class="nomember_alert">
+				<p>취소하시겠습니까?</p>
+			</div>
+			<div class="pop_bottom_btnarea">
+				<div class="btn_gray">
+					<a href="#" class="btn_bottom"><span>아니오</span></a>
+				</div>
+				<div class="btn_green">
+					<a href="#" class="btn_bottom"><span>예</span></a>
+				</div>
+			</div>
+			<!-- 닫기 -->
+			<a href="#" class="popup_btn_close" title="close">
+				<i class="spr_book2 ico_cls"></i>
+			</a>
+			<!--// 닫기 -->
+		</div>
+	</div>
+	<!--// 취소 팝업 -->
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"email" : "${sessionScope.email}",
+			};
+		}
+	</script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/myreservation/myreservation.js" ></script>
+</body>
 
-	</html>
+</html>
