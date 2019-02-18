@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.commons.validator.NegativeValueValidator;
@@ -24,12 +25,13 @@ public class DisplayInfoApiController {
 
 	@RequestMapping(value = "/products/{displayInfoId}", method=RequestMethod.GET)
 	public DisplayInfoResponse displayInfos(
-		@PathVariable("displayInfoId") int displayInfoId) {
+		@PathVariable("displayInfoId") int displayInfoId,
+		@RequestParam(name = "count", required = false, defaultValue = "3") int count) {
 
-		if(NegativeValueValidator.isNegativeValue(displayInfoId)) {
+		if(NegativeValueValidator.isNegativeValue(displayInfoId, count)) {
 			throw new IllegalArgumentException("displayInfoId : " + displayInfoId );
 		}
 
-		return displayInfoServiceImpl.getDisplayInfos(displayInfoId);
+		return displayInfoServiceImpl.getDisplayInfos(displayInfoId, count);
 	}
 }

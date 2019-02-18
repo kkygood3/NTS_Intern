@@ -23,4 +23,5 @@ public class DisplayInfoResponse {
 	private DisplayInfoImage displayInfoImage;
 	private List<ProductImage> productImages;
 	private List<ProductPrice> productPrices;
+	private int totalComments;
 }

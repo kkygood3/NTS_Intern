@@ -52,4 +52,11 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 		return jdbc.queryForObject(SELECT_AVERAGE_SCORE, params, Double.class);
 	}
 
+	@Override
+	public int selectTotalcomments(int displayInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_TOTAL_COMMENTS, params, Integer.class);
+	}
+
 }

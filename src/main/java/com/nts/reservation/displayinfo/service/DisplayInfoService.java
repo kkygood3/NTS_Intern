@@ -8,5 +8,5 @@ package com.nts.reservation.displayinfo.service;
 import com.nts.reservation.displayinfo.dto.DisplayInfoResponse;
 
 public interface DisplayInfoService {
-	DisplayInfoResponse getDisplayInfos(int displayInfoId);
+	DisplayInfoResponse getDisplayInfos(int displayInfoId, int count);
 }

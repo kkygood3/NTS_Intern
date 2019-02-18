@@ -34,10 +34,10 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	private ProductDao productDaoImpl;
 
 	@Override
-	public DisplayInfoResponse getDisplayInfos(int displayInfoId) {
+	public DisplayInfoResponse getDisplayInfos(int displayInfoId, int count) {
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
-		List<Comment> selectComments = commentServiceImpl.getTotalComments(displayInfoId);
+		List<Comment> selectComments = commentServiceImpl.getComments(displayInfoId, count);
 		double selectAverageScore;
 		// 댓글이 없을 경우엔 average Score : 0 대입
 		if (selectComments.isEmpty()) {
@@ -50,6 +50,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		DisplayInfoImage selectDisplayInfoImage = displayInfoDaoImpl.selectDisplayInfoImageByDisplayInfoId(displayInfoId);
 		List<ProductImage> selectProductImages = productDaoImpl.selectProductImages(displayInfoId);
 		List<ProductPrice> selectProductPrices = productDaoImpl.selectProductPrices(displayInfoId);
+		int selectTotalComments = displayInfoDaoImpl.selectTotalcomments(displayInfoId);
 
 		displayInfoResponse.setComments(selectComments);
 		displayInfoResponse.setAverageScore(selectAverageScore);
@@ -57,6 +58,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayInfoResponse.setDisplayInfoImage(selectDisplayInfoImage);
 		displayInfoResponse.setProductImages(selectProductImages);
 		displayInfoResponse.setProductPrices(selectProductPrices);
+		displayInfoResponse.setTotalComments(selectTotalComments);
 
 		return displayInfoResponse;
 	}

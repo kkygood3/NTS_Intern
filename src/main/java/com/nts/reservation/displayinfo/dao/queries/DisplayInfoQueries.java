@@ -62,4 +62,14 @@ public class DisplayInfoQueries {
 		"	reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id " +
 		"WHERE " +
 		"	reservation_info.display_info_id = :displayInfoId;";
+
+	public static final String SELECT_TOTAL_COMMENTS =
+		"SELECT " +
+		" 	COUNT(*) " +
+		"FROM " +
+		" 	reservation_user_comment " +
+		" 	 	INNER JOIN " +
+		" 	reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id " +
+		"WHERE " +
+		" 	reservation_info.display_info_id = :displayInfoId;";
 }
