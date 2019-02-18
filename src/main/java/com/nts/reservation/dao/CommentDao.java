@@ -23,10 +23,10 @@ import com.nts.reservation.dto.CommentDisplayInfo;
  *
  */
 @Repository
-public class CommentDisplayInfoDao extends BaseDao {
+public class CommentDao extends BaseDao {
 	private RowMapper<CommentDisplayInfo> rowMapper = BeanPropertyRowMapper.newInstance(CommentDisplayInfo.class);
 
-	public CommentDisplayInfoDao(DataSource dataSource) {
+	public CommentDao(DataSource dataSource) {
 		super(dataSource);
 	}
 

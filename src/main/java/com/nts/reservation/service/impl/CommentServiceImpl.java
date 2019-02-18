@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.CommentDisplayInfoDao;
+import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dao.ReviewPageInfoDao;
 import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
 
 @Service
-public class CommentDisplayInfoServiceImpl implements CommentService {
+public class CommentServiceImpl implements CommentService {
 	@Autowired
-	private CommentDisplayInfoDao commentDisplayInfoDao;
+	private CommentDao commentDisplayInfoDao;
 	@Autowired
 	ReviewPageInfoDao reviewPageInfoDao;
 
