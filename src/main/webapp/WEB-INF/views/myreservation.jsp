@@ -15,7 +15,9 @@
 <body>
 	<div id="container">
 		<div class="header">
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		<hr>
 		<div class="ct">
@@ -52,7 +54,9 @@
 		</div>
 	<hr>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 
 	<!-- 취소 팝업 -->
 	<!-- [D] 활성화 display:block, 아니오 버튼 or 닫기 버튼 클릭 시 숨김 display:none; -->
@@ -82,6 +86,8 @@
 		</div>
 	</div>
 	<!--// 취소 팝업 -->
+	
+	<%@ include file="/template/myreservation.jsp"%>
 	<script type="text/javascript">
 		function displayInfo() {
 			return {
@@ -91,8 +97,10 @@
 	</script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
 	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/myreservation/reservationCard.js" ></script>
 	<script type= "text/javascript" src= "/js/myreservation/myreservation.js" ></script>
 </body>
 </html>

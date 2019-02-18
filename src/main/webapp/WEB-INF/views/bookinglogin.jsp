@@ -41,7 +41,9 @@
                </div>
             </booked-confirm>
          </div>
-         <%@ include file="/WEB-INF/views/footer.jsp"%>
+         <footer>
+		<%@ include file="/WEB-INF/views/footer.jsp"%>
+		</footer>
       </app>
    </body>
 </html>

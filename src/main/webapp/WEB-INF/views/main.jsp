@@ -12,7 +12,9 @@
 <body>
 	<div id="container">
 		<div class="header">
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		
 		<hr>
@@ -52,7 +54,9 @@
 			</div>
 		</div>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 
 	<%@ include file="/template/main.jsp"%>
 

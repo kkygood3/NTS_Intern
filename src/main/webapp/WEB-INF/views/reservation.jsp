@@ -16,8 +16,9 @@
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
-			
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		<div class="ct">
 			<div class="ct_wrap">
@@ -112,7 +113,9 @@
 			</div>
 		</div>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 	<%@ include file="/template/reservation.jsp"%>
 
 	<script type="text/javascript">

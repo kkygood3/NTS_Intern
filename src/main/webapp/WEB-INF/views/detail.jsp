@@ -23,11 +23,8 @@
 			<div>
 				<div class="section_visual">
 					<header>
-						<h1 class="logo">
-							<a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-							<a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
-						</h1>
-						<a href="/reservation" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+						
+						<%@ include file="/WEB-INF/views/header.jsp"%>
 						<div class="img_bg">
 								<h2 class="visual_txt_tit"><span>${pageInfo.description}</span></h2>
 						</div>
@@ -139,8 +136,9 @@
 			</div>
 		</div>
 	</div>
-
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 	<div id="photoviwer"></div>
 	
 	<%@ include file="/template/comment_item.jsp"%>
