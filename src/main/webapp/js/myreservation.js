@@ -23,7 +23,7 @@ function getMyReservationPage(){
 	setEvent.preventLink();
 	setEvent.scrollTop();
 	setEvent.showCanclePopup();
-	setEvent.cancelReservation();
+	setEvent.closeCancelPopup();
 }
 
 function SetEvent(){}
@@ -56,7 +56,7 @@ SetEvent.prototype.showCanclePopup = function(){
 	});
 }
 
-SetEvent.prototype.cancelReservation = function(){
+SetEvent.prototype.closeCancelPopup = function(){
 	document.querySelectorAll(".popup_close").forEach(function(btn){
 		btn.addEventListener("click", function(event){
 			var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;

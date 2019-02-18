@@ -139,7 +139,7 @@
                                         <p class="inline_txt selected"><!-- 2017.2.17, 총 <span id="totalCount">0</span>매--> </p>
                                     </div>
                                 </div>
-                                <div class="inline_form last"> <label class="label" for="message">예매일자</label>
+                                <div class="inline_form last"> <label class="label" for="message">공연일자</label>
                                     <div class="inline_control">
                                         <p class="inline_txt selected" id="reservation_date"><fmt:formatDate value="${reservationDate}" pattern="yyyy.MM.dd"/></p>
                                     </div>
