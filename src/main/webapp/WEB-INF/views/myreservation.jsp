@@ -84,17 +84,11 @@
 									<div class="right"></div>
 								</div>
 							</div>
-								<!-- content -->
+							<!-- content -->
 						</li>
 					</ul>
 				</div>
 				<!--// 내 예약 리스트 -->
-
-				<!-- 예약 리스트 없음 -->
-				<div class="err"> <i class="spr_book ico_info_nolist"></i>
-					<h1 class="tit">예약 리스트가 없습니다</h1>
-				</div>
-				<!--// 예약 리스트 없음 -->
 			</div>
 		</div>
 	<hr>
@@ -142,5 +136,4 @@
 	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/myreservation/myreservation.js" ></script>
 </body>
-
 </html>
