@@ -199,7 +199,7 @@
 									</div>
 									<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 									<div class="booking_cancel">
-									<button class="btn" reservationInfoId={{reservationInfoId}}">
+									<button class="btn" reservationInfoId="{{reservationInfoId}}">
 										<span>취소</span>
 									</button>
 									</div>
@@ -246,7 +246,6 @@
 					 */
 					if(targetReservation.cancelFlag > 0){
 						cancelContainer.innerHTML += reservationItem;
-						cancelCount++;
 					} else {
 						var today = new Date();
 						var targetDate = new Date(targetReservation.displayDate)
@@ -287,6 +286,13 @@
 			}
 			reservationCountAreas[0].innerText = sumOfCount;
 		}
+		
+		function cancelResultCallback(response){
+			if(reponse.result != 'OK'){
+				alert('예약을 취소할 수 없습니다.');
+				location.reload();
+			}
+		}
 			
 		function setBtnClickEvents(){
 			var ticketContainers = document.querySelectorAll('li.card')
@@ -305,7 +311,7 @@
 			    	ticketContainers[3].appendChild(clickedBtn.offsetParent);
 			    	clickedBtn.parentElement.remove();
 			    	//취소 처리 ajax
-			    	requestAjax(loadReservationInfoCallback, 'api/reservations/'+clickedBtn.getAttribute('reservationInfoId'),'PUT');
+			    	requestAjax(cancelResultCallback, 'api/reservations/'+clickedBtn.getAttribute('reservationInfoId'),'PUT');
 			    }
 			    	
 			    checkTicketCount();
@@ -329,6 +335,7 @@
 			});
 			
 			ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
+			checkTicketCount();
 		}
 			
 		document.addEventListener('DOMContentLoaded', function() {
