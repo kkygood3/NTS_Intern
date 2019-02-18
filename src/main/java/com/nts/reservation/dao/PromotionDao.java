@@ -4,8 +4,8 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sqls.ProductSqls.COUNT_PROMOTION;
-import static com.nts.reservation.dao.sqls.ProductSqls.GET_PROMOTION_PRODUCTS;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_COUNT_PROMOTION;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_PROMOTION_PRODUCTS;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +31,11 @@ public class PromotionDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Product> getPromotions() {
-		return jdbc.query(GET_PROMOTION_PRODUCTS, rowMapper);
+	public List<Product> selectPromotions() {
+		return jdbc.query(SELECT_PROMOTION_PRODUCTS, rowMapper);
 	}
 
-	public int getCountPromotions() {
-		return jdbc.queryForObject(COUNT_PROMOTION, Collections.emptyMap(), Integer.class);
+	public int selectCountPromotions() {
+		return jdbc.queryForObject(SELECT_COUNT_PROMOTION, Collections.emptyMap(), Integer.class);
 	}
 }

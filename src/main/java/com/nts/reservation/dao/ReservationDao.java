@@ -5,13 +5,13 @@
 package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sqls.ReservationSqls.AVAILABLE;
-import static com.nts.reservation.dao.sqls.ReservationSqls.CANCEL_RESERVATION;
 import static com.nts.reservation.dao.sqls.ReservationSqls.EXPIRED;
-import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATIONS;
-import static com.nts.reservation.dao.sqls.ReservationSqls.GET_RESERVATION_INFO_ID;
-import static com.nts.reservation.dao.sqls.ReservationSqls.GET_TOTAL_PRICE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
+import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATIONS;
+import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATION_INFO_ID;
+import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_TOTAL_PRICE;
+import static com.nts.reservation.dao.sqls.ReservationSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,47 +41,47 @@ public class ReservationDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public void setReservation(Reservation reservationInfo) {
+	public void insertReservation(Reservation reservationInfo) {
 		jdbc.update(INSERT_RESERVATION_INFO, new BeanPropertySqlParameterSource(reservationInfo));
 	}
 
-	public int getReservationInfoId(Reservation reservationInfo) {
-		return jdbc.queryForObject(GET_RESERVATION_INFO_ID, new BeanPropertySqlParameterSource(reservationInfo),
+	public int selectReservationInfoId(Reservation reservationInfo) {
+		return jdbc.queryForObject(SELECT_RESERVATION_INFO_ID, new BeanPropertySqlParameterSource(reservationInfo),
 			Integer.class);
 	}
 
-	public void setReservationPrice(ReservationPrice reservationInfoPrice) {
+	public void insertReservationPrice(ReservationPrice reservationInfoPrice) {
 		jdbc.update(INSERT_RESERVATION_INFO_PRICE, new BeanPropertySqlParameterSource(reservationInfoPrice));
 	}
 
-	public List<Reservation> getAvailableReservations(String userEmail) {
+	public List<Reservation> selectAvailableReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
 		params.put("cancelFlag", 0);
-		return jdbc.query(GET_RESERVATIONS + AVAILABLE, params, rowMapper);
+		return jdbc.query(SELECT_RESERVATIONS + AVAILABLE, params, rowMapper);
 	}
 
-	public List<Reservation> getExpiredReservations(String userEmail) {
+	public List<Reservation> selectExpiredReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
 		params.put("cancelFlag", 0);
-		return jdbc.query(GET_RESERVATIONS + EXPIRED, params, rowMapper);
+		return jdbc.query(SELECT_RESERVATIONS + EXPIRED, params, rowMapper);
 	}
 
-	public List<Reservation> getCanceledReservations(String userEmail) {
+	public List<Reservation> selectCanceledReservations(String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("userEmail", userEmail);
 		params.put("cancelFlag", 1);
-		return jdbc.query(GET_RESERVATIONS, params, rowMapper);
+		return jdbc.query(SELECT_RESERVATIONS, params, rowMapper);
 	}
 
-	public int getTotalPrice(int reservationInfoId) {
+	public int selectTotalPrice(int reservationInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
-		return jdbc.queryForObject(GET_TOTAL_PRICE, param, Integer.class);
+		return jdbc.queryForObject(SELECT_TOTAL_PRICE, param, Integer.class);
 	}
 
-	public void cancelReservations(Integer reservationInfoId) {
+	public void updateReservationCancelFlag(Integer reservationInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
-		jdbc.update(CANCEL_RESERVATION, param);
+		jdbc.update(UPDATE_RESERVATION_CANCEL_FLAG, param);
 	}
 }

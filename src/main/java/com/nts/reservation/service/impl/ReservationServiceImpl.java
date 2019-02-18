@@ -35,12 +35,12 @@ public class ReservationServiceImpl implements ReservationService {
 	public void makeReservation(HttpSession session, Reservation reservationInfo) {
 		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
 
-		reservationDao.setReservation(reservationInfo);
+		reservationDao.insertReservation(reservationInfo);
 
 		List<ReservationPrice> reservationInfoPrices = reservationInfo.getPrices();
 		for (ReservationPrice reservationInfoPrice : reservationInfoPrices) {
-			reservationInfoPrice.setReservationInfoId(reservationDao.getReservationInfoId(reservationInfo));
-			reservationDao.setReservationPrice(reservationInfoPrice);
+			reservationInfoPrice.setReservationInfoId(reservationDao.selectReservationInfoId(reservationInfo));
+			reservationDao.insertReservationPrice(reservationInfoPrice);
 		}
 	}
 
@@ -52,12 +52,12 @@ public class ReservationServiceImpl implements ReservationService {
 		List<Reservation> reservations;
 
 		if (isCanceled) {
-			reservations = reservationDao.getCanceledReservations(userEmail);
+			reservations = reservationDao.selectCanceledReservations(userEmail);
 		} else {
 			if (isExpired) {
-				reservations = reservationDao.getExpiredReservations(userEmail);
+				reservations = reservationDao.selectExpiredReservations(userEmail);
 			} else {
-				reservations = reservationDao.getAvailableReservations(userEmail);
+				reservations = reservationDao.selectAvailableReservations(userEmail);
 			}
 		}
 
@@ -65,8 +65,8 @@ public class ReservationServiceImpl implements ReservationService {
 			ReservedItem reservedItem = new ReservedItem();
 
 			reservedItem.setReservation(reservation);
-			reservedItem.setTotalPrice(reservationDao.getTotalPrice(reservation.getId()));
-			reservedItem.setDisplayInfo(detailProductDao.getDisplayInfo(reservation.getDisplayInfoId()));
+			reservedItem.setTotalPrice(reservationDao.selectTotalPrice(reservation.getId()));
+			reservedItem.setDisplayInfo(detailProductDao.selectDisplayInfo(reservation.getDisplayInfoId()));
 
 			reservedItems.add(reservedItem);
 		}
@@ -76,6 +76,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public void cancelReservation(Integer reservationInfoId) {
-		reservationDao.cancelReservations(reservationInfoId);
+		reservationDao.updateReservationCancelFlag(reservationInfoId);
 	}
 }

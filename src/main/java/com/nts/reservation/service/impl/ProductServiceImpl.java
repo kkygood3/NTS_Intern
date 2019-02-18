@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int getCountAllProducts() {
-		return productDao.countAll();
+		return productDao.selectCountAllProducts();
 	}
 
 	@Override
@@ -37,16 +37,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(Integer categoryId, int start) {
-		return productDao.getProducts(categoryId, start, ProductService.LIMIT);
+		return productDao.selectProducts(categoryId, start, ProductService.LIMIT);
 	}
 
 	@Override
 	public List<Product> getPromotions() {
-		return promotionDao.getPromotions();
+		return promotionDao.selectPromotions();
 	}
 
 	@Override
 	public int getCountPromotions() {
-		return promotionDao.getCountPromotions();
+		return promotionDao.selectCountPromotions();
 	}
 }

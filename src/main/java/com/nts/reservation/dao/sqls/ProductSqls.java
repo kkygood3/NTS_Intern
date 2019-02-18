@@ -25,22 +25,22 @@ public class ProductSqls {
 	public static final String LIMIT = "LIMIT :start, :limit ";
 
 	public static final String SELECT_COUNT_ALL = "SELECT count(*) FROM " + PRODUCT_TABLE + "WHERE i.type = 'th'";
-	public static final String COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "AND p.category_id = :categoryId ";
+	public static final String SELECT_COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "AND p.category_id = :categoryId ";
 
-	public static final String GET_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
+	public static final String SELECT_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "WHERE i.type = 'th'";
-	public static final String GET_PRODUCTS_BY_CATEGORY_ID = GET_PRODUCTS + "AND p.category_id = :categoryId ";
+	public static final String SELECT_PRODUCTS_BY_CATEGORY_ID = SELECT_PRODUCTS + "AND p.category_id = :categoryId ";
 
-	public static final String GET_PROMOTION_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
+	public static final String SELECT_PROMOTION_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "INNER JOIN promotion as pr "
 		+ "ON pr.product_id = p.id "
 		+ "WHERE i.type = 'th'";
-	public static final String COUNT_PROMOTION = "SELECT count(*) FROM " + PRODUCT_TABLE
+	public static final String SELECT_COUNT_PROMOTION = "SELECT count(*) FROM " + PRODUCT_TABLE
 		+ "INNER JOIN promotion as pr "
 		+ "ON pr.product_id = p.id "
 		+ "WHERE i.type = 'th'";
 
-	public static final String GET_CATEGORIES = "SELECT c.id, c.name, count(*) AS count "
+	public static final String SELECT_CATEGORIES = "SELECT c.id, c.name, count(*) AS count "
 		+ "FROM category as c "
 		+ "INNER JOIN product as p "
 		+ "ON c.id = p.category_id "

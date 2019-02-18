@@ -28,7 +28,7 @@ public class ReservationSqls {
 		+ ", NOW()"
 		+ ", NOW())";
 
-	public static final String GET_RESERVATION_INFO_ID = "SELECT id "
+	public static final String SELECT_RESERVATION_INFO_ID = "SELECT id "
 		+ "FROM "
 		+ "reservation_info "
 		+ "WHERE "
@@ -50,16 +50,16 @@ public class ReservationSqls {
 
 	public static final String AVAILABLE = "AND reservation_date > NOW()";
 	public static final String EXPIRED = "AND reservation_date < NOW()";
-	public static final String GET_RESERVATIONS = "SELECT * "
+	public static final String SELECT_RESERVATIONS = "SELECT * "
 		+ "FROM reservation_info "
 		+ "WHERE reservation_email = :userEmail "
 		+ "AND cancel_flag = :cancelFlag ";
 
-	public static final String GET_TOTAL_PRICE = "SELECT SUM(count * price) "
+	public static final String SELECT_TOTAL_PRICE = "SELECT SUM(count * price) "
 		+ "FROM reservation_info_price "
 		+ "INNER JOIN product_price "
 		+ "ON reservation_info_price.product_price_id = product_price.id "
 		+ "WHERE reservation_info_id = :reservationInfoId";
 
-	public static final String CANCEL_RESERVATION = "UPDATE reservation_info SET cancel_flag = 1 WHERE id = :reservationInfoId";
+	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info SET cancel_flag = 1 WHERE id = :reservationInfoId";
 }
