@@ -60,15 +60,14 @@ ReservationCard.prototype.cancelAlert = function () {
 ReservationCard.prototype.cancelProcess = function () {
     let id = this.ReservationId;
 
-    xhrPutRequest("PUT"
+    xhrRequest("PUT"
     		, "/reservation/api/reservations/" + id
     		, null
     		, () => {
 		        alert("\"" + this.reservationDesc + "\"에 대한 예약이 취소되었습니다.")
 		        domElements.sectionCanceled.appendChild(this.reservation);
 		        this.cancelButtonWrapper.style.display = "none";
-		    }
-    		, true);
+		    });
     popup.style.display = "none";
     this.renderPageDetails();
 }
