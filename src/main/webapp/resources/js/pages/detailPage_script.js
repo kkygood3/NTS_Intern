@@ -121,7 +121,7 @@ var detailPage = {
     	xhrRequest("GET", urls.DETAIL + constants.DISPLAY_INFO_ID
     			, null, (respText) => {
 		            state.detail_data = JSON.parse(respText);
-		            console.log(state.detail_data)
+		            
 		            renderDescription();
 		
 		            renderBottomData();
@@ -155,7 +155,7 @@ var detailPage = {
             domElements.eventContainer.innerHTML = "";
         } else {
             domElements.eventContainer.querySelector(".dsc").innerHTML
-                = state.detail_data.displayInfo.productEvent;
+                = state.detail_data.displayInfo.productEvent +"<br>"+ convertPriceArrToHtmlStr(state.detail_data);
         }
     },
 

@@ -18,7 +18,6 @@ function init() {
             return;
         }
         
-        console.log(new FormData(document.querySelector("#form1")).get("resrv_email"))
         let data = {resrv_email : new FormData(document.querySelector("#form1")).get("resrv_email")}
         console.log(JSON.stringify(data));
         console.log(data)

@@ -85,7 +85,7 @@ var reservePage = {
 
         details[1].innerHTML = state.detail_data.displayInfo.openingHours;
 
-        details[2].innerHTML = priceToStrInterpreter();
+        details[2].innerHTML = convertPriceArrToHtmlStr(state.detail_data);
 
         // add priceController with interpreted data
         arrayToElementRenderer(state.detail_data.productPrices, domElements.countControlContainer, templates.countControlItem);

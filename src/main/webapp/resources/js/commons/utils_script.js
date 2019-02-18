@@ -58,9 +58,9 @@ const HALL_TYPES = {
 	},
 };
 
-function priceToStrInterpreter() {
+function convertPriceArrToHtmlStr(data) {
 	// checkType
-	state.detail_data.productPrices.forEach((item) => {
+	data.productPrices.forEach((item) => {
 		if(item.priceTypeName === "V" || item.priceTypeName === "R"){
 			state.pricingType = HALL_TYPES;
 		}
