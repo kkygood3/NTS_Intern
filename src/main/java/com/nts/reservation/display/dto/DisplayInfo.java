@@ -28,4 +28,5 @@ public class DisplayInfo {
 	private String productEvent;
 	private int productId;
 	private String telephone;
+	private int commentCount;
 }
