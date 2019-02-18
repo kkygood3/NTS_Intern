@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	getMyReservationPage();
 });
 
-function changeCancelFlag(reservationInfoId){
+function ajaxPut(reservationInfoId){
 	var httpRequest;
 	if (window.XMLHttpRequest) {
 		httpRequest =  new XMLHttpRequest();
@@ -86,7 +86,7 @@ SetEvent.prototype.cancelReservation = function(){
 				
 				cancelList.appendChild(document.querySelector("#reservation_number_"+reservationInfoId));
 				
-				changeCancelFlag(reservationInfoId);
+				ajaxPut(reservationInfoId);
 			}
 			
 			document.querySelector(".popup_booking_wrapper").style.display = "none";
