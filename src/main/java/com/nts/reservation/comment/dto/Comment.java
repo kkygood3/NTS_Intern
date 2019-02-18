@@ -4,15 +4,13 @@
  */
 package com.nts.reservation.comment.dto;
 
-import java.util.List;
-
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class Comment {
 	private String comment;
 	private int commentId;
-	private List<CommentImage> commentImages;
+	private String commentImage;
 	private String createDate;
 	private String modifyDate;
 	private int productId;
@@ -39,12 +37,12 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public List<CommentImage> getCommentImages() {
-		return commentImages;
+	public String getCommentImage() {
+		return commentImage;
 	}
 
-	public void setCommentImages(List<CommentImage> commentImages) {
-		this.commentImages = commentImages;
+	public void setCommentImage(String commentImage) {
+		this.commentImage = commentImage;
 	}
 
 	public String getCreateDate() {
@@ -121,7 +119,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImages=" + commentImages
+		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImages=" + commentImage
 			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
 			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
 			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="

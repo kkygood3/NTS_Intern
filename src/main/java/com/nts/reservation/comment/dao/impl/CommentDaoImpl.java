@@ -35,13 +35,6 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<Comment> selectAllComment(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_ALL_COMMENT, params, commentRowMapper);
-	}
-
-	@Override
 	public List<Comment> selectLimitComment(int displayInfoId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

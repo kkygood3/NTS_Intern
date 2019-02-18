@@ -8,20 +8,13 @@ package com.nts.reservation.comment.dao.query;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class CommentDaoQuerys {
-	public static final String SELECT_ALL_COMMENT = "SELECT reservation_user_comment.id 'commentId', reservation_info.display_info_id, reservation_user_comment.score 'score', product.description, reservation_user_comment.comment 'comment', reservation_info.reservation_name 'reservationName', reservation_user_comment.create_date 'createDate'"
+	public static final String SELECT_LIMIT_COMMENT = "SELECT  reservation_user_comment.comment 'comment', reservation_user_comment.id 'commentId', file_info.save_file_name 'commentImage', reservation_user_comment.create_date 'createDate', reservation_user_comment.modify_date 'modifyDate', product.id 'productId', reservation_info.reservation_date 'reservationDate', reservation_info.reservation_email 'reservationEmail', reservation_info.reservation_name 'reservationName', reservation_info.reservation_tel 'reservationTelephone', reservation_user_comment.score 'score'"
 		+ " FROM display_info"
 		+ " INNER JOIN product ON display_info.product_id = product.id"
 		+ " INNER JOIN reservation_user_comment ON display_info.product_id = reservation_user_comment.product_id"
 		+ " INNER JOIN reservation_info ON reservation_user_comment.reservation_info_id = reservation_info.id"
 		+ " LEFT JOIN reservation_user_comment_image ON reservation_user_comment_image.id = reservation_user_comment.reservation_info_id"
-		+ " WHERE reservation_info.product_id = :displayInfoId";
-
-	public static final String SELECT_LIMIT_COMMENT = "SELECT reservation_user_comment.id 'commentId', reservation_info.display_info_id, reservation_user_comment.score 'score', product.description, reservation_user_comment.comment 'comment', reservation_info.reservation_name 'reservationName', reservation_user_comment.create_date 'createDate'"
-		+ " FROM display_info"
-		+ " INNER JOIN product ON display_info.product_id = product.id"
-		+ " INNER JOIN reservation_user_comment ON display_info.product_id = reservation_user_comment.product_id"
-		+ " INNER JOIN reservation_info ON reservation_user_comment.reservation_info_id = reservation_info.id"
-		+ " LEFT JOIN reservation_user_comment_image ON reservation_user_comment_image.id = reservation_user_comment.reservation_info_id"
+		+ " LEFT JOIN file_info ON reservation_user_comment_image.file_id = file_info.id"
 		+ " WHERE reservation_info.product_id = :displayInfoId"
 		+ " LIMIT :start, :limit";
 

@@ -13,8 +13,6 @@ import com.nts.reservation.comment.dto.CommentImage;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public interface CommentDao {
-	List<Comment> selectAllComment(int displayInfoId);
-
 	List<Comment> selectLimitComment(int displayInfoId, int start, int limit);
 
 	List<CommentImage> selectCommentImage(int commentId);
