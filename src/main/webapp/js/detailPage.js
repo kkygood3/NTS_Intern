@@ -77,12 +77,12 @@ function initDetailBtn() {
 	}
 }
 
-function initComment(displayCommentInfo) {
+function initComment(displayCommentInfo, totalComments) {
     let commentTemplate = document.querySelector('#commentItem').innerText;
     let bindCommentTemplate = Handlebars.compile(commentTemplate);
     let commentContainer = document.querySelector('ul.list_short_review');
 
-    if(displayCommentInfo.length <= 3){
+    if(totalComments <= 3){
         displayCommentInfo.forEach(comment => {
             if(comment.commentImages != 0) {
                 comment.saveFileName = comment.commentImages[0].saveFileName;
@@ -110,7 +110,7 @@ function initComment(displayCommentInfo) {
 	
 	// 댓글 더보기 버튼
 	let reviewMoreBtn = document.querySelector('a.btn_review_more');
-	if(commentCount > 3){
+	if(totalComments > 3){
 		reviewMoreBtn.setAttribute('href','/');
 	} else{
 		reviewMoreBtn.style.display = 'none';
@@ -322,7 +322,7 @@ function loadDisplayInfoCallback(responseData) {
     let displayInfoResponse = responseData;
     let displayInfo = displayInfoResponse["displayInfo"];
     let displayProductImages = displayInfoResponse["productImages"];
-    let productPrices = displayInfoResponse["productPrices"];
+    let totalComments = displayInfoResponse.totalComments;
 
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
@@ -355,7 +355,7 @@ function loadDisplayInfoCallback(responseData) {
     displayCommentInfo.commentCount = displayInfoResponse.comments.length;
 
     // Comment 설정
-    initComment(displayCommentInfo);
+    initComment(displayCommentInfo, totalComments);
 
     // Comment 더보기 버튼 설정
     initMoreCommentBtn(displayInfo.displayInfoId);
@@ -377,6 +377,7 @@ function loadDisplayInfoCallback(responseData) {
 
 }
 
+const currentCommentCounts = 3;
 
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {

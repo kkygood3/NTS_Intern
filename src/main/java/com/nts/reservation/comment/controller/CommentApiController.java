@@ -24,7 +24,6 @@ public class CommentApiController {
 	@Autowired
 	private CommentService commentServiceImpl;
 
-
 	@RequestMapping(value = "/comments", method=RequestMethod.GET)
 	public List<Comment> products(
 		@RequestParam(name = "id", required = false, defaultValue = "0") int displayInfoId) {
