@@ -21,10 +21,10 @@ import com.nts.reservation.dto.PriceInfo;
  *
  */
 @Repository
-public class PriceInfoDao extends BaseDao {
+public class PriceDao extends BaseDao {
 	RowMapper<PriceInfo> rowMapper = BeanPropertyRowMapper.newInstance(PriceInfo.class);
 
-	PriceInfoDao(DataSource dataSource) {
+	PriceDao(DataSource dataSource) {
 		super(dataSource);
 	}
 
