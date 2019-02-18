@@ -65,6 +65,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
 	<script type= "text/javascript" src= "/js/comment_data/comment.js" ></script>
 	<script type= "text/javascript" src= "/js/review/event.js" ></script>
 	<script type= "text/javascript" src= "/js/review/review.js" ></script>

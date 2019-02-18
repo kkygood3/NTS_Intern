@@ -125,6 +125,7 @@
 	</script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
 	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
