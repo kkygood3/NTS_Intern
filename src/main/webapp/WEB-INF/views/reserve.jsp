@@ -194,10 +194,12 @@
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
 
+		// 이전 detail 페이지로 이동
 		function goDetailPage() {
 			location.href = "detail?displayInfoId=" + displayInfoId;
 		}
 
+		// 티켓수 선택 이벤트
 		function BookingTicket(ticketBody) {
 			this.ticketBody = ticketBody;
 			this.registerEvents();
@@ -245,6 +247,7 @@
 			}
 		}
 
+		// 예매자 정보 영역
 		function BookingForm(bookingFormWrap) {
 			this.bookingForm = bookingFormWrap;
 			this.init();
@@ -256,6 +259,7 @@
 				var resultTextElement = this.bookingForm.querySelector(".inline_txt.selected");
 				resultTextElement.innerHTML = this.getToday() + ", 총 <span id='totalCount'>0</span>매"
 			},
+			// yyyy.mm.dd 포맷의 현재날짜를 가져옴
 			getToday : function () {
 				var today = new Date();
 				var yyyy = today.getFullYear();
@@ -309,10 +313,12 @@
 					this.showWarningMsg(warningElement);
 				}
 			},
+			// 경고메시지 출력
 			showWarningMsg : function (warningElement) {
 				warningElement.style.visibility = "visible";
 				warningElement.style.position = "relative";
 			},
+			// 경고메시지 숨김
 			hideWarningMsg : function (warningElement) {
 				warningElement.style.visibility = "hidden";
 				warningElement.style.position = "absolute";
