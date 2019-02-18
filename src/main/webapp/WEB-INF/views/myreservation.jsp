@@ -217,7 +217,13 @@
 				<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 			</article>
 		</script>
-		<script src="js/myReservation.js"></script>
+		<script src="js/myreservation.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// api/reservations get으로 예약정보를 가져오기
+				requestAjax(loadReservationInfoCallback, 'api/reservations?email=${email}');
+			});
+		</script>
 			
 	</body>
 

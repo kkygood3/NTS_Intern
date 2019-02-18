@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.property.CommonProperties;
@@ -25,7 +26,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 
 	@Override
 	public List<MyReservationInfo> getMyReservationInfoList(String email) {
-		if(Pattern.matches(CommonProperties.REG_EMAIL, email)) {
+		if(ReservationValidatior.validateEmail(email)) {
 			List<MyReservationInfo> myReservationInfoList = myReservationDao.selectMyReservationByEmail(email);
 			SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy.MM.dd(E)");
 			Calendar calendar = Calendar.getInstance();

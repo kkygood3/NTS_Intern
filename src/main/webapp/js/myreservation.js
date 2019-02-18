@@ -115,8 +115,3 @@ function setBtnClickEvents(){
 	ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
 	checkTicketCount();
 }
-	
-document.addEventListener('DOMContentLoaded', function() {
-	// api/reservations get으로 예약정보를 가져오기
-	requestAjax(loadReservationInfoCallback, 'api/reservations?reservationEmail=${email}');
-});

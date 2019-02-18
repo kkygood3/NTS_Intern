@@ -185,10 +185,7 @@ function onReserveClicked() {
 	var bookerName = bookerInputs[0].value;
 	var bookerTelephone = bookerInputs[1].value;
 	var bookerEmail = bookerInputs[2].value;
-
-	var telephoneRegExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	var emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-
+	
 	// 틀린 영역에 표시하는데 사용할 boolean Array
 	var validationArr = new Array(bookerInputs.length);
 	for (var i = 0; i < validationArr.length; i++) {

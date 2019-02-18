@@ -46,9 +46,9 @@ public class ReserveApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
-		@RequestParam(name = "reservationEmail", required = true) String reservationEmail) {
+		@RequestParam(name = "email", required = true) String email) {
 
-		List<MyReservationInfo> myReservationResponse = myReservationService.getMyReservationInfoList(reservationEmail);
+		List<MyReservationInfo> myReservationResponse = myReservationService.getMyReservationInfoList(email);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("myReservationResponse", myReservationResponse);
@@ -81,7 +81,7 @@ public class ReserveApiController {
 		if (isInsertComplete) {
 			out.print("<script>alert('행사 예약에 성공했습니다.'); location.href='/detail?id=" + displayInfoId + "'</script>");
 		} else {
-			out.print("<script>alert('예약에 실패했습니다.'); location.href='/reserve?id=" + displayInfoId + "'</script>");
+			out.print("<script>alert('예약에 실패했습니다.'); history.back();</script>");
 		}
 		out.flush();
 	}

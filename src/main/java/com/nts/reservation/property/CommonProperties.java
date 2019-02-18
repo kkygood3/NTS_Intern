@@ -23,6 +23,10 @@ public class CommonProperties {
 	/**
 	 * 정규표현 검사식
 	 */
-	public static final String REG_TELEPHONE = "^\\d{2.3} - \\d{3,4} - \\d{4}$";
-	public static final String REG_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+$";
+	public static final String REG_TELEPHONE = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
+	public static final String REG_EMAIL = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+	
+	public static final int MAX_NAME_LENGTH = 17;
+	public static final int MAX_EMAIL_LENGTH = 50;
+	
 }

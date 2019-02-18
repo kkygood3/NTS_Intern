@@ -6,7 +6,6 @@ package com.nts.reservation.service.impl;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +15,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
 import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.dto.reserve.ReserveResponse;
-import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.ReserveService;
 
 @Service
@@ -47,9 +46,9 @@ public class ReserveServiceImpl implements ReserveService {
 		throws JsonParseException, JsonMappingException, IOException {
 		boolean isInsertComplete = true;
 
-		isInsertComplete = (isInsertComplete && (name.length() > 0 && name.length() < 18));
-		isInsertComplete = (isInsertComplete && (telephone.length() > 0 && Pattern.matches(CommonProperties.REG_TELEPHONE, telephone)));
-		isInsertComplete = (isInsertComplete && (email.length() > 0 && email.length() < 51 && Pattern.matches(CommonProperties.REG_EMAIL, email)));
+		isInsertComplete = (isInsertComplete && ReservationValidatior.validateName(name));
+		isInsertComplete = (isInsertComplete && ReservationValidatior.validateTelephone(telephone));
+		isInsertComplete = (isInsertComplete && ReservationValidatior.validateEmail(email));
 		isInsertComplete = (isInsertComplete && (displayInfoId > 0));
 
 		if (isInsertComplete) {
