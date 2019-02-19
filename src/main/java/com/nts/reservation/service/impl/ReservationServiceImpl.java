@@ -16,6 +16,7 @@ import com.nts.reservation.dto.MyReservationDto;
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.ReservationInfoPriceDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -50,7 +51,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<MyReservationDto> getMyReservations(String reservationEmail) {
-		return reservationInfoDao.selectMyReservations(reservationEmail);
+	public MyReservationResponseDto getMyReservations(String reservationEmail) {
+		List<MyReservationDto> myReservations = reservationInfoDao.selectMyReservations(reservationEmail);
+		return new MyReservationResponseDto(myReservations);
 	}
 }

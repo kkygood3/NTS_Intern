@@ -4,15 +4,13 @@
  */
 package com.nts.reservation.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.dto.MyReservationDto;
+import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -26,8 +24,8 @@ public class MyReservationController {
 	
 	@GetMapping("myreservation")
 	public String getMyReservationPage(@RequestParam String reservationEmail, Model model) {
-		List<MyReservationDto> myReservations = reservationService.getMyReservations(reservationEmail);
-		model.addAttribute("myReservations", myReservations);
+		MyReservationResponseDto myReservationResponse = reservationService.getMyReservations(reservationEmail);
+		model.addAttribute("myReservationResponse", myReservationResponse);
 		// TODO: 세션등록
 		return "myreservation";
 	}
