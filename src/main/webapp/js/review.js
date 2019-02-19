@@ -7,7 +7,8 @@ var reviewPage = {
 		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setPrevPageLink();
-		this.setScrollTopEvent();
+
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	displayContents: function(data){
@@ -86,9 +87,5 @@ var reviewPage = {
 		this.elements.btnBack.addEventListener("click", function(){
 			history.back();
 		});
-	},
-	
-	setScrollTopEvent: function(){
-		addScrollTopEvent(this.elements.btnTop);
 	}
 }

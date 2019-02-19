@@ -10,7 +10,8 @@ var detailPage = {
 		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setEvent.bkBtnEvent();
-		this.setEvent.scrollTop();
+		
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	ajax : new AjaxSend(),
@@ -198,10 +199,6 @@ var detailPage = {
 				this.detailPage.elements.btnOpen.style.display = "block";
 				this.detailPage.container.contentContainer.classList.add("close3");
 			}.bind(this));
-		}.bind(this),
-		
-		scrollTop: function(){
-			addScrollTopEvent(this.detailPage.elements.btnTop);
 		}.bind(this),
 		
 		tabEvent: function(){

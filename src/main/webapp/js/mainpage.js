@@ -10,8 +10,9 @@ var mainPage = {
 		
 		this.setEvent.preventLink();
 		this.setEvent.showMore();
-		this.setEvent.scrollTop();
 		this.setEvent.tabEvent();
+		
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	ajax : new AjaxSend(),
@@ -149,10 +150,6 @@ var mainPage = {
 			this.mainPage.elements.reserveLink.addEventListener("click", function(event){
 				event.preventDefault();
 			});
-		}.bind(this),
-		
-		scrollTop: function(){
-			addScrollTopEvent(this.mainPage.elements.btnTop);
 		}.bind(this),
 		
 		showMore: function(){

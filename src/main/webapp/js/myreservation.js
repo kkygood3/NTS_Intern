@@ -16,8 +16,9 @@ var myReservationPage = {
 		this.popup.closeCancelPopup();
 
 		this.setEvent.preventLink();
-		this.setEvent.scrollTop();
 		this.setEvent.reservationCancelEvent();
+
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	reservationList: {
@@ -102,10 +103,6 @@ var myReservationPage = {
 			this.myReservationPage.elements.btnMyReservation.addEventListener("click", function(event){
 				event.preventDefault();
 			});
-		}.bind(this),
-		
-		scrollTop: function(){
-			addScrollTopEvent(this.myReservationPage.elements.btnTop);
 		}.bind(this),
 		
 		reservationCancelEvent : function(){

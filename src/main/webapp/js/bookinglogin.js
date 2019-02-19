@@ -8,7 +8,8 @@ var bookingLoginPage = {
 		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
 		this.setEventToUserInfoContainer(inputTagValidator);
-		this.setScrollTopEvent();
+
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	elements: {
@@ -32,9 +33,5 @@ var bookingLoginPage = {
 				this.elements.msgWarn.style.display = "none";
 			}
 		}.bind(this));
-	},
-	
-	setScrollTopEvent: function(){
-		addScrollTopEvent(this.elements.btnTop);
 	}
 }

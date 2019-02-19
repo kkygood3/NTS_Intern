@@ -19,8 +19,9 @@ var reservePage = {
 		this.setEvent.setEventToBtnShowDetailTerms();
 		this.setEvent.setEventToBtnAgree(inputTagValidator);
 		this.setEvent.setPrevPageLink();
-		this.setEvent.scrollTop();
 		this.setEvent.setEventToBtnReserve();
+		
+		addScrollTopEvent(this.elements.btnTop);
 	},
 	
 	ajax : new AjaxSend(),
@@ -316,10 +317,6 @@ var reservePage = {
 			this.reservePage.elements.btnBack.addEventListener("click", function(){
 				history.back();
 			});
-		}.bind(this),
-		
-		scrollTop: function(){
-			addScrollTopEvent(this.reservePage.elements.btnTop);
 		}.bind(this),
 	}
 }
