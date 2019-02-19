@@ -24,7 +24,7 @@ public class PromotionServiceLogic implements PromotionService {
 	 */
 	@Override
 	public List<Promotion> getPromotionList() {
-		return promotionDao.getPromotionList();
+		return promotionDao.selectPromotionList();
 	}
 
 }

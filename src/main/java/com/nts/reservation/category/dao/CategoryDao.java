@@ -27,7 +27,7 @@ public class CategoryDao {
 	/**
 	 * category 목록을 조회하여 List 객체로 반환
 	 */
-	public List<Category> getCategoryList() {
+	public List<Category> selectCategoryList() {
 		return jdbcTemplate.query(SELECT_CATEGORY_LIST, categoryMapper);
 	}
 

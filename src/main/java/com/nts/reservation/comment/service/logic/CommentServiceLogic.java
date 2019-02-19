@@ -25,7 +25,7 @@ public class CommentServiceLogic implements CommentService {
 	 */
 	@Override
 	public CommentListInfo getCommentListInfo(int displayInfoId, int limitCount) {
-		CommentListInfo commentListInfo = commentDao.getCommentListInfo(displayInfoId);
+		CommentListInfo commentListInfo = commentDao.selectCommentListInfo(displayInfoId);
 		List<Comment> commentList = getCommentList(displayInfoId, limitCount);
 
 		commentListInfo.setCommentList(commentList);
@@ -39,9 +39,9 @@ public class CommentServiceLogic implements CommentService {
 	@Override
 	public List<Comment> getCommentList(int displayInfoId, int limitCount) {
 		if (isLimit(limitCount)) {
-			return commentDao.getLimitedCommentList(displayInfoId, limitCount);
+			return commentDao.selectLimitedCommentList(displayInfoId, limitCount);
 		} else {
-			return commentDao.getCommentList(displayInfoId);
+			return commentDao.selectCommentList(displayInfoId);
 		}
 	}
 

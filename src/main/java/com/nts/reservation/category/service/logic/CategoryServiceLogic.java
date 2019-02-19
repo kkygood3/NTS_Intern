@@ -24,7 +24,7 @@ public class CategoryServiceLogic implements CategoryService {
 	 */
 	@Override
 	public List<Category> getCategoryList() {
-		return categoryDao.getCategoryList();
+		return categoryDao.selectCategoryList();
 	}
 
 }

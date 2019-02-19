@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-	<display-name>PJT.4.임상현</display-name>
+	<display-name>PJT.5.임상현</display-name>
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext
@@ -8,7 +8,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.nts.reservation.config.ApplicationConfig
+		<param-value>com.nts.reservation.common.config.ApplicationConfig
 		</param-value>
 	</context-param>
 	<listener>
@@ -27,7 +27,7 @@
 		</init-param>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>com.nts.reservation.config.WebMvcContextConfiguration
+			<param-value>com.nts.reservation.common.config.WebMvcContextConfiguration
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

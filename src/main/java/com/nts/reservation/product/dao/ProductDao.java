@@ -30,7 +30,7 @@ public class ProductDao {
 	/**
 	 * product 전체목록을 조회하여  Product List 반환
 	 */
-	public List<Product> getAllCategoryProductList(int start) {
+	public List<Product> selectAllCategoryProductList(int start) {
 		Map<String, Integer> param = Collections.singletonMap("start", start);
 
 		return jdbcTemplate.query(SELECT_ALL_CATEGORY_PRODUCT_LIST, param, productMapper);
@@ -39,14 +39,14 @@ public class ProductDao {
 	/**
 	 * product 전체목록의 count 반환
 	 */
-	public int getAllCategoryProductCount() {
+	public int selectAllCategoryProductCount() {
 		return jdbcTemplate.queryForObject(SELECT_ALL_CATEGORY_PRODUCTS_COUNT, Collections.emptyMap(), Integer.class);
 	}
 
 	/**
 	 * 특정 category의 product 목록을 조회하여 Product List 반환
 	 */
-	public List<Product> getOneCategoryProductList(int categoryId, int start) {
+	public List<Product> selectOneCategoryProductList(int categoryId, int start) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("categoryId", categoryId);
 		param.put("start", start);
@@ -57,7 +57,7 @@ public class ProductDao {
 	/**
 	 * product 특정목록의 count 반환
 	 */
-	public int getOneCategoryProductCount(int categoryId) {
+	public int selectOneCategoryProductCount(int categoryId) {
 		Map<String, Integer> param = Collections.singletonMap("categoryId", categoryId);
 
 		return jdbcTemplate.queryForObject(SELECT_ONE_CATEGORY_PRODUCTS_COUNT, param, Integer.class);

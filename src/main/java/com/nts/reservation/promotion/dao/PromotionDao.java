@@ -27,7 +27,7 @@ public class PromotionDao {
 	/**
 	 * promotion 목록을 조회하여 List 객체로 반환
 	 */
-	public List<Promotion> getPromotionList() {
+	public List<Promotion> selectPromotionList() {
 		return jdbcTemplate.query(SELECT_PROMOTION_LIST, promotionMapper);
 	}
 

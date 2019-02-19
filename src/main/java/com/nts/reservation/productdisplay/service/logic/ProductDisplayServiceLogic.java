@@ -24,8 +24,8 @@ public class ProductDisplayServiceLogic implements ProductDisplayService {
 	 */
 	@Override
 	public ProductDisplay getProductDisplay(int displayInfoId) {
-		ProductDisplay productDisplay = productDisplayDao.getProductDisplay(displayInfoId);
-		List<String> prodcutDisplayImageUrList = productDisplayDao.getProductDisplayImageUrlList(displayInfoId);
+		ProductDisplay productDisplay = productDisplayDao.selectProductDisplay(displayInfoId);
+		List<String> prodcutDisplayImageUrList = productDisplayDao.selectProductDisplayImageUrlList(displayInfoId);
 
 		productDisplay.setProductDisplayImageUrlList(prodcutDisplayImageUrList);
 		return productDisplay;

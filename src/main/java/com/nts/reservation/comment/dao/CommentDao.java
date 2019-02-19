@@ -39,26 +39,28 @@ public class CommentDao {
 	/**
 	 * 특정 display의 전체 comment 목록 반환
 	 */
-	public List<Comment> getCommentList(int displayInfoId) {
+	public List<Comment> selectCommentList(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL, param, getCommentListResultSetExtractor());
+		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_ALL, param,
+			selectCommentListResultSetExtractor());
 	}
 
 	/**
 	 * 특정 display의 갯수제한된 comment 목록 반환
 	 */
-	public List<Comment> getLimitedCommentList(int displayInfoId, int limitCount) {
+	public List<Comment> selectLimitedCommentList(int displayInfoId, int limitCount) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		param.put("limitCount", limitCount);
 
-		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT, param, getCommentListResultSetExtractor());
+		return jdbcTemplate.query(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_LIMIT, param,
+			selectCommentListResultSetExtractor());
 	}
 
 	/**
 	 * 특정 display의 comment 관련정보 반환 (평균점수, 총댓글 갯수)
 	 */
-	public CommentListInfo getCommentListInfo(int displayInfoId) {
+	public CommentListInfo selectCommentListInfo(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfo);
 	}
@@ -66,7 +68,7 @@ public class CommentDao {
 	/**
 	 * db에서 얻어온 comment image url을 comment 객체 img url list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
 	 */
-	private ResultSetExtractor<List<Comment>> getCommentListResultSetExtractor() {
+	private ResultSetExtractor<List<Comment>> selectCommentListResultSetExtractor() {
 		return new ResultSetExtractor<List<Comment>>() {
 			@Override
 			public List<Comment> extractData(ResultSet rs) throws SQLException, DataAccessException {

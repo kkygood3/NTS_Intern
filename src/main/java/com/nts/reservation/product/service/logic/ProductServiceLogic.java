@@ -30,9 +30,9 @@ public class ProductServiceLogic implements ProductService {
 	public List<Product> getProductList(int categoryId, int start) {
 
 		if (isAllCategory(categoryId)) {
-			return productDao.getAllCategoryProductList(start);
+			return productDao.selectAllCategoryProductList(start);
 		} else {
-			return productDao.getOneCategoryProductList(categoryId, start);
+			return productDao.selectOneCategoryProductList(categoryId, start);
 		}
 	}
 
@@ -42,9 +42,9 @@ public class ProductServiceLogic implements ProductService {
 	public int getProductCount(int categoryId) {
 
 		if (isAllCategory(categoryId)) {
-			return productDao.getAllCategoryProductCount();
+			return productDao.selectAllCategoryProductCount();
 		} else {
-			return productDao.getOneCategoryProductCount(categoryId);
+			return productDao.selectOneCategoryProductCount(categoryId);
 		}
 	}
 
