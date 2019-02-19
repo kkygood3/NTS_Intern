@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.dto.response;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.nts.reservation.dto.MyReservationDto;
@@ -14,40 +15,59 @@ import com.nts.reservation.util.DateUtil;
  * @author jinwoo.bae
  */
 public class MyReservationResponseDto {
-	private List<MyReservationDto> myReservations;
+	private List<MyReservationDto> todoReservations; // 이용예정 예약들
+	private List<MyReservationDto> doneReservations; // 이용완료 예약들
+	private List<MyReservationDto> cancleReservations; // 취소된 예약들
 	private int totalCount; // 전체 개수
 	private int todoCount; // 이용 예정 개수
 	private int doneCount; // 이용 완료 개수
 	private int cancleCount; // 취소 개수
 
 	public MyReservationResponseDto(List<MyReservationDto> myReservations) {
-		setMyReservations(myReservations);
 		setTotalCount(myReservations.size());
-
-		int todoCount = 0;
-		int doneCount = 0;
-		int cancleCount = 0;
+		List<MyReservationDto> todoReservations = Collections.emptyList();
+		List<MyReservationDto> doneReservations = Collections.emptyList();
+		List<MyReservationDto> cancleReservations = Collections.emptyList();
 
 		for (MyReservationDto myReservation : myReservations) {
 			if (myReservation.getCancelFlag()) {
-				cancleCount += 1;
+				cancleReservations.add(myReservation);
 			} else if (DateUtil.isAfterToday(myReservation.getReservationDate())) {
-				doneCount += 1;
+				doneReservations.add(myReservation);
 			} else {
-				todoCount += 1;
+				todoReservations.add(myReservation);
 			}
 		}
-		setTodoCount(todoCount);
-		setDoneCount(doneCount);
-		setCancleCount(cancleCount);
+		setTodoReservations(todoReservations);
+		setDoneReservations(doneReservations);
+		setCancleReservations(cancleReservations);
+		setTodoCount(todoReservations.size());
+		setDoneCount(doneReservations.size());
+		setCancleCount(cancleReservations.size());
 	}
 
-	public List<MyReservationDto> getMyReservations() {
-		return myReservations;
+	public List<MyReservationDto> getTodoReservations() {
+		return todoReservations;
 	}
 
-	public void setMyReservations(List<MyReservationDto> myReservations) {
-		this.myReservations = myReservations;
+	public void setTodoReservations(List<MyReservationDto> todoReservations) {
+		this.todoReservations = todoReservations;
+	}
+
+	public List<MyReservationDto> getDoneReservations() {
+		return doneReservations;
+	}
+
+	public void setDoneReservations(List<MyReservationDto> doneReservations) {
+		this.doneReservations = doneReservations;
+	}
+
+	public List<MyReservationDto> getCancleReservations() {
+		return cancleReservations;
+	}
+
+	public void setCancleReservations(List<MyReservationDto> cancleReservations) {
+		this.cancleReservations = cancleReservations;
 	}
 
 	public int getTotalCount() {
@@ -84,8 +104,8 @@ public class MyReservationResponseDto {
 
 	@Override
 	public String toString() {
-		return "MyReservationResponseDto [myReservations=" + myReservations + ", totalCount=" + totalCount
+		return "MyReservationResponseDto [todoReservations=" + todoReservations + ", doneReservations="
+			+ doneReservations + ", cancleReservations=" + cancleReservations + ", totalCount=" + totalCount
 			+ ", todoCount=" + todoCount + ", doneCount=" + doneCount + ", cancleCount=" + cancleCount + "]";
 	}
-
 }
