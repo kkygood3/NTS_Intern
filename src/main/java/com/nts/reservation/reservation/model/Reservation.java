@@ -10,7 +10,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.nts.reservation.common.model.Regexp;
+import com.nts.reservation.common.regexp.Regexp;
 
 public class Reservation {
 

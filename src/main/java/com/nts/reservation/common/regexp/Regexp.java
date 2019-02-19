@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.common.model;
+package com.nts.reservation.common.regexp;
 
 public class Regexp {
 	public static final String EMAIL = "[.\\-\\w]+@\\w+[.]?[\\-\\w]+[.]?[\\w]+";
