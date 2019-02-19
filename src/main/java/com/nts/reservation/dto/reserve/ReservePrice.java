@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dto.reserve;
 
-import com.nts.reservation.property.PriceType;
+import com.nts.reservation.common.PriceType;
 
 /**
  * reserve 페이지 로드시 필요한 가격 정보 DTO

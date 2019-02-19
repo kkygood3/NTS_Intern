@@ -12,8 +12,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.common.PriceType;
 import com.nts.reservation.dao.sql.ReserveSqls;
-import com.nts.reservation.property.PriceType;
 
 /**
  * reservation 등록에 사용

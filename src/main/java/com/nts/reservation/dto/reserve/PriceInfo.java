@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dto.reserve;
 
-import com.nts.reservation.property.PriceType;
+import com.nts.reservation.common.PriceType;
 
 /**
  * api/reservation 요청에서
