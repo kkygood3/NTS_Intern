@@ -47,17 +47,170 @@ function getUrlParameter(name) {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
 function loadSwipeImage(displayInfo){
+	// 상단 Swipe Image 배너 Template
+	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
+	console.log(swipeTemplate);
+	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
+	console.log(bindSwipeTemplate);
+	let swipeContainer = document.querySelector('ul.detail_swipe');
+	console.log(swipeContainer);
+	
+	// 메인 이미지 삽입
+	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
+	console.log(swipeContainer);
+
+	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+}
+
+
+function loadExtraImage(responseData){
+	console.log("responseData : ");
+	console.log(responseData);
+	
+	console.log("responseData.productExtraImage");
+	console.log(responseData.productExtraImage);
+	
+	let extraImageInformation = responseData.productExtraImage;
+	console.log("responseData.productExtraImage.productImage : ");
+	console.log(extraImageInformation);
+	
 	// 상단 Swipe Image 배너 Template
 	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
 	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
 	let swipeContainer = document.querySelector('ul.detail_swipe');
 	
-	// 이미지가 1개인 경우
-	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
+	// Swipe 페이지 수, 총량 표시
+	let swipePage = document.querySelector('.figure_pagination').querySelector('.num');
+	let swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
 	
-	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
+	// Swipe 이미지 좌우의 버튼
+	let swipeLeftBtn = document.querySelector('.ico_arr6_lt');
+	let swipeRightBtn = document.querySelector('.ico_arr6_rt');
+
+	if(extraImageInformation){		
+		let firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
+		console.log("firstItem");
+		console.log(firstItem);
+		let secondItem = bindSwipeTemplate(extraImageInformation);
+		console.log("secondItem");
+		console.log(secondItem);
+		
+		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
+		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
+		swipeContainer.innerHTML = secondItem + firstItem + secondItem + firstItem ;
+
+		let swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
+				
+		// 시작점을 두번째 자리의 1로 변경
+		swipeItems.forEach(item => item.style.left = '-100%');
+		
+		let eventContainer = document.querySelector('.group_visual');
+		
+		let currentPage = 1;
+		let currentLeft = -100;
+		// 화살표에 클릭이벤트 추가
+		function arrowEventHandler(evt){
+			
+			let clickedBtn = evt.target;
+			
+			let isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
+			let isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
+			if(isLeftBtnClicked | isRightBtnClicked){
+				eventContainer.removeEventListener('click',arrowEventHandler);
+				if(isLeftBtnClicked){// 왼쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft += 100;
+					currentPage--;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
+				} else{// 오른쪽 클릭
+					if(swipePage.innerText === '1'){
+						// 1번에서 2번으로
+						swipePage.innerText = '2';
+					}else{
+						// 2번에서 1번으로
+						swipePage.innerText = '1';
+					}
+					currentLeft -= 100;
+					currentPage++;
+					swipeItems.forEach(item => item.style.left = currentLeft+'%');
+				}
+
+				setTimeout(function(){
+					// currentPage가 0이나 3이면
+					// 애니메이션 끄고 0->2 3->1로 옮긴다
+					if(currentPage == 0){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-200%');
+						
+						currentLeft = -200;
+						currentPage = 2;
+					}else if(currentPage == 3){
+						// 애니메이션 OFF
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');
+						
+						// 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.left = '-100%');
+						
+						currentLeft = -100;
+						currentPage = 1;
+					}
+					// 애니메이션 ON
+					setTimeout(()=>{
+						swipeItems.forEach(item => item.style.transitionDuration = '1s');
+						// 버튼이벤트 ON
+						eventContainer.addEventListener('click',arrowEventHandler);
+						},50);
+				},1100);
+			}
+		}
+		
+		eventContainer.addEventListener('click',arrowEventHandler);
+	} else {
+		swipeAmount.innerText = '1';
+		
+		document.querySelector('.ico_arr6_lt').style.display = 'none';
+		document.querySelector('.ico_arr6_rt').style.display = 'none';
+
+		swipeLeftBtn.style.display = 'none';
+		swipeRightBtn.style.display = 'none';
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function loadProductExplain(responseData) {
 	document.querySelector('div.store_details>p.dsc').innerHTML = responseData.displayInfo.productContent;
@@ -185,119 +338,6 @@ function loadShowMoreButton(){
 		});
 	} else {
 		unfoldBtn.style.display = 'none';
-	}
-}
-
-function loadExtraImage(responseData){
-	console.log(responseData);
-	console.log(responseData.productImage);
-	
-	let extraImageInformation = responseData.productImage;
-	
-	// 상단 Swipe Image 배너 Template
-	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
-	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
-	let swipeContainer = document.querySelector('ul.detail_swipe');
-	
-	// Swipe 페이지 수, 총량 표시
-	let swipePage = document.querySelector('.figure_pagination').querySelector('.num');
-	let swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
-	
-	// Swipe 이미지 좌우의 버튼
-	let swipeLeftBtn = document.querySelector('.ico_arr6_lt');
-	let swipeRightBtn = document.querySelector('.ico_arr6_rt');
-	
-	if(extraImageInformation){		
-		let firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
-		let secondItem = bindSwipeTemplate(extraImageInformation);
-		
-		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
-		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
-		swipeContainer.innerHTML = secondItem + firstItem + secondItem + firstItem ;
-
-		let swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
-				
-		// 시작점을 두번째 자리의 1로 변경
-		swipeItems.forEach(item => item.style.left = '-100%');
-		
-		let eventContainer = document.querySelector('.group_visual');
-		
-		let currentPage = 1;
-		let currentLeft = -100;
-		// 화살표에 클릭이벤트 추가
-		function arrowEventHandler(evt){
-			
-			let clickedBtn = evt.target;
-			
-			let isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
-			let isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
-			if(isLeftBtnClicked | isRightBtnClicked){
-				eventContainer.removeEventListener('click',arrowEventHandler);
-				if(isLeftBtnClicked){// 왼쪽 클릭
-					if(swipePage.innerText === '1'){
-						// 1번에서 2번으로
-						swipePage.innerText = '2';
-					}else{
-						// 2번에서 1번으로
-						swipePage.innerText = '1';
-					}
-					currentLeft += 100;
-					currentPage--;
-					swipeItems.forEach(item => item.style.left = currentLeft+'%');
-				} else{// 오른쪽 클릭
-					if(swipePage.innerText === '1'){
-						// 1번에서 2번으로
-						swipePage.innerText = '2';
-					}else{
-						// 2번에서 1번으로
-						swipePage.innerText = '1';
-					}
-					currentLeft -= 100;
-					currentPage++;
-					swipeItems.forEach(item => item.style.left = currentLeft+'%');
-				}
-
-				setTimeout(function(){
-					// currentPage가 0이나 3이면
-					// 애니메이션 끄고 0->2 3->1로 옮긴다
-					if(currentPage == 0){
-						// 애니메이션 OFF
-						swipeItems.forEach(item => item.style.transitionDuration = '0s');
-						
-						// 시작점을 두번째 자리의 1로 변경
-						swipeItems.forEach(item => item.style.left = '-200%');
-						
-						currentLeft = -200;
-						currentPage = 2;
-					}else if(currentPage == 3){
-						// 애니메이션 OFF
-						swipeItems.forEach(item => item.style.transitionDuration = '0s');
-						
-						// 시작점을 두번째 자리의 1로 변경
-						swipeItems.forEach(item => item.style.left = '-100%');
-						
-						currentLeft = -100;
-						currentPage = 1;
-					}
-					// 애니메이션 ON
-					setTimeout(()=>{
-						swipeItems.forEach(item => item.style.transitionDuration = '1s');
-						// 버튼이벤트 ON
-						eventContainer.addEventListener('click',arrowEventHandler);
-						},50);
-				},1100);
-			}
-		}
-		
-		eventContainer.addEventListener('click',arrowEventHandler);
-	} else {
-		swipeAmount.innerText = '1';
-		
-		document.querySelector('.ico_arr6_lt').style.display = 'none';
-		document.querySelector('.ico_arr6_rt').style.display = 'none';
-
-		swipeLeftBtn.style.display = 'none';
-		swipeRightBtn.style.display = 'none';
 	}
 }
 
