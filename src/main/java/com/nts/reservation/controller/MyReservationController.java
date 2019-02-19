@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,11 @@ public class MyReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	@GetMapping("myreservation")
-	public String getMyReservationPage(@RequestParam String reservationEmail, Model model) {
+	@GetMapping("/myreservation")
+	public String getMyReservationPage(@RequestParam String reservationEmail, HttpSession session, Model model) {
 		MyReservationResponseDto myReservationResponse = reservationService.getMyReservations(reservationEmail);
 		model.addAttribute("response", myReservationResponse);
-		// TODO: 세션등록
+		session.setAttribute("reservationEmail", reservationEmail);
 		return "myreservation";
 	}
 }
