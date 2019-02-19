@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var bookingLoginPage = {
 	getBookingLoginPage: function(){
-		this.validateInputValue(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+		this.validateInputValue(this.elements.bkEmail, this.emailRegex);
 		this.setScrollTopEvent();
 	},
 	
@@ -13,6 +13,8 @@ var bookingLoginPage = {
 		btnLogin : document.querySelector(".login_btn.confirm"),
 		btnTop : document.querySelector(".lnk_top")
 	},
+	
+	emailRegex : /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/,
 	
 	validateInputValue : function(inputTag, regularExpression){
 		inputTag.addEventListener("input", function(event){

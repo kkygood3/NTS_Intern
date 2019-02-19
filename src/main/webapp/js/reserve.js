@@ -6,9 +6,9 @@ var reservePage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.convertTypeName();
 		
-		this.inputTagValidator.validateInputTag(this.elements.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
-		this.inputTagValidator.validateInputTag(this.elements.bkTel, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
-		this.inputTagValidator.validateInputTag(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+		this.inputTagValidator.validateInputTag(this.elements.bkName, this.inputTagValidator.nameRegex);
+		this.inputTagValidator.validateInputTag(this.elements.bkTel, this.inputTagValidator.telRegex);
+		this.inputTagValidator.validateInputTag(this.elements.bkEmail, this.inputTagValidator.emailRegex);
 		
 		
 		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
@@ -54,6 +54,10 @@ var reservePage = {
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
 	inputTagValidator: {
+		nameRegex : /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/,
+		telRegex : /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/,
+		emailRegex : /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/,
+		
 		validateInputTag : function(inputTag, regularExpression){
 			inputTag.addEventListener("input", function(event){
 				this.reservePage.elements.btnAgree.checked = false;
