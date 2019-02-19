@@ -18,6 +18,7 @@ import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
 import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.ReservationService;
+import com.nts.reservation.service.validation.Validation;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -35,6 +36,12 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional(readOnly = false)
 	public ReservationInfo addReservation(UserReservationInput userReservationInput, Long displayInfoId) {
+		if (!Validation.getInstance().validateEmail(userReservationInput.getEmail())
+			|| !Validation.getInstance().validateTel(userReservationInput.getTel())
+			|| !Validation.getInstance().validateName(userReservationInput.getName())) {
+			return null;
+		}
+			
 		ReservationInfo reservationInfo = new ReservationInfo(userReservationInput);
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setReservationDate(new Date());
