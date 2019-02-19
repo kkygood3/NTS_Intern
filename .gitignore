@@ -9,7 +9,6 @@
 .idea/
 *.iml
 /WebContent/META-INF/
-/src/main/resources/application.properties
 target
 .classpath
 .project
