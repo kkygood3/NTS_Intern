@@ -4,6 +4,9 @@
  */
 package com.nts.dto.displayinfodto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class DisplayInfo {
 	private int categoryId;
 	private String categoryName;
@@ -154,11 +157,8 @@ public class DisplayInfo {
 
 	@Override
 	public String toString() {
-		return "DisplayInfo [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
-				+ ", id=" + id + ", email=" + email + ", homepage=" + homepage + ", modifyDate="
-				+ modifyDate + ", openingHours=" + openingHours + ", placeLot=" + placeLot + ", placeName=" + placeName
-				+ ", placeStreet=" + placeStreet + ", content=" + content + ", description="
-				+ description + ", event=" + event + ", productId=" + productId + ", tel="
-				+ tel + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

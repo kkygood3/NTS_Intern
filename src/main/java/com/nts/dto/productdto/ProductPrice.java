@@ -4,6 +4,9 @@
  */
 package com.nts.dto.productdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ProductPrice {
 	private String createDate;
 	private double discountRate;
@@ -71,8 +74,8 @@ public class ProductPrice {
 
 	@Override
 	public String toString() {
-		return "ProductPrice [createDate=" + createDate + ", discountRate=" + discountRate + ", modifyDate="
-				+ modifyDate + ", price=" + price + ", priceTypeName=" + priceTypeName + ", productId=" + productId
-				+ ", id=" + id + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

@@ -6,6 +6,9 @@ package com.nts.dto.promotiondto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class PromotionResponse {
 	private List<Promotion> items;
 
@@ -23,6 +26,8 @@ public class PromotionResponse {
 
 	@Override
 	public String toString() {
-		return "PromotionResponse [items=" + items + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }
