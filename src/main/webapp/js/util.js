@@ -1,5 +1,5 @@
-function AjaxSend(){}
-AjaxSend.prototype.send = function(url, options){
+function AjaxSender(){}
+AjaxSender.prototype.send = function(url, options){
 	var httpRequest;
 	
 	if (window.XMLHttpRequest) {
@@ -27,15 +27,15 @@ AjaxSend.prototype.send = function(url, options){
 		}
 	}
 }
-AjaxSend.prototype.sendGet = function(url, options){
+AjaxSender.prototype.sendGet = function(url, options){
 	this.method = "GET";
 	this.send(url, options);
 }
-AjaxSend.prototype.sendPost = function(url, options){
+AjaxSender.prototype.sendPost = function(url, options){
 	this.method = "POST";
 	this.send(url, options);
 }
-AjaxSend.prototype.sendPut = function(url, options){
+AjaxSender.prototype.sendPut = function(url, options){
 	this.method = "PUT";
 	this.send(url, options);
 }

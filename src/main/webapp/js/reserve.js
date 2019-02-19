@@ -12,7 +12,7 @@ var reservePage = {
 		inputTagValidator.validateInputTag(this.elements.bkTel, inputTagValidator.telRegex);
 		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
-		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
+		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
 		
 		this.setEvent.setEventToUserInfoContainer(inputTagValidator);
 		this.setEvent.setEventToTicketInfoContainer();
@@ -24,7 +24,7 @@ var reservePage = {
 		addScrollTopEvent(this.elements.btnTop);
 	},
 	
-	ajax : new AjaxSend(),
+	ajaxSender : new AjaxSender(),
 	
 	ajaxOptions: {
 		getOptionsForDisplayContents : function(){
@@ -51,7 +51,7 @@ var reservePage = {
 	
 	displayContents: function(data){
 		this.reservePage.displayExhibitionInfo(data);
-		this.reservePage.displayTicketPrice(data);
+		this.reservePage.displayTicketInfo(data);
 	}.bind(this),
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
@@ -133,13 +133,13 @@ var reservePage = {
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 
-	displayTicketPrice : function(jsonResponse){
+	displayTicketInfo : function(jsonResponse){
 		var bindTicketInfo = this.compileHendlebars.bindTemplate(this.template.ticketInfoTemplate);
 		
 		this.container.ticketInfoContainer.innerHTML = bindTicketInfo(jsonResponse);
 		
 		this.elements.ticketCounts = document.querySelectorAll(".count_control_input");
-		this.paymentInfo.displaySelectedTicketInfo();
+		this.displaySelectedTicketInfo();
 	},
 
 	reservationInfo : {
@@ -176,53 +176,51 @@ var reservePage = {
 		}.bind(this)
 	},
 	
-	paymentInfo : {
-		setAmountOfPayment : function(){
-			var amountOfPayment = 0;
-			
-			document.querySelectorAll(".total_price").forEach(function(price){
-				amountOfPayment += parseInt(price.innerHTML);
-			});
-			
-			return amountOfPayment;
-		},
+	getAmountOfPayment : function(){
+		var amountOfPayment = 0;
 		
-		displaySelectedTicketInfo : function(){
-			var totalCount = 0;
-			this.reservePage.elements.ticketCounts.forEach(function(ticketCnt){
-				if(ticketCnt.value === "0"){
-					ticketCnt.previousElementSibling.classList.add("disabled");
-					ticketCnt.classList.add("disabled");
-				}
-				else {
-					ticketCnt.previousElementSibling.classList.remove("disabled");
-					ticketCnt.classList.remove("disabled");
-				}
-				totalCount += parseInt(ticketCnt.value);
-			});
-			
-			this.reservePage.elements.totalCount.value = totalCount;
-			if(totalCount === 0) {
-				this.reservePage.elements.totalCount.innerHTML = "선택된 티켓이 없습니다.";
-			} else {
-				this.reservePage.elements.totalCount.innerHTML = "총 " + totalCount + "매, " + this.reservePage.paymentInfo.setAmountOfPayment() + "원"
-			}
-		}.bind(this),
+		document.querySelectorAll(".total_price").forEach(function(price){
+			amountOfPayment += parseInt(price.innerHTML);
+		});
 		
-		displayTotalPrice : function(classListOfBtn){
-			var ticketPrice = event.target.parentNode.parentNode.parentNode.querySelector(".price").innerHTML;
-			var ticketCnt = event.target.parentNode.querySelector(".count_control_input");
-			var totalPrice = event.target.parentNode.parentNode.querySelector(".total_price");
-			
-			if(classListOfBtn.contains("ico_plus3")) {
-				ticketCnt.value++;
-			} else if(!classListOfBtn.contains("disabled") && classListOfBtn.contains("ico_minus3")) {
-				ticketCnt.value--;
+		return amountOfPayment;
+	},
+	
+	displaySelectedTicketInfo : function(){
+		var totalCount = 0;
+		this.reservePage.elements.ticketCounts.forEach(function(ticketCnt){
+			if(ticketCnt.value === "0"){
+				ticketCnt.previousElementSibling.classList.add("disabled");
+				ticketCnt.classList.add("disabled");
 			}
-			
-			totalPrice.innerHTML = ticketPrice * ticketCnt.value;
-			this.displaySelectedTicketInfo();
+			else {
+				ticketCnt.previousElementSibling.classList.remove("disabled");
+				ticketCnt.classList.remove("disabled");
+			}
+			totalCount += parseInt(ticketCnt.value);
+		});
+		
+		this.reservePage.elements.totalCount.value = totalCount;
+		if(totalCount === 0) {
+			this.reservePage.elements.totalCount.innerHTML = "선택된 티켓이 없습니다.";
+		} else {
+			this.reservePage.elements.totalCount.innerHTML = "총 " + totalCount + "매, " + this.reservePage.getAmountOfPayment() + "원"
 		}
+	}.bind(this),
+	
+	displayTicketPrice : function(classListOfBtn){
+		var ticketPrice = event.target.parentNode.parentNode.parentNode.querySelector(".price");
+		var ticketCnt = event.target.parentNode.querySelector(".count_control_input");
+		var totalPrice = event.target.parentNode.parentNode.querySelector(".total_price");
+		
+		if(classListOfBtn.contains("ico_plus3")) {
+			ticketCnt.value++;
+		} else if(!classListOfBtn.contains("disabled") && classListOfBtn.contains("ico_minus3")) {
+			ticketCnt.value--;
+		}
+		
+		totalPrice.innerHTML = ticketPrice.innerHTML * ticketCnt.value;
+		this.displaySelectedTicketInfo();
 	},
 	
 	setEvent: {
@@ -261,7 +259,7 @@ var reservePage = {
 						this.reservePage.elements.bkBtn.classList.add("disable");
 					};
 				
-					this.reservePage.paymentInfo.displayTotalPrice(event.target.classList);
+					this.reservePage.displayTicketPrice(event.target.classList);
 				}
 			}.bind(this));
 		}.bind(this),
@@ -308,7 +306,7 @@ var reservePage = {
 		setEventToBtnReserve : function(){
 			this.reservePage.elements.bkBtn.addEventListener("click", function(event){
 				if(!event.target.parentNode.classList.contains("disable")){
-					this.reservePage.ajax.sendPost("/reservation/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
+					this.reservePage.ajaxSender.sendPost("/reservation/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
 				}
 			}.bind(this));
 		}.bind(this),

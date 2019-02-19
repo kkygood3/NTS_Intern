@@ -7,14 +7,14 @@ var detailPage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setEvent.bkBtnEvent();
 		
 		addScrollTopEvent(this.elements.btnTop);
 	},
 	
-	ajax : new AjaxSend(),
+	ajaxSender : new AjaxSender(),
 	
 	ajaxOption : function(){
 		var options = {

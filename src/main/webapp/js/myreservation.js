@@ -12,11 +12,11 @@ var myReservationPage = {
 				+ Number(this.reservationCounts.usedCnt.innerHTML)
 				+ Number(this.reservationCounts.canceldCnt.innerHTML);
 
-		this.popup.showCanclePopup();
-		this.popup.closeCancelPopup();
+		this.reservationCancelPopup.showPopup();
+		this.reservationCancelPopup.closePopup();
 
 		this.setEvent.preventLink();
-		this.setEvent.reservationCancelEvent();
+		this.setEvent.setReservationCancelEvent();
 
 		addScrollTopEvent(this.elements.btnTop);
 	},
@@ -42,7 +42,7 @@ var myReservationPage = {
 		btnTop : document.querySelector(".lnk_top")
 	},
 	
-	ajax : new AjaxSend(),
+	ajaxSender : new AjaxSender(),
 	
 	ajaxOption : function(){
 		var options = {
@@ -64,11 +64,11 @@ var myReservationPage = {
 	cancelReservation: function(){
 		var reservationInfoId = this.myReservationPage.elements.popupElement.dataset.reservationInfoId;
 		
-		this.myReservationPage.ajax.sendPut("/reservation/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
+		this.myReservationPage.ajaxSender.sendPut("/reservation/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
 	}.bind(this),
 	
-	popup: {
-		showCanclePopup : function(){
+	reservationCancelPopup: {
+		showPopup : function(){
 			this.myReservationPage.reservationList.availableList.addEventListener("click", function(event){
 				var btnCancel;
 				event.preventDefault();
@@ -87,7 +87,7 @@ var myReservationPage = {
 			}.bind(this));
 		}.bind(this),
 
-		closeCancelPopup : function(){
+		closePopup : function(){
 			this.myReservationPage.elements.btnListPopupClose.forEach(function(btnClose){
 				btnClose.addEventListener("click", function(event){
 					event.preventDefault();
@@ -105,7 +105,7 @@ var myReservationPage = {
 			});
 		}.bind(this),
 		
-		reservationCancelEvent : function(){
+		setReservationCancelEvent : function(){
 			this.myReservationPage.elements.btnCancel.addEventListener("click", this.myReservationPage.cancelReservation);
 		}.bind(this)
 	}

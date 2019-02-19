@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setPrevPageLink();
 
@@ -18,7 +18,7 @@ var reviewPage = {
 		this.detailPage.displayDetailInfo(data);
 	}.bind(this),
 	
-	ajax : new AjaxSend(),
+	ajaxSender : new AjaxSender(),
 	
 	ajaxOption : function(){
 		var options = {

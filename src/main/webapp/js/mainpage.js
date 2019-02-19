@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var mainPage = {
 	getMainPage: function(){
-		this.ajax.sendGet("/reservation/api/categories", this.ajaxOptions.getOptionsForCategories());
-		this.ajax.sendGet("/reservation/api/products", this.ajaxOptions.getOptionsForProducts());
-		this.ajax.sendGet("/reservation/api/promotions", this.ajaxOptions.getOptionsForPromotions());
+		this.ajaxSender.sendGet("/reservation/api/categories", this.ajaxOptions.getOptionsForCategories());
+		this.ajaxSender.sendGet("/reservation/api/products", this.ajaxOptions.getOptionsForProducts());
+		this.ajaxSender.sendGet("/reservation/api/promotions", this.ajaxOptions.getOptionsForPromotions());
 		
 		this.setEvent.preventLink();
 		this.setEvent.showMore();
@@ -15,7 +15,7 @@ var mainPage = {
 		addScrollTopEvent(this.elements.btnTop);
 	},
 	
-	ajax : new AjaxSend(),
+	ajaxSender : new AjaxSender(),
 	
 	ajaxOptions : {
 		getOptionsForCategories : function(){
@@ -156,9 +156,9 @@ var mainPage = {
 			this.mainPage.elements.btnShowMore.addEventListener("click", function(event){
 				this.mainPage.variables.start += this.mainPage.constants.productsPerPage;
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					this.mainPage.ajax.sendGet("/reservation/api/products?start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
+					this.mainPage.ajaxSender.sendGet("/reservation/api/products?start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				} else {
-					this.mainPage.ajax.sendGet("/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
+					this.mainPage.ajaxSender.sendGet("/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				}
 			}.bind(this));
 		}.bind(this),
@@ -192,9 +192,9 @@ var mainPage = {
 				this.mainPage.elements.btnShowMore.hidden = false;
 				
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					this.mainPage.ajax.sendGet("/reservation/api/products?start=" + this.mainPage.variables.start + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
+					this.mainPage.ajaxSender.sendGet("/reservation/api/products?start=" + this.mainPage.variables.start + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				} else {
-					this.mainPage.ajax.sendGet("/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
+					this.mainPage.ajaxSender.sendGet("/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				}
 			}.bind(this));
 		}.bind(this)

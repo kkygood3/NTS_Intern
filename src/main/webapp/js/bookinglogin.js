@@ -7,7 +7,7 @@ var bookingLoginPage = {
 		var inputTagValidator = new InputTagValidator();
 		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
-		this.setEventToUserInfoContainer(inputTagValidator);
+		this.allowSubmitIfValidInput(inputTagValidator);
 
 		addScrollTopEvent(this.elements.btnTop);
 	},
@@ -19,7 +19,7 @@ var bookingLoginPage = {
 		btnTop : document.querySelector(".lnk_top")
 	},
 	
-	setEventToUserInfoContainer : function(inputTagValidator){
+	allowSubmitIfValidInput : function(inputTagValidator){
 		this.elements.bkEmail.addEventListener("input", function(event){
 			if(inputTagValidator.isValid){
 				this.elements.msgWarn.style.display = "none";
