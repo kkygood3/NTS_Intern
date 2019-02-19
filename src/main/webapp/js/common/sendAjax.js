@@ -22,12 +22,12 @@ function sendGetAjax(url, action) {
 	httpRequest.send();
 }
 
-function sendPutAjax(sendUrl, action) {
+function sendPutAjax(sendUrl, action, params) {
 	$.ajax({
 		method: "PUT",
 		url: sendUrl,
 		success: function(data){
-			action(data);
+			action(data, params);
         }
 	});
 }
