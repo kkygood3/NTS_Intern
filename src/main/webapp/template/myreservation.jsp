@@ -50,7 +50,7 @@
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDate}}</em>
+							<em class="item_dsc">{{reservationDateFormat}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
@@ -89,7 +89,7 @@
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDate}}</em>
+							<em class="item_dsc">{{reservationDateFormat}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
@@ -129,7 +129,7 @@
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDate}}</em>
+							<em class="item_dsc">{{reservationDateFormat}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
