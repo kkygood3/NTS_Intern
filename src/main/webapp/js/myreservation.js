@@ -50,8 +50,8 @@ var myReservationPage = {
 			callBack : function(){
 				var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;
 
-				availableCnt = Number(availableCnt) - 1;
-				canceldCnt = Number(canceldCnt) + 1;
+				availableCnt.innerHTML = Number(availableCnt.innerHTML) - 1;
+				canceldCnt.innerHTML = Number(canceldCnt.innerHTML) + 1;
 
 				document.querySelector("#reservation_number_"+reservationInfoId).querySelector(".booking_cancel").style.display = "none";
 				document.querySelector(".card.used.cancel").appendChild(document.querySelector("#reservation_number_"+reservationInfoId));
