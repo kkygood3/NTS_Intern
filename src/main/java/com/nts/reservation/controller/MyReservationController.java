@@ -25,7 +25,7 @@ public class MyReservationController {
 	@GetMapping("myreservation")
 	public String getMyReservationPage(@RequestParam String reservationEmail, Model model) {
 		MyReservationResponseDto myReservationResponse = reservationService.getMyReservations(reservationEmail);
-		model.addAttribute("myReservationResponse", myReservationResponse);
+		model.addAttribute("response", myReservationResponse);
 		// TODO: 세션등록
 		return "myreservation";
 	}
