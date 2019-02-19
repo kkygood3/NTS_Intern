@@ -123,7 +123,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>PJT.4.임상현</finalName>
+		<finalName>PJT.5.임상현</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
