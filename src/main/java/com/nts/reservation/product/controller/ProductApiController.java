@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.commons.validator.CheckArgumentValidation;
+import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
 import com.nts.reservation.displayInfo.service.DisplayInfoService;
 import com.nts.reservation.product.dto.ProductExtraImage;
@@ -41,8 +41,8 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		CheckArgumentValidation.isCorrectCategoryId(categoryId);
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectCategoryId(categoryId);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		int totalCount = productServiceImpl.getProductsCountByCategoryId(categoryId);
 		if (totalCount == 0) {
@@ -57,15 +57,15 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
 	@RequestMapping(value = "/{displayInfoId}/extraImage", method = RequestMethod.GET)
 	public ProductExtraImage getProductExtraImage(@PathVariable int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		return productServiceImpl.getProductExtraImage(displayInfoId);
 	}

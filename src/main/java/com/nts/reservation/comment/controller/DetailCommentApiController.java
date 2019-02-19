@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.comment.dto.DetailCommentResponse;
 import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.commons.validator.CheckArgumentValidation;
+import com.nts.reservation.commons.validator.ArgumentValidator;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -25,7 +25,7 @@ public class DetailCommentApiController {
 
 	@RequestMapping(value = "/{displayInfoId}/detailComment", method = RequestMethod.GET)
 	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
 	}

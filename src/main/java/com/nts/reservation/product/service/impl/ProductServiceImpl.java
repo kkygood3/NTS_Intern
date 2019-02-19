@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.commons.validator.CheckArgumentValidation;
+import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
@@ -30,8 +30,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProductsByCategoryId(int categoryId, int start, int limit) {
-		CheckArgumentValidation.isCorrectCategoryId(categoryId);
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectCategoryId(categoryId);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		if (categoryId == All_CATEGORIES) {
 			return getProducts(start, limit);
@@ -41,14 +41,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(int start, int limit) {
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		return productDaoImpl.selectProducts(start, limit);
 	}
 
 	@Override
 	public int getProductsCountByCategoryId(int categoryId) {
-		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+		ArgumentValidator.isCorrectCategoryId(categoryId);
 
 		if (categoryId == All_CATEGORIES) {
 			return getProductsCount();
@@ -63,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponse getProductResponse(int categoryId, int start, int limit, int totalCount) {
-		CheckArgumentValidation.isCorrectCategoryId(categoryId);
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectCategoryId(categoryId);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(totalCount);
@@ -75,21 +75,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductImage> getProductImage(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		return productDaoImpl.selectProductImage(displayInfoId);
 	}
 
 	@Override
 	public List<ProductPrice> getProductPrice(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		return productDaoImpl.selectProductPrice(displayInfoId);
 	}
 
 	@Override
 	public ProductExtraImage getProductExtraImage(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		ProductExtraImage productExtraImage = productDaoImpl.selectProductExtraImage(displayInfoId);
 

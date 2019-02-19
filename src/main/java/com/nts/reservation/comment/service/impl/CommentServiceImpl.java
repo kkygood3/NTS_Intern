@@ -16,7 +16,7 @@ import com.nts.reservation.comment.dto.CommentImage;
 import com.nts.reservation.comment.dto.DetailComment;
 import com.nts.reservation.comment.dto.DetailCommentResponse;
 import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.commons.validator.CheckArgumentValidation;
+import com.nts.reservation.commons.validator.ArgumentValidator;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getAllComment(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
 
@@ -37,8 +37,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
-		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectStartAndLimit(start, limit);
 
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
 
@@ -57,14 +57,14 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<DetailComment> getDetailComment(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		return commentDaoImpl.selectDetailComment(displayInfoId);
 	}
 
 	@Override
 	public DetailCommentResponse getDetailCommentResponse(int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		DetailCommentResponse detailCommentResponse = new DetailCommentResponse();
 

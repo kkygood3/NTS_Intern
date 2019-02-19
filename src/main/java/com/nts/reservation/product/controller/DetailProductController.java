@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nts.reservation.commons.validator.CheckArgumentValidation;
+import com.nts.reservation.commons.validator.ArgumentValidator;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -19,7 +19,7 @@ public class DetailProductController {
 	@GetMapping("/detailProduct")
 	public ModelAndView requestProductDetail(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
-		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
 
 		ModelAndView modelAndMap = new ModelAndView("detailProduct");
 		modelAndMap.addObject("displayInfoId", displayInfoId);
