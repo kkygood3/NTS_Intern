@@ -50,7 +50,6 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
                 target[propKey] = value; // set prop value on target.
 
-                // TODO: handle multiple changes in a single callback.
                 callback([changeRecord]);
             },
 
@@ -78,7 +77,6 @@ NodeList.prototype.forEach = Array.prototype.forEach;
 
                 delete target[propKey]; // remove prop from target.
 
-                // TODO: handle multiple changes in a single callback.
                 callback([changeRecord]);
             }
         });

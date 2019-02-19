@@ -33,11 +33,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<ReservationInfo> getReservations(String email) {
-		List<ReservationInfo> reservationList = reservationDao.selectResevations(email);
-		for (ReservationInfo rsv : reservationList) {
-			rsv.setDisplayInfo(detailDao.selectDisplayInfo(rsv.getDisplayInfoId()));
+		List<ReservationInfo> reservations = reservationDao.selectResevations(email);
+		for (ReservationInfo reservation : reservations) {
+			reservation.setDisplayInfo(detailDao.selectDisplayInfo(reservation.getDisplayInfoId()));
 		}
-		return reservationList;
+		return reservations;
 	}
 
 	@Override

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
 
@@ -38,9 +37,9 @@ public class ApplicationReservationApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/reservations")
-	public ReservationInfo postReservation(@RequestBody ReservationParam reservationParam) {
+	public boolean postReservation(@RequestBody ReservationParam reservationParam) {
 		reservationService.addReservations(reservationParam);
-		return new ReservationInfo();
+		return true;
 	}
 
 	@PutMapping(path = "/reservations/{reservationId}")

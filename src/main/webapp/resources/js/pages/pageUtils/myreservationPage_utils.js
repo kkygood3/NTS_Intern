@@ -32,7 +32,6 @@ function ReservationCard(_reservation, reservationData, _popup) {
         sectionUsed.appendChild(this.reservation);
     	this.cancelButton.innerText = "한줄평 남기기"
     	this.cancelButton.addEventListener("click", () => {
-    		console.log(this.cancelButton)
             alert("will be added");
         });
     } else if (this.reservation.dataset.cancelFlag == "true") {
@@ -52,7 +51,6 @@ function ReservationCard(_reservation, reservationData, _popup) {
  */
 ReservationCard.prototype.cancellationPopup = function () {
     var event = (e) => {
-    	console.log(e);
         if (e.target.classList.contains("_close_control")) {
             popup.style.display = "none";
             popup.removeEventListener("click", event);

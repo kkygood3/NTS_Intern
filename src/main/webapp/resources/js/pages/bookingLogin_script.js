@@ -26,8 +26,7 @@ function init() {
         }
 
         let data = {resrv_email: new FormData(document.querySelector("#form1")).get("resrv_email")}
-        console.log(JSON.stringify(data));
-        console.log(data)
+
         let request = new XhrRequest("POST", "/reservation/api/login");
         request.setCallback(() => {
             window.location.href = "./myreservation"
