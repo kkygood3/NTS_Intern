@@ -16,14 +16,14 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		logger.debug("preHandle /\t호출 : {}", handler.toString());
+		logger.debug("preHandle / 호출 : {}", handler.toString());
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 		ModelAndView modelAndView) throws Exception {
-		logger.debug("postHandle /\tModelAndView : {},  Handler : {}", modelAndView, handler.toString());
+		logger.debug("postHandle / ModelAndView : {},  Handler : {} ===", modelAndView, handler.toString());
 	}
 
 }

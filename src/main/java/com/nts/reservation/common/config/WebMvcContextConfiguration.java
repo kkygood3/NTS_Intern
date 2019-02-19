@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.common.interceptor.Interceptor;
+import com.nts.reservation.common.interceptor.LogInterceptor;
 
 /**
  * Copyright 2019 Naver Corp. All rights Reserved.
@@ -50,6 +50,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new Interceptor());
+		registry.addInterceptor(new LogInterceptor());
 	}
 }
