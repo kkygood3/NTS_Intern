@@ -31,7 +31,6 @@ var detailPage = {
         infoTabLi: document.querySelectorAll(".info_tab_lst li"),
         bottomDescription: document.querySelector(".detail_info_group"),
         bottomPath: document.querySelector(".detail_location"),
-        scrollToTop: document.querySelector(".gototop")
     },
 
     templates: {
@@ -92,7 +91,7 @@ var detailPage = {
             }
             document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
         });
-        scrollToTopAttacher(this.domElements.scrollToTop);
+        scrollToTopAttacher();
     },
 
     fetchDetailData: function () {

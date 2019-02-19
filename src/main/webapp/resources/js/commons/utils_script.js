@@ -361,8 +361,10 @@ function logout(){
 	});
 }
 
-function scrollToTopAttacher(target) {
-    target.addEventListener("click", (e) => {
-        document.documentElement.scrollTop = document.body.scrollTop = 0;
-    });
+function scrollToTopAttacher() {
+	document.querySelectorAll(".gototop").forEach((item) => {
+		item.addEventListener("click", (e) => {
+	        document.documentElement.scrollTop = document.body.scrollTop = 0;
+	    });
+	});
 }

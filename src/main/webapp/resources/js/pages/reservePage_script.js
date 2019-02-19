@@ -68,22 +68,22 @@ var reservePage = {
 
         // add priceController with interpreted data
         arrayToElementRenderer(this.state.detail_data.productPrices, this.domElements.countControlContainer, this.templates.countControlItem);
-        this.priceControllerInit();
+        this.initPriceController();
         this.attachFormValidation();
-        this.agreementShowBtnInit();
+        this.initAgreementShowBtn();
     },
     
     
 
-    priceControllerInit: function () {
+    initPriceController: function () {
         let controllers = this.domElements.countControlContainer.querySelectorAll(".qty");
         controllers.forEach((item) => {
             var controller = new CountController(item, this.state.prices);
         });
-        this.priceControllerWatcherInit();
+        this.initPriceControllerWatcher();
     },
     
-    priceControllerWatcherInit: function () {
+    initPriceControllerWatcher: function () {
         let totalCountBottom = document.querySelector("#totalCount");
         // object watcher attached for updating bottom count
         for (var key in this.state.prices) {
@@ -100,7 +100,7 @@ var reservePage = {
         }
     },
 
-    agreementShowBtnInit: function () {
+    initAgreementShowBtn: function () {
         document.querySelectorAll(".btn_agreement").forEach((item) => {
             new EulaButton(item);
         });
