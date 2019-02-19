@@ -74,7 +74,7 @@ var mainPage = {
         }
 
         var self = this;
-        sendGet( "/reservation-service/api/products", options, function(response) {
+        httpUtil.sendGet( "/reservation-service/api/products", options, function(response) {
             self.requestProductsCallback(response);
         });
     },
@@ -85,7 +85,7 @@ var mainPage = {
     requestCategories: function() {
 
         var self = this;
-        sendGet( "/reservation-service/api/categories", {}, function(response) {
+        httpUtil.sendGet( "/reservation-service/api/categories", {}, function(response) {
             self.requestCategoriesCallback(response);
         });
     },
@@ -96,7 +96,7 @@ var mainPage = {
     requestPromotions: function() {
 
         var self = this;
-        sendGet( "/reservation-service/api/promotions", {}, function(response) {
+        httpUtil.sendGet( "/reservation-service/api/promotions", {}, function(response) {
             self.requestPromotionsCallback(response);
         });
     },

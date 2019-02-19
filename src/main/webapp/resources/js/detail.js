@@ -43,7 +43,7 @@ var detailPage = {
         var id = this.values.id;
 
         var self = this;
-        sendGet( "/reservation-service/api/products/" + id, {}, function(response) {
+        httpUtil.sendGet( "/reservation-service/api/products/" + id, {}, function(response) {
             self.requestDisplayInfoCallback(response);
         });
     },

@@ -67,7 +67,7 @@ var myReservationPage = {
             params: params
         }
         var self = this;
-        sendGet(path, options, function(response) {
+        httpUtil.sendGet(path, options, function(response) {
             self.requestMyReservationsCallback(response);
         });
     },
@@ -77,7 +77,7 @@ var myReservationPage = {
         var reservationId = reservationId;
 
         var self = this;
-        sendPutWithPathVariable(path, reservationId, function(response) {
+        httpUtil.sendPut(path + "/" + reservationId, function(response) {
             self.requestCancelMyReservationCallback(response);
         });
     },

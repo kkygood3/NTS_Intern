@@ -48,21 +48,21 @@ var reservationPage = {
     initInputTextUiList: function() {
 
         var reserverInput = document.querySelector(".input_reserver");
-        var nameRegex = getUsernameRegex();
+        var nameRegex = regex.USERNAME_REGEX;
         var nameWarningMsg = "잘못된 형식의 이름입니다. (17자 이하)";
         var reserverInputTextUi = new InputTextUi(reserverInput, nameRegex, nameWarningMsg);
         this.objs.inputTextUiList.push(reserverInputTextUi);
         this.objs.reserverInputTextUi = reserverInputTextUi;
 
         var telephoneInput = document.querySelector(".input_telephone");
-        var telephoneRegex = getPhoneNumberRegex();
+        var telephoneRegex = regex.PHONE_NUMBER_REGEX;
         var telephoneWarningMsg = "잘못된 형식의 휴대폰 번호입니다.";
         var telephoneInputTextUi = new InputTextUi(telephoneInput, telephoneRegex, telephoneWarningMsg);
         this.objs.inputTextUiList.push(telephoneInputTextUi);
         this.objs.telephoneInputTextUi = telephoneInputTextUi;
 
         var emailInput = document.querySelector(".input_email");
-        var emailRegex = getEmailRegex();
+        var emailRegex = regex.EMAIL_REGEX;
         var emailWarningMsg = "잘못된 형식의 이메일입니다.";
         var emailInputTextUi = new InputTextUi(emailInput, emailRegex, emailWarningMsg);
         this.objs.inputTextUiList.push(emailInputTextUi);
@@ -476,7 +476,7 @@ var ReservationBtn = (function() {
         }
 
         var params = reservationPage.getReservationData();
-        sendPostWithJson("/reservation-service/api/reservations", params, this.onRequestReservationPostCallback);
+        httpUtil.sendPostWithJson("/reservation-service/api/reservations", params, this.onRequestReservationPostCallback);
     };
 
     ReservationBtn.prototype.onRequestReservationPostCallback = function(response) {
