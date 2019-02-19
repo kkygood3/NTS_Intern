@@ -74,7 +74,7 @@
 									</div>
 								</div>
 								<div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
-									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="${sessionScope.email}" placeholder="crong@codesquad.kr" maxlength="50"> </div>
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
