@@ -20,9 +20,9 @@ import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.productdisplay.model.ProductDisplay;
 import com.nts.reservation.productdisplay.model.ProductDisplayResponse;
 import com.nts.reservation.productdisplay.service.ProductDisplayService;
-import com.nts.reservation.productdisplayprice.model.ProductDisplayPriceResponse;
-import com.nts.reservation.productdisplayprice.model.ProductPrice;
-import com.nts.reservation.productdisplayprice.service.ProductPriceService;
+import com.nts.reservation.productprice.model.ProductDisplayPriceResponse;
+import com.nts.reservation.productprice.model.ProductPrice;
+import com.nts.reservation.productprice.service.ProductPriceService;
 
 @RestController
 public class ProductDisplayApiController {

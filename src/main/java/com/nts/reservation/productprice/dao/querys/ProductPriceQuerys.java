@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.productdisplayprice.dao.querys;
+package com.nts.reservation.productprice.dao.querys;
 
 public class ProductPriceQuerys {
 	public static final String SELECT_PRODUCT_PRICE_LIST = "select pp.id as product_price_id"

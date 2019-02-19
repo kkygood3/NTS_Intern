@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.common.config.ApplicationConfig;
-import com.nts.reservation.productdisplayprice.model.ProductPrice;
-import com.nts.reservation.productdisplayprice.service.ProductPriceService;
+import com.nts.reservation.productprice.model.ProductPrice;
+import com.nts.reservation.productprice.service.ProductPriceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})

@@ -14,7 +14,7 @@ import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.product.model.Product;
 import com.nts.reservation.productdisplay.model.ProductDisplay;
-import com.nts.reservation.productdisplayprice.model.ProductPrice;
+import com.nts.reservation.productprice.model.ProductPrice;
 import com.nts.reservation.promotion.model.Promotion;
 import com.nts.reservation.reservation.model.ReservationHistory;
 

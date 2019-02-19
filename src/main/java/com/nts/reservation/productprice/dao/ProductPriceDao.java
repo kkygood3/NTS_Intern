@@ -2,9 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.productdisplayprice.dao;
+package com.nts.reservation.productprice.dao;
 
-import static com.nts.reservation.productdisplayprice.dao.querys.ProductPriceQuerys.*;
+import static com.nts.reservation.productprice.dao.querys.ProductPriceQuerys.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.productdisplayprice.model.ProductPrice;
+import com.nts.reservation.productprice.model.ProductPrice;
 
 @Repository
 public class ProductPriceDao {
