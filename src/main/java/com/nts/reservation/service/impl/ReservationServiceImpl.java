@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ReservationInfoDao;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
@@ -29,6 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationInfoPriceDao reservationInfoPriceDao;
 
 	@Override
+	@Transactional
 	public void makeReservation(ReservationParamDto reservationParam) {
 		ReservationInfoDto reservationInfo = new ReservationInfoDto();
 		reservationInfo.setDisplayInfoId(reservationParam.getDisplayInfoId());
@@ -47,6 +49,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<MyReservationDto> getMyReservations(String reservationEmail) {
 		return reservationInfoDao.selectMyReservations(reservationEmail);
 	}
