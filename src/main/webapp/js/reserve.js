@@ -9,83 +9,71 @@ function setTicketClick() {
 	var ticketTotalArea = document.querySelector('#totalCount');
 
 	ticketContainer
-			.addEventListener(
-					'click',
-					function(evt) {
-						evt.preventDefault();
-
-						var clickedTag = evt.target;
-						if (clickedTag.tagName == 'A') {
-							var btnMinus = clickedTag.parentElement
-									.querySelector('.ico_minus3');
-							var btnPlus = clickedTag.parentElement
-									.querySelector('.ico_plus3');
-
-							var amountArea = clickedTag.parentElement
-									.querySelector('input');
-							var amountValue = parseInt(amountArea
-									.getAttribute('value'));
-
-							var isMinus = clickedTag.classList
-									.contains('ico_minus3')
-									&& amountValue > 0;
-							var isPlus = clickedTag.classList
-									.contains('ico_plus3');
-
-							var item = clickedTag.parentElement.parentElement.parentElement;
-							var cost = item.getAttribute('cost');
-
-							if (isMinus) {
-								if (amountValue == 1) {
-									btnMinus.classList.add('disabled');
-								}
-
-								item.querySelector('.total_price').innerText = (cost * (amountValue - 1))
-										.toLocaleString();
-								amountArea.setAttribute('value',
-										amountValue - 1);
-
-								ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) - 1;
-							} else if (isPlus) {
-								if (amountValue == 0) {
-									btnMinus.classList.remove('disabled');
-								}
-
-								item.querySelector('.total_price').innerText = (cost * (amountValue + 1))
-										.toLocaleString();
-								amountArea.setAttribute('value',
-										amountValue + 1);
-
-								ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) + 1;
+			.addEventListener('click',function(evt) {
+					evt.preventDefault();
+	
+					var clickedTag = evt.target;
+					if (clickedTag.tagName == 'A') {
+						var btnMinus = clickedTag.parentElement.querySelector('.ico_minus3');
+						var btnPlus = clickedTag.parentElement.querySelector('.ico_plus3');
+	
+						var amountArea = clickedTag.parentElement.querySelector('input');
+						var amountValue = parseInt(amountArea.getAttribute('value'));
+	
+						var isMinus = (clickedTag.classList.contains('ico_minus3') && amountValue > 0);
+						var isPlus = (clickedTag.classList.contains('ico_plus3'));
+	
+						var item = clickedTag.parentElement.parentElement.parentElement;
+						var cost = item.getAttribute('cost');
+						var itemPriceArea = item.querySelector('.total_price');
+						
+						if (isMinus) {
+							if (amountValue == 1) {
+								btnMinus.classList.add('disabled');
+								amountArea.classList.add('disabled');
+								itemPriceArea.parentElement.classList.remove('on_color');
 							}
+							
+							itemPriceArea.innerText = (cost * (amountValue - 1)).toLocaleString();
+							amountArea.setAttribute('value', amountValue - 1);
+	
+							ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) - 1;
+						} else if (isPlus) {
+							if (amountValue == 0) {
+								btnMinus.classList.remove('disabled');
+								amountArea.classList.remove('disabled');
+								itemPriceArea.parentElement.classList.add('on_color');
+							}
+	
+							item.querySelector('.total_price').innerText = (cost * (amountValue + 1)).toLocaleString();
+							amountArea.setAttribute('value',amountValue + 1);
+	
+							ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) + 1;
 						}
-					});
+					}
+				});
 }
 
 function setAgreementDesciptionClick() {
 	// 약관 보기 버튼
-	var agreementDescriptionWrap = document
-			.querySelector('.section_booking_agreement');
+	var agreementDescriptionWrap = document.querySelector('.section_booking_agreement');
+	
 	agreementDescriptionWrap
 			.addEventListener('click',
 					function(evt) {
 						var clickedBtn = evt.target;
 
-						var isClickedChild = (clickedBtn.classList
-								.contains('fn') || clickedBtn.classList
-								.contains('btn_text'));
+						var isClickedChild = (clickedBtn.classList.contains('fn') || clickedBtn.classList.contains('btn_text'));
 						if (isClickedChild) {
 							clickedBtn = clickedBtn.parentElement;
 						}
 
 						if (clickedBtn.classList.contains('btn_agreement')) {
 							evt.preventDefault();
-							var btnTextArea = clickedBtn
-									.querySelector('.btn_text');
+							var btnTextArea = clickedBtn.querySelector('.btn_text');
 							var btnArrow = clickedBtn.querySelector('i.fn');
 
-							var isFold = btnArrow.classList
-									.contains('fn-down2');
+							var isFold = btnArrow.classList.contains('fn-down2');
 
 							if (isFold) {
 								btnTextArea.innerText = '접기';
@@ -98,8 +86,7 @@ function setAgreementDesciptionClick() {
 								btnArrow.classList.add('fn-down2');
 								btnArrow.classList.remove('fn-up2');
 
-								clickedBtn.parentElement.classList
-										.remove('open');
+								clickedBtn.parentElement.classList.remove('open');
 							}
 						}
 					});
@@ -113,8 +100,7 @@ function setReserveClick() {
 	var bookerInputsWrap = document.querySelector('.section_booking_form');
 
 	var ticketInputs = ticketInputsWrap.querySelectorAll('.ticket_body input');
-	var bookerInputs = bookerInputsWrap
-			.querySelectorAll('.form_horizontal input');
+	var bookerInputs = bookerInputsWrap.querySelectorAll('.form_horizontal input');
 
 	var agreementCheckBox = document.querySelector('#chk3');
 
@@ -237,8 +223,7 @@ function PriceInfo(type, count) {
 };
 
 function postReserve() {
-	var ticketInputs = document
-			.querySelectorAll('.section_booking_ticket input');
+	var ticketInputs = document.querySelectorAll('.section_booking_ticket input');
 
 	var bookerInputs = document.querySelectorAll('.form_horizontal input');
 	var bookerName = bookerInputs[0].value;

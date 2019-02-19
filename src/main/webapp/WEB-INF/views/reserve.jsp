@@ -99,7 +99,7 @@
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
                                     <div class="inline_control tel_wrap"> 
-	                                    <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
+                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
 	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div> 
                                     </div>
                                 </div>
@@ -111,7 +111,14 @@
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
                                     <div class="inline_control tel_wrap">
-                                    	<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+	                                    <c:choose>
+	                                    		<c:when test="${empty email}">
+	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+	                                    	    </c:when>
+	                                    		<c:otherwise>
+	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" maxlength="50" readonly>
+	                                    		</c:otherwise>
+	                                    </c:choose>
                                     	<div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
                                     </div>
                                 </div>

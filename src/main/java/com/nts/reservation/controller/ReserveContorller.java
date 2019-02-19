@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +25,14 @@ public class ReserveContorller {
 	 * @param id - displayInfo 테이블의 id 
 	 */
 	@GetMapping("/reserve")
-	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {
+	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map,
+		HttpSession session) {
+		
+		String sessionEmail = (String)session.getAttribute("email");
+		if (sessionEmail != null) {
+			map.addAttribute("email",sessionEmail);
+		}
+		
 		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
 		map.addAttribute("reserveDisplayInfo", reserveResponse.getReserveDisplayInfo());
 		map.addAttribute("reservePrice", reserveResponse.getReservePrice());
