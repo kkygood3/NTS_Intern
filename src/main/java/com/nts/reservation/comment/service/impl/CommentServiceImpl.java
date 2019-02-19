@@ -26,6 +26,21 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDaoImpl commentDaoImpl;
 
 	@Override
+	public List<Comment> getAllComment(int displayInfoId) {
+		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
+		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+
+		for (Comment comment : commentList) {
+			commentImageList = getCommentImage(comment.getCommentId());
+			if (commentImageList.size() != 0) {
+				comment.setCommentImage(commentImageList.get(0).getSaveFileName());
+			}
+		}
+
+		return commentList;
+	}
+
+	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
 		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
@@ -45,10 +60,10 @@ public class CommentServiceImpl implements CommentService {
 		return commentDaoImpl.selectCommentImage(commentId);
 	}
 
-	@Override
-	public double getAverageScore(int displayInfoId) {
-		return commentDaoImpl.selectAverageScore(displayInfoId);
-	}
+	//	@Override
+	//	public double getAverageScore(int displayInfoId) {
+	//		return commentDaoImpl.selectAverageScore(displayInfoId);
+	//	}
 
 	@Override
 	public List<DetailComment> getDetailComment(int displayInfoId) {

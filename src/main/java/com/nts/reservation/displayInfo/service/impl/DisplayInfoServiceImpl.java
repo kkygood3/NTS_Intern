@@ -46,28 +46,34 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
-		List<Comment> commentList = commentServiceImpl.getLimitComment(displayInfoId, start, limit);
+		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
+
+		List<ProductImage> productImages = productServiceImpl.getProductImage(displayInfoId);
+		displayInfoResponse.setProductImages(productImages);
+
+		List<ProductPrice> productPrices = productServiceImpl.getProductPrice(displayInfoId);
+		displayInfoResponse.setProductPrices(productPrices);
+
+		List<Comment> limitCommentList = commentServiceImpl.getLimitComment(displayInfoId, start, limit);
+		displayInfoResponse.setComments(limitCommentList);
+
 		DisplayInfo displayInfo = getDisplayInfo(displayInfoId);
+		displayInfoResponse.setDisplayInfo(displayInfo);
+
 		DisplayInfoImage displayInfoImage = getDisplayInfoImage(displayInfoId);
+		displayInfoResponse.setDisplayInfoImage(displayInfoImage.getSaveFileName());
+
+		List<Comment> allCommentList = commentServiceImpl.getAllComment(displayInfoId);
 		double sumScore = 0.0;
-		for (Comment comment : commentList) {
+		for (Comment comment : allCommentList) {
 			sumScore = sumScore + comment.getScore();
 		}
 		double averageScore = 0.0;
-		if (commentList.size() == 0) {
+		if (allCommentList.size() == 0) {
 			averageScore = 0.0;
 		} else {
-			averageScore = sumScore / commentList.size();
+			averageScore = sumScore / allCommentList.size();
 		}
-
-		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
-		List<ProductImage> productImages = productServiceImpl.getProductImage(displayInfoId);
-		displayInfoResponse.setProductImages(productImages);
-		List<ProductPrice> productPrices = productServiceImpl.getProductPrice(displayInfoId);
-		displayInfoResponse.setProductPrices(productPrices);
-		displayInfoResponse.setComments(commentList);
-		displayInfoResponse.setDisplayInfo(displayInfo);
-		displayInfoResponse.setDisplayInfoImage(displayInfoImage.getSaveFileName());
 		displayInfoResponse.setAverageScore(averageScore);
 
 		return displayInfoResponse;

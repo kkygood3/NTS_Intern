@@ -53,9 +53,9 @@ function getUrlParameter(name) {
 
 function loadTitleImage(displayInfo){
 	// 상단 Swipe Image 배너 Template
-	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
-	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
-	let swipeContainer = document.querySelector('ul.detail_swipe');
+	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
+	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
+	var swipeContainer = document.querySelector('ul.detail_swipe');
 	
 	// 이미지가 1개인 경우
 	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
@@ -193,45 +193,45 @@ function loadShowMoreButton(){
 }
 
 function loadExtraImage(responseData){
-	let extraImageInformation = responseData.productImage;
+	var extraImageInformation = responseData.productImage;
 	
 	// 상단 Swipe Image 배너 Template
-	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
-	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
-	let swipeContainer = document.querySelector('ul.detail_swipe');
+	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
+	var bindSwipeTemplate = Handlebars.compile(swipeTemplate);
+	var swipeContainer = document.querySelector('ul.detail_swipe');
 	
 	// Swipe 페이지 수, 총량 표시
-	let swipePage = document.querySelector('.figure_pagination').querySelector('.num');
-	let swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
+	var swipePage = document.querySelector('.figure_pagination').querySelector('.num');
+	var swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
 	
 	// Swipe 이미지 좌우의 버튼
-	let swipeLeftBtn = document.querySelector('.ico_arr6_lt');
-	let swipeRightBtn = document.querySelector('.ico_arr6_rt');
+	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
+	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	
 	if(extraImageInformation){		
-		let firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
-		let secondItem = bindSwipeTemplate(extraImageInformation);
+		var firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
+		var secondItem = bindSwipeTemplate(extraImageInformation);
 		
 		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
 		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
 		swipeContainer.innerHTML = secondItem + firstItem + secondItem + firstItem ;
 
-		let swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
+		var swipeItems = swipeContainer.querySelectorAll('ul.detail_swipe>.item');
 				
 		// 시작점을 두번째 자리의 1로 변경
 		swipeItems.forEach(item => item.style.left = '-100%');
 		
-		let eventContainer = document.querySelector('.group_visual');
+		var eventContainer = document.querySelector('.group_visual');
 		
-		let currentPage = 1;
-		let currentLeft = -100;
+		var currentPage = 1;
+		var currentLeft = -100;
 		// 화살표에 클릭이벤트 추가
 		function arrowEventHandler(evt){
 			
-			let clickedBtn = evt.target;
+			var clickedBtn = evt.target;
 			
-			let isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
-			let isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
+			var isLeftBtnClicked = clickedBtn.classList.contains('ico_arr6_lt');
+			var isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
 			if(isLeftBtnClicked | isRightBtnClicked){
 				eventContainer.removeEventListener('click',arrowEventHandler);
 				if(isLeftBtnClicked){// 왼쪽 클릭
