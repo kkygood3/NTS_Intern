@@ -149,6 +149,7 @@ function initTicketCancelEvents(ticketContainers){
 			cancelPopup.addEventListener('click',popupClickEvent);
 			
 			function popupClickEvent(evt){
+				evt.preventDefault();
 				var clickedPopupBtn = evt.target;
 				if(clickedPopupBtn.tagName == 'SPAN'){
 					clickedPopupBtn = clickedPopupBtn.parentElement;
