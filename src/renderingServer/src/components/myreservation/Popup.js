@@ -12,8 +12,7 @@ class Popup extends React.Component {
                 <div class="dimm_dark" style={{display:'block'}}></div>
                 <div class="popup_booking refund">
                     <h1 class="pop_tit">
-                        <span>서비스명/상품명</span>
-                        <small class="sm">2000.0.00.(월)2000.0.00.(일)</small>
+                        <span>{this.props.title}</span>
                     </h1>
                     <div class="nomember_alert">
                         <p>취소하시겠습니까?</p>

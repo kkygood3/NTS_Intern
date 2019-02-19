@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -52,15 +51,12 @@ public class MyReservationPageController {
 	 */
 	@GetMapping(path = "/myReservationWithReact", produces = "text/html; charset=utf8")
 	public @ResponseBody String myReservationPageTest(
-		@RequestParam(name = "userEmail", required = true) String userEmail,
 		HttpSession session) throws BadRequestException, InternalServerErrorException {
 
-		if (!emailPattern.matcher(userEmail).find()) {
+		String userEmail = (String)session.getAttribute("userEmail");
+		if (userEmail == null) {
 			throw new BadRequestException();
 		}
-
-		session.removeAttribute("userEmail");
-		session.setAttribute("userEmail", userEmail);
 
 		List<ReservationInfoDto> list = reservationService.getReservationList(userEmail);
 		int count = reservationService.getReservationCount(userEmail);

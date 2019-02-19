@@ -10,7 +10,9 @@ class MyReservationItem extends React.Component {
         return (
 			<article class="card_item" data-reservation-id={this.props.reservation.reservationInfoId}
 				 onClick={this.props.onClickReservationBtn != undefined
-					 ? this.props.onClickReservationBtn
+					 ? function(event) { 
+						 this.props.onClickReservationBtn(event, this.props.reservation.displayInfo.productDescription)
+						}.bind(this)
 					: function() {
 						return;
 					}}>

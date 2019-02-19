@@ -20,6 +20,7 @@ class MyReservation extends React.Component {
       cancelReservations: filteredReservations.cancelReservations,
       finishReservations: filteredReservations.finishReservations,
       clickedReservationId: -1,
+      clickedReservationTitle: "",
       isHidePopup: true
     }
 
@@ -52,7 +53,7 @@ class MyReservation extends React.Component {
     return filteredReservations;
   }
 
-  onClickCancelReservationBtn (event) {
+  onClickCancelReservationBtn (event, title) {
     if (!event.target.classList.contains("btn") && !event.target.parentNode.classList.contains("btn")) {
       return;
     }
@@ -60,6 +61,7 @@ class MyReservation extends React.Component {
     var reservationId = event.currentTarget.dataset.reservationId;
     this.setState({
       clickedReservationId: reservationId,
+      clickedReservationTitle: title,
       isHidePopup: false
     });
   }
@@ -135,7 +137,7 @@ class MyReservation extends React.Component {
           </div>
           <CopyrightFooter />
           <Popup isHidePopup={this.state.isHidePopup} onClickCloseBtn= { this.onClickPopupCloseBtn } 
-            onClickOkBtn= {this.onClickPopupOkBtn } />
+            onClickOkBtn= {this.onClickPopupOkBtn } title= { this.state.clickedReservationTitle} />
         </div>
         
       )
