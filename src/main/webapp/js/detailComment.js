@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('displayInfoId') + '/detailComment');
-});
-
 function loadDisplayInfoCallback(responseData) {
 	// 모든 코멘트 보여주기
 	loadAllComments(responseData);
@@ -65,3 +61,7 @@ function loadAllComments(responseData){
 	// 펼치기 버튼 가리기
 	document.querySelector('div.more').style.display = 'none';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+	requestAjax(loadDisplayInfoCallback, 'api/products/' + getUrlParameter('displayInfoId') + '/detailComment');
+});

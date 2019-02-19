@@ -84,6 +84,7 @@ public class ProductDaoImpl implements ProductDao {
 		return jdbc.query(SELECT_PRODUCT_PRICE, params, productPriceRowMapper);
 	}
 
+	@Override
 	public ProductExtraImage selectProductExtraImage(int displayInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

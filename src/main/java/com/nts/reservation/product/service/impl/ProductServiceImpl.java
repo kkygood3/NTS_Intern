@@ -69,6 +69,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductExtraImage getProductExtraImage(int displayInfoId) {
-		return productDaoImpl.selectProductExtraImage(displayInfoId);
+		ProductExtraImage productExtraImage = productDaoImpl.selectProductExtraImage(displayInfoId);
+
+		if (productExtraImage == null) {
+			productExtraImage = new ProductExtraImage();
+			productExtraImage.setProductDescription("");
+			productExtraImage.setProductImage("");
+		}
+
+		return productExtraImage;
 	}
 }

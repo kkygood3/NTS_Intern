@@ -24,6 +24,7 @@ public class DisplayInfo {
 	private String productEvent;
 	private int productId;
 	private String telephone;
+	private String productImage;
 	private String displayInfoImage;
 
 	public int getCategoryId() {
@@ -154,6 +155,14 @@ public class DisplayInfo {
 		this.telephone = telephone;
 	}
 
+	public String getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
+
 	public String getDisplayInfoImage() {
 		return displayInfoImage;
 	}
@@ -169,6 +178,6 @@ public class DisplayInfo {
 			+ modifyDate + ", openingHours=" + openingHours + ", placeLot=" + placeLot + ", placeName=" + placeName
 			+ ", placeStreet=" + placeStreet + ", productContent=" + productContent + ", productDescription="
 			+ productDescription + ", productEvent=" + productEvent + ", productId=" + productId + ", telephone="
-			+ telephone + "]";
+			+ telephone + ", productImage=" + productImage + ", displayInfoImage=" + displayInfoImage + "]";
 	}
 }
