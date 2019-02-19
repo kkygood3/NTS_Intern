@@ -26,7 +26,7 @@
 
 	<!-- 특정 level 이상의 log만 출력 -->
 	<logger name="org.springframework" level="info" />
-	<logger name="com.nts.reservation" level="warn" />
+	<logger name="com.nts.reservation" level="debug" />
 
 	<root level="debug">
 		<appender-ref ref="CONSOLE" />
