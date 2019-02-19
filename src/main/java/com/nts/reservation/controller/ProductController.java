@@ -1,14 +1,17 @@
 package com.nts.reservation.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
@@ -87,8 +90,19 @@ public class ProductController {
 	 */
 	@PostMapping(path = "/{displayInfoId}/reservation")
 	public String postReservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
-		@RequestBody UserReservationInput userReservationInput,
+		@RequestParam (name = "user_reservation_input", required = true) String userReservationInputString,
 		ModelMap model) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		UserReservationInput userReservationInput = null;
+		try {
+			userReservationInput = mapper.readValue(userReservationInputString, UserReservationInput.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "redirect:/detail/" + displayInfoId;
+		}
+		
+		
 		reservationService.addReservation(userReservationInput, displayInfoId);
 		return "redirect:/detail/" + displayInfoId;
 	}

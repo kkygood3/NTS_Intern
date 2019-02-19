@@ -143,13 +143,12 @@ function addBookingButtonClickEvent() {
 		reservationData.tel = document.getElementById("tel").value;
 		reservationData.email = document.getElementById("email").value;
 		reservationData.price = makePriceData();
-		$.ajax({
-			method: "POST",
-			url: "/detail/" + displayInfo().displayInfoId + "/reservation",
-			data: JSON.stringify(reservationData),
-			dataType: "json",
-			contentType : "application/json"
-		});
+		
+		var form = document.getElementById("user_reservation_input");
+		var input = form.querySelector("input");
+		input.value = JSON.stringify(reservationData);
+		form.submit();
+
 	});
 }
 
