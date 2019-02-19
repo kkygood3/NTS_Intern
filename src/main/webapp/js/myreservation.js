@@ -112,7 +112,7 @@ function setBtnClickEvents(){
 	ticketContainers[2].addEventListener('click',function(evt){
 	    var clickedBtn = evt.target;
 	    
-	    var isClickedChild = (clickedBtn.tagName == 'SPAN')
+	    var isClickedChild = (clickedBtn.tagName == 'SPAN');
 	    if (isClickedChild){
 	    	clickedBtn = clickedBtn.parentElement;
 	    }
