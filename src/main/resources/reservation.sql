@@ -1490,6 +1490,28 @@ INNER JOIN display_info ON display_info.product_id = product.id
 WHERE display_info.id = 2;
 
 ------------------------------------------------------------
+-- RESERVATION INFO by EMAIL
+SELECT cancel_flag 'cancelYn', create_date 'createDate', display_info_id 'displayInfoId', modify_date 'modifyDate', product_id 'productId', reservation_date 'reservationDate', reservation_email 'reservationEmail', id 'reservationInfoId', reservation_name 'reservationName', reservation_tel 'reservationTel'
+FROM reservation_info
+WHERE reservation_info.reservation_email = 'aewrl@naver.com';
+
+-- RESERVATION INFO by ID
+SELECT cancel_flag 'cancelYn', create_date 'createDate', display_info_id 'displayInfoId', modify_date 'modifyDate', product_id 'productId', reservation_date 'reservationDate', reservation_email 'reservationEmail', id 'reservationInfoId', reservation_name 'reservationName', reservation_tel 'reservationTel'
+FROM reservation_info
+WHERE id = 1;
+
+-- RESERVATION INFO PRICE (LIST)
+SELECT count 'count', product_price_id 'productPriceId', reservation_info_id 'reservationInfoId', id 'productId'
+FROM reservation_info_price
+WHERE reservation_info_id = 1;
+
+-- POST로 등록 시
+INSERT INTO reservation_info (product_id, display_info_id, reservation_name, reservation_tel, reservation_email, reservation_date, create_date, modify_date ) 
+VALUES (1, 1, '홍길동', '010-0000-0009', 'hong@connect.co.kr', now(), now(), now());
+-- INSERT LIST로 반복
+INSERT INTO reservation_info_price(id, reservation_info_id, product_price_id, count) VALUES('자동증가', '다른 곳에서 참조', 'product_price에서 참조', count);
+--------------------------------------------------------------
+
 -- TEST
 SELECT ROUND(AVG(score), 1) as 'averageScore'
 FROM reservation_user_comment
