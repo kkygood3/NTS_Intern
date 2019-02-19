@@ -37,7 +37,7 @@
 							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure" id="totalCnt"></span> </a>
 						</li>
 						<li class="item">
-							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="avilableCnt"></span> </a>
+							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em> <span class="figure" id="availableCnt"></span> </a>
 						</li>
 						<li class="item">
 							<a href="#" class="link_summary_board"> <i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span class="figure" id="usedCnt"></span> </a>
