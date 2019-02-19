@@ -66,7 +66,7 @@ public class ProductDaoImpl implements ProductDao {
 	public List<ProductImage> selectProductImages(int displayInfoId, ImageType type) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
-		param.put("type", type.getImageType());
+		param.put("type", type.getImageCode());
 		return jdbc.query(ProductDaoSqls.GET_PRODUCT_IMAGES, param, productImageRowMapper);
 	}
 

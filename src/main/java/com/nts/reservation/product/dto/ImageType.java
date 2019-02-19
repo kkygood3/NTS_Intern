@@ -4,18 +4,17 @@
  */
 package com.nts.reservation.product.dto;
 
+import lombok.Getter;
+
+@Getter
 public enum ImageType {
-	th("th"),
-	ma("ma"),
-	et("et");
+	TH("th"),
+	MA("ma"),
+	ET("et");
 
-	private final String imageType;
+	private final String imageCode;
 
-	private ImageType(String imageType) {
-		this.imageType = imageType;
-	}
-
-	public String getImageType() {
-		return imageType;
+	private ImageType(String imageCode) {
+		this.imageCode = imageCode;
 	}
 }
