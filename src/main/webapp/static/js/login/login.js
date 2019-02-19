@@ -4,6 +4,9 @@
 const sendAjax = require('../sendAjax');
 const validate = require('../util/validate');
 
+/**
+ * @desc reservationEmail class
+ */
 function ReservationEmail(){
 	this.init();
 };
@@ -18,6 +21,9 @@ ReservationEmail.prototype = {
         return document.querySelector('.reservation_email').value;
     },
 
+    /**
+     * @desc 로그인 하기 버튼 이벤트
+     */
     addLoginButtonEvent(){
         document.querySelector('.login_btn').addEventListener('click',()=>{
             let reservationEmail = this.getReservationEmail();
@@ -30,6 +36,10 @@ ReservationEmail.prototype = {
         }); 
     },
 
+    /**
+     * @desc reservationEmail 서버에 세션에 저장 
+     * @param {String} reservationEmail 
+     */
     sendReservationEmail(reservationEmail){
     	
     	const reservationEmailSendHeader = {

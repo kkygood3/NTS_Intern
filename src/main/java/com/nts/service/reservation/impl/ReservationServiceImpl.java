@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.dao.reservation.ReservationRepository;
-import com.nts.dto.reservation.ReservationData;
-import com.nts.dto.reservation.ReservationInfo;
+import com.nts.dto.reservation.ReservationParameter;
+import com.nts.dto.reservation.Reservation;
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.dto.reservation.ReservationPrice;
 import com.nts.exception.DisplayInfoNullException;
@@ -28,14 +28,19 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private DisplayInfoService displayInfoService;
+	
+	private static final int CANCEL = 1;
 
+	/**
+	 * @desc reservationEmail 별 reservationInfo 가져오기
+	 * @return reservationInfos
+	 */
 	@Override
 	public ReservationInfos getReservationInfoByReservationEmail(String reservationEmail) throws DisplayInfoNullException{
 
-		List<ReservationInfo> reservationInfoList = reservationRepository.selectReservationInfoByReservationEmail(reservationEmail);
+		List<Reservation> reservationInfoList = reservationRepository.selectReservationInfoByReservationEmail(reservationEmail);
 		
-		
-		for(ReservationInfo reservation : reservationInfoList) {
+		for(Reservation reservation : reservationInfoList) {
 			reservation.setDisplayInfo(displayInfoService.getDisplayInfoByDisplayInfoId(reservation.getDisplayInfoId()));
 		}
 		
@@ -47,22 +52,30 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationInfos;
 	}
 
+	/**
+	 * @desc reservation 삽입
+	 * @param reservationParameter
+	 */
 	@Override
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
-	public int addReservation(ReservationData reservationData) {
-		long reservationInfoId = reservationRepository.insertReservation(reservationData);
+	public int addReservation(ReservationParameter reservationParameter) {
+		long reservationInfoId = reservationRepository.insertReservation(reservationParameter);
 		
-		for(ReservationPrice reservationPrice : reservationData.getPrices()) {
+		for(ReservationPrice reservationPrice : reservationParameter.getPrices()) {
 			reservationPrice.setReservationInfoId(reservationInfoId);
 			
 			reservationRepository.insertReservationPrice(reservationPrice);
 		}
 		return 1;
 	}
-
+	
+	/**
+	 * @desc 취소 하기 
+	 * @param reservationId
+	 */
 	@Override
-	public int modifyReservationToCancelByReservationId(long reservationId) {
+	public int cancelReservation(long reservationId) {
 		
-		return reservationRepository.updateReservationToCancelByReservationId(reservationId);
+		return reservationRepository.updateReservationCancelFlag(reservationId,CANCEL);
 	}
 }

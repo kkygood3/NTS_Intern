@@ -4,7 +4,6 @@
  **/
 package com.nts.dao.reservation;
 
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,48 +19,71 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.nts.dto.product.ProductPrice;
-import com.nts.dto.reservation.ReservationData;
-import com.nts.dto.reservation.ReservationInfo;
+import com.nts.dto.reservation.ReservationParameter;
+import com.nts.dto.reservation.Reservation;
 import com.nts.dto.reservation.ReservationPrice;
 
 import static com.nts.sqls.reservation.ReservationSqls.*;
 
 @Repository
 public class ReservationRepository {
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
-	private RowMapper<ReservationInfo> reservationInfoRowMapper = BeanPropertyRowMapper.newInstance(ReservationInfo.class);
-	
-	public List<ReservationInfo> selectReservationInfoByReservationEmail(String reservationEmail){
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("reservationEmail", reservationEmail);
 
-		return namedParameterJdbcTemplate.query(SELECT_RESERVATION_INFO_BY_RESERVATION_EMAIL, params, reservationInfoRowMapper);
+	private RowMapper<Reservation> reservationInfoRowMapper = BeanPropertyRowMapper.newInstance(Reservation.class);
+
+	/**
+	 * @desc reservationEmail 별 reservationInfo 가져오기
+	 * @param reservationEmail
+	 * @return List<ReservationInfo>
+	 */
+	public List<Reservation> selectReservationInfoByReservationEmail(String reservationEmail) {
+
+		Map<String, Object> params = Collections.singletonMap("reservationEmail", reservationEmail);
+
+		return namedParameterJdbcTemplate.query(SELECT_RESERVATION_INFO_BY_RESERVATION_EMAIL, params,
+				reservationInfoRowMapper);
 	}
 	
-	public Long insertReservation(ReservationData reservationData) {
-		SqlParameterSource sqlParameterSource = new BeanPropertySqlParameterSource(reservationData);
-		
+	/**
+	 * @desc reservation 삽입
+	 * @param reservationParameter
+	 * @return	reservationInfoId
+	 */
+	public Long insertReservation(ReservationParameter reservationParameter) {
+		SqlParameterSource sqlParameterSource = new BeanPropertySqlParameterSource(reservationParameter);
+
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		namedParameterJdbcTemplate.update(INSERT_INTO_RESERVATION_INFO, sqlParameterSource,keyHolder);
-		
+		namedParameterJdbcTemplate.update(INSERT_INTO_RESERVATION_INFO, sqlParameterSource, keyHolder);
+
 		return keyHolder.getKey().longValue();
 	}
-	
+
+	/**
+	 * @desc
+	 * @param reservationPrice
+	 * @return 성공 여부 (1, 0)
+	 */
 	public int insertReservationPrice(ReservationPrice reservationPrice) {
-		
+
 		SqlParameterSource sqlParameterSource = new BeanPropertySqlParameterSource(reservationPrice);
-		
+
 		return namedParameterJdbcTemplate.update(INSERT_INTO_RSERVATION_INFO_PRICE, sqlParameterSource);
 	}
-	
-	public int updateReservationToCancelByReservationId(long reservationId) {
-		
-		Map<String,Object> params = Collections.singletonMap("reservationId", reservationId);
+
+	/**
+	 * @desc reservationCancelFlag 변경
+	 * @param reservationId
+	 * @param cancelFlag
+	 * @return 성공 여부 (1 , 0)
+	 */
+	public int updateReservationCancelFlag(long reservationId, int cancelFlag) {
+
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationId", reservationId);
+		params.put("cancelFlag", cancelFlag);
+
 		return namedParameterJdbcTemplate.update(UPDATE_RESERVATION_INFO_CANCEL, params);
 	}
 }

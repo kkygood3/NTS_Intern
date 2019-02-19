@@ -10,14 +10,14 @@ import java.util.List;
  * @author 전연빈
  */
 public class ReservationInfos {
-	private List<ReservationInfo> reservations; // 예약 정보들
+	private List<Reservation> reservations; // 예약 정보들
 	private int size; 							// 예약 수
 
-	public List<ReservationInfo> getReservations() {
+	public List<Reservation> getReservations() {
 		return reservations;
 	}
 
-	public void setReservations(List<ReservationInfo> reservations) {
+	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 

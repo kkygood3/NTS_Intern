@@ -5,6 +5,9 @@ const sendAjax = require("../sendAjax");
 const handlebarsFunction = require("../handlebarsFunction");
 const addCommaUtil = require('../util/addCommaUtil');
 
+/**
+ * @desc 예약 class
+ */
 function Reservation() {
     this.email = this.getReservationEmail();
     this.init();
@@ -19,6 +22,9 @@ Reservation.prototype = {
         return document.querySelector(".section_my").dataset.reservationemail;
     },
 
+    /**
+     * @desc 예약정보들 가져온뒤 셋팅
+     */
     setReservationInfos() {
         const reservationSendHeader = {
             method: "GET",
@@ -32,18 +38,34 @@ Reservation.prototype = {
         });
     },
 
+    /**
+     * @desc 전체 갯수 셋팅
+     * @param {Number} reservationCount 
+     */
     setReservationCountAll(reservationCount) {
         document.querySelector("#count_all").innerHTML = reservationCount;
     },
     
+    /**
+     * @desc 취소 개수 셋팅
+     * @param {Number} reservationCount 
+     */
     setCancelReservationCount(reservationCount){
     	document.querySelector("#count_cancel").innerHTML = reservationCount;
     },
     
+    /**
+     * @desc 예약 (아직 보지않은) 갯수 셋팅
+     * @param {Number} reservationCount 
+     */
     setConfirmReservationCount(reservationCount){
     	document.querySelector("#count_confirm").innerHTML = reservationCount;
     },
 
+    /**
+     * @desc 예약 정보들 셋팅
+     * @param {JSON} reservations 
+     */
     setReservations(reservations) {
         
         const confirmDiv = document.querySelector(".confirmed");
@@ -86,6 +108,9 @@ Reservation.prototype = {
     }
 };
 
+/**
+ * @desc 취소 관련 class
+ */
 function Cancel(){
     this.init();
 }
@@ -97,6 +122,9 @@ Cancel.prototype = {
         this.addCancelButtonNoButtonEvent();
     },
 
+    /**
+     * @desc 취소하기 버튼 이벤트
+     */
     addCancelButtonEvent(){
         const cancelPopup = document.querySelector(".popup_booking_wrapper");
         const cancelButtonList = document.querySelectorAll(".cancel_button");
@@ -121,6 +149,9 @@ Cancel.prototype = {
         });
     },
 
+    /**
+     * @desc 취소하기 팝업 X 버튼 이벤트
+     */
     addCancelPopUpCloseButtonEvent(){
         document.querySelector(".popup_btn_close").addEventListener("click", event => {
             const popupCloseButton = event.currentTarget;
@@ -132,6 +163,10 @@ Cancel.prototype = {
         });
     },
     
+    /**
+     * @desc 취소하기 예 버튼 이벤트
+     * @param {DOMElement} bookingNumberElement 
+     */
     addCancelButtonYesButtonEvent(bookingNumberElement){
         document.querySelector(".cancel_yes").addEventListener("click", event => {
 
@@ -148,6 +183,9 @@ Cancel.prototype = {
         });
     },
     
+    /**
+     * @desc 취소하기 아니오 버튼 이벤트
+     */
     addCancelButtonNoButtonEvent(){
         document.querySelector(".cancel_no").addEventListener("click", event => {
             const popupCloseButton = event.currentTarget;

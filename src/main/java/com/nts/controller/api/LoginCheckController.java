@@ -26,7 +26,7 @@ public class LoginCheckController {
 	public boolean validateEmail(@RequestParam(required = true) String reservationEmail, HttpSession httpSession)
 		throws InvalidFormatException {
 
-		if (CheckFormat.getInstance().validateEmailFormat(reservationEmail)) {
+		if (CheckFormat.validateEmailFormat(reservationEmail)) {
 			
 			httpSession.setAttribute("reservationEmail", reservationEmail);
 			httpSession.setMaxInactiveInterval(MINUTES * SECONDS);

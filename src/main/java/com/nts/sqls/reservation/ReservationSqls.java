@@ -24,6 +24,6 @@ public class ReservationSqls {
 	"VALUES (:reservationInfoId, :productPriceId, :count)";
 	
 	public static final String UPDATE_RESERVATION_INFO_CANCEL = 
-	"UPDATE reservation_info SET cancel_flag = 1 " +
+	"UPDATE reservation_info SET cancel_flag = :cancelFlag " +
 	"WHERE id = :reservationId";
 }

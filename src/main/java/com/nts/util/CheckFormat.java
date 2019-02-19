@@ -15,26 +15,15 @@ public class CheckFormat {
 	private static final String PHONE_NUMBER_PATTERN = "01[016789]-[0-9]{3,4}-[0-9]{4}";
 	private static final String DATE_PATTERN_YYYY_MM_DD_HIPEN = "[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}";
 
-	private CheckFormat() {
-	}
-
-	private static class TodoServiceLazyHolder {
-		private static final CheckFormat INSTANCE = new CheckFormat();
-	}
-
-	public static CheckFormat getInstance() {
-		return TodoServiceLazyHolder.INSTANCE;
-	}
-
-	public boolean validateEmailFormat(String email) {
+	public static boolean validateEmailFormat(String email) {
 		return Pattern.matches(EMAIL_PATTERN, email);
 	}
 	
-	public boolean validatePhoneNumberFormat(String phoneNumber) {
+	public static boolean validatePhoneNumberFormat(String phoneNumber) {
 		return Pattern.matches(PHONE_NUMBER_PATTERN, phoneNumber);
 	}
 	
-	public boolean validateDateYYYYMMDDHipen(String date) {
+	public static boolean validateDateYYYYMMDDHipen(String date) {
 		return Pattern.matches(DATE_PATTERN_YYYY_MM_DD_HIPEN, date);
 	}
 }

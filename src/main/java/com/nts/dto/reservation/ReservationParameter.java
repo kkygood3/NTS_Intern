@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author 전연빈
  */
-public class ReservationData {
+public class ReservationParameter {
 	private int displayInfoId;
 	private List<ReservationPrice> prices;
 	private int productId;

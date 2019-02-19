@@ -9,7 +9,7 @@ import com.nts.dto.displayinfo.DisplayInfo;
 /**
  * @author 전연빈
  */
-public class ReservationInfo {
+public class Reservation {
 	private boolean cancelYn;					// 예약 취소 여부
 	private String createDate;					// 예약 생성 일시
 	private DisplayInfo displayInfo;			// 전시 상품
