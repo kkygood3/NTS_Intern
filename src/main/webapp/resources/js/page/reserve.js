@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setting();
 
 	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;	
-	ajaxGet("/api/product-prices/"+displayInfoId, printProductPrice);
+	ajaxGet("/api/product-display-prices/"+displayInfoId, printProductPrice);
 	
 	settingDataVaildObserver();
 	
