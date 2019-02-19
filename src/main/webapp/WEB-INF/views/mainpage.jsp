@@ -40,7 +40,7 @@
                         <div>
                             <div class="container_visual">
                                 <!-- [D] 이전,다음 버튼을 클릭할때마다 캐러셀 형태로 순환 됨 -->
-                                <ul class="visual_img" id="promotions_ul">
+                                <ul class="visual_img transition_1s" id="promotions_ul">
                                 
                                 	<template id='promotions_template'>
                                 		 <li class="item">

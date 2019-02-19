@@ -103,7 +103,7 @@ function setProducts(sendProductData) {
 		
 		items.forEach(function(product, index) {
 			
-			productTemplate.querySelector('.item_book').href = '/' + product.displayInfoId;
+			productTemplate.querySelector('.item_book').href = '/detail/' + product.displayInfoId;
 			
 			var img = productTemplate.querySelector('img');
 			img.src = '/static/' + product.productImageUrl;
