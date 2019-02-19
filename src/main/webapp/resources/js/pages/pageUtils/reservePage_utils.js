@@ -11,10 +11,12 @@
 function SubmitButtonWithValidation(item, errorHandler, state) {
     item.addEventListener("click", (e) => {
         e.preventDefault();
-        if(item.closest(".bk_btn_wrap").classList.contains("disabled")){
+        
+        if(item.closest(".bk_btn_wrap").classList.contains("disable")){
         	alert("fill in the form correctly");
         	return;
         }
+        
         /*
 		 * form check, getting name, email, tel from form directly, since this
 		 * params "item" is equal to submit button.
@@ -22,8 +24,17 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
         let nameValid = (/[가-힣a-zA-Z]+$/).test(rsvname.value);
         let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
         let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value);
+        // tickets count check
+    	let priceDataArr = []
+        for (var key in state.prices) {
+            if (state.prices[key].count > 0) {
+                priceDataArr.push(state.prices[key]);
+            }
+        }
+    	if(priceDataArr.length==0) {
 
-        if (!nameValid) {
+    		return;
+    	} else if (!nameValid) {
         	errorHandler(rsvname);
             return;
         } else if (!telValid) {
@@ -34,13 +45,7 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
             return;
         }
         
-        // tickets count check
-    	let priceDataArr = []
-        for (var key in state.prices) {
-            if (state.prices[key].count > 0) {
-                priceDataArr.push(state.prices[key]);
-            }
-        }
+        
         
         sendReservation(priceDataArr, 
         		{
