@@ -40,8 +40,8 @@ public class ReserveServiceImpl implements ReserveService {
 		return reserveResponse;
 	}
 
-	@Transactional
 	@Override
+	@Transactional(readOnly=false)
 	public boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo, String reservationDate)
 		throws JsonParseException, JsonMappingException, IOException {
 		boolean isInsertComplete = true;
