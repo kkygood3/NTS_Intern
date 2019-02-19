@@ -79,6 +79,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param reservationId
 	 * @return Boolean
 	 */
+	@Transactional(readOnly = false)
 	@Override
 	public Boolean cancelReservation(Long reservationId) {
 		int resultRows = reservationDao.updateCancelReservation(reservationId);
