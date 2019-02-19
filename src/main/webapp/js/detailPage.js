@@ -329,11 +329,11 @@ function loadDisplayInfoCallback(responseData) {
     // ma 타입의 이미지 정보를 displayInfo에 추가
     // ta 타입의 이미지가 있다면 한장을 additionalDsiplayInfo에 추가
     displayProductImages.forEach(image => {
-        if(image.type === 'ma') {
+        if(image.type === 'MA') {
             displayInfo.saveFileName = image.saveFileName;
             TitleDisplayImage = image.saveFileName;
         }
-        else if(image.type === 'et') {
+        else if(image.type === 'ET') {
             isAddtionalDisplayImage = true;
         }
     });
@@ -369,7 +369,7 @@ function loadDisplayInfoCallback(responseData) {
 
         // 요구사항 - et 이미지가 많아도 최대 1개 등록
         displayProductImages.forEach(image => {
-        if(image.type === 'et') addtionalDisplayInfo.saveFileName = image.saveFileName;
+        if(image.type === 'ET') addtionalDisplayInfo.saveFileName = image.saveFileName;
         });
 
         setTitleSlide(addtionalDisplayInfo, TitleDisplayImage);

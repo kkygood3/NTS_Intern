@@ -25,8 +25,8 @@ function getUrlParameter(name) {
 }
 
 var generateRandom = function (min, max) {
-  var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
-  return ranNum;
+    var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    return ranNum;
 }
 
 function addCommaInNumber(number) {
@@ -35,7 +35,7 @@ function addCommaInNumber(number) {
 
 var DateFormmater = function (date) {
     let week = new Array('일', '월', '화', '수', '목', '금', '토');
-    return date.getFullYear() + "." + ( date.getMonth() + 1 ) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
+    return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
 }
 
 var DateObj = {
@@ -44,7 +44,7 @@ var DateObj = {
     getrandomDate: function () {
         let date = new Date();
         /* 타임스탬프 + [0~5] * 1000*60*60*24ms(=[오늘~5]일) */
-        date.setTime(date.getTime() + generateRandom(0,5) * 1000 * 60 * 60 * 24)
+        date.setTime(date.getTime() + generateRandom(0, 5) * 1000 * 60 * 60 * 24)
         return DateFormmater(date);
     },
     setDate: function () {
@@ -58,25 +58,30 @@ var DateObj = {
 }
 
 var mapPriceType = new Map([
-  ['A', '성인(만 19~64세) '],
-  ['Y', '청소년(만 13~18세) '],
-  ['B', '어린이(만 4~12세) '],
-  ['S', '세트 ']
+    ['A', '성인'],
+    ['Y', '청소년'],
+    ['B', '어린이'],
+    ['S', '세트'],
+    ['D', '장애인'],
+    ['C', '지역주민'],
+    ['E', '얼리버드'],
+    ['V', 'VIP'],
+    ['R', 'R석'],
+    ['D', '평일']
 ]);
 
 function initDisplayInfo(displayInfoData) {
-
     // 이전화면 이동
-    document.querySelector('.btn_back').setAttribute('href','/detail?id=' + getUrlParameter('id'));
+    document.querySelector('.btn_back').setAttribute('href', '/detail?id=' + getUrlParameter('id'));
 
     let displayProductImages = displayInfoData["productImages"];
     // ma 타입의 이미지 정보를 추가
     displayProductImages.forEach(image => {
-        if (image.type === 'ma') {
+        if (image.type === 'MA') {
             document.querySelector('li.item > img').setAttribute('src', image.saveFileName);
         }
     });
-    
+
     let ImageTextTarget = document.querySelectorAll('.preview_txt_dsc')[1];
     ImageTextTarget.innerText = DateObj.currentDate + "~" + DateObj.lastDate + ", 잔여티켓 2769매";
 
@@ -93,13 +98,84 @@ function initDisplayInfo(displayInfoData) {
     let priceTarget = discription[2];
     let minPrice = 1000000;
     prices.forEach(price => {
-        if(minPrice > price.price) minPrice = price.price;
+        if (minPrice > price.price) minPrice = price.price;
 
         priceTarget.innerText += mapPriceType.get(price.priceTypeName);
         priceTarget.innerText += addCommaInNumber(price.price) + '원\r\n';
     });
-    
+
     document.querySelector('.preview_txt_dsc').innerText = "₩ " + addCommaInNumber(minPrice) + " ~ ";
+
+}
+
+function TicketObj(target) {
+    this.target = target;
+}
+
+TicketObj.prototype.addMinusClickEvent = function () {
+    this.target[0].addEventListener('click', function () {
+        if (this.parentElement.children[1].value in ["1", "0"]) {
+            this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
+            this.parentElement.querySelector('.count_control_input').classList.add('disabled');
+            this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
+            this.parentElement.children[1].setAttribute('value', "0");
+        } else {
+            this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
+        }
+    });
+}
+
+TicketObj.prototype.addPlusClickEvent = function () {
+    this.target[1].addEventListener('click', function () {
+        if (this.parentElement.children[1].value === "0") {
+            this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
+            this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
+            this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
+        }
+        this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
+    });
+}
+
+async function initTickectBox(productPrices) {
+    let ticketTemplate = document.querySelector('#ticketItem').innerText;
+    let bindticketTemplate = Handlebars.compile(ticketTemplate);
+    let ticketContainer = document.querySelector('div.ticket_body');
+
+    const ticketItems = new Object();
+    productPrices.forEach((price, index) => {
+        price.priceTypeName = mapPriceType.get(productPrices[0].priceTypeName);
+        ticketContainer.innerHTML += bindticketTemplate(price);
+
+        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'));
+
+        // ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus')[0].classList.add('minusBtn' + index);
+        // ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus')[1].classList.add('plusBtn' + index);
+    });
+
+    productPrices.forEach((price, index) => {
+
+        ticketItems[index].addMinusClickEvent();
+        ticketItems[index].addPlusClickEvent();
+        // document.querySelector('.minusBtn' + index).addEventListener('click', function() {
+        //     if(this.parentElement.children[1].value in ["1","0"]){
+        //         this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
+        //         this.parentElement.querySelector('.count_control_input').classList.add('disabled');
+        //         this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
+        //         this.parentElement.children[1].value = 0;
+        //     } else {
+        //         this.parentElement.children[1].value -= 1;
+        //     }
+        // });
+
+        // document.querySelector('.plusBtn' + index).addEventListener('click', function() {
+        //     if(this.parentElement.children[1].value === "0"){
+        //         this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
+        //         this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
+        //         this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
+        //     }
+        //     this.parentElement.children[1].value = String(Number(this.parentElement.children[1].value) + 1);
+        // });
+    });
 }
 
 function loadDisplayInfoCallback(displayInfoData) {
@@ -107,6 +183,9 @@ function loadDisplayInfoCallback(displayInfoData) {
     DateObj.setDate();
 
     initDisplayInfo(displayInfoData);
+
+    let productPrices = displayInfoData["productPrices"];
+    initTickectBox(productPrices);
 
 }
 
