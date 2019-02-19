@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dao.sql.ReserveSqls;
+import com.nts.reservation.property.PriceType;
 
 /**
  * reservation 등록에 사용
@@ -44,9 +45,9 @@ public class ReserveDao {
 	 * api/reservation post로 새로운 예약의 가격 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public Integer insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
+	public Integer insertReservationPrice(PriceType type, int count, int displayInfoId, int reservationInfoId) {
 		MapSqlParameterSource  params = new MapSqlParameterSource();
-		params.addValue("type", type);
+		params.addValue("type", type.toString());
 		params.addValue("count", count);
 		params.addValue("displayInfoId", displayInfoId);
 		params.addValue("reservationInfoId", reservationInfoId);

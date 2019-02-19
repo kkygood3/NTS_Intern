@@ -82,7 +82,7 @@
 	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
 	                            </div>
-	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${item.priceTypeName}</span> </strong> <strong class="product_price"> <span class="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/></span> <span class="price_type">원</span> </strong>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${item.priceTypeLabel}</span> </strong> <strong class="product_price"> <span class="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/></span> <span class="price_type">원</span> </strong>
 	                            <c:if test="${item.discountRate > 0}">
 									<em class="product_dsc"><fmt:formatNumber value="${cost}" pattern="#,###"/>원 (${item.discountRate}% 할인가)</em>
 								</c:if>
@@ -190,7 +190,7 @@
 			
 			var priceList = new Array();
 			<c:forEach var="i" begin="0" end="${fn:length(reservePrice)-1}">
-				priceList[${i}] = new ReservePrice('${reservePrice[i].price}','${reservePrice[i].priceTypeName}');
+				priceList[${i}] = new ReservePrice('${reservePrice[i].price}','${reservePrice[i].priceTypeLabel}');
 			</c:forEach> 
 			
 			var resultText = '';
@@ -202,10 +202,6 @@
 			}
 			
 			priceDescriptionArea.innerText = resultText;
-			
-			// 티켓 영역의 타입 변경
-			var ticketPriceAreas = document.querySelectorAll('.product_amount>span');
-			ticketPriceAreas.forEach(item => item.innerText = getTypeLabel(item.innerText));
 		}
 	</script>
 	<script src="js/reserve.js"></script>

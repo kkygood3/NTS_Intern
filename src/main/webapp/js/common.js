@@ -1,18 +1,3 @@
-/**
- * product_price의 product_type_name에 대응하는 한글 매핑 없는 문자가 들어오면 문자에 '석'을 붙여서 사용
- */
-const PRICE_TYPE = {
-	A : "성인",
-	Y : "청소년",
-	B : "유아",
-	S : "셋트",
-	D : "장애인",
-	C : "지역주민",
-	E : "얼리버드",
-	V : "VIP",
-	D : "평일"
-}
-
 const REG_TELEPHONE = /^\d{2,3}-\d{3,4}-\d{4}$/;
 const REG_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 
@@ -58,22 +43,6 @@ function getUrlParameter(name) {
 			return paramValue;
 		}
 	}
-}
-/**
- * priceTypeName을 실제 출력하는 문자로 변환 example) A -> 성인
- * 
- * @param priceTypeName -
- *            타입을 나타내는 영문자
- * @return 변환 값
- */
-function getTypeLabel(priceTypeName) {
-	var priceType = PRICE_TYPE[priceTypeName];
-
-	if (!priceType) {
-		priceType = priceTypeName + '석';
-	}
-
-	return priceType
 }
 
 /**

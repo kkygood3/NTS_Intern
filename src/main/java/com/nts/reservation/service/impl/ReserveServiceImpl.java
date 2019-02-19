@@ -20,6 +20,7 @@ import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
 import com.nts.reservation.dto.reserve.PriceInfo;
+import com.nts.reservation.dto.reserve.ReservePrice;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
 
@@ -36,7 +37,13 @@ public class ReserveServiceImpl implements ReserveService {
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveResponse reserveResponse = new ReserveResponse();
 		reserveResponse.setReserveDisplayInfo(reserveDisplayInfoDao.selectReviewDisplayInfoByDisplayInfoId(displayInfoId));
-		reserveResponse.setReservePrice(reservePriceDao.selectReservePrice(displayInfoId));
+		
+		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
+		for(int i = 0 ; i < reservePrice.size(); i++) {
+			ReservePrice targetPrice = reservePrice.get(i);
+			targetPrice.setPriceTypeLabel(targetPrice.getPriceTypeName().getTypeLabel());
+		}
+		reserveResponse.setReservePrice(reservePrice);
 		return reserveResponse;
 	}
 
@@ -63,7 +70,7 @@ public class ReserveServiceImpl implements ReserveService {
 			for (int i = 0; i < priceInfoList.size(); i++) {
 				PriceInfo targetPriceInfo = priceInfoList.get(i);
 				insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);
-				isInsertComplete = (isInsertComplete && (insertRow != null));
+				isInsertComplete = (isInsertComplete && (insertRow != null && insertRow != 0));
 			}
 		}
 		return isInsertComplete;

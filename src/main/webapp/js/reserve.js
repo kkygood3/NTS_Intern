@@ -3,9 +3,9 @@
  * @param price
  * @param priceTypeName
  */
-function ReservePrice(price, priceTypeName) {
+function ReservePrice(price, priceTypeLabel) {
 	this.price = price.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-	this.label = getTypeLabel(priceTypeName);
+	this.label = priceTypeLabel;
 }
 
 /**
