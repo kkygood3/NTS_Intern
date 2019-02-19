@@ -1,0 +1,23 @@
+{
+  "name": "reservation",
+  "version": "1.0.0",
+  "description": "NTS 2019 1st intern",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc -watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/n_tech_service/2019_1st_intern.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://gitlab.com/n_tech_service/2019_1st_intern/issues"
+  },
+  "homepage": "https://gitlab.com/n_tech_service/2019_1st_intern#readme",
+  "dependencies": {
+    "typescript": "^3.3.3"
+  }
+}
