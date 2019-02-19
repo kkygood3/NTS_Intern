@@ -82,8 +82,50 @@
         </div>
     </footer>
     
-    <script type="text/javascript" src="/resources/js/mainpage_template.js"></script>
+    <script type="text/template" id="promotion_template" class="template" data-parse-name="Promotion">
+		<li class="item" style="background-image: url(/resources/{{productImageUrl}});">
+        	<a href="#"> 
+				<span class="img_btm_border"></span> 
+				<span class="img_right_border"></span>
+				<span class="img_bg_gra"></span>
+    	        <div class="event_txt">
+    	            <h4 class="event_txt_tit"></h4>
+    	            <p class="event_txt_adr"></p>
+					<p class="event_txt_dsc"></p>
+				</div>
+			</a>
+		</li>
+	</script>
+	
+	<script type="text/template" id="category_template" class="template" data-parse-name="Category">
+		<li class="item" data-category="{{id}}">
+	    	<a class="anchor"><span>{{name}}</span></a>
+		</li>
+	</script>
+	
+	<script type="text/template" id="product_template" class="template" data-parse-name="Product">
+		<li class="item">
+        	<a href="/product-display?displayInfoId={{displayInfoId}}" class="item_book">
+            <div class="item_preview">
+                <img alt="{{productDescription}}" class="img_thumb" src="/resources/{{productImageUrl}}">
+                <span class="img_border"></span>
+            </div>
+            <div class="event_txt">
+                <h4 class="event_txt_tit">
+					<span>{{productDescription}}</span>
+					<small class="sm">{{placeName}}</small>
+				</h4>
+                <p class="event_txt_dsc">{{productContent}}</p>
+            </div>
+        	</a>
+    	</li>
+	</script>
+	
+    <script type="text/javascript" src="/resources/js/ajax.js"></script>
+	<script type="text/javascript" src="/resources/js/handlebars-v4.0.12.js"></script>
+    <script type="text/javascript" src="/resources/js/template_maker.js"></script>
     <script type="text/javascript" src="/resources/js/mainpage.js"></script>
+    <script type="text/javascript" src="/resources/js/slide.js"></script>
     
 </body>
 

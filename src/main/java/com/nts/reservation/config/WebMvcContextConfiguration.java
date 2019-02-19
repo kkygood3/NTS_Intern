@@ -15,8 +15,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * Spring Web MVC 설정 class
  * @author 임상현, life4lord93@nts-corp.com
+ * Spring Web MVC 설정 class
  */
 @Configuration
 @EnableWebMvc

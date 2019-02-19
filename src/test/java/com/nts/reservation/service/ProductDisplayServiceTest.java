@@ -2,7 +2,9 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.service;
+package com.nts.reservation.service;
+
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,24 +14,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
-import com.nts.reservation.model.Category;
-import com.nts.reservation.model.CategoryResponse;
-import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.model.ProductDisplay;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
 @WebAppConfiguration
-public class CategoryServiceTest {
-
+public class ProductDisplayServiceTest {
 	@Autowired
-	private CategoryService categoryService;
+	private ProductDisplayService productDisplayService;
 
 	@Test
-	public void getCategoryListTest() {
-		CategoryResponse categoryResponse = new CategoryResponse(categoryService.getCategoryList());
-
-		for (Category category : categoryResponse.getCategoryList()) {
-			System.out.println(category);
-		}
+	public void selectProductDisplayTest() {
+		ProductDisplay productDisplay = productDisplayService.getProductDisplay(-1);
+		System.out.println(productDisplay);
 	}
+
 }

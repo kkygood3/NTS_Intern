@@ -7,7 +7,7 @@ package com.nts.reservation.service;
 import java.util.List;
 
 import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProducsListInfo;
+import com.nts.reservation.model.ProductListInfo;
 import com.nts.reservation.model.ProductRequirer;
 
 public interface ProductService {
@@ -16,6 +16,6 @@ public interface ProductService {
 
 	int getProductCount(int categoryId);
 
-	ProducsListInfo getProductInfo(ProductRequirer productRequirer);
+	ProductListInfo getProductListInfo(ProductRequirer productRequirer);
 
 }

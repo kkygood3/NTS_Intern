@@ -7,16 +7,16 @@ package com.nts.reservation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProducsListInfo {
+public class ProductListInfo {
 
 	private List<Product> productList;
 	private int totalCount;
 
-	public ProducsListInfo() {
+	public ProductListInfo() {
 		productList = new ArrayList<>();
 	}
 
-	public ProducsListInfo(List<Product> productList, int totalCount) {
+	public ProductListInfo(List<Product> productList, int totalCount) {
 		this.productList = productList;
 		this.totalCount = totalCount;
 	}

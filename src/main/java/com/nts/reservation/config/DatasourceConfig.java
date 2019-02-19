@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * databases 관련 설정 class
  * @author 임상현, life4lord93@nts-corp.com
+ * databases 관련 설정 class
  */
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
