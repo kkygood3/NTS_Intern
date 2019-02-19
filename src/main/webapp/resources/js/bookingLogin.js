@@ -10,17 +10,17 @@ var bookingLoginPage = {
     init: function() {
         var self = this;
         this.elements.loginBtn.addEventListener("click", function(event) {
-            event.preventDefault();
-            self.onClickLoginBtn(event.target);
+            self.onClickLoginBtn(event);
         })
     },
     elements: {
         loginBtn: document.querySelector(".login_btn"),
         emailInput: document.querySelector("#resrv_id")
     },
-    onClickLoginBtn: function(target) {
-        var self = this;
-
+    onClickLoginBtn: function(event) {
+    	event.preventDefault();
+    	
+    	var self = this;
         var options = {
             params: {
                 userEmail: self.elements.emailInput.value
