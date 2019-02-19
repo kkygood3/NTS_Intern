@@ -70,8 +70,7 @@ public class ReservationServiceImpl implements ReservationService {
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
-			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) < 0) {
-				// TODO: 부등호 방향 변경
+			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) > 0) {
 				used.add(reservationDisplayItem);
 			} else {
 				confirmed.add(reservationDisplayItem);
