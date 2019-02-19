@@ -203,9 +203,12 @@ var myReservationPage = {
      * @param {Object} target
      */
     update: function(target) {
+
+        //확인 된 예약 목록에서 값이 변경되었다고 요청하는 경우.
         if (target.container.classList.contains("confirmed")) {
-            this.objs.popup.showPopup(target.clickedReservationId);
-        } else if (target.container.classList.contains("popup_booking_wrapper")) {
+            this.objs.popup.showPopup(target.clickedReservationId, target.clickedReservationTitle);
+        
+        } else if (target.container.classList.contains("popup_booking_wrapper")) { //팝업창에서 값 변경에대한 요청이 있는 경우.
             var reservationId = target.reservationId;
             this.requestCancelMyReservation(reservationId);
         }
@@ -309,6 +312,7 @@ var ReservationList = (function() {
             child.addEventListener("click", function(event) {
                 if (event.target.classList.contains("btn") || event.target.parentNode.classList.contains("btn")) {
                     self.clickedReservationId = event.currentTarget.dataset.reservationId;
+                    self.clickedReservationTitle = event.currentTarget.querySelector(".tit").innerHTML;
                     self.notify();
                 }
             });
@@ -333,6 +337,7 @@ var Popup = (function() {
         this.observerList = [];
         this.reservationId = -1;
 
+        this.titleTextUi = this.container.querySelector(".pop_tit > span");
         this.cancelBtn = this.container.querySelector(".btn_bottom");
         this.okBtn = this.container.querySelector(".btn_green");
         this.closeBtn = this.container.querySelector(".popup_btn_close");
@@ -351,8 +356,9 @@ var Popup = (function() {
         });
     }
 
-    Popup.prototype.showPopup = function(reservationId) {
+    Popup.prototype.showPopup = function(reservationId, title) {
         this.reservationId = reservationId;
+        this.titleTextUi.innerHTML = title;
         this.container.style.display = "block";
     };
 
