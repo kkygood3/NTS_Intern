@@ -93,15 +93,14 @@ function addBookingFormInputChangeEvent() {
 				regExp = regex.email;
 			}
 			setReservationButtonDisable();
-			if (!isValidReservationInput(value, regExp)){
-				event.target.classList.add("warning");
-			} else {
+			if (isValidReservationInput(value, regExp)){
 				event.target.classList.remove("warning");
+			} else {
+				event.target.classList.add("warning");
 			}
 		});
 	}
 }
-
 
 function adjustTel(tel) {
 	if (tel.length != 10 && tel.length != 11) {
@@ -114,7 +113,6 @@ function adjustTel(tel) {
 function imformWarning(element) {
 	element.classList.add("warning");
 }
-
 
 function agreed() {
 	return document.getElementById("chk3").checked
@@ -148,7 +146,6 @@ function addBookingButtonClickEvent() {
 		var input = form.querySelector("input");
 		input.value = JSON.stringify(reservationData);
 		form.submit();
-
 	});
 }
 

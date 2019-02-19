@@ -1,4 +1,4 @@
-#name, #tel, #email {
+#name, #tel, #email, #resrv_id {
 	transition: all 1s;
 }
 
