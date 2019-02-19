@@ -55,7 +55,7 @@
 	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
-	<%@ include file="/template/comment_item.jsp"%>
+	<%@ include file="/WEB-INF/views/template/comment_item.jsp"%>
 	
 	<script type="text/javascript">
 		function displayInfo() {

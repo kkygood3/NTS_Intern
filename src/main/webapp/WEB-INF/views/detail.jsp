@@ -141,8 +141,8 @@
 	</footer>
 	<div id="photoviwer"></div>
 	
-	<%@ include file="/template/comment_item.jsp"%>
-	<%@ include file="/template/detail.jsp"%>
+	<%@ include file="/WEB-INF/views/template/comment_item.jsp"%>
+	<%@ include file="/WEB-INF/views/template/detail.jsp"%>
 	
 	<script type="text/javascript">
 		function displayInfo() {

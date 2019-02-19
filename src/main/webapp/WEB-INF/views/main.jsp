@@ -58,7 +58,7 @@
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 
-	<%@ include file="/template/main.jsp"%>
+	<%@ include file="/WEB-INF/views/template/main.jsp"%>
 
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>

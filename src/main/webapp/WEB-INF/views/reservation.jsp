@@ -118,7 +118,7 @@
 	<form id="json_form" method="post" action="" name="json_form" enctype='application/json'>
 		<input type="hidden" name="" value="" />
 	</form>
-	<%@ include file="/template/reservation.jsp"%>
+	<%@ include file="/WEB-INF/views/template/reservation.jsp"%>
 
 	<script type="text/javascript">
 		function displayInfo() {

@@ -87,7 +87,7 @@
 	</div>
 	<!--// 취소 팝업 -->
 	
-	<%@ include file="/template/myreservation.jsp"%>
+	<%@ include file="/WEB-INF/views/template/myreservation.jsp"%>
 	<script type="text/javascript">
 		function displayInfo() {
 			return {
