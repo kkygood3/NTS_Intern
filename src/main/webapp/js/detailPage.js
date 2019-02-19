@@ -375,6 +375,10 @@ function loadDisplayInfoCallback(responseData) {
         setTitleSlide(addtionalDisplayInfo, TitleDisplayImage);
     }
 
+    // 예매 버튼에 onclick 설정
+    let reserveBtn = document.querySelector('.bk_btn');
+    reserveBtn.setAttribute("onclick","location.href='/reserve?id=" + getUrlParameter('id') + "'");
+
 }
 
 const currentCommentCounts = 3;

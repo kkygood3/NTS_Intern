@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -29,8 +30,18 @@
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
-				</a>
+				<c:choose>
+					<c:when test="${email == null}">
+						<a href="/loginPage" class="btn_my"> <span
+							class="viewReservation" title="예약확인">예약확인</span>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/list" class="btn_my"> <span class="viewReservation"
+							title="예약확인">${email}</span>
+						</a>
+					</c:otherwise>
+				</c:choose>
 			</header>
 		</div>
 		<div class="ct main">
@@ -38,15 +49,24 @@
 				<div class="section_visual">
 					<header>
 						<h1 class="logo">
-							<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
-								class="spr_bi ico_n_logo">네이버</span>
+							<a href="https://m.naver.com/" class="lnk_logo" title="네이버">
+								<span class="spr_bi ico_n_logo">네이버</span>
 							</a> <a href="/" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="#" class="btn_my"> <span
-							class="viewReservation" title="예약확인">예약확인</span>
-						</a>
+						<c:choose>
+							<c:when test="${email == null}">
+								<a href="/loginPage" class="btn_my"> <span
+									class="viewReservation" title="예약확인">예약확인</span>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="/list" class="btn_my"> <span
+									class="viewReservation" title="예약확인">${email}</span>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</header>
 					<div class="pagination">
 						<div class="bg_pagination"></div>
@@ -141,14 +161,15 @@
 								이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" href="/"> <span>예매자
-							한줄평 더보기</span> <i class="fn fn-forward1"></i>
+					<a class="btn_review_more" href="/"> <span>예매자 한줄평 더보기</span> <i
+						class="fn fn-forward1"></i>
 					</a>
 				</div>
 				<div class="section_info_tab">
 					<!-- [D] tab 선택 시 anchor에 active 추가 -->
 					<ul class="info_tab_lst">
-						<li class="item active _detail"><a class="anchor active"> <span>상세정보</span>
+						<li class="item active _detail"><a class="anchor active">
+								<span>상세정보</span>
 						</a></li>
 						<li class="item _path"><a class="anchor"> <span>오시는길</span>
 						</a></li>
@@ -263,9 +284,10 @@
 			</div>
 		</li>
 	</script>
-	
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js">
+		
 	</script>
 	<script src="js/detailPage.js"></script>
 </body>
