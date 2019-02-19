@@ -12,7 +12,7 @@ import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.product.dto.ProductResponse;
 
 public interface ProductService {
-	ProductResponse getProductsByCategory(int categoryId, int start, int limit);
+	ProductResponse getProducts(int categoryId, int start, int limit);
 	List<ProductImage> getProductImages(int displayInfoId, ImageType type);
 	List<ProductPrice> getProductPrices(int displayInfoId);
 }
