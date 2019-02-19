@@ -21,8 +21,6 @@ public interface CommentService {
 
 	List<CommentImage> getCommentImage(int commentId);
 
-	//	double getAverageScore(int displayInfoId);
-
 	List<DetailComment> getDetailComment(int displayInfoId);
 
 	DetailCommentResponse getDetailCommentResponse(int displayInfoId);

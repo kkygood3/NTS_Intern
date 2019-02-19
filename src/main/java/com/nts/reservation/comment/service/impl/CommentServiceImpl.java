@@ -50,11 +50,6 @@ public class CommentServiceImpl implements CommentService {
 		return commentDaoImpl.selectCommentImage(commentId);
 	}
 
-	//	@Override
-	//	public double getAverageScore(int displayInfoId) {
-	//		return commentDaoImpl.selectAverageScore(displayInfoId);
-	//	}
-
 	@Override
 	public List<DetailComment> getDetailComment(int displayInfoId) {
 		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
