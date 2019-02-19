@@ -159,8 +159,7 @@ function initClickEvents() {
 }
 
 function setPageBackClick() {
-	document.querySelector('.btn_back').setAttribute('href',
-			'detail?id=' + getUrlParameter('id'));
+	document.querySelector('.btn_back').setAttribute('href','detail?id=' + getUrlParameter('id'));
 }
 /**
  * 예약하기 버튼을 클릭했을때 이벤트 예약자 정보를 검증하고 이상이 없다면 예약 페이지로 이동한다.
@@ -254,6 +253,8 @@ function postReserve() {
 
 document.addEventListener('DOMContentLoaded', function() {
 	initPriceDescription();
-
 	initClickEvents();
+	//일정 설명문 줄바꿈
+	var displayScheduleArea = document.querySelectorAll('.store_details .dsc')[1];
+	displayScheduleArea.innerText = displayScheduleArea.innerText.replace(/ - /g,'\r\n- ');
 });

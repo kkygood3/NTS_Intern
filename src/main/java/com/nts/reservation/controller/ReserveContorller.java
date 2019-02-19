@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,7 @@ public class ReserveContorller {
 		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
 		map.addAttribute("reserveDisplayInfo", reserveResponse.getReserveDisplayInfo());
 		map.addAttribute("reservePrice", reserveResponse.getReservePrice());
+		map.addAttribute("today",new SimpleDateFormat("yyyy.MM.dd").format(new Date()));
 		return "reserve";
 	}
 }
