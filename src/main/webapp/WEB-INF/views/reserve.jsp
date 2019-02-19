@@ -203,6 +203,23 @@
 			
 			priceDescriptionArea.innerText = resultText;
 		}
+		
+		/**
+		 * 전시(공연) 기간을 서버에서 받은 예약시점 +5로 표시한다. 
+		 * JSTL을 포함하므로 js파일로 이동 불가
+		 */
+		function initDisplayTerm(){
+			var startDate = new Date('${reservationDate}');
+			var endDate = new Date('${reservationDate}');
+			endDate.setDate(endDate.getDate()+5);
+			
+			var thumnailDateArea = document.querySelector('.date_area');
+			var descDateArea = document.querySelector('.store_details .dsc');
+			
+			var displayTerm = startDate.toLocaleDateString().replace(/ /g,'')+'('+getKoreanDay(startDate.getDay())+')~'+endDate.toLocaleDateString().replace(/ /g,'')+'('+getKoreanDay(endDate.getDay())+')';
+			thumnailDateArea.innerText = displayTerm;
+			descDateArea.innerText = descDateArea.innerText.split('\n')[0] + '\n' + '기간 : ' + displayTerm;
+		}
 	</script>
 	<script src="js/reserve.js"></script>
 </body>

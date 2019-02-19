@@ -1,6 +1,8 @@
 const REG_TELEPHONE = /^\d{2,3}-\d{3,4}-\d{4}$/;
 const REG_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 
+const DAY_LABEL = ['일','월','화','수','목','금','토'];
+
 /**
  * 반복적으로 호출하는 XMLHttpRequest를 전담하는 함수
  * 

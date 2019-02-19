@@ -18,6 +18,10 @@ function PriceInfo(type, count) {
 	this.count = count;
 };
 
+function getKoreanDay(day){
+	return DAY_LABEL[day];
+}
+
 // 예약 티켓 수량 증감 이벤트 등록
 function initTicketClickEvents() {
 	var ticketContainer = document.querySelector('.ticket_body');
@@ -284,4 +288,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	initPriceDescription();
 	initClickEvents();
 	initDescriptionSort();
+	initDisplayTerm();
 });
