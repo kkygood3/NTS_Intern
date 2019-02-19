@@ -18,7 +18,7 @@ function getReservePage(){
 	template.compareDiscountRateToZero();
 	template.convertTypeName();
 	
-	ajaxSend("GET", "../../api/products/" + displayHelper.displayInfoId, callBack, "charset=utf-8");
+	ajaxSend("GET", "/reservation/api/products/" + displayHelper.displayInfoId, callBack, "charset=utf-8");
 	
 	inputTagValidator.validateInputTag(domElements.elementList.bkName, /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/);
 	inputTagValidator.validateInputTag(domElements.elementList.bkTel, /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/);
@@ -233,11 +233,11 @@ EventAdder.prototype.addEventToBtnReserve = function(){
 	this.domElements.elementList.bkBtn.addEventListener("click", function(event){
 		var reservationInfo = new ReservationInfo(this.displayHelper.displayInfoId);
 		var callBack = function(){
-			window.location = "../..";
+			window.location = "/reservation";
 		}
 		
 		if(!event.target.classList.contains("disable")){
-			ajaxSend("POST", "../../api/reservations", callBack, "application/json", JSON.stringify(reservationInfo.reservationData));
+			ajaxSend("POST", "/reservation/api/reservations", callBack, "application/json", JSON.stringify(reservationInfo.reservationData));
 		}
 	}.bind(this));
 }
@@ -256,7 +256,7 @@ DisplayHelper.prototype.displayExhibitionInfo = function(jsonResponse){
 	
 	this.domElements.elementList.title.innerHTML = jsonResponse["displayInfo"].productDescription;
 	this.domElements.elementList.title.dataset.productId = jsonResponse["displayInfo"].productId;
-	this.domElements.elementList.mainImage.src = "../../" + jsonResponse["productImages"][0].saveFileName;
+	this.domElements.elementList.mainImage.src = "/reservation/" + jsonResponse["productImages"][0].saveFileName;
 	this.template.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 }
 

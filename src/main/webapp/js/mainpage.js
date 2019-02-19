@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var mainPage = {
 	getMainPage: function(){
-		ajaxSend("GET", "./api/categories", this.getCategories, "charset=utf-8");
-		ajaxSend("GET", "./api/products", this.getProductsByCategory, "charset=utf-8");
-		ajaxSend("GET", "./api/promotions", this.getPromotions, "charset=utf-8");
+		ajaxSend("GET", "/reservation/api/categories", this.getCategories, "charset=utf-8");
+		ajaxSend("GET", "/reservation/api/products", this.getProductsByCategory, "charset=utf-8");
+		ajaxSend("GET", "/reservation/api/promotions", this.getPromotions, "charset=utf-8");
 		
 		this.setEvent.preventLink();
 		this.setEvent.showMore();
@@ -128,9 +128,9 @@ var mainPage = {
 			this.mainPage.elements.btnShowMore.addEventListener("click", function(event){
 				this.mainPage.variables.start += this.mainPage.constants.productsPerPage;
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					ajaxSend("GET", "./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
+					ajaxSend("GET", "/reservation/api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				} else {
-					ajaxSend("GET", "./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
+					ajaxSend("GET", "/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				}
 			}.bind(this));
 		}.bind(this),
@@ -164,9 +164,9 @@ var mainPage = {
 				this.mainPage.elements.btnShowMore.hidden = false;
 				
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					ajaxSend("GET", "./api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
+					ajaxSend("GET", "/reservation/api/products?start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				} else {
-					ajaxSend("GET", "./api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
+					ajaxSend("GET", "/reservation/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.getProductsByCategory, "charset=utf-8");
 				}
 			}.bind(this));
 		}.bind(this)

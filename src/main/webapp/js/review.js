@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		ajaxSend("GET", "../../api/products/" + displayInfoId, this.displayContents, "charset=utf-8")
+		ajaxSend("GET", "/reservation/api/products/" + displayInfoId, this.displayContents, "charset=utf-8")
 		
 		this.setPrevPageLink();
 		this.setScrollTopEvent();

@@ -7,7 +7,7 @@ var detailPage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		ajaxSend("GET", "../api/products/" + displayInfoId, this.displayContents, "charset=utf-8");
+		ajaxSend("GET", "/reservation/api/products/" + displayInfoId, this.displayContents, "charset=utf-8");
 		
 		this.setEvent.bkBtnEvent();
 		this.setEvent.scrollTop();
@@ -129,7 +129,7 @@ var detailPage = {
 	displayDetailInfo: function(jsonResponse){
 		this.elements.introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 		
-		this.elements.storeMap.src = "../" + jsonResponse["displayInfoImage"].saveFileName;
+		this.elements.storeMap.src = "/reservation/" + jsonResponse["displayInfoImage"].saveFileName;
 		this.elements.storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
 		this.elements.addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;

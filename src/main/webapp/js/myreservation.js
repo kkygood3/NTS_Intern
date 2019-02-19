@@ -71,7 +71,7 @@ SetEvent.prototype.closeCancelPopup = function(){
 			event.preventDefault();
 
 			if(btn.id === "reservation_cancle_btn"){
-				ajaxSend("PUT", "api/reservations/" + reservationInfoId, callBack, "application/json")
+				ajaxSend("PUT", "/reservation/api/reservations/" + reservationInfoId, callBack, "application/json")
 			}
 			
 			document.querySelector(".popup_booking_wrapper").style.display = "none";

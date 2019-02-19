@@ -20,7 +20,7 @@ public class LogInInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("userEmail") == null) {
-			response.sendRedirect("login");
+			response.sendRedirect("/reservation/login");
 			return false;
 		}
 		return true;
