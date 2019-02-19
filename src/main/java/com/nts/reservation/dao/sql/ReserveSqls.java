@@ -48,7 +48,7 @@ public class ReserveSqls {
 		"  :name," + 
 		"  :telephone," + 
 		"  :email," + 
-		"  NOW()," + 
+		"  :reservationDate," + 
 		"  0," + 
 		"  NOW()," + 
 		"  NOW()" + 

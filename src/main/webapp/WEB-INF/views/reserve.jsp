@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected">${today}, 총 <span id="totalCount">0</span>매</p>
+                                        <p class="inline_txt selected">${reservationDate}, 총 <span id="totalCount">0</span>매</p>
                                     </div>
                                 </div>
                             </form>
@@ -165,6 +165,7 @@
     	<input type="hidden" name="email" value="">
     	<input type="hidden" name="displayInfoId" value="">
     	<input type="hidden" name="priceInfo" value="">
+    	<input type="hidden" name="reservationDate" value="${reservationDate}">
     </form>
     
     <footer>

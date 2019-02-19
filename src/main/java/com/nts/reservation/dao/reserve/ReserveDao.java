@@ -28,12 +28,13 @@ public class ReserveDao {
 	 * api/reservation post로 새로운 예약 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public int insertReservation(String name, String telephone, String email, int displayInfoId) {
+	public int insertReservation(String name, String telephone, String email, int displayInfoId, String reservationDate) {
 		MapSqlParameterSource  params = new MapSqlParameterSource();
 		params.addValue("name", name);
 		params.addValue("telephone", telephone);
 		params.addValue("email", email);
 		params.addValue("displayInfoId", displayInfoId);
+		params.addValue("reservationDate", reservationDate);
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 
 		jdbc.update(ReserveSqls.INSERT_RESERVE, params, keyHolder, new String[]{"ID"});
 		return keyHolder.getKey().intValue();

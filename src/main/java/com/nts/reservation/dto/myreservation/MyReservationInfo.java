@@ -10,7 +10,7 @@ public class MyReservationInfo {
 	private String openingHours;
 	private Integer price;
 	private Integer cancelFlag;
-	private String displayDate;
+	private String reservationDate;
 
 	public Integer getReservationInfoPriceId() {
 		return reservationInfoPriceId;
@@ -28,12 +28,12 @@ public class MyReservationInfo {
 		this.reservationInfoId = reservationInfoId;
 	}
 
-	public String getDisplayDate() {
-		return displayDate;
+	public String getReservationDate() {
+		return reservationDate;
 	}
 
-	public void setDisplayDate(String displayDate) {
-		this.displayDate = displayDate;
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	public String getReservationName() {

@@ -168,7 +168,7 @@
 									<li class="item">
 										<span class="item_tit">일정</span>
 										<em class="item_dsc">
-										{{displayDate}}
+										{{reservationDate}}
 										</em>
 									</li>
 									<li class="item">

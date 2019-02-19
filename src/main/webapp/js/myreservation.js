@@ -13,8 +13,8 @@ function loadReservationInfoCallback(response){
 		
 		for(var i = 0 ; i < reservationList.length; i++){
 			var targetReservation = reservationList[i];
-			
-			targetReservation.price = targetReservation.price.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')
+			targetReservation.reservationDate = targetReservation.reservationDate.split(' ')[0].replace(/-/g,'.');
+			targetReservation.price = targetReservation.price.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 			targetReservation.index = i+1;
 			var reservationItem = bindCommentTemplate(targetReservation);
 			

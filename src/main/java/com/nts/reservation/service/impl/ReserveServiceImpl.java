@@ -42,7 +42,7 @@ public class ReserveServiceImpl implements ReserveService {
 
 	@Transactional
 	@Override
-	public boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo)
+	public boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo, String reservationDate)
 		throws JsonParseException, JsonMappingException, IOException {
 		boolean isInsertComplete = true;
 
@@ -59,7 +59,7 @@ public class ReserveServiceImpl implements ReserveService {
 			List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo,
 				typeFactory.constructCollectionType(List.class, PriceInfo.class));
 
-			int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId);
+			int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId, reservationDate);
 			for (int i = 0; i < priceInfoList.size(); i++) {
 				PriceInfo targetPriceInfo = priceInfoList.get(i);
 				insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);

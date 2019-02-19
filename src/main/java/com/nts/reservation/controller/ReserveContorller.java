@@ -5,6 +5,7 @@
 package com.nts.reservation.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -36,10 +37,15 @@ public class ReserveContorller {
 			map.addAttribute("email",sessionEmail);
 		}
 		
+		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
+		SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy.MM.dd");
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_MONTH, (int)((Math.random() * 5))+1);
+		
 		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
 		map.addAttribute("reserveDisplayInfo", reserveResponse.getReserveDisplayInfo());
 		map.addAttribute("reservePrice", reserveResponse.getReservePrice());
-		map.addAttribute("today",new SimpleDateFormat("yyyy.MM.dd").format(new Date()));
+		map.addAttribute("reservationDate",dateFormat.format(calendar.getTime()));
 		return "reserve";
 	}
 }

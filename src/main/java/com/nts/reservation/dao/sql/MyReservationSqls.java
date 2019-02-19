@@ -11,6 +11,7 @@ public class MyReservationSqls {
 		" reservation_info_price.id AS reservation_info_price_id," + 
 		" reservation_info.reservation_name," + 
 		" reservation_info.display_info_id," + 
+		" reservation_info.reservation_date," +
 		" product.description AS product_description," + 
 		" display_info.place_name," + 
 		" display_info.opening_hours," + 

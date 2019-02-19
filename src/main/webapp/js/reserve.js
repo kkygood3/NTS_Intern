@@ -231,7 +231,7 @@ function postReserve() {
 
 	var reserveForm = document.querySelector('.reserve_form');
 	var reserveInputs = reserveForm.querySelectorAll('input');
-
+		
 	var priceInfoArray = new Array();
 	for (var i = 0; i < ticketInputs.length; i++) {
 		var isContainTicket = (ticketInputs[i].value > 0);

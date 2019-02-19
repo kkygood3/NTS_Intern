@@ -29,6 +29,6 @@ public interface ReserveService {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo)
+	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo, String reservationDate)
 		throws JsonParseException, JsonMappingException, IOException;
 }
