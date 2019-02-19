@@ -6,7 +6,9 @@ package com.nts.reservation.reservation.model;
 
 import java.util.List;
 
-public class ReservationHistoryResponse {
+import com.nts.reservation.common.model.Response;
+
+public class ReservationHistoryResponse extends Response {
 
 	private List<ReservationHistory> reservationHistoryList;
 

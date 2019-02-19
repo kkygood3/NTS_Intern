@@ -4,7 +4,9 @@
  */
 package com.nts.reservation.comment.model;
 
-public class CommentResponse {
+import com.nts.reservation.common.model.Response;
+
+public class CommentResponse extends Response {
 	private CommentListInfo commentListInfo;
 
 	public CommentResponse() {}

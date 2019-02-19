@@ -7,7 +7,9 @@ package com.nts.reservation.promotion.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromotionResponse {
+import com.nts.reservation.common.model.Response;
+
+public class PromotionResponse extends Response {
 
 	private List<Promotion> promotionList;
 

@@ -5,8 +5,9 @@
 package com.nts.reservation.productdisplay.model;
 
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.common.model.Response;
 
-public class ProductDisplayResponse {
+public class ProductDisplayResponse extends Response {
 
 	private ProductDisplay productDisplay;
 	private CommentListInfo commentListInfo;

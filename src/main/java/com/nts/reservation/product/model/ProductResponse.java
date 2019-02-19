@@ -7,7 +7,9 @@ package com.nts.reservation.product.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductResponse {
+import com.nts.reservation.common.model.Response;
+
+public class ProductResponse extends Response {
 
 	private List<Product> productList;
 	private int totalCount;

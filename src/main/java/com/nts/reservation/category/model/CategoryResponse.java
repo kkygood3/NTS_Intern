@@ -7,7 +7,9 @@ package com.nts.reservation.category.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryResponse {
+import com.nts.reservation.common.model.Response;
+
+public class CategoryResponse extends Response {
 
 	private List<Category> categoryList;
 

@@ -6,9 +6,10 @@ package com.nts.reservation.productprice.model;
 
 import java.util.List;
 
+import com.nts.reservation.common.model.Response;
 import com.nts.reservation.productdisplay.model.ProductDisplay;
 
-public class ProductPriceResponse {
+public class ProductPriceResponse extends Response {
 
 	private ProductDisplay productDisplay;
 	private List<ProductPrice> productPriceList;
