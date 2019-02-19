@@ -23,7 +23,7 @@ public enum PriceType {
 	V("VIP석"),
 	R("ROYAL석");
 
-	private String description;
+	private final String description;
 
 	private PriceType(String description) {
 		this.description = description;
