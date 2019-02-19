@@ -3,7 +3,7 @@
 
 
 <script type="rv-template" id="card">
-<li class="card {{class}}">
+<li class="card {{class}}" id="{{name}}">
 	<div class="link_booking_details">
 		<div class="card_header">
 			<div class="left"></div>
@@ -23,15 +23,18 @@
 [
 	{
 		"class" : "confirmed",
+		"name" : "confirmed",
 		"ico" : "ico_check2",
 		"tit" : "예약 확정"
 	},
 	{
 		"class" : "used",
+		"name" : "used",
 		"ico" : "ico_check2",
 		"tit" : "이용 완료"},
 	{
 		"class" : "used cancel",
+		"name" : "cancel",
 		"ico" : "ico_cancel",
 		"tit" : "취소된 예약"
 	}
