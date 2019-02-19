@@ -4,15 +4,15 @@ import java.util.List;
 
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductImageDto;
-import com.nts.reservation.dto.ProductPriceForRenderDto;
+import com.nts.reservation.dto.ProductPriceDto;
 
 public class ReservationResponseDto {
 	private DisplayInfoDto displayInfo;
 	private ProductImageDto productImage;
-	private List<ProductPriceForRenderDto> productPriceList;
+	private List<ProductPriceDto> productPriceList;
 
 	public ReservationResponseDto(DisplayInfoDto displayInfo, ProductImageDto productImage,
-		List<ProductPriceForRenderDto> productPriceList) {
+		List<ProductPriceDto> productPriceList) {
 		this.displayInfo = displayInfo;
 		this.productImage = productImage;
 		this.productPriceList = productPriceList;
@@ -26,7 +26,7 @@ public class ReservationResponseDto {
 		return productImage;
 	}
 
-	public List<ProductPriceForRenderDto> getProductPriceList() {
+	public List<ProductPriceDto> getProductPriceList() {
 		return productPriceList;
 	}
 

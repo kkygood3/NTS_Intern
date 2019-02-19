@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductImageDto;
-import com.nts.reservation.dto.ProductPriceForRenderDto;
+import com.nts.reservation.dto.ProductPriceDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
 import com.nts.reservation.service.DisplayInfoService;
 
@@ -32,11 +32,10 @@ public class ReservationPageController {
 		DisplayInfoDto displayInfo = displayService.getDisplayInfo(displayInfoId);
 		Long productId = displayInfo.getProductId();
 		ProductImageDto productImage = displayService.getProductMainImage(productId);
-		List<ProductPriceForRenderDto> productPriceListForRender = displayService
-			.getProductPriceForRenderList(productId);
+		List<ProductPriceDto> productPriceList = displayService.getProductPriceList(productId);
 
 		map.addAttribute("reservationResponseDto",
-			new ReservationResponseDto(displayInfo, productImage, productPriceListForRender));
+			new ReservationResponseDto(displayInfo, productImage, productPriceList));
 
 		return "reservationPage";
 	}

@@ -67,7 +67,7 @@
                     <div class="ticket_body">
 	                    <c:forEach items="${reservationResponseDto.productPriceList}" var="price">
 							<div class="qty">
-	                            <div class="count_control"  data-price = ${price.price } data-price-id = ${price.priceId }>
+	                            <div class="count_control"  data-price = ${price.price } data-price-id = ${price.productPriceId }>
 	                                <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 	                                <div class="clearfix">
 	                                    <a class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
@@ -77,7 +77,13 @@
 	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
 	                            </div>
-	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${PriceTag.valueOf(price.name).getName() }</span> </strong> <strong class="product_price"> <span class="price">${price.price }</span> <span class="price_type">원</span> </strong> <em class="product_dsc">${price.description }</em> </div>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${PriceTag.valueOf(price.priceTypeName).getName() }</span> </strong> <strong class="product_price"> <span class="price">${String.format("%,d", price.price) }</span> <span class="price_type">원</span> </strong> 
+		                            <em class="product_dsc">
+		                            <c:if test="${price.discountRate > 0 }">
+										${String.format("%,d", price.price).concat("원 (").concat(Math.round(price.discountRate)).concat("% 할인가)") }
+									</c:if>
+		                            </em> 
+	                            </div>
 	                        </div>
 						</c:forEach>
                     </div>

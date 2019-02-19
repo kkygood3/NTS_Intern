@@ -13,7 +13,6 @@ import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_DISPLAY_INFO
 import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_MAIN_PRODUCT_IMAGE_BY_ID;
 import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_PRODUCT_IMAGE_BY_ID;
 import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_PRODUCT_PRICE_BY_ID;
-import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_PRODUCT_PRICE_FOR_RENDER_BY_ID;
 
 import java.util.Collections;
 import java.util.List;
@@ -133,13 +132,4 @@ public class DisplayInfoDao {
 		return jdbc.query(SELECT_PRODUCT_PRICE_BY_ID, map, priceRowMapper);
 	}
 
-	/**
-	 * @desc 서버사이드 렌더링을 위한 product의 값 목록 불러오는 쿼리
-	 * @param productId
-	 * @return
-	 */
-	public List<ProductPriceForRenderDto> selectProductPricesForRender(Long productId) {
-		Map<String, Object> map = Collections.singletonMap("id", productId);
-		return jdbc.query(SELECT_PRODUCT_PRICE_FOR_RENDER_BY_ID, map, priceForRenderRowMapper);
-	}
 }

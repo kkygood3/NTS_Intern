@@ -124,11 +124,4 @@ public class DisplayInfoDaoSqls {
 		+ " AND image.type != \"th\""
 		+ " AND image.product_id = :id"
 		+ " Limit 1";
-
-	public static final String SELECT_PRODUCT_PRICE_FOR_RENDER_BY_ID = "SELECT price_type_name AS name"
-		+ ", FORMAT(price, 0) AS price"
-		+ ", id AS priceId"
-		+ ", IF(discount_rate = 0, ''"
-		+ ", CONCAT( FORMAT(price, 0), '원(', TRUNCATE(discount_rate, 0),'% 할인가)')) AS description"
-		+ " FROM product_price WHERE product_id = :id";
 }
