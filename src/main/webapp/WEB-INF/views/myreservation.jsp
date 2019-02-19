@@ -163,7 +163,7 @@
 						<div class="middle">
 							<div class="card_detail">
 								<em class="booking_number">No.{{index}}</em>
-								<h4 class="tit">서비스명/상품명</h4>
+								<h4 class="tit">{{productDescription}}</h4>
 								<ul class="detail">
 									<li class="item">
 										<span class="item_tit">일정</span>

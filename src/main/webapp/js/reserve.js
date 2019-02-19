@@ -1,10 +1,25 @@
+/**
+ * 서버에서 전달받은 가격 객체를 javascript에서 관리하기위해 사용
+ * @param price
+ * @param priceTypeName
+ */
 function ReservePrice(price, priceTypeName) {
 	this.price = price.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	this.label = getTypeLabel(priceTypeName);
 }
 
-// 티켓 수량 증가, 감소 클릭 이벤트 등록
-function setTicketClick() {
+/**
+ * form으로 가격정보를 서버에 전달하기위해 사용
+ * @param type
+ * @param count
+ */
+function PriceInfo(type, count) {
+	this.type = type;
+	this.count = count;
+};
+
+// 예약 티켓 수량 증감 이벤트 등록
+function initTicketClickEvents() {
 	var ticketContainer = document.querySelector('.ticket_body');
 	var ticketTotalArea = document.querySelector('#totalCount');
 
@@ -20,14 +35,18 @@ function setTicketClick() {
 						var amountArea = clickedTag.parentElement.querySelector('input');
 						var amountValue = parseInt(amountArea.getAttribute('value'));
 	
-						var isMinus = (clickedTag.classList.contains('ico_minus3') && amountValue > 0);
-						var isPlus = (clickedTag.classList.contains('ico_plus3'));
+						var isMinusClicked = (clickedTag.classList.contains('ico_minus3') && amountValue > 0);
+						var isPlusClicked = (clickedTag.classList.contains('ico_plus3'));
 	
 						var item = clickedTag.parentElement.parentElement.parentElement;
 						var cost = item.getAttribute('cost');
 						var itemPriceArea = item.querySelector('.total_price');
-						
-						if (isMinus) {
+
+						/**
+						 * 감소 버튼을 눌렀을 때 수량이 0이면 -버튼, 수량, 총액의 CSS class를 조정하여 초록색으로 표시.
+						 * 증가 버튼을 눌렀을 때 수량이 1이면 -버튼, 수량, 총액의 CSS class를 조정하여 회색으로 표시.
+						 */
+						if (isMinusClicked) {
 							if (amountValue == 1) {
 								btnMinus.classList.add('disabled');
 								amountArea.classList.add('disabled');
@@ -38,7 +57,7 @@ function setTicketClick() {
 							amountArea.setAttribute('value', amountValue - 1);
 	
 							ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) - 1;
-						} else if (isPlus) {
+						} else if (isPlusClicked) {
 							if (amountValue == 0) {
 								btnMinus.classList.remove('disabled');
 								amountArea.classList.remove('disabled');
@@ -54,8 +73,8 @@ function setTicketClick() {
 				});
 }
 
-function setAgreementDesciptionClick() {
-	// 약관 보기 버튼
+// 약관 보기 버튼 클릭이벤트 등록
+function initAgreementClickEvents() {
 	var agreementDescriptionWrap = document.querySelector('.section_booking_agreement');
 	
 	agreementDescriptionWrap
@@ -67,7 +86,7 @@ function setAgreementDesciptionClick() {
 						if (isClickedChild) {
 							clickedBtn = clickedBtn.parentElement;
 						}
-
+						
 						if (clickedBtn.classList.contains('btn_agreement')) {
 							evt.preventDefault();
 							var btnTextArea = clickedBtn.querySelector('.btn_text');
@@ -92,8 +111,11 @@ function setAgreementDesciptionClick() {
 					});
 }
 
-// 예약하기 버튼 활성화 가능 여부 체크
-function setReserveClick() {
+/**
+ * 예매하기 버튼을 클릭할 수 있는지 체크
+ * 유효성 검증은 예약 버튼 클릭이벤트에서 처리하므로 활성/비활성화만 검증한다.
+ */
+function initReserveClickEvents() {
 	var reserveBtn = document.querySelector('.bk_btn_wrap');
 
 	var ticketInputsWrap = document.querySelector('.section_booking_ticket');
@@ -108,7 +130,8 @@ function setReserveClick() {
 	bookerInputsWrap.addEventListener('change', checkAvailableReserve);
 
 	/**
-	 * 예매하기 버튼을 클릭할 수 있는지 체크. 유효성 검증은 버튼 클릭시 하므로 버튼 활성/비활성화만 검증한다.
+	 * 티켓 click, input change 이벤트 처리 함수.
+	 * 이름, 전화번호, 이메일, 티켓 수량, 약관 동의여부를 확인하고 빈 칸이 없을때 예약 버튼에 클릭 이벤트를 등록
 	 */
 	function checkAvailableReserve() {
 		var isAvailableBtn = true;
@@ -141,7 +164,6 @@ function setReserveClick() {
 			reserveBtn.classList.remove('disable');
 			reserveBtn.addEventListener('click', onReserveClicked);
 		} else {
-			// 예약하기 버튼 사용 불가
 			reserveBtn.classList.add('disable');
 			reserveBtn.removeEventListener('click', onReserveClicked);
 		}
@@ -150,19 +172,13 @@ function setReserveClick() {
 	}
 }
 
-// 클릭 이벤트 등록을 전담
-function initClickEvents() {
-	setTicketClick();
-	setAgreementDesciptionClick();
-	setReserveClick();
-	setPageBackClick();
-}
-
-function setPageBackClick() {
+function initBackClickEvents() {
 	document.querySelector('.btn_back').setAttribute('href','detail?id=' + getUrlParameter('id'));
 }
+
 /**
- * 예약하기 버튼을 클릭했을때 이벤트 예약자 정보를 검증하고 이상이 없다면 예약 페이지로 이동한다.
+ * 예약하기 버튼을 클릭했을때 이벤트 처리.
+ * 예약자 정보들을 검증하고 유효하다면 예약 페이지로 전송
  */
 function onReserveClicked() {
 	var bookerInputs = document.querySelectorAll('.form_horizontal input');
@@ -216,11 +232,10 @@ function onReserveClicked() {
 	}
 }
 
-function PriceInfo(type, count) {
-	this.type = type;
-	this.count = count;
-};
-
+/**
+ * 예약 버튼을 눌렀을 때 정보가 유효하다고 결정했다면
+ * hidden input form에 정보를 담아서 서버에 전달하고 결과를 출력
+ */
 function postReserve() {
 	var ticketInputs = document.querySelectorAll('.section_booking_ticket input');
 
@@ -251,10 +266,22 @@ function postReserve() {
 	reserveForm.submit();
 }
 
+//관람시간의 설명 부분 줄 바꿈 처리
+function initDescriptionSort(){
+	var displayScheduleArea = document.querySelectorAll('.store_details .dsc')[1];
+	displayScheduleArea.innerText = displayScheduleArea.innerText.replace(/ - /g,'\r\n- ');
+}
+
+//클릭 이벤트 등록을 전담
+function initClickEvents() {
+	initTicketClickEvents();
+	initAgreementClickEvents();
+	initReserveClickEvents();
+	initBackClickEvents();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 	initPriceDescription();
 	initClickEvents();
-	//일정 설명문 줄바꿈
-	var displayScheduleArea = document.querySelectorAll('.store_details .dsc')[1];
-	displayScheduleArea.innerText = displayScheduleArea.innerText.replace(/ - /g,'\r\n- ');
+	initDescriptionSort();
 });
