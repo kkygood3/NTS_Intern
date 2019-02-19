@@ -17,7 +17,7 @@ public class ReservationPageInfoDaoSqls {
 	+ "	AND r.product_id = p.id "
 	+ "INNER JOIN display_info AS d ON r.display_info_id = d.id "
 	+ "INNER JOIN product_price AS pp ON pp.product_id = p.id "
-	+ "GROUP BY d.id";
+	+ "GROUP BY r.id";
 
 	public static final String UPDATE_CANCEL_FLAG_TO_FALSE_BY_RESERVATION_INFO_ID
 	= "UPDATE reservation_info SET cancel_flag = true, modify_date = now() WHERE id = :reservationInfoId AND reservation_email = :reservationEmail";
