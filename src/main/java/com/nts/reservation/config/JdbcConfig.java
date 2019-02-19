@@ -25,5 +25,4 @@ public class JdbcConfig {
 	public NamedParameterJdbcTemplate jdbcTemplate() {
 		return new NamedParameterJdbcTemplate(dataSource);
 	}
-
 }

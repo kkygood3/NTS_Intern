@@ -9,12 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.nts.reservation.model.Category;
-import com.nts.reservation.model.Comment;
-import com.nts.reservation.model.CommentListInfo;
-import com.nts.reservation.model.Product;
-import com.nts.reservation.model.ProductDisplay;
-import com.nts.reservation.model.Promotion;
+import com.nts.reservation.category.model.Category;
+import com.nts.reservation.comment.model.Comment;
+import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.product.model.Product;
+import com.nts.reservation.productdisplay.model.ProductDisplay;
+import com.nts.reservation.productprice.model.ProductPrice;
+import com.nts.reservation.promotion.model.Promotion;
+import com.nts.reservation.reservation.model.ReservationHistory;
 
 /**
  * @author 임상현, life4lord93@nts-corp.com
@@ -51,6 +53,16 @@ public class MapperConfig {
 	@Bean
 	public RowMapper<CommentListInfo> commentListInfoMapper() {
 		return BeanPropertyRowMapper.newInstance(CommentListInfo.class);
+	}
+
+	@Bean
+	public RowMapper<ProductPrice> productPriceMapper() {
+		return BeanPropertyRowMapper.newInstance(ProductPrice.class);
+	}
+
+	@Bean
+	public RowMapper<ReservationHistory> reservationHistoryMapper() {
+		return BeanPropertyRowMapper.newInstance(ReservationHistory.class);
 	}
 
 }

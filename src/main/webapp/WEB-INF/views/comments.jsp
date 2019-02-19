@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -88,7 +87,7 @@
 		<script type="text/javascript" src="/resources/js/ajax.js"></script>
 		<script type="text/javascript" src="/resources/js/handlebars-v4.0.12.js"></script>
 		<script type="text/javascript" src="/resources/js/template_maker.js"></script>
-		<script type="text/javascript" src="/resources/js/comments.js"></script>
+		<script type="text/javascript" src="/resources/js/page/comments.js"></script>
 </body>
 
 </html>

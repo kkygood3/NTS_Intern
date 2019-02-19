@@ -14,7 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.config.ApplicationConfig;
-import com.nts.reservation.model.ProductDisplay;
+import com.nts.reservation.productdisplay.model.ProductDisplay;
+import com.nts.reservation.productdisplay.service.ProductDisplayService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
@@ -25,7 +26,7 @@ public class ProductDisplayServiceTest {
 
 	@Test
 	public void selectProductDisplayTest() {
-		ProductDisplay productDisplay = productDisplayService.getProductDisplay(-1);
+		ProductDisplay productDisplay = productDisplayService.getProductDisplay(1);
 		System.out.println(productDisplay);
 	}
 
