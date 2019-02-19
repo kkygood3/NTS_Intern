@@ -22,6 +22,7 @@ import com.nts.dto.productdto.Product;
 import com.nts.dto.productdto.ProductImage;
 import com.nts.dto.productdto.ProductPrice;
 import com.nts.dto.productdto.ProductResponse;
+import com.nts.exception.ExceptionValue;
 import com.nts.exception.InvalidParameterException;
 import com.nts.service.CommentService;
 import com.nts.service.DisplayInfoService;
@@ -57,10 +58,10 @@ public class ProductApiController {
 			@RequestParam(name = "start", required = false, defaultValue = "0") int start) throws InvalidParameterException {
 
 		if (categoryId < 0) {
-			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
+			throw new InvalidParameterException("categoryId", new ExceptionValue<Integer>(categoryId));
 		}
 		if (start < 0) {
-			throw new InvalidParameterException("start", Integer.toString(start));
+			throw new InvalidParameterException("start", new ExceptionValue<Integer>(start));
 		}
 
 		List<Product> items = productService.getItems(categoryId, start);
@@ -81,7 +82,7 @@ public class ProductApiController {
 		
 		if (displayInfoId <= 0) {
 			
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		

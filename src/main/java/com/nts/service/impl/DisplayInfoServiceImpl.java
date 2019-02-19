@@ -13,6 +13,7 @@ import com.nts.dao.displayinfodao.DisplayInfoDao;
 import com.nts.dto.displayinfodto.DisplayInfo;
 import com.nts.dto.displayinfodto.DisplayInfoImage;
 import com.nts.exception.EmptyResultException;
+import com.nts.exception.ExceptionValue;
 import com.nts.exception.InvalidParameterException;
 import com.nts.service.DisplayInfoService;
 
@@ -40,7 +41,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		
 		if (displayInfoId <= 0) {
 
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		
@@ -67,7 +68,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		
 		if (displayInfoId <= 0) {
 			
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		

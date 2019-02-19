@@ -8,6 +8,7 @@ import com.nts.dao.productdao.ProductDao;
 import com.nts.dto.productdto.Product;
 import com.nts.dto.productdto.ProductImage;
 import com.nts.dto.productdto.ProductPrice;
+import com.nts.exception.ExceptionValue;
 import com.nts.exception.InvalidParameterException;
 import com.nts.service.ProductService;
 
@@ -43,11 +44,11 @@ public class ProductServiceImpl implements ProductService {
 
 		if (categoryId < 0) {
 
-			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
+			throw new InvalidParameterException("categoryId", new ExceptionValue<Integer>(categoryId));
 
 		} else if (start < 0) {
 
-			throw new InvalidParameterException("start", Integer.toString(start));
+			throw new InvalidParameterException("start", new ExceptionValue<Integer>(start));
 
 		} else if (categoryId == ALL_CATEGORIES) {
 
@@ -68,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
 
 		if (categoryId < 0) {
 
-			throw new InvalidParameterException("categoryId", Integer.toString(categoryId));
+			throw new InvalidParameterException("categoryId", new ExceptionValue<Integer>(categoryId));
 
 		} else if (categoryId == ALL_CATEGORIES) {
 
@@ -89,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		if (displayInfoId <= 0) {
 
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		
@@ -105,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		if (displayInfoId <= 0) {
 
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		
