@@ -31,7 +31,6 @@ import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
-import com.nts.reservation.dto.ProductPriceForRenderDto;
 
 /**
  * @author 육성렬
@@ -46,8 +45,6 @@ public class DisplayInfoDao {
 		.newInstance(DisplayInfoImageDto.class);
 	private RowMapper<ProductImageDto> productImageRowMapper = BeanPropertyRowMapper.newInstance(ProductImageDto.class);
 	private RowMapper<ProductPriceDto> priceRowMapper = BeanPropertyRowMapper.newInstance(ProductPriceDto.class);
-	private RowMapper<ProductPriceForRenderDto> priceForRenderRowMapper = BeanPropertyRowMapper
-		.newInstance(ProductPriceForRenderDto.class);
 
 	public DisplayInfoDao(DataSource dataSource) {
 		jdbc = new NamedParameterJdbcTemplate(dataSource);
