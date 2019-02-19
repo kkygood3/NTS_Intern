@@ -22,6 +22,16 @@ function sendGetAjax(url, action) {
 	httpRequest.send();
 }
 
+function sendPutAjax(sendUrl, action) {
+	$.ajax({
+		method: "PUT",
+		url: sendUrl,
+		success: function(data){
+			action(data);
+        }
+	});
+}
+
 function readyStateChanged(httpRequest, action) {
 	if (httpRequest.readyState !== XMLHttpRequest.DONE) {
 		return false;
