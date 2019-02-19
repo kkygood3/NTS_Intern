@@ -21,6 +21,7 @@ import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
 import com.nts.reservation.comment.dto.DetailComment;
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -38,6 +39,8 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectAllComment(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_ALL_COMMENT, param, commentRowMapper);
@@ -45,6 +48,9 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectLimitComment(int displayInfoId, int start, int limit) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		params.put("start", start);
@@ -68,6 +74,8 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<DetailComment> selectDetailComment(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_DETAIL_COMMENT, params, detailCommentRowMapper);

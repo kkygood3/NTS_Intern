@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 import com.nts.reservation.displayInfo.dto.DisplayInfoResponse;
 import com.nts.reservation.displayInfo.service.DisplayInfoService;
 import com.nts.reservation.product.dto.ProductExtraImage;
@@ -40,22 +41,15 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (categoryId < 0 || start < 0) {
-			System.out.println("올바르지 않은 categoryId : " + categoryId + " 또는 start : " + start);
-
-			throw new IllegalArgumentException("올바르지 않은 categoryId : " + categoryId + " 또는 start : " + start);
-		}
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
 
 		int totalCount = productServiceImpl.getProductsCountByCategoryId(categoryId);
 		if (totalCount == 0) {
 			return getEmptyItems();
 		}
 
-		ProductResponse productResponse = new ProductResponse();
-		productResponse.setTotalCount(totalCount);
-		productResponse.setItems(productServiceImpl.getProductsByCategoryId(categoryId, start, limit));
-
-		return productResponse;
+		return productServiceImpl.getProductResponse(categoryId, start, limit, totalCount);
 	}
 
 	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
@@ -63,31 +57,17 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 
-		if (displayInfoId <= 0) {
-			System.out.println("올바르지 않은 displayInfoId : " + displayInfoId);
-
-			throw new IllegalArgumentException("올바르지 않은 displayInfoId : " + displayInfoId);
-		}
-		if (start < 0 || limit < 0) {
-			System.out.println("올바르지 않은 start : " + start + " 또는 limit" + limit);
-
-			throw new IllegalArgumentException("올바르지 않은 start : " + start + " 또는 limit" + limit);
-		}
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
 
 		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
 	@RequestMapping(value = "/{displayInfoId}/extraImage", method = RequestMethod.GET)
 	public ProductExtraImage getProductExtraImage(@PathVariable int displayInfoId) {
-		ProductExtraImage productExtraImage = new ProductExtraImage();
-		productExtraImage = productServiceImpl.getProductExtraImage(displayInfoId);
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
 
-		//		Map<String, Object> map = new HashMap<>();
-		//		map.put("productExtraImage", productExtraImage);
-		//
-		//		return map;
-
-		return productExtraImage;
+		return productServiceImpl.getProductExtraImage(displayInfoId);
 	}
 
 	private ProductResponse getEmptyItems() {

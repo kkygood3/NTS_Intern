@@ -28,10 +28,7 @@ public class PromotionApiController {
 			return getEmptyItems();
 		}
 
-		PromotionResponse promotionResponse = new PromotionResponse();
-		promotionResponse.setItems(promotionService.getPromotions());
-
-		return promotionResponse;
+		return promotionService.getPromotionResponse();
 	}
 
 	private PromotionResponse getEmptyItems() {

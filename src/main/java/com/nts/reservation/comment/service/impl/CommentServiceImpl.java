@@ -16,6 +16,7 @@ import com.nts.reservation.comment.dto.CommentImage;
 import com.nts.reservation.comment.dto.DetailComment;
 import com.nts.reservation.comment.dto.DetailCommentResponse;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -27,32 +28,21 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getAllComment(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
-		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
 
-		for (Comment comment : commentList) {
-			commentImageList = getCommentImage(comment.getCommentId());
-			if (commentImageList.size() != 0) {
-				comment.setCommentImage(commentImageList.get(0).getSaveFileName());
-			}
-		}
-
-		return commentList;
+		return getImagedCommentList(commentList);
 	}
 
 	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
-		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
 
-		for (Comment comment : commentList) {
-			commentImageList = getCommentImage(comment.getCommentId());
-			if (commentImageList.size() != 0) {
-				comment.setCommentImage(commentImageList.get(0).getSaveFileName());
-			}
-		}
-
-		return commentList;
+		return getImagedCommentList(commentList);
 	}
 
 	@Override
@@ -67,11 +57,15 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<DetailComment> getDetailComment(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		return commentDaoImpl.selectDetailComment(displayInfoId);
 	}
 
 	@Override
 	public DetailCommentResponse getDetailCommentResponse(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		DetailCommentResponse detailCommentResponse = new DetailCommentResponse();
 
 		List<DetailComment> commentList = commentDaoImpl.selectDetailComment(displayInfoId);
@@ -87,5 +81,18 @@ public class CommentServiceImpl implements CommentService {
 		detailCommentResponse.setAverageScore(sumScore / commentListSize);
 
 		return detailCommentResponse;
+	}
+
+	private List<Comment> getImagedCommentList(List<Comment> commentList) {
+		List<CommentImage> commentImageList = new ArrayList<CommentImage>();
+
+		for (Comment comment : commentList) {
+			commentImageList = getCommentImage(comment.getCommentId());
+			if (commentImageList.size() != 0) {
+				comment.setCommentImage(commentImageList.get(0).getSaveFileName());
+			}
+		}
+
+		return commentList;
 	}
 }

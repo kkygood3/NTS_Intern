@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 import com.nts.reservation.displayInfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
 import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
@@ -36,16 +37,23 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public DisplayInfo getDisplayInfo(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		return displayInfoDaoImpl.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
 	public DisplayInfoImage getDisplayInfoImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		return displayInfoDaoImpl.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
 	public DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
 		List<ProductImage> productImages = productServiceImpl.getProductImage(displayInfoId);

@@ -10,6 +10,7 @@ import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
+import com.nts.reservation.product.dto.ProductResponse;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -22,6 +23,8 @@ public interface ProductService {
 	int getProductsCountByCategoryId(int categoryId);
 
 	int getProductsCount();
+
+	ProductResponse getProductResponse(int categoryId, int start, int limit, int totalCount);
 
 	List<ProductImage> getProductImage(int displayInfoId);
 

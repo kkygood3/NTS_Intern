@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 import com.nts.reservation.displayInfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
 import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
@@ -36,6 +37,8 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 
 	@Override
 	public DisplayInfo selectDisplayInfo(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_DISPLAY_INFO, param, displayInfoRowMapper);
@@ -43,6 +46,8 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 
 	@Override
 	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_DISPLAY_INFO_IMAGE, param, displayInfoImageRowMapper);

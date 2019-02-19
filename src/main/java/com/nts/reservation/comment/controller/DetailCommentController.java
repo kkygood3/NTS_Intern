@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -16,6 +18,7 @@ public class DetailCommentController {
 	@GetMapping("/detailComment")
 	public String requestProductDetailComment(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
 
 		return "detailComment";
 	}

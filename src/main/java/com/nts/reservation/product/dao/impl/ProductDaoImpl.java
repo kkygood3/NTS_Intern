@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
@@ -43,6 +44,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectProducts(int start, int limit) {
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
@@ -51,6 +54,9 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectProductsByCategoryId(int categoryId, int start, int limit) {
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -65,6 +71,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int selectProductsCountByCategoryId(int categoryId) {
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
@@ -72,6 +80,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<ProductImage> selectProductImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_PRODUCT_IMAGE, params, productImageRowMapper);
@@ -79,6 +89,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<ProductPrice> selectProductPrice(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_PRODUCT_PRICE, params, productPriceRowMapper);
@@ -86,6 +98,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public ProductExtraImage selectProductExtraImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
 		return DataAccessUtils.singleResult(jdbc.query(SELECT_PRODUCT_EXTRA_IMAGE, params, productExtraImageRowMapper));

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.promotion.dao.impl.PromotionDaoImpl;
 import com.nts.reservation.promotion.dto.Promotion;
+import com.nts.reservation.promotion.dto.PromotionResponse;
 import com.nts.reservation.promotion.service.PromotionService;
 
 /**
@@ -24,6 +25,14 @@ public class PromotionServiceImpl implements PromotionService {
 	@Override
 	public List<Promotion> getPromotions() {
 		return promotionDaoImpl.selectPromotions();
+	}
+
+	@Override
+	public PromotionResponse getPromotionResponse() {
+		PromotionResponse promotionResponse = new PromotionResponse();
+		promotionResponse.setItems(getPromotions());
+
+		return promotionResponse;
 	}
 
 	@Override

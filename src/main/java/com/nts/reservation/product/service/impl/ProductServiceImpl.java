@@ -9,11 +9,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nts.reservation.commons.validator.CheckArgumentValidation;
 import com.nts.reservation.product.dao.impl.ProductDaoImpl;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
+import com.nts.reservation.product.dto.ProductResponse;
 import com.nts.reservation.product.service.ProductService;
 
 /**
@@ -24,9 +26,14 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDaoImpl productDaoImpl;
 
+	private static final int All_CATEGORIES = 0;
+
 	@Override
 	public List<Product> getProductsByCategoryId(int categoryId, int start, int limit) {
-		if (isAllCategories(categoryId)) {
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
+		if (categoryId == All_CATEGORIES) {
 			return getProducts(start, limit);
 		}
 		return productDaoImpl.selectProductsByCategoryId(categoryId, start, limit);
@@ -34,12 +41,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(int start, int limit) {
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
 		return productDaoImpl.selectProducts(start, limit);
 	}
 
 	@Override
 	public int getProductsCountByCategoryId(int categoryId) {
-		if (isAllCategories(categoryId)) {
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+
+		if (categoryId == All_CATEGORIES) {
 			return getProductsCount();
 		}
 		return productDaoImpl.selectProductsCountByCategoryId(categoryId);
@@ -50,25 +61,36 @@ public class ProductServiceImpl implements ProductService {
 		return productDaoImpl.selectProductsCount();
 	}
 
-	private boolean isAllCategories(int categoryId) {
-		if (categoryId == 0) {
-			return true;
-		}
-		return false;
+	@Override
+	public ProductResponse getProductResponse(int categoryId, int start, int limit, int totalCount) {
+		CheckArgumentValidation.isCorrectCategoryId(categoryId);
+		CheckArgumentValidation.isCorrectStartAndLimit(start, limit);
+
+		ProductResponse productResponse = new ProductResponse();
+		productResponse.setTotalCount(totalCount);
+		productResponse.setItems(getProductsByCategoryId(categoryId, start, limit));
+
+		return productResponse;
 	}
 
 	@Override
 	public List<ProductImage> getProductImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		return productDaoImpl.selectProductImage(displayInfoId);
 	}
 
 	@Override
 	public List<ProductPrice> getProductPrice(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		return productDaoImpl.selectProductPrice(displayInfoId);
 	}
 
 	@Override
 	public ProductExtraImage getProductExtraImage(int displayInfoId) {
+		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
+
 		ProductExtraImage productExtraImage = productDaoImpl.selectProductExtraImage(displayInfoId);
 
 		if (productExtraImage == null) {
