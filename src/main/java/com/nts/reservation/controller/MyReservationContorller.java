@@ -25,11 +25,7 @@ public class MyReservationContorller {
 		/*
 		 * 로그인 상태라면 myreservation view를 출력.
 		 * 비로그인 상태라면 bookinglogin view를 출력.
-		 */
-		if(!ReservationValidatior.validateEmail(email)) {
-			return "error";
-		}
-			
+		 */			
 		String sessionEmail = (String)session.getAttribute("email");
 		if (sessionEmail != null) {
 			return "myreservation";

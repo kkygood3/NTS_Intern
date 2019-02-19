@@ -107,7 +107,8 @@
 				submitBtn.addEventListener('click',function(evt){
 					evt.preventDefault();
 					
-					if(REG_EMAIL.test(emailInput.value)){
+					var isVaildEmail = REG_EMAIL.test(emailInput.value);
+					if(isVaildEmail){
 						bookForm.submit();
 					} else {
 						alert('이메일 형식이 아닙니다.');
