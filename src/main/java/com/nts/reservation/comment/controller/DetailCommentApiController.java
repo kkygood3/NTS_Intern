@@ -27,12 +27,6 @@ public class DetailCommentApiController {
 	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
 		CheckArgumentValidation.isCorrectDisplayInfoId(displayInfoId);
 
-		if (displayInfoId <= 0) {
-			System.out.println("올바르지 않은 displayInfoId : " + displayInfoId);
-
-			throw new IllegalArgumentException("올바르지 않은 displayInfoId : " + displayInfoId);
-		}
-
 		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
 	}
 }
