@@ -39,9 +39,11 @@ function addPlusMiusButtonClickEvent() {
 		}
 		
 		var count = buttonHolder.getElementsByClassName("count_control_input")[0];
+		var totalCount = document.getElementById("totalCount");
 		if (button.getAttribute("title") == "더하기") {
 			minusButton.classList.remove("disabled");
 			count.value = count.value * 1 + 1;
+			totalCount.innerText = totalCount.innerText * 1 + 1;
 			
 		} else if (button.getAttribute("title") == "빼기") {
 			var disabled = false;
@@ -52,8 +54,12 @@ function addPlusMiusButtonClickEvent() {
 			if (count.value == 0) {
 				minusButton.classList.add("disabled");
 			}
+			totalCount.innerText = totalCount.innerText * 1 - 1;
 		}
 		setReservationButtonDisable();
+		var total = buttonHolder.querySelector(".total_price");
+		var price = buttonHolder.querySelector(".price").innerText;
+		total.innerText = count.value * price;
 	});
 }
 
