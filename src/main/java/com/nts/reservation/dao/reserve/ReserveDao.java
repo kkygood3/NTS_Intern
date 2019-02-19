@@ -47,7 +47,7 @@ public class ReserveDao {
 	 */
 	public Integer insertReservationPrice(PriceType type, int count, int displayInfoId, int reservationInfoId) {
 		MapSqlParameterSource  params = new MapSqlParameterSource();
-		params.addValue("type", type.toString());
+		params.addValue("type", type.name());
 		params.addValue("count", count);
 		params.addValue("displayInfoId", displayInfoId);
 		params.addValue("reservationInfoId", reservationInfoId);
