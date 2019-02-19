@@ -18,9 +18,9 @@ import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.service.CommentService;
 import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.productdisplay.model.ProductDisplay;
+import com.nts.reservation.productdisplay.model.ProductDisplayPriceResponse;
 import com.nts.reservation.productdisplay.model.ProductDisplayResponse;
 import com.nts.reservation.productdisplay.service.ProductDisplayService;
-import com.nts.reservation.productprice.model.ProductDisplayPriceResponse;
 import com.nts.reservation.productprice.model.ProductPrice;
 import com.nts.reservation.productprice.service.ProductPriceService;
 

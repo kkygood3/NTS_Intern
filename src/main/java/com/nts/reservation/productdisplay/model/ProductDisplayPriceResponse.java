@@ -2,12 +2,12 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.productprice.model;
+package com.nts.reservation.productdisplay.model;
 
 import java.util.List;
 
 import com.nts.reservation.common.model.Response;
-import com.nts.reservation.productdisplay.model.ProductDisplay;
+import com.nts.reservation.productprice.model.ProductPrice;
 
 public class ProductDisplayPriceResponse extends Response {
 
