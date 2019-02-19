@@ -9,7 +9,6 @@ package com.nts.reservation.dto;
 */
 public class ReservedItem {
 	private Reservation reservation;
-	private int totalPrice;
 	private DisplayInfo displayInfo;
 
 	public Reservation getReservation() {
@@ -18,14 +17,6 @@ public class ReservedItem {
 
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
-	}
-
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 	public DisplayInfo getDisplayInfo() {

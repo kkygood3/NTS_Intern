@@ -34,8 +34,9 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationDao.insertReservation(reservationInfo);
 
 		List<ReservationPrice> reservationInfoPrices = reservationInfo.getPrices();
+		int reservationInfoId = reservationDao.selectReservationInfoId(reservationInfo);
 		for (ReservationPrice reservationInfoPrice : reservationInfoPrices) {
-			reservationInfoPrice.setReservationInfoId(reservationDao.selectReservationInfoId(reservationInfo));
+			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationDao.insertReservationPrice(reservationInfoPrice);
 		}
 	}
@@ -50,7 +51,6 @@ public class ReservationServiceImpl implements ReservationService {
 			ReservedItem reservedItem = new ReservedItem();
 
 			reservedItem.setReservation(reservation);
-			reservedItem.setTotalPrice(reservationDao.selectTotalPrice(reservation.getId()));
 			reservedItem.setDisplayInfo(detailProductDao.selectDisplayInfo(reservation.getDisplayInfoId()));
 
 			reservedItems.add(reservedItem);

@@ -27,6 +27,7 @@ public class Reservation {
 	private String reservationTel;
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private Date reservationDate;
+	private int totalPrice;
 
 	public Date getReservationDate() {
 		return reservationDate;
@@ -114,5 +115,13 @@ public class Reservation {
 
 	public void setId(int reservationInfoId) {
 		this.id = reservationInfoId;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 }

@@ -8,7 +8,6 @@ import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_IN
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATION_INFO_ID;
-import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_TOTAL_PRICE;
 import static com.nts.reservation.dao.sqls.ReservationSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.Collections;
@@ -54,11 +53,6 @@ public class ReservationDao {
 	public List<Reservation> selectReservations(String userEmail) {
 		Map<String, String> param = Collections.singletonMap("userEmail", userEmail);
 		return jdbc.query(SELECT_RESERVATIONS, param, rowMapper);
-	}
-
-	public int selectTotalPrice(int reservationInfoId) {
-		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
-		return jdbc.queryForObject(SELECT_TOTAL_PRICE, param, Integer.class);
 	}
 
 	public void updateReservationCancelFlag(Integer reservationInfoId) {

@@ -227,7 +227,7 @@
 															<div class="price_summary">
 																<span class="price_tit">결제 예정금액</span>
 																<em class="price_amount">
-																	<span>${availableReservedItem.totalPrice}</span>
+																	<span>${availableReservedItem.reservation.totalPrice}</span>
 																	<span class="unit">원</span>
 																</em>
 															</div>
@@ -301,7 +301,7 @@
 																<div class="price_summary">
 																	<span class="price_tit">결제 예정금액</span>
 																	<em class="price_amount">
-																		<span>${usedReservedItem.totalPrice}</span>
+																		<span>${usedReservedItem.reservation.totalPrice}</span>
 																		<span class="unit">원</span>
 																	</em>
 																</div>
@@ -370,7 +370,7 @@
 																<div class="price_summary">
 																	<span class="price_tit">결제 예정금액</span>
 																	<em class="price_amount">
-																		<span>${canceledReservedItem.totalPrice}</span>
+																		<span>${canceledReservedItem.reservation.totalPrice}</span>
 																		<span class="unit">원</span>
 																	</em>
 																</div>

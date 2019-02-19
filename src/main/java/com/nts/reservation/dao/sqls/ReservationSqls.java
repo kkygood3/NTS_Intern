@@ -49,24 +49,29 @@ public class ReservationSqls {
 		+ ", :count)";
 
 	public static final String SELECT_RESERVATIONS = "SELECT "
-		+ "id"
-		+ ", product_id"
-		+ ", display_info_id"
-		+ ", reservation_name"
-		+ ", reservation_tel"
-		+ ", reservation_email"
-		+ ", reservation_date"
-		+ ", cancel_flag AS cancelYn"
-		+ ", create_date"
-		+ ", modify_date "
-		+ "FROM reservation_info "
-		+ "WHERE reservation_email = :userEmail ";
+		+ "ri.id"
+		+ ", ri.product_id"
+		+ ", ri.display_info_id"
+		+ ", ri.reservation_name"
+		+ ", ri.reservation_tel"
+		+ ", ri.reservation_email"
+		+ ", ri.reservation_date"
+		+ ", ri.cancel_flag AS cancel_yn"
+		+ ", ri.create_date"
+		+ ", ri.modify_date "
+		+ ", SUM(rp.count * pp.price) AS total_price "
+		+ " FROM reservation_info AS ri "
+		+ " INNER JOIN reservation_info_price AS rp"
+		+ " ON ri.id = rp.reservation_info_id"
+		+ " INNER JOIN product_price AS pp"
+		+ " ON rp.product_price_id = pp.id "
+		+ " WHERE ri.reservation_email = :userEmail "
+		+ " GROUP BY ri.id";
 
-	public static final String SELECT_TOTAL_PRICE = "SELECT SUM(count * price) "
-		+ "FROM reservation_info_price "
-		+ "INNER JOIN product_price "
-		+ "ON reservation_info_price.product_price_id = product_price.id "
-		+ "WHERE reservation_info_id = :reservationInfoId";
-
-	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info SET cancel_flag = 1 WHERE id = :reservationInfoId";
+	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE "
+		+ "reservation_info "
+		+ "SET "
+		+ "cancel_flag = 1 "
+		+ "WHERE "
+		+ "id = :reservationInfoId";
 }
