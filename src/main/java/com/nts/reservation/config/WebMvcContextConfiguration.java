@@ -35,6 +35,12 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
 			.setCachePeriod(31556926);
+		registry.addResourceHandler("/img/**")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/img/")
+			.setCachePeriod(31556926);
+		registry.addResourceHandler("/img_map/**")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/img_map/")
+			.setCachePeriod(31556926);
 	}
 
 	// default servlet handler를 사용하게 합니다.
