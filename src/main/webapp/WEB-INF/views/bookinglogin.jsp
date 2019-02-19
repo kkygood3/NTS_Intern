@@ -45,7 +45,7 @@
                         <h2 class="login_header_sub border_bottom"> <span translate="CM-NON_MEMBER_BK_CONFIRMATION">비회원 예약확인</span> </h2>
                         <div class="login_form"> 
                            <label class="label_form" for="resrv_id" translate="CM-BOOKING_NUMBER">예약자 이메일 입력</label>
-                           <span class="warning_msg">이메일 주소가 올바르지 않습니다.</span> 
+                           <span class="warning_msg" style="display:none">이메일 주소가 올바르지 않습니다.</span> 
                            <input type="text" class="login_input ng-pristine ng-untouched ng-valid ng-empty" id="resrv_id" name="userEmail" aria-invalid="false" placeholder="이메일을 입력하세요" title="예매자이메일">  </div>
                         <button type="submit" form="form1" class="login_btn confirm" disabled> <span translate="CM-MY_BOOKING_CHECK">내 예약 확인</span> </button> <!----> <!----> <!----> <!----> 
                      </form>

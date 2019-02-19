@@ -241,7 +241,7 @@ var reservePage = {
 				} else {
 					event.target.classList.add("wrong_value");
 					event.target.classList.remove("valid_value");
-					event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
+					event.target.parentNode.querySelector(".warning_msg").style.display = "";
 				}
 			
 				if(event.target.value.length === 0){
