@@ -59,16 +59,16 @@ function loadSwipeImage(displayInfo){
 }
 
 function loadExtraImage(responseData){
-	// 상단 Swipe Image 배너 Template
+	// 타이틀 이미지 템플릿
 	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
 	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
 	let swipeContainer = document.querySelector('ul.detail_swipe');
 	
-	// Swipe 페이지 수, 총량 표시
+	// 페이지 수, 총량 표시
 	let swipePage = document.querySelector('.figure_pagination').querySelector('.num');
 	let swipeAmount = document.querySelector('.figure_pagination').querySelector('.off>span');
 	
-	// Swipe 이미지 좌우의 버튼
+	// 슬라이드를 넘기는 이미지 양쪽 버튼
 	let swipeLeftBtn = document.querySelector('.ico_arr6_lt');
 	let swipeRightBtn = document.querySelector('.ico_arr6_rt');
 
@@ -112,7 +112,8 @@ function loadExtraImage(responseData){
 			let isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
 			if(isLeftBtnClicked | isRightBtnClicked){
 				eventContainer.removeEventListener('click',arrowEventHandler);
-				if(isLeftBtnClicked){// 왼쪽 클릭
+				
+				if(isLeftBtnClicked){
 					if(swipePage.innerText === '1'){
 						// 1번에서 2번으로
 						swipePage.innerText = '2';
@@ -123,7 +124,7 @@ function loadExtraImage(responseData){
 					currentLeft += 100;
 					currentPage--;
 					swipeItems.forEach(item => item.style.left = currentLeft+'%');
-				} else{// 오른쪽 클릭
+				}else if(isRightBtnClicked){
 					if(swipePage.innerText === '1'){
 						// 1번에서 2번으로
 						swipePage.innerText = '2';
@@ -137,31 +138,27 @@ function loadExtraImage(responseData){
 				}
 
 				setTimeout(function(){
-					// currentPage가 0이나 3이면
-					// 애니메이션 끄고 0->2 3->1로 옮긴다
+					// currentPage가 0이나 3이면 애니메이션을 끄고 0->2 3->1로 옮긴다
 					if(currentPage == 0){
-						// 애니메이션 OFF
+						// 애니메이션을 끄고, 시작점을 두번째 자리의 1로 변경
 						swipeItems.forEach(item => item.style.transitionDuration = '0s');
-						
-						// 시작점을 두번째 자리의 1로 변경
 						swipeItems.forEach(item => item.style.left = '-200%');
 						
 						currentLeft = -200;
 						currentPage = 2;
 					}else if(currentPage == 3){
-						// 애니메이션 OFF
-						swipeItems.forEach(item => item.style.transitionDuration = '0s');
-						
-						// 시작점을 두번째 자리의 1로 변경
+						// 애니메이션을 끄고, 시작점을 두번째 자리의 1로 변경
+						swipeItems.forEach(item => item.style.transitionDuration = '0s');						
 						swipeItems.forEach(item => item.style.left = '-100%');
 						
 						currentLeft = -100;
 						currentPage = 1;
 					}
-					// 애니메이션 ON
+					
+					// 애니메이션 끄기
 					setTimeout(()=>{
 						swipeItems.forEach(item => item.style.transitionDuration = '1s');
-						// 버튼이벤트 ON
+						// 버튼 이벤트 켜기
 						eventContainer.addEventListener('click',arrowEventHandler);
 						},50);
 				},1100);

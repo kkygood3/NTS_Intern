@@ -19,16 +19,16 @@ import com.nts.reservation.promotion.service.PromotionService;
 @RestController
 public class PromotionApiController {
 	@Autowired
-	private PromotionService promotionService;
+	private PromotionService promotionServiceImpl;
 
 	@GetMapping("/api/promotions")
 	public PromotionResponse getItems() {
-		int promotionCount = promotionService.getPromotionsCount();
+		int promotionCount = promotionServiceImpl.getPromotionsCount();
 		if (promotionCount == 0) {
 			return getEmptyItems();
 		}
 
-		return promotionService.getPromotionResponse();
+		return promotionServiceImpl.getPromotionResponse();
 	}
 
 	private PromotionResponse getEmptyItems() {

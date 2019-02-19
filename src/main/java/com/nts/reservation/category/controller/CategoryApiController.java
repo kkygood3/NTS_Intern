@@ -17,12 +17,12 @@ import com.nts.reservation.category.service.CategoryService;
 @RestController
 public class CategoryApiController {
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService categoryServiceImpl;
 
 	@GetMapping("/api/categories")
 	public CategoryResponse getItems() {
 		CategoryResponse categoryResponse = new CategoryResponse();
-		categoryResponse.setItems(categoryService.getItems());
+		categoryResponse.setItems(categoryServiceImpl.getItems());
 
 		return categoryResponse;
 	}

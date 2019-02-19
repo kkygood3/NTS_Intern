@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.commons.validator.CheckArgumentValidation;
-import com.nts.reservation.product.dao.impl.ProductDaoImpl;
+import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
 import com.nts.reservation.product.dto.ProductImage;
@@ -24,7 +24,7 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	private ProductDaoImpl productDaoImpl;
+	private ProductDao productDaoImpl;
 
 	private static final int All_CATEGORIES = 0;
 
