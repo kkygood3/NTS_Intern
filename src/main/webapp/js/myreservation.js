@@ -11,14 +11,6 @@ var myReservationPage = {
 		totalCnt.innerHTML = Number(this.reservationCounts.availableCnt.innerHTML)
 				+ Number(this.reservationCounts.usedCnt.innerHTML)
 				+ Number(this.reservationCounts.canceldCnt.innerHTML);
-		
-		if(totalCnt !== "0"){
-			document.querySelector(".err").style.display = "none";
-			document.querySelector(".wrap_mylist").style.display = "block";
-		} else {
-			document.querySelector(".wrap_mylist").style.display = "none";
-			document.querySelector(".err").style.display = "block";
-		}
 
 		this.popup.showCanclePopup();
 		this.popup.closeCancelPopup();
