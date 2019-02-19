@@ -182,7 +182,7 @@
                 <div class="review_area">
                     <div class="thumb_area">
                         <a class="thumb" title="이미지 크게 보기">
-                            <img width="90" height="90" class="img_vertical_top" src="../../{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
+                            <img width="90" height="90" class="img_vertical_top" src="/reservation/{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
                         </a>
                         <span class="img_count">{{commentImages.length}}</span>
                     </div>

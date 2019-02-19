@@ -38,10 +38,10 @@
                         </h1>
                         <c:choose>
                             <c:when test="${sessionScope.userEmail == null}">
-                                <a href="../history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                                <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                             </c:when>
                             <c:otherwise>
-                                <a href="../history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
+                                <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
                             </c:otherwise>
                         </c:choose>
                     </header>
@@ -274,7 +274,7 @@
     <script type="rv-template" id="visualImgTemplate">
 	{{#each productImages}}
     <li class="item" style="width: 414px; height: 414px;" data-index="{{@index}}">
-        <img alt="" class="img_thumb" src="../{{saveFileName}}" style="width: 100%; height: 100%;">
+        <img alt="" class="img_thumb" src="/reservation/{{saveFileName}}" style="width: 100%; height: 100%;">
         <span class="img_bg"></span>
         <div class="visual_txt">
             <div class="visual_txt_inn">
@@ -304,7 +304,7 @@
                 <div class="review_area">
                     <div class="thumb_area">
                         <a class="thumb" title="이미지 크게 보기">
-                            <img width="90" height="90" class="img_vertical_top" src="../{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
+                            <img width="90" height="90" class="img_vertical_top" src="/reservation/{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
                         </a>
                         <span class="img_count">{{commentImages.length}}</span>
                     </div>
