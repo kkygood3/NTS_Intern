@@ -117,16 +117,20 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<c:if test="${response.todoCount == 0}">
 							<!-- 예약 리스트 없음 -->
-								<div class="err">
+								<div class="err"
+									<c:if test="${response.todoCount != 0}">
+										style="display: none;"
+									</c:if>
+								>
 									<i class="spr_book ico_info_nolist"></i>
 									<h1 class="tit">예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							</c:if>
 							<c:forEach var="myReservation" items="${response.todoMyReservations}">
-								<article class="card_item">
+								<article class="card_item" data-id=${myReservation.id}
+																						data-product-id=${myReservation.productId}
+																						data-display-info-id=${myReservation.displayInfoId}>
 									<a href="#" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
@@ -176,14 +180,18 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<c:if test="${response.doneCount == 0}">
+
 							<!-- 예약 리스트 없음 -->
-								<div class="err">
+								<div class="err"
+									<c:if test="${response.doneCount != 0}">
+										style="display: none;"
+									</c:if>
+								>
 									<i class="spr_book ico_info_nolist"></i>
 									<h1 class="tit">예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							</c:if>
+
 							<c:forEach var="myReservation" items="${response.doneMyReservations}">
 								<article class="card_item">
 									<a href="#" class="link_booking_details">
@@ -232,14 +240,16 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							<c:if test="${response.cancleCount == 0}">
 							<!-- 예약 리스트 없음 -->
-								<div class="err">
+								<div class="err"
+									<c:if test="${response.cancleCount != 0}">
+										style="display: none;"
+									</c:if>
+								>
 									<i class="spr_book ico_info_nolist"></i>
 									<h1 class="tit">예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							</c:if>
 							<c:forEach var="myReservation" items="${response.cancleMyReservations}">
 							<article class="card_item">
 								<a href="#" class="link_booking_details">
@@ -317,9 +327,55 @@
 		</div>
 	</div>
 	<!--// 취소 팝업 -->
+	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
+		// 이벤트 등록
+		function MyReservation(body, callback) {
+			this.body = body;
+			this.registerEvent(callback);
+		}
+		MyReservation.prototype = {
+			registerEvent: function (callback) {
+				this.body.addEventListener("click", function (evt) {
+					if (evt.target.className !== "btn") {
+						return;
+					}
+					callback(evt.target);
+				}.bind(this));
+			}
+		}
 
+		function cancleMyReservations(element) {
+			var wrapper = element.closest(".card_item");
+			var targetContainer = document.querySelector(".card.used.cancel");
 
+			var reservationInfoId = wrapper.dataset.id;
+			var url = "/api/reservations/" + reservationInfoId
+			var method = "PUT";
+
+			ajax(callbackMoveElement(wrapper, targetContainer), url, method);
+		}
+
+		function callbackMoveElement(element, targetContainer) {
+			return function() {
+				var originalContainer = element.closest(".card");
+
+				// 옮겨질 컨테이너가 예약없음이 표시되어있는경우 예약없음표시를 숨김
+				if (targetContainer.querySelector(".err").style.display !== "none") {
+					targetContainer.querySelector(".err").style.display = "none";
+				}
+				targetContainer.appendChild(element);
+
+				// 옮겨진후 이동전 엘리먼트의 컨테이너가 요소들이 없는경우 예약없음숨김 해제
+				if (originalContainer.querySelectorAll(".card_item").length === 0) {
+					originalContainer.querySelector(".err").style.display = "block";
+				}
+				element.querySelector(".booking_cancel").style.display = "none";
+			}
+		}
+
+		var reservationsContainer = document.querySelector(".card.confirmed");
+		var o = new MyReservation(reservationsContainer, cancleMyReservations);
 	</script>
 </body>
 
