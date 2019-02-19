@@ -14,7 +14,7 @@ import com.nts.reservation.service.CategoryService;
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
 	public List<Category> getAllProductsCountByCategory() {

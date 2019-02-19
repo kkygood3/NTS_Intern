@@ -26,7 +26,7 @@ import com.nts.reservation.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
 	public List<Product> getProductsByCategory(Integer categoryId, Integer start) {

@@ -38,8 +38,8 @@ public class ApplicationReservationApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/reservations")
-	public ReservationInfo postReservation(@RequestBody ReservationParam resInput) {
-		reservationService.addReservations(resInput);
+	public ReservationInfo postReservation(@RequestBody ReservationParam reservationParam) {
+		reservationService.addReservations(reservationParam);
 		return new ReservationInfo();
 	}
 

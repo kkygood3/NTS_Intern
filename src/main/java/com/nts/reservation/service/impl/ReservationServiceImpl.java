@@ -23,16 +23,15 @@ import com.nts.reservation.service.ReservationService;
  *
  */
 @Service
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
-	DetailDao detailDao;
+	private DetailDao detailDao;
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<ReservationInfo> getReservations(String email) {
 		List<ReservationInfo> reservationList = reservationDao.selectResevations(email);
 		for (ReservationInfo rsv : reservationList) {
@@ -42,16 +41,18 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void addReservations(ReservationParam input) {
-		Long reservationInfoId = reservationDao.insertReservationInfo(input);
-		List<ReservationPrice> priceList = input.getPrices();
-		for (ReservationPrice p : priceList) {
-			p.setReservationInfoId(reservationInfoId);
-			reservationDao.insertReservationPrice(p);
+	@Transactional(readOnly = false)
+	public void addReservations(ReservationParam reservationParam) {
+		Long reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
+		List<ReservationPrice> priceList = reservationParam.getPrices();
+		for (ReservationPrice price : priceList) {
+			price.setReservationInfoId(reservationInfoId);
+			reservationDao.insertReservationPrice(price);
 		}
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void cancelReservation(Long reservationId) {
 		reservationDao.updateResevationCancelFlag(reservationId);
 	}

@@ -1,9 +1,12 @@
 /**
- *
+ * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
+ * internal use for NAVER, unauthorized use of redistribution of this software
+ * are strongly prohibited.
  */
-// library mapping to use forEach
-HTMLCollection.prototype.forEach = Array.prototype.forEach;
-NodeList.prototype.forEach = Array.prototype.forEach;
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
 
 function ReservationCard(_reservation, reservationData, _popup) {
     this.reservation = _reservation
@@ -12,37 +15,49 @@ function ReservationCard(_reservation, reservationData, _popup) {
     this.ReservationId = _reservation.dataset.id;
     this.reservationDesc = "";
     this.reservationDate = "";
-
+    
+    sectionUsed = document.querySelector(".card.used");
+    sectionCanceled = document.querySelector(".card.used.cancel");
     popup = _popup;
 
     // search for corresponding data;
     for (var key in reservationData) {
-        if (reservationData.hasOwnProperty(key)) {
-            if (reservationData[key].id == this.ReservationId) {
-                this.reservationDesc = reservationData[key].displayInfo.productDescription;
-                this.reservationDate = reservationData[key].reservationDate.split(" ")[0];
-            }
+        if (reservationData[key].id == this.ReservationId) {
+            this.reservationDesc = reservationData[key].displayInfo.productDescription;
+            this.reservationDate = reservationData[key].reservationDate.split(" ")[0];
+            break;
         }
     }
-
-    if (this.reservation.dataset.cancelFlag == "true") {
-        domElements.sectionCanceled.appendChild(this.reservation);
+    if (new Date(this.reservationDate) < Date.now()) {
+        sectionUsed.appendChild(this.reservation);
+    	this.cancelButton.innerText = "한줄평 남기기"
+    	this.cancelButton.addEventListener("click", () => {
+    		console.log(this.cancelButton)
+            alert("will be added");
+        });
+    } else if (this.reservation.dataset.cancelFlag == "true") {
+        sectionCanceled.appendChild(this.reservation);
         this.cancelButtonWrapper.style.display = "none";
-    } else {
+    }  else {
         this.cancelButton.addEventListener("click", () => {
-            this.cancelAlert();
+            this.cancellationPopup();
         });
     }
 }
 
-ReservationCard.prototype.cancelAlert = function () {
+/**
+ * @cancellationPopup() : render popup asking user to confirm the cancellation
+ *                      process, depends on event, this method wiill proceed to
+ *                      actual cancellation of reservation
+ */
+ReservationCard.prototype.cancellationPopup = function () {
     var event = (e) => {
+    	console.log(e);
         if (e.target.classList.contains("_close_control")) {
             popup.style.display = "none";
             popup.removeEventListener("click", event);
         } else if (e.target.classList.contains("_process_control")) {
-            popup.removeEventListener("click", event);
-            this.cancelProcess();
+            this.cancelReservation();
         }
     };
 
@@ -52,15 +67,20 @@ ReservationCard.prototype.cancelAlert = function () {
     popup.style.display = "block";
 }
 
-ReservationCard.prototype.cancelProcess = function () {
-
-    xhrRequest("PUT"
-        , "/reservation/api/reservations/" + this.ReservationId
-        , null
-        , () => {
-            alert("\"" + this.reservationDesc + "\"에 대한 예약이 취소되었습니다.")
-            domElements.sectionCanceled.appendChild(this.reservation);
-            this.cancelButtonWrapper.style.display = "none";
-        });
-    popup.style.display = "none";
+/**
+ * @cancelReservation() : this method is the actual method that cancels
+ *                      reservation. This method will only get called by
+ *                      cancellationPopup event listener
+ */
+ReservationCard.prototype.cancelReservation= function () {
+    let request = new XhrRequest("PUT", "/reservation/api/reservations/" + this.ReservationId); 
+    request.setCallback(() => {
+        alert("\"" + this.reservationDesc + "\"에 대한 예약이 취소되었습니다.");
+        popup.style.display = "none";
+        popup.removeEventListener("click", event);
+        sectionCanceled.appendChild(this.reservation);
+        this.cancelButtonWrapper.style.display = "none";
+    });
+    request.send();
+    
 }

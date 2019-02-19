@@ -63,7 +63,9 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new UserEmailCheckInterceptor()).addPathPatterns("/myreservation");
+		registry.addInterceptor(new UserEmailCheckInterceptor())
+			.addPathPatterns("/myreservation")
+			.addPathPatterns("/reviewwrite");
 	}
 
 	@Bean

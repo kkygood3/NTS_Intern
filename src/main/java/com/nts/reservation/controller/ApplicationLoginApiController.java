@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.service.ReservationService;
-
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
@@ -24,8 +22,6 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/api/")
 public class ApplicationLoginApiController {
 
-	@Autowired
-	private ReservationService reservationService;
 	@Autowired
 	private HttpSession session;
 

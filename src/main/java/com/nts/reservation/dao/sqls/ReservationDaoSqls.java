@@ -40,27 +40,25 @@ public class ReservationDaoSqls {
 		+ ", :productPriceId"
 		+ ", :count)";
 
-	public static final String SELECT_RESERVATIONS = "SELECT * FROM( "
-		+ "(SELECT ri.id as id"
+	public static final String SELECT_RESERVATIONS = "SELECT ri.id AS id"
+		+ ", ri.product_id AS productId"
+		+ ", ri.display_info_id AS displayInfoId"
+		+ ", ri.reservation_name AS reservationName"
+		+ ", ri.reservation_tel AS reservationTelephone"
+		+ ", ri.reservation_email AS reservationEmail"
+		+ ", ri.reservation_date AS reservationDate"
+		+ ", ri.cancel_flag AS cancelFlag"
+		+ ", ri.create_date AS createDate"
+		+ ", ri.modify_date AS modifyDate"
 		+ ", SUM(rip.count * pp.price) as totalPrice"
-		+ " from reservation_info ri"
+		+ " FROM reservation_info ri"
 		+ " INNER JOIN reservation_info_price rip ON ri.id = rip.reservation_info_id"
 		+ " INNER JOIN product_price pp ON rip.product_price_id = pp.id AND ri.reservation_email = :email"
-		+ " GROUP BY ri.id) as price_sum"
-		+ " INNER JOIN "
-		+ "(SELECT id AS id, product_id AS productId"
-		+ ", display_info_id AS displayInfoId"
-		+ ", reservation_name AS reservationName"
-		+ ", reservation_tel AS reservationTelephone"
-		+ ", reservation_email AS reservationEmail"
-		+ ", reservation_date AS reservationDate"
-		+ ", cancel_flag AS cancelFlag"
-		+ ", create_date AS createDate"
-		+ ", modify_date AS modifyDate FROM reservation_info WHERE reservation_email = :email) "
-		+ "AS resrv_table ON price_sum.id = resrv_table.id"
-		+ ");";
+		+ " GROUP BY ri.id";
 
-	public static final String SELECT_RESERVATIONS_COUNT = "SELECT count(id) FROM reservation_info WHERE reservation_email = :email";
+	public static final String SELECT_RESERVATIONS_COUNT = "SELECT count(id)"
+		+ " FROM reservation_info WHERE reservation_email = :email";
 
-	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info SET cancel_flag = true WHERE id = :reservationId";
+	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info"
+		+ " SET cancel_flag = true WHERE id = :reservationId";
 }

@@ -58,92 +58,23 @@ const HALL_TYPES = {
     },
 };
 
-// library mapping to use forEach
-HTMLCollection.prototype.forEach = Array.prototype.forEach;
-NodeList.prototype.forEach = Array.prototype.forEach;
-
-// poly fill for object.observe using proxy;
-(function () {
-    'use strict';
-
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe
-    var observe = function (obj, callback) {
-        if (Object(obj) !== obj) {
-            throw new TypeError('target must be an Object, given ' + obj);
-        }
-        if (typeof callback !== 'function') {
-            throw 'observer must be a function, given ' + callback;
-        }
-
-        return new Proxy(obj, {
-
-            set(target, propKey, value, receiver) {
-                var oldVal = target[propKey];
-
-                // Don't send change record if value didn't change.
-                if (oldVal === value) {
-                    return;
-                }
-
-                let type = oldVal === undefined ? 'add' : 'update';
-
-                var changeRecord = {
-                    name: propKey,
-                    type: type,
-                    object: target
-                };
-
-                if (type === 'update') {
-                    changeRecord.oldValue = oldVal;
-                }
-
-                target[propKey] = value; // set prop value on target.
-
-                // TODO: handle multiple changes in a single callback.
-                callback([changeRecord]);
-            },
-
-            get: function (obj, prop) {
-                // An extra property
-                if (prop === 'latestBrowser') {
-                    return obj.browsers[obj.browsers.length - 1];
-                }
-
-                // The default behavior to return the value
-                return obj[prop];
-            },
-
-            deleteProperty(target, propKey, receiver) {
-                // Don't send change record if prop doesn't exist.
-                if (!(propKey in target)) {
-                    return;
-                }
-                var changeRecord = {
-                    name: propKey,
-                    type: 'delete',
-                    object: target,
-                    oldValue: target[propKey]
-                };
-
-                delete target[propKey]; // remove prop from target.
-
-                // TODO: handle multiple changes in a single callback.
-                callback([changeRecord]);
-            }
-        });
-    };
-
-    if (!Object.observe) {
-        Object.observe = observe;
-    }
-
-})();
-
-function convertPriceArrToHtmlStr(data) {
+/**
+ * 
+ * @param data :
+ *            crucial info to be rendered
+ * @param pricingType :
+ *            crucial info, contains corresponding map as json type
+ * @param prices =
+ * @NULLABLE, this is the target where price information is mapped as JSON
+ *            object
+ * @returns
+ */
+function mapPriceData(data, prices) {
+	pricingType = TICKET_TYPES;
     // checkType
     data.productPrices.forEach((item) => {
         if (item.priceTypeName === "V" || item.priceTypeName === "R") {
-            state.pricingType = HALL_TYPES;
+            pricingType = HALL_TYPES;
         }
     });
     /*
@@ -151,9 +82,11 @@ function convertPriceArrToHtmlStr(data) {
 	 * JSON object to prices array
 	 */
     let priceString = "";
-    state.detail_data.productPrices.forEach((item) => {
-        state.prices[item.productPriceId] = {price: item.price, count: 0, productPriceId: item.productPriceId};
-        let currentType = state.pricingType[item.priceTypeName];
+    data.productPrices.forEach((item) => {
+    	if(prices){
+    		prices[item.productPriceId] = {price: item.price, count: 0, productPriceId: item.productPriceId};
+    	}
+        let currentType = pricingType[item.priceTypeName];
         let currentString = "";
         for (var key in currentType) {
             if (currentType.hasOwnProperty(key)) {
@@ -178,8 +111,8 @@ function SlidingAnimation(_slideContainer) {
 }
 
 /**
- * @initSlideAnimation() : required setup for the promo animation, and
- *                       initialization of animation frame call
+ * @SlidingAnimation.init() : required setup for the promo animation, and
+ *                          initialization of animation frame call
  */
 SlidingAnimation.prototype.init = function (optionals) {
     this.prevSlideCount = this.imageList.length - 1;
@@ -209,14 +142,17 @@ SlidingAnimation.prototype.init = function (optionals) {
     });
 },
 
-    SlidingAnimation.prototype.startAutoAnimation = function () {
-        this.isAutoStart = true;
-        if (this.isAutoStart) {
-            setTimeout(() => {
-                requestAnimationFrame(() => this.slide(true, false, false));
-            }, this.animationStopDuration);
-        }
-    }
+SlidingAnimation.prototype.startAutoAnimation = function () {
+    this.isAutoStart = true;
+    setTimeout(() => {
+        requestAnimationFrame(() => this.slide(
+        		{
+                	isAutoStart : true, 
+                	isReverse : false,
+                	isResizing : false
+                }));
+    }, this.animationStopDuration);
+}
 
 SlidingAnimation.prototype.changeTiming = function (_animationSpeed, _stopDuration) {
     this.animationSpeed = _animationSpeed;
@@ -232,23 +168,27 @@ SlidingAnimation.prototype.resizeMinMax = function (_minHeight, _maxHeight) {
  * @constants.animationSpeed : to control the speed or animation, declared as
  *                           const in global variable
  * 
- * @needToStop : this boolean indicates when the element is arrived in the right
- *             position to be displayed
- * 
  * @constants.animationStopDuration : in milliseconds, determines the stop
  *                                  duration of the animation when the image
  *                                  arrives in the right position , declared as
  *                                  const in global variable
  * 
- * @promoAnimation() : promotion animation with 2 for loops to control the
- *                   accuracy of the stop-position
+ * @needToStop : this boolean indicates when the element is arrived in the right
+ *             position to be displayed
  * 
- * @isAutoStart : parameter to control auto-slide animation, if false, manual
  * 
- * @isReverse : as the meaning of the words, implies if the animation is in
- *            reversed direction
+ * 
+ * @params * required
+ * 
+ * @params.isAutoStart : parameter to control auto-slide animation, if false,
+ *                     manual
+ * 
+ * @params.isReverse : as the meaning of the words, implies if the animation is
+ *                   in reversed direction
+ * @params.isResizing : as the meaning of the words, implies if the slide
+ *                    wrapper should be resized
  */
-SlidingAnimation.prototype.slide = function (isAutoStart, isReverse, isResizing) {
+SlidingAnimation.prototype.slide = function (params) {
     this.isAnimating = true;
 
     let needToStop = false;
@@ -256,21 +196,21 @@ SlidingAnimation.prototype.slide = function (isAutoStart, isReverse, isResizing)
     let prevImage = this.imageList[this.prevSlideCount];
     let currentImage = this.imageList[this.currentSlideCount];
     let nextImage = this.imageList[this.nextSlideCount];
-
-    if (isResizing) {
+    
+    if (params.isResizing) {
         this.resizeImageContainer(nextImage);
     }
 
-    if (isReverse && parseInt(prevImage.style.left) == this.SLIDE_CONATINER_WIDTH) {
+    if (params.isReverse && parseInt(prevImage.style.left) == this.SLIDE_CONATINER_WIDTH) {
         prevImage.style.left = -this.SLIDE_CONATINER_WIDTH + "px";
     }
 
-    if (!isReverse && parseInt(nextImage.style.left) == -this.SLIDE_CONATINER_WIDTH) {
+    if (!params.isReverse && parseInt(nextImage.style.left) == -this.SLIDE_CONATINER_WIDTH) {
         nextImage.style.left = this.SLIDE_CONATINER_WIDTH + "px";
     }
 
     for (let iter = 0; iter < this.animationSpeed; iter++) {
-        if (isReverse) {
+        if (params.isReverse) {
             currentImage.style.left = parseInt(currentImage.style.left) + 1 + "px";
             prevImage.style.left = parseInt(prevImage.style.left) + 1 + "px";
         } else {
@@ -278,12 +218,12 @@ SlidingAnimation.prototype.slide = function (isAutoStart, isReverse, isResizing)
             nextImage.style.left = parseInt(nextImage.style.left) - 1 + "px";
         }
 
-        if ((parseInt(currentImage.style.left) <= -this.SLIDE_CONATINER_WIDTH && !isReverse)
-            || (parseInt(currentImage.style.left) >= this.SLIDE_CONATINER_WIDTH && isReverse)) {
+        if ((parseInt(currentImage.style.left) <= -this.SLIDE_CONATINER_WIDTH && !params.isReverse)
+            || (parseInt(currentImage.style.left) >= this.SLIDE_CONATINER_WIDTH && params.isReverse)) {
 
             currentImage.style.left = this.SLIDE_CONATINER_WIDTH + "px";
 
-            if (isReverse) {
+            if (params.isReverse) {
                 this.nextSlideCount += this.imageList.length - 1;
                 this.currentSlideCount += this.imageList.length - 1;
                 this.prevSlideCount += this.imageList.length - 1;
@@ -304,49 +244,63 @@ SlidingAnimation.prototype.slide = function (isAutoStart, isReverse, isResizing)
     if (needToStop) {
         if (this.isAutoStart) {
             setTimeout(() => {
-                requestAnimationFrame(() => this.slide(isAutoStart, isReverse, isResizing));
+                requestAnimationFrame(() => this.slide(params));
             }, this.animationStopDuration);
         } else {
             this.isAnimating = false;
         }
     } else {
-        requestAnimationFrame(() => this.slide(isAutoStart, isReverse, isResizing));
+        requestAnimationFrame(() => this.slide(params));
     }
 },
 
 
-    /**
-	 * @resizeImageContainer(countTarget) : countTarget represents the next
-	 *                                    target image index in state.imageList,
-	 *                                    and set the height of the image
-	 *                                    container with height obtained from
-	 *                                    the slide
-	 */
-    SlidingAnimation.prototype.resizeImageContainer = function (target, maxHeight, minHeight) {
-        if (target.clientHeight > this.SLIDE_CONATINER_WIDTH) {
-            this.slideWrapper.style.height = this.SLIDE_CONATINER_WIDTH + "px";
-        } else {
-            this.slideWrapper.style.height = target.clientHeight + "px";
-        }
+/**
+ * @resizeImageContainer(countTarget) : countTarget represents the next target
+ *                                    image index in state.imageList, and set
+ *                                    the height of the image container with
+ *                                    height obtained from the slide
+ */
+SlidingAnimation.prototype.resizeImageContainer = function (target, maxHeight, minHeight) {
+    if (target.clientHeight > this.SLIDE_CONATINER_WIDTH) {
+        this.slideWrapper.style.height = this.SLIDE_CONATINER_WIDTH + "px";
+    } else {
+        this.slideWrapper.style.height = target.clientHeight + "px";
     }
+}
 
 
 /**
- * @xhrRequest() : pre-defined XmlHttpRequest
+ * @XhrRequest() : pre-defined XmlHttpRequest in prototype
+ * @param method :
+ *            implies REST method way,
  */
-function xhrRequest(method, url, data, callback, isAsync) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(method, url, isAsync);
-    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-    xhr.onreadystatechange = function (aEvt) {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                callback(xhr.responseText);
+function XhrRequest(_method, _url) {
+    this.xhr = new XMLHttpRequest();
+    this.method = _method;
+    this.url = _url;
+    this.isAsync = true;
+}
+
+XhrRequest.prototype.setCallback = function (_callback){
+	this.xhr.onreadystatechange = function (aEvt) {
+        if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status === 200) {
+                _callback(this.responseText);
             }
         }
     };
-    xhr.send(data);
 }
+
+XhrRequest.prototype.setIsAsync = function(_isAsync){
+	isAsync = _isAsync;
+}
+XhrRequest.prototype.send = function(data){
+	this.xhr.open(this.method, this.url, this.isAsync);
+    this.xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	this.xhr.send(data);
+}
+
 
 /**
  * @data: data to be rendered, and mapped with handlebar, in array type.
@@ -355,17 +309,21 @@ function xhrRequest(method, url, data, callback, isAsync) {
  * 
  * @item : html template in string type
  */
-function arrayToElementRenderer(data, target, item) {
+function arrayToElementRenderer(data, target, item, opt) {
     if (!data.length) {
         return;
     }
 
     let bindTemplate = Handlebars.compile(item);
     let list = data;
-
-    Handlebars.registerHelper("productName", () => {
-        return state.detail_data.displayInfo.productDescription;
-    });
+    if(opt){
+    	if(opt.productName){
+    		Handlebars.registerHelper("productName", () => {
+    	        return opt.productName;
+    	    });
+    	}
+    }
+    
     Handlebars.registerHelper("date", (item) => {
         return item.year + "년 " + item.monthValue + "월 " + item.dayOfMonth + "일 ";
     });
@@ -386,6 +344,7 @@ function arrayToElementRenderer(data, target, item) {
         item = item + '';
         return item.length >= width ? n : new Array(width - item.length + 1).join('0') + item;
     });
+    let parser = new DOMParser();
     let parsedItems = parser.parseFromString(bindTemplate({data: list}), "text/html");
     let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
     let newCommentItems = parsedItems.querySelectorAll("." + elementClassName);
@@ -395,7 +354,11 @@ function arrayToElementRenderer(data, target, item) {
 }
 
 function logout(){
-	xhrRequest("POST", "./api/logout", null, () =>{alert("Logout"), window.location.href = "./", true} )
+	document.querySelector(".logout").addEventListener("click", () => {
+		let request = new XhrRequest("POST", "./api/logout");
+		request.setCallback(() =>{alert("Logout"), window.location.href = "./"});
+		request.send();
+	});
 }
 
 function scrollToTopAttacher(target) {

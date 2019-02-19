@@ -9,7 +9,7 @@
  */
 
 window.addEventListener("DOMContentLoaded", function () {
-    reservePage.init();
+	reservePage.init();
 });
 
 var reservePage = {
@@ -35,82 +35,69 @@ var reservePage = {
     state: {
         detail_data: "",
         pricingType: TICKET_TYPES,
-        prices: {}
+        prices: {},
+        priceDataArr : []
     },
 
-    parser: new DOMParser(),
-
+    
     init: function () {
-        domElements = this.domElements;
-        urls = this.urls;
-        constants = this.constants;
-        state = this.state;
-        templates = this.templates;
-        parser = this.parser;
-
-        fetchDetailData = this.fetchDetailData;
-        renderData = this.renderData;
-        priceControllerInit = this.priceControllerInit;
-        updateTotalCountBottom = this.updateTotalCountBottom;
-        inputValidationAttachment = this.inputValidationAttachment;
-        agreementShowBtnInit = this.agreementShowBtnInit;
-        inputValidationErrorMsg = this.inputValidationErrorMsg;
-
-        constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
-        fetchDetailData();
+        this.constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
+        this.fetchDetailData();
     },
 
     fetchDetailData: function () {
-        xhrRequest("GET"
-            , urls.DETAIL + constants.DISPLAY_INFO_ID
-            , null
-            , (respText) => {
-                state.detail_data = JSON.parse(respText);
-                renderData();
-            }, true);
+        let request = new XhrRequest("GET", this.urls.DETAIL + this.constants.DISPLAY_INFO_ID);
+        request.setCallback( (respText) => {
+        	this.state.detail_data = JSON.parse(respText);
+        	this.renderData();
+        });
+        request.send(null);
     },
 
     renderData: function () {
-        document.querySelector(".preview_txt_tit").innerHTML = state.detail_data.displayInfo.productDescription;
-        document.querySelector(".title").innerHTML = state.detail_data.displayInfo.productDescription;
-        document.querySelector(".img_thumb").src = state.detail_data.productImages[0].saveFileName;
-        let totalCountBottom = document.querySelector("#totalCount");
+        document.querySelector(".preview_txt_tit").innerHTML = this.state.detail_data.displayInfo.productDescription;
+        document.querySelector(".title").innerHTML = this.state.detail_data.displayInfo.productDescription;
+        document.querySelector(".img_thumb").src = this.state.detail_data.productImages[0].saveFileName;
 
         let details = document.querySelectorAll(".store_details p");
-        details[0].innerHTML = "장소  : " + state.detail_data.displayInfo.placeName + "<br>";
+        details[0].innerHTML = "장소  : " + this.state.detail_data.displayInfo.placeName + "<br>";
 
-        details[1].innerHTML = state.detail_data.displayInfo.openingHours;
+        details[1].innerHTML = this.state.detail_data.displayInfo.openingHours;
 
-        details[2].innerHTML = convertPriceArrToHtmlStr(state.detail_data);
-
-        // object watcher attached for updating bottom count
-        for (var key in state.prices) {
-            if (state.prices.hasOwnProperty(key)) {
-                state.prices[key] = Object.observe(state.prices[key], () => {
-                    let totalCount = 0;
-                    for (var key in state.prices) {
-                        var value = state.prices[key];
-                        totalCount += value.count;
-                    }
-                    totalCountBottom.innerHTML = totalCount;
-                    return true;
-                })
-            }
-        }
+        details[2].innerHTML = mapPriceData(this.state.detail_data, this.state.prices);
 
         // add priceController with interpreted data
-        arrayToElementRenderer(state.detail_data.productPrices, domElements.countControlContainer, templates.countControlItem);
-        priceControllerInit();
-        inputValidationAttachment();
-        agreementShowBtnInit();
+        arrayToElementRenderer(this.state.detail_data.productPrices, this.domElements.countControlContainer, this.templates.countControlItem);
+        this.priceControllerInit();
+        this.attachFormValidation();
+        this.agreementShowBtnInit();
     },
+    
+    
 
     priceControllerInit: function () {
-        let controllers = domElements.countControlContainer.querySelectorAll(".qty");
+        let controllers = this.domElements.countControlContainer.querySelectorAll(".qty");
         controllers.forEach((item) => {
-            var controller = new CountController(item, state.prices);
+            var controller = new CountController(item, this.state.prices);
         });
-
+        this.priceControllerWatcherInit();
+    },
+    
+    priceControllerWatcherInit: function () {
+        let totalCountBottom = document.querySelector("#totalCount");
+        // object watcher attached for updating bottom count
+        for (var key in this.state.prices) {
+        	this.state.prices[key] = Object.observe(this.state.prices[key], () => {
+        		this.inputValidate();
+                let totalCount = 0;
+                for (var key in this.state.prices) {
+                    var value = this.state.prices[key];
+                    totalCount += value.count;
+                }
+                totalCountBottom.innerHTML = totalCount;
+                return true;
+            })
+        }
     },
 
     agreementShowBtnInit: function () {
@@ -122,14 +109,42 @@ var reservePage = {
     inputValidationErrorMsg: function (criteria) {
         criteria.nextElementSibling.style.visibility = "visible";
         setTimeout(() => {
-            criteria.nextElementSibling.style.visibility = "hidden";
+            criteria.nextElementSibling.style.visibility = "";
         }, 2000);
     },
 
-    inputValidationAttachment: function () {
-        new SubmitButtonWithValidation(domElements.bookButtonWrapper.querySelector("button"));
-        new FormWatcher();
+    attachFormValidation: function () {
+        new SubmitButtonWithValidation(this.domElements.bookButtonWrapper.querySelector("button")
+        		, this.inputValidationErrorMsg
+        		, this.state);
+        this.domElements.reservationForm.addEventListener("change", (e) => {
+        	this.inputValidate();
+        });
     },
+    inputValidate : function(){
+        let bookButton = this.domElements.bookButtonWrapper;
+    	// tickets count check
+    	this.state.priceDataArr = []
+        for (var key in this.state.prices) {
+            if (this.state.prices[key].count > 0) {
+            	this.state.priceDataArr.push(this.state.prices[key]);
+            }
+        }
+        
+        let formData = new FormData(this.domElements.reservationForm);
+        
+        if (formData.get("email").length > 0
+            && formData.get("rsvname").length > 0
+            && formData.get("tel").length > 0
+            && formData.get("agreement") =="on"
+            && this.state.priceDataArr.length > 0) {
+            if (bookButton.classList.contains("disable")) {
+                bookButton.classList.remove("disable");
+            }
+        } else {
+            bookButton.classList.add("disable");
+        }
+    }
 }
 
 

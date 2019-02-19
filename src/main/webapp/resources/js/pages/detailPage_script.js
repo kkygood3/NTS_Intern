@@ -8,10 +8,6 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-// library mapping to use forEach
-HTMLCollection.prototype.forEach = Array.prototype.forEach;
-NodeList.prototype.forEach = Array.prototype.forEach;
-
 window.addEventListener('DOMContentLoaded', function () {
     detailPage.init();
 });
@@ -57,29 +53,11 @@ var detailPage = {
         detail_data: "",
     },
 
-    parser: new DOMParser(),
-
     init: function () {
-        domElements = this.domElements;
-        urls = this.urls;
-        constants = this.constants;
-        state = this.state;
-        templates = this.templates;
-        parser = this.parser;
+    	this.constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
 
-        initButtons = this.initButtons;
-        fetchDetailData = this.fetchDetailData;
-        renderComments = this.renderComments;
-        renderEventSection = this.renderEventSection;
-        renderDescription = this.renderDescription;
-        renderBottomData = this.renderBottomData;
-        renderImages = this.renderImages;
-        resizeImageContainer = this.resizeImageContainer;
-
-        constants.DISPLAY_INFO_ID = new URL(window.location.href).searchParams.get("id");
-
-        fetchDetailData();
-        initButtons();
+    	this.fetchDetailData();
+    	this.initButtons();
     },
 
     initButtons: function () {
@@ -87,16 +65,16 @@ var detailPage = {
         let pathTab = document.querySelector(".detail_location");
 
         document.querySelector(".bk_btn").addEventListener("click", (e) => {
-            window.location.href = "./reserve?id=" + constants.DISPLAY_INFO_ID;
+            window.location.href = "./reserve?id=" + this.constants.DISPLAY_INFO_ID;
         });
 
-        domElements.infoTabUl.addEventListener("click", (e) => {
+        this.domElements.infoTabUl.addEventListener("click", (e) => {
             let currentScroll = document.documentElement.scrollTop;
-            if (e.target == domElements.infoTabUl) {
+            if (e.target == this.domElements.infoTabUl) {
                 return;
             }
 
-            domElements.infoTabLi.forEach((item) => {
+            this.domElements.infoTabLi.forEach((item) => {
                 let iter = item.firstElementChild;
                 if (iter.classList.contains("active")) {
                     iter.classList.remove("active");
@@ -114,147 +92,158 @@ var detailPage = {
             }
             document.documentElement.scrollTop = document.body.scrollTop = currentScroll;
         });
-        scrollToTopAttacher(domElements.scrollToTop);
+        scrollToTopAttacher(this.domElements.scrollToTop);
     },
 
     fetchDetailData: function () {
-        xhrRequest("GET", urls.DETAIL + constants.DISPLAY_INFO_ID
-            , null, (respText) => {
-                state.detail_data = JSON.parse(respText);
+        let request = new XhrRequest("GET", this.urls.DETAIL + this.constants.DISPLAY_INFO_ID);
+        request.setCallback((respText) => {
+        	this.state.detail_data = JSON.parse(respText);
 
-                renderDescription();
+            this.renderDescription();
 
-                renderBottomData();
+            this.renderBottomData();
 
-                renderEventSection();
+            this.renderEventSection();
 
-                renderImages();
+            this.renderImages();
 
-                renderComments();
-            }, true);
+            this.renderComments();
+        });
+        request.send();
     },
 
     /**
-     * @renderComments() : calling render function to render 3 comments as
-     *                   specification mentioned, and re-establishment of more
-     *                   comments button to id;
-     */
+	 * @renderComments() : calling render function to render 3 comments as
+	 *                   specification mentioned, and re-establishment of more
+	 *                   comments button to id;
+	 */
     renderComments: function () {
-        document.querySelector(".btn_review_more").href = "./review?id=" + constants.DISPLAY_INFO_ID;
-        domElements.reviewCount.innerHTML = state.detail_data.comments.length + "건";
-        arrayToElementRenderer(state.detail_data.comments.slice(0, 3), domElements.reviewArea, templates.reviewItem);
+        document.querySelector(".btn_review_more").href = "./review?id=" + this.constants.DISPLAY_INFO_ID;
+        this.domElements.reviewCount.innerHTML = this.state.detail_data.comments.length + "건";
+        arrayToElementRenderer(this.state.detail_data.comments.slice(0, 3), this.domElements.reviewArea, this.templates.reviewItem);
     },
 
     /**
-     * @renderEventSection() : if there is no event specified, remove the
-     *                       corresponding section, else put event information
-     *                       inside the section
-     */
+	 * @renderEventSection() : if there is no event specified, remove the
+	 *                       corresponding section, else put event information
+	 *                       inside the section
+	 */
     renderEventSection: function () {
-        if (state.detail_data.displayInfo.productEvent == "") {
-            domElements.eventContainer.innerHTML = "";
+        if (this.state.detail_data.displayInfo.productEvent == "") {
+        	this.domElements.eventContainer.innerHTML = "";
         } else {
-            domElements.eventContainer.querySelector(".dsc").innerHTML
-                = state.detail_data.displayInfo.productEvent + "<br>" + convertPriceArrToHtmlStr(state.detail_data);
+        	this.domElements.eventContainer.querySelector(".dsc").innerHTML
+                = this.state.detail_data.displayInfo.productEvent + "<br>" + mapPriceData(this.state.detail_data);
         }
     },
 
     /**
-     * @renderDescription() this puts description in the section right below the
-     *                      images carousel detect scroll height, and client
-     *                      height to check whether the string has more than 3
-     *                      lines. If there is less than 3 lines, hide the
-     *                      buttons.
-     */
+	 * @renderDescription() this puts description in the section right below the
+	 *                      images carousel detect scroll height, and client
+	 *                      height to check whether the string has more than 3
+	 *                      lines. If there is less than 3 lines, hide the
+	 *                      buttons.
+	 */
     renderDescription: function () {
-        domElements.productContent.innerHTML = state.detail_data.displayInfo.productContent;
-        if (domElements.productContent.clientHeight == domElements.productContent.scrollHeight) {
-            domElements.unfold.style.display = "none";
-            domElements.fold.style.display = "none";
+    	this.domElements.productContent.innerHTML = this.state.detail_data.displayInfo.productContent;
+        if (this.domElements.productContent.clientHeight == this.domElements.productContent.scrollHeight) {
+        	this.domElements.unfold.style.display = "none";
+        	this.domElements.fold.style.display = "none";
         } else {
-            let descArea = domElements.productContent.closest("div");
-            domElements.unfold.addEventListener("click", (e) => {
+            let descArea = this.domElements.productContent.closest("div");
+            this.domElements.unfold.addEventListener("click", (e) => {
                 if (descArea.classList.contains("close3")) {
                     descArea.classList.remove("close3");
                 }
-                domElements.unfold.style.display = "none";
-                domElements.fold.style.display = "block";
+                this.domElements.unfold.style.display = "none";
+                this.domElements.fold.style.display = "";
             });
 
-            domElements.fold.addEventListener("click", (e) => {
+            this.domElements.fold.addEventListener("click", (e) => {
                 if (!descArea.classList.contains("close3")) {
                     descArea.classList.add("close3");
                 }
-                domElements.unfold.style.display = "block";
-                domElements.fold.style.display = "none";
+                this.domElements.unfold.style.display = "";
+                this.domElements.fold.style.display = "none";
             });
         }
     },
 
     /**
-     * @renderBottomData() : put information into corresponding section
-     */
+	 * @renderBottomData() : put information into corresponding section
+	 */
     renderBottomData: function () {
-        domElements.bottomDescription.querySelector(".in_dsc").innerHTML
-            = state.detail_data.displayInfo.productContent;
+    	this.domElements.bottomDescription.querySelector(".in_dsc").innerHTML
+            = this.state.detail_data.displayInfo.productContent;
 
-        domElements.bottomPath.querySelector(".store_map").src
-            = state.detail_data.displayInfoImage.saveFileName;
+    	this.domElements.bottomPath.querySelector(".store_map").src
+            = this.state.detail_data.displayInfoImage.saveFileName;
 
-        domElements.bottomPath.querySelector(".store_name").innerHTML
-            = state.detail_data.displayInfo.productDescription;
+    	this.domElements.bottomPath.querySelector(".store_name").innerHTML
+            = this.state.detail_data.displayInfo.productDescription;
 
-        domElements.bottomPath.querySelector(".store_addr_bold").innerHTML
-            = state.detail_data.displayInfo.placeStreet;
+    	this.domElements.bottomPath.querySelector(".store_addr_bold").innerHTML
+            = this.state.detail_data.displayInfo.placeStreet;
 
-        domElements.bottomPath.querySelector(".addr_old_detail").innerHTML
-            = state.detail_data.displayInfo.placeLot;
+    	this.domElements.bottomPath.querySelector(".addr_old_detail").innerHTML
+            = this.state.detail_data.displayInfo.placeLot;
 
-        domElements.bottomPath.querySelector(".addr_detail").innerHTML
-            = state.detail_data.displayInfo.placeName;
+    	this.domElements.bottomPath.querySelector(".addr_detail").innerHTML
+            = this.state.detail_data.displayInfo.placeName;
 
-        domElements.bottomPath.querySelector(".store_tel").innerHTML
-            = state.detail_data.displayInfo.telephone;
+        this.domElements.bottomPath.querySelector(".store_tel").innerHTML
+            = this.state.detail_data.displayInfo.telephone;
 
-        domElements.averageScoreStars.style.width
-            = state.detail_data.averageScore / 5 * 100 + "%";
+        this.domElements.averageScoreStars.style.width
+            = this.state.detail_data.averageScore / 5 * 100 + "%";
 
-        domElements.averageScoreText.innerHTML
-            = state.detail_data.averageScore;
+        this.domElements.averageScoreText.innerHTML
+            = this.state.detail_data.averageScore;
     },
 
     /**
-     * @renderImages() : render and attach functionality to product images part
-     */
+	 * @renderImages() : render and attach functionality to product images part
+	 */
     renderImages: function () {
-        domElements.slideContainer.innerHTML = "";
+    	this.domElements.slideContainer.innerHTML = "";
 
-        let imageList = state.detail_data.productImages;
+        let imageList = this.state.detail_data.productImages;
 
-        domElements.figurePagination.querySelector(".off span").innerHTML
+        this.domElements.figurePagination.querySelector(".off span").innerHTML
             = imageList.length;
 
-        arrayToElementRenderer(imageList, domElements.slideContainer, templates.slideContainerItem)
-        animation = new SlidingAnimation(domElements.slideContainer);
+        arrayToElementRenderer(imageList, this.domElements.slideContainer, this.templates.slideContainerItem)
+        animation = new SlidingAnimation(this.domElements.slideContainer);
         animation.init();
 
         if (imageList.length > 1) {
-            domElements.slideLeft.addEventListener("click", (e) => {
+        	this.domElements.slideLeft.addEventListener("click", (e) => {
                 if (!animation.isAnimating) {
-                    animation.slide(false, false, true);
+                    animation.slide(
+            		{
+                    	isAutoStart : false, 
+                    	isReverse : false,
+                    	isResizing : true
+                    });
                 }
             });
 
-            domElements.slideRight.addEventListener("click", (e) => {
+        	this.domElements.slideRight.addEventListener("click", (e) => {
                 if (!animation.isAnimating) {
-                    animation.slide(false, true, true);
+                	animation.slide(
+            		{
+                    	isAutoStart : false, 
+                    	isReverse : true,
+                    	isResizing : true
+                    });
                 }
             });
         } else {
-            domElements.slideLeft.style.visibility = "hidden";
-            domElements.slideRight.style.visibility = "hidden";
+        	this.domElements.slideLeft.style.visibility = "hidden";
+        	this.domElements.slideRight.style.visibility = "hidden";
         }
         document.querySelector(".visual_txt_tit span").innerHTML
-            = state.detail_data.displayInfo.productDescription;
+            = this.state.detail_data.displayInfo.productDescription;
     }
 }

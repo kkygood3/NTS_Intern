@@ -8,9 +8,13 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-function SubmitButtonWithValidation(item) {
+function SubmitButtonWithValidation(item, errorHandler, state) {
     item.addEventListener("click", (e) => {
         e.preventDefault();
+        if(item.closest(".bk_btn_wrap").classList.contains("disabled")){
+        	alert("fill in the form correctly");
+        	return;
+        }
         /*
 		 * form check, getting name, email, tel from form directly, since this
 		 * params "item" is equal to submit button.
@@ -20,86 +24,54 @@ function SubmitButtonWithValidation(item) {
         let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value);
 
         if (!nameValid) {
-            inputValidationErrorMsg(rsvname);
+        	errorHandler(rsvname);
             return;
         } else if (!telValid) {
-            inputValidationErrorMsg(tel);
+        	errorHandler(tel);
             return;
         } else if (!emailValid) {
-            inputValidationErrorMsg(email);
+        	errorHandler(email);
             return;
         }
-
-        // agreement check
-        if (!domElements.agreementButton.checked) {
-            alert("Please check agreement");
-            return;
-        }
-
+        
         // tickets count check
-        let priceDataArr = [];
+    	let priceDataArr = []
         for (var key in state.prices) {
-            if (state.prices.hasOwnProperty(key)) {
-                if (state.prices[key].count > 0) {
-                    priceDataArr.push(state.prices[key]);
-                }
+            if (state.prices[key].count > 0) {
+                priceDataArr.push(state.prices[key]);
             }
         }
-        if (priceDataArr.length == 0) {
-            alert("No tickets Added to reserve");
-            return;
-        }
-
-        sendReservation(priceDataArr);
+        
+        sendReservation(priceDataArr, 
+        		{
+		        	name : rsvname.value 
+		        	, email : email.value
+		        	, tel : tel.value
+		        	, displayInfoId : state.detail_data.displayInfo.displayInfoId
+		        	, productId : state.detail_data.displayInfo.productId
+		        });
     });
 }
 
-function sendReservation(priceDataArr) {
-    var formData = new FormData(domElements.reservationForm);
-
+function sendReservation(priceDataArr, params) {
     var d = new Date();
     let dataToSend = {
-        displayInfoId: state.detail_data.displayInfo.displayInfoId
+        displayInfoId: params.displayInfoId
         , prices: priceDataArr
-        , productId: state.detail_data.displayInfo.productId
-        , reservationEmail: formData.get("email").toString()
-        , reservationName: formData.get("rsvname").toString()
-        , reservationTelephone: formData.get("tel").toString()
-        , reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
+        , productId: params.productId
+        , reservationEmail: params.email
+        , reservationName: params.name
+        , reservationTelephone: params.tel
+        , reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate()+Math.floor(Math.random() * 5))
     }
 
-    xhrRequest("POST"
-        , "/reservation/api/reservations"
-        , JSON.stringify(dataToSend)
-        , () => {
-            alert("SUCCESS");
-            window.location.href = "/reservation";
-        }, false);
-}
-
-function FormWatcher() {
-    domElements.reservationForm.addEventListener("change", (e) => {
-        formWatching();
+    let request = new XhrRequest("POST", "/reservation/api/reservations");
+    request.setCallback(() => {
+        alert("SUCCESS");
+        window.location.href = "/reservation";
     });
-    domElements.agreementButton.addEventListener("change", (e) => {
-        formWatching();
-    });
-
-}
-
-function formWatching() {
-    let bookButton = domElements.bookButtonWrapper;
-    let formData = new FormData(domElements.reservationForm);
-    if (formData.get("email").length > 0
-        && formData.get("rsvname").length > 0
-        && formData.get("tel").length > 0
-        && domElements.agreementButton.checked) {
-        if (bookButton.classList.contains("disable")) {
-            bookButton.classList.remove("disable");
-        }
-    } else {
-        bookButton.classList.add("disable");
-    }
+    request.setIsAsync(false);
+    request.send(JSON.stringify(dataToSend))
 }
 
 function EulaButton(item) {
@@ -124,47 +96,32 @@ function CountController(item, _prices) {
     prices = _prices
 
     this.addButton.addEventListener("click", (e) => {
-        this.increment();
+        this.control(true);
     });
 
     this.reduceButton.addEventListener("click", (e) => {
-        this.decrement();
+        this.control(false);
     });
 }
 
-CountController.prototype.increment = function () {
+CountController.prototype.control = function (isIncrement) {
+	
     let wrapper = this.addButton.closest(".qty");
     let id = this.addButton.closest(".qty").dataset.id;
     let product = prices[id];
-    debugger;
-    product.count++;
+    if(isIncrement){
+        product.count++;
+    } else {
+    	if (product.count == 0) {
+            return;
+        }
+    	product.count--;
+    }
 
     let qtyArea = wrapper.querySelector(".count_control_input");
     qtyArea.value = product.count;
-    if (qtyArea.classList.contains("disabled")) {
-        qtyArea.classList.remove("disabled");
-    }
-    if (this.reduceButton.classList.contains("disabled")) {
-        this.reduceButton.classList.remove("disabled");
-    }
-
     let totalPriceArea = wrapper.querySelector(".total_price");
-    totalPriceArea.innerHTML = product.price * product.count;
-    totalPriceArea.parentElement.style.color = "black";
-}
 
-CountController.prototype.decrement = function () {
-    let wrapper = this.addButton.closest(".qty");
-    let id = this.addButton.closest(".qty").dataset.id;
-    let product = prices[id];
-
-    if (product.count == 0) {
-        return;
-    }
-    product.count--;
-
-    let qtyArea = wrapper.querySelector(".count_control_input");
-    qtyArea.value = product.count;
     if (product.count == 0) {
         if (!qtyArea.classList.contains("disabled")) {
             qtyArea.classList.add("disabled");
@@ -172,20 +129,17 @@ CountController.prototype.decrement = function () {
         if (!this.reduceButton.classList.contains("disabled")) {
             this.reduceButton.classList.add("disabled");
         }
-    }
-
-    let totalPriceArea = wrapper.querySelector(".total_price");
-    totalPriceArea.innerHTML = product.price * product.count;
-    if (product.count == 0) {
         totalPriceArea.parentElement.style.color = "";
+    } else {
+    	if (qtyArea.classList.contains("disabled")) {
+            qtyArea.classList.remove("disabled");
+        }
+        if (this.reduceButton.classList.contains("disabled")) {
+            this.reduceButton.classList.remove("disabled");
+        }
+        totalPriceArea.parentElement.style.color = "black";
     }
+
+    totalPriceArea.innerHTML = product.price * product.count;
 }
 
-CountController.prototype.updateTotalCountBottom = function () {
-    let totalCount = 0;
-    for (var key in state.prices) {
-        var value = state.prices[key];
-        totalCount += value.count;
-    }
-    this.totalCountBottom.innerHTML = totalCount;
-}

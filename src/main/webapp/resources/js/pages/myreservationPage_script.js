@@ -1,8 +1,4 @@
 /**
- *
- */
-
-/**
  * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
  * internal use for NAVER, unauthorized use of redistribution of this software
  * are strongly prohibited.
@@ -11,10 +7,6 @@
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
-
-// library mapping to use forEach
-HTMLCollection.prototype.forEach = Array.prototype.forEach;
-NodeList.prototype.forEach = Array.prototype.forEach;
 
 window.addEventListener("DOMContentLoaded", function () {
     myReservation.init();
@@ -31,7 +23,9 @@ var myReservation = {
         sectionConfirmed: document.querySelector(".card.confirmed"),
         sectionUsed: document.querySelector(".card.used"),
         sectionCanceled: document.querySelector(".card.used.cancel"),
-
+        
+        sectionPlaceHolder : document.querySelector(".err"),
+        
         cancelPopup: document.querySelector(".popup_booking_wrapper")
     },
 
@@ -47,56 +41,61 @@ var myReservation = {
         reservation_data: "",
     },
 
-    parser: new DOMParser(),
-
     init: function () {
-        domElements = this.domElements;
-        urls = this.urls;
-        state = this.state;
-        templates = this.templates;
-        parser = this.parser;
-
-        fetchData = this.fetchData;
-        renderReservations = this.renderReservations;
-        processCancellation = this.processCancellation;
-        initDomWatcher = this.initDomWatcher;
-        
-        initDomWatcher();
-        fetchData();
+        this.initDomWatcher();
+        this.fetchData();
     },
 
     fetchData: function () {
-        xhrRequest("GET"
-            , urls.RESERVATION
-            , null
-            , (respText) => {
-                state.reservation_data = JSON.parse(respText);
-                renderReservations();
-            }, true);
+        let request = new XhrRequest("GET", this.urls.RESERVATION)
+        request.setCallback((respText) => {
+        	this.state.reservation_data = JSON.parse(respText);
+        	this.renderReservations();
+        });
+        request.send();
     },
 
     renderReservations: function () {
-        arrayToElementRenderer(state.reservation_data.reservations, domElements.sectionConfirmed, templates.reservationItem);
-        let reservations = domElements.sectionConfirmed.querySelectorAll("article");
+        arrayToElementRenderer(this.state.reservation_data.reservations, this.domElements.sectionConfirmed, this.templates.reservationItem);
+        let reservations = this.domElements.sectionConfirmed.querySelectorAll("article");
 
         reservations.forEach((item) => {
-            new ReservationCard(item, state.reservation_data.reservations, domElements.cancelPopup);
+            new ReservationCard(item, this.state.reservation_data.reservations, this.domElements.cancelPopup);
         });
     },
     initDomWatcher : function () {
-    	let observer = new MutationObserver(function(mutations) {
-			let yet = domElements.sectionConfirmed.querySelectorAll("article").length;
-	        let used = domElements.sectionUsed.querySelectorAll("article").length;
-	        let canceled = domElements.sectionCanceled.querySelectorAll("article").length;
+    	let mObserver = new MutationObserver(() => {
+			let yet = this.domElements.sectionConfirmed.querySelectorAll("article").length;
+	        let used = this.domElements.sectionUsed.querySelectorAll("article").length;
+	        let canceled = this.domElements.sectionCanceled.querySelectorAll("article").length;
 	        let total = yet + used + canceled;
 	        
-	        domElements.yetFigure.innerText = yet
-	        domElements.usedFigure.innerText = used
-	        domElements.cancelFigure.innerText = canceled
-	        domElements.totalFigure.innerText = total;  
+	        this.controlSectionDisplay(yet, this.domElements.sectionConfirmed);
+	        this.controlSectionDisplay(used, this.domElements.sectionUsed);
+	        this.controlSectionDisplay(canceled, this.domElements.sectionCanceled);
+	        
+	        if(total == 0){
+	        	this.domElements.sectionPlaceHolder.style.display = "";
+	        } else {
+	        	this.domElements.sectionPlaceHolder.style.display = "none";
+	        }
+	        
+	        this.domElements.yetFigure.innerText = yet
+	        this.domElements.usedFigure.innerText = used
+	        this.domElements.cancelFigure.innerText = canceled
+	        this.domElements.totalFigure.innerText = total;  
     	});
     	let config = { attributes: true, childList: true, characterData: true };
-    	observer.observe(domElements.sectionConfirmed, config);
-    	observer.observe(domElements.sectionCanceled, config);
+    	mObserver.observe(this.domElements.sectionConfirmed, config);
+    	mObserver.observe(this.domElements.sectionUsed, config);
+    	mObserver.observe(this.domElements.sectionCanceled, config);
+    },
+    
+    controlSectionDisplay : function(value, target){
+    	if(value == 0){
+    		target.style.display = "none";
+        } else {
+        	target.style.display = "";
+        }
     }
 }

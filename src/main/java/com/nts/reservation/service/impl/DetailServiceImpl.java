@@ -29,7 +29,7 @@ import com.nts.reservation.service.DetailService;
 public class DetailServiceImpl implements DetailService {
 
 	@Autowired
-	DetailDao DetailDao;
+	private DetailDao DetailDao;
 
 	@Override
 	public DisplayInfo getDisplayInfo(Long displayInfoId) {
@@ -49,11 +49,10 @@ public class DetailServiceImpl implements DetailService {
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
 		List<Comment> comments = DetailDao.selectComments(displayInfoId);
-		for (Comment comm : comments) {
-			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comm.getCommentId());
-			comm.setCommentImages(list);
+		for (Comment comment : comments) {
+			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comment.getCommentId());
+			comment.setCommentImages(list);
 		}
-
 		return comments;
 	}
 

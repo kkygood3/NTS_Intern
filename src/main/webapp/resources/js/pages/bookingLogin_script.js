@@ -1,6 +1,13 @@
 /**
- *
+ * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
+ * internal use for NAVER, unauthorized use of redistribution of this software
+ * are strongly prohibited.
  */
+
+/**
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ */
+
 window.addEventListener("DOMContentLoaded", function () {
     this.init();
 });
@@ -21,12 +28,10 @@ function init() {
         let data = {resrv_email: new FormData(document.querySelector("#form1")).get("resrv_email")}
         console.log(JSON.stringify(data));
         console.log(data)
-        xhrRequest("POST"
-            , "/reservation/api/login"
-            , new FormData(document.querySelector("#form1")).get("resrv_email")
-            , () => {
-                window.location.href = "./myreservation"
-            }
-            , true);
+        let request = new XhrRequest("POST", "/reservation/api/login");
+        request.setCallback(() => {
+            window.location.href = "./myreservation"
+        });
+        request.send(new FormData(document.querySelector("#form1")).get("resrv_email"));
     });
 }

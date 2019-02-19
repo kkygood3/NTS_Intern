@@ -38,20 +38,20 @@
 						<li class="item">
 							<!--[D] 선택 후 .on 추가 link_summary_board --> <a href="#"
 							class="link_summary_board on"> <i class="spr_book2 ico_book2"></i>
-								<em class="tit">전체</em> <span class="figure" id="_total_figure">6</span>
+								<em class="tit">전체</em> <span class="figure" id="_total_figure">0</span>
 						</a>
 						</li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em>
-								<span class="figure" id="_yet_figure">2</span>
+								<span class="figure" id="_yet_figure">0</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em> <span
-								class="figure" id="_used_figure">2</span>
+								class="figure" id="_used_figure">0</span>
 						</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em> <span
-								class="figure" id="_cancel_figure">2</span>
+								class="figure" id="_cancel_figure">0</span>
 						</a></li>
 					</ul>
 				</div>
@@ -74,7 +74,7 @@
 							</div>
 
 						</li>
-						<li class="card confirmed">
+						<li class="card confirmed" style="display:none">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -100,7 +100,7 @@
 							</div>
 
 						</li>
-						<li class="card used cancel">
+						<li class="card used cancel" style="display:none">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -118,7 +118,7 @@
 				<!--// 내 예약 리스트 -->
 
 				<!-- 예약 리스트 없음 -->
-				<div class="err" style="display: none;">
+				<div class="err">
 					<i class="spr_book ico_info_nolist"></i>
 					<h1 class="tit">예약 리스트가 없습니다</h1>
 				</div>
@@ -219,6 +219,7 @@
 	{{/each}}
 	</script>
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/polyfill_script.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript" src="resources/js/pages/pageUtils/myreservationPage_utils.js"></script>
 	<script type="text/javascript" src="resources/js/pages/myreservationPage_script.js"></script>
