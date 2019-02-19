@@ -45,4 +45,8 @@ public class ReservationInfoDao extends BasicDao<ReservationInfoDto> {
 				Collections.singletonMap("reservationEmail", reservationEmail),
 				BeanPropertyRowMapper.newInstance(MyReservationDto.class));
 	}
+
+	public void updateReservationToCancel(int reservationId) {
+		jdbcTemplate.update(UPDATE_RESERVATION_TO_CANCEL, Collections.singletonMap("reservationId", reservationId));
+	}
 }

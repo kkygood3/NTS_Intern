@@ -15,4 +15,6 @@ public interface ReservationService {
 	void makeReservation(ReservationParamDto reservationParam);
 
 	MyReservationResponseDto getMyReservations(String reservationEmail);
+
+	void cancleReservation(int reservationId);
 }

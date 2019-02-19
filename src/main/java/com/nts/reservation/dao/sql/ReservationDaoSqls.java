@@ -35,4 +35,11 @@ public class ReservationDaoSqls {
 			+ "WHERE "
 			+ "    ri.reservation_email = :reservationEmail "
 			+ "GROUP BY ri.id ";
+	
+	public static final String UPDATE_RESERVATION_TO_CANCEL = ""
+			+ "UPDATE reservation_info  "
+			+ "SET  "
+			+ "    cancel_flag = 1 "
+			+ "WHERE "
+			+ "    id = :reservationId ";
 }

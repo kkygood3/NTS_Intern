@@ -55,4 +55,9 @@ public class ReservationServiceImpl implements ReservationService {
 		List<MyReservationDto> myReservations = reservationInfoDao.selectMyReservations(reservationEmail);
 		return new MyReservationResponseDto(myReservations);
 	}
+
+	@Override
+	public void cancleReservation(int reservationId) {
+		reservationInfoDao.updateReservationToCancel(reservationId);
+	}
 }

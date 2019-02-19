@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,12 @@ public class ReservationApiController {
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
 		reservationService.makeReservation(reservationParam);
+		return Collections.singletonMap("isSuccess", true);
+	}
+	
+	@PutMapping("/{reservationId}")
+	Map<String, Object> putReservation(@PathVariable int reservationId) {
+		reservationService.cancleReservation(reservationId);
 		return Collections.singletonMap("isSuccess", true);
 	}
 }
