@@ -22,5 +22,14 @@ function makePriceInfoHTML(priceInfos) {
 
 	var ul = document.getElementsByClassName("ticket_body")[0];
 	ul.innerHTML += innerHtml;
+	
+	makePriceDescription(priceInfos);
 }
 
+function makePriceDescription(priceInfos) {
+	var description = priceInfos[0].priceTypeName + " " + priceInfos[0].price + "원";
+	priceInfos.slice(1).forEach((priceInfo) => {
+		description += " / " + priceInfo.priceTypeName + " " + priceInfo.price + "원";
+	});
+	document.querySelectorAll(".store_details .dsc")[2].innerText = description;
+}
