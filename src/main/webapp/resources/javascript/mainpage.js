@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	basicSettings();
 	document.getElementById('moreButton').addEventListener('click', e=>moreButtonListener(e));
 	categoryClickEvent();
-	
+	document.querySelector('.header').classList.remove('fade');
 });
 
 let currentCategory = 0;
@@ -199,7 +199,7 @@ function promotionSlide(promotionCount){
 /****************template****************/
 /****************************************/
 const productTemplate = `<li class="item">
-	<a href="/detail?displayInfoId={id}" class="item_book">
+	<a href="/display/detail/{id}" class="item_book">
 		<div class="item_preview">
 			<img alt="{description}" class="img_thumb" src="/resources/img/img/{productImageUrl}">
 			<span class="img_border"></span>

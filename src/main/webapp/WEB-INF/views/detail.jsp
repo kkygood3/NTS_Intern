@@ -23,32 +23,21 @@
 </head>
 <body>
 	<div id="container">
-		<div class="header fade">
-			<header class="header_tit">
-				<h1 class="logo">
-					<a href="http://m.naver.com" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span>
-					</a>
-				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
-				</a>
-			</header>
-		</div>
+		<c:import url="common/header.jsp" charEncoding="utf-8"/>
 		<div class="ct main">
 			<div>
 				<div class="section_visual">
+				
 					<header>
 						<h1 class="logo">
 							<a href="http://m.naver.com" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span>
 							</a> <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span>
-						</a>
+						<a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span></a>
 					</header>
 					
 					
-					<!-- IF EXIST ETC IMAGE * 2 -->
 					<div id="pagination" class="pagination hide">
 						<div class="bg_pagination"></div>
 						<div class="figure_pagination">
@@ -139,7 +128,7 @@
 						</p>
 					</div>
 					<!-- IF COMMENT > 3 -->
-					<a class="btn_review_more" href="/review?displayInfoId=${ displayInfoId }"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i>	</a>
+					<a class="btn_review_more" href="/review/${ displayInfoId }"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i>	</a>
 				</div>
 				
 				
@@ -184,16 +173,7 @@
 			</div>
 		</div>
 	</div>
-	<footer>
-		<div class="gototop">
-			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span>
-			</a>
-		</div>
-		<div class="footer">
-			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
-			<span class="copyright">© NAVER Corp.</span>
-		</div>
-	</footer>
+	<c:import url="common/footer.jsp" charEncoding="utf-8"/>
 	<div id="photoviwer"></div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>

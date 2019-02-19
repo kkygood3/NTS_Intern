@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	addTabToggleEvent();
 	addTabActiveEvent();
 	document.querySelector('#reservation').addEventListener('click', ()=>{
-		location.href = "/reserve?displayInfoId=" + detailContent.displayInfoId;
+		location.href = "/reserve/" + detailContent.displayInfoId;
 	});
 });
 
