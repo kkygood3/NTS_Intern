@@ -20,10 +20,9 @@ import com.nts.reservation.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	ProductDao productDao;
-
+	private ProductDao productDao;
 	@Autowired
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 
 	@Override
 	public int getCountAllProducts() {

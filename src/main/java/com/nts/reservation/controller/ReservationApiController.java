@@ -41,16 +41,13 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/api")
 public class ReservationApiController {
 	@Autowired
-	ProductService productService;
-
+	private ProductService productService;
 	@Autowired
-	CategoryService categoryService;
-
+	private CategoryService categoryService;
 	@Autowired
-	DetailProductService detailProductService;
-
+	private DetailProductService detailProductService;
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,

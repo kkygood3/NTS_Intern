@@ -25,7 +25,7 @@ import com.nts.reservation.service.DetailProductService;
 @Service
 public class DetailProductServiceImpl implements DetailProductService {
 	@Autowired
-	DetailProductDao detailProductDao;
+	private DetailProductDao detailProductDao;
 
 	@Override
 	public BigDecimal getAverageScore(Integer displayInfoId) {

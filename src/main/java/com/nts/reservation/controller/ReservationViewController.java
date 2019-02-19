@@ -26,7 +26,7 @@ import com.nts.reservation.service.ReservationService;
 @Controller
 public class ReservationViewController {
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	@GetMapping("/login")
 	public String getBookingLoginPage() {

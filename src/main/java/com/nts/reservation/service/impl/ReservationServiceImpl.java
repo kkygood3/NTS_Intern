@@ -25,9 +25,9 @@ import com.nts.reservation.service.ReservationService;
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 	@Autowired
-	DetailProductDao detailProductDao;
+	private DetailProductDao detailProductDao;
 
 	@Override
 	public void makeReservation(Reservation reservationInfo) {

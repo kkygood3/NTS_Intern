@@ -19,7 +19,7 @@ import com.nts.reservation.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	CategoryDao categoryDao;
+	private CategoryDao categoryDao;
 
 	@Override
 	public List<Category> getCategories() {
