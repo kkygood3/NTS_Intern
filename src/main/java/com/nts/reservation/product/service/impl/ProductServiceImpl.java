@@ -73,8 +73,7 @@ public class ProductServiceImpl implements ProductService {
 
 		if (productExtraImage == null) {
 			productExtraImage = new ProductExtraImage();
-			productExtraImage.setProductDescription("");
-			productExtraImage.setProductImage("");
+			productExtraImage.setProductImage("none");
 		}
 
 		return productExtraImage;

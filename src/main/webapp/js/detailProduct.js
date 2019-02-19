@@ -4,9 +4,10 @@ function loadDisplayInfoCallback(responseData) {
 	let displayInfo = responseData.displayInfo;
 	let comments = responseData.comments;
 
-	// 타이틀
+	// 타이틀 이미지
 	loadSwipeImage(responseData.displayInfo);
-	
+	requestAjax(loadExtraImage,'api/products/' + displayInfo.displayInfoId + '/extraImage');
+
 	// 상품 설명
 	loadProductExplain(responseData);
 	
@@ -17,9 +18,7 @@ function loadDisplayInfoCallback(responseData) {
 	loadInfoTab(displayInfo);
 	
 	// 펼쳐보기 및 닫기
-	loadShowMoreButton();
-	
-	requestAjax(loadExtraImage,'api/products/' + displayInfo.displayInfoId + '/extraImage');
+	loadShowMoreButton();	
 }
 
 function requestAjax(callback, url){
@@ -47,45 +46,19 @@ function getUrlParameter(name) {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
 function loadSwipeImage(displayInfo){
 	// 상단 Swipe Image 배너 Template
 	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
-	console.log(swipeTemplate);
 	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
-	console.log(bindSwipeTemplate);
 	let swipeContainer = document.querySelector('ul.detail_swipe');
-	console.log(swipeContainer);
 	
 	// 메인 이미지 삽입
 	swipeContainer.innerHTML += bindSwipeTemplate(displayInfo);
-	console.log(swipeContainer);
 
 	document.querySelector('div.store_details>p.dsc').innerHTML = displayInfo.productContent;
 }
 
-
 function loadExtraImage(responseData){
-	console.log("responseData : ");
-	console.log(responseData);
-	
-	console.log("responseData.productExtraImage");
-	console.log(responseData.productExtraImage);
-	
-	let extraImageInformation = responseData.productExtraImage;
-	console.log("responseData.productExtraImage.productImage : ");
-	console.log(extraImageInformation);
-	
 	// 상단 Swipe Image 배너 Template
 	let swipeTemplate = document.querySelector('#swipeTemplate').innerText;
 	let bindSwipeTemplate = Handlebars.compile(swipeTemplate);
@@ -99,13 +72,23 @@ function loadExtraImage(responseData){
 	let swipeLeftBtn = document.querySelector('.ico_arr6_lt');
 	let swipeRightBtn = document.querySelector('.ico_arr6_rt');
 
+	// 엑스트라 이미지가 없을 경우
+	if (responseData.productImage == "none") {
+		swipeAmount.innerText = '1';
+		
+		document.querySelector('.ico_arr6_lt').style.display = 'none';
+		document.querySelector('.ico_arr6_rt').style.display = 'none';
+
+		swipeLeftBtn.style.display = 'none';
+		swipeRightBtn.style.display = 'none';
+		
+		return;
+	}
+	
+	let extraImageInformation = responseData;
 	if(extraImageInformation){		
 		let firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
-		console.log("firstItem");
-		console.log(firstItem);
 		let secondItem = bindSwipeTemplate(extraImageInformation);
-		console.log("secondItem");
-		console.log(secondItem);
 		
 		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
 		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
@@ -184,33 +167,9 @@ function loadExtraImage(responseData){
 				},1100);
 			}
 		}
-		
 		eventContainer.addEventListener('click',arrowEventHandler);
-	} else {
-		swipeAmount.innerText = '1';
-		
-		document.querySelector('.ico_arr6_lt').style.display = 'none';
-		document.querySelector('.ico_arr6_rt').style.display = 'none';
-
-		swipeLeftBtn.style.display = 'none';
-		swipeRightBtn.style.display = 'none';
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function loadProductExplain(responseData) {
 	document.querySelector('div.store_details>p.dsc').innerHTML = responseData.displayInfo.productContent;
