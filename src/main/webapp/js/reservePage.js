@@ -117,12 +117,22 @@ function TicketObj(target, index, price) {
     target[1].classList.add('plusBtn' + index);
 }
 
+var totalPrice = 0;
+var totalCount = 0;
 var changePriceEvent = function () {
+    totalPrice = 0;
+    totalCount = 0;
     document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
-        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
+        let itemPrice = ticketItem.value * ticketItems[index].price;
+        totalPrice += itemPrice;
 
-        ticketItemTotalPrice.innerText = addCommaInNumber(ticketItem.value * ticketItems[index].price);
+        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
+        ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
+
+        totalCount += Number(ticketItem.value);
     });
+
+    document.querySelector('.selected').innerText = reservationDate + ', 총 ' + totalCount + '매';
 }
 
 TicketObj.prototype.addMinusClickEvent = function () {
@@ -174,14 +184,10 @@ async function initTickectBox(productPrices) {
         ticketItems[index].addPlusClickEvent();
     });
 
-    document.querySelector('.ticket_body').addEventListener('change', () => {
-
-    })
+    changePriceEvent();
 }
 
 function loadDisplayInfoCallback(displayInfoData) {
-
-    DateObj.setDate();
 
     initDisplayInfo(displayInfoData);
 
@@ -191,7 +197,13 @@ function loadDisplayInfoCallback(displayInfoData) {
 
 }
 
+var reservationDate;
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
+
+    DateObj.setDate();
+
+    reservationDate = DateObj.getrandomDate();
+
     requestAjax(loadDisplayInfoCallback, 'products/' + getUrlParameter('id'));
 });
