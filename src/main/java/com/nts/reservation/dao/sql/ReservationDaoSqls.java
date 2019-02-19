@@ -19,7 +19,7 @@ public class ReservationDaoSqls {
 			+ "    di.place_name, "
 			+ "    c.name AS categoryName, "
 			+ "    p.description AS productDescription, "
-			+ "    SUM(pp.price) AS totalPrice "
+			+ "    FLOOR(SUM(pp.price * (100-pp.discount_rate) / 100 * rip.count)) AS totalPrice "
 			+ "FROM "
 			+ "    reservation_info ri "
 			+ "        INNER JOIN "
