@@ -40,7 +40,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -82,8 +82,24 @@
 			<artifactId>jackson-datatype-jdk8</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
-
-
+		<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-spec -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-spec</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-jstlel -->
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-jstlel</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>

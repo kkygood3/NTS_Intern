@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.dto.displayinfo.DisplayInfo;
 import com.nts.dto.displayinfo.DisplayInfoImage;
+import com.nts.exception.DisplayInfoNullException;
 
 /**
  * @author 전연빈
@@ -34,13 +36,22 @@ public class DisplayInfoRepository {
 	 * @desc 전시 Id로 전시 조회
 	 * @param displayInfoId
 	 * @return displayInfo
+	 * @throws DisplayInfoNullException 
 	 */
-	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) {
+	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("displayInfoId", displayInfoId);
 
-		return namedParameterJdbcTemplate.queryForObject(SELECT_DISPLAY_INFO, params, displayInfoRowMapper);
+
+		try {
+
+			return namedParameterJdbcTemplate.queryForObject(SELECT_DISPLAY_INFO, params, displayInfoRowMapper);
+		} catch(EmptyResultDataAccessException e) {
+			e.printStackTrace();
+			throw new DisplayInfoNullException("displayInfoId = "+displayInfoId);
+		}
+
 	}
 
 	/**
