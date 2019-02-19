@@ -13,8 +13,8 @@ const PRICE_TYPE = {
 	D : "평일"
 }
 
-const telephoneRegExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
-const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+const REG_TELEPHONE = /^\d{2,3}-\d{3,4}-\d{4}$/;
+const REG_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 
 /**
  * 반복적으로 호출하는 XMLHttpRequest를 전담하는 함수

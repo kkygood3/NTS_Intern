@@ -194,8 +194,8 @@ function onReserveClicked() {
 	}
 
 	var isValidName = (bookerName.length > 1);
-	var isValidTelephone = telephoneRegExp.test(bookerTelephone);
-	var isValidEmail = emailRegExp.test(bookerEmail);
+	var isValidTelephone = REG_TELEPHONE.test(bookerTelephone);
+	var isValidEmail = REG_EMAIL.test(bookerEmail);
 
 	if (!isValidName) {
 		validationArr[0] = false;
