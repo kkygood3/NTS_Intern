@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 		if (comments.size() == 0) {
 			return CommentResponse.emptyCommentResponse();
 		}
-
+		// TODO 개선의 여지?
 		for (Comment comment : comments) {
 			comment.setReservationEmail(makeBlindEmail(comment.getReservationEmail()));
 			comment.setReservationDate(formattingDate(comment.getReservationDate()));
