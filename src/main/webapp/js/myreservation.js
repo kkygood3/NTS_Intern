@@ -112,8 +112,19 @@ function cancelResultCallback(response){
  * 취소, 취소 팝업 버튼, 코멘트 클릭 이벤트를 처리한다.
  */
 function initTicketBtnClickEvents(){
-	var ticketContainers = document.querySelectorAll('li.card')
+	var ticketContainers = document.querySelectorAll('li.card');
 	
+	initTicketCancelEvents(ticketContainers);
+	ticketContainers[2].querySelectorAll('.btn').forEach(item => item.innerText = '예매자 리뷰 남기기');	
+	ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
+	checkTicketCount();
+}
+
+/**
+ * 티켓 아이템중 예약 확정 카테고리의 버튼 이벤트 처리
+ * 취소 버튼을 누르면 팝업창을 띄우고 팝업 이벤트를 등록한다.
+ */ 
+function initTicketCancelEvents(ticketContainers){
 	var cancelPopup = document.querySelector('.popup_booking_wrapper');
 	var cancelTitleArea = cancelPopup.querySelector('.pop_tit>span');
 	var cancelDate = cancelPopup.querySelector('.pop_tit>.sm');
@@ -144,7 +155,10 @@ function initTicketBtnClickEvents(){
 				}
 				
 				var isAcceptClicked = (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '예')
-				
+				/**
+				 * '예' 버튼을 눌렀다면 예약 확정 카테고리에서 예약 취소 카테고리로 옮기고
+				 * 서버에 ajax로 취소 요청을 보낸다.
+				 */
 				if(isAcceptClicked) {
 					ticketContainers[3].appendChild(clickedBtn.offsetParent);
 					clickedBtn.parentElement.remove();
@@ -162,23 +176,4 @@ function initTicketBtnClickEvents(){
 			
 		checkTicketCount();
 	});
-	
-	ticketContainers[2].querySelectorAll('.btn').forEach(item => item.innerText = '예매자 리뷰 남기기');
-	ticketContainers[2].addEventListener('click',function(evt){
-		var clickedBtn = evt.target;
-		
-		var isClickedChild = (clickedBtn.tagName == 'SPAN');
-		if (isClickedChild){
-			clickedBtn = clickedBtn.parentElement;
-		}
-		
-		var isBtnClicked = (clickedBtn.classList.contains('btn'));
-		if (isBtnClicked){
-			// PJT6 : 예매자 리뷰 남기기 Event 처리
-		}
-		checkTicketCount();
-	});
-	
-	ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
-	checkTicketCount();
 }
