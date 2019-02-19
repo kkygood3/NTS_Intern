@@ -7,11 +7,22 @@ var detailPage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		ajaxSend("GET", "/reservation/api/products/" + displayInfoId, this.displayContents, "charset=utf-8");
+		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setEvent.bkBtnEvent();
 		this.setEvent.scrollTop();
 	},
+	
+	ajax : new AjaxSend(),
+	
+	ajaxOption : function(){
+		var options = {
+				contentType : "charset=utf-8",
+				callBack : this.detailPage.displayContents
+		}
+		
+		return options;
+	}.bind(this),
 	
 	displayContents: function(data){
 		this.detailPage.displayMainInfo(data);

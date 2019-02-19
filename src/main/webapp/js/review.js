@@ -4,11 +4,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		ajaxSend("GET", "/reservation/api/products/" + displayInfoId, this.displayContents, "charset=utf-8")
+		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setPrevPageLink();
 		this.setScrollTopEvent();
 	},
+	
+	ajax : new AjaxSend(),
+	
+	ajaxOption : function(){
+		var options = {
+			contentType : "charset=utf-8",
+			callBack : this.reviewPage.displayContents
+		}
+		
+		return options;
+	}.bind(this),
 	
 	displayContents: function(data){
 		this.reviewPage.elements.displayTitle.innerHTML = data["displayInfo"].productDescription;
