@@ -4,7 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var bookingLoginPage = {
 	getBookingLoginPage: function(){
-		this.validateInputValue(this.elements.bkEmail, this.emailRegex);
+		var inputTagValidator = new InputTagValidator();
+		
+		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
+		
+		this.setEventToUserInfoContainer(inputTagValidator);
 		this.setScrollTopEvent();
 	},
 	
@@ -14,18 +18,16 @@ var bookingLoginPage = {
 		btnTop : document.querySelector(".lnk_top")
 	},
 	
-	emailRegex : /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/,
-	
-	validateInputValue : function(inputTag, regularExpression){
-		inputTag.addEventListener("input", function(event){
-			if(regularExpression.test(event.target.value)){
+	setEventToUserInfoContainer : function(inputTagValidator){
+		this.elements.bkEmail.addEventListener("input", function(event){
+			if(inputTagValidator.isValid){
 				event.target.parentNode.querySelector(".warning_msg").style.display = "none";
 				this.elements.btnLogin.removeAttribute("disabled");
 			} else {
 				event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
 				this.elements.btnLogin.disabled = "true";
 			}
-			
+		
 			if(event.target.value.length === 0){
 				event.target.parentNode.querySelector(".warning_msg").style.display = "none";
 			}

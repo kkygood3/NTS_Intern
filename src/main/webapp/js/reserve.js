@@ -3,19 +3,21 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 var reservePage = {
 	getReservPage: function(displayInfoId){
+		var inputTagValidator = new InputTagValidator();
+		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.convertTypeName();
 		
-		this.inputTagValidator.validateInputTag(this.elements.bkName, this.inputTagValidator.nameRegex);
-		this.inputTagValidator.validateInputTag(this.elements.bkTel, this.inputTagValidator.telRegex);
-		this.inputTagValidator.validateInputTag(this.elements.bkEmail, this.inputTagValidator.emailRegex);
-		
+		inputTagValidator.validateInputTag(this.elements.bkName, inputTagValidator.nameRegex);
+		inputTagValidator.validateInputTag(this.elements.bkTel, inputTagValidator.telRegex);
+		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
 		this.ajax.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
 		
+		this.setEvent.setEventToUserInfoContainer(inputTagValidator);
 		this.setEvent.setEventToTicketInfoContainer();
 		this.setEvent.setEventToBtnShowDetailTerms();
-		this.setEvent.setEventToBtnAgree();
+		this.setEvent.setEventToBtnAgree(inputTagValidator);
 		this.setEvent.setPrevPageLink();
 		this.setEvent.scrollTop();
 		this.setEvent.setEventToBtnReserve();
@@ -53,58 +55,6 @@ var reservePage = {
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
-	inputTagValidator: {
-		nameRegex : /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/,
-		telRegex : /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/,
-		emailRegex : /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/,
-		
-		validateInputTag : function(inputTag, regularExpression){
-			inputTag.addEventListener("input", function(event){
-				this.reservePage.elements.btnAgree.checked = false;
-				this.reservePage.elements.bkBtn.classList.add("disable");
-				
-				if(event.target.id === "tel") {
-					event.target.value = this.reservePage.inputTagValidator.setTelNumberformat(event.target.value);
-				}
-				
-				if(regularExpression.test(event.target.value)){
-					event.target.classList.add("valid_value");
-					event.target.classList.remove("wrong_value");
-					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
-				} else {
-					event.target.classList.add("wrong_value");
-					event.target.classList.remove("valid_value");
-					event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
-				}
-			
-				if(event.target.value.length === 0){
-					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
-				}
-			}.bind(this));
-		}.bind(this),
-		
-		setTelNumberformat : function(telNumber){
-			var formattedTelNumber;
-			telNumber = telNumber.replace(/[^0-9]/g, "");
-			
-			if(telNumber.length > 10){
-				formattedTelNumber = telNumber.substring(0,3) + "-" + telNumber.substring(3,7) + "-" + telNumber.substring(7);
-			} else if(telNumber.length > 9) {
-				formattedTelNumber = telNumber.substring(0,3) + "-" + telNumber.substring(3,6) + "-" + telNumber.substring(6);
-			} else if(telNumber.length === 8) {
-				formattedTelNumber = telNumber.substring(0,4) + "-" + telNumber.substring(4);
-			} else if(telNumber.length > 6) {
-				formattedTelNumber = telNumber.substring(0,2) + "-" + telNumber.substring(2,5) + "-" + telNumber.substring(5);
-			} else if(telNumber.length > 2) {
-				formattedTelNumber = telNumber.substring(0,2) + "-" + telNumber.substring(2);
-			} else {
-				formattedTelNumber = telNumber;
-			}
-			
-			return formattedTelNumber;
-		}
-	},
-	
 	elements: {
 		title : document.querySelector(".top_title").querySelector(".title"),
 		mainImage : document.querySelector(".img_thumb"),
@@ -130,6 +80,8 @@ var reservePage = {
 	container: {
 		displayInfoContainer : document.querySelector(".store_details"),
 		ticketInfoContainer : document.querySelector(".ticket_body"),
+		
+		userInfoContainer : document.querySelector(".form_horizontal")
 	},
 	
 	template: {
@@ -273,16 +225,41 @@ var reservePage = {
 	},
 	
 	setEvent: {
+		setEventToUserInfoContainer : function(inputTagValidator){
+			this.reservePage.container.userInfoContainer.addEventListener("input", function(event){
+				this.reservePage.elements.btnAgree.checked = false;
+				this.reservePage.elements.bkBtn.classList.add("disable");
+				
+				if(event.target.id === "tel") {
+					event.target.value = inputTagValidator.setTelNumberformat(event.target.value);
+				}
+				
+				if(inputTagValidator.isValid){
+					event.target.classList.add("valid_value");
+					event.target.classList.remove("wrong_value");
+					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+				} else {
+					event.target.classList.add("wrong_value");
+					event.target.classList.remove("valid_value");
+					event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
+				}
+			
+				if(event.target.value.length === 0){
+					event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+				}
+			}.bind(this));
+		}.bind(this),
+		
 		setEventToTicketInfoContainer : function(){
 			this.reservePage.container.ticketInfoContainer.addEventListener("click", function(event){
 				event.preventDefault();
 				
-				if(!event.target.classList.contains("disabled")){
-					this.reservePage.elements.btnAgree.checked = false;
-					this.reservePage.elements.bkBtn.classList.add("disable");
-				};
-				
 				if(event.target.classList.contains("btn_plus_minus")){
+					if(!event.target.classList.contains("disabled")){
+						this.reservePage.elements.btnAgree.checked = false;
+						this.reservePage.elements.bkBtn.classList.add("disable");
+					};
+				
 					this.reservePage.paymentInfo.displayTotalPrice(event.target.classList);
 				}
 			}.bind(this));
@@ -308,12 +285,9 @@ var reservePage = {
 			});
 		}.bind(this),
 
-		setEventToBtnAgree : function(){
+		setEventToBtnAgree : function(inputTagValidator){
 			this.reservePage.elements.btnAgree.addEventListener("change", function(){
-				if(this.reservePage.elements.bkName.classList.contains("valid_value")
-					&& this.reservePage.elements.bkTel.classList.contains("valid_value")
-					&& this.reservePage.elements.bkEmail.classList.contains("valid_value")
-					&& this.reservePage.elements.totalCount.value !== 0){
+				if(inputTagValidator.isValid && this.reservePage.elements.totalCount.value !== 0){
 
 					this.reservePage.elements.lastMsg.style.display = "none";
 					
