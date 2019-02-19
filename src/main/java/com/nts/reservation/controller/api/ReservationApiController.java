@@ -28,13 +28,15 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
-	// TODO: 파라미터 검증 추후 구현
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
-		reservationService.makeReservation(reservationParam);
-		return Collections.singletonMap("isSuccess", true);
+		if (reservationParam.isValid()) {
+			reservationService.makeReservation(reservationParam);
+			return Collections.singletonMap("isSuccess", true);
+		}
+		return Collections.singletonMap("isSuccess", false);
 	}
-	
+
 	@PutMapping("/{reservationId}")
 	Map<String, Object> putReservation(@PathVariable int reservationId) {
 		reservationService.cancleReservation(reservationId);

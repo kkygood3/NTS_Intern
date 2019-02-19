@@ -6,7 +6,9 @@ package com.nts.reservation.dto.param;
 
 import java.util.List;
 
+import com.nts.reservation.constant.RegularExpression;
 import com.nts.reservation.dto.ReservationInfoPriceDto;
+import com.nts.reservation.util.RegexValidator;
 
 /**
  * 예약하기 파라미터용 DTO
@@ -78,6 +80,19 @@ public class ReservationParamDto {
 		return "ReservationParamDto [displayInfoId=" + displayInfoId + ", productId=" + productId + ", prices=" + prices
 			+ ", reservationName=" + reservationName + ", reservationTelephone=" + reservationTelephone
 			+ ", reservationEmail=" + reservationEmail + ", reservationDate=" + reservationDate + "]";
+	}
+
+	public boolean isValid() {
+		if (!RegexValidator.isValid(RegularExpression.NAME_REGEXP, reservationName)) {
+			return false;
+		}
+		if (!RegexValidator.isValid(RegularExpression.PHONE_REGEXP, reservationTelephone)) {
+			return false;
+		}
+		if (!RegexValidator.isValid(RegularExpression.EMAIL_REGEXP, reservationEmail)) {
+			return false;
+		}
+		return true;
 	}
 
 }
