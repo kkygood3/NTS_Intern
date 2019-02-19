@@ -4,11 +4,10 @@
  */
 package com.nts.reservation.dto.response;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.nts.reservation.dto.MyReservationDto;
+import com.nts.reservation.util.DateUtil;
 
 /**
  * 나의 예약정보 response용 DTO
@@ -32,7 +31,7 @@ public class MyReservationResponseDto {
 		for (MyReservationDto myReservation : myReservations) {
 			if (myReservation.getCancelFlag()) {
 				cancleCount += 1;
-			} else if (isAfterToday(myReservation.getReservationDate())) {
+			} else if (DateUtil.isAfterToday(myReservation.getReservationDate())) {
 				doneCount += 1;
 			} else {
 				todoCount += 1;
@@ -41,13 +40,6 @@ public class MyReservationResponseDto {
 		setTodoCount(todoCount);
 		setDoneCount(doneCount);
 		setCancleCount(cancleCount);
-	}
-
-	public Boolean isAfterToday(String dateString) {
-		LocalDateTime  today = LocalDateTime.now();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-		LocalDateTime  date = LocalDateTime.parse(dateString, dtf);
-		return today.isAfter(date);
 	}
 
 	public List<MyReservationDto> getMyReservations() {

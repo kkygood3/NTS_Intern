@@ -4,13 +4,11 @@
  */
 package com.nts.reservation.dto.response;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.util.DateUtil;
 
 /**
  * 예약페이지 response용 DTO
@@ -24,9 +22,9 @@ public class ReserveResponseDto {
 	private String reservationDate; // 예매일생성 규칙 : 예매일 기준  오늘포함해서 1-5일 랜덤값으로 서버에서 생성해서 내려줌
 
 	public ReserveResponseDto(DisplayInfoDto displayInfo, List<ProductPriceDto> productPrices, String productImageUrl) {
-		this.displayInfo = displayInfo;
-		this.productPrices = productPrices;
-		this.productImageUrl = productImageUrl;
+		setDisplayInfo(displayInfo);
+		setProductPrices(productPrices);
+		setProductImageUrl(productImageUrl);
 		setMinPrice();
 		setReservationDate();
 	}
@@ -77,9 +75,7 @@ public class ReserveResponseDto {
 	}
 
 	public void setReservationDate() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-		int randomNum = ThreadLocalRandom.current().nextInt(1, 5 + 1);
-		reservationDate = dtf.format(LocalDate.now().plusDays(randomNum));
+		reservationDate = DateUtil.getTodayWithPlusRandomDays(1, 5);
 	}
 
 }
