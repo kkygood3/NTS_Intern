@@ -7,7 +7,7 @@ package com.nts.reservation.commons.validator;
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
-public class CheckArgumentValidation {
+public class ArgumentValidator {
 	public static boolean isCorrectCategoryId(int categoryId) {
 		if (categoryId < 0) {
 			System.out.println("올바르지 않은 categoryId : " + categoryId);
