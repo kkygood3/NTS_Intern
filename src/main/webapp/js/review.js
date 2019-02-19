@@ -10,16 +10,23 @@ var reviewPage = {
 		this.setScrollTopEvent();
 	},
 	
+	displayContents: function(data){
+		this.detailPage.displayMainInfo(data);
+		this.detailPage.displayDiscountInfo(data);
+		this.detailPage.displayComments(data);
+		this.detailPage.displayDetailInfo(data);
+	}.bind(this),
+	
 	ajax : new AjaxSend(),
 	
 	ajaxOption : function(){
 		var options = {
 			contentType : "charset=utf-8",
-			callBack : this.reviewPage.displayContents
+			callBack : this.displayContents
 		}
 		
 		return options;
-	}.bind(this),
+	},
 	
 	displayContents: function(data){
 		this.reviewPage.elements.displayTitle.innerHTML = data["displayInfo"].productDescription;

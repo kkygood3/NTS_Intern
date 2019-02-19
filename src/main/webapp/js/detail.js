@@ -18,11 +18,11 @@ var detailPage = {
 	ajaxOption : function(){
 		var options = {
 				contentType : "charset=utf-8",
-				callBack : this.detailPage.displayContents
+				callBack : this.displayContents
 		}
 		
 		return options;
-	}.bind(this),
+	},
 	
 	displayContents: function(data){
 		this.detailPage.displayMainInfo(data);

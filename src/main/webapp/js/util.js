@@ -23,7 +23,7 @@ AjaxSend.prototype.send = function(url, options){
 		if(options.data === undefined || options.data === null){
 			httpRequest.send();
 		} else {
-			httpRequest.send(this.data);
+			httpRequest.send(options.data);
 		}
 	}
 }
