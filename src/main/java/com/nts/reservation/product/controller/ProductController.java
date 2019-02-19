@@ -26,7 +26,7 @@ import com.nts.reservation.product.service.ProductService;
 @RequestMapping(path = "/api")
 public class ProductController {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
 	@Autowired
 	private ProductService productService;
@@ -42,36 +42,39 @@ public class ProductController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
+		if (start < 0) {
+			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!");
+			LOGGER.warn("Bad Request! Parameter / Error Message : {} /start : {} /  {}", this.getClass(), e.getMessage(), start, e);
+			throw e;
+		}
+
 		if (limit > MAX_LIMIT) {
 			limit = MAX_LIMIT;
 		}
 
-		if (start < 0) {
-			logger.warn("Bad Request! Parameter / {} - start : {}", this.getClass(), start);
-			throw new IllegalArgumentException("Can't use Navgative Value!!! (start)");
-		}
-
-		return productService.getProductsByCategory(categoryId, start, limit);
+		return productService.getProducts(categoryId, start, limit);
 	}
 
 	@GetMapping(path = "/products/{displayInfoId}")
 	public DisplayResponse getDisplay(@PathVariable("displayInfoId") int displayInfoId,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
-		
-		if(limit > MAX_LIMIT) {
+
+		if (displayInfoId < 0) {
+			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!"); 
+			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}",  e.getMessage(), displayInfoId, e);
+			throw e;
+		}
+
+		if (limit > MAX_LIMIT) {
 			limit = MAX_LIMIT;
 		}
-		
-		if (displayInfoId < 0) {
-			logger.warn("Bad Request! Parameter / {} - displayInfoId : {}", this.getClass(), displayInfoId);
-			throw new IllegalArgumentException("Can't use Navgative Value!!! (displayInfoId)");
-		}
+
 		return displayService.getDisplayInfo(displayInfoId, limit);
 	}
 
 	@GetMapping(path = "/products/etc/{displayInfoId}")
 	public ProductImage getProductEtcImage(@PathVariable("displayInfoId") int displayInfoId) {
-		List<ProductImage> productImages = productService.getProductImages(displayInfoId, ImageType.et);
+		List<ProductImage> productImages = productService.getProductImages(displayInfoId, ImageType.ET);
 
 		if (productImages.size() == 0) {
 			return new ProductImage();
