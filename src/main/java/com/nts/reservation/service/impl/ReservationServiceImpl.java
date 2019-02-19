@@ -28,10 +28,10 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 
 	@Autowired
-	DisplayInfoDao displayDao;
+	private DisplayInfoDao displayDao;
 
 	/**
 	 * @desc 예약 정보 입력.

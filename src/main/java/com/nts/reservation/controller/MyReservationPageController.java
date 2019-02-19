@@ -37,10 +37,10 @@ public class MyReservationPageController {
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	@Autowired
-	RequestHtmlService requestHtmlService;
+	private RequestHtmlService requestHtmlService;
 
 	/** 
 	 * @desc 이메일에 해당하는 예약 확인 목록 조회 페이지 

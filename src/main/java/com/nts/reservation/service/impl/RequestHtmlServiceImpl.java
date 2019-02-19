@@ -22,7 +22,7 @@ import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 public class RequestHtmlServiceImpl implements RequestHtmlService {
 
 	@Autowired
-	RequestHtmlFileHttpUtil requestHtmlFileHttp;
+	private RequestHtmlFileHttpUtil requestHtmlFileHttp;
 
 	@Override
 	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)

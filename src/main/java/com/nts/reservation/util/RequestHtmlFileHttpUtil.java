@@ -24,7 +24,7 @@ public class RequestHtmlFileHttpUtil {
 	private String renderServerUrl;
 
 	@Autowired
-	RestTemplate restTemplate;
+	private RestTemplate restTemplate;
 
 	public String requestHtmlPost(String path, Object requestDto)
 		throws HttpClientErrorException, ConnectException {

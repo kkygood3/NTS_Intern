@@ -44,7 +44,7 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/api/reservations")
 public class ReservationApiController {
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 

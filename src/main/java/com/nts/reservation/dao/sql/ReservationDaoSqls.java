@@ -49,9 +49,6 @@ public class ReservationDaoSqls {
 		+ ", reservation.id AS reservation_info_id"
 		+ " FROM reservation_info AS reservation"
 		+ " INNER JOIN reservation_info_price AS rv_price ON reservation.id = rv_price.reservation_info_id"
-		+ " INNER JOIN display_info AS display ON reservation.display_info_id = display.id"
-		+ " INNER JOIN product ON product.id = reservation.product_id"
-		+ " INNER JOIN category ON product.category_id = category.id"
 		+ " INNER JOIN product_price AS pd_price ON pd_price.id = rv_price.product_price_id"
 		+ " WHERE reservation.reservation_email = :email"
 		+ " GROUP BY rv_price.reservation_info_id";
