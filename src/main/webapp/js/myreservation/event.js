@@ -1,3 +1,7 @@
+/**
+ * 취소버튼 클릭이벤트
+ * @returns
+ */
 function addCancelButtonClickEvent() {
 	var area = document.querySelector(".card.confirmed");
 	area.addEventListener("click", function(event){
@@ -7,12 +11,9 @@ function addCancelButtonClickEvent() {
 		}
 		var cardItem = cancelButton.closest(".card_item");
 		var reservationId = cardItem.querySelector(".booking_number").innerText.replace("No.", "");
-		
 		var popup = document.querySelector("div.popup_booking_wrapper");
-		popup.style.display = "block";
 		
-		popup.querySelector(".pop_tit span").innerText = cardItem.querySelector(".tit").innerText;
-		popup.querySelector(".pop_tit small").innerText = cardItem.querySelector(".item_dsc").innerText;
+		displayPopup(popup, cardItem);
 		
 		popup.addEventListener("click", function(event){
 			if (!event.target.closest("A").className) {
@@ -21,15 +22,36 @@ function addCancelButtonClickEvent() {
 			if (event.target.innerText == "예") {
 				sendPutAjax("/reservation_info/" + reservationId, movoItemToCancelCard, cardItem);
 			}
-			popup.style.display = "none";
+			closePopup(popup);
 			this.removeEventListener("click", arguments.callee);
 		});
 	});
 }
 
+function displayPopup(popup, reservationItem) {
+	popup.style.display = "block";
+	popup.querySelector(".pop_tit span").innerText = reservationItem.querySelector(".tit").innerText;
+	popup.querySelector(".pop_tit small").innerText = reservationItem.querySelector(".item_dsc").innerText;
+}
+
+function closePopup(popup) {
+	popup.style.display = "none";
+}
+
 function movoItemToCancelCard(updateCount, cardItem) {
 	var canceled = document.querySelector(".card.cancel");
 	canceled.appendChild(cardItem);
+
+	cardItem.querySelector("button").remove();
+
+	var counts = document.querySelectorAll("span.figure");
+	counts[1].innerText = counts[1].innerText -1;
+	counts[3].innerText = counts[3].innerText*1 + 1;
+	
+	adjustErrorCard(cardItem, counts[1].innerText);
+}
+
+function adjustErrorCard(cardItem, count) {
 	var err = document.querySelector(".cancel .err");
 	cardItem.querySelector(".btn_goto_share").remove();
 	if (err) {
@@ -40,13 +62,7 @@ function movoItemToCancelCard(updateCount, cardItem) {
 			err.remove();
 		}
 	}
-	cardItem.querySelector("button").remove();
-
-	var counts = document.querySelectorAll("span.figure");
-	counts[1].innerText = counts[1].innerText -1;
-	counts[3].innerText = counts[3].innerText*1 + 1;
-	
-	if (counts[1].innerText == "0") {
+	if (count == "0") {
 		err = document.getElementById("card_item_err").innerText;
 		document.querySelector(".card.confirmed").innerHTML += err;
 	}

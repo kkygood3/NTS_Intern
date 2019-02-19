@@ -4,6 +4,16 @@ function RegularExpression() {
 	this.email = /^[a-z][-\.\w]*@[a-z][-\.\w]*\.[a-z]{2,3}$/i;
 }
 
+RegularExpression.prototype.getRegularExpression = function(type) {
+	if (type == "name") {
+		return this.name;
+	} else if (type == "tel") {
+		return this.tel;
+	} else if (type == "email") {
+		return this.email;
+	}
+}
+
 function isValidReservationInput(input, regExp) {
 	return regExp.test(input) ? true : false;
 }
@@ -25,4 +35,17 @@ function isValidAllReservationInputs() {
 		return false;
 	}
 	return true;
+}
+
+function imformWarning(element) {
+	element.classList.add("warning");
+}
+
+function existCountOverZero() {
+	var priceInfos = document.querySelectorAll(".ticket_body .qty");
+	for (var i = 0, len = priceInfos.length; i < len; i++) {
+		var count = priceInfos[i].getElementsByClassName("count_control_input")[0].value;
+		if (count > 0) return true;
+	}
+	return false;
 }

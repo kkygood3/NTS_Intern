@@ -115,8 +115,8 @@
 	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
-	<form id="user_reservation_input" method="post" action="/detail/${pageInfo.displayInfoId}/reservation" name="user_reservation_input" enctype='application/json'>
-		<input type="hidden" name="user_reservation_input" value="" />
+	<form id="json_form" method="post" action="" name="json_form" enctype='application/json'>
+		<input type="hidden" name="" value="" />
 	</form>
 	<%@ include file="/template/reservation.jsp"%>
 

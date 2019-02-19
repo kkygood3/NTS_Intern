@@ -27,40 +27,50 @@ function hasClass(element, classNameToFind) {
 	return false;
 }
 
+/**
+ * 티켓 수량 클릭이벤트
+ */
 function addPlusMiusButtonClickEvent() {
 	var ticketBody = document.getElementsByClassName("ticket_body")[0];
-
 	ticketBody.addEventListener("click", function(event){
-		var buttonHolder = event.target.closest(".qty");
-		var minusButton = buttonHolder.getElementsByClassName("btn_plus_minus")[0];
 		var button = event.target;
 		if (button.tagName != "A") {
 			return;
 		}
 		
+		var buttonHolder = event.target.closest(".qty");
+		var minusButton = buttonHolder.getElementsByClassName("btn_plus_minus")[0];
 		var count = buttonHolder.getElementsByClassName("count_control_input")[0];
 		var totalCount = document.getElementById("totalCount");
+		
 		if (button.getAttribute("title") == "더하기") {
-			minusButton.classList.remove("disabled");
-			count.value = count.value * 1 + 1;
-			totalCount.innerText = totalCount.innerText * 1 + 1;
-			
+			increaseCount(minusButton, count, totalCount);
 		} else if (button.getAttribute("title") == "빼기") {
-			var disabled = false;
-			if (count.value == 0) {
+			if (decreaseCount(minusButton, count, totalCount)) {
 				return;
 			}
-			count.value = count.value * 1 - 1;
-			if (count.value == 0) {
-				minusButton.classList.add("disabled");
-			}
-			totalCount.innerText = totalCount.innerText * 1 - 1;
 		}
 		setReservationButtonDisable();
-		var total = buttonHolder.querySelector(".total_price");
-		var price = buttonHolder.querySelector(".price").innerText;
-		total.innerText = count.value * price;
+		setTotalPrice(buttonHolder, count.value);
 	});
+}
+
+function increaseCount(minusButton, count, totalCount) {
+	minusButton.classList.remove("disabled");
+	count.value = count.value * 1 + 1;
+	totalCount.innerText = totalCount.innerText * 1 + 1;
+	
+}
+
+function decreaseCount(minusButton, count, totalCount) {
+	if (count.value == 0) {
+		return false;
+	}
+	count.value = count.value * 1 - 1;
+	if (count.value == 0) {
+		minusButton.classList.add("disabled");
+	}
+	totalCount.innerText = totalCount.innerText * 1 - 1;
 }
 
 function setReservationButtonDisable() {
@@ -72,6 +82,15 @@ function setReservationButtonDisable() {
 	}
 }
 
+function setTotalPrice(buttonHolder, count) {
+	var totalPrice = buttonHolder.querySelector(".total_price");
+	var price = buttonHolder.querySelector(".price").innerText;
+	totalPrice.innerText = count * price;
+}
+
+/**
+ * 예약정보 입력 validation check
+ */
 function addBookingFormInputChangeEvent() {
 	var regex = new RegularExpression();
 	var inputs = document.querySelectorAll(".section_booking_form input");
@@ -82,16 +101,12 @@ function addBookingFormInputChangeEvent() {
 				event.target.classList.remove("warning");
 				return;
 			}
-			var regExp;
-			if (event.target.id == "name") {
-				regExp = regex.name;
-			} else if (event.target.id == "tel") {
+			if (event.target.id == "tel") {
 				value = adjustTel(value);
-				event.target.value = value;
-				regExp = regex.tel;
-			} else if (event.target.id == "email") {
-				regExp = regex.email;
+				event.target.value = value
 			}
+			var regExp = regex.getRegularExpression(event.target.id);
+
 			setReservationButtonDisable();
 			if (isValidReservationInput(value, regExp)){
 				event.target.classList.remove("warning");
@@ -110,23 +125,13 @@ function adjustTel(tel) {
 	return tel.substr(0, 3) + "-" + tel.substr(3, midLength) + "-" + tel.substr(3 + midLength, 4);
 }
 
-function imformWarning(element) {
-	element.classList.add("warning");
-}
-
 function agreed() {
-	return document.getElementById("chk3").checked
+	return document.getElementById("chk3").checked;
 }
 
-function existCountOverZero() {
-	var priceInfos = document.querySelectorAll(".ticket_body .qty");
-	for (var i = 0, len = priceInfos.length; i < len; i++) {
-		var count = priceInfos[i].getElementsByClassName("count_control_input")[0].value;
-		if (count > 0) return true;
-	}
-	return false;
-}
-
+/**
+ * 예약버튼 클릭이벤트
+ */
 function addBookingButtonClickEvent() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
 	bookingButton.addEventListener("click", function(event){
@@ -135,16 +140,43 @@ function addBookingButtonClickEvent() {
 			return;
 		}
 		var reservationForm = document.querySelector("form.form_horizontal");
-		var reservationData = {};
-		reservationData.productId = displayInfo().productId;
-		reservationData.name = document.getElementById("name").value;
-		reservationData.tel = document.getElementById("tel").value;
-		reservationData.email = document.getElementById("email").value;
-		reservationData.price = makePriceData();
+		var reservationData = makeJsonReservationData();
 		
-		var form = document.getElementById("user_reservation_input");
-		var input = form.querySelector("input");
-		input.value = JSON.stringify(reservationData);
-		form.submit();
+		submitJsonUsingForm("/detail/" + displayInfo().displayInfoId +"/reservation", "user_reservation_input", reservationData);
 	});
+}
+
+function makeJsonReservationData() {
+	var reservationData = {};
+	reservationData.productId = displayInfo().productId;
+	reservationData.name = document.getElementById("name").value;
+	reservationData.tel = document.getElementById("tel").value;
+	reservationData.email = document.getElementById("email").value;
+	reservationData.price = makePriceData();
+	return reservationData;
+}
+
+function submitJsonUsingForm(url, dataName, data) {
+	var form = document.getElementById("json_form");
+	form.setAttribute("action", url);
+	var input = form.querySelector("input");
+	input.value = JSON.stringify(data);
+	input.setAttribute("name", dataName);
+	form.submit();
+}
+
+function makePriceData() {
+	var priceDatas = [];
+	var priceInfos = document.querySelectorAll(".ticket_body .qty");
+	for (var i = 0, len = priceInfos.length; i < len; i++) {
+		var count = priceInfos[i].getElementsByClassName("count_control_input")[0].value;
+		var price = priceInfos[i].getElementsByClassName("price")[0].innerText;
+		var priceData = {};
+		priceData.productPriceId = priceInfos[i].id.replace("product_price_id_", "");
+		priceData.count = count;
+		if(count > 0) {
+			priceDatas.push(priceData);
+		}
+	}
+	return priceDatas;
 }
