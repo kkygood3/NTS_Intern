@@ -16,7 +16,7 @@ public class MyReservationDto {
 	private String productDescription;
 	private String reservationDate;
 	private String placeName;
-	private String cancelFlag;
+	private Boolean cancelFlag;
 	private int totalPrice;
 
 	public int getId() {
@@ -75,11 +75,11 @@ public class MyReservationDto {
 		this.placeName = placeName;
 	}
 
-	public String getCancelFlag() {
+	public Boolean getCancelFlag() {
 		return cancelFlag;
 	}
 
-	public void setCancelFlag(String cancelFlag) {
+	public void setCancelFlag(Boolean cancelFlag) {
 		this.cancelFlag = cancelFlag;
 	}
 
