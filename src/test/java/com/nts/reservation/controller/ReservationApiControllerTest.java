@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.nts.reservation.config.ApplicationConfig;
+import com.nts.reservation.common.config.ApplicationConfig;
 import com.nts.reservation.login.controller.LoginController;
 import com.nts.reservation.reservation.controller.ReservationApiController;
 import com.nts.reservation.reservation.model.ReservationHistoryResponse;

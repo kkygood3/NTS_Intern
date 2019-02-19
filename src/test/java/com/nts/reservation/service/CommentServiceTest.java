@@ -15,7 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.config.ApplicationConfig;
+import com.nts.reservation.common.config.ApplicationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})

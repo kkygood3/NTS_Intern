@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.controller;
+package com.nts.reservation.common.controlleradvice;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

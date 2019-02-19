@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.nts.reservation.config.ApplicationConfig;
+import com.nts.reservation.common.config.ApplicationConfig;
 import com.nts.reservation.productdisplay.controller.ProductDisplayApiController;
 import com.nts.reservation.productdisplay.model.ProductDisplayResponse;
 

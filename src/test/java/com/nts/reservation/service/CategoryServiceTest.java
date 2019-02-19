@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.nts.reservation.category.model.Category;
 import com.nts.reservation.category.model.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
-import com.nts.reservation.config.ApplicationConfig;
+import com.nts.reservation.common.config.ApplicationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
