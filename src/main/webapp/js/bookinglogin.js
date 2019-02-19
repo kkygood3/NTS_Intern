@@ -1,31 +1,36 @@
 document.addEventListener("DOMContentLoaded", function() {
-	getBookingLoginPage();
+	bookingLoginPage.getBookingLoginPage();
 });
 
-function getBookingLoginPage(){
-	this.setEvent = new SetEvent();
-	this.emailIsValid = false;
+var bookingLoginPage = {
+	getBookingLoginPage: function(){
+		this.validateInputValue(this.elements.bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+		this.setScrollTopEvent();
+	},
 	
-	this.bkEmail = document.querySelector("#resrv_id")
-	setEvent.validateInputValue(bkEmail, /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/);
+	elements: {
+		bkEmail : document.querySelector("#resrv_id"),
+		btnLogin : document.querySelector(".login_btn.confirm"),
+		btnTop : document.querySelector(".lnk_top")
+	},
 	
-	setEvent.scrollTop();
-}
-
-function SetEvent(){}
-
-SetEvent.prototype.validateInputValue = function(inputTag, regularExpression){
-	inputTag.addEventListener("input", function(event){
-		if(event.target.value.length === 0 || regularExpression.test(event.target.value)){
-			event.target.parentNode.querySelector(".warning_msg").style.display = "none";
-			emailIsValid = true;
-		} else {
-			event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
-			emailIsValid = false
-		}
-	});
-}
-
-SetEvent.prototype.scrollTop = function(){
-	addScrollTopEvent(document.querySelector(".lnk_top"));
+	validateInputValue : function(inputTag, regularExpression){
+		inputTag.addEventListener("input", function(event){
+			if(regularExpression.test(event.target.value)){
+				event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+				this.elements.btnLogin.removeAttribute("disabled");
+			} else {
+				event.target.parentNode.querySelector(".warning_msg").style.display = "inline";
+				this.elements.btnLogin.disabled = "true";
+			}
+			
+			if(event.target.value.length === 0){
+				event.target.parentNode.querySelector(".warning_msg").style.display = "none";
+			}
+		}.bind(this));
+	},
+	
+	setScrollTopEvent: function(){
+		addScrollTopEvent(this.elements.btnTop);
+	}
 }
