@@ -28,11 +28,6 @@ public class ReservationViewController {
 	@Autowired
 	ReservationService reservationService;
 
-	@GetMapping("/")
-	public String getMainPage() {
-		return "mainpage";
-	}
-
 	@GetMapping("/login")
 	public String getBookingLoginPage() {
 		return "bookinglogin";
@@ -52,16 +47,6 @@ public class ReservationViewController {
 
 		model.put("reservedItems", reservedItems);
 		return "myreservation";
-	}
-
-	@GetMapping("/detail/{displayInfoId}")
-	public String getDetailPage() {
-		return "detail";
-	}
-
-	@GetMapping("/detail/{displayInfoId}/reviews")
-	public String getReviewPage() {
-		return "review";
 	}
 
 	@GetMapping("/detail/{displayInfoId}/reserve")
