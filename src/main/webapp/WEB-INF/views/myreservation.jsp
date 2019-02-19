@@ -131,7 +131,7 @@
 								<article class="card_item" data-id=${myReservation.id}
 																						data-product-id=${myReservation.productId}
 																						data-display-info-id=${myReservation.displayInfoId}>
-									<a href="#" class="link_booking_details">
+									<a class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
@@ -194,7 +194,7 @@
 
 							<c:forEach var="myReservation" items="${response.doneMyReservations}">
 								<article class="card_item">
-									<a href="#" class="link_booking_details">
+									<a class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
@@ -252,7 +252,7 @@
 								<!--// 예약 리스트 없음 -->
 							<c:forEach var="myReservation" items="${response.cancleMyReservations}">
 							<article class="card_item">
-								<a href="#" class="link_booking_details">
+								<a class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
 										<div class="middle">
@@ -314,10 +314,10 @@
 			</div>
 			<div class="pop_bottom_btnarea">
 				<div class="btn_gray">
-					<a href="#" class="btn_bottom"><span>아니오</span></a>
+					<a class="btn_bottom"><span>아니오</span></a>
 				</div>
 				<div class="btn_green">
-					<a href="#" class="btn_bottom"><span>예</span></a>
+					<a class="btn_bottom"><span>예</span></a>
 				</div>
 			</div>
 			<!-- 닫기 -->
@@ -329,35 +329,49 @@
 	<!--// 취소 팝업 -->
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
-		// 이벤트 등록
-		function MyReservation(body, callback) {
-			this.body = body;
-			this.registerEvent(callback);
-		}
-		MyReservation.prototype = {
-			registerEvent: function (callback) {
-				this.body.addEventListener("click", function (evt) {
-					if (evt.target.className !== "btn") {
-						return;
-					}
-					callback(evt.target);
-				}.bind(this));
-			}
+		var reservationsContainer = document.querySelector(".card.confirmed");
+		var popupWrapper = document.querySelector(".popup_booking_wrapper");
+		var reservationElement;
+
+		function registerEvent() {
+			reservationsContainer.addEventListener("click", function (evt) {
+				if (evt.target.className !== "btn") {
+					return;
+				}
+				reservationElement = evt.target;
+				showCancleConfirmPopup();
+			});
+			popupWrapper.addEventListener("click", function (evt) {
+				var target = evt.target;
+				if (evt.target.tagName === "SPAN") {
+					target = evt.target.parentElement;
+				}
+				if (target.className !== "btn_bottom" && target.className !== "popup_btn_close") {
+					return;
+				}
+				var text = target.firstElementChild.innerText;
+				if (text === "예") {
+					cancleMyReservations();
+				}
+				popupWrapper.style.display = "none";
+			});
 		}
 
-		function cancleMyReservations(element) {
-			var wrapper = element.closest(".card_item");
+		function showCancleConfirmPopup() {
+			popupWrapper.style.display = "block";
+		}
+
+		function cancleMyReservations() {
+			var wrapper = reservationElement.closest(".card_item");
 			var targetContainer = document.querySelector(".card.used.cancel");
-
 			var reservationInfoId = wrapper.dataset.id;
 			var url = "/api/reservations/" + reservationInfoId
 			var method = "PUT";
-
 			ajax(callbackMoveElement(wrapper, targetContainer), url, method);
 		}
 
 		function callbackMoveElement(element, targetContainer) {
-			return function() {
+			return function () {
 				var originalContainer = element.closest(".card");
 
 				// 옮겨질 컨테이너가 예약없음이 표시되어있는경우 예약없음표시를 숨김
@@ -374,8 +388,7 @@
 			}
 		}
 
-		var reservationsContainer = document.querySelector(".card.confirmed");
-		var o = new MyReservation(reservationsContainer, cancleMyReservations);
+		registerEvent();
 	</script>
 </body>
 
