@@ -32,7 +32,7 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
             }
         }
     	if(priceDataArr.length==0) {
-
+    		alert("please add at least 1 ticket to reserve");
     		return;
     	} else if (!nameValid) {
         	errorHandler(rsvname);
