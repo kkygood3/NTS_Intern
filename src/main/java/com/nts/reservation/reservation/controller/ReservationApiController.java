@@ -26,7 +26,7 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping(value = {"/api/reservation-historys"})
+	@GetMapping(value = {"/api/reservation-histories"})
 	public ReservationHistoryResponse getReservationHistoryResponse(HttpSession httpSession) {
 
 		String reservationEmail = (String)httpSession.getAttribute("email");

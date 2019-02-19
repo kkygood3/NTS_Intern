@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 	
-	ajaxGet("/api/reservation-historys", printReservationHistory);
+	ajaxGet("/api/reservation-histories", printReservationHistory);
 	
 	
 });
