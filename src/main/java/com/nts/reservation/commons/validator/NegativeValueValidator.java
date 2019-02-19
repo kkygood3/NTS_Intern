@@ -7,21 +7,24 @@ package com.nts.reservation.commons.validator;
 
 public class NegativeValueValidator {
 
-	public static boolean isNegativeValue(int first) {
-		return (first < 0);
-	}
-
-	public static boolean isNegativeValue(int first, int second) {
-		if(first < 0 || second < 0) {
-			return true;
+	/**
+	 * <pre>
+	 * NegativeValueValidator.isNegativeValue(1,1,1)		= false;
+	 * NegativeValueValidator.isNegativeValue(-1,1,1)		= true;
+	 * NegativeValueValidator.isNegativeValue(1,1,-1)		= true;
+	 * NegativeValueValidator.isNegativeValue(1,1,1,1,-1)	= true;
+	 * </pre>
+	 *
+	 * @param 정수값
+	 * @return 하나라도 음수가 존재하면 true 반환
+	 */
+	public static boolean isNegativeValue(int... numbers) {
+		for(int number : numbers) {
+			if(number < 0) {
+				return true;
+			}
 		}
 		return false;
 	}
 
-	public static boolean isNegativeValue(int first, int second, int third) {
-		if(first < 0 || second < 0 || third < 0) {
-			return true;
-		}
-		return false;
-	}
 }

@@ -34,14 +34,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponse getProducts(int categoryId, int start, int count) {
-		ProductResponse productResponse = new ProductResponse();
-
 		if (isTotalCategory(categoryId)) {
-			productResponse = getProducts(start, count);
-		} else {
-			productResponse.setItems(productDaoImpl.selectPagingProductsByCategoryId(categoryId, start, count));
-			productResponse.setTotalCount(productDaoImpl.selectCountByCategory(categoryId));
+			return getProducts(start, count);
 		}
+
+		ProductResponse productResponse = new ProductResponse();
+		productResponse.setItems(productDaoImpl.selectPagingProductsByCategoryId(categoryId, start, count));
+		productResponse.setTotalCount(productDaoImpl.selectCountByCategory(categoryId));
+
 		return productResponse;
 	}
 

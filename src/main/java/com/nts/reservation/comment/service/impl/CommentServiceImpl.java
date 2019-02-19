@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getComments(int displayInfoId, int count) {
 		List<Comment> comment = commentDaoImpl.selectCommentByLimit(displayInfoId, count);
 
-		setCommentImagesByCommentId(comment);
+		insertCommentImagesByCommentId(comment);
 
 		return comment;
 	}
@@ -33,17 +33,15 @@ public class CommentServiceImpl implements CommentService {
 	public List<Comment> getTotalComments(int displayInfoId) {
 		List<Comment> comment = commentDaoImpl.selectComment(displayInfoId);
 
-		setCommentImagesByCommentId(comment);
+		insertCommentImagesByCommentId(comment);
 
 		return comment;
 	}
 
-	private List<Comment> setCommentImagesByCommentId(List<Comment> comment){
+	private void insertCommentImagesByCommentId(List<Comment> comment){
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(commentItem.getCommentId()));
 		});
-
-		return comment;
 	}
 
 }

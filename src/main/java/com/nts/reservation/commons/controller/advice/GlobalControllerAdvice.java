@@ -18,7 +18,6 @@ public class GlobalControllerAdvice {
 		e.printStackTrace();
 
 		ModelAndView modelAndView = new ModelAndView("error/errorPage");
-		modelAndView.addObject("errorMessage", e.getMessage());
 		modelAndView.setStatus(HttpStatus.BAD_REQUEST);
 		return modelAndView;
 	}

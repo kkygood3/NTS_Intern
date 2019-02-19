@@ -5,18 +5,18 @@
 package com.nts.reservation.product.dto;
 
 public enum ImageType {
-	th("th"),
-	ma("ma"),
-	et("et");
+	TH("TH"),
+	MA("MA"),
+	ET("ET");
 
-	private final String imageType;
+	private final String imageWord;
 
-	private ImageType(String imageType) {
-		this.imageType = imageType;
+	private ImageType(String imageWord) {
+		this.imageWord = imageWord;
 	}
 
 	public String getImageType() {
-		return imageType;
+		return imageWord;
 	}
 
 }
