@@ -15,6 +15,7 @@ public class ReservationDaoSqls {
 			+ "    ri.product_id, "
 			+ "    ri.display_info_id, "
 			+ "    ri.reservation_date, "
+			+ "    ri.cancel_flag, "
 			+ "    di.place_name, "
 			+ "    c.name AS categoryName, "
 			+ "    p.description AS productDescription, "

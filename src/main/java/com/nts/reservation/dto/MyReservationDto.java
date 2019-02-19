@@ -16,6 +16,7 @@ public class MyReservationDto {
 	private String productDescription;
 	private String reservationDate;
 	private String placeName;
+	private String cancelFlag;
 	private int totalPrice;
 
 	public int getId() {
@@ -74,6 +75,14 @@ public class MyReservationDto {
 		this.placeName = placeName;
 	}
 
+	public String getCancelFlag() {
+		return cancelFlag;
+	}
+
+	public void setCancelFlag(String cancelFlag) {
+		this.cancelFlag = cancelFlag;
+	}
+
 	public int getTotalPrice() {
 		return totalPrice;
 	}
@@ -85,7 +94,9 @@ public class MyReservationDto {
 	@Override
 	public String toString() {
 		return "MyReservationDto [id=" + id + ", productId=" + productId + ", displayInfoId=" + displayInfoId
-				+ ", categoryName=" + categoryName + ", productDescription=" + productDescription + ", reservationDate="
-				+ reservationDate + ", placeName=" + placeName + ", totalPrice=" + totalPrice + "]";
+			+ ", categoryName=" + categoryName + ", productDescription=" + productDescription + ", reservationDate="
+			+ reservationDate + ", placeName=" + placeName + ", cancelFlag=" + cancelFlag + ", totalPrice=" + totalPrice
+			+ "]";
 	}
+
 }
