@@ -57,6 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	@Transactional
 	public void cancleReservation(int reservationId) {
 		reservationInfoDao.updateReservationToCancel(reservationId);
 	}
