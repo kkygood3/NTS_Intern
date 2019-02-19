@@ -10,12 +10,12 @@ var template = {
 			this[toHtmlFunctionName] = Handlebars.compile(templateHtml);
 			this[toElementFunctionName] = (item) =>{
 				var html = this[toHtmlFunctionName](item);
-				return this.htmlToElement(html);
+				return this._htmlToElement(html);
 			}
 		});
 	},
 	
-	htmlToElement : function(html){
+	_htmlToElement : function(html){
 		var dummyElement = document.createElement("div");
 		dummyElement.innerHTML = html;
 		return dummyElement.firstElementChild;

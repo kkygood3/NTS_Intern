@@ -3,12 +3,9 @@ function ajaxGet(url, callback) {
 	
 	xmlHttpRequest.addEventListener("load", (evt) =>{
 		var response = evt.currentTarget;
-		if(response.status === HTTP_STATUS.OK){
+		if(response.status === HTTP_STATUS._OK){
 			var responseData = response.responseText;
 			callback(responseData);
-		}
-		else if(response.status === HTTP_STATUS.NOT_FOUND){
-			alert("Data를 찾을 수 없습니다.");
 		}
 	});
 	
@@ -21,12 +18,9 @@ function ajaxPostJSON(url, data, callback){
 	
 	xmlHttpRequest.addEventListener("load", (evt) =>{
 		var response = evt.currentTarget;
-		if(response.status === HTTP_STATUS.OK){
+		if(response.status === HTTP_STATUS._OK){
 			var responseData = response.responseText;
 			callback(responseData);
-		}
-		else if(response.status === HTTP_STATUS.NOT_FOUND){
-			alert("Data를 찾을 수 없습니다.");
 		}
 	});
 	
@@ -40,12 +34,9 @@ var xmlHttpRequest = new XMLHttpRequest();
 	
 	xmlHttpRequest.addEventListener("load", (evt) =>{
 		var response = evt.currentTarget;
-		if(response.status === HTTP_STATUS.OK){
+		if(response.status === HTTP_STATUS._OK){
 			var responseData = response.responseText;
 			callback(responseData);
-		}
-		else if(response.status === HTTP_STATUS.NOT_FOUND){
-			alert("Data를 찾을 수 없습니다.");
 		}
 	});
 	
@@ -54,8 +45,8 @@ var xmlHttpRequest = new XMLHttpRequest();
 }
 
 const HTTP_STATUS = {
-	OK : 200,
-	NOT_FOUND : 404,
-	BAD_REQUEST : 400,
-	INTERNAL_SERVER : 500,
+	_OK : 200,
+	_NOT_FOUND : 404,
+	_BAD_REQUEST : 400,
+	_INTERNAL_SERVER : 500,
 }
