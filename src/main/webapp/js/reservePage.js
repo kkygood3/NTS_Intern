@@ -108,12 +108,18 @@ function initDisplayInfo(displayInfoData) {
 
 }
 
-function TicketObj(target) {
+function TicketObj(target, index, price) {
     this.target = target;
+    this.index = index;
+    this.price = price;
+
+    target[0].classList.add('minusBtn' + index);
+    target[1].classList.add('plusBtn' + index);
 }
 
 TicketObj.prototype.addMinusClickEvent = function () {
-    this.target[0].addEventListener('click', function () {
+    let index = this.index;
+    document.querySelector('.minusBtn' + index).addEventListener('click', function () {
         if (this.parentElement.children[1].value in ["1", "0"]) {
             this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
             this.parentElement.querySelector('.count_control_input').classList.add('disabled');
@@ -126,13 +132,15 @@ TicketObj.prototype.addMinusClickEvent = function () {
 }
 
 TicketObj.prototype.addPlusClickEvent = function () {
-    this.target[1].addEventListener('click', function () {
+    let index = this.index;
+    document.querySelector('.plusBtn' + index).addEventListener('click', function () {
         if (this.parentElement.children[1].value === "0") {
             this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
             this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
             this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
         }
         this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
+        let sumPrice = this.parentElement.parentElement.children[1].children[0].innerText;
     });
 }
 
@@ -144,38 +152,20 @@ async function initTickectBox(productPrices) {
     const ticketItems = new Object();
     productPrices.forEach((price, index) => {
         price.priceTypeName = mapPriceType.get(productPrices[0].priceTypeName);
+        price.price = addCommaInNumber(price.price);
         ticketContainer.innerHTML += bindticketTemplate(price);
 
-        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'));
-
-        // ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus')[0].classList.add('minusBtn' + index);
-        // ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus')[1].classList.add('plusBtn' + index);
+        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'), index, price.price);
     });
 
     productPrices.forEach((price, index) => {
-
         ticketItems[index].addMinusClickEvent();
         ticketItems[index].addPlusClickEvent();
-        // document.querySelector('.minusBtn' + index).addEventListener('click', function() {
-        //     if(this.parentElement.children[1].value in ["1","0"]){
-        //         this.parentElement.querySelector('.ico_minus3').classList.add('disabled');
-        //         this.parentElement.querySelector('.count_control_input').classList.add('disabled');
-        //         this.parentElement.parentElement.querySelector('.individual_price').classList.remove('on_color');
-        //         this.parentElement.children[1].value = 0;
-        //     } else {
-        //         this.parentElement.children[1].value -= 1;
-        //     }
-        // });
-
-        // document.querySelector('.plusBtn' + index).addEventListener('click', function() {
-        //     if(this.parentElement.children[1].value === "0"){
-        //         this.parentElement.querySelector('.ico_minus3').classList.remove('disabled');
-        //         this.parentElement.querySelector('.count_control_input').classList.remove('disabled');
-        //         this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
-        //     }
-        //     this.parentElement.children[1].value = String(Number(this.parentElement.children[1].value) + 1);
-        // });
     });
+
+    document.querySelector('.ticket_body').addEventListener('change', () =>{
+
+    })
 }
 
 function loadDisplayInfoCallback(displayInfoData) {
@@ -185,6 +175,7 @@ function loadDisplayInfoCallback(displayInfoData) {
     initDisplayInfo(displayInfoData);
 
     let productPrices = displayInfoData["productPrices"];
+
     initTickectBox(productPrices);
 
 }

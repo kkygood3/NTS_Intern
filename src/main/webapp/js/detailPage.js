@@ -323,7 +323,6 @@ function loadDisplayInfoCallback(responseData) {
     let displayInfo = displayInfoResponse["displayInfo"];
     let displayProductImages = displayInfoResponse["productImages"];
     let totalComments = displayInfoResponse.totalComments;
-
     let isAddtionalDisplayImage = false;
     let TitleDisplayImage = "";
     // ma 타입의 이미지 정보를 displayInfo에 추가
