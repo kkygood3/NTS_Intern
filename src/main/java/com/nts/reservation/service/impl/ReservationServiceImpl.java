@@ -26,7 +26,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationInfoDao reservationInfoDao;
 	@Autowired
 	private ReservationInfoPriceDao reservationInfoPriceDao;
-	
+
 	@Override
 	@Transactional
 	public ReservationPageInfo getReservationPageInfoByDisplayInfoId(long displayInfoId) {
@@ -41,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
 			|| !Validation.getInstance().validateName(userReservationInput.getName())) {
 			return null;
 		}
-			
+
 		ReservationInfo reservationInfo = new ReservationInfo(userReservationInput);
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setReservationDate(new Date());
@@ -54,17 +54,19 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return reservationInfo;
 	}
-	
+
 	@Override
 	@Transactional
-	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail (String reservationEmail, int start, int limit) {
-		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
+	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
+		String reservationEmail, int start, int limit) {
+		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
+			.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
 
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
 		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
-		
+
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
@@ -80,10 +82,10 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationDisplayItemListMap.put("cancel", cancel);
 		return ReservationDisplayItemListMap;
 	}
-	
+
 	@Override
-	@Transactional(readOnly=false)
-	public int updateCancelFlagToFalseByReservationInfoId (long reservationInfoId, String reservationEmail) {
+	@Transactional(readOnly = false)
+	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
 	}
 }

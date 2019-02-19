@@ -89,8 +89,8 @@ public class ProductController {
 	 * 예약정보 받아서 서버로 넘긴다
 	 * @param displayInfoId 예약할 상품 id
 	 * @param userReservationInputString 예약정보 
-	 * @param model
-	 * @return
+	 * @param model 에러정보
+	 * @return 뷰이름 리턴
 	 */
 	@PostMapping(path = "/{displayInfoId}/reservation")
 	public String postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,

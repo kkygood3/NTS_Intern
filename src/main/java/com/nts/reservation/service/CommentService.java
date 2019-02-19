@@ -18,13 +18,12 @@ public interface CommentService {
 	 * @param limit 페이징 사이즈
 	 * @return 코멘트정보 리스트
 	 */
-	public List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit);
-	
+	List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit);
 
 	/**
 	 * 상품에 맞는 리뷰페이지 정보를 가져온다
 	 * @param displayInfoId 조회할 상품
 	 * @return 리뷰페이지 정보
 	 */
-	public CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId);
+	CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId);
 }

@@ -9,15 +9,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.service.validation.Validation;
 
+/**
+ * 로그인 관련 컨트롤러 클래스
+ * @author si yoon
+ *
+ */
 @Controller
 public class LoginController {
-	@GetMapping(path="/login")
+	/**
+	 * 로그인 화면으로 연결
+	 * @return
+	 */
+	@GetMapping(path = "/login")
 	public String getLogin() {
 		return "bookinglogin";
 	}
-	
-	@PostMapping(path="/login")
-	public String postLogin(@RequestParam(name="email", required=true) String email,
+
+	/**
+	 * 로그인정보를 저장하고 예약확인 페이지로 이동
+	 * @param email 사용자 이메일
+	 * @param session http session
+	 * @return
+	 */
+	@PostMapping(path = "/login")
+	public String postLogin(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
 		if (!Validation.getInstance().validateEmail(email)) {
 			return "redirect:/error";

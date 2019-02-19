@@ -14,5 +14,5 @@ public interface CategoryService {
 	 * 전체 카테고리 셀렉트
 	 * @return 전체 카테고리 리스트
 	 */
-	public List<Category> getCategoris();
+	List<Category> getCategoris();
 }

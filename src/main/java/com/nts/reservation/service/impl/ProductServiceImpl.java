@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DatailPageInfoDao;
-import com.nts.reservation.dao.PriceDao;
+import com.nts.reservation.dao.ProductPriceDao;
 import com.nts.reservation.dao.ProductDao;
 import com.nts.reservation.dao.ProductThumbnailDao;
 import com.nts.reservation.dto.Category;
@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductThumbnailDao thumbnailInfoDao;
 	@Autowired
-	private PriceDao priceDao;
+	private ProductPriceDao priceDao;
 	@Autowired
 	private DatailPageInfoDao datailPageInfoDao;
 

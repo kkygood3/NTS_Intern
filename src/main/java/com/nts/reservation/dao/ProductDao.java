@@ -45,7 +45,7 @@ public class ProductDao extends BaseDao {
 		params.put("categoryId", categoryId);
 		return getJdbc().queryForObject(SELECT_COUNT_BY_CATEGORY, params, Integer.class);
 	}
-	
+
 	/**
 	 * 상품이랑 타입에 따라 파일이름 가져오는 메소드
 	 * @param productId 조회할 상품 id

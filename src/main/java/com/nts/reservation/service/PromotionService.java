@@ -14,5 +14,5 @@ public interface PromotionService {
 	 * 프로모션 이미지 전부 가져온다
 	 * @return 프로모션 이미지 리스트
 	 */
-	public List<Promotion> getPromotions();
+	List<Promotion> getPromotions();
 }

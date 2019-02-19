@@ -25,7 +25,7 @@ import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 
 /**
- * 썸네일 관련 API 클래스
+ * 상품 관련 API 클래스
  * @author USER
  *
  */
@@ -36,7 +36,7 @@ public class ProductApiController {
 	private ProductService productService;
 	@Autowired
 	private CommentService commentService;
-	
+
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
@@ -94,7 +94,7 @@ public class ProductApiController {
 		List<CommentDisplayInfo> commentDisplayInfos = commentService.getCommentsByProductIdWithPaging(productId, start, limit);
 		return commentDisplayInfos;
 	}
-	
+
 	/**
 	 * productId에 해당하는 가격을 가져온다
 	 * @param productId 조회할 상품 id

@@ -21,16 +21,18 @@ import com.nts.reservation.dto.PriceInfo;
  *
  */
 @Repository
-public class PriceDao extends BaseDao {
+public class ProductPriceDao extends BaseDao {
 	RowMapper<PriceInfo> rowMapper = BeanPropertyRowMapper.newInstance(PriceInfo.class);
 
-	PriceDao(DataSource dataSource) {
+	ProductPriceDao(DataSource dataSource) {
 		super(dataSource);
 	}
 
 	/**
 	 * 
-	 * @param productId
+	 * 예약페이지에 표시할 가격정보
+	 * @param productId 상품 아이디
+	 * @return 가격정도
 	 */
 	public List<PriceInfo> selectPriceInfoByProductId(long productId) {
 		Map<String, Long> params = new HashMap<>();

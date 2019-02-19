@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(path = "/reservation")
 public class ReservationController {
+	/**
+	 * 세션에 이메일정보가 있으면 예약정보페이지로, 없으면 로그인페이지로 맵핑
+	 * @param session 로그인정보 확인용
+	 * @return 뷰이름
+	 */
 	@GetMapping
-	public String myReservation(HttpSession session, ModelMap model) {
-		String email = (String) session.getAttribute("email");
+	public String myReservation(HttpSession session) {
+		String email = (String)session.getAttribute("email");
 		if (email == null) {
 			return "redirect:login";
 		}
