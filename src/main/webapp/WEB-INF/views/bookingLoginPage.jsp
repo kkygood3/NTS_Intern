@@ -56,7 +56,7 @@
 			<i class="fn fn-info1" aria-hidden="true"></i> <span
 				class="_toast_alert_text"></span>
 		</p>
-		<a href="./mainpage.html" class="top_info_close" data-tst_alt_close="0">
+		<a href="./" class="top_info_close" data-tst_alt_close="0">
 			<i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only"
 			translate="CM-CLOSE">닫기</span>
 		</a> </toast-alert> <!---->
@@ -64,7 +64,7 @@
 			<booked-confirm>
 			<div class="booking_login">
 				<h1 class="login_header">
-					<a href="./mainpage.html" class="nbooking_logo spr_bi txt_logo">
+					<a href="./" class="nbooking_logo spr_bi txt_logo">
 						<span translate="CM-NBOOKING">네이버 예약</span>
 					</a>
 				</h1>
