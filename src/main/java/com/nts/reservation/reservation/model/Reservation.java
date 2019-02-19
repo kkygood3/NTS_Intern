@@ -7,6 +7,7 @@ package com.nts.reservation.reservation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.nts.reservation.common.model.Regexp;
@@ -14,16 +15,23 @@ import com.nts.reservation.common.model.Regexp;
 public class Reservation {
 
 	private int productId;
+
 	private int displayInfoId;
+
+	@NotNull(message = "name is must not null")
 	private String reservationName;
 
+	@NotNull(message = "email is must not null")
 	@Pattern(regexp = Regexp.EMAIL, message = "email is not vaild")
 	private String reservationEmail;
 
+	@NotNull(message = "tel is must not null")
 	@Pattern(regexp = Regexp.Tel, message = "tel is not vaild")
 	private String reservationTel;
 
+	@NotNull(message = "date is must not null")
 	private String reservationDate;
+
 	private List<ReservationPrice> reservationPriceList;
 
 	public Reservation() {

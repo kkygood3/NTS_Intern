@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.product.model.ProductListInfo;
@@ -30,11 +28,8 @@ public class ProductApiController {
 	 * categoryId, start parameter로 product list와 count를 Json으로 응답
 	 */
 	@GetMapping(value = {"/api/products"})
-	public ProductResponse getProductResponse(@Valid ProductRequest productRequest, BindingResult bindingResult)
-		throws MethodArgumentNotValidException {
-		if (bindingResult.hasErrors()) {
-			throw new MethodArgumentNotValidException(null, bindingResult);
-		}
+	public ProductResponse getProductResponse(@Valid ProductRequest productRequest) {
+
 		ProductRequirer productRequirer = new ProductRequirer(productRequest.getCategoryId(),
 			productRequest.getStart());
 		ProductListInfo productListInfo = productService.getProductListInfo(productRequirer);

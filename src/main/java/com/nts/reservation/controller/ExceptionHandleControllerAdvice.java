@@ -7,6 +7,7 @@ package com.nts.reservation.controller;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,5 +41,16 @@ public class ExceptionHandleControllerAdvice {
 			sb.append("]");
 		}
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST, sb.toString());
+	}
+
+	@ExceptionHandler(BindException.class)
+	public ExceptionResponse handleBindException(BindException e) {
+		StringBuffer sb = new StringBuffer();
+		for (FieldError fieldError : e.getFieldErrors()) {
+			sb.append("[");
+			sb.append(fieldError.getDefaultMessage());
+			sb.append("]");
+		}
+		return new ExceptionResponse(HttpStatus.BAD_REQUEST);
 	}
 }
