@@ -179,5 +179,7 @@
 			</div>
 		</div>
 		</translater-modal> </app>
+		<script src="./js/util.js"></script>
+    	<script src="./js/bookingLogin.js"></script>
 	</body>
 </html>

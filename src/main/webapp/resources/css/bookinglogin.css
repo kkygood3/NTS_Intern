@@ -827,13 +827,13 @@
     font-family: NanumGothicWebR;
     font-style: normal;
     font-weight: 400;
-    src: url('/../img/fonts/NanumGothicRegular.woff?1703172120') format('woff')
+    src: url('../font/NanumGothicRegular.woff?1703172120') format('woff')
 }
 @font-face {
     font-family: NanumGothicWebB;
     font-style: normal;
     font-weight: 400;
-    src: url('/../img/fonts/NanumGothicBold.woff?1703172120') format('woff')
+    src: url('../font/NanumGothicBold.woff?1703172120') format('woff')
 }
 @charset "utf-8";
 body,

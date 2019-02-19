@@ -42,27 +42,6 @@ public class MyReservationPageController {
 	@Autowired
 	private RequestHtmlService requestHtmlService;
 
-	/** 
-	 * @desc 이메일에 해당하는 예약 확인 목록 조회 페이지 
-	 * @param userEmail
-	 * @param session
-	 * @return
-	 * @throws BadRequestException
-	 */
-	@GetMapping("/myReservation")
-	public String myReservationPage(
-		@RequestParam(name = "userEmail", required = true) String userEmail,
-		HttpSession session) throws BadRequestException {
-
-		if (!emailPattern.matcher(userEmail).find()) {
-			throw new BadRequestException();
-		}
-
-		session.removeAttribute("userEmail");
-		session.setAttribute("userEmail", userEmail);
-		return "myReservationPage";
-	}
-
 	/**
 	 * React 서버에 접속하여 서버사이드렌더링된 html 을 받아와서 클라이언트에 그려줌.
 	 * @param userEmail
