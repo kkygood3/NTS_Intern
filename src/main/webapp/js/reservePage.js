@@ -117,6 +117,14 @@ function TicketObj(target, index, price) {
     target[1].classList.add('plusBtn' + index);
 }
 
+var changePriceEvent = function () {
+    document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
+        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
+
+        ticketItemTotalPrice.innerText = addCommaInNumber(ticketItem.value * ticketItems[index].price);
+    });
+}
+
 TicketObj.prototype.addMinusClickEvent = function () {
     let index = this.index;
     document.querySelector('.minusBtn' + index).addEventListener('click', function () {
@@ -128,6 +136,7 @@ TicketObj.prototype.addMinusClickEvent = function () {
         } else {
             this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
         }
+        changePriceEvent();
     });
 }
 
@@ -140,22 +149,24 @@ TicketObj.prototype.addPlusClickEvent = function () {
             this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
         }
         this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
-        let sumPrice = this.parentElement.parentElement.children[1].children[0].innerText;
+        changePriceEvent();
     });
 }
+
+var ticketItems = new Object();
 
 async function initTickectBox(productPrices) {
     let ticketTemplate = document.querySelector('#ticketItem').innerText;
     let bindticketTemplate = Handlebars.compile(ticketTemplate);
     let ticketContainer = document.querySelector('div.ticket_body');
 
-    const ticketItems = new Object();
     productPrices.forEach((price, index) => {
         price.priceTypeName = mapPriceType.get(productPrices[0].priceTypeName);
-        price.price = addCommaInNumber(price.price);
+        let itemPrice = price.price;
+        price.price = addCommaInNumber(itemPrice);
         ticketContainer.innerHTML += bindticketTemplate(price);
 
-        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'), index, price.price);
+        ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'), index, itemPrice);
     });
 
     productPrices.forEach((price, index) => {
@@ -163,7 +174,7 @@ async function initTickectBox(productPrices) {
         ticketItems[index].addPlusClickEvent();
     });
 
-    document.querySelector('.ticket_body').addEventListener('change', () =>{
+    document.querySelector('.ticket_body').addEventListener('change', () => {
 
     })
 }
