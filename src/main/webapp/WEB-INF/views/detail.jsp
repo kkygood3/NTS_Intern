@@ -308,12 +308,12 @@
                         </a>
                         <span class="img_count">{{commentImages.length}}</span>
                     </div>
-                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <h4 class="resoc_name">{{@root.displayInfo.productDescription}}</h4>
                     <p class="review">{{comment}}</p>
                 </div>
 			{{else}}
                 <div class="review_area no_img">
-                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <h4 class="resoc_name">{{@root.displayInfo.productDescription}}</h4>
                     <p class="review">{{comment}}</p>
                 </div>
 			{{/if}}
