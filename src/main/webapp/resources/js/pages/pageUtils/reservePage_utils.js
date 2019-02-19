@@ -11,12 +11,12 @@
 function SubmitButtonWithValidation(item, errorHandler, state) {
     item.addEventListener("click", (e) => {
         e.preventDefault();
-        
-        if(item.closest(".bk_btn_wrap").classList.contains("disable")){
-        	alert("fill in the form correctly");
-        	return;
+
+        if (item.closest(".bk_btn_wrap").classList.contains("disable")) {
+            alert("fill in the form correctly");
+            return;
         }
-        
+
         /*
 		 * form check, getting name, email, tel from form directly, since this
 		 * params "item" is equal to submit button.
@@ -25,36 +25,35 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
         let emailValid = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(email.value);
         let telValid = (/^[\+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4}$/im).test(tel.value);
         // tickets count check
-    	let priceDataArr = []
+        let priceDataArr = []
         for (var key in state.prices) {
             if (state.prices[key].count > 0) {
                 priceDataArr.push(state.prices[key]);
             }
         }
-    	if(priceDataArr.length==0) {
-    		alert("please add at least 1 ticket to reserve");
-    		return;
-    	} else if (!nameValid) {
-        	errorHandler(rsvname);
+        if (priceDataArr.length == 0) {
+            alert("please add at least 1 ticket to reserve");
+            return;
+        } else if (!nameValid) {
+            errorHandler(rsvname);
             return;
         } else if (!telValid) {
-        	errorHandler(tel);
+            errorHandler(tel);
             return;
         } else if (!emailValid) {
-        	errorHandler(email);
+            errorHandler(email);
             return;
         }
-        
-        
-        
-        sendReservation(priceDataArr, 
-        		{
-		        	name : rsvname.value 
-		        	, email : email.value
-		        	, tel : tel.value
-		        	, displayInfoId : state.detail_data.displayInfo.displayInfoId
-		        	, productId : state.detail_data.displayInfo.productId
-		        });
+
+
+        sendReservation(priceDataArr,
+            {
+                name: rsvname.value
+                , email: email.value
+                , tel: tel.value
+                , displayInfoId: state.detail_data.displayInfo.displayInfoId
+                , productId: state.detail_data.displayInfo.productId
+            });
     });
 }
 
@@ -62,12 +61,18 @@ function sendReservation(priceDataArr, params) {
     var d = new Date();
     let dataToSend = {
         displayInfoId: params.displayInfoId
-        , prices: priceDataArr
-        , productId: params.productId
-        , reservationEmail: params.email
-        , reservationName: params.name
-        , reservationTelephone: params.tel
-        , reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate()+Math.floor(Math.random() * 5))
+        ,
+        prices: priceDataArr
+        ,
+        productId: params.productId
+        ,
+        reservationEmail: params.email
+        ,
+        reservationName: params.name
+        ,
+        reservationTelephone: params.tel
+        ,
+        reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + Math.floor(Math.random() * 5))
     }
 
     let request = new XhrRequest("POST", "/reservation/api/reservations");
@@ -110,17 +115,17 @@ function CountController(item, _prices) {
 }
 
 CountController.prototype.control = function (isIncrement) {
-	
+
     let wrapper = this.addButton.closest(".qty");
     let id = this.addButton.closest(".qty").dataset.id;
     let product = prices[id];
-    if(isIncrement){
+    if (isIncrement) {
         product.count++;
     } else {
-    	if (product.count == 0) {
+        if (product.count == 0) {
             return;
         }
-    	product.count--;
+        product.count--;
     }
 
     let qtyArea = wrapper.querySelector(".count_control_input");
@@ -136,7 +141,7 @@ CountController.prototype.control = function (isIncrement) {
         }
         totalPriceArea.parentElement.style.color = "";
     } else {
-    	if (qtyArea.classList.contains("disabled")) {
+        if (qtyArea.classList.contains("disabled")) {
             qtyArea.classList.remove("disabled");
         }
         if (this.reduceButton.classList.contains("disabled")) {
