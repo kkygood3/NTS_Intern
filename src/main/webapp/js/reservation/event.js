@@ -154,20 +154,13 @@ function addBookingButtonClickEvent() {
 		}
 		var reservationData = makeJsonReservationData();
 
-		$.ajax({
-			method: "POST",
-			url: "/product/" + displayInfo().displayInfoId + "/reservation",
-			data: JSON.stringify(reservationData),
-			dataType: "json",
-			contentType : "application/json",
-			success: function(data){
-				if (data) {
-					window.location.href = "/detail/" + displayInfo().displayInfoId;
-				} else {
-					alert("잘못된 입력입니다.");
-				}
-		    }
-		});
+		sendPostAjax("/product/" + displayInfo().displayInfoId + "/reservation", reservationData, (data) => {
+			if (data) {
+				window.location.href = "/detail/" + displayInfo().displayInfoId;
+			} else {
+				alert("잘못된 입력입니다.");
+			}
+	    });
 	});
 }
 
