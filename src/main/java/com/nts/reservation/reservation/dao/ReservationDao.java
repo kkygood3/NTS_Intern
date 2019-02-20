@@ -56,11 +56,12 @@ public class ReservationDao {
 		return jdbcTemplate.query(SELECT_RESERVATION_HISTORY, param, reservationHistoryMapper);
 	}
 
-	public void updateReservationCancelFlag(int reservationId, int statusCode) {
-		Map<String, Integer> param = new HashMap<>();
+	public int updateReservationCancelFlag(String reservationEmail, int reservationId, int statusCode) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("reservationEmail", reservationEmail);
 		param.put("reservationId", reservationId);
 		param.put("statusCode", statusCode);
-		jdbcTemplate.update(UPDATE_RESERVATION_CANCEL_FLAG_STRING, param);
+		return jdbcTemplate.update(UPDATE_RESERVATION_CANCEL_FLAG_STRING, param);
 	}
 
 }

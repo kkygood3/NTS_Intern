@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.login.interceptor.LoginInterceptor;
+import com.nts.reservation.common.interceptor.LoginInterceptor;
 
 /**
  * @author 임상현, life4lord93@nts-corp.com
@@ -62,8 +62,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor())
-			.addPathPatterns("/my-reservation");
+		registry.addInterceptor(new LoginInterceptor());
 	}
 
 }

@@ -15,5 +15,5 @@ public interface ReservationService {
 
 	List<ReservationHistory> getReservationHistoryList(String reservationEmail);
 
-	void modifyReservationToCancel(int reservationId);
+	void modifyReservationToCancel(String reservationEmail, int reservationId);
 }

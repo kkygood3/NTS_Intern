@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nts.reservation.common.annotation.MustLogin;
+
 @Controller
 public class ReservationController {
 
@@ -17,6 +19,7 @@ public class ReservationController {
 		return mv;
 	}
 
+	@MustLogin
 	@GetMapping(value = {"/my-reservation"})
 	public String myreservation() {
 		return "myreservation";

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.nts.reservation.common.exception.InternalServerErrorException;
 import com.nts.reservation.common.exception.NotFoundDataException;
+import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.common.model.ExceptionResponse;
 
 @RestControllerAdvice
@@ -29,6 +30,11 @@ public class ExceptionHandleControllerAdvice {
 	@ExceptionHandler(InternalServerErrorException.class)
 	public ExceptionResponse handleInternalServerErrorException(InternalServerErrorException e) {
 		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+	}
+
+	@ExceptionHandler(UnauthenticateException.class)
+	public ExceptionResponse handleUnauthenticateException(UnauthenticateException e) {
+		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

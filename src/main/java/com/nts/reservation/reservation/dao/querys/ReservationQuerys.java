@@ -49,6 +49,7 @@ public class ReservationQuerys {
 
 	public static final String UPDATE_RESERVATION_CANCEL_FLAG_STRING = "update reservation_info "
 		+ "set cancel_flag = :statusCode "
-		+ "where id = :reservationId";
+		+ "where id = :reservationId "
+		+ "and reservation_email = :reservationEmail";
 
 }

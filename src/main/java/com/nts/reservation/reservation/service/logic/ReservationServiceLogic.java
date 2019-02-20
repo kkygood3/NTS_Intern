@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.common.annotation.IsEmpty;
+import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistory;
@@ -46,8 +47,17 @@ public class ReservationServiceLogic implements ReservationService {
 	}
 
 	@Override
-	public void modifyReservationToCancel(int reservationId) {
-		reservationDao.updateReservationCancelFlag(reservationId, ReservationStatus.CANCELED.getStatusCode());
+	public void modifyReservationToCancel(String reservationEmail, int reservationId) {
+		int updateCount = reservationDao.updateReservationCancelFlag(reservationEmail, reservationId,
+			ReservationStatus.CANCELED.getStatusCode());
+
+		if (isUpdateZero(updateCount)) {
+			throw new UnauthenticateException();
+		}
+	}
+
+	private boolean isUpdateZero(int updateCount) {
+		return updateCount == 0;
 	}
 
 }

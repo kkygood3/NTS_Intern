@@ -66,6 +66,6 @@ public class ReservationServiceTest {
 	@Test
 	public void cancelReservationTest() {
 		int reservationId = 0;
-		reservationService.modifyReservationToCancel(reservationId);
+		reservationService.modifyReservationToCancel("722155b@naver.com", reservationId);
 	}
 }

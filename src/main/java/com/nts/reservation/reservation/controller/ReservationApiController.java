@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.common.annotation.MustLogin;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistoryResponse;
 import com.nts.reservation.reservation.service.ReservationService;
@@ -25,6 +26,7 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
+	@MustLogin
 	@GetMapping(value = {"/api/reservation-histories"})
 	public ReservationHistoryResponse getReservationHistoryResponse(HttpSession httpSession) {
 
@@ -38,8 +40,12 @@ public class ReservationApiController {
 		return reservationService.addReservation(reservation);
 	}
 
+	@MustLogin
 	@PutMapping(value = {"/api/reservation/{reservationId}/cancel"})
-	public void modifyReservationToCancel(@PathVariable int reservationId) {
-		reservationService.modifyReservationToCancel(reservationId);
+	public void modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {
+
+		String reservationEmail = (String)httpSession.getAttribute("email");
+
+		reservationService.modifyReservationToCancel(reservationEmail, reservationId);
 	}
 }
