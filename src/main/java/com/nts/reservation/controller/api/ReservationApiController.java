@@ -7,6 +7,7 @@ package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.dto.request.regex.RegexPattern.EMAIL_REGEX;
 import static com.nts.reservation.dto.request.regex.RegexPattern.IMAGE_CONTENT_TYPE;
+
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -40,11 +41,8 @@ import com.nts.reservation.dto.FileDto;
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.ReservationRequestDto;
 import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
-import com.nts.reservation.dto.request.regex.RegexPattern;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
-import com.nts.reservation.exception.BadRequestException;
 import com.nts.reservation.exception.InValidPatternException;
-import com.nts.reservation.exception.InternalServerErrorException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
 import com.nts.reservation.util.FileUtil;

@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.MyReservationPageRequestDto;
-import com.nts.reservation.exception.BadRequestException;
-import com.nts.reservation.exception.InternalServerErrorException;
+import com.nts.reservation.exception.UnauthorizedRequestException;
 import com.nts.reservation.service.RequestHtmlService;
 import com.nts.reservation.service.ReservationService;
 
@@ -46,16 +46,16 @@ public class MyReservationPageController {
 	 * @param userEmail
 	 * @param session
 	 * @return
-	 * @throws BadRequestException
-	 * @throws InternalServerErrorException
+	 * @throws ConnectException, HttpClientErrorException 
 	 */
 	@GetMapping(path = "/myReservationWithReact", produces = "text/html; charset=utf8")
 	public @ResponseBody String myReservationPageTest(
-		HttpSession session) throws BadRequestException, InternalServerErrorException {
+		HttpSession session,  HttpServletRequest request) throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
 
 		String userEmail = (String)session.getAttribute("userEmail");
 		if (userEmail == null) {
-			throw new BadRequestException();
+			String ipAddress = request.getHeader("X-FORWARDED-FOR");
+			throw new UnauthorizedRequestException(ipAddress, "/myReservationWithReact");
 		}
 
 		List<ReservationInfoDto> list = reservationService.getReservationList(userEmail);
@@ -66,8 +66,11 @@ public class MyReservationPageController {
 		try {
 			html = requestHtmlService.requestMyReservationHtml("/myReservation", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
-			exception.printStackTrace();
-			throw new InternalServerErrorException();
+			if(exception instanceof HttpClientErrorException) {
+				throw (HttpClientErrorException)exception;
+			}else {
+				throw (ConnectException)exception;
+			}
 		}
 		return html;
 	}

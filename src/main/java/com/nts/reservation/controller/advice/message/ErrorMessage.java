@@ -12,4 +12,6 @@ public class ErrorMessage {
 	public static final String INTERNAL_ERROR_MSG = "서버 내부 오류가 발생했습니다.";
 	public static final String BAD_REQUEST_ERROR_MSG = "잘못 된 요청을 보냈습니다.";
 	public static final String COMMON_ERROR_MSG = "에러가 발생하였습니다.";
+	public static final String UNAUTHORIZED_ERROR_MSG = "권한이 없는 요청입니다.";
+	public static final String PAGE_NOT_FOUND = "해당 페이지를 찾을 수 없습니다.";
 }

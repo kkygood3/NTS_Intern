@@ -5,6 +5,7 @@
 
 package com.nts.reservation.intercepter;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.nts.reservation.exception.PageNotFoundException;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -26,8 +28,8 @@ public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
 	private Pattern reservationIdPattern = Pattern.compile("(?<=\\/addComment\\/)\\d*");
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-		throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, PageNotFoundException
+		 {
 
 		String path = request.getServletPath();
 		Matcher matcher = reservationIdPattern.matcher(path);
@@ -43,7 +45,8 @@ public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
 
 		if (!reservationService.findFinishReservation(reservationId, userEmail)) {
 			response.sendRedirect("/reservation-service");
-			return false;
+			String requestUri = request.getRequestURI();
+			throw new PageNotFoundException(requestUri);
 		}
 
 		return true;
