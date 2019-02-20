@@ -122,7 +122,7 @@
 										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송" maxlength="13">
 										<div class="warning_msg">000-000(0)-0000 형식만 가능합니다.</div>
 									</div>
 								</div>
