@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setUseDateFormat(0, 10);
 	
 	template.addNewFunction("isReserved", (reservationStatus, options) =>{
-		if(reservationStatus === "Reserved"){
+		if(reservationStatus === "RESERVED"){
 			return options.fn(this);
 		}
 		else{
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 	
 	template.addNewFunction("isUsed", (reservationStatus, options) =>{
-		if(reservationStatus === "Used"){
+		if(reservationStatus === "USED"){
 			return options.fn(this);
 		}
 		else{
@@ -36,7 +36,7 @@ function ReservationHistory(reservationHistory){
 	this.reservationId = reservationHistory.reservationId;
 	this.element = template.parseReservationHistoryToElement(reservationHistory);
 	
-	if(reservationHistory.reservationStatus === "Reserved"){
+	if(reservationHistory.reservationStatus === "RESERVED"){
 		var cancelBtn = this.element.querySelector("#cancel");
 		
 		cancelBtn.addEventListener("click", () =>{
