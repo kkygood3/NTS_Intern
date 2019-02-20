@@ -84,7 +84,7 @@
 									</div>
 								</div>
 								<div class="qty_info_icon">
-									<strong class="product_amount"><span>${productPrice.type}</span></strong>
+									<strong class="product_amount"><span>${productPrice.typeDescription}</span></strong>
 									<strong class="product_price">
 										<span class="price">${productPrice.price}</span>
 										<span class="price_type"> 원</span>
