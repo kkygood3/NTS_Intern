@@ -28,5 +28,6 @@ public class CommonProperties {
 	
 	public static final int MAX_NAME_LENGTH = 17;
 	public static final int MAX_EMAIL_LENGTH = 50;
+	public static final int MAX_TICKET_COUNT = 10;
 	
 }
