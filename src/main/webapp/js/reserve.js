@@ -10,6 +10,7 @@ function ReservePrice(price, priceTypeLabel) {
 
 /**
  * form으로 가격정보를 서버에 전달하기위해 사용
+ * 
  * @param type
  * @param count
  */
@@ -47,8 +48,9 @@ function initTicketClickEvents() {
 						var itemPriceArea = item.querySelector('.total_price');
 
 						/**
-						 * 감소 버튼을 눌렀을 때 수량이 0이면 -버튼, 수량, 총액의 CSS class를 조정하여 초록색으로 표시.
-						 * 증가 버튼을 눌렀을 때 수량이 1이면 -버튼, 수량, 총액의 CSS class를 조정하여 회색으로 표시.
+						 * 감소 버튼을 눌렀을 때 수량이 0이면 -버튼, 수량, 총액의 CSS class를 조정하여
+						 * 초록색으로 표시. 증가 버튼을 눌렀을 때 수량이 1이면 -버튼, 수량, 총액의 CSS
+						 * class를 조정하여 회색으로 표시.
 						 */
 						if (isMinusClicked) {
 							if (amountValue == 1) {
@@ -116,8 +118,7 @@ function initAgreementClickEvents() {
 }
 
 /**
- * 예매하기 버튼을 클릭할 수 있는지 체크
- * 유효성 검증은 예약 버튼 클릭이벤트에서 처리하므로 활성/비활성화만 검증한다.
+ * 예매하기 버튼을 클릭할 수 있는지 체크 유효성 검증은 예약 버튼 클릭이벤트에서 처리하므로 활성/비활성화만 검증한다.
  */
 function initReserveClickEvents() {
 	var reserveBtn = document.querySelector('.bk_btn_wrap');
@@ -134,8 +135,8 @@ function initReserveClickEvents() {
 	bookerInputsWrap.addEventListener('change', checkAvailableReserve);
 
 	/**
-	 * 티켓 click, input change 이벤트 처리 함수.
-	 * 이름, 전화번호, 이메일, 티켓 수량, 약관 동의여부를 확인하고 빈 칸이 없을때 예약 버튼에 클릭 이벤트를 등록
+	 * 티켓 click, input change 이벤트 처리 함수. 이름, 전화번호, 이메일, 티켓 수량, 약관 동의여부를 확인하고 빈
+	 * 칸이 없을때 예약 버튼에 클릭 이벤트를 등록
 	 */
 	function checkAvailableReserve() {
 		var isAvailableBtn = true;
@@ -180,65 +181,54 @@ function initBackClickEvents() {
 	document.querySelector('.btn_back').setAttribute('href','detail?id=' + getUrlParameter('id'));
 }
 
+function validateInput(index) {
+	var inputValue = document.querySelectorAll('.form_horizontal input')[index].value;
+	var warningArea = document.querySelectorAll('.warning_msg')[index];
+	
+	var isValid;
+	switch (index) {
+	case 0:
+		// Name
+		isValid = inputValue.length > 0;
+		break;
+	case 1:
+		// Telephone
+		isValid = REG_TELEPHONE.test(inputValue);
+		break;
+	case 2:
+		// Email
+		isValid = REG_EMAIL.test(inputValue)
+		break;
+	default:
+		isValid = false;
+		break;
+	}
+	
+	if(!isValid){
+		warningArea.style.visibility = 'visible';
+		setTimeout(function() {
+			warningArea.style.visibility = 'hidden';
+		}, 1000);
+	}
+	return isValid;
+}
+
 /**
- * 예약하기 버튼을 클릭했을때 이벤트 처리.
- * 예약자 정보들을 검증하고 유효하다면 예약 페이지로 전송
+ * 예약하기 버튼을 클릭했을때 이벤트 처리. 예약자 정보들을 검증하고 유효하다면 예약 페이지로 전송
  */
 function onReserveClicked() {
-	var bookerInputs = document.querySelectorAll('.form_horizontal input');
-	var warningAreas = document.querySelectorAll('.warning_msg');
-
-	var bookerName = bookerInputs[0].value;
-	var bookerTelephone = bookerInputs[1].value;
-	var bookerEmail = bookerInputs[2].value;
-
-	// 틀린 영역에 표시하는데 사용할 boolean Array
-	var validationArr = new Array(bookerInputs.length);
-	for (var i = 0; i < validationArr.length; i++) {
-		validationArr[i] = true;
-	}
-
-	var isValidName = (bookerName.length > 1);
-	var isValidTelephone = REG_TELEPHONE.test(bookerTelephone);
-	var isValidEmail = REG_EMAIL.test(bookerEmail);
-
-	if (!isValidName) {
-		validationArr[0] = false;
-	}
-
-	if (!isValidTelephone) {
-		validationArr[1] = false;
-	}
-
-	if (!isValidEmail) {
-		validationArr[2] = false;
-	}
-
-	/**
-	 * 전부 TRUE이면 예약 페이지로 이동 하나라도 FALSE이면 형식이 틀렸다는 메세지 출력
-	 */
-	var isValid = true;
-	for (var i = 0; i < validationArr.length; i++) {
-		isValid = isValid && validationArr[i];
-
-		if (!validationArr[i]) {
-			warningAreas[i].style.visibility = 'visible';
-			(function(index) {
-				setTimeout(function() {
-					warningAreas[index].style.visibility = 'hidden';
-				}, 1000)
-			})(i);
-		}
-	}
-
+	
+	var isValid = validateInput(0);
+	isValid = validateInput(1) && isValid;
+	isValid = validateInput(2) && isValid;
+	
 	if (isValid) {
 		postReserve();
 	}
 }
 
 /**
- * 예약 버튼을 눌렀을 때 정보가 유효하다고 결정했다면
- * hidden input form에 정보를 담아서 서버에 전달하고 결과를 출력
+ * 예약 버튼을 눌렀을 때 정보가 유효하다고 결정했다면 hidden input form에 정보를 담아서 서버에 전달하고 결과를 출력
  */
 function postReserve() {
 	var ticketInputs = document.querySelectorAll('.section_booking_ticket input');
@@ -270,13 +260,23 @@ function postReserve() {
 	reserveForm.submit();
 }
 
-//관람시간의 설명 부분 줄 바꿈 처리
+function initInputChangeEvent(){
+	var bookerInputWrap = document.querySelector('.form_horizontal');
+	bookerInputWrap.addEventListener('change',function(evt){
+		var changedInput = evt.target;
+		if(changedInput.tagName === 'INPUT'){
+			validateInput(parseInt(changedInput.getAttribute('idx')));
+		}
+	});
+}
+
+// 관람시간의 설명 부분 줄 바꿈 처리
 function initDescriptionSort(){
 	var displayScheduleArea = document.querySelectorAll('.store_details .dsc')[1];
 	displayScheduleArea.innerText = displayScheduleArea.innerText.replace(/ - /g,'\r\n- ');
 }
 
-//클릭 이벤트 등록을 전담
+// 클릭 이벤트 등록을 전담
 function initClickEvents() {
 	initTicketClickEvents();
 	initAgreementClickEvents();
@@ -289,4 +289,5 @@ document.addEventListener('DOMContentLoaded', function() {
 	initClickEvents();
 	initDescriptionSort();
 	initDisplayTerm();
+	initInputChangeEvent();
 });

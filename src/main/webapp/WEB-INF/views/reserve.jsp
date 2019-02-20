@@ -99,13 +99,13 @@
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
                                     <div class="inline_control tel_wrap"> 
-                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
+                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17" idx="0">
 	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div> 
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
                                     <div class="inline_control tel_wrap">
-                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송" idx="1">
                                         <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
                                     </div>
                                 </div>
@@ -113,10 +113,10 @@
                                     <div class="inline_control tel_wrap">
 	                                    <c:choose>
 	                                    		<c:when test="${empty email}">
-	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" idx="2" maxlength="50">
 	                                    	    </c:when>
 	                                    		<c:otherwise>
-	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" maxlength="50" readonly>
+	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" idx="2" maxlength="50" readonly>
 	                                    		</c:otherwise>
 	                                    </c:choose>
                                     	<div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
