@@ -30,9 +30,12 @@ import com.nts.dto.reservationdto.ReservationParam;
 import com.nts.dto.reservationinfodto.ReservationDisplayInfo;
 import com.nts.dto.reservationinfodto.ReservationInfo;
 import com.nts.dto.reservationinfodto.ReservationInfoResponse;
+import com.nts.exception.ExceptionValue;
+import com.nts.exception.InvalidParameterException;
 import com.nts.service.DisplayInfoService;
 import com.nts.service.ProductService;
 import com.nts.service.ReservationService;
+import com.nts.util.Validator;
 
 /**
 *
@@ -63,15 +66,22 @@ public class ReservationApiController {
 		
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
 		
-		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
+		Validator.emailValidation(reservationEmail);
 		
 		List<ReservationInfo> reservationInfos = reservationService.getReservationInfosByReservationEmail(reservationEmail);
+		
+		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
 		reservationInfoResponse.setReservations(reservationInfos);
+		
 		return reservationInfoResponse;
 	}
 	
 	@GetMapping("/{displayInfoId}")
 	public ReservationDisplayInfo reservationDisplayInfo(@PathVariable(name = "displayInfoId") int displayInfoId) {
+		
+		if (displayInfoId <= 0) {
+			throw new InvalidParameterException("displayInfoId", new ExceptionValue<Integer>(displayInfoId));
+		}
 		
 		DisplayInfo displayInfo = displayInfoService.getDisplayInfoByDisplayInfoId(displayInfoId);
 		List<ProductPrice> reservationPrices = productService.getProductPricesByDisplayInfoId(displayInfoId);
@@ -90,9 +100,13 @@ public class ReservationApiController {
 	 */
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "reservationEmail") String reservationEmail, HttpSession session) {
+		
+		Validator.emailValidation(reservationEmail);
+			
 		session.setAttribute("reservationEmail", reservationEmail);
 		session.setMaxInactiveInterval(30 * 60);
 		return reservationEmail;
+		
 	}
 	
 	/**
@@ -100,11 +114,19 @@ public class ReservationApiController {
 	 */
 	@PostMapping("/reservation")
 	public int reservation(@RequestBody ReservationParam reservationParam) {
+		Validator.emailValidation(reservationParam.getReservation().getReservationEmail());
+		Validator.nameValidation(reservationParam.getReservation().getReservationName());
+		Validator.telValidation(reservationParam.getReservation().getReservationTel());
+			
 		return reservationService.addReservation(reservationParam);
 	}
 	
 	@PutMapping("/{reservationInfoId}")
 	public void reservationCancel(@PathVariable(name = "reservationInfoId") int reservationInfoId) {
+		if (reservationInfoId <= 0) {
+			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(reservationInfoId));
+		}
+		
 		reservationService.modifyCancelFlag(reservationInfoId, 1);
 	}
 }

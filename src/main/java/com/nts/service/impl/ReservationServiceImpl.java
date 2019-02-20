@@ -17,7 +17,10 @@ import com.nts.dto.reservationdto.Reservation;
 import com.nts.dto.reservationdto.ReservationParam;
 import com.nts.dto.reservationdto.ReservationPrice;
 import com.nts.dto.reservationinfodto.ReservationInfo;
+import com.nts.exception.ExceptionValue;
+import com.nts.exception.InvalidParameterException;
 import com.nts.service.ReservationService;
+import com.nts.util.Validator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -29,6 +32,8 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<ReservationInfo> getReservationInfosByReservationEmail(String reservationEmail) {
+		Validator.emailValidation(reservationEmail);
+		
 		List<Reservation> reservations = getReservationsByReservationEmail(reservationEmail);
 		List<ReservationInfo> reservationInfos = new ArrayList<>();
 		
@@ -45,28 +50,45 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<Reservation> getReservationsByReservationEmail(String reservationEmail) {
+		Validator.emailValidation(reservationEmail);
 		return reservationDao.selectReservationsByReservationEmail(reservationEmail);
 	}
 
 	@Override
 	public List<ReservationPrice> getReservationPricesByReservationInfoId(int reservationInfoId) {
+		if (reservationInfoId <= 0) {
+			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(reservationInfoId));
+		}
+		
 		return reservationDao.selectReservationPricesByReservationInfoId(reservationInfoId);
 	}
 
 	@Override
 	public int modifyCancelFlag(int reservationInfoId, int cancelFlag) {
+		if (reservationInfoId <= 0) {
+			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(reservationInfoId));
+		}
+		
 		return reservationDao.updateCancelFlag(reservationInfoId, cancelFlag);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
 	public int addReservation(ReservationParam reservationParam) {
+		Validator.emailValidation(reservationParam.getReservation().getReservationEmail());
+		Validator.nameValidation(reservationParam.getReservation().getReservationName());
+		Validator.telValidation(reservationParam.getReservation().getReservationTel());
+		
 		int key = reservationDao.insertReservation(reservationParam.getReservation());
 		return addReservationPrices(key, reservationParam.getPrices());
 	}
 
 	@Override
 	public int addReservationPrices(int key, List<ReservationPrice> prices) {
+		if (key <= 0) {
+			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(key));
+		}
+		
 		int insertResult = 0;
 		for(ReservationPrice price : prices) {
 			insertResult += reservationDao.insertReservationPrice(key, price);
