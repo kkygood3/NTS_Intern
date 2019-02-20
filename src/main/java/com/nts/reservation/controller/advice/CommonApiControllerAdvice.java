@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.nts.reservation.controller.advice.message.ErrorMessage;
+import static com.nts.reservation.controller.advice.message.ErrorMessage.*;
 import com.nts.reservation.dto.ErrorMessageDto;
 import com.nts.reservation.exception.InValidPatternException;
 
@@ -30,7 +30,7 @@ public class CommonApiControllerAdvice {
 	public ErrorMessageDto handleIoException(IOException exception) {
 
 		//요기 로그 남기고.
-		return new ErrorMessageDto(ErrorMessage.INTERNAL_ERROR_MSG);
+		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 	
 	@ExceptionHandler(SQLException.class)
@@ -38,7 +38,7 @@ public class CommonApiControllerAdvice {
 	public ErrorMessageDto handleSqlException(SQLException exception) {
 
 		//요기 로그 남기고.
-		return new ErrorMessageDto(ErrorMessage.INTERNAL_ERROR_MSG);
+		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 	
 	@ExceptionHandler(BindException.class)
@@ -46,7 +46,7 @@ public class CommonApiControllerAdvice {
 	public ErrorMessageDto handleBindException(BindException exception) {
 
 		//요기 로그 남기고.
-		return new ErrorMessageDto(ErrorMessage.BAD_REQUEST_ERROR_MSG);
+		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 	
 	@ExceptionHandler(InValidPatternException.class)
@@ -54,6 +54,12 @@ public class CommonApiControllerAdvice {
 	public ErrorMessageDto handleInValidPatternException(InValidPatternException exception) {
 
 		//요기 로그 남기고.
-		return new ErrorMessageDto(ErrorMessage.BAD_REQUEST_ERROR_MSG);
+		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ErrorMessageDto handleCommonException(Exception exception) {
+		
+		return new ErrorMessageDto(COMMON_ERROR_MSG);
 	}
 }
