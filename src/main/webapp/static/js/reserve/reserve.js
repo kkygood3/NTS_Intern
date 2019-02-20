@@ -47,11 +47,11 @@ DisplayInfo.prototype = {
             
             globalVariables.displayInfoReseponse = displayInfoResponse;
             
-            this.setTitle(displayInfoResponse.displayInfo.productDescription);
-            this.setThumnailImage('/static/'+ displayInfoResponse.productImages[0].saveFileName);
-            this.setProductPrices(displayInfoResponse.productPrices.reverse());
-            this.setProductPricesTicket(displayInfoResponse.productPrices);
-            this.setPlaceLot(displayInfoResponse.displayInfo.placeLot);
+            this._setTitle(displayInfoResponse.displayInfo.productDescription);
+            this._setThumnailImage('/static/'+ displayInfoResponse.productImages[0].saveFileName);
+            this._setProductPrices(displayInfoResponse.productPrices.reverse());
+            this._setProductPricesTicket(displayInfoResponse.productPrices);
+            this._setPlaceLot(displayInfoResponse.displayInfo.placeLot);
         })
     },
     
@@ -59,7 +59,7 @@ DisplayInfo.prototype = {
      * @desc 썸네일 이미지 셋팅
      * @param {String} thumnailImage 
      */
-    setThumnailImage(thumnailImage){
+    _setThumnailImage(thumnailImage){
     	document.querySelector('#img_th').src = thumnailImage;
     },
     
@@ -67,7 +67,7 @@ DisplayInfo.prototype = {
      * @desc productPrice 셋팅
      * @param {Array} productPrices 
      */
-    setProductPrices(productPrices){
+    _setProductPrices(productPrices){
     	
     	let productPriceContent = '';
     	
@@ -82,7 +82,7 @@ DisplayInfo.prototype = {
      * @desc productPrice 정보들 티켓 셋팅
      * @param {Array} productPrices 
      */
-    setProductPricesTicket(productPrices){
+    _setProductPricesTicket(productPrices){
 
         const ticketBody = document.querySelector(".ticket_body");
 
@@ -99,7 +99,7 @@ DisplayInfo.prototype = {
      * @desc place 장소 셋팅
      * @param {String} placeLot 
      */
-    setPlaceLot(placeLot){
+    _setPlaceLot(placeLot){
         document.querySelector("#place_lot").innerHTML = placeLot;
     },
 
@@ -107,7 +107,7 @@ DisplayInfo.prototype = {
      * @desc title 셋팅
      * @param {String} title 
      */
-    setTitle(title){
+    _setTitle(title){
         document.querySelector(".title").innerText = title;
     }
     
@@ -139,14 +139,14 @@ TicketButton.prototype = {
                 let plusButtonElement = event.currentTarget;
                 let countElement = plusButtonElement.previousSibling.previousSibling;
                 
-                this.modifyTicketCount(countElement, plusCount);
-                this.setTicketTotalCount(plusCount);
+                this._modifyTicketCount(countElement, plusCount);
+                this._setTicketTotalCount(plusCount);
                 
                 countElement.previousSibling.previousSibling.classList.remove("disabled");
                 countElement.classList.remove("disabled");
 
                 let ticketParentElement = plusButton.parentNode.parentNode.parentNode;
-                this.setTotalPrice(ticketParentElement,countElement.value);
+                this._setTotalPrice(ticketParentElement,countElement.value);
                 changeReservationButton();
             });
         });
@@ -165,8 +165,8 @@ TicketButton.prototype = {
                 let countElement = minusButtonElement.nextSibling.nextSibling;
                 
                 if(countElement.value > 0){
-                    this.modifyTicketCount(countElement, minusCount);
-                    this.setTicketTotalCount(minusCount);
+                    this._modifyTicketCount(countElement, minusCount);
+                    this._setTicketTotalCount(minusCount);
                 }
 
                 if(countElement.value == 0 ){
@@ -175,7 +175,7 @@ TicketButton.prototype = {
                 }
 
                 let ticketParentElement = minusButton.parentNode.parentNode.parentNode;
-                this.setTotalPrice(ticketParentElement,countElement.value);
+                this._setTotalPrice(ticketParentElement,countElement.value);
                 changeReservationButton();
             });
         });
@@ -186,7 +186,7 @@ TicketButton.prototype = {
      * @param {DOMElement} countElement 
      * @param {String} countNumber 
      */
-    modifyTicketCount(countElement, countNumber){
+    _modifyTicketCount(countElement, countNumber){
         countElement.value = Number(countElement.value,10)+countNumber;
     },
 
@@ -195,7 +195,7 @@ TicketButton.prototype = {
      * @param {DOMElement} ticketParentElement 
      * @param {Number} count 
      */
-    setTotalPrice(ticketParentElement,count){
+    _setTotalPrice(ticketParentElement,count){
 
         const price = ticketParentElement.querySelector(".price").innerText.replace(/,/g,'');
         ticketParentElement.querySelector('.total_price').innerText = addCommaUtil.getCommaToNumberString((count * price).toString());
@@ -205,7 +205,7 @@ TicketButton.prototype = {
      * @desc ticket당 총 개수 계산 및 셋팅
      * @param {Number} count 
      */
-    setTicketTotalCount(count){
+    _setTicketTotalCount(count){
         this.totalTicketCount += count;
         document.querySelector("#total_count").innerText = this.totalTicketCount;
     }
@@ -288,7 +288,7 @@ ReservateProduct.prototype = {
                     uri : "/api/reservations"
                 };
 
-                sendAjax(reservationSendHeader,JSON.stringify(this.makeSendData()),()=>{
+                sendAjax(reservationSendHeader,JSON.stringify(this._makeSendData()),()=>{
 
                     alert("예매가 성공적으로 완료 되었습니다.");
                     window.location.href = "/main";
@@ -324,7 +324,26 @@ ReservateProduct.prototype = {
     addAgreementButtonClickEvent(){
         document.querySelectorAll(".btn_agreement").forEach( agreementButton =>{
             agreementButton.addEventListener("click", event => {
-                event.currentTarget.parentNode.classList.add("open");
+                
+                const agreementButtonElement = event.currentTarget;
+                const agreementButtonText = agreementButtonElement.querySelector(".btn_text");
+                const agreementIcon = agreementButtonElement.querySelector(".fn");
+
+                if(agreementButtonElement.parentNode.classList.contains("open")){
+
+                    agreementButtonElement.parentNode.classList.remove("open");
+                    agreementButtonText.innerText = "보기";
+                    agreementIcon.classList.remove("fn-up2");
+                    agreementIcon.classList.add("fn-down2");
+
+                } else {
+
+                    agreementButtonElement.parentNode.classList.add("open");
+                    agreementButtonText.innerText = "접기";
+                    agreementIcon.classList.remove("fn-down2");
+                    agreementIcon.classList.add("fn-up2");
+                    
+                }
             });
         });
     },
@@ -332,7 +351,7 @@ ReservateProduct.prototype = {
     /**
      * @desc 전송할 데이터 만들기
      */
-    makeSendData(){
+    _makeSendData(){
         const displayInfo = globalVariables.displayInfoReseponse;
         const reserveUserInfo = globalVariables.validateReserveInformation.getReserveData();
         const sendData = {

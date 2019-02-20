@@ -30,7 +30,7 @@ module.exports = {
      * @returns html
      */
     getHandlebarTemplateFromHtml: function(templateId, content) {
-        var template = document.querySelector(templateId).innerHTML;
+        var template = document.querySelector(templateId).innerHTML; 
         var handlebarTemplate = Handlebars.compile(template);
 
         return handlebarTemplate(content);

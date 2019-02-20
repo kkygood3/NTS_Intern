@@ -15,7 +15,7 @@ function Reservation() {
 
 Reservation.prototype = {
     init() {
-        this.setReservationInfos();
+        this.getReservationInfos();
     },
 
     getReservationEmail() {
@@ -25,7 +25,7 @@ Reservation.prototype = {
     /**
      * @desc 예약정보들 가져온뒤 셋팅
      */
-    setReservationInfos() {
+    getReservationInfos() {
         const reservationSendHeader = {
             method: "GET",
             uri: "/api/reservations?reservationEmail=" + this.email
@@ -33,8 +33,8 @@ Reservation.prototype = {
 
         sendAjax(reservationSendHeader, "", reservationResponse => {
 
-            this.setReservationCountAll(reservationResponse.size);
-            this.setReservations(reservationResponse.reservations);
+            this._setReservationCountAll(reservationResponse.size);
+            this._setReservations(reservationResponse.reservations);
         });
     },
 
@@ -42,7 +42,7 @@ Reservation.prototype = {
      * @desc 전체 갯수 셋팅
      * @param {Number} reservationCount 
      */
-    setReservationCountAll(reservationCount) {
+    _setReservationCountAll(reservationCount) {
         document.querySelector("#count_all").innerHTML = reservationCount;
     },
     
@@ -50,7 +50,7 @@ Reservation.prototype = {
      * @desc 취소 개수 셋팅
      * @param {Number} reservationCount 
      */
-    setCancelReservationCount(reservationCount){
+    _setCancelReservationCount(reservationCount){
     	document.querySelector("#count_cancel").innerHTML = reservationCount;
     },
     
@@ -58,7 +58,7 @@ Reservation.prototype = {
      * @desc 예약 (아직 보지않은) 갯수 셋팅
      * @param {Number} reservationCount 
      */
-    setConfirmReservationCount(reservationCount){
+    _setConfirmReservationCount(reservationCount){
     	document.querySelector("#count_confirm").innerHTML = reservationCount;
     },
 
@@ -66,7 +66,7 @@ Reservation.prototype = {
      * @desc 예약 정보들 셋팅
      * @param {JSON} reservations 
      */
-    setReservations(reservations) {
+    _setReservations(reservations) {
         
         const confirmDiv = document.querySelector(".confirmed");
         const cancelDiv = document.querySelector(".cancel");
@@ -78,8 +78,8 @@ Reservation.prototype = {
         	confirmDiv.remove();
         	cancelDiv.remove();
         	
-        	this.setCancelReservationCount(noData);
-        	this.setConfirmReservationCount(noData);
+        	this._setCancelReservationCount(noData);
+        	this._setConfirmReservationCount(noData);
         	
         	return;
         }
@@ -102,8 +102,8 @@ Reservation.prototype = {
             }
         });
         
-        this.setCancelReservationCount(cancelCount);
-    	this.setConfirmReservationCount(confirmCount);
+        this._setCancelReservationCount(cancelCount);
+    	this._setConfirmReservationCount(confirmCount);
 
     }
 };
