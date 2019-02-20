@@ -21,10 +21,7 @@ public class CategoryApiController {
 
 	@GetMapping("/api/categories")
 	public CategoryResponse getItems() {
-		CategoryResponse categoryResponse = new CategoryResponse();
-		categoryResponse.setItems(categoryServiceImpl.getItems());
-
-		return categoryResponse;
+		return categoryServiceImpl.getCategoryResponse();
 	}
 
 }

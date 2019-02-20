@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.category.dao.impl.CategoryDaoImpl;
 import com.nts.reservation.category.dto.Category;
+import com.nts.reservation.category.dto.CategoryResponse;
 import com.nts.reservation.category.service.CategoryService;
 
 /**
@@ -24,5 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> getItems() {
 		return categoryDaoImpl.selectCategories();
+	}
+
+	@Override
+	public CategoryResponse getCategoryResponse() {
+		CategoryResponse categoryResponse = new CategoryResponse();
+		categoryResponse.setItems(getItems());
+
+		return categoryResponse;
 	}
 }
