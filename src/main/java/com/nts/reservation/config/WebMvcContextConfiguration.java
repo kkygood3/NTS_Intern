@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.nts.reservation.interceptor.LogInterceptor;
 import com.nts.reservation.interceptor.UserEmailCheckInterceptor;
 
 /**
@@ -72,6 +73,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new UserEmailCheckInterceptor())
 			.addPathPatterns("/myreservation")
 			.addPathPatterns("/reviewwrite");
+		registry.addInterceptor(new LogInterceptor());
 	}
 
 	@Bean

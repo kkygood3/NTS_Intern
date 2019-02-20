@@ -286,7 +286,7 @@
 				<div class="review_area">
 					<div class="thumb_area">
 						{{#if commentImages.length}}
-						<a href="#" class="thumb" title="이미지 크게 보기"> 
+						<a href="/reservation/api/commentimage/{{commentId}}" class="thumb" title="이미지 크게 보기"> 
 							<img width="90" height="90" class="img_vertical_top"
 								src="{{commentImageUrl commentImages}}"
 								alt="리뷰이미지">

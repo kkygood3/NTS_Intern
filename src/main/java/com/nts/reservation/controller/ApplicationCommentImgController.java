@@ -36,17 +36,16 @@ public class ApplicationCommentImgController {
 	public String getCommentImageById(HttpServletResponse response,
 		@PathVariable(name = "commentImageId", required = true) Long commentImageId) {
 		CommentImage image = commentService.getCommentImageById(commentImageId);
-		//CommentImage [imageId=null, reservationInfoId=null, fileId=null, fileName=1_map_1.png, saveFileName=img_map/1_map_1.png, contentType=image/png, deleteFlag=false, createDate=2019-02-19T12:23:51, modifyDate=2019-02-19T12:23:51]
+
 		if (image.isDeleteFlag()) {
 			return "redirect:index";
 		}
-		// 직접 파일 정보를 변수에 저장해 놨지만, 이 부분이 db에서 읽어왔다고 가정한다.
 		String fileName = image.getFileName();
-		String saveFileName = "C:/Users/USER/eclipse-workspace/reservation/" + image.getSaveFileName(); // 맥일 경우 "/tmp/connect.png" 로 수정
+		String saveFileName = "C:/Users/USER/eclipse-workspace/reservation/" + image.getSaveFileName();
 		String contentType = "image/" + FilenameUtils.getExtension(saveFileName);
 		Long fileLength = new File(saveFileName).length();
 
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", contentType);
 		response.setHeader("Content-Length", "" + fileLength);
