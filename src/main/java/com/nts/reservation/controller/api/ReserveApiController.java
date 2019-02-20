@@ -5,6 +5,7 @@
 package com.nts.reservation.controller.api;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.common.ReservationValidatior;
+import com.nts.reservation.dto.myreservation.MyReservationResponse;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -40,13 +42,13 @@ public class ReserveApiController {
 	 * Reservation 정보 조회
 	 * @param email
 	 * @return 예약 목록
+	 * @throws ParseException 
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
-		@RequestParam(name = "email", required = true) String email) {
-
+		@RequestParam(name = "email", required = true) String email) throws ParseException {
+		
 		Map<String, Object> map = new HashMap<>();
-
 		if (ReservationValidatior.validateEmail(email)) {
 			map.put("myReservationResponse", myReservationService.getMyReservationInfoList(email));
 		}
