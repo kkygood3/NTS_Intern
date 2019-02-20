@@ -22,6 +22,7 @@ public class LoginController {
 	 * 로그인 화면으로 연결
 	 * @return
 	 */
+	@GetMapping
 	public String getLogin() {
 		return "login";
 	}
@@ -32,6 +33,7 @@ public class LoginController {
 	 * @param session http session
 	 * @return
 	 */
+	@PostMapping
 	public String postLogin(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
 		if (!Validator.validEmail(email)) {
