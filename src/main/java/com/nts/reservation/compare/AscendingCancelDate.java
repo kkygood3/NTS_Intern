@@ -14,6 +14,13 @@ public class AscendingCancelDate implements Comparator<ReservationDisplayItem> {
 	public int compare(ReservationDisplayItem r1, ReservationDisplayItem r2) {
 		long d1 = r1.getModifyDate().getTime();
 		long d2 = r2.getModifyDate().getTime();
-		return (int)(d2 - d1);
+		
+		long interval = d2 - d1;
+		if (interval > 0) {
+			return 1;
+		} else if (interval < 0) {
+			return -1;
+		}
+		return 0;
 	}
 }

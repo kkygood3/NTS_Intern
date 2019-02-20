@@ -16,7 +16,14 @@ public class AscendingReservDateFromNow implements Comparator<ReservationDisplay
 		long now = new Date().getTime();
 		long d1 = abs(r1.getReservationDate().getTime() - now);
 		long d2 = abs(r2.getReservationDate().getTime() - now);
-		return (int)(d1 - d2);
+		
+		long interval = d1 - d2;
+		if (interval > 0) {
+			return 1;
+		} else if (interval < 0) {
+			return -1;
+		}
+		return 0;
 	}
 	private long abs (long num) {
 		return num > 0 ? num : num*-1;
