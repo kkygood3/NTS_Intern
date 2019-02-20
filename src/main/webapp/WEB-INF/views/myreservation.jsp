@@ -41,15 +41,15 @@
 						</li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em>
-								<span class="figure">${response.todoCount}</span>
+								<span class="figure todo">${response.todoCount}</span>
 							</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em>
-								<span class="figure">${response.doneCount}</span>
+								<span class="figure done">${response.doneCount}</span>
 							</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em>
-								<span class="figure">${response.cancleCount}</span>
+								<span class="figure cancle">${response.cancleCount}</span>
 							</a></li>
 					</ul>
 				</div>
@@ -390,6 +390,13 @@
 					originalContainer.querySelector(".err").style.display = "block";
 				}
 				element.querySelector(".booking_cancel").style.display = "none";
+
+				var todoCountElement = document.querySelector(".figure.todo");
+				var cancleCountElement = document.querySelector(".figure.cancle");
+				var todoCount = todoCountElement.innerText * 1;
+				var cancleCount = cancleCountElement.innerText * 1;
+				todoCountElement.innerText = todoCount - 1;
+				cancleCountElement.innerText = cancleCount + 1;
 			}
 		}
 
