@@ -47,12 +47,12 @@ public class ReservationDaoSqls {
 																			+ "    pp.id = rip.product_price_id "
 																			+ "and rip.reservation_info_id = :reservationInfoId ";
 	
-	public static final String UPDATE_CANCEL_FLAG_BY_RESERVATION_INFO_ID = "UPDATE "
-																		+ " reservation_info ri "
-																		+ "SET "
-																		+ " ri.cancel_flag = 1 "
-																		+ "WHERE "
-																		+ " ri.id = :reservationInfoId";
+	public static final String UPDATE_CANCEL_FLAG = "UPDATE "
+													+ " reservation_info ri "
+												  + "SET "
+												  	+ " ri.cancel_flag = :cancelFlag "
+												  + "WHERE "
+													+ " ri.id = :reservationInfoId";
 	
 	
 	public static final String INSERT_RESERVATION = "INSERT INTO "

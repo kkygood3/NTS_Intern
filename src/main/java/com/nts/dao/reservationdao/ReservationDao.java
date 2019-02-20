@@ -46,9 +46,11 @@ public class ReservationDao {
 		return jdbc.queryForObject(SELECT_TOTAL_PRICE_BY_RESERVATION_INFO_ID, param, Integer.class);
 	}
 	
-	public int updateCancelFlagByReservationInfoId(int reservationInfoId) {
-		Map<String, ?> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
-		return jdbc.update(UPDATE_CANCEL_FLAG_BY_RESERVATION_INFO_ID, param);
+	public int updateCancelFlag(int reservationInfoId, int cancelFlag) {
+		SqlParameterSource source = new MapSqlParameterSource()
+										.addValue("reservationInfoId", reservationInfoId)
+										.addValue("cancelFlag", cancelFlag);
+		return jdbc.update(UPDATE_CANCEL_FLAG, source);
 	}
 
 	public int insertReservation(Reservation reservation) {

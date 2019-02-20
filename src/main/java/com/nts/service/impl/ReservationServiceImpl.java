@@ -49,18 +49,13 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public ReservationParam getReservationParamByReservationInfoId(int reservationInfoId) {
-		return null;
-	}
-
-	@Override
 	public List<ReservationPrice> getReservationPricesByReservationInfoId(int reservationInfoId) {
 		return reservationDao.selectReservationPricesByReservationInfoId(reservationInfoId);
 	}
 
 	@Override
-	public int modifyCancelFlagByReservationInfoId(int reservationInfoId) {
-		return reservationDao.updateCancelFlagByReservationInfoId(reservationInfoId);
+	public int modifyCancelFlag(int reservationInfoId, int cancelFlag) {
+		return reservationDao.updateCancelFlag(reservationInfoId, cancelFlag);
 	}
 
 	@Override

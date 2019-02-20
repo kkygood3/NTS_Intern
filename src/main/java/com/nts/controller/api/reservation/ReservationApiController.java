@@ -105,6 +105,6 @@ public class ReservationApiController {
 	
 	@PutMapping("/{reservationInfoId}")
 	public void reservationCancel(@PathVariable(name = "reservationInfoId") int reservationInfoId) {
-		System.out.println(reservationService.modifyCancelFlagByReservationInfoId(reservationInfoId));
+		reservationService.modifyCancelFlag(reservationInfoId, 1);
 	}
 }

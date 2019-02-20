@@ -17,12 +17,10 @@ public interface ReservationService {
 	List<ReservationInfo> getReservationInfosByReservationEmail(String reservationEmail);
 	
 	List<Reservation> getReservationsByReservationEmail(String reservationEmail);
-	
-	ReservationParam getReservationParamByReservationInfoId(int reservationInfoId);
 
 	List<ReservationPrice> getReservationPricesByReservationInfoId(int reservationInfoId);
 
-	int modifyCancelFlagByReservationInfoId(int reservationInfoId);
+	int modifyCancelFlag(int reservationInfoId, int cancelFlag);
 	
 	int addReservation(ReservationParam reservationParam);
 	
