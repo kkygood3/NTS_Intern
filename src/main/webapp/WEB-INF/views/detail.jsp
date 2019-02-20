@@ -30,16 +30,9 @@
 						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<c:if test="${sessionScope.reservationEmail != null}">
-					<a href="/myreservation?reservationEmail=${sessionScope.reservationEmail}" class="btn_my"> 
-						<span class="viewReservation" title="예약확인">${sessionScope.reservationEmail}</span>
-					</a>
-				</c:if>
-				<c:if test="${sessionScope.reservationEmail == null}">
-					<a href="/bookinglogin" class="btn_my"> 
-						<span class="viewReservation" title="예약확인">예약확인</span>
-					</a>
-				</c:if>
+				<a href="/main" class="btn_my">
+					<span class="viewReservation" title="예약확인">예약확인</span>
+				</a>
 			</header>
 		</div>
 		<div class="ct main">
@@ -56,9 +49,16 @@
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="/main" class="btn_my">
-							<span class="viewReservation" title="예약확인">예약확인</span>
-						</a>
+						<c:if test="${sessionScope.reservationEmail != null}">
+							<a href="/myreservation?reservationEmail=${sessionScope.reservationEmail}" class="btn_my"> 
+								<span class="viewReservation" title="예약확인">${sessionScope.reservationEmail}</span>
+							</a>
+						</c:if>
+						<c:if test="${sessionScope.reservationEmail == null}">
+							<a href="/bookinglogin" class="btn_my"> 
+								<span class="viewReservation" title="예약확인">예약확인</span>
+							</a>
+						</c:if>
 					</header>
 					<!-- 타이틀 이미지 사진번호 -->
 					<div class="pagination">
