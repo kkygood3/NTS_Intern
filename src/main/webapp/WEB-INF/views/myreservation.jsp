@@ -218,9 +218,7 @@
 			_{cancelButton}
 		</div>
 	</script>
-	<script id="reservation_receive">
-		var myreservation = ${reservationInfo};
-	</script>
+    <script type = "text/javascript" src="/js/common/ajax.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/common/utils.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/common/typeconvert-maps.js" charset="utf-8"></script>
     <script type = "text/javascript" src="/js/mapper/myreservation-mapper.js" charset="utf-8"></script>

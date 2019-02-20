@@ -1,5 +1,43 @@
 function submitButtonDown(){
-	document.querySelector("#reservation_form").submit();
+	var date = new Date();
+	
+	var name = document.querySelector("#name").value;
+	var email = document.querySelector("#email").value;
+	var tel = document.querySelector("#tel").value;
+	var productId = document.querySelector(".img_thumb").src.split("img/")[1].split("_")[0];
+	var displayInfoId = location.search.split("=")[1];
+	var createDate = date.toISOString().replace("T"," ").substr(0,22);
+	var reservationPrices = [];
+	
+	date.setDate(date.getDate() + Math.ceil(Math.random()*5))
+	var reservationDate = date.toISOString().substr(0,10);
+	
+	document.querySelectorAll(".count_control_input").forEach((v)=>{
+		if(v.value > 0){
+			var reservationPrice = {
+					productPriceId: productId,
+				count: v.value
+			}
+			reservationPrices.push(reservationPrice);
+		}
+	});
+	
+	var reservationParam = {
+			reservation:{
+				reservationName: name,
+				reservationEmail: email,
+				reservationTel: tel,
+				productId: productId,
+				displayInfoId: displayInfoId,
+				reservationDate: reservationDate,
+				cancelFlag: 1,
+				createDate: createDate,
+				modifyDate: createDate
+			},
+			prices: reservationPrices
+	}
+	reservationSubmitRequest(reservationSucceed, reservationParam);
+	
 }
 
 function minusButtonDown(event){

@@ -7,9 +7,9 @@ function getReservationInfoObj(reservationInfo){
 				this.reservationInfoScheduled = [];
 				this.reservationInfoUsed = [];
 				this.reservationInfoCanceled = [];
-				
+				console.log(reservationInfo);
 				reservationInfo.reservations.forEach((reservationItem)=>{
-					if(reservationItem.reservation.cancelFlag === true){
+					if(reservationItem.reservation.cancelFlag === 1){
 						
 						this.reservationInfoCanceled.push(reservationItem);
 						
@@ -101,7 +101,7 @@ function getReservationInfo(reservations, reservationType){
 			},
 			bindEvents: function(){
 				setTimeout(()=>{
-					document.querySelectorAll("#scheduled_list .btn").forEach((v)=>{
+					document.querySelectorAll("#"+reservationType.toLowerCase()+"_list .btn").forEach((v)=>{
 						v.addEventListener("click", (event)=>{
 							
 							if(event.target.tagName === "SPAN"){
@@ -137,18 +137,19 @@ function renderReservations(reservations, reservationType){
 		
 		return false;
 	}
-	
-	reservations.forEach((reservationInfoItem)=>{
+	for(var i=0,len=reservations.length; i<len; i++){
 		var reservationInfoHTML = document.querySelector("#reservation_info").innerHTML;
-		var reservationInfoMap = getReservationInfoMap(reservationInfoItem, reservationType);
+		var reservationInfoMap = getReservationInfoMap(reservations[i], reservationType);
 
 		reservationInfoHTML = replaceTemplateHTML(reservationInfoMap, reservationInfoHTML);
 		reservationInfoBodyMap.reservationInfo = reservationInfoHTML;
 		reservationInfoBodyMap.shareButton = document.querySelector("#share_button").innerHTML;
 		
+		reservationInfo = 
 		reservationListMap.reservationInfo += replaceTemplateHTML(reservationInfoBodyMap, reservationInfoBodyHTML);
-		ul.innerHTML += replaceTemplateHTML(reservationListMap, li.innerHTML);
-	});
+		
+	}
+	ul.innerHTML += replaceTemplateHTML(reservationListMap, li.innerHTML);
 	return true;
 }
 

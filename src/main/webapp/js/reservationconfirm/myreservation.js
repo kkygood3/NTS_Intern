@@ -2,7 +2,27 @@
  * @description : displayInfo ajax 요청
  */
 
-var reservationInfoObject;
+function myreservationRequest(callBack, emailParam){
+	
+	var request = {
+			method:"GET",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:""
+	}
+	var requestUri = "/api/reservations?" + emailParam;
+	sendRequest(request, requestUri, callBack);
+}
+
+function reservationCancelRequest(reservationInfoId){
+	var request = {
+			method:"PUT",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:""
+	}
+	var requestUri = "/api/reservations/" + reservationInfoId;
+	sendRequest(request, requestUri);
+}
+
 function myreservationInit(reservationInfo){
 	reservationInfoObject = getReservationInfoObj(reservationInfo);
 	reservationInfoObject.init();
@@ -11,6 +31,6 @@ function myreservationInit(reservationInfo){
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-	myreservationInit(myreservation);
-	document.querySelector("#reservation_receive").remove();
+	var emailParam = document.location.search.split("?")[1];
+	myreservationRequest(myreservationInit, emailParam)
 });

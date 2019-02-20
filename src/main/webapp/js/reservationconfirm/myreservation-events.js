@@ -1,10 +1,10 @@
+
 function cancelButtonDown(reservationInfoId, reservationType){
-	//if(reservationType === "SCHEDULED"){
-		//reservationCancelRequest(reservationInfoId)
+	if(reservationType === "SCHEDULED"){
+		reservationCancelRequest(reservationInfoId)
 		
 		var reservationScheduled = reservationInfoObject.reservationInfoScheduled;
 		for(var i=0, len=reservationScheduled.length; i<len; i++){
-			console.log(reservationInfoId)
 			if(reservationScheduled[i].reservation.reservationInfoId === reservationInfoId){
 				reservationInfoObject.appendElement(reservationScheduled[i], "CANCELED");
 				reservationInfoObject.removeElement(i, reservationType);
@@ -21,20 +21,8 @@ function cancelButtonDown(reservationInfoId, reservationType){
 	//	}
 	//} else{
 	//	
-	//}
-}
-
-function reservationCancelRequest(reservationInfoId){
-	var request = {
-			method:"PUT",
-			contentType:"application/x-www-form-urlencoded",
-			queryString:""
 	}
-	var requestUri = "/api/reservations/" + reservationInfoId;
-	sendRequest(request, requestUri);
 }
-
-
 
 function cleanUL(event){
 	document.querySelector("#reservation_ul").innerHTML = "";

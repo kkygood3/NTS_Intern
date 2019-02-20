@@ -9,11 +9,15 @@ function sendRequest(request, uri, callBack){
 
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState === 4 && xhr.status === 200){
-			if(xhr.responseURL.includes("error")){
+			if(xhr.response.includes("!DOCTYPE html")){
 				location = xhr.responseURL;
 			}
 			else if(callBack){
-				callBack(JSON.parse(xhr.responseText));
+				if(xhr.responseText.startsWith("{")){
+					callBack(JSON.parse(xhr.responseText));
+				} else{
+					callBack(xhr.responseText)
+				}
 			}
 		}
 	}

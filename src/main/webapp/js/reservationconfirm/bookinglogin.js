@@ -1,3 +1,18 @@
+function loginRequest(callBack, emailParam){
+	
+	var request = {
+			method:"GET",
+			contentType:"application/x-www-form-urlencoded",
+			queryString:""
+	}
+	var requestUri = "/api/reservations/login?" + emailParam;
+	sendRequest(request, requestUri, callBack);
+}
+
+function redirectToMyReservation(reservationEmail){
+	location = location.origin + "/myreservation?reservationEmail=" + reservationEmail;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 	var submitButton = document.querySelector("#email_submit");
 	
@@ -9,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	    if(!emailValidation)  {
 	    	setWarning("email", emailInput);
 	    } else {
-    		document.querySelector("#form1").submit();
+	    	loginRequest(redirectToMyReservation, "reservationEmail="+emailInput.value);
 		}
 	});
 });

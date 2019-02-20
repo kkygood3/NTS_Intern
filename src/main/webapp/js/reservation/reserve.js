@@ -9,6 +9,24 @@ function reservationDisplayInfoRequest(callBack, displayInfoId){
 	sendRequest(request, requestUri, callBack);
 }
 
+function reservationSubmitRequest(callBack, reservationParam){
+	
+	var request = {
+			method:"POST",
+			contentType:"application/json",
+			queryString: JSON.stringify(reservationParam)
+	}
+	var requestUri = "/api/reservations";
+	sendRequest(request, requestUri, callBack);
+	console.log(request);
+}
+
+function reservationSucceed(reservationResult){
+	if(reservationResult){
+		location = "/";
+	}
+}
+
 function reservationDisplayInfoInit(reservationDisplayInfo){
 	var reservationDisplayInfoObject = getReservationDisplayInfoObj(reservationDisplayInfo);
 	reservationDisplayInfoObject.init();

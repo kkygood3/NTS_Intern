@@ -26,7 +26,7 @@
                     </a>
                 </h1>
                 <c:choose>
-                	<c:when test="${sessionScope.reservationEmail}">
+                	<c:when test="${!empty sessionScope.reservationEmail}">
                 		<a href="./myreservation" class="btn_my">
                 			<span class="viewReservation" title="예약확인">
                 				${sessionScope.reservationEmail}
