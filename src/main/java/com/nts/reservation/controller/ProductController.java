@@ -8,9 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.dto.CommentPageInfo;
@@ -83,32 +82,5 @@ public class ProductController {
 			.getReservationPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
-	}
-
-	/**
-	 * 예약정보 받아서 서버로 넘긴다
-	 * @param displayInfoId 예약할 상품 id
-	 * @param userReservationInputString 예약정보 
-	 * @param model 에러정보
-	 * @return 뷰이름 리턴
-	 */
-	@PostMapping(path = "/{displayInfoId}/reservation")
-	public String postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		@RequestParam(name = "user_reservation_input", required = true) String userReservationInputString,
-		ModelMap model) {
-		ObjectMapper mapper = new ObjectMapper();
-		UserReservationInput userReservationInput = null;
-		try {
-			userReservationInput = mapper.readValue(userReservationInputString, UserReservationInput.class);
-		} catch (IOException e) {
-			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", e.getMessage()));
-			return "error";
-		}
-
-		if (reservationService.addReservation(userReservationInput, displayInfoId) == null) {
-			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", "잘못된 입력입니다."));
-			return "error";
-		}
-		return "redirect:/detail/" + displayInfoId;
 	}
 }

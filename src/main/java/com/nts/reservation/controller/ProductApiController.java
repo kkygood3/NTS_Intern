@@ -11,18 +11,24 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.ErrorInfo;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.service.ReservationService;
 
 /**
  * 상품 관련 API 클래스
@@ -36,6 +42,8 @@ public class ProductApiController {
 	private ProductService productService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private ReservationService reservationService;
 
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
@@ -104,5 +112,24 @@ public class ProductApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<PriceInfo> getProductPrice(@PathVariable(name = "productId", required = true) long productId) {
 		return productService.getPriceInfoByProductId(productId);
+	}
+	
+	/**
+	 * 예약정보 받아서 서버로 넘긴다
+	 * @param displayInfoId 예약할 상품 id
+	 * @param userReservationInputString 예약정보 
+	 * @param model 에러정보
+	 * @return 뷰이름 리턴
+	 */
+	@PostMapping(path = "/{displayInfoId}/reservation")
+	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
+		@RequestBody UserReservationInput userReservationInput,
+		ModelMap model) {
+		System.out.println(userReservationInput);
+		if (reservationService.addReservation(userReservationInput, displayInfoId) == null) {
+			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", "잘못된 입력입니다."));
+			return false;
+		}
+		return true;
 	}
 }

@@ -149,10 +149,21 @@ function addBookingButtonClickEvent() {
 		if (!isValidAllReservationInputs()) {
 			return;
 		}
-		var reservationForm = document.querySelector("form.form_horizontal");
 		var reservationData = makeJsonReservationData();
-		
-		submitJsonUsingForm("/detail/" + displayInfo().displayInfoId +"/reservation", "user_reservation_input", reservationData);
+
+		reservationData.tel = document.getElementById("tel").value;
+		reservationData.email = document.getElementById("email").value;
+		reservationData.price = makePriceData();
+		$.ajax({
+			method: "POST",
+			url: "/product/" + displayInfo().displayInfoId + "/reservation",
+			data: JSON.stringify(reservationData),
+			dataType: "json",
+			contentType : "application/json",
+			success: function(){
+				window.location.href = "/detail/" + displayInfo().displayInfoId;
+		    }
+		});
 	});
 }
 
@@ -164,15 +175,6 @@ function makeJsonReservationData() {
 	reservationData.email = document.getElementById("email").value;
 	reservationData.price = makePriceData();
 	return reservationData;
-}
-
-function submitJsonUsingForm(url, dataName, data) {
-	var form = document.getElementById("json_form");
-	form.setAttribute("action", url);
-	var input = form.querySelector("input");
-	input.value = JSON.stringify(data);
-	input.setAttribute("name", dataName);
-	form.submit();
 }
 
 function makePriceData() {
