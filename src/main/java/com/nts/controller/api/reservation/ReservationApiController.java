@@ -5,25 +5,28 @@
 
 package com.nts.controller.api.reservation;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.dto.displayinfodto.DisplayInfo;
 import com.nts.dto.productdto.ProductPrice;
+import com.nts.dto.reservationdto.ReservationParam;
 import com.nts.dto.reservationinfodto.ReservationDisplayInfo;
 import com.nts.dto.reservationinfodto.ReservationInfo;
 import com.nts.dto.reservationinfodto.ReservationInfoResponse;
@@ -51,26 +54,17 @@ public class ReservationApiController {
 	
 	@Autowired
 	private ProductService productService;
-	
-	private ObjectMapper mapper = new ObjectMapper();
-	
 
 	@GetMapping
-	public ModelAndView reservationInfo(@RequestParam(name="reservationEmail") String reservationEmail,
-			HttpSession session) throws JsonProcessingException {
-		if(session.getAttribute(reservationEmail) == null) {
-			session.setAttribute("reservationEmail", reservationEmail);
-		}
+	public ReservationInfoResponse reservationInfo(HttpSession session) {
+		
+		String reservationEmail = (String)session.getAttribute("reservationEmail");
 		
 		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
 		
 		List<ReservationInfo> reservationInfos = reservationService.getReservationInfosByReservationEmail(reservationEmail);
 		reservationInfoResponse.setReservations(reservationInfos);
-		
-		ModelAndView mav = new ModelAndView("/myreservation");
-		mav.addObject("reservationInfo", mapper.writeValueAsString(reservationInfoResponse));
-		
-		return mav;
+		return reservationInfoResponse;
 	}
 	
 	@GetMapping("/{displayInfoId}")
@@ -88,13 +82,20 @@ public class ReservationApiController {
 		return reservationDisplayInfo;
 	}
 	
+	@GetMapping("/login")
+	public String login(@RequestParam(name = "reservationEmail") String reservationEmail, HttpSession session) {
+		session.setAttribute("reservationEmail", reservationEmail);
+		session.setMaxInactiveInterval(30 * 60);
+		return reservationEmail;
+	}
+	
 	@PostMapping
-	void reservation() {
-		
+	public int reservation(@RequestBody ReservationParam reservationParam) {
+		return reservationService.addReservation(reservationParam);
 	}
 	
 	@PutMapping("/{reservationInfoId}")
 	public void reservationCancel(@PathVariable(name = "reservationInfoId") int reservationInfoId) {
-		reservationService.modifyCancelFlagByReservationInfoId(reservationInfoId);
+		System.out.println(reservationService.modifyCancelFlagByReservationInfoId(reservationInfoId));
 	}
 }
