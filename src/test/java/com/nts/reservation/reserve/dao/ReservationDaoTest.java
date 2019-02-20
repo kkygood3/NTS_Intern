@@ -16,11 +16,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.common.config.DbConfig;
+import com.nts.reservation.reserve.dao.impl.ReservationDaoImpl;
 import com.nts.reservation.reserve.dto.ReservationParam;
 import com.nts.reservation.reserve.dto.ReservationPrice;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DbConfig.class, ReservationDao.class})
+@ContextConfiguration(classes = {DbConfig.class, ReservationDaoImpl.class})
 public class ReservationDaoTest {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -47,6 +48,7 @@ public class ReservationDaoTest {
 			.reservationName("도란이")
 			.reservationTel("010-1234-5678")
 			.reservationEmail("ehfksl@naver.com")
+			.reservationDate("2019.03.23.")
 			.build();
 	}
 
