@@ -101,12 +101,12 @@ public class ProductController {
 		try {
 			userReservationInput = mapper.readValue(userReservationInputString, UserReservationInput.class);
 		} catch (IOException e) {
-			model.addAttribute("errorInfo", new ErrorInfo(500, "Internal Server Error", e.getMessage()));
+			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", e.getMessage()));
 			return "error";
 		}
 
 		if (reservationService.addReservation(userReservationInput, displayInfoId) == null) {
-			model.addAttribute("errorInfo", new ErrorInfo(400, "BAD_REQUEST", "잘못된 입력입니다."));
+			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", "잘못된 입력입니다."));
 			return "error";
 		}
 		return "redirect:/detail/" + displayInfoId;
