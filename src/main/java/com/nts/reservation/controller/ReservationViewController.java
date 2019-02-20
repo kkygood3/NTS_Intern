@@ -14,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.ReservedItem;
+import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -27,6 +30,8 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationViewController {
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private DetailProductService detailProductService;
 
 	@PostMapping("/loginConfirm")
 	public String login(HttpSession session, @RequestParam(name = "userEmail", required = true) String userEmail) {
@@ -52,5 +57,13 @@ public class ReservationViewController {
 
 		model.addAttribute("reservationDate", reservationDate);
 		return "reserve";
+	}
+
+	@GetMapping("/detail/{displayInfoId}/reviewWrite")
+	public String getReviewWritePage(@PathVariable("displayInfoId") Integer displayInfoId, ModelMap model) {
+		DisplayInfo displayInfo = detailProductService.getDisplayInfo(displayInfoId);
+
+		model.addAttribute("productDescription", displayInfo.getProductDescription());
+		return "reviewWrite";
 	}
 }

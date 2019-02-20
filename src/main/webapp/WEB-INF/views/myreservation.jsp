@@ -308,7 +308,7 @@
 																			</em>
 																		</div>
 																		<div class="booking_cancel">
-																			<button class="btn"><span>예매자 리뷰 남기기</span></button>
+																			<button class="btn btn_review_write" data-display-info-id="${usedReservedItem.displayInfo.displayInfoId}"><span>예매자 리뷰 남기기</span></button>
 																		</div>
 																	</div>
 																</div>
