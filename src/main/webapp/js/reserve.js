@@ -182,22 +182,36 @@ function initBackClickEvents() {
 }
 
 function validateInput(index) {
-	var inputValue = document.querySelectorAll('.form_horizontal input')[index].value;
+	var input = document.querySelectorAll('.form_horizontal input')[index];
 	var warningArea = document.querySelectorAll('.warning_msg')[index];
 	
 	var isValid;
 	switch (index) {
 	case 0:
 		// Name
-		isValid = inputValue.length > 0;
+		isValid = input.value.length > 0;
 		break;
 	case 1:
-		// Telephone
-		isValid = REG_TELEPHONE.test(inputValue);
+		/**
+		 * 하이픈(-)
+		 * 0개일 때 -> 하이픈 없는 문자.
+		 * 2개일 때 -> 처리없이 테스트
+		 * 나머지 -> 오류
+		 */
+		var telephone = input.value;
+		var isNoHyphenTel = (10 <= telephone.length && telephone.length <=11) && (telephone.indexOf('-') < 0);
+		if (isNoHyphenTel) {
+			telephone = telephone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3");
+		}
+		isValid = REG_TELEPHONE.test(telephone);
+		
+		if(isValid){
+			input.value = telephone;
+		}
 		break;
 	case 2:
 		// Email
-		isValid = REG_EMAIL.test(inputValue)
+		isValid = REG_EMAIL.test(input.value)
 		break;
 	default:
 		isValid = false;
