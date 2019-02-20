@@ -5,6 +5,7 @@ import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 import static com.nts.reservation.property.Const.SELECT_ALL;
 import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
@@ -124,7 +126,13 @@ public class ProductApiController {
 	@PostMapping(path = "/{displayInfoId}/reservation")
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput) {
-
+		ReservationInfo reservationInfo = null;
+		try {
+			reservationInfo = new ReservationInfo(userReservationInput);
+		} catch (ParseException e) {
+			return false;
+		}
+		
 		int totalReservationCount = 0;
 		for (ReservationInfoPrice reservationInfoPrice : userReservationInput.getPrice()) {
 			totalReservationCount += reservationInfoPrice.getCount();
@@ -137,9 +145,8 @@ public class ProductApiController {
 			userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
 			return false;
 		}
-		if (reservationService.addReservation(userReservationInput, displayInfoId).getId() == -1) {
-			return false;
-		}
+		
+		reservationService.addReservation(reservationInfo, userReservationInput.getPrice(), displayInfoId).getId();
 
 		return true;
 	}

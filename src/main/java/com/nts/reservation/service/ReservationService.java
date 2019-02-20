@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
+import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
 import com.nts.reservation.dto.UserReservationInput;
 
@@ -27,7 +28,7 @@ public interface ReservationService {
 	 * @param displayInfoId 예약할 상품
 	 * @return 예약한 예약정보
 	 */
-	ReservationInfo addReservation(UserReservationInput userReservationInput, Long displayInfoId);
+	ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> priceInfo,  Long displayInfoId);
 
 	/**
 	 * 예약 조회 정보 가져온다

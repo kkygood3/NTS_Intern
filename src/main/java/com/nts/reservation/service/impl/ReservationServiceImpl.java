@@ -38,22 +38,14 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public ReservationInfo addReservation(UserReservationInput userInput, Long displayInfoId) {
-		ReservationInfo reservationInfo = null;
-		try {
-			reservationInfo = new ReservationInfo(userInput);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		reservationInfo.setId(-1);
-
+	public ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> priceInfo,  Long displayInfoId) {
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setCreateDate(new Date());
 
 		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
 		reservationInfo.setId(reservationInfoId);
 
-		for (ReservationInfoPrice reservationInfoPrice : userInput.getPrice()) {
+		for (ReservationInfoPrice reservationInfoPrice : priceInfo) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
