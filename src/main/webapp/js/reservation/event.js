@@ -63,7 +63,6 @@ function increaseCount(minusButton, count, totalCount, countText) {
 	}
 	count.value = count.value * 1 + 1;
 	totalCount.innerText = totalCount.innerText * 1 + 1;
-	
 }
 
 function decreaseCount(minusButton, count, totalCount, countText) {
