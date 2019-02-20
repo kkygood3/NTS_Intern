@@ -7,7 +7,6 @@ package com.nts.reservation.controller.api;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.nts.reservation.dto.myreservation.MyReservationInfo;
+import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -47,11 +44,12 @@ public class ReserveApiController {
 	@GetMapping
 	public Map<String, Object> getReservations(
 		@RequestParam(name = "email", required = true) String email) {
-
-		List<MyReservationInfo> myReservationResponse = myReservationService.getMyReservationInfoList(email);
-
+		
 		Map<String, Object> map = new HashMap<>();
-		map.put("myReservationResponse", myReservationResponse);
+		
+		if(ReservationValidatior.validateEmail(email)) {
+			map.put("myReservationResponse", myReservationService.getMyReservationInfoList(email));
+		}
 
 		return map;
 	}
@@ -67,7 +65,7 @@ public class ReserveApiController {
 		@RequestBody ReserveRequest reserveRequest){
 		Map<String, Object> map = new HashMap<>();
 		
-		if (reserveResponseService.postReserve(reserveRequest)) {
+		if (reserveRequest.isValid() && reserveResponseService.postReserve(reserveRequest)) {
 			map.put("result", "OK");
 		} else {
 			map.put("result", "FAIL");

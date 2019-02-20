@@ -6,6 +6,8 @@ package com.nts.reservation.dto.reserve;
 
 import java.util.List;
 
+import com.nts.reservation.common.ReservationValidatior;
+
 public class ReserveRequest {
 	private String name;
 	private String telephone;
@@ -67,6 +69,10 @@ public class ReserveRequest {
 		return "ReserveRequest [name=" + name + ", telephone=" + telephone + ", email=" + email + ", displayInfoId="
 			+ displayInfoId + ", reservationDate=" + reservationDate + ", reservePriceInfoList=" + reservePriceInfoList
 			+ "]";
+	}
+
+	public boolean isValid() {
+		return ReservationValidatior.validateName(this.name) && ReservationValidatior.validateName(this.telephone) && ReservationValidatior.validateName(this.email);
 	}
 
 }

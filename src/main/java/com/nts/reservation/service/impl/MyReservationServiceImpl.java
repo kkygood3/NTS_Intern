@@ -4,13 +4,11 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.service.MyReservationService;
@@ -22,11 +20,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 
 	@Override
 	public List<MyReservationInfo> getMyReservationInfoList(String email) {
-		if(ReservationValidatior.validateEmail(email)) {
-			return myReservationDao.selectMyReservationByEmail(email);
-		} else {
-			return Collections.emptyList();
-		}
+		return myReservationDao.selectMyReservationByEmail(email);
 	}
 
 	@Override
