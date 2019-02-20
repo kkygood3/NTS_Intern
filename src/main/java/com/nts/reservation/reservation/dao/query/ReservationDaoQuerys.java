@@ -8,9 +8,46 @@ package com.nts.reservation.reservation.dao.query;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ReservationDaoQuerys {
-	public static final String INSERT_RESERVATION = "";
+	public static final String INSERT_RESERVATION = " INSERT" +
+		" INTO reservation_info(" +
+		" cancel_flag," +
+		" create_date," +
+		" display_info_id," +
+		" modify_date" +
+		" product_id," +
+		" reservation_date," +
+		" reservation_email," +
+		" reservation_name," +
+		" reservation_tel," +
+		" )" +
+		" SELECT" +
+		" 0," +
+		" NOW()," +
+		" display_info.id," +
+		" NOW()," +
+		" product.id," +
+		" :reservationDate," +
+		" :email," +
+		" :name," +
+		" :telephone" +
+		" FROM display_info" +
+		" INNER JOIN product ON display_info.product_id = product.id" +
+		" WHERE display_info.id = :displayInfoId" +
+		" GROUP BY product.id";
 
-	public static final String INSERT_RESERVATION_PRICE = "";
+	public static final String INSERT_RESERVATION_PRICE = " INSERT" +
+		" INTO reservation_price(" +
+		" count," +
+		" product_price_id," +
+		" reservation_info_id " +
+		" )" +
+		" SELECT" +
+		" :count" +
+		" product_price.id," +
+		" :reservationInfoId," +
+		" FROM display_info" +
+		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" +
+		" WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
 
 	public static final String SELECT_RESERVATION_PRICE = "SELECT" +
 		" product_price.id 'productPriceId'," +

@@ -13,7 +13,7 @@ import com.nts.reservation.displayInfo.dto.DisplayInfo;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ReservationInfo {
-	private boolean cancelYn;
+	private boolean cancelFlag;
 	private String createDate;
 	private DisplayInfo displayInfo;
 	private int displayInfoId;
@@ -23,15 +23,15 @@ public class ReservationInfo {
 	private String reservationEmail;
 	private int reservationInfoId;
 	private String reservationName;
-	private String reservationTelephone;
+	private String reservationTel;
 	private int totalPrice;
 
 	public boolean isCancelYn() {
-		return cancelYn;
+		return cancelFlag;
 	}
 
-	public void setCancelYn(boolean cancelYn) {
-		this.cancelYn = cancelYn;
+	public void setCancelYn(boolean cancelFlag) {
+		this.cancelFlag = cancelFlag;
 	}
 
 	public String getCreateDate() {
@@ -107,11 +107,11 @@ public class ReservationInfo {
 	}
 
 	public String getReservationTelephone() {
-		return reservationTelephone;
+		return reservationTel;
 	}
 
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
+	public void setReservationTelephone(String reservationTel) {
+		this.reservationTel = reservationTel;
 	}
 
 	public int getTotalPrice() {
