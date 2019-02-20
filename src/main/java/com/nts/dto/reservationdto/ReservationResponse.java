@@ -6,6 +6,9 @@ package com.nts.dto.reservationdto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ReservationResponse {
 	private Reservation reservation;
 	private List<ReservationPrice> prices;
@@ -22,6 +25,8 @@ public class ReservationResponse {
 
 	@Override
 	public String toString() {
-		return "ReservationResponse [reservation=" + reservation + ", prices=" + prices + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

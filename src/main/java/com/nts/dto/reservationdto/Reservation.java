@@ -4,8 +4,11 @@
  */
 package com.nts.dto.reservationdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Reservation {
-	private boolean cancelFlag;
+	private int cancelFlag;
 	private String createDate;
 	private int displayInfoId;
 	private String modifyDate;
@@ -16,11 +19,11 @@ public class Reservation {
 	private String reservationName;
 	private String reservationTel;
 
-	public boolean getCancelFlag() {
+	public int getCancelFlag() {
 		return cancelFlag;
 	}
 
-	public void setCancleFlag(boolean cancelFlag) {
+	public void setCancelFlag(int cancelFlag) {
 		this.cancelFlag = cancelFlag;
 	}
 
@@ -98,10 +101,8 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [cancelFlag=" + cancelFlag + ", createDate=" + createDate + ", displayInfoId="
-				+ displayInfoId + ", modifyDate=" + modifyDate + ", productId=" + productId + ", reservationDate="
-				+ reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
-				+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTel="
-				+ reservationTel + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

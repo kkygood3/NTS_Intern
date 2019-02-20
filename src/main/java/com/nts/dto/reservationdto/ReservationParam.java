@@ -6,21 +6,19 @@ package com.nts.dto.reservationdto;
 
 import java.util.List;
 
-public class ReservationParam {
-	private int displayInfoId;
-	private List<ReservationPrice> prices;
-	private int productId;
-	private String reservationEmail;
-	private String reservationName;
-	private String reservationTelephone;
-	private String reservationYearMonthDay;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-	public int getDisplayInfoId() {
-		return displayInfoId;
+public class ReservationParam {
+	private Reservation reservation;
+	private List<ReservationPrice> prices;
+
+	public Reservation getReservation() {
+		return reservation;
 	}
 
-	public void setDisplayInfoId(int displayInfoId) {
-		this.displayInfoId = displayInfoId;
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 
 	public List<ReservationPrice> getPrices() {
@@ -31,52 +29,11 @@ public class ReservationParam {
 		this.prices = prices;
 	}
 
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getReservationEmail() {
-		return reservationEmail;
-	}
-
-	public void setReservationEmail(String reservationEmail) {
-		this.reservationEmail = reservationEmail;
-	}
-
-	public String getReservationName() {
-		return reservationName;
-	}
-
-	public void setReservationName(String reservationName) {
-		this.reservationName = reservationName;
-	}
-
-	public String getReservationTelephone() {
-		return reservationTelephone;
-	}
-
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
-	}
-
-	public String getReservationYearMonthDay() {
-		return reservationYearMonthDay;
-	}
-
-	public void setReservationYearMonthDay(String reservationYearMonthDay) {
-		this.reservationYearMonthDay = reservationYearMonthDay;
-	}
-
 	@Override
 	public String toString() {
-		return "ReservationParam [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId=" + productId
-				+ ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-				+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay="
-				+ reservationYearMonthDay + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 
 }
