@@ -10,7 +10,7 @@ import com.nts.reservation.common.PriceType;
  * api/reservation 요청에서
  * javascript객체 PriceInfo에 매핑
  */
-public class PriceInfo {
+public class ReservePriceInfo {
 	private PriceType type;
 	private Integer count;
 	
@@ -28,7 +28,6 @@ public class PriceInfo {
 	}
 	@Override
 	public String toString() {
-		return "PriceInfo [type=" + type + ", count=" + count + "]";
+		return "ReservePriceInfo [type=" + type + ", count=" + count + "]";
 	}
-	
 }

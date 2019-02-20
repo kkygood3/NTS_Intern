@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
 public interface ReserveService {
@@ -20,15 +21,8 @@ public interface ReserveService {
 
 	/**
 	 * 새로운 reserve 등록
-	 * @param name
-	 * @param telephone
-	 * @param email
-	 * @param displayInfoId
-	 * @param priceInfoList
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @param reserveRequest
+	 * @return 등록 성공 시 TRUE
 	 */
-	boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo, String reservationDate)
-		throws JsonParseException, JsonMappingException, IOException;
+	boolean postReserve(ReserveRequest reserveRequest);
 }
