@@ -42,8 +42,8 @@ function addPlusMiusButtonClickEvent() {
 		var elements = {
 			"buttons": buttonHolder.getElementsByClassName("btn_plus_minus"),
 			"count": buttonHolder.getElementsByClassName("count_control_input")[0],
+			"countText": buttonHolder.getElementsByClassName("individual_price")[0],
 			"totalCount": document.getElementById("totalCount"),
-			"countText": buttonHolder.querySelector(".individual_price"),
 			"maxCount": 10
 		}
 		
