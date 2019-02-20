@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.service.validation.Validation;
+import com.nts.reservation.service.validation.Validator;
 
 /**
  * 로그인 관련 컨트롤러 클래스
@@ -34,7 +34,7 @@ public class LoginController {
 	@PostMapping(path = "/login")
 	public String postLogin(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
-		if (!Validation.getInstance().validateEmail(email)) {
+		if (!Validator.validateEmail(email)) {
 			return "redirect:/error";
 		}
 		session.setAttribute("email", email);

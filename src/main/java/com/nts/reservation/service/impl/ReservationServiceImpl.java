@@ -18,7 +18,7 @@ import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
 import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.ReservationService;
-import com.nts.reservation.service.validation.Validation;
+import com.nts.reservation.service.validation.Validator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -35,20 +35,18 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public ReservationInfo addReservation(UserReservationInput userReservationInput, Long displayInfoId) {
-		if (!Validation.getInstance().validateEmail(userReservationInput.getEmail())
-			|| !Validation.getInstance().validateTel(userReservationInput.getTel())
-			|| !Validation.getInstance().validateName(userReservationInput.getName())) {
+	public ReservationInfo addReservation(UserReservationInput userInput, Long displayInfoId) {
+		if (!Validator.validateReservationInfo(userInput.getName(), userInput.getTel(), userInput.getEmail())) {
 			return null;
 		}
 
-		ReservationInfo reservationInfo = new ReservationInfo(userReservationInput);
+		ReservationInfo reservationInfo = new ReservationInfo(userInput);
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setReservationDate(new Date());
 		reservationInfo.setCreateDate(new Date());
 		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
 		reservationInfo.setId(reservationInfoId);
-		for (ReservationInfoPrice reservationInfoPrice : userReservationInput.getPrice()) {
+		for (ReservationInfoPrice reservationInfoPrice : userInput.getPrice()) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
