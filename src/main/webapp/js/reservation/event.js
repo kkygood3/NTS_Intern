@@ -149,7 +149,6 @@ function agreed() {
  */
 function addBookingButtonClickEvent() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
-	bookingButton.style.cursor = "default";
 	bookingButton.addEventListener("click", function(event){
 		if (!isValidAllReservationInputs()) {
 			return;
