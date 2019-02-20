@@ -7,26 +7,26 @@ package com.nts.reservation.dao.sql;
 public class ReserveSqls {
 	public static final String SELECT_RESERVE_DISPLAY_INFO = 
 		"SELECT" + 
-		" display_info.id," + 
-		" product.description AS product_description," + 
-		" display_info.opening_hours," + 
-		" display_info.place_name," + 
-		" display_info.place_street," + 
-		" file_info.save_file_name AS product_image" + 
-		" FROM display_info" + 
-		" INNER JOIN product ON display_info.product_id = product.id" +
-		" INNER JOIN product_image ON display_info.product_id = product_image.product_id AND product_image.type = 'th'" + 
-		" INNER JOIN file_info ON product_image.file_id = file_info.id" + 
-		" WHERE display_info.id = :displayInfoId";
+		" d.id," + 
+		" p.description AS product_description," + 
+		" d.opening_hours," + 
+		" d.place_name," + 
+		" d.place_street," + 
+		" f.save_file_name AS product_image" + 
+		" FROM display_info AS d" + 
+		" INNER JOIN product AS p ON d.product_id = p.id" + 
+		" INNER JOIN product_image AS pi ON d.product_id = pi.product_id AND pi.type = 'th'" + 
+		" INNER JOIN file_info AS f ON pi.file_id = f.id" + 
+		" WHERE d.id = :displayInfoId";
 	
 	public static final String SELECT_RESERVE_PRICE = 
 		"SELECT" + 
-		" product_price.price," + 
-		" product_price.price_type_name," + 
-		" ROUND(product_price.discount_rate,0) AS discount_rate" + 
-		" FROM display_info" + 
-		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" + 
-		" WHERE display_info.id = :displayInfoId";
+		" pp.price," + 
+		" pp.price_type_name," + 
+		" ROUND(pp.discount_rate,0) AS discount_rate" + 
+		" FROM display_info AS d" + 
+		" INNER JOIN product_price AS pp ON d.product_id = pp.product_id" + 
+		" WHERE d.id = :displayInfoId";
 	
 	
 	public static final String INSERT_RESERVE =
@@ -43,8 +43,8 @@ public class ReserveSqls {
 		"  modify_date" + 
 		" )" + 
 		" SELECT" + 
-		"  product.id," + 
-		"  display_info.id," + 
+		"  p.id," + 
+		"  d.id," + 
 		"  :name," + 
 		"  :telephone," + 
 		"  :email," + 
@@ -52,10 +52,10 @@ public class ReserveSqls {
 		"  0," + 
 		"  NOW()," + 
 		"  NOW()" + 
-		"  FROM display_info" + 
-		"  INNER JOIN product ON display_info.product_id = product.id" + 
-		"  WHERE display_info.id = :displayInfoId" + 
-		"  GROUP BY product.id";
+		"  FROM display_info AS d" + 
+		"  INNER JOIN product AS p ON d.product_id = p.id" + 
+		"  WHERE d.id = :displayInfoId" + 
+		"  GROUP BY p.id";
 	
 	public static final String INSERT_RESERVE_PRICE =
 		"INSERT" + 
@@ -66,10 +66,10 @@ public class ReserveSqls {
 		" )" + 
 		" SELECT" + 
 		"  :reservationInfoId," + 
-		"  product_price.id," + 
+		"  pp.id," + 
 		"  :count" + 
-		"  FROM display_info" + 
-		"  INNER JOIN product_price ON display_info.product_id = product_price.product_id" + 
-		"  WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
+		"  FROM display_info AS d" + 
+		"  INNER JOIN product_price AS pp ON d.product_id = pp.product_id" + 
+		"  WHERE pp.price_type_name = :type AND d.id = :displayInfoId";
 		
 }
