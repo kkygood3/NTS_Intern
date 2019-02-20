@@ -125,7 +125,6 @@ public class ProductApiController {
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput,
 		ModelMap model) {
-		System.out.println(userReservationInput);
 		if (reservationService.addReservation(userReservationInput, displayInfoId) == null) {
 			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", "잘못된 입력입니다."));
 			return false;
