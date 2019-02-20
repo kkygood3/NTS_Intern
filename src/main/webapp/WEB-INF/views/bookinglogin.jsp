@@ -143,14 +143,15 @@
 			</div>
 		</translater-modal>
 	</app>
+	<script type="text/javascript" src="/js/constant/regularExpression.js"></script>
 	<script type="text/javascript">
 		var form = document.querySelector("#form1");
 		form.addEventListener("submit", function (evt) {
 			evt.preventDefault();
 			var email = form.querySelector("input[id='resrv_id']").value;
-			var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(email);
+			var isValid = EMAIL_REGEXP.test(email);
 			if (!isValid) {
-				alert("이메일 형식이 틀렸거나 너무 짧습니다.");
+				alert("이메일 형식이 틀렸습니다.");
 				return;
 			}
 			var url = "/myreservation?reservationEmail=" + email;
