@@ -9,7 +9,6 @@ package com.nts.reservation.service;
 import java.util.List;
 
 import com.nts.reservation.dto.common.DisplayInfo;
-import com.nts.reservation.dto.detail.Comment;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.detail.ProductImage;
 import com.nts.reservation.dto.detail.ProductPrice;
@@ -24,8 +23,6 @@ public interface DetailService {
 	List<ProductImage> getProductImages(Long displayInfoId);
 
 	DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
-
-	List<Comment> getComments(Long displayInfoId);
 
 	Double getAverageScore(Long displayInfoId);
 

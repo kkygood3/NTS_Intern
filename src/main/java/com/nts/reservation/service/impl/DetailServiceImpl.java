@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailDao;
 import com.nts.reservation.dto.common.DisplayInfo;
-import com.nts.reservation.dto.detail.Comment;
-import com.nts.reservation.dto.detail.CommentImage;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.detail.ProductImage;
 import com.nts.reservation.dto.detail.ProductPrice;
@@ -27,42 +25,31 @@ import com.nts.reservation.service.DetailService;
 @Service
 @Transactional(readOnly = true)
 public class DetailServiceImpl implements DetailService {
-
 	@Autowired
-	private DetailDao DetailDao;
+	private DetailDao detailDao;
 
 	@Override
 	public DisplayInfo getDisplayInfo(Long displayInfoId) {
-		return DetailDao.selectDisplayInfo(displayInfoId);
+		return detailDao.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
 	public List<ProductImage> getProductImages(Long displayInfoId) {
-		return DetailDao.selectProductImages(displayInfoId);
+		return detailDao.selectProductImages(displayInfoId);
 	}
 
 	@Override
 	public DisplayInfoImage getDisplayInfoImage(Long displayInfoId) {
-		return DetailDao.selectDisplayInfoImage(displayInfoId);
-	}
-
-	@Override
-	public List<Comment> getComments(Long displayInfoId) {
-		List<Comment> comments = DetailDao.selectComments(displayInfoId);
-		for (Comment comment : comments) {
-			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comment.getCommentId());
-			comment.setCommentImages(list);
-		}
-		return comments;
+		return detailDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
 	public Double getAverageScore(Long displayInfoId) {
-		return DetailDao.selectAverageScore(displayInfoId);
+		return detailDao.selectAverageScore(displayInfoId);
 	}
 
 	@Override
 	public List<ProductPrice> getProductPrices(Long displayInfoId) {
-		return DetailDao.selectProductPrices(displayInfoId);
+		return detailDao.selectProductPrices(displayInfoId);
 	}
 }

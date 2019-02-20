@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.detail.DisplayInfoResponse;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
 
@@ -35,6 +36,8 @@ public class ApplicationProductApiController {
 	private DetailService detailService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private CommentService commentService;
 
 	@GetMapping("/products")
 	public Map<String, Object> getProductsByCategory(
@@ -60,7 +63,7 @@ public class ApplicationProductApiController {
 			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
 			.averageScore(detailService.getAverageScore(displayInfoId))
 			.productPrices(detailService.getProductPrices(displayInfoId))
-			.comments(detailService.getComments(displayInfoId))
+			.comments(commentService.getComments(displayInfoId))
 			.build();
 		return result;
 	}

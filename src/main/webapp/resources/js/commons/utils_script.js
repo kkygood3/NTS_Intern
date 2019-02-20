@@ -295,6 +295,7 @@ XhrRequest.prototype.setCallback = function (_callback){
 XhrRequest.prototype.setIsAsync = function(_isAsync){
 	isAsync = _isAsync;
 }
+
 XhrRequest.prototype.send = function(data){
 	this.xhr.open(this.method, this.url, this.isAsync);
     this.xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
@@ -316,10 +317,11 @@ function arrayToElementRenderer(data, target, item, opt) {
 
     let bindTemplate = Handlebars.compile(item);
     let list = data;
+    
     if(opt){
-    	if(opt.productName){
-    		Handlebars.registerHelper("productName", () => {
-    	        return opt.productName;
+    	for(let key in opt){
+    		Handlebars.registerHelper(key, () => {
+    	        return opt[key];
     	    });
     	}
     }

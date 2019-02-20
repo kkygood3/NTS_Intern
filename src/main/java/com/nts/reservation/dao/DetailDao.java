@@ -6,16 +6,11 @@ package com.nts.reservation.dao;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-/**
- * Author: Jaewon Lee, lee.jaewon@nts-corp.com
- */
-import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_AVERAGE_SCORE;
-import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID;
-import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_PRODUCT_PRICES;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO_IMAGE;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_PRODUCT_IMAGES;
+import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_PRODUCT_PRICES;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,8 +22,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.common.DisplayInfo;
-import com.nts.reservation.dto.detail.Comment;
-import com.nts.reservation.dto.detail.CommentImage;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.detail.ProductImage;
 import com.nts.reservation.dto.detail.ProductPrice;
@@ -59,13 +52,6 @@ public class DetailDao {
 			BeanPropertyRowMapper.newInstance(DisplayInfoImage.class));
 	}
 
-	public List<Comment> selectComments(Long displayInfoId) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_DETAIL_COMMENTS, params,
-			BeanPropertyRowMapper.newInstance(Comment.class));
-	}
-
 	public Double selectAverageScore(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
@@ -75,16 +61,7 @@ public class DetailDao {
 	public List<ProductPrice> selectProductPrices(Long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("display_info_id", displayInfoId);
-		return jdbc.query(SELECT_DETAIL_COMMENTS_PRODUCT_PRICES, params,
+		return jdbc.query(SELECT_DETAIL_PRODUCT_PRICES, params,
 			BeanPropertyRowMapper.newInstance(ProductPrice.class));
 	}
-
-	public List<CommentImage> selectCommentsImagesByCommentId(Long CommentId) {
-		Map<String, Long> params = new HashMap<>();
-		params.put("commentId", CommentId);
-		return jdbc.query(SELECT_DETAIL_COMMENTS_IMAGES_BY_COMMENT_ID, params,
-			BeanPropertyRowMapper.newInstance(CommentImage.class));
-
-	}
-
 }

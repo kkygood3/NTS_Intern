@@ -121,6 +121,7 @@ var reservePage = {
         	this.inputValidate();
         });
     },
+    
     inputValidate : function(){
         let bookButton = this.domElements.bookButtonWrapper;
     	// tickets count check

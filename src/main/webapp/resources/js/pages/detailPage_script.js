@@ -120,7 +120,11 @@ var detailPage = {
     renderComments: function () {
         document.querySelector(".btn_review_more").href = "./review?id=" + this.constants.DISPLAY_INFO_ID;
         this.domElements.reviewCount.innerHTML = this.state.detail_data.comments.length + "건";
-        arrayToElementRenderer(this.state.detail_data.comments.slice(0, 3), this.domElements.reviewArea, this.templates.reviewItem);
+        arrayToElementRenderer(this.state.detail_data.comments.slice(0, 3), this.domElements.reviewArea, this.templates.reviewItem,
+        	{
+    			productName : this.state.detail_data.displayInfo.productDescription
+        	}
+        );
     },
 
     /**
