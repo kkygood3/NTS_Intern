@@ -48,7 +48,7 @@ public class ReservationController {
 	}
 	
 	@PostMapping
-	public boolean addReservations(@RequestBody(required=true) ReservationParameter reservationParameter) {
+	public boolean addReservation(@RequestBody(required=true) ReservationParameter reservationParameter) {
 		
 		reservationService.addReservation(reservationParameter);
 		return true;
