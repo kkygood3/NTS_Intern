@@ -11,8 +11,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.dto.reservationdto.Reservation;
@@ -46,6 +49,30 @@ public class ReservationDao {
 	public int updateCancelFlagByReservationInfoId(int reservationInfoId) {
 		Map<String, ?> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
 		return jdbc.update(UPDATE_CANCEL_FLAG_BY_RESERVATION_INFO_ID, param);
+	}
+
+	public int insertReservation(Reservation reservation) {
+		KeyHolder generatedKey= new GeneratedKeyHolder();
+		SqlParameterSource source = new MapSqlParameterSource()
+										.addValue("displayInfoId", reservation.getDisplayInfoId())
+										.addValue("createDate", reservation.getCreateDate())
+										.addValue("modifyDate", reservation.getModifyDate())
+										.addValue("productId", reservation.getProductId())
+										.addValue("cancelFlag", reservation.getCancelFlag())
+										.addValue("reservationDate", reservation.getReservationDate())
+										.addValue("reservationEmail", reservation.getReservationEmail())
+										.addValue("reservationName", reservation.getReservationName())
+										.addValue("reservationTel", reservation.getReservationTel());
+		jdbc.update(INSERT_RESERVATION, source, generatedKey);
+		return generatedKey.getKey().intValue();
+	}
+	
+	public int insertReservationPrice(int key, ReservationPrice price) {
+		SqlParameterSource source = new MapSqlParameterSource()
+				.addValue("reservationInfoId", key)
+				.addValue("productPriceId", price.getProductPriceId())
+				.addValue("count", price.getCount());
+		return jdbc.update(INSERT_RESERVATION_PRICE, source);
 	}
 
 }

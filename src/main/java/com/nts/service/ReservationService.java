@@ -23,4 +23,8 @@ public interface ReservationService {
 	List<ReservationPrice> getReservationPricesByReservationInfoId(int reservationInfoId);
 
 	int modifyCancelFlagByReservationInfoId(int reservationInfoId);
+	
+	int addReservation(ReservationParam reservationParam);
+	
+	int addReservationPrices(int key, List<ReservationPrice> prices);
 }

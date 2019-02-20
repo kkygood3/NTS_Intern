@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.dao.displayinfodao.DisplayInfoDao;
 import com.nts.dao.reservationdao.ReservationDao;
@@ -60,5 +61,21 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int modifyCancelFlagByReservationInfoId(int reservationInfoId) {
 		return reservationDao.updateCancelFlagByReservationInfoId(reservationInfoId);
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public int addReservation(ReservationParam reservationParam) {
+		int key = reservationDao.insertReservation(reservationParam.getReservation());
+		return addReservationPrices(key, reservationParam.getPrices());
+	}
+
+	@Override
+	public int addReservationPrices(int key, List<ReservationPrice> prices) {
+		int insertResult = 0;
+		for(ReservationPrice price : prices) {
+			insertResult += reservationDao.insertReservationPrice(key, price);
+		}
+		return insertResult;
 	}
 }
