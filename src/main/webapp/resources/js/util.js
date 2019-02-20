@@ -56,6 +56,14 @@ var httpUtil = {
         request.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
         request.send(JSON.stringify(params));
     },
+    sendPostWithMultiPartForm: function(path, formData, onCallback) {
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", function(event) {
+            onCallback(event.target);
+        });
+        request.open("POST", path);
+        request.send(formData);
+    },
     sendPut: function (path, onCallback) {
         var request = new XMLHttpRequest();
         request.addEventListener("load", function(event) {
@@ -71,7 +79,9 @@ var httpUtil = {
 const regex = {
     EMAIL_REGEX: /^[a-zA-Z0-9]{1,20}@[a-zA-Z0-9]{1,20}\.[a-zA-Z]{1,6}\.[a-zA-Z]{1,6}$|^[a-zA-Z0-9]{1,20}@[a-zA-Z0-9]{1,20}\.[a-zA-Z]{1,6}$/,
     PHONE_NUMBER_REGEX: /01\d\-\d{3,4}\-\d{4}$/,
-    USERNAME_REGEX: /^[가-힣A-Za-z0-9]{1,17}$/
+    USERNAME_REGEX: /^[가-힣A-Za-z0-9]{1,17}$/,
+    IMAGE_CONTENT_TYPE_REGEX: /^image\/.*$/,
+    WORD_MAX_400_REGEX: /^(.|\n){5,400}$/
 }
 Object.freeze(regex);
 

@@ -211,6 +211,9 @@ var myReservationPage = {
         } else if (target.container.classList.contains("popup_booking_wrapper")) { //팝업창에서 값 변경에대한 요청이 있는 경우.
             var reservationId = target.reservationId;
             this.requestCancelMyReservation(reservationId);
+        } else if (target.container.classList.contains("used")) {
+            var reservaionId = target.clickedReservationId;
+            window.location.href = "/reservation-service/addComment/" + reservaionId;
         }
     }
 };
