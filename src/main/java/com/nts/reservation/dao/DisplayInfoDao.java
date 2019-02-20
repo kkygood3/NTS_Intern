@@ -5,7 +5,14 @@
 
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.*;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_COMMENT_AVG_SCORE_BY_DISPLAY_INFO_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_COMMENT_BY_DISPLAY_INFO_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_COMMENT_IMAGE_BY_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_DISPLAY_INFO_BY_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_DISPLAY_INFO_IMAGE_BY_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_MAIN_PRODUCT_IMAGE_BY_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_PRODUCT_IMAGE_BY_ID;
+import static com.nts.reservation.dao.sql.DisplayInfoDaoSqls.SELECT_PRODUCT_PRICE_BY_ID;
 
 import java.util.Collections;
 import java.util.List;
@@ -107,6 +114,11 @@ public class DisplayInfoDao {
 		return jdbc.query(SELECT_PRODUCT_IMAGE_BY_ID, map, productImageRowMapper);
 	}
 
+	public ProductImageDto selectMainProductImage(Long productId) {
+		Map<String, Object> map = Collections.singletonMap("id", productId);
+		return jdbc.queryForObject(SELECT_MAIN_PRODUCT_IMAGE_BY_ID, map, productImageRowMapper);
+	}
+
 	/**
 	 * @desc productId에 해당하는 ProductPrice들을 쿼리한다.
 	 * @param productId
@@ -116,4 +128,5 @@ public class DisplayInfoDao {
 		Map<String, Object> map = Collections.singletonMap("id", productId);
 		return jdbc.query(SELECT_PRODUCT_PRICE_BY_ID, map, priceRowMapper);
 	}
+
 }

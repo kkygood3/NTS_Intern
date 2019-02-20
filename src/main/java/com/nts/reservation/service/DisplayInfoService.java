@@ -28,4 +28,6 @@ public interface DisplayInfoService {
 	public List<ProductPriceDto> getProductPriceList(Long productId);
 
 	public float getCommentAvgScore(Long displayInfoId);
+
+	public ProductImageDto getProductMainImage(Long productId);
 }

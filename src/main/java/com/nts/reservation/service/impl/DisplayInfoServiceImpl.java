@@ -88,4 +88,13 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public float getCommentAvgScore(Long displayInfoId) {
 		return displayInfoDao.selectCommentAvgScore(displayInfoId);
 	}
+
+	/**
+	 * @desc 첫번째 이미지를 메인 이미지로 하여 가져옴.
+	 * @param productId
+	 */
+	@Override
+	public ProductImageDto getProductMainImage(Long productId) {
+		return displayInfoDao.selectMainProductImage(productId);
+	}
 }
