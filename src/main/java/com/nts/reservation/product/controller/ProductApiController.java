@@ -24,9 +24,9 @@ import com.nts.reservation.product.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/api")
-public class ProductController {
+public class ProductApiController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductApiController.class);
 
 	@Autowired
 	private ProductService productService;
