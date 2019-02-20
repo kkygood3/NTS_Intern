@@ -231,25 +231,24 @@ var ThumbnailImageList = (function() {
 
     ThumbnailImageList.prototype.addThumbClickEventListener = function (thumb) {
         var self = this;
-
         thumb.addEventListener("click", function (event) {
 
             var targetClassList = event.target.classList;
             if (!targetClassList.contains("anchor") && !targetClassList.contains("spr_book")) {
                 return;
             }
-            self.imageList = self.imageList.filter(function(image) {
+            var targetIndex = -1;
+            self.imageList = self.imageList.filter(function(image, index) {
                 if(image === thumb){
+                    targetIndex = index;
                     return false;
                 }
                 return true;
             });
-            self.fileList = self.fileList.filter(function(file) {
-                if(file.name == thumb.dataset.fileName) {
-                    return false;
-                }
-                return true;
-            })
+
+            if(targetIndex >= 0) {
+                self.fileList = self.fileList.splice(targetIndex, 1);
+            }
             self.thumnailContainer.removeChild(thumb);
         })
     }
