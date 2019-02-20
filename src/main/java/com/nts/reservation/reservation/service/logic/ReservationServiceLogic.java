@@ -7,10 +7,12 @@ package com.nts.reservation.reservation.service.logic;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.common.annotation.IsEmpty;
+import com.nts.reservation.common.exception.InternalServerErrorException;
 import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.model.Reservation;
@@ -28,16 +30,20 @@ public class ReservationServiceLogic implements ReservationService {
 	@Override
 	@Transactional
 	public int addReservation(Reservation reservation) {
+		try {
+			int reservationInfoId = reservationDao.insertReservation(reservation);
 
-		int reservationInfoId = reservationDao.insertReservation(reservation);
-
-		for (ReservationPrice reservationPrice : reservation.getReservationPriceList()) {
-			if (reservationPrice.isReserved()) {
-				reservationDao.insertReservationInfoPrice(reservationInfoId, reservationPrice);
+			for (ReservationPrice reservationPrice : reservation.getReservationPriceList()) {
+				if (reservationPrice.isReserved()) {
+					if (isNotInsert(reservationDao.insertReservationInfoPrice(reservationInfoId, reservationPrice))) {
+						throw new InternalServerErrorException("reservation data error");
+					}
+				}
 			}
+			return reservationInfoId;
+		} catch (DataIntegrityViolationException e) {
+			throw new InternalServerErrorException("reservation data integrity violation");
 		}
-
-		return reservationInfoId;
 	}
 
 	@Override
@@ -58,6 +64,10 @@ public class ReservationServiceLogic implements ReservationService {
 
 	private boolean isUpdateZero(int updateCount) {
 		return updateCount == 0;
+	}
+
+	private boolean isNotInsert(int insertCount) {
+		return insertCount == 0;
 	}
 
 }

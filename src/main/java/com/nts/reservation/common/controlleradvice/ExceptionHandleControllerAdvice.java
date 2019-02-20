@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.common.controlleradvice;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -37,6 +40,20 @@ public class ExceptionHandleControllerAdvice {
 		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
 	}
 
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ExceptionResponse handleConstraintViolationException(ConstraintViolationException e) {
+		StringBuffer sb = new StringBuffer();
+		for (ConstraintViolation<?> constraintViolation : e.getConstraintViolations()) {
+			sb.append("[");
+			sb.append(constraintViolation.getInvalidValue());
+			sb.append(", ");
+			sb.append(constraintViolation.getMessageTemplate());
+			sb.append("]");
+			constraintViolation.getMessageTemplate();
+		}
+		return new ExceptionResponse(HttpStatus.BAD_REQUEST, sb.toString());
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		StringBuffer sb = new StringBuffer();
@@ -58,4 +75,5 @@ public class ExceptionHandleControllerAdvice {
 		}
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST);
 	}
+
 }

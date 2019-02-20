@@ -43,12 +43,12 @@ public class ReservationDao {
 		return keyHolder.getKey().intValue();
 	}
 
-	public void insertReservationInfoPrice(int reservationInfoId, ReservationPrice reservationPrice) {
+	public int insertReservationInfoPrice(int reservationInfoId, ReservationPrice reservationPrice) {
 		SqlParameterSource param = new MapSqlParameterSource()
 			.addValue("reservationInfoId", reservationInfoId)
 			.addValues(new ObjectMapper().convertValue(reservationPrice, Map.class));
 
-		jdbcTemplate.update(INSERT_RESERVATION_INFO_PRICE, param);
+		return jdbcTemplate.update(INSERT_RESERVATION_INFO_PRICE, param);
 	}
 
 	public List<ReservationHistory> selectReservationHistoryList(String reservationEmail) {

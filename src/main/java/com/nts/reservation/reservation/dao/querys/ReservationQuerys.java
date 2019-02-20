@@ -20,12 +20,20 @@ public class ReservationQuerys {
 		+ ")";
 
 	public static final String INSERT_RESERVATION_INFO_PRICE = "insert into "
-		+ "reservation_info_price values("
-		+ "default"
-		+ ", :reservationInfoId"
-		+ ", :productPriceId"
-		+ ", :count"
-		+ ")";
+		+ "reservation_info_price("
+		+ "reservation_info_id"
+		+ ", product_price_id"
+		+ ", count"
+		+ ") "
+		+ "select "
+		+ ":reservationInfoId as reservation_info_id"
+		+ ", :productPriceId as product_price_id"
+		+ ", :count as count "
+		+ "from reservation_info ri "
+		+ "inner join product_price pp "
+		+ "on ri.product_id = pp.product_id "
+		+ "where ri.id = :reservationInfoId "
+		+ "and pp.id = :productPriceId";
 
 	public static final String SELECT_RESERVATION_HISTORY = "select ri.id as reservation_id"
 		+ ", p.description as product_description"

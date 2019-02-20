@@ -6,9 +6,8 @@ package com.nts.reservation.product.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +26,7 @@ public class ProductApiController {
 	 * categoryId, start parameter로 product list와 count를 Json으로 응답
 	 */
 	@GetMapping(value = {"/api/products"})
-	public ProductResponse getProductResponse(@Valid ProductRequest productRequest) {
+	public ProductResponse getProductResponse(@Validated ProductRequest productRequest) {
 
 		List<Product> productList = productService.getProductList(productRequest.getCategoryId(),
 			productRequest.getStart());

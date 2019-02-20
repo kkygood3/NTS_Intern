@@ -9,4 +9,6 @@ public class Regexp {
 
 	public static final String Tel = "01[01789]-\\d{3,4}-\\d{4}";
 
+	public static final String DATE = "[12][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+
 }

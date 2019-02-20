@@ -5,12 +5,17 @@
 package com.nts.reservation.login.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nts.reservation.common.regexp.Regexp;
+
 @Controller
+@Validated
 public class LoginController {
 
 	@GetMapping(value = {"/login"})
@@ -19,7 +24,9 @@ public class LoginController {
 	}
 
 	@PostMapping(value = {"/login"})
-	public String login(HttpSession httpSession, String email) {
+	public String login(HttpSession httpSession,
+		@Pattern(regexp = Regexp.EMAIL, message = "email is not vaild") String email) {
+
 		httpSession.setAttribute("email", email);
 		return "redirect:/my-reservation";
 	}

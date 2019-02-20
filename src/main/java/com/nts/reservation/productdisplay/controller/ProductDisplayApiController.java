@@ -62,8 +62,9 @@ public class ProductDisplayApiController {
 	}
 
 	private String makeReservationDate() {
+		final String yyyyMMdd = "yyyy-MM-dd";
 		LocalDateTime nowDateTime = LocalDateTime.now();
 		int days = new Random().nextInt(5);
-		return nowDateTime.plusDays(days).format(DateTimeFormatter.ISO_LOCAL_DATE).replaceAll("-", ".");
+		return nowDateTime.plusDays(days).format(DateTimeFormatter.ofPattern(yyyyMMdd));
 	}
 }

@@ -7,6 +7,7 @@ package com.nts.reservation.reservation.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -19,6 +20,7 @@ public class Reservation {
 	private int displayInfoId;
 
 	@NotNull(message = "name is must not null")
+	@NotBlank(message = "name is must not blank")
 	private String reservationName;
 
 	@NotNull(message = "email is must not null")
@@ -30,6 +32,7 @@ public class Reservation {
 	private String reservationTel;
 
 	@NotNull(message = "date is must not null")
+	@Pattern(regexp = Regexp.DATE, message = "date is not valid")
 	private String reservationDate;
 
 	private List<ReservationPrice> reservationPriceList;
