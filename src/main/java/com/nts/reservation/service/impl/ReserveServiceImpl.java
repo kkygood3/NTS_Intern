@@ -43,20 +43,17 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	@Override
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	public boolean postReserve(ReserveRequest reserveRequest) {
 		boolean isInsertComplete = true;
 
-		if (isInsertComplete) {
-			Integer insertRow;
-
-			int reservationInfoId = reserveDao.insertReservation(reserveRequest.getName(), reserveRequest.getTelephone(), reserveRequest.getEmail(), reserveRequest.getDisplayInfoId(), reserveRequest.getReservationDate());
-			List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
-			for (int i = 0; i < reservePriceInfoList.size(); i++) {
-				ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
-				insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), reserveRequest.getDisplayInfoId(), reservationInfoId);
-				isInsertComplete = (isInsertComplete && (insertRow != null && insertRow != 0));
-			}
+		int reservationInfoId = reserveDao.insertReservation(reserveRequest.getName(), reserveRequest.getTelephone(),reserveRequest.getEmail(), reserveRequest.getDisplayInfoId(), reserveRequest.getReservationDate());
+		List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
+		
+		for (int i = 0; isInsertComplete && i < reservePriceInfoList.size(); i++) {
+			ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
+			Integer insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(),reserveRequest.getDisplayInfoId(), reservationInfoId);
+			isInsertComplete = (isInsertComplete && insertRow != null && insertRow != 0);
 		}
 		return isInsertComplete;
 	}
