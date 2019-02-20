@@ -46,16 +46,16 @@ public class MyReservationServiceImpl implements MyReservationService {
 				}
 			}
 		}
+		
 		return new MyReservationResponse(confirmList, completeList, cancelList);
 	}
 
 	@Override
 	public boolean cancelMyReservation(Integer reservationInfoId) {
-		boolean isComplete = false;
-		Integer result = myReservationDao.updateMyReservationCancelById(reservationInfoId);
-		if (result != null) {
-			isComplete = true;
+		if (myReservationDao.updateMyReservationCancelById(reservationInfoId) != null) {
+			return true;
 		}
-		return isComplete;
+		
+		return false;
 	}
 }
