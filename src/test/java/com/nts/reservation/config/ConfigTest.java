@@ -51,7 +51,7 @@ public class ConfigTest {
 
 	@Test
 	public void jdbcTemplateTest() {
-		Product product = jdbcTemplate.queryForObject("select 1 as product_id", Collections.EMPTY_MAP, productMapper);
+		Product product = jdbcTemplate.queryForObject("select 1 as product_id", Collections.emptyMap(), productMapper);
 		System.out.println(product);
 	}
 }
