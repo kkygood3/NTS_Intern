@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nts.reservation.common.annotation.IsEmpty;
 import com.nts.reservation.productprice.dao.ProductPriceDao;
 import com.nts.reservation.productprice.model.ProductPrice;
 import com.nts.reservation.productprice.service.ProductPriceService;
@@ -20,6 +21,7 @@ public class ProductPriceServiceLogic implements ProductPriceService {
 	private ProductPriceDao productPriceDao;
 
 	@Override
+	@IsEmpty
 	public List<ProductPrice> getProductPriceListByDisplayInfoId(int displayInfoId) {
 		return productPriceDao.selectProductPriceListByDisplayInfoId(displayInfoId);
 	}

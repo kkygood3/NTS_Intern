@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.common.annotation.IsEmpty;
 import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistory;
@@ -39,13 +40,14 @@ public class ReservationServiceLogic implements ReservationService {
 	}
 
 	@Override
+	@IsEmpty
 	public List<ReservationHistory> getReservationHistoryList(String reservationEmail) {
 		return reservationDao.selectReservationHistoryList(reservationEmail);
 	}
 
 	@Override
 	public void modifyReservationToCancel(int reservationId) {
-		reservationDao.updateReservationCancelFlag(reservationId, ReservationStatus.Canceled.getStatusCode());
+		reservationDao.updateReservationCancelFlag(reservationId, ReservationStatus.CANCELED.getStatusCode());
 	}
 
 }

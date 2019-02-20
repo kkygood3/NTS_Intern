@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.category.dao.CategoryDao;
 import com.nts.reservation.category.model.Category;
 import com.nts.reservation.category.service.CategoryService;
+import com.nts.reservation.common.annotation.IsEmpty;
 
 @Service
 public class CategoryServiceLogic implements CategoryService {
@@ -23,6 +24,7 @@ public class CategoryServiceLogic implements CategoryService {
 	 * dao에서 category List 객체를 받아 CategoryResponse 객체로 생성 후 반환
 	 */
 	@Override
+	@IsEmpty
 	public List<Category> getCategoryList() {
 		return categoryDao.selectCategoryList();
 	}

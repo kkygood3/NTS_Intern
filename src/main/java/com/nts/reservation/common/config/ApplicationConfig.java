@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan(basePackages = {"com.nts.reservation"})
-@Import({DatasourceConfig.class, JdbcConfig.class, TransactionConfig.class, MapperConfig.class})
+@Import({DatasourceConfig.class, JdbcConfig.class, TransactionConfig.class, MapperConfig.class, AspectJConfig.class})
 public class ApplicationConfig {
 
 }
