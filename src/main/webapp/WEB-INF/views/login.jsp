@@ -41,6 +41,6 @@
 		<%@ include file="/WEB-INF/views/footer.jsp"%>
 		</footer>
 		</app>
-	<script type= "text/javascript" src= "/js/bookinglogin/bookinglogin.js" ></script>
+	<script type= "text/javascript" src= "/js/login/login.js" ></script>
 	</body>
 </html>

@@ -22,7 +22,7 @@ public class LoginController {
 	 */
 	@GetMapping(path = "/login")
 	public String getLogin() {
-		return "bookinglogin";
+		return "login";
 	}
 
 	/**
