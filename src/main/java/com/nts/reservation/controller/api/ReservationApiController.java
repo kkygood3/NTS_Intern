@@ -151,7 +151,6 @@ public class ReservationApiController {
 			}
 			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);
 		} catch (BadRequestException | IOException | SQLException exception) {
-
 			fileIoService.removeFilesForRollback(files);
 
 			if (exception instanceof BadRequestException) {
