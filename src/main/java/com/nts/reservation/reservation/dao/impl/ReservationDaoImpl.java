@@ -16,8 +16,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
@@ -49,19 +47,20 @@ public class ReservationDaoImpl {
 		params.addValue("email", email);
 		params.addValue("displayInfoId", displayInfoId);
 		params.addValue("reservationDate", reservationDate);
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-		jdbc.update(INSERT_RESERVATION, params, keyHolder, new String[] {"ID"});
-		return keyHolder.getKey().intValue();
+		//		KeyHolder keyHolder = new GeneratedKeyHolder();
+		//		jdbc.update(INSERT_RESERVATION, params, keyHolder, new String[] {"ID"});
+		//		return keyHolder.getKey().intValue();
+		return jdbc.update(INSERT_RESERVATION, params);
 	}
 
-	public Integer insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("type", type);
-		params.addValue("count", count);
-		params.addValue("displayInfoId", displayInfoId);
-		params.addValue("reservationInfoId", reservationInfoId);
-		return jdbc.update(INSERT_RESERVATION_PRICE, params);
-	}
+	//	public int insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
+	//		MapSqlParameterSource params = new MapSqlParameterSource();
+	//		params.addValue("type", type);
+	//		params.addValue("count", count);
+	//		params.addValue("displayInfoId", displayInfoId);
+	//		params.addValue("reservationInfoId", reservationInfoId);
+	//		return jdbc.update(INSERT_RESERVATION_PRICE, params);
+	//	}
 
 	public List<ReservationPrice> selectReservationPrice(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
@@ -75,16 +74,16 @@ public class ReservationDaoImpl {
 		return jdbc.queryForObject(SELECT_RESERVATION_DISPLAY_INFO, param, reservationDisplayInfoRowMapper);
 	}
 
-	public List<ReservationInfo> selectReservationInfo(String reservationEmail, int productId) {
+	public List<ReservationInfo> selectReservationInfo(String reservationEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
 		return jdbc.query(SELECT_RESERVATION_INFO, params, reservationInfoRowMapper);
 	}
 
-	public List<ReservationInfo> selectTotalCount(String reservationEmail, int productId) {
+	public int selectTotalPrice(String reservationEmail, int displayInfoId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
-		params.put("productId", productId);
-		return jdbc.query(SELECT_TOTAL_COUNT, params, reservationInfoRowMapper);
+		params.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
 	}
 }

@@ -35,19 +35,19 @@ public class ReservationDaoQuerys {
 		" WHERE display_info.id = :displayInfoId" +
 		" GROUP BY product.id";
 
-	public static final String INSERT_RESERVATION_PRICE = " INSERT" +
-		" INTO reservation_price(" +
-		" count," +
-		" product_price_id," +
-		" reservation_info_id " +
-		" )" +
-		" SELECT" +
-		" :count" +
-		" product_price.id," +
-		" :reservationInfoId," +
-		" FROM display_info" +
-		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" +
-		" WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
+	//	public static final String INSERT_RESERVATION_PRICE = " INSERT" +
+	//		" INTO reservation_price(" +
+	//		" count," +
+	//		" product_price_id," +
+	//		" reservation_info_id " +
+	//		" )" +
+	//		" SELECT" +
+	//		" :count" +
+	//		" product_price.id," +
+	//		" :reservationInfoId," +
+	//		" FROM display_info" +
+	//		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" +
+	//		" WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
 
 	public static final String SELECT_RESERVATION_PRICE = "SELECT" +
 		" product_price.id 'productPriceId'," +
@@ -87,11 +87,11 @@ public class ReservationDaoQuerys {
 		" FROM reservation_info" +
 		" WHERE reservation_info.reservation_email = :email";
 
-	public static final String SELECT_TOTAL_COUNT = " SELECT" +
+	public static final String SELECT_TOTAL_PRICE = " SELECT" +
 		" SUM( ROUND( product_price.price * ( ( 100 - product_price.discount_rate ) / 100 ) ) ) " +
 		" FROM reservation_info" +
 		" INNER JOIN reservation_info_price ON reservation_info_price.reservation_info_id = reservation_info.id" +
 		" INNER JOIN product_price ON product_price.id = reservation_info_price.product_price_id" +
-		" WHERE reservation_info.reservation_email = 'kimjinsu@connect.co.kr'" +
-		" AND reservation_info.product_id = 1";
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.display_info_id = :displayInfoId";
 }
