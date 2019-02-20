@@ -24,7 +24,7 @@ public class ReviewServiceImpl implements ReviewService {
 		ReviewResponse reviewResponse = new ReviewResponse();
 		reviewResponse.setReviewComment(commentDao.selectCommentPageByDisplayInfoId(displayInfoId, start, pagingLimit));
 		reviewResponse.setReviewDisplayInfo(reviewDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
-		return reviewResponse;	
+		return reviewResponse;
 	}
 
 }

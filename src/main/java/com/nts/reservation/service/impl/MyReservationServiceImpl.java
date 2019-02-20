@@ -25,9 +25,9 @@ public class MyReservationServiceImpl implements MyReservationService {
 
 	@Override
 	public boolean cancelMyReservation(Integer reservationInfoId) {
-		boolean isComplete = false; 
+		boolean isComplete = false;
 		Integer result = myReservationDao.updateMyReservationCancelById(reservationInfoId);
-		if(result != null) {
+		if (result != null) {
 			isComplete = true;
 		}
 		return isComplete;

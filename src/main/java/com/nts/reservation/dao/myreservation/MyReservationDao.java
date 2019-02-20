@@ -39,7 +39,7 @@ public class MyReservationDao {
 		params.put("reservationEmail", email);
 		return jdbc.query(MyReservationSqls.SELECT_MY_RESERVATION_INFO, params, rowMapper);
 	}
-	
+
 	public Integer updateMyReservationCancelById(Integer reservationInfoId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("reservationInfoId", reservationInfoId);

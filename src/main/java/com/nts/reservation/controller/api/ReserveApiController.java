@@ -44,10 +44,10 @@ public class ReserveApiController {
 	@GetMapping
 	public Map<String, Object> getReservations(
 		@RequestParam(name = "email", required = true) String email) {
-		
+
 		Map<String, Object> map = new HashMap<>();
-		
-		if(ReservationValidatior.validateEmail(email)) {
+
+		if (ReservationValidatior.validateEmail(email)) {
 			map.put("myReservationResponse", myReservationService.getMyReservationInfoList(email));
 		}
 
@@ -62,15 +62,15 @@ public class ReserveApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(
-		@RequestBody ReserveRequest reserveRequest){
+		@RequestBody ReserveRequest reserveRequest) {
 		Map<String, Object> map = new HashMap<>();
-		
+
 		if (reserveRequest.isValid() && reserveResponseService.postReserve(reserveRequest)) {
 			map.put("result", "OK");
 		} else {
 			map.put("result", "FAIL");
 		}
-		
+
 		return map;
 	}
 
@@ -82,15 +82,15 @@ public class ReserveApiController {
 	public Map<String, Object> cancelReservation(
 		@PathVariable Integer reservationInfoId, HttpServletResponse response) {
 		boolean isUpdateComplete = myReservationService.cancelMyReservation(reservationInfoId);
-		
+
 		Map<String, Object> map = new HashMap<>();
-		
+
 		if (isUpdateComplete) {
 			map.put("result", "OK");
 		} else {
 			map.put("result", "FAIL");
 		}
-		
+
 		return map;
 	}
 

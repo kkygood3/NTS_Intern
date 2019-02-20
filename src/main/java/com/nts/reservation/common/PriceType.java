@@ -3,6 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 package com.nts.reservation.common;
+
 /**
  * 상품마다 가지는 타입과 타입에 해당하는 이름을 정의.
  * ex)PriceType.A(Adult)-> 성인

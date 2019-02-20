@@ -31,7 +31,7 @@ public class DetailServiceImpl implements DetailService {
 
 		return detailResponse;
 	}
-	
+
 	@Override
 	public DetailExtraImage getExtraImage(int displayInfoId) {
 		return detailExtraImageDao.selectDetailExtraImageById(displayInfoId);

@@ -30,7 +30,7 @@ public class ReservePrice {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
+
 	public PriceType getPriceTypeName() {
 		return priceTypeName;
 	}

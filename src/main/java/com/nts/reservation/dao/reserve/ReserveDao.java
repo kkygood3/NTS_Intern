@@ -21,6 +21,7 @@ import com.nts.reservation.dao.sql.ReserveSqls;
 @Repository
 public class ReserveDao {
 	private NamedParameterJdbcTemplate jdbc;
+
 	public ReserveDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
@@ -29,24 +30,25 @@ public class ReserveDao {
 	 * api/reservation post로 새로운 예약 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public int insertReservation(String name, String telephone, String email, int displayInfoId, String reservationDate) {
-		MapSqlParameterSource  params = new MapSqlParameterSource();
+	public int insertReservation(String name, String telephone, String email, int displayInfoId,
+		String reservationDate) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("name", name);
 		params.addValue("telephone", telephone);
 		params.addValue("email", email);
 		params.addValue("displayInfoId", displayInfoId);
 		params.addValue("reservationDate", reservationDate);
-		KeyHolder keyHolder = new GeneratedKeyHolder(); 
-		jdbc.update(ReserveSqls.INSERT_RESERVE, params, keyHolder, new String[]{"ID"});
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(ReserveSqls.INSERT_RESERVE, params, keyHolder, new String[] {"ID"});
 		return keyHolder.getKey().intValue();
 	}
-	
+
 	/**
 	 * api/reservation post로 새로운 예약의 가격 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
 	public Integer insertReservationPrice(PriceType type, int count, int displayInfoId, int reservationInfoId) {
-		MapSqlParameterSource  params = new MapSqlParameterSource();
+		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("type", type.name());
 		params.addValue("count", count);
 		params.addValue("displayInfoId", displayInfoId);

@@ -46,11 +46,11 @@ public class MyReservationContorller {
 	 */
 	@PostMapping("/myreservation")
 	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session) {
-		
-		if(!ReservationValidatior.validateEmail(email)) {
+
+		if (!ReservationValidatior.validateEmail(email)) {
 			return "error";
 		}
-		
+
 		session.setAttribute("email", email);
 		return "myreservation";
 	}

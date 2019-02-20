@@ -13,19 +13,23 @@ import com.nts.reservation.common.PriceType;
 public class ReservePriceInfo {
 	private PriceType type;
 	private Integer count;
-	
+
 	public PriceType getType() {
 		return type;
 	}
+
 	public void setType(PriceType type) {
 		this.type = type;
 	}
+
 	public Integer getCount() {
 		return count;
 	}
+
 	public void setCount(Integer count) {
 		this.count = count;
 	}
+
 	@Override
 	public String toString() {
 		return "ReservePriceInfo [type=" + type + ", count=" + count + "]";

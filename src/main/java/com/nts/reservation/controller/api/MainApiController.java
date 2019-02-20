@@ -41,7 +41,7 @@ public class MainApiController {
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		List<MainCategory> categoryList = mainResponseService.getCategories(pagingLimit);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("categoryList", categoryList);
 

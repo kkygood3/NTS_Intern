@@ -32,9 +32,9 @@ public class ReserveServiceImpl implements ReserveService {
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveResponse reserveResponse = new ReserveResponse();
 		reserveResponse.setReserveDisplayInfo(reserveDisplayInfoDao.selectReviewDisplayInfoByDisplayInfoId(displayInfoId));
-		
+
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
-		for(int i = 0 ; i < reservePrice.size(); i++) {
+		for (int i = 0; i < reservePrice.size(); i++) {
 			ReservePrice targetPrice = reservePrice.get(i);
 			targetPrice.setPriceTypeLabel(targetPrice.getPriceTypeName().getTypeLabel());
 		}
@@ -45,15 +45,15 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean postReserve(ReserveRequest reserveRequest) {
-		int reservationInfoId = reserveDao.insertReservation(reserveRequest.getName(), reserveRequest.getTelephone(),reserveRequest.getEmail(), reserveRequest.getDisplayInfoId(), reserveRequest.getReservationDate());
+		int reservationInfoId = reserveDao.insertReservation(reserveRequest.getName(), reserveRequest.getTelephone(), reserveRequest.getEmail(), reserveRequest.getDisplayInfoId(), reserveRequest.getReservationDate());
 		List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
-		
+
 		for (int i = 0; i < reservePriceInfoList.size(); i++) {
 			ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
-			
-			Integer resultRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(),reserveRequest.getDisplayInfoId(), reservationInfoId);
-			
-			if(resultRow == null || resultRow == 0) {
+
+			Integer resultRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), reserveRequest.getDisplayInfoId(), reservationInfoId);
+
+			if (resultRow == null || resultRow == 0) {
 				return false;
 			}
 		}
