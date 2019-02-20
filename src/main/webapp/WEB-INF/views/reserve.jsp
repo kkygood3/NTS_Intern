@@ -136,6 +136,7 @@
 										</p>
 									</div>
 								</div>
+								<input type="hidden" value="${ dates.randomDate }" id="reservation_date">
 							</form>
 							
 							
@@ -195,7 +196,7 @@
 				
 					<!-- [D] 약관 전체 동의가 되면 disable 제거 -->
 					<div class="bk_btn_wrap disable">
-						<button type="button" class="bk_btn" data-id="${ displayResponse.displayInfo.displayInfoId }" data-productId="${ displayResponse.displayInfo.productId }">
+						<button type="button" class="bk_btn" data-id="${ displayResponse.displayInfo.displayInfoId }" data-product-id="${ displayResponse.displayInfo.productId }">
 							<i class="spr_book ico_naver_s"></i> <span>예약하기</span>
 						</button>
 					</div>
