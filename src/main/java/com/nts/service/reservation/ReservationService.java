@@ -5,11 +5,14 @@
 package com.nts.service.reservation;
 
 import com.nts.dto.reservation.ReservationParameter;
+
+import java.text.ParseException;
+
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.exception.DisplayInfoNullException;
 
 public interface ReservationService {
 	ReservationInfos getReservationInfoByReservationEmail(String reservationEmail) throws DisplayInfoNullException;
-	int addReservation(ReservationParameter reservationParameter);
+	int addReservation(ReservationParameter reservationParameter) throws ParseException;
 	int cancelReservation(long reservationId);
 }

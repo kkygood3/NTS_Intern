@@ -4,6 +4,7 @@
 const sendAjax = require("../sendAjax");
 const handlebarsFunction = require("../handlebarsFunction");
 const addCommaUtil = require('../util/addCommaUtil');
+const dateUtil = require('../util/dateUtil');
 
 /**
  * @desc 예약 class
@@ -48,39 +49,30 @@ Reservation.prototype = {
     
     /**
      * @desc 취소 개수 셋팅
+     * @param {String} documentId
      * @param {Number} reservationCount 
      */
-    _setCancelReservationCount(reservationCount){
-    	document.querySelector("#count_cancel").innerHTML = reservationCount;
+    _setReservationCount(documentId,reservationCount){
+    	document.querySelector(documentId).innerHTML = reservationCount;
     },
     
-    /**
-     * @desc 예약 (아직 보지않은) 갯수 셋팅
-     * @param {Number} reservationCount 
-     */
-    _setConfirmReservationCount(reservationCount){
-    	document.querySelector("#count_confirm").innerHTML = reservationCount;
-    },
-
     /**
      * @desc 예약 정보들 셋팅
      * @param {JSON} reservations 
      */
     _setReservations(reservations) {
         
+        console.log(reservations);
+
         const confirmDiv = document.querySelector(".confirmed");
+        const usedDiv = document.querySelector(".usedDone");
         const cancelDiv = document.querySelector(".cancel");
         
         if(reservations.length === 0 ){
-        	
-        	const noData = 0;
-        	
         	confirmDiv.remove();
-        	cancelDiv.remove();
-        	
-        	this._setCancelReservationCount(noData);
-        	this._setConfirmReservationCount(noData);
-        	
+            cancelDiv.remove();
+            usedDiv.remove();
+            
         	return;
         }
         
@@ -88,23 +80,31 @@ Reservation.prototype = {
         
         let cancelCount = 0;
         let confirmCount = 0;
+        let usedCount = 0;
         
         reservations.forEach( reservation => {
             reservation.reservationDate = reservation.reservationDate.substr(0,10);
             reservation.totalPrice = addCommaUtil.getCommaToNumberString(reservation.totalPrice.toString());
-
+            
             if(reservation.cancelYn === true){
+                
                 cancelDiv.innerHTML += handlebarsFunction.getHandlebarTemplateFromHtml("#reservation_cancel_template",{reservation: reservation});
                 cancelCount++;
             } else {
-                confirmDiv.innerHTML += handlebarsFunction.getHandlebarTemplateFromHtml("#reservation_template",{reservation: reservation});
-                confirmCount++;
+                
+                if(reservation.reservationDate < dateUtil.getTodayYYYYMMDD()){
+                    usedDiv.innerHTML += handlebarsFunction.getHandlebarTemplateFromHtml("#reservation_used_template",{reservation: reservation});
+                    usedCount++;
+                } else {
+                    confirmDiv.innerHTML += handlebarsFunction.getHandlebarTemplateFromHtml("#reservation_template",{reservation: reservation});
+                    confirmCount++;
+                }
             }
         });
         
-        this._setCancelReservationCount(cancelCount);
-    	this._setConfirmReservationCount(confirmCount);
-
+        this._setReservationCount("#count_cancel",cancelCount);
+    	this._setReservationCount("#count_confirm",confirmCount);
+        this._setReservationCount("#count_used",usedCount);
     }
 };
 

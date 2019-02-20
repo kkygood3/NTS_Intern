@@ -17,7 +17,7 @@ public class ReservationSqls {
 	
 	public static final String INSERT_INTO_RESERVATION_INFO =
 	"INSERT INTO reservation_info (product_id, display_info_id, reservation_name, reservation_tel, reservation_email, reservation_date, create_date, modify_date) "+
-	"VALUES (:productId, :displayInfoId, :reservationName, :reservationTelephone, :reservationEmail, NOW(), NOW(), NOW() )";
+	"VALUES (:productId, :displayInfoId, :reservationName, :reservationTelephone, :reservationEmail, :reservationYearMonthDay, NOW(), NOW() )";
 	
 	public static final String INSERT_INTO_RSERVATION_INFO_PRICE =
 	"INSERT INTO reservation_info_price ( reservation_info_id, product_price_id, count) "+

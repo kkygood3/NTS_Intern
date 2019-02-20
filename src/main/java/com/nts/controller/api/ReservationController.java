@@ -5,6 +5,7 @@
 package com.nts.controller.api;
 
 import java.security.InvalidParameterException;
+import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.dto.reservation.ReservationParameter;
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.exception.DisplayInfoNullException;
+import com.nts.exception.InvalidFormatException;
 import com.nts.service.reservation.ReservationService;
 import com.nts.util.CheckFormat;
 
@@ -30,33 +32,53 @@ import com.nts.util.CheckFormat;
 public class ReservationController {
 
 	private ReservationService reservationService;
-	
+
 	public ReservationController(@Autowired ReservationService reservationService) {
 		this.reservationService = reservationService;
 	}
 
 	@GetMapping
 	public ReservationInfos getReservationsByReservationEmail(@RequestParam(required = true) String reservationEmail)
-		throws DisplayInfoNullException {
+		throws DisplayInfoNullException, InvalidFormatException {
 
 		if (CheckFormat.validateEmailFormat(reservationEmail)) {
 			return reservationService.getReservationInfoByReservationEmail(reservationEmail);
 		} else {
 			System.err.println("reservationEmail 형식이 맞지않습니다" + reservationEmail);
-			throw new InvalidParameterException("reservationEmail = " + reservationEmail);
+			throw new InvalidFormatException("reservationEmail = " + reservationEmail);
 		}
 	}
-	
+
 	@PostMapping
-	public boolean addReservation(@RequestBody(required=true) ReservationParameter reservationParameter) {
-		
-		reservationService.addReservation(reservationParameter);
+	public boolean addReservation(@RequestBody(required = true) ReservationParameter reservationParameter)
+		throws InvalidFormatException, ParseException {
+
+		if (CheckFormat.validateDateYYYYMMDDHipen(reservationParameter.getReservationYearMonthDay())
+			&& CheckFormat.validateEmailFormat(reservationParameter.getReservationEmail())
+			&& CheckFormat.validatePhoneNumberFormat(reservationParameter.getReservationTelephone())) {
+
+			reservationService.addReservation(reservationParameter);
+
+		} else {
+
+			StringBuffer strBuffer = new StringBuffer();
+
+			strBuffer.append("reservationEmail : ").append(reservationParameter.getReservationEmail())
+					 .append("reservationYearMonthDay : ").append(reservationParameter.getReservationYearMonthDay())
+					 .append("reservationTelephone : ").append(reservationParameter.getReservationTelephone());
+
+			System.err.println(strBuffer.toString());
+
+			throw new InvalidFormatException(strBuffer.toString());
+		}
 		return true;
 	}
-	
+
 	@PutMapping("/{reservationId}")
-	public boolean cancelReservation(@PathVariable(required=true) long reservationId) {
-		
+	public boolean cancelReservation(@PathVariable(required = true) long reservationId) {
+		if (reservationId < 0) {
+			throw new InvalidParameterException("reservationId가 0보다 작습니다 ");
+		}
 		reservationService.cancelReservation(reservationId);
 		return true;
 	}

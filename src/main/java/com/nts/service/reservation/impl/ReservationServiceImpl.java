@@ -5,7 +5,12 @@
 package com.nts.service.reservation.impl;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +34,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private DisplayInfoService displayInfoService;
 	
+	private static final DateFormat DATE_FORMAT_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
 	private static final int CANCEL = 1;
+	
 
 	/**
 	 * @desc reservationEmail 별 reservationInfo 가져오기
@@ -55,10 +62,13 @@ public class ReservationServiceImpl implements ReservationService {
 	/**
 	 * @desc reservation 삽입
 	 * @param reservationParameter
+	 * @throws ParseException 
 	 */
 	@Override
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
-	public int addReservation(ReservationParameter reservationParameter) {
+	public int addReservation(ReservationParameter reservationParameter) throws ParseException {
+		
+		reservationParameter.setReservationYearMonthDay(makeReservationDate(reservationParameter.getReservationYearMonthDay()));
 		long reservationInfoId = reservationRepository.insertReservation(reservationParameter);
 		
 		for(ReservationPrice reservationPrice : reservationParameter.getPrices()) {
@@ -77,5 +87,21 @@ public class ReservationServiceImpl implements ReservationService {
 	public int cancelReservation(long reservationId) {
 		
 		return reservationRepository.updateReservationCancelFlag(reservationId,CANCEL);
+	}
+	
+	/**
+	 * @desc 예약날짜 랜덤으로 0~4 숫자로 더한 뒤 삽입
+	 * @param reservationYearMonthDay
+	 * @return reservationDate
+	 * @throws ParseException
+	 */
+	private String makeReservationDate(String reservationYearMonthDay) throws ParseException {
+		
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTime(DATE_FORMAT_YYYY_MM_DD.parse(reservationYearMonthDay));
+		cal.add(Calendar.DATE, new Random().nextInt(5));
+		
+		return DATE_FORMAT_YYYY_MM_DD.format(cal.getTime());
 	}
 }
