@@ -58,6 +58,7 @@ function loadReservationInfoCallback(response){
 		emptyMsgWrap.style.display = '';
 	}
 }
+
 /**
  * 클릭 이벤트가 없는 영역의 마우스 커서를 Default로 고정
  */
@@ -163,11 +164,11 @@ function initTicketCancelEvents(ticketContainers){
 				if(isAcceptClicked) {
 					ticketContainers[3].appendChild(clickedBtn.offsetParent);
 					clickedBtn.parentElement.remove();
+					checkTicketCount();
 					requestAjax(cancelResultCallback, 'api/reservations/'+clickedBtn.getAttribute('reservationInfoId'),'PUT');
 				}
 				
-				var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') 
-						|| (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
+				var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') || (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
 				
 				if(isAcceptClicked||isCloseClicked){
 					cancelPopup.style.display = 'none';
