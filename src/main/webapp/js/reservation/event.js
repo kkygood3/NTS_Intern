@@ -160,6 +160,8 @@ function addBookingButtonClickEvent() {
 			success: function(data){
 				if (data) {
 					window.location.href = "/detail/" + displayInfo().displayInfoId;
+				} else {
+					alert("잘못된 입력입니다.");
 				}
 		    }
 		});
