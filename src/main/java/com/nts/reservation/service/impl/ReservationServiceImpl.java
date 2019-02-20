@@ -44,12 +44,15 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setReservationDate(new Date());
 		reservationInfo.setCreateDate(new Date());
+		
 		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
 		reservationInfo.setId(reservationInfoId);
+		
 		for (ReservationInfoPrice reservationInfoPrice : userInput.getPrice()) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
+		
 		return reservationInfo;
 	}
 
