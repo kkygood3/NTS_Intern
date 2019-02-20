@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.property.Const.COMMENT_DEFAULT_PAGING_SIZE;
 import static com.nts.reservation.property.Const.DEFAULT_SATRT;

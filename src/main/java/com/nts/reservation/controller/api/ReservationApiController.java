@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_LIMIT_MONTH;
 import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_START_MONTH;
