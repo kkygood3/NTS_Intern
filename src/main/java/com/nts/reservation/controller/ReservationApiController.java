@@ -58,7 +58,7 @@ public class ReservationApiController {
 	public int putMyReservation(HttpSession session,
 		@PathVariable(name = "reservationInfoId", required = true) int reservationInfoId) {
 		String email = (String)session.getAttribute("email");
-		if (email == null) {
+		if (email == null || email == "") {
 			return -1;
 		}
 		return reservationService.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, email);
