@@ -41,7 +41,12 @@ public class FileIoServiceImpl implements FileIoService {
 		String fileExtension = file.getContentType().replaceAll(RegexPattern.IMAGE_CONTENT_TYPE, ".");
 		String fileName = randomFileName + fileExtension;
 		String saveFileName = path + "/" + fileName;
-		FileOutputStream fileOutputStream = new FileOutputStream(fileDir + saveFileName);
+
+		File newFile = new File(fileDir + saveFileName);
+		newFile.getParentFile().mkdirs();
+		newFile.createNewFile();
+
+		FileOutputStream fileOutputStream = new FileOutputStream(newFile);
 		InputStream inputStream = file.getInputStream();
 
 		int readCount = 0;
