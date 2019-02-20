@@ -33,7 +33,7 @@ public class MainController {
 		// TODO email validation check
 
 		session.setAttribute("email", email);
-		return "myreservation";
+		return "redirect:/myreservation";
 	}
 
 	@GetMapping(path = "/logout")
