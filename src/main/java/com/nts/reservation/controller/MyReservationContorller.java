@@ -47,14 +47,13 @@ public class MyReservationContorller {
 	 * bookinglogin에서 비회원 조회 요청을 받고 myReservation 페이지로 넘김. 
 	 */
 	@PostMapping("/myreservation")
-	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session, ModelMap map) {
+	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session) {
 		
 		if(!ReservationValidatior.validateEmail(email)) {
 			return "error";
 		}
 		
 		session.setAttribute("email", email);
-		map.addAttribute("email", email);
 		return "myreservation";
 	}
 }

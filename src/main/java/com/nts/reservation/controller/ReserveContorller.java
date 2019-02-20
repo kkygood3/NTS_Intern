@@ -29,14 +29,7 @@ public class ReserveContorller {
 	 * @param id - displayInfo 테이블의 id 
 	 */
 	@GetMapping("/reserve")
-	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map,
-		HttpSession session) {
-		
-		String sessionEmail = (String)session.getAttribute("email");
-		if (sessionEmail != null) {
-			map.addAttribute("email",sessionEmail);
-		}
-		
+	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {		
 		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
 		SimpleDateFormat dateFormat = new SimpleDateFormat ( "yyyy.MM.dd");
 		Calendar calendar = Calendar.getInstance();
