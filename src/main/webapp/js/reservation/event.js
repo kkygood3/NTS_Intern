@@ -42,11 +42,12 @@ function addPlusMiusButtonClickEvent() {
 		var minusButton = buttonHolder.getElementsByClassName("btn_plus_minus")[0];
 		var count = buttonHolder.getElementsByClassName("count_control_input")[0];
 		var totalCount = document.getElementById("totalCount");
+		var countText = buttonHolder.querySelector(".individual_price")
 		
 		if (button.getAttribute("title") == "더하기") {
-			increaseCount(minusButton, count, totalCount);
+			increaseCount(minusButton, count, totalCount, countText);
 		} else if (button.getAttribute("title") == "빼기") {
-			if (decreaseCount(minusButton, count, totalCount)) {
+			if (decreaseCount(minusButton, count, totalCount, countText)) {
 				return;
 			}
 		}
@@ -55,20 +56,24 @@ function addPlusMiusButtonClickEvent() {
 	});
 }
 
-function increaseCount(minusButton, count, totalCount) {
-	minusButton.classList.remove("disabled");
+function increaseCount(minusButton, count, totalCount, countText) {
+	if (count.value == 0) {
+		minusButton.classList.remove("disabled");
+		countText.style.color = "#000";
+	}
 	count.value = count.value * 1 + 1;
 	totalCount.innerText = totalCount.innerText * 1 + 1;
 	
 }
 
-function decreaseCount(minusButton, count, totalCount) {
+function decreaseCount(minusButton, count, totalCount, countText) {
 	if (count.value == 0) {
 		return false;
 	}
 	count.value = count.value * 1 - 1;
 	if (count.value == 0) {
 		minusButton.classList.add("disabled");
+		countText.style.color = "#bbb";
 	}
 	totalCount.innerText = totalCount.innerText * 1 - 1;
 }
