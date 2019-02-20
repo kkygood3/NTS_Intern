@@ -29,6 +29,7 @@ import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
 import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
@@ -106,6 +107,16 @@ public class ReservationApiController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("items", categories);
 
+		return map;
+	}
+
+	@GetMapping(path = "/reservations")
+	public Map<String, Object> getReservations(@RequestParam String reservationEmail) {
+		List<ReservedItem> reservedItems = reservationService.getReservedItems(reservationEmail);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("reservations", reservedItems);
+		map.put("size", reservedItems.size());
 		return map;
 	}
 
