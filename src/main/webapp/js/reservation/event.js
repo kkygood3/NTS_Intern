@@ -50,7 +50,7 @@ function addPlusMiusButtonClickEvent() {
 				return;
 			}
 		}
-		setReservationButtonDisable();
+		setBookingButtonDisable();
 		setTotalPrice(buttonHolder, count.value);
 	});
 }
@@ -73,12 +73,15 @@ function decreaseCount(minusButton, count, totalCount) {
 	totalCount.innerText = totalCount.innerText * 1 - 1;
 }
 
-function setReservationButtonDisable() {
-	var bkButton = document.querySelector(".box_bk_btn .bk_btn_wrap");
+function setBookingButtonDisable() {
+	var bookingButton = document.getElementsByClassName("bk_btn")[0];
 	if (isValidAllReservationInputs()) {
-		bkButton.classList.remove("disable");
+		bookingButton.classList.remove("disable");
+		bookingButton.style.cursor = "pointer";
+
 	} else {
-		bkButton.classList.add("disable");
+		bookingButton.classList.add("disable");
+		bookingButton.style.cursor = "default";
 	}
 }
 
@@ -105,7 +108,7 @@ function addBookingFormInputChangeEvent() {
 				value = adjustTel(value);
 				event.target.value = value
 			}
-			setReservationButtonDisable();
+			setBookingButtonDisable();
 
 			if (event.target.id == "chk3") {
 				return;
@@ -139,9 +142,9 @@ function agreed() {
  */
 function addBookingButtonClickEvent() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
+	bookingButton.style.cursor = "default";
 	bookingButton.addEventListener("click", function(event){
 		if (!isValidAllReservationInputs()) {
-			console.log("disable");
 			return;
 		}
 		var reservationForm = document.querySelector("form.form_horizontal");
