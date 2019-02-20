@@ -29,7 +29,7 @@ public class ControllerExceptionHandlerConfig {
 	public ModelAndView handleInvalidParameterException(InvalidParameterException invalidParameterException) {
 		
 		ModelAndView mav = new ModelAndView("redirect:/error/invalid-parameter-error");
-		mav.addObject(invalidParameterException.getParamName(), invalidParameterException.getParamValue());
+		mav.addObject(invalidParameterException.getParamName(), invalidParameterException.getParamValue().getValue());
 		
 		return mav;
 	}

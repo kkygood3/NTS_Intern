@@ -9,7 +9,7 @@ function sendRequest(request, uri, callBack){
 
 	xhr.onreadystatechange = () => {
 		if(xhr.readyState === 4 && xhr.status === 200){
-			if(xhr.response.includes("!DOCTYPE html")){
+			if(xhr.response.includes("html")){
 				location = xhr.responseURL;
 			}
 			else if(callBack){
