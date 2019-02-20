@@ -32,7 +32,7 @@ public class ProductPriceDao extends BaseDao {
 	 * 
 	 * 예약페이지에 표시할 가격정보
 	 * @param productId 상품 아이디
-	 * @return 가격정도
+	 * @return 가격정보
 	 */
 	public List<PriceInfo> selectPriceInfoByProductId(long productId) {
 		Map<String, Long> params = new HashMap<>();
