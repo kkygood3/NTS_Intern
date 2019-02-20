@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 function addMinusButtonsEvent(){
-	reserve.minusButtons.forEach((element, index)=>{
+	reserve.minusButtons.forEach(element=>{
 		
 		element.addEventListener('click', e=>{
 			let amountElement = e.target.parentElement.children[1];
@@ -153,7 +153,7 @@ function validateForm(event){
 		return;
 	}
 	
-	reserveSubmit();
+	submitReservation();
 }
 
 /**
@@ -175,7 +175,7 @@ function combineReservationDataForJson(){
 	let reservationParam = {};
 	let reservationPrices = Array.from(reserve.amountValues)
 								.filter(price=>{return price.value>0})
-								.map(function(price){
+								.map(price=>{
 		return new ReservationPrice(price.dataset.priceid, price.value);
 	});
 
@@ -185,20 +185,30 @@ function combineReservationDataForJson(){
 	reservationParam.reservationEmail = reserve.email.value;
 	reservationParam.reservationName = reserve.name.value;
 	reservationParam.reservationTel = reserve.tel.value;
-
+	reservationParam.reservationDate = document.querySelector('#reservation_date').value;
 	return JSON.stringify(reservationParam);
 }
 
-function reserveSubmit() {
+function submitReservation() {
 	
 	let oReq = new XMLHttpRequest();
-	oReq.onreadystatechange = function() {
+	oReq.onreadystatechange = function(data) {
 		if (this.readyState == 4 && this.status == 200) {
-			alert('success');
+			let reservationReponse = data.target.response;
+			
+			let message = `name : ${reservationReponse.reservationName}
+email : ${reservationReponse.reservationEmail}
+phone : ${reservationReponse.reservationTel}
+공연 날짜 : ${reservationReponse.reservationDate}
+
+로 예매가 완료되었습니다.`;
+			alert(message);
+			location.href = '/';
 		}
 	};
 	oReq.open('POST', '/api/reservations');
 	oReq.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+	oReq.responseType = 'json';
 	oReq.send(combineReservationDataForJson());
 }
 
