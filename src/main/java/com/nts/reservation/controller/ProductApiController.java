@@ -113,7 +113,7 @@ public class ProductApiController {
 	public List<PriceInfo> getProductPrice(@PathVariable(name = "productId", required = true) long productId) {
 		return productService.getPriceInfoByProductId(productId);
 	}
-	
+
 	/**
 	 * 예약정보 받아서 서버로 넘긴다
 	 * @param displayInfoId 예약할 상품 id
@@ -124,22 +124,23 @@ public class ProductApiController {
 	@PostMapping(path = "/{displayInfoId}/reservation")
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput) {
-		
+
 		int totalReservationCount = 0;
 		for (ReservationInfoPrice reservationInfoPrice : userReservationInput.getPrice()) {
 			totalReservationCount += reservationInfoPrice.getCount();
 		}
-		
+
 		if (totalReservationCount == 0) {
 			return false;
 		}
-		if (!Validator.validateReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+		if (!Validator.validReservationInfo(
+			userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
 			return false;
 		}
 		if (reservationService.addReservation(userReservationInput, displayInfoId).getId() == -1) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }

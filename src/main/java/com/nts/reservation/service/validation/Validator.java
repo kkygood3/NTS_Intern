@@ -10,22 +10,22 @@ import java.util.regex.Pattern;
 public class Validator {
 	private Validator() {}
 
-	public static boolean validateEmail(String email) {
+	public static boolean validEmail(String email) {
 		String pattern = "(?i)^[a-z][-\\.\\w]*@[a-z][-\\.\\w]*\\.[a-z]{2,3}$";
 		return Pattern.matches(pattern, email);
 	}
 
-	public static boolean validateTel(String tel) {
+	public static boolean validTel(String tel) {
 		String pattern = "^01[016-9]-[0-9]{3,4}-[0-9]{4}$";
 		return Pattern.matches(pattern, tel);
 	}
 
-	public static boolean validateName(String name) {
+	public static boolean validName(String name) {
 		String pattern = "^([가-힣]{2,})$|^(([A-Z][a-z]*\\s)+[A-Z][a-z]*)$";
 		return Pattern.matches(pattern, name);
 	}
 	
-	public static boolean validateReservationInfo(String name, String tel, String email) {
-		return validateEmail(email) & validateTel(tel) & validateName(name);
+	public static boolean validReservationInfo(String name, String tel, String email) {
+		return validEmail(email) & validTel(tel) & validName(name);
 	}
 }
