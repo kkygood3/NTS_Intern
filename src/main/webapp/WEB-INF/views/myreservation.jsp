@@ -125,7 +125,7 @@
 									</c:if>
 								>
 									<i class="spr_book ico_info_nolist"></i>
-									<h1 class="tit">예약 리스트가 없습니다</h1>
+									<h1 class="tit">확정된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
 							<c:forEach var="myReservation" items="${response.todoMyReservations}">
@@ -189,7 +189,7 @@
 									</c:if>
 								>
 									<i class="spr_book ico_info_nolist"></i>
-									<h1 class="tit">예약 리스트가 없습니다</h1>
+									<h1 class="tit">완료된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
 
@@ -248,7 +248,7 @@
 									</c:if>
 								>
 									<i class="spr_book ico_info_nolist"></i>
-									<h1 class="tit">예약 리스트가 없습니다</h1>
+									<h1 class="tit">취소된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
 							<c:forEach var="myReservation" items="${response.cancleMyReservations}">
