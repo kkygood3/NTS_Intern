@@ -10,4 +10,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	addPlusMiusButtonClickEvent();
 	addBookingFormInputChangeEvent();
 	addBookingButtonClickEvent();
+	setPreviewText();
 });

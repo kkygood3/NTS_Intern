@@ -24,6 +24,24 @@ function makePriceInfoHTML(priceInfos) {
 	ul.innerHTML += innerHtml;
 	
 	makePriceDescription(priceInfos);
+	setPricePreviewText(priceInfos);
+}
+
+function setPricePreviewText(priceInfos) {
+	var minPrice = getMinPrice(priceInfos);
+	var preview = document.querySelectorAll(".preview_txt .preview_txt_dsc");
+	preview[0].innerText = "₩" + minPrice + "~";
+}
+
+function getMinPrice(priceInfos) {
+	var minPrice = priceInfos[0].price;
+	priceInfos.forEach((price) => {
+		console.log(price.price);
+		if (price.price < minPrice) {
+			minPrice = price.price;
+		}
+	});
+	return minPrice;
 }
 
 function makePriceDescription(priceInfos) {

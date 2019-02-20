@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -33,6 +35,8 @@
 								<img alt="" class="img_thumb" src="/${pageInfo.mainImageName}"> <span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit">${pageInfo.description}</h2>
+									<em class="preview_txt_dsc">₩12,000 ~ </em>
+									<em class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓 2769매</em>
 								</div>
 							</li>
 						</ul>
@@ -77,7 +81,7 @@
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected">2017.2.17, 총 <span id="totalCount">0</span>매</p>
+										<p class="inline_txt selected"><fmt:formatDate pattern = "yyyy.M.dd" value = "${pageInfo.reservationDate}" /> 총 <span id="totalCount">0</span>매</p>
 									</div>
 								</div>
 							</form>
@@ -122,6 +126,7 @@
 			return {
 				"displayInfoId" : "${pageInfo.displayInfoId}",
 				"productId" : "${pageInfo.productId}",
+				"reservationDate" : "${pageInfo.reservationDate}"
 			};
 		}
 	</script>
@@ -133,6 +138,7 @@
 	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/validation.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/preview.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/event.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>
 </body>
