@@ -28,11 +28,6 @@ public class ReservationViewController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping("/login")
-	public String getBookingLoginPage() {
-		return "bookinglogin";
-	}
-
 	@PostMapping("/loginConfirm")
 	public String login(HttpSession session, @RequestParam(name = "userEmail", required = true) String userEmail) {
 		session.setAttribute("userEmail", userEmail);
