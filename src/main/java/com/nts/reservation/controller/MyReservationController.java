@@ -25,13 +25,13 @@ import com.nts.reservation.util.RegexValidator;
 public class MyReservationController {
 	@Autowired
 	private ReservationService reservationService;
-	
+
 	@GetMapping("/myreservation")
 	public String getMyReservationPage(@RequestParam String reservationEmail, HttpSession session, Model model) {
 		if (!RegexValidator.isValid(RegularExpression.EMAIL_REGEXP, reservationEmail)) {
 			throw new RuntimeException("이메일 형식이 틀렸습니다.");
 		}
-		MyReservationResponseDto myReservationResponse = reservationService.getMyReservations(reservationEmail);
+		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail);
 		model.addAttribute("response", myReservationResponse);
 		session.setAttribute("reservationEmail", reservationEmail);
 		return "myreservation";

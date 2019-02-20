@@ -7,7 +7,7 @@ package com.nts.reservation.dto.param;
 import java.util.List;
 
 import com.nts.reservation.constant.RegularExpression;
-import com.nts.reservation.dto.ReservationInfoPriceDto;
+import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
 import com.nts.reservation.util.RegexValidator;
 
 /**

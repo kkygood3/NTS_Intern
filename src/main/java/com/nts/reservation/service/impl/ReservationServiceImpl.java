@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ReservationInfoDao;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
-import com.nts.reservation.dto.MyReservationDto;
-import com.nts.reservation.dto.ReservationInfoDto;
-import com.nts.reservation.dto.ReservationInfoPriceDto;
+import com.nts.reservation.dto.ReservationDisplayInfoDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.primitive.ReservationInfoDto;
+import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 import com.nts.reservation.util.DateUtil;
@@ -53,31 +53,32 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public MyReservationResponseDto getMyReservations(String reservationEmail) {
-		List<MyReservationDto> myReservations = reservationInfoDao.selectMyReservations(reservationEmail);
+	public MyReservationResponseDto getMyReservationResponse(String reservationEmail) {
+		List<ReservationDisplayInfoDto> reservationDisplayInfos = reservationInfoDao
+			.selectReservationDisplayInfos(reservationEmail);
 
 		MyReservationResponseDto myReservationResponse = new MyReservationResponseDto();
-		myReservationResponse.setTotalCount(myReservations.size());
+		myReservationResponse.setTotalCount(reservationDisplayInfos.size());
 
-		List<MyReservationDto> todoMyReservations = new ArrayList<MyReservationDto>();
-		List<MyReservationDto> doneMyReservations = new ArrayList<MyReservationDto>();
-		List<MyReservationDto> cancleMyReservations = new ArrayList<MyReservationDto>();
+		List<ReservationDisplayInfoDto> todoReservationDisplayInfos = new ArrayList<ReservationDisplayInfoDto>();
+		List<ReservationDisplayInfoDto> doneReservationDisplayInfos = new ArrayList<ReservationDisplayInfoDto>();
+		List<ReservationDisplayInfoDto> cancleReservationDisplayInfos = new ArrayList<ReservationDisplayInfoDto>();
 
-		for (MyReservationDto myReservation : myReservations) {
-			if (myReservation.getCancelFlag()) {
-				cancleMyReservations.add(myReservation);
-			} else if (DateUtil.isAfterToday(myReservation.getReservationDate())) {
-				doneMyReservations.add(myReservation);
+		for (ReservationDisplayInfoDto reservationDisplayInfo : reservationDisplayInfos) {
+			if (reservationDisplayInfo.getCancelFlag()) {
+				cancleReservationDisplayInfos.add(reservationDisplayInfo);
+			} else if (DateUtil.isAfterToday(reservationDisplayInfo.getReservationDate())) {
+				doneReservationDisplayInfos.add(reservationDisplayInfo);
 			} else {
-				todoMyReservations.add(myReservation);
+				todoReservationDisplayInfos.add(reservationDisplayInfo);
 			}
 		}
-		myReservationResponse.setTodoMyReservations(todoMyReservations);
-		myReservationResponse.setDoneMyReservations(doneMyReservations);
-		myReservationResponse.setCancleMyReservations(cancleMyReservations);
-		myReservationResponse.setTodoCount(todoMyReservations.size());
-		myReservationResponse.setDoneCount(doneMyReservations.size());
-		myReservationResponse.setCancleCount(cancleMyReservations.size());
+		myReservationResponse.setTodoReservationDisplayInfos(todoReservationDisplayInfos);
+		myReservationResponse.setDoneReservationDisplayInfos(doneReservationDisplayInfos);
+		myReservationResponse.setCancleReservationDisplayInfos(cancleReservationDisplayInfos);
+		myReservationResponse.setTodoCount(todoReservationDisplayInfos.size());
+		myReservationResponse.setDoneCount(doneReservationDisplayInfos.size());
+		myReservationResponse.setCancleCount(cancleReservationDisplayInfos.size());
 		return myReservationResponse;
 	}
 

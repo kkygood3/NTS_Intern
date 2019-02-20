@@ -17,8 +17,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.MyReservationDto;
-import com.nts.reservation.dto.ReservationInfoDto;
+import com.nts.reservation.dto.ReservationDisplayInfoDto;
+import com.nts.reservation.dto.primitive.ReservationInfoDto;
 
 /**
  * 예약 정보 DAO
@@ -32,7 +32,7 @@ public class ReservationInfoDao extends BasicDao<ReservationInfoDto> {
 		super(dataSource);
 		setRowMapper(ReservationInfoDto.class);
 		this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("reservation_info")
-				.usingGeneratedKeyColumns("id");
+			.usingGeneratedKeyColumns("id");
 	}
 
 	public int insert(ReservationInfoDto reservationInfo) {
@@ -40,10 +40,10 @@ public class ReservationInfoDao extends BasicDao<ReservationInfoDto> {
 		return insertAction.executeAndReturnKey(params).intValue();
 	}
 
-	public List<MyReservationDto> selectMyReservations(String reservationEmail) {
-		return jdbcTemplate.query(SELECT_MY_RESERVATIONS,
-				Collections.singletonMap("reservationEmail", reservationEmail),
-				BeanPropertyRowMapper.newInstance(MyReservationDto.class));
+	public List<ReservationDisplayInfoDto> selectReservationDisplayInfos(String reservationEmail) {
+		return jdbcTemplate.query(SELECT_RESERVATION_DISPLAY_INFOS,
+			Collections.singletonMap("reservationEmail", reservationEmail),
+			BeanPropertyRowMapper.newInstance(ReservationDisplayInfoDto.class));
 	}
 
 	public void updateReservationToCancel(int reservationId) {

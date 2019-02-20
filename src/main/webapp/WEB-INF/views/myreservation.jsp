@@ -128,25 +128,25 @@
 									<h1 class="tit">확정된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							<c:forEach var="myReservation" items="${response.todoMyReservations}">
-								<article class="card_item" data-id=${myReservation.id}
-																						data-product-id=${myReservation.productId}
-																						data-display-info-id=${myReservation.displayInfoId}>
+							<c:forEach var="reservationDisplayInfo" items="${response.todoReservationDisplayInfos}">
+								<article class="card_item" data-id=${reservationDisplayInfo.id}
+															data-product-id=${reservationDisplayInfo.productId}
+															data-display-info-id=${reservationDisplayInfo.displayInfoId}>
 									<a class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
 												<div class="card_detail">
-													<em class="booking_number">${myReservation.id}</em>
-													<h4 class="tit">${myReservation.categoryName}/${myReservation.productDescription}</h4>
+													<em class="booking_number">${reservationDisplayInfo.id}</em>
+													<h4 class="tit">${reservationDisplayInfo.categoryName}/${reservationDisplayInfo.productDescription}</h4>
 													<ul class="detail">
-														<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${myReservation.reservationDate} </em></li>
+														<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${reservationDisplayInfo.reservationDate} </em></li>
 														<li class="item"><span class="item_tit">내역</span> <em class="item_dsc"> 내역이 없습니다. </em></li>
-														<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${myReservation.placeName} </em></li>
+														<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${reservationDisplayInfo.placeName} </em></li>
 														<li class="item"><span class="item_tit">업체</span> <em class="item_dsc"> 업체명이 없습니다. </em></li>
 													</ul>
 													<div class="price_summary">
-														<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${myReservation.totalPrice}</span> <span class="unit">원</span>
+														<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${reservationDisplayInfo.totalPrice}</span> <span class="unit">원</span>
 														</em>
 													</div>
 													<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
@@ -193,23 +193,23 @@
 								</div>
 								<!--// 예약 리스트 없음 -->
 
-							<c:forEach var="myReservation" items="${response.doneMyReservations}">
+							<c:forEach var="reservationDisplayInfo" items="${response.doneReservationDisplayInfos}">
 								<article class="card_item">
 									<a class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
 												<div class="card_detail">
-													<em class="booking_number">${myReservation.id}</em>
-													<h4 class="tit">${myReservation.categoryName}/${myReservation.productDescription}</h4>
+													<em class="booking_number">${reservationDisplayInfo.id}</em>
+													<h4 class="tit">${reservationDisplayInfo.categoryName}/${reservationDisplayInfo.productDescription}</h4>
 													<ul class="detail">
-														<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${myReservation.reservationDate} </em></li>
+														<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${reservationDisplayInfo.reservationDate} </em></li>
 														<li class="item"><span class="item_tit">내역</span> <em class="item_dsc"> 내역이 없습니다. </em></li>
-														<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${myReservation.placeName} </em></li>
+														<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${reservationDisplayInfo.placeName} </em></li>
 														<li class="item"><span class="item_tit">업체</span> <em class="item_dsc"> 업체명이 없습니다. </em></li>
 													</ul>
 													<div class="price_summary">
-														<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${myReservation.totalPrice}</span> <span class="unit">원</span>
+														<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${reservationDisplayInfo.totalPrice}</span> <span class="unit">원</span>
 														</em>
 													</div>
 													<div class="booking_cancel">
@@ -251,23 +251,23 @@
 									<h1 class="tit">취소된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							<c:forEach var="myReservation" items="${response.cancleMyReservations}">
+							<c:forEach var="reservationDisplayInfo" items="${response.cancleReservationDisplayInfos}">
 							<article class="card_item">
 								<a class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
 										<div class="middle">
 											<div class="card_detail">
-												<em class="booking_number">${myReservation.id}</em>
-												<h4 class="tit">${myReservation.categoryName}/${myReservation.productDescription}</h4>
+												<em class="booking_number">${reservationDisplayInfo.id}</em>
+												<h4 class="tit">${reservationDisplayInfo.categoryName}/${reservationDisplayInfo.productDescription}</h4>
 												<ul class="detail">
-													<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${myReservation.reservationDate} </em></li>
+													<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> ${reservationDisplayInfo.reservationDate} </em></li>
 													<li class="item"><span class="item_tit">내역</span> <em class="item_dsc"> 내역이 없습니다. </em></li>
-													<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${myReservation.placeName} </em></li>
+													<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> ${reservationDisplayInfo.placeName} </em></li>
 													<li class="item"><span class="item_tit">업체</span> <em class="item_dsc"> 업체명이 없습니다. </em></li>
 												</ul>
 												<div class="price_summary">
-													<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${myReservation.totalPrice}</span> <span class="unit">원</span>
+													<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>${reservationDisplayInfo.totalPrice}</span> <span class="unit">원</span>
 													</em>
 												</div>
 											</div>

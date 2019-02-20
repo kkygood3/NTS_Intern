@@ -14,7 +14,7 @@ import com.nts.reservation.dto.response.MyReservationResponseDto;
 public interface ReservationService {
 	void makeReservation(ReservationParamDto reservationParam);
 
-	MyReservationResponseDto getMyReservations(String reservationEmail);
+	MyReservationResponseDto getMyReservationResponse(String reservationEmail);
 
 	void cancleReservation(int reservationId);
 }
