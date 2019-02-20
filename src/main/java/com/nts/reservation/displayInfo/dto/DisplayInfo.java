@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.displayInfo.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -173,11 +176,6 @@ public class DisplayInfo {
 
 	@Override
 	public String toString() {
-		return "DisplayInfo [categoryId=" + categoryId + ", categoryName=" + categoryName + ", createDate=" + createDate
-			+ ", displayInfoId=" + displayInfoId + ", email=" + email + ", homepage=" + homepage + ", modifyDate="
-			+ modifyDate + ", openingHours=" + openingHours + ", placeLot=" + placeLot + ", placeName=" + placeName
-			+ ", placeStreet=" + placeStreet + ", productContent=" + productContent + ", productDescription="
-			+ productDescription + ", productEvent=" + productEvent + ", productId=" + productId + ", telephone="
-			+ telephone + ", productImage=" + productImage + ", displayInfoImage=" + displayInfoImage + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

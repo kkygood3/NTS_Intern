@@ -6,6 +6,9 @@ package com.nts.reservation.reservation.dto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -31,6 +34,6 @@ public class ReservationInfoResponse {
 
 	@Override
 	public String toString() {
-		return "ReservationInfoResponse [reservations=" + reservations + ", size=" + size + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

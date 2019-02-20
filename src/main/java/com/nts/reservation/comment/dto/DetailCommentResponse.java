@@ -6,6 +6,9 @@ package com.nts.reservation.comment.dto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -40,7 +43,6 @@ public class DetailCommentResponse {
 
 	@Override
 	public String toString() {
-		return "DetailCommentResponse [detailCommentList=" + detailCommentList + ", averageScore=" + averageScore
-			+ ", commentCount=" + commentCount + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.comment.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -119,10 +122,6 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentId=" + commentId + ", commentImages=" + commentImage
-			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
-			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
-			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="
-			+ reservationTelephone + ", score=" + score + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

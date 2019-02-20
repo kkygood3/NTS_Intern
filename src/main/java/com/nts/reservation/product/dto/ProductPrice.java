@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.product.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -74,8 +77,6 @@ public class ProductPrice {
 
 	@Override
 	public String toString() {
-		return "ProductPrice [createDate=" + createDate + ", discountRate=" + discountRate + ", modifyDate="
-			+ modifyDate + ", price=" + price + ", priceTypeName=" + priceTypeName + ", productId=" + productId
-			+ ", productPriceId=" + productPriceId + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

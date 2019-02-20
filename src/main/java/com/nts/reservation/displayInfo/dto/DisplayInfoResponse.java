@@ -6,6 +6,9 @@ package com.nts.reservation.displayInfo.dto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
@@ -71,7 +74,6 @@ public class DisplayInfoResponse {
 
 	@Override
 	public String toString() {
-		return "DisplayInfoResponse [averageScore=" + averageScore + ", comments=" + comments + ", displayInfo="
-			+ displayInfo + ", displayInfoImage=" + displayInfoImage + ", productImages=" + productImages + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

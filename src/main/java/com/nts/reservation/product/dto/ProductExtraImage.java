@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.product.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -29,6 +32,6 @@ public class ProductExtraImage {
 
 	@Override
 	public String toString() {
-		return "ProductExtraImage [productImage=" + productImage + ", productDescription=" + productDescription + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

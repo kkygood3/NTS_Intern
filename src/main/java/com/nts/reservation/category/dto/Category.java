@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.category.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -38,6 +41,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [count=" + count + ", id=" + id + ", name=" + name + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

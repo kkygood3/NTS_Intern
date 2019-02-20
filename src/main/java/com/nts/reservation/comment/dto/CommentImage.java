@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.comment.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
@@ -101,9 +104,6 @@ public class CommentImage {
 
 	@Override
 	public String toString() {
-		return "CommentImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag=" + deleteFlag
-			+ ", fileId=" + fileId + ", fileName=" + fileName + ", imageId=" + imageId + ", modifyDate=" + modifyDate
-			+ ", reservationInfoId=" + reservationInfoId + ", reservationUserCommentId=" + reservationUserCommentId
-			+ ", saveFileName=" + saveFileName + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

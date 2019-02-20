@@ -88,6 +88,13 @@
 		<artifactId>jackson-datatype-jdk8</artifactId>
 		<version>${jackson2.version}</version>
 	</dependency> 
+	
+	<!-- ToStringBuilder -->
+	<dependency>
+	  <groupId>org.apache.commons</groupId>
+	  <artifactId>commons-lang3</artifactId>
+	  <version>3.4</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>reservation</finalName>

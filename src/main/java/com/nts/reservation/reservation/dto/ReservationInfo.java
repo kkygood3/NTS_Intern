@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.reservation.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
 
 /**
@@ -121,10 +124,6 @@ public class ReservationInfo {
 
 	@Override
 	public String toString() {
-		return "ReservationInfo [cancelYn=" + cancelYn + ", createDate=" + createDate + ", displayInfo=" + displayInfo
-			+ ", displayInfoId=" + displayInfoId + ", modifyDate=" + modifyDate + ", productId=" + productId
-			+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail + ", reservationInfoId="
-			+ reservationInfoId + ", reservationName=" + reservationName + ", reservationTelephone="
-			+ reservationTelephone + ", totalPrice=" + totalPrice + "]";
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }
