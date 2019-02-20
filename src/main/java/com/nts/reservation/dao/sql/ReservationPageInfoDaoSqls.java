@@ -9,7 +9,7 @@ public class ReservationPageInfoDaoSqls {
 	+ "JOIN file_info AS pf ON pf.id = pi.file_id";
 	
 	public static final String SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL
-	= "SELECT r.id AS reservation_id, p.description, adddate(adddate(now(), interval -5 day), interval floor(rand()*14400) minute) AS reservation_date, r.cancel_flag AS canceled, d.place_name, sum(pp.price*rp.count) AS price "
+	= "SELECT r.id AS reservation_id, p.description, adddate(adddate(now(), interval -5 day), interval floor(rand()*14400) minute) AS reservation_date, r.cancel_flag AS canceled, d.place_name, sum(pp.price*rp.count) AS price, r.modify_date "
 	+ "FROM reservation_info AS r "
 	+ "INNER JOIN product AS p "
 	+ "	ON r.reservation_email = :reservationEmail "

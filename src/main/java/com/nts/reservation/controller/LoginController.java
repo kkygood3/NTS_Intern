@@ -34,7 +34,7 @@ public class LoginController {
 	@PostMapping(path = "/login")
 	public String postLogin(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
-		if (!Validator.validateEmail(email)) {
+		if (!Validator.validEmail(email)) {
 			return "redirect:/error";
 		}
 		session.setAttribute("email", email);
