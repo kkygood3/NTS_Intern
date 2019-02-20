@@ -18,6 +18,11 @@ function makePriceInfoHTML(priceInfos) {
 	}
 	
 	var bindTemplate = getBindTemplate("ticket_item");
+	
+	Handlebars.registerHelper("orgPrice", function(price, discountRate) {
+	      return Math.ceil(price / discountRate * 100); 
+	});
+	
 	var innerHtml = makeHtmlFromListData(priceInfos, bindTemplate);
 
 	var ul = document.getElementsByClassName("ticket_body")[0];

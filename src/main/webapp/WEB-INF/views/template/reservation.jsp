@@ -15,7 +15,7 @@
 	</div>
 	<div class="qty_info_icon">
 		<strong class="product_amount"><span>{{priceTypeName}}</span></strong><strong class="product_price"><span class="price">{{price}}</span><span class="price_type">원</span></strong>
-		{{#if discountRate}}<em class="product_dsc">{{price}}원 ({{discountRate}}% 할인가)</em>{{/if}}
+		{{#if discountRate}}<em class="product_dsc">{{orgPrice price discountRate}}원 ({{discountRate}}% 할인가)</em>{{/if}}
 	</div>
 </div>
 </script>
