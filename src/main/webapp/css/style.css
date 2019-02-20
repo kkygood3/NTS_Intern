@@ -474,7 +474,8 @@ hr {
 }
 
 .spr_book2.ico_minus3.disabled {
-    background-position: 0 -305px
+    background-position: 0 -305px;
+    cursor: default
 }
 
 .spr_book2.ico_plus3 {
@@ -484,7 +485,8 @@ hr {
 }
 
 .spr_book2.ico_plus3.disabled {
-    background-position: -126px -305px
+    background-position: -126px -305px;
+    cursor: default
 }
 
 .spr_book2.ico_bell {
@@ -752,7 +754,8 @@ button {
 
 .bk_btn_wrap.disable .bk_btn {
     border: 1px solid #ccc;
-    background-color: #d1d1d1
+    background-color: #d1d1d1;
+    cursor: default
 }
 
 .top_title {
