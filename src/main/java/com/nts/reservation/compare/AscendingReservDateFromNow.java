@@ -5,6 +5,11 @@ import java.util.Date;
 
 import com.nts.reservation.dto.ReservationDisplayItem;
 
+/**
+ * 현재 날짜와 가까운 순서대로 정렬
+ * @author si yoon
+ *
+ */
 public class AscendingReservDateFromNow implements Comparator<ReservationDisplayItem> {
 	@Override
 	public int compare(ReservationDisplayItem r1, ReservationDisplayItem r2) {
