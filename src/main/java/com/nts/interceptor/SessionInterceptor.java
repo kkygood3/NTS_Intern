@@ -12,6 +12,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+/**
+ * @description : /api/reservations에 접근 시 Session에 Email 정보를 확인 후 없으면 Redirect
+ * @package : com.nts.interceptor
+ * @filename : SessionInterceptor.java
+ * @author : 최석현
+ * @method : boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+ */
 public class SessionInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
