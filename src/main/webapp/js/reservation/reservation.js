@@ -5,5 +5,9 @@
  */
 
 document.addEventListener("DOMContentLoaded", function() {
+	sendGetPriceAjax();
 	addagreementClickEvent();
+	addPlusMiusButtonClickEvent();
+	addBookingFormInputChangeEvent();
+	addBookingButtonClickEvent();
 });

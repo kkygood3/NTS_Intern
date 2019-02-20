@@ -23,11 +23,8 @@
 			<div>
 				<div class="section_visual">
 					<header>
-						<h1 class="logo">
-							<a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-							<a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
-						</h1>
-						<a href="/reservation" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+						
+						<%@ include file="/WEB-INF/views/header.jsp"%>
 						<div class="img_bg">
 								<h2 class="visual_txt_tit"><span>${pageInfo.description}</span></h2>
 						</div>
@@ -139,13 +136,13 @@
 			</div>
 		</div>
 	</div>
-
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 	<div id="photoviwer"></div>
 	
-	<%@ include file="/template/comment_item.jsp"%>
-	<%@ include file="/template/detail.jsp"%>
-	
+	<%@ include file="/WEB-INF/views/template/comment_item.jsp"%>
+	<%@ include file="/WEB-INF/views/template/detail.jsp"%>
 	
 	<script type="text/javascript">
 		function displayInfo() {
@@ -159,6 +156,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
 	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
 	<script type= "text/javascript" src= "/js/comment_data/comment.js" ></script>
 	<script type= "text/javascript" src= "/js/detail/button_display.js" ></script>

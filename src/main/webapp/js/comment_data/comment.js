@@ -32,19 +32,6 @@ function makeCommentList(commentDisplayInfos) {
 	}
 }
 
-function getBindTemplate(templateId) {
-	var template = document.getElementById(templateId).innerText;
-	return Handlebars.compile(template); 
-}
-
-function makeHtmlFromListData(commentDisplayInfos, bindTemplate) {
-	var html = ""
-	commentDisplayInfos.forEach((commentDisplayInfo) => {
-		html += bindTemplate(commentDisplayInfo);
-	});
-	return html;
-}
-
 function calcLoadedComments() {
 	var ul = document.getElementsByClassName("list_short_review")[0];
 	return ul.childElementCount;

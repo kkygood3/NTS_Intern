@@ -14,6 +14,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.nts.reservation.dto.ErrorInfo;
+
 /**
  * 에러 처리하는 클래스
  * @author si yoon
@@ -87,34 +89,5 @@ public class ErrorController {
 		mav.addObject("errorInfo", new ErrorInfo(0, "KNOWN", e.getMessage()));
 		mav.setViewName(DEFAULT_ERROR_VIEW);
 		return mav;
-	}
-
-	/**
-	 * 에러정보를 담는 클래스
-	 * @author si yoon
-	 *
-	 */
-	public class ErrorInfo {
-		private String message;
-		private String statusName;
-		private int status;
-
-		ErrorInfo(int status, String statusName, String message) {
-			this.status = status;
-			this.statusName = statusName;
-			this.message = message;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-		public String getStatusName() {
-			return statusName;
-		}
-
-		public int getStatus() {
-			return status;
-		}
 	}
 }

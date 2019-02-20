@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.DatailPageInfo;
+import com.nts.reservation.dto.ProductPageInfo;
 
 /**
  * 상품상세화면 관련 정보 접근하는 클래스 
@@ -21,7 +21,7 @@ import com.nts.reservation.dto.DatailPageInfo;
  */
 @Repository
 public class DatailPageInfoDao extends BaseDao {
-	RowMapper<DatailPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(DatailPageInfo.class);
+	RowMapper<ProductPageInfo> rowMapper = BeanPropertyRowMapper.newInstance(ProductPageInfo.class);
 
 	DatailPageInfoDao(DataSource dataSource) {
 		super(dataSource);
@@ -32,7 +32,7 @@ public class DatailPageInfoDao extends BaseDao {
 	 * @param displayInfoId 조화할 id
 	 * @return 쿼리실행결과 상세페이지 정보
 	 */
-	public DatailPageInfo selectDetailPageInfo(long displayInfoId) {
+	public ProductPageInfo selectDetailPageInfo(long displayInfoId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put(DISPLAY_INFO_ID, displayInfoId);
 		return getJdbc().queryForObject(SELECT_BY_DISPLAY_INFO_ID, params, rowMapper);

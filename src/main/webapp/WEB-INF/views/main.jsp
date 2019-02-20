@@ -12,7 +12,9 @@
 <body>
 	<div id="container">
 		<div class="header">
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		
 		<hr>
@@ -52,17 +54,19 @@
 			</div>
 		</div>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
 
-	<%@ include file="/template/main.jsp"%>
+	<%@ include file="/WEB-INF/views/template/main.jsp"%>
 
-	<script type= "text/javascript" src= "./js/common/error.js" ></script>
-	<script type= "text/javascript" src= "./js/common/sendAjax.js" ></script>
-	<script type= "text/javascript" src= "./js/slide/slide.js" ></script>
-	<script type= "text/javascript" src= "./js/main/category.js" ></script>
-	<script type= "text/javascript" src= "./js/main/promotion.js" ></script>
-	<script type= "text/javascript" src= "./js/main/thumbnail.js" ></script>
-	<script type= "text/javascript" src= "./js/main/event.js" ></script>
-	<script type= "text/javascript" src= "./js/main/main.js" ></script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/slide/slide.js" ></script>
+	<script type= "text/javascript" src= "/js/main/category.js" ></script>
+	<script type= "text/javascript" src= "/js/main/promotion.js" ></script>
+	<script type= "text/javascript" src= "/js/main/thumbnail.js" ></script>
+	<script type= "text/javascript" src= "/js/main/event.js" ></script>
+	<script type= "text/javascript" src= "/js/main/main.js" ></script>
 </body>
 </html>

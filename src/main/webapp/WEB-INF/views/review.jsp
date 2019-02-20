@@ -15,7 +15,9 @@
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		<div class="ct">
 			<div class="wrap_review_list">
@@ -50,8 +52,10 @@
 		</div>
 		<hr>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
-	<%@ include file="/template/comment_item.jsp"%>
+	</footer>
+	<%@ include file="/WEB-INF/views/template/comment_item.jsp"%>
 	
 	<script type="text/javascript">
 		function displayInfo() {
@@ -65,6 +69,7 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
 	<script type= "text/javascript" src= "/js/comment_data/comment.js" ></script>
 	<script type= "text/javascript" src= "/js/review/event.js" ></script>
 	<script type= "text/javascript" src= "/js/review/review.js" ></script>

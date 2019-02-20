@@ -9,28 +9,30 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<title>네이버 예약</title>
 	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/validation.css" rel="stylesheet">
 </head>
 
 <body>
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
-			
-		<%@ include file="/WEB-INF/views/header.jsp"%>
+			<header class="header_tit">
+			<%@ include file="/WEB-INF/views/header.jsp"%>
+			</header>
 		</div>
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">${reservationPageInfo.description}</span></h2>
+					<a href="/detail/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<h2><span class="title">${pageInfo.description}</span></h2>
 				</div>
 				<div class="group_visual">
 					<div class="container_visual" style="width: 414px;">
 						<ul class="visual_img">
 							<li class="item" style="width: 414px;">
-								<img alt="" class="img_thumb" src="/${reservationPageInfo.mainImageName}"> <span class="img_bg"></span>
+								<img alt="" class="img_thumb" src="/${pageInfo.mainImageName}"> <span class="img_bg"></span>
 								<div class="preview_txt">
-									<h2 class="preview_txt_tit">${reservationPageInfo.description}</h2>
+									<h2 class="preview_txt_tit">${pageInfo.description}</h2>
 								</div>
 							</li>
 						</ul>
@@ -40,66 +42,20 @@
 					<div class="store_details">
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
-							장소 : ${reservationPageInfo.placeName}
+							장소 : ${pageInfo.placeName}
 						</p>
 						<h3 class="in_tit">관람시간</h3>
 						<p class="dsc">
-						   ${reservationPageInfo.openingHours}
+						   ${pageInfo.openingHours}
 						</p>
 						<h3 class="in_tit">요금</h3>
 						<p class="dsc">
-							성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
 						</p>
 					</div>
 				</div>
 				<div class="section_booking_ticket">
 					<div class="ticket_body">
-						<div class="qty">
-							<div class="count_control">
-								<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-									<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-									</a>
-								</div>
-								<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
-								<div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
-							</div>
-							<div class="qty_info_icon"> <strong class="product_amount"> <span>성인</span> </strong> <strong class="product_price"> <span class="price">10,200</span> <span class="price_type">원</span> </strong> <em class="product_dsc">10,200원 (15% 할인가)</em> </div>
-						</div>
-						<div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="10" readonly title="수량">
-									<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-									</a>
-								</div>
-								<div class="individual_price on_color"><span class="total_price">68,000</span><span class="price_type">원</span></div>
-							</div>
-							<div class="qty_info_icon"> <strong class="product_amount"> <span>유아</span> </strong> <strong class="product_price"> <span class="price">6,800</span> <span class="price_type">원</span> </strong> <em class="product_dsc">6,800원 (15% 할인가)</em> </div>
-						</div>
-						<div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="3" readonly title="수량">
-									<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-									</a>
-								</div>
-								<div class="individual_price on_color"><span class="total_price">60,000</span><span class="price_type">원</span></div>
-							</div>
-							<div class="qty_info_icon"> <strong class="product_amount"> <span>세트1</span> </strong> <strong class="product_price"> <span class="price">20,000</span> <span class="price_type">원</span> </strong> <em class="product_dsc">2인 관람권 (17% 할인가)</em> </div>
-						</div>
-						<div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="3" readonly title="수량">
-									<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-									</a>
-								</div>
-								<div class="individual_price on_color"><span class="total_price">25,500</span><span class="price_type">원</span></div>
-							</div>
-							<div class="qty_info_icon"> <strong class="product_amount"> <span>청소년</span> </strong> <strong class="product_price"> <span class="price">8,500</span> <span class="price_type">원</span> </strong> <em class="product_dsc">8,500원 (15% 할인가)</em> </div>
-						</div>
+						<!-- content -->
 					</div>
 				</div>
 				<div class="section_booking_form">
@@ -107,22 +63,21 @@
 						<div class="form_wrap">
 							<h3 class="out_tit">예매자 정보</h3>
 							<div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
-							<form class="form_horizontal">
+							<form class="form_horizontal" action="/detail/${pageInfo.displayInfoId}/reservation" name="user_reservation_input" enctype='application/json' accept-charset="utf-8" method="post">
 								<div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
 									<div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
 								</div>
 								<div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
 									<div class="inline_control tel_wrap">
 										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
 								<div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
-									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="${sessionScope.email}" placeholder="crong@codesquad.kr" maxlength="50"> </div>
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected">2017.2.17, 총 <span id="totalCount">16</span>매</p>
+										<p class="inline_txt selected">2017.2.17, 총 <span id="totalCount">0</span>매</p>
 									</div>
 								</div>
 							</form>
@@ -157,11 +112,32 @@
 			</div>
 		</div>
 	</div>
+	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
+	</footer>
+	<form id="json_form" method="post" action="" name="json_form" enctype='application/json'>
+		<input type="hidden" name="" value="" />
+	</form>
+	<%@ include file="/WEB-INF/views/template/reservation.jsp"%>
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>
+	<script type="text/javascript">
+		function displayInfo() {
+			return {
+				"displayInfoId" : "${pageInfo.displayInfoId}",
+				"productId" : "${pageInfo.productId}",
+			};
+		}
+	</script>
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/common/template.js" ></script>
+	<script type= "text/javascript" src= "http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type= "text/javascript" src= "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/validation.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/price.js" ></script>
 	<script type= "text/javascript" src= "/js/reservation/event.js" ></script>
+	<script type= "text/javascript" src= "/js/reservation/reservation.js" ></script>
 </body>
 
 </html>

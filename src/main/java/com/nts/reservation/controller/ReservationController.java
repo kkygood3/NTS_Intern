@@ -1,14 +1,11 @@
 package com.nts.reservation.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.service.ReservationService;
 
 /**
  * 예약페이지 url맵핑해주는 클래스
@@ -16,21 +13,19 @@ import com.nts.reservation.service.ReservationService;
  *
  */
 @Controller
-@RequestMapping(path="reservation")
+@RequestMapping(path = "/reservation")
 public class ReservationController {
-	@Autowired
-	private ReservationService reservationService;
-	
-	@GetMapping(path = "/{displayInfoId}")
-	public String reservation(@PathVariable(name="displayInfoId", required= true) long displayInfoId,
-		ModelMap model) {
-		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
-		model.addAttribute("reservationPageInfo", reservationPageInfo);
-		return "reservation";
-	}
-	
+	/**
+	 * 세션에 이메일정보가 있으면 예약정보페이지로, 없으면 로그인페이지로 맵핑
+	 * @param session 로그인정보 확인용
+	 * @return 뷰이름
+	 */
 	@GetMapping
-	public String myReservation() {
+	public String myReservation(HttpSession session) {
+		String email = (String)session.getAttribute("email");
+		if (email == null) {
+			return "redirect:login";
+		}
 		return "myreservation";
 	}
 }
