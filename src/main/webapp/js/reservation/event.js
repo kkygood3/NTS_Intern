@@ -174,6 +174,7 @@ function makeJsonReservationData() {
 	reservationData.name = document.getElementById("name").value;
 	reservationData.tel = document.getElementById("tel").value;
 	reservationData.email = document.getElementById("email").value;
+	reservationData.reservationDate = displayInfo().reservationDate;
 	reservationData.price = makePriceData();
 	return reservationData;
 }
