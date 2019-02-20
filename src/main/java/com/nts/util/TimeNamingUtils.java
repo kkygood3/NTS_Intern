@@ -5,6 +5,5 @@
 package com.nts.util;
 
 public class TimeNamingUtils {
-	public static final int SECONDS = 60;
-	public static final int MINUTES = 30;
+	public static final int MINUTES = 60;
 }

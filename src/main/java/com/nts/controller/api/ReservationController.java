@@ -7,6 +7,9 @@ package com.nts.controller.api;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
 
+import javax.naming.NoPermissionException;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.dto.reservation.ReservationParameter;
+import com.mysql.jdbc.StringUtils;
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.exception.DisplayInfoNullException;
 import com.nts.exception.InvalidFormatException;
@@ -75,11 +79,16 @@ public class ReservationController {
 	}
 
 	@PutMapping("/{reservationId}")
-	public boolean cancelReservation(@PathVariable(required = true) long reservationId) {
+	public boolean cancelReservation(@PathVariable(required = true) long reservationId, HttpSession session) throws NoPermissionException {
+		
 		if (reservationId < 0) {
 			throw new InvalidParameterException("reservationId가 0보다 작습니다 ");
 		}
-		reservationService.cancelReservation(reservationId);
+		
+		if(StringUtils.isEmptyOrWhitespaceOnly((String)session.getAttribute("reservationEmail"))) {
+			throw new NoPermissionException("현재 로그인 상태가 아닙니다.");
+		}
+		reservationService.cancelReservation(reservationId, (String)session.getAttribute("reservationEmail"));
 		return true;
 	}
 }

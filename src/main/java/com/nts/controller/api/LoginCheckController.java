@@ -15,7 +15,6 @@ import com.nts.exception.InvalidFormatException;
 import com.nts.util.CheckFormat;
 
 import static com.nts.util.TimeNamingUtils.MINUTES;
-import static com.nts.util.TimeNamingUtils.SECONDS;
 
 
 @RequestMapping("/api/login")
@@ -29,7 +28,7 @@ public class LoginCheckController {
 		if (CheckFormat.validateEmailFormat(reservationEmail)) {
 			
 			httpSession.setAttribute("reservationEmail", reservationEmail);
-			httpSession.setMaxInactiveInterval(MINUTES * SECONDS);
+			httpSession.setMaxInactiveInterval(30 * MINUTES);
 			
 			return true;
 		} else {

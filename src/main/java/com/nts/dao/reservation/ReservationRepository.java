@@ -78,12 +78,12 @@ public class ReservationRepository {
 	 * @param cancelFlag
 	 * @return 성공 여부 (1 , 0)
 	 */
-	public int updateReservationCancelFlag(long reservationId, int cancelFlag) {
+	public int updateReservationCancelFlag(long reservationId, int cancelFlag, String reservationEmail) {
 
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationId", reservationId);
 		params.put("cancelFlag", cancelFlag);
-
+		params.put("reservationEmail", reservationEmail);
 		return namedParameterJdbcTemplate.update(UPDATE_RESERVATION_INFO_CANCEL, params);
 	}
 }

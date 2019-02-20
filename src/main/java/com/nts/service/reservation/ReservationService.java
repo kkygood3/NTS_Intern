@@ -13,6 +13,8 @@ import com.nts.exception.DisplayInfoNullException;
 
 public interface ReservationService {
 	ReservationInfos getReservationInfoByReservationEmail(String reservationEmail) throws DisplayInfoNullException;
+
 	int addReservation(ReservationParameter reservationParameter) throws ParseException;
-	int cancelReservation(long reservationId);
+
+	int cancelReservation(long reservationId, String reservationEmail);
 }

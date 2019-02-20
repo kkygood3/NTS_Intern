@@ -25,5 +25,5 @@ public class ReservationSqls {
 	
 	public static final String UPDATE_RESERVATION_INFO_CANCEL = 
 	"UPDATE reservation_info SET cancel_flag = :cancelFlag " +
-	"WHERE id = :reservationId";
+	"WHERE id = :reservationId AND reservation_email = :reservationEmail";
 }
