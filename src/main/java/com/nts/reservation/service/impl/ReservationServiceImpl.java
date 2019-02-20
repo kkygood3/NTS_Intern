@@ -41,15 +41,15 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setReservationDate(new Date());
 		reservationInfo.setCreateDate(new Date());
-		
+
 		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
 		reservationInfo.setId(reservationInfoId);
-		
+
 		for (ReservationInfoPrice reservationInfoPrice : userInput.getPrice()) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
-		
+
 		return reservationInfo;
 	}
 
@@ -85,7 +85,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
 	}
-	
+
 	private boolean expiredDate(Date expirationDate) {
 		return new Date().compareTo(expirationDate) > 0;
 	}
