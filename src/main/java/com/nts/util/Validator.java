@@ -6,15 +6,15 @@ package com.nts.util;
 
 import java.util.regex.Pattern;
 
-import com.nts.dto.reservationdto.ReservationParam;
 import com.nts.exception.ExceptionValue;
 import com.nts.exception.InvalidParameterException;
 
 public class Validator {
 
-	private static final String EMAIL_REGEX = "/^[\\w+_]\\w+@\\w+\\.\\w+(\\.\\w+)?$/";
-	private static final String NAME_REGEX = "/[가-힣]{2}/";
-	private static final String TEL_REGEX = "/01(([16789]-(\\d{3,4}))|0-\\d{4})-\\d{4}$/";
+	private static final String EMAIL_REGEX = "^[\\w+_]\\w+@\\w+\\.\\w+(\\.\\w+)?$";
+	private static final String NAME_REGEX = "[가-힣]{2,4}";
+	private static final String TEL_REGEX = "01(([16789]-(\\d{3,4}))|0-\\d{4})-\\d{4}$";
+	
 	
 	public static void emailValidation(String email) {
 		if(!Pattern.matches(EMAIL_REGEX, email)) {
