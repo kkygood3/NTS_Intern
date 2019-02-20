@@ -37,7 +37,7 @@ public class ProductDaoImpl implements ProductDao {
 	private static final int ALL_CATEGORIES = 0;
 
 	@Override
-	public List<Product> selectProductsByCategory(int categoryId, int start, int limit) {
+	public List<Product> selectProducts(int categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -51,7 +51,7 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public int selectProductCountByCategory(int categoryId) {
+	public int selectProductCount(int categoryId) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 

@@ -12,9 +12,9 @@ import com.nts.reservation.product.dto.ProductImage;
 import com.nts.reservation.product.dto.ProductPrice;
 
 public interface ProductDao {
-	List<Product> selectProductsByCategory(int categoryId, int start, int limit);
+	List<Product> selectProducts(int categoryId, int start, int limit);
 
-	int selectProductCountByCategory(int categoryId);
+	int selectProductCount(int categoryId);
 
 	List<ProductImage> selectProductImages(int displayInfoId, ImageType type);
 
