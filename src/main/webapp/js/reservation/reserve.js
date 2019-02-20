@@ -1,3 +1,8 @@
+
+/**
+ * @description : reserve Page의 DisplayInfo 요청
+ * 
+ */
 function reservationDisplayInfoRequest(callBack, displayInfoId){
 	
 	var request = {
@@ -9,6 +14,10 @@ function reservationDisplayInfoRequest(callBack, displayInfoId){
 	sendRequest(request, requestUri, callBack);
 }
 
+/**
+ * @description : SubmitButton 클릭 시 실행
+ * 
+ */
 function reservationSubmitRequest(callBack, reservationParam){
 	
 	var request = {
@@ -16,16 +25,20 @@ function reservationSubmitRequest(callBack, reservationParam){
 			contentType:"application/json",
 			queryString: JSON.stringify(reservationParam)
 	}
-	var requestUri = "/api/reservations";
+	var requestUri = "/api/reservations/reservation";
 	sendRequest(request, requestUri, callBack);
-	console.log(request);
 }
 
+/**
+ * @description : 성공적으로 Submit 됐다면 메인페이지로 이동
+ * 
+ */
 function reservationSucceed(reservationResult){
 	if(reservationResult){
 		location = "/";
 	}
 }
+
 
 function reservationDisplayInfoInit(reservationDisplayInfo){
 	var reservationDisplayInfoObject = getReservationDisplayInfoObj(reservationDisplayInfo);
@@ -40,6 +53,10 @@ function reservationDisplayInfoInit(reservationDisplayInfo){
 	});
 }
 
+/**
+ * @description : document에 change, click Event 발생 시 전체 요소 Validation 후 버튼 활성/비활성화
+ * 
+ */
 function validateReservationDisplayInfo(reservationDisplayInfoObject){
 	if(reservationDisplayInfoObject.validation()){
 		reservationDisplayInfoObject.reservationButton.enable();

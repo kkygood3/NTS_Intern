@@ -15,8 +15,8 @@ function submitButtonDown(){
 	document.querySelectorAll(".count_control_input").forEach((v)=>{
 		if(v.value > 0){
 			var reservationPrice = {
-					productPriceId: productId,
-				count: v.value
+					productPriceId: parseInt(v.name.substr(14)),
+					count: v.value
 			}
 			reservationPrices.push(reservationPrice);
 		}
@@ -30,7 +30,7 @@ function submitButtonDown(){
 				productId: productId,
 				displayInfoId: displayInfoId,
 				reservationDate: reservationDate,
-				cancelFlag: 1,
+				cancelFlag: 0,
 				createDate: createDate,
 				modifyDate: createDate
 			},

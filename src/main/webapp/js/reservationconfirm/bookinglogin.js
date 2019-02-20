@@ -13,6 +13,10 @@ function redirectToMyReservation(reservationEmail){
 	location = location.origin + "/myreservation?reservationEmail=" + reservationEmail;
 }
 
+/**
+ * @description : clickEvent발생 시 검증 후 LoginRequest / WarningMessage
+ * 
+ */
 document.addEventListener("DOMContentLoaded", function() {
 	var submitButton = document.querySelector("#email_submit");
 	

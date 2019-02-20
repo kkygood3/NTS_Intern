@@ -31,6 +31,9 @@ function setRightMoveAnimation(ulId, movePixels, intervalMillis){
 	}, intervalMillis / 2);
 }
 
+/**
+ * @description : Target에 대한 Warning 메시지 출력
+ */
 function setWarning(name, target){
 	var warningText = "올바르지 않은 " + name + " 형식입니다.";
 	var warningDisplayTimeMillis = 1000;

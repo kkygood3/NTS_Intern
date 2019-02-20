@@ -18,9 +18,6 @@ function cancelButtonDown(reservationInfoId, reservationType){
 				break;
 			}
 		}
-	//	}
-	//} else{
-	//	
 	}
 }
 

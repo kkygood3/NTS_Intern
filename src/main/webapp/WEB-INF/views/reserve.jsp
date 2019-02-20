@@ -187,7 +187,7 @@
             <div class="clearfix">
 				<span style="display:none;">_{discountedPrice}</span>
                 <a href="javascript:void(0)" class="btn_plus_minus spr_book2 ico_minus3 disabled btn_minus" title="빼기"></a> 
-                <input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
+                <input type="tel" class="count_control_input disabled" value="0" readonly title="수량" name="productPriceId_{productPriceId}">
                 <a href="javascript:void(0)" class="btn_plus_minus spr_book2 ico_plus3 btn_plus" title="더하기"></a>
             </div>
             <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->

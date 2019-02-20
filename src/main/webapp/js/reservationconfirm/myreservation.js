@@ -1,5 +1,5 @@
 /**
- * @description : displayInfo ajax 요청
+ * @description : myreservation Page Ajax 요청
  */
 
 function myreservationRequest(callBack, emailParam){
@@ -27,7 +27,6 @@ function myreservationInit(reservationInfo){
 	reservationInfoObject = getReservationInfoObj(reservationInfo);
 	reservationInfoObject.init();
 	reservationInfoObject.render();
-	
 }
 
 document.addEventListener("DOMContentLoaded", function() {

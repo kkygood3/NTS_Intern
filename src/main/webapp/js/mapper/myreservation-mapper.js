@@ -1,5 +1,12 @@
 
-
+/**
+ * @description : myreservationPage 전체에 대한 Object
+ * 
+ * 				  각 Object는 @Line124 의 renderReservations을 통해 Rendering 하고
+ * 				  renderReservations 은 각 ReservationInfo로부터 Map을 만든 후
+ * 				  js.common.utils의 replaceTemplateHTML을 통해 변환된 HTML을 삽입한다.
+ * 
+ */
 function getReservationInfoObj(reservationInfo){
 	
 	var reservationInfoObj = {
@@ -7,7 +14,6 @@ function getReservationInfoObj(reservationInfo){
 				this.reservationInfoScheduled = [];
 				this.reservationInfoUsed = [];
 				this.reservationInfoCanceled = [];
-				console.log(reservationInfo);
 				reservationInfo.reservations.forEach((reservationItem)=>{
 					if(reservationItem.reservation.cancelFlag === 1){
 						

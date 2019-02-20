@@ -1,3 +1,11 @@
+/**
+ * @description : reserve 전체에 대한 Object
+ * 
+ * 				  각 Object는 ReservationInfo로부터 Map을 만든 후
+ * 				  js.common.utils의 replaceTemplateHTML을 통해 변환된 HTML을 삽입한다.
+ * 
+ */
+
 function getReservationDisplayInfoObj(reservationDisplayInfo){
 	var reservationDisplayInfoObject = {
 			init: function(){
@@ -171,7 +179,8 @@ function getTicketMap(reservationPrice){
 			priceType: PRICE_TYPE_MAP[reservationPrice.priceTypeName],
 			price: addComma(String(reservationPrice.price)),
 			discountedPrice: addComma(String(getDiscountedPrice(reservationPrice.price, reservationPrice.discountRate))),
-			discountRate: reservationPrice.discountRate
+			discountRate: reservationPrice.discountRate,
+			productPriceId: reservationPrice.id
 	}
 	
 	return ticketMap;
