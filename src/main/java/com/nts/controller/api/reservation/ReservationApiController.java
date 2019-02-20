@@ -5,7 +5,6 @@
 
 package com.nts.controller.api.reservation;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -20,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.dto.displayinfodto.DisplayInfo;
 import com.nts.dto.productdto.ProductPrice;
 import com.nts.dto.reservationdto.ReservationParam;
@@ -126,7 +121,6 @@ public class ReservationApiController {
 		if (reservationInfoId <= 0) {
 			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(reservationInfoId));
 		}
-		
 		reservationService.modifyCancelFlag(reservationInfoId, 1);
 	}
 }
