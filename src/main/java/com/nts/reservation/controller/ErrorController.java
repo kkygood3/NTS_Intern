@@ -4,11 +4,13 @@
  */
 package com.nts.reservation.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,14 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class ErrorController {
+	/**
+	 * Spring JdbcTemplate queryForObject 결과값이 empty이여도 정상적으로 리턴
+	 */
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public ResponseEntity<Map<String, Object>> handleEmptyResult() {
+		return new ResponseEntity<Map<String, Object>>(Collections.singletonMap("isEmpty", true), new HttpHeaders(), HttpStatus.OK);
+	}
+
 	/**
 	 * HTTP 404 ERROR
 	 */
@@ -49,6 +59,7 @@ public class ErrorController {
 		map.put("errorMsg", "wrong input");
 		return new ResponseEntity<Map<String, Object>>(map, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
+
 	/**
 	 *  그외 모든 익셉션 처리
 	 */

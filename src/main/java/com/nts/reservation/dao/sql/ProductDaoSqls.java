@@ -79,11 +79,13 @@ public class ProductDaoSqls {
 		+ "    id = :productId ";
 	public static final String SELECT_PRODUCT_PRICES = ""
 		+ "SELECT "
-		+ "    id, price_type_name, price, discount_rate "
+		+ "    id, "
+		+ "    price_type_name AS type, "
+		+ "    price, "
+		+ "    discount_rate "
 		+ "FROM "
 		+ "    product_price "
 		+ "WHERE "
 		+ "    product_id = :productId "
 		+ "ORDER BY id ";
-
 }

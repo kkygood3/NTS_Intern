@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ReserveResponseDto;
 import com.nts.reservation.service.ProductService;
@@ -35,10 +36,13 @@ public class ProductController {
 	@GetMapping("/{productId}/detail")
 	public String getDetailPage(@PathVariable int productId,
 		@RequestParam int displayInfoId,
+		@RequestParam(required = false, defaultValue = IMAGE_TYPE_MAIN) String type,
 		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int commentLimit, Model model) {
-		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId, commentLimit);
+		DetailResponseDto detailResponse = productService.getDetailResponse(productId, displayInfoId,
+			ImageType.getEnum(type), commentLimit);
 		model.addAttribute("displayInfo", detailResponse.getDisplayInfo());
 		model.addAttribute("commentResponse", detailResponse.getCommentResponse());
+		model.addAttribute("productImageUrl", detailResponse.getProductImageUrl());
 		return "detail";
 	}
 
@@ -47,12 +51,15 @@ public class ProductController {
 	 */
 	@GetMapping("/{productId}/reserve")
 	public String getReservePage(@PathVariable int productId,
-		@RequestParam int displayInfoId, Model model) {
-		ReserveResponseDto reserveResponse = productService.getReserveResponse(productId, displayInfoId);
+		@RequestParam int displayInfoId,
+		@RequestParam(required = false, defaultValue = IMAGE_TYPE_MAIN) String type, Model model) {
+		ReserveResponseDto reserveResponse = productService.getReserveResponse(productId, displayInfoId,
+			ImageType.getEnum(type));
 		model.addAttribute("displayInfo", reserveResponse.getDisplayInfo());
 		model.addAttribute("productPrices", reserveResponse.getProductPrices());
 		model.addAttribute("productImageUrl", reserveResponse.getProductImageUrl());
 		model.addAttribute("minPrice", reserveResponse.getMinPrice());
+		model.addAttribute("reservationDate", reserveResponse.getReservationDate());
 		return "reserve";
 	}
 }

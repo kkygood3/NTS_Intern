@@ -58,8 +58,7 @@
 						<h3 class="in_tit">요금</h3>
 						<p class="dsc">
 							<c:forEach var="productPrice" items="${productPrices}">
-								<!-- TODO: 타입을 설명해주는 키값형태의 priceTypeInfoMap 구현 -->
-								${priceTypeInfoMap[productPrice.TypeName]} ${productPrice.price} <br />
+								${productPrice.typeDescription} ${productPrice.price} <br />
 							</c:forEach>
 							<!-- 성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원 -->
 						</p>
@@ -68,13 +67,15 @@
 				<div class="section_booking_ticket">
 					<div class="ticket_body">
 						<c:forEach var="productPrice" items="${productPrices}">
-							<div class="qty">
+							<div class="qty" data-id=${productPrice.id}
+																data-type=${productPrice.type}
+																data-price=${productPrice.price * (100-productPrice.discountRate) / 100}>
 								<div class="count_control">
 									<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 									<div class="clearfix">
-										<a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"></a>
+										<a class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"></a>
 										<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-										<a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
+										<a class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
 									</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 									<div class="individual_price">
@@ -82,7 +83,7 @@
 									</div>
 								</div>
 								<div class="qty_info_icon">
-									<strong class="product_amount"><span>${productPrice.priceTypeName}</span></strong>
+									<strong class="product_amount"><span>${productPrice.type}</span></strong>
 									<strong class="product_price"><span class="price">${productPrice.price * (100-productPrice.discountRate) / 100} </span><span class="price_type">원</span></strong>
 									<em class="product_dsc">
 										${productPrice.price}원
@@ -101,35 +102,55 @@
 							<h3 class="out_tit">예매자 정보</h3>
 							<div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
 							<form class="form_horizontal">
-								<div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
-									<div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
-								</div>
-								<div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
-									<div class="inline_control tel_wrap">
-										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+								<div class="inline_form">
+									<label class="label" for="name">
+										<span class="spr_book ico_nessasary">필수</span> <span>예매자</span>
+									</label>
+									<div class="inline_control">
+										<input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
+										<div class="warning_msg">한글 및 영문자만 입력가능합니다.</div>
 									</div>
 								</div>
-								<div class="inline_form"> <label class="label" for="email"> <span class="spr_book ico_nessasary">필수</span> <span>이메일</span> </label>
-									<div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+								<div class="inline_form">
+									<label class="label" for="tel">
+										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
+									</label>
+									<div class="inline_control tel_wrap">
+										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<div class="warning_msg">000-000(0)-0000 형식만 가능합니다.</div>
+									</div>
+								</div>
+								<div class="inline_form">
+									<label class="label" for="email">
+										<span class="spr_book ico_nessasary">필수</span> <span>이메일</span>
+									</label>
+									<div class="inline_control">
+										<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+										<div class="warning_msg">이메일 형식이 틀렸거나 너무 짧아요</div>
+									</div>
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected">?(YYYY.MM.DD), 총 <span id="totalCount">?(totalCount)</span>매</p>
+										<p class="inline_txt selected">${reservationDate} ,총 <span id='total_count'>0</span>매</p>
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="section_booking_agreement">
-						<div class="agreement all"> <input type="checkbox" id="chk3" class="chk_agree"> <label for="chk3" class="label chk_txt_label"> <span>이용자 약관 전체동의</span> </label>
+						<div class="agreement all">
+							<input type="checkbox" id="chk3" class="chk_agree">
+							<label for="chk3" class="label chk_txt_label">
+								<span>이용자 약관 전체동의</span>
+							</label>
 							<div class="agreement_nessasary">
-								<span>필수동의</span> </div>
+								<span>필수동의</span>
+							</div>
 						</div>
 						<!-- [D] 약관 보기 클릭 시 agreement에 open 클래스 추가 -->
 						<div class="agreement">
 							<span class="chk_txt_span"> <i class="spr_book ico_arr_ipc2"></i> <span>개인정보 수집 및 이용 동의</span> </span>
-							<a href="#" class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
+							<a class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
 							<div class="useragreement_details">
 								&lt;개인정보 수집 및 이용 동의&gt;<br><br>
 								1. 수집항목 : [필수] 이름, 연락처, [선택] 이메일주소<br><br>
@@ -141,7 +162,7 @@
 						<!-- [D] 약관 보기 클릭 시 agreement에 open 클래스 추가 -->
 						<div class="agreement">
 							<span class="chk_txt_span"> <i class="spr_book ico_arr_ipc2"></i> <span>개인정보 제3자 제공 동의</span> </span>
-							<a href="#" class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
+							<a class="btn_agreement"> <span class="btn_text">보기</span> <i class="fn fn-down2"></i> </a>
 							<div class="useragreement_details custom_details_wrap">
 								<div class="custom_details">
 									&lt;개인정보 제3자 제공 동의&gt;<br><br>
@@ -175,12 +196,241 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+
+		// 이전 detail 페이지로 이동
 		function goDetailPage() {
 			location.href = "detail?displayInfoId=" + displayInfoId;
 		}
+
+		// 티켓수 선택 이벤트
+		function BookingTicket(ticketBody) {
+			this.ticketBody = ticketBody;
+			this.tickets = {};
+			this.totalCount = 0;
+			this.init();
+			this.registerEvents();
+		}
+
+		BookingTicket.prototype = {
+			init: function () {
+				ticketBody.querySelectorAll(".qty").forEach(function (element) {
+					var type = element.getAttribute("data-type");
+					var productPriceId = element.getAttribute("data-id");
+					this.tickets[type] = {
+						"productPriceId": productPriceId,
+						"count": 0
+					}
+				}.bind(this));
+			},
+			registerEvents: function () {
+				this.ticketBody.addEventListener("click", function (evt) {
+					if (evt.target.classList.contains("disabled")) {
+						return;
+					}
+					var wrapper = evt.target.closest(".qty");
+					if (evt.target.title === "더하기") {
+						this.changeTicket(wrapper, + 1);
+					} else if (evt.target.title === "빼기") {
+						this.changeTicket(wrapper, -1);
+					}
+				}.bind(this));
+			},
+			changeTicket: function (wrapper, value) {
+				var countControlInput = wrapper.querySelector('.count_control_input');
+				var totalPriceElement = wrapper.querySelector('.total_price');
+				var price = wrapper.getAttribute("data-price");
+				var type = wrapper.getAttribute("data-type");
+
+				if (this.tickets[type].count === 0) {
+					countControlInput.classList.remove("disabled");
+					totalPriceElement.parentElement.classList.add("on_color");
+					wrapper.querySelector('.ico_minus3').classList.remove("disabled");
+				}
+
+				this.tickets[type].count += value;
+				this.totalCount += value;
+				countControlInput.value = this.tickets[type].count
+				totalPriceElement.innerText = this.tickets[type].count * price;
+
+				if (this.tickets[type].count === 0) {
+					countControlInput.classList.add("disabled");
+					totalPriceElement.parentElement.classList.remove("on_color");
+					wrapper.querySelector('.ico_minus3').classList.add("disabled");
+				}
+				document.querySelector("#total_count").innerText = this.totalCount;
+			}
+		}
+
+		// 예매자 정보 영역
+		function BookingForm(bookingForm) {
+			this.bookingForm = bookingForm;
+			this.isAgree = false;
+			this.isValids = {};
+			this.inputValues = {};
+			this.reservationDate = "";
+			this.init();
+			this.registerEvents();
+		}
+
+		BookingForm.prototype = {
+			init: function () {
+				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
+				var inputElements = bookingFormWrap.querySelectorAll("input");
+				bookingFormWrap.querySelectorAll("input").forEach(function (element) {
+					this.isValids[element.name] = false;
+					this.inputValues[element.name] = false;
+				}.bind(this));
+				this.reservationDate = bookingFormWrap.querySelector(".inline_txt.selected").innerText.split(" ")[0];
+			},
+			registerEvents: function () {
+				// 예매자 정보 입력폼 영역 이벤트등록
+				var bookingFormWrap = this.bookingForm.querySelector(".booking_form_wrap");
+				bookingFormWrap.addEventListener("change", function (evt) {
+					var formContainer = evt.target.closest(".inline_control");
+					var warningElement = formContainer.querySelector(".warning_msg");
+					var name = evt.target.name;
+					var text = evt.target.value;
+					var isValid = false;
+
+					if (name === "name") {
+						isValid = this.validText(/^[가-힣|a-z|A-Z]+$/, text);
+					} else if (name === "tel") {
+						isValid = this.validText(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/, text);
+					} else if (name === "email") {
+						isValid = this.validText(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/, text);
+					} else {
+						return;
+					}
+					this.isValids[name] = isValid;
+					this.inputValues[name] = text;
+					if (isValid) {
+						this.hideWarningMsg(warningElement);
+					} else {
+						this.showWarningMsg(warningElement);
+					}
+				}.bind(this));
+
+				// 약관정보 영역 이벤트 등록
+				var bookingAgreement = this.bookingForm.querySelector(".section_booking_agreement");
+				bookingAgreement.addEventListener("click", function (evt) {
+					var agreementContainer = evt.target.closest(".agreement");
+					if (evt.target.className === "btn_agreement" || evt.target.parentElement.className === "btn_agreement") {
+						this.toggleAgreementContent(agreementContainer);
+					}
+					if (evt.target.className === "chk_agree") {
+						this.toggleIsAgree();
+					}
+				}.bind(this));
+			},
+			validText: function (regExp, text) {
+				return regExp.test(text);
+			},
+			// 경고메시지 출력
+			showWarningMsg: function (warningElement) {
+				warningElement.style.visibility = "visible";
+				warningElement.style.position = "relative";
+			},
+			// 경고메시지 숨김
+			hideWarningMsg: function (warningElement) {
+				warningElement.style.visibility = "hidden";
+				warningElement.style.position = "absolute";
+			},
+			// 약관내용 보기/닫기
+			toggleAgreementContent: function (container) {
+				if (container.classList.contains("open")) {
+					container.classList.remove("open");
+					container.querySelector(".btn_text").innerText = "보기";
+					container.querySelector(".fn").classList.remove("fn-up2");
+					container.querySelector(".fn").classList.add("fn-down2");
+				} else {
+					container.classList.add("open");
+					container.querySelector(".btn_text").innerText = "닫기";
+					container.querySelector(".fn").classList.remove("fn-donw2");
+					container.querySelector(".fn").classList.add("fn-up2");
+				}
+			},
+			toggleIsAgree: function () {
+				this.isAgree = !this.isAgree;
+			}
+		}
+
+		function BookingSubmit(submitWrap, ticket, form) {
+			this.submitWrap = submitWrap;
+			this.ticket = ticket;
+			this.form = form;
+			this.registerEvents();
+		}
+
+		BookingSubmit.prototype = {
+			registerEvents: function () {
+				// watch All is Valid
+				this.ticket.ticketBody.addEventListener("click", this.checkTotalValid.bind(this));
+				this.form.bookingForm.addEventListener("change", this.checkTotalValid.bind(this));
+				// post Submit
+				this.submitWrap.addEventListener("click", function (evt) {
+					if (this.submitWrap.classList.contains("disable")) {
+						return;
+					}
+					var data = {
+						"displayInfoId": displayInfoId,
+						"productId": productId,
+						"prices": Object.values(this.ticket.tickets).filter(price => price.count > 0),
+						"reservationName": this.form.inputValues["name"],
+						"reservationTelephone": this.form.inputValues["tel"],
+						"reservationEmail": this.form.inputValues["email"],
+						"reservationDate": this.form.reservationDate
+					}
+					var url = "/api/reservations";
+					var method = "POST";
+					ajax(this.confrimAndGoMyReservationPage, url, method, JSON.stringify(data));
+				}.bind(this));
+			},
+			confrimAndGoMyReservationPage: function (response) {
+				if (response.isError) {
+					alert("예약하기 실패!!\n 에러내용 : " + response.errorMsg);
+					return;
+				}
+				if (confirm("예약 성공! 나의예약페이지로 이동하시겠습니까?")) {
+					location.href="/myreservation?reservationEmail=" + this.form.inputValues["email"];
+				}
+			},
+			
+			// 모든 정보가 유효한지 검증 유효한지에 따라  submit 버튼 enable/disable
+			checkTotalValid: function () {
+				if (this.form.isAgree === false || this.ticket.totalCount === 0) {
+					this.disableSubmitBtn();
+					return;
+				}
+				for (var i in this.form.isValids) {
+					if (this.form.isValids[i] === false) {
+						this.disableSubmitBtn();
+						return;
+					}
+				}
+				this.enableSubmitBtn();
+			},
+			disableSubmitBtn: function () {
+				if (this.submitWrap.classList.contains("disable") === false) {
+					this.submitWrap.classList.add("disable");
+				}
+			},
+			enableSubmitBtn: function () {
+				if (submitWrap.classList.contains("disable") === true) {
+					this.submitWrap.classList.remove("disable");
+				}
+			}
+		}
+
+		var ticketBody = document.querySelector(".ticket_body");
+		var ticket = new BookingTicket(ticketBody);
+		var bookingForm = document.querySelector(".section_booking_form");
+		var form = new BookingForm(bookingForm);
+		var submitWrap = document.querySelector(".bk_btn_wrap");
+		var bookingSubmit = new BookingSubmit(submitWrap, ticket, form);
 	</script>
 
 </body>

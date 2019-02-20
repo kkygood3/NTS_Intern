@@ -8,27 +8,31 @@ function isNumber(val) {
 }
 
 /**
- * XMLHttpRequest를 생성하고 서버로부터 request후 응답결과를 매개변수로 callback함수를 실행 
+ * XMLHttpRequest를 생성하고 서버로부터 request후 응답결과를 매개변수로 callback함수를 실행
  */
-function ajax(callback, url) {
+function ajax(callback, url, method, data) {
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url);
+	if (!method) {
+		method = "GET";
+	}
+	xhr.open(method, url);
 	xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 	xhr.responseType = "json";
 
 	xhr.addEventListener("load", function(e) {
 		var response = e.target.response;
-		if (response.isError) {
-			alert(response.errorMsg);
-			return;
-		}
+
 		callback(response);
 	});
 	xhr.addEventListener("error", function(e) {
 		alert("An error occurred while transferring the file.");
 	});
 
-	xhr.send();
+	if (data) {
+		xhr.send(data);
+	} else {
+		xhr.send();
+	}
 }
 
 function replaceAll(str, searchStr, replaceStr) {

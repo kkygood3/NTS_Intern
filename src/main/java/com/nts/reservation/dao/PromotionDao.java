@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
 
 /**
@@ -32,10 +33,10 @@ public class PromotionDao extends BasicDao<PromotionDto> {
 	 * 모든 프로모션 목록들을 fileInfo의 ImageUrl와 함께 가져온다
 	 * @return
 	 */
-	public List<PromotionDto> selectPromotions(int limit, String type) {
+	public List<PromotionDto> selectPromotions(int limit, ImageType type) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("limit", limit);
-		params.put("type", type);
+		params.put("type", type.getName());
 		return jdbcTemplate.query(SELECT_PRPMOTIONS, params, rowMapper);
 	}
 

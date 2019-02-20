@@ -30,7 +30,9 @@
 						<span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="/main" class="btn_my"> <span title="예약확인">예약확인</span></a>
+				<a href="/main" class="btn_my">
+					<span class="viewReservation" title="예약확인">예약확인</span>
+				</a>
 			</header>
 		</div>
 		<div class="ct main">
@@ -47,9 +49,16 @@
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="/main" class="btn_my">
-							<span class="viewReservation" title="예약확인">예약확인</span>
-						</a>
+						<c:if test="${sessionScope.reservationEmail != null}">
+							<a href="/myreservation?reservationEmail=${sessionScope.reservationEmail}" class="btn_my"> 
+								<span class="viewReservation" title="예약확인">${sessionScope.reservationEmail}</span>
+							</a>
+						</c:if>
+						<c:if test="${sessionScope.reservationEmail == null}">
+							<a href="/bookinglogin" class="btn_my"> 
+								<span class="viewReservation" title="예약확인">예약확인</span>
+							</a>
+						</c:if>
 					</header>
 					<!-- 타이틀 이미지 사진번호 -->
 					<div class="pagination">
@@ -65,7 +74,20 @@
 						<div>
 							<div class="container_visual" style="width: 414px;">
 								<!-- 타이틀 이미지 넣는 구역 -->
-								<ul class="visual_img detail_swipe"></ul>
+								<ul class="visual_img detail_swipe">
+									<li class="item" style="width: 414px; height: 414px;">
+										<img alt="" class="img_thumb" src="/${productImageUrl}">
+										<span class="img_bg"></span>
+										<div class="visual_txt">
+											<div class="visual_txt_inn">
+												<h2 class="visual_txt_tit">
+													<span>${displayInfo.productDescription}</span>
+												</h2>
+												<p class="visual_txt_dsc"></p>
+											</div>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<div class="prev">
 								<div class="prev_inn">
@@ -288,7 +310,7 @@
 	<div id="photoviwer"></div>
 	<script type="text/template" id="template-product-image">
 		<li class="item" style="width: 414px; height: 414px;">
-			<img alt="" class="img_thumb" src="/{{saveFileName}}">
+			<img alt="" class="img_thumb" src="/{{productImageUrl}}">
 			<span class="img_bg"></span>
 			<div class="visual_txt">
 				<div class="visual_txt_inn">
@@ -305,53 +327,50 @@
 	<script>
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
-		const PRODUCT_IMAGE_LIMIT = 2;
+		const PRODUCT_IMAGE_TYPE = "et";
 
 		var detail = {
 			// DIV Elements
 			productImagesDiv : document.querySelector('.visual_img.detail_swipe'),
 			// init
 			init : function() {
-				this.loadProductImagesResponse(this.initTitleImages.bind(this), PRODUCT_IMAGE_LIMIT);
+				this.loadProductImagesResponse(this.initTitleImages.bind(this), PRODUCT_IMAGE_TYPE);
 				this.registMoreCotentEvent();
 				this.registDetailInfoTabUI();
 			},
 			// ajax request ProductImages
-			loadProductImagesResponse : function(callback, limit) {
+			loadProductImagesResponse : function(callback, type) {
 				if (!isNumber(productId)) {
-					alert("잘못된 productId임니다 프로덕트 이미지를 불러올수 없습니다.");
+					alert("잘못된 productId입니다 프로덕트 이미지를 불러올수 없습니다.");
 					return;
 				}
-				var url = "/api/products/" + productId + "/images?limit=" + limit;
+				var url = "/api/products/" + productId + "/image?type=" + type;
 				ajax(callback, url);
 			},
 			// 타이틀 이미지 구역 설정
 			initTitleImages : function(response) {
 				document.querySelector(".num").innerText = 1;
-				document.querySelector(".num.off").innerText = "/ " + response.productImages.length;
-
+				document.querySelector(".num.off").innerText = "/ " + 1;
+				if (response.isEmpty) {
+					document.querySelector('.btn_prev').style.display = "none";
+					document.querySelector('.btn_nxt').style.display = "none";
+					return;
+				}
+				document.querySelector(".num.off").innerText = "/ " + 2;
 				var template = document.querySelector("#template-product-image").innerText;
 				var bindTemplate = Handlebars.compile(template);
-				var resultHTML = "";
-				for (var i in response.productImages) {
-					var data = {
-						saveFileName : response.productImages[i].saveFileName,
-						productDescription : response.productDescription
-					}
-					resultHTML += bindTemplate(data);
+				var data = {
+					productImageUrl : response.productImageUrl,
+					productDescription : document.querySelector(".visual_txt_tit span").innerText
 				}
-				this.productImagesDiv.innerHTML = resultHTML;
+				var resultHTML = bindTemplate(data);
+				this.productImagesDiv.innerHTML += resultHTML;
 				this.initSlide();
 			},
 			// 슬라이드 애니메이션 설정
 			initSlide : function() {
 				var prevButton = document.querySelector('.btn_prev');
 				var nextButton = document.querySelector('.btn_nxt');
-				if (this.productImagesDiv.childElementCount <= 1) {
-					prevButton.style.display = "none";
-					nextButton.style.display = "none";
-					return;
-				}
 
 				this.productImagesDiv.innerHTML += this.productImagesDiv.innerHTML;
 				var left = 0;

@@ -6,6 +6,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
 
 /**
@@ -13,5 +14,5 @@ import com.nts.reservation.dto.PromotionDto;
  * @author jinwoo.bae
  */
 public interface PromotionService {
-	List<PromotionDto> getPromotions(int limit, String type);
+	List<PromotionDto> getPromotions(int limit, ImageType type);
 }
