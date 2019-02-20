@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.nts.reservation.dto.ReservationInfoPriceDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
+import com.nts.reservation.util.DateUtil;
 
 /**
  * 예약 서비스
@@ -53,7 +55,30 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional(readOnly = true)
 	public MyReservationResponseDto getMyReservations(String reservationEmail) {
 		List<MyReservationDto> myReservations = reservationInfoDao.selectMyReservations(reservationEmail);
-		return new MyReservationResponseDto(myReservations);
+
+		MyReservationResponseDto myReservationResponse = new MyReservationResponseDto();
+		myReservationResponse.setTotalCount(myReservations.size());
+
+		List<MyReservationDto> todoMyReservations = new ArrayList<MyReservationDto>();
+		List<MyReservationDto> doneMyReservations = new ArrayList<MyReservationDto>();
+		List<MyReservationDto> cancleMyReservations = new ArrayList<MyReservationDto>();
+
+		for (MyReservationDto myReservation : myReservations) {
+			if (myReservation.getCancelFlag()) {
+				cancleMyReservations.add(myReservation);
+			} else if (DateUtil.isAfterToday(myReservation.getReservationDate())) {
+				doneMyReservations.add(myReservation);
+			} else {
+				todoMyReservations.add(myReservation);
+			}
+		}
+		myReservationResponse.setTodoMyReservations(todoMyReservations);
+		myReservationResponse.setDoneMyReservations(doneMyReservations);
+		myReservationResponse.setCancleMyReservations(cancleMyReservations);
+		myReservationResponse.setTodoCount(todoMyReservations.size());
+		myReservationResponse.setDoneCount(doneMyReservations.size());
+		myReservationResponse.setCancleCount(cancleMyReservations.size());
+		return myReservationResponse;
 	}
 
 	@Override

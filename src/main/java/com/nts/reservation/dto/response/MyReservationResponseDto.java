@@ -4,11 +4,9 @@
  */
 package com.nts.reservation.dto.response;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.nts.reservation.dto.MyReservationDto;
-import com.nts.reservation.util.DateUtil;
 
 /**
  * 나의 예약정보 response용 DTO
@@ -22,29 +20,6 @@ public class MyReservationResponseDto {
 	private int todoCount; // 이용 예정 개수
 	private int doneCount; // 이용 완료 개수
 	private int cancleCount; // 취소 개수
-
-	public MyReservationResponseDto(List<MyReservationDto> myReservations) {
-		setTotalCount(myReservations.size());
-		List<MyReservationDto> todoMyReservations = new ArrayList<MyReservationDto>();
-		List<MyReservationDto> doneMyReservations = new ArrayList<MyReservationDto>();
-		List<MyReservationDto> cancleMyReservations = new ArrayList<MyReservationDto>();
-
-		for (MyReservationDto myReservation : myReservations) {
-			if (myReservation.getCancelFlag()) {
-				cancleMyReservations.add(myReservation);
-			} else if (DateUtil.isAfterToday(myReservation.getReservationDate())) {
-				doneMyReservations.add(myReservation);
-			} else {
-				todoMyReservations.add(myReservation);
-			}
-		}
-		setTodoMyReservations(todoMyReservations);
-		setDoneMyReservations(doneMyReservations);
-		setCancleMyReservations(cancleMyReservations);
-		setTodoCount(todoMyReservations.size());
-		setDoneCount(doneMyReservations.size());
-		setCancleCount(cancleMyReservations.size());
-	}
 
 	public List<MyReservationDto> getTodoMyReservations() {
 		return todoMyReservations;
