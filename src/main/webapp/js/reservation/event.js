@@ -105,9 +105,14 @@ function addBookingFormInputChangeEvent() {
 				value = adjustTel(value);
 				event.target.value = value
 			}
+			setReservationButtonDisable();
+
+			if (event.target.id == "chk3") {
+				return;
+			}
+			
 			var regExp = regex.getRegularExpression(event.target.id);
 
-			setReservationButtonDisable();
 			if (isValidReservationInput(value, regExp)){
 				event.target.classList.remove("warning");
 			} else {
