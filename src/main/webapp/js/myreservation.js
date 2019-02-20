@@ -43,20 +43,10 @@ function loadReservationInfoCallback(response){
 				}
 			}
 		}
-		
-		checkTicketCount();
 		initTicketBtnClickEvents();
 		initUnclickableBtn();
-	} else {
-		/**
-		 * 해당 Email의 예약 정보가 하나도 없을 때
-		 * 예약 정보가 없다는 메세지 출력
-		 */
-		var listWrap = document.querySelector('.wrap_mylist');
-		var emptyMsgWrap = document.querySelector('.err');
-		listWrap.remove();
-		emptyMsgWrap.style.display = '';
 	}
+	checkTicketCount();
 }
 
 /**
@@ -85,13 +75,14 @@ function checkTicketCount(){
 	
 	for(var i = 1 ; i < 4; i++){
 		var countOfChild = (ticketContainers[i].querySelectorAll('.card_item').length);
+		var emptyMsgArea = ticketContainers[i].querySelector('.err');
 		reservationCountAreas[i].innerText = countOfChild;
 		sumOfCount += countOfChild;
 		
 		if(countOfChild > 0){
-			ticketContainers[i].style.display = '';
+			emptyMsgArea.style.display = 'none';
 		} else {
-			ticketContainers[i].style.display = 'none';
+			emptyMsgArea.style.display = '';
 		}
 	}
 	reservationCountAreas[0].innerText = sumOfCount;

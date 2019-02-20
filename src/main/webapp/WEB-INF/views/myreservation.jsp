@@ -83,42 +83,44 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							</li>
-							<li class="card used">
-								<div class="link_booking_details" style="margin-top: 5px;">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_check2"></i>
-											<span class="tit">이용 완료</span>
-										</div>
-										<div class="right"></div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
+						<li class="card used">
+							<div class="link_booking_details" style="margin-top: 5px;">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_check2"></i>
+										<span class="tit">이용 완료</span>
 									</div>
+									<div class="right"></div>
 								</div>
-							</li>
-							<li class="card used cancel">
-								<div class="link_booking_details" style="margin-top: 5px;">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_cancel"></i>
-											<span class="tit">취소된 예약</span>
-										</div>
-										<div class="right"></div>
+							</div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
+						<li class="card used cancel">
+							<div class="link_booking_details" style="margin-top: 5px;">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_cancel"></i>
+										<span class="tit">취소된 예약</span>
 									</div>
+									<div class="right"></div>
 								</div>
-							</li>
+							</div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
 						</ul>
 					</div>
-					<!--// 내 예약 리스트 -->
-
-					<!-- 예약 리스트 없음 -->
-					<div class="err" style="display:none;"> <i class="spr_book ico_info_nolist"></i>
-						<h1 class="tit">예약 리스트가 없습니다</h1>
-					</div>
-					<!--// 예약 리스트 없음 -->
 				</div>
 			</div>
 			<hr>
