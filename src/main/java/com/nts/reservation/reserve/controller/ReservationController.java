@@ -2,10 +2,13 @@ package com.nts.reservation.reserve.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,48 +21,82 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nts.reservation.display.dto.DisplayResponse;
 import com.nts.reservation.display.service.DisplayService;
 import com.nts.reservation.product.dto.ProductPrice;
+import com.nts.reservation.reserve.dto.ReservationInfo;
+import com.nts.reservation.reserve.dto.ReservationInfoResponse;
+import com.nts.reservation.reserve.service.ReservationService;
 
 @Controller
 public class ReservationController {
-	
+
 	// XXX getLogger로 불러오면 싱글톤과 유사한 형식으로 하나의 인스턴스를 사용하는 것?
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationController.class);
 
 	@Autowired
 	private DisplayService displayService;
-
+	@Autowired
+	private ReservationService reservationService;
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
-	
+
 	// XXX 0값을 2개 이상 써야될 때도 전부 변수 선언을 하여 사용?
 	private static final int NONE_COMMENT = 0;
 	private static final int NONE_DISPLAY = 0;
 
 	@GetMapping(path = "/reserve/{displayInfoId}")
-	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId) throws Exception {
+	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView modelAndView) {
 		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE_COMMENT);
 
 		if (displayResponse.getDisplayInfo().getProductId() == NONE_DISPLAY) {
-			Exception e = new IllegalArgumentException("There is no displayInfo!!! (displayInfoId)");
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}", e.getMessage(), displayInfoId, e);
+			IllegalArgumentException e = new IllegalArgumentException("There is no displayInfo!!! (displayInfoId)");
+			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}", e.getMessage(),
+				displayInfoId, e);
 			throw e;
 		}
 
 		int minPrice = calculateMinPrice(displayResponse.getProductPrices());
 
-		ModelAndView modelAndView = new ModelAndView("reserve");
+		modelAndView.setViewName("reserve");
 		modelAndView.addObject("minPrice", minPrice);
 		modelAndView.addObject("dates", computeRandomPeriod());
 		modelAndView.addObject("displayResponse", displayResponse);
 		return modelAndView;
 	}
 
+	// TODO 개선
 	@GetMapping(path = "/myreservation")
-	public String goMyReserve() {
-		return "myreservation";
+	public ModelAndView goMyReserve(HttpSession session, ModelAndView modelAndView) {
+		String email = (String)session.getAttribute("email");
+		if (email == null) {
+			modelAndView.setViewName("redirect:/login");
+			return modelAndView;
+		}
+		ReservationInfoResponse reservationInfoResponse = reservationService.getReservationInfoResponse(email);
+
+		Map<String, List<ReservationInfo>> reservationGroupByStatus = new HashMap<>();
+		reservationGroupByStatus.put("confirmed", new ArrayList<>());
+		reservationGroupByStatus.put("used", new ArrayList<>());
+		reservationGroupByStatus.put("canceled", new ArrayList<>());
+
+		for (ReservationInfo reservationInfo : reservationInfoResponse.getReservations()) {
+			if (reservationInfo.isCancelYn()) {
+				reservationGroupByStatus.get("canceled").add(reservationInfo);
+				continue;
+			}
+
+			if (reservationInfo.getReservationDate().compareTo(LocalDate.now().toString()) >= 0) {
+				reservationGroupByStatus.get("confirmed").add(reservationInfo);
+			} else {
+				reservationGroupByStatus.get("used").add(reservationInfo);
+			}
+		}
+
+		modelAndView.addObject("reservationGroupByStatus", reservationGroupByStatus);
+		modelAndView.addObject("totalCount", reservationInfoResponse.getSize());
+		modelAndView.setViewName("myreservation");
+		return modelAndView;
 	}
 
 	/**
-	 * List<ProductPrice> 중 가장 작은 할인된 가격을 반환
+	 * List<ProductPrice>의 할인된 가격 중 가장 작은 값을 반환
 	 * @param prices
 	 * @return discounted min Price
 	 */
@@ -75,11 +112,11 @@ public class ReservationController {
 	private int calculateDiscountPrice(ProductPrice price) {
 		return (int)(price.getPrice() * (1 - price.getDiscountRate() / 100));
 	}
-	
+
 	private Map<String, String> computeRandomPeriod() {
 		LocalDate now = LocalDate.now();
 		int radomValue = new Random().nextInt(5) + 1;
-		
+
 		Map<String, String> dates = new HashMap<>();
 		dates.put("now", now.format(DATE_TIME_FORMATTER));
 		dates.put("randomDate", now.plusDays(radomValue).format(DATE_TIME_FORMATTER).split(" ")[0]);
