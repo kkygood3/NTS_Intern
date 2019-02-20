@@ -310,11 +310,11 @@ XhrRequest.prototype.send = function(data){
  * 
  * @item : html template in string type
  */
-function arrayToElementRenderer(data, target, item, opt) {
+function arrayToElementRenderer(data, target, item, opt, prototype) {
     if (!data.length) {
         return;
     }
-
+    
     let bindTemplate = Handlebars.compile(item);
     let list = data;
     
@@ -346,12 +346,19 @@ function arrayToElementRenderer(data, target, item, opt) {
         item = item + '';
         return item.length >= width ? n : new Array(width - item.length + 1).join('0') + item;
     });
+    Handlebars.registerHelper("fileToBlob", (item) => {
+    	return window.URL.createObjectURL(item);
+    });
+    
     let parser = new DOMParser();
     let parsedItems = parser.parseFromString(bindTemplate({data: list}), "text/html");
     let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
     let newCommentItems = parsedItems.querySelectorAll("." + elementClassName);
     newCommentItems.forEach((item) => {
         target.append(item);
+        if(prototype){
+        	prototype(item);
+        }
     });
 }
 

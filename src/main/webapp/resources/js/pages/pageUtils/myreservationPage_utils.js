@@ -32,7 +32,7 @@ function ReservationCard(_reservation, reservationData, _popup) {
         sectionUsed.appendChild(this.reservation);
     	this.cancelButton.innerText = "한줄평 남기기"
     	this.cancelButton.addEventListener("click", () => {
-            alert("will be added");
+            window.location.href = "/reservation/myreservation/reviewWrite/"+this.ReservationId;
         });
     } else if (this.reservation.dataset.cancelFlag == "true") {
         sectionCanceled.appendChild(this.reservation);

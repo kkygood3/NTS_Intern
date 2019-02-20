@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 
+<code id="_fetched_data">
+${reservationInfo}
+</code>
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
@@ -17,10 +20,10 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+					<a href="/reservation/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+					<a href="/reservation/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
 				</h1>
-				 <a href="./myreservation" class="btn_my"> <span
+				 <a href="/reservation/myreservation" class="btn_my"> <span
 					class="viewReservation" title="예약확인">
 						<%
 							if (session.getAttribute("email") == null) {
@@ -37,8 +40,8 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title review_header">
-					<a href="./myreservation.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">클림트 인사이드</span></h2>
+					<a href="/reservation//myreservation" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<h2><span class="title">${productDescription}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
@@ -75,18 +78,18 @@
 						</span>
 						<span class="left_space">(단, 리뷰 포인트는 ID 당 1일 최대 5건까지 지급됩니다.)</span>
 					</a>
-					<textarea cols="30" rows="10" class="review_textarea"></textarea>
+					<textarea style="resize: none;" cols="30" rows="10" class="review_textarea" autofocus ></textarea>
 				</div>
 				<!-- //리뷰 입력 -->
 
 				<!-- 리뷰 작성 푸터 -->
 				<div class="review_write_footer_wrap">
 					<div class="review_write_footer">
-						<label class="btn_upload" for="reviewImageFileOpenInput">
+						<label class="btn_upload" for="imagesToUpload">
 							<i class="fn fn-image1" aria-hidden="true"></i>
 							<span class="text_add_photo">사진 추가</span>
 						</label>
-						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" multiple>
+						<input type="file" class="hidden_input" id="imagesToUpload" accept="image/*" multiple>
 						<div class="guide_review">
 							<span>0</span>/400
 							<span>(최소5자이상)</span>
@@ -97,13 +100,7 @@
 					<div class="review_photos review_photos_write">
 						<div class="item_preview_thumbs">
 							<ul class="lst_thumb">
-								<li class="item" style="display: none;">
-									<a href="#" class="anchor">
-										<span class="spr_book ico_del">삭제</span>
-									</a>
-									<img src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" width="130" alt="" class="item_thumb">
-									<span class="img_border"></span>
-								</li>
+								
 							</ul>
 						</div>
 					</div>
@@ -129,5 +126,23 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
+	<script type="rv-template" id="previewItem">
+	{{#each data}}
+	<li class="item">
+		{{data}}
+		<a href="#" class="anchor">
+			<span class="spr_book ico_del">삭제</span>
+		</a>
+		<img src='{{fileToBlob this}}' width="130" alt="dafuq" class="item_thumb">
+		<span class="img_border"></span>
+	</li>
+	{{/each}}
+	</script>
+	
+	<script src="/reservation/resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/commons/polyfill_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/pages/reviewWritePage_script.js"></script>
 </body>
 </html>

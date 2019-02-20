@@ -15,7 +15,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nts.reservation.dto.common.DisplayInfo;
 import com.nts.reservation.dto.reservation.ReservationInfo;
+import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -28,6 +31,8 @@ public class LoggedInUserViewController {
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
+	private DetailService detailService;
+	@Autowired
 	private HttpSession session;
 
 	@GetMapping(path = "/myreservation/reviewWrite/{reservationId}")
@@ -35,17 +40,29 @@ public class LoggedInUserViewController {
 		ModelMap model) {
 		// if there is no email in session || if there is no corresponding reservation with email
 		if (session.getAttribute("email") == null) {
-			return "redirect:/myreservation";
+			try {
+				return "redirect:/myreservation";
+			} catch (Exception e) {
+				return "forward:/myreservation";
+			}
 		}
 		try {
 			ReservationInfo reservationInfo = reservationService
 				.getReservationByEmailAndRsvId((String)session.getAttribute("email"), reservationId);
+			DisplayInfo displayInfo = detailService.getDisplayInfo(reservationInfo.getDisplayInfoId());
+			ObjectMapper mapper = new ObjectMapper();
+			String reservationInfoStr = mapper.writeValueAsString(reservationInfo);
 
-			model.addAttribute("reservationInfo", reservationInfo);
+			model.addAttribute("productDescription", displayInfo.getProductDescription());
+			model.addAttribute("reservationInfo", reservationInfoStr);
 
 			return "reviewWrite";
 		} catch (Exception e) {
-			return "redirect:/myreservation";
+			try {
+				return "redirect:/myreservation";
+			} catch (Exception ex) {
+				return "forward:/myreservation";
+			}
 		}
 
 	}
