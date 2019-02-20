@@ -18,7 +18,7 @@ public class ReservationParam {
 	private int productId;
 	private String reservationEmail;
 	private String reservationName;
-	private String reservationTelephone;
+	private String reservationTel;
 	private String reservationYearMonthDay;
 
 	public int getDisplayInfoId() {
@@ -62,11 +62,11 @@ public class ReservationParam {
 	}
 
 	public String getReservationTelephone() {
-		return reservationTelephone;
+		return reservationTel;
 	}
 
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
+	public void setReservationTelephone(String reservationTel) {
+		this.reservationTel = reservationTel;
 	}
 
 	public String getReservationYearMonthDay() {

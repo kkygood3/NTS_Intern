@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ReservationResponse {
-	private boolean cancelYn;
+	private boolean cancelFlag;
 	private String createDate;
 	private int displayInfoId;
 	private String modifyDate;
@@ -23,14 +23,15 @@ public class ReservationResponse {
 	private String reservationEmail;
 	private int reservationInfoId;
 	private String reservationName;
-	private String reservationTelephone;
+	private String reservationTel;
+	private ReservationDisplayInfo reservationDisplayInfo;
 
 	public boolean isCancelYn() {
-		return cancelYn;
+		return cancelFlag;
 	}
 
-	public void setCancelYn(boolean cancelYn) {
-		this.cancelYn = cancelYn;
+	public void setCancelYn(boolean cancelFlag) {
+		this.cancelFlag = cancelFlag;
 	}
 
 	public String getCreateDate() {
@@ -106,11 +107,35 @@ public class ReservationResponse {
 	}
 
 	public String getReservationTelephone() {
-		return reservationTelephone;
+		return reservationTel;
 	}
 
-	public void setReservationTelephone(String reservationTelephone) {
-		this.reservationTelephone = reservationTelephone;
+	public void setReservationTelephone(String reservationTel) {
+		this.reservationTel = reservationTel;
+	}
+
+	public boolean isCancelFlag() {
+		return cancelFlag;
+	}
+
+	public void setCancelFlag(boolean cancelFlag) {
+		this.cancelFlag = cancelFlag;
+	}
+
+	public String getReservationTel() {
+		return reservationTel;
+	}
+
+	public void setReservationTel(String reservationTel) {
+		this.reservationTel = reservationTel;
+	}
+
+	public ReservationDisplayInfo getReservationDisplayInfo() {
+		return reservationDisplayInfo;
+	}
+
+	public void setReservationDisplayInfo(ReservationDisplayInfo reservationDisplayInfo) {
+		this.reservationDisplayInfo = reservationDisplayInfo;
 	}
 
 	@Override

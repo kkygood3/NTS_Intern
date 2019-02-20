@@ -21,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
+import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationPrice;
 
 /**
@@ -33,6 +34,8 @@ public class ReservationDaoImpl {
 		.newInstance(ReservationPrice.class);
 	private RowMapper<ReservationDisplayInfo> reservationDisplayInfoRowMapper = BeanPropertyRowMapper
 		.newInstance(ReservationDisplayInfo.class);
+	private RowMapper<ReservationInfo> reservationInfoRowMapper = BeanPropertyRowMapper
+		.newInstance(ReservationInfo.class);
 
 	public ReservationDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -61,14 +64,27 @@ public class ReservationDaoImpl {
 	}
 
 	public List<ReservationPrice> selectReservationPrice(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_RESERVATION_PRICE, params, reservationPriceRowMapper);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_RESERVATION_PRICE, param, reservationPriceRowMapper);
 	}
 
 	public ReservationDisplayInfo selectReservationDisplayInfo(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_RESERVATION_DISPLAY_INFO, params, reservationDisplayInfoRowMapper);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.queryForObject(SELECT_RESERVATION_DISPLAY_INFO, param, reservationDisplayInfoRowMapper);
+	}
+
+	public List<ReservationInfo> selectReservationInfo(String reservationEmail, int productId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		return jdbc.query(SELECT_RESERVATION_INFO, params, reservationInfoRowMapper);
+	}
+
+	public List<ReservationInfo> selectTotalCount(String reservationEmail, int productId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		params.put("productId", productId);
+		return jdbc.query(SELECT_TOTAL_COUNT, params, reservationInfoRowMapper);
 	}
 }

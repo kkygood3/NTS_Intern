@@ -43,4 +43,9 @@ public class ArgumentValidator {
 		}
 		return true;
 	}
+
+	// TO-DO
+	public static boolean checkPersonInfo(String name, String telephone, String email) {
+		return true;
+	}
 }
