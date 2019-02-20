@@ -3895,7 +3895,7 @@ button {
   animation-duration: 1s;
 }
 
- .slide_right_out {
+.slide_right_out {
   z-index: 20;
   animation-name: slide_right_out;
   animation-duration: 1s;
@@ -3927,4 +3927,22 @@ button {
   font-size: 35px;
   line-height: 40px;
   color: #fff;
+}
+
+#name.wrong_value, #tel.wrong_value, #email.wrong_value {
+  border: 1px solid red;
+  outline: none;
+}
+
+.valid_value, #name, #tel, #email {
+  border: 1px solid #eee;
+}
+
+.warning_msg {
+  color: red;
+  text-align: center;
+}
+
+.pop_tit {
+	text-align: center;
 }

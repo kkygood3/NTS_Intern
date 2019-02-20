@@ -5,10 +5,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.nts.reservation.interceptor.LogInInterceptor;
 
 /**
 * @author  : 이승수
@@ -34,6 +37,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/").setViewName("mainpage");
 		registry.addViewController("/detail/{displayInfoId}").setViewName("detail");
 		registry.addViewController("/detail/{displayInfoId}/reviews").setViewName("review");
+		registry.addViewController("/login").setViewName("bookinglogin");
 	}
 
 	@Bean
@@ -42,5 +46,10 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		return resolver;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LogInInterceptor()).addPathPatterns("/history");
 	}
 }

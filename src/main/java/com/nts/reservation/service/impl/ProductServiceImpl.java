@@ -20,14 +20,13 @@ import com.nts.reservation.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	ProductDao productDao;
-
+	private ProductDao productDao;
 	@Autowired
-	PromotionDao promotionDao;
+	private PromotionDao promotionDao;
 
 	@Override
 	public int getCountAllProducts() {
-		return productDao.countAll();
+		return productDao.selectCountAllProducts();
 	}
 
 	@Override
@@ -37,16 +36,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(Integer categoryId, int start) {
-		return productDao.getProducts(categoryId, start, ProductService.LIMIT);
+		return productDao.selectProducts(categoryId, start, ProductService.LIMIT);
 	}
 
 	@Override
 	public List<Product> getPromotions() {
-		return promotionDao.getPromotions();
+		return promotionDao.selectPromotions();
 	}
 
 	@Override
 	public int getCountPromotions() {
-		return promotionDao.getCountPromotions();
+		return promotionDao.selectCountPromotions();
 	}
 }

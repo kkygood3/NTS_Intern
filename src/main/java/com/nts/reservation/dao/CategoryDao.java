@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ReservationSqls.GET_CATEGORIES;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_CATEGORIES;
 
 import java.util.List;
 
@@ -29,8 +29,8 @@ public class CategoryDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<Category> getCategories() {
-		return jdbc.query(GET_CATEGORIES, rowMapper);
+	public List<Category> selectCategories() {
+		return jdbc.query(SELECT_CATEGORIES, rowMapper);
 	}
 
 }

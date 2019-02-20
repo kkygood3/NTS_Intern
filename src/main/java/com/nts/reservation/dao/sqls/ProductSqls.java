@@ -2,12 +2,12 @@
  * Copyright 2015 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dao;
+package com.nts.reservation.dao.sqls;
 
 /**
 * @author  : 이승수
 */
-public class ReservationSqls {
+public class ProductSqls {
 	private static final String PRODUCT_TABLE = "product as p "
 		+ "INNER JOIN display_info as d "
 		+ "ON p.id = d.product_id "
@@ -25,22 +25,22 @@ public class ReservationSqls {
 	public static final String LIMIT = "LIMIT :start, :limit ";
 
 	public static final String SELECT_COUNT_ALL = "SELECT count(*) FROM " + PRODUCT_TABLE + "WHERE i.type = 'th'";
-	public static final String COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "AND p.category_id = :categoryId ";
+	public static final String SELECT_COUNT_BY_CATEGORY_ID = SELECT_COUNT_ALL + "AND p.category_id = :categoryId ";
 
-	public static final String GET_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
+	public static final String SELECT_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "WHERE i.type = 'th'";
-	public static final String GET_PRODUCTS_BY_CATEGORY_ID = GET_PRODUCTS + "AND p.category_id = :categoryId ";
+	public static final String SELECT_PRODUCTS_BY_CATEGORY_ID = SELECT_PRODUCTS + "AND p.category_id = :categoryId ";
 
-	public static final String GET_PROMOTION_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
+	public static final String SELECT_PROMOTION_PRODUCTS = "SELECT " + PRODUCT_COULMN + "FROM " + PRODUCT_TABLE
 		+ "INNER JOIN promotion as pr "
 		+ "ON pr.product_id = p.id "
 		+ "WHERE i.type = 'th'";
-	public static final String COUNT_PROMOTION = "SELECT count(*) FROM " + PRODUCT_TABLE
+	public static final String SELECT_COUNT_PROMOTION = "SELECT count(*) FROM " + PRODUCT_TABLE
 		+ "INNER JOIN promotion as pr "
 		+ "ON pr.product_id = p.id "
 		+ "WHERE i.type = 'th'";
 
-	public static final String GET_CATEGORIES = "SELECT c.id, c.name, count(*) AS count "
+	public static final String SELECT_CATEGORIES = "SELECT c.id, c.name, count(*) AS count "
 		+ "FROM category as c "
 		+ "INNER JOIN product as p "
 		+ "ON c.id = p.category_id "

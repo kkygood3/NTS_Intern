@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,7 +9,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="/reservation/css/style.css" rel="stylesheet">
     <style>
         .container_visual {
             height: 414px;
@@ -35,7 +36,14 @@
                             <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                             <a href=".." class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="./myreservation.jsp" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <c:choose>
+                            <c:when test="${sessionScope.userEmail == null}">
+                                <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
+                            </c:otherwise>
+                        </c:choose>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
@@ -266,7 +274,7 @@
     <script type="rv-template" id="visualImgTemplate">
 	{{#each productImages}}
     <li class="item" style="width: 414px; height: 414px;" data-index="{{@index}}">
-        <img alt="" class="img_thumb" src="../{{saveFileName}}" style="width: 100%; height: 100%;">
+        <img alt="" class="img_thumb" src="/reservation/{{saveFileName}}" style="width: 100%; height: 100%;">
         <span class="img_bg"></span>
         <div class="visual_txt">
             <div class="visual_txt_inn">
@@ -296,16 +304,16 @@
                 <div class="review_area">
                     <div class="thumb_area">
                         <a class="thumb" title="이미지 크게 보기">
-                            <img width="90" height="90" class="img_vertical_top" src="../{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
+                            <img width="90" height="90" class="img_vertical_top" src="/reservation/{{#each commentImages}}{{lookup this "saveFileName"}}{{/each}}" alt="리뷰이미지">
                         </a>
                         <span class="img_count">{{commentImages.length}}</span>
                     </div>
-                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <h4 class="resoc_name">{{@root.displayInfo.productDescription}}</h4>
                     <p class="review">{{comment}}</p>
                 </div>
 			{{else}}
                 <div class="review_area no_img">
-                    <h4 class="resoc_name">{{../this.displayInfo.productDescription}}</h4>
+                    <h4 class="resoc_name">{{@root.displayInfo.productDescription}}</h4>
                     <p class="review">{{comment}}</p>
                 </div>
 			{{/if}}
@@ -321,7 +329,8 @@
 	{{/each}}
     </script>
     
-    <script src="../js/handlebars.min.js"></script>
-    <script src="../js/detail.js"></script>
+    <script src="/reservation/js/handlebars.min.js"></script>
+	<script src="/reservation/js/util.js"></script>
+    <script src="/reservation/js/detail.js"></script>
 </body>
 </html>

@@ -4,11 +4,11 @@
  */
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.ReservationSqls.COUNT_BY_CATEGORY_ID;
-import static com.nts.reservation.dao.ReservationSqls.GET_PRODUCTS;
-import static com.nts.reservation.dao.ReservationSqls.GET_PRODUCTS_BY_CATEGORY_ID;
-import static com.nts.reservation.dao.ReservationSqls.LIMIT;
-import static com.nts.reservation.dao.ReservationSqls.SELECT_COUNT_ALL;
+import static com.nts.reservation.dao.sqls.ProductSqls.LIMIT;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_COUNT_ALL;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_COUNT_BY_CATEGORY_ID;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_PRODUCTS;
+import static com.nts.reservation.dao.sqls.ProductSqls.SELECT_PRODUCTS_BY_CATEGORY_ID;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,23 +36,23 @@ public class ProductDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public int countAll() {
+	public int selectCountAllProducts() {
 		return jdbc.queryForObject(SELECT_COUNT_ALL, Collections.emptyMap(), Integer.class);
 	}
 
 	public int selectByCategory(int categoryId) {
 		Map<String, Integer> param = Collections.singletonMap("categoryId", categoryId);
-		return jdbc.queryForObject(COUNT_BY_CATEGORY_ID, param, Integer.class);
+		return jdbc.queryForObject(SELECT_COUNT_BY_CATEGORY_ID, param, Integer.class);
 	}
 
-	public List<Product> getProducts(Integer categoryId, int start, int limit) {
+	public List<Product> selectProducts(Integer categoryId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
 		if (categoryId != null) {
 			params.put("categoryId", categoryId);
-			return jdbc.query(GET_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);
+			return jdbc.query(SELECT_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);
 		}
-		return jdbc.query(GET_PRODUCTS + LIMIT, params, rowMapper);
+		return jdbc.query(SELECT_PRODUCTS + LIMIT, params, rowMapper);
 	}
 }

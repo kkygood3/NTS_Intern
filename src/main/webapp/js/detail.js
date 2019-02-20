@@ -4,34 +4,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var detailPage = {
 	getDetailPage: function(displayInfoId){
-		var httpRequest;
-		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		if (window.XMLHttpRequest) {
-			httpRequest =  new XMLHttpRequest();
-			
-			httpRequest.onreadystatechange = function() {
-				var jsonResponse;
-				
-				if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					this.displayMainInfo(jsonResponse);
-					this.displayDiscountInfo(jsonResponse);
-					this.displayComments(jsonResponse);
-					this.displayDetailInfo(jsonResponse);
-				}
-			}.bind(this)
-			
-			httpRequest.open("GET", "../api/products/" + displayInfoId);
-			httpRequest.setRequestHeader("Content-type", "charset=utf-8");
-			httpRequest.send();
+		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		
+		this.setEvent.bkBtnEvent();
+		
+		addScrollTopEvent(this.elements.btnTop);
+	},
+	
+	ajaxSender : new AjaxSender(),
+	
+	ajaxOption : function(){
+		var options = {
+				contentType : "charset=utf-8",
+				callBack : this.displayContents
 		}
 		
-		this.setEvent.scrollTop();
+		return options;
 	},
+	
+	displayContents: function(data){
+		this.detailPage.displayMainInfo(data);
+		this.detailPage.displayDiscountInfo(data);
+		this.detailPage.displayComments(data);
+		this.detailPage.displayDetailInfo(data);
+	}.bind(this),
 		
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
 	
@@ -57,6 +56,7 @@ var detailPage = {
 		btnOpen : document.querySelector(".bk_more._open"),
 		btnClose : document.querySelector(".bk_more._close"),
 		
+		btnBooking : document.querySelector(".bk_btn"),
 		btnMoreReview : document.querySelector(".btn_review_more"),
 		
 		tabUi : document.querySelector(".info_tab_lst"),
@@ -141,7 +141,7 @@ var detailPage = {
 	displayDetailInfo: function(jsonResponse){
 		this.elements.introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 		
-		this.elements.storeMap.src = "../" + jsonResponse["displayInfoImage"].saveFileName;
+		this.elements.storeMap.src = "/reservation/" + jsonResponse["displayInfoImage"].saveFileName;
 		this.elements.storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
 		this.elements.addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;
@@ -201,12 +201,6 @@ var detailPage = {
 			}.bind(this));
 		}.bind(this),
 		
-		scrollTop: function(){
-			this.detailPage.elements.btnTop.addEventListener("click", function(){
-				document.documentElement.scrollTop = 0;
-			});
-		}.bind(this),
-		
 		tabEvent: function(){
 			this.detailPage.elements.tabUi.addEventListener("click", function(event){
 					this.detailPage.setEvent.changeTab(event);
@@ -216,6 +210,12 @@ var detailPage = {
 		carousel: function(){
 			this.detailPage.elements.btnPrev.addEventListener("click", this.detailPage.imageSlide.slideRight);
 			this.detailPage.elements.btnNxt.addEventListener("click", this.detailPage.imageSlide.slideLeft);
+		}.bind(this),
+		
+		bkBtnEvent: function(){
+			this.detailPage.elements.btnBooking.addEventListener("click", function(){
+				location.href = this.detailPage.displayInfoId + "/reserve";
+			}.bind(this));
 		}.bind(this),
 		
 		changeTab: function(event){

@@ -9,9 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +28,12 @@ import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
+import com.nts.reservation.dto.Reservation;
+import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.service.ReservationService;
 
 /**
 * @author  : 이승수
@@ -34,13 +42,13 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/api")
 public class ReservationApiController {
 	@Autowired
-	ProductService productService;
-
+	private ProductService productService;
 	@Autowired
-	CategoryService categoryService;
-
+	private CategoryService categoryService;
 	@Autowired
-	DetailProductService detailProductService;
+	private DetailProductService detailProductService;
+	@Autowired
+	private ReservationService reservationService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
@@ -100,5 +108,31 @@ public class ReservationApiController {
 		map.put("items", categories);
 
 		return map;
+	}
+
+	@GetMapping(path = "/reservations")
+	public Map<String, Object> getReservations(@RequestParam String reservationEmail) {
+		List<ReservedItem> reservedItems = reservationService.getReservedItems(reservationEmail);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("reservations", reservedItems);
+		map.put("size", reservedItems.size());
+		return map;
+	}
+
+	@PostMapping(path = "/reservations")
+	public boolean makeReservation(HttpSession session, @RequestBody Reservation reservationInfo) {
+		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
+
+		reservationService.makeReservation(reservationInfo);
+
+		return true;
+	}
+
+	@PutMapping(path = "/reservations/{reservaionInfoId}")
+	public boolean cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
+		reservationService.cancelReservation(reservationInfoId);
+
+		return true;
 	}
 }

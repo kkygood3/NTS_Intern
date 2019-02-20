@@ -2,20 +2,20 @@
  * Copyright 2015 NaverCorp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dao;
+package com.nts.reservation.dao.sqls;
 
 /**
 * @author  : 이승수
 */
 public class DetailProductSqls {
-	public static final String GET_AVERAGE_SCORE = "SELECT AVG(score) "
+	public static final String SELECT_AVERAGE_SCORE = "SELECT AVG(score) "
 		+ "FROM "
 		+ "reservation_user_comment AS c "
 		+ "INNER JOIN reservation_info AS ri "
 		+ "ON ri.id = c.reservation_info_id "
 		+ "WHERE ri.display_info_id = :displayInfoId";
 
-	public static final String GET_COMMENTS = "SELECT "
+	public static final String SELECT_COMMENTS = "SELECT "
 		+ "c.comment"
 		+ ", c.id AS comment_id"
 		+ ", c.create_date"
@@ -32,7 +32,7 @@ public class DetailProductSqls {
 		+ "INNER JOIN reservation_info AS ri "
 		+ "ON ri.id = c.reservation_info_id "
 		+ "WHERE ri.display_info_id = :displayInfoId ";
-	public static final String GET_COMMENT_IMAGES = "SELECT f.content_type"
+	public static final String SELECT_COMMENT_IMAGES = "SELECT f.content_type"
 		+ ", c.create_date"
 		+ ", f.delete_flag"
 		+ ", ci.file_id"
@@ -49,7 +49,7 @@ public class DetailProductSqls {
 		+ "ON ci.file_id = f.id "
 		+ "WHERE reservation_user_comment_id = :commentId";
 
-	public static final String GET_DISPLAY_INFO = "SELECT "
+	public static final String SELECT_DISPLAY_INFO = "SELECT "
 		+ "c.id AS category_id"
 		+ ", c.name AS category_name"
 		+ ", d.create_date"
@@ -73,7 +73,7 @@ public class DetailProductSqls {
 		+ "INNER JOIN category AS c "
 		+ "ON p.category_id = c.id "
 		+ "WHERE d.id = :displayInfoId ";
-	public static final String GET_DISPLAY_INFO_IMAGE = "SELECT "
+	public static final String SELECT_DISPLAY_INFO_IMAGE = "SELECT "
 		+ "f.content_type"
 		+ ", d.create_date"
 		+ ", f.delete_flag"
@@ -90,7 +90,7 @@ public class DetailProductSqls {
 		+ "ON di.file_id = f.id "
 		+ "WHERE d.id = :displayInfoId ";
 
-	public static final String GET_PRODUCT_IMAGES = "SELECT "
+	public static final String SELECT_PRODUCT_IMAGES = "SELECT "
 		+ "f.content_type"
 		+ ", f.create_date"
 		+ ", f.delete_flag"
@@ -109,7 +109,7 @@ public class DetailProductSqls {
 		+ "ON pi.product_id = d.product_id "
 		+ "WHERE pi.type != 'th'"
 		+ "AND d.id = :displayInfoId ";
-	public static final String GET_PRODUCT_PRICES = "SELECT "
+	public static final String SELECT_PRODUCT_PRICES = "SELECT "
 		+ "pp.create_date"
 		+ ", pp.discount_rate"
 		+ ", pp.modify_date"
