@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -84,9 +85,14 @@
 								</div>
 								<div class="qty_info_icon">
 									<strong class="product_amount"><span>${productPrice.type}</span></strong>
-									<strong class="product_price"><span class="price">${productPrice.price * (100-productPrice.discountRate) / 100} </span><span class="price_type">원</span></strong>
+									<strong class="product_price">
+										<span class="price">${productPrice.price}</span>
+										<span class="price_type"> 원</span>
+									</strong>
 									<em class="product_dsc">
-										${productPrice.price}원
+										<fmt:parseNumber integerOnly="true" 
+													value="${productPrice.price * (100-productPrice.discountRate) / 100}"/>
+										 원
 										<c:if test="${productPrice.discountRate > 0}">
 											(${productPrice.discountRate}% 할인가)
 										</c:if>
