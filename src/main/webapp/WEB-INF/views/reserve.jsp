@@ -202,6 +202,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type="text/javascript" src="/js/constant/regularExpression.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
@@ -303,11 +304,11 @@
 					var isValid = false;
 
 					if (name === "name") {
-						isValid = this.validText(/^[가-힣|a-z|A-Z]+$/, text);
+						isValid = this.validText(NAME_REGEXP, text);
 					} else if (name === "tel") {
-						isValid = this.validText(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/, text);
+						isValid = this.validText(PHONE_REGEXP, text);
 					} else if (name === "email") {
-						isValid = this.validText(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/, text);
+						isValid = this.validText(EMAIL_REGEXP, text);
 					} else {
 						return;
 					}
