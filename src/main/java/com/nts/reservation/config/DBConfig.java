@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +18,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+
+import com.nts.reservation.mapper.CategoryMapper;
 
 /**
  * DBCP 설정 클래스
@@ -47,15 +49,10 @@ public class DBConfig implements TransactionManagementConfigurer {
 	}
 
 	@Bean
-	public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) {
+	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		return factoryBean;
-	}
-
-	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
-		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 
 	@Override
@@ -66,6 +63,14 @@ public class DBConfig implements TransactionManagementConfigurer {
 	@Bean
 	public PlatformTransactionManager transactionManger() {
 		return new DataSourceTransactionManager(dataSource());
+	}
+
+	@Bean
+	public MapperFactoryBean<CategoryMapper> categoryMapper(SqlSessionFactory sqlSessionFactory) {
+		MapperFactoryBean<CategoryMapper> mapperFactoryBean = new MapperFactoryBean<CategoryMapper>();
+		mapperFactoryBean.setMapperInterface(CategoryMapper.class);
+		mapperFactoryBean.setSqlSessionFactory(sqlSessionFactory);
+		return mapperFactoryBean;
 	}
 
 }

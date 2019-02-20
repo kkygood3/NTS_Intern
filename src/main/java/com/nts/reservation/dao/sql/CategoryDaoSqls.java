@@ -9,7 +9,8 @@ package com.nts.reservation.dao.sql;
  * @author jinwoo.bae
  */
 public class CategoryDaoSqls {
-	public static final String SELECT_CATEGORIES_WITH_PRODUCTS_ON_DISPLAY_COUNT = "SELECT  "
+	public static final String SELECT_CATEGORIES = ""
+		+ "SELECT  "
 		+ "    c.id, c.name, COUNT(c.id) AS count "
 		+ "FROM "
 		+ "    category c, "
@@ -18,5 +19,5 @@ public class CategoryDaoSqls {
 		+ "WHERE "
 		+ "    c.id = p.category_id "
 		+ "        AND p.id = di.product_id "
-		+ "GROUP BY c.id LIMIT :limit";
+		+ "GROUP BY c.id LIMIT #{limit}";
 }

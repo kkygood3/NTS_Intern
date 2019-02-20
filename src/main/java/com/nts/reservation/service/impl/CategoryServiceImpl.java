@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.mapper.CategoryMapper;
 import com.nts.reservation.service.CategoryService;
 
 /**
@@ -22,10 +22,10 @@ import com.nts.reservation.service.CategoryService;
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryMapper categoryMapper;
 
 	@Override
 	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit) {
-		return categoryDao.selectCategoriesWithProductsOnDisplayCount(limit);
+		return categoryMapper.selectCategories(limit);
 	}
 }
