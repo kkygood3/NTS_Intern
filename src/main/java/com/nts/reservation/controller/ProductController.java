@@ -1,22 +1,15 @@
 package com.nts.reservation.controller;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.dto.CommentPageInfo;
-import com.nts.reservation.dto.ErrorInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;

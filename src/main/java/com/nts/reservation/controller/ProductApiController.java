@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +21,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
-import com.nts.reservation.dto.ErrorInfo;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
+import com.nts.reservation.service.validation.Validator;
 
 /**
  * 상품 관련 API 클래스
@@ -123,12 +123,23 @@ public class ProductApiController {
 	 */
 	@PostMapping(path = "/{displayInfoId}/reservation")
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		@RequestBody UserReservationInput userReservationInput,
-		ModelMap model) {
-		if (reservationService.addReservation(userReservationInput, displayInfoId) == null) {
-			model.addAttribute("errorInfo", new ErrorInfo(400, "Bad Request", "잘못된 입력입니다."));
+		@RequestBody UserReservationInput userReservationInput) {
+		
+		int totalReservationCount = 0;
+		for (ReservationInfoPrice reservationInfoPrice : userReservationInput.getPrice()) {
+			totalReservationCount += reservationInfoPrice.getCount();
+		}
+		
+		if (totalReservationCount == 0) {
 			return false;
 		}
+		if (!Validator.validateReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+			return false;
+		}
+		if (reservationService.addReservation(userReservationInput, displayInfoId).getId() == -1) {
+			return false;
+		}
+		
 		return true;
 	}
 }

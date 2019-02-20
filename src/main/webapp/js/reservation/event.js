@@ -151,17 +151,16 @@ function addBookingButtonClickEvent() {
 		}
 		var reservationData = makeJsonReservationData();
 
-		reservationData.tel = document.getElementById("tel").value;
-		reservationData.email = document.getElementById("email").value;
-		reservationData.price = makePriceData();
 		$.ajax({
 			method: "POST",
 			url: "/product/" + displayInfo().displayInfoId + "/reservation",
 			data: JSON.stringify(reservationData),
 			dataType: "json",
 			contentType : "application/json",
-			success: function(){
-				window.location.href = "/detail/" + displayInfo().displayInfoId;
+			success: function(data){
+				if (data) {
+					window.location.href = "/detail/" + displayInfo().displayInfoId;
+				}
 		    }
 		});
 	});
