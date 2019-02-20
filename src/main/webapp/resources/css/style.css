@@ -1299,11 +1299,11 @@ button {
 }
 
 /* added by crong. */
-.form_horizontal .inline_form .inline_control.tel_wrap {
+.form_horizontal .inline_form .inline_control {
 	position: relative;
 }
 
-.form_horizontal .inline_form .inline_control.tel_wrap .warning_msg {
+.form_horizontal .inline_form .inline_control .warning_msg {
 	position: relative;
 	position: absolute;
 	top: 0;
@@ -4149,4 +4149,15 @@ button {
 	left: 0;
 	top: 0;
 	font-size: 10px;
+}
+
+.logout {
+	line-height: 60px;
+	text-align: center;
+	height: 60px;
+	background-color: lightgray;
+	border-radius: 10px;
+	margin: 20px;
+	font-size: 2em;
+	font-weight: 700;
 }

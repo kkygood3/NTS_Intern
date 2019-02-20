@@ -1,10 +1,12 @@
-package com.nts.reservation.detail.dto;
+package com.nts.reservation.dto.detail;
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
+
+import java.time.LocalDateTime;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
@@ -16,8 +18,8 @@ public class ProductPrice {
 	private String priceTypeName;
 	private Integer price;
 	private Integer discountRate;
-	private String createDate;
-	private String modifyDate;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
 
 	public Long getProductPriceId() {
 		return productPriceId;
@@ -59,19 +61,19 @@ public class ProductPrice {
 		this.discountRate = discountRate;
 	}
 
-	public String getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getModifyDate() {
+	public LocalDateTime getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(LocalDateTime modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

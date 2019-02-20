@@ -8,26 +8,26 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.DisplayInfo;
-import com.nts.reservation.detail.dto.DisplayInfoImage;
-import com.nts.reservation.detail.dto.ProductImage;
-import com.nts.reservation.detail.dto.ProductPrice;
+import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.detail.ProductImage;
+import com.nts.reservation.dto.detail.ProductPrice;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
 public interface DetailService {
-	DisplayInfo selectDisplayInfo(Long displayInfoId);
+	DisplayInfo getDisplayInfo(Long displayInfoId);
 
-	List<ProductImage> selectProductImages(Long displayInfoId);
+	List<ProductImage> getProductImages(Long displayInfoId);
 
-	DisplayInfoImage selectDisplayInfoImage(Long displayInfoId);
+	DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
 
-	List<Comment> selectComments(Long displayInfoId);
+	List<Comment> getComments(Long displayInfoId);
 
-	double selectAverageScore(Long displayInfoId);
+	Double getAverageScore(Long displayInfoId);
 
-	List<ProductPrice> selectProductPrices(Long displayInfoId);
+	List<ProductPrice> getProductPrices(Long displayInfoId);
 }

@@ -13,16 +13,16 @@
 <!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 
 <head>
-	<meta charset="utf-8">
-	<meta name="description"
-		content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
-	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
-	
-	<title>네이버 예약</title>
-	
-	<link href="resources/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+<meta charset="utf-8">
+<meta name="description"
+	content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+
+<title>네이버 예약</title>
+
+<link href="resources/css/style.css" rel="stylesheet">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
 </head>
 
 <body>
@@ -32,12 +32,21 @@
 				<h1 class="logo">
 					<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./myreservation.html" class="lnk_logo" title="예약"> <span
+					</a> <a href="./" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="./bookinglogin.html" class="btn_my"> <span
-					class="viewReservation" title="예약확인">예약확인</span>
+				<a href="./myreservation" class="btn_my"> <span
+					class="viewReservation" title="예약확인">
+						<%
+							if (session.getAttribute("email") == null) {
+						%>예약확인<%
+							} else {
+						%> <%=session.getAttribute("email")%>
+						<%
+							}
+						%>
+				</span>
 				</a>
 			</header>
 		</div>
@@ -131,6 +140,15 @@
 				환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
+		<%
+			if (session.getAttribute("email") != null) {
+		%>
+		<div class="logout">
+			<a href="#" onClick ="logout()"> <span class="lnk_top_text">로그아웃</span>
+			</a>
+		</div>
+		<%}%> 
+		
 	</footer>
 
 	<script type="rv-template" id="promotionItem">
@@ -163,6 +181,7 @@
     </script>
 
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/polyfill_script.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript" src="resources/js/pages/mainPage_script.js"></script>
 </body>

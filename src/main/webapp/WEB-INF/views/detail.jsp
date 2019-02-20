@@ -39,11 +39,11 @@
 				<h1 class="logo">
 					<a href="./" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+					</a> <a href="./" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="예약확인">예약확인</span>
+				<a href="./bookinglogin" class="btn_my"> <span title="예약확인"><%=session.getAttribute("email")%></span>
 				</a>
 			</header>
 		</div>
@@ -52,14 +52,18 @@
 				<div class="section_visual">
 					<header>
 						<h1 class="logo">
-							<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span
+							<a href="./" class="lnk_logo" title="네이버"> <span
 								class="spr_bi ico_n_logo">네이버</span>
 							</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation.html" class="btn_my"> <span
-							class="viewReservation" title="예약확인">예약확인</span>
+						<a href="./myreservation" class="btn_my"> <span
+							class="viewReservation" title="예약확인"><%if(session.getAttribute("email")==null){
+								%>예약확인<%
+							} else { %>
+							<%=session.getAttribute("email")%><%
+							}%></span>
 						</a>
 					</header>
 					<div class="pagination">
@@ -125,7 +129,6 @@
 						</div>
 						<div class="event_info">
 							<div class="in_dsc">
-								[네이버예약 특별할인]<br>R석 50%, S석 60% 할인
 							</div>
 						</div>
 					</div>
@@ -247,6 +250,14 @@
 				환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
+		<%
+			if (session.getAttribute("email") != null) {
+		%>
+		<div class="logout">
+			<a href="#" onClick ="logout()"> <span class="lnk_top_text">로그아웃</span>
+			</a>
+		</div>
+		<%}%> 
 	</footer>
 	
 	<div id="photoviwer"></div>
@@ -298,6 +309,7 @@
 	</script>
 	
 	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="resources/js/commons/polyfill_script.js"></script>
 	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
 	<script type="text/javascript" src="resources/js/pages/detailPage_script.js"></script>
 </body>

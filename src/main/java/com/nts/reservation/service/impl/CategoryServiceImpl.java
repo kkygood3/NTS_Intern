@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.products.dto.Category;
+import com.nts.reservation.dto.product.Category;
 import com.nts.reservation.service.CategoryService;
 
 @Service
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
-	public List<Category> selectAllProductsCountByCategory() {
+	public List<Category> getAllProductsCountByCategory() {
 		return productDao.selectAllProductsCountByCategory();
 	}
 }

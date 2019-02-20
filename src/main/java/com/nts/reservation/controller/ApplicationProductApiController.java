@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.detail.dto.DetailResponse;
+import com.nts.reservation.dto.detail.DisplayInfoResponse;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
@@ -26,56 +27,56 @@ import com.nts.reservation.service.ProductService;
  */
 
 @RestController
-@RequestMapping(path = "/api/")
-public class ApplicationApiController {
+@RequestMapping(path = "/api/", method = {RequestMethod.GET})
+public class ApplicationProductApiController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 	@Autowired
-	DetailService detailService;
+	private DetailService detailService;
 	@Autowired
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@GetMapping("/products")
-	public Map<String, Object> selectProductsByCategory(
+	public Map<String, Object> getProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
-
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.selectProductsByCategory(categoryId, start));
+		result.put("items", productService.getProductsByCategory(categoryId, start));
 		if (categoryId == 0) {
-			result.put("totalCount", productService.selectProductsCount());
+			result.put("totalCount", productService.getProductsCount());
 		} else {
-			result.put("totalCount", productService.selectProductsCountByCategory(categoryId));
+			result.put("totalCount", productService.getProductsCountByCategory(categoryId));
 		}
 
 		return result;
 	}
 
 	@GetMapping("/products/{displayInfoId}")
-	public DetailResponse selectProductDetailByDisplayInfoId(
+	public DisplayInfoResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		DetailResponse result = new DetailResponse.Builder()
-			.displayInfo(detailService.selectDisplayInfo(displayInfoId))
-			.productImages(detailService.selectProductImages(displayInfoId))
-			.displayInfoImage(detailService.selectDisplayInfoImage(displayInfoId))
-			.averageScore(detailService.selectAverageScore(displayInfoId))
-			.productPrices(detailService.selectProductPrices(displayInfoId))
-			.comments(detailService.selectComments(displayInfoId))
+		DisplayInfoResponse result = new DisplayInfoResponse.Builder()
+			.displayInfo(detailService.getDisplayInfo(displayInfoId))
+			.productImages(detailService.getProductImages(displayInfoId))
+			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
+			.averageScore(detailService.getAverageScore(displayInfoId))
+			.productPrices(detailService.getProductPrices(displayInfoId))
+			.comments(detailService.getComments(displayInfoId))
 			.build();
 		return result;
 	}
 
 	@GetMapping("/categories")
-	public Map<String, Object> selectAllProductsCountByCategory() {
+	public Map<String, Object> getAllProductsCountByCategory() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", categoryService.selectAllProductsCountByCategory());
+		result.put("items", categoryService.getAllProductsCountByCategory());
 		return result;
 	}
 
 	@GetMapping("/promotions")
-	public Map<String, Object> selectPromotions() {
+	public Map<String, Object> getPromotions() {
 		Map<String, Object> result = new HashMap<>();
-		result.put("items", productService.selectPromotions());
+		result.put("items", productService.getPromotions());
 		return result;
 	}
+
 }

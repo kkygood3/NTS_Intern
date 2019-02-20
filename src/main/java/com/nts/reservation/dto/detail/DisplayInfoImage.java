@@ -1,4 +1,7 @@
-package com.nts.reservation.detail.dto;
+package com.nts.reservation.dto.detail;
+
+import java.time.LocalDateTime;
+
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
@@ -18,8 +21,8 @@ public class DisplayInfoImage {
 	private String saveFileName;
 	private String contentType;
 	private Boolean deleteFlag;
-	private String createDate;
-	private String modifyDate;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
 
 	public Long getDisplayInfoImageId() {
 		return displayInfoImageId;
@@ -77,19 +80,19 @@ public class DisplayInfoImage {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public String getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 
-	public String getModifyDate() {
+	public LocalDateTime getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(String modifyDate) {
+	public void setModifyDate(LocalDateTime modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

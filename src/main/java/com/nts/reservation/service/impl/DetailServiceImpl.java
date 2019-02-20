@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailDao;
-import com.nts.reservation.detail.dto.Comment;
-import com.nts.reservation.detail.dto.CommentImage;
-import com.nts.reservation.detail.dto.DisplayInfo;
-import com.nts.reservation.detail.dto.DisplayInfoImage;
-import com.nts.reservation.detail.dto.ProductImage;
-import com.nts.reservation.detail.dto.ProductPrice;
+import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.dto.detail.CommentImage;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.detail.ProductImage;
+import com.nts.reservation.dto.detail.ProductPrice;
 import com.nts.reservation.service.DetailService;
 
 /**
@@ -29,41 +29,40 @@ import com.nts.reservation.service.DetailService;
 public class DetailServiceImpl implements DetailService {
 
 	@Autowired
-	DetailDao DetailDao;
+	private DetailDao DetailDao;
 
 	@Override
-	public DisplayInfo selectDisplayInfo(Long displayInfoId) {
+	public DisplayInfo getDisplayInfo(Long displayInfoId) {
 		return DetailDao.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
-	public List<ProductImage> selectProductImages(Long displayInfoId) {
+	public List<ProductImage> getProductImages(Long displayInfoId) {
 		return DetailDao.selectProductImages(displayInfoId);
 	}
 
 	@Override
-	public DisplayInfoImage selectDisplayInfoImage(Long displayInfoId) {
+	public DisplayInfoImage getDisplayInfoImage(Long displayInfoId) {
 		return DetailDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
-	public List<Comment> selectComments(Long displayInfoId) {
+	public List<Comment> getComments(Long displayInfoId) {
 		List<Comment> comments = DetailDao.selectComments(displayInfoId);
-		for (Comment comm : comments) {
-			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comm.getCommentId());
-			comm.setCommentImages(list);
+		for (Comment comment : comments) {
+			List<CommentImage> list = DetailDao.selectCommentsImagesByCommentId(comment.getCommentId());
+			comment.setCommentImages(list);
 		}
-
 		return comments;
 	}
 
 	@Override
-	public double selectAverageScore(Long displayInfoId) {
+	public Double getAverageScore(Long displayInfoId) {
 		return DetailDao.selectAverageScore(displayInfoId);
 	}
 
 	@Override
-	public List<ProductPrice> selectProductPrices(Long displayInfoId) {
+	public List<ProductPrice> getProductPrices(Long displayInfoId) {
 		return DetailDao.selectProductPrices(displayInfoId);
 	}
 }
