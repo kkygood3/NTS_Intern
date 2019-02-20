@@ -7,6 +7,9 @@ package com.nts.reservation.config;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +21,6 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 /**
  * DBCP 설정 클래스
- * 
  * @author jinwoo.bae
  */
 @Configuration
@@ -44,6 +46,18 @@ public class DBConfig implements TransactionManagementConfigurer {
 		return dataSource;
 	}
 
+	@Bean
+	public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) {
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(dataSource);
+		return factoryBean;
+	}
+
+	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) throws Exception {
+		return new SqlSessionTemplate(sqlSessionFactory);
+	}
+
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
 		return transactionManger();
@@ -53,4 +67,5 @@ public class DBConfig implements TransactionManagementConfigurer {
 	public PlatformTransactionManager transactionManger() {
 		return new DataSourceTransactionManager(dataSource());
 	}
+
 }
