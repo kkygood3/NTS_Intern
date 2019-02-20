@@ -55,6 +55,9 @@ public class ReservationApiController {
 	@Autowired
 	private ProductService productService;
 
+	/**
+	 * @description : Session에 있는 email을 이용해 ReservationInfo 가져온 후 return
+	 */
 	@GetMapping
 	public ReservationInfoResponse reservationInfo(HttpSession session) {
 		
@@ -82,6 +85,9 @@ public class ReservationApiController {
 		return reservationDisplayInfo;
 	}
 	
+	/**
+	 * @description : Session에 Email 정보가 없을 시 bookinglogin.js을 통해 접근됨
+	 */
 	@GetMapping("/login")
 	public String login(@RequestParam(name = "reservationEmail") String reservationEmail, HttpSession session) {
 		session.setAttribute("reservationEmail", reservationEmail);
@@ -89,7 +95,10 @@ public class ReservationApiController {
 		return reservationEmail;
 	}
 	
-	@PostMapping
+	/**
+	 * @description : JSON 형태의 RequestBody를 Insert
+	 */
+	@PostMapping("/reservation")
 	public int reservation(@RequestBody ReservationParam reservationParam) {
 		return reservationService.addReservation(reservationParam);
 	}

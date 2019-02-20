@@ -75,6 +75,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
     		registry.addInterceptor(new SessionInterceptor())
-    								.addPathPatterns("/api/reservations");
+    								.addPathPatterns("/api/reservations")
+    								.excludePathPatterns("/api/reservations/reservation");
 	}
 }
