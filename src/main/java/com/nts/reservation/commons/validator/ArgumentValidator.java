@@ -8,7 +8,7 @@ package com.nts.reservation.commons.validator;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ArgumentValidator {
-	public static boolean isCorrectCategoryId(int categoryId) {
+	public static boolean checkCategoryId(int categoryId) {
 		if (categoryId < 0) {
 			System.out.println("올바르지 않은 categoryId : " + categoryId);
 
@@ -17,7 +17,7 @@ public class ArgumentValidator {
 		return true;
 	}
 
-	public static boolean isCorrectDisplayInfoId(int displayInfoId) {
+	public static boolean checkDisplayInfoId(int displayInfoId) {
 		if (displayInfoId <= 0) {
 			System.out.println("올바르지 않은 displayInfoId : " + displayInfoId);
 
@@ -26,7 +26,7 @@ public class ArgumentValidator {
 		return true;
 	}
 
-	public static boolean isCorrectStartAndLimit(int start, int limit) {
+	public static boolean checkStartAndLimit(int start, int limit) {
 		if (start < 0 || limit < 0) {
 			System.out.println("올바르지 않은 start : " + start + " 또는 limit" + limit);
 
@@ -35,7 +35,7 @@ public class ArgumentValidator {
 		return true;
 	}
 
-	public static boolean isCorrectCategoryId(int start, int limit) {
+	public static boolean checkCategoryId(int start, int limit) {
 		if (start < 0 || limit < 0) {
 			System.out.println("올바르지 않은 start : " + start + " 또는 limit" + limit);
 

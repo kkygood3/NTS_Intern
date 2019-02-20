@@ -44,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectProducts(int start, int limit) {
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
@@ -54,8 +54,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> selectProductsByCategoryId(int categoryId, int start, int limit) {
-		ArgumentValidator.isCorrectCategoryId(categoryId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkCategoryId(categoryId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
@@ -71,7 +71,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int selectProductsCountByCategoryId(int categoryId) {
-		ArgumentValidator.isCorrectCategoryId(categoryId);
+		ArgumentValidator.checkCategoryId(categoryId);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
@@ -80,7 +80,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<ProductImage> selectProductImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
@@ -89,7 +89,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<ProductPrice> selectProductPrice(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
@@ -98,7 +98,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public ProductExtraImage selectProductExtraImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

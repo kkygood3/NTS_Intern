@@ -25,7 +25,7 @@ public class DetailCommentApiController {
 
 	@RequestMapping(value = "/{displayInfoId}/detailComment", method = RequestMethod.GET)
 	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
 	}

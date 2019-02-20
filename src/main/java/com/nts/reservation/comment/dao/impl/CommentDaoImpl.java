@@ -39,7 +39,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectAllComment(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
@@ -48,8 +48,8 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<Comment> selectLimitComment(int displayInfoId, int start, int limit) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
@@ -67,7 +67,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	@Override
 	public List<DetailComment> selectDetailComment(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);

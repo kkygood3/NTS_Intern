@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getAllComment(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		List<Comment> commentList = commentDaoImpl.selectAllComment(displayInfoId);
 
@@ -37,8 +37,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getLimitComment(int displayInfoId, int start, int limit) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		List<Comment> commentList = commentDaoImpl.selectLimitComment(displayInfoId, start, limit);
 
@@ -52,14 +52,14 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<DetailComment> getDetailComment(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return commentDaoImpl.selectDetailComment(displayInfoId);
 	}
 
 	@Override
 	public DetailCommentResponse getDetailCommentResponse(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		DetailCommentResponse detailCommentResponse = new DetailCommentResponse();
 

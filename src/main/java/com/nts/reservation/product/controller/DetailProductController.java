@@ -19,7 +19,7 @@ public class DetailProductController {
 	@GetMapping("/detailProduct")
 	public ModelAndView requestProductDetail(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		ModelAndView modelAndMap = new ModelAndView("detailProduct");
 		modelAndMap.addObject("displayInfoId", displayInfoId);

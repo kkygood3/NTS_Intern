@@ -30,8 +30,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProductsByCategoryId(int categoryId, int start, int limit) {
-		ArgumentValidator.isCorrectCategoryId(categoryId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkCategoryId(categoryId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		if (categoryId == All_CATEGORIES) {
 			return getProducts(start, limit);
@@ -41,14 +41,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getProducts(int start, int limit) {
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		return productDaoImpl.selectProducts(start, limit);
 	}
 
 	@Override
 	public int getProductsCountByCategoryId(int categoryId) {
-		ArgumentValidator.isCorrectCategoryId(categoryId);
+		ArgumentValidator.checkCategoryId(categoryId);
 
 		if (categoryId == All_CATEGORIES) {
 			return getProductsCount();
@@ -63,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductResponse getProductResponse(int categoryId, int start, int limit, int totalCount) {
-		ArgumentValidator.isCorrectCategoryId(categoryId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkCategoryId(categoryId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		ProductResponse productResponse = new ProductResponse();
 		productResponse.setTotalCount(totalCount);
@@ -75,21 +75,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductImage> getProductImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return productDaoImpl.selectProductImage(displayInfoId);
 	}
 
 	@Override
 	public List<ProductPrice> getProductPrice(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return productDaoImpl.selectProductPrice(displayInfoId);
 	}
 
 	@Override
 	public ProductExtraImage getProductExtraImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		ProductExtraImage productExtraImage = productDaoImpl.selectProductExtraImage(displayInfoId);
 

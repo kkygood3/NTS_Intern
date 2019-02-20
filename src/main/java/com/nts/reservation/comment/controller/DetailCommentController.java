@@ -18,7 +18,7 @@ public class DetailCommentController {
 	@GetMapping("/detailComment")
 	public String requestProductDetailComment(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return "detailComment";
 	}

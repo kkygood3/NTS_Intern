@@ -37,7 +37,7 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 
 	@Override
 	public DisplayInfo selectDisplayInfo(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
@@ -46,7 +46,7 @@ public class DisplayInfoDaoImpl implements DisplayInfoDao {
 
 	@Override
 	public DisplayInfoImage selectDisplayInfoImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);

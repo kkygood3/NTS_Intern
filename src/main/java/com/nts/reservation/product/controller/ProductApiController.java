@@ -41,8 +41,8 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		ArgumentValidator.isCorrectCategoryId(categoryId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkCategoryId(categoryId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		int totalCount = productServiceImpl.getProductsCountByCategoryId(categoryId);
 		if (totalCount == 0) {
@@ -57,15 +57,15 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
 	@RequestMapping(value = "/{displayInfoId}/extraImage", method = RequestMethod.GET)
 	public ProductExtraImage getProductExtraImage(@PathVariable int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return productServiceImpl.getProductExtraImage(displayInfoId);
 	}

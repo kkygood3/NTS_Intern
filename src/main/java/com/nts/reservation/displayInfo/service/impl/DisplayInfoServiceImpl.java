@@ -37,22 +37,22 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
 	@Override
 	public DisplayInfo getDisplayInfo(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return displayInfoDaoImpl.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
 	public DisplayInfoImage getDisplayInfoImage(int displayInfoId) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return displayInfoDaoImpl.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
 	public DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit) {
-		ArgumentValidator.isCorrectDisplayInfoId(displayInfoId);
-		ArgumentValidator.isCorrectStartAndLimit(start, limit);
+		ArgumentValidator.checkDisplayInfoId(displayInfoId);
+		ArgumentValidator.checkStartAndLimit(start, limit);
 
 		DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
 
