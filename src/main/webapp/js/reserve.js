@@ -16,7 +16,16 @@ function ReservePrice(price, priceTypeLabel) {
  * @param type
  * @param count
  */
-function PriceInfo(type, count) {
+function ReserveRequest(name, telephone, email, displayInfoId, reservationDate, reservePriceInfoList){
+	this.name = name;
+	this.telephone = telephone;
+	this.email = email;
+	this.displayInfoId = parseInt(displayInfoId);
+	this.reservePriceInfoList = reservePriceInfoList;
+	this.reservationDate = reservationDate;
+}
+
+function ReservePriceInfo(type, count) {
 	this.type = type;
 	this.count = count;
 };
@@ -277,27 +286,34 @@ function postReserve() {
 	var bookerName = bookerInputs[0].value;
 	var bookerTelephone = bookerInputs[1].value;
 	var bookerEmail = bookerInputs[2].value;
-
-	var reserveForm = document.querySelector('.reserve_form');
-	var reserveInputs = reserveForm.querySelectorAll('input');
-		
-	var priceInfoArray = new Array();
+	var reservationDate = document.querySelector('#reservationDateInput').value;
+	
+	var reservePriceInfoList = new Array();
 	for (var i = 0; i < ticketInputs.length; i++) {
 		var isContainTicket = (ticketInputs[i].value > 0);
 		if (isContainTicket) {
 			var type = ticketInputs[i].getAttribute('pricetype');
 			var count = ticketInputs[i].value;
-			priceInfoArray.push(new PriceInfo(type, count));
+			reservePriceInfoList.push(new ReservePriceInfo(type, count));
 		}
 	}
+	
+	var reserveRequest = JSON.stringify(new ReserveRequest(bookerName,bookerTelephone,bookerEmail,getUrlParameter('id'),reservationDate,reservePriceInfoList));
+	
+	requestAjax(postResponseHandler, 'api/reservations', 'POST', reserveRequest);
+}
 
-	reserveInputs[0].setAttribute("value", bookerName);
-	reserveInputs[1].setAttribute("value", bookerTelephone);
-	reserveInputs[2].setAttribute("value", bookerEmail);
-	reserveInputs[3].setAttribute("value", getUrlParameter('id'));
-	reserveInputs[4].setAttribute("value", JSON.stringify(priceInfoArray));
-
-	reserveForm.submit();
+/**
+ * 취소요청이 서버에 반영되었는지 확인.
+ * @param response - 취소 요청의 응답. 서버에서 OK나 FAIL로 응답한다.
+ */
+function postResponseHandler(response){
+	if(!response || response.result != 'OK'){
+		alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+	} else {
+		alert('예약 되었습니다.');
+		location.href = '/detail?id='+getUrlParameter('id');
+	}
 }
 
 function initInputChangeEvent(){

@@ -159,15 +159,7 @@
         </div>
     </div>
     
-    <form class="reserve_form" action="api/reservations" method="post">
-    	<input type="hidden" name="name" value="">
-    	<input type="hidden" name="telephone" value="">
-    	<input type="hidden" name="email" value="">
-    	<input type="hidden" name="displayInfoId" value="">
-    	<input type="hidden" name="priceInfo" value="">
-    	<input type="hidden" name="reservationDate" value="${reservationDate}">
-    </form>
-    
+    <input type="hidden" name="reservationDate" value="${reservationDate}" id="reservationDateInput">
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
