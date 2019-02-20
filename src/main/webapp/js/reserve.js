@@ -121,8 +121,9 @@ function initAgreementClickEvents() {
  * 예매하기 버튼을 클릭할 수 있는지 체크 유효성 검증은 예약 버튼 클릭이벤트에서 처리하므로 활성/비활성화만 검증한다.
  */
 function initReserveClickEvents() {
-	var reserveBtn = document.querySelector('.bk_btn_wrap');
-
+	var reserveBtnWrap = document.querySelector('.bk_btn_wrap');
+	var innerBtn = reserveBtnWrap.querySelector('button');
+	
 	var ticketInputsWrap = document.querySelector('.section_booking_ticket');
 	var bookerInputsWrap = document.querySelector('.section_booking_form');
 
@@ -164,13 +165,15 @@ function initReserveClickEvents() {
 		} else {
 			isAvailableBtn = false;
 		}
-
+		
 		if (isAvailableBtn) {
-			reserveBtn.classList.remove('disable');
-			reserveBtn.addEventListener('click', onReserveClicked);
+			reserveBtnWrap.classList.remove('disable');
+			reserveBtnWrap.addEventListener('click', onReserveClicked);
+			innerBtn.style.cursor = '';
 		} else {
-			reserveBtn.classList.add('disable');
-			reserveBtn.removeEventListener('click', onReserveClicked);
+			reserveBtnWrap.classList.add('disable');
+			reserveBtnWrap.removeEventListener('click', onReserveClicked);
+			innerBtn.style.cursor = 'not-allowed';
 		}
 
 		return isAvailableBtn;
@@ -181,6 +184,10 @@ function initBackClickEvents() {
 	document.querySelector('.btn_back').setAttribute('href','detail?id=' + getUrlParameter('id'));
 }
 
+/**
+ * 예매자 정보를 검증하고 옳지 않다면 경고 메세지를 출력
+ * @param index - 예매자 정보의 input index 
+ */
 function validateInput(index) {
 	var input = document.querySelectorAll('.form_horizontal input')[index];
 	var warningArea = document.querySelectorAll('.warning_msg')[index];
