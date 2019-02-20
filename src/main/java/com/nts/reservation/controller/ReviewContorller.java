@@ -15,7 +15,7 @@ public class ReviewContorller {
 	 * @param id - displayInfo 테이블의 id 
 	 */
 	@GetMapping("/review")
-	public String requestDetailPage(@RequestParam(name = "id", required = true) Integer id) {
+	public String requestReview(@RequestParam(name = "id", required = true) Integer id) {
 		return "review";
 	}
 }

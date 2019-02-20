@@ -6,7 +6,6 @@ package com.nts.reservation.controller.api;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.detail.DetailExtraImage;
 import com.nts.reservation.dto.detail.DetailResponse;
 import com.nts.reservation.dto.review.ReviewResponse;
-import com.nts.reservation.property.DefaultPagingLimit;
-import com.nts.reservation.property.ReviewProperties;
-import com.nts.reservation.service.detail.DetailExtraImageService;
-import com.nts.reservation.service.detail.DetailResponseService;
-import com.nts.reservation.service.review.ReviewResponseService;
+import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.service.DetailService;
+import com.nts.reservation.service.ReviewService;
 
 @RestController
 @RequestMapping("/api/products/{displayInfoId}")
 public class DetailApiController {
 	@Autowired
-	private DetailResponseService detailDisplayService;
+	private DetailService detailDisplayService;
 	@Autowired
-	private DetailExtraImageService detailExtraImageService;
-	@Autowired
-	private ReviewResponseService reviewResponseService;
+	private ReviewService reviewResponseService;
 
 	/**
 	 * /api/products/{displayInfoId} 요청을 받아 detail, review 페이지에 출력
@@ -45,11 +40,13 @@ public class DetailApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-
-		DetailResponse detailDisplay = detailDisplayService.getDetailResponse(displayInfoId, pagingLimit);
+		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		
+		DetailResponse detailResponse = detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit);
+		
 		Map<String, Object> map = new HashMap<>();
-		map.put("detailDisplay", detailDisplay);
+		map.put("detailResponse", detailResponse);
 
 		return map;
 	}
@@ -61,10 +58,11 @@ public class DetailApiController {
 	 */
 	@GetMapping("/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
-		DetailExtraImage productImage = detailExtraImageService.getExtraImage(displayInfoId);
+		
+		DetailExtraImage extraImageResponse = detailDisplayService.getExtraImage(displayInfoId);
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("productImage", productImage);
+		map.put("extraImageResponse", extraImageResponse);
 
 		return map;
 	}
@@ -77,17 +75,18 @@ public class DetailApiController {
 	 */
 	@GetMapping("/review")
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "start", required = false, defaultValue = ReviewProperties.PRODUCT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = DefaultPagingLimit.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-
-		List<ReviewResponse> comments = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
+		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		
+		ReviewResponse reviewResponse = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
+		
 		Map<String, Object> map = new HashMap<>();
-		map.put("comments", comments);
+		map.put("reviewResponse", reviewResponse);
 		return map;
 	}
 
 	/**
-	 * /api/products 요청시 결과값이 없을때 발생하는 예외 처리
+	 * queryForObject 요청의 결과값이 없을때 발생하는 예외 처리
 	 * @return emptyMap
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)

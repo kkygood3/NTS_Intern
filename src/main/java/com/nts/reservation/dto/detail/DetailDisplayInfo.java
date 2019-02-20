@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.detail;
 
 /**
- * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 DisplayInfo 정보를 담는 DTO
+ * detail 페이지 로드 시 /api/products/{displayInfoId} 요청에  detail 페이지의 DisplayInfo 정보 DTO
  */
 public class DetailDisplayInfo {
 	private Integer displayInfoId;

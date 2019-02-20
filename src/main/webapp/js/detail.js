@@ -45,7 +45,9 @@ function initDetailBtn(displayInfo){
 
 /**
  * Swipe image 첫장을 등록
- * @param displayInfo - 해당 상품의 정보
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
  */
 function initSwipeImage(displayInfo){
 	// 상단 Swipe Image 배너 Template
@@ -58,8 +60,11 @@ function initSwipeImage(displayInfo){
 
 /**
  * 댓글 정보 출력
- * @param displayInfo - 해당 상품의 정보
- * @param displayComment - 상품을 평가한 댓글(Array)
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
+ * @param displayComment -
+ *            상품을 평가한 댓글(Array)
  */
 function initComment(displayInfo, displayComment){
 	// 페이지에 출력할 Comment 갯수
@@ -91,8 +96,7 @@ function initComment(displayInfo, displayComment){
 	commentCountTextArea.innerText = commentCount+'건';
 	
 	/**
-	 * 전체 Comment가 화면에 출력한 갯수보다 크다면 review페이지로 리다이렉트 링크 삽입
-	 * 작거나 같다면 버튼을 숨김
+	 * 전체 Comment가 화면에 출력한 갯수보다 크다면 review페이지로 리다이렉트 링크 삽입 작거나 같다면 버튼을 숨김
 	 */
 	if(commentCount > COMMENT_PAGING_LIMIT){
 		moreCommentBtn.setAttribute('href','review?id='+displayInfo.displayInfoId);
@@ -102,15 +106,16 @@ function initComment(displayInfo, displayComment){
 }
 /**
  * 페이지 하단의 상품 소개, 오시는 길 등의 정보를 출력
- * @param displayInfo - 해당 상품의 정보
+ * 
+ * @param displayInfo -
+ *            해당 상품의 정보
  */
 function initInfoTab(displayInfo){
 	// [상세 정보] 탭의 소개
 	var descriptionTextArea = document.querySelector('p.in_dsc');
 	
 	/**
-	 * [오시는 길] 탭의
-	 * 이미지, 장소, 주소, 전화번호
+	 * [오시는 길] 탭의 이미지, 장소, 주소, 전화번호
 	 */
 	var imageArea = document.querySelector('.store_map');
 	var placeTextArea = document.querySelector('.store_name');
@@ -180,10 +185,12 @@ function initInfoTab(displayInfo){
 
 /**
  * 해당 상품에 추가로 표시할 이미지가 있을때 swipe에 등록
- * @param response - 추가 이미지 정보
+ * 
+ * @param response -
+ *            추가 이미지 정보
  */
 function loadExtraImageCallback(response){
-	var extraImageInformation = response.productImage;
+	var extraImage = response.extraImageResponse;
 	
 	// 상단 Swipe Image 배너 Template
 	var swipeTemplate = document.querySelector('#swipeTemplate').innerText;
@@ -198,9 +205,9 @@ function loadExtraImageCallback(response){
 	var swipeLeftBtn = document.querySelector('.ico_arr6_lt');
 	var swipeRightBtn = document.querySelector('.ico_arr6_rt');
 	
-	if(extraImageInformation){		
+	if(extraImage){		
 		var firstItem = '<li class="item" style="width: 414px;">'+document.querySelector('ul.detail_swipe>.item').innerHTML+'</li>';
-		var secondItem = bindSwipeTemplate(extraImageInformation);
+		var secondItem = bindSwipeTemplate(extraImage);
 		
 		// 2 - 1 - 2 - 1 으로 배치해서 가운데 두개 이미지에서만 컨트롤 할 수 있게 한다.
 		// 가장자리 두 이미지 상태에서는 애니메이션 없이 가운데의 같은 이미지로 이동한다.
@@ -227,7 +234,7 @@ function loadExtraImageCallback(response){
 			var isRightBtnClicked = clickedBtn.classList.contains('ico_arr6_rt');
 			
 			if(isLeftBtnClicked | isRightBtnClicked){
-				//애니메이션 실행 도중에 새로운 버튼 이벤트를 받지 않음
+				// 애니메이션 실행 도중에 새로운 버튼 이벤트를 받지 않음
 				eventContainer.removeEventListener('click',arrowEventHandler);
 				
 				if(isLeftBtnClicked){
@@ -266,13 +273,13 @@ function loadExtraImageCallback(response){
 							currentLeft = -100;
 							currentPage = 1;
 						}
-						
-						// 애니메이션 ON, 버튼 이벤트 재등록
-						setTimeout(()=>{
-							swipeItems.forEach(item => item.style.transitionDuration = '1s');
-							eventContainer.addEventListener('click',arrowEventHandler);
-							},50);
 					}
+					
+					// 애니메이션 ON, 버튼 이벤트 재등록
+					setTimeout(()=>{
+						swipeItems.forEach(item => item.style.transitionDuration = '1s');
+						eventContainer.addEventListener('click',arrowEventHandler);
+						},50);
 				},1100);
 			}
 		}
@@ -284,20 +291,33 @@ function loadExtraImageCallback(response){
 	}
 }
 
+/**
+ * 예매하기 버튼을 눌렀을 때 상품에 해당하는 예약페이지로 이동
+ * 
+ * @param displayInfoId
+ */
+function initReserveBtn(displayInfoId){
+	var reserveBtn = document.querySelector('.bk_btn');
+	reserveBtn.addEventListener('click',()=>location.href = 'reserve?id='+displayInfoId);
+}
+
 function setCommonInfo(displayComment,displayInfo){
 	displayComment[0].commentCount = displayInfo.commentCount;
 	displayComment[0].averageScore = displayInfo.averageScore;
 }
 
 function loadDisplayInfoCallback(response) {
-	var displayComment = response.detailDisplay.detailComment;
-	var displayInfo = response.detailDisplay.detailDisplayInfo;
+	var displayComment = response.detailResponse.detailComment;
+	var displayInfo = response.detailResponse.detailDisplayInfo;
 	
 	// 펼쳐보기, 접기 버튼
 	initDetailBtn(displayInfo);
 	
 	// SwipeImage 설정
 	initSwipeImage(displayInfo);
+	
+	// 예매하기 버튼 이벤트 등록
+	initReserveBtn(displayInfo.displayInfoId);
 	
 	// 맨 아래의 상세정보, 오시는길 탭 설정
 	initInfoTab(displayInfo);
