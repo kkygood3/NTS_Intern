@@ -1,5 +1,7 @@
 package com.nts.reservation.dto;
 
+import java.util.Date;
+
 public class ReservationPageInfo {
 	private long productId;
 	private long displayInfoId;
@@ -7,6 +9,7 @@ public class ReservationPageInfo {
 	private String placeName;
 	private String openingHours;
 	private String mainImageName;
+	private Date reservationDate;
 
 	public long getProductId() {
 		return productId;
@@ -56,10 +59,18 @@ public class ReservationPageInfo {
 		this.mainImageName = mainImageName;
 	}
 
+	public Date getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(Date reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ReservationPageInfo [productId=" + productId + ", displayInfoId=" + displayInfoId + ", description="
 			+ description + ", placeName=" + placeName + ", openingHours=" + openingHours + ", mainImageName="
-			+ mainImageName + "]";
+			+ mainImageName + ", reservationDate=" + reservationDate + "]";
 	}
 }
