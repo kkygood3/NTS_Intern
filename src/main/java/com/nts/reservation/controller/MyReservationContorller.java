@@ -18,14 +18,12 @@ import com.nts.reservation.common.ReservationValidatior;
 public class MyReservationContorller {
 	/**
 	 * /myReservation 요청을 받아 myReservation view로 넘김.
+	 * 로그인 상태라면 myreservation view를 출력.
+	 * 비로그인 상태라면 bookinglogin view를 출력.
 	 */
 	@GetMapping("/myreservation")
 	public String requestMyReservation(@RequestParam(name = "email", required = false) String email,
 		HttpSession session) {
-		/*
-		 * 로그인 상태라면 myreservation view를 출력.
-		 * 비로그인 상태라면 bookinglogin view를 출력.
-		 */			
 		String sessionEmail = (String)session.getAttribute("email");
 		if (sessionEmail != null) {
 			return "myreservation";
