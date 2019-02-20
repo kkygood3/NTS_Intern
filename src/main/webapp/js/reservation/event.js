@@ -75,12 +75,13 @@ function decreaseCount(minusButton, count, totalCount) {
 
 function setBookingButtonDisable() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
+	var bookingButtonWrap = document.getElementsByClassName("bk_btn_wrap")[0]; 
 	if (isValidAllReservationInputs()) {
-		bookingButton.classList.remove("disable");
+		bookingButtonWrap.classList.remove("disable");
 		bookingButton.style.cursor = "pointer";
 
 	} else {
-		bookingButton.classList.add("disable");
+		bookingButtonWrap.classList.add("disable");
 		bookingButton.style.cursor = "default";
 	}
 }
@@ -108,6 +109,7 @@ function addBookingFormInputChangeEvent() {
 				value = adjustTel(value);
 				event.target.value = value
 			}
+			
 			setBookingButtonDisable();
 
 			if (event.target.id == "chk3") {
