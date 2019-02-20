@@ -33,48 +33,60 @@ function hasClass(element, classNameToFind) {
 function addPlusMiusButtonClickEvent() {
 	var ticketBody = document.getElementsByClassName("ticket_body")[0];
 	ticketBody.addEventListener("click", function(event){
-		var button = event.target;
-		if (button.tagName != "A") {
+		var target = event.target;
+		if (target.tagName != "A") {
 			return;
 		}
 		
 		var buttonHolder = event.target.closest(".qty");
-		var minusButton = buttonHolder.getElementsByClassName("btn_plus_minus")[0];
-		var count = buttonHolder.getElementsByClassName("count_control_input")[0];
-		var totalCount = document.getElementById("totalCount");
-		var countText = buttonHolder.querySelector(".individual_price")
+		var elements = {
+			"buttons": buttonHolder.getElementsByClassName("btn_plus_minus"),
+			"count": buttonHolder.getElementsByClassName("count_control_input")[0],
+			"totalCount": document.getElementById("totalCount"),
+			"countText": buttonHolder.querySelector(".individual_price"),
+			"maxCount": 10
+		}
 		
-		if (button.getAttribute("title") == "더하기") {
-			increaseCount(minusButton, count, totalCount, countText);
-		} else if (button.getAttribute("title") == "빼기") {
-			if (decreaseCount(minusButton, count, totalCount, countText)) {
+		if (target.getAttribute("title") == "더하기") {
+			increaseCount(elements);
+		} else if (target.getAttribute("title") == "빼기") {
+			if (decreaseCount(elements)) {
 				return;
 			}
 		}
 		setBookingButtonDisable();
-		setTotalPrice(buttonHolder, count.value);
+		setTotalPrice(buttonHolder, elements.count.value);
 	});
 }
 
-function increaseCount(minusButton, count, totalCount, countText) {
-	if (count.value == 0) {
-		minusButton.classList.remove("disabled");
-		countText.style.color = "#000";
-	}
-	count.value = count.value * 1 + 1;
-	totalCount.innerText = totalCount.innerText * 1 + 1;
-}
-
-function decreaseCount(minusButton, count, totalCount, countText) {
-	if (count.value == 0) {
+function increaseCount(elements) {
+	if (elements.count.value == elements.maxCount) {
 		return false;
 	}
-	count.value = count.value * 1 - 1;
-	if (count.value == 0) {
-		minusButton.classList.add("disabled");
-		countText.style.color = "#bbb";
+	
+	elements.count.value++;
+	elements.totalCount.innerText++;
+	
+	if (elements.count.value == 1) {
+		elements.buttons[0].classList.remove("disabled");
+		elements.countText.style.color = "#000";
+	} else if (elements.count.value == elements.maxCount) {
+		elements.buttons[1].classList.add("disabled");
 	}
-	totalCount.innerText = totalCount.innerText * 1 - 1;
+}
+
+function decreaseCount(elements) {
+	if (elements.count.value == 0) {
+		return false;
+	}
+	if (elements.count.value == 1) {
+		elements.buttons[0].classList.add("disabled");
+		elements.countText.style.color = "#bbb";
+	} else if (elements.count.value == elements.maxCount) {
+		elements.buttons[1].classList.remove("disabled");
+	}
+	elements.count.value--;
+	elements.totalCount.innerText--;
 }
 
 function setBookingButtonDisable() {
