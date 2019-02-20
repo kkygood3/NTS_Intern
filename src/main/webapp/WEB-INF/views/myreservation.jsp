@@ -336,16 +336,20 @@
 
 		function registerEvent() {
 			reservationsContainer.addEventListener("click", function (evt) {
-				if (evt.target.className !== "btn") {
+				var target = evt.target;
+				if (evt.target.tagName === "SPAN") {
+					target = evt.target.parentElement;
+				}
+				if (target.className !== "btn") {
 					return;
 				}
-				reservationElement = evt.target;
+				reservationElement = target;
 				showCancleConfirmPopup();
 			});
 			popupWrapper.addEventListener("click", function (evt) {
 				var target = evt.target;
-				if (evt.target.tagName === "SPAN") {
-					target = evt.target.parentElement;
+				if (target.tagName === "SPAN" || target.tagName === "I") {
+					target = target.parentElement;
 				}
 				if (target.className !== "btn_bottom" && target.className !== "popup_btn_close") {
 					return;
