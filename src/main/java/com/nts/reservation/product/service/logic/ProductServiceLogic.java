@@ -8,12 +8,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.common.annotation.IsEmpty;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.model.Product;
-import com.nts.reservation.product.model.ProductListInfo;
-import com.nts.reservation.product.model.ProductRequirer;
 import com.nts.reservation.product.service.ProductService;
 
 @Service
@@ -27,6 +25,8 @@ public class ProductServiceLogic implements ProductService {
 	/** 
 	 * 전체 혹은 특정 카테고리의 ProductList 반환
 	 */
+	@Override
+	@IsEmpty
 	public List<Product> getProductList(int categoryId, int start) {
 
 		if (isAllCategory(categoryId)) {
@@ -39,6 +39,7 @@ public class ProductServiceLogic implements ProductService {
 	/** 
 	 * 전체 혹은 특정 카테고리의 count 반환
 	 */
+	@Override
 	public int getProductCount(int categoryId) {
 
 		if (isAllCategory(categoryId)) {
@@ -46,19 +47,6 @@ public class ProductServiceLogic implements ProductService {
 		} else {
 			return productDao.selectOneCategoryProductCount(categoryId);
 		}
-	}
-
-	/** 
-	 * 전체 혹은 특정 카테고리의 productList, count를 가진 객체 반환
-	 */
-	@Override
-	@Transactional(readOnly = true)
-	public ProductListInfo getProductListInfo(ProductRequirer productRequirer) {
-
-		List<Product> productList = getProductList(productRequirer.getCategoryId(), productRequirer.getStart());
-		int productCount = getProductCount(productRequirer.getCategoryId());
-
-		return new ProductListInfo(productList, productCount);
 	}
 
 	private boolean isAllCategory(int categoryId) {
