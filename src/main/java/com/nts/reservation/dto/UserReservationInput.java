@@ -8,7 +8,7 @@ public class UserReservationInput {
 	private String name;
 	private String tel;
 	private String email;
-	private Date reservationDate;
+	private String reservationDate;
 	private List<ReservationInfoPrice> price;
 
 	public long getProductId() {
@@ -43,11 +43,11 @@ public class UserReservationInput {
 		this.email = email;
 	}
 
-	public Date getReservationDate() {
+	public String getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

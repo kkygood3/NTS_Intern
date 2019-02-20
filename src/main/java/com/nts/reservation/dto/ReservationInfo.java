@@ -1,5 +1,7 @@
 package com.nts.reservation.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReservationInfo {
@@ -14,12 +16,12 @@ public class ReservationInfo {
 	private Date createDate;
 	private Date modifyDate;
 
-	public ReservationInfo(UserReservationInput input) {
+	public ReservationInfo(UserReservationInput input) throws ParseException {
 		this.productId = input.getProductId();
 		this.reservationName = input.getName();
 		this.reservationTel = input.getTel();
 		this.reservationEmail = input.getEmail();
-		this.reservationDate = input.getReservationDate();
+		this.reservationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(input.getReservationDate());
 		this.cancelFlag = false;
 	}
 

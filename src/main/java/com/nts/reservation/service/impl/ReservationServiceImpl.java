@@ -1,5 +1,6 @@
 package com.nts.reservation.service.impl;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -38,11 +39,15 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional(readOnly = false)
 	public ReservationInfo addReservation(UserReservationInput userInput, Long displayInfoId) {
-		ReservationInfo reservationInfo = new ReservationInfo(userInput);
+		ReservationInfo reservationInfo = null;
+		try {
+			reservationInfo = new ReservationInfo(userInput);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		reservationInfo.setId(-1);
 
 		reservationInfo.setDisplayInfoId(displayInfoId);
-		reservationInfo.setReservationDate(new Date());
 		reservationInfo.setCreateDate(new Date());
 
 		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
