@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.nts.reservation.exception.BadRequestException;
+import com.nts.reservation.exception.InValidPatternException;
 
 /**
  * @author 육성렬
@@ -35,10 +36,10 @@ public class AuthApiController {
 
 	@GetMapping("/login")
 	public ResponseEntity<Map<String, String>> loginWithEmail(@RequestParam String userEmail,
-		HttpSession session, UriComponentsBuilder uriBuilder) throws BadRequestException {
+		HttpSession session, UriComponentsBuilder uriBuilder) throws InValidPatternException {
 
 		if (!emailPattern.matcher(userEmail).find()) {
-			throw new BadRequestException();
+			throw new InValidPatternException(EMAIL_REGEX, userEmail);
 		}
 
 		session.removeAttribute("userEmail");
