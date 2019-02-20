@@ -66,6 +66,6 @@ public class ReservationServiceTest {
 	@Test
 	public void cancelReservationTest() {
 		int reservationId = 0;
-		reservationService.modifyReservationToCancel(20);
+		reservationService.modifyReservationToCancel(reservationId);
 	}
 }

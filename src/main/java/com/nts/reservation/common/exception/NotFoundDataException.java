@@ -4,10 +4,9 @@
  */
 package com.nts.reservation.common.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 public class NotFoundDataException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
 
 	public NotFoundDataException() {
 		this("not found data !!");

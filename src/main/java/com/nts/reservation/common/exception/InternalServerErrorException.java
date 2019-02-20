@@ -6,6 +6,8 @@ package com.nts.reservation.common.exception;
 
 public class InternalServerErrorException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
+
 	public InternalServerErrorException() {
 		this("internal server error!!");
 	}

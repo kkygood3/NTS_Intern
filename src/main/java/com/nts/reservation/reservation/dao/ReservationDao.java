@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.reservation.dao;
 
-import static com.nts.reservation.reservation.dao.querys.ReservationQuerys.*;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistory;
 import com.nts.reservation.reservation.model.ReservationPrice;
-import com.nts.reservation.reservation.model.ReservationStatus;
+import static com.nts.reservation.reservation.dao.querys.ReservationQuerys.*;
 
 @Repository
 public class ReservationDao {

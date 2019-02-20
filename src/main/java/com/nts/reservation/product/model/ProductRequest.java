@@ -5,7 +5,6 @@
 package com.nts.reservation.product.model;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 public class ProductRequest {
 
