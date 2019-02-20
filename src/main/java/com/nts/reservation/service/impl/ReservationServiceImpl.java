@@ -68,7 +68,7 @@ public class ReservationServiceImpl implements ReservationService {
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
-			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) > 0) {
+			} else if (expiredDate(reservationDisplayItem.getReservationDate())) {
 				used.add(reservationDisplayItem);
 			} else {
 				confirmed.add(reservationDisplayItem);
@@ -84,5 +84,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional(readOnly = false)
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
+	}
+	
+	private boolean expiredDate(Date expirationDate) {
+		return new Date().compareTo(expirationDate) > 0;
 	}
 }
