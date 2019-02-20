@@ -10,7 +10,7 @@ function isNumber(val) {
 /**
  * XMLHttpRequest를 생성하고 서버로부터 request후 응답결과를 매개변수로 callback함수를 실행
  */
-function ajax(callback, url, method) {
+function ajax(callback, url, method, data) {
 	var xhr = new XMLHttpRequest();
 	if (!method) {
 		method = "GET";
@@ -28,7 +28,11 @@ function ajax(callback, url, method) {
 		alert("An error occurred while transferring the file.");
 	});
 
-	xhr.send();
+	if (data) {
+		xhr.send(data);
+	} else {
+		xhr.send();
+	}
 }
 
 function replaceAll(str, searchStr, replaceStr) {

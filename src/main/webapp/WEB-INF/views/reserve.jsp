@@ -196,6 +196,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
 		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
@@ -383,9 +384,21 @@
 						"reservationEmail": this.form.inputValues["email"],
 						"reservationDate": this.form.reservationDate
 					}
-					this.postAjax(data);
+					var url = "/api/reservations";
+					var method = "POST";
+					ajax(this.confrimAndGoMyReservationPage, url, method, JSON.stringify(data));
 				}.bind(this));
 			},
+			confrimAndGoMyReservationPage: function (response) {
+				if (response.isError) {
+					alert("예약하기 실패!!\n 에러내용 : " + response.errorMsg);
+					return;
+				}
+				if (confirm("예약 성공! 나의예약페이지로 이동하시겠습니까?")) {
+					location.href="/myreservation?reservationEmail=" + this.form.inputValues["email"];
+				}
+			},
+			
 			// 모든 정보가 유효한지 검증 유효한지에 따라  submit 버튼 enable/disable
 			checkTotalValid: function () {
 				if (this.form.isAgree === false || this.ticket.totalCount === 0) {
@@ -409,23 +422,6 @@
 				if (submitWrap.classList.contains("disable") === true) {
 					this.submitWrap.classList.remove("disable");
 				}
-			},
-			postAjax: function (data) {
-				var xhr = new XMLHttpRequest();
-				var url = "/api/reservations";
-				xhr.open("POST", url);
-				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-				xhr.addEventListener("load", function (e) {
-					var response = e.target.response;
-					if (response.isSuccess) {
-						alert("예약 성공");
-					}
-				});
-				xhr.addEventListener("error", function (e) {
-					alert("An error occurred while transferring the file.");
-				});
-				xhr.send(JSON.stringify(data));
 			}
 		}
 
