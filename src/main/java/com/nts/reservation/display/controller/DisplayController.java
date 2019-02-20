@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class DisplayController {
 
 	@GetMapping(path = "/display/detail/{displayInfoId}")
-	public ModelAndView goDetail(@PathVariable(name = "displayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("detail");
+	public ModelAndView goDetail(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView modelAndView) {
+		modelAndView.setViewName("detail");
 		modelAndView.addObject("displayInfoId", displayInfoId);
 		return modelAndView;
 	}

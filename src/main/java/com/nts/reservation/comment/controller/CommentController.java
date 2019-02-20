@@ -13,8 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommentController {
 	
 	@GetMapping(path = "/review/{displayInfoId}")
-	public ModelAndView goReview(@PathVariable(name = "displayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("review");
+	public ModelAndView goReview(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView modelAndView) {
+		modelAndView.setViewName("review");
 		modelAndView.addObject("displayInfoId", displayInfoId);
 		return modelAndView;
 	}
