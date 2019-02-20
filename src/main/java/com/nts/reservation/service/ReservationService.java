@@ -24,7 +24,7 @@ public interface ReservationService {
 
 	public Integer getReservationCount(String email);
 
-	public Boolean cancelReservation(Long reservationId);
+	public void cancelReservation(Long reservationId);
 
 	ReservationInfoDto getReservation(Long reservationInfoId);
 

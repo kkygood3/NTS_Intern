@@ -84,9 +84,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	@Transactional(readOnly = false)
 	@Override
-	public Boolean cancelReservation(Long reservationId) {
-		int resultRows = reservationDao.updateCancelReservation(reservationId);
-		return resultRows == 1;
+	public void cancelReservation(Long reservationId) {
+		reservationDao.updateCancelReservation(reservationId);
 	}
 
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})

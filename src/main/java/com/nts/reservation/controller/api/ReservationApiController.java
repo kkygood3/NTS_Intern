@@ -6,7 +6,7 @@
 package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.dto.request.regex.RegexPattern.EMAIL_REGEX;
-
+import static com.nts.reservation.dto.request.regex.RegexPattern.IMAGE_CONTENT_TYPE;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -43,6 +43,7 @@ import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
 import com.nts.reservation.dto.request.regex.RegexPattern;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.exception.BadRequestException;
+import com.nts.reservation.exception.InValidPatternException;
 import com.nts.reservation.exception.InternalServerErrorException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
@@ -63,7 +64,7 @@ public class ReservationApiController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
-	private final Pattern imageContentTypePattern = Pattern.compile(RegexPattern.IMAGE_CONTENT_TYPE);
+	private final Pattern imageContentTypePattern = Pattern.compile(IMAGE_CONTENT_TYPE);
 
 	/**
 	 * @desc 예약 추가.
@@ -95,14 +96,14 @@ public class ReservationApiController {
 	 * @desc 이메일에 해당하는 예약 정보 조회
 	 * @param reservationEmail
 	 * @return
-	 * @throws BadRequestException
+	 * @throws InValidPatternException
 	 */
 	@GetMapping
 	public MyReservationResponseDto getReservationResponse(
-		@RequestParam String reservationEmail) throws BadRequestException {
+		@RequestParam String reservationEmail) throws InValidPatternException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
-			throw new BadRequestException();
+			throw new InValidPatternException(EMAIL_REGEX, reservationEmail);
 		}
 
 		List<ReservationInfoDto> list = reservationService.getReservationList(reservationEmail);
@@ -114,14 +115,11 @@ public class ReservationApiController {
 	 * @desc 예약 취소.
 	 * @param reservationId
 	 * @return
-	 * @throws BadRequestException
 	 */
 	@PutMapping(path = "/{reservationId}")
-	public Long putCancelReservation(@PathVariable Long reservationId) throws BadRequestException {
+	public Long putCancelReservation(@PathVariable Long reservationId) {
 
-		if (!reservationService.cancelReservation(reservationId)) {
-			throw new BadRequestException();
-		}
+		reservationService.cancelReservation(reservationId);
 		return reservationId;
 	}
 
@@ -129,7 +127,7 @@ public class ReservationApiController {
 	public ResponseEntity<Map<String, String>> postAddComment(@PathVariable Long reservationInfoId,
 		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto,
 		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
-		throws BindException, InternalServerErrorException {
+		throws BindException, InValidPatternException, IOException, SQLException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
@@ -144,19 +142,21 @@ public class ReservationApiController {
 
 					Matcher matcher = imageContentTypePattern.matcher(image.getContentType());
 					if (!matcher.find()) {
-						throw new BadRequestException();
+						throw new InValidPatternException(IMAGE_CONTENT_TYPE, image.getContentType());
 					}
 					files.add(fileIoService.writeMultipartFile(FileUtil.IMAGE_DEFAULT_PATH, image));
 				}
 			}
 			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);
-		} catch (BadRequestException | IOException | SQLException exception) {
+		} catch (InValidPatternException | IOException | SQLException exception) {
 			fileIoService.removeFilesForRollback(files);
 
-			if (exception instanceof BadRequestException) {
-				throw new BadRequestException();
+			if (exception instanceof InValidPatternException) {
+				throw (InValidPatternException)exception;
+			} else if(exception instanceof IOException){
+				throw (IOException)exception;
 			} else {
-				throw new InternalServerErrorException();
+				throw (SQLException)exception;
 			}
 		}
 
