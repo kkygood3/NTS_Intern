@@ -64,7 +64,7 @@ var detailPage = {
         let pathTab = document.querySelector(".detail_location");
 
         document.querySelector(".bk_btn").addEventListener("click", (e) => {
-            window.location.href = "./reserve?id=" + this.constants.DISPLAY_INFO_ID;
+            window.location.href = "/reservation/reserve?id=" + this.constants.DISPLAY_INFO_ID;
         });
 
         this.domElements.infoTabUl.addEventListener("click", (e) => {
@@ -118,7 +118,7 @@ var detailPage = {
 	 *                   comments button to id;
 	 */
     renderComments: function () {
-        document.querySelector(".btn_review_more").href = "./review?id=" + this.constants.DISPLAY_INFO_ID;
+        document.querySelector(".btn_review_more").href = "/reservation/review?id=" + this.constants.DISPLAY_INFO_ID;
         this.domElements.reviewCount.innerHTML = this.state.detail_data.comments.length + "건";
         arrayToElementRenderer(this.state.detail_data.comments.slice(0, 3), this.domElements.reviewArea, this.templates.reviewItem,
         	{

@@ -22,4 +22,6 @@ public interface ReservationService {
 	void addReservations(ReservationParam resInput);
 
 	void cancelReservation(Long reservationId);
+
+	ReservationInfo getReservationByEmailAndRsvId(String email, Long reservationId);
 }

@@ -21,8 +21,8 @@
 		
 	<title>네이버 예약</title>
 	
-	<link href="resources/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="resources/img/favicon.ico">
+	<link href="/reservation/resources/css/style.css" rel="stylesheet">
+	<link rel="shortcut icon" href="/reservation/resources/img/favicon.ico">
 
 	<style>
 	.container_visual {
@@ -37,13 +37,13 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./" class="lnk_logo" title="네이버"> <span
+					<a href="/reservation/" class="lnk_logo" title="네이버"> <span
 						class="spr_bi ico_n_logo">네이버</span>
-					</a> <a href="./" class="lnk_logo" title="예약"> <span
+					</a> <a href="/reservation/" class="lnk_logo" title="예약"> <span
 						class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="./bookinglogin" class="btn_my"> <span title="예약확인"><%=session.getAttribute("email")%></span>
+				<a href="/reservation/bookinglogin" class="btn_my"> <span title="예약확인"><%=session.getAttribute("email")%></span>
 				</a>
 			</header>
 		</div>
@@ -52,13 +52,13 @@
 				<div class="section_visual">
 					<header>
 						<h1 class="logo">
-							<a href="./" class="lnk_logo" title="네이버"> <span
+							<a href="/reservation/" class="lnk_logo" title="네이버"> <span
 								class="spr_bi ico_n_logo">네이버</span>
-							</a> <a href="./mainpage.html" class="lnk_logo" title="예약"> <span
+							</a> <a href="/reservation/mainpage.html" class="lnk_logo" title="예약"> <span
 								class="spr_bi ico_bk_logo">예약</span>
 							</a>
 						</h1>
-						<a href="./myreservation" class="btn_my"> <span
+						<a href="/reservation/myreservation" class="btn_my"> <span
 							class="viewReservation" title="예약확인"><%if(session.getAttribute("email")==null){
 								%>예약확인<%
 							} else { %>
@@ -159,7 +159,7 @@
 								이용자가 남긴 평가입니다.</span>
 						</p>
 					</div>
-					<a class="btn_review_more" href="./review"> <span>예매자
+					<a class="btn_review_more" href="/reservation/review"> <span>예매자
 							한줄평 더보기</span> <i class="fn fn-forward1"></i>
 					</a>
 				</div>
@@ -308,9 +308,9 @@
 		{{/each}}
 	</script>
 	
-	<script src="resources/js/commons/handlebars.min-v4.0.12.js"></script>
-	<script type="text/javascript" src="resources/js/commons/polyfill_script.js"></script>
-	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript" src="resources/js/pages/detailPage_script.js"></script>
+	<script src="/reservation/resources/js/commons/handlebars.min-v4.0.12.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/commons/polyfill_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/pages/detailPage_script.js"></script>
 </body>
 </html>

@@ -63,6 +63,7 @@ var myReservation = {
             new ReservationCard(item, this.state.reservation_data.reservations, this.domElements.cancelPopup);
         });
     },
+    
     initDomWatcher : function () {
     	let mObserver = new MutationObserver(() => {
 			let yet = this.domElements.sectionConfirmed.querySelectorAll("article").length;

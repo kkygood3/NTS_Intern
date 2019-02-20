@@ -58,6 +58,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/reserve").setViewName("reserve");
 		registry.addViewController("/bookinglogin").setViewName("bookinglogin");
 		registry.addViewController("/myreservation").setViewName("myreservation");
+		registry.addViewController("/myreservation/reviewWrite").setViewName("reviewWrite");
+
 	}
 
 	@Bean
@@ -71,8 +73,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new UserEmailCheckInterceptor())
-			.addPathPatterns("/myreservation")
-			.addPathPatterns("/reviewwrite");
+			.addPathPatterns("/myreservation/**");
 		registry.addInterceptor(new LogInterceptor());
 	}
 

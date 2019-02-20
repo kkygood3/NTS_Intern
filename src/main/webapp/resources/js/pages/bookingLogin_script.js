@@ -29,7 +29,7 @@ function init() {
 
         let request = new XhrRequest("POST", "/reservation/api/login");
         request.setCallback(() => {
-            window.location.href = "./myreservation"
+            window.location.href = "/reservation/myreservation"
         });
         request.send(new FormData(document.querySelector("#form1")).get("resrv_email"));
     });

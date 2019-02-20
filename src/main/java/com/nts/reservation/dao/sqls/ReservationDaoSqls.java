@@ -61,4 +61,20 @@ public class ReservationDaoSqls {
 
 	public static final String UPDATE_RESERVATION_CANCEL_FLAG = "UPDATE reservation_info"
 		+ " SET cancel_flag = true WHERE id = :reservationId";
+
+	public static final String SELECT_RESERVATION_BY_EMAIL_AND_RSV_ID = "SELECT ri.id AS id"
+		+ ", ri.product_id AS productId"
+		+ ", ri.display_info_id AS displayInfoId"
+		+ ", ri.reservation_name AS reservationName"
+		+ ", ri.reservation_tel AS reservationTelephone"
+		+ ", ri.reservation_email AS reservationEmail"
+		+ ", ri.reservation_date AS reservationDate"
+		+ ", ri.cancel_flag AS cancelFlag"
+		+ ", ri.create_date AS createDate"
+		+ ", ri.modify_date AS modifyDate"
+		+ " FROM reservation_info ri"
+		+ " WHERE ri.reservation_email = :email"
+		+ " AND ri.id = :reservationId"
+		+ " AND ri.cancel_flag = false"
+		+ " AND ri.reservation_date < NOW()";
 }

@@ -4,6 +4,7 @@ import static com.nts.reservation.dao.sqls.ReservationDaoSqls.INSERT_RESERVATION
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.INSERT_RESERVATION_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.SELECT_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.SELECT_RESERVATIONS_COUNT;
+import static com.nts.reservation.dao.sqls.ReservationDaoSqls.SELECT_RESERVATION_BY_EMAIL_AND_RSV_ID;
 import static com.nts.reservation.dao.sqls.ReservationDaoSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.List;
@@ -68,5 +69,13 @@ public class ReservationDao {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("reservationId", reservationId);
 		return jdbc.update(UPDATE_RESERVATION_CANCEL_FLAG, params);
+	}
+
+	public ReservationInfo selectReservationByEmailAndRsvId(String email, Long reservationId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("email", email);
+		params.addValue("reservationId", reservationId);
+		return jdbc.queryForObject(SELECT_RESERVATION_BY_EMAIL_AND_RSV_ID, params,
+			BeanPropertyRowMapper.newInstance(ReservationInfo.class));
 	}
 }

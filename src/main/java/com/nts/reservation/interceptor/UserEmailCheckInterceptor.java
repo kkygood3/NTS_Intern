@@ -27,7 +27,7 @@ public class UserEmailCheckInterceptor extends HandlerInterceptorAdapter {
 		throws Exception {
 		session = request.getSession();
 		if (session.getAttribute("email") == null) {
-			response.sendRedirect("./bookinglogin");
+			response.sendRedirect("/reservation/bookinglogin");
 		}
 		return true;
 	}
