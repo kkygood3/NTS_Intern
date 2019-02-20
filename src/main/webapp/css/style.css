@@ -745,7 +745,8 @@ button {
 
 .bk_btn_wrap.disable .bk_btn {
     border: 1px solid #ccc;
-    background-color: #d1d1d1
+    background-color: #d1d1d1;
+    cursor: Default;
 }
 
 .top_title {
