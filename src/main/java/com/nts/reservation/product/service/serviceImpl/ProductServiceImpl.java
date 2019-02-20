@@ -30,14 +30,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductResponse getProducts(int categoryId, int start, int limit) {
 
-		List<Product> products = productDao.selectProductsByCategory(categoryId, start, limit);
+		List<Product> products = productDao.selectProducts(categoryId, start, limit);
 		if (products.size() == 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (categoryId)");
 			LOGGER.warn("Does not exist categoryId / Error Message : {} / displayInfoId : {} / {}", this.getClass(), e.getMessage(), categoryId, e);
 			throw e;
 		}
 
-		int productCount = productDao.selectProductCountByCategory(categoryId);
+		int productCount = productDao.selectProductCount(categoryId);
 		return ProductResponse.builder()
 			.items(products)
 			.totalCount(productCount)
