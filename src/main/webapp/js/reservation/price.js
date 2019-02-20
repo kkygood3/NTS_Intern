@@ -36,7 +36,6 @@ function setPricePreviewText(priceInfos) {
 function getMinPrice(priceInfos) {
 	var minPrice = priceInfos[0].price;
 	priceInfos.forEach((price) => {
-		console.log(price.price);
 		if (price.price < minPrice) {
 			minPrice = price.price;
 		}
