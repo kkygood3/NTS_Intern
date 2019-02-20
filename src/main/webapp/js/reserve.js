@@ -1,3 +1,5 @@
+const MAX_TICKET_COUNT = 10;
+
 /**
  * 서버에서 전달받은 가격 객체를 javascript에서 관리하기위해 사용
  * @param price
@@ -63,7 +65,7 @@ function initTicketClickEvents() {
 							amountArea.setAttribute('value', amountValue - 1);
 	
 							ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) - 1;
-						} else if (isPlusClicked) {
+						} else if (isPlusClicked && checkTicketCountOver()) {
 							if (amountValue == 0) {
 								btnMinus.classList.remove('disabled');
 								amountArea.classList.remove('disabled');
@@ -72,7 +74,7 @@ function initTicketClickEvents() {
 	
 							item.querySelector('.total_price').innerText = (cost * (amountValue + 1)).toLocaleString();
 							amountArea.setAttribute('value',amountValue + 1);
-	
+							
 							ticketTotalArea.innerText = parseInt(ticketTotalArea.innerText) + 1;
 						}
 					}
@@ -115,6 +117,23 @@ function initAgreementClickEvents() {
 							}
 						}
 					});
+}
+/**
+ * 티켓수가 최대치면 더 이상 추가할 수 없다고 메세지를 발생 
+ */
+function checkTicketCountOver(){
+	var ticketInputs = document.querySelectorAll('.ticket_body input');
+	var sumOfTickets = 0;
+	for(var i = 0 ; i < ticketInputs.length ;i++){
+		sumOfTickets += parseInt(ticketInputs[i].value);
+	}
+	
+	if(sumOfTickets >= MAX_TICKET_COUNT){
+		alert('한번에 예약 가능한 수('+MAX_TICKET_COUNT+')를 초과할 수 없습니다.');
+		return false;
+	}
+	
+	return true;
 }
 
 /**
@@ -238,11 +257,11 @@ function validateInput(index) {
  * 예약하기 버튼을 클릭했을때 이벤트 처리. 예약자 정보들을 검증하고 유효하다면 예약 페이지로 전송
  */
 function onReserveClicked() {
-	
+	// 하나씩 검증하면서 올바르지 않은 데이터가 있을 때 경고 메세지를 보여준다.
 	var isValid = validateInput(0);
 	isValid = validateInput(1) && isValid;
 	isValid = validateInput(2) && isValid;
-	
+
 	if (isValid) {
 		postReserve();
 	}
