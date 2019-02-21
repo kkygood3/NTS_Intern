@@ -11,16 +11,44 @@ function requestAjax(callback, url) {
 }
 
 /**
+ * 입력된 숫자에 3자리수마다 ,를 추가해줌
+ */
+function addCommaInNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+/**
  * date형식을 mysql 타입으로 변환 시켜줌
  */
 Date.prototype.toMysqlFormat = function () {
     return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
 };
 
+/**
+ * date형식을 2019.02.21.(목)과 같은 형식의 String 타입으로 변환 시켜줌
+ */
+var DateFormmater = function (date) {
+    let week = new Array('일', '월', '화', '수', '목', '금', '토');
+    return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
+}
+
 function twoDigits(d) {
     if (0 <= d && d < 10) return "0" + d.toString();
     if (-10 < d && d < 0) return "-0" + (-1 * d).toString();
     return d.toString();
+}
+
+/**
+ * Handlebar 처리를 위한 데이터 전처리
+ * @param {*} data 
+ */
+function addExtraData(data) {
+    data.categoryName = data['displayInfo'].categoryName;
+    data.placeStreet = data['displayInfo'].placeStreet;
+    data.productDescription = data['displayInfo'].productDescription;
+    data.reservationInfoId = 'NO.' + data.reservationInfoId;
+    data.totalPrice = addCommaInNumber(data.totalPrice);
+    data.reservationDate = DateFormmater(new Date(Date.parse(data.reservationDate.replace('-', '/', 'g'))));
 }
 
 function initDisplayInfo(response) {
@@ -35,17 +63,38 @@ function initDisplayInfo(response) {
     let cancel = 0;
     reservationData.forEach(data => {
         if (data.cancelYn) {
+            let cancelTemplate = document.querySelector('#cancelReservation').innerText;
+            let bindcancelTemplate = Handlebars.compile(cancelTemplate);
+            let cancelContainer = document.querySelector('li.cancel');
+
+            addExtraData(data);
+            cancelContainer.innerHTML += bindcancelTemplate(data);
+
             cancel++;
             return true;
         }
 
         if (data.reservationDate > currentDate) {
+            let todoTemplate = document.querySelector('#todoReservation').innerText;
+            let bindTodoTemplate = Handlebars.compile(todoTemplate);
+            let todoContainer = document.querySelector('li.confirmed');
+
+            addExtraData(data);
+            todoContainer.innerHTML += bindTodoTemplate(data);
+
             todo++;
         } else {
+            let doneTemplate = document.querySelector('#doneReservation').innerText;
+            let bindDoneTemplate = Handlebars.compile(doneTemplate);
+            let doneContainer = document.querySelector('li.used');
+
+            addExtraData(data);
+            doneContainer.innerHTML += bindDoneTemplate(data);
+
             done++;
         }
     });
-    
+
 
     titles[0].innerText = size;
     titles[1].innerText = todo;
