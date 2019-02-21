@@ -3,7 +3,7 @@
 	<appender name="CONSOLE"
 		class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<Pattern>%d{HH:mm} %-5level %logger{36} - %msg%n</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</Pattern>
 		</encoder>
 	</appender>
 
@@ -16,34 +16,13 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<Pattern>%d{HH:mm} %-5level %logger{36} - %msg%n</Pattern>
-		</encoder>
-	</appender>
-	<appender name="FILE-ERROR"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/tmp/error.log</file>
-		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/tmp/error-%d{yyyy-MM-dd}.log</fileNamePattern>
-			<maxHistory>30</maxHistory>
-		</rollingPolicy>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>ERROR</level>
-		</filter>
-		<target>System.err</target>
-		<encoder>
-			<Pattern>%d{HH:mm} %-5level %logger{36} - %msg%n</Pattern>
+			<Pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</Pattern>
 		</encoder>
 	</appender>
 
 	<logger name="org.springframework" level="info">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
-		<appender-ref ref="FILE-ERROR" />
 	</logger>
 	<logger name="com.nts.reservation" level="debug">
-		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="FILE" />
 	</logger>
 
 	<root level="debug">
