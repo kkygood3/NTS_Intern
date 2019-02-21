@@ -29,7 +29,8 @@ public class MyReservationSqls {
 		"UPDATE" + 
 		" reservation_info AS r" + 
 		" SET" + 
-		" cancel_flag = 1" + 
+		" cancel_flag = 1," +
+		" modify_date = NOW()" +
 		" WHERE r.id = :reservationInfoId" +
 		" AND r.reservation_email = :reservationEmail";
 }
