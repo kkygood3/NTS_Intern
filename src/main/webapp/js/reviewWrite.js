@@ -16,6 +16,7 @@ var reviewWritePage = {
 
 		this.setEvent.focusOnReviewTextarea();
 		this.setEvent.addEventToReviewTextarea();
+		this.setEvent.addSubmitReviewToBtnWrite();
 	},
 	
 	constants: {
@@ -27,7 +28,6 @@ var reviewWritePage = {
 		ratingContainer : document.querySelector(".rating"),
 		ratingValue : document.querySelector(".star_rank"),
 		
-
 		reviewWriteInfo : document.querySelector(".review_write_info"),
 		reviewTextarea : document.querySelector(".review_textarea"),
 		btnWrite : document.querySelector(".bk_btn"),
@@ -53,6 +53,32 @@ var reviewWritePage = {
 			});
 		}
 	},
+	
+	ajaxSender : new AjaxSender(),
+	
+	getAjaxOption : function(){
+		var options = {
+			data : this.reviewWritePage.getData(),
+			callback : function(httpRequest){
+				window.location = httpRequest.responseURL;
+			}
+		}
+		
+		return options;
+	}.bind(this),
+	
+	getData : function(){
+		var data = new FormData();
+
+ 		data.append("rating", this.reviewWritePage.elements.ratingValue.innerHTML);
+		data.append("review", this.reviewWritePage.elements.reviewTextarea.value);
+
+ 		this.reviewWritePage.reviewImage.fileList.forEach(function(file){
+			data.append("file", file);
+		})
+
+ 		return data;
+	}.bind(this),
 	
 	reviewImage : {
 		fileList : [],
@@ -139,6 +165,12 @@ var reviewWritePage = {
 				this.reviewWritePage.elements.reviewLength.innerHTML = event.target.value.length;
 			}.bind(this));
 		}.bind(this),
+		
+		addSubmitReviewToBtnWrite : function(){
+			this.reviewWritePage.elements.btnWrite.addEventListener("click", function(){
+				this.reviewWritePage.ajaxSender.sendPost("/reservation/upload", this.reviewWritePage.getAjaxOption());
+			}.bind(this))
+		}.bind(this)
 	}
 }
 

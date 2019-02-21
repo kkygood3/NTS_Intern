@@ -102,7 +102,7 @@
 
 				<!-- 리뷰 등록 -->
 				<div class="box_bk_btn">
-					<button class="bk_btn"><span class="btn_txt">리뷰 등록</span></button>
+					<button class="bk_btn" disabled><span class="btn_txt">리뷰 등록</span></button>
 				</div>
 				<!-- //리뷰 등록 -->
 			</div>
