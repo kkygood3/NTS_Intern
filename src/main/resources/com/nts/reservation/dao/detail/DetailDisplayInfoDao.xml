@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.dao.detail.DetailDisplayInfoDao">
+	<select id="selectDetailDisplayInfoByDisplayInfoId" resultType="DetailDisplayInfo">
+		SELECT  
+			d.id AS display_info_id,  
+			p.description AS product_description,  
+			p.content AS product_content,  
+			d.place_name, d.place_lot,  
+			d.place_street,  
+			d.tel AS telephone,  
+			product_file_info.save_file_name AS product_image,  
+			IFNULL(ROUND(AVG(rc.score),1),0) AS average_score,  
+			COUNT(rc.id) as comment_count,  
+			display_file_info.save_file_name AS display_info_image  
+		FROM
+			display_info AS d  
+		INNER JOIN
+			product AS p ON d.product_id = p.id  
+		INNER JOIN
+			product_image AS pi ON p.id = pi.product_id AND pi.type = 'th'  
+		LEFT JOIN
+			reservation_user_comment AS rc ON p.id = rc.product_id  
+		INNER JOIN
+			display_info_image AS di ON d.id = di.display_info_id  
+		INNER JOIN
+			file_info AS product_file_info ON pi.file_id = product_file_info.id  
+		INNER JOIN
+			file_info AS display_file_info ON di.file_id = display_file_info.id
+		WHERE
+			d.id = #{displayInfoId}
+	</select>
+</mapper>

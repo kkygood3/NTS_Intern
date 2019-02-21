@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@MapperScan("com.nts.reservation.mapper")
+@MapperScan("com.nts.reservation.dao")
 public class DBConfig implements TransactionManagementConfigurer {
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;

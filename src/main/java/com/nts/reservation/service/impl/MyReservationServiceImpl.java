@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.myreservation.MyReservationDao;
+import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
 import com.nts.reservation.dto.myreservation.ReservationType;
-import com.nts.reservation.mapper.MyReservationMapper;
 import com.nts.reservation.service.MyReservationService;
 
 @Service
@@ -21,7 +21,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 	@Autowired
 	MyReservationDao myReservationDao;
 	@Autowired
-	MyReservationMapper myReservationMapper;
+	MyReservationDao myReservationMapper;
 	
 	@Override
 	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit){

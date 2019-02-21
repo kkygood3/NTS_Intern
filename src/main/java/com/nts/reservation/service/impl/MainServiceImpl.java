@@ -25,7 +25,7 @@ public class MainServiceImpl implements MainService {
 	private MainCategoryDao mainCategoryDao;
 	@Autowired
 	private MainPromotionDao mainPromotionDao;
-
+	
 	@Override
 	public List<MainProduct> getProducts(int categoryId, int start, int pagingLimit) {
 		//조회 시작점이 음수일때 맨 처음부터 조회

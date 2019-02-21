@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,26 +23,16 @@ import com.nts.reservation.dto.main.MainProduct;
 /**
  * /api/products 요청에 대응
  */
-@Repository
-public class MainProductDao {
-	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<MainProduct> rowMapper = BeanPropertyRowMapper.newInstance(MainProduct.class);
-
-	public MainProductDao(DataSource dataSource) {
-		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-	}
+public interface MainProductDao {
 
 	/**
 	 * main 페이지를 로드할 때 필요한 product정보 조회. 카테고리 구분 없음
 	 * @param start - 한 페이지에 출력할 item 개수
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<MainProduct> selectPagingProducts(int start, int pagingLimit) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("start", start);
-		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(MainSqls.SELECT_PRODUCT_PAGE, params, rowMapper);
-	}
+	public List<MainProduct> selectPagingProducts(
+		@Param("start") int start,
+		@Param("pagingLimit") int pagingLimit);
 
 	/**
 	 * main 페이지를 로드할 때 필요한 product정보 조회
@@ -49,28 +40,20 @@ public class MainProductDao {
 	 * @param start - 한 페이지에 출력할 item 개수
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<MainProduct> selectPagingProductsByCategory(int categoryId, int start, int pagingLimit) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", categoryId);
-		params.put("start", start);
-		params.put("pagingLimit", pagingLimit);
-		return jdbc.query(MainSqls.SELECT_PRODUCT_PAGE_BY_CATEGORY, params, rowMapper);
-	}
+	public List<MainProduct> selectPagingProductsByCategory(
+		@Param("categoryId") int categoryId,
+		@Param("start") int start,
+		@Param("pagingLimit") int pagingLimit);
 
 	/**
 	 * main 페이지를 로드할 때 필요한 product 갯수 조회
 	 * @param categoryId - 해당 카테고리에 속하는 product로 한정
 	 */
-	public int selectCountByCategory(int categoryId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(MainSqls.SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
-	}
+	public int selectCountByCategory(
+		@Param("categoryId") int categoryId);
 
 	/**
 	 * main 페이지를 로드할 때 필요한 product 갯수 조회. 카테고리 구분 없음
 	 */
-	public int selectCount() {
-		return jdbc.queryForObject(MainSqls.SELECT_PRODUCT_COUNT, Collections.emptyMap(), Integer.class);
-	}
+	public int selectCount();
 }

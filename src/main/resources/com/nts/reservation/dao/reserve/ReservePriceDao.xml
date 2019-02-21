@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.dao.reserve.ReservePriceDao">
+	<select id="selectReservePrice" resultType="ReservePrice">
+		SELECT 
+			pp.price, 
+			pp.price_type_name, 
+			ROUND(pp.discount_rate,0) AS discount_rate 
+		FROM
+			display_info AS d 
+		INNER JOIN
+			product_price AS pp ON d.product_id = pp.product_id 
+		WHERE
+			d.id = #{displayInfoId}
+	</select>
+</mapper>
