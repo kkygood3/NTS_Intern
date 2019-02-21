@@ -4,16 +4,10 @@
  */
 package com.nts.reservation.controller;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,20 +17,13 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
- * 예외처리를 위한 컨트롤러 클래스
+ * 예외처리를 위한 클래스
+ * 예외발생시 error 페이지로 이동합니다.
  * @author jinwoo.bae
  */
 
-@ControllerAdvice
-public class ErrorController {
-	/**
-	 * Spring JdbcTemplate queryForObject 결과값이 empty이여도 정상적으로 리턴
-	 */
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<Map<String, Object>> handleEmptyResult() {
-		return new ResponseEntity<Map<String, Object>>(Collections.singletonMap("isEmpty", true), new HttpHeaders(), HttpStatus.OK);
-	}
-
+@ControllerAdvice(annotations = Controller.class)
+public class GlobalExceptionHandler {
 	/**
 	 * HTTP 404 ERROR
 	 */
@@ -53,11 +40,10 @@ public class ErrorController {
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> handleRestApiValidationException() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isError", true);
-		map.put("errorMsg", "wrong input");
-		return new ResponseEntity<Map<String, Object>>(map, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	public String handleParamException(HttpServletRequest req) {
+		req.setAttribute("javax.servlet.error.status_code", 404);
+		req.setAttribute("javax.servlet.error.message", "잘못된 입력갑입니다.");
+		return "error";
 	}
 
 	/**
