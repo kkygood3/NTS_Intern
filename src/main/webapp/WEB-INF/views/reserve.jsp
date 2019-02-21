@@ -39,7 +39,7 @@
 								<span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit">${displayInfo.productDescription}</h2>
-									<em class="preview_txt_dsc">₩${minPrice} ~ </em>
+									<em class="preview_txt_dsc">₩<fmt:parseNumber integerOnly="true" value="${minPrice}"/> ~ </em>
 									<em class="preview_txt_dsc">${displayInfo.openingHours}</em>
 								</div>
 							</li>
