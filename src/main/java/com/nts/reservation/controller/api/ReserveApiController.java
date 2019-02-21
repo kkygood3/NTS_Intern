@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.common.ReservationValidatior;
+import com.nts.reservation.dto.myreservation.MyReservationInfo;
+import com.nts.reservation.dto.myreservation.MyReservationResponse;
+import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -39,18 +42,20 @@ public class ReserveApiController {
 
 	/**
 	 * Reservation 정보 조회
-	 * @param email
-	 * @return 예약 목록
-	 * @throws ParseException 
+	 * @param myReservationRequest
+	 * @param session
+	 * @throws ParseException
 	 */
 	@GetMapping
-	public Map<String, Object> getReservations(@RequestParam(name = "email", required = true) String email)
-		throws ParseException {
-
+	public Map<String, Object> getReservations(
+		@RequestParam(name = "reservationType", required = true) ReservationType reservationType,
+		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = "100") Integer pagingLimit,
+		HttpSession session){
+		
 		Map<String, Object> map = new HashMap<>();
-		if (ReservationValidatior.validateEmail(email)) {
-			map.put("myReservationResponse", myReservationService.getMyReservationInfoList(email));
-		}
+		
+		map.put("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 
 		return map;
 	}
@@ -62,8 +67,7 @@ public class ReserveApiController {
 	 * @throws IOException
 	 */
 	@PostMapping
-	public Map<String, Object> reserve(
-		@RequestBody ReserveRequest reserveRequest) {
+	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
 		Map<String, Object> map = new HashMap<>();
 
 		if (reserveRequest.isValid() && reserveResponseService.postReserve(reserveRequest)) {
