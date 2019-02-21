@@ -118,6 +118,7 @@ var detailPage = {
 	 *                   comments button to id;
 	 */
     renderComments: function () {
+    	console.log(this.state.detail_data.comments.slice(0, 3));
         document.querySelector(".btn_review_more").href = "/reservation/review?id=" + this.constants.DISPLAY_INFO_ID;
         this.domElements.reviewCount.innerHTML = this.state.detail_data.comments.length + "건";
         arrayToElementRenderer(this.state.detail_data.comments.slice(0, 3), this.domElements.reviewArea, this.templates.reviewItem,

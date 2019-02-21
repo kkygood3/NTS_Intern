@@ -37,10 +37,13 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/")
 			.setCachePeriod(31556926);
 		registry.addResourceHandler("/img/**")
-			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/img/")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img/")
 			.setCachePeriod(31556926);
 		registry.addResourceHandler("/img_map/**")
-			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/img_map/")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img_map/")
+			.setCachePeriod(31556926);
+		registry.addResourceHandler("/img_uploaded/**")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img_uploaded/")
 			.setCachePeriod(31556926);
 	}
 
@@ -53,6 +56,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("index");
+		registry.addViewController("/redirect").setViewName("redirect");
 		registry.addViewController("/detail").setViewName("detail");
 		registry.addViewController("/review").setViewName("review");
 		registry.addViewController("/reserve").setViewName("reserve");

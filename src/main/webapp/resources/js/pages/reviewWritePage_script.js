@@ -1,31 +1,67 @@
 var ReviewWritePage = /** @class */ (function () {
     function ReviewWritePage() {
-        this.reservationData = JSON.parse(document.querySelector("#_fetched_data").innerHTML);
-        this.starController = new StarController(document.querySelector(".rating"));
-        this.initReviewTextArea();
-        new FileUploader(this.imageFilePreviewWrapper, this.imagePreviewTemplate, this.imageList);
-    }
-    ReviewWritePage.prototype.initReviewTextArea = function () {
-        var _this = this;
         this.reviewPlaceHolder = document.querySelector(".review_write_info");
         this.reviewTextArea = document.querySelector(".review_textarea");
-        this.reviewPlaceHolder.addEventListener("click", function () {
-            _this.reviewPlaceHolder.style.display = "none";
-            _this.reviewTextArea.focus();
-        });
-    };
+        this.imageList = [];
+        this.makeReviewBtn = document.querySelector(".bk_btn");
+        this.starController = new StarController(document.querySelector(".rating"));
+        new ReviewTextArea(this.reviewPlaceHolder, this.reviewTextArea);
+        new FileUploader(this.imageFilePreviewWrapper, this.imagePreviewTemplate, this.imageList);
+        new MakeReviewBtn(this.makeReviewBtn, this.starController, this.reviewTextArea, this.imageList);
+    }
     return ReviewWritePage;
+}());
+var MakeReviewBtn = /** @class */ (function () {
+    function MakeReviewBtn(button, starController, reviewTextArea, imageList) {
+        var _this = this;
+        this.button = button;
+        this.button.addEventListener("click", function (e) {
+            if (!(/^[ㄱ-ㅎ가-힣a-zA-Z0-9_-]{5,400}$/).test(reviewTextArea.value)) {
+                alert("한줄평이 너무 짧거나 잘못된 글자입니다");
+                return;
+            }
+            var formData = new FormData();
+            formData.append("score", starController.getStarValue());
+            formData.append("comment", reviewTextArea.value);
+            formData.append("productId", _this.button.dataset.productid);
+            formData.append("reservationInfoId", _this.button.dataset.reservationinfoid);
+            imageList.forEach(function (item) {
+                formData.append("imageFiles", item);
+            });
+            var xhr = new XhrRequest("POST", "/reservation/api/comment");
+            xhr.setCallback(function () {
+                alert("done");
+                window.location.href = "/reservation/myreservation";
+            });
+            xhr.setIsAsync(false);
+            xhr.multipartSend(formData);
+        });
+    }
+    return MakeReviewBtn;
+}());
+var ReviewTextArea = /** @class */ (function () {
+    function ReviewTextArea(reviewPlaceHolder, reviewTextArea) {
+        reviewTextArea.addEventListener("focusout", function () {
+            if (reviewTextArea.value.trim().length == 0) {
+                reviewTextArea.value = "";
+                reviewPlaceHolder.style.display = "";
+            }
+        });
+        reviewPlaceHolder.addEventListener("click", function () {
+            reviewPlaceHolder.style.display = "none";
+            reviewTextArea.focus();
+        });
+    }
+    return ReviewTextArea;
 }());
 var FileUploader = /** @class */ (function () {
     function FileUploader(imageFilePreviewWrapper, imagePreviewTemplate, imageList) {
-        this.imageList = imageList;
         this.imageFilePreviewWrapper = document.querySelector(".lst_thumb");
         this.imagePreviewTemplate = document.querySelector("#previewItem").innerHTML;
         this.imageFileInput = document.querySelector("#imagesToUpload");
-        this.imageList = [];
-        this.attachProcess();
+        this.attachProcess(imageList);
     }
-    FileUploader.prototype.attachProcess = function () {
+    FileUploader.prototype.attachProcess = function (imageList) {
         var _this = this;
         this.imageFileInput.addEventListener("change", function (evt) {
             var images = evt.target.files;
@@ -40,10 +76,13 @@ var FileUploader = /** @class */ (function () {
                     console.warn("invalid image file type");
                     return;
                 }
-                _this.imageList.push(images[i]);
+                imageList.push(images[i]);
             }
-            arrayToElementRenderer(_this.imageList, _this.imageFilePreviewWrapper, _this.imagePreviewTemplate, null, function (item) { new ImageItem(item, _this.imageList); });
-            _this.remove();
+            console.log(imageList);
+            while (_this.imageFilePreviewWrapper.firstChild) {
+                _this.imageFilePreviewWrapper.removeChild(_this.imageFilePreviewWrapper.firstChild);
+            }
+            arrayToElementRenderer(imageList, _this.imageFilePreviewWrapper, _this.imagePreviewTemplate, null, function (item, index) { new ImageItem(item, imageList, index); });
         });
     };
     FileUploader.prototype.validImageType = function (image) {
@@ -52,15 +91,26 @@ var FileUploader = /** @class */ (function () {
             'image/jpg'].indexOf(image.type) > -1);
         return result;
     };
-    FileUploader.prototype.remove = function () {
-        console.log(this.imageList);
-    };
     return FileUploader;
 }());
 var ImageItem = /** @class */ (function () {
-    function ImageItem(imageItem, imageList) {
-        this.imageList = imageList;
+    function ImageItem(imageItem, imageList, fileIndex) {
+        var _this = this;
+        this.imageItem = imageItem;
+        this.fileIndex = fileIndex;
+        this.imageItem.addEventListener("click", function (e) {
+            var target = e.target;
+            if (target.classList.contains("ico_del")) {
+                _this.removeProcess(imageList);
+            }
+        });
     }
+    ImageItem.prototype.removeProcess = function (imageList) {
+        console.log(imageList);
+        imageList.splice(this.fileIndex, 1);
+        console.log(imageList);
+        this.imageItem.parentNode.removeChild(this.imageItem);
+    };
     return ImageItem;
 }());
 var StarController = /** @class */ (function () {
@@ -96,7 +146,8 @@ var StarController = /** @class */ (function () {
         this.starValue.innerHTML = String(value);
     };
     StarController.prototype.getStarValue = function () {
-        return Number(this.starValue.innerHTML);
+        console.log(Number(this.starValue.innerText));
+        return Number(this.starValue.innerText);
     };
     return StarController;
 }());

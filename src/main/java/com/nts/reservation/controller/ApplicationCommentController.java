@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.comment.CommentParam;
 import com.nts.reservation.dto.common.CommentImage;
 import com.nts.reservation.service.CommentService;
 
@@ -27,10 +31,17 @@ import com.nts.reservation.service.CommentService;
  */
 
 @RestController
+@ControllerAdvice
 @RequestMapping(path = "/api/")
-public class ApplicationCommentImgController {
+public class ApplicationCommentController {
 	@Autowired
 	private CommentService commentService;
+
+	@PostMapping(path = "/comment")
+	public String postComment(@ModelAttribute CommentParam commentParam) {
+		commentService.postComments(commentParam);
+		return null;
+	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")
 	public String getCommentImageById(HttpServletResponse response,
@@ -41,7 +52,7 @@ public class ApplicationCommentImgController {
 			return "redirect:index";
 		}
 		String fileName = image.getFileName();
-		String saveFileName = "C:/Users/USER/eclipse-workspace/reservation/" + image.getSaveFileName();
+		String saveFileName = commentService.basePath + image.getSaveFileName();
 		String contentType = "image/" + FilenameUtils.getExtension(saveFileName);
 		Long fileLength = new File(saveFileName).length();
 

@@ -65,7 +65,7 @@
 		<error-code>400</error-code>
 		<location>/WEB-INF/views/error/errorPage.jsp</location>
 	</error-page>
-
+	
 	<error-page>
 		<error-code>403</error-code>
 		<location>/WEB-INF/views/error/errorPage.jsp</location>
@@ -87,6 +87,6 @@
 	</error-page>
 
 	<session-config>
-		<session-timeout>10</session-timeout>
+		<session-timeout>5</session-timeout>
 	</session-config>
 </web-app>

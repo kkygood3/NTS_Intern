@@ -285,7 +285,7 @@ function XhrRequest(_method, _url) {
 XhrRequest.prototype.setCallback = function (_callback){
 	this.xhr.onreadystatechange = function (aEvt) {
         if (this.readyState === XMLHttpRequest.DONE) {
-            if (this.status === 200) {
+            if (this.status >= 200 && this.status<300) {
                 _callback(this.responseText);
             }
         }
@@ -299,6 +299,11 @@ XhrRequest.prototype.setIsAsync = function(_isAsync){
 XhrRequest.prototype.send = function(data){
 	this.xhr.open(this.method, this.url, this.isAsync);
     this.xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	this.xhr.send(data);
+}
+
+XhrRequest.prototype.multipartSend = function (data){
+	this.xhr.open(this.method, this.url, this.isAsync);
 	this.xhr.send(data);
 }
 
@@ -349,15 +354,18 @@ function arrayToElementRenderer(data, target, item, opt, prototype) {
     Handlebars.registerHelper("fileToBlob", (item) => {
     	return window.URL.createObjectURL(item);
     });
+    Handlebars.registerHelper("commentImageId", (item)=>{
+    	return item.commentImages[0].imageId;
+    });
     
     let parser = new DOMParser();
     let parsedItems = parser.parseFromString(bindTemplate({data: list}), "text/html");
     let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
     let newCommentItems = parsedItems.querySelectorAll("." + elementClassName);
-    newCommentItems.forEach((item) => {
+    newCommentItems.forEach((item,i) => {
         target.append(item);
         if(prototype){
-        	prototype(item);
+        	prototype(item,i);
         }
     });
 }

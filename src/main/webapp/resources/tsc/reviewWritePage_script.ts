@@ -1,24 +1,76 @@
+interface reservationDataJSON {
+    reservationInfoId : number;
+    productId :number;
+}
+
 class ReviewWritePage {
-    private reservationData : object;
-    private starController : object;
+    private starController : Object;
     private reviewPlaceHolder : HTMLElement;
     private reviewTextArea : HTMLElement;
     private imageFileInput : HTMLElement;
     private imageFilePreviewWrapper : HTMLElement;
     private imagePreviewTemplate : String;
-    private imageList : object;
+    private imageList : Object[];
+    private makeReviewBtn : HTMLElement;
+
     constructor(){
-        this.reservationData = JSON.parse(document.querySelector("#_fetched_data").innerHTML);
-        this.starController = new StarController(<HTMLElement> document.querySelector(".rating"));
-        this.initReviewTextArea();
-        new FileUploader(this.imageFilePreviewWrapper, this.imagePreviewTemplate, this.imageList);
-    }
-    initReviewTextArea(){
         this.reviewPlaceHolder = <HTMLElement> document.querySelector(".review_write_info");
         this.reviewTextArea = <HTMLElement> document.querySelector(".review_textarea");
-        this.reviewPlaceHolder.addEventListener("click", () => {
-            this.reviewPlaceHolder.style.display = "none";
-            this.reviewTextArea.focus();
+        
+        this.imageList = [];
+        
+        this.makeReviewBtn = <HTMLElement> document.querySelector(".bk_btn");
+        
+        this.starController = new StarController(<HTMLElement> document.querySelector(".rating"));
+        
+        new ReviewTextArea(this.reviewPlaceHolder, this.reviewTextArea);
+        new FileUploader(this.imageFilePreviewWrapper, this.imagePreviewTemplate, this.imageList);
+        new MakeReviewBtn(this.makeReviewBtn, this.starController, this.reviewTextArea, this.imageList);
+    }
+}
+
+class MakeReviewBtn{
+    private button : HTMLElement;
+
+    constructor(button, starController,reviewTextArea ,imageList){
+        this.button = button;
+        this.button.addEventListener("click", (e) => {
+            if(!(/^[ㄱ-ㅎ가-힣a-zA-Z0-9_-]{5,400}$/).test(reviewTextArea.value)){
+                alert("한줄평이 너무 짧거나 잘못된 글자입니다");
+                return;
+            }
+            let formData = new FormData();
+            formData.append("score", starController.getStarValue());
+            formData.append("comment", reviewTextArea.value);
+            formData.append("productId", this.button.dataset.productid);
+            formData.append("reservationInfoId",this.button.dataset.reservationinfoid);
+            imageList.forEach((item)=>{
+                formData.append("imageFiles",item);
+            })
+
+            let xhr = new XhrRequest("POST", "/reservation/api/comment");
+            xhr.setCallback(()=>{
+                alert("done");
+                window.location.href = "/reservation/myreservation"
+            });
+            xhr.setIsAsync(false);
+            xhr.multipartSend(formData);
+        });
+    }
+}
+
+class ReviewTextArea{
+    constructor(reviewPlaceHolder, reviewTextArea){        
+        reviewTextArea.addEventListener("focusout", () => { 
+            if(reviewTextArea.value.trim().length==0){
+                reviewTextArea.value = "";
+                reviewPlaceHolder.style.display = "";
+            }
+        });
+        
+        reviewPlaceHolder.addEventListener("click", () => {
+            reviewPlaceHolder.style.display = "none";
+            reviewTextArea.focus();
         });
     }
 }
@@ -28,15 +80,14 @@ class FileUploader{
     private imagePreviewTemplate : string;
     private imageFileInput : HTMLInputElement;
     private imageList : object[];
+
     constructor(imageFilePreviewWrapper, imagePreviewTemplate, imageList){
-        this.imageList = imageList;
         this.imageFilePreviewWrapper = <HTMLElement> document.querySelector(".lst_thumb");
         this.imagePreviewTemplate = document.querySelector("#previewItem").innerHTML;
         this.imageFileInput = <HTMLInputElement> document.querySelector("#imagesToUpload");
-        this.imageList = [];
-        this.attachProcess();
+        this.attachProcess(imageList);
     }
-    attachProcess(){
+    attachProcess(imageList){
         this.imageFileInput.addEventListener("change", (evt) => {
             var images = (<HTMLInputElement> evt.target).files;
             for (let i = 0; i < images.length; i++) {
@@ -51,10 +102,14 @@ class FileUploader{
                     console.warn("invalid image file type");
                     return;
                 }
-                this.imageList.push(images[i]);
+                imageList.push(images[i]);
             }
-            arrayToElementRenderer(this.imageList, this.imageFilePreviewWrapper,this.imagePreviewTemplate, null ,(item) => {new ImageItem(item,this.imageList)});
-            this.remove();
+            console.log(imageList)
+            while(this.imageFilePreviewWrapper.firstChild){
+                this.imageFilePreviewWrapper.removeChild(this.imageFilePreviewWrapper.firstChild);
+            }
+            
+            arrayToElementRenderer(imageList, this.imageFilePreviewWrapper,this.imagePreviewTemplate, null ,(item,index) => {new ImageItem(item,imageList,index)});
         });
     }
     validImageType(image) {
@@ -63,23 +118,36 @@ class FileUploader{
                           'image/jpg' ].indexOf(image.type) > -1);
         return result;
     }
-    remove(){
-        console.log(this.imageList);
-    }
 }
 
 class ImageItem {
-    private imageItem : object;
-    private imageList : object[];
-    constructor(imageItem, imageList){
-        this.imageList = imageList;
+    private imageItem : HTMLElement;
+    private fileIndex : number; 
+
+    constructor(imageItem, imageList,fileIndex){
+        this.imageItem = imageItem;
+        this.fileIndex = fileIndex;
+        this.imageItem.addEventListener("click", (e) => {
+            let target = <HTMLElement> e.target;
+            if(target.classList.contains("ico_del")){
+                this.removeProcess(imageList);
+            }
+        });
+    }
+    removeProcess(imageList){
+        console.log(imageList)
+        imageList.splice(this.fileIndex,1);
+        console.log(imageList);
+        this.imageItem.parentNode.removeChild(this.imageItem);
+        
     }
 }
 
 class StarController{
-    private starListWrapper : HTMLElement | any;
+    private starListWrapper : HTMLElement;
     private starList : NodeListOf<Element> | any;
-    private starValue : HTMLElement | any;
+    private starValue : HTMLElement;
+
     constructor(starListWrapper : HTMLElement){
         this.starListWrapper = starListWrapper;
         this.starList = starListWrapper.querySelectorAll(".rating input");
@@ -113,7 +181,8 @@ class StarController{
     }
     
     getStarValue(){
-        return Number(this.starValue.innerHTML);
+        console.log(Number(this.starValue.innerText))
+        return Number(this.starValue.innerText) as number;
     }
 }
 

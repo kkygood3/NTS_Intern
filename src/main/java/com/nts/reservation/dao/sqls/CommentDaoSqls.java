@@ -54,4 +54,52 @@ public class CommentDaoSqls {
 		+ " AND ruci.reservation_user_comment_id = :commentId"
 		+ " INNER JOIN file_info fi ON ruci.file_id = fi.id"
 		+ " ORDER BY ruc.id DESC";
+
+	public static final String INSERT_COMMENT = "INSERT INTO reservation_user_comment ("
+		+ "product_id"
+		+ ", reservation_info_id"
+		+ ", score"
+		+ ", comment"
+		+ ", create_date"
+		+ ", modify_date"
+		+ ")"
+		+ " VALUES ("
+		+ ":productId"
+		+ ", :reservationInfoId"
+		+ ", :score"
+		+ ", :comment"
+		+ ", NOW()"
+		+ ", NOW()"
+		+ ")";
+
+	public static final String INSERT_FILE_INFO = "INSERT INTO file_info ("
+		+ "file_name"
+		+ ", save_file_name"
+		+ ", content_type"
+		+ ", delete_flag"
+		+ ", create_date"
+		+ ", modify_date"
+		+ ")"
+		+ " VALUES ("
+		+ ":fileName"
+		+ ", :saveFileName"
+		+ ", :contentType"
+		+ ", false"
+		+ ", NOW()"
+		+ ", NOW()"
+		+ ")";
+
+	public static final String INSERT_COMMENT_IMAGE_INFO = "INSERT INTO reservation_user_comment_image ("
+		+ "reservation_info_id"
+		+ ", reservation_user_comment_id"
+		+ ", file_id"
+		+ ")"
+		+ " VALUES ("
+		+ ":reservationInfoId"
+		+ ", :reservationUserCommentId"
+		+ ", :fileId"
+		+ ")";
+
+	public static final String SELECT_COMMENT_COUNT_BY_RESERVATION_ID = "SELECT COUNT(id) FROM reservation_user_comment"
+		+ " WHERE reservation_info_id = :reservationId";
 }

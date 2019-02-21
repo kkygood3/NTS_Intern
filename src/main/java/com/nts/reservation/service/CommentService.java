@@ -2,6 +2,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.dto.comment.CommentParam;
 import com.nts.reservation.dto.common.CommentImage;
 import com.nts.reservation.dto.detail.Comment;
 
@@ -16,8 +17,15 @@ import com.nts.reservation.dto.detail.Comment;
  */
 
 public interface CommentService {
+
+	public static final String basePath = "C:/Users/USER/eclipse-workspace/reservation/resources/";
+
 	CommentImage getCommentImageById(Long commentImageId);
 
 	List<Comment> getComments(Long displayInfoId);
+
+	void postComments(CommentParam commentParam);
+
+	Long checkExistingComment(Long reservationId);
 
 }
