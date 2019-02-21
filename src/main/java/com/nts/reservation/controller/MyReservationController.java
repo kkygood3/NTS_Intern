@@ -40,7 +40,7 @@ public class MyReservationController {
 		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail,
 			start, limit);
 		model.addAttribute("response", myReservationResponse);
-		session.setAttribute("reservationEmail", reservationEmail);
+		
 		return "myreservation";
 	}
 }

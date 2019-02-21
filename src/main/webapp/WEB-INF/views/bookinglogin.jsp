@@ -154,7 +154,7 @@
 				alert("이메일 형식이 틀렸습니다.");
 				return;
 			}
-			var url = "/myreservation?reservationEmail=" + email;
+			var url = "/doLogin?reservationEmail=" + email;
 			location.href = url;
 		})
 	</script>
