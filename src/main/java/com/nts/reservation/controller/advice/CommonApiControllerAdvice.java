@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.nts.reservation.dto.ErrorMessageDto;
-import com.nts.reservation.exception.InValidPatternException;
+import com.nts.reservation.exception.InvalidParamException;
 
 /**
  * @author 육성렬
@@ -55,9 +55,9 @@ public class CommonApiControllerAdvice {
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
-	@ExceptionHandler(InValidPatternException.class)
+	@ExceptionHandler(InvalidParamException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessageDto handleInValidPatternException(InValidPatternException exception) {
+	public ErrorMessageDto handleInvalidParamException(InvalidParamException exception) {
 		System.out.println("invalid");
 		exception.printStackTrace();
 		//요기 로그 남기고.

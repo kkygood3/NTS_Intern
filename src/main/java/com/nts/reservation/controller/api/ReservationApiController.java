@@ -42,7 +42,7 @@ import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.ReservationRequestDto;
 import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
-import com.nts.reservation.exception.InValidPatternException;
+import com.nts.reservation.exception.InvalidParamException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
 import com.nts.reservation.util.FileUtil;
@@ -98,10 +98,10 @@ public class ReservationApiController {
 	 */
 	@GetMapping
 	public MyReservationResponseDto getReservationResponse(
-		@RequestParam String reservationEmail) throws InValidPatternException {
+		@RequestParam String reservationEmail) throws InvalidParamException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
-			throw new InValidPatternException(EMAIL_REGEX, reservationEmail);
+			throw new InvalidParamException("reservaionEmail", reservationEmail);
 		}
 
 		List<ReservationInfoDto> list = reservationService.getReservationList(reservationEmail);
@@ -125,7 +125,7 @@ public class ReservationApiController {
 	public ResponseEntity<Map<String, String>> postAddComment(@PathVariable Long reservationInfoId,
 		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto,
 		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
-		throws BindException, InValidPatternException, IOException, SQLException {
+		throws BindException, InvalidParamException, IOException, SQLException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
@@ -140,17 +140,17 @@ public class ReservationApiController {
 
 					Matcher matcher = imageContentTypePattern.matcher(image.getContentType());
 					if (!matcher.find()) {
-						throw new InValidPatternException(IMAGE_CONTENT_TYPE, image.getContentType());
+						throw new InvalidParamException("Content-Type", image.getContentType());
 					}
 					files.add(fileIoService.writeMultipartFile(FileUtil.IMAGE_DEFAULT_PATH, image));
 				}
 			}
 			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);
-		} catch (InValidPatternException | IOException | SQLException exception) {
+		} catch (InvalidParamException | IOException | SQLException exception) {
 			fileIoService.removeFilesForRollback(files);
 
-			if (exception instanceof InValidPatternException) {
-				throw (InValidPatternException)exception;
+			if (exception instanceof InvalidParamException) {
+				throw (InvalidParamException)exception;
 			} else if (exception instanceof IOException) {
 				throw (IOException)exception;
 			} else {

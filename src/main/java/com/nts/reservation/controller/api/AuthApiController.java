@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.nts.reservation.exception.InValidPatternException;
+import com.nts.reservation.exception.InvalidParamException;
 
 /**
  * @author 육성렬
@@ -35,10 +35,10 @@ public class AuthApiController {
 
 	@GetMapping("/login")
 	public ResponseEntity<Map<String, String>> loginWithEmail(@RequestParam String userEmail,
-		HttpSession session, UriComponentsBuilder uriBuilder) throws InValidPatternException {
+		HttpSession session, UriComponentsBuilder uriBuilder) throws InvalidParamException {
 
 		if (!emailPattern.matcher(userEmail).find()) {
-			throw new InValidPatternException(EMAIL_REGEX, userEmail);
+			throw new InvalidParamException("userEmail", userEmail);
 		}
 
 		session.removeAttribute("userEmail");
