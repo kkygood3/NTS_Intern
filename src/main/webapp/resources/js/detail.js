@@ -300,7 +300,7 @@ var detailPage = {
         }
         var bindTemplate = getTargetTemplate("#commentImageItem");
         var data = {
-            imageUrl: "../" + commentImages[0].saveFileName
+            imageUrl: "/reservation-service/api/comment/image/download/" + commentImages[0].imageId
         };
         return bindTemplate(data).trim();
     },
