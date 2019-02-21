@@ -25,6 +25,10 @@ public class PreventPathAttackInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
 		String query = request.getQueryString();
+		if (query == null) {
+			return true;
+		}
+
 		query = query.replaceAll("%2E", ".");
 		query = query.replaceAll("%2F", "/");
 		query = query.replaceAll("%5C", "/");
