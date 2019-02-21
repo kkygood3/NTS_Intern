@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.display.dao.DisplayDao;
 import com.nts.reservation.reserve.dao.ReservationDao;
 import com.nts.reservation.reserve.dto.ReservationInfo;
-import com.nts.reservation.reserve.dto.ReservationInfoResponse;
 import com.nts.reservation.reserve.dto.ReservationParam;
 import com.nts.reservation.reserve.dto.ReservationPrice;
 import com.nts.reservation.reserve.dto.ReservationResponse;
@@ -22,24 +22,34 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	DisplayDao displayDao;
 
-	// TODO method 이름 ...ㅠ_ㅠ
+	/**
+	 * 입력받은 정보로 새로운 reservation을 등록
+	 * @param reservationParam
+	 * @return auto increment로 생성된 reservationInfoId
+	 */
+	// XXX update시 반환되는 0, 1값
 	@Override
-	public ReservationResponse insertAndReturnRerservationParam(ReservationParam reservationParam) {
-
-		// DB에 저장
+	@Transactional
+	public int insertReservation(ReservationParam reservationParam) {
 		int reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
-		reservationParam.getPrice().forEach(price -> {
-			price.setReservationInfoId(reservationInfoId);
-			reservationDao.insertProductPrice(price);
-		});
-
-		return getReservationResponse(reservationInfoId);
+		reservationParam.getPrice().stream()
+			.filter(price -> price.getCount() > 0)
+			.forEach(price -> {
+				price.setReservationInfoId(reservationInfoId);
+				reservationDao.insertReservationPrice(price);
+			});
+		
+		return reservationInfoId;
 	}
-	
+
+	/**
+	 * reservationInfoId로 price를 포함한 reservation을 조회 후 반환
+	 */
 	@Override
 	public ReservationResponse getReservationResponse(int reservationInfoId) {
 		List<ReservationPrice> ReservationPrices = reservationDao.selectReservationPrices(reservationInfoId);
 		ReservationInfo reservationInfo = reservationDao.selectReservationInfo(reservationInfoId);
+		// XXX 효율적으로 넣는 법?
 		return ReservationResponse.builder()
 			.cancelYn(reservationInfo.isCancelYn())
 			.createDate(reservationInfo.getCreateDate())
@@ -54,21 +64,24 @@ public class ReservationServiceImpl implements ReservationService {
 			.reservationTel(reservationInfo.getReservationTel())
 			.build();
 	}
-	
+
+	/**
+	 * 해당 Email로 예약된 reservation을 반환
+	 */
 	@Override
-	public ReservationInfoResponse getReservationInfoResponse(String reservationEmail) {
+	public List<ReservationInfo> getReservationInfoResponse(String reservationEmail) {
 		List<ReservationInfo> reservations = reservationDao.selectReservationInfos(reservationEmail);
-		reservations.forEach(reservation->{
+		reservations.forEach(reservation -> {
 			reservation.setDisplayInfo(displayDao.selectDisplayInfo(reservation.getDisplayInfoId()));
 			reservation.setTotalPrice(reservationDao.selectReservationTotalPrice(reservation.getReservationInfoId()));
 		});
-		// TODO total price??
-		return ReservationInfoResponse.builder()
-			.reservations(reservations)
-			.size(reservations.size())
-			.build();
+
+		return reservations;
 	}
-	
+
+	/**
+	 * reservation을 취소
+	 */
 	@Override
 	public int cancelReservation(int reservationInfoId) {
 		return reservationDao.cancelReservation(reservationInfoId);

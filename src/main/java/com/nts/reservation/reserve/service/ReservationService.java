@@ -4,16 +4,20 @@
  */
 package com.nts.reservation.reserve.service;
 
-import com.nts.reservation.reserve.dto.ReservationInfoResponse;
+import java.util.List;
+
+import com.nts.reservation.reserve.dto.ReservationInfo;
 import com.nts.reservation.reserve.dto.ReservationParam;
 import com.nts.reservation.reserve.dto.ReservationResponse;
 
 public interface ReservationService {
-	ReservationResponse insertAndReturnRerservationParam(ReservationParam reservationParam);
 
 	ReservationResponse getReservationResponse(int reservationInfoId);
 
-	ReservationInfoResponse getReservationInfoResponse(String reservationEmail);
+	List<ReservationInfo> getReservationInfoResponse(String reservationEmail);
 
 	int cancelReservation(int reservationInfoId);
+
+	int insertReservation(ReservationParam reservationParam);
+
 }
