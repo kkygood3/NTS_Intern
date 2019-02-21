@@ -46,7 +46,6 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
 			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
-
 		return reservationInfo;
 	}
 
@@ -61,7 +60,6 @@ public class ReservationServiceImpl implements ReservationService {
 		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
-			System.out.println(reservationDisplayItem);
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
 			} else if (expiredDate(reservationDisplayItem.getReservationDate())) {
