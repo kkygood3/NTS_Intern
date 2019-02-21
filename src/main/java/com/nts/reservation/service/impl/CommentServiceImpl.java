@@ -72,7 +72,6 @@ public class CommentServiceImpl implements CommentService {
 				Long file_id = commentDao.insertFileInfo(file, commentId, commentParam);
 				commentDao.insertCommentImageInfo(file_id, commentParam.getReservationInfoId(), commentId);
 				try (
-
 					FileOutputStream fos = new FileOutputStream(
 						basePath + "img_uploaded/" + commentId + "/"
 							+ file.getOriginalFilename());
@@ -92,7 +91,6 @@ public class CommentServiceImpl implements CommentService {
 							throw new RuntimeException("folder delete Error");
 						}
 					}
-					throw new RuntimeException("file Save Error");
 				}
 			}
 		}

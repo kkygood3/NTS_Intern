@@ -46,7 +46,7 @@ public class LoggedInUserViewController {
 		} else if (commentService.checkExistingComment(reservationId) > 0) {
 			model.addAttribute("msg", "이미 글을 남기셨습니다.");
 			model.addAttribute("url", "/reservation/myreservation");
-			return "redirect";
+			return "error/redirect";
 		}
 		ReservationInfo reservationInfo = reservationService
 			.getReservationByEmailAndRsvId(email, reservationId);
