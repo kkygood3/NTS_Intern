@@ -179,6 +179,12 @@ var reviewWritePage = {
 				
 				this.reviewWritePage.elements.reviewLength.innerHTML = event.target.value.length;
 			}.bind(this));
+			
+			this.reviewWritePage.elements.reviewTextarea.addEventListener("focusout", function(event){
+				if(event.target.value.length === 0){
+					this.reviewWritePage.elements.reviewWriteInfo.style.display = "";
+				}
+			}.bind(this));
 		}.bind(this),
 		
 		addSubmitReviewToBtnWrite : function(formDataValidator){
