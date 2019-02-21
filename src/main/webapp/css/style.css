@@ -3690,7 +3690,7 @@ button {
   padding-left: 7.5px;
 }
 .review_contents .review_textarea {
-  overflow: auto;
+  overflow: hidden;
   display: block;
   width: 100%;
   height: 100%;
@@ -3944,5 +3944,9 @@ button {
 }
 
 .pop_tit {
-	text-align: center;
+  text-align: center;
+}
+
+.review_textarea {
+  resize: none;
 }
