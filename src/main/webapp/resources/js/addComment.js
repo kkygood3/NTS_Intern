@@ -10,32 +10,38 @@ var addCommentPage = {
 	elements : {
 		addCommentBtn : document.querySelector(".bk_btn")
 	},
+
 	objs : {
 		textareaObj : null,
 		ratingObj : null,
 		thumbnailImageListObj : null
 	},
+
 	init : function() {
 		this.initTextareaUi();
 		this.initRatingUi();
 		this.initThumbnailImageList();
 		this.initAddCommentBtn();
 	},
+
 	initTextareaUi : function() {
 		var container = document.querySelector(".review_contents ");
 		var textLengthUi = document.querySelector(".guide_review > span");
 		this.objs.textareaObj = new InputTextareaUi(container, textLengthUi);
 	},
+
 	initRatingUi : function() {
 		var container = document.querySelector(".rating");
 		this.objs.ratingObj = new RatingUi(container);
 	},
+
 	initThumbnailImageList : function() {
 		var container = document.querySelector(".review_photos");
 		var inputImageBtn = document.querySelector("#reviewImageFileOpenInput");
 		this.objs.thumbnailImageListObj = new ThumbnailImageList(container,
 				inputImageBtn);
 	},
+
 	initAddCommentBtn : function() {
 		var addCommentBtn = this.elements.addCommentBtn;
 		var self = this;
@@ -43,6 +49,7 @@ var addCommentPage = {
 			self.onClickAddCommentBtn(event);
 		})
 	},
+
 	requestAddComment : function(formData) {
 		var path = "/reservation-service/api/reservations/"
 				+ document.querySelector("#container").dataset.reservationId
@@ -53,6 +60,7 @@ var addCommentPage = {
 			self.requestAddCommentCallback(response)
 		})
 	},
+
 	requestAddCommentCallback : function(response) {
 
 		if (response.status === 200) {
@@ -62,6 +70,7 @@ var addCommentPage = {
 			alert("코멘트 등록에 실패했습니다.");
 		}
 	},
+
 	onClickAddCommentBtn : function(event) {
 		var formData = this.getCommentFormdData();
 		if (!this.isValidCommentData(formData)) {
@@ -69,6 +78,7 @@ var addCommentPage = {
 		}
 		this.requestAddComment(formData);
 	},
+
 	getCommentFormdData : function() {
 
 		var formData = new FormData();
@@ -83,6 +93,7 @@ var addCommentPage = {
 
 		return formData;
 	},
+
 	isValidCommentData : function(formData) {
 		if (!regex.WORD_MAX_400_REGEX.test(formData.get("comment"))) {
 			alert("코멘트가 잘못 입력되었습니다. (5자 이상 400자 이하)");
@@ -227,6 +238,7 @@ var ThumbnailImageList = (function() {
 				filePath : window.URL.createObjectURL(fileList[i]),
 				fileName : fileList[i].name
 			}
+
 			var thumbElement = parser.parseFromString(this.thumbnailTemlate(
 					param).trim(), "text/html").body.firstChild;
 			this.imageList.push(thumbElement);
