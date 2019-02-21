@@ -16,11 +16,14 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationPrice;
+import com.nts.reservation.reservation.dto.ReservationPriceType;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -39,18 +42,18 @@ public class ReservationDaoImpl {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public int insertReservation(String name, String telephone, String email, int displayInfoId,
+	public int insertReservationInfo(String reservationName, String reservationTel, String reservationEmail,
+		int displayInfoId,
 		String reservationDate) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("name", name);
-		params.addValue("telephone", telephone);
-		params.addValue("email", email);
+		params.addValue("reservationName", reservationName);
+		params.addValue("reservationTel", reservationTel);
+		params.addValue("reservationEmail", reservationEmail);
 		params.addValue("displayInfoId", displayInfoId);
 		params.addValue("reservationDate", reservationDate);
-		//		KeyHolder keyHolder = new GeneratedKeyHolder();
-		//		jdbc.update(INSERT_RESERVATION, params, keyHolder, new String[] {"ID"});
-		//		return keyHolder.getKey().intValue();
-		return jdbc.update(INSERT_RESERVATION, params);
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(INSERT_RESERVATION_INFO, params, keyHolder, new String[] {"ID"});
+		return keyHolder.getKey().intValue();
 	}
 
 	//	public int insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
@@ -61,6 +64,15 @@ public class ReservationDaoImpl {
 	//		params.addValue("reservationInfoId", reservationInfoId);
 	//		return jdbc.update(INSERT_RESERVATION_PRICE, params);
 	//	}
+	public int insertReservationPrice(ReservationPriceType type, int count, int displayInfoId,
+		int reservationInfoId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("type", type);
+		params.addValue("count", count);
+		params.addValue("displayInfoId", displayInfoId);
+		params.addValue("reservationInfoId", reservationInfoId);
+		return jdbc.update(INSERT_RESERVATION_PRICE, params);
+	}
 
 	public List<ReservationPrice> selectReservationPrice(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
@@ -85,5 +97,12 @@ public class ReservationDaoImpl {
 		params.put("reservationEmail", reservationEmail);
 		params.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
+	}
+
+	public int cancelReservation(int reservationInfoId) {
+		System.out.println("[ReservationDaoImpl] reservationInfoId : " + reservationInfoId);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("reservationInfoId", reservationInfoId);
+		return jdbc.update(CANCEL_RESERVATION, param);
 	}
 }

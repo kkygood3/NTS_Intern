@@ -8,17 +8,17 @@ package com.nts.reservation.reservation.dao.query;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ReservationDaoQuerys {
-	public static final String INSERT_RESERVATION = " INSERT" +
+	public static final String INSERT_RESERVATION_INFO = " INSERT" +
 		" INTO reservation_info(" +
 		" cancel_flag," +
 		" create_date," +
 		" display_info_id," +
-		" modify_date" +
+		" modify_date," +
 		" product_id," +
 		" reservation_date," +
 		" reservation_email," +
 		" reservation_name," +
-		" reservation_tel," +
+		" reservation_tel" +
 		" )" +
 		" SELECT" +
 		" 0," +
@@ -27,9 +27,9 @@ public class ReservationDaoQuerys {
 		" NOW()," +
 		" product.id," +
 		" :reservationDate," +
-		" :email," +
-		" :name," +
-		" :telephone" +
+		" :reservationEmail," +
+		" :reservationName," +
+		" :reservationTel" +
 		" FROM display_info" +
 		" INNER JOIN product ON display_info.product_id = product.id" +
 		" WHERE display_info.id = :displayInfoId" +
@@ -48,8 +48,21 @@ public class ReservationDaoQuerys {
 	//		" FROM display_info" +
 	//		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" +
 	//		" WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
+	public static final String INSERT_RESERVATION_PRICE = "INSERT" +
+		" INTO reservation_info_price(" +
+		" reservation_info_id," +
+		" product_price_id," +
+		" count" +
+		" )" +
+		" SELECT" +
+		" :reservationInfoId," +
+		" product_price.id," +
+		" :count" +
+		" FROM display_info" +
+		" INNER JOIN product_price ON display_info.product_id = product_price.product_id" +
+		" WHERE product_price.price_type_name = :type AND display_info.id = :displayInfoId";
 
-	public static final String SELECT_RESERVATION_PRICE = "SELECT" +
+	public static final String SELECT_RESERVATION_PRICE = " SELECT" +
 		" product_price.id 'productPriceId'," +
 		" reservation_info.id 'reservationInfoId'," +
 		" reservation_info_price.id 'reservationInfoPriceId'" +
@@ -85,7 +98,7 @@ public class ReservationDaoQuerys {
 		" reservation_info.reservation_name 'reservationName'," +
 		" reservation_info.reservation_tel 'reservationTel'" +
 		" FROM reservation_info" +
-		" WHERE reservation_info.reservation_email = :email";
+		" WHERE reservation_info.reservation_email = :reservationEmail";
 
 	public static final String SELECT_TOTAL_PRICE = " SELECT" +
 		" SUM( ROUND( product_price.price * ( ( 100 - product_price.discount_rate ) / 100 ) ) ) " +
@@ -94,4 +107,10 @@ public class ReservationDaoQuerys {
 		" INNER JOIN product_price ON product_price.id = reservation_info_price.product_price_id" +
 		" WHERE reservation_info.reservation_email = :reservationEmail" +
 		" AND reservation_info.display_info_id = :displayInfoId";
+
+	public static final String CANCEL_RESERVATION = " UPDATE" +
+		" reservation_info" +
+		" SET" +
+		" cancel_flag = 1" +
+		" WHERE reservation_info.id = :reservationInfoId";
 }

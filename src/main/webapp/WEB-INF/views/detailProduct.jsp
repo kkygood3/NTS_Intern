@@ -94,7 +94,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="section_btn"> <button id="reservation" type="button" class="bk_btn" data-id="${ displayInfoId }"> <i class="fn fn-nbooking-calender2"></i> <a href="/reserve?displayInfoId=${ displayInfoId }"><span>예매하기</span></a> </button> </div>
+				<div class="section_btn"> <button id="reservation" type="button" class="bk_btn" data-id="${ displayInfoId }"> <i class="fn fn-nbooking-calender2"></i> <a href="/reservation?displayInfoId=${ displayInfoId }"><span>예매하기</span></a> </button> </div>
 				<div class="section_review_list">
 					<div class="review_box">
 						<h3 class="title_h3">예매자 한줄평</h3>

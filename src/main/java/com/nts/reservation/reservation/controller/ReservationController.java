@@ -16,12 +16,12 @@ import com.nts.reservation.commons.validator.ArgumentValidator;
  */
 @Controller
 public class ReservationController {
-	@GetMapping("/reserve")
+	@GetMapping("/reservation")
 	public ModelAndView requestProductDetail(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
-		ModelAndView modelAndMap = new ModelAndView("reserve");
+		ModelAndView modelAndMap = new ModelAndView("reservation");
 		modelAndMap.addObject("displayInfoId", displayInfoId);
 
 		return modelAndMap;
