@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.nts.reservation.dto.request.MyReservationPageRequestDto;
+import com.nts.reservation.http.RequestHtmlFileHttp;
 import com.nts.reservation.service.RequestHtmlService;
-import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 
 /**
  * @author 육성렬
@@ -22,7 +22,7 @@ import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 public class RequestHtmlServiceImpl implements RequestHtmlService {
 
 	@Autowired
-	private RequestHtmlFileHttpUtil requestHtmlFileHttp;
+	private RequestHtmlFileHttp requestHtmlFileHttp;
 
 	@Override
 	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)
