@@ -74,7 +74,7 @@ var reviewWritePage = {
 		data.append("review", this.reviewWritePage.elements.reviewTextarea.value);
 
  		this.reviewWritePage.reviewImage.fileList.forEach(function(file){
-			data.append("file", file);
+			data.append("files", file);
 		})
 
  		return data;
