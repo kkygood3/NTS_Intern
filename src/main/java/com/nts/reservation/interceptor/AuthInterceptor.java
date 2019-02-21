@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.intercepter;
+package com.nts.reservation.interceptor;
 
 import java.io.IOException;
 
