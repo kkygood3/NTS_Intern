@@ -25,7 +25,7 @@ public class RequestHtmlServiceImpl implements RequestHtmlService {
 	private RequestHtmlFileHttp requestHtmlFileHttp;
 
 	@Override
-	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)
+	public <T> String requestToReactHtml(String path, T requestDto)
 		throws HttpClientErrorException, ConnectException {
 
 		return requestHtmlFileHttp.requestHtmlPost(path, requestDto);

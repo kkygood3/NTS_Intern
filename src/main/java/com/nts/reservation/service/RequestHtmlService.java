@@ -15,6 +15,5 @@ import com.nts.reservation.dto.request.MyReservationPageRequestDto;
  * @author 육성렬
  */
 public interface RequestHtmlService {
-	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)
-		throws HttpClientErrorException, ConnectException;
+	public <T> String requestToReactHtml(String path, T requestDto) throws HttpClientErrorException, ConnectException;
 }
