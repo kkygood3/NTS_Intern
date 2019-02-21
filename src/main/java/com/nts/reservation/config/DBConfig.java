@@ -7,6 +7,8 @@ package com.nts.reservation.config;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
+@MapperScan("com.nts.reservation.mapper")
 public class DBConfig implements TransactionManagementConfigurer {
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
@@ -43,6 +46,14 @@ public class DBConfig implements TransactionManagementConfigurer {
 		dataSource.setUsername(userName);
 		dataSource.setPassword(password);
 		return dataSource;
+	}
+	
+	@Bean
+	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(dataSource);
+		factoryBean.setTypeAliasesPackage("com.nts.reservation.dto");
+		return factoryBean;
 	}
 
 	@Override
