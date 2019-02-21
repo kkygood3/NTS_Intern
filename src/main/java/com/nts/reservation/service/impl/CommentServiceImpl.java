@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CommentMapper;
-import com.nts.reservation.dao.ReviewPageInfoDao;
 import com.nts.reservation.dto.CommentDisplayInfo;
 import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
@@ -15,14 +14,12 @@ import com.nts.reservation.service.CommentService;
 @Service
 public class CommentServiceImpl implements CommentService {
 	@Autowired
-	private CommentMapper commentDisplayInfoDao;
-	@Autowired
-	ReviewPageInfoDao reviewPageInfoDao;
+	private CommentMapper commentDao;
 
 	@Override
 	@Transactional
 	public List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
-		List<CommentDisplayInfo> commentDisplayInfoList = commentDisplayInfoDao
+		List<CommentDisplayInfo> commentDisplayInfoList = commentDao
 			.selectFromTheProductWithPageing(productId, start, limit);
 		return commentDisplayInfoList;
 	}
@@ -30,6 +27,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional
 	public CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId) {
-		return reviewPageInfoDao.selectByDisplayInfoId(displayInfoId);
+		return commentDao.selectByDisplayInfoId(displayInfoId);
 	}
 }

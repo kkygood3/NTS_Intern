@@ -12,6 +12,13 @@
 				INNER JOIN	reservation_user_comment AS uc ON ri.id = uc.reservation_info_id AND ri.product_id = #{productId} AND uc.product_id = #{productId}
 				LEFT JOIN	reservation_user_comment_image AS uci ON uci.reservation_user_comment_id = uc.id
 				LEFT JOIN	file_info AS fi ON fi.id = uci.file_id
-		LIMIT #{start}, #{limit}
+		LIMIT	#{start}, #{limit}
 	</select>
+	<select id="selectByDisplayInfoId" resultType="CommentPageInfo">
+		SELECT	p.id AS product_id, p.description, ifnull(avg(uc.score), 0) AS average_score, count(uc.score) AS commentCount
+		FROM	product AS p
+				INNER JOIN display_info AS d ON d.id = #{displayInfoId} AND d.product_id = p.id
+				INNER JOIN reservation_user_comment AS uc ON d.id = uc.product_id
+	</select>
+	
 </mapper>

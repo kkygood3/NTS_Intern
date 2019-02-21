@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentPageInfo;
 
 /**
  * 코멘드 화면 관련정보 처리하는 클래스
@@ -26,4 +27,11 @@ public interface CommentMapper {
 	 * @return 쿼리 실행 결과 코멘트 리스트
 	 */
 	List<CommentDisplayInfo> selectFromTheProductWithPageing(@Param(PRODUCT_ID)long productId, @Param(START) int start, @Param(LIMIT) int limit);
+	
+	/**
+	 * 상품에 따라 리뷰페이지 정보를 셀렉트한다
+	 * @param displayInfoId 조회할 상품
+	 * @return 쿼리실행결과 리뷰페이지 정보
+	 */
+	public CommentPageInfo selectByDisplayInfoId(long displayInfoId);
 }
