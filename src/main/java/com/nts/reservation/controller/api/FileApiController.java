@@ -25,7 +25,7 @@ import com.nts.reservation.service.ReservationService;
  * @author 육성렬
  */
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/download")
 public class FileApiController {
 
 	@Autowired
@@ -34,13 +34,13 @@ public class FileApiController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping("/download/img")
+	@GetMapping("/img")
 	public void getDownloadFile(@RequestParam(required = true) String imageName, HttpServletResponse response)
 		throws IOException, CustomFileNotFoundException {
 		fileIoService.sendFile("/" + imageName, response.getOutputStream());
 	}
 
-	@GetMapping("/comment/image/download/{commentImageId}")
+	@GetMapping("/comment/image/{commentImageId}")
 	public void getCommentImageFile(@PathVariable Long commentImageId, HttpServletResponse response)
 		throws IOException, CustomFileNotFoundException {
 		FileDto file = reservationService.getFileByCommentImageId(commentImageId);
