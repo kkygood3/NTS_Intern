@@ -48,19 +48,19 @@
 				</choose>
 			</if>  
 		GROUP BY ri.id
-			<if test="state != null">
-				<choose>
-					<when test="state.equals('todo')">
-						ORDER BY ri.id DESC
-					</when>
-					<when test="state.equals('done')">
-						ORDER BY ri.reservation_date DESC
-					</when>
-					<when test="state.equals('cancle')">
-						ORDER BY ri.modify_date DESC
-					</when>
-				</choose>
-			</if>
+		<if test="state != null">
+			<choose>
+				<when test="state.equals('todo')">
+					ORDER BY ri.id DESC
+				</when>
+				<when test="state.equals('done')">
+					ORDER BY ri.reservation_date DESC
+				</when>
+				<when test="state.equals('cancle')">
+					ORDER BY ri.modify_date DESC
+				</when>
+			</choose>
+		</if>
 		LIMIT #{limit} 
 	</select>
 
