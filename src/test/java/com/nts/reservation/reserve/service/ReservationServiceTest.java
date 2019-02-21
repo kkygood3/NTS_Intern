@@ -32,11 +32,11 @@ public class ReservationServiceTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceTest.class);
 
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 	@Autowired
-	DisplayDao displayDao;
+	private DisplayDao displayDao;
 
-	ReservationParam reservationParam;
+	private ReservationParam reservationParam;
 
 	@Before
 	public void setUp() {

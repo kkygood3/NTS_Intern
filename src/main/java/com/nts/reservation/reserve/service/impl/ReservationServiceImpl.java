@@ -18,9 +18,9 @@ import com.nts.reservation.reserve.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 	@Autowired
-	DisplayDao displayDao;
+	private DisplayDao displayDao;
 
 	/**
 	 * 입력받은 정보로 새로운 reservation을 등록

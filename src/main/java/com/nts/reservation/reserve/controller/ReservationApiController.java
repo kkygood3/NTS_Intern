@@ -33,7 +33,7 @@ public class ReservationApiController {
 	private static final int NOT_UPDATED = 0;
 
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
 
 	/**
 	 * 입력 받은 정보를 등록한 후, 등록된 예약 정보를 반환

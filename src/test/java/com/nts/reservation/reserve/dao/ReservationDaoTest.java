@@ -27,10 +27,10 @@ public class ReservationDaoTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationDaoTest.class);
 
 	@Autowired
-	ReservationDao reservationDao;
+	private ReservationDao reservationDao;
 
-	ReservationParam reservationParam;
-	ReservationPrice reservationPrice;
+	private ReservationParam reservationParam;
+	private ReservationPrice reservationPrice;
 
 	@Before
 	public void setUp() {

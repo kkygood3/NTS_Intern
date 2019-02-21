@@ -24,7 +24,7 @@ public class TestSomething {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestSomething.class);
 	
-	DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
+	private DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
 	
 	@Before
 	public void setUp() {
