@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
+import com.nts.reservation.dto.ProductThumbnail;
 
 /**
  * 상품 테이블 접근하는 클래스
@@ -42,4 +43,13 @@ public interface ProductMapper {
 	 * @return 가격정보
 	 */
 	List<PriceInfo> selectPriceInfoByProductId(long productId);
+	
+	/**
+	 * 특정 카테고리의 썸네일 정보 셀렉트
+	 * @param category 셀렉트할 카테고리
+	 * @param start 시작 인텍스
+	 * @param limit 셀렉트할 갯수
+	 * @return 해당 카테고리의 썸네일 정보
+	 */
+	List<ProductThumbnail> selectProductThumbnailByCategoryIdWithPaging(@Param("categoryId")int categoryId, @Param("start")int start, @Param("limit")int limit);
 }

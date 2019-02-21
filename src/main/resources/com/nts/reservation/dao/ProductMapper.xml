@@ -65,4 +65,30 @@
 		
 		WHERE	p.id = #{productId}
 	</select>
+	
+	
+	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductThumbnail">
+		SELECT	d.product_id,
+				d.id AS display_info_id,
+				p.description,
+				p.content,
+				d.place_name,
+				pf.save_file_name
+		
+		FROM	product AS p
+				INNER JOIN category AS c
+					ON c.id = p.category_id
+				INNER JOIN product_image AS pi
+					ON pi.product_id = p.id
+				INNER JOIN file_info AS pf
+					ON pf.id = pi.file_id
+				INNER JOIN display_info AS d
+					ON d.product_id = p.id
+					
+		WHERE	pi.type = "th"
+				<if test="categoryId != 0">
+					AND c.id = #{categoryId}
+    			</if>
+		LIMIT	#{start}, #{limit}
+	</select>
 </mapper>
