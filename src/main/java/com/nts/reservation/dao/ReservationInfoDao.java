@@ -1,10 +1,10 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL;
+import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.*;
 import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.SELECT_RESERVATION_PAGE_INFO_BY_DISPLAY_INFO_ID;
 import static com.nts.reservation.dao.sql.ReservationPageInfoDaoSqls.UPDATE_CANCEL_FLAG_TO_FALSE_BY_RESERVATION_INFO_ID;
 import static com.nts.reservation.property.Const.DISPLAY_INFO_ID;
-import static com.nts.reservation.property.Const.END;
+import static com.nts.reservation.property.Const.*;
 import static com.nts.reservation.property.Const.RESERVATION_EMAIL;
 import static com.nts.reservation.property.Const.RESERVATION_INFO_ID;
 import static com.nts.reservation.property.Const.START;
@@ -25,6 +25,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationPageInfo;
+import com.nts.reservation.service.util.SqlHelper;
 
 /**
  * 예약관련 DB접근 클래스
@@ -75,13 +76,15 @@ public class ReservationInfoDao extends BaseDao {
 	 * @return 예약정보
 	 */
 	public List<ReservationDisplayItem> selectReservationInfoByReservationEmail(String reservationEmail, int start,
-		int end) {
+		int limit, String condition) {
 		Map<String, Object> params = new HashMap<>();
 		params.put(RESERVATION_EMAIL, reservationEmail);
 		params.put(START, start);
-		params.put(END, end);
-		return getJdbc().query(SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL, params,
-			reservationDisplayItemRowMapper);
+		params.put(LIMIT, limit);
+		
+		return getJdbc().query(
+			SqlHelper.getSqlStatement(SELECT_RESERVATION_DISPLAY_LIST_ITEM_BY_RESERVATION_EMAIL_WITH_CONDITION, CONDITION, condition),
+			params, reservationDisplayItemRowMapper);
 	}
 
 	/**

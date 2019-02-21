@@ -58,7 +58,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
 		String reservationEmail, int start, int limit) {
 		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
-			.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
+			.selectReservationInfoByReservationEmail(reservationEmail, start, limit, "");
 
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
 		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();

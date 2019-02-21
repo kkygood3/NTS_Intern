@@ -52,16 +52,14 @@ public class Const {
 	
 	public static final String START = "start";
 	public static final String LIMIT = "limit";
-	public static final String END = "end";
+	public static final String CONDITION = "condition";
 
 	public static final String DEFAULT_SATRT = "0";
 	public static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
 	public static final String COMMENT_DEFAULT_PAGING_SIZE = "3";
-	public static final String RESERVATION_DEFAULT_START_MONTH = "-12";
-	public static final String RESERVATION_DEFAULT_LIMIT_MONTH = "12";
+	public static final String RESERVATION_DEFAULT_PAGING_SIZE = "10";
 	public static final String SELECT_ALL = "0";
 	
 	public static final int ALL_CATEGORIES = 0;
-	
 	
 }
