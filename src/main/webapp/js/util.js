@@ -78,8 +78,9 @@ InputValueValidator.prototype.setTelNumberformat = function(telNumber){
 	
 	return formattedTelNumber;
 }
-InputValueValidator.prototype.setAcceptTypeRegex = function(acceptTypeRegex){
-	this.acceptTypeRegex = acceptTypeRegex;
+
+InputValueValidator.prototype.setAcceptTypeRegex = function(acceptTypeList){
+	this.acceptTypeRegex = new RegExp("(" + acceptTypeList.join("|") + ")");
 }
 InputValueValidator.prototype.validateInputFile = function(fileInputTag){
 	var files = fileInputTag.files;
@@ -91,6 +92,24 @@ InputValueValidator.prototype.validateInputFile = function(fileInputTag){
 			this.isValid = false;
 			return;
 		}
+	}
+}
+
+InputValueValidator.prototype.setLength = function(minLength, maxLength){
+	if(!(minLength === undefined || minLength === null)){
+		this.minLength = minLength;
+	}
+	if(!(maxLength === undefined || maxLength === null)){
+		this.maxLength = maxLength;
+	}
+	
+	this.textAreaRegex = new RegExp(".{" + this.minLength + "," + this.maxLength + "}");
+}
+InputValueValidator.prototype.validateTextLength = function(textArea){
+	if(this.textAreaRegex.test(textArea.value)){
+		this.isValid = true;
+	} else {
+		this.isValid = false;
 	}
 }
 

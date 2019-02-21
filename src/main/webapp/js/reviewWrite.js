@@ -14,15 +14,20 @@ var reviewWritePage = {
 		star.setStarRating("rating_rdo", callback);
 		
 		this.compileHendlebars.getThumbnailSrc();
-		formDataValidator.setAcceptTypeRegex(/(image\/png)|(image\/jpeg)/);
+		
+		formDataValidator.setAcceptTypeRegex(this.constants.ACCEPT_TYPE);
 		this.reviewImage.showThumbnail(formDataValidator);
 
 		this.setEvent.focusOnReviewTextarea();
+		
+		formDataValidator.setLength(this.constants.MIN_LENGTH, this.constants.MAX_LENGTH);
 		this.setEvent.addEventToReviewTextarea();
-		this.setEvent.addSubmitReviewToBtnWrite();
+		this.setEvent.addSubmitReviewToBtnWrite(formDataValidator);
 	},
 	
 	constants: {
+		ACCEPT_TYPE : ["image/png", "image/jpeg"],
+		MIN_LENGTH : 5,
 		MAX_LENGTH : 400,
 		DEFAULT_HEIGHT : 214
 	},
@@ -98,6 +103,8 @@ var reviewWritePage = {
 					this.reviewWritePage.reviewImage.updateFileList(this.reviewWritePage.elements.reviewImageFileInput.files);
 					
 					this.reviewWritePage.elements.reviewImageFileInput.value = "";
+				} else {
+					alert(this.reviewWritePage.constants.ACCEPT_TYPE.join(", ") + " 형식의 파일만 등록 가능합니다.");
 				}
 			}.bind(this));
 
@@ -174,9 +181,15 @@ var reviewWritePage = {
 			}.bind(this));
 		}.bind(this),
 		
-		addSubmitReviewToBtnWrite : function(){
+		addSubmitReviewToBtnWrite : function(formDataValidator){
 			this.reviewWritePage.elements.btnWrite.addEventListener("click", function(){
-				this.reviewWritePage.ajaxSender.sendPost("/reservation/upload", this.reviewWritePage.getAjaxOption());
+				formDataValidator.validateTextLength(this.reviewWritePage.elements.reviewTextarea);
+				
+				if(formDataValidator.isValid){
+					this.reviewWritePage.ajaxSender.sendPost("/reservation/upload", this.reviewWritePage.getAjaxOption());
+				} else {
+					alert("리뷰를 최소 " + this.reviewWritePage.constants.MIN_LENGTH + "글자, 최대 " + this.reviewWritePage.constants.MAX_LENGTH + "글자로 작성해주세요.");
+				}
 			}.bind(this))
 		}.bind(this)
 	}
