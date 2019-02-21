@@ -24,7 +24,7 @@ import com.nts.reservation.reserve.dto.ReservationPrice;
 @ContextConfiguration(classes = {DbConfig.class, ReservationDaoImpl.class})
 public class ReservationDaoTest {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationDaoTest.class);
 
 	@Autowired
 	ReservationDao reservationDao;
@@ -34,7 +34,7 @@ public class ReservationDaoTest {
 
 	@Before
 	public void setUp() {
-		logger.debug("==================== before ======================");
+		LOGGER.debug("==================== before ======================");
 
 		reservationPrice = ReservationPrice.builder()
 			.reservationInfoId(1)
@@ -57,8 +57,8 @@ public class ReservationDaoTest {
 	@Rollback
 	@Ignore
 	public void insertResrvationInfo() {
-		// TODO auto increment issue 해결방법?
-		logger.debug("return id : {}", reservationDao.insertReservationInfo(reservationParam));
+		// XXX auto increment issue 해결방법?
+		LOGGER.debug("return id : {}", reservationDao.insertReservationInfo(reservationParam));
 	}
 
 	@Test
@@ -66,26 +66,27 @@ public class ReservationDaoTest {
 	@Rollback
 	@Ignore
 	public void insertProductPrice() {
-		assertEquals(1, reservationDao.insertProductPrice(reservationPrice));
+		assertEquals(1, reservationDao.insertReservationPrice(reservationPrice));
 	}
 
 	@Test
 	public void selectReservationInfos() {
-		logger.debug("selectReservationInfos : {}", reservationDao.selectReservationInfos("aewrl@naver.com"));
+		// TODO 출력값이 객체일 경우 성공/실패 확인?
+		LOGGER.debug("selectReservationInfos : {}", reservationDao.selectReservationInfos("aewrl@naver.com"));
 	}
 
 	@Test
 	public void selectReservationInfo() {
-		logger.debug("selectReservationInfo : {}", reservationDao.selectReservationInfo(1));
+		LOGGER.debug("selectReservationInfo : {}", reservationDao.selectReservationInfo(1));
 	}
 
 	@Test
 	public void selectReservationPrice() {
-		logger.debug("selectReservationPrice : {}", reservationDao.selectReservationPrices(1));
+		LOGGER.debug("selectReservationPrice : {}", reservationDao.selectReservationPrices(1));
 	}
 
 	@After
 	public void tearDown() {
-		logger.debug("===================== After ========================");
+		LOGGER.debug("===================== After ========================");
 	}
 }

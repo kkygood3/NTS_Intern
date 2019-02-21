@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -43,14 +44,15 @@ public class ReservationServiceTest {
 
 		List<ReservationPrice> prices = new ArrayList<>();
 		prices.add(ReservationPrice.builder().productPriceId(1).count(2).build());
-		prices.add(ReservationPrice.builder().productPriceId(3).count(1).build());
+		prices.add(ReservationPrice.builder().productPriceId(505).count(1).build());
 
 		reservationParam = ReservationParam.builder()
 			.displayInfoId(1)
 			.productId(1)
-			.reservationEmail("aewrl@naver.com")
+			.reservationEmail("")
 			.reservationName("김지훈")
 			.reservationTel("010-1234-4567")
+			.reservationDate("2019.02.21.")
 			.price(prices).build();
 	}
 
@@ -59,14 +61,14 @@ public class ReservationServiceTest {
 	@Rollback
 	public void insertReservationParam() {
 		int reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
-
 		reservationParam.getPrice().forEach(price -> {
 			price.setReservationInfoId(reservationInfoId);
-			reservationDao.insertProductPrice(price);
+			reservationDao.insertReservationPrice(price);
 		});
 
 	}
 	
+	@Ignore
 	@Test
 	public void selectReservationResponse() {
 		int reservationInfoId = 1;
