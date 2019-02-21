@@ -55,7 +55,7 @@ public class MyReservationPageController {
 
 		String userEmail = (String)session.getAttribute("userEmail");
 		if (userEmail == null) {
-			String ipAddress = request.getHeader("X-FORWARDED-FOR");
+			String ipAddress = request.getRemoteAddr();
 			throw new UnauthorizedRequestException(ipAddress, "/myReservationWithReact");
 		}
 

@@ -44,7 +44,6 @@ public class AddCommentViewInterceptor extends HandlerInterceptorAdapter {
 
 		if (!reservationService.findFinishReservation(reservationId, userEmail)) {
 			response.sendRedirect("/reservation-service");
-			String requestUri = request.getRequestURI();
 			return false;
 		}
 

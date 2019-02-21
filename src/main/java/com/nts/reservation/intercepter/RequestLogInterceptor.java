@@ -22,7 +22,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		String ipAddress = request.getRemoteAddr();
 		String requestUri = request.getRequestURI();
 		String handlerName = handler.toString();
 

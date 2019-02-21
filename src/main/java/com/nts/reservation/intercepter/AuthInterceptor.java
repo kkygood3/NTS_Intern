@@ -22,8 +22,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 		if (request.getSession().getAttribute("userEmail") == null) {
 			response.sendRedirect("/reservation-service/bookingLogin");
-			String ipAddress = request.getHeader("X-FORWARDED-FOR");
-			String requestUri = request.getRequestURI();
 			return false;
 		}
 		return true;
