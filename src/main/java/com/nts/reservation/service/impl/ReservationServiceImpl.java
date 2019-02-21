@@ -1,7 +1,6 @@
 package com.nts.reservation.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.compare.AscendingCancelDate;
-import com.nts.reservation.compare.AscendingReservDateFromNow;
 import com.nts.reservation.dao.ReservationInfoMapper;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
 import com.nts.reservation.dto.ReservationDisplayItem;
@@ -68,10 +65,6 @@ public class ReservationServiceImpl implements ReservationService {
 				confirmed.add(reservationDisplayItem);
 			}
 		}
-		
-		Collections.sort(confirmed, new AscendingReservDateFromNow());
-		Collections.sort(used, new AscendingReservDateFromNow());
-		Collections.sort(cancel, new AscendingCancelDate());
 
 		ReservationDisplayItemListMap.put("confirmed", confirmed);
 		ReservationDisplayItemListMap.put("used", used);
