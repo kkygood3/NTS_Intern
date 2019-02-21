@@ -39,7 +39,6 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ResponseBody
 	public String handleParamException(HttpServletRequest req) {
 		req.setAttribute("javax.servlet.error.status_code", 404);
 		req.setAttribute("javax.servlet.error.message", "잘못된 입력갑입니다.");
