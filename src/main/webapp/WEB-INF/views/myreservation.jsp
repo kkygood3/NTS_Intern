@@ -66,6 +66,7 @@
 								</div>
 							</div>
 						</li>
+						
 						<li class="card confirmed">
 							<div class="link_booking_details" style="margin-top: 5px;">
 								<div class="card_header">
@@ -82,6 +83,9 @@
 								<h1 class="tit">예약 리스트가 없습니다</h1>
 							</div>
 						</li>
+						<div class="more">
+							<button class="btn btn_confirm" style="display: initial;" idx="0"><span>더보기</span></button>
+						</div>
 						<li class="card used">
 							<div class="link_booking_details" style="margin-top: 5px;">
 								<div class="card_header">
@@ -98,6 +102,9 @@
 								<h1 class="tit">예약 리스트가 없습니다</h1>
 							</div>
 						</li>
+						<div class="more">
+							<button class="btn btn_complete" style="display: initial;" idx="1"><span>더보기</span></button>
+						</div>
 						<li class="card used cancel">
 							<div class="link_booking_details" style="margin-top: 5px;">
 								<div class="card_header">
@@ -114,6 +121,9 @@
 								<h1 class="tit">예약 리스트가 없습니다</h1>
 							</div>
 						</li>
+						<div class="more">
+							<button class="btn btn_cancel" style="display: initial;" idx="2"><span>더보기</span></button>
+						</div>
 						</ul>
 					</div>
 				</div>
@@ -167,7 +177,7 @@
 						<div class="left"></div>
 						<div class="middle">
 							<div class="card_detail">
-								<em class="booking_number">No.{{index}}</em>
+								<em class="booking_number">No.{{reservationInfoId}}</em>
 								<h4 class="tit">{{productDescription}}</h4>
 								<ul class="detail">
 									<li class="item">
@@ -224,9 +234,9 @@
 		</script>
 		<script src="js/myreservation.js"></script>
 		<script>
+			loginEmail = '${email}';
 			document.addEventListener('DOMContentLoaded', function() {
-				// api/reservations get으로 예약정보를 가져오기
-				requestAjax(loadReservationInfoCallback, 'api/reservations?email=${email}');
+				initReservationInfo();
 			});
 		</script>
 			
