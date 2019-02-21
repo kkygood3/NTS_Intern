@@ -44,28 +44,16 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
 		String reservationEmail, int start, int limit) {
-		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
-			.selectReservationInfoByReservationEmail(reservationEmail, start, limit);
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
-		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
-		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
-		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
-		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
-			if (reservationDisplayItem.isCanceled()) {
-				cancel.add(reservationDisplayItem);
-			} else if (expiredDate(reservationDisplayItem.getReservationDate())) {
-				used.add(reservationDisplayItem);
-			} else {
-				confirmed.add(reservationDisplayItem);
-			}
-		}
-
-		ReservationDisplayItemListMap.put("confirmed", confirmed);
-		ReservationDisplayItemListMap.put("used", used);
-		ReservationDisplayItemListMap.put("cancel", cancel);
+		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao
+				.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("used", reservationInfoDao
+				.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("cancel", reservationInfoDao
+				.selectCanceledReservationInfoByReservationEmail(reservationEmail, start, limit));
 		return ReservationDisplayItemListMap;
 	}
 
@@ -73,9 +61,5 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional(readOnly = false)
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
-	}
-
-	private boolean expiredDate(Date expirationDate) {
-		return new Date().compareTo(expirationDate) > 0;
 	}
 }

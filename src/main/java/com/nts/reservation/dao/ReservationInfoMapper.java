@@ -44,7 +44,12 @@ public interface ReservationInfoMapper {
 	 * @param end 끝 (현재로부터 end개월 후)
 	 * @return 예약정보
 	 */
-	List<ReservationDisplayItem> selectReservationInfoByReservationEmail(@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+	List<ReservationDisplayItem> selectConfirmedReservationInfoByReservationEmail(
+			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+	List<ReservationDisplayItem> selectUsedReservationInfoByReservationEmail(
+			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+	List<ReservationDisplayItem> selectCanceledReservationInfoByReservationEmail(
+			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
 
 	/**
 	 * 예약취소

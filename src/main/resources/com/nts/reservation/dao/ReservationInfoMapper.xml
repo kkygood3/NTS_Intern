@@ -35,7 +35,7 @@
 	    </selectKey>  
 	</insert>
 	
-	<select id="selectReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+ 	<select id="selectCanceledReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
 		SELECT	r.id AS reservation_id,
 				p.description,
 				r.reservation_date,
@@ -55,12 +55,127 @@
 							ON rp.product_price_id = pp.id
 		
 		WHERE	r.reservation_email = #{reservationEmail}
-		
+				AND r.cancel_flag = true
+				
 		GROUP BY r.id
+		
+		ORDER BY r.modify_date
 		
 		LIMIT #{start}, #{limit}
 	</select>
+		<select id="selectUsedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+	<![CDATA[
+		SELECT	r.id AS reservation_id,
+				p.description,
+				r.reservation_date,
+				r.cancel_flag AS canceled,
+				d.place_name,
+				sum(pp.price * rp.count) AS price,
+				r.modify_date
+				
+		FROM	reservation_info AS r
+				INNER JOIN	product AS p
+							ON r.product_id = p.id
+				INNER JOIN	display_info AS d
+							ON r.display_info_id = d.id
+				INNER JOIN	reservation_info_price AS rp
+							ON rp.reservation_info_id = r.id
+				INNER JOIN	product_price AS pp
+							ON rp.product_price_id = pp.id
+		
+		WHERE	r.reservation_email = #{reservationEmail}
+				AND r.cancel_flag = false
+				AND r.reservation_date <= now()
+				
+		GROUP BY r.id
+
+		ORDER BY datediff(now(), r.reservation_date)
+		
+		LIMIT #{start}, #{limit}
+	]]>
+	</select>
 	
+	<select id="selectConfirmedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+	<![CDATA[
+		SELECT	r.id AS reservation_id,
+				p.description,
+				r.reservation_date,
+				r.cancel_flag AS canceled,
+				d.place_name,
+				sum(pp.price * rp.count) AS price,
+				r.modify_date
+				
+		FROM	reservation_info AS r
+				INNER JOIN	product AS p
+							ON r.product_id = p.id
+				INNER JOIN	display_info AS d
+							ON r.display_info_id = d.id
+				INNER JOIN	reservation_info_price AS rp
+							ON rp.reservation_info_id = r.id
+				INNER JOIN	product_price AS pp
+							ON rp.product_price_id = pp.id
+		
+		WHERE	r.reservation_email = #{reservationEmail}
+				AND r.cancel_flag = false
+				AND r.reservation_date > now()
+				
+		GROUP BY r.id
+		
+		ORDER BY datediff(r.reservation_date, now())
+		
+		LIMIT #{start}, #{limit}
+	]]>
+	</select>
+	
+<!--  	<select id="selectReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+ 	<![CDATA[
+		SELECT	r.id AS reservation_id,
+				p.description,
+				r.reservation_date,
+				r.cancel_flag AS canceled,
+				d.place_name,
+				sum(pp.price * rp.count) AS price,
+				r.modify_date
+				
+		FROM	reservation_info AS r
+				INNER JOIN	product AS p
+							ON r.product_id = p.id
+				INNER JOIN	display_info AS d
+							ON r.display_info_id = d.id
+				INNER JOIN	reservation_info_price AS rp
+							ON rp.reservation_info_id = r.id
+				INNER JOIN	product_price AS pp
+							ON rp.product_price_id = pp.id
+		
+		WHERE	r.reservation_email = #{reservationEmail}
+	<choose>
+		<when test='type == "cancel"'>
+				AND r.cancel_flag = true
+				
+		GROUP BY r.id
+		ORDER BY r.modify_date
+		</when>
+		<when test='type == "used"'>
+				AND r.reservation_date <= now()
+				
+		GROUP BY r.id
+		ORDER BY datediff(now(), r.reservation_date)
+		</when>
+		<when test='type == "confirm"'>
+				AND r.reservation_date > now()
+				
+		GROUP BY r.id
+		ORDER BY datediff(r.reservation_date, now())
+		</when>
+		<otherwise>
+		</otherwise>
+		
+	</choose>
+		
+		LIMIT #{start}, #{limit}
+	]]>
+	</select>
+	 -->
 	<update id="updateCancelFlagToFalseByReservationInfoId" parameterType="Map"> 
 		UPDATE	reservation_info
 		
