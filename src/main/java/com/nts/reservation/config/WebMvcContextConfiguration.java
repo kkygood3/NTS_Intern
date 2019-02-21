@@ -17,8 +17,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.intercepter.AddCommentViewIntercepter;
-import com.nts.reservation.intercepter.AuthIntercepter;
+import com.nts.reservation.intercepter.AddCommentViewInterceptor;
+import com.nts.reservation.intercepter.AuthInterceptor;
+import com.nts.reservation.intercepter.RequestLogInterceptor;
 
 /**
  * @author 육성렬
@@ -68,14 +69,15 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthIntercepter()).addPathPatterns(new String[] {
+		registry.addInterceptor(new RequestLogInterceptor());
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns(new String[] {
 			"/myReservation", "/addComment/{reservationInfoId}"
 		});
 		registry.addInterceptor(addCommentViewInterceptor()).addPathPatterns("/addComment/{reservationInfoId}");
 	}
 
 	@Bean
-	public AddCommentViewIntercepter addCommentViewInterceptor() {
-		return new AddCommentViewIntercepter();
+	public AddCommentViewInterceptor addCommentViewInterceptor() {
+		return new AddCommentViewInterceptor();
 	}
 }
