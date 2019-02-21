@@ -44,7 +44,7 @@ public class ProductApiController {
 
 		if (start < 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!");
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} /start : {} /  {}", this.getClass(), e.getMessage(), start, e);
+			LOGGER.warn("Bad Request! Parameter / Error Message : {} /start : {} /  {}",  e.getMessage(), start, e);
 			throw e;
 		}
 
