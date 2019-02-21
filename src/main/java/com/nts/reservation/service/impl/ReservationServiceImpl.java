@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.compare.AscendingCancelDate;
 import com.nts.reservation.compare.AscendingReservDateFromNow;
-import com.nts.reservation.dao.ReservationInfoDao;
+import com.nts.reservation.dao.ReservationInfoMapper;
 import com.nts.reservation.dao.ReservationInfoPriceDao;
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
@@ -24,7 +24,7 @@ import com.nts.reservation.service.ReservationService;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
-	private ReservationInfoDao reservationInfoDao;
+	private ReservationInfoMapper reservationInfoDao;
 	@Autowired
 	private ReservationInfoPriceDao reservationInfoPriceDao;
 
@@ -39,9 +39,8 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> priceInfo,  Long displayInfoId) {
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setCreateDate(new Date());
-
-		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
-		reservationInfo.setId(reservationInfoId);
+		reservationInfoDao.insertReservationInfo(reservationInfo);
+		Long reservationInfoId = reservationInfo.getId();
 
 		for (ReservationInfoPrice reservationInfoPrice : priceInfo) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
@@ -57,13 +56,12 @@ public class ReservationServiceImpl implements ReservationService {
 		String reservationEmail, int start, int limit) {
 		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
 			.selectReservationInfoByReservationEmail(reservationEmail, start, limit);
-
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
 		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
 		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
-
 		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
+			System.out.println(reservationDisplayItem);
 			if (reservationDisplayItem.isCanceled()) {
 				cancel.add(reservationDisplayItem);
 			} else if (expiredDate(reservationDisplayItem.getReservationDate())) {

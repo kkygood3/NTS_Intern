@@ -40,6 +40,7 @@ public class ReservationApiController {
 	public Map<String, List<ReservationDisplayItem>> getMyReservation(@SessionAttribute(name = "email") String email,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
+		System.out.println(email);
 		return reservationService.getReservationDisplayItemsByReservationEmail(email, start, limit);
 	}
 	

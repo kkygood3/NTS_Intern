@@ -7,7 +7,7 @@
 	
 <mapper namespace="com.nts.reservation.dao.CategoryMapper">
 
-	<select id="selectAllCategoris" resultType="com.nts.reservation.dto.Category"> 
+	<select id="selectAllCategoris" resultType="Category"> 
 		SELECT id, name FROM category
 	</select>
 	

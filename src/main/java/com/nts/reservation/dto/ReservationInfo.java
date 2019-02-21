@@ -3,6 +3,7 @@ package com.nts.reservation.dto;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class ReservationInfo {
 	private long id;
@@ -21,7 +22,7 @@ public class ReservationInfo {
 		this.reservationName = input.getName();
 		this.reservationTel = input.getTel();
 		this.reservationEmail = input.getEmail();
-		this.reservationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(input.getReservationDate());
+		this.reservationDate = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH).parse(input.getReservationDate());
 		this.cancelFlag = false;
 	}
 
