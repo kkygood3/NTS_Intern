@@ -22,12 +22,7 @@
 					<a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
 				</h1>
 				<a href="myreservation" class="btn_my"> 
-				<span class="viewReservation" title="예약확인">
-					<c:choose>
-						<c:when test="${empty email}">예약확인</c:when>
-						<c:otherwise>${email}</c:otherwise>
-					</c:choose>
-				</span> 
+				<span class="viewReservation" title="예약확인">${email}</span> 
 				</a>
 			</header>
 		</div>

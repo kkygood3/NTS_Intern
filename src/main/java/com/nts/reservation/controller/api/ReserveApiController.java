@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.common.ReservationValidatior;
-import com.nts.reservation.dto.myreservation.MyReservationResponse;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -45,9 +44,9 @@ public class ReserveApiController {
 	 * @throws ParseException 
 	 */
 	@GetMapping
-	public Map<String, Object> getReservations(
-		@RequestParam(name = "email", required = true) String email) throws ParseException {
-		
+	public Map<String, Object> getReservations(@RequestParam(name = "email", required = true) String email)
+		throws ParseException {
+
 		Map<String, Object> map = new HashMap<>();
 		if (ReservationValidatior.validateEmail(email)) {
 			map.put("myReservationResponse", myReservationService.getMyReservationInfoList(email));
@@ -81,13 +80,10 @@ public class ReserveApiController {
 	 * @param reservationInfoId
 	 */
 	@PutMapping("/{reservationInfoId}")
-	public Map<String, Object> cancelReservation(
-		@PathVariable Integer reservationInfoId, HttpServletResponse response) {
-		boolean isUpdateComplete = myReservationService.cancelMyReservation(reservationInfoId);
-
+	public Map<String, Object> cancelReservation(@PathVariable Integer reservationInfoId, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
-
-		if (isUpdateComplete) {
+		
+		if (myReservationService.cancelMyReservation(reservationInfoId, (String)session.getAttribute("email"))) {
 			map.put("result", "OK");
 		} else {
 			map.put("result", "FAIL");

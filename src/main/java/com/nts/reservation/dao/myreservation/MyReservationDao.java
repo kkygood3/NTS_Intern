@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -40,9 +41,10 @@ public class MyReservationDao {
 		return jdbc.query(MyReservationSqls.SELECT_MY_RESERVATION_INFO, params, rowMapper);
 	}
 
-	public Integer updateMyReservationCancelById(Integer reservationInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("reservationInfoId", reservationInfoId);
+	public Integer updateMyReservationCancelById(Integer reservationInfoId, String email) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("reservationInfoId", reservationInfoId);
+		params.addValue("reservationEmail", email);
 		return jdbc.update(MyReservationSqls.CANCEL_RESERVE, params);
 	}
 }

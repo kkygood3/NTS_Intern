@@ -21,5 +21,5 @@ public interface MyReservationService {
 	 * @param reservationInfoId
 	 * @return cancel 성공시 TRUE
 	 */
-	boolean cancelMyReservation(Integer reservationInfoId);
+	boolean cancelMyReservation(Integer reservationInfoId, String email);
 }

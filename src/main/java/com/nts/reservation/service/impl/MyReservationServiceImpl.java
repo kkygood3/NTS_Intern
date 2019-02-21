@@ -51,8 +51,8 @@ public class MyReservationServiceImpl implements MyReservationService {
 	}
 
 	@Override
-	public boolean cancelMyReservation(Integer reservationInfoId) {
-		if (myReservationDao.updateMyReservationCancelById(reservationInfoId) != null) {
+	public boolean cancelMyReservation(Integer reservationInfoId, String email) {
+		if (myReservationDao.updateMyReservationCancelById(reservationInfoId, email) != null) {
 			return true;
 		}
 		

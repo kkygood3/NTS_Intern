@@ -1,3 +1,4 @@
+var currentSelect;
 /**
  * ajax response를 패러미터로 받는다.
  * myreservation 페이지 로드시 필요한 정보를 화면에 출력한다.
@@ -126,37 +127,45 @@ function initTicketCancelEvents(ticketContainers){
 			cancelDate.innerText = descriptionAreas[0].innerText;
 			cancelTitleArea.innerText = descriptionAreas[1].innerText;
 			cancelPopup.style.display = '';
-			
-			cancelPopup.removeEventListener('click',popupClickEvent);
-			cancelPopup.addEventListener('click',popupClickEvent);
-			
-			function popupClickEvent(evt){
-				evt.preventDefault();
-				var clickedPopupBtn = evt.target;
-				if(clickedPopupBtn.tagName == 'SPAN'){
-					clickedPopupBtn = clickedPopupBtn.parentElement;
-				}
-				
-				var isAcceptClicked = (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '예')
-				/**
-				 * '예' 버튼을 눌렀다면 예약 확정 카테고리에서 예약 취소 카테고리로 옮기고 서버에 ajax로 취소 요청을
-				 * 보낸다.
-				 */
-				if(isAcceptClicked) {
-					ticketContainers[3].appendChild(clickedBtn.offsetParent);
-					clickedBtn.parentElement.remove();
-					checkTicketCount();
-					requestAjax(cancelResultCallback, 'api/reservations/'+clickedBtn.getAttribute('reservationInfoId'),'PUT');
-				}
-				
-				var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') || (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
-				
-				if(isAcceptClicked||isCloseClicked){
-					cancelPopup.style.display = 'none';
-				}
-			}
+			cancelPopup.setAttribute('reservationInfoId',clickedBtn.getAttribute('reservationInfoId'));
+			currentSelect = clickedBtn;
 		}
 			
 		checkTicketCount();
 	});
+	initTicketCancelPopupEvent();
+}
+
+function initTicketCancelPopupEvent(){
+	var cancelPopup = document.querySelector('.popup_booking_wrapper');
+	var cancelContainer = document.querySelectorAll('li.card')[3]; 
+	
+	cancelPopup.addEventListener('click',popupClickEvent);
+	
+	function popupClickEvent(evt){
+		evt.preventDefault();
+		var clickedPopupBtn = evt.target;
+		if(clickedPopupBtn.tagName == 'SPAN'){
+			clickedPopupBtn = clickedPopupBtn.parentElement;
+		}
+		
+		var isAcceptClicked = (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '예')
+		
+		/**
+		 * '예' 버튼을 눌렀다면 예약 확정 카테고리에서 예약 취소 카테고리로 옮기고 서버에 ajax로 취소 요청
+		 */
+		
+		if(isAcceptClicked) {
+			cancelContainer.appendChild(currentSelect.offsetParent);
+			currentSelect.parentElement.remove();
+			checkTicketCount();
+			requestAjax(cancelResultCallback, 'api/reservations/'+cancelPopup.getAttribute('reservationInfoId'),'PUT');
+		}
+		
+		var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') || (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
+		
+		if(isAcceptClicked||isCloseClicked){
+			cancelPopup.style.display = 'none';
+		}
+	}
 }
