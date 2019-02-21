@@ -10,8 +10,8 @@ let reserve = {
 		totalCount : document.querySelector('#totalCount'),
 		name : document.querySelector('#name'),
 		tel : document.querySelector('#tel'),
-		email : document.querySelector('#email')
-		
+		email : document.querySelector('#email'),
+		type : new Map([['A', '성인'], ['Y', '청소년'], ['B', '유아'], ['S', '셋트'], ['D', '장애인'], ['C', '지역주민'], ['E', '얼리버드'], ['V', 'VIP'], ['R', 'R석']])
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 	
 	// 동의 버튼 (check box) check에 이벤트 부여 
 	reserve.agreementCheckBox.addEventListener('change', toggleReservationButton);
-	
+	convertTypeToKorean();
 });
 
 
@@ -223,4 +223,20 @@ function toggleReservationButton(){
 		reservationButton.classList.add('disable');
 	}
 }
+
+function convertTypeToKorean(){
+	let chargeBox = document.querySelector('#charge');
+	let countBoxes = document.querySelectorAll('.qty');
+	
+	Array.from(countBoxes).forEach(box=>{
+		let originType = box.children[1].firstElementChild.firstElementChild.innerText; 
+		let changedType = reserve.type.get(originType);
+		let price = box.children[1].children[1].firstElementChild.innerText;
+
+		box.children[1].firstElementChild.firstElementChild.innerText = changedType;
+		chargeBox.innerHTML += changedType + ' : ' + price + '원<br>';
+	});
+}
+
+
 

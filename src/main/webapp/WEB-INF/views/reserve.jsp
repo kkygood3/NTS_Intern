@@ -51,15 +51,7 @@
 							${displayResponse.displayInfo.openingHours}
 						</p>
 						<h3 class="in_tit">요금</h3>
-						<p class="dsc">
-							성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
-							
-							
-							<br>
-							<c:forEach var="price" items="${ displayResponse.productPrices }">
-								<fmt:formatNumber var="calculatedPrice" value="${ price.price / (price.discountRate / 100) }" type="number" pattern="0"/>
-								${ price.priceTypeName } : <fmt:formatNumber value="${ price.price }" pattern="#,###"/>원<br>
-							</c:forEach>
+						<p id="charge" class="dsc">
 						</p>
 					</div>
 				</div>
@@ -112,7 +104,7 @@
 										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input type="tel" name="reservationTel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<input type="tel" name="reservationTel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송(숫자만 입력)">
 									</div>
 								</div>
 								<div class="inline_form">
