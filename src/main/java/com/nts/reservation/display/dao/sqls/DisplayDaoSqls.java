@@ -9,7 +9,7 @@ public class DisplayDaoSqls {
 		"FROM display_info " + 
 		"INNER JOIN product ON display_info.product_id = product.id " + 
 		"INNER JOIN category ON product.category_id = category.id " + 
-		"INNER JOIN reservation_user_comment ON reservation_user_comment.product_id = product.id " +
+		"LEFT JOIN reservation_user_comment ON reservation_user_comment.product_id = product.id " +
 		"WHERE display_info.id = :displayInfoId";
 	
 	public static final String GET_DISPLAY_IMAGE_BY_ID = "SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', display_info.id 'displayInfoId', display_info_image.id 'displayInfoImageId', file_info.save_file_name 'saveFileName' " + 
