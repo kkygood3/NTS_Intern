@@ -25,7 +25,7 @@ function addCancelEvent(){
 	});
 	
 	document.querySelector('#cancel_accept').addEventListener('click', event=>{
-		ajax(moveToCancelBox, 'PUT', '/api/reservations/' + myReservation.selectedId);
+		ajax(moveToCancelBox, 'PUT', '/api/reservations/' + myReservation.selectedId, 'Fail to Cancel Reservation!');
 	});
 	
 	// yes / no button

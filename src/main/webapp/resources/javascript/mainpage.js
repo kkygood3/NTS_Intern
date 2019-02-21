@@ -14,9 +14,9 @@ let isClickedAnotherCategory = false;
  * DOM content가 load된 후 실행될 초기 설정
  */
 function basicSettings(){
-	ajax(addProductTemplate, 'GET', "/api/products?categoryId=0");
-	ajax(getPromotions, 'GET', "/api/promotions");
-	ajax(showCategories, 'GET', "/api/categories");
+	ajax(addProductTemplate, 'GET', "/api/products?categoryId=0", 'Fail to load product!');
+	ajax(getPromotions, 'GET', '/api/promotions', 'Fail to load Promotion!');
+	ajax(showCategories, 'GET', '/api/categories', 'Fail to load Category!');
 }
 
 /**
@@ -49,7 +49,7 @@ function moreButtonListener(e){
 	let categoryId = currentCategory;
 	let url = `/api/products?categoryId=${categoryId}&start=${productCount}&limit=${limit}`;
 
-	ajax(addProductTemplate, 'GET', url);
+	ajax(addProductTemplate, 'GET', url, 'Fail to load product!');
 
 	if(productCount >= categoryCount - limit){
 		removeMoreButton();
@@ -142,7 +142,7 @@ function categoryClickEvent(){
 		isClickedAnotherCategory = true;
 		currentCategory = clickedCategory;
 		let url = `/api/products?categoryId=${clickedCategory}`;
-		ajax(addProductTemplate, 'GET', url);
+		ajax(addProductTemplate, 'GET', url, 'Fail to load product!');
 	});
 }
 /**

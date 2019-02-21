@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 function basicSettings(){
-	ajax(loadDisplayData, 'GET', '/api/products/' + detailContent.displayInfoId + '?limit=' + detailContent.limit);
-	ajax(loadProductEtcImage, 'GET', '/api/products/etc/' + detailContent.displayInfoId);
+	ajax(loadDisplayData, 'GET', '/api/products/' + detailContent.displayInfoId + '?limit=' + detailContent.limit, 'Load Display Fail!!');
+	ajax(loadProductEtcImage, 'GET', '/api/products/etc/' + detailContent.displayInfoId, 'Load Product Ect Image Fail!!');
 }
 
 function loadDisplayData(data){

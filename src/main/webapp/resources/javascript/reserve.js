@@ -92,7 +92,7 @@ function updateTotalCount(){
 function calcuatePrice(amountElement){
 	let price = parseInt(amountElement.dataset.price);
 	let amount = parseInt(amountElement.value);
-	event.target.closest('div.count_control').children[1].firstElementChild.innerText = new Intl.NumberFormat('en-IN').format(price * amount);
+	event.target.closest('div.count_control').children[1].firstElementChild.innerText = new Intl.NumberFormat('ko').format(price * amount);
 }
 
 

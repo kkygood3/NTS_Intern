@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', ()=>{
 	let displayInfoId = document.querySelector('.short_review_area').dataset.id;
 	let url = '/api/comment/' + displayInfoId;
-	ajax(init, 'GET', url);
+	ajax(init, 'GET', url, 'Fail to load Comment!');
 });
 
 function init(data){
