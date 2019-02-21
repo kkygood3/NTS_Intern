@@ -2,11 +2,11 @@ package com.nts.reservation.reserve.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,30 +22,31 @@ import com.nts.reservation.display.dto.DisplayResponse;
 import com.nts.reservation.display.service.DisplayService;
 import com.nts.reservation.product.dto.ProductPrice;
 import com.nts.reservation.reserve.dto.ReservationInfo;
-import com.nts.reservation.reserve.dto.ReservationInfoResponse;
 import com.nts.reservation.reserve.service.ReservationService;
 
 @Controller
 public class ReservationController {
 
-	// XXX getLogger로 불러오면 싱글톤과 유사한 형식으로 하나의 인스턴스를 사용하는 것?
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationController.class);
 
 	@Autowired
 	private DisplayService displayService;
 	@Autowired
 	private ReservationService reservationService;
+	
 	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
 
 	// XXX 0값을 2개 이상 써야될 때도 전부 변수 선언을 하여 사용?
-	private static final int NONE_COMMENT = 0;
-	private static final int NONE_DISPLAY = 0;
+	private static final int NONE = 0;
 
+	/**
+	 * Display 별 예약화면으로 이동
+	 */
 	@GetMapping(path = "/reserve/{displayInfoId}")
 	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView modelAndView) {
-		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE_COMMENT);
 
-		if (displayResponse.getDisplayInfo().getProductId() == NONE_DISPLAY) {
+		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE);
+		if (displayResponse.getDisplayInfo().getProductId() == NONE) {
 			IllegalArgumentException e = new IllegalArgumentException("There is no displayInfo!!! (displayInfoId)");
 			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}", e.getMessage(),
 				displayInfoId, e);
@@ -61,38 +62,43 @@ public class ReservationController {
 		return modelAndView;
 	}
 
-	// TODO 개선
+	/**
+	 * session에 email이 저장되어 있다면, email로 저장되어 있는 {@code List<Reservation>}를 반환
+	 */
 	@GetMapping(path = "/myreservation")
 	public ModelAndView goMyReserve(HttpSession session, ModelAndView modelAndView) {
 		String email = (String)session.getAttribute("email");
+
 		if (email == null) {
 			modelAndView.setViewName("redirect:/login");
 			return modelAndView;
 		}
-		ReservationInfoResponse reservationInfoResponse = reservationService.getReservationInfoResponse(email);
+		List<ReservationInfo> reservationInfos = reservationService.getReservationInfoResponse(email);
 
-		Map<String, List<ReservationInfo>> reservationGroupByStatus = new HashMap<>();
-		reservationGroupByStatus.put("confirmed", new ArrayList<>());
-		reservationGroupByStatus.put("used", new ArrayList<>());
-		reservationGroupByStatus.put("canceled", new ArrayList<>());
-
-		for (ReservationInfo reservationInfo : reservationInfoResponse.getReservations()) {
-			if (reservationInfo.isCancelYn()) {
-				reservationGroupByStatus.get("canceled").add(reservationInfo);
-				continue;
-			}
-
-			if (reservationInfo.getReservationDate().compareTo(LocalDate.now().toString()) >= 0) {
-				reservationGroupByStatus.get("confirmed").add(reservationInfo);
-			} else {
-				reservationGroupByStatus.get("used").add(reservationInfo);
-			}
-		}
-
-		modelAndView.addObject("reservationGroupByStatus", reservationGroupByStatus);
-		modelAndView.addObject("totalCount", reservationInfoResponse.getSize());
+		Map<String, List<ReservationInfo>> reservationInfoResponse = groupingByReservationStatus(reservationInfos);
+		modelAndView.addObject("reservationGroupByStatus", reservationInfoResponse);
+		modelAndView.addObject("totalCount", reservationInfos.size());
 		modelAndView.setViewName("myreservation");
 		return modelAndView;
+	}
+
+	/**
+	 * 취소 여부(cancelYn), 현재 날짜 전, 후에 따라 ReservationInfo를 분류
+	 * @param reservationInfos
+	 * @return groupedReservation 3가지로 그룹화된 reservation (취소완료, 예약 후 관람 전/후)
+	 */
+	private Map<String, List<ReservationInfo>> groupingByReservationStatus(List<ReservationInfo> reservationInfos) {
+		Map<Boolean, List<ReservationInfo>> groupByCancelYn = reservationInfos.stream()
+			.collect(Collectors.partitioningBy(ReservationInfo::isCancelYn));
+		Map<Boolean, List<ReservationInfo>> groupByDate = groupByCancelYn.get(false).stream()
+			.collect(Collectors.partitioningBy(
+				reservationInfo -> reservationInfo.getReservationDate().compareTo(LocalDate.now().toString()) >= 0));
+
+		Map<String, List<ReservationInfo>> groupedReservation = new HashMap<>();
+		groupedReservation.put("canceled", groupByCancelYn.get(true));
+		groupedReservation.put("confirmed", groupByDate.get(true));
+		groupedReservation.put("used", groupByDate.get(false));
+		return groupedReservation;
 	}
 
 	/**
@@ -101,7 +107,7 @@ public class ReservationController {
 	 * @return discounted min Price
 	 */
 	private int calculateMinPrice(List<ProductPrice> prices) {
-		// TODO exception? -> price가 0이면 data 오류이기 때문
+		// XXX exception? -> price가 0이면 data 오류이기 때문
 		ProductPrice minPrice = prices.stream().reduce((prev, next) -> {
 			return (calculateDiscountPrice(prev) < calculateDiscountPrice(next)) ? prev : next;
 		}).orElseThrow(IllegalArgumentException::new);
@@ -109,10 +115,18 @@ public class ReservationController {
 		return calculateDiscountPrice(minPrice);
 	}
 
-	private int calculateDiscountPrice(ProductPrice price) {
-		return (int)(price.getPrice() * (1 - price.getDiscountRate() / 100));
+	/**
+	 * 할인된 가격을 반환
+	 * @param productPrice 
+	 */
+	private int calculateDiscountPrice(ProductPrice productPrice) {
+		return (int)(productPrice.getPrice() * (1 - productPrice.getDiscountRate() / 100));
 	}
 
+	/**
+	 * 명세서에 따라 1~5일 후의 무작위 날짜, 현재와 5일 후 날짜를 반환 
+	 * @return
+	 */
 	private Map<String, String> computeRandomPeriod() {
 		LocalDate now = LocalDate.now();
 		int radomValue = new Random().nextInt(5) + 1;
