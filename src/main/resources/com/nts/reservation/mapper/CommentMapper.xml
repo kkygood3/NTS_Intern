@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.CommentMapper">
+	<select id="selectComments" resultType="CommentDto">
+		SELECT 
+		    ruc.id AS id,
+		    ruc.score AS score,
+		    ruc.comment AS comment,
+		    ri.reservation_name AS reservationName,
+		    ri.reservation_date AS reservationDate,
+		    ri.modify_date AS modifyDate,
+		    fi.save_file_name AS saveFileName
+		FROM
+		    reservation_info ri
+		        INNER JOIN
+		    reservation_user_comment ruc ON ri.id = ruc.reservation_info_id
+		        LEFT JOIN
+		    reservation_user_comment_image ruci ON ruc.id = ruci.reservation_user_comment_id
+		        LEFT JOIN
+		    file_info fi ON fi.id = ruci.file_id
+		WHERE
+		    ri.product_id = #{productId}
+		GROUP BY ruc.id
+		ORDER BY ruc.id DESC
+		LIMIT #{start} , #{limit}
+	</select>
+
+	<select id="selectCommentAvgScore" resultType="double">
+		SELECT 
+		    ROUND(IFNULL(AVG(score), 0), 1)
+		FROM
+		    reservation_user_comment
+		WHERE
+		    product_id = #{productId}
+	</select>
+
+	<select id="selectCommentCount" resultType="int">
+		SELECT 
+		    COUNT(id)
+		FROM
+		    reservation_user_comment
+		WHERE
+		    product_id = #{productId}
+	</select>
+</mapper>

@@ -4,18 +4,15 @@
  */
 package com.nts.reservation.mapper;
 
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
-import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.DisplayInfoDto;
 
 /**
- * 카테고리 Mapper
+ * 전시정보 Mapper
  * @author jinwoo.bae
  */
 @Mapper
-public interface CategoryMapper {
-	List<CategoryDto> selectCategories(int limit);
+public interface DisplayInfoMapper {
+	DisplayInfoDto selectDisplayInfo(int id);
 }

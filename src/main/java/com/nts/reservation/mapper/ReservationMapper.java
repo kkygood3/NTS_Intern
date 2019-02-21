@@ -14,17 +14,23 @@ import com.nts.reservation.dto.primitive.ReservationInfoDto;
 import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
 
 /**
- * 
+ * 예약 Mapper
  * @author jinwoo.bae
  */
 @Mapper
 public interface ReservationMapper {
+	/**
+	 * 예약전시정보들을 가져옵니다. state 값에 따라 예약확정, 예약완료, 예약취소 리스트들을 적절히 오름차순해서 가져옵니다.
+	 */
 	List<ReservationDisplayInfoDto> selectReservationDisplayInfos(@Param("reservationEmail") String reservationEmail,
 		@Param("limit") int limit, @Param("state") String state);
-	
+
 	int insertReservationInfo(ReservationInfoDto reservationInfo);
-	
+
 	int insertReservationInfoPrice(ReservationInfoPriceDto reservationInfoPrice);
 
+	/**
+	 * 예약 취소
+	 */
 	void updateReservationToCancel(int reservationId);
 }

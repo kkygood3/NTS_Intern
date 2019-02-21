@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ImageType;
-import com.nts.reservation.dao.PromotionDao;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.mapper.PromotionMapper;
 import com.nts.reservation.service.PromotionService;
 
 /**
@@ -23,14 +23,14 @@ import com.nts.reservation.service.PromotionService;
 @Transactional(readOnly = true)
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
-	private PromotionDao promotionDao;
+	private PromotionMapper promotionMapper;
 
 	/**
 	 * 먼저 등록된 순으로 SELECT_LIMIT값 수만큼 프로모션을 가져옵니다.
 	 */
 	@Override
-	public List<PromotionDto> getPromotions(int limit, ImageType type) {
-		return promotionDao.selectPromotions(limit, type);
+	public List<PromotionDto> getPromotions(ImageType type, int limit) {
+		return promotionMapper.selectPromotions(type, limit);
 	}
 
 }

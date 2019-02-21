@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.ProductMapper">
+	<select id="selectProduct" resultType="ProductDto">
+		SELECT 
+		    id AS productId,
+		    content AS productContent,
+		    description AS productDescription
+		FROM
+		    product
+		WHERE
+		    id = #{productId}
+	</select>
+
+	<select id="selectProducts" resultType="ProductDto">
+		SELECT 
+		    di.id AS displayInfoId,
+		    p.id AS productId,
+		    p.description AS productDescription,
+		    di.place_name AS placeName,
+		    p.content AS productContent,
+		    fi.save_file_name AS productImageUrl
+		FROM
+		    product p
+		        INNER JOIN
+		    product_image pi ON p.id = pi.product_id
+		        INNER JOIN
+		    display_info di ON p.id = di.product_id
+		        INNER JOIN
+		    display_info_image dii ON di.id = dii.display_info_id
+		        INNER JOIN
+		    file_info fi ON fi.id = pi.file_id
+		WHERE
+		    pi.type = 'th'
+		ORDER BY di.id ASC
+		LIMIT #{start} , #{limit}
+	</select>
+
+	<select id="selectProductsByCategoryId" resultType="ProductDto">
+		SELECT 
+		    di.id AS displayInfoId,
+		    p.id AS productId,
+		    p.description AS productDescription,
+		    di.place_name AS placeName,
+		    p.content AS productContent,
+		    fi.save_file_name AS productImageUrl
+		FROM
+		    product p
+		        INNER JOIN
+		    product_image pi ON p.id = pi.product_id
+		        INNER JOIN
+		    display_info di ON p.id = di.product_id
+		        INNER JOIN
+		    display_info_image dii ON di.id = dii.display_info_id
+		        INNER JOIN
+		    file_info fi ON fi.id = pi.file_id
+		WHERE
+		    pi.type = 'th'
+		        AND p.category_id = #{categoryId}
+		ORDER BY di.id ASC
+		LIMIT #{start} , #{limit}
+	</select>
+
+	<select id="selectProductCount" resultType="int">
+		SELECT 
+		    COUNT(p.id) AS count
+		FROM
+		    product p
+		        INNER JOIN
+		    display_info di ON p.id = di.product_id
+	</select>
+
+	<select id="selectProductCountByCategoryId" resultType="int">
+		SELECT 
+		    COUNT(p.id) AS count
+		FROM
+		    product p
+		        INNER JOIN
+		    display_info di ON p.id = di.product_id
+		WHERE
+		    p.category_id = #{categoryId}
+	</select>
+
+	<select id="selectProductImage" resultType="ProductImageDto">
+		SELECT 
+		    pi.product_id AS productId,
+		    pi.id AS productImageId,
+		    pi.type AS type,
+		    fi.id AS fileInfoId,
+		    fi.file_name AS fileName,
+		    fi.save_file_name AS saveFileName,
+		    fi.content_type AS contentType,
+		    fi.delete_flag AS deleteFlag,
+		    fi.create_date AS createDate,
+		    fi.modify_date AS modifyDate
+		FROM
+		    product_image pi
+		        INNER JOIN
+		    file_info fi ON pi.file_id = fi.id
+		WHERE
+		    pi.product_id = #{productId}
+		        AND pi.type = #{type.code}
+		GROUP BY pi.product_id
+	</select>
+
+	<select id="selectProductPrices" resultType="ProductPriceDto">
+		SELECT 
+		    id, price_type_name AS type, price, discount_rate
+		FROM
+		    product_price
+		WHERE
+		    product_id = #{productId}
+		ORDER BY id
+	</select>
+</mapper>

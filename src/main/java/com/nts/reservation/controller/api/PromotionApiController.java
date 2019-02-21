@@ -35,9 +35,9 @@ public class PromotionApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getPromotions(
-		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit,
-		@RequestParam(required = false, defaultValue = IMAGE_TYPE_THUMBNAIL) String type) {
-		List<PromotionDto> promotions = promotionService.getPromotions(limit, ImageType.getEnum(type));
+		@RequestParam(required = false, defaultValue = IMAGE_TYPE_THUMBNAIL) String type,
+		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit) {
+		List<PromotionDto> promotions = promotionService.getPromotions(ImageType.getEnum(type), limit);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("promotions", promotions);

@@ -14,10 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ImageType;
-import com.nts.reservation.dao.CommentDao;
-import com.nts.reservation.dao.DisplayInfoDao;
-import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.dao.ProductImageDao;
 import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
@@ -27,6 +23,9 @@ import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.ReserveResponseDto;
+import com.nts.reservation.mapper.CommentMapper;
+import com.nts.reservation.mapper.DisplayInfoMapper;
+import com.nts.reservation.mapper.ProductMapper;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -37,21 +36,19 @@ import com.nts.reservation.service.ProductService;
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	private ProductDao productDao;
+	private ProductMapper productMapper;
 	@Autowired
-	private ProductImageDao productImageDao;
+	private DisplayInfoMapper displayInfoMapper;
 	@Autowired
-	private DisplayInfoDao displayInfoDao;
-	@Autowired
-	private CommentDao commentDao;
+	private CommentMapper commentMapper;
 
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
 		int count;
 		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			count = productDao.selectCount();
+			count = productMapper.selectProductCount();
 		} else {
-			count = productDao.selectCountByCategoryId(categoryId);
+			count = productMapper.selectProductCountByCategoryId(categoryId);
 		}
 		if (count == 0) {
 			return new ProductResponseDto(Collections.<ProductDto>emptyList(), count);
@@ -59,9 +56,9 @@ public class ProductServiceImpl implements ProductService {
 
 		List<ProductDto> products;
 		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			products = productDao.selectProducts(start, limit);
+			products = productMapper.selectProducts(start, limit);
 		} else {
-			products = productDao.selectProductsByCategoryId(categoryId, start, limit);
+			products = productMapper.selectProductsByCategoryId(categoryId, start, limit);
 		}
 
 		return new ProductResponseDto(products, count);
@@ -69,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductImageDto getProductImage(int productId, ImageType type) {
-		return productImageDao.selectProductImage(productId, type);
+		return productMapper.selectProductImage(productId, type);
 	}
 
 	/**
@@ -77,9 +74,9 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, int commentLimit) {
-		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
+		DisplayInfoDto displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
 		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
-		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
+		String productImageUrl = productMapper.selectProductImage(productId, type).getSaveFileName();
 		return new DetailResponseDto(displayInfo, commentResponse, productImageUrl);
 	}
 
@@ -88,12 +85,12 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
-		int count = commentDao.selectCommentCount(productId);
+		int count = commentMapper.selectCommentCount(productId);
 		if (count == 0) {
 			return new CommentResponseDto(Collections.<CommentDto>emptyList(), count, 0);
 		}
-		List<CommentDto> comments = commentDao.selectComments(productId, start, limit);
-		double averageScore = commentDao.selectCommentAvgScore(productId);
+		List<CommentDto> comments = commentMapper.selectComments(productId, start, limit);
+		double averageScore = commentMapper.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
 	}
 
@@ -102,9 +99,9 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type) {
-		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
-		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
-		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
+		DisplayInfoDto displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
+		List<ProductPriceDto> productPrices = productMapper.selectProductPrices(productId);
+		String productImageUrl = productMapper.selectProductImage(productId, type).getSaveFileName();
 		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
 }
