@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DatailPageInfoDao;
 import com.nts.reservation.dao.ProductPriceDao;
-import com.nts.reservation.dao.ProductDao;
+import com.nts.reservation.dao.ProductMapper;
 import com.nts.reservation.dao.ProductThumbnailDao;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.PriceInfo;
@@ -21,7 +21,7 @@ import com.nts.reservation.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	private ProductDao productDao;
+	private ProductMapper productDao;
 	@Autowired
 	private ProductThumbnailDao thumbnailInfoDao;
 	@Autowired
@@ -32,11 +32,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int getProductCountByCategoryId(int categoryId) {
-		if (categoryId == 0) {
-			return productDao.selectCount();
-		} else {
-			return productDao.selectCount(categoryId);
-		}
+		return productDao.selectProductCount(categoryId);
 	}
 
 	@Override
