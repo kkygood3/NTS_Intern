@@ -1,6 +1,5 @@
 package com.nts.reservation.service.impl;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -20,7 +19,6 @@ import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.ReservationService;
 
 @Service
@@ -58,7 +56,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
 		String reservationEmail, int start, int limit) {
 		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
-			.selectReservationInfoByReservationEmail(reservationEmail, start, limit, "");
+			.selectReservationInfoByReservationEmail(reservationEmail, start, limit);
 
 		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
 		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();

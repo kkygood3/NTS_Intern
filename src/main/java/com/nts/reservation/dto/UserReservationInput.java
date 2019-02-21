@@ -1,6 +1,5 @@
 package com.nts.reservation.dto;
 
-import java.util.Date;
 import java.util.List;
 
 public class UserReservationInput {
