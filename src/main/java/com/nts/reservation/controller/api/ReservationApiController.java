@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.response.ReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -47,10 +49,13 @@ public class ReservationApiController {
 		return Collections.singletonMap("isSuccess", true);
 	}
 
-	@GetMapping("/{reservationId}")
-	public Map<String, Object> getReservations(@PathVariable int reservationId,
+	@GetMapping
+	public ReservationResponseDto getReservationsByStatus(
+		@RequestParam String reservationEmail,
+		@RequestParam String status,
+		@RequestParam int start,
 		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit) {
-		reservationService.cancleReservation(reservationId);
-		return Collections.singletonMap("isSuccess", true);
+		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), start,
+			limit);
 	}
 }

@@ -33,17 +33,17 @@
 					<when test="status.name.equals('TODO')">
 						<![CDATA[
 							AND ri.reservation_date > now()
-							And ri.cancel_flag = false
+							AND ri.cancel_flag = false
 						]]>
 					</when>
 					<when test="status.name.equals('DONE')">
 						<![CDATA[
 							AND ri.reservation_date <= now()
-							And ri.cancel_flag = false
+							AND ri.cancel_flag = false
 						]]>
 					</when>
-					<when test="status.name.equals('CANCLE')">
-						And ri.cancel_flag = true
+					<when test="status.name.equals('CANCEL')">
+						AND ri.cancel_flag = true
 					</when>
 				</choose>
 			</if>  
@@ -56,12 +56,40 @@
 				<when test="status.name.equals('DONE')">
 					ORDER BY ri.reservation_date DESC
 				</when>
-				<when test="status.name.equals('CANCLE')">
+				<when test="status.name.equals('CANCEL')">
 					ORDER BY ri.modify_date DESC
 				</when>
 			</choose>
 		</if>
-		LIMIT #{limit} 
+		LIMIT #{start} , #{limit}
+	</select>
+
+	<select id="selectReservationCountByStatus" resultType="int">
+		SELECT   
+		    COUNT(id)  
+		FROM  
+		    reservation_info  
+		WHERE  
+		    reservation_email = #{reservationEmail}
+			<if test="status.name != null">
+				<choose>
+					<when test="status.name.equals('TODO')">
+						<![CDATA[
+							AND reservation_date > now()
+							And cancel_flag = false
+						]]>
+					</when>
+					<when test="status.name.equals('DONE')">
+						<![CDATA[
+							AND reservation_date <= now()
+							And cancel_flag = false
+						]]>
+					</when>
+					<when test="status.name.equals('CANCEL')">
+						AND cancel_flag = true
+					</when>
+				</choose>
+			</if>  
 	</select>
 
 	<insert id="insertReservationInfo" useGeneratedKeys="true" keyProperty="id">

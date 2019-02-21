@@ -30,13 +30,15 @@ public class MyReservationController {
 
 	@GetMapping("/myreservation")
 	public String getMyReservationPage(@RequestParam String reservationEmail,
+		@RequestParam(required = false, defaultValue = DEFAULT_START) int start,
 		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit,
 		HttpSession session, Model model) {
 
 		if (!RegexValidator.isValid(RegularExpression.EMAIL_REGEXP, reservationEmail)) {
 			throw new RuntimeException("이메일 형식이 틀렸습니다.");
 		}
-		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail, limit);
+		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail,
+			start, limit);
 		model.addAttribute("response", myReservationResponse);
 		session.setAttribute("reservationEmail", reservationEmail);
 		return "myreservation";

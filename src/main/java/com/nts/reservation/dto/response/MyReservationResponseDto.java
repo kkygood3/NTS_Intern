@@ -4,77 +4,55 @@
  */
 package com.nts.reservation.dto.response;
 
-import java.util.List;
-
-import com.nts.reservation.dto.ReservationDisplayInfoDto;
-
 /**
  * 나의 예약정보 response용 DTO
  * @author jinwoo.bae
  */
 public class MyReservationResponseDto {
-	private List<ReservationDisplayInfoDto> todoReservationDisplayInfos; // 이용예정 예약들
-	private List<ReservationDisplayInfoDto> doneReservationDisplayInfos; // 이용완료 예약들
-	private List<ReservationDisplayInfoDto> cancleReservationDisplayInfos; // 취소된 예약들
+	private ReservationResponseDto todoReservationResponse; // 이용예정 예약 response
+	private ReservationResponseDto doneReservationResponse; // 이용완료 예약 response
+	private ReservationResponseDto cancelReservationResponse; // 취소된 예약 response
 	private int totalCount; // 전체 개수
-	private int todoCount; // 이용 예정 개수
-	private int doneCount; // 이용 완료 개수
-	private int cancleCount; // 취소 개수
 
-	public List<ReservationDisplayInfoDto> getTodoReservationDisplayInfos() {
-		return todoReservationDisplayInfos;
+	public MyReservationResponseDto(ReservationResponseDto todoReservationResponse,
+		ReservationResponseDto doneReservationResponse, ReservationResponseDto cancelReservationResponse) {
+		setTodoReservationResponse(todoReservationResponse);
+		setDoneReservationResponse(doneReservationResponse);
+		setCancelReservationResponse(cancelReservationResponse);
+		setTotalCount();
 	}
 
-	public void setTodoReservationDisplayInfos(List<ReservationDisplayInfoDto> todoReservationDisplayInfos) {
-		this.todoReservationDisplayInfos = todoReservationDisplayInfos;
+	public ReservationResponseDto getTodoReservationResponse() {
+		return todoReservationResponse;
 	}
 
-	public List<ReservationDisplayInfoDto> getDoneReservationDisplayInfos() {
-		return doneReservationDisplayInfos;
+	public void setTodoReservationResponse(ReservationResponseDto todoReservationResponse) {
+		this.todoReservationResponse = todoReservationResponse;
 	}
 
-	public void setDoneReservationDisplayInfos(List<ReservationDisplayInfoDto> doneReservationDisplayInfos) {
-		this.doneReservationDisplayInfos = doneReservationDisplayInfos;
+	public ReservationResponseDto getDoneReservationResponse() {
+		return doneReservationResponse;
 	}
 
-	public List<ReservationDisplayInfoDto> getCancleReservationDisplayInfos() {
-		return cancleReservationDisplayInfos;
+	public void setDoneReservationResponse(ReservationResponseDto doneReservationResponse) {
+		this.doneReservationResponse = doneReservationResponse;
 	}
 
-	public void setCancleReservationDisplayInfos(List<ReservationDisplayInfoDto> cancleReservationDisplayInfos) {
-		this.cancleReservationDisplayInfos = cancleReservationDisplayInfos;
+	public ReservationResponseDto getCancelReservationResponse() {
+		return cancelReservationResponse;
+	}
+
+	public void setCancelReservationResponse(ReservationResponseDto cancleReservationResponse) {
+		this.cancelReservationResponse = cancleReservationResponse;
 	}
 
 	public int getTotalCount() {
 		return totalCount;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getTodoCount() {
-		return todoCount;
-	}
-
-	public void setTodoCount(int todoCount) {
-		this.todoCount = todoCount;
-	}
-
-	public int getDoneCount() {
-		return doneCount;
-	}
-
-	public void setDoneCount(int doneCount) {
-		this.doneCount = doneCount;
-	}
-
-	public int getCancleCount() {
-		return cancleCount;
-	}
-
-	public void setCancleCount(int cancleCount) {
-		this.cancleCount = cancleCount;
+	public void setTotalCount() {
+		this.totalCount = todoReservationResponse.getTotalCount() + doneReservationResponse.getTotalCount()
+			+ cancelReservationResponse.getTotalCount();
 	}
 
 }

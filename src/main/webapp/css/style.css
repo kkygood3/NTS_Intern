@@ -698,6 +698,18 @@ button {
     text-align: center
 }
 
+.btn_reservation_more {
+    display: block;
+    padding: 12px 0;
+    background: #fbfbfd;
+    border: 1px solid #dfe3e6;
+    color: #333;
+    text-align: center
+}
+.btn_reservation_more.DONE {
+    margin-left: 10px;
+}
+
 .bk_btn {
     font-family: -apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',Helvetica Nenu,Helvetica,Roboto,Arial,NanumGothicWebB,'맑은고딕',MalgunGothic,'돋움',Dotum,sans-serif
 }

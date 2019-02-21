@@ -22,4 +22,6 @@ public class ParameterDefaultValue {
 	public static final String IMAGE_TYPE_ETC = "et";
 
 	public static final String RESERVATIONS_LIMIT = "3";
+	
+	public static final String DEFAULT_START = "0";
 }

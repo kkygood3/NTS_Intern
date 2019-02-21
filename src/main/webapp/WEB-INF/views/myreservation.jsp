@@ -41,15 +41,15 @@
 						</li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_book_ss"></i> <em class="tit">이용예정</em>
-								<span class="figure todo">${response.todoCount}</span>
+								<span class="figure TODO">${response.todoReservationResponse.totalCount}</span>
 							</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_check"></i> <em class="tit">이용완료</em>
-								<span class="figure done">${response.doneCount}</span>
+								<span class="figure DONE">${response.doneReservationResponse.totalCount}</span>
 							</a></li>
 						<li class="item"><a href="#" class="link_summary_board">
 								<i class="spr_book2 ico_back"></i> <em class="tit">취소·환불</em>
-								<span class="figure cancle">${response.cancleCount}</span>
+								<span class="figure CANCEL">${response.cancelReservationResponse.totalCount}</span>
 							</a></li>
 					</ul>
 				</div>
@@ -107,7 +107,7 @@
 								</a> <a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 							</article>
 						</li>
-						<li class="card confirmed">
+						<li class="card confirmed" data-status="TODO">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -120,7 +120,7 @@
 							</div>
 							<!-- 예약 리스트 없음 -->
 								<div class="err"
-									<c:if test="${response.todoCount != 0}">
+									<c:if test="${response.todoReservationResponse.totalCount != 0}">
 										style="display: none;"
 									</c:if>
 								>
@@ -128,10 +128,13 @@
 									<h1 class="tit">확정된 예약 리스트가 없습니다</h1>
 								</div>
 								<!--// 예약 리스트 없음 -->
-							<c:forEach var="reservationDisplayInfo" items="${response.todoReservationDisplayInfos}">
+							<c:forEach var="reservationDisplayInfo" items="${response.todoReservationResponse.reservationDisplayInfos}">
 								<article class="card_item" data-id=${reservationDisplayInfo.id}
 															data-product-id=${reservationDisplayInfo.productId}
-															data-display-info-id=${reservationDisplayInfo.displayInfoId}>
+															data-display-info-id=${reservationDisplayInfo.displayInfoId}
+															data-category-name=${reservationDisplayInfo.categoryName}
+															data-product-description='${reservationDisplayInfo.productDescription}'
+															data-reservation-date=${reservationDisplayInfo.reservationDate}>
 									<a class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
@@ -169,7 +172,14 @@
 								</article>
 							</c:forEach>
 						</li>
-						<li class="card used">
+						<c:if test="${response.todoReservationResponse.totalCount > 3}">
+							<!-- [D] 더보기 -->
+							<a class="btn_reservation_more TODO" onclick="moreReservations('TODO');">
+								<span>더보기</span>
+								<i class="fn fn-down2"></i>
+							</a>
+						</c:if>
+						<li class="card used" data-status="DONE">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -184,7 +194,7 @@
 
 							<!-- 예약 리스트 없음 -->
 								<div class="err"
-									<c:if test="${response.doneCount != 0}">
+									<c:if test="${response.doneReservationResponse.totalCount != 0}">
 										style="display: none;"
 									</c:if>
 								>
@@ -193,7 +203,7 @@
 								</div>
 								<!--// 예약 리스트 없음 -->
 
-							<c:forEach var="reservationDisplayInfo" items="${response.doneReservationDisplayInfos}">
+							<c:forEach var="reservationDisplayInfo" items="${response.doneReservationResponse.reservationDisplayInfos}">
 								<article class="card_item">
 									<a class="link_booking_details">
 										<div class="card_body">
@@ -213,9 +223,7 @@
 														</em>
 													</div>
 													<div class="booking_cancel">
-														<a href="./reviewWrite.html"><button class="btn">
-																<span>예매자 리뷰 남기기</span>
-															</button></a>
+														<a> <button class="btn"> <span>예매자 리뷰 남기기</span> </button></a>
 													</div>
 												</div>
 											</div>
@@ -229,8 +237,16 @@
 									</a>
 								</article>
 							</c:forEach>
+							
 						</li>
-						<li class="card used cancel">
+						<c:if test="${response.doneReservationResponse.totalCount > 3}">
+							<!-- [D] 더보기 -->
+							<a class="btn_reservation_more DONE" onclick="moreReservations('DONE');">
+								<span>더보기</span>
+								<i class="fn fn-down2"></i>
+							</a>
+						</c:if>
+						<li class="card used cancel" data-status="CANCEL">
 							<div class="link_booking_details">
 								<div class="card_header">
 									<div class="left"></div>
@@ -243,15 +259,16 @@
 							</div>
 							<!-- 예약 리스트 없음 -->
 								<div class="err"
-									<c:if test="${response.cancleCount != 0}">
+									<c:if test="${response.cancelReservationResponse.totalCount != 0}">
 										style="display: none;"
 									</c:if>
 								>
 									<i class="spr_book ico_info_nolist"></i>
 									<h1 class="tit">취소된 예약 리스트가 없습니다</h1>
 								</div>
-								<!--// 예약 리스트 없음 -->
-							<c:forEach var="reservationDisplayInfo" items="${response.cancleReservationDisplayInfos}">
+							<!--// 예약 리스트 없음 -->
+							<div >	
+							<c:forEach var="reservationDisplayInfo" items="${response.cancelReservationResponse.reservationDisplayInfos}">
 							<article class="card_item">
 								<a class="link_booking_details">
 									<div class="card_body">
@@ -282,7 +299,15 @@
 								</a>
 							</article>
 							</c:forEach>
+							</div>
 						</li>
+						<c:if test="${response.cancelReservationResponse.totalCount > 3}">
+							<!-- [D] 더보기 -->
+							<a class="btn_reservation_more CANCEL" onclick="moreReservations('CANCEL');">
+								<span>더보기</span>
+								<i class="fn fn-down2"></i>
+							</a>
+						</c:if>
 					</ul>
 				</div>
 				<!--// 내 예약 리스트 -->
@@ -328,14 +353,79 @@
 		</div>
 	</div>
 	<!--// 취소 팝업 -->
+	<script type="text/template" id="template-reservation">
+		<article class="card_item" data-id={{id}}
+								data-product-id={{productId}}
+								data-display-info-id={{displayInfoId}}
+								data-category-name={{categoryName}}
+								data-product-description='{{productDescription}}'
+								data-reservation-date={{reservationDate}}>
+			<a class="link_booking_details">
+				<div class="card_body">
+					<div class="left"></div>
+					<div class="middle">
+						<div class="card_detail">
+							<em class="booking_number">{{id}}</em>
+							<h4 class="tit">{{categoryName}}/{{productDescription}}</h4>
+							<ul class="detail">
+								<li class="item"><span class="item_tit">일정</span> <em class="item_dsc"> {{reservationDate}} </em></li>
+								<li class="item"><span class="item_tit">내역</span> <em class="item_dsc"> 내역이 없습니다. </em></li>
+								<li class="item"><span class="item_tit">장소</span> <em class="item_dsc"> {{placeName}} </em></li>
+								<li class="item"><span class="item_tit">업체</span> <em class="item_dsc"> 업체명이 없습니다. </em></li>
+							</ul>
+							<div class="price_summary">
+								<span class="price_tit">결제 예정금액</span> <em class="price_amount"> <span>{{totalPrice}}</span> <span class="unit">원</span>
+								</em>
+							</div>
+							{{#if cancelFlag }}
+							{{else}}
+								{{#isAfterToday reservationDate }}
+									<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
+									<div class="booking_cancel">
+										<button class="btn">
+											<span>취소</span>
+										</button>
+									</div>
+								{{else}}
+									<div class="booking_cancel">
+										<a> <button class="btn"> <span>예매자 리뷰 남기기</span> </button></a>
+									</div>
+								{{/isAfterToday}}
+							{{/if}}
+						</div>
+					</div>
+					<div class="right"></div>
+				</div>
+				<div class="card_footer">
+					<div class="left"></div>
+					<div class="middle"></div>
+					<div class="right"></div>
+				</div>
+			</a>
+		</article>
+	</script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
 		var reservationsContainer = document.querySelector(".card.confirmed");
 		var popupWrapper = document.querySelector(".popup_booking_wrapper");
+		var reservationEmail = new URL(window.location.href).searchParams.get("reservationEmail");
 		var reservationElement;
+		
+		const DEFAULT_LIMIT = 3;
+
+		Handlebars.registerHelper("isAfterToday", function(date, options) {
+			var now = new Date();
+			var date = new Date(date);
+
+			if (now < date) {
+				return options.fn(this);
+			}
+			return options.inverse(this);
+		});
 
 		function registerEvent() {
-			reservationsContainer.addEventListener("click", function (evt) {
+			reservationsContainer.addEventListener("click", function(evt) {
 				var target = evt.target;
 				if (evt.target.tagName === "SPAN") {
 					target = evt.target.parentElement;
@@ -346,12 +436,13 @@
 				reservationElement = target;
 				showCancleConfirmPopup();
 			});
-			popupWrapper.addEventListener("click", function (evt) {
+			popupWrapper.addEventListener("click", function(evt) {
 				var target = evt.target;
 				if (target.tagName === "SPAN" || target.tagName === "I") {
 					target = target.parentElement;
 				}
-				if (target.className !== "btn_bottom" && target.className !== "popup_btn_close") {
+				if (target.className !== "btn_bottom"
+						&& target.className !== "popup_btn_close") {
 					return;
 				}
 				var text = target.firstElementChild.innerText;
@@ -363,6 +454,13 @@
 		}
 
 		function showCancleConfirmPopup() {
+			var wrapper = reservationElement.closest(".card_item");
+			var categoryName = wrapper.dataset.categoryName;
+			var productDescription = wrapper.dataset.productDescription;
+			var reservationDate = wrapper.dataset.reservationDate;
+			console.log(productDescription);
+			popupWrapper.querySelector("span").innerText = categoryName + "/" + productDescription;
+			popupWrapper.querySelector("small").innerText = reservationDate;
 			popupWrapper.style.display = "block";
 		}
 
@@ -372,31 +470,63 @@
 			var reservationInfoId = wrapper.dataset.id;
 			var url = "/api/reservations/" + reservationInfoId
 			var method = "PUT";
-			ajax(callbackMoveElement(wrapper, targetContainer), url, method);
+			ajax(callbackRefreshCancelReservations(wrapper, targetContainer), url, method);
 		}
 
-		function callbackMoveElement(element, targetContainer) {
-			return function () {
+		function callbackRefreshCancelReservations(element, targetContainer) {
+			return function() {
 				var originalContainer = element.closest(".card");
-
-				// 옮겨질 컨테이너가 예약없음이 표시되어있는경우 예약없음표시를 숨김
-				if (targetContainer.querySelector(".err").style.display !== "none") {
-					targetContainer.querySelector(".err").style.display = "none";
-				}
 				targetContainer.appendChild(element);
 
-				// 옮겨진후 이동전 엘리먼트의 컨테이너가 요소들이 없는경우 예약없음숨김 해제
+				// 옮긴후 컨테이너에 예약이 없을경우 예약없음 엘리멘트 표시
 				if (originalContainer.querySelectorAll(".card_item").length === 0) {
 					originalContainer.querySelector(".err").style.display = "block";
 				}
-				element.querySelector(".booking_cancel").style.display = "none";
+				targetContainer.querySelector(".err").style.display = "none";
 
-				var todoCountElement = document.querySelector(".figure.todo");
-				var cancleCountElement = document.querySelector(".figure.cancle");
-				var todoCount = todoCountElement.innerText * 1;
-				var cancleCount = cancleCountElement.innerText * 1;
-				todoCountElement.innerText = todoCount - 1;
-				cancleCountElement.innerText = cancleCount + 1;
+				var cancleCount = targetContainer.querySelectorAll(".card_item").length * 1 - 1;
+
+				targetContainer.querySelectorAll(".card_item").forEach(e => e.parentNode.removeChild(e));
+
+				moreReservations("TODO", 1);
+				moreReservations("CANCEL", cancleCount);
+			}
+		}
+
+		function moreReservations(status, limit) {
+			if (!limit) {
+				limit = DEFAULT_LIMIT;
+			}
+			var container = document.querySelector("[data-status=" + status
+					+ "]");
+			var status = container.dataset.status;
+			var count = container.querySelectorAll(".card_item").length;
+
+			var url = "/api/reservations?reservationEmail=" + reservationEmail
+					+ "&status=" + status + "&start=" + count + "&limit=" + limit;
+
+			ajax(callbackAddReservationElements(container), url);
+		}
+
+		function callbackAddReservationElements(container) {
+			return function(response) {
+				var template = document.querySelector("#template-reservation").innerText;
+				var bindTemplate = Handlebars.compile(template);
+				var resultHTML = response.reservationDisplayInfos.reduce(
+						function(prev, reservation) {
+							return prev + bindTemplate(reservation);
+						}, "");
+				container.innerHTML += resultHTML;
+
+				var status = container.dataset.status;
+				var currCount = container.querySelectorAll(".card_item").length;
+				// 개수 갱신
+				document.querySelector(".figure." + status).innerText = response.totalCount;
+
+				// 예매한 개수가 현재 엘리먼트로 보여주는 개수보다 적거나 같다면 더보기버튼을 숨깁니다.
+				if (response.totalCount <= currCount) {
+					document.querySelector(".btn_reservation_more." + status).style.display = "none";
+				}
 			}
 		}
 

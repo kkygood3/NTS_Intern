@@ -12,7 +12,7 @@ package com.nts.reservation.constant;
 public enum ReservationStatusType {
 	TODO("이용예정"),
 	DONE("이용완료"),
-	CANCLE("취소,환불");
+	CANCEL("취소,환불");
 
 	private final String description;
 
