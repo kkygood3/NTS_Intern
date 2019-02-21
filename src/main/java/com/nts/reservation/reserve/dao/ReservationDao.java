@@ -9,7 +9,7 @@ import com.nts.reservation.reserve.dto.ReservationPrice;
 public interface ReservationDao {
 	int insertReservationInfo(ReservationParam reservationParam);
 
-	int insertProductPrice(ReservationPrice reservationPrice);
+	int insertReservationPrice(ReservationPrice reservationPrice);
 
 	List<ReservationInfo> selectReservationInfos(String reservationEmail);
 

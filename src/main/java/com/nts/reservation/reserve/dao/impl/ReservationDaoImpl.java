@@ -51,7 +51,7 @@ public class ReservationDaoImpl implements ReservationDao{
 		return keyHolder.getKey().intValue();
 	}
 	@Override
-	public int insertProductPrice(ReservationPrice reservationPrice) {
+	public int insertReservationPrice(ReservationPrice reservationPrice) {
 		SqlParameterSource params = new MapSqlParameterSource()
 			.addValue("reservationInfoId", reservationPrice.getReservationInfoId())
 			.addValue("productPriceId", reservationPrice.getProductPriceId())
