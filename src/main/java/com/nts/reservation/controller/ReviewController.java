@@ -51,14 +51,14 @@ public class ReviewController {
 		return "redirect:/history";
 	}
 
-	@GetMapping("/download")
-	public void download(HttpServletResponse response) {
+	@GetMapping("/showImage")
+	public void showImage(HttpServletResponse response) {
 		String fileName = "test1.png";
 		String saveFileName = "c:/tmp/test1.png";
 		String contentType = "image/png";
 		int fileLength = 4759;
 
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", contentType);
 		response.setHeader("Content-Length", "" + fileLength);
