@@ -10,5 +10,9 @@ import com.nts.reservation.dto.FileInfo;
 * @author  : 이승수
 */
 public interface FileIoService {
-	public FileInfo getFileInfoByProductId(Integer productId);
+	public FileInfo getFileInfoByProductId(Integer fileId);
+
+	public int getFileIdByProductId(Integer productId);
+
+	public int getFileIdByDisplayInfoId(Integer displayInfoId);
 }

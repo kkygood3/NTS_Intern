@@ -59,9 +59,23 @@ public class FileController {
 		return "redirect:/history";
 	}
 
-	@GetMapping("/showImage/{productId}")
-	public void showImage(HttpServletResponse response, @PathVariable("productId") Integer productId) {
-		FileInfo fileInfo = fileIoService.getFileInfoByProductId(productId);
+	@GetMapping("/showImage/productId/{productId}")
+	public String showImageByProductId(@PathVariable("productId") Integer productId) {
+		int fileId = fileIoService.getFileIdByProductId(productId);
+
+		return "redirect:/showImage/" + fileId;
+	}
+
+	@GetMapping("/showImage/displayInfoId/{displayInfoId}")
+	public String showImageByDisplayInfoId(@PathVariable("displayInfoId") Integer displayInfoId) {
+		int fileId = fileIoService.getFileIdByDisplayInfoId(displayInfoId);
+
+		return "redirect:/showImage/" + fileId;
+	}
+
+	@GetMapping("/showImage/{fileId}")
+	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId) {
+		FileInfo fileInfo = fileIoService.getFileInfoByProductId(fileId);
 
 		String fileName = fileInfo.getFileName();
 		String saveFileName = "C:/2019_1st_intern_reservation/" + fileInfo.getSaveFileName();

@@ -20,7 +20,17 @@ public class FileIoServiceImpl implements FileIoService {
 	private FileDao fileDao;
 
 	@Override
-	public FileInfo getFileInfoByProductId(Integer productId) {
-		return fileDao.selectFileInfo(productId);
+	public FileInfo getFileInfoByProductId(Integer fileId) {
+		return fileDao.selectFileInfo(fileId);
+	}
+
+	@Override
+	public int getFileIdByProductId(Integer productId) {
+		return fileDao.selectFileIdByProductId(productId);
+	}
+
+	@Override
+	public int getFileIdByDisplayInfoId(Integer displayInfoId) {
+		return fileDao.selectFileIdByDisplayInfoId(displayInfoId);
 	}
 }

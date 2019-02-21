@@ -120,7 +120,7 @@
 
     <script type="rv-template" id="promotionItem">
 	{{#each items}}
-    <li class="item" style="background-image: url(/reservation/showImage/{{this.productId}});">
+    <li class="item" style="background-image: url(/reservation/showImage/productId/{{this.productId}});">
         <a> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit">{{productDescription}}</h4>
@@ -137,7 +137,7 @@
     <li class="item">
        <a href="detail/{{displayInfoId}}" class="item_book">
             <div class="item_preview">
-                <img alt="{{description}}" class="img_thumb" src="/reservation/showImage/{{this.productId}}">
+                <img alt="{{description}}" class="img_thumb" src="/reservation/showImage/productId/{{this.productId}}">
                 <span class="img_border"></span>
             </div>
             <div class="event_txt">
