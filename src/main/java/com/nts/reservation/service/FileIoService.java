@@ -18,9 +18,9 @@ import com.nts.reservation.dto.FileDto;
  */
 public interface FileIoService {
 
-	void sendFile(String filename, OutputStream outputStream) throws IOException;
+	public void sendFile(String path, OutputStream outputStream) throws IOException;
 
-	FileDto writeMultipartFile(String path, MultipartFile file) throws IOException;
+	public FileDto writeMultipartFile(String path, MultipartFile file) throws IOException;
 
-	void removeFilesForRollback(List<FileDto> files);
+	public void removeFilesForRollback(List<FileDto> files);
 }

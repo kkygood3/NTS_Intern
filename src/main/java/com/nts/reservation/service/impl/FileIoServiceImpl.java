@@ -59,8 +59,8 @@ public class FileIoServiceImpl implements FileIoService {
 	}
 
 	@Override
-	public void sendFile(String saveFilename, OutputStream outputStream) throws IOException {
-		File file = new File(fileDir + saveFilename);
+	public void sendFile(String path, OutputStream outputStream) throws IOException {
+		File file = new File(fileDir + path);
 		long fileSize = file.length();
 
 		FileInputStream fileInputStream = new FileInputStream(file);
