@@ -1,6 +1,6 @@
 package com.nts.reservation.reserve.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -48,12 +49,17 @@ public class ReservationControllerTest {
 	private MockMvc mock;
 	private ObjectMapper objectMapper;
 	private ReservationParam reservationParam;
+	private MockHttpSession session;
 
+	// XXX Before는 하나고 상황은 여러 개인데 1개의 class에서 모두 해결?
 	@Before
 	public void setUp() {
 		LOGGER.debug("======================== Before ===========================");
 		mock = MockMvcBuilders.webAppContextSetup(this.context).build();
 		objectMapper = new ObjectMapper();
+
+		session = new MockHttpSession();
+		session.setAttribute("email", "kimjinsu@connect.co.kr");
 
 		List<ReservationPrice> prices = new ArrayList<>();
 		prices.add(ReservationPrice.builder().productPriceId(1).count(2).build());
@@ -71,6 +77,7 @@ public class ReservationControllerTest {
 
 	@Test
 	@Transactional
+	@Ignore
 	public void getProducts() throws Exception {
 		RequestBuilder requestBuilder = post("/api/reservations")
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
@@ -85,10 +92,16 @@ public class ReservationControllerTest {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<ReservationParam>> constraintViolations = validator.validate(reservationParam);
-		constraintViolations.forEach(a->{
+		constraintViolations.forEach(a -> {
 			LOGGER.debug("MESSAGE : ", a.getMessage());
 		});
 
+	}
+	
+	@Test
+	public void cancelReservation() throws Exception {
+		RequestBuilder requestBuilder = put("/api/reservations/1").session(session);
+		mock.perform(requestBuilder).andDo(print());
 	}
 
 	@After
