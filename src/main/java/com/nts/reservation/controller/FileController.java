@@ -12,17 +12,25 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.nts.reservation.dto.FileInfo;
+import com.nts.reservation.service.FileIoService;
 
 /**
 * @author  : 이승수
 */
 @Controller
-public class ReviewController {
+public class FileController {
+	@Autowired
+	private FileIoService fileIoService;
+
 	@PostMapping("/upload")
 	public String upload(@RequestParam("rating") int rating, @RequestParam("review") String review,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
@@ -51,17 +59,17 @@ public class ReviewController {
 		return "redirect:/history";
 	}
 
-	@GetMapping("/showImage")
-	public void showImage(HttpServletResponse response) {
-		String fileName = "test1.png";
-		String saveFileName = "c:/tmp/test1.png";
-		String contentType = "image/png";
-		int fileLength = 4759;
+	@GetMapping("/showImage/{productId}")
+	public void showImage(HttpServletResponse response, @PathVariable("productId") Integer productId) {
+		FileInfo fileInfo = fileIoService.getFileInfoByProductId(productId);
+
+		String fileName = fileInfo.getFileName();
+		String saveFileName = "C:/2019_1st_intern_reservation/" + fileInfo.getSaveFileName();
+		String contentType = fileInfo.getContentType();
 
 		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", contentType);
-		response.setHeader("Content-Length", "" + fileLength);
 		response.setHeader("Pragma", "no-cache;");
 		response.setHeader("Expires", "-1;");
 
