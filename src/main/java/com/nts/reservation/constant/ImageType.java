@@ -11,24 +11,25 @@ package com.nts.reservation.constant;
 public enum ImageType {
 	THUMBNAIL("th"),
 	MAIN("ma"),
-	ETC("et");
+	ET("et");
 
-	private ImageType(String name) {
-		this.name = name;
+	private ImageType(String code) {
+		this.code = code;
 	}
 
-	private final String name;
+	private final String code;
 
-	public String getName() {
-		return name;
+	public String getCode() {
+		return code;
 	}
 
 	public static ImageType getEnum(String name) {
 		for (ImageType v : values()) {
-			if (v.getName().equalsIgnoreCase(name)) {
+			if (v.getCode().equalsIgnoreCase(name)) {
 				return v;
 			}
 		}
 		throw new IllegalArgumentException();
 	}
+
 }
