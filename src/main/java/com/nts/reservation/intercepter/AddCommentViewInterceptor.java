@@ -20,7 +20,7 @@ import com.nts.reservation.service.ReservationService;
 /**
  * @author 육성렬
  */
-public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
+public class AddCommentViewInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	ReservationService reservationService;
 
