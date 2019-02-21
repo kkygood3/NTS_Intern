@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.dto.ErrorMessageDto;
 import com.nts.reservation.exception.PageNotFoundException;
@@ -27,17 +28,24 @@ public class CommonPageControllerAdvice {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	public ModelAndView getErrorPage(ErrorMessageDto errorDto) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("errorDto", errorDto);
+		modelAndView.setViewName("errorPage");
+		return modelAndView;
+	}
+
 	@ExceptionHandler(Exception.class)
-	public @ResponseBody ErrorMessageDto handleCommonException(Exception exception) {
+	public ModelAndView handleCommonException(Exception exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
-		return new ErrorMessageDto(COMMON_ERROR_MSG);
+		return getErrorPage(new ErrorMessageDto(COMMON_ERROR_MSG));
 	}
 
 	@ExceptionHandler(HttpClientErrorException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public @ResponseBody ErrorMessageDto handleHttpClientErrorException(HttpClientErrorException exception) {
+	public ModelAndView handleHttpClientErrorException(HttpClientErrorException exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
-		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
+		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
 	}
 
 	@ExceptionHandler(ConnectException.class)
