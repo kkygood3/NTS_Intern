@@ -68,9 +68,9 @@ var reviewWritePage = {
 	getAjaxOption : function(){
 		var options = {
 			data : this.reviewWritePage.getData(),
-//			callback : function(httpRequest){
-//				window.location = httpRequest.responseURL;
-//			}
+			callback : function(httpRequest){
+				window.location = httpRequest.response;
+			}
 		}
 		
 		return options;

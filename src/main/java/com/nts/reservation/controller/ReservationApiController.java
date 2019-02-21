@@ -140,7 +140,7 @@ public class ReservationApiController {
 	}
 
 	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
-	public boolean writeComment(@RequestParam("rating") int rating, @RequestParam("review") String review,
+	public String writeComment(@RequestParam("rating") int rating, @RequestParam("review") String review,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
 		System.out.println("별점 : " + rating);
 		System.out.println("리뷰 : " + review);
@@ -164,6 +164,6 @@ public class ReservationApiController {
 			}
 		}
 
-		return true;
+		return "/reservation/history";
 	}
 }
