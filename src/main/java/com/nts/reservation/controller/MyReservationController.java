@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.controller;
 
+import static com.nts.reservation.constant.ParameterDefaultValue.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +29,14 @@ public class MyReservationController {
 	private ReservationService reservationService;
 
 	@GetMapping("/myreservation")
-	public String getMyReservationPage(@RequestParam String reservationEmail, HttpSession session, Model model) {
+	public String getMyReservationPage(@RequestParam String reservationEmail,
+		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit,
+		HttpSession session, Model model) {
+
 		if (!RegexValidator.isValid(RegularExpression.EMAIL_REGEXP, reservationEmail)) {
 			throw new RuntimeException("이메일 형식이 틀렸습니다.");
 		}
-		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail);
+		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail, limit);
 		model.addAttribute("response", myReservationResponse);
 		session.setAttribute("reservationEmail", reservationEmail);
 		return "myreservation";

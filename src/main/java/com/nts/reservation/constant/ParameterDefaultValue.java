@@ -20,4 +20,6 @@ public class ParameterDefaultValue {
 	public static final String IMAGE_TYPE_THUMBNAIL = "th";
 	public static final String IMAGE_TYPE_MAIN = "ma";
 	public static final String IMAGE_TYPE_ETC = "et";
+
+	public static final String RESERVATIONS_LIMIT = "3";
 }

@@ -4,15 +4,19 @@
  */
 package com.nts.reservation.controller.api;
 
+import static com.nts.reservation.constant.ParameterDefaultValue.*;
+
 import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.param.ReservationParamDto;
@@ -38,7 +42,14 @@ public class ReservationApiController {
 	}
 
 	@PutMapping("/{reservationId}")
-	Map<String, Object> putReservation(@PathVariable int reservationId) {
+	public Map<String, Object> putReservation(@PathVariable int reservationId) {
+		reservationService.cancleReservation(reservationId);
+		return Collections.singletonMap("isSuccess", true);
+	}
+
+	@GetMapping("/{reservationId}")
+	public Map<String, Object> getReservations(@PathVariable int reservationId,
+		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit) {
 		reservationService.cancleReservation(reservationId);
 		return Collections.singletonMap("isSuccess", true);
 	}

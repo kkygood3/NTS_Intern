@@ -52,4 +52,10 @@ public class ReservationDisplayInfoDto extends ReservationInfoDto {
 		this.totalPrice = totalPrice;
 	}
 
+	@Override
+	public String toString() {
+		return "ReservationDisplayInfoDto [productDescription=" + productDescription + ", categoryName=" + categoryName
+			+ ", placeName=" + placeName + ", totalPrice=" + totalPrice + "]";
+	}
+
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.ReservationMapper">
+	<select id="selectReservationDisplayInfos" resultType="ReservationDisplayInfoDto">
+		SELECT   
+		    ri.id,  
+		    ri.product_id AS productId,  
+		    ri.display_info_id AS displayInfoId,  
+		    ri.reservation_date AS reservationDate,  
+		    ri.cancel_flag AS cancelFlag,  
+		    di.place_name AS placeName,  
+		    c.name AS categoryName,  
+		    p.description AS productDescription,  
+		    FLOOR(SUM(pp.price * (100-pp.discount_rate) / 100 * rip.count)) AS totalPrice  
+		FROM  
+		    reservation_info ri  
+		        INNER JOIN  
+		    product p ON ri.product_id = p.id  
+		        INNER JOIN  
+		    category c ON p.category_id = c.id  
+		        INNER JOIN  
+		    display_info di ON ri.display_info_id = di.id  
+		        INNER JOIN  
+		    reservation_info_price rip ON ri.id = rip.reservation_info_id  
+		        INNER JOIN  
+		    product_price pp ON rip.product_price_id = pp.id  
+		WHERE  
+		    ri.reservation_email = #{reservationEmail}
+			<if test="state != null">
+				<choose>
+					<when test="state.equals('todo')">
+						<![CDATA[
+							AND ri.reservation_date > now()
+							And ri.cancel_flag = false
+						]]>
+					</when>
+					<when test="state.equals('done')">
+						<![CDATA[
+							AND ri.reservation_date <= now()
+							And ri.cancel_flag = false
+						]]>
+					</when>
+					<when test="state.equals('cancle')">
+						And ri.cancel_flag = true
+					</when>
+				</choose>
+			</if>  
+		GROUP BY ri.id
+			<if test="state != null">
+				<choose>
+					<when test="state.equals('todo')">
+						ORDER BY ri.id DESC
+					</when>
+					<when test="state.equals('done')">
+						ORDER BY ri.reservation_date DESC
+					</when>
+					<when test="state.equals('cancle')">
+						ORDER BY ri.modify_date DESC
+					</when>
+				</choose>
+			</if>
+		LIMIT #{limit} 
+	</select>
+
+	<insert id="insertReservationInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reservation_info 
+		           (product_id, 
+		            display_info_id, 
+		            reservation_name, 
+		            reservation_tel, 
+		            reservation_email, 
+		            reservation_date, 
+		            cancel_flag, 
+		            create_date, 
+		            modify_date) 
+		VALUES      (#{productId}, 
+		             #{displayInfoId}, 
+		             #{reservationName}, 
+		             #{reservationTel}, 
+		             #{reservationEmail}, 
+		             #{reservationDate}, 
+		             #{cancelFlag}, 
+		             now(), 
+		             now()); 
+	</insert>
+
+	<insert id="insertReservationInfoPrice" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reservation_info_price 
+		           (reservation_info_id, 
+		            product_price_id, 
+		            count) 
+		VALUES      (#{reservationInfoId}, 
+		            #{productPriceId}, 
+		            #{count}); 
+	</insert>
+
+	<update id="updateReservationToCancel">
+		UPDATE reservation_info 
+		SET 
+		    cancel_flag = true,
+		    modify_date = now()
+		WHERE
+		    id = #{reservationId};
+	</update>
+</mapper>
