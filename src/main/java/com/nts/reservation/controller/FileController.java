@@ -5,10 +5,7 @@
 package com.nts.reservation.controller;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,9 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.service.FileIoService;
@@ -36,34 +30,6 @@ public class FileController {
 
 	@Value("${fileDir}")
 	private String fileDir;
-
-	@PostMapping("/upload")
-	public String upload(@RequestParam("rating") int rating, @RequestParam("review") String review,
-		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
-		System.out.println("별점 : " + rating);
-		System.out.println("리뷰 : " + review);
-
-		if (files != null) {
-			for (MultipartFile file : files) {
-				System.out.println("파일 이름 : " + file.getOriginalFilename());
-				System.out.println("파일 크기 : " + file.getSize());
-
-				try (
-					FileOutputStream fileOutputStream = new FileOutputStream("c:/tmp/" + file.getOriginalFilename());
-					InputStream inputStream = file.getInputStream();) {
-					int readCount = 0;
-					byte[] buffer = new byte[1024];
-					while ((readCount = inputStream.read(buffer)) != -1) {
-						fileOutputStream.write(buffer, 0, readCount);
-					}
-				} catch (Exception ex) {
-					throw new RuntimeException("file Save Error");
-				}
-			}
-		}
-
-		return "redirect:/history";
-	}
 
 	@GetMapping("/showImage/productId/{productId}")
 	public String showImageByProductId(@PathVariable("productId") Integer productId) {

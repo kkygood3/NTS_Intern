@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.controller;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Comment;
@@ -132,6 +135,34 @@ public class ReservationApiController {
 	@PutMapping(path = "/reservations/{reservaionInfoId}")
 	public boolean cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
 		reservationService.cancelReservation(reservationInfoId);
+
+		return true;
+	}
+
+	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
+	public boolean writeComment(@RequestParam("rating") int rating, @RequestParam("review") String review,
+		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
+		System.out.println("별점 : " + rating);
+		System.out.println("리뷰 : " + review);
+
+		if (files != null) {
+			for (MultipartFile file : files) {
+				System.out.println("파일 이름 : " + file.getOriginalFilename());
+				System.out.println("파일 크기 : " + file.getSize());
+
+				try (
+					FileOutputStream fileOutputStream = new FileOutputStream("c:/tmp/" + file.getOriginalFilename());
+					InputStream inputStream = file.getInputStream();) {
+					int readCount = 0;
+					byte[] buffer = new byte[1024];
+					while ((readCount = inputStream.read(buffer)) != -1) {
+						fileOutputStream.write(buffer, 0, readCount);
+					}
+				} catch (Exception ex) {
+					throw new RuntimeException("file Save Error");
+				}
+			}
+		}
 
 		return true;
 	}

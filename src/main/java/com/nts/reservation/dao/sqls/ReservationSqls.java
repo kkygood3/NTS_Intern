@@ -79,8 +79,13 @@ public class ReservationSqls {
 		+ "EXISTS("
 		+ " SELECT 1 "
 		+ " FROM reservation_info "
-		+ " WHERE display_info_id = :displayInfoId "
+		+ " WHERE id = :reservationInfoId "
 		+ " AND reservation_email = :userEmail "
 		+ " AND reservation_date < NOW()"
 		+ ")";
+
+	public static final String SELECT_DISPLAY_INFO_ID_BY_RESERVATION_INFO_ID = "SELECT "
+		+ "display_info_id "
+		+ "FROM reservation_info "
+		+ "WHERE id = :reservationInfoId";
 }

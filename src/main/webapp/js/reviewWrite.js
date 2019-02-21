@@ -26,6 +26,7 @@ var reviewWritePage = {
 	},
 	
 	constants: {
+		RESERVATION_INFO_ID : document.querySelector(".title").dataset.reservationInfoId,
 		ACCEPT_TYPE : ["image/png", "image/jpeg"],
 		MIN_LENGTH : 5,
 		MAX_LENGTH : 400,
@@ -67,9 +68,9 @@ var reviewWritePage = {
 	getAjaxOption : function(){
 		var options = {
 			data : this.reviewWritePage.getData(),
-			callback : function(httpRequest){
-				window.location = httpRequest.responseURL;
-			}
+//			callback : function(httpRequest){
+//				window.location = httpRequest.responseURL;
+//			}
 		}
 		
 		return options;
@@ -189,10 +190,12 @@ var reviewWritePage = {
 		
 		addSubmitReviewToBtnWrite : function(formDataValidator){
 			this.reviewWritePage.elements.btnWrite.addEventListener("click", function(){
+				var url = "/reservation/api/reservations/" + this.reviewWritePage.constants.RESERVATION_INFO_ID + "/comments";
+				
 				formDataValidator.validateTextLength(this.reviewWritePage.elements.reviewTextarea);
 				
 				if(formDataValidator.isValid){
-					this.reviewWritePage.ajaxSender.sendPost("/reservation/upload", this.reviewWritePage.getAjaxOption());
+					this.reviewWritePage.ajaxSender.sendPost(url, this.reviewWritePage.getAjaxOption());
 				} else {
 					alert("리뷰를 최소 " + this.reviewWritePage.constants.MIN_LENGTH + "글자, 최대 " + this.reviewWritePage.constants.MAX_LENGTH + "글자로 작성해주세요.");
 				}

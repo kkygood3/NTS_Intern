@@ -124,7 +124,7 @@ var myReservationPage = {
 					return;
 				}
 				
-				window.location = "detail/" + btnReviewWrite.dataset.displayInfoId + "/reviewWrite";
+				window.location = "reviewWrite/" + btnReviewWrite.dataset.reservationInfoId;
 			});
 		}.bind(this)
 	}

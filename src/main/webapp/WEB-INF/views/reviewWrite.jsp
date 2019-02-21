@@ -26,7 +26,7 @@
 			<div class="ct_wrap">
 				<div class="top_title review_header">
 					<a href="/reservation/history" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">${productDescription}</span></h2>
+					<h2><span class="title" data-reservation-info-id="${reservationInfoId}">${productDescription}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
