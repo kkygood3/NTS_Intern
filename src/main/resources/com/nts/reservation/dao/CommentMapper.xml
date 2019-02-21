@@ -20,5 +20,4 @@
 				INNER JOIN display_info AS d ON d.id = #{displayInfoId} AND d.product_id = p.id
 				INNER JOIN reservation_user_comment AS uc ON d.id = uc.product_id
 	</select>
-	
 </mapper>
