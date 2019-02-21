@@ -1,4 +1,4 @@
-// Rest API로 서버로부터 해당 url의 json데이터를 가져옴
+// Rest API로 서버로부터 해당 url의 json데이터를 가져옴 (GET)
 function requestAjax(callback, url) {
     let ajaxReq = new XMLHttpRequest();
     ajaxReq.callback = callback;
@@ -9,6 +9,20 @@ function requestAjax(callback, url) {
     ajaxReq.responseType = 'json';
     ajaxReq.send();
 }
+
+// Rest API로 param을 서버로 json데이터를 넘김 (POST)
+function requestPostAjax(callback, url, param) {
+	var ajaxReq = new XMLHttpRequest();
+	ajaxReq.callback = callback;
+	ajaxReq.addEventListener('load', function(evt) {
+		this.callback(evt.target.response);
+	});
+	ajaxReq.open('POST', url);
+	ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	ajaxReq.responseType = 'json';
+	ajaxReq.send(param);
+}
+
 
 // Url의 name에 해당하는 Parameter 추출
 function getUrlParameter(name) {
@@ -24,20 +38,31 @@ function getUrlParameter(name) {
     }
 }
 
+/**
+ * 입력된 min ~ max에서 랜덤 값을 뽑아내 줌
+ */
 var generateRandom = function (min, max) {
     var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
     return ranNum;
 }
-
+/**
+ * 입력된 숫자에 3자리수마다 ,를 추가해줌
+ */
 function addCommaInNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+/**
+ * date형식을 2019.02.21와 같은 형식의 String 타입으로 변환 시켜줌
+ */
 var DateFormmater = function (date) {
     let week = new Array('일', '월', '화', '수', '목', '금', '토');
     return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
 }
 
+/**
+ * 날짜와 관련된 필드와 메소드를 가지고 있는 객체
+ */
 var DateObj = {
     currentDate: "",
     lastDate: "",
@@ -108,6 +133,25 @@ function initDisplayInfo(displayInfoData) {
 
 }
 
+var reserveCount = 0;
+/**
+ * 금액 정보를 갱신해주는 Event
+ */
+var changePriceEvent = function () {
+    let totalCount = 0;
+    document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
+        let itemPrice = ticketItem.value * ticketItems[index].price;
+
+        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
+        ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
+
+        totalCount += Number(ticketItem.value);
+        reserveCount += Number(ticketItem.value);
+    });
+
+    document.querySelector('.selected').innerText = reservationDate + ', 총 ' + totalCount + '매';
+}
+
 function TicketObj(target, index, price) {
     this.target = target;
     this.index = index;
@@ -117,24 +161,9 @@ function TicketObj(target, index, price) {
     target[1].classList.add('plusBtn' + index);
 }
 
-var totalPrice = 0;
-var totalCount = 0;
-var changePriceEvent = function () {
-    totalPrice = 0;
-    totalCount = 0;
-    document.querySelectorAll('.count_control_input').forEach((ticketItem, index) => {
-        let itemPrice = ticketItem.value * ticketItems[index].price;
-        totalPrice += itemPrice;
-
-        let ticketItemTotalPrice = ticketItem.parentElement.parentElement.children[1].children[0];
-        ticketItemTotalPrice.innerText = addCommaInNumber(itemPrice);
-
-        totalCount += Number(ticketItem.value);
-    });
-
-    document.querySelector('.selected').innerText = reservationDate + ', 총 ' + totalCount + '매';
-}
-
+/**
+ * TicketObj 객체에 ClickEvent를 추가해주는 prototype function
+ */
 TicketObj.prototype.addMinusClickEvent = function () {
     let index = this.index;
     document.querySelector('.minusBtn' + index).addEventListener('click', function () {
@@ -146,7 +175,9 @@ TicketObj.prototype.addMinusClickEvent = function () {
         } else {
             this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) - 1));
         }
+        productPricesList[index].count = parseInt(this.parentElement.children[1].value);
         changePriceEvent();
+        checkInputDataComplete();
     });
 }
 
@@ -159,13 +190,16 @@ TicketObj.prototype.addPlusClickEvent = function () {
             this.parentElement.parentElement.querySelector('.individual_price').classList.add('on_color');
         }
         this.parentElement.children[1].setAttribute('value', String(Number(this.parentElement.children[1].value) + 1));
+
+        productPricesList[index].count = parseInt(this.parentElement.children[1].value);
         changePriceEvent();
+        checkInputDataComplete();
     });
 }
 
 var ticketItems = new Object();
 
-async function initTickectBox(productPrices) {
+function initTickectBox(productPrices) {
     let ticketTemplate = document.querySelector('#ticketItem').innerText;
     let bindticketTemplate = Handlebars.compile(ticketTemplate);
     let ticketContainer = document.querySelector('div.ticket_body');
@@ -187,23 +221,190 @@ async function initTickectBox(productPrices) {
     changePriceEvent();
 }
 
-function loadDisplayInfoCallback(displayInfoData) {
+function initAgreementBtn() {
+    let agreementTarget = document.querySelectorAll('.btn_agreement');
 
-    initDisplayInfo(displayInfoData);
+    // 약관 보기/접기 토글 설정
+    agreementTarget.forEach(target => {
+        target.addEventListener('click', function () {
+            if (target.tagName in ['I', 'SPAN']) {
+                target = target.parentElement;
+            }
 
-    let productPrices = displayInfoData["productPrices"];
+            if (target.children[0].innerText === "보기") {
+                target.parentElement.classList.add('open');
+                target.children[0].innerText = "접기";
+            } else {
+                target.parentElement.classList.remove('open');
+                target.children[0].innerText = "보기";
+            }
 
-    initTickectBox(productPrices);
+
+        });
+    });
+}
+
+function ReserveRequest(displayInfoId, prices, productId, reservationName, reservationTelephone, reservationEmail) {
+    this.displayInfoId = parseInt(displayInfoId);
+    this.prices = prices;
+    this.productId = parseInt(productId);
+    this.reservationName = reservationName;
+    this.reservationTelephone = reservationTelephone;
+    this.reservationEmail = reservationEmail;
+    this.reservationYearMonthDay = DateObj.currentDate;
+}
+
+function ReservePrices(count, productPriceId) {
+    this.count = count;
+    this.productPriceId = parseInt(productPriceId);
+};
+
+function initBookingBtn(displayInfoData) {
+    let bookingBtn = document.querySelector('.bk_btn_wrap');
+
+    document.querySelector('.bk_btn').addEventListener('click', function () {
+        if(!bookingBtn.classList.contains('disable')){
+            let displayInfo = displayInfoData['displayInfo'];
+
+            let displayInfoId = displayInfo.displayInfoId;
+            let reservePrices = productPricesList;
+            let productId = displayInfo.productId;
+            let name = document.querySelector('input.text').value;
+            let tel = document.querySelector('input.tel').value;
+            let email = document.querySelector('input.email').value;
+
+            let reserveRequest = JSON.stringify(new ReserveRequest(displayInfoId, reservePrices, productId, name, tel, email));
+
+            requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
+        }
+    });
+}
+
+function postResponseHandler(response){
+	if(!response || response.result != 'OK'){
+		alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+	} else {
+		alert('예약 되었습니다.');
+		location.href = '/detail?id='+getUrlParameter('id');
+	}
+}
+
+function checkInputDataComplete() {
+    let name = document.querySelector('input.text').value;
+    let tel = document.querySelector('input.tel').value;
+    let email = document.querySelector('input.email').value;
+    let agreement = document.querySelector('#chk3').checked;
+    let bookingBtn = document.querySelector('.bk_btn_wrap');
+    
+    // name, tel, email, agreement가 모두 check되고, 하나라도 골랐을 경우 bookingBtn 활성화
+    if (name != '' & tel != '' & email != '' & agreement & reserveCount > 0) {
+        bookingBtn.classList.remove('disable');
+    } else {
+        bookingBtn.classList.add('disable');
+    }
+    
+    document.querySelector('input.tel').value = tel.replace( /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3" );
+}
+
+function InputDataValidator(changedTarget) {
+    let inputType = changedTarget.name;
+    let inputArea = changedTarget;
+    let warningArea = inputArea.nextElementSibling;
+
+    let isCorrectInput;
+    switch (inputType) {
+        case 'name':
+            isCorrectInput = inputArea.value.length > 0;
+            break;
+        case 'tel':
+            let tel = inputArea.value;
+            tel = tel.replace(/\-/g, '');
+
+            let telReg = (/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g);
+            isCorrectInput = telReg.test(tel);
+            break;
+        case 'email':
+            let email = inputArea.value;
+
+            let emailReg = (/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g);
+            isCorrectInput = emailReg.test(email);
+            break;
+        default:
+            isCorrectInput = false;
+    }
+
+    if (!isCorrectInput) {
+        inputArea.value = '';
+        warningArea.style.visibility = 'visible';
+        setTimeout(function () {
+            warningArea.style.visibility = 'hidden';
+        }, 1500);
+        checkInputDataComplete();
+    } else {
+        checkInputDataComplete();
+    }
 
 }
 
-var reservationDate;
+function initInputDataForm() {
+    let inputForm = document.querySelector('.form_horizontal');
+
+    inputForm.addEventListener('change', function (evt) {
+        let changedTarget = evt.target;
+        if (changedTarget.tagName === 'INPUT') {
+            InputDataValidator(changedTarget);
+        }
+    });
+
+    let agreementForm = document.querySelector('#chk3');
+
+    agreementForm.addEventListener('click', function () {
+        checkInputDataComplete();
+    })
+    changePriceEvent();
+}
+
+var productPricesList = new Array();
+
+function addReservePrices(productPrices){
+
+    productPrices.forEach(productPrice=>{
+        productPricesList.push(new ReservePrices(0, productPrice.productPriceId));
+    });
+}
+
+function loadDisplayInfoCallback(displayInfoData) {
+
+    // 화면 상단 Display 설정
+    initDisplayInfo(displayInfoData);
+
+    let productPrices = displayInfoData["productPrices"];
+    // 화면 중단 TicketBox 설정
+    initTickectBox(productPrices);
+
+    // ReservePrices List 추가;
+    addReservePrices(productPrices);
+
+    // BookingBtn 설정
+    initBookingBtn(displayInfoData);
+
+}
+
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
 
+    // 현재시간 설정
     DateObj.setDate();
 
+    // 예매날짜 랜덤생성
     reservationDate = DateObj.getrandomDate();
 
     requestAjax(loadDisplayInfoCallback, 'products/' + getUrlParameter('id'));
+
+    // 약관 button 설정
+    initAgreementBtn();
+
+    // Input Data Form 설정
+    initInputDataForm();
+
 });

@@ -7,44 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 @charset "UTF-8";
-
-[
-ng\:cloak
-]
-,
-[
-ng-cloak
-]
-,
-[
-data-ng-cloak
-]
-,
-[
-x-ng-cloak
-]
-,
-.ng-cloak
-,
-.x-ng-cloak
-,
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak,
 .ng-hide
-:not
- 
-(
-.ng-hide-animate
- 
-){
-display
-:
- 
-none
- 
-!
-important
-;
-
-
+:not(.ng-hide-animate){
+display: none!important;
 }
 ng\:form {
 	display: block;
@@ -104,7 +75,7 @@ ng\:form {
 			<!---->
 			<div>
 				<form name="confirm_form" class="ng-pristine ng-valid" id="form1"
-					action="/list" method="GET">
+					action="/login" method="GET">
 					<h2 class="login_header_sub border_bottom">
 						<span translate="CM-NON_MEMBER_BK_CONFIRMATION">비회원 예약확인</span>
 					</h2>

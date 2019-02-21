@@ -77,9 +77,10 @@
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
 									</label>
-									<div class="inline_control">
+									<div class="inline_control tel_wrap">
 										<input type="text" name="name" id="name" class="text"
 											placeholder="네이버" maxlength="17">
+										<div class="warning_msg">예매자 형식을 입력해주세요</div>
 									</div>
 								</div>
 								<div class="inline_form">
@@ -89,16 +90,17 @@
 									<div class="inline_control tel_wrap">
 										<input type="tel" name="tel" id="tel" class="tel" value=""
 											placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+										<div class="warning_msg">번호 형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
 								<div class="inline_form">
 									<label class="label" for="email"> <span
 										class="spr_book ico_nessasary">필수</span> <span>이메일</span>
 									</label>
-									<div class="inline_control">
+									<div class="inline_control tel_wrap">
 										<input type="email" name="email" id="email" class="email"
 											value="" placeholder="crong@codesquad.kr" maxlength="50">
+										<div class="warning_msg">이메일 형식이 틀렸거나 너무 짧아요</div>
 									</div>
 								</div>
 								<div class="inline_form last">
@@ -126,7 +128,7 @@
 						<div class="agreement">
 							<span class="chk_txt_span"> <i
 								class="spr_book ico_arr_ipc2"></i> <span>개인정보 수집 및 이용 동의</span>
-							</span> <a href="#" class="btn_agreement"> <span class="btn_text">보기</span>
+							</span> <a class="btn_agreement"> <span class="btn_text">보기</span>
 								<i class="fn fn-down2"></i>
 							</a>
 							<div class="useragreement_details">
@@ -144,7 +146,7 @@
 						<div class="agreement">
 							<span class="chk_txt_span"> <i
 								class="spr_book ico_arr_ipc2"></i> <span>개인정보 제3자 제공 동의</span>
-							</span> <a href="#" class="btn_agreement"> <span class="btn_text">보기</span>
+							</span> <a class="btn_agreement"> <span class="btn_text">보기</span>
 								<i class="fn fn-down2"></i>
 							</a>
 							<div class="useragreement_details custom_details_wrap">

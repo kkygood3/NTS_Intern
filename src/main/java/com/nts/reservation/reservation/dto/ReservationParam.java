@@ -20,4 +20,17 @@ public class ReservationParam {
 	private String reservationName;
 	private String reservationTelephone;
 	private String reservationYearMonthDay;
+
+	/**
+	 *
+	 * POST 방식으로 들어온 값들을 검증하는 메소드
+	 * @param reservationParam
+	 */
+	public boolean isValid(ReservationParam reservationParam) {
+		if(displayInfoId == null || productId == null || prices == null || reservationEmail == null
+			|| reservationName == null || reservationTelephone == null) {
+			return false;
+		}
+		return true;
+	}
 }

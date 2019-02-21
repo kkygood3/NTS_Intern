@@ -22,4 +22,8 @@ public interface ReservationDao {
 	int getReservationSize(String reservationEmail);
 
 	int getTotalPrice(String reservationEmail, int productId);
+
+	int insertReservation(String name, String telephone, String email, int displayInfoId);
+
+	Integer insertReservationPrice(int productPriceId, int reservationInfoId, int count);
 }

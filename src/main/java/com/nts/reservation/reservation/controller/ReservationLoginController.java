@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ReservationLoginController {
 
-	@RequestMapping(value = "/loginPage", method=RequestMethod.GET)
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
 	public String moveLoginPage() {
 		return "login";
 	}
 
-	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public String login(@RequestParam(name="reservationEmail", required=true) String reservationEmail,
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(@RequestParam(name = "reservationEmail", required = true) String reservationEmail,
 		HttpSession session,
 		ModelMap model) {
 
 		session.setAttribute("email", reservationEmail);
 
-		return "redirect:/";
+		return "redirect:/list";
 	}
 }

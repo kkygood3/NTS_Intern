@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.displayinfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayinfo.dto.DisplayInfo;
@@ -58,13 +59,38 @@ public class ReservationServiceImpl implements ReservationService {
 
 		int productId = reservationParam.getProductId();
 
-		ReservationResponseData reservationResponseData = reservationDaoImpl.getReservationResponseData(reservationParam);
+		ReservationResponseData reservationResponseData = reservationDaoImpl
+			.getReservationResponseData(reservationParam);
 		List<ReservationPrice> reservationPrices = reservationDaoImpl.getReservationPrices(productId);
 
 		reservationResponse.setReservationResponseData(reservationResponseData);
 		reservationResponse.setPrices(reservationPrices);
 
 		return reservationResponse;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean postReserve(ReservationParam reservationParam) {
+		int reservationInfoId = reservationDaoImpl.insertReservation(reservationParam.getReservationName(),
+			reservationParam.getReservationTelephone(), reservationParam.getReservationEmail(),
+			reservationParam.getDisplayInfoId());
+
+		if (reservationInfoId == 0) {
+			return false;
+		}
+
+		reservationParam.getPrices().forEach(price -> {
+			Integer reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(
+				price.getProductPriceId(),
+				reservationInfoId, price.getCount());
+
+			if (reservationInfoPriceId == null || reservationInfoPriceId < 0) {
+				throw new IllegalArgumentException("insertReservationPrice Failed");
+			}
+		});
+
+		return true;
 	}
 
 }

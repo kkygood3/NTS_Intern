@@ -15,7 +15,10 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.reservation.dao.ReservationDao;
@@ -70,6 +73,27 @@ public class ReservationDaoImpl implements ReservationDao {
 		params.put("reservationEmail", reservationEmail);
 		params.put("productId", productId);
 		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
+	}
+
+	@Override
+	public int insertReservation(String name, String telephone, String email, int displayInfoId) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("name", name);
+		params.addValue("telephone", telephone);
+		params.addValue("email", email);
+		params.addValue("displayInfoId", displayInfoId);
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(INSERT_RESERVE, params, keyHolder, new String[] {"ID"});
+		return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public Integer insertReservationPrice(int productPriceId, int reservationInfoId, int count) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("productPriceId", productPriceId);
+		params.addValue("reservationInfoId", reservationInfoId);
+		params.addValue("count", count);
+		return jdbc.update(INSERT_RESERVE_PRICE, params);
 	}
 
 }
