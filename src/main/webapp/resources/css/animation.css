@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.prevSlider {
+    transform: translateX(100%);
+}
+.prevSlider-enter {
+    transform: translateX(100%);
+}
+.prevSlider-enter-active {
+    transform: translateX(0);
+}
+
+.nextSlider {
+    transform: translateX(-100%);
+}
+.nextSlider-enter {
+    transform: translateX(-100%);
+}
+
+.currentSlider {
+    transform: translateX(0);
+}
+.currentSlider-enter {
+    transform: translateX(0);
+}
+.currentSlider-enter-active {
+    transform: translateX(-100%);
+}
+
+.waitSlider {
+    transform: translateX(100%);
+}
+.waitSlider-enter {
+    transform: translateX(100%);
+}

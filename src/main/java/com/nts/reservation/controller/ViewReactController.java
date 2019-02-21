@@ -1,4 +1,9 @@
-package com.nts.reservation.controller.react;
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+
+package com.nts.reservation.controller;
 
 import java.net.ConnectException;
 import java.util.List;
@@ -7,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -23,7 +30,13 @@ import com.nts.reservation.service.DisplayInfoService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.RequestHtmlService;
 
-public class MainPageReactController {
+/**
+ * @author 육성렬
+ */
+
+@Controller
+@RequestMapping(path = "/react")
+public class ViewReactController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -45,8 +58,8 @@ public class MainPageReactController {
 	 * @return
 	 * @throws ConnectException, HttpClientErrorException
 	 */
-	@GetMapping(path = "/react", produces = "text/html; charset=utf8")
-	public @ResponseBody String myReservationPageTest(HttpSession session, HttpServletRequest request)
+	@GetMapping( produces = "text/html; charset=utf8")
+	public @ResponseBody String mainPage(HttpSession session, HttpServletRequest request)
 			throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
 
 		String userEmail = (String) session.getAttribute("userEmail");
