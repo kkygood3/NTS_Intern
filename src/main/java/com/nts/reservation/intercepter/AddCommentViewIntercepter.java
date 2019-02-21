@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.nts.reservation.exception.PageNotFoundException;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -29,7 +28,7 @@ public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-		throws IOException, PageNotFoundException {
+		throws IOException {
 
 		String path = request.getServletPath();
 		Matcher matcher = reservationIdPattern.matcher(path);
@@ -46,7 +45,7 @@ public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
 		if (!reservationService.findFinishReservation(reservationId, userEmail)) {
 			response.sendRedirect("/reservation-service");
 			String requestUri = request.getRequestURI();
-			throw new PageNotFoundException(requestUri);
+			return false;
 		}
 
 		return true;
