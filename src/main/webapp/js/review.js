@@ -68,7 +68,9 @@ var reviewPage = {
 		}
 	},
 	
-	displayComments: function(jsonResponse){
+	displayComments: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindComments = this.compileHendlebars.bindTemplate(this.template.commentTemplate);
 		
 		this.elements.star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"

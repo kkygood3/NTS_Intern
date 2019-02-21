@@ -10,16 +10,15 @@ AjaxSender.prototype.send = function(url, options){
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 				if(typeof(options.callback) === "function" && options.callback !== null && options.callback !== undefined){
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					options.callback(jsonResponse);
-					
+					options.callback(httpRequest);
 				}
 			}
 		};
 		
 		httpRequest.open(this.method, url);
-		httpRequest.setRequestHeader("Content-type", options.contentType);
+		if(!(options.contentType === undefined || options.contentType === null)){
+			httpRequest.setRequestHeader("Content-type", options.contentType);
+		}
 		if(options.data === undefined || options.data === null){
 			httpRequest.send();
 		} else {

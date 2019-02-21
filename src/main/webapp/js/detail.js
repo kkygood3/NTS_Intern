@@ -25,11 +25,13 @@ var detailPage = {
 		return options;
 	},
 	
-	displayContents: function(data){
-		this.detailPage.displayMainInfo(data);
-		this.detailPage.displayDiscountInfo(data);
-		this.detailPage.displayComments(data);
-		this.detailPage.displayDetailInfo(data);
+	displayContents: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
+		this.detailPage.displayMainInfo(jsonResponse);
+		this.detailPage.displayDiscountInfo(jsonResponse);
+		this.detailPage.displayComments(jsonResponse);
+		this.detailPage.displayDetailInfo(jsonResponse);
 	}.bind(this),
 		
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],

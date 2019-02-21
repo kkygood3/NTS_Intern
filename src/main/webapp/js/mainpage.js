@@ -85,13 +85,17 @@ var mainPage = {
 		}
 	},
 	
-	getCategories: function(jsonResponse){
+	getCategories: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindCategory = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.categoryTemplate);
 					
 		this.mainPage.elements.categoryContainer.innerHTML += bindCategory(jsonResponse);
 	}.bind(this),
 	
-	getProductsByCategory: function(jsonResponse){
+	getProductsByCategory: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindProducts = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.productTemplate);
 		var left = 0;
 		var right = 1;
@@ -114,7 +118,9 @@ var mainPage = {
 		}
 	}.bind(this),
 	
-	getPromotions: function(jsonResponse){
+	getPromotions: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindPromotions = this.mainPage.compileHendlebars.bindTemplate(this.mainPage.template.promotionTemplate);
 		var executeAnimationTime;
 		

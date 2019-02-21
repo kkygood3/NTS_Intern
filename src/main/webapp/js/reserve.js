@@ -124,7 +124,9 @@ var reservePage = {
 		}
 	},
 
-	displayExhibitionInfo : function(jsonResponse){
+	displayExhibitionInfo : function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindDisplayInfo = this.compileHendlebars.bindTemplate(this.template.displayInfoTemplate);
 		
 		this.elements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
@@ -133,7 +135,9 @@ var reservePage = {
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 
-	displayTicketInfo : function(jsonResponse){
+	displayTicketInfo : function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindTicketInfo = this.compileHendlebars.bindTemplate(this.template.ticketInfoTemplate);
 		
 		this.container.ticketInfoContainer.innerHTML = bindTicketInfo(jsonResponse);
