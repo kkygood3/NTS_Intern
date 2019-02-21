@@ -63,6 +63,7 @@ ng\:form {
 					<div class="login_form">
 						<label class="label_form" for="resrv_id" translate="CM-BOOKING_NUMBER">예약자 이메일 입력</label>
 						<input type="text" class="login_input ng-pristine ng-untouched ng-valid ng-empty" id="reservation_email" name="reservation_email" aria-invalid="false" placeholder="crong@naver.com" title="예매자이메일">
+						<input id="error" type="hidden" value="${errorMessage}">
 					</div>
 					<button type="submit" form="form1" class="login_btn confirm">
 						<span translate="CM-MY_BOOKING_CHECK">내 예약 확인</span>
@@ -111,6 +112,13 @@ ng\:form {
 </app>
 
 <script>
+
+document.addEventListener('DOMContentLoaded', ()=>{
+	let errorMessage = document.querySelector('#error');
+	if(errorMessage.value != ""){
+		alert(errorMessage);
+	}
+});
 
 document.querySelector('.confirm').addEventListener('click', e=>{
 	let emailReg = /\w{4,}@\w+\.\w+/;
