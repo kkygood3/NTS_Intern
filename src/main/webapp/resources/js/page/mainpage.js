@@ -3,18 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setting();
 	template.setUseDateFormat(0,10);
 	
-	ajaxGet("/api/promotions", printPromotions);
-	ajaxGet("/api/categories", printCategories);
-	ajaxGet("/api/products", printProducts);
+	var ajax = new Ajax();
+	ajax.get("/api/promotions", printPromotions);
+	ajax.get("/api/categories", printCategories);
+	ajax.get("/api/products", printProducts);
 	
 	addClickEventCategoryChange();
 	addClickEventMoreBtn();
 	
 });
 
-function printPromotions(data) {
+function printPromotions(responseObj) {
 	var promotionList = document.querySelector("#promotion_list");
-	var promotionItems = JSON.parse(data).promotionList;
+	var promotionItems = responseObj.promotionList;
 	promotionItems.forEach((promotionItem) => {
 		promotionList.innerHTML += template.parsePromotionToHtml(promotionItem);
 	});
@@ -24,27 +25,26 @@ function printPromotions(data) {
 
 function slidePromotion(){
 	var promotionList = document.querySelector("#promotion_list");
-	slide.make(promotionList);
+	var slide = new Slide(promotionList);
 	slide.autoSlideRight(2000);
 }
 
-function printCategories(data) {
+function printCategories(responseObj) {
 	var categoryList = document.querySelector("#category_list");
 
-	var categoryItems = JSON.parse(data).categoryList;
+	var categoryItems = responseObj.categoryList;
 	categoryItems.forEach((categoryItem) =>{
 		categoryList.innerHTML += template.parseCategoryToHtml(categoryItem);
 	});
 }
 
-function printProducts(data) {
+function printProducts(responseObj) {
 	var productLists = document.querySelectorAll(".lst_event_box");
 	var productListsLength = productLists.length;
 	var productCount = getProductsCount();
 
-	var responseObject = JSON.parse(data);
-	var totalCount = responseObject.totalCount;
-	var productItems = responseObject.productList;
+	var totalCount = responseObj.totalCount;
+	var productItems = responseObj.productList;
 
 	document.querySelector("#totalCount").innerText = totalCount;
 	productItems.forEach((productItem) => {
@@ -78,7 +78,9 @@ function addClickEventCategoryChange(){
 	            clearProductLists();
 
 	            var categoryId = path.parentElement.dataset.category;
-	            ajaxGet("/api/products?categoryId=" + categoryId, printProducts);
+	            
+	            var ajax = new Ajax();
+	            ajax.get("/api/products?categoryId=" + categoryId, printProducts);
 
 	            document.querySelector(".more .btn").style.display = "inline-block";
 	            return true;
@@ -93,7 +95,8 @@ function addClickEventMoreBtn(){
 	    var categoryId = document.querySelector(".anchor.active").parentElement.dataset.category;
 	    var productCount = getProductsCount();
 	    
-	    ajaxGet("/api/products?categoryId=" + categoryId + "&start=" + productCount, printProducts);
+	    var ajax = new Ajax();
+	    ajax.get("/api/products?categoryId=" + categoryId + "&start=" + productCount, printProducts);
 	});
 }
 

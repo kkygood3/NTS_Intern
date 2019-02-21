@@ -3,20 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setting();
 	template.setUseDateFormat(0,10);
 
-	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;	
-	ajaxGet("/api/products/"+displayInfoId, printProductDisplay);
+	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;
+	
+	var ajax = new Ajax();
+	ajax.get("/api/products/"+displayInfoId, printProductDisplay);
 	
 	addEventClickProductContentFoldExpand();
 	addEventClickInfoTabList();
 	
 });
 
-function printProductDisplay(data){
-	var productDisplayInfo = JSON.parse(data);
+function printProductDisplay(responseObj){
 	
-	var productDisplay = productDisplayInfo.productDisplay;
+	var productDisplay = responseObj.productDisplay;
 	var productDisplayImgUrlItems = productDisplay.productDisplayImageUrlList;
-	var commentListInfo = productDisplayInfo.commentListInfo;
+	var commentListInfo = responseObj.commentListInfo;
 	
 	document.querySelector("#product_content").innerHTML = productDisplay.productContent;
 	document.querySelector("#product_introduce").innerHTML = productDisplay.productContent;
@@ -58,7 +59,7 @@ function printProductDisplayImg(productDisplayImgUrlItems, productDescription){
 }
 
 function setSlideBtn(productDisplayImgList, productDisplayImgUrlItems){
-	slide.make(productDisplayImgList);
+	var slide = new Slide(productDisplayImgList);
 	
 	var btnLeftSlide = document.querySelector("#display_img_left_slide");
 	var btnRightSlide = document.querySelector("#display_img_right_slide");

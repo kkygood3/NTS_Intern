@@ -3,13 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setUseDateFormat(0, 10);
 	
 	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;
-	ajaxGet("/api/products/" + displayInfoId + "/comments", printComment);
+	
+	var ajax = new Ajax();
+	ajax.get("/api/products/" + displayInfoId + "/comments", printComment);
 	
 });
 
-function printComment(data){
+function printComment(responseObj){
 	const SCORE_TO_PERCENT = 20;
-	var commentListInfo = JSON.parse(data).commentListInfo;
+	var commentListInfo = responseObj.commentListInfo;
 	var commentItems = commentListInfo.commentList;
 	var commentCount = commentListInfo.totalCount;
 	var commentAvgScore = commentListInfo.averageScore;

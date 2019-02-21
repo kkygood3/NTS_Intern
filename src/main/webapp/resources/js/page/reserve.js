@@ -2,8 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	template.setting();
 
-	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;	
-	ajaxGet("/api/product-display-prices/"+displayInfoId, printProductPrice);
+	var displayInfoId = document.querySelector("#display_info").dataset.displayInfoId;
+	
+	var ajax = new Ajax();
+	ajax.get("/api/product-display-prices/"+displayInfoId, printProductPrice);
 	
 	settingDataVaildObserver();
 	
@@ -36,14 +38,13 @@ var productPriceObjectList = new function(){
 	};
 }();
 
-function printProductPrice(data){
-	var responseObject = JSON.parse(data);
+function printProductPrice(responseObj){
 	
 	var productPriceList = document.querySelector("#product_price_list");
 	
-	var productDisplay = responseObject.productDisplay;
-	var productPriceItems = responseObject.productPriceList;
-	var productReservationDate = responseObject.reservationDate;
+	var productDisplay = responseObj.productDisplay;
+	var productPriceItems = responseObj.productPriceList;
+	var productReservationDate = responseObj.reservationDate;
 	
 	printProductDisplay(productDisplay, productReservationDate);
 	
@@ -173,7 +174,7 @@ function addEventClickSubmit(){
 	btnSubmit.addEventListener("click", () =>{
 		var formData = new FormData(document.querySelector("#reservation_form"));
 		
-		var data = {
+		var requestData = {
 			productId : formData.get("productId"),
 			displayInfoId : formData.get("displayInfoId"),
 			reservationName : formData.get("name"),
@@ -182,7 +183,8 @@ function addEventClickSubmit(){
 			reservationDate : formData.get("date"),
 			reservationPriceList : productPriceObjectList.toReservationData(),
 		}
-		ajaxPostJSON("/api/reservation", JSON.stringify(data), () =>{
+		var ajax = new Ajax();
+		ajax.postWithJson("/api/reservation", JSON.stringify(requestData), () =>{
 			location.href="/main";
 		});
 	});

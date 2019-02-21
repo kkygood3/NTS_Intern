@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.model.Response;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistoryResponse;
 import com.nts.reservation.reservation.service.ReservationService;
@@ -36,16 +37,18 @@ public class ReservationApiController {
 	}
 
 	@PostMapping(value = {"/api/reservation"})
-	public int addReservation(@RequestBody @Validated Reservation reservation) {
-		return reservationService.addReservation(reservation);
+	public Response addReservation(@RequestBody @Validated Reservation reservation) {
+		reservationService.addReservation(reservation);
+		return new Response();
 	}
 
 	@MustLogin
 	@PutMapping(value = {"/api/reservation/{reservationId}/cancel"})
-	public void modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {
+	public Response modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {
 
 		String reservationEmail = (String)httpSession.getAttribute("email");
 
 		reservationService.modifyReservationToCancel(reservationEmail, reservationId);
+		return new Response();
 	}
 }

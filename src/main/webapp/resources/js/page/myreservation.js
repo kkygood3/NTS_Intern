@@ -21,13 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 	
-	ajaxGet("/api/reservation-histories", printReservationHistory);
+	var ajax = new Ajax();
+	ajax.get("/api/reservation-histories", printReservationHistory);
 	
 	
 });
 
-function printReservationHistory(data){
-	var reservationHistoryList = new AllReservationHistoryList(JSON.parse(data).reservationHistoryList);
+function printReservationHistory(responseObj){
+	var reservationHistoryList = new AllReservationHistoryList(responseObj.reservationHistoryList);
 	
 	reservationHistoryList.print();
 }
@@ -133,7 +134,8 @@ var cancelPopup = new function(){
 	this.btnClose.addEventListener("click", this.close.bind(this));
 	this.btnNo.addEventListener("click", this.close.bind(this));
 	this.btnYes.addEventListener("click", () =>{
-		ajaxPut("/api/reservation/" + this.reservationId + "/cancel", () =>{
+		var ajax = new Ajax();
+		ajax.put("/api/reservation/" + this.reservationId + "/cancel", () =>{
 			window.location.reload();
 		});
 	});
