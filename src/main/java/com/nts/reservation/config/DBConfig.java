@@ -62,7 +62,6 @@ public class DBConfig implements TransactionManagementConfigurer {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
-		sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/com/nts/reservation/dao/*Mapper.xml"));
 		sqlSessionFactoryBean.setTypeAliasesPackage(BASE_PACKEGE + ".dto");
 		return sqlSessionFactoryBean;
 	}

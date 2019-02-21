@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- DTD 선언 -->
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="CategoryMapper">
-
+<mapper namespace="com.nts.reservation.dao.CategoryMapper">
 	<select id="selectAllCategoris" resultType="Category"> 
 		SELECT id, name FROM category
 	</select>
-	
 </mapper>
