@@ -28,8 +28,8 @@ public class AddCommentViewIntercepter extends HandlerInterceptorAdapter {
 	private Pattern reservationIdPattern = Pattern.compile("(?<=\\/addComment\\/)\\d*");
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, PageNotFoundException
-		 {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+		throws IOException, PageNotFoundException {
 
 		String path = request.getServletPath();
 		Matcher matcher = reservationIdPattern.matcher(path);

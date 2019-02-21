@@ -50,7 +50,8 @@ public class MyReservationPageController {
 	 */
 	@GetMapping(path = "/myReservationWithReact", produces = "text/html; charset=utf8")
 	public @ResponseBody String myReservationPageTest(
-		HttpSession session,  HttpServletRequest request) throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
+		HttpSession session, HttpServletRequest request)
+		throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
 
 		String userEmail = (String)session.getAttribute("userEmail");
 		if (userEmail == null) {
@@ -66,9 +67,9 @@ public class MyReservationPageController {
 		try {
 			html = requestHtmlService.requestMyReservationHtml("/myReservation", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
-			if(exception instanceof HttpClientErrorException) {
+			if (exception instanceof HttpClientErrorException) {
 				throw (HttpClientErrorException)exception;
-			}else {
+			} else {
 				throw (ConnectException)exception;
 			}
 		}

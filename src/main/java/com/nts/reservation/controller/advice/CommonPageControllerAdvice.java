@@ -2,8 +2,9 @@ package com.nts.reservation.controller.advice;
 
 import static com.nts.reservation.controller.advice.message.ErrorMessage.COMMON_ERROR_MSG;
 import static com.nts.reservation.controller.advice.message.ErrorMessage.INTERNAL_ERROR_MSG;
-import static com.nts.reservation.controller.advice.message.ErrorMessage.UNAUTHORIZED_ERROR_MSG;
 import static com.nts.reservation.controller.advice.message.ErrorMessage.PAGE_NOT_FOUND;
+import static com.nts.reservation.controller.advice.message.ErrorMessage.UNAUTHORIZED_ERROR_MSG;
+
 import java.net.ConnectException;
 
 import org.springframework.http.HttpStatus;
@@ -19,13 +20,13 @@ import com.nts.reservation.exception.UnauthorizedRequestException;
 
 @ControllerAdvice(annotations = Controller.class)
 public class CommonPageControllerAdvice {
-	
+
 	@ExceptionHandler(Exception.class)
 	public ErrorMessageDto handleCommonException(Exception exception) {
-		
+
 		return new ErrorMessageDto(COMMON_ERROR_MSG);
 	}
-	
+
 	@ExceptionHandler(HttpClientErrorException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleHttpClientErrorException(HttpClientErrorException exception) {
@@ -33,7 +34,7 @@ public class CommonPageControllerAdvice {
 		//요기 로그 남기고.
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
-	
+
 	@ExceptionHandler(ConnectException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleConnectException(ConnectException exception) {
@@ -41,7 +42,7 @@ public class CommonPageControllerAdvice {
 		//요기 로그 남기고.
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
-	
+
 	@ExceptionHandler(UnauthorizedRequestException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ErrorMessageDto handleUnauthorizedRequestException(UnauthorizedRequestException exception) {
@@ -49,7 +50,7 @@ public class CommonPageControllerAdvice {
 		//요기 로그 남기고.
 		return new ErrorMessageDto(UNAUTHORIZED_ERROR_MSG);
 	}
-	
+
 	@ExceptionHandler(PageNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorMessageDto handlePageNotFoundException(PageNotFoundException exception) {

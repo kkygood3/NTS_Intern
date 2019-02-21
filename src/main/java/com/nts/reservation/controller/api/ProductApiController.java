@@ -5,6 +5,8 @@
 
 package com.nts.reservation.controller.api;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,10 +76,11 @@ public class ProductApiController {
 	/**
 	 * @desc 프로모션 리스트를 요청하는 Api
 	 * @return PromotionResponseDto(items [프로모션 리스트] , totalCount [프로모션 갯수] )
+	 * @throws IOException 
+	 * @throws SQLException 
 	 */
 	@GetMapping("/promotions")
 	public PromotionResponseDto getPromotionResponse() {
-
 		List<ProductDto> items = productService.getPromotionProductList();
 		return new PromotionResponseDto(items, items.size());
 	}

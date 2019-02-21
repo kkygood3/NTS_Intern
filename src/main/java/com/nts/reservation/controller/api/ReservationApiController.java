@@ -151,7 +151,7 @@ public class ReservationApiController {
 
 			if (exception instanceof InValidPatternException) {
 				throw (InValidPatternException)exception;
-			} else if(exception instanceof IOException){
+			} else if (exception instanceof IOException) {
 				throw (IOException)exception;
 			} else {
 				throw (SQLException)exception;
