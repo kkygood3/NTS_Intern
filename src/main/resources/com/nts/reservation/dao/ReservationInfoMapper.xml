@@ -7,11 +7,24 @@
 	
 <mapper namespace="com.nts.reservation.dao.ReservationInfoMapper">
 	<select id="selectReservationPageInfoByDisplayInfoId" resultType="ReservationPageInfo">
-		SELECT d.product_id, d.id AS display_info_id, p.description, d.place_name, d.opening_hours, pf.save_file_name AS main_image_name, adddate(now(), interval floor(rand()*5) day) AS reservation_date
-		FROM display_info AS d
-		JOIN product AS p ON d.id = #{displayInfoId} AND d.product_id = p.id
-		JOIN product_image AS pi ON pi.type = 'ma' AND p.id = pi.product_id
-		JOIN file_info AS pf ON pf.id = pi.file_id
+		SELECT	d.product_id,
+				d.id AS display_info_id,
+				p.description,
+				d.place_name,
+				d.opening_hours,
+				pf.save_file_name AS main_image_name,
+				adddate(now(), interval floor(rand()*5) day) AS reservation_date
+				
+		FROM 	display_info AS d
+				INNER JOIN	product AS p 
+							ON d.product_id = p.id
+				INNER JOIN	product_image AS pi
+							ON p.id = pi.product_id
+				INNER JOIN	file_info AS pf
+							ON pf.id = pi.file_id
+							
+		WHERE	d.id = #{displayInfoId}
+				AND pi.type = "ma"
 	</select>
 	
  	<insert id = "insertReservationInfo" parameterType="ReservationInfo">
@@ -23,22 +36,43 @@
 	</insert>
 	
 	<select id="selectReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
-		SELECT r.id AS reservation_id, p.description, r.reservation_date, r.cancel_flag AS canceled, d.place_name, sum(pp.price*rp.count) AS price, r.modify_date
-		FROM reservation_info AS r
-		INNER JOIN product AS p
-			ON r.reservation_email = #{reservationEmail}
-			AND r.product_id = p.id
-		INNER JOIN display_info AS d ON r.display_info_id = d.id
-		INNER JOIN reservation_info_price AS rp ON rp.reservation_info_id = r.id
-		INNER JOIN product_price AS pp ON rp.product_price_id = pp.id
+		SELECT	r.id AS reservation_id,
+				p.description,
+				r.reservation_date,
+				r.cancel_flag AS canceled,
+				d.place_name,
+				sum(pp.price * rp.count) AS price,
+				r.modify_date
+				
+		FROM	reservation_info AS r
+				INNER JOIN	product AS p
+							ON r.product_id = p.id
+				INNER JOIN	display_info AS d
+							ON r.display_info_id = d.id
+				INNER JOIN	reservation_info_price AS rp
+							ON rp.reservation_info_id = r.id
+				INNER JOIN	product_price AS pp
+							ON rp.product_price_id = pp.id
+		
+		WHERE	r.reservation_email = #{reservationEmail}
+		
 		GROUP BY r.id
+		
 		LIMIT #{start}, #{limit}
 	</select>
 	
 	<update id="updateCancelFlagToFalseByReservationInfoId" parameterType="Map"> 
-		UPDATE reservation_info
-		SET cancel_flag = true, modify_date = now()
-		WHERE id = #{reservationInfoId} AND reservation_email = #{reservationEmail}
+		UPDATE	reservation_info
+		
+		SET		cancel_flag = true,
+				modify_date = now()
+
+		WHERE	id = #{reservationInfoId}
+				AND reservation_email = #{reservationEmail}
 	</update>
 	
+	 <insert id = "insertReservationInfoPrice" parameterType="ReservationInfoPrice">
+		INSERT INTO reservation_info_price (	id,		reservation_info_id,	product_price_id,	count)
+										VALUES(	#{id},	#{reservationInfoId},	#{productPriceId},	#{count})
+	</insert>
 </mapper>

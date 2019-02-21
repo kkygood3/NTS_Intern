@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
+import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
 
 /**
@@ -27,14 +28,14 @@ public interface ReservationInfoMapper {
 	 * @param displayInfoId 상품정보
 	 * @return 예약페이지 화면 정보
 	 */
-	public ReservationPageInfo selectReservationPageInfoByDisplayInfoId(long displayInfoId);
+	ReservationPageInfo selectReservationPageInfoByDisplayInfoId(long displayInfoId);
 
 	/**
 	 * 예약정보 등록
 	 * @param reservationInfo 사용자가 입력한 예약정보
 	 * @return 예약id
 	 */
-	public long insertReservationInfo(ReservationInfo reservationInfo);
+	long insertReservationInfo(ReservationInfo reservationInfo);
 
 	/**
 	 * 해당 email로 예약한 내역 월단위로 페이징해서 셀렉트
@@ -43,7 +44,7 @@ public interface ReservationInfoMapper {
 	 * @param end 끝 (현재로부터 end개월 후)
 	 * @return 예약정보
 	 */
-	public List<ReservationDisplayItem> selectReservationInfoByReservationEmail(@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+	List<ReservationDisplayItem> selectReservationInfoByReservationEmail(@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
 
 	/**
 	 * 예약취소
@@ -51,5 +52,13 @@ public interface ReservationInfoMapper {
 	 * @param reservationEmail 예약한 email
 	 * @return 성공여부
 	 */
-	public int updateCancelFlagToFalseByReservationInfoId(@Param(RESERVATION_INFO_ID) long reservationInfoId, @Param(RESERVATION_EMAIL) String reservationEmail);
+	int updateCancelFlagToFalseByReservationInfoId(@Param(RESERVATION_INFO_ID) long reservationInfoId, @Param(RESERVATION_EMAIL) String reservationEmail);
+	
+	// TODO: 한번에 여러줄 insert할수있는지 찾아보기
+	/**
+	 * 예약 가격정보 insert
+	 * @param price 가격정보
+	 * @return 예약 가격 id
+	 */
+	long insertReservationInfoPrice(ReservationInfoPrice price);
 }

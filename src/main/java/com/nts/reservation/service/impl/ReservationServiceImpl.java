@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ReservationInfoMapper;
-import com.nts.reservation.dao.ReservationInfoPriceDao;
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
@@ -22,8 +21,6 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationInfoMapper reservationInfoDao;
-	@Autowired
-	private ReservationInfoPriceDao reservationInfoPriceDao;
 
 	@Override
 	@Transactional
@@ -41,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		for (ReservationInfoPrice reservationInfoPrice : priceInfo) {
 			reservationInfoPrice.setReservationInfoId(reservationInfoId);
-			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
+			reservationInfoDao.insertReservationInfoPrice(reservationInfoPrice);
 		}
 		return reservationInfo;
 	}

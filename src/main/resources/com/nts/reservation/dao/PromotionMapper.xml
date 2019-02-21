@@ -7,9 +7,15 @@
 <mapper namespace="com.nts.reservation.dao.PromotionMapper">
 	<select id="selectMaTypeFileNames" resultType="String"> 
 		SELECT fi.save_file_name
-		FROM promotion AS prom
-		INNER JOIN product AS prod ON prom.product_id = prod.id
-		INNER JOIN product_image AS prodi ON prodi.type = 'th' AND prodi.product_id = prod.id
-		INNER JOIN file_info AS fi ON fi.id = prodi.file_id
+		
+		FROM	promotion AS prom
+				INNER JOIN	product AS prod
+							ON prom.product_id = prod.id
+				INNER JOIN	product_image AS prodi
+							ON prodi.product_id = prod.id
+				INNER JOIN	file_info AS fi
+							ON fi.id = prodi.file_id
+							
+		WHERE	prodi.type = "th"
 	</select>
 </mapper>
