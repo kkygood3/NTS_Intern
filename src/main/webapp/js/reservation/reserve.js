@@ -35,6 +35,7 @@ function reservationSubmitRequest(callBack, reservationParam){
  */
 function reservationSucceed(reservationResult){
 	if(reservationResult){
+		alert("예약이 완료되었습니다.");
 		location = "/";
 	}
 }
