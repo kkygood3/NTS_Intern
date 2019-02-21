@@ -6,7 +6,7 @@ package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.constant.ParameterDefaultValue.*;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +49,7 @@ public class ProductApiController {
 	public Map<String, Object> getProductImageUrl(@PathVariable int productId,
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_ETC) String type) {
 		String productImageUrl = productService.getProductImage(productId, ImageType.getEnum(type)).getSaveFileName();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("productImageUrl", productImageUrl);
-		return map;
+		return Collections.singletonMap("productImageUrl", productImageUrl);
 	}
 
 	/**
