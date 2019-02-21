@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 
 /**
@@ -33,4 +34,12 @@ public interface ProductMapper {
 	List<String> selectByDisplayInfoIdAndType(@Param(PRODUCT_ID)long productId, @Param(TYPE)String type);
 	
 	ProductPageInfo selectDetailPageInfo(@Param("displayInfoId")long displayInfoId);
+	
+	/**
+	 * 
+	 * 예약페이지에 표시할 가격정보
+	 * @param productId 상품 아이디
+	 * @return 가격정보
+	 */
+	List<PriceInfo> selectPriceInfoByProductId(long productId);
 }

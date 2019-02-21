@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductMapper;
-import com.nts.reservation.dao.ProductPriceDao;
 import com.nts.reservation.dao.ProductThumbnailDao;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.PriceInfo;
@@ -23,8 +22,6 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper productDao;
 	@Autowired
 	private ProductThumbnailDao thumbnailInfoDao;
-	@Autowired
-	private ProductPriceDao priceDao;
 
 	@Override
 	@Transactional
@@ -56,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public List<PriceInfo> getPriceInfoByProductId(long productId) {
-		return priceDao.selectPriceInfoByProductId(productId);
+		return productDao.selectPriceInfoByProductId(productId);
 	}
 
 	@Override

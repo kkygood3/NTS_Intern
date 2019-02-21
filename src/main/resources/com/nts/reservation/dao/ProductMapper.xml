@@ -52,4 +52,17 @@
 				
 		WHERE	d.id = #{displayInfoId} AND pi.type="ma"
 	</select>
+	
+	<select id="selectPriceInfoByProductId" resultType="PriceInfo">
+		SELECT	pp.id AS product_price_id,
+				pp.price_type_name,
+				pp.price,
+				pp.discount_rate
+				
+		FROM	product AS p
+				INNER JOIN	product_price AS pp
+					ON p.id = pp.product_id
+		
+		WHERE	p.id = #{productId}
+	</select>
 </mapper>
