@@ -11,13 +11,6 @@ var reviewPage = {
 		addScrollTopEvent(this.elements.btnTop);
 	},
 	
-	displayContents: function(data){
-		this.detailPage.displayMainInfo(data);
-		this.detailPage.displayDiscountInfo(data);
-		this.detailPage.displayComments(data);
-		this.detailPage.displayDetailInfo(data);
-	}.bind(this),
-	
 	ajaxSender : new AjaxSender(),
 	
 	ajaxOption : function(){
@@ -29,9 +22,11 @@ var reviewPage = {
 		return options;
 	},
 	
-	displayContents: function(data){
-		this.reviewPage.elements.displayTitle.innerHTML = data["displayInfo"].productDescription;
-		this.reviewPage.displayComments(data);
+	displayContents: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
+		this.reviewPage.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
+		this.reviewPage.displayComments(jsonResponse);
 	}.bind(this),
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
@@ -68,9 +63,7 @@ var reviewPage = {
 		}
 	},
 	
-	displayComments: function(httpRequest){
-		var jsonResponse = JSON.parse(httpRequest.responseText);
-		
+	displayComments: function(jsonResponse){
 		var bindComments = this.compileHendlebars.bindTemplate(this.template.commentTemplate);
 		
 		this.elements.star_rating.style.width = (jsonResponse["averageScore"] / 5) * 100 + "%"
