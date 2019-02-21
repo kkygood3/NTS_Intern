@@ -63,6 +63,9 @@
 							</c:forEach>
 							<!-- 성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원 -->
 						</p>
+						<p class="dsc">
+							티켓 유형별 최대 10매 구매가능합니다.
+						</p>
 					</div>
 				</div>
 				<div class="section_booking_ticket">
@@ -78,6 +81,7 @@
 										<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
 										<a class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
 									</div>
+									<div class="warning_msg">최대 수량입니다.</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 									<div class="individual_price">
 										<span class="total_price">0</span><span class="price_type">원</span>
@@ -251,11 +255,17 @@
 				var totalPriceElement = wrapper.querySelector('.total_price');
 				var price = wrapper.getAttribute("data-price");
 				var type = wrapper.getAttribute("data-type");
+				var warningElement = wrapper.querySelector(".count_control .warning_msg");
 
 				if (this.tickets[type].count === 0) {
 					countControlInput.classList.remove("disabled");
 					totalPriceElement.parentElement.classList.add("on_color");
 					wrapper.querySelector('.ico_minus3').classList.remove("disabled");
+				}
+
+				if (this.tickets[type].count === 10) {
+					wrapper.querySelector('.ico_plus3').classList.remove("disabled");
+					hideWarningMsg(warningElement);
 				}
 
 				this.tickets[type].count += value;
@@ -268,6 +278,12 @@
 					totalPriceElement.parentElement.classList.remove("on_color");
 					wrapper.querySelector('.ico_minus3').classList.add("disabled");
 				}
+
+				if (this.tickets[type].count === 10) {
+					wrapper.querySelector('.ico_plus3').classList.add("disabled");
+					showWarningMsg(warningElement);
+				}
+
 				document.querySelector("#total_count").innerText = this.totalCount;
 			}
 		}
@@ -315,9 +331,9 @@
 					this.isValids[name] = isValid;
 					this.inputValues[name] = text;
 					if (isValid) {
-						this.hideWarningMsg(warningElement);
+						hideWarningMsg(warningElement);
 					} else {
-						this.showWarningMsg(warningElement);
+						showWarningMsg(warningElement);
 					}
 				}.bind(this));
 
@@ -335,16 +351,6 @@
 			},
 			validText: function (regExp, text) {
 				return regExp.test(text);
-			},
-			// 경고메시지 출력
-			showWarningMsg: function (warningElement) {
-				warningElement.style.visibility = "visible";
-				warningElement.style.position = "relative";
-			},
-			// 경고메시지 숨김
-			hideWarningMsg: function (warningElement) {
-				warningElement.style.visibility = "hidden";
-				warningElement.style.position = "absolute";
 			},
 			// 약관내용 보기/닫기
 			toggleAgreementContent: function (container) {
@@ -430,6 +436,17 @@
 					this.submitWrap.classList.remove("disable");
 				}
 			}
+		}
+
+		// 경고메시지 출력
+		function showWarningMsg(warningElement) {
+			warningElement.style.visibility = "visible";
+			warningElement.style.position = "relative";
+		}
+		// 경고메시지 숨김
+		function hideWarningMsg(warningElement) {
+			warningElement.style.visibility = "hidden";
+			warningElement.style.position = "absolute";
 		}
 
 		var ticketBody = document.querySelector(".ticket_body");
