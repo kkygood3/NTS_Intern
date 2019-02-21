@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 var reservePage = {
 	getReservPage: function(displayInfoId){
-		var inputTagValidator = new InputTagValidator();
+		var inputTagValidator = new InputValueValidator();
 		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.convertTypeName();
 		
-		inputTagValidator.validateInputTag(this.elements.bkName, inputTagValidator.nameRegex);
-		inputTagValidator.validateInputTag(this.elements.bkTel, inputTagValidator.telRegex);
-		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
+		inputTagValidator.validateInputText(this.elements.bkName, inputTagValidator.nameRegex);
+		inputTagValidator.validateInputText(this.elements.bkTel, inputTagValidator.telRegex);
+		inputTagValidator.validateInputText(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
 		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
 		

@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var bookingLoginPage = {
 	getBookingLoginPage: function(){
-		var inputTagValidator = new InputTagValidator();
-		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
+		var inputTagValidator = new InputValueValidator();
+		inputTagValidator.validateInputText(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
 		this.allowSubmitIfValidInput(inputTagValidator);
 

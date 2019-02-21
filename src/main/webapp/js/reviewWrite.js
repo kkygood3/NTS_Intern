@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewWritePage = {
 	getReviewWritePage: function(){
+		var formDataValidator = new InputValueValidator();
+		
 		var star = new StarRating(this.elements.ratingContainer);
 		var callback = function(event){
 			this.elements.ratingValue.classList.remove("gray_star");
@@ -12,7 +14,8 @@ var reviewWritePage = {
 		star.setStarRating("rating_rdo", callback);
 		
 		this.compileHendlebars.getThumbnailSrc();
-		this.reviewImage.showThumbnail();
+		formDataValidator.setAcceptTypeRegex(/(image\/png)|(image\/jpeg)/);
+		this.reviewImage.showThumbnail(formDataValidator);
 
 		this.setEvent.focusOnReviewTextarea();
 		this.setEvent.addEventToReviewTextarea();
@@ -83,14 +86,19 @@ var reviewWritePage = {
 	reviewImage : {
 		fileList : [],
 		
-		showThumbnail : function(){
+		showThumbnail : function(formDataValidator){
 			var bindThumbnail = this.reviewWritePage.compileHendlebars.bindTemplate(this.reviewWritePage.template.thumbnailTemplate);
 			
 			this.reviewWritePage.elements.reviewImageFileInput.addEventListener("change", function(event){
-				this.reviewWritePage.elements.thumbnailContainer.innerHTML += bindThumbnail(event.target.files);
-				this.reviewWritePage.reviewImage.updateFileList(this.reviewWritePage.elements.reviewImageFileInput.files);
+				var fileInputTag = this.reviewWritePage.elements.reviewImageFileInput;
+				formDataValidator.validateInputFile(fileInputTag);
 				
-				this.reviewWritePage.elements.reviewImageFileInput.value = "";
+				if(formDataValidator.isValid){
+					this.reviewWritePage.elements.thumbnailContainer.innerHTML += bindThumbnail(event.target.files);
+					this.reviewWritePage.reviewImage.updateFileList(this.reviewWritePage.elements.reviewImageFileInput.files);
+					
+					this.reviewWritePage.elements.reviewImageFileInput.value = "";
+				}
 			}.bind(this));
 
 			this.reviewWritePage.reviewImage.setRemoveToBtnThumbnailDelete();
