@@ -11,6 +11,9 @@ var reviewWritePage = {
 		}.bind(this);
 		star.setStarRating("rating_rdo", callback);
 		
+		this.compileHendlebars.getThumbnailSrc();
+		this.reviewImage.showThumbnail();
+
 		this.setEvent.focusOnReviewTextarea();
 		this.setEvent.addEventToReviewTextarea();
 	},
@@ -28,7 +31,81 @@ var reviewWritePage = {
 		reviewWriteInfo : document.querySelector(".review_write_info"),
 		reviewTextarea : document.querySelector(".review_textarea"),
 		btnWrite : document.querySelector(".bk_btn"),
-		reviewLength : document.querySelector("#review_length")
+		reviewLength : document.querySelector("#review_length"),
+		
+		thumbnailImg : document.querySelector(".item_thumb"),
+		reviewImageFileInput : document.querySelector("#reviewImageFileOpenInput"),
+		thumbnailContainer : document.querySelector(".lst_thumb")
+	},
+	
+	template: {
+		thumbnailTemplate : document.querySelector("#thumbnailList").innerHTML
+	},
+	
+	compileHendlebars: {
+		bindTemplate : function(template){
+			return Handlebars.compile(template);
+		},
+		
+		getThumbnailSrc : function(){
+			Handlebars.registerHelper('getSrc', function(image) {
+			    return window.URL.createObjectURL(image);
+			});
+		}
+	},
+	
+	reviewImage : {
+		fileList : [],
+		
+		showThumbnail : function(){
+			var bindThumbnail = this.reviewWritePage.compileHendlebars.bindTemplate(this.reviewWritePage.template.thumbnailTemplate);
+			
+			this.reviewWritePage.elements.reviewImageFileInput.addEventListener("change", function(event){
+				this.reviewWritePage.elements.thumbnailContainer.innerHTML += bindThumbnail(event.target.files);
+				this.reviewWritePage.reviewImage.updateFileList(this.reviewWritePage.elements.reviewImageFileInput.files);
+				
+				this.reviewWritePage.elements.reviewImageFileInput.value = "";
+			}.bind(this));
+
+			this.reviewWritePage.reviewImage.setRemoveToBtnThumbnailDelete();
+		}.bind(this),
+		
+		setRemoveToBtnThumbnailDelete : function(){
+			this.reviewWritePage.elements.thumbnailContainer.addEventListener("click", function(event){
+				var thumbnailList = Array.from(this.reviewWritePage.elements.thumbnailContainer.children);
+				var thumbnail = event.target.parentNode.parentNode;
+				var fileIndex = thumbnailList.indexOf(thumbnail);
+
+				event.preventDefault();
+				
+				if(event.target.className === "spr_book ico_del"){
+					this.reviewWritePage.elements.thumbnailContainer.removeChild(thumbnail);
+					
+					this.reviewWritePage.reviewImage.removeFileFromFileList(fileIndex);
+				}
+			}.bind(this));
+		}.bind(this),
+		
+		updateFileList : function(fileList){
+			var fileBuffer=[];
+			Array.prototype.push.apply(fileBuffer, fileList);
+			
+			fileBuffer.forEach(function(file){
+				this.fileList.push(file);
+			}.bind(this));
+		},
+		
+		removeFileFromFileList : function(fileIndex){
+			var newFileList = []
+			
+			this.reviewWritePage.reviewImage.fileList.forEach(function(file){
+				if(this.reviewWritePage.reviewImage.fileList.indexOf(file) !== fileIndex){
+					newFileList.push(file);
+				}
+			});
+
+			this.reviewWritePage.reviewImage.fileList = newFileList;
+		}.bind(this),
 	},
 	
 	setEvent: {

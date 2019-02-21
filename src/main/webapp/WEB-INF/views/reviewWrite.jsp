@@ -85,13 +85,13 @@
 					<div class="review_photos review_photos_write">
 						<div class="item_preview_thumbs">
 							<ul class="lst_thumb">
-								<li class="item" style="display: none;">
+								<!-- li class="item" style="display: none;">
 									<a href="#" class="anchor">
 										<span class="spr_book ico_del">삭제</span>
 									</a>
 									<img src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" width="130" alt="" class="item_thumb">
 									<span class="img_border"></span>
-								</li>
+								</li -->
 							</ul>
 						</div>
 					</div>
@@ -118,6 +118,20 @@
 		</div>
 	</footer>
 	
+	<script type="rv-template" id="thumbnailList">
+	{{#each @root}}
+	<li class="item">
+		<a href="#" class="anchor">
+			<span class="spr_book ico_del">삭제</span>
+		</a>
+		<img src="{{#getSrc this}}{{/getSrc}}" width="130" alt="thumbnail" class="item_thumb">
+		<span class="img_border"></span>
+	</li>
+	{{/each}}
+	</script>
+
+ 	<script src="/reservation/js/handlebars.min.js"></script>
+	<script src="/reservation/js/util.js"></script>
 	<script src="/reservation/js/reviewWrite.js"></script>
 </body>
 </html>
