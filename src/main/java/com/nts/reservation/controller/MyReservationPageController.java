@@ -65,7 +65,7 @@ public class MyReservationPageController {
 		MyReservationPageRequestDto requestDto = new MyReservationPageRequestDto(userEmail, list, count);
 		String html = "";
 		try {
-			html = requestHtmlService.requestMyReservationHtml("/myReservation", requestDto);
+			html = requestHtmlService.requestToReactHtml("/myReservation", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
 			if (exception instanceof HttpClientErrorException) {
 				throw (HttpClientErrorException)exception;
