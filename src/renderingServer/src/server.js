@@ -26,6 +26,15 @@ app.post("/myReservation", function(req, res) {
     }
 })
 
+app.post("/main", function(req, res) {
+    try {
+
+    } catch (e) {
+        console.log(e);
+        res.send("Internal Error", 500);
+    }
+})
+
 app.get('*', function(req, res){
     res.send("not found", 404);
 });
