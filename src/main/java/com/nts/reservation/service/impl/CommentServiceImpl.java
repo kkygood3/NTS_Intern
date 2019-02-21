@@ -56,6 +56,15 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional(readOnly = false)
 	public void postComments(CommentParam commentParam) {
 		Long commentId = commentDao.insertComment(commentParam);
+		File baseFolder = new File(basePath + "img_uploaded/");
+		if (!baseFolder.exists()) {
+			try {
+				baseFolder.mkdir(); //폴더 생성합니다.
+				System.out.println("기본 폴더가 생성되었습니다.");
+			} catch (Exception e) {
+				throw new RuntimeException("folder create error");
+			}
+		}
 		File Folder = new File(basePath + "img_uploaded/" + commentId);
 		if (!Folder.exists()) {
 			try {
@@ -64,8 +73,6 @@ public class CommentServiceImpl implements CommentService {
 			} catch (Exception e) {
 				throw new RuntimeException("folder create error");
 			}
-		} else {
-			System.out.println("이미 폴더가 생성되어 있습니다.");
 		}
 		if (commentParam.getImageFiles() != null) {
 			for (MultipartFile file : commentParam.getImageFiles()) {
@@ -86,11 +93,12 @@ public class CommentServiceImpl implements CommentService {
 					if (Folder.exists()) {
 						try {
 							Folder.delete();
-							System.out.println("폴더가 삭제되었습니다.");
+							System.out.println("비정상 업로드 폴더가 삭제되었습니다.");
 						} catch (Exception e) {
 							throw new RuntimeException("folder delete Error");
 						}
 					}
+					throw new RuntimeException("file save error");
 				}
 			}
 		}

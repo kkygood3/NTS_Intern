@@ -72,7 +72,8 @@ function sendReservation(priceDataArr, params) {
         ,
         reservationTelephone: params.tel
         ,
-        reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + Math.floor(Math.random() * 5))
+        reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() )
+        // + Math.floor(Math.random() * 5)
     }
 
     let request = new XhrRequest("POST", "/reservation/api/reservations");
