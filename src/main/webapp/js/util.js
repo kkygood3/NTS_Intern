@@ -9,10 +9,10 @@ AjaxSender.prototype.send = function(url, options){
 			var jsonResponse;
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				if(typeof(options.callBack) === "function" && options.callBack !== null && options.callBack !== undefined){
+				if(typeof(options.callback) === "function" && options.callback !== null && options.callback !== undefined){
 					jsonResponse = JSON.parse(httpRequest.responseText);
 					
-					options.callBack(jsonResponse);
+					options.callback(jsonResponse);
 					
 				}
 			}

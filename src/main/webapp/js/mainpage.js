@@ -21,7 +21,7 @@ var mainPage = {
 		getOptionsForCategories : function(){
 			var options = {
 					contentType : "charset=utf-8",
-					callBack : this.mainPage.getCategories
+					callback : this.mainPage.getCategories
 			}
 			
 			return options;
@@ -30,7 +30,7 @@ var mainPage = {
 		getOptionsForProducts : function(){
 			var options = {
 				contentType : "charset=utf-8",
-				callBack : this.mainPage.getProductsByCategory
+				callback : this.mainPage.getProductsByCategory
 			}
 			
 			return options;
@@ -39,7 +39,7 @@ var mainPage = {
 		getOptionsForPromotions : function(){
 			var options = {
 				contentType : "charset=utf-8",
-				callBack : this.mainPage.getPromotions
+				callback : this.mainPage.getPromotions
 			}
 			
 			return options;

@@ -30,7 +30,7 @@ var reservePage = {
 		getOptionsForDisplayContents : function(){
 			var options = {
 				contentType : "charset=utf-8",
-				callBack : this.reservePage.displayContents
+				callback : this.reservePage.displayContents
 			}
 			
 			return options;
@@ -40,7 +40,7 @@ var reservePage = {
 			var options = {
 				contentType : "application/json",
 				data : JSON.stringify(this.reservePage.reservationInfo.getReservationData()),
-				callBack : function(){
+				callback : function(){
 					window.location = "/reservation";
 				}
 			}

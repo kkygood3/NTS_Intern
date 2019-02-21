@@ -48,7 +48,7 @@ var myReservationPage = {
 	ajaxOption : function(){
 		var options = {
 			contentType : "application/json",
-			callBack : function(){
+			callback : function(){
 				var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;
 
 				availableCnt.innerHTML = Number(availableCnt.innerHTML) - 1;
