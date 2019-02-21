@@ -38,9 +38,10 @@ public class ReservationServiceImpl implements ReservationService {
 		List<ReservationInfo> reservations = reservationDaoImpl.getReservationInfos(reservationEmail);
 		reservations.forEach(reservation -> {
 			int displayInfoId = reservation.getDisplayInfoId();
+			int reservationInfoId = reservation.getReservationInfoId();
 
 			DisplayInfo displayInfo = displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
-			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, displayInfoId);
+			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, displayInfoId, reservationInfoId);
 
 			reservation.setDisplayInfo(displayInfo);
 			reservation.setTotalPrice(reservationTotalPrice);
@@ -74,7 +75,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public boolean postReserve(ReservationParam reservationParam) {
 		int reservationInfoId = reservationDaoImpl.insertReservation(reservationParam.getReservationName(),
 			reservationParam.getReservationTelephone(), reservationParam.getReservationEmail(),
-			reservationParam.getDisplayInfoId());
+			reservationParam.getDisplayInfoId(), reservationParam.getReservationYearMonthDay());
 
 		if (reservationInfoId == 0) {
 			return false;

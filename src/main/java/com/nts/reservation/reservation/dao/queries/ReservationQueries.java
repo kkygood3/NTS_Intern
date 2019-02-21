@@ -64,7 +64,7 @@ public class ReservationQueries {
 
 	public static final String SELECT_TOTAL_PRICE =
 		"SELECT " +
-		"	SUM(reservation_info_price.count * ROUND(product_price.price * (100 - product_price.discount_rate) / 100, -2)) AS a " +
+		"	SUM(reservation_info_price.count * product_price.price) AS a " +
 		"FROM " +
 		"	reservation_info_price " +
 		"		INNER JOIN " +
@@ -73,7 +73,8 @@ public class ReservationQueries {
 		"	product_price ON product_price.id = reservation_info_price.product_price_id " +
 		"WHERE " +
 		"	reservation_info.reservation_email = :reservationEmail " +
-		"		AND reservation_info.product_id = :productId;";
+		"		AND reservation_info.product_id = :productId " +
+		"		AND reservation_info.id = :reservationInfoId;";
 
 	public static final String INSERT_RESERVE =
 		"INSERT " +
@@ -93,7 +94,7 @@ public class ReservationQueries {
 		"	:name, " +
 		"	:telephone, " +
 		"	:email, " +
-		"	NOW(), " +
+		"	:reservationDate, " +
 		"	0, " +
 		"	NOW(), " +
 		"	NOW() " +

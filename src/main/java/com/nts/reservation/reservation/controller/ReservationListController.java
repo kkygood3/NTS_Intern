@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ReservationListController {
 
-	@RequestMapping(value = "/list", method=RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String moveListPage() {
 		return "list";
 	}

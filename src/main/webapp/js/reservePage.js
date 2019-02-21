@@ -12,7 +12,7 @@ function requestAjax(callback, url) {
 
 // Rest API로 param을 서버로 json데이터를 넘김 (POST)
 function requestPostAjax(callback, url, param) {
-	var ajaxReq = new XMLHttpRequest();
+	let ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
 	ajaxReq.addEventListener('load', function(evt) {
 		this.callback(evt.target.response);
@@ -53,12 +53,25 @@ function addCommaInNumber(number) {
 }
 
 /**
- * date형식을 2019.02.21와 같은 형식의 String 타입으로 변환 시켜줌
+ * date형식을 2019.02.21.(목)과 같은 형식의 String 타입으로 변환 시켜줌
  */
 var DateFormmater = function (date) {
     let week = new Array('일', '월', '화', '수', '목', '금', '토');
     return date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + ".(" + week[date.getDay()] + ")";
 }
+
+function twoDigits(d) {
+    if(0 <= d && d < 10) return "0" + d.toString();
+    if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+    return d.toString();
+}
+
+/**
+ * date형식을 mysql 타입으로 변환 시켜줌
+ */
+Date.prototype.toMysqlFormat = function() {
+    return this.getUTCFullYear() + "-" + twoDigits(1 + this.getUTCMonth()) + "-" + twoDigits(this.getUTCDate()) + " " + twoDigits(this.getUTCHours()) + ":" + twoDigits(this.getUTCMinutes()) + ":" + twoDigits(this.getUTCSeconds());
+};
 
 /**
  * 날짜와 관련된 필드와 메소드를 가지고 있는 객체
@@ -66,19 +79,19 @@ var DateFormmater = function (date) {
 var DateObj = {
     currentDate: "",
     lastDate: "",
-    getrandomDate: function () {
-        let date = new Date();
-        /* 타임스탬프 + [0~5] * 1000*60*60*24ms(=[오늘~5]일) */
-        date.setTime(date.getTime() + generateRandom(0, 5) * 1000 * 60 * 60 * 24)
-        return DateFormmater(date);
-    },
+    randomDate: "",
+
     setDate: function () {
         let date = new Date();
         this.currentDate = DateFormmater(date);
-
+        
         /* 타임스탬프 + 5 * 1000*60*60*24ms(=5일) */
         date.setTime(date.getTime() + 5 * 1000 * 60 * 60 * 24);
         this.lastDate = DateFormmater(date);
+
+        /* 타임스탬프 + [0~5] * 1000*60*60*24ms(=[오늘~5]일) */
+        date.setTime(date.getTime() + generateRandom(0, -5) * 1000 * 60 * 60 * 24);
+        this.randomDate = date;
     }
 }
 
@@ -149,7 +162,7 @@ var changePriceEvent = function () {
         reserveCount += Number(ticketItem.value);
     });
 
-    document.querySelector('.selected').innerText = reservationDate + ', 총 ' + totalCount + '매';
+    document.querySelector('.selected').innerText = DateFormmater(DateObj.randomDate) + ', 총 ' + totalCount + '매';
 }
 
 function TicketObj(target, index, price) {
@@ -251,7 +264,7 @@ function ReserveRequest(displayInfoId, prices, productId, reservationName, reser
     this.reservationName = reservationName;
     this.reservationTelephone = reservationTelephone;
     this.reservationEmail = reservationEmail;
-    this.reservationYearMonthDay = DateObj.currentDate;
+    this.reservationYearMonthDay = DateObj.randomDate.toMysqlFormat();
 }
 
 function ReservePrices(count, productPriceId) {
@@ -395,9 +408,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 현재시간 설정
     DateObj.setDate();
-
-    // 예매날짜 랜덤생성
-    reservationDate = DateObj.getrandomDate();
 
     requestAjax(loadDisplayInfoCallback, 'products/' + getUrlParameter('id'));
 

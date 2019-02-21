@@ -68,20 +68,22 @@ public class ReservationDaoImpl implements ReservationDao {
 	}
 
 	@Override
-	public int getTotalPrice(String reservationEmail, int productId) {
+	public int getTotalPrice(String reservationEmail, int productId, int reservationInfoId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
 		params.put("productId", productId);
+		params.put("reservationInfoId", reservationInfoId);
 		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
 	}
 
 	@Override
-	public int insertReservation(String name, String telephone, String email, int displayInfoId) {
+	public int insertReservation(String name, String telephone, String email, int displayInfoId, String reservationDate) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("name", name);
 		params.addValue("telephone", telephone);
 		params.addValue("email", email);
 		params.addValue("displayInfoId", displayInfoId);
+		params.addValue("reservationDate", reservationDate);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_RESERVE, params, keyHolder, new String[] {"ID"});
 		return keyHolder.getKey().intValue();
