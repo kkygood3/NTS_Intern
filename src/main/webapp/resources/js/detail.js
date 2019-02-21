@@ -79,7 +79,7 @@ var detailPage = {
         var bindTemplate = getTargetTemplate("#imageItem");
         var convertImages = images.reduce(function(prevValue, image) {
             var data = {
-                imageUrl: "../" + image.saveFileName,
+                imageUrl: "/reservation-service/api/download/img?imageName=" + image.saveFileName,
                 description: description
             };
             return prevValue + bindTemplate(data).trim();
@@ -329,7 +329,7 @@ var detailPage = {
         var contentTextUi = detailContainer.querySelector(".in_dsc");
         contentTextUi.innerHTML = displayInfo.productContent;
         var mapImg = contactContainer.querySelector(".store_map");
-        mapImg.setAttribute("src", "../" + displayInfoImage.saveFileName);
+        mapImg.setAttribute("src", "/reservation-service/api/download/img?imageName="  + displayInfoImage.saveFileName);
         var streetAddress = contactContainer.querySelector(".store_addr_bold");
         streetAddress.innerHTML = displayInfo.placeStreet;
         var oldAddress = contactContainer.querySelector(".addr_old_detail");

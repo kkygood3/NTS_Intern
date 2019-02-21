@@ -167,7 +167,7 @@ var mainPage = {
             var params = {
                 id: product.displayInfoId,
                 description: product.productDescription,
-                image_url: "./" + product.productImageUrl,
+                image_url: "/reservation-service/api/download/img?imageName=" + product.productImageUrl,
                 placeName: product.placeName,
                 content: product.productContent,
                 description2: product.productDescription
@@ -234,7 +234,7 @@ var mainPage = {
         promotions.forEach( function(promotion, index) {
 
             var params = {
-                image_url: "./" + promotion.productImageUrl,
+                image_url: "/reservation-service/api/download/img?imageName=" + promotion.productImageUrl,
                 index: index,
                 place: promotion.placeName,
                 description: promotion.productDescription
