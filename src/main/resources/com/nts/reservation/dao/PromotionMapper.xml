@@ -5,7 +5,7 @@
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<mapper namespace="com.nts.reservation.dao.PromotionMapper">
+	<mapper namespace="PromotionMapper">
 	<!-- DAO의 메서드가 될 것이다. -->
 	
 	<!-- 현재 시간 조회 -->
