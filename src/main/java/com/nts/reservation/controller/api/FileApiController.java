@@ -7,16 +7,17 @@ package com.nts.reservation.controller.api;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.FileDto;
+import com.nts.reservation.exception.CustomFileNotFoundException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
 
@@ -33,17 +34,19 @@ public class FileApiController {
 	@Autowired
 	private ReservationService reservationService;
 
-	@GetMapping("/download/**")
-	public void getDownloadFile(HttpServletResponse response, HttpServletRequest request)
-		throws IOException {
-		String imagePath = request.getServletPath().replaceFirst("^.*\\/download", "");
-		fileIoService.sendFile(imagePath, response.getOutputStream());
+	@GetMapping("/download/img")
+	public void getDownloadFile(@RequestParam(required = true) String imageName, HttpServletResponse response)
+		throws IOException, CustomFileNotFoundException {
+		fileIoService.sendFile("/" + imageName, response.getOutputStream());
 	}
 
 	@GetMapping("/comment/image/download/{commentImageId}")
 	public void getCommentImageFile(@PathVariable Long commentImageId, HttpServletResponse response)
-		throws IOException {
+		throws IOException, CustomFileNotFoundException {
 		FileDto file = reservationService.getFileByCommentImageId(commentImageId);
+		if (file == null) {
+			throw new CustomFileNotFoundException("CommentImageId", commentImageId);
+		}
 		String imagePath = "/" + file.getSaveFileName();
 		fileIoService.sendFile(imagePath, response.getOutputStream());
 	}

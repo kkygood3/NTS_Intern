@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.FileDto;
 import com.nts.reservation.dto.request.regex.RegexPattern;
+import com.nts.reservation.exception.CustomFileNotFoundException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.util.FileUtil;
 
@@ -59,8 +60,12 @@ public class FileIoServiceImpl implements FileIoService {
 	}
 
 	@Override
-	public void sendFile(String path, OutputStream outputStream) throws IOException {
+	public void sendFile(String path, OutputStream outputStream) throws IOException, CustomFileNotFoundException {
 		File file = new File(fileDir + path);
+		if (!file.exists()) {
+			throw new CustomFileNotFoundException(fileDir + path + " 파일은 존재하지 않습니다.");
+		}
+
 		long fileSize = file.length();
 
 		FileInputStream fileInputStream = new FileInputStream(file);

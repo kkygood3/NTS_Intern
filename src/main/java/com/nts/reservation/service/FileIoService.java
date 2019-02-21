@@ -12,13 +12,14 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.FileDto;
+import com.nts.reservation.exception.CustomFileNotFoundException;
 
 /**
  * @author 육성렬
  */
 public interface FileIoService {
 
-	public void sendFile(String path, OutputStream outputStream) throws IOException;
+	public void sendFile(String path, OutputStream outputStream) throws IOException, CustomFileNotFoundException;
 
 	public FileDto writeMultipartFile(String path, MultipartFile file) throws IOException;
 

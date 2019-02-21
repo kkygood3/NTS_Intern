@@ -8,7 +8,9 @@ package com.nts.reservation.controller.advice;
 import static com.nts.reservation.controller.advice.message.ErrorMessage.BAD_REQUEST_ERROR_MSG;
 import static com.nts.reservation.controller.advice.message.ErrorMessage.COMMON_ERROR_MSG;
 import static com.nts.reservation.controller.advice.message.ErrorMessage.INTERNAL_ERROR_MSG;
+import static com.nts.reservation.controller.advice.message.ErrorMessage.NOT_FOUND_REQUEST;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.nts.reservation.dto.ErrorMessageDto;
+import com.nts.reservation.exception.CustomFileNotFoundException;
 import com.nts.reservation.exception.InvalidParamException;
 import com.nts.reservation.util.LogUtil;
 
@@ -60,9 +63,24 @@ public class CommonApiControllerAdvice {
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
+	@ExceptionHandler(FileNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorMessageDto handleFileNotFoundException(FileNotFoundException exception) {
+		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		return new ErrorMessageDto(NOT_FOUND_REQUEST);
+	}
+
+	@ExceptionHandler(CustomFileNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorMessageDto handleCustomFileNotFoundException(CustomFileNotFoundException exception) {
+		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		return new ErrorMessageDto(NOT_FOUND_REQUEST);
+
+	}
+
 	@ExceptionHandler(Exception.class)
 	public ErrorMessageDto handleCommonException(Exception exception) {
-		System.out.println("common");
+
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
 		return new ErrorMessageDto(COMMON_ERROR_MSG);
 	}

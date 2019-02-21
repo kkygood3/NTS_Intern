@@ -18,7 +18,6 @@ public class DetailPageController {
 
 	@GetMapping("/displayInfo/{displayInfoId}")
 	public String getDisplayInfoPage(@PathVariable Long displayInfoId, ModelMap map) {
-
 		map.addAttribute("displayInfoId", displayInfoId);
 		return "detailPage";
 	}
