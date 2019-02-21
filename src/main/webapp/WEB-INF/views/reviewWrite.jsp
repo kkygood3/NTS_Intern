@@ -117,5 +117,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
+	<script src="/reservation/js/reviewWrite.js"></script>
 </body>
 </html>
