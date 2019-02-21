@@ -29,8 +29,8 @@ public class PromotionApiController {
 	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Promotion> getPromotions() {
-		List<Promotion> promotionImages = promotionService.getPromotions();
+	public List<String> getPromotions() {
+		List<String> promotionImages = promotionService.getPromotions();
 		return promotionImages;
 	}
 }

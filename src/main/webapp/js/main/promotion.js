@@ -20,7 +20,7 @@ function makePromotionSlideHTML(promotions) {
 		
 	var resultHTML = "";
 	promotions.forEach((promotion) => {
-		resultHTML += html.replace("{sava_file_name_list}", promotion.saveFileName);
+		resultHTML += html.replace("{sava_file_name_list}", promotion);
 	});
 
 	var ul = document.getElementsByClassName("visual_img")[0];

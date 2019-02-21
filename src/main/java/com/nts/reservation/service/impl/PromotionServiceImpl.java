@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.PromotionDao;
+import com.nts.reservation.dao.PromotionMapper;
 import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
@@ -18,15 +18,15 @@ import com.nts.reservation.service.PromotionService;
 @Service
 public class PromotionServiceImpl implements PromotionService {
 	@Autowired
-	private PromotionDao promotionDao;
+	private PromotionMapper promotionDao;
 
 	/**
 	 * 전체 프로모션 이미지 리스트 리턴
 	 */
 	@Override
 	@Transactional
-	public List<Promotion> getPromotions() {
-		List<Promotion> list = promotionDao.selectMaTypeFileNames();
+	public List<String> getPromotions() {
+		List<String> list = promotionDao.selectMaTypeFileNames();
 		return list;
 	}
 }

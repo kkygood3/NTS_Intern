@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.nts.reservation.dao.PromotionMapper">
+	<!-- DAO의 메서드가 될 것이다. -->
+	
+	<!-- 현재 시간 조회 -->
+	<select id="selectMaTypeFileNames" resultType="String"> 
+		SELECT fi.save_file_name
+		FROM promotion AS prom
+		INNER JOIN product AS prod ON prom.product_id = prod.id
+		INNER JOIN product_image AS prodi ON prodi.type = 'th' AND prodi.product_id = prod.id
+		INNER JOIN file_info AS fi ON fi.id = prodi.file_id
+	</select>
+	
+	<!-- 데이터 삽입 -->
+<!-- 	<insert id = "insertMember">
+		INSERT INTO Member(  userid,    userpw,    username,    email) 
+					VALUES(#{userid}, #{userpw}, #{username}, #{email})
+	</insert>
+	 -->
+	<!--데이터 조회 -->
+<!-- 	<select id="selectMember" resultType="io.github.kookyungmin.domain.MemberVO">
+		SELECT * from Member
+		WHERE userid = #{userid}
+	</select> -->
+	
+</mapper>
