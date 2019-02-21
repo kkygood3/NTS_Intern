@@ -13,6 +13,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +29,13 @@ import com.nts.reservation.service.FileIoService;
 * @author  : 이승수
 */
 @Controller
+@PropertySource("classpath:application.properties")
 public class FileController {
 	@Autowired
 	private FileIoService fileIoService;
+
+	@Value("${fileDir}")
+	private String fileDir;
 
 	@PostMapping("/upload")
 	public String upload(@RequestParam("rating") int rating, @RequestParam("review") String review,
@@ -78,7 +84,7 @@ public class FileController {
 		FileInfo fileInfo = fileIoService.getFileInfoByProductId(fileId);
 
 		String fileName = fileInfo.getFileName();
-		String saveFileName = "C:/2019_1st_intern_reservation/" + fileInfo.getSaveFileName();
+		String saveFileName = fileDir + fileInfo.getSaveFileName();
 		String contentType = fileInfo.getContentType();
 
 		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
