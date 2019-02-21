@@ -6,11 +6,13 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO;
 import static com.nts.reservation.dao.sqls.ReservationSqls.INSERT_RESERVATION_INFO_PRICE;
+import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_FLAG_FOR_EXISTENCE_OF_RESERVATION;
 import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATIONS;
 import static com.nts.reservation.dao.sqls.ReservationSqls.SELECT_RESERVATION_INFO_ID;
 import static com.nts.reservation.dao.sqls.ReservationSqls.UPDATE_RESERVATION_CANCEL_FLAG;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,5 +60,13 @@ public class ReservationDao {
 	public void updateReservationCancelFlag(Integer reservationInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
 		jdbc.update(UPDATE_RESERVATION_CANCEL_FLAG, param);
+	}
+
+	public boolean seletReservationInfoExistFlag(Integer displayInfoId, String userEmail) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		params.put("userEmail", userEmail);
+
+		return jdbc.queryForObject(SELECT_FLAG_FOR_EXISTENCE_OF_RESERVATION, params, Boolean.class);
 	}
 }

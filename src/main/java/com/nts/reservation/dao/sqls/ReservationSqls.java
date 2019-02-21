@@ -74,4 +74,13 @@ public class ReservationSqls {
 		+ "cancel_flag = 1 "
 		+ "WHERE "
 		+ "id = :reservationInfoId";
+
+	public static final String SELECT_FLAG_FOR_EXISTENCE_OF_RESERVATION = "SELECT "
+		+ "EXISTS("
+		+ " SELECT 1 "
+		+ " FROM reservation_info "
+		+ " WHERE display_info_id = :displayInfoId "
+		+ " AND reservation_email = :userEmail "
+		+ " AND reservation_date < NOW()"
+		+ ")";
 }

@@ -18,4 +18,6 @@ public interface ReservationService {
 	public List<ReservedItem> getReservedItems(String userEmail);
 
 	public void cancelReservation(Integer reservationInfoId);
+
+	public boolean seletReservationInfoExistFlag(Integer displayInfoId, String userEmail);
 }

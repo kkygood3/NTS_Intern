@@ -60,10 +60,16 @@ public class ReservationViewController {
 	}
 
 	@GetMapping("/detail/{displayInfoId}/reviewWrite")
-	public String getReviewWritePage(@PathVariable("displayInfoId") Integer displayInfoId, ModelMap model) {
-		DisplayInfo displayInfo = detailProductService.getDisplayInfo(displayInfoId);
+	public String getReviewWritePage(@PathVariable("displayInfoId") Integer displayInfoId, HttpSession session,
+		ModelMap model) {
+		String userEmail = String.valueOf(session.getAttribute("userEmail"));
+		if (!reservationService.seletReservationInfoExistFlag(displayInfoId, userEmail)) {
+			return "redirect:/history";
+		}
 
-		model.addAttribute("productDescription", displayInfo.getProductDescription());
+		DisplayInfo displayInfo = detailProductService.getDisplayInfo(displayInfoId);
+		model.put("productDescription", displayInfo.getProductDescription());
+
 		return "reviewWrite";
 	}
 }
