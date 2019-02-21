@@ -6,14 +6,16 @@ function cancelButtonDown(reservationInfoId, reservationType){
 		var reservationScheduled = reservationInfoObject.reservationInfoScheduled;
 		for(var i=0, len=reservationScheduled.length; i<len; i++){
 			if(reservationScheduled[i].reservation.reservationInfoId === reservationInfoId){
-				reservationInfoObject.appendElement(reservationScheduled[i], "CANCELED");
-				reservationInfoObject.removeElement(i, reservationType);
-				cleanUL();
+				if(confirm("취소 하시겠습니까?")){
+					reservationInfoObject.appendElement(reservationScheduled[i], "CANCELED");
+					reservationInfoObject.removeElement(i, reservationType);
+					cleanUL();
 				
-				if(document.querySelector("#reservation_list_button_scheduled").className.includes("on")){
-					reservationInfoObject.render("SCHEDULED");
-				} else{
-					reservationInfoObject.render();
+					if(document.querySelector("#reservation_list_button_scheduled").className.includes("on")){
+						reservationInfoObject.render("SCHEDULED");
+					} else{
+						reservationInfoObject.render();
+					}
 				}
 				break;
 			}
