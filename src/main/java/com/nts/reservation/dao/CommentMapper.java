@@ -1,0 +1,29 @@
+package com.nts.reservation.dao;
+
+import static com.nts.reservation.property.Const.LIMIT;
+import static com.nts.reservation.property.Const.PRODUCT_ID;
+import static com.nts.reservation.property.Const.START;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import com.nts.reservation.dto.CommentDisplayInfo;
+
+/**
+ * 코멘드 화면 관련정보 처리하는 클래스
+ * @author si yoon
+ *
+ */
+@Repository
+public interface CommentMapper {
+	/**
+	 * 전체 코멘트 화면 정보 페이징해서 셀렉트하는 메소드
+	 * @param productId 해당 상품 id
+	 * @param start 시작 인덱스
+	 * @param limit 페이징 사이즈
+	 * @return 쿼리 실행 결과 코멘트 리스트
+	 */
+	List<CommentDisplayInfo> selectFromTheProductWithPageing(@Param(PRODUCT_ID)long productId, @Param(START) int start, @Param(LIMIT) int limit);
+}
