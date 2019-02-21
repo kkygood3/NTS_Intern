@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.dto.ProductPageInfo;
+
 /**
  * 상품 테이블 접근하는 클래스
  * @author si yoon
@@ -29,4 +31,6 @@ public interface ProductMapper {
 	 * @return 쿼리 실행결과 파일이름 리스트
 	 */
 	List<String> selectByDisplayInfoIdAndType(@Param(PRODUCT_ID)long productId, @Param(TYPE)String type);
+	
+	ProductPageInfo selectDetailPageInfo(@Param("displayInfoId")long displayInfoId);
 }

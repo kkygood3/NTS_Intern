@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.DatailPageInfoDao;
-import com.nts.reservation.dao.ProductPriceDao;
 import com.nts.reservation.dao.ProductMapper;
+import com.nts.reservation.dao.ProductPriceDao;
 import com.nts.reservation.dao.ProductThumbnailDao;
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.PriceInfo;
@@ -26,8 +25,6 @@ public class ProductServiceImpl implements ProductService {
 	private ProductThumbnailDao thumbnailInfoDao;
 	@Autowired
 	private ProductPriceDao priceDao;
-	@Autowired
-	private DatailPageInfoDao datailPageInfoDao;
 
 	@Override
 	@Transactional
@@ -53,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId) {
-		return datailPageInfoDao.selectDetailPageInfo(displayInfoId);
+		return productDao.selectDetailPageInfo(displayInfoId);
 	}
 
 	@Override
