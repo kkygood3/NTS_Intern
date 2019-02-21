@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -45,7 +47,6 @@ import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.exception.InvalidParamException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
-import com.nts.reservation.util.FileUtil;
 
 /**
  * @author 육성렬
@@ -53,12 +54,16 @@ import com.nts.reservation.util.FileUtil;
 
 @RestController
 @RequestMapping(path = "/api/reservations")
+@PropertySource("classpath:application.properties")
 public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
 	@Autowired
 	private FileIoService fileIoService;
+
+	@Value("${imageDefaultPath}")
+	private String imageDefaultPath;
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
@@ -142,7 +147,7 @@ public class ReservationApiController {
 					if (!matcher.find()) {
 						throw new InvalidParamException("Content-Type", image.getContentType());
 					}
-					files.add(fileIoService.writeMultipartFile(FileUtil.IMAGE_DEFAULT_PATH, image));
+					files.add(fileIoService.writeMultipartFile(imageDefaultPath, image));
 				}
 			}
 			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);

@@ -14,8 +14,6 @@ import java.util.UUID;
 public class FileUtil {
 	private static Random random = new Random();
 
-	public static final String IMAGE_DEFAULT_PATH = "/img";
-
 	public static String createRandomFilename() {
 		UUID uuid = UUID.randomUUID();
 		int endIndex = random.nextInt(10) + 6;
