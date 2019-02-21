@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.ReservationDisplayInfoDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.primitive.ReservationInfoDto;
@@ -33,11 +34,11 @@ public class ReservationServiceImpl implements ReservationService {
 		MyReservationResponseDto myReservationResponse = new MyReservationResponseDto();
 
 		List<ReservationDisplayInfoDto> todoReservationDisplayInfos = reservationMapper
-			.selectReservationDisplayInfos(reservationEmail, limit, "todo");
+			.selectReservationDisplayInfos(reservationEmail, limit, ReservationStatusType.TODO);
 		List<ReservationDisplayInfoDto> doneReservationDisplayInfos = reservationMapper
-			.selectReservationDisplayInfos(reservationEmail, limit, "done");
+			.selectReservationDisplayInfos(reservationEmail, limit, ReservationStatusType.DONE);
 		List<ReservationDisplayInfoDto> cancleReservationDisplayInfos = reservationMapper
-			.selectReservationDisplayInfos(reservationEmail, limit, "cancle");
+			.selectReservationDisplayInfos(reservationEmail, limit, ReservationStatusType.CANCLE);
 
 		myReservationResponse.setTodoReservationDisplayInfos(todoReservationDisplayInfos);
 		myReservationResponse.setDoneReservationDisplayInfos(doneReservationDisplayInfos);
