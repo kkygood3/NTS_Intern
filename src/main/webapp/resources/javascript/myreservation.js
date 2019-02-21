@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 
 
-}
 function addCancelEvent(){
 	// 취소하기 button
 	document.querySelectorAll('.cancel_btn').forEach(btn=>{
