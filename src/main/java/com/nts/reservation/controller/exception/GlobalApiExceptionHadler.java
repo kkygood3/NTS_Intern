@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.controller.api;
+package com.nts.reservation.controller.exception;
 
 import java.util.Collections;
 import java.util.HashMap;

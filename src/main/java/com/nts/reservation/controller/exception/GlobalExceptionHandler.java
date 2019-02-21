@@ -2,7 +2,7 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  * @author jinwoo.bae
  */
 
-@ControllerAdvice(annotations = Controller.class)
+@ControllerAdvice
 public class GlobalExceptionHandler {
 	/**
 	 * HTTP 404 ERROR
