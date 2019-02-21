@@ -131,7 +131,7 @@ var reservePage = {
 		
 		this.elements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.title.dataset.productId = jsonResponse["displayInfo"].productId;
-		this.elements.mainImage.src = "/reservation/" + jsonResponse["productImages"][0].saveFileName;
+		this.elements.mainImage.src = "/reservation/showImage/" + jsonResponse["productImages"][0].fileInfoId;
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 
