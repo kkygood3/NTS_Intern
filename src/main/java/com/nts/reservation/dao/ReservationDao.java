@@ -12,6 +12,7 @@ import static com.nts.reservation.dao.sql.ReservationDaoSqls.INSERT_USER_COMMENT
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.INSERT_USER_COMMENT_IMAGE;
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.SELECT_COUNT_FINISH_RESERVATION_BY_EMAIL_AND_ID;
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.SELECT_COUNT_RESERVATION_BY_EMAIL;
+import static com.nts.reservation.dao.sql.ReservationDaoSqls.SELECT_FILE_INFO_BY_COMMENT_IMAGE_ID;
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.SELECT_RESERVATION_INFO_BY_EMAIL;
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.SELECT_RESERVATION_INFO_BY_ID;
 import static com.nts.reservation.dao.sql.ReservationDaoSqls.UPDATE_CANCEL_RESERVATION_BY_RESERVATION_ID;
@@ -47,6 +48,8 @@ public class ReservationDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<ReservationInfoDto> reservationRowMapper = BeanPropertyRowMapper
 		.newInstance(ReservationInfoDto.class);
+	private RowMapper<FileDto> fileRowMapper = BeanPropertyRowMapper
+		.newInstance(FileDto.class);
 
 	public ReservationDao(DataSource dataSource) {
 		jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -170,5 +173,10 @@ public class ReservationDao {
 		KeyHolder holder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_USER_COMMENT_IMAGE, params, holder);
 		return holder.getKey().longValue();
+	}
+
+	public FileDto selectFileByCommentImageId(Long commentImageId) {
+		Map<String, Object> map = Collections.singletonMap("imageId", commentImageId);
+		return jdbc.queryForObject(SELECT_FILE_INFO_BY_COMMENT_IMAGE_ID, map, fileRowMapper);
 	}
 }

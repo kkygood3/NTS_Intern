@@ -26,10 +26,12 @@ public interface ReservationService {
 
 	public void cancelReservation(Long reservationId);
 
-	ReservationInfoDto getReservation(Long reservationInfoId);
+	public ReservationInfoDto getReservation(Long reservationInfoId);
 
-	boolean findFinishReservation(Long reservationInfoId, String email);
+	public boolean findFinishReservation(Long reservationInfoId, String email);
 
-	void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> files,
+	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> files,
 		Long reservationInfoId) throws SQLException;
+
+	public FileDto getFileByCommentImageId(Long commentImageId);
 }

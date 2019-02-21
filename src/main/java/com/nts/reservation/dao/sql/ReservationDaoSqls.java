@@ -120,4 +120,12 @@ public class ReservationDaoSqls {
 		+ " INNER JOIN product_price AS pd_price ON pd_price.id = rv_price.product_price_id"
 		+ " WHERE reservation.id = :id"
 		+ " GROUP BY rv_price.reservation_info_id";
+
+	public static final String SELECT_FILE_INFO_BY_COMMENT_IMAGE_ID = "SELECT file.file_name"
+		+ ", file.save_file_name"
+		+ ", file.content_type"
+		+ " FROM file_info AS file"
+		+ " INNER JOIN reservation_user_comment_image AS image"
+		+ " ON image.file_id = file.id"
+		+ " WHERE image.id = :imageId";
 }

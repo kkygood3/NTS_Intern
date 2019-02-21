@@ -121,4 +121,9 @@ public class ReservationServiceImpl implements ReservationService {
 	public boolean findFinishReservation(Long reservationInfoId, String email) {
 		return 0 < reservationDao.countFinishReservationsByEmailAndId(reservationInfoId, email);
 	}
+
+	@Override
+	public FileDto getFileByCommentImageId(Long commentImageId) {
+		return reservationDao.selectFileByCommentImageId(commentImageId);
+	}
 }
