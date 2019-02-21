@@ -4,11 +4,6 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,37 +12,29 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
+import com.nts.reservation.dto.myreservation.ReservationType;
+import com.nts.reservation.mapper.MyReservationMapper;
 import com.nts.reservation.service.MyReservationService;
 
 @Service
 public class MyReservationServiceImpl implements MyReservationService {
 	@Autowired
 	MyReservationDao myReservationDao;
-
+	@Autowired
+	MyReservationMapper myReservationMapper;
+	
 	@Override
-	public MyReservationResponse getMyReservationInfoList(String email) throws ParseException {
-		List<MyReservationInfo> myReservationInfoList = myReservationDao.selectMyReservationByEmail(email);
-
-		List<MyReservationInfo> confirmList = new ArrayList<MyReservationInfo>();
-		List<MyReservationInfo> completeList = new ArrayList<MyReservationInfo>();
-		List<MyReservationInfo> cancelList = new ArrayList<MyReservationInfo>();
-
-		Date today = new Date();
-		DateFormat format = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
-
-		for (MyReservationInfo item : myReservationInfoList) {
-			if (item.getCancelFlag() == 1) {
-				cancelList.add(item);
-			} else {
-				if (today.before(format.parse(item.getReservationDate()))) {
-					confirmList.add(item);
-				} else {
-					completeList.add(item);
-				}
-			}
-		}
+	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit){
 		
-		return new MyReservationResponse(confirmList, completeList, cancelList);
+		Integer count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
+		MyReservationResponse myReservationResponse = new MyReservationResponse();
+		if(count != null && count > start) {
+			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email, reservationType.name(), start, pagingLimit);
+			myReservationResponse.setReservationList(myReservationList);
+			myReservationResponse.setReservationType(reservationType);
+			myReservationResponse.setCount(count);
+		}
+		return myReservationResponse;
 	}
 
 	@Override

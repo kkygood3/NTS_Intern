@@ -35,7 +35,7 @@ public class MyReservationDao {
 	 * myreservation 페이지를 로드할 때 email을 기준으로 예약정보 조회
 	 * @param reservationEmail
 	 */
-	public List<MyReservationInfo> selectMyReservationByEmail(String email) {
+	public List<MyReservationInfo> selectMyReservation(String email) {
 		Map<String, String> params = new HashMap<>();
 		params.put("reservationEmail", email);
 		return jdbc.query(MyReservationSqls.SELECT_MY_RESERVATION_INFO, params, rowMapper);
@@ -46,5 +46,5 @@ public class MyReservationDao {
 		params.addValue("reservationInfoId", reservationInfoId);
 		params.addValue("reservationEmail", email);
 		return jdbc.update(MyReservationSqls.CANCEL_RESERVE, params);
-	}
+	}	
 }

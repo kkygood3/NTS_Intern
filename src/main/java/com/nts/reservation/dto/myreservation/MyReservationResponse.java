@@ -1,39 +1,38 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.reservation.dto.myreservation;
 
 import java.util.List;
 
 public class MyReservationResponse {
-	List<MyReservationInfo> confirmList;
-	List<MyReservationInfo> completeList;
-	List<MyReservationInfo> cancelList;
+	List<MyReservationInfo> reservationList;
+	ReservationType reservationType;
+	Integer count;
 
-	public MyReservationResponse(List<MyReservationInfo> confirmList, List<MyReservationInfo> completeList,	List<MyReservationInfo> cancelList) {
-		this.confirmList = confirmList;
-		this.completeList = completeList;
-		this.cancelList = cancelList;
+	public Integer getCount() {
+		return count;
 	}
 
-	public List<MyReservationInfo> getConfirmList() {
-		return confirmList;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
-	public void setConfirmList(List<MyReservationInfo> confirmList) {
-		this.confirmList = confirmList;
+	public List<MyReservationInfo> getReservationList() {
+		return reservationList;
 	}
 
-	public List<MyReservationInfo> getCompleteList() {
-		return completeList;
+	public void setReservationList(List<MyReservationInfo> reservationList) {
+		this.reservationList = reservationList;
 	}
 
-	public void setCompleteList(List<MyReservationInfo> completeList) {
-		this.completeList = completeList;
+	public ReservationType getReservationType() {
+		return reservationType;
 	}
 
-	public List<MyReservationInfo> getCancelList() {
-		return cancelList;
+	public void setReservationType(ReservationType reservationType) {
+		this.reservationType = reservationType;
 	}
 
-	public void setCancelList(List<MyReservationInfo> cancelList) {
-		this.cancelList = cancelList;
-	}
 }

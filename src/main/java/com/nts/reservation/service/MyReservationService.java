@@ -7,6 +7,7 @@ package com.nts.reservation.service;
 import java.text.ParseException;
 
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
+import com.nts.reservation.dto.myreservation.ReservationType;
 
 public interface MyReservationService {
 	/**
@@ -14,7 +15,7 @@ public interface MyReservationService {
 	 * @param email
 	 * @throws ParseException 
 	 */
-	MyReservationResponse getMyReservationInfoList(String email) throws ParseException;
+	MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit);
 
 	/**
 	 * 예약 목록에서 선택한 항목을 cancel 처리
