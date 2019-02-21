@@ -10,6 +10,7 @@ package com.nts.reservation.controller.viewController;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,14 +49,20 @@ public class LoggedInUserViewController {
 			model.addAttribute("url", "/reservation/myreservation");
 			return "error/redirect";
 		}
-		ReservationInfo reservationInfo = reservationService
-			.getReservationByEmailAndRsvId(email, reservationId);
-		DisplayInfo displayInfo = detailService.getDisplayInfo(reservationInfo.getDisplayInfoId());
-
-		model.addAttribute("productDescription", displayInfo.getProductDescription());
-		model.addAttribute("productId", reservationInfo.getProductId());
-		model.addAttribute("reservationInfoId", reservationInfo.getId());
-
-		return "reviewWrite";
+		ReservationInfo reservationInfo;
+		DisplayInfo displayInfo;
+		try {
+			reservationInfo = reservationService
+				.getReservationByEmailAndRsvId(email, reservationId);
+			displayInfo = detailService.getDisplayInfo(reservationInfo.getDisplayInfoId());
+			model.addAttribute("productDescription", displayInfo.getProductDescription());
+			model.addAttribute("productId", reservationInfo.getProductId());
+			model.addAttribute("reservationInfoId", reservationInfo.getId());
+			return "reviewWrite";
+		} catch (EmptyResultDataAccessException e) {
+			model.addAttribute("msg", "예약하시지 않은 항목입니다");
+			model.addAttribute("url", "/reservation/myreservation");
+			return "error/redirect";
+		}
 	}
 }
