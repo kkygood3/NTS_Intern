@@ -58,6 +58,11 @@ public class MainController {
 		session.removeAttribute("email");
 		return "redirect:/";
 	}
+	
+	@GetMapping(path ="/write")
+	public String goWriteForm() {
+		return "reviewWrite";
+	}
 
 	@GetMapping(path = "/error")
 	public String goError() {
