@@ -155,8 +155,19 @@
 				return;
 			}
 			var url = "/doLogin?reservationEmail=" + email;
+			if (redirectUrl) {
+				url += "&redirectUrl=" + redirectUrl;
+			}
 			location.href = url;
 		})
+
+		var isError = '${isError}';
+		var message = '${errorMsg}'; 
+		var redirectUrl = '${redirectUrl}'; 
+
+		if (isError) {
+			alert(message);
+		}
 	</script>
 </body>
 </html>
