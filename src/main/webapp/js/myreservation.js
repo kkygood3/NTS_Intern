@@ -55,9 +55,6 @@ function loadReservationItem(type){
 }
 
 function initBtnLayouts(){
-	ticketContainers[2].querySelectorAll('.btn').forEach(item => item.innerText = '예매자 리뷰 남기기');
-	ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
-	
 	// 상단 네비게이션 a tag
 	document.querySelectorAll('a.link_summary_board').forEach(item=>item.style.cursor='default');
 	
@@ -149,8 +146,6 @@ function initTicketCancelEvents(ticketContainers){
 			cancelPopup.setAttribute('reservationInfoId',clickedBtn.getAttribute('reservationInfoId'));
 			currentSelect = clickedBtn;
 		}
-			
-		checkTicketCount();
 	});
 }
 
@@ -183,11 +178,34 @@ function initTicketCancelPopupEvent(){
 		if(isAcceptClicked||isCloseClicked){
 			cancelPopup.style.display = 'none';
 		}
+		checkTicketCount();
 	}
 }
 
 function initReservationInfo(){
 	RESERVATION_TYPE.forEach(type=>loadReservationItem(type));
+}
+/**
+ * reservation 응답으로 container에 아이템을 넣음
+ * @param reservationList
+ * @param reservationType
+ */
+function templateReservation(reservationList, reservationType){
+	convertPrintType(reservationList);
+	
+	var reservationTemplate = document.querySelector('#reservationTemplate').innerText;
+	var bindCommentTemplate = Handlebars.compile(reservationTemplate);
+	
+	var targetIdx = getTypeIdx(reservationType);
+	reservationList.forEach(reservation=>{
+		ticketContainers[targetIdx + 1].innerHTML += bindCommentTemplate(reservation);
+		var cancelBtn = ticketContainers[targetIdx + 1].lastElementChild.querySelector('.btn');
+		if(targetIdx == 1){
+			cancelBtn.innerText = '예매자 리뷰 남기기';
+		} else if(targetIdx == 2){
+			cancelBtn.parentElement.remove();
+		}
+	});
 }
 
 /**
@@ -198,14 +216,8 @@ function loadReservationInfoCallback(response){
 	var reservationType = response.myReservationResponse.reservationType;
 	var count = response.myReservationResponse.count;
 	if(count > 0){
-		convertPrintType(reservationList);
-		
-		var reservationTemplate = document.querySelector('#reservationTemplate').innerText;
-		var bindCommentTemplate = Handlebars.compile(reservationTemplate);
-		
-		var targetIdx = getTypeIdx(reservationType);
-		countAreas[targetIdx + 1].innerText = count;
-		reservationList.forEach(item=>ticketContainers[targetIdx + 1].innerHTML += bindCommentTemplate(item));
+		countAreas[getTypeIdx(reservationType) + 1].innerText = count;
+		templateReservation(reservationList, reservationType);
 	}
 	
 	/**
