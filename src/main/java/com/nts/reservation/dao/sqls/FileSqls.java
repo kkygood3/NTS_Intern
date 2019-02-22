@@ -24,4 +24,20 @@ public class FileSqls {
 		+ ", content_type "
 		+ "FROM file_info "
 		+ "WHERE id = :fileId ";
+
+	public static final String INSERT_FILE_INFO = "INSERT INTO "
+		+ "file_info"
+		+ "(file_name"
+		+ ", save_file_name"
+		+ ", content_type"
+		+ ", delete_flag"
+		+ ", create_date"
+		+ ", modify_date) "
+		+ "VALUES"
+		+ "(:fileName"
+		+ ", :saveFileName"
+		+ ", :contentType"
+		+ ", 0"
+		+ ", NOW()"
+		+ ", NOW())";
 }

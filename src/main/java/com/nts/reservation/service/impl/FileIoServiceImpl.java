@@ -33,4 +33,9 @@ public class FileIoServiceImpl implements FileIoService {
 	public int getFileIdByDisplayInfoId(Integer displayInfoId) {
 		return fileDao.selectFileIdByDisplayInfoId(displayInfoId);
 	}
+
+	@Override
+	public int setFileInfo(FileInfo fileInfo) {
+		return fileDao.insertFileInfo(fileInfo);
+	}
 }

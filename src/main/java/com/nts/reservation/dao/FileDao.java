@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.dao;
 
+import static com.nts.reservation.dao.sqls.FileSqls.INSERT_FILE_INFO;
 import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_BY_ID;
 import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_ID_BY_DISPLAY_INFO_ID;
 import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_ID_BY_PRODUCT_ID;
@@ -15,7 +16,10 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.FileInfo;
@@ -45,5 +49,11 @@ public class FileDao {
 	public int selectFileIdByDisplayInfoId(Integer displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_FILE_ID_BY_DISPLAY_INFO_ID, param, Integer.class);
+	}
+
+	public int insertFileInfo(FileInfo fileInfo) {
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(INSERT_FILE_INFO, new BeanPropertySqlParameterSource(fileInfo), keyHolder);
+		return keyHolder.getKey().intValue();
 	}
 }

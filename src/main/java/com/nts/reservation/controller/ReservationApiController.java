@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.controller;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +27,7 @@ import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Comment;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
+import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.dto.Product;
 import com.nts.reservation.dto.ProductImage;
 import com.nts.reservation.dto.ProductPrice;
@@ -37,6 +36,7 @@ import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailProductService;
+import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
 
@@ -56,6 +56,8 @@ public class ReservationApiController {
 	private ReservationService reservationService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private FileIoService fileIoService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
@@ -151,20 +153,14 @@ public class ReservationApiController {
 
 		if (files != null) {
 			for (MultipartFile file : files) {
-				System.out.println("파일 이름 : " + file.getOriginalFilename());
-				System.out.println("파일 크기 : " + file.getSize());
+				FileInfo fileInfo = new FileInfo();
+				fileInfo.setFileName(file.getOriginalFilename());
+				fileInfo.setSaveFileName("img/" + file.getOriginalFilename());
+				fileInfo.setContentType(file.getContentType());
 
-				try (
-					FileOutputStream fileOutputStream = new FileOutputStream("c:/tmp/" + file.getOriginalFilename());
-					InputStream inputStream = file.getInputStream();) {
-					int readCount = 0;
-					byte[] buffer = new byte[1024];
-					while ((readCount = inputStream.read(buffer)) != -1) {
-						fileOutputStream.write(buffer, 0, readCount);
-					}
-				} catch (Exception ex) {
-					throw new RuntimeException("file Save Error");
-				}
+				int fileInfoId = fileIoService.setFileInfo(fileInfo);
+
+				System.out.println(fileInfoId + "등록됨");
 			}
 		}
 

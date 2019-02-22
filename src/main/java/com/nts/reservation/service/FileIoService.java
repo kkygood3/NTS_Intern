@@ -15,4 +15,6 @@ public interface FileIoService {
 	public int getFileIdByProductId(Integer productId);
 
 	public int getFileIdByDisplayInfoId(Integer displayInfoId);
+
+	public int setFileInfo(FileInfo fileInfo);
 }
