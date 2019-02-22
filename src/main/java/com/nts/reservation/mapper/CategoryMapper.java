@@ -4,12 +4,13 @@
  */
 package com.nts.reservation.mapper;
 
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.param.PageDto;
 
 /**
  * 카테고리 Mapper
@@ -17,5 +18,5 @@ import com.nts.reservation.dto.CategoryDto;
  */
 @Mapper
 public interface CategoryMapper {
-	List<CategoryDto> selectCategories(int limit);
+	List<CategoryDto> selectCategories(@Param("page") PageDto page);
 }

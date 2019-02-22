@@ -21,6 +21,6 @@
 		WHERE
 		    pi.type = #{type.code}
 		ORDER BY p.id ASC
-		LIMIT #{limit}
+		LIMIT #{page.limit}
 	</select>
 </mapper>

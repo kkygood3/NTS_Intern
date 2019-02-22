@@ -79,7 +79,7 @@ public class ReservationServiceImpl implements ReservationService {
 			return new ReservationResponseDto(Collections.<ReservationDisplayInfoDto>emptyList(), count);
 		}
 		List<ReservationDisplayInfoDto> reservationDisplayInfos = reservationMapper
-			.selectReservationDisplayInfos(reservationEmail, status, page.getStart(), page.getLimit());
+			.selectReservationDisplayInfos(reservationEmail, status, page);
 
 		return new ReservationResponseDto(reservationDisplayInfos, count);
 	}

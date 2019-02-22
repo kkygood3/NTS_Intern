@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.constant.ImageType;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.service.ProductService;
@@ -38,8 +40,8 @@ public class ProductApiController {
 	@GetMapping
 	public ProductResponseDto getProducts(
 		@RequestParam(required = false, defaultValue = CATEGORY_TYPE_ALL) int categoryId,
-		@RequestParam int start, @RequestParam(required = false, defaultValue = PRODUCTS_LIMIT) int limit) {
-		return productService.getProductResponse(categoryId, start, limit);
+		@PageDefault(limit = PRODUCTS_LIMIT) PageDto page) {
+		return productService.getProductResponse(categoryId, page);
 	}
 
 	/**
@@ -56,8 +58,8 @@ public class ProductApiController {
 	 * 프로덕트 id에 해당하는 상품평들과 상품평 개수, 그리고 상품평 평균점수를 가져와 반환
 	 */
 	@GetMapping("/{productId}/comments")
-	public CommentResponseDto getCommentsAndAverageScore(@PathVariable int productId, int start,
-		@RequestParam(required = false, defaultValue = COMMENTS_LIMIT) int limit) {
-		return productService.getCommentResponse(productId, start, limit);
+	public CommentResponseDto getCommentsAndAverageScore(@PathVariable int productId,
+		@PageDefault(limit = COMMENTS_LIMIT) PageDto page) {
+		return productService.getCommentResponse(productId, page);
 	}
 }

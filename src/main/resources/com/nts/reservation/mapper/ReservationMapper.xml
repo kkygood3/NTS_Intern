@@ -61,7 +61,7 @@
 				</when>
 			</choose>
 		</if>
-		LIMIT #{start} , #{limit}
+		LIMIT #{page.start} , #{page.limit}
 	</select>
 
 	<select id="selectReservationCountByStatus" resultType="int">

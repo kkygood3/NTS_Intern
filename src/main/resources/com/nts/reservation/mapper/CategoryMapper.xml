@@ -13,6 +13,6 @@
 		        INNER JOIN
 		    display_info di ON p.id = di.product_id
 		GROUP BY c.id
-		LIMIT #{limit}
+		LIMIT #{page.limit}
 	</select>
 </mapper>

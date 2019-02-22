@@ -13,6 +13,7 @@ import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.param.PageDto;
 
 /**
  * 상품정보 Mapper
@@ -28,13 +29,12 @@ public interface ProductMapper {
 	/**
 	 * 상품들을 가져온다 
 	 */
-	List<ProductDto> selectProducts(@Param("start") int start, @Param("limit") int limit);
+	List<ProductDto> selectProducts(@Param("page") PageDto page);
 
 	/**
 	 * 특정 카테고리의 상품들을 가져온다.
 	 */
-	List<ProductDto> selectProductsByCategoryId(@Param("categoryId") int categoryId, @Param("start") int start,
-		@Param("limit") int limit);
+	List<ProductDto> selectProductsByCategoryId(@Param("categoryId") int categoryId, @Param("page") PageDto page);
 
 	/**
 	 * 상품들의 총 개수를 가져온다 

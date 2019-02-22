@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.mapper.PromotionMapper;
 import com.nts.reservation.service.PromotionService;
 
@@ -29,8 +30,8 @@ public class PromotionServiceImpl implements PromotionService {
 	 * 먼저 등록된 순으로 SELECT_LIMIT값 수만큼 프로모션을 가져옵니다.
 	 */
 	@Override
-	public List<PromotionDto> getPromotions(ImageType type, int limit) {
-		return promotionMapper.selectPromotions(type, limit);
+	public List<PromotionDto> getPromotions(ImageType type, PageDto page) {
+		return promotionMapper.selectPromotions(type, page);
 	}
 
 }

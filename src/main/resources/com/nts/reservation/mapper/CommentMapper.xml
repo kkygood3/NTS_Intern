@@ -24,7 +24,7 @@
 		    ri.product_id = #{productId}
 		GROUP BY ruc.id
 		ORDER BY ruc.id DESC
-		LIMIT #{start} , #{limit}
+		LIMIT #{page.start} , #{page.limit}
 	</select>
 
 	<select id="selectCommentAvgScore" resultType="double">

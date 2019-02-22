@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.service.PromotionService;
 
 /**
@@ -36,8 +38,8 @@ public class PromotionApiController {
 	@GetMapping
 	public Map<String, Object> getPromotions(
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_THUMBNAIL) String type,
-		@RequestParam(required = false, defaultValue = PROMOTIONS_LIMIT) int limit) {
-		List<PromotionDto> promotions = promotionService.getPromotions(ImageType.getEnum(type), limit);
+		@PageDefault(limit = PRODUCTS_LIMIT) PageDto page) {
+		List<PromotionDto> promotions = promotionService.getPromotions(ImageType.getEnum(type), page);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("promotions", promotions);

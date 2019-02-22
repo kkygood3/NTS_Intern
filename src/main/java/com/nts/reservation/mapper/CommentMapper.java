@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.nts.reservation.dto.CommentDto;
+import com.nts.reservation.dto.param.PageDto;
 
 /**
  * 상품평 Mapper
@@ -21,7 +22,7 @@ public interface CommentMapper {
 	 * productId에 해당하는 상품평들을 가져옵니다.
 	 */
 	List<CommentDto> selectComments(@Param("productId") int productId,
-		@Param("start") int start, @Param("limit") int limit);
+		@Param("page") PageDto page);
 
 	/**
 	 * productId에 해당하는 상품평들의 총 평균점수를 가져옵니다.

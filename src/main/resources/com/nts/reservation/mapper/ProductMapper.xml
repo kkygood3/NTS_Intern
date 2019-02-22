@@ -35,7 +35,7 @@
 		WHERE
 		    pi.type = 'th'
 		ORDER BY di.id ASC
-		LIMIT #{start} , #{limit}
+		LIMIT #{page.start} , #{page.limit}
 	</select>
 
 	<select id="selectProductsByCategoryId" resultType="ProductDto">
@@ -60,7 +60,7 @@
 		    pi.type = 'th'
 		        AND p.category_id = #{categoryId}
 		ORDER BY di.id ASC
-		LIMIT #{start} , #{limit}
+		LIMIT #{page.start} , #{page.limit}
 	</select>
 
 	<select id="selectProductCount" resultType="int">

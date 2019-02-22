@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.dto.param.PageDto;
 
 /**
  * 프로모션 Mapper
@@ -18,5 +19,5 @@ import com.nts.reservation.dto.PromotionDto;
  */
 @Mapper
 public interface PromotionMapper {
-	List<PromotionDto> selectPromotions(@Param("type") ImageType type, @Param("limit") int limit);
+	List<PromotionDto> selectPromotions(@Param("type") ImageType type, @Param("page") PageDto page);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.mapper.CategoryMapper;
 import com.nts.reservation.service.CategoryService;
 
@@ -25,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit) {
-		return categoryMapper.selectCategories(limit);
+	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(PageDto page) {
+		return categoryMapper.selectCategories(page);
 	}
 }

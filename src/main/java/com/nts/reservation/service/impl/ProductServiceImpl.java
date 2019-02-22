@@ -19,6 +19,7 @@ import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 	private CommentMapper commentMapper;
 
 	@Override
-	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
+	public ProductResponseDto getProductResponse(int categoryId, PageDto page) {
 		int count;
 		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
 			count = productMapper.selectProductCount();
@@ -56,9 +57,9 @@ public class ProductServiceImpl implements ProductService {
 
 		List<ProductDto> products;
 		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			products = productMapper.selectProducts(start, limit);
+			products = productMapper.selectProducts(page);
 		} else {
-			products = productMapper.selectProductsByCategoryId(categoryId, start, limit);
+			products = productMapper.selectProductsByCategoryId(categoryId, page);
 		}
 
 		return new ProductResponseDto(products, count);
@@ -73,9 +74,9 @@ public class ProductServiceImpl implements ProductService {
 	 * detail Page
 	 */
 	@Override
-	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, int commentLimit) {
+	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, PageDto commnetPage) {
 		DisplayInfoDto displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
-		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
+		CommentResponseDto commentResponse = getCommentResponse(productId, commnetPage);
 		String productImageUrl = productMapper.selectProductImage(productId, type).getSaveFileName();
 		return new DetailResponseDto(displayInfo, commentResponse, productImageUrl);
 	}
@@ -84,12 +85,12 @@ public class ProductServiceImpl implements ProductService {
 	 * comment
 	 */
 	@Override
-	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
+	public CommentResponseDto getCommentResponse(int productId, PageDto page) {
 		int count = commentMapper.selectCommentCount(productId);
 		if (count == 0) {
 			return new CommentResponseDto(Collections.<CommentDto>emptyList(), count, 0);
 		}
-		List<CommentDto> comments = commentMapper.selectComments(productId, start, limit);
+		List<CommentDto> comments = commentMapper.selectComments(productId, page);
 		double averageScore = commentMapper.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
 	}

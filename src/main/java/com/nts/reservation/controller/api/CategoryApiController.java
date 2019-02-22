@@ -13,10 +13,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.service.CategoryService;
 
 /**
@@ -34,8 +35,8 @@ public class CategoryApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getCategoriesWithProductsOnDisplayCount(
-		@RequestParam(required = false, defaultValue = CATEGORIES_LIMIT) int limit) {
-		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount(limit);
+		@PageDefault(limit = CATEGORIES_LIMIT) PageDto page) {
+		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount(page);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categories", categories);

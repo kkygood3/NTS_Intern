@@ -30,8 +30,7 @@ public class MyReservationController {
 	@GetMapping("/myreservation")
 	public String getMyReservationPage(@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
 		HttpSession session, Model model) {
-		System.out.println(page.toString());
-		
+
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
 
 		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail,
