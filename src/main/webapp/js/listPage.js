@@ -109,9 +109,11 @@ function initDisplayInfo(response) {
 
     if (todo === 0) {
         document.querySelector('.confirmed').innerHTML += document.querySelector('#noneList').innerHTML;
-    } else if (done === 0) {
+    }
+    if (done === 0) {
         document.querySelector('.used').innerHTML += document.querySelector('#noneList').innerHTML;
-    } else if (cancel === 0) {
+    }
+    if (cancel === 0) {
         document.querySelector('.cancel').innerHTML += document.querySelector('#noneList').innerHTML;
     }
 

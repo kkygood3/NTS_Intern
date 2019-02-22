@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.commons.validator.NegativeValueValidator;
 import com.nts.reservation.displayinfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayinfo.dto.DisplayInfo;
 import com.nts.reservation.reservation.dao.ReservationDao;
@@ -36,13 +37,15 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
 
 		List<ReservationInfo> reservations = reservationDaoImpl.getReservationInfos(reservationEmail);
+		// ReservationInfo의 displayInfo와 TotalPrice을 set하는 구문
 		reservations.forEach(reservation -> {
 			int displayInfoId = reservation.getDisplayInfoId();
 			int reservationInfoId = reservation.getReservationInfoId();
 			int productId = reservation.getProductId();
 
 			DisplayInfo displayInfo = displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
-			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, productId, reservationInfoId);
+			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, productId,
+				reservationInfoId);
 
 			reservation.setDisplayInfo(displayInfo);
 			reservation.setTotalPrice(reservationTotalPrice);
@@ -87,7 +90,7 @@ public class ReservationServiceImpl implements ReservationService {
 				price.getProductPriceId(),
 				reservationInfoId, price.getCount());
 
-			if (reservationInfoPriceId == null || reservationInfoPriceId < 0) {
+			if (NegativeValueValidator.isNegativeValue(reservationInfoPriceId)) {
 				throw new IllegalArgumentException("insertReservationPrice Failed");
 			}
 		});
@@ -99,7 +102,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional(readOnly = false)
 	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
 		int updateResult = reservationDaoImpl.updateReservation(reservationInfoId, reservationEmail);
-		if(updateResult < 1) {
+		if (updateResult < 1) {
 			return false;
 		}
 		return true;

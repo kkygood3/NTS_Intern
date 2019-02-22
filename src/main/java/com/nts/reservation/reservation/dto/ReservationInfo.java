@@ -11,7 +11,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 public class ReservationInfo {
 	private boolean cancelYn;
 	private String createDate;

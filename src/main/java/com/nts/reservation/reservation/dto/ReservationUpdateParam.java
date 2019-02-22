@@ -16,6 +16,10 @@ public class ReservationUpdateParam {
 	private int reservationInfoId;
 	private String reservationEmail;
 
+	/**
+	 * POST 방식으로 들어온 값의 Id와 Email부분을 검증하는 메소드
+	 * @param reservationParam
+	 */
 	public boolean isValid(ReservationUpdateParam updateParam) {
 		String emailReg = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
 

@@ -22,7 +22,6 @@ public class ReservationParam {
 	private String reservationYearMonthDay;
 
 	/**
-	 *
 	 * POST 방식으로 들어온 값들을 검증하는 메소드
 	 * @param reservationParam
 	 */

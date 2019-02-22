@@ -19,7 +19,7 @@ function requestPostAjax(callback, url, param) {
 	});
 	ajaxReq.open('POST', url);
 	ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-	ajaxReq.responseType = 'json';
+    ajaxReq.responseType = 'json';
 	ajaxReq.send(param);
 }
 
@@ -288,7 +288,7 @@ function initBookingBtn(displayInfoData) {
 
             let reserveRequest = JSON.stringify(new ReserveRequest(displayInfoId, reservePrices, productId, name, tel, email));
 
-            requestPostAjax(postResponseHandler, 'api/reservations', null);
+            requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
         }
     });
 }
@@ -339,7 +339,7 @@ function InputDataValidator(changedTarget) {
         case 'email':
             let email = inputArea.value;
 
-            let emailReg = (/^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g);
+            let emailReg = (/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
             isCorrectInput = emailReg.test(email);
             break;
         default:

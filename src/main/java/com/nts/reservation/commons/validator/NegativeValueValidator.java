@@ -13,14 +13,15 @@ public class NegativeValueValidator {
 	 * NegativeValueValidator.isNegativeValue(-1,1,1)		= true;
 	 * NegativeValueValidator.isNegativeValue(1,1,-1)		= true;
 	 * NegativeValueValidator.isNegativeValue(1,1,1,1,-1)	= true;
+	 * NegativeValueValidator.isNegativeValue(1,1,1,NULL)	= true;
 	 * </pre>
 	 *
 	 * @param 정수값
 	 * @return 하나라도 음수가 존재하면 true 반환
 	 */
-	public static boolean isNegativeValue(int... numbers) {
-		for(int number : numbers) {
-			if(number < 0) {
+	public static boolean isNegativeValue(Integer... numbers) {
+		for (Integer number : numbers) {
+			if (number == null || number < 0) {
 				return true;
 			}
 		}
