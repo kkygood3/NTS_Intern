@@ -196,10 +196,10 @@ ReserveButton.prototype = {
 		oReq.onreadystatechange = function(data) {
 			if (this.readyState == 4 && this.status == 200) {
 				let reservationReponse = data.target.response;
-				
-				let message = `name : ${reservationReponse.reservationName}
-email : ${reservationReponse.reservationEmail}
-phone : ${reservationReponse.reservationTel}
+				reservationReponse.reservationDate = reservationReponse.reservationDate.substring(0, 10)
+				let message = `성함 : ${reservationReponse.reservationName}
+이메일 : ${reservationReponse.reservationEmail}
+연락처 : ${reservationReponse.reservationTel}
 공연 날짜 : ${reservationReponse.reservationDate}
 
 로 예매가 완료되었습니다.`;
