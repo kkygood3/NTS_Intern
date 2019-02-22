@@ -17,7 +17,35 @@ function makeReservationCardItemHtml(cardItemListMap) {
 	makeUsedCard(cardItemListMap.used);
 	makeCancelCard(cardItemListMap.cancel);
 	
+	makeMoreButton(cardItemListMap);
+	
 	makeSummaryBoard(cardItemListMap.count);
+}
+
+function makeMoreButton(cardItemListMap) {
+	var countList = cardItemListMap.count;
+
+	countList.forEach((count) => {
+		if (count.type == "confirmed") {
+			if (count.count && cardItemListMap.confirmed && count.count > cardItemListMap.confirmed.length) {
+				addMoreButton("confirmed");
+			}
+		} else if (count.type == "used") {
+			if (count.count && cardItemListMap.used && count.count > cardItemListMap.used.length) {
+				addMoreButton("used");
+			}
+		} else if (count.type == "canceled") {
+			if (count.count && cardItemListMap.canceled && count.count > cardItemListMap.canceled.length) {
+				addMoreButton("canceled");
+			}
+		}
+	});
+}
+
+function addMoreButton(elementClassName) {
+	var ul = document.getElementsByClassName(elementClassName)[0];
+	var moreButton = document.getElementById("more_botton").innerHTML;
+	ul.innerHTML += moreButton;
 }
 
 function makeSummaryBoard(countList) {
