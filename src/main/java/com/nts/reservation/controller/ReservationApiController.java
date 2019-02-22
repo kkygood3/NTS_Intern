@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,6 +35,7 @@ import com.nts.reservation.dto.ProductPrice;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailProductService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
@@ -52,6 +54,8 @@ public class ReservationApiController {
 	private DetailProductService detailProductService;
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private CommentService commentService;
 
 	@GetMapping(path = "/products")
 	public Map<String, Object> getProducts(@RequestParam(name = "categoryId", required = false) Integer categoryId,
@@ -140,10 +144,10 @@ public class ReservationApiController {
 	}
 
 	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
-	public String writeComment(@RequestParam("rating") int rating, @RequestParam("review") String review,
+	public String writeComment(@ModelAttribute Comment comment,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
-		System.out.println("별점 : " + rating);
-		System.out.println("리뷰 : " + review);
+		int reservationUserCommentId = commentService.setComment(comment);
+		System.out.println(reservationUserCommentId + "등록됨");
 
 		if (files != null) {
 			for (MultipartFile file : files) {

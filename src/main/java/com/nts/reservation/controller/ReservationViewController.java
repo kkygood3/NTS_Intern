@@ -70,6 +70,7 @@ public class ReservationViewController {
 		DisplayInfo displayInfo = detailProductService
 			.getDisplayInfo(reservationService.getDisplayInfoId(reservationInfoId));
 		model.put("productDescription", displayInfo.getProductDescription());
+		model.put("productId", displayInfo.getProductId());
 
 		return "reviewWrite";
 	}

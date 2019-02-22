@@ -26,6 +26,7 @@ var reviewWritePage = {
 	},
 	
 	constants: {
+		PRODUCT_ID : document.querySelector(".title").dataset.productId,
 		RESERVATION_INFO_ID : document.querySelector(".title").dataset.reservationInfoId,
 		ACCEPT_TYPE : ["image/png", "image/jpeg"],
 		MIN_LENGTH : 5,
@@ -79,10 +80,12 @@ var reviewWritePage = {
 	getData : function(){
 		var data = new FormData();
 
- 		data.append("rating", this.reviewWritePage.elements.ratingValue.innerHTML);
-		data.append("review", this.reviewWritePage.elements.reviewTextarea.value);
-
- 		this.reviewWritePage.reviewImage.fileList.forEach(function(file){
+		data.append("productId", this.reviewWritePage.constants.PRODUCT_ID);
+		data.append("reservationInfoId", this.reviewWritePage.constants.RESERVATION_INFO_ID);
+		data.append("score", this.reviewWritePage.elements.ratingValue.innerHTML);
+		data.append("comment", this.reviewWritePage.elements.reviewTextarea.value);
+ 		
+		this.reviewWritePage.reviewImage.fileList.forEach(function(file){
 			data.append("files", file);
 		})
 
