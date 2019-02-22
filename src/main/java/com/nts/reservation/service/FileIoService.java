@@ -4,6 +4,10 @@
  */
 package com.nts.reservation.service;
 
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nts.reservation.dto.FileInfo;
 
 /**
@@ -17,4 +21,6 @@ public interface FileIoService {
 	public int getFileIdByDisplayInfoId(Integer displayInfoId);
 
 	public int setFileInfo(FileInfo fileInfo);
+
+	public FileInfo downloadFile(MultipartFile file) throws IOException;
 }

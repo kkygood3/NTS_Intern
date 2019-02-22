@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -148,16 +149,13 @@ public class ReservationApiController {
 
 	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
 	public String writeComment(@ModelAttribute Comment comment,
-		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
+		@RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
 		int reservationInfoId = comment.getReservationInfoId();
 		int reservationUserCommentId = commentService.setComment(comment);
 
 		if (files != null) {
 			for (MultipartFile file : files) {
-				FileInfo fileInfo = new FileInfo();
-				fileInfo.setFileName(file.getOriginalFilename());
-				fileInfo.setSaveFileName("img/" + file.getOriginalFilename());
-				fileInfo.setContentType(file.getContentType());
+				FileInfo fileInfo = fileIoService.downloadFile(file);
 
 				int fileInfoId = fileIoService.setFileInfo(fileInfo);
 
