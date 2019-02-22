@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.common.config.DbConfig;
-import com.nts.reservation.display.dao.DisplayDao;
 import com.nts.reservation.display.dao.daoImpl.DisplayDaoImpl;
 import com.nts.reservation.reserve.dao.ReservationDao;
 import com.nts.reservation.reserve.dao.impl.ReservationDaoImpl;
@@ -33,8 +32,6 @@ public class ReservationServiceTest {
 
 	@Autowired
 	private ReservationDao reservationDao;
-	@Autowired
-	private DisplayDao displayDao;
 
 	private ReservationParam reservationParam;
 
