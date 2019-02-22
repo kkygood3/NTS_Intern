@@ -5,8 +5,7 @@
 <mapper namespace="com.nts.reservation.dao.reserve.ReserveDao">
 	<insert id="insertReservation" useGeneratedKeys="true" keyProperty="id">
 		INSERT 
-			INTO
-				reservation_info(
+			INTO reservation_info(
 				product_id, 
 				display_info_id, 
 				reservation_name, 
@@ -36,12 +35,14 @@
 				p.id
 	</insert>
 	<insert id="insertReservationPrice">
-		INSERT INTO reservation_info_price
-		           (reservation_info_id,
-		            product_price_id,
-		            count)
-		VALUES      (#{reservationInfoId},
-		            #{priceInfoId},
-		            #{count});
+		INSERT
+			INTO reservation_info_price(
+				reservation_info_id,
+				product_price_id,
+				count)
+			VALUES
+				(#{reservationInfoId},
+				#{priceInfoId},
+				#{count});
 	</insert>
 </mapper>

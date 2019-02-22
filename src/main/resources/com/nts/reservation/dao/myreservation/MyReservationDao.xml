@@ -93,6 +93,6 @@
 			modify_date = NOW()
 		WHERE
 			r.id = #{reservationInfoId}
-			AND r.reservation_email = #{reservationEmail}
+			AND r.reservation_email = #{email}
 	</update>
 </mapper>
