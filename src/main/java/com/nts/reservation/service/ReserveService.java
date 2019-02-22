@@ -4,10 +4,6 @@
  */
 package com.nts.reservation.service;
 
-import java.io.IOException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 
@@ -24,5 +20,5 @@ public interface ReserveService {
 	 * @param reserveRequest
 	 * @return 등록 성공 시 TRUE
 	 */
-	boolean postReserve(ReserveRequest reserveRequest);
+	boolean registerReserve(ReserveRequest reserveRequest);
 }

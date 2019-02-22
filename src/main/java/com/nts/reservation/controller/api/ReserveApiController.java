@@ -63,7 +63,7 @@ public class ReserveApiController {
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
 		Map<String, Object> map = new HashMap<>();
 		
-		if (reserveRequest.isValid() && reserveResponseService.postReserve(reserveRequest)) {
+		if (reserveRequest.isValid() && reserveResponseService.registerReserve(reserveRequest)) {
 			map.put("result", "OK");
 		} else {
 			map.put("result", "FAIL");

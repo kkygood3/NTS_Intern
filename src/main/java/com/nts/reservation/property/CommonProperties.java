@@ -25,6 +25,10 @@ public class CommonProperties {
 	public static final String REG_TELEPHONE = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
 	public static final String REG_EMAIL = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
 
+	/**
+	 * 프로젝트 내에서 사용하는 특정 형식의 최대 크기를 정의
+	 * 이름, 이메일, 티켓 구매 수
+	 */
 	public static final int MAX_NAME_LENGTH = 17;
 	public static final int MAX_EMAIL_LENGTH = 50;
 	public static final int MAX_TICKET_COUNT = 10;

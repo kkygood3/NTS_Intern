@@ -26,6 +26,7 @@ public class DetailServiceImpl implements DetailService {
 	@Override
 	public DetailResponse getDetailResponse(int displayInfoId, int start, int pagingLimit) {
 		DetailResponse detailResponse = new DetailResponse();
+
 		detailResponse.setDetailComment(detailCommentDao.selectCommentByDisplayInfoId(displayInfoId, start, pagingLimit));
 		detailResponse.setDetailDisplayInfo(detailDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
 

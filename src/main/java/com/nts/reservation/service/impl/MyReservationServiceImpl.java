@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.myreservation.MyReservationDao;
-import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
 import com.nts.reservation.dto.myreservation.ReservationType;
@@ -22,14 +21,15 @@ public class MyReservationServiceImpl implements MyReservationService {
 	MyReservationDao myReservationDao;
 	@Autowired
 	MyReservationDao myReservationMapper;
-	
+
 	@Override
-	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit){
-		
+	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit) {
+
 		Integer count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
 		MyReservationResponse myReservationResponse = new MyReservationResponse();
-		if(count != null && count > start) {
+		if (count != null && count > start) {
 			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email, reservationType.name(), start, pagingLimit);
+
 			myReservationResponse.setReservationList(myReservationList);
 			myReservationResponse.setReservationType(reservationType);
 			myReservationResponse.setCount(count);
@@ -42,7 +42,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 		if (myReservationDao.updateMyReservationCancelById(reservationInfoId, email) != null) {
 			return true;
 		}
-		
+
 		return false;
 	}
 }
