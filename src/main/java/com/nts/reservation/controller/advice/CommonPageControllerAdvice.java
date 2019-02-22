@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.dto.ErrorMessageDto;
@@ -36,6 +37,7 @@ public class CommonPageControllerAdvice {
 	}
 
 	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ModelAndView handleCommonException(Exception exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
 		return getErrorPage(new ErrorMessageDto(COMMON_ERROR_MSG));
@@ -50,22 +52,29 @@ public class CommonPageControllerAdvice {
 
 	@ExceptionHandler(ConnectException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public @ResponseBody ErrorMessageDto handleConnectException(ConnectException exception) {
+	public ModelAndView handleConnectException(ConnectException exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
-		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
+		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
+	}
+	
+	@ExceptionHandler(HttpServerErrorException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ModelAndView handleHttpServerErrorException(HttpServerErrorException exception) {
+		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
 	}
 
 	@ExceptionHandler(UnauthorizedRequestException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public @ResponseBody ErrorMessageDto handleUnauthorizedRequestException(UnauthorizedRequestException exception) {
+	public ModelAndView handleUnauthorizedRequestException(UnauthorizedRequestException exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
-		return new ErrorMessageDto(UNAUTHORIZED_ERROR_MSG);
+		return getErrorPage(new ErrorMessageDto(UNAUTHORIZED_ERROR_MSG));
 	}
 
 	@ExceptionHandler(PageNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public @ResponseBody ErrorMessageDto handlePageNotFoundException(PageNotFoundException exception) {
+	public ModelAndView handlePageNotFoundException(PageNotFoundException exception) {
 		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
-		return new ErrorMessageDto(NOT_FOUND_REQUEST);
+		return getErrorPage(new ErrorMessageDto(NOT_FOUND_REQUEST));
 	}
 }
