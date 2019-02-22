@@ -17,5 +17,3 @@ class TopBar extends React.Component {
 }
 
 module.exports = TopBar;
-
-

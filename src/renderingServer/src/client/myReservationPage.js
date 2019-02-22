@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var dataContainer = document.querySelector("#dataContainer");
     dataContainer.parentNode.removeChild(dataContainer);
 
+    console.log("DOMContentLoaded");
     ReactDom.render( <MyReservation email={requestData.email} reservations={requestData.reservations} size={requestData.size} /> , document.body);
 });
 
