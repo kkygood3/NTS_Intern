@@ -14,9 +14,7 @@ import com.nts.reservation.dto.Product;
 public interface ProductService {
 	public static final Integer LIMIT = 4;
 
-	public int getCountAllProducts();
-
-	public int getCount(int categoryId);
+	public int getCount(Integer categoryId);
 
 	public List<Product> getProducts(Integer categoryId, int start);
 

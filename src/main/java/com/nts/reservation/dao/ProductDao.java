@@ -45,14 +45,20 @@ public class ProductDao {
 		return jdbc.queryForObject(SELECT_COUNT_BY_CATEGORY_ID, param, Integer.class);
 	}
 
-	public List<Product> selectProducts(Integer categoryId, int start, int limit) {
+	public List<Product> selectProducts(int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("start", start);
 		params.put("limit", limit);
-		if (categoryId != null) {
-			params.put("categoryId", categoryId);
-			return jdbc.query(SELECT_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);
-		}
+
 		return jdbc.query(SELECT_PRODUCTS + LIMIT, params, rowMapper);
+	}
+
+	public List<Product> selectProductsByCategotyId(Integer categoryId, int start, Integer limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("start", start);
+		params.put("limit", limit);
+		params.put("categoryId", categoryId);
+
+		return jdbc.query(SELECT_PRODUCTS_BY_CATEGORY_ID + LIMIT, params, rowMapper);
 	}
 }
