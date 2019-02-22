@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.Category;
 import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 import com.nts.reservation.dto.DisplayInfo;
 import com.nts.reservation.dto.DisplayInfoImage;
 import com.nts.reservation.dto.FileInfo;
@@ -148,8 +149,8 @@ public class ReservationApiController {
 	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
 	public String writeComment(@ModelAttribute Comment comment,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) {
+		int reservationInfoId = comment.getReservationInfoId();
 		int reservationUserCommentId = commentService.setComment(comment);
-		System.out.println(reservationUserCommentId + "등록됨");
 
 		if (files != null) {
 			for (MultipartFile file : files) {
@@ -160,7 +161,12 @@ public class ReservationApiController {
 
 				int fileInfoId = fileIoService.setFileInfo(fileInfo);
 
-				System.out.println(fileInfoId + "등록됨");
+				CommentImage commentImage = new CommentImage();
+				commentImage.setReservationInfoId(reservationInfoId);
+				commentImage.setReservationUserCommentId(reservationUserCommentId);
+				commentImage.setFileId(fileInfoId);
+
+				commentService.setCommentImage(commentImage);
 			}
 		}
 

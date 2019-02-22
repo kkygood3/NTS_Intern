@@ -5,6 +5,7 @@
 package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sqls.CommentSqls.INSERT_COMMENT;
+import static com.nts.reservation.dao.sqls.CommentSqls.INSERT_COMMENT_IMAGE;
 
 import javax.sql.DataSource;
 
@@ -15,6 +16,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.Comment;
+import com.nts.reservation.dto.CommentImage;
 
 /**
 * @author  : 이승수
@@ -31,5 +33,9 @@ public class CommentDao {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_COMMENT, new BeanPropertySqlParameterSource(comment), keyHolder);
 		return keyHolder.getKey().intValue();
+	}
+
+	public void insertCommentImage(CommentImage commentImage) {
+		jdbc.update(INSERT_COMMENT_IMAGE, new BeanPropertySqlParameterSource(commentImage));
 	}
 }

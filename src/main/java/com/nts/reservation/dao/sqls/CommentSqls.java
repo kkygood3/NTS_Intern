@@ -23,4 +23,14 @@ public class CommentSqls {
 		+ ", :comment"
 		+ ", NOW()"
 		+ ", NOW())";
+
+	public static final String INSERT_COMMENT_IMAGE = "INSERT INTO "
+		+ "reservation_user_comment_image"
+		+ "(reservation_info_id"
+		+ ", reservation_user_comment_id"
+		+ ", file_id) "
+		+ "VALUES"
+		+ "(:reservationInfoId"
+		+ ", :reservationUserCommentId"
+		+ ", :fileId)";
 }
