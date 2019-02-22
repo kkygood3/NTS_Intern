@@ -19,46 +19,23 @@
 			product_image AS pi ON p.id = pi.product_id AND pi.type='th' 
 		INNER JOIN
 			file_info AS f ON pi.file_id = f.id 
-		LIMIT
-			#{start}, #{pagingLimit};
-	</select>
-	<select id="selectPagingProductsByCategory" resultType="MainProduct">
-		SELECT 
-			d.id AS display_info_id, 
-			d.place_name, 
-			p.content AS product_content, 
-			p.description AS product_description, 
-			p.id AS product_id, 
-			f.save_file_name AS product_image_url 
-		FROM
-			product AS p 
-		INNER JOIN
-			display_info AS d ON p.id = d.product_id 
-		INNER JOIN
-			product_image AS pi ON p.id = pi.product_id AND pi.type='th' 
-		INNER JOIN
-			file_info AS f ON pi.file_id = f.id 
-		WHERE
-			p.category_id = #{categoryId} 
+		<if test="categoryId > 0">
+			WHERE
+				p.category_id = #{categoryId}
+		</if>
 		LIMIT
 			#{start}, #{pagingLimit}
 	</select>
-	<select id="selectCountByCategory" resultType="int">
-		SELECT 
-			COUNT(d.id) 
-		FROM
-			product AS p 
-		INNER JOIN
-			display_info AS d ON p.id = d.product_id 
-		WHERE
-			p.category_id = #{categoryId}
-		</select>
-		<select id="selectCount" resultType="int">
+	<select id="selectCount" resultType="int">
 		SELECT 
 			COUNT(d.id) 
 		FROM
 			product AS p 
 		INNER JOIN
 			display_info AS d ON p.id = d.product_id
+		<if test="categoryId > 0">
+			WHERE
+				p.category_id = #{categoryId}
+		</if>
 	</select>
 </mapper>

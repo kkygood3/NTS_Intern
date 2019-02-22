@@ -20,22 +20,10 @@ public interface MainService {
 	List<MainProduct> getProducts(int categoryId, int start, int pagingLimit);
 
 	/**
-	 * api/products response에 사용. 카테고리 구분 없음
-	 * @param start	페이지에 출력할 데이터의 시작 index
-	 * @param pagingLimit - 한 페이지에 출력할 item 개수
-	 */
-	List<MainProduct> getProducts(int start, int pagingLimit);
-
-	/**
 	 * api/products response에 사용
 	 * @param categoryId	해당 카테고리에 속하는 상품
 	 */
 	int getProductCount(int categoryId);
-
-	/**
-	 * api/products response에 사용. 카테고리 구분 없음
-	 */
-	int getProductCount();
 
 	/**
 	 * api/categories response에 사용

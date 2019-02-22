@@ -25,7 +25,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 	@Override
 	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit) {
 
-		Integer count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
+ 		Integer count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
 		MyReservationResponse myReservationResponse = new MyReservationResponse();
 		if (count != null && count > start) {
 			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email, reservationType.name(), start, pagingLimit);

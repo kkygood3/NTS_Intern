@@ -14,23 +14,13 @@ import com.nts.reservation.dto.main.MainProduct;
  * /api/products 요청에 대응
  */
 public interface MainProductDao {
-
-	/**
-	 * main 페이지를 로드할 때 필요한 product정보 조회. 카테고리 구분 없음
-	 * @param start - 한 페이지에 출력할 item 개수
-	 * @param pagingLimit - 한 페이지에 출력할 item 개수
-	 */
-	public List<MainProduct> selectPagingProducts(
-		@Param("start") int start,
-		@Param("pagingLimit") int pagingLimit);
-
 	/**
 	 * main 페이지를 로드할 때 필요한 product정보 조회
 	 * @param categoryId - 해당 카테고리에 속하는 product로 한정
 	 * @param start - 한 페이지에 출력할 item 개수
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<MainProduct> selectPagingProductsByCategory(
+	public List<MainProduct> selectPagingProducts(
 		@Param("categoryId") int categoryId,
 		@Param("start") int start,
 		@Param("pagingLimit") int pagingLimit);
@@ -39,11 +29,6 @@ public interface MainProductDao {
 	 * main 페이지를 로드할 때 필요한 product 갯수 조회
 	 * @param categoryId - 해당 카테고리에 속하는 product로 한정
 	 */
-	public int selectCountByCategory(
+	public int selectCount(
 		@Param("categoryId") int categoryId);
-
-	/**
-	 * main 페이지를 로드할 때 필요한 product 갯수 조회. 카테고리 구분 없음
-	 */
-	public int selectCount();
 }
