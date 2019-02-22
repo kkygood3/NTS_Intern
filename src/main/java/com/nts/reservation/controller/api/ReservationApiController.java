@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
@@ -54,12 +56,10 @@ public class ReservationApiController {
 	@GetMapping
 	public ReservationResponseDto getReservationsByStatus(
 		@RequestParam String status,
-		@RequestParam int start,
-		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit,
+		@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
 		HttpSession session) {
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
 
-		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), start,
-			limit);
+		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), page);
 	}
 }

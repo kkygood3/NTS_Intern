@@ -22,24 +22,27 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
 	/**
 	 * HTTP 404 ERROR
 	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public String errorPage(NoHandlerFoundException ex, HttpServletRequest req) {
+	public String handleNotFoundPage(NoHandlerFoundException ex, HttpServletRequest req) {
 		req.setAttribute("javax.servlet.error.status_code", 404);
+		req.setAttribute("javax.servlet.error.message", "페이지를 찾을수 없습니다.");
 		return "error";
 	}
 
 	/*
 	 * @RequestParam 에러 처리
 	 */
-	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class})
+	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class,
+		NumberFormatException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public String handleParamException(HttpServletRequest req) {
-		req.setAttribute("javax.servlet.error.status_code", 404);
-		req.setAttribute("javax.servlet.error.message", "잘못된 입력갑입니다.");
+		req.setAttribute("javax.servlet.error.status_code", 400);
+		req.setAttribute("javax.servlet.error.message", "잘못된 입력값입니다.");
 		return "error";
 	}
 
@@ -48,7 +51,7 @@ public class GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public String errorPage(Exception ex, HttpServletRequest req) {
+	public String handleOtherExceptions(Exception ex, HttpServletRequest req) {
 		ex.printStackTrace();
 		req.setAttribute("javax.servlet.error.status_code", 500);
 		return "error";

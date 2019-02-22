@@ -51,7 +51,7 @@ public class GlobalApiExceptionHadler {
 	 */
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> handleOtherExceptions(Exception ex, HttpServletRequest req) {
+	public Map<String, Object> handleApiOtherExceptions(Exception ex, HttpServletRequest req) {
 		ex.printStackTrace();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("isEmpty", true);

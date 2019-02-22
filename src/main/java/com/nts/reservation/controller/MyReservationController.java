@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.annotation.PageDefault;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
@@ -27,13 +28,14 @@ public class MyReservationController {
 	private ReservationService reservationService;
 
 	@GetMapping("/myreservation")
-	public String getMyReservationPage(@RequestParam(required = false, defaultValue = DEFAULT_START) int start,
-		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit,
+	public String getMyReservationPage(@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
 		HttpSession session, Model model) {
+		System.out.println(page.toString());
+		
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
 
 		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail,
-			start, limit);
+			page);
 		model.addAttribute("response", myReservationResponse);
 
 		return "myreservation";

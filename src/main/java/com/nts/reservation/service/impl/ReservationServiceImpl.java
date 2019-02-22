@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.ReservationDisplayInfoDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.primitive.ReservationInfoDto;
 import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
@@ -34,12 +35,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public MyReservationResponseDto getMyReservationResponse(String reservationEmail, int start, int limit) {
+	public MyReservationResponseDto getMyReservationResponse(String reservationEmail, PageDto page) {
 
-		ReservationResponseDto todoReservationResponse = getReservationResponse(reservationEmail, TODO, start, limit);
-		ReservationResponseDto doneReservationResponse = getReservationResponse(reservationEmail, DONE, start, limit);
-		ReservationResponseDto cancelReservationResponse = getReservationResponse(reservationEmail, CANCEL, start,
-			limit);
+		ReservationResponseDto todoReservationResponse = getReservationResponse(reservationEmail, TODO, page);
+		ReservationResponseDto doneReservationResponse = getReservationResponse(reservationEmail, DONE, page);
+		ReservationResponseDto cancelReservationResponse = getReservationResponse(reservationEmail, CANCEL, page);
 
 		return new MyReservationResponseDto(todoReservationResponse, doneReservationResponse,
 			cancelReservationResponse);
@@ -73,13 +73,13 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public ReservationResponseDto getReservationResponse(String reservationEmail,
-		ReservationStatusType status, int start, int limit) {
+		ReservationStatusType status, PageDto page) {
 		int count = reservationMapper.selectReservationCountByStatus(reservationEmail, status);
-		if (count <= start) {
+		if (count <= page.getStart()) {
 			return new ReservationResponseDto(Collections.<ReservationDisplayInfoDto>emptyList(), count);
 		}
 		List<ReservationDisplayInfoDto> reservationDisplayInfos = reservationMapper
-			.selectReservationDisplayInfos(reservationEmail, status, start, limit);
+			.selectReservationDisplayInfos(reservationEmail, status, page.getStart(), page.getLimit());
 
 		return new ReservationResponseDto(reservationDisplayInfos, count);
 	}

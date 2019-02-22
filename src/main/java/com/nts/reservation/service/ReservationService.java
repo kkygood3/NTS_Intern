@@ -5,6 +5,7 @@
 package com.nts.reservation.service;
 
 import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
@@ -16,12 +17,11 @@ import com.nts.reservation.dto.response.ReservationResponseDto;
 public interface ReservationService {
 	void makeReservation(ReservationParamDto reservationParam);
 
-	MyReservationResponseDto getMyReservationResponse(String reservationEmail, int start, int limit);
+	MyReservationResponseDto getMyReservationResponse(String reservationEmail, PageDto page);
 
 	void cancleReservation(int reservationId);
 
 	ReservationResponseDto getReservationResponse(String reservationEmail, ReservationStatusType valueOf,
-		int start,
-		int limit);
+		PageDto page);
 
 }
