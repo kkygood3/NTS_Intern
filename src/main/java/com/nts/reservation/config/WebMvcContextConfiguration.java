@@ -52,7 +52,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/history");
-		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/detail/{displayInfoId}/reviewWrite");
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reviewWrite/{reservationInfoId}");
 	}
 
 	@Bean

@@ -81,7 +81,8 @@ public class ReservationSqls {
 		+ " FROM reservation_info "
 		+ " WHERE id = :reservationInfoId "
 		+ " AND reservation_email = :userEmail "
-		+ " AND reservation_date < NOW()"
+		+ " AND reservation_date < NOW() "
+		+ " AND cancel_flag = 0 "
 		+ ")";
 
 	public static final String SELECT_DISPLAY_INFO_ID_BY_RESERVATION_INFO_ID = "SELECT "
