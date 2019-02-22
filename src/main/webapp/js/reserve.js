@@ -1,5 +1,7 @@
 const MAX_TICKET_COUNT = 10;
 
+var reserveBtnWrap = document.querySelector('.bk_btn_wrap');
+var innerBtn = reserveBtnWrap.querySelector('button');
 /**
  * 서버에서 전달받은 가격 객체를 javascript에서 관리하기위해 사용
  * @param price
@@ -149,10 +151,7 @@ function checkTicketCountOver(){
 /**
  * 예매하기 버튼을 클릭할 수 있는지 체크 유효성 검증은 예약 버튼 클릭이벤트에서 처리하므로 활성/비활성화만 검증한다.
  */
-function initReserveClickEvents() {
-	var reserveBtnWrap = document.querySelector('.bk_btn_wrap');
-	var innerBtn = reserveBtnWrap.querySelector('button');
-	
+function initReserveClickEvents() {	
 	var ticketInputsWrap = document.querySelector('.section_booking_ticket');
 	var bookerInputsWrap = document.querySelector('.section_booking_form');
 
@@ -267,6 +266,9 @@ function validateInput(index) {
  * 예약하기 버튼을 클릭했을때 이벤트 처리. 예약자 정보들을 검증하고 유효하다면 예약 페이지로 전송
  */
 function onReserveClicked() {
+	//버튼 삭제
+	reserveBtnWrap.remove();
+	
 	// 하나씩 검증하면서 올바르지 않은 데이터가 있을 때 경고 메세지를 보여준다.
 	var isValid = validateInput(0);
 	isValid = validateInput(1) && isValid;
@@ -312,6 +314,7 @@ function postReserve() {
 function postResponseHandler(response){
 	if(!response || response.result != 'OK'){
 		alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+		location.reload();
 	} else {
 		alert('예약 되었습니다.');
 		location.href = '/detail?id='+getUrlParameter('id');
