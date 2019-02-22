@@ -4,15 +4,12 @@ const REG_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 const DAY_LABEL = ['일','월','화','수','목','금','토'];
 
 /**
- * 반복적으로 호출하는 XMLHttpRequest를 전담하는 함수
- * 
- * @param 페이지
- *            로드후에 실행할 callback function. 매개변수로 response를 가져아 함
- * @param api
- *            URL
- * @method GET, POST, PUT, DELETE
+ * XMLHttpRequest전담 함수
+ * @param callback
+ * @param url
+ * @param method(GET, POST, PUT, DELETE)
+ * @param param
  */
-
 function requestAjax(callback, url, method, param) {
 	if (!method) {
 		method = 'GET';
@@ -30,10 +27,6 @@ function requestAjax(callback, url, method, param) {
 
 /**
  * URL parameter의 value를 얻어내기 위한 함수
- * 
- * @param parameter
- *            name
- * @return parameter value
  */
 function getUrlParameter(name) {
 	var params = location.href.split('?')[1].split('&');
