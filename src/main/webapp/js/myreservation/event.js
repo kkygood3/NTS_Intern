@@ -67,3 +67,15 @@ function adjustErrorCard(cardItem, count) {
 		document.querySelector(".card.confirmed").innerHTML += err;
 	}
 }
+
+function addMoreButtonClickEvent() {
+	var listWrapper = document.querySelector("div.wrap_mylist");
+	listWrapper.addEventListener("click", function(event){
+		var moreButton = event.target.closest("div");
+		if (moreButton.className != "more") {
+			return;
+		}
+//		sendGetAjax("reservation_info/" + moreButton.closest("li").id + "?start=" + "start" + "&limit=" + "limit", makeReservationCardItemHtml);
+	});
+}
+
