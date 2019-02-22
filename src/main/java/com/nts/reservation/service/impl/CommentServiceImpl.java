@@ -29,8 +29,6 @@ import com.nts.reservation.service.CommentService;
 @Service
 @Transactional(readOnly = true)
 public class CommentServiceImpl implements CommentService {
-	//	@Autowired
-	//	SqlSessionFactory sqlSessionFactory;
 
 	@Autowired
 	private CommentDao commentDao;
