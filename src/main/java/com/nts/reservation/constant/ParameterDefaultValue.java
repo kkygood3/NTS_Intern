@@ -24,4 +24,7 @@ public class ParameterDefaultValue {
 	public static final String RESERVATIONS_LIMIT = "3";
 	
 	public static final String DEFAULT_START = "0";
+	public static final String DEFAULT_LIMIT = "5";
+	
+	public static final String REDIRECT_URL_AFTER_LOGIN = "/myreservation";
 }

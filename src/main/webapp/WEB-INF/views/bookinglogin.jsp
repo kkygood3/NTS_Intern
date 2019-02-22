@@ -161,6 +161,10 @@
 			location.href = url;
 		})
 
+		/**
+		 * 인증에러로 이페이지로 이동한것이라면 에러메시지를 alert
+		 * 로그인후 redirectUrl 페이지로 이동합니다.
+		*/
 		var isError = '${isError}';
 		var message = '${errorMsg}'; 
 		var redirectUrl = '${redirectUrl}'; 
