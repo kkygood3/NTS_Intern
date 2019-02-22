@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
-import com.nts.reservation.dto.common.CommentImage;
 import com.nts.reservation.service.CommentService;
 
 /**

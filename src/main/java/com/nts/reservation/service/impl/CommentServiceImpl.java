@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dao.CommentDao;
+import com.nts.reservation.dto.comment.Comment;
+import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
-import com.nts.reservation.dto.common.CommentImage;
-import com.nts.reservation.dto.detail.Comment;
+import com.nts.reservation.mappers.CommentMapper;
 import com.nts.reservation.service.CommentService;
 
 /**
@@ -28,9 +29,14 @@ import com.nts.reservation.service.CommentService;
 @Service
 @Transactional(readOnly = true)
 public class CommentServiceImpl implements CommentService {
+	//	@Autowired
+	//	SqlSessionFactory sqlSessionFactory;
 
 	@Autowired
 	private CommentDao commentDao;
+
+	@Autowired
+	private CommentMapper commentMapper;
 
 	@Override
 	public CommentImage getCommentImageById(Long commentImageId) {
@@ -39,11 +45,13 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
-		List<Comment> comments = commentDao.selectComments(displayInfoId);
-		for (Comment comment : comments) {
-			List<CommentImage> list = commentDao.selectCommentsImagesByCommentId(comment.getCommentId());
-			comment.setCommentImages(list);
-		}
+		List<Comment> comments = commentMapper.getCommentsWithImages(displayInfoId);
+		System.out.println(comments);
+		//		List<Comment> comments = commentDao.selectComments(displayInfoId);
+		//		for (Comment comment : comments) {
+		//			List<CommentImage> list = commentDao.selectCommentsImagesByCommentId(comment.getCommentId());
+		//			comment.setCommentImages(list);
+		//		}
 		return comments;
 	}
 

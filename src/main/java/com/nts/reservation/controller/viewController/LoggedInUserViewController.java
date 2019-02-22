@@ -16,7 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.DisplayInfo;
 import com.nts.reservation.dto.reservation.ReservationInfo;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailService;

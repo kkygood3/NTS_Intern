@@ -2,9 +2,9 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import com.nts.reservation.dto.comment.Comment;
+import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
-import com.nts.reservation.dto.common.CommentImage;
-import com.nts.reservation.dto.detail.Comment;
 
 /**
  * Copyright 2019 NAVER Corp.

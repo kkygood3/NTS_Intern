@@ -8,7 +8,9 @@ package com.nts.reservation.dto.detail;
  */
 import java.util.List;
 
-import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.comment.Comment;
+import com.nts.reservation.dto.product.ProductImage;
+import com.nts.reservation.dto.product.ProductPrice;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com

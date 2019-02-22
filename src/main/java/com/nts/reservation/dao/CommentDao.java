@@ -21,9 +21,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.dto.comment.Comment;
+import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
-import com.nts.reservation.dto.common.CommentImage;
-import com.nts.reservation.dto.detail.Comment;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com

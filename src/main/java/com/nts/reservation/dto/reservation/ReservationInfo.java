@@ -8,7 +8,7 @@ package com.nts.reservation.dto.reservation;
  */
 import java.time.LocalDateTime;
 
-import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.DisplayInfo;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com

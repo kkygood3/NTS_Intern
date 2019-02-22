@@ -1,24 +1,16 @@
-package com.nts.reservation.dto.detail;
+package com.nts.reservation.dto.comment;
 
-import java.time.LocalDateTime;
-
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
-
-import com.nts.reservation.dto.common.CommentImage;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-public class Comment {
+public class Comment implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Long commentId;
 	private Long productId;
 	private Long reservationInfoId;
@@ -27,10 +19,10 @@ public class Comment {
 	private String reservationTelephone;
 	private String reservationName;
 	private String reservationEmail;
-	private LocalDateTime reservationDate;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
-	private List<CommentImage> commentImages = new ArrayList<CommentImage>();
+	private Date reservationDate;
+	private Date createDate;
+	private Date modifyDate;
+	private List<CommentImage> commentImages;
 
 	public Long getCommentId() {
 		return commentId;
@@ -80,27 +72,27 @@ public class Comment {
 		this.reservationEmail = reservationEmail;
 	}
 
-	public LocalDateTime getReservationDate() {
+	public Date getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(LocalDateTime reservationDate) {
+	public void setReservationDate(Date reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(LocalDateTime modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

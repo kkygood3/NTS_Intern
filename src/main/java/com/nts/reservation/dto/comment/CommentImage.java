@@ -1,4 +1,4 @@
-package com.nts.reservation.dto.common;
+package com.nts.reservation.dto.comment;
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
@@ -6,13 +6,18 @@ package com.nts.reservation.dto.common;
  * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-public class CommentImage {
+public class CommentImage implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long imageId;
 	private Long reservationInfoId;
 	private Long fileId;
@@ -20,8 +25,8 @@ public class CommentImage {
 	private String saveFileName;
 	private String contentType;
 	private Boolean deleteFlag;
-	private LocalDateTime createDate;
-	private LocalDateTime modifyDate;
+	private Date createDate;
+	private Date modifyDate;
 
 	public Long getImageId() {
 		return imageId;
@@ -79,19 +84,19 @@ public class CommentImage {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public LocalDateTime getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDateTime createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public LocalDateTime getModifyDate() {
+	public Date getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(LocalDateTime modifyDate) {
+	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

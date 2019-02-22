@@ -300,7 +300,7 @@
 				<div class="info_area">
 					<div class="review_info">
 						<span class="grade"><b>{{scoreToDouble score}}</b></span> <span class="name">{{reservationEmail}}</span>
-						<span class="date">{{{date reservationDate}}} 방문</span>
+						<span class="date">{{reservationDate}} 방문</span>
 					</div>
 				</div>
 			</div>

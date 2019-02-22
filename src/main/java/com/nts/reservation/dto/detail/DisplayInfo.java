@@ -1,4 +1,4 @@
-package com.nts.reservation.dto.common;
+package com.nts.reservation.dto.detail;
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.

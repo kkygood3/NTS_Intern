@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.DetailDao;
-import com.nts.reservation.dto.common.DisplayInfo;
+import com.nts.reservation.dto.detail.DisplayInfo;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
-import com.nts.reservation.dto.detail.ProductImage;
-import com.nts.reservation.dto.detail.ProductPrice;
+import com.nts.reservation.dto.product.ProductImage;
+import com.nts.reservation.dto.product.ProductPrice;
 import com.nts.reservation.service.DetailService;
 
 /**
