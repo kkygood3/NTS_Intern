@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dto.Comment;
@@ -16,6 +17,7 @@ import com.nts.reservation.service.CommentService;
 * @author  : 이승수
 */
 @Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentDao commentDao;

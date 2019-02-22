@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dao.FileDao;
@@ -25,6 +26,7 @@ import com.nts.reservation.service.FileIoService;
 * @author  : 이승수
 */
 @Service
+@Transactional
 @PropertySource("classpath:application.properties")
 public class FileIoServiceImpl implements FileIoService {
 	@Autowired
@@ -33,11 +35,13 @@ public class FileIoServiceImpl implements FileIoService {
 	@Value("${fileDir}")
 	private String fileDir;
 
+	@Transactional(readOnly = true)
 	@Override
 	public FileInfo getFileInfo(Integer fileId) {
 		return fileDao.selectFileInfo(fileId);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public int getFileIdByProductId(Integer productId) {
 		return fileDao.selectFileIdByProductId(productId);
