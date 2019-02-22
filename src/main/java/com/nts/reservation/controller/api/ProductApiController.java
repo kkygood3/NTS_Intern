@@ -39,14 +39,20 @@ import com.nts.reservation.service.ProductService;
 @RequestMapping(path = "/api")
 public class ProductApiController {
 
-	@Autowired
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
+
+	private final ProductService productService;
+
+	private final DisplayInfoService displayInfoService;
 
 	@Autowired
-	private ProductService productService;
+	public ProductApiController(CategoryService categoryService, ProductService productService,
+		DisplayInfoService displayInfoService) {
 
-	@Autowired
-	private DisplayInfoService displayInfoService;
+		this.categoryService = categoryService;
+		this.productService = productService;
+		this.displayInfoService = displayInfoService;
+	}
 
 	/**
 	 * @desc 카테고리 별 프로덕트 리스트 요청하는 Api

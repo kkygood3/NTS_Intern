@@ -20,8 +20,12 @@ import com.nts.reservation.service.ReservationService;
 @Controller
 public class AddCommentPageController {
 
+	private final ReservationService reservationService;
+
 	@Autowired
-	private ReservationService reservationService;
+	public AddCommentPageController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
 	@GetMapping("/addComment/{reservationInfoId}")
 	public String getAddCommentPage(@PathVariable Long reservationInfoId, ModelMap map) {

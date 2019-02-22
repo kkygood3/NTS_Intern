@@ -56,11 +56,10 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/api/reservations")
 @PropertySource("classpath:application.properties")
 public class ReservationApiController {
-	@Autowired
-	private ReservationService reservationService;
 
-	@Autowired
-	private FileIoService fileIoService;
+	private final ReservationService reservationService;
+
+	private final FileIoService fileIoService;
 
 	@Value("${imageDefaultPath}")
 	private String imageDefaultPath;
@@ -68,6 +67,12 @@ public class ReservationApiController {
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
 	private final Pattern imageContentTypePattern = Pattern.compile(IMAGE_CONTENT_TYPE);
+
+	@Autowired
+	public ReservationApiController(ReservationService reservationService, FileIoService fileIoService) {
+		this.reservationService = reservationService;
+		this.fileIoService = fileIoService;
+	}
 
 	/**
 	 * @desc 예약 추가.

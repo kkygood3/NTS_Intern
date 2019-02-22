@@ -35,11 +35,15 @@ public class MyReservationPageController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
-	@Autowired
-	private ReservationService reservationService;
+	private final ReservationService reservationService;
+
+	private final RequestHtmlService requestHtmlService;
 
 	@Autowired
-	private RequestHtmlService requestHtmlService;
+	public MyReservationPageController(ReservationService reservationService, RequestHtmlService requestHtmlService) {
+		this.reservationService = reservationService;
+		this.requestHtmlService = requestHtmlService;
+	}
 
 	/**
 	 * React 서버에 접속하여 서버사이드렌더링된 html 을 받아와서 클라이언트에 그려줌.

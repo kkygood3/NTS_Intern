@@ -22,8 +22,12 @@ import com.nts.reservation.service.ProductService;
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
+	private final ProductDao productDao;
+
 	@Autowired
-	private ProductDao productDao;
+	public ProductServiceImpl(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
 	/**
 	 * @desc 카테고리의 구별없이 start 매개변수에서부터 LIMIT개만큼 상품 정보를 반환한다.

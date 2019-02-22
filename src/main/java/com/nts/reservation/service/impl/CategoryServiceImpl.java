@@ -22,8 +22,12 @@ import com.nts.reservation.service.CategoryService;
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 
+	private final CategoryDao categoryDao;
+
 	@Autowired
-	private CategoryDao categoryDao;
+	public CategoryServiceImpl(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
 
 	/**
 	 * @desc 카테고리 리스트를 반환한다.

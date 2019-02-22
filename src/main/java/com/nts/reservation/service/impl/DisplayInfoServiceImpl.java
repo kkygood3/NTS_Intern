@@ -27,8 +27,13 @@ import com.nts.reservation.service.DisplayInfoService;
 @Transactional(readOnly = true)
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
+	private final DisplayInfoDao displayInfoDao;
+
 	@Autowired
-	private DisplayInfoDao displayInfoDao;
+	public DisplayInfoServiceImpl(DisplayInfoDao displayInfoDao) {
+
+		this.displayInfoDao = displayInfoDao;
+	}
 
 	/**
 	 * @desc 상품에 대한 댓글 리스트를 요청한다.

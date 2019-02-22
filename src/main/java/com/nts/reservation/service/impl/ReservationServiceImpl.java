@@ -30,11 +30,15 @@ import com.nts.reservation.service.ReservationService;
 @Transactional(readOnly = true)
 public class ReservationServiceImpl implements ReservationService {
 
-	@Autowired
-	private ReservationDao reservationDao;
+	private final ReservationDao reservationDao;
+
+	private final DisplayInfoDao displayDao;
 
 	@Autowired
-	private DisplayInfoDao displayDao;
+	public ReservationServiceImpl(ReservationDao reservationDao, DisplayInfoDao displayDao) {
+		this.reservationDao = reservationDao;
+		this.displayDao = displayDao;
+	}
 
 	/**
 	 * @desc 예약 정보 입력.

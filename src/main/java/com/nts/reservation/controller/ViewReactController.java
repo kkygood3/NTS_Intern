@@ -38,17 +38,23 @@ import com.nts.reservation.service.RequestHtmlService;
 @RequestMapping(path = "/react")
 public class ViewReactController {
 
-	@Autowired
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
+
+	private final ProductService productService;
+
+	private final DisplayInfoService displayInfoService;
+
+	private final RequestHtmlService requestHtmlService;
 
 	@Autowired
-	private ProductService productService;
+	public ViewReactController(CategoryService categoryService, ProductService productService,
+		DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService) {
 
-	@Autowired
-	private DisplayInfoService displayInfoService;
-
-	@Autowired
-	private RequestHtmlService requestHtmlService;
+		this.categoryService = categoryService;
+		this.productService = productService;
+		this.displayInfoService = displayInfoService;
+		this.requestHtmlService = requestHtmlService;
+	}
 
 	/**
 	 * React 서버에 접속하여 서버사이드렌더링된 html 을 받아와서 클라이언트에 그려줌.
@@ -58,11 +64,11 @@ public class ViewReactController {
 	 * @return
 	 * @throws ConnectException, HttpClientErrorException
 	 */
-	@GetMapping( produces = "text/html; charset=utf8")
+	@GetMapping(produces = "text/html; charset=utf8")
 	public @ResponseBody String mainPage(HttpSession session, HttpServletRequest request)
-			throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
+		throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
 
-		String userEmail = (String) session.getAttribute("userEmail");
+		String userEmail = (String)session.getAttribute("userEmail");
 
 		List<ProductDto> products = productService.getProductList(0);
 		int productCount = productService.getCount();
@@ -75,15 +81,15 @@ public class ViewReactController {
 		CategoryResponseDto categoryResponse = new CategoryResponseDto(categories);
 
 		MainPageRequestDto requestDto = new MainPageRequestDto(userEmail, productResponse, promotionResponse,
-				categoryResponse);
+			categoryResponse);
 		String html = "";
 		try {
 			html = requestHtmlService.requestToReactHtml("/main", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
 			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException) exception;
+				throw (HttpClientErrorException)exception;
 			} else {
-				throw (ConnectException) exception;
+				throw (ConnectException)exception;
 			}
 		}
 		return html;
