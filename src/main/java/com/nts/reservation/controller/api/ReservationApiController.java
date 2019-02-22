@@ -9,6 +9,8 @@ import static com.nts.reservation.constant.ParameterDefaultValue.*;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,10 +53,12 @@ public class ReservationApiController {
 
 	@GetMapping
 	public ReservationResponseDto getReservationsByStatus(
-		@RequestParam String reservationEmail,
 		@RequestParam String status,
 		@RequestParam int start,
-		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit) {
+		@RequestParam(required = false, defaultValue = RESERVATIONS_LIMIT) int limit,
+		HttpSession session) {
+		String reservationEmail = (String)session.getAttribute("reservationEmail");
+
 		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), start,
 			limit);
 	}

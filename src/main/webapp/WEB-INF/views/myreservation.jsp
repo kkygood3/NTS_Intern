@@ -22,7 +22,7 @@
 					</a> <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span>
 					</a>
 				</h1>
-				<a href="/myreservation?reservationEmail=${sessionScope.reservationEmail}" class="btn_my"> 
+				<a href="/myreservation" class="btn_my"> 
 					<span class="viewReservation" title="예약확인">${sessionScope.reservationEmail}</span>
 				</a>
 			</header>

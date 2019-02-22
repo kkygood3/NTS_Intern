@@ -408,7 +408,7 @@
 					return;
 				}
 				if (confirm("예약 성공! 나의예약페이지로 이동하시겠습니까?")) {
-					location.href="/myreservation?reservationEmail=" + this.form.inputValues["email"];
+					location.href="/doLogin?reservationEmail=" + this.form.inputValues["email"];
 				}
 			},
 			

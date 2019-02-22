@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.FlashMap;
+import org.springframework.web.servlet.FlashMapManager;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.nts.reservation.util.RegexValidator;
 
@@ -37,6 +39,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			flashMap.put("isError", true);
 			flashMap.put("errorMsg", "로그인이 필요합니다.");
 			flashMap.put("redirectUrl", redirectUrl);
+			FlashMapManager flashMapManager = RequestContextUtils.getFlashMapManager(request);
+			flashMapManager.saveOutputFlashMap(flashMap, request, response);
 			response.sendRedirect("/bookinglogin");
 			return false;
 		}

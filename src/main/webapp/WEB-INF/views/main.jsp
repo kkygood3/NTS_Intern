@@ -25,7 +25,7 @@
 					</a>
 				</h1>
 				<c:if test="${sessionScope.reservationEmail != null}">
-					<a href="/myreservation?reservationEmail=${sessionScope.reservationEmail}" class="btn_my"> 
+					<a href="/myreservation" class="btn_my"> 
 						<span class="viewReservation" title="예약확인">${sessionScope.reservationEmail}</span>
 					</a>
 				</c:if>
