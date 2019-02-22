@@ -274,7 +274,7 @@
     <script type="rv-template" id="visualImgTemplate">
 	{{#each productImages}}
     <li class="item" style="width: 414px; height: 414px;" data-index="{{@index}}">
-        <img alt="" class="img_thumb" src="/reservation/showImage/productId/{{productId}}" style="width: 100%; height: 100%;">
+        <img alt="" class="img_thumb" src="/reservation/showImage/{{fileInfoId}}" style="width: 100%; height: 100%;">
         <span class="img_bg"></span>
         <div class="visual_txt">
             <div class="visual_txt_inn">

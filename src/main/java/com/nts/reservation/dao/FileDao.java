@@ -6,7 +6,6 @@ package com.nts.reservation.dao;
 
 import static com.nts.reservation.dao.sqls.FileSqls.INSERT_FILE_INFO;
 import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_BY_ID;
-import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_ID_BY_DISPLAY_INFO_ID;
 import static com.nts.reservation.dao.sqls.FileSqls.SELECT_FILE_ID_BY_PRODUCT_ID;
 
 import java.util.Collections;
@@ -44,11 +43,6 @@ public class FileDao {
 	public int selectFileIdByProductId(Integer productId) {
 		Map<String, Integer> param = Collections.singletonMap("productId", productId);
 		return jdbc.queryForObject(SELECT_FILE_ID_BY_PRODUCT_ID, param, Integer.class);
-	}
-
-	public int selectFileIdByDisplayInfoId(Integer displayInfoId) {
-		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_FILE_ID_BY_DISPLAY_INFO_ID, param, Integer.class);
 	}
 
 	public int insertFileInfo(FileInfo fileInfo) {

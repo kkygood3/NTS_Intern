@@ -38,16 +38,9 @@ public class FileController {
 		return "redirect:/showImage/" + fileId;
 	}
 
-	@GetMapping("/showImage/displayInfoId/{displayInfoId}")
-	public String showImageByDisplayInfoId(@PathVariable("displayInfoId") Integer displayInfoId) {
-		int fileId = fileIoService.getFileIdByDisplayInfoId(displayInfoId);
-
-		return "redirect:/showImage/" + fileId;
-	}
-
 	@GetMapping("/showImage/{fileId}")
 	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId) {
-		FileInfo fileInfo = fileIoService.getFileInfoByProductId(fileId);
+		FileInfo fileInfo = fileIoService.getFileInfo(fileId);
 
 		String fileName = fileInfo.getFileName();
 		String saveFileName = fileDir + fileInfo.getSaveFileName();

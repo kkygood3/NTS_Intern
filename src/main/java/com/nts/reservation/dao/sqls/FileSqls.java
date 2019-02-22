@@ -13,10 +13,6 @@ public class FileSqls {
 		+ "FROM product_image "
 		+ "WHERE product_id = :productId "
 		+ "AND type = 'th'";
-	public static final String SELECT_FILE_ID_BY_DISPLAY_INFO_ID = "SELECT "
-		+ "file_id "
-		+ "FROM display_info_image "
-		+ "WHERE display_info_id = :displayInfoId ";
 
 	public static final String SELECT_FILE_BY_ID = "SELECT "
 		+ "file_name"

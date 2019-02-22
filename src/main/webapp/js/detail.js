@@ -143,7 +143,7 @@ var detailPage = {
 	displayDetailInfo: function(jsonResponse){
 		this.elements.introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 		
-		this.elements.storeMap.src = "/reservation/showImage/displayInfoId/" + jsonResponse["displayInfoImage"].displayInfoId;
+		this.elements.storeMap.src = "/reservation/showImage/" + jsonResponse["displayInfoImage"].fileId;
 		this.elements.storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
 		this.elements.addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;
