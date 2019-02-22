@@ -3,6 +3,7 @@ package com.nts.reservation.mappers;
 import java.util.List;
 
 import com.nts.reservation.dto.comment.Comment;
+import com.nts.reservation.dto.comment.CommentImage;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -16,4 +17,6 @@ import com.nts.reservation.dto.comment.Comment;
 
 public interface CommentMapper {
 	public List<Comment> getCommentsWithImages(Long displayInfoId);
+
+	public List<CommentImage> getCommentImagesByCommentId(Long commentId);
 }

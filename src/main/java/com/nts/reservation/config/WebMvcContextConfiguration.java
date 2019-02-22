@@ -47,7 +47,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 			.setCachePeriod(31556926);
 	}
 
-	// default servlet handler를 사용하게 합니다.
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();

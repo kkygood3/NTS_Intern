@@ -46,12 +46,6 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
 		List<Comment> comments = commentMapper.getCommentsWithImages(displayInfoId);
-		System.out.println(comments);
-		//		List<Comment> comments = commentDao.selectComments(displayInfoId);
-		//		for (Comment comment : comments) {
-		//			List<CommentImage> list = commentDao.selectCommentsImagesByCommentId(comment.getCommentId());
-		//			comment.setCommentImages(list);
-		//		}
 		return comments;
 	}
 

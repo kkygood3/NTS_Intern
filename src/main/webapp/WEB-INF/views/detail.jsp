@@ -290,7 +290,7 @@
 							<img width="90" height="90" class="img_vertical_top"
 								src="{{commentImageUrl commentImages}}"
 								alt="리뷰이미지">
-						</a> <span class="img_count" style="display: none;">{{commentId}}</span>
+						</a> <span class="img_count">{{commentImages.length}}</span>
 						{{/if}}
 	
 					</div>
