@@ -39,9 +39,10 @@ public class ReservationServiceImpl implements ReservationService {
 		reservations.forEach(reservation -> {
 			int displayInfoId = reservation.getDisplayInfoId();
 			int reservationInfoId = reservation.getReservationInfoId();
+			int productId = reservation.getProductId();
 
 			DisplayInfo displayInfo = displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
-			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, displayInfoId, reservationInfoId);
+			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, productId, reservationInfoId);
 
 			reservation.setDisplayInfo(displayInfo);
 			reservation.setTotalPrice(reservationTotalPrice);

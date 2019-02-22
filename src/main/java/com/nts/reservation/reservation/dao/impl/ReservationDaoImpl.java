@@ -73,6 +73,7 @@ public class ReservationDaoImpl implements ReservationDao {
 		params.put("reservationEmail", reservationEmail);
 		params.put("productId", productId);
 		params.put("reservationInfoId", reservationInfoId);
+		System.out.println(reservationEmail + productId + reservationInfoId);
 		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
 	}
 
