@@ -1,10 +1,4 @@
 package com.nts.reservation.controller;
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +18,10 @@ import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
 
 /**
- * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
  */
 
 @RestController

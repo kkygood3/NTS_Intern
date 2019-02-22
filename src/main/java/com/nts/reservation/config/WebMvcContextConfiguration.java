@@ -1,14 +1,4 @@
 package com.nts.reservation.config;
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
-/**
- * Author: Jaewon Lee, lee.jaewon@nts-corp.com
- */
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,8 +16,12 @@ import com.nts.reservation.interceptor.LogInterceptor;
 import com.nts.reservation.interceptor.UserEmailCheckInterceptor;
 
 /**
- * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
  */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})

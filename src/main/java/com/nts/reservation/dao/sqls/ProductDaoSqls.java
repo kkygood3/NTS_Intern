@@ -5,12 +5,10 @@ package com.nts.reservation.dao.sqls;
  * All rights reserved.
  * Except in the case of internal use for NAVER,
  * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
  */
-
 public class ProductDaoSqls {
 
 	public static final String SELECT_PROMOTION = "SELECT prom.id AS id"

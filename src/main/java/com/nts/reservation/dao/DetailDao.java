@@ -1,10 +1,4 @@
 package com.nts.reservation.dao;
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
 
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_COMMENTS_AVERAGE_SCORE;
 import static com.nts.reservation.dao.sqls.DetailDaoSqls.SELECT_DETAIL_DISPLAY_INFO;
@@ -25,6 +19,16 @@ import com.nts.reservation.dto.detail.DisplayInfo;
 import com.nts.reservation.dto.detail.DisplayInfoImage;
 import com.nts.reservation.dto.product.ProductImage;
 import com.nts.reservation.dto.product.ProductPrice;
+
+/**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ * 
+ * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
+ */
 
 @Repository
 public class DetailDao {

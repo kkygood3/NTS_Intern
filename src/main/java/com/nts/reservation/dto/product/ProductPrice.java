@@ -1,15 +1,15 @@
 package com.nts.reservation.dto.product;
+
+import java.time.LocalDateTime;
+
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
  * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
-import java.time.LocalDateTime;
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
  */
 
 public class ProductPrice {

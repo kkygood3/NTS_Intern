@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Copyright 2019 NAVER Corp. -->
+<!-- All rights reserved. -->
+<!-- Except in the case of internal use for NAVER, -->
+<!-- unauthorized use of redistribution of this software are strongly prohibited.  -->
+
+<!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
+
+
 <configuration scan="true" scanPeriod="30 seconds">
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

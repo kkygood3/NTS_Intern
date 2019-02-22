@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 NAVER Corp. -->
+<!-- All rights reserved. -->
+<!-- Except in the case of internal use for NAVER, -->
+<!-- unauthorized use of redistribution of this software are strongly prohibited.  -->
+
+<!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mappers.CommentMapper">
 	<resultMap id="getCompleteComment" type="com.nts.reservation.dto.comment.Comment">
