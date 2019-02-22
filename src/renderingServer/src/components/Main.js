@@ -6,7 +6,11 @@ var Promotion = require("./main/Promotion");
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    console.log("constructor in Main");
+  }
 
+  componentDidMount() {
+    console.log("componentDidMount in Main")
   }
 
   render() {

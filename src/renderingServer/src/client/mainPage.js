@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     delete window.__requestData__;
     var dataContainer = document.querySelector("#dataContainer");
     dataContainer.parentNode.removeChild(dataContainer);
-
+    console.log("DOMContentLoaded");
     ReactDom.render( <Main email={requestData.userEmail} products={requestData.products} promotions={requestData.promotions} categories={requestData.categories}/> , document.body);
 });
 

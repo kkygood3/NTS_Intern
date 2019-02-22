@@ -27,7 +27,7 @@ var reviewPage = {
         var id = this.values.id;
 
         var self = this;
-        httpUtil.sendGet( "/reservation-service/api/products/" + id, {}, function(response) {
+        httpUtil.sendGet( "/api/products/" + id, {}, function(response) {
             self.requestDisplayInfoCallback(response);
         });
     },

@@ -21,7 +21,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		throws IOException {
 
 		if (request.getSession().getAttribute("userEmail") == null) {
-			response.sendRedirect("/reservation-service/bookingLogin");
+			response.sendRedirect("/bookingLogin");
 			return false;
 		}
 		return true;

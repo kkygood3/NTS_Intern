@@ -51,7 +51,7 @@ var addCommentPage = {
 	},
 
 	requestAddComment : function(formData) {
-		var path = "/reservation-service/api/reservations/"
+		var path = "/api/reservations/"
 				+ document.querySelector("#container").dataset.reservationId
 				+ "/comments";
 
