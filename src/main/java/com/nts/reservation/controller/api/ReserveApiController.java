@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
+import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
 
@@ -43,8 +44,8 @@ public class ReserveApiController {
 	@GetMapping
 	public Map<String, Object> getReservations(
 		@RequestParam(name = "reservationType", required = true) ReservationType reservationType,
-		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = "100") Integer pagingLimit,
+		@RequestParam(name = "start", required = true) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		HttpSession session){
 		
 		Map<String, Object> map = new HashMap<>();
