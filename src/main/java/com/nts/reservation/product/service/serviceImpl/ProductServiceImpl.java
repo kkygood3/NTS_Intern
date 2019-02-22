@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> products = productDao.selectProducts(categoryId, start, limit);
 		if (products.size() == 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (categoryId)");
-			LOGGER.warn("Does not exist categoryId / Error Message : {} / displayInfoId : {} / {}", this.getClass(), e.getMessage(), categoryId, e);
+			LOGGER.warn("Does not exist categoryId / displayInfoId : {}", categoryId, e);
 			throw e;
 		}
 

@@ -41,12 +41,12 @@ public class ReservationApiController {
 	 * @return
 	 */
 	@PostMapping(path = "/reservations")
-	public ReservationResponse reserve(@RequestBody @Valid ReservationParam reservationParam, BindingResult result,
+	public ReservationResponse reserve(@RequestBody @Valid ReservationParam reservationParam, BindingResult bindingResult,
 		HttpServletResponse response) {
 
-		if (result.hasErrors()) {
-			LOGGER.debug("{} / field : {} / code : {}", result.getFieldError().getDefaultMessage(),
-				result.getFieldError().getField(), result.getFieldError().getCode());
+		if (bindingResult.hasErrors()) {
+			LOGGER.debug("{} / field : {} / code : {}", bindingResult.getFieldError().getDefaultMessage(),
+				bindingResult.getFieldError().getField(), bindingResult.getFieldError().getCode());
 			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			return ReservationResponse.builder().build();
 		}
@@ -65,15 +65,15 @@ public class ReservationApiController {
 		String email = (String)session.getAttribute("email");
 
 		if (!reservationEmail.equals(email)) {
-			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			LOGGER.warn("Does not Same email!! / session Email : {} / reservation Email : {}", email, reservationEmail);
+			response.setStatus(HttpStatus.FORBIDDEN.value());
 			return ReservationResponse.builder().build();
 		}
 
 		int updateResult = reservationService.cancelReservation(reservationId);
 		if (updateResult == NOT_UPDATED) {
 			IllegalArgumentException e = new IllegalArgumentException("Does not exist reservationId!!");
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} / reservationId : {}", e.getMessage(),
-				reservationId, e);
+			LOGGER.warn("Bad Request! Parameter / reservationId : {}",  reservationId, e);
 			throw e;
 		}
 

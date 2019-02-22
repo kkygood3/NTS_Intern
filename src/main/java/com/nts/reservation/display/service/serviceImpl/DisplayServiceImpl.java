@@ -37,8 +37,7 @@ public class DisplayServiceImpl implements DisplayService {
 
 		if (displayInfo == null) {
 			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (displayInfo)");
-			LOGGER.warn("Does not exist displayInfo / Error Message : {} / displayInfoId : {} / {}", displayInfo,
-				e.getMessage(), e);
+			LOGGER.warn("Does not exist displayInfo /  displayInfoId : {}", displayInfo, e);
 			throw e;
 		}
 

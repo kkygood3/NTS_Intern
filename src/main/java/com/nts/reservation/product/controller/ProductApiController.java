@@ -42,9 +42,9 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "4") int limit) {
 
-		if (start < 0) {
+		if (start < 0 || limit < 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!");
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} /start : {} /  {}",  e.getMessage(), start, e);
+			LOGGER.warn("Bad Request! Parameter / start : {} / limit : {}", start, limit, e);
 			throw e;
 		}
 
@@ -61,7 +61,7 @@ public class ProductApiController {
 
 		if (displayInfoId < 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!"); 
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}",  e.getMessage(), displayInfoId, e);
+			LOGGER.warn("Bad Request! Parameter / displayInfoId : {}", e.getMessage(), displayInfoId, e);
 			throw e;
 		}
 

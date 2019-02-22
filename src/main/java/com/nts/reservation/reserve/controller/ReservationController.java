@@ -48,8 +48,7 @@ public class ReservationController {
 		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE);
 		if (displayResponse.getDisplayInfo().getProductId() == NONE) {
 			IllegalArgumentException e = new IllegalArgumentException("There is no displayInfo!!! (displayInfoId)");
-			LOGGER.warn("Bad Request! Parameter / Error Message : {} / displayInfoId : {} / {}", e.getMessage(),
-				displayInfoId, e);
+			LOGGER.warn("Bad Request! Parameter / displayInfoId : {}", displayInfoId, e);
 			throw e;
 		}
 
