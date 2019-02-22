@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.commons.controller;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,14 +21,6 @@ public class GlobalControllerAdvice {
 
 		ModelAndView modelAndView = new ModelAndView("error/invalidAccess");
 		modelAndView.setStatus(HttpStatus.BAD_REQUEST);
-		return modelAndView;
-	}
-
-	@ExceptionHandler(value = DataAccessException.class)
-	public ModelAndView handleDataAccessException(DataAccessException e) {
-		e.printStackTrace();
-
-		ModelAndView modelAndView = new ModelAndView("error/invalidAccess");
 		return modelAndView;
 	}
 }
