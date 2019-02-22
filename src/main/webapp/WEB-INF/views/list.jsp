@@ -87,7 +87,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							
+
 						</li>
 						<li class="card confirmed">
 							<div class="link_booking_details">
@@ -101,7 +101,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							
+
 						</li>
 						<li class="card used">
 							<div class="link_booking_details">
@@ -115,7 +115,7 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							
+
 						</li>
 						<li class="card used cancel">
 							<div class="link_booking_details">
@@ -129,18 +129,13 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							
+
 						</li>
 					</ul>
 				</div>
 				<!--// 내 예약 리스트 -->
 
-				<!-- 예약 리스트 없음 -->
-				<div class="err">
-					<i class="spr_book ico_info_nolist"></i>
-					<h1 class="tit">예약 리스트가 없습니다</h1>
-				</div>
-				<!--// 예약 리스트 없음 -->
+
 			</div>
 		</div>
 		<hr>
@@ -232,10 +227,9 @@
 	<script type="rv-template" id="doneReservation">
 		<article class="card_item">
 			<a href="#" class="link_booking_details">
-				<div class="card_body">
-
-					<div class="left"></div>
+				<div class="card_body">				
 					<div class="middle">
+					<div class="left"></div>
 						<div class="card_detail">
 							<em class="booking_number">NO.<span class="reserveId">{{reservationInfoId}}</span></em>
 							<h4 class="tit">{{productDescription}}</h4>
@@ -297,6 +291,31 @@
 									class="unit">원</span>
 								</em>
 							</div>
+						</div>
+					</div>
+					<div class="right"></div>
+				</div>
+				<div class="card_footer">
+					<div class="left"></div>
+					<div class="middle"></div>
+					<div class="right"></div>
+				</div>
+			</a>
+		</article>
+	</script>
+	<script type="rv-template" id="noneList">
+		<article class="card_item">
+			<a href="#" class="link_booking_details">
+				<div class="card_body">
+					<div class="left"></div>
+					<div class="middle">
+						<div class="card_detail">
+							<!-- 예약 리스트 없음 -->
+							<div class="err">
+								<i class="spr_book ico_info_nolist"></i>
+							<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+							<!--// 예약 리스트 없음 -->
 						</div>
 					</div>
 					<div class="right"></div>

@@ -12,15 +12,15 @@ function requestAjax(callback, url) {
 
 // Rest API로 param을 서버로 json데이터를 넘김 (POST)
 function requestPostAjax(callback, url, param) {
-	let ajaxReq = new XMLHttpRequest();
-	ajaxReq.callback = callback;
-	ajaxReq.addEventListener('load', function(evt) {
-		this.callback(evt.target.response);
-	});
-	ajaxReq.open('POST', url);
-	ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    let ajaxReq = new XMLHttpRequest();
+    ajaxReq.callback = callback;
+    ajaxReq.addEventListener('load', function (evt) {
+        this.callback(evt.target.response);
+    });
+    ajaxReq.open('POST', url);
+    ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     ajaxReq.responseType = 'json';
-	ajaxReq.send(param);
+    ajaxReq.send(param);
 }
 
 /**
@@ -107,6 +107,14 @@ function initDisplayInfo(response) {
         }
     });
 
+    if (todo === 0) {
+        document.querySelector('.confirmed').innerHTML += document.querySelector('#noneList').innerHTML;
+    } else if (done === 0) {
+        document.querySelector('.used').innerHTML += document.querySelector('#noneList').innerHTML;
+    } else if (cancel === 0) {
+        document.querySelector('.cancel').innerHTML += document.querySelector('#noneList').innerHTML;
+    }
+
 
     titles[0].innerText = size;
     titles[1].innerText = todo;
@@ -114,16 +122,16 @@ function initDisplayInfo(response) {
     titles[3].innerText = cancel;
 }
 
-function postResponseHandler(response){
-	if(!response || response.result != 'OK'){
-		alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
-	} else {
-		alert('예약이 취소 되었습니다.');
-		location.href = '/list';
-	}
+function postResponseHandler(response) {
+    if (!response || response.result != 'OK') {
+        alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+    } else {
+        alert('예약이 취소 되었습니다.');
+        location.href = '/list';
+    }
 }
 
-function ReserveParam(reservationInfoId, reservationEmail){
+function ReserveParam(reservationInfoId, reservationEmail) {
     this.reservationInfoId = parseInt(reservationInfoId);
     this.reservationEmail = reservationEmail;
 }
@@ -131,11 +139,11 @@ function ReserveParam(reservationInfoId, reservationEmail){
 function initCancelBtn() {
     let popupTarget = document.querySelector('.popup_booking_wrapper');
 
-    document.querySelector('li.confirmed').addEventListener('click', function(evt) {
+    document.querySelector('li.confirmed').addEventListener('click', function (evt) {
         let target = evt.target;
-        
-        if(target.tagName === 'span') target = target.parentElement;
-        if(target.className === 'btn') {
+
+        if (target.tagName === 'span') target = target.parentElement;
+        if (target.className === 'btn') {
             popupTarget.style.display = 'block';
             let id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
             let title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
@@ -145,18 +153,18 @@ function initCancelBtn() {
             document.querySelector('.pop_tit').children[0].innerText = title;
             document.querySelector('.pop_tit').children[1].innerText = date;
 
-            document.querySelector('.btn_green').addEventListener('click', function() {
+            document.querySelector('.btn_green').addEventListener('click', function () {
                 let reserveRequest = JSON.stringify(new ReserveParam(id, email));
                 requestPostAjax(postResponseHandler, 'api/update', reserveRequest);
             })
         }
     });
 
-    document.querySelector('.popup_btn_close').addEventListener('click', function() {
+    document.querySelector('.popup_btn_close').addEventListener('click', function () {
         popupTarget.style.display = 'none';
     });
 
-    document.querySelector('.btn_gray').addEventListener('click', function() {
+    document.querySelector('.btn_gray').addEventListener('click', function () {
         popupTarget.style.display = 'none';
     });
 }
