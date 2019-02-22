@@ -43,7 +43,13 @@ public class ReservationApiController {
 		return reservationService.getReservationDisplayItemsByReservationEmail(email, start, limit);
 	}
 	
-	
+	@GetMapping(path="/{type}")
+	public List<ReservationDisplayItem> getMyReservationByType(@SessionAttribute(name = "email") String email,
+		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit,
+		@PathVariable(name = "type", required = true) String type) {
+		return reservationService.getReservationDisplayItemsByReservationEmailByType(email, start, limit, type);
+	}
 
 	/**
 	 * 예약 취소

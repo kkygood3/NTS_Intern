@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.PromotionMapper;
-import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
 /**

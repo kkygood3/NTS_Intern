@@ -2,8 +2,6 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservation.dto.Promotion;
-
 /**
  * 프로모션 관련 서비스 로직 수행하는 클래스
  * @author si yoon

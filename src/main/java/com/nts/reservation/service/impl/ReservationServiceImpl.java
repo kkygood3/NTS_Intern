@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-//	@Transactional
+	@Transactional
 	public Map<String, Object> getReservationDisplayItemsByReservationEmail(
 		String reservationEmail, int start, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
@@ -60,7 +60,20 @@ public class ReservationServiceImpl implements ReservationService {
 	
 		return ReservationDisplayItemListMap;
 	}
-
+	
+	@Override
+	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByType(
+		String reservationEmail, int start, int limit, String type) {
+		if (type == "confirmed") {
+			return reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit);
+		} else if (type == "used" ) {
+			return reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit);
+		} else if (type == "canceled") {
+			return reservationInfoDao.selectCanceledReservationInfoByReservationEmail(reservationEmail, start, limit);
+		}
+		return new ArrayList<ReservationDisplayItem>();
+	}
+	
 	@Override
 	@Transactional(readOnly = false)
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
