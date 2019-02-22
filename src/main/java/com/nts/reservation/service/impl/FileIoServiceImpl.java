@@ -7,7 +7,6 @@ package com.nts.reservation.service.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Random;
 
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dao.FileDao;
@@ -67,14 +67,7 @@ public class FileIoServiceImpl implements FileIoService {
 		newFile.getParentFile().mkdirs();
 		newFile.createNewFile();
 
-		FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-		InputStream inputStream = file.getInputStream();
-
-		int readCount = 0;
-		byte[] readBuffer = new byte[1024];
-		while ((readCount = inputStream.read(readBuffer)) != -1) {
-			fileOutputStream.write(readBuffer, 0, readCount);
-		}
+		FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(newFile));
 
 		FileInfo fileInfo = new FileInfo();
 		fileInfo.setFileName(file.getOriginalFilename());

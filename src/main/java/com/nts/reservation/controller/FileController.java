@@ -4,8 +4,10 @@
  */
 package com.nts.reservation.controller;
 
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,7 +41,8 @@ public class FileController {
 	}
 
 	@GetMapping("/reservation/showImage/{fileId}")
-	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId) {
+	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId)
+		throws FileNotFoundException, IOException {
 		FileInfo fileInfo = fileIoService.getFileInfo(fileId);
 
 		String fileName = fileInfo.getFileName();
@@ -52,16 +55,7 @@ public class FileController {
 		response.setHeader("Pragma", "no-cache;");
 		response.setHeader("Expires", "-1;");
 
-		try (
-			FileInputStream fileInputStream = new FileInputStream(saveFileName);
-			OutputStream outputStream = response.getOutputStream();) {
-			int readCount = 0;
-			byte[] buffer = new byte[1024];
-			while ((readCount = fileInputStream.read(buffer)) != -1) {
-				outputStream.write(buffer, 0, readCount);
-			}
-		} catch (Exception ex) {
-			throw new RuntimeException("file Save Error");
-		}
+		Files.copy(Paths.get(saveFileName), response.getOutputStream());
+		response.flushBuffer();
 	}
 }
