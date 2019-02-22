@@ -309,7 +309,7 @@ var reservePage = {
 
 		setEventToBtnReserve : function(){
 			this.reservePage.elements.bkBtn.addEventListener("click", function(event){
-				if(!event.target.parentNode.classList.contains("disable")){
+				if(!this.reservePage.elements.bkBtn.classList.contains("disable")){
 					this.reservePage.ajaxSender.sendPost("/reservation/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
 				}
 			}.bind(this));
