@@ -15,10 +15,12 @@ import com.nts.reservation.dto.common.Comment;
  */
 public interface CommentDao {
 	/**
+	 * 
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
+	 * @param start - 다음 페이지 시작 index
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<Comment> selectCommentPageByDisplayInfoId(
+	public List<Comment> selectCommentByDisplayInfoId(
 		@Param("displayInfoId") int displayInfoId,
 		@Param("start") int start,
 		@Param("pagingLimit") int pagingLimit);

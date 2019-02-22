@@ -22,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewResponse getReviewResponse(int displayInfoId, int start, int pagingLimit) {
 		ReviewResponse reviewResponse = new ReviewResponse();
-		reviewResponse.setReviewComment(commentDao.selectCommentPageByDisplayInfoId(displayInfoId, start, pagingLimit));
+		reviewResponse.setReviewComment(commentDao.selectCommentByDisplayInfoId(displayInfoId, start, pagingLimit));
 		reviewResponse.setReviewDisplayInfo(reviewDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
 		return reviewResponse;
 	}

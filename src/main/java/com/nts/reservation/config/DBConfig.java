@@ -47,17 +47,17 @@ public class DBConfig implements TransactionManagementConfigurer {
 		dataSource.setPassword(password);
 		return dataSource;
 	}
-	
+
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
 		factoryBean.setDataSource(dataSource);
 		factoryBean.setTypeAliasesPackage("com.nts.reservation.dto");
-		
+
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 		configuration.setMapUnderscoreToCamelCase(true);
 		factoryBean.setConfiguration(configuration);
-		
+
 		return factoryBean;
 	}
 

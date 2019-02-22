@@ -4,18 +4,9 @@
  */
 package com.nts.reservation.dao.reserve;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.apache.ibatis.annotations.Param;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dao.sql.ReserveSqls;
 import com.nts.reservation.dto.reserve.ReserveDisplayInfo;
 
 /**

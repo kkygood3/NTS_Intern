@@ -7,7 +7,6 @@ package com.nts.reservation.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +21,11 @@ public class MyReservationContorller {
 	 * 비로그인 상태라면 bookinglogin view를 출력.
 	 */
 	@GetMapping("/myreservation")
-	public String requestMyReservation(@RequestParam(name = "email", required = false) String email,
+	public String requestMyReservation(
+		@RequestParam(name = "email", required = false) String email,
 		HttpSession session) {
-		String sessionEmail = (String)session.getAttribute("email");
-		if (sessionEmail != null) {
+		
+		if (session.getAttribute("email") != null) {
 			return "myreservation";
 		} else {
 			return "redirect:bookinglogin";

@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dao.reserve;
 
-import org.apache.ibatis.annotations.Insert;
-
 import com.nts.reservation.dto.reserve.ReservePriceInfo;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 
