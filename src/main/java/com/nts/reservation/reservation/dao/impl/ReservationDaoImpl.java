@@ -56,21 +56,12 @@ public class ReservationDaoImpl {
 		return keyHolder.getKey().intValue();
 	}
 
-	//	public int insertReservationPrice(String type, int count, int displayInfoId, int reservationInfoId) {
-	//		MapSqlParameterSource params = new MapSqlParameterSource();
-	//		params.addValue("type", type);
-	//		params.addValue("count", count);
-	//		params.addValue("displayInfoId", displayInfoId);
-	//		params.addValue("reservationInfoId", reservationInfoId);
-	//		return jdbc.update(INSERT_RESERVATION_PRICE, params);
-	//	}
-	public int insertReservationPrice(ReservationPriceType type, int count, int displayInfoId,
-		int reservationInfoId) {
+	public int insertReservationPrice(int reservationInfoId, ReservationPriceType type, int count, int displayInfoId) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("type", type);
+		params.addValue("reservationInfoId", reservationInfoId);
+		params.addValue("type", type.name());
 		params.addValue("count", count);
 		params.addValue("displayInfoId", displayInfoId);
-		params.addValue("reservationInfoId", reservationInfoId);
 		return jdbc.update(INSERT_RESERVATION_PRICE, params);
 	}
 

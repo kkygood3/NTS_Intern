@@ -14,6 +14,7 @@ public class Promotion {
 	private int id;
 	private int productId;
 	private String productImageUrl;
+	private int displayInfoId;
 
 	public int getId() {
 		return id;
@@ -37,6 +38,14 @@ public class Promotion {
 
 	public void setProductImageUrl(String productImageUrl) {
 		this.productImageUrl = productImageUrl;
+	}
+
+	public int getDisplayInfoId() {
+		return displayInfoId;
+	}
+
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
 	@Override

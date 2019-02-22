@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +51,7 @@ public class ProductApiController {
 		return productServiceImpl.getProductResponse(categoryId, start, limit, totalCount);
 	}
 
-	@RequestMapping(value = "/{displayInfoId}", method = RequestMethod.GET)
+	@GetMapping("/{displayInfoId}")
 	public DisplayInfoResponse getDisplayInfoResponse(@PathVariable int displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
@@ -63,7 +62,7 @@ public class ProductApiController {
 		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
-	@RequestMapping(value = "/{displayInfoId}/extraImage", method = RequestMethod.GET)
+	@GetMapping("/{displayInfoId}/extraImage")
 	public ProductExtraImage getProductExtraImage(@PathVariable int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 

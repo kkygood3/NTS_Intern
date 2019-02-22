@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nts.reservation.commons.debugPrinter.DebugPrinter;
 import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.displayInfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
@@ -37,6 +38,7 @@ public class ReservationServiceImpl {
 	public ReservationResponse getReservationResponse(int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
+		// 필드 ReservationDisplayInfo
 		ReservationResponse reservationResponse = new ReservationResponse();
 		reservationResponse.setReservationDisplayInfo(reservationDaoImpl.selectReservationDisplayInfo(displayInfoId));
 
@@ -46,12 +48,13 @@ public class ReservationServiceImpl {
 			String typeLabel = typeName.getLabel();
 			price.setPriceTypeLabel(typeLabel);
 		}
+		// 필드 List<ReservationPrice>
 		reservationResponse.setPrices(priceList);
 
 		return reservationResponse;
 	}
 
-	// (테스트 완료) 나의 예약 조회하기
+	// 나의 예약 조회하기
 	public ReservationInfoResponse getReservationInfoResponse(String reservationEmail) {
 		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
 
@@ -72,46 +75,40 @@ public class ReservationServiceImpl {
 	}
 
 	// 예약 하기
-	// PriceInfo
 	public boolean insertReservationInfo(ReserveRequest reserveRequest) {
 		ArgumentValidator.checkReserveRequest(reserveRequest);
 
-		//		int reservationInfoId = reservationDaoImpl.insertReservationInfo(
-		//			reserveRequest.getReservationName(),
-		//			reserveRequest.getReservationTel(),
-		//			reserveRequest.getReservationEmail(),
-		//			reserveRequest.getDisplayInfoId(),
-		//			reserveRequest.getReservationDate());
-		//		if (reservationInfoId == 0) {
-		//			System.out.println("예약 실패 ( reservationInfoId == 0 )");
-		//			return false;
-		//		}
-		int reservationInfoId = 21;
+		int reservationInfoId = reservationDaoImpl.insertReservationInfo(
+			reserveRequest.getReservationName(),
+			reserveRequest.getReservationTel(),
+			reserveRequest.getReservationEmail(),
+			reserveRequest.getDisplayInfoId(),
+			reserveRequest.getReservationDate());
+		if (reservationInfoId == 0) {
+			DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 실패 ( reservationInfoId == 0 )");
+			return false;
+		}
 
 		List<ReservationPriceInfo> priceInfoList = reserveRequest.getReservationPriceInfoList();
 		for (ReservationPriceInfo priceInfo : priceInfoList) {
+
 			ReservationPriceType type = priceInfo.getType();
 			int count = priceInfo.getCount();
 			int displayInfoId = reserveRequest.getDisplayInfoId();
-			//
-			//			System.out.println("[ReservationServiceImpl.java] reservationInfoId : " + reservationInfoId);
-			//
-			//			System.out.println("[ReservationServiceImpl.java] type : " + type);
-			//			System.out.println("[ReservationServiceImpl.java] count : " + count);
-			//			System.out.println("[ReservationServiceImpl.java] displayInfoId : " + displayInfoId);
 
-			int insertCompletePrice = reservationDaoImpl.insertReservationPrice(type, count,
-				displayInfoId, reservationInfoId);
+			int insertCompletePrice = reservationDaoImpl.insertReservationPrice(reservationInfoId, type, count,
+				displayInfoId);
 			if (insertCompletePrice == 0) {
-				System.out.println("예약 실패 ( insertCompletePrice == 0 )");
+				DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 실패 ( insertCompletePrice == 0 )");
 				return false;
 			}
 		}
-		System.out.println("예약 성공");
+		DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 성공");
+
 		return true;
 	}
 
-	// (테스트 완료) 예약 취소하기
+	// 나의 예약 취소하기
 	public boolean cancelReservation(int reservationInfoId) {
 		ArgumentValidator.checkReservationId(reservationInfoId);
 

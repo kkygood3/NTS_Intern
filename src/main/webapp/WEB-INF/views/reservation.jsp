@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -6,7 +11,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -15,8 +20,8 @@
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
@@ -24,15 +29,23 @@
         <div class="ct">
             <div class="ct_wrap">
                 <div class="top_title">
-                    <a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                    <h2><span class="title"></span></h2>
+                    <a href="/detailProduct?displayInfoId=${ displayInfoId }" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+                    <h2><span class="title">${reservationDisplayInfo.productDescription}</span></h2>
                 </div>
                 <div class="group_visual">
                     <div class="container_visual" style="width: 414px;">
                         <ul class="visual_img">
-                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src="https://ssl.phinf.net/naverbooking/20170217_264/1487312141947lTddT_JPEG/%B3%D7%C0%CC%B9%F6.jpg?type=ff1242_816"> <span class="img_bg"></span>
+                            <li class="item" style="width: 414px; cursor: default;"> <img alt="" class="img_thumb" src="${reservationDisplayInfo.productImage}"> <span class="img_bg"></span>
                                 <div class="preview_txt">
-                                    <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩12,000 ~ </em><em class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓 2769매</em> </div>
+                                    <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩
+                                    <c:set var="minValue" scope="page" value="${reservationPrice[0].price}"/>
+									<c:forEach items="${reservationPrice}" var="item">
+										<c:if test="${minValue > item.price}">
+											<c:set var="minValue" scope="page" value="${item.price}"/>
+										</c:if>
+									</c:forEach>
+									${minValue}
+									 ~ </em><em class="preview_txt_dsc"><span class='date_area'>2017.2.17.(금)~2017.4.18.(화)</span>, 잔여티켓 2769매</em> </div>
                             </li>
                         </ul>
                     </div>
@@ -40,67 +53,42 @@
                 <div class="section_store_details">
                     <div class="store_details">
                         <h3 class="in_tit"></h3>
-                        <p class="dsc">
-                            장소 : <br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
+                        <p class="dsc" id="schedule" data-id="${ reservationDate }">
+                            장소 : ${reservationDisplayInfo.placeStreet}<br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
                         </p>
                         <h3 class="in_tit">관람시간</h3>
                         <p class="dsc">
-                            화, 목, 금 일요일 10:00am~06:00pm(입장마감 05:30pm)<br> ‘문화가 있는 날’ 매월 마지막 주 수요일은 오후 8시까지 연장
+                            ${reservationDisplayInfo.openingHours}
                         </p>
                         <h3 class="in_tit">요금</h3>
-                        <p class="dsc">
+                        <p class="dsc" id="priceDescription" data-id="${ reservationPrice } data-name="${ reservationPrice }">
                             성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
+                            
                         </p>
                     </div>
                 </div>
                 <div class="section_booking_ticket">
                     <div class="ticket_body">
-                        <div class="qty">
-                            <div class="count_control">
-                                <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
-                                <div class="clearfix">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-                                    </a>
-                                </div>
-                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
-                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
-                            </div>
-                            <div class="qty_info_icon"> <strong class="product_amount"> <span>성인</span> </strong> <strong class="product_price"> <span class="price">10,200</span> <span class="price_type">원</span> </strong> <em class="product_dsc">10,200원 (15% 할인가)</em> </div>
-                        </div>
-                        <div class="qty">
-                            <div class="count_control">
-                                <div class="clearfix">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="10" readonly title="수량">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-                                    </a>
-                                </div>
-                                <div class="individual_price on_color"><span class="total_price">68,000</span><span class="price_type">원</span></div>
-                            </div>
-                            <div class="qty_info_icon"> <strong class="product_amount"> <span>유아</span> </strong> <strong class="product_price"> <span class="price">6,800</span> <span class="price_type">원</span> </strong> <em class="product_dsc">6,800원 (15% 할인가)</em> </div>
-                        </div>
-                        <div class="qty">
-                            <div class="count_control">
-                                <div class="clearfix">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="3" readonly title="수량">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-                                    </a>
-                                </div>
-                                <div class="individual_price on_color"><span class="total_price">60,000</span><span class="price_type">원</span></div>
-                            </div>
-                            <div class="qty_info_icon"> <strong class="product_amount"> <span>세트1</span> </strong> <strong class="product_price"> <span class="price">20,000</span> <span class="price_type">원</span> </strong> <em class="product_dsc">2인 관람권 (17% 할인가)</em> </div>
-                        </div>
-                        <div class="qty">
-                            <div class="count_control">
-                                <div class="clearfix">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3" title="빼기"> </a> <input type="tel" class="count_control_input" value="3" readonly title="수량">
-                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
-                                    </a>
-                                </div>
-                                <div class="individual_price on_color"><span class="total_price">25,500</span><span class="price_type">원</span></div>
-                            </div>
-                            <div class="qty_info_icon"> <strong class="product_amount"> <span>청소년</span> </strong> <strong class="product_price"> <span class="price">8,500</span> <span class="price_type">원</span> </strong> <em class="product_dsc">8,500원 (15% 할인가)</em> </div>
-                        </div>
+                       	<c:forEach items="${reservationPrice}" var="item">
+                       		<c:set var="cost" scope="page" value="${fn:substringBefore(item.price * (100-item.discountRate) / 100,'.')}"/>
+	                    	<div class="qty" cost="${cost}">
+	                            <div class="count_control">
+	                                <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
+	                                <div class="clearfix">
+	                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" priceType="${item.priceTypeName}" readonly title="수량">
+	                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
+	                                    </a>
+	                                </div>
+	                                <!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
+	                                <div class="individual_price"><span class="total_price">0</span><span class="price_type">원</span></div>
+	                            </div>
+	                            <div class="qty_info_icon"> <strong class="product_amount"> <span>${item.priceTypeLabel}</span> </strong> <strong class="product_price"> <span class="price"><fmt:formatNumber value="${item.price}" pattern="#,###"/></span> <span class="price_type">원</span> </strong>
+	                            <c:if test="${item.discountRate > 0}">
+									<em class="product_dsc"><fmt:formatNumber value="${cost}" pattern="#,###"/>원 (${item.discountRate}% 할인가)</em>
+								</c:if>
+	                             </div>
+	                        </div>
+                    	</c:forEach>
                     </div>
                 </div>
                 <div class="section_booking_form">
@@ -110,20 +98,33 @@
                             <div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
-                                    <div class="inline_control"> <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17"> </div>
+                                    <div class="inline_control tel_wrap"> 
+                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17" idx="0">
+	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">이름을 입력해 주세요</div> 
+                                    </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
                                     <div class="inline_control tel_wrap">
-                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-                                        <div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송" idx="1">
+                                        <div class="warning_msg" style="height: 30px; padding-top:1px;">휴대폰 번호 10~11자리를 입력해주세요</div>
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
-                                    <div class="inline_control"> <input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50"> </div>
+                                    <div class="inline_control tel_wrap">
+	                                    <c:choose>
+	                                    		<c:when test="${empty email}">
+	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" idx="2" maxlength="50">
+	                                    	    </c:when>
+	                                    		<c:otherwise>
+	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" idx="2" maxlength="50" readonly>
+	                                    		</c:otherwise>
+	                                    </c:choose>
+                                    	<div class="warning_msg" style="height: 30px; padding-top:1px;">이메일이 아니거나 너무 짧아요</div>
+                                    </div>
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected">2017.2.17, 총 <span id="totalCount">16</span>매</p>
+                                        <p class="inline_txt selected">${reservationDate}, 총 <span id="totalCount">0</span>매</p>
                                     </div>
                                 </div>
                             </form>
@@ -152,11 +153,13 @@
                 </div>
                 <div class="box_bk_btn">
                     <!-- [D] 약관 전체 동의가 되면 disable 제거 -->
-                    <div class="bk_btn_wrap disable"> <button type="button" class="bk_btn"> <i class="spr_book ico_naver_s"></i>  <span>예약하기</span> </button> </div>
+                    <div class="bk_btn_wrap disable"> <button type="button" class="bk_btn" style="cursor: not-allowed;"> <i class="spr_book ico_naver_s"></i>  <span>예약하기</span> </button> </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <input type="hidden" name="reservationDate" value="${reservationDate}" id="reservationDateInput">
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
