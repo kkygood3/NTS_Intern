@@ -191,7 +191,7 @@
 					<div class="left"></div>
 					<div class="middle">
 						<div class="card_detail">
-							<em class="booking_number">{{reservationInfoId}}</em>
+							<em class="booking_number">NO.<span class="reserveId">{{reservationInfoId}}</span></em>
 							<h4 class="tit">{{productDescription}}</h4>
 							<ul class="detail">
 								<li class="item"><span class="item_tit">일정</span> <em
@@ -233,10 +233,11 @@
 		<article class="card_item">
 			<a href="#" class="link_booking_details">
 				<div class="card_body">
+
 					<div class="left"></div>
 					<div class="middle">
 						<div class="card_detail">
-							<em class="booking_number">{{reservationInfoId}}</em>
+							<em class="booking_number">NO.<span class="reserveId">{{reservationInfoId}}</span></em>
 							<h4 class="tit">{{productDescription}}</h4>
 							<ul class="detail">
 								<li class="item"><span class="item_tit">일정</span> <em
@@ -278,7 +279,7 @@
 					<div class="left"></div>
 					<div class="middle">
 						<div class="card_detail">
-							<em class="booking_number">{{reservationInfoId}}</em>
+							<em class="booking_number">NO.<span class="reserveId">{{reservationInfoId}}</span></em>
 							<h4 class="tit">{{productDescription}}</h4>
 							<ul class="detail">
 								<li class="item"><span class="item_tit">일정</span> <em

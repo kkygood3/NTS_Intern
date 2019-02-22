@@ -23,6 +23,7 @@ public class ReservationQueries {
 
 	public static final String SELECT_RESERVATION_INFO =
 		"SELECT " +
+		"	reservation_info.cancel_flag AS cancel_yn, " +
 		"	reservation_info.create_date AS create_date, " +
 		"	reservation_info.display_info_id AS display_info_id, " +
 		"	reservation_info.modify_date AS modify_date, " +
@@ -39,7 +40,7 @@ public class ReservationQueries {
 
 	public static final String SELECT_RESERVATION_RESPONSE =
 		"SELECT  " +
-		"	reservation_info.cancel_flag AS cancle_yn, " +
+		"	reservation_info.cancel_flag AS cancel_yn, " +
 		"	reservation_info.create_date AS create_date, " +
 		"	reservation_info.display_info_id AS display_info_id, " +
 		"	reservation_info.modify_date AS modify_date, " +
@@ -114,4 +115,11 @@ public class ReservationQueries {
 		"			:productPriceId, " +
 		"			:count);";
 
+	public static final String UPDATE_RESERVE_INFO =
+		"UPDATE reservation_info " +
+		"SET " +
+		" 	cancel_flag = 1 " +
+		"WHERE " +
+		" 	reservation_info.id = :reservationInfoId " +
+		" 	 	AND reservation_info.reservation_email = :reservationEmail;";
 }

@@ -98,4 +98,12 @@ public class ReservationDaoImpl implements ReservationDao {
 		return jdbc.update(INSERT_RESERVE_PRICE, params);
 	}
 
+	@Override
+	public int updateReservation(int reservationInfoId, String reservationEmail) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("reservationInfoId", reservationInfoId);
+		params.addValue("reservationEmail", reservationEmail);
+		return jdbc.update(UPDATE_RESERVE_INFO, params);
+	}
+
 }

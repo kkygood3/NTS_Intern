@@ -10,6 +10,19 @@ function requestAjax(callback, url) {
     ajaxReq.send();
 }
 
+// Rest API로 param을 서버로 json데이터를 넘김 (POST)
+function requestPostAjax(callback, url, param) {
+	let ajaxReq = new XMLHttpRequest();
+	ajaxReq.callback = callback;
+	ajaxReq.addEventListener('load', function(evt) {
+		this.callback(evt.target.response);
+	});
+	ajaxReq.open('POST', url);
+	ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    ajaxReq.responseType = 'json';
+	ajaxReq.send(param);
+}
+
 /**
  * 입력된 숫자에 3자리수마다 ,를 추가해줌
  */
@@ -46,7 +59,6 @@ function addExtraData(data) {
     data.categoryName = data['displayInfo'].categoryName;
     data.placeStreet = data['displayInfo'].placeStreet;
     data.productDescription = data['displayInfo'].productDescription;
-    data.reservationInfoId = 'NO.' + data.reservationInfoId;
     data.totalPrice = addCommaInNumber(data.totalPrice);
     data.reservationDate = DateFormmater(new Date(Date.parse(data.reservationDate.replace('-', '/', 'g'))));
 }
@@ -102,9 +114,58 @@ function initDisplayInfo(response) {
     titles[3].innerText = cancel;
 }
 
+function postResponseHandler(response){
+	if(!response || response.result != 'OK'){
+		alert('예약 중 문제가 발생했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+	} else {
+		alert('예약이 취소 되었습니다.');
+		location.href = '/list';
+	}
+}
+
+function ReserveParam(reservationInfoId, reservationEmail){
+    this.reservationInfoId = parseInt(reservationInfoId);
+    this.reservationEmail = reservationEmail;
+}
+
+function initCancelBtn() {
+    let popupTarget = document.querySelector('.popup_booking_wrapper');
+
+    document.querySelector('li.confirmed').addEventListener('click', function(evt) {
+        let target = evt.target;
+        
+        if(target.tagName === 'span') target = target.parentElement;
+        if(target.className === 'btn') {
+            popupTarget.style.display = 'block';
+            let id = target.parentElement.parentElement.parentElement.querySelector('.reserveId').innerText;
+            let title = target.parentElement.parentElement.parentElement.querySelector('.tit').innerText;
+            let date = target.parentElement.parentElement.parentElement.querySelector('.item_dsc').innerText;
+            let email = document.querySelectorAll('.viewReservation')[1].innerText;
+
+            document.querySelector('.pop_tit').children[0].innerText = title;
+            document.querySelector('.pop_tit').children[1].innerText = date;
+
+            document.querySelector('.btn_green').addEventListener('click', function() {
+                let reserveRequest = JSON.stringify(new ReserveParam(id, email));
+                requestPostAjax(postResponseHandler, 'api/update', reserveRequest);
+            })
+        }
+    });
+
+    document.querySelector('.popup_btn_close').addEventListener('click', function() {
+        popupTarget.style.display = 'none';
+    });
+
+    document.querySelector('.btn_gray').addEventListener('click', function() {
+        popupTarget.style.display = 'none';
+    });
+}
+
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
     let email = document.querySelectorAll('[title="예약확인"]')[0].innerText;
 
     requestAjax(initDisplayInfo, 'reservations?reservationEmail=' + email);
+
+    initCancelBtn();
 });

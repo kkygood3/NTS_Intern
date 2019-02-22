@@ -94,4 +94,14 @@ public class ReservationServiceImpl implements ReservationService {
 		return true;
 	}
 
+	@Override
+	@Transactional(readOnly = false)
+	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
+		int updateResult = reservationDaoImpl.updateReservation(reservationInfoId, reservationEmail);
+		if(updateResult < 1) {
+			return false;
+		}
+		return true;
+	}
+
 }

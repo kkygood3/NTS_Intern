@@ -10,7 +10,7 @@ function requestAjax(callback, url) {
     ajaxReq.send();
 }
 
-// Rest API로 param을 서버로 json데이터를 넘김 (POST)
+// Rest API로 url을 서버로 json데이터를 넘김 (POST)
 function requestPostAjax(callback, url, param) {
 	let ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
@@ -288,7 +288,7 @@ function initBookingBtn(displayInfoData) {
 
             let reserveRequest = JSON.stringify(new ReserveRequest(displayInfoId, reservePrices, productId, name, tel, email));
 
-            requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
+            requestPostAjax(postResponseHandler, 'api/reservations', null);
         }
     });
 }

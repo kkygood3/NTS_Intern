@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.reservation.dto.ReservationInfoResponse;
 import com.nts.reservation.reservation.dto.ReservationParam;
+import com.nts.reservation.reservation.dto.ReservationUpdateParam;
 import com.nts.reservation.reservation.service.ReservationService;
 
 @RestController
@@ -47,6 +48,18 @@ public class ReservationApiController {
 		return map;
 	}
 
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public Map<String, Object> reserve(
+		@RequestBody ReservationUpdateParam updateParam) {
+		Map<String, Object> map = new HashMap<>();
 
+		if (updateParam.isValid(updateParam) && reservationServiceImpl.updateReserve(updateParam.getReservationInfoId(),
+			updateParam.getReservationEmail())) {
+			map.put("result", "OK");
+		} else {
+			map.put("result", "FAIL");
+		}
 
+		return map;
+	}
 }
