@@ -57,7 +57,7 @@
 							</div>
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.confirmed }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="#" class="link_booking_details">
+									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
@@ -133,7 +133,7 @@
 								
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.used }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="#" class="link_booking_details">
+									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
 										<div class="card_body">
 											<div class="middle">
 											<div class="left"></div>
@@ -209,7 +209,7 @@
 								</div>
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.canceled }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="#" class="link_booking_details">
+									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
