@@ -166,3 +166,10 @@
 </div>
 <!--// 예약 리스트 없음 -->
 </script>
+
+<script type="rv-template" id="more_botton">
+<!-- 더보기 -->
+<div class="more">
+	<button class="btn" value="0"><span>더보기</span></button>
+</div>
+</script>
