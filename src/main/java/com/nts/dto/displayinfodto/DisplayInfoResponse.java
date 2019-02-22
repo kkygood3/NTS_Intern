@@ -6,6 +6,9 @@ package com.nts.dto.displayinfodto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.dto.commentdto.Comment;
 import com.nts.dto.productdto.ProductImage;
 import com.nts.dto.productdto.ProductPrice;
@@ -70,9 +73,9 @@ public class DisplayInfoResponse {
 
 	@Override
 	public String toString() {
-		return "DisplayInfoResponse [averageScore=" + averageScore + ", comments=" + comments + ", displayInfo="
-				+ displayInfo + ", displayInfoImage=" + displayInfoImage + ", productImages=" + productImages
-				+ ", productPrices=" + productPrices + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 
 }

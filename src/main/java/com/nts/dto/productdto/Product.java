@@ -4,6 +4,9 @@
  */
 package com.nts.dto.productdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Product {
 	private int displayInfoId;
 	private String placeName;
@@ -62,9 +65,9 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [displayInfoId=" + displayInfoId + ", placeName=" + placeName + ", content="
-				+ content + ", description=" + description + ", id=" + id
-				+ ", productImageUrl=" + productImageUrl + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 
 }

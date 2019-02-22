@@ -4,14 +4,13 @@
  */
 
 package com.nts.exception;
-
 public class InvalidParameterException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	private String paramName;
-	private String paramValue;
-
-	public InvalidParameterException(String paramName, String paramValue) {
+	private ExceptionValue<?> paramValue;
+	
+	public InvalidParameterException(String paramName, ExceptionValue<?> paramValue) {
 		this.paramName = paramName;
 		this.paramValue = paramValue;
 	}
@@ -24,11 +23,11 @@ public class InvalidParameterException extends RuntimeException {
 		this.paramName = paramName;
 	}
 
-	public String getParamValue() {
+	public ExceptionValue<?>  getParamValue() {
 		return paramValue;
 	}
 
-	public void setParamValue(String paramValue) {
+	public void setParamValue(ExceptionValue<?> paramValue) {
 		this.paramValue = paramValue;
 	}
 

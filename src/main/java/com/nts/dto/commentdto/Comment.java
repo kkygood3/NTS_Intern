@@ -4,6 +4,9 @@
  */
 package com.nts.dto.commentdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Comment {
 	private String comment;
 	private int id;
@@ -117,10 +120,8 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", id=" + id + ", commentImages=" + commentImages
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", productId=" + productId
-				+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail
-				+ ", reservationInfoId=" + reservationInfoId + ", reservationName=" + reservationName
-				+ ", reservationTel=" + reservationTel + ", score=" + score + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

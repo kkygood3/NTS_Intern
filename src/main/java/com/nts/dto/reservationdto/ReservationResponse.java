@@ -6,6 +6,9 @@ package com.nts.dto.reservationdto;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ReservationResponse {
 	private boolean cancelYn;
 	private String createDate;
@@ -109,11 +112,9 @@ public class ReservationResponse {
 
 	@Override
 	public String toString() {
-		return "ReservationResponse [cancelYn=" + cancelYn + ", createDate=" + createDate + ", displayInfoId="
-				+ displayInfoId + ", modifyDate=" + modifyDate + ", prices=" + prices + ", productId=" + productId
-				+ ", reservationDate=" + reservationDate + ", reservationEmail=" + reservationEmail
-				+ ", reservationInfoId=" + reservationInfoId + ", reservationName=" + reservationName
-				+ ", reservationTelephone=" + reservationTelephone + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 
 }

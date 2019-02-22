@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.controller;
+package com.nts.config;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,15 +14,15 @@ import com.nts.exception.InvalidParameterException;
 
 
 /**
- * @description : 모든 Controller에서 발생한 Custom Exception 처리
+ * @description : Controller에서 발생한 Custom Exception 처리
  * @package : com.nts.controller
  * @filename : GlobalExceptionController.java
  * @author : 최석현
  * @method : ModelAndView handleInvalidParameterException(InvalidParameterException invalidParameterException)
  * @method : ModelAndView handleEmptyResultException(EmptyResultException emptyResultException) 
  */
-@ControllerAdvice
-public class GlobalExceptionController {
+@ControllerAdvice({"com.nts.controller"})
+public class ControllerExceptionHandlerConfig {
 
 	
 	@ExceptionHandler(InvalidParameterException.class)

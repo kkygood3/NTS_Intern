@@ -4,6 +4,9 @@
  */
 package com.nts.dto.productdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ProductImage {
 	private String contentType;
 	private String createDate;
@@ -98,9 +101,8 @@ public class ProductImage {
 
 	@Override
 	public String toString() {
-		return "ProductImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag=" + deleteFlag
-				+ ", fileInfoId=" + fileInfoId + ", fileName=" + fileName + ", modifyDate=" + modifyDate
-				+ ", productId=" + productId + ", productImageId=" + productImageId + ", productImageUrl=" + productImageUrl
-				+ ", type=" + type + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

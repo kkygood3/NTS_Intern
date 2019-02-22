@@ -4,6 +4,8 @@
  */
 package com.nts.dto.categorydto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 public class Category {
 	private Integer count;
 	private int id;
@@ -35,6 +37,8 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [count=" + count + ", id=" + id + ", name=" + name + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

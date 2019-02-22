@@ -5,6 +5,9 @@
 
 package com.nts.dto.commentdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class CommentImage {
 	private String contentType;
 	private String createDate;
@@ -103,9 +106,8 @@ public class CommentImage {
 
 	@Override
 	public String toString() {
-		return "CommentImage [contentType=" + contentType + ", createDate=" + createDate + ", deleteFlag=" + deleteFlag
-				+ ", fileId=" + fileId + ", fileName=" + fileName + ", imageId=" + imageId + ", modifydate="
-				+ modifyDate + ", reservationInfoId=" + reservationInfoId + ", reservationUserCommentId="
-				+ reservationUserCommentId + ", productImageUrl=" + productImageUrl + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

@@ -4,6 +4,9 @@
  */
 package com.nts.dto.reservationdto;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ReservationPrice {
 	private int count;
 	private int productPriceId;
@@ -44,7 +47,8 @@ public class ReservationPrice {
 
 	@Override
 	public String toString() {
-		return "ReservationInfoPrice [count=" + count + ", productPriceId=" + productPriceId + ", reservationInfoId="
-				+ reservationInfoId + ", reservationInfoPriceId=" + reservationInfoPriceId + "]";
+		ToStringStyle style = ToStringStyle.MULTI_LINE_STYLE;
+		ReflectionToStringBuilder tsb = new ReflectionToStringBuilder(this, style);
+		return tsb.toString();
 	}
 }

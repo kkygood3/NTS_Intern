@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nts.dao.commentdao.CommentDao;
 import com.nts.dto.commentdto.Comment;
 import com.nts.dto.commentdto.CommentImage;
+import com.nts.exception.ExceptionValue;
 import com.nts.exception.InvalidParameterException;
 import com.nts.service.CommentService;
 
@@ -39,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
 		
 		if (displayInfoId <= 0) {
 
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId",  new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		
@@ -55,7 +56,7 @@ public class CommentServiceImpl implements CommentService {
 		
 		if (reservationUserCommentId <= 0) {
 
-			throw new InvalidParameterException("reservationUserCommentId", Integer.toString(reservationUserCommentId));
+			throw new InvalidParameterException("reservationUserCommentId",  new ExceptionValue<Integer>(reservationUserCommentId));
 			
 		}
 		
@@ -71,7 +72,7 @@ public class CommentServiceImpl implements CommentService {
 		
 		if (displayInfoId <= 0) {
 
-			throw new InvalidParameterException("displayInfoId", Integer.toString(displayInfoId));
+			throw new InvalidParameterException("displayInfoId",  new ExceptionValue<Integer>(displayInfoId));
 			
 		}
 		
