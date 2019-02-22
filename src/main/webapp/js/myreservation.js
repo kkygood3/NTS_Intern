@@ -118,6 +118,7 @@ function cancelResultCallback(response){
 		// 응답 OK일때 상단 Count변경
 		countAreas[1].innerText = parseInt(countAreas[1].innerText)-1;
 		countAreas[3].innerText = parseInt(countAreas[3].innerText)+1;
+		nextStart[2]++;
 		checkTicketCount();
 	}
 }
