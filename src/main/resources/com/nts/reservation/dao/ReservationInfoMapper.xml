@@ -194,9 +194,11 @@
 	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 
 	<![CDATA[
 		SELECT	(CASE
-					WHEN r.cancel_flag = false			THEN "canceled"
-            		WHEN r.reservation_date > now()		THEN "confirmed"
-            		WHEN r.reservation_date <= now()	THEN "used"
+					WHEN	r.cancel_flag = true			THEN "canceled"
+            		WHEN	r.cancel_flag = false
+            				AND r.reservation_date > now()	THEN "confirmed"
+            		WHEN	r.cancel_flag = false
+            				AND r.reservation_date <= now()	THEN "used"
 				END) AS type,
         		count(r.id) AS count
 				
