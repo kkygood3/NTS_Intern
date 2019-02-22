@@ -49,7 +49,7 @@ public interface ReservationInfoMapper {
 			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
 	List<ReservationDisplayItem> selectUsedReservationInfoByReservationEmail(
 			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
-	List<ReservationDisplayItem> selectCanceledReservationInfoByReservationEmail(
+	List<ReservationDisplayItem> selectCancelReservationInfoByReservationEmail(
 			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
 
 	/**

@@ -35,11 +35,11 @@
 	    </selectKey>  
 	</insert>
 	
- 	<select id="selectCanceledReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+ 	<select id="selectCancelReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
 		SELECT	r.id AS reservation_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS canceled,
+				r.cancel_flag AS cancel,
 				d.place_name,
 				sum(pp.price * rp.count) AS price,
 				r.modify_date
@@ -68,7 +68,7 @@
 		SELECT	r.id AS reservation_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS canceled,
+				r.cancel_flag AS cancel,
 				d.place_name,
 				sum(pp.price * rp.count) AS price,
 				r.modify_date
@@ -100,7 +100,7 @@
 		SELECT	r.id AS reservation_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS canceled,
+				r.cancel_flag AS cancel,
 				d.place_name,
 				sum(pp.price * rp.count) AS price,
 				r.modify_date
@@ -132,7 +132,7 @@
 		SELECT	r.id AS reservation_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS canceled,
+				r.cancel_flag AS cancel,
 				d.place_name,
 				sum(pp.price * rp.count) AS price,
 				r.modify_date
@@ -194,7 +194,7 @@
 	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 
 	<![CDATA[
 		SELECT	(CASE
-					WHEN	r.cancel_flag = true			THEN "canceled"
+					WHEN	r.cancel_flag = true			THEN "cancel"
             		WHEN	r.cancel_flag = false
             				AND r.reservation_date > now()	THEN "confirmed"
             		WHEN	r.cancel_flag = false

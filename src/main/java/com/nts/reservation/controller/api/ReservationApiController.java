@@ -3,6 +3,7 @@ package com.nts.reservation.controller.api;
 import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_PAGING_SIZE;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,11 +45,15 @@ public class ReservationApiController {
 	}
 	
 	@GetMapping(path="/{type}")
-	public List<ReservationDisplayItem> getMyReservationByType(@SessionAttribute(name = "email") String email,
+	public Map<String, Object> getMyReservationByType(@SessionAttribute(name = "email") String email,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit,
 		@PathVariable(name = "type", required = true) String type) {
-		return reservationService.getReservationDisplayItemsByReservationEmailByType(email, start, limit, type);
+
+		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
+		ReservationDisplayItemListMap.put("type", type);
+		ReservationDisplayItemListMap.put("reservationItems", reservationService.getReservationDisplayItemsByReservationEmailByType(email, start, limit, type));
+		return ReservationDisplayItemListMap;
 	}
 
 	/**

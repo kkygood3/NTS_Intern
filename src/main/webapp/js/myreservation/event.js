@@ -39,8 +39,8 @@ function closePopup(popup) {
 }
 
 function movoItemToCancelCard(updateCount, cardItem) {
-	var canceled = document.querySelector(".card.cancel");
-	canceled.appendChild(cardItem);
+	var cancel = document.querySelector(".card.cancel");
+	cancel.appendChild(cardItem);
 
 	cardItem.querySelector("button").remove();
 
@@ -75,7 +75,36 @@ function addMoreButtonClickEvent() {
 		if (moreButton.className != "more") {
 			return;
 		}
-//		sendGetAjax("reservation_info/" + moreButton.closest("li").id + "?start=" + "start" + "&limit=" + "limit", makeReservationCardItemHtml);
+		var li = moreButton.closest("li");
+		var start = li.childElementCount - 2;
+		sendGetAjax("reservation_info/" + li.id + "?start=" + start, addReservationCardItem);
 	});
 }
 
+function addReservationCardItem(cardItemList) {
+	
+	var ul = document.getElementById(cardItemList.type);
+	
+	ul.removeChild(ul.lastElementChild);
+	
+	var innerHtml;
+	var bindTemplate = getBindTemplate("card_item_" + cardItemList.type);
+	innerHtml = makeHtmlFromListData(cardItemList.reservationItems, bindTemplate);
+	
+	var li = document.getElementsByClassName(cardItemList.type)[0];
+	li.innerHTML += innerHtml;
+	
+	if (li.childElementCount - 1 < getReservationCount(cardItemList.type)) {
+		makeMoreButton(cardItemListMap);
+	}
+}
+
+function getReservationCount(type) {
+	if (type == "confirmed") {
+		return document.querySelectorAll(".summary_board span")[1].innerText * 1;
+	} else if (type == "used") {
+		return document.querySelectorAll(".summary_board span")[2].innerText * 1;
+	} else if (type == "cancel") {
+		return document.querySelectorAll(".summary_board span")[3].innerText * 1;
+	}
+}

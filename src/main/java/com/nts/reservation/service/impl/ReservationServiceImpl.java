@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationDisplayItemListMap.put("used", reservationInfoDao
 				.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
 		ReservationDisplayItemListMap.put("cancel", reservationInfoDao
-				.selectCanceledReservationInfoByReservationEmail(reservationEmail, start, limit));
+				.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
 		
 		ReservationDisplayItemListMap.put("count", reservationInfoDao
 				.selectReservationInfoCountByReservationEmail(reservationEmail));
@@ -64,12 +64,12 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByType(
 		String reservationEmail, int start, int limit, String type) {
-		if (type == "confirmed") {
+		if ("confirmed".equals(type)) {
 			return reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit);
-		} else if (type == "used" ) {
+		} else if ("used".equals(type)) {
 			return reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit);
-		} else if (type == "canceled") {
-			return reservationInfoDao.selectCanceledReservationInfoByReservationEmail(reservationEmail, start, limit);
+		} else if ("cancel".equals(type)) {
+			return reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit);
 		}
 		return new ArrayList<ReservationDisplayItem>();
 	}
