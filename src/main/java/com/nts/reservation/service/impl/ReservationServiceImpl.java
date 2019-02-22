@@ -45,15 +45,19 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 //	@Transactional
-	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
+	public Map<String, Object> getReservationDisplayItemsByReservationEmail(
 		String reservationEmail, int start, int limit) {
-		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
+		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao
 				.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
 		ReservationDisplayItemListMap.put("used", reservationInfoDao
 				.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
 		ReservationDisplayItemListMap.put("cancel", reservationInfoDao
 				.selectCanceledReservationInfoByReservationEmail(reservationEmail, start, limit));
+		
+		ReservationDisplayItemListMap.put("count", reservationInfoDao
+				.selectReservationInfoCountByReservationEmail(reservationEmail));
+	
 		return ReservationDisplayItemListMap;
 	}
 

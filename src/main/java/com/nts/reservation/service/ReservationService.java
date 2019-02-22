@@ -36,7 +36,7 @@ public interface ReservationService {
 	 * @param limit 기간 (start부터 limit기간)
 	 * @return 예약정보
 	 */
-	Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start, int limit);
+	Map<String, Object> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start, int limit);
 
 	/**
 	 * 예약 취소

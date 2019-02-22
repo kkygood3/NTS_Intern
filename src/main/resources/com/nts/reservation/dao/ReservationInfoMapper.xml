@@ -190,4 +190,22 @@
 		INSERT INTO reservation_info_price (	id,		reservation_info_id,	product_price_id,	count)
 										VALUES(	#{id},	#{reservationInfoId},	#{productPriceId},	#{count})
 	</insert>
+	
+	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 
+	<![CDATA[
+		SELECT	(CASE
+					WHEN r.cancel_flag = false			THEN "canceled"
+            		WHEN r.reservation_date > now()		THEN "confirmed"
+            		WHEN r.reservation_date <= now()	THEN "used"
+				END) AS type,
+        		count(r.id) AS count
+				
+		FROM	reservation_info AS r
+
+		WHERE	r.reservation_email = #{reservationEmail}
+
+		GROUP BY type
+	]]>
+	</select>
+	
 </mapper>

@@ -17,14 +17,20 @@ function makeReservationCardItemHtml(cardItemListMap) {
 	makeUsedCard(cardItemListMap.used);
 	makeCancelCard(cardItemListMap.cancel);
 	
-	makeSummaryBoard(cardItemListMap);
+	makeSummaryBoard(cardItemListMap.count);
 }
 
-function makeSummaryBoard(data) {
+function makeSummaryBoard(countList) {
 	var counts = document.querySelectorAll("span.figure");
-	counts[1].innerText = data.confirmed.length;
-	counts[2].innerText = data.used.length;
-	counts[3].innerText = data.cancel.length;
+	countList.forEach((count) => {
+		if (count.type == "confirmed")	{
+			counts[1].innerText = count.count
+		} else if (count.type == "used")	{
+			counts[2].innerText = count.count
+		} if (count.type == "canceled")	{
+			counts[3].innerText = count.count
+		}
+	});
 	counts[0].innerText = counts[1].innerText*1 + counts[2].innerText*1 + counts[3].innerText*1;
 }
 

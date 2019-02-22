@@ -14,6 +14,7 @@ import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
+import com.nts.reservation.dto.ReservationSummary;
 
 /**
  * 예약관련 DB접근 클래스
@@ -66,4 +67,6 @@ public interface ReservationInfoMapper {
 	 * @return 예약 가격 id
 	 */
 	long insertReservationInfoPrice(ReservationInfoPrice price);
+	
+	List<ReservationSummary> selectReservationInfoCountByReservationEmail(String reservationEmail);
 }
