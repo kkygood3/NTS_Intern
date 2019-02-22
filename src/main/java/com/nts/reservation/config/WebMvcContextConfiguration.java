@@ -37,8 +37,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("mainpage");
-		registry.addViewController("/detail/{displayInfoId}").setViewName("detail");
-		registry.addViewController("/detail/{displayInfoId}/reviews").setViewName("review");
+		registry.addViewController("/displayInfo/detail/{displayInfoId}").setViewName("detail");
+		registry.addViewController("/displayInfo/detail/{displayInfoId}/reviews").setViewName("review");
 		registry.addViewController("/login").setViewName("bookinglogin");
 	}
 
@@ -53,8 +53,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoggingInterceptor());
-		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/history");
-		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reviewWrite/{reservationInfoId}");
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reservation/history");
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reservation/reviewWrite/{reservationInfoId}");
 	}
 
 	@Bean

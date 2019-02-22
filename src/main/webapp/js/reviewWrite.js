@@ -193,7 +193,7 @@ var reviewWritePage = {
 		
 		addSubmitReviewToBtnWrite : function(formDataValidator){
 			this.reviewWritePage.elements.btnWrite.addEventListener("click", function(){
-				var url = "/reservation/api/reservations/" + this.reviewWritePage.constants.RESERVATION_INFO_ID + "/comments";
+				var url = "/api/reservations/" + this.reviewWritePage.constants.RESERVATION_INFO_ID + "/comments";
 				
 				formDataValidator.validateTextLength(this.reviewWritePage.elements.reviewTextarea);
 				

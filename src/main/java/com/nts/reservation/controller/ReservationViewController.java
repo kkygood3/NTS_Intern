@@ -36,10 +36,10 @@ public class ReservationViewController {
 	@PostMapping("/loginConfirm")
 	public String login(HttpSession session, @RequestParam(name = "userEmail", required = true) String userEmail) {
 		session.setAttribute("userEmail", userEmail);
-		return "redirect:/history";
+		return "redirect:/reservation/history";
 	}
 
-	@GetMapping("/history")
+	@GetMapping("/reservation/history")
 	public String getMyReservationPage(HttpSession session, ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 
@@ -49,7 +49,7 @@ public class ReservationViewController {
 		return "myreservation";
 	}
 
-	@GetMapping("/detail/{displayInfoId}/reserve")
+	@GetMapping("/displayInfo/detail/{displayInfoId}/reserve")
 	public String getReservePage(ModelMap model) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_YEAR, (int)(Math.random() * 5 + 1));
@@ -59,12 +59,12 @@ public class ReservationViewController {
 		return "reserve";
 	}
 
-	@GetMapping("/reviewWrite/{reservationInfoId}")
+	@GetMapping("/reservation/reviewWrite/{reservationInfoId}")
 	public String getReviewWritePage(@PathVariable("reservationInfoId") Integer reservationInfoId, HttpSession session,
 		ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 		if (!reservationService.getReservationInfoExistFlag(reservationInfoId, userEmail)) {
-			return "redirect:/history";
+			return "redirect:/reservation/history";
 		}
 
 		DisplayInfo displayInfo = detailProductService

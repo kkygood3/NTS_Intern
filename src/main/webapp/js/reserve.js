@@ -12,7 +12,7 @@ var reservePage = {
 		inputTagValidator.validateInputText(this.elements.bkTel, inputTagValidator.telRegex);
 		inputTagValidator.validateInputText(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
-		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
+		this.ajaxSender.sendGet("/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
 		
 		this.setEvent.setEventToUserInfoContainer(inputTagValidator);
 		this.setEvent.setEventToTicketInfoContainer();
@@ -41,7 +41,7 @@ var reservePage = {
 				contentType : "application/json",
 				data : JSON.stringify(this.reservePage.reservationInfo.getReservationData()),
 				callback : function(){
-					window.location = "/reservation";
+					window.location = "/";
 				}
 			}
 			
@@ -310,7 +310,7 @@ var reservePage = {
 		setEventToBtnReserve : function(){
 			this.reservePage.elements.bkBtn.addEventListener("click", function(event){
 				if(!this.reservePage.elements.bkBtn.classList.contains("disable")){
-					this.reservePage.ajaxSender.sendPost("/reservation/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
+					this.reservePage.ajaxSender.sendPost("/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
 				}
 			}.bind(this));
 		}.bind(this),

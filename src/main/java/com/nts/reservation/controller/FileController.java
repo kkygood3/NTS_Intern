@@ -31,14 +31,14 @@ public class FileController {
 	@Value("${fileDir}")
 	private String fileDir;
 
-	@GetMapping("/showImage/productId/{productId}")
+	@GetMapping("/reservation/showImage/productId/{productId}")
 	public String showImageByProductId(@PathVariable("productId") Integer productId) {
 		int fileId = fileIoService.getFileIdByProductId(productId);
 
-		return "redirect:/showImage/" + fileId;
+		return "redirect:/reservation/showImage/" + fileId;
 	}
 
-	@GetMapping("/showImage/{fileId}")
+	@GetMapping("/reservation/showImage/{fileId}")
 	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId) {
 		FileInfo fileInfo = fileIoService.getFileInfo(fileId);
 

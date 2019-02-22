@@ -25,23 +25,23 @@
       <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
       <meta name="format-detection" content="telephone=no, address=no, email=no">
       <title translate="CM-NBOOKING">네이버 예약</title>
-      <link rel="stylesheet" href="/reservation/css/bookinglogin.css">
+      <link rel="stylesheet" href="/css/bookinglogin.css">
    </head>
    <body class="biz  ko" >
       
       <app>
          <toast-alert class="top_info hide booking_alert">
             <p class="top_info_txt"> <i class="fn fn-info1" aria-hidden="true"></i> <span class="_toast_alert_text"></span> </p>
-            <a href="/reservation" class="top_info_close"  data-tst_alt_close="0"> <i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only" translate="CM-CLOSE">닫기</span> </a> 
+            <a href="/" class="top_info_close"  data-tst_alt_close="0"> <i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only" translate="CM-CLOSE">닫기</span> </a> 
          </toast-alert>
          <!---->
          <div class="_view_content" ui-view="content" id="container" >
             <booked-confirm>
                <div class="booking_login">
-                  <h1 class="login_header"> <a href="/reservation"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
+                  <h1 class="login_header"> <a href="/"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
                   <!---->
                   <div >
-                     <form name="confirm_form" class="ng-pristine ng-valid" id="form1" action="/reservation/loginConfirm" method="post">
+                     <form name="confirm_form" class="ng-pristine ng-valid" id="form1" action="/loginConfirm" method="post">
                         <h2 class="login_header_sub border_bottom"> <span translate="CM-NON_MEMBER_BK_CONFIRMATION">비회원 예약확인</span> </h2>
                         <div class="login_form"> 
                            <label class="label_form" for="resrv_id" translate="CM-BOOKING_NUMBER">예약자 이메일 입력</label>
@@ -105,7 +105,7 @@
          </translater-modal>
       </app>
       
-      <script src="/reservation/js/util.js"></script>
-      <script src="/reservation/js/bookinglogin.js"></script>
+      <script src="/js/util.js"></script>
+      <script src="/js/bookinglogin.js"></script>
    </body>
 </html>

@@ -65,7 +65,7 @@ var myReservationPage = {
 	cancelReservation: function(){
 		var reservationInfoId = this.myReservationPage.elements.popupElement.dataset.reservationInfoId;
 		
-		this.myReservationPage.ajaxSender.sendPut("/reservation/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
+		this.myReservationPage.ajaxSender.sendPut("/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
 	}.bind(this),
 	
 	reservationCancelPopup: {

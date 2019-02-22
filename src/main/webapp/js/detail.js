@@ -7,7 +7,7 @@ var detailPage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		this.ajaxSender.sendGet("/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setEvent.bkBtnEvent();
 		
