@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>현재시간 : %d{HH:mm}, %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="info"/>
+	<logger name="com.nts.reservation" level="debug"/>
+
+	<root level="debug">
+		<appender-ref ref="CONSOLE"/>
+	</root>
+</configuration>

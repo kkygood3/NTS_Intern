@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.nts.reservation.interceptor.LoggingInterceptor;
 import com.nts.reservation.interceptor.LoginInterceptor;
 
 /**
@@ -51,6 +52,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LoggingInterceptor());
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/history");
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reviewWrite/{reservationInfoId}");
 	}
@@ -58,7 +60,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
-		//		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
 		return multipartResolver;
 	}
 }
