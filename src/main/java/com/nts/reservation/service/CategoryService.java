@@ -14,5 +14,5 @@ import com.nts.reservation.dto.param.PageDto;
  * @author jinwoo.bae
  */
 public interface CategoryService {
-	List<CategoryDto> getCategoriesWithProductsOnDisplayCount(PageDto page);
+	List<CategoryDto> getCategories(PageDto page);
 }

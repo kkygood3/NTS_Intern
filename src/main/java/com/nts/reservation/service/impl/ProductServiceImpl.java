@@ -43,6 +43,9 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private CommentMapper commentMapper;
 
+	/**
+	 * 상품정보들과 상품총개수를 조합해 가져옵니다.
+	 */
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, PageDto page) {
 		int count;
@@ -65,13 +68,16 @@ public class ProductServiceImpl implements ProductService {
 		return new ProductResponseDto(products, count);
 	}
 
+	/**
+	 * 타입에 해당하는 상품이미지를 가져옵니다.
+	 */
 	@Override
 	public ProductImageDto getProductImage(int productId, ImageType type) {
 		return productMapper.selectProductImage(productId, type);
 	}
 
 	/**
-	 * detail Page
+	 * 전시상품정보와 상품이미지, response용 상품평들을 조합해 가져옵니다. 
 	 */
 	@Override
 	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, PageDto commnetPage) {
@@ -82,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	/**
-	 * comment
+	 * 상품평들과 상품평들 개수, 평균점수를 조합해 가져옵니다.
 	 */
 	@Override
 	public CommentResponseDto getCommentResponse(int productId, PageDto page) {
@@ -96,7 +102,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	/**
-	 * reserver Page
+	 * 예약하기 페이지 response용으로
+	 * 전시상품정보와 상품가격들, 상품이미지, 상품최저가격, 예매일을 조합해 가져옵니다.
 	 */
 	@Override
 	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type) {

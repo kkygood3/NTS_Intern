@@ -49,7 +49,7 @@ public class ProductController {
 	}
 
 	/**
-	 * 예약 페이지
+	 * 예약하기 페이지
 	 */
 	@GetMapping("/{productId}/reserve")
 	public String getReservePage(@PathVariable int productId,

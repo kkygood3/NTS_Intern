@@ -14,5 +14,8 @@ import com.nts.reservation.dto.DisplayInfoDto;
  */
 @Mapper
 public interface DisplayInfoMapper {
+	/**
+	 * 전시정보를 가져옵니다
+	 */
 	DisplayInfoDto selectDisplayInfo(int id);
 }

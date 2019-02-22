@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.constant.ImageType;
+import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
@@ -50,8 +51,11 @@ public class ProductApiController {
 	@GetMapping("/{productId}/image")
 	public Map<String, Object> getProductImageUrl(@PathVariable int productId,
 		@RequestParam(required = false, defaultValue = IMAGE_TYPE_ETC) String type) {
-		String productImageUrl = productService.getProductImage(productId, ImageType.getEnum(type)).getSaveFileName();
-		return Collections.singletonMap("productImageUrl", productImageUrl);
+		ProductImageDto productImage = productService.getProductImage(productId, ImageType.getEnum(type));
+		if (productImage == null) {
+			return Collections.singletonMap("isEmpty", true);
+		}
+		return Collections.singletonMap("productImageUrl", productImage.getSaveFileName());
 	}
 
 	/**

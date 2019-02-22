@@ -25,8 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryMapper categoryMapper;
 
+	/**
+	 * 카테고리 정보들을 가져옵니다.
+	 */
 	@Override
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(PageDto page) {
+	public List<CategoryDto> getCategories(PageDto page) {
 		return categoryMapper.selectCategories(page);
 	}
 }

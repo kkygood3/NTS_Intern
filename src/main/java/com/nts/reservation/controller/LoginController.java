@@ -24,7 +24,7 @@ import com.nts.reservation.util.RegexValidator;
 public class LoginController {
 
 	/**
-	 * 예매자의 이메일 정규식 검증후 실패시 페이지에서 출력할 에러메시지를 넣어주고 로그인 페이지로이동시킵니다.
+	 * 예매자의 이메일 정규식 검증후 실패시 페이지에서 출력할 에러메시지를 넣어주고 로그인 페이지로 이동시킵니다.
 	 * 검증이 성공한다면 세션을 생성해주고 리다이렉트 페이지로 이동시킵니다.
 	 */
 	@GetMapping("/doLogin")

@@ -36,6 +36,9 @@ public class GlobalExceptionHandler {
 
 	/*
 	 * @RequestParam 에러 처리
+	 * MissingServletRequestParameterException - required=true인 파라미터가 없는 경우
+	 * MethodArgumentTypeMismatchException - 파라미터의 자료형이 알맞지않는 경우
+	 * NumberFormatException - 파라미터값인 String을 Integer로 파싱할때 값이 알맞지않는 경우
 	 */
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class,
 		NumberFormatException.class})

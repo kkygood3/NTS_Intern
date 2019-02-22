@@ -19,5 +19,8 @@ import com.nts.reservation.dto.param.PageDto;
  */
 @Mapper
 public interface PromotionMapper {
+	/**
+	 * 프로모션 정보들을 가져옵니다.
+	 */
 	List<PromotionDto> selectPromotions(@Param("type") ImageType type, @Param("page") PageDto page);
 }

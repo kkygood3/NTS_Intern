@@ -33,6 +33,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationMapper reservationMapper;
 
+	/**
+	 * 나의예약 페이지용
+	 * 예정,완료,취소 예약들과 총개수들을 조합해 가져옵니다.
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public MyReservationResponseDto getMyReservationResponse(String reservationEmail, PageDto page) {
@@ -45,6 +49,9 @@ public class ReservationServiceImpl implements ReservationService {
 			cancelReservationResponse);
 	}
 
+	/**
+	 * 예약하기
+	 */
 	@Override
 	@Transactional
 	public void makeReservation(ReservationParamDto reservationParam) {
@@ -64,12 +71,18 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	/**
+	 * 예약 취소
+	 */
 	@Override
 	@Transactional
-	public void cancleReservation(int reservationId) {
+	public void cancelReservation(int reservationId) {
 		reservationMapper.updateReservationToCancel(reservationId);
 	}
 
+	/**
+	 * 예약상태값(예정,완료,취소)에 따라 에약리스트들과 총개수를 가져옵니다. 
+	 */
 	@Override
 	@Transactional
 	public ReservationResponseDto getReservationResponse(String reservationEmail,

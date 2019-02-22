@@ -18,5 +18,8 @@ import com.nts.reservation.dto.param.PageDto;
  */
 @Mapper
 public interface CategoryMapper {
+	/**
+	 * 카테고리 정보들을 가져옵니다.
+	 */
 	List<CategoryDto> selectCategories(@Param("page") PageDto page);
 }

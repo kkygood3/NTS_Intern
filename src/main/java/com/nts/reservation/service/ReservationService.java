@@ -19,7 +19,7 @@ public interface ReservationService {
 
 	MyReservationResponseDto getMyReservationResponse(String reservationEmail, PageDto page);
 
-	void cancleReservation(int reservationId);
+	void cancelReservation(int reservationId);
 
 	ReservationResponseDto getReservationResponse(String reservationEmail, ReservationStatusType valueOf,
 		PageDto page);

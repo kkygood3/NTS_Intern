@@ -38,6 +38,9 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
+	/**
+	 * 예약하기
+	 */
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
 		if (reservationParam.isValid()) {
@@ -47,12 +50,18 @@ public class ReservationApiController {
 		return Collections.singletonMap("isSuccess", false);
 	}
 
+	/**
+	 * 예약 취소하기
+	 */
 	@PutMapping("/{reservationId}")
-	public Map<String, Object> putReservation(@PathVariable int reservationId) {
-		reservationService.cancleReservation(reservationId);
+	public Map<String, Object> cancelReservation(@PathVariable int reservationId) {
+		reservationService.cancelReservation(reservationId);
 		return Collections.singletonMap("isSuccess", true);
 	}
 
+	/**
+	 * 예약상태(예정,완료,취소.)에 따라 예약리스트들을 가져옵니다.
+	 */
 	@GetMapping
 	public ReservationResponseDto getReservationsByStatus(
 		@RequestParam String status,

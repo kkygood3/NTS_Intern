@@ -36,7 +36,7 @@ public class CategoryApiController {
 	@GetMapping
 	public Map<String, Object> getCategoriesWithProductsOnDisplayCount(
 		@PageDefault(limit = CATEGORIES_LIMIT) PageDto page) {
-		List<CategoryDto> categories = categoryService.getCategoriesWithProductsOnDisplayCount(page);
+		List<CategoryDto> categories = categoryService.getCategories(page);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("categories", categories);

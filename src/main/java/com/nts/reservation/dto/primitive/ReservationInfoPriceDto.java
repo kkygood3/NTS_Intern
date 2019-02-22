@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.primitive;
 
 /**
- * ProductPrice <-> ReservationInfo 관계형 테이블 DTO
+ * ReservationInfoPrice TABLE
  * @author jinwoo.bae
  */
 public class ReservationInfoPriceDto {
