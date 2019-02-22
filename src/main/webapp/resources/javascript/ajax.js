@@ -9,6 +9,8 @@ function ajax(perform, method, url, errorMessage) {
 		}else if(status == 400){
 			alert(errorMessage);
 			window.history.back();
+		}else if(status == 403){
+			alert('허용되지 않은 접근 입니다.');
 		}else{
 			location.href = '/error';
 		}
