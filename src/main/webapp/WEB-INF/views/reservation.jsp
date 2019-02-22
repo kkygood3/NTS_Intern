@@ -99,7 +99,7 @@
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
                                     <div class="inline_control tel_wrap"> 
-                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17" idx="0">
+                                        <input type="text" name="name" id="name" class="text" placeholder="한글로 최대 4자까지 입력" maxlength="17" idx="0">
 	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">이름을 입력해 주세요</div> 
                                     </div>
                                 </div>

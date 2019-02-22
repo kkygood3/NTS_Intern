@@ -4,9 +4,6 @@
  */
 package com.nts.reservation.reservation.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +40,7 @@ public class ReservationApiController {
 
 	// 예약 하기
 	@PostMapping
-	public Map<String, Object> reserve(
+	public boolean reserve(
 		@RequestBody ReserveRequest reserveRequest) {
 		ArgumentValidator.checkReserveRequest(reserveRequest);
 
@@ -53,14 +50,10 @@ public class ReservationApiController {
 		}
 		DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 성공");
 
-		Map<String, Object> map = new HashMap<>();
 		if (isInsertComplete) {
-			map.put("result", "OK");
-		} else {
-			map.put("result", "FAIL");
+			return true;
 		}
-
-		return map;
+		return false;
 	}
 
 	// 나의 예약 조회하기

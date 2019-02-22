@@ -9,6 +9,9 @@ function loadReservationResponse(response) {
 	initInputChangeEvent();
 }
 
+
+
+
 function requestGetAjax(callback, url){
 	let ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
@@ -25,8 +28,6 @@ function requestPostAjax(callback, url, param) {
 	let ajaxReq = new XMLHttpRequest();
 	ajaxReq.callback = callback;
 	ajaxReq.addEventListener('load', function(evt) {
-		//
-		console.log(evt.target.response);
 		this.callback(evt.target.response);
 	});
 	ajaxReq.open('POST', url);
@@ -53,7 +54,6 @@ function getUrlParameter(name) {
 
 function loadProductDescription(response) {
 	let reservationResponse = response;
-	console.log(reservationResponse);
 	let reservationDisplayInfo = response.reservationDisplayInfo;
 	let reservationPriceList = response.prices;
 	
@@ -63,10 +63,9 @@ function loadProductDescription(response) {
 	let imageContainer = document.querySelector('ul.visual_img>li.item>img.img_thumb');
 	imageContainer.setAttribute('src',reservationDisplayInfo.productImage);
 	
-	// 잔여티켓
-	
 	// 장소 및 시간
 	initSchedule(reservationDisplayInfo);
+	
 	// 최저가, 요금
 	initPriceDescription(reservationPriceList);
 }
@@ -140,9 +139,9 @@ function reservationPriceELement(price, priceTypeLabel) {
 
 
 function validateInput(index) {
-	const REG_NAME = /^[가-힣]{2,4}$/;
-	const REG_TELEPHONE = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	const REG_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
+	const REGULAR_KOREAN_NAME = /^[가-힣]{2,4}$/;
+	const REGULAR_TELEPHONE = /^\d{2,3}-\d{3,4}-\d{4}$/;
+	const REGULAR_EMAIL = /^[_a-zA-Z0-9-\.]+@[\.a-zA-Z0-9-]+\.[a-zA-Z]+$/;
 
 	let input = document.querySelectorAll('.form_horizontal input')[index];
 	let warningArea = document.querySelectorAll('.warning_msg')[index];
@@ -151,7 +150,7 @@ function validateInput(index) {
 	switch (index) {
 	case 0:
 		let name = input.value;
-		isValid = REG_NAME.test(name);
+		isValid = REGULAR_KOREAN_NAME.test(name);
 		break;
 	case 1:
 		let telephone = input.value;
@@ -159,14 +158,14 @@ function validateInput(index) {
 		if (isNoHyphenTel) {
 			telephone = telephone.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/, "$1-$2-$3");
 		}
-		isValid = REG_TELEPHONE.test(telephone);
+		isValid = REGULAR_TELEPHONE.test(telephone);
 		
 		if(isValid){
 			input.value = telephone;
 		}
 		break;
 	case 2:
-		isValid = REG_EMAIL.test(input.value)
+		isValid = REGULAR_EMAIL.test(input.value)
 		break;
 	default:
 		isValid = false;
@@ -218,7 +217,9 @@ function postReservation() {
 	requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
 }
 function postResponseHandler(response){
-	if(!response || response.result != 'OK'){
+	console.log(response);
+	console.log(typeof response);
+	if(response === false){
 		alert('예약에 문제가 발생했습니다.');
 	} else {
 		alert('예약 완료');
@@ -372,8 +373,7 @@ function initReserveClickEvents() {
 					isAvailableBtn = false;
 				}
 			}
-
-			// 예약자 정보가 빈 칸인지 확인
+			// 예약자 정보가  칸인지 확인
 			for (let i = 0; i < bookerInputs.length; i++) {
 				let targetInput = bookerInputs[i];
 				if (targetInput.value.length == 0) {
@@ -411,7 +411,6 @@ function initInputChangeEvent(){
 		}
 	});
 }
-
 
 
 

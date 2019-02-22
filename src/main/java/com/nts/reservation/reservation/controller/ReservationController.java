@@ -7,9 +7,12 @@ package com.nts.reservation.reservation.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,5 +51,28 @@ public class ReservationController {
 	@GetMapping("/bookingLogin")
 	public String requestBookingLogin() {
 		return "bookingLogin";
+	}
+
+	@PostMapping("/myReservation")
+	public String loginReservation(@RequestParam(name = "email", required = true) String email,
+		HttpSession session) {
+
+		if (!ArgumentValidator.checkEmail(email)) {
+			return "error";
+		}
+
+		session.setAttribute("email", email);
+		return "myReservation";
+	}
+
+	@GetMapping("/myReservation")
+	public String requestMyReservation(@RequestParam(name = "email", required = false) String email,
+		HttpSession session) {
+		String sessionEmail = (String)session.getAttribute("email");
+		if (sessionEmail != null) {
+			return "myReservation";
+		} else {
+			return "redirect:bookingLogin";
+		}
 	}
 }
