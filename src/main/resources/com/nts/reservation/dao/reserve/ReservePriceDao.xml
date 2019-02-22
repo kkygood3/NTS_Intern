@@ -7,7 +7,8 @@
 		SELECT 
 			pp.price, 
 			pp.price_type_name, 
-			ROUND(pp.discount_rate,0) AS discount_rate 
+			ROUND(pp.discount_rate,0) AS discount_rate,
+			pp.id AS price_info_id
 		FROM
 			display_info AS d 
 		INNER JOIN

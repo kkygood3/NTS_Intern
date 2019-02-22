@@ -25,9 +25,10 @@ function ReserveRequest(name, telephone, email, displayInfoId, reservationDate, 
 	this.reservationDate = reservationDate;
 }
 
-function ReservePriceInfo(type, count) {
+function ReservePriceInfo(type, count, priceInfoId) {
 	this.type = type;
 	this.count = count;
+	this.priceInfoId = priceInfoId;
 };
 
 function getKoreanDay(day){
@@ -294,7 +295,8 @@ function postReserve() {
 		if (isContainTicket) {
 			var type = ticketInputs[i].getAttribute('pricetype');
 			var count = ticketInputs[i].value;
-			reservePriceInfoList.push(new ReservePriceInfo(type, count));
+			var priceInfoId = ticketInputs[i].getAttribute('priceInfoId');
+			reservePriceInfoList.push(new ReservePriceInfo(type, count, priceInfoId));
 		}
 	}
 	

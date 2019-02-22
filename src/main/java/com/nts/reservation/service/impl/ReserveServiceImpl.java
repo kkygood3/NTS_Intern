@@ -45,13 +45,14 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean postReserve(ReserveRequest reserveRequest) {
-		int reservationInfoId = reserveDao.insertReservation(reserveRequest.getName(), reserveRequest.getTelephone(), reserveRequest.getEmail(), reserveRequest.getDisplayInfoId(), reserveRequest.getReservationDate());
+		reserveDao.insertReservation(reserveRequest);
+		int reservationInfoId = reserveRequest.getId();
 		List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
 
 		for (int i = 0; i < reservePriceInfoList.size(); i++) {
 			ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
-
-			Integer resultRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), reserveRequest.getDisplayInfoId(), reservationInfoId);
+			targetPriceInfo.setReservationInfoId(reservationInfoId);
+			Integer resultRow = reserveDao.insertReservationPrice(targetPriceInfo);
 
 			if (resultRow == null || resultRow == 0) {
 				return false;

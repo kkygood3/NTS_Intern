@@ -11,14 +11,8 @@ package com.nts.reservation.dto.reserve;
 public class ReservePriceInfo {
 	private ReservePriceType type;
 	private Integer count;
-
-	public ReservePriceType getType() {
-		return type;
-	}
-
-	public void setType(ReservePriceType type) {
-		this.type = type;
-	}
+	private Integer reservationInfoId;
+	private Integer priceInfoId;
 
 	public Integer getCount() {
 		return count;
@@ -28,8 +22,28 @@ public class ReservePriceInfo {
 		this.count = count;
 	}
 
-	@Override
-	public String toString() {
-		return "ReservePriceInfo [type=" + type + ", count=" + count + "]";
+	public Integer getReservationInfoId() {
+		return reservationInfoId;
 	}
+
+	public void setReservationInfoId(Integer reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
+
+	public Integer getPriceInfoId() {
+		return priceInfoId;
+	}
+
+	public void setPriceInfoId(Integer priceInfoId) {
+		this.priceInfoId = priceInfoId;
+	}
+
+	public ReservePriceType getType() {
+		return type;
+	}
+
+	public void setType(ReservePriceType type) {
+		this.type = type;
+	}
+
 }

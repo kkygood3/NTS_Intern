@@ -3,13 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http#{//mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.dao.reserve.ReserveDao">
-	<insert id="insertReservation">
-		<selectKey keyProperty="id" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+	<insert id="insertReservation" useGeneratedKeys="true" keyProperty="id">
 		INSERT 
 			INTO
-				reservation_info( 
+				reservation_info(
 				product_id, 
 				display_info_id, 
 				reservation_name, 
@@ -19,7 +16,7 @@
 				cancel_flag, 
 				create_date, 
 				modify_date) 
-			SELECT 
+			SELECT
 				p.id, 
 				d.id, 
 				#{name}, 
@@ -39,21 +36,12 @@
 				p.id
 	</insert>
 	<insert id="insertReservationPrice">
-		INSERT 
-			INTO
-				reservation_info_price( 
-				reservation_info_id, 
-				product_price_id, 
-				count) 
-			SELECT 
-				#{reservationInfoId}, 
-				pp.id, 
-				#{count} 
-			FROM
-				display_info AS d 
-			INNER JOIN
-				product_price AS pp ON d.product_id = pp.product_id 
-			WHERE
-				pp.price_type_name = #{type} AND d.id = #{displayInfoId}
+		INSERT INTO reservation_info_price
+		           (reservation_info_id,
+		            product_price_id,
+		            count)
+		VALUES      (#{reservationInfoId},
+		            #{priceInfoId},
+		            #{count});
 	</insert>
 </mapper>

@@ -12,6 +12,15 @@ public class ReservePrice {
 	private ReservePriceType priceTypeName;
 	private String priceTypeLabel;
 	private Integer discountRate;
+	private Integer priceInfoId;
+
+	public Integer getPriceInfoId() {
+		return priceInfoId;
+	}
+
+	public void setPriceInfoId(Integer priceInfoId) {
+		this.priceInfoId = priceInfoId;
+	}
 
 	public String getPriceTypeLabel() {
 		return priceTypeLabel;

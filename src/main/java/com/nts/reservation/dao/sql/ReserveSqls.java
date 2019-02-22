@@ -59,6 +59,17 @@ public class ReserveSqls {
 	
 	public static final String INSERT_RESERVE_PRICE =
 		"INSERT" + 
+			" INTO reservation_info_price(" + 
+			"  reservation_info_id," + 
+			"  product_price_id," + 
+			"  count" + 
+			" )" + 
+			" VALUES(" + 
+			"  131," + 
+			"  10," + 
+			"  5)"; 
+		/*
+		"INSERT" + 
 		" INTO reservation_info_price(" + 
 		"  reservation_info_id," + 
 		"  product_price_id," + 
@@ -71,5 +82,6 @@ public class ReserveSqls {
 		"  FROM display_info AS d" + 
 		"  INNER JOIN product_price AS pp ON d.product_id = pp.product_id" + 
 		"  WHERE pp.price_type_name = :type AND d.id = :displayInfoId";
+		*/
 		
 }

@@ -10,12 +10,21 @@ import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.property.CommonProperties;
 
 public class ReserveRequest {
+	private Integer id;
 	private String name;
 	private String telephone;
 	private String email;
 	private Integer displayInfoId;
 	private String reservationDate;
 	private List<ReservePriceInfo> reservePriceInfoList;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
