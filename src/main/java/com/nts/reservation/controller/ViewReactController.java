@@ -14,12 +14,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.CommentDto;
+import com.nts.reservation.dto.DisplayInfoDto;
+import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductDto;
+import com.nts.reservation.dto.ProductImageDto;
+import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.request.react.DetailPageRequestDto;
 import com.nts.reservation.dto.request.react.MainPageRequestDto;
 import com.nts.reservation.dto.response.CategoryResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
@@ -48,7 +55,7 @@ public class ViewReactController {
 
 	@Autowired
 	public ViewReactController(CategoryService categoryService, ProductService productService,
-		DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService) {
+			DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService) {
 
 		this.categoryService = categoryService;
 		this.productService = productService;
@@ -66,9 +73,9 @@ public class ViewReactController {
 	 */
 	@GetMapping(produces = "text/html; charset=utf8")
 	public @ResponseBody String mainPage(HttpSession session, HttpServletRequest request)
-		throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
+			throws ConnectException, HttpClientErrorException {
 
-		String userEmail = (String)session.getAttribute("userEmail");
+		String userEmail = (String) session.getAttribute("userEmail");
 
 		List<ProductDto> products = productService.getProductList(0);
 		int productCount = productService.getCount();
@@ -81,15 +88,42 @@ public class ViewReactController {
 		CategoryResponseDto categoryResponse = new CategoryResponseDto(categories);
 
 		MainPageRequestDto requestDto = new MainPageRequestDto(userEmail, productResponse, promotionResponse,
-			categoryResponse);
+				categoryResponse);
 		String html = "";
 		try {
 			html = requestHtmlService.requestToReactHtml("/main", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
 			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException)exception;
+				throw (HttpClientErrorException) exception;
 			} else {
-				throw (ConnectException)exception;
+				throw (ConnectException) exception;
+			}
+		}
+		return html;
+	}
+
+	@GetMapping(path = "/displayInfo/{displayInfoId}", produces = "text/html; charset=utf8")
+	public @ResponseBody String detailPage(@PathVariable Long displayInfoId, HttpSession session,
+			HttpServletRequest request) throws ConnectException, HttpClientErrorException {
+		String userEmail = (String) session.getAttribute("userEmail");
+
+		DisplayInfoDto displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
+		DisplayInfoImageDto displayInfoImage = displayInfoService.getDisplayInfoImage(displayInfoId);
+		List<ProductImageDto> productImages = displayInfoService.getProductImageList(displayInfo.getProductId());
+		List<ProductPriceDto> productPrices = displayInfoService.getProductPriceList(displayInfo.getProductId());
+		List<CommentDto> comments = displayInfoService.getCommentList(displayInfoId);
+		float averageScore = displayInfoService.getCommentAvgScore(displayInfoId);
+
+		DetailPageRequestDto requestDto = new DetailPageRequestDto(userEmail, averageScore, comments, displayInfo,
+				displayInfoImage, productImages, productPrices);
+		String html = "";
+		try {
+			html = requestHtmlService.requestToReactHtml("/detail", requestDto);
+		} catch (HttpClientErrorException | ConnectException exception) {
+			if (exception instanceof HttpClientErrorException) {
+				throw (HttpClientErrorException) exception;
+			} else {
+				throw (ConnectException) exception;
 			}
 		}
 		return html;
