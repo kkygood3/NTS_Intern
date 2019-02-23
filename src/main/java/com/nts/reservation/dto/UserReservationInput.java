@@ -5,7 +5,7 @@ import java.util.List;
 public class UserReservationInput {
 	private long productId;
 	private String name;
-	private String tel;
+	private String telephone;
 	private String email;
 	private String reservationDate;
 	private List<ReservationInfoPrice> price;
@@ -26,12 +26,12 @@ public class UserReservationInput {
 		this.name = name;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 	public String getEmail() {
@@ -60,7 +60,7 @@ public class UserReservationInput {
 
 	@Override
 	public String toString() {
-		String pre = "UserReservationInput [name=" + name + ", tel=" + tel + ", email=" + email + ", price=\n\t";
+		String pre = "UserReservationInput [name=" + name + ", telephone=" + telephone + ", email=" + email + ", price=\n\t";
 		String post = "\n]";
 		String mid = "";
 		for (ReservationInfoPrice p : price) {

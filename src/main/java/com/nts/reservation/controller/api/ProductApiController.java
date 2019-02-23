@@ -152,7 +152,6 @@ public class ProductApiController {
 		} catch (ParseException e) {
 			return INVALID_INPUT;
 		}
-
 		List<ReservationInfoPrice> priceInputList = userReservationInput.getPrice();
 		for (int i = priceInputList.size() - 1; i >= 0; i--) {
 			if (priceInputList.get(i).getCount() == 0) {
@@ -162,11 +161,10 @@ public class ProductApiController {
 		if (!existPriceInfo(priceInputList)) {
 			return INVALID_INPUT;
 		}
-		
-		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTelephone(), userReservationInput.getEmail())) {
 			return INVALID_INPUT;
 		}
-		
+
 		return reservationInfo;
 	}
 	

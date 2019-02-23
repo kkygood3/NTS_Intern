@@ -180,7 +180,7 @@ function makeJsonReservationData() {
 	var reservationData = {};
 	reservationData.productId = displayInfo().productId;
 	reservationData.name = document.getElementById("name").value;
-	reservationData.tel = document.getElementById("tel").value;
+	reservationData.telephone = document.getElementById("tel").value;
 	reservationData.email = document.getElementById("email").value;
 	reservationData.reservationDate = displayInfo().reservationDate;
 	reservationData.price = makePriceData();

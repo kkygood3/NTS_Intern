@@ -20,7 +20,7 @@ public class ReservationInfo {
 	public ReservationInfo(UserReservationInput input) throws ParseException {
 		this.productId = input.getProductId();
 		this.reservationName = input.getName();
-		this.reservationTel = input.getTel();
+		this.reservationTel = input.getTelephone();
 		this.reservationEmail = input.getEmail();
 		this.reservationDate = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH).parse(input.getReservationDate());
 		this.cancelFlag = false;
