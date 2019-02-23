@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.nts.reservation.service.validation.Validator;
+import com.nts.reservation.util.ReservationInputValidator;
 
 public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 
@@ -23,7 +23,7 @@ public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		String email = (String)session.getAttribute("email");
-		if (email == null || !Validator.validEmail(email)) {
+		if (email == null || !ReservationInputValidator.isValidEmail(email)) {
 			session.setAttribute("targetUrl", request.getRequestURI());
 			response.sendRedirect("/login");
 			return false;

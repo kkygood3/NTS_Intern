@@ -31,7 +31,7 @@ import com.nts.reservation.dto.UserReservationInput;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
-import com.nts.reservation.service.validation.Validator;
+import com.nts.reservation.util.ReservationInputValidator;
 
 /**
  * 상품 관련 API 클래스
@@ -108,8 +108,7 @@ public class ProductApiController {
 		@PathVariable(name = "productId", required = true) long productId,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
-		List<CommentDisplayInfo> commentDisplayInfos = commentService.getCommentsByProductIdWithPaging(productId, start, limit);
-		return commentDisplayInfos;
+		return commentService.getCommentsByProductIdWithPaging(productId, start, limit);
 	}
 
 	/**
@@ -162,14 +161,18 @@ public class ProductApiController {
 				priceInputList.remove(i);
 			}
 		}
-		if (priceInputList.size() == 0) {
+		if (!existPriceInfo(priceInputList)) {
 			return INVALID_INPUT;
 		}
 		
-		if (!Validator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
 			return INVALID_INPUT;
 		}
 		
 		return reservationInfo;
+	}
+	
+	private boolean existPriceInfo(List<ReservationInfoPrice> priceInfo) {
+		return priceInfo.size() > 0 ? true : false;
 	}
 }

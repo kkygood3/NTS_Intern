@@ -30,7 +30,6 @@ public class CategoryApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Category> getCategoris() {
-		List<Category> CategoryList = categoryService.getCategoris();
-		return CategoryList;
+		return categoryService.getCategoris();
 	}
 }
