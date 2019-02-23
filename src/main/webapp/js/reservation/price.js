@@ -20,7 +20,7 @@ function makePriceInfoHTML(priceInfos) {
 	var bindTemplate = getBindTemplate("ticket_item");
 	
 	Handlebars.registerHelper("orgPrice", function(price, discountRate) {
-	      return Math.ceil(price / discountRate * 100); 
+	      return Math.ceil(price / (100-discountRate) * 100); 
 	});
 	
 	var innerHtml = makeHtmlFromListData(priceInfos, bindTemplate);
