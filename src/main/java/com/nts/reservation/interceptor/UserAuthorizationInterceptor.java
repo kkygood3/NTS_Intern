@@ -18,16 +18,20 @@ public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 		throws Exception {
 		HttpSession session = request.getSession();
 
-		String pathPattern = "^(/reservation)|^(/detail/(\\d)+/comment)";
-		if (!Pattern.matches(pathPattern, request.getRequestURI())) {
+		if (!requiresAuthorize(request.getRequestURI())) {
 			return true;
 		}
-
+		
 		String email = (String)session.getAttribute("email");
 		if (Utils.isEmpty(email) || !ReservationInputValidator.isValidEmail(email)) {
 			response.sendRedirect("/login");
 			return false;
 		}
 		return true;
+	}
+	
+	private boolean requiresAuthorize(String path) {
+		String pathPattern = "^(/reservation)|^(/detail/(\\d)+/comment)";
+		return Pattern.matches(pathPattern, path) ? true : false;
 	}
 }
