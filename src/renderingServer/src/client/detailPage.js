@@ -11,10 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
     var requestData = window.__requestData__;
     delete window.__requestData__;
 
-    console.log(requestData);
-    console.log("////");
-    console.log(Detail);
     var dataContainer = document.querySelector("#dataContainer");
     dataContainer.parentNode.removeChild(dataContainer);
-    ReactDom.render( <Detail email={requestData.userEmail} productImages={requestData.productImages}/> , document.body);
+    ReactDom.render( <Detail email={requestData.userEmail}
+                         productImages={requestData.productImages}
+                         displayInfo={requestData.displayInfo}
+                         productPrices={requestData.productPrices}
+                         comments={requestData.comments}
+                         averageScore={requestData.averageScore}
+                         displayInfoImage={requestData.displayInfoImage}
+                         /> , document.body);
 });

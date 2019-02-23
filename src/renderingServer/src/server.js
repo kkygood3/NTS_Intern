@@ -41,9 +41,17 @@ app.post("/main", function(req, res) {
 
 app.post("/detail", function(req, res) {
     try {
-        var markup = ReactDOMServer.renderToString(<Detail email={req.body.userEmail}  productImages={req.body.productImages}/>);
+        
+        var markup = ReactDOMServer.renderToString(<Detail email={req.body.userEmail}
+             productImages={req.body.productImages}
+             displayInfo={req.body.displayInfo}
+             productPrices={req.body.productPrices}
+             comments={req.body.comments}
+             averageScore={req.body.averageScore}
+             displayInfoImage={req.body.displayInfoImage}
+             />);
         var html = baseTemplate.commonTemplate(markup, JSON.stringify(req.body),"detailPage");
-        console.log(html);
+        // console.log(html);
         res.send(html);
     } catch (e) {
         console.log(e);
