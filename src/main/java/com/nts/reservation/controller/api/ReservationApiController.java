@@ -37,8 +37,8 @@ public class ReservationApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getMyReservation(@SessionAttribute(name = "email") String email,
-		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
-		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
 		return reservationService.getReservationDisplayItemsByReservationEmailWithPaging(email, start, limit);
 	}
 	
@@ -52,9 +52,9 @@ public class ReservationApiController {
 	 */
 	@GetMapping("/{status}")
 	public Map<String, Object> getMyReservationByType(@SessionAttribute(name = "email") String email,
-		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
-		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit,
-		@PathVariable(name = "status", required = true) String status) {
+			@PathVariable(name = "status", required = true) String status,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
 
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("status", status);
@@ -70,7 +70,7 @@ public class ReservationApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public int putMyReservation(@SessionAttribute(name = "email") String email,
-		@PathVariable(name = "reservationInfoId", required = true) int reservationInfoId) {
+			@PathVariable(name = "reservationInfoId", required = true) int reservationInfoId) {
 		return reservationService.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, email);
 	}
 }

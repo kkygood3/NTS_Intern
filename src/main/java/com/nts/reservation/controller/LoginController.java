@@ -34,8 +34,7 @@ public class LoginController {
 	 * @return
 	 */
 	@PostMapping
-	public String postLogin(@RequestParam(name = "email", required = true) String email,
-		HttpSession session) {
+	public String postLogin(HttpSession session, @RequestParam(name = "email", required = true) String email) {
 		if (!ReservationInputValidator.isValidEmail(email)) {
 			return "redirect:/error";
 		}

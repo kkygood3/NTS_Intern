@@ -61,9 +61,9 @@ public class ProductApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> getProductCountAndThumbnails(
-		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
-		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
-		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
+			@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
 		List<ProductThumbnail> thumbnailInfoList = Collections.EMPTY_LIST;
 
@@ -90,8 +90,8 @@ public class ProductApiController {
 	@GetMapping("/{productId}/file_info/{type}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<String> getProductCountAndThumbnailInfos(
-		@PathVariable(name = "productId", required = true) int productId,
-		@PathVariable(name = "type", required = true) String type) {
+			@PathVariable(name = "productId", required = true) int productId,
+			@PathVariable(name = "type", required = true) String type) {
 		return productService.getProductFileNameByProductIdAndType(productId, type);
 	}
 
@@ -105,9 +105,9 @@ public class ProductApiController {
 	@GetMapping("/{productId}/comment")
 	@ResponseStatus(HttpStatus.OK)
 	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(
-		@PathVariable(name = "productId", required = true) long productId,
-		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
-		@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
+			@PathVariable(name = "productId", required = true) long productId,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
 		return commentService.getCommentsByProductIdWithPaging(productId, start, limit);
 	}
 
@@ -130,8 +130,8 @@ public class ProductApiController {
 	 * @return 뷰이름 리턴
 	 */
 	@PostMapping("/{displayInfoId}/reservation")
-	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		@RequestBody UserReservationInput userReservationInput) {
+	public boolean postReservation(@RequestBody UserReservationInput userReservationInput,
+			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
 		ReservationInfo reservationInfo = convertUserReservationInputToReservationInfo(userReservationInput);
 		if (reservationInfo == INVALID_INPUT) {
 			return false;

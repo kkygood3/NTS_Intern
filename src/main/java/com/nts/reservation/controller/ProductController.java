@@ -36,8 +36,8 @@ public class ProductController {
 	 * @return 뷰이름 리턴
 	 */
 	@GetMapping("/{displayInfoId}")
-	public String detail(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		ModelMap model) {
+	public String detail(ModelMap model,
+			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
 		ProductPageInfo datailPageInfo = productService.getProductPageInfoByDisplayInfoId(displayInfoId);
 
 		model.addAttribute("displayInfoId", displayInfoId);
@@ -53,8 +53,8 @@ public class ProductController {
 	 * @return 뷰이름 리턴
 	 */
 	@GetMapping("/{displayInfoId}/review")
-	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		ModelMap model) {
+	public String review(ModelMap model,
+			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
 		CommentPageInfo reviewPageInfo = commentService.getCommentPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reviewPageInfo);
 		model.addAttribute("displayInfoId", displayInfoId);
@@ -69,10 +69,9 @@ public class ProductController {
 	 * @return 뷰이름 리턴
 	 */
 	@GetMapping("/{displayInfoId}/reservation")
-	public String getReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
-		ModelMap model) {
-		ReservationPageInfo reservationPageInfo = reservationService
-			.getReservationPageInfoByDisplayInfoId(displayInfoId);
+	public String getReservation(ModelMap model,
+			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
+		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
 	}
@@ -84,7 +83,8 @@ public class ProductController {
 	 * @return 뷰이름 리턴
 	 */
 	@GetMapping("/{productId}/comment")
-	public String getComment(@PathVariable(name = "productId", required = true) long productId, ModelMap model) {
+	public String getComment(ModelMap model, 
+			@PathVariable(name = "productId", required = true) long productId) {
 		model.addAttribute("productId", productId);
 		model.addAttribute("description", productService.getProductDescriptionByProductId(productId));
 		return "reviewWrite";
