@@ -26,6 +26,8 @@ import com.nts.reservation.dto.DisplayInfoImageDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.ReservationInfoDto;
+import com.nts.reservation.dto.request.MyReservationPageRequestDto;
 import com.nts.reservation.dto.request.react.DetailPageRequestDto;
 import com.nts.reservation.dto.request.react.MainPageRequestDto;
 import com.nts.reservation.dto.response.CategoryResponseDto;
@@ -36,6 +38,7 @@ import com.nts.reservation.service.CategoryService;
 import com.nts.reservation.service.DisplayInfoService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.RequestHtmlService;
+import com.nts.reservation.service.ReservationService;
 
 /**
  * @author 육성렬
@@ -53,14 +56,18 @@ public class ViewReactController {
 
 	private final RequestHtmlService requestHtmlService;
 
+	private final ReservationService reservationService;
+	
 	@Autowired
 	public ViewReactController(CategoryService categoryService, ProductService productService,
-			DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService) {
+			DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService,
+			ReservationService reservationService) {
 
 		this.categoryService = categoryService;
 		this.productService = productService;
 		this.displayInfoService = displayInfoService;
 		this.requestHtmlService = requestHtmlService;
+		this.reservationService = reservationService;
 	}
 
 	/**
@@ -124,6 +131,34 @@ public class ViewReactController {
 				throw (HttpClientErrorException) exception;
 			} else {
 				throw (ConnectException) exception;
+			}
+		}
+		return html;
+	}
+	
+	@GetMapping(path = "/myReservation", produces = "text/html; charset=utf8")
+	public @ResponseBody String myReservationPageTest(
+		HttpSession session, HttpServletRequest request)
+		throws UnauthorizedRequestException, ConnectException, HttpClientErrorException {
+
+		String userEmail = (String)session.getAttribute("userEmail");
+		if (userEmail == null) {
+			String ipAddress = request.getRemoteAddr();
+			throw new UnauthorizedRequestException(ipAddress, "/myReservationWithReact");
+		}
+
+		List<ReservationInfoDto> list = reservationService.getReservationList(userEmail);
+		int count = reservationService.getReservationCount(userEmail);
+
+		MyReservationPageRequestDto requestDto = new MyReservationPageRequestDto(userEmail, list, count);
+		String html = "";
+		try {
+			html = requestHtmlService.requestToReactHtml("/myReservation", requestDto);
+		} catch (HttpClientErrorException | ConnectException exception) {
+			if (exception instanceof HttpClientErrorException) {
+				throw (HttpClientErrorException)exception;
+			} else {
+				throw (ConnectException)exception;
 			}
 		}
 		return html;
