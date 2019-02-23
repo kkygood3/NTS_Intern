@@ -36,7 +36,7 @@ public interface ReservationService {
 	 * @param limit 기간 (start부터 limit기간)
 	 * @return 예약정보
 	 */
-	Map<String, Object> getReservationDisplayItemsByReservationEmail(String reservationEmail, int start, int limit);
+	Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String reservationEmail, int start, int limit);
 	
 	/**
 	 * 예약조회 정보 type별로 가져온다
@@ -46,7 +46,7 @@ public interface ReservationService {
 	 * @param type { "confrim", "used", "cancel" }
 	 * @return 예약정보
 	 */
-	List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByType(String reservationEmail, int start, int limit, String type);
+	List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(String reservationEmail, int start, int limit, String type);
 
 	/**
 	 * 예약 취소

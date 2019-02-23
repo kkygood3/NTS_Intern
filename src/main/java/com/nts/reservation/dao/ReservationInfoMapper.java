@@ -68,5 +68,10 @@ public interface ReservationInfoMapper {
 	 */
 	long insertReservationInfoPrice(ReservationInfoPrice price);
 	
+	/**
+	 * 특정 사용자 항목별로 예약 카운트 가저온다
+	 * @param reservationEmail
+	 * @return 예약 카운트
+	 */
 	List<ReservationSummary> selectReservationInfoCountByReservationEmail(String reservationEmail);
 }

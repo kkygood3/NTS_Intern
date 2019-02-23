@@ -25,7 +25,7 @@ public class PromotionServiceImpl implements PromotionService {
 	@Override
 	@Transactional
 	public List<String> getPromotions() {
-		List<String> list = promotionDao.selectMaTypeFileNames();
+		List<String> list = promotionDao.selectThTypeFileNames();
 		return list;
 	}
 }

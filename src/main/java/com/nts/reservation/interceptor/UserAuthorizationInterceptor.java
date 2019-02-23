@@ -17,13 +17,14 @@ public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 		throws Exception {
 		HttpSession session = request.getSession();
 
-		String pathPattern = "^/reservation";
+		String pathPattern = "^(/reservation)|^(/detail/(\\d)+/comment)";
 		if (!Pattern.matches(pathPattern, request.getRequestURI())) {
 			return true;
 		}
-		
+
 		String email = (String)session.getAttribute("email");
 		if (email == null || !Validator.validEmail(email)) {
+			session.setAttribute("targetUrl", request.getRequestURI());
 			response.sendRedirect("/login");
 			return false;
 		}

@@ -21,7 +21,7 @@ import com.nts.reservation.service.ReservationService;
  *
  */
 @Controller
-@RequestMapping(path = "/detail")
+@RequestMapping("/detail")
 public class ProductController {
 	@Autowired
 	private ProductService productService;
@@ -36,7 +36,7 @@ public class ProductController {
 	 * @param model 표시할 정보를 담는다
 	 * @return 뷰이름 리턴
 	 */
-	@GetMapping(path = "/{displayInfoId}")
+	@GetMapping("/{displayInfoId}")
 	public String detail(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		ProductPageInfo datailPageInfo = productService.getProductPageInfoByDisplayInfoId(displayInfoId);
@@ -53,7 +53,7 @@ public class ProductController {
 	 * @param model 표시할 정보를 담는다
 	 * @return 뷰이름 리턴
 	 */
-	@GetMapping(path = "/{displayInfoId}/review")
+	@GetMapping("/{displayInfoId}/review")
 	public String review(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		CommentPageInfo reviewPageInfo = commentService.getCommentPageInfoByDisplayInfoId(displayInfoId);
@@ -69,7 +69,7 @@ public class ProductController {
 	 * @param model 표시할 정보를 담는다
 	 * @return 뷰이름 리턴
 	 */
-	@GetMapping(path = "/{displayInfoId}/reservation")
+	@GetMapping("/{displayInfoId}/reservation")
 	public String getReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		ModelMap model) {
 		ReservationPageInfo reservationPageInfo = reservationService
@@ -78,7 +78,13 @@ public class ProductController {
 		return "reservation";
 	}
 	
-	@GetMapping(path = "/{productId}/comment")
+	/**
+	 * 리뷰작성 페이지에 필요한 정보 담아서 url 맵핑한다
+	 * @param productId 리뷰쓸 상품
+	 * @param model 표시할 정보
+	 * @return 뷰이름 리턴
+	 */
+	@GetMapping("/{productId}/comment")
 	public String getComment(@PathVariable(name = "productId", required = true) long productId, ModelMap model) {
 		model.addAttribute("productId", productId);
 		model.addAttribute("description", productService.getProductDescriptionByProductId(productId));

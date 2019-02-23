@@ -38,7 +38,7 @@ import com.nts.reservation.service.validation.Validator;
  *
  */
 @RestController
-@RequestMapping(path = "/product")
+@RequestMapping("/product")
 public class ProductApiController {
 	@Autowired
 	private ProductService productService;
@@ -123,31 +123,46 @@ public class ProductApiController {
 	 * @param model 에러정보
 	 * @return 뷰이름 리턴
 	 */
-	@PostMapping(path = "/{displayInfoId}/reservation")
+	@PostMapping("/{displayInfoId}/reservation")
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput) {
-		ReservationInfo reservationInfo = null;
-		try {
-			reservationInfo = new ReservationInfo(userReservationInput);
-		} catch (ParseException e) {
-			return false;
-		}
-
-		int totalReservationCount = 0;
-		for (ReservationInfoPrice reservationInfoPrice : userReservationInput.getPrice()) {
-			totalReservationCount += reservationInfoPrice.getCount();
-		}
-
-		if (totalReservationCount == 0) {
-			return false;
-		}
-		if (!Validator.validReservationInfo(
-			userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+		ReservationInfo reservationInfo = convertUserReservationInputToReservationInfo(userReservationInput);
+		if (reservationInfo == null) {
 			return false;
 		}
 
 		reservationService.addReservation(reservationInfo, userReservationInput.getPrice(), displayInfoId).getId();
 
 		return true;
+	}
+	
+	/**
+	 * 예약 유저 입력정보를 예약정보로 변환한다.
+	 * @param userReservationInput 사용자가 입력한 예약정보
+	 * @return 변환된 예약정보 객체. 실패시 null 리턴
+	 */
+	private ReservationInfo convertUserReservationInputToReservationInfo(UserReservationInput userReservationInput) {
+		ReservationInfo reservationInfo = null;
+		try {
+			reservationInfo = new ReservationInfo(userReservationInput);
+		} catch (ParseException e) {
+			return null;
+		}
+
+		List<ReservationInfoPrice> priceInputList = userReservationInput.getPrice();
+		for (int i = priceInputList.size() - 1; i >= 0; i--) {
+			if (priceInputList.get(i).getCount() == 0) {
+				priceInputList.remove(i);
+			}
+		}
+		if (priceInputList.size() == 0) {
+			return null;
+		}
+		
+		if (!Validator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
+			return null;
+		}
+		
+		return reservationInfo;
 	}
 }

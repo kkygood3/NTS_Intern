@@ -16,7 +16,7 @@ import com.nts.reservation.service.validation.Validator;
  *
  */
 @Controller
-@RequestMapping(path = "/login")
+@RequestMapping("/login")
 public class LoginController {
 	/**
 	 * 로그인 화면으로 연결

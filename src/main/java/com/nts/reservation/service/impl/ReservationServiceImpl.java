@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public Map<String, Object> getReservationDisplayItemsByReservationEmail(
+	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(
 		String reservationEmail, int start, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao
@@ -62,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	@Override
-	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByType(
+	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(
 		String reservationEmail, int start, int limit, String type) {
 		if ("confirmed".equals(type)) {
 			return reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit);

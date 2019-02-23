@@ -25,26 +25,34 @@ import com.nts.reservation.service.ReservationService;
  *
  */
 @RestController
-@RequestMapping(path = "/reservation_info")
+@RequestMapping("/reservation_info")
 public class ReservationApiController {
 	@Autowired
 	ReservationService reservationService;
 
 	/**
-	 * 예약정보 확정, 사용, 취소로 나눠서 start개월전부터 limit개월 가져온다. (default : 1년)
+	 * 예약정보 확정, 사용, 취소로 나눠서 페이징해서 가져온다
 	 * @param session
-	 * @param start 시작 날짜 (default : 12개월전)
-	 * @param limit 조회할 기간 (default : 12개월)
+	 * @param start 시작인덱스
+	 * @param limit 페이징 사이즈
 	 * @return 예약정보
 	 */
 	@GetMapping
 	public Map<String, Object> getMyReservation(@SessionAttribute(name = "email") String email,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
-		return reservationService.getReservationDisplayItemsByReservationEmail(email, start, limit);
+		return reservationService.getReservationDisplayItemsByReservationEmailWithPaging(email, start, limit);
 	}
 	
-	@GetMapping(path="/{type}")
+	/**
+	 * 특정 타입 예약정보 start개월전부터 limit개월 가져온다. (default : 1년)
+	 * @param email
+	 * @param start 시작인덱스
+	 * @param limit 페이징 사이즈
+	 * @param type { "confirmed", "used", "cancel" }
+	 * @return 예약정보
+	 */
+	@GetMapping("/{type}")
 	public Map<String, Object> getMyReservationByType(@SessionAttribute(name = "email") String email,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit,
@@ -52,7 +60,7 @@ public class ReservationApiController {
 
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("type", type);
-		ReservationDisplayItemListMap.put("reservationItems", reservationService.getReservationDisplayItemsByReservationEmailByType(email, start, limit, type));
+		ReservationDisplayItemListMap.put("reservationItems", reservationService.getReservationDisplayItemsByReservationEmailByTypeWithPaging(email, start, limit, type));
 		return ReservationDisplayItemListMap;
 	}
 
@@ -62,7 +70,7 @@ public class ReservationApiController {
 	 * @param reservationInfoId 취소할 예약
 	 * @return 수정한 라인수. 로그인정보 다르면 -1 리턴
 	 */
-	@PutMapping(path = "/{reservationInfoId}")
+	@PutMapping("/{reservationInfoId}")
 	public int putMyReservation(@SessionAttribute(name = "email") String email,
 		@PathVariable(name = "reservationInfoId", required = true) int reservationInfoId) {
 		return reservationService.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, email);

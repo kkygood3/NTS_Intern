@@ -25,7 +25,7 @@ public class Validator {
 		return Pattern.matches(pattern, name);
 	}
 	
-	public static boolean validReservationInfo(String name, String tel, String email) {
+	public static boolean isValidReservationInfo(String name, String tel, String email) {
 		return validEmail(email) & validTel(tel) & validName(name);
 	}
 }

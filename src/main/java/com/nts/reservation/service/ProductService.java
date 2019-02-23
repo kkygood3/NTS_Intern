@@ -50,5 +50,10 @@ public interface ProductService {
 	 */
 	List<String> getProductFileNameByProductIdAndType(long productId, String type);
 	
+	/**
+	 * 삼품명을 가져온다
+	 * @param productId 조회할 상품
+	 * @return 상품명
+	 */
 	String getProductDescriptionByProductId(long productId);
 }

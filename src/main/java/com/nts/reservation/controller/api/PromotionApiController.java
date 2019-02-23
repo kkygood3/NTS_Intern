@@ -17,7 +17,7 @@ import com.nts.reservation.service.PromotionService;
  *
  */
 @RestController
-@RequestMapping(path = "/promotion")
+@RequestMapping("/promotion")
 public class PromotionApiController {
 	@Autowired
 	private PromotionService promotionService;
@@ -29,7 +29,6 @@ public class PromotionApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<String> getPromotions() {
-		List<String> promotionImages = promotionService.getPromotions();
-		return promotionImages;
+		return promotionService.getPromotions();
 	}
 }
