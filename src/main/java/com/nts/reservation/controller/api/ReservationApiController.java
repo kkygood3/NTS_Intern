@@ -1,8 +1,5 @@
 package com.nts.reservation.controller.api;
 
-import static com.nts.reservation.property.Const.DEFAULT_SATRT;
-import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_PAGING_SIZE;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +23,10 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping("/reservation_info")
 public class ReservationApiController {
 	@Autowired
-	ReservationService reservationService;
+	private ReservationService reservationService;
+
+	private static final String DEFAULT_SATRT = "0";
+	private static final String RESERVATION_DEFAULT_PAGING_SIZE = "5";
 
 	/**
 	 * 예약정보 확정, 사용, 취소로 나눠서 페이징해서 가져온다

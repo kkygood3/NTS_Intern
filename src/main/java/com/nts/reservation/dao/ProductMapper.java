@@ -1,8 +1,5 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.property.Const.PRODUCT_ID;
-import static com.nts.reservation.property.Const.TYPE;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -32,7 +29,7 @@ public interface ProductMapper {
 	 * @param type 조회할 타입  ma(main), et(etc), th(thumbnail)
 	 * @return 쿼리 실행결과 파일이름 리스트
 	 */
-	List<String> selectByDisplayInfoIdAndType(@Param(PRODUCT_ID)long productId, @Param(TYPE)String type);
+	List<String> selectByDisplayInfoIdAndType(@Param("productId")long productId, @Param("type")String type);
 	
 	ProductPageInfo selectDetailPageInfo(@Param("displayInfoId")long displayInfoId);
 	

@@ -1,10 +1,5 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.property.Const.LIMIT;
-import static com.nts.reservation.property.Const.RESERVATION_EMAIL;
-import static com.nts.reservation.property.Const.RESERVATION_INFO_ID;
-import static com.nts.reservation.property.Const.START;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -46,11 +41,11 @@ public interface ReservationInfoMapper {
 	 * @return 예약정보
 	 */
 	List<ReservationDisplayItem> selectConfirmedReservationInfoByReservationEmail(
-			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 	List<ReservationDisplayItem> selectUsedReservationInfoByReservationEmail(
-			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 	List<ReservationDisplayItem> selectCancelReservationInfoByReservationEmail(
-			@Param(RESERVATION_EMAIL) String reservationEmail, @Param(START) int start, @Param(LIMIT) int limit);
+			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 
 	/**
 	 * 예약취소
@@ -58,7 +53,7 @@ public interface ReservationInfoMapper {
 	 * @param reservationEmail 예약한 email
 	 * @return 성공여부
 	 */
-	int updateCancelFlagToFalseByReservationInfoId(@Param(RESERVATION_INFO_ID) long reservationInfoId, @Param(RESERVATION_EMAIL) String reservationEmail);
+	int updateCancelFlagToFalseByReservationInfoId(@Param("reservationInfoId") long reservationInfoId, @Param("reservationEmail") String reservationEmail);
 	
 	// TODO: 한번에 여러줄 insert할수있는지 찾아보기
 	/**

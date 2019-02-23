@@ -1,10 +1,5 @@
 package com.nts.reservation.controller.api;
 
-import static com.nts.reservation.property.Const.COMMENT_DEFAULT_PAGING_SIZE;
-import static com.nts.reservation.property.Const.DEFAULT_SATRT;
-import static com.nts.reservation.property.Const.SELECT_ALL;
-import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
-
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,8 +43,11 @@ public class ProductApiController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	public static final ReservationInfo INVALID_INPUT = null; 
-	
+	private static final ReservationInfo INVALID_INPUT = null; 
+	private static final String COMMENT_DEFAULT_PAGING_SIZE ="3";
+	private static final String DEFAULT_SATRT = "0";
+	private static final String SELECT_ALL = "0";
+	private static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 

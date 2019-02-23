@@ -1,9 +1,5 @@
 package com.nts.reservation.dao;
 
-import static com.nts.reservation.property.Const.LIMIT;
-import static com.nts.reservation.property.Const.PRODUCT_ID;
-import static com.nts.reservation.property.Const.START;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -26,7 +22,7 @@ public interface CommentMapper {
 	 * @param limit 페이징 사이즈
 	 * @return 쿼리 실행 결과 코멘트 리스트
 	 */
-	List<CommentDisplayInfo> selectFromTheProductWithPageing(@Param(PRODUCT_ID)long productId, @Param(START) int start, @Param(LIMIT) int limit);
+	List<CommentDisplayInfo> selectFromTheProductWithPageing(@Param("productId")long productId, @Param("start") int start, @Param("limit") int limit);
 	
 	/**
 	 * 상품에 따라 리뷰페이지 정보를 셀렉트한다
