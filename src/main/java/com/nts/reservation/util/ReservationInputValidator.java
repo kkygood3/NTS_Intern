@@ -16,10 +16,10 @@ public class ReservationInputValidator {
 		return Pattern.matches(pattern, email);
 	}
 
-	public static boolean isValidTel(String telephoneNumber) {
-		if (telephoneNumber == null) return false;
+	public static boolean isValidTel(String telephone) {
+		if (telephone == null) return false;
 		String pattern = "^01[016-9]-[0-9]{3,4}-[0-9]{4}$";
-		return Pattern.matches(pattern, telephoneNumber);
+		return Pattern.matches(pattern, telephone);
 	}
 
 	public static boolean isValidName(String name) {
@@ -28,7 +28,7 @@ public class ReservationInputValidator {
 		return Pattern.matches(pattern, name);
 	}
 	
-	public static boolean isValidReservationInfo(String name, String telephoneNumber, String email) {
-		return isValidEmail(email) & isValidTel(telephoneNumber) & isValidName(name);
+	public static boolean isValidReservationInfo(String name, String telephone, String email) {
+		return isValidEmail(email) & isValidTel(telephone) & isValidName(name);
 	}
 }
