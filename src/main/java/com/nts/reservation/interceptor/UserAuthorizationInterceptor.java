@@ -23,7 +23,7 @@ public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		String email = (String)session.getAttribute("email");
-		if (Utils.isEmpty(email) || !ReservationInputValidator.isValidEmail(email)) {
+		if (!ReservationInputValidator.isValidEmail(email)) {
 			response.sendRedirect("/login");
 			return false;
 		}
