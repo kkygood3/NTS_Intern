@@ -26,15 +26,15 @@ function makeMoreButton(cardItemListMap) {
 	var countList = cardItemListMap.count;
 
 	countList.forEach((count) => {
-		if (count.type == "confirmed") {
+		if (count.status == "confirmed") {
 			if (count.count && cardItemListMap.confirmed && count.count > cardItemListMap.confirmed.length) {
 				addMoreButton("confirmed");
 			}
-		} else if (count.type == "used") {
+		} else if (count.status == "used") {
 			if (count.count && cardItemListMap.used && count.count > cardItemListMap.used.length) {
 				addMoreButton("used");
 			}
-		} else if (count.type == "cancel") {
+		} else if (count.status == "cancel") {
 			if (count.count && cardItemListMap.cancel && count.count > cardItemListMap.cancel.length) {
 				addMoreButton("cancel");
 			}
@@ -51,11 +51,11 @@ function addMoreButton(elementClassName) {
 function makeSummaryBoard(countList) {
 	var counts = document.querySelectorAll("span.figure");
 	countList.forEach((count) => {
-		if (count.type == "confirmed")	{
+		if (count.status == "confirmed")	{
 			counts[1].innerText = count.count
-		} else if (count.type == "used")	{
+		} else if (count.status == "used")	{
 			counts[2].innerText = count.count
-		} if (count.type == "cancel")	{
+		} if (count.status == "cancel")	{
 			counts[3].innerText = count.count
 		}
 	});

@@ -1,15 +1,15 @@
 package com.nts.reservation.dto;
 
 public class ReservationSummary {
-	private String type;
+	private String status;
 	private int count;
 
-	public String getType() {
-		return type;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getCount() {
@@ -22,6 +22,6 @@ public class ReservationSummary {
 
 	@Override
 	public String toString() {
-		return "ReservationSummary [type=" + type + ", count=" + count + "]";
+		return "ReservationSummary [status=" + status + ", count=" + count + "]";
 	}
 }

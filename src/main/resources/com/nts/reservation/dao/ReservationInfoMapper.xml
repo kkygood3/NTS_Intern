@@ -60,7 +60,7 @@
 				
 		GROUP BY r.id
 		
-		ORDER BY r.modify_date
+		ORDER BY r.modify_date DESC
 		
 		LIMIT #{start}, #{limit}
 	</select>
@@ -202,14 +202,14 @@
             				AND	r.reservation_date > now()	THEN "confirmed"
             		WHEN	r.cancel_flag = false
             				AND	r.reservation_date <= now()	THEN "used"
-				END) AS type,
+				END) AS status,
         		count(r.id) AS count
 				
 		FROM	reservation_info AS r
 
 		WHERE	r.reservation_email = #{reservationEmail}
 
-		GROUP BY type
+		GROUP BY status
 	]]>
 	</select>
 	

@@ -1,6 +1,6 @@
 package com.nts.reservation.service.impl;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,9 @@ import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
+import com.nts.reservation.property.ReservationStatus;
 import com.nts.reservation.service.ReservationService;
+import com.nts.reservation.util.Utils;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -59,19 +61,21 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(
-		String reservationEmail, int start, int limit, String type) {
-		if ("confirmed".equals(type)) {
+		String reservationEmail, int start, int limit, String status) {
+		if (Utils.isEmpty(status)) {
+			return Collections.EMPTY_LIST;
+		}
+		if (status.equals(ReservationStatus.CONFIRMED.toString())) {
 			return reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit);
-		} else if ("used".equals(type)) {
+		} else if (status.equals(ReservationStatus.USED.getReservationStatus())) {
 			return reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit);
-		} else if ("cancel".equals(type)) {
+		} else if (status.equals(ReservationStatus.CANCEL.getReservationStatus())) {
 			return reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit);
 		}
-		return new ArrayList<ReservationDisplayItem>();
+		return Collections.EMPTY_LIST;
 	}
 	
 	@Override
-	@Transactional(readOnly = false)
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
 	}

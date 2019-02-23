@@ -83,28 +83,28 @@ function addMoreButtonClickEvent() {
 
 function addReservationCardItem(cardItemList) {
 	
-	var ul = document.getElementById(cardItemList.type);
+	var ul = document.getElementById(cardItemList.status);
 	
 	ul.removeChild(ul.lastElementChild);
 	
 	var innerHtml;
-	var bindTemplate = getBindTemplate("card_item_" + cardItemList.type);
+	var bindTemplate = getBindTemplate("card_item_" + cardItemList.status);
 	innerHtml = makeHtmlFromListData(cardItemList.reservationItems, bindTemplate);
 	
-	var li = document.getElementsByClassName(cardItemList.type)[0];
+	var li = document.getElementsByClassName(cardItemList.status)[0];
 	li.innerHTML += innerHtml;
 	
-	if (li.childElementCount - 1 < getReservationCount(cardItemList.type)) {
-		makeMoreButton(cardItemListMap);
+	if (li.childElementCount - 1 < getReservationCount(cardItemList.status)) {
+		addMoreButton(cardItemList.status);
 	}
 }
 
-function getReservationCount(type) {
-	if (type == "confirmed") {
+function getReservationCount(status) {
+	if (status == "confirmed") {
 		return document.querySelectorAll(".summary_board span")[1].innerText * 1;
-	} else if (type == "used") {
+	} else if (status == "used") {
 		return document.querySelectorAll(".summary_board span")[2].innerText * 1;
-	} else if (type == "cancel") {
+	} else if (status == "cancel") {
 		return document.querySelectorAll(".summary_board span")[3].innerText * 1;
 	}
 }

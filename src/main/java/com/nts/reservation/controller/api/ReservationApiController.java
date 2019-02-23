@@ -50,15 +50,15 @@ public class ReservationApiController {
 	 * @param type { "confirmed", "used", "cancel" }
 	 * @return 예약정보
 	 */
-	@GetMapping("/{type}")
+	@GetMapping("/{status}")
 	public Map<String, Object> getMyReservationByType(@SessionAttribute(name = "email") String email,
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit,
-		@PathVariable(name = "type", required = true) String type) {
+		@PathVariable(name = "status", required = true) String status) {
 
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
-		ReservationDisplayItemListMap.put("type", type);
-		ReservationDisplayItemListMap.put("reservationItems", reservationService.getReservationDisplayItemsByReservationEmailByTypeWithPaging(email, start, limit, type));
+		ReservationDisplayItemListMap.put("status", status);
+		ReservationDisplayItemListMap.put("reservationItems", reservationService.getReservationDisplayItemsByReservationEmailByTypeWithPaging(email, start, limit, status));
 		return ReservationDisplayItemListMap;
 	}
 
@@ -66,7 +66,7 @@ public class ReservationApiController {
 	 * 예약 취소
 	 * @param session 로그인 정보 확인용
 	 * @param reservationInfoId 취소할 예약
-	 * @return 수정한 라인수. 로그인정보 다르면 -1 리턴
+	 * @return 수정한 라인수.
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public int putMyReservation(@SessionAttribute(name = "email") String email,

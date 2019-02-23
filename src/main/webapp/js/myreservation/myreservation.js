@@ -8,5 +8,4 @@ document.addEventListener("DOMContentLoaded", function() {
 	sendGetCardItemsAjax();
 	addCancelButtonClickEvent();
 	addMoreButtonClickEvent();
-	addReviewButtonClickEvent();
 });
