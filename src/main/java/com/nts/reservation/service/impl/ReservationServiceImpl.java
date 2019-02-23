@@ -48,15 +48,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(
 		String reservationEmail, int start, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
-		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao
-				.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
-		ReservationDisplayItemListMap.put("used", reservationInfoDao
-				.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
-		ReservationDisplayItemListMap.put("cancel", reservationInfoDao
-				.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
 		
-		ReservationDisplayItemListMap.put("count", reservationInfoDao
-				.selectReservationInfoCountByReservationEmail(reservationEmail));
+		ReservationDisplayItemListMap.put("count", reservationInfoDao.selectReservationInfoCountByReservationEmail(reservationEmail));
 	
 		return ReservationDisplayItemListMap;
 	}

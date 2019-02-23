@@ -17,11 +17,11 @@
 				
 		FROM 	display_info AS d
 				INNER JOIN	product AS p 
-							ON d.product_id = p.id
+							ON	d.product_id = p.id
 				INNER JOIN	product_image AS pi
-							ON p.id = pi.product_id
+							ON	p.id = pi.product_id
 				INNER JOIN	file_info AS pf
-							ON pf.id = pi.file_id
+							ON	pf.id = pi.file_id
 							
 		WHERE	d.id = #{displayInfoId}
 				AND pi.type = "ma"
@@ -47,13 +47,13 @@
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
-							ON r.product_id = p.id
+							ON	r.product_id = p.id
 				INNER JOIN	display_info AS d
-							ON r.display_info_id = d.id
+							ON	r.display_info_id = d.id
 				INNER JOIN	reservation_info_price AS rp
-							ON rp.reservation_info_id = r.id
+							ON	rp.reservation_info_id = r.id
 				INNER JOIN	product_price AS pp
-							ON rp.product_price_id = pp.id
+							ON	rp.product_price_id = pp.id
 		
 		WHERE	r.reservation_email = #{reservationEmail}
 				AND r.cancel_flag = true
@@ -77,13 +77,13 @@
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
-							ON r.product_id = p.id
+							ON	r.product_id = p.id
 				INNER JOIN	display_info AS d
-							ON r.display_info_id = d.id
+							ON	r.display_info_id = d.id
 				INNER JOIN	reservation_info_price AS rp
-							ON rp.reservation_info_id = r.id
+							ON	rp.reservation_info_id = r.id
 				INNER JOIN	product_price AS pp
-							ON rp.product_price_id = pp.id
+							ON	rp.product_price_id = pp.id
 		
 		WHERE	r.reservation_email = #{reservationEmail}
 				AND r.cancel_flag = false
@@ -110,13 +110,13 @@
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
-							ON r.product_id = p.id
+							ON	r.product_id = p.id
 				INNER JOIN	display_info AS d
-							ON r.display_info_id = d.id
+							ON	r.display_info_id = d.id
 				INNER JOIN	reservation_info_price AS rp
-							ON rp.reservation_info_id = r.id
+							ON	rp.reservation_info_id = r.id
 				INNER JOIN	product_price AS pp
-							ON rp.product_price_id = pp.id
+							ON	rp.product_price_id = pp.id
 		
 		WHERE	r.reservation_email = #{reservationEmail}
 				AND r.cancel_flag = false
@@ -186,7 +186,7 @@
 				modify_date = now()
 
 		WHERE	id = #{reservationInfoId}
-				AND reservation_email = #{reservationEmail}
+				AND	reservation_email = #{reservationEmail}
 	</update>
 	
 	 <insert id = "insertReservationInfoPrice" parameterType="ReservationInfoPrice">
@@ -199,9 +199,9 @@
 		SELECT	(CASE
 					WHEN	r.cancel_flag = true			THEN "cancel"
             		WHEN	r.cancel_flag = false
-            				AND r.reservation_date > now()	THEN "confirmed"
+            				AND	r.reservation_date > now()	THEN "confirmed"
             		WHEN	r.cancel_flag = false
-            				AND r.reservation_date <= now()	THEN "used"
+            				AND	r.reservation_date <= now()	THEN "used"
 				END) AS type,
         		count(r.id) AS count
 				

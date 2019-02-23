@@ -45,17 +45,17 @@
 				
 		FROM	display_info AS d
 				INNER JOIN	product AS p
-							ON d.product_id = p.id
+							ON	d.product_id = p.id
 				INNER JOIN	display_info_image AS di
-							ON di.display_info_id = d.id
+							ON	di.display_info_id = d.id
 				INNER JOIN	file_info AS df
-							ON di.file_id = df.id
+							ON	di.file_id = df.id
 				LEFT JOIN	reservation_user_comment AS uc
-							ON uc.product_id = p.id
+							ON	uc.product_id = p.id
 				INNER JOIN	product_image AS pi
-							ON pi.product_id = p.id
+							ON	pi.product_id = p.id
 				INNER JOIN	file_info AS pf
-							ON pf.id = pi.file_id
+							ON	pf.id = pi.file_id
 				
 		WHERE	d.id = #{displayInfoId}
 				AND pi.type="ma"
@@ -69,7 +69,7 @@
 				
 		FROM	product AS p
 				INNER JOIN	product_price AS pp
-							ON p.id = pp.product_id
+							ON	p.id = pp.product_id
 		
 		WHERE	p.id = #{productId}
 	</select>
@@ -85,17 +85,17 @@
 		
 		FROM	product AS p
 				INNER JOIN	category AS c
-							ON c.id = p.category_id
+							ON	c.id = p.category_id
 				INNER JOIN	product_image AS pi
-							ON pi.product_id = p.id
+							ON	pi.product_id = p.id
 				INNER JOIN	file_info AS pf
-							ON pf.id = pi.file_id
+							ON	pf.id = pi.file_id
 				INNER JOIN	display_info AS d
-							ON d.product_id = p.id
+							ON	d.product_id = p.id
 					
 		WHERE	pi.type = "th"
 		<if test="categoryId != 0">
-				AND c.id = #{categoryId}
+				AND	c.id = #{categoryId}
     	</if>
 		LIMIT	#{start}, #{limit}
 	</select>

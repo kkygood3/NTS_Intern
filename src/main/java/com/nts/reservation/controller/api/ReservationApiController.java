@@ -4,7 +4,6 @@ import static com.nts.reservation.property.Const.DEFAULT_SATRT;
 import static com.nts.reservation.property.Const.RESERVATION_DEFAULT_PAGING_SIZE;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.service.ReservationService;
 
 /**

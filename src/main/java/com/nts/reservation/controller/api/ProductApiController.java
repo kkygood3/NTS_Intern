@@ -6,6 +6,7 @@ import static com.nts.reservation.property.Const.SELECT_ALL;
 import static com.nts.reservation.property.Const.THUMBNAIL_DEFAULT_PAGING_SIZE;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,9 @@ public class ProductApiController {
 	private CommentService commentService;
 	@Autowired
 	private ReservationService reservationService;
-
+	
+	public static final ReservationInfo INVALID_INPUT = null; 
+	
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
@@ -57,14 +60,14 @@ public class ProductApiController {
 	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Map<String, Object> getProductCountAndThumbnailInfos(
+	public Map<String, Object> getProductCountAndThumbnails(
 		@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 		@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit,
 		@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
-		List<ProductThumbnail> thumbnailInfoList = null;
+		List<ProductThumbnail> thumbnailInfoList = Collections.EMPTY_LIST;
 
-		if (productCount > 0) {
+		if (existProduct(productCount)) {
 			thumbnailInfoList = productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
 		}
 
@@ -72,6 +75,10 @@ public class ProductApiController {
 		map.put("productCount", productCount);
 		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
+	}
+	
+	private boolean existProduct(int productCount) {
+		return productCount > 0 ? true : false;
 	}
 
 	/**
@@ -127,7 +134,7 @@ public class ProductApiController {
 	public boolean postReservation(@PathVariable(name = "displayInfoId", required = true) long displayInfoId,
 		@RequestBody UserReservationInput userReservationInput) {
 		ReservationInfo reservationInfo = convertUserReservationInputToReservationInfo(userReservationInput);
-		if (reservationInfo == null) {
+		if (reservationInfo == INVALID_INPUT) {
 			return false;
 		}
 
@@ -146,7 +153,7 @@ public class ProductApiController {
 		try {
 			reservationInfo = new ReservationInfo(userReservationInput);
 		} catch (ParseException e) {
-			return null;
+			return INVALID_INPUT;
 		}
 
 		List<ReservationInfoPrice> priceInputList = userReservationInput.getPrice();
@@ -156,11 +163,11 @@ public class ProductApiController {
 			}
 		}
 		if (priceInputList.size() == 0) {
-			return null;
+			return INVALID_INPUT;
 		}
 		
 		if (!Validator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTel(), userReservationInput.getEmail())) {
-			return null;
+			return INVALID_INPUT;
 		}
 		
 		return reservationInfo;

@@ -10,11 +10,11 @@
 		
 		FROM	promotion AS prom
 				INNER JOIN	product AS prod
-							ON prom.product_id = prod.id
+							ON	prom.product_id = prod.id
 				INNER JOIN	product_image AS prodi
-							ON prodi.product_id = prod.id
+							ON	prodi.product_id = prod.id
 				INNER JOIN	file_info AS fi
-							ON fi.id = prodi.file_id
+							ON	fi.id = prodi.file_id
 							
 		WHERE	prodi.type = "th"
 	</select>

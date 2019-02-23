@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.ProductMapper;
 import com.nts.reservation.dto.PriceInfo;
@@ -18,31 +17,26 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper productDao;
 
 	@Override
-	@Transactional
 	public int getProductCountByCategoryId(int categoryId) {
 		return productDao.selectProductCount(categoryId);
 	}
 
 	@Override
-	@Transactional
 	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit) {
 		return productDao.selectProductThumbnailByCategoryIdWithPaging(categoryId, start, limit);
 	}
 
 	@Override
-	@Transactional
 	public ProductPageInfo getProductPageInfoByDisplayInfoId(long displayInfoId) {
 		return productDao.selectDetailPageInfo(displayInfoId);
 	}
 
 	@Override
-	@Transactional
 	public List<PriceInfo> getPriceInfoByProductId(long productId) {
 		return productDao.selectPriceInfoByProductId(productId);
 	}
 
 	@Override
-	@Transactional
 	public List<String> getProductFileNameByProductIdAndType(long productId, String type) {
 		List<String> saveFileNames = productDao.selectByDisplayInfoIdAndType(productId, type);
 		return saveFileNames;
