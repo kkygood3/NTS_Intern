@@ -27,10 +27,10 @@ import com.nts.reservation.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
-	ReservationDao reservationDaoImpl;
+	private ReservationDao reservationDaoImpl;
 
 	@Autowired
-	DisplayInfoDao displayInfoDaoImpl;
+	private DisplayInfoDao displayInfoDaoImpl;
 
 	@Override
 	public ReservationInfoResponse getReservationInfoResponse(String reservationEmail) {

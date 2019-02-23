@@ -16,7 +16,7 @@ import com.nts.reservation.reservation.service.ReservationService;
 public class ReservationListController {
 
 	@Autowired
-	ReservationService reservationServiceImpl;
+	private ReservationService reservationServiceImpl;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String moveListPage() {

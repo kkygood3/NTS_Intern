@@ -29,7 +29,7 @@ public class ReservationApiController {
 	private final static Logger LOG = Logger.getGlobal();
 
 	@Autowired
-	ReservationService reservationServiceImpl;
+	private ReservationService reservationServiceImpl;
 
 	/**
 	 * 본인의 Email로 예약정보를 요청하면 관련 정보를 리턴
@@ -63,9 +63,8 @@ public class ReservationApiController {
 		HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 
-		// Param 검증, update 검증, 본인 여부 및 이메일 검증
-		if (reserveRequest.isValid(reserveRequest) && reservationServiceImpl.postReserve(reserveRequest)
-			&& isValidEmail(reserveRequest.getReservationEmail(), session)) {
+		// Param 검증, update 검증
+		if (reserveRequest.isValid(reserveRequest) && reservationServiceImpl.postReserve(reserveRequest)) {
 			map.put("result", "OK");
 		} else {
 			LOG.warning("올바른 RequestBody가 아닙니다. RequestBody : " + reserveRequest);
@@ -82,7 +81,7 @@ public class ReservationApiController {
 	 * @return 올바른 요청 및 DB 적용 성공 시 result : OK , 실패 시 result : FAIL
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public Map<String, Object> reserve(
+	public Map<String, Object> update(
 		@RequestBody ReservationUpdateParam updateParam,
 		HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
@@ -104,6 +103,7 @@ public class ReservationApiController {
 
 		// 정규식을 활용하여 이메일값을 검증하고, session에 들어있는 이메일값과 비교한다. 유효하지 않으면 false 반환
 		if (reservationEmail == null || !reservationEmail.matches(emailReg)) {
+			LOG.warning("email이 null이거나 형식에 맞지않습니다 email : " + reservationEmail);
 			return false;
 		}
 

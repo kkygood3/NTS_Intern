@@ -218,11 +218,10 @@ function initTickectBox(productPrices) {
     let ticketContainer = document.querySelector('div.ticket_body');
 
     productPrices.forEach((price, index) => {
-        price.priceTypeName = mapPriceType.get(productPrices[0].priceTypeName);
+        price.priceTypeName = mapPriceType.get(price.priceTypeName);
         let itemPrice = price.price;
         price.price = addCommaInNumber(itemPrice);
         ticketContainer.innerHTML += bindticketTemplate(price);
-
         ticketItems[index] = new TicketObj(ticketContainer.lastElementChild.querySelectorAll('.btn_plus_minus'), index, itemPrice);
     });
 
