@@ -49,4 +49,6 @@ public interface ProductService {
 	 * @return 해당 파일 이름들
 	 */
 	List<String> getProductFileNameByProductIdAndType(long productId, String type);
+	
+	String getProductDescriptionByProductId(long productId);
 }

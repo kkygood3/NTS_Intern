@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ReservationDisplayItem {
+	private long productId;
 	private long reservationId;
 	private String description;
 	private Date reservationDate;
@@ -13,6 +14,14 @@ public class ReservationDisplayItem {
 	private String placeName;
 	private long price;
 	private Date modifyDate;
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
 
 	public long getReservationId() {
 		return reservationId;
@@ -81,9 +90,9 @@ public class ReservationDisplayItem {
 
 	@Override
 	public String toString() {
-		return "ReservationDisplayItem [reservationId=" + reservationId + ", description=" + description
-			+ ", reservationDate=" + reservationDate + ", reservationDateFormat=" + reservationDateFormat
-			+ ", canceled=" + canceled + ", placeName=" + placeName + ", price=" + price + ", modifyDate=" + modifyDate
-			+ "]";
+		return "ReservationDisplayItem [productId=" + productId + ", reservationId=" + reservationId + ", description="
+				+ description + ", reservationDate=" + reservationDate + ", reservationDateFormat="
+				+ reservationDateFormat + ", canceled=" + canceled + ", placeName=" + placeName + ", price=" + price
+				+ ", modifyDate=" + modifyDate + "]";
 	}
 }

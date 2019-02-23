@@ -99,4 +99,12 @@
     	</if>
 		LIMIT	#{start}, #{limit}
 	</select>
+	
+	<select id="selectProductDescriptionByProductId" resultType="String">
+		SELECT	p.description
+
+		FROM	product AS p
+
+		WHERE	p.id = #{productId}
+	</select>
 </mapper>

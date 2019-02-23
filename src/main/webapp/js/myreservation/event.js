@@ -108,3 +108,20 @@ function getReservationCount(type) {
 		return document.querySelectorAll(".summary_board span")[3].innerText * 1;
 	}
 }
+
+/**
+ * 리뷰작석 클릭 이벤트
+ * @returns
+ */
+function addReviewButtonClickEvent() {
+	var area = document.querySelector(".card.used");
+	area.addEventListener("click", function(event){
+		var cancelButton = event.target;
+		if (cancelButton.tagName != "BUTTON") {
+			return;
+		}
+		var cardItem = cancelButton.closest(".card_detail");
+		var productId = cardItem.id.replace("product_id_", "");
+		window.location.href = "/detail/" + productId + "/comment";
+	});
+}

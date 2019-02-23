@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nts.reservation.dto.CommentPageInfo;
@@ -75,5 +76,12 @@ public class ProductController {
 			.getReservationPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
+	}
+	
+	@GetMapping(path = "/{productId}/comment")
+	public String getComment(@PathVariable(name = "productId", required = true) long productId, ModelMap model) {
+		model.addAttribute("productId", productId);
+		model.addAttribute("description", productService.getProductDescriptionByProductId(productId));
+		return "reviewWrite";
 	}
 }

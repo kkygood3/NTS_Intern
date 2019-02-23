@@ -47,7 +47,7 @@
 		<div class="card_body">
 			<div class="left"></div>
 			<div class="middle">
-				<div class="card_detail">
+				<div class="card_detail" id="product_id_{{productId}}">
 					<em class="booking_number">No.{{reservationId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
@@ -86,7 +86,7 @@
 		<div class="card_body">
 			<div class="left"></div>
 			<div class="middle">
-				<div class="card_detail">
+				<div class="card_detail" id="product_id_{{productId}}">
 					<em class="booking_number">No.{{reservationId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
@@ -107,7 +107,7 @@
 					</div>
 					<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 					<div class="booking_cancel">
-						<a href="./reviewWrite"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+						<a><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
 					</div>
 				</div>
 			</div>
@@ -126,7 +126,7 @@
 		<div class="card_body">
 			<div class="left"></div>
 			<div class="middle">
-				<div class="card_detail">
+				<div class="card_detail" id="product_id_{{productId}}">
 					<em class="booking_number">No.{{reservationId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">

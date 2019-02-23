@@ -47,4 +47,9 @@ public class ProductServiceImpl implements ProductService {
 		List<String> saveFileNames = productDao.selectByDisplayInfoIdAndType(productId, type);
 		return saveFileNames;
 	}
+
+	@Override
+	public String getProductDescriptionByProductId(long productId) {
+		return productDao.selectProductDescriptionByProductId(productId);
+	}
 }
