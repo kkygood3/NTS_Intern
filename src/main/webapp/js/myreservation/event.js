@@ -40,8 +40,7 @@ function closePopup(popup) {
 
 function movoItemToCancelCard(updateCount, cardItem) {
 	var cancel = document.querySelector(".card.cancel");
-	cancel.appendChild(cardItem);
-
+	insertFirstCard(cancel, cardItem);
 	cardItem.querySelector("button").remove();
 
 	var counts = document.querySelectorAll("span.figure");
@@ -49,6 +48,15 @@ function movoItemToCancelCard(updateCount, cardItem) {
 	counts[3].innerText = counts[3].innerText*1 + 1;
 	
 	adjustErrorCard(cardItem, counts[1].innerText);
+}
+
+function insertFirstCard(cancel, newCanceledCard) {
+	var firstChild = cancel.firstElementChild;
+	if (firstChild.nextElementSibling) {
+		cancel.insertBefore(newCanceledCard, firstChild.nextSibling);
+	} else {
+		cancel.appendChild(newCanceledCard);
+	}  
 }
 
 function adjustErrorCard(cardItem, count) {
