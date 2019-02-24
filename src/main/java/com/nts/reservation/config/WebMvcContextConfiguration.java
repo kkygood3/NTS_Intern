@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.interceptor.AddCommentViewInterceptor;
 import com.nts.reservation.interceptor.AuthInterceptor;
 import com.nts.reservation.interceptor.PreventPathAttackInterceptor;
 import com.nts.reservation.interceptor.RequestLogInterceptor;
@@ -77,10 +76,5 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new AuthInterceptor()).addPathPatterns(new String[] {
 			"/myReservation", "/comment/{reservationInfoId}"
 		});
-	}
-
-	@Bean
-	public AddCommentViewInterceptor addCommentViewInterceptor() {
-		return new AddCommentViewInterceptor();
 	}
 }

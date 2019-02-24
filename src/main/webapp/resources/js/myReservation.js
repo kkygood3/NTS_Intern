@@ -229,7 +229,7 @@ var myReservationPage = {
 		}
 	}
 };
-var Header = (function() {
+var Header = (function() {	
 
 	/**
 	 * @function Header header Contructor
