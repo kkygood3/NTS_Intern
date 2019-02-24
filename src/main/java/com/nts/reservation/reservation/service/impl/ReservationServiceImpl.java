@@ -34,28 +34,34 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public ReservationInfoResponse getReservationInfoResponse(String reservationEmail) {
-		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
-
 		List<ReservationInfo> reservations = reservationDaoImpl.getReservationInfos(reservationEmail);
-		// ReservationInfo의 displayInfo와 TotalPrice을 set하는 구문
-		reservations.forEach(reservation -> {
-			int displayInfoId = reservation.getDisplayInfoId();
-			int reservationInfoId = reservation.getReservationInfoId();
-			int productId = reservation.getProductId();
 
-			DisplayInfo displayInfo = displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
-			int reservationTotalPrice = reservationDaoImpl.getTotalPrice(reservationEmail, productId,
-				reservationInfoId);
+		// ReservationInfo의 displayInfo와 TotalPrice을 설정하는 반복문
+		for(ReservationInfo reservation : reservations) {
+			fetchReservationInfo(reservation, reservationEmail);
+		}
 
-			reservation.setDisplayInfo(displayInfo);
-			reservation.setTotalPrice(reservationTotalPrice);
-		});
 		int reservationSize = reservationDaoImpl.getReservationSize(reservationEmail);
 
+		ReservationInfoResponse reservationInfoResponse = new ReservationInfoResponse();
 		reservationInfoResponse.setReservations(reservations);
 		reservationInfoResponse.setSize(reservationSize);
 
 		return reservationInfoResponse;
+	}
+	
+	private ReservationInfo fetchReservationInfo (ReservationInfo reservation, String Email) {
+		int displayInfoId = reservation.getDisplayInfoId();
+		int reservationInfoId = reservation.getReservationInfoId();
+		int productId = reservation.getProductId();
+
+		DisplayInfo displayInfo = displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
+		int reservationTotalPrice = reservationDaoImpl.getTotalPrice(Email, productId, reservationInfoId);
+
+		reservation.setDisplayInfo(displayInfo);
+		reservation.setTotalPrice(reservationTotalPrice);
+		
+		return reservation;
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
 		int productId = reservationParam.getProductId();
 
 		ReservationResponseData reservationResponseData = reservationDaoImpl
-			.getReservationResponseData(reservationParam);
+				.getReservationResponseData(reservationParam);
 		List<ReservationPrice> reservationPrices = reservationDaoImpl.getReservationPrices(productId);
 
 		reservationResponse.setReservationResponseData(reservationResponseData);
@@ -75,20 +81,17 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional
 	public boolean postReserve(ReservationParam reservationParam) {
-		int reservationInfoId = reservationDaoImpl.insertReservation(reservationParam.getReservationName(),
-			reservationParam.getReservationTelephone(), reservationParam.getReservationEmail(),
-			reservationParam.getDisplayInfoId(), reservationParam.getReservationYearMonthDay());
+		int reservationInfoId = reservationDaoImpl.insertReservation(reservationParam);
 
 		if (reservationInfoId == 0) {
 			return false;
 		}
 
 		reservationParam.getPrices().forEach(price -> {
-			Integer reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(
-				price.getProductPriceId(),
-				reservationInfoId, price.getCount());
+			Integer reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
+					reservationInfoId, price.getCount());
 
 			if (NegativeValueValidator.isNegativeValue(reservationInfoPriceId)) {
 				throw new IllegalArgumentException("insertReservationPrice Failed");
@@ -99,13 +102,9 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional
 	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
-		int updateResult = reservationDaoImpl.updateReservation(reservationInfoId, reservationEmail);
-		if (updateResult < 1) {
-			return false;
-		}
-		return true;
+		return (reservationDaoImpl.updateReservation(reservationInfoId, reservationEmail) > 0);
 	}
 
 }

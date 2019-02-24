@@ -77,14 +77,13 @@ public class ReservationDaoImpl implements ReservationDao {
 	}
 
 	@Override
-	public int insertReservation(String name, String telephone, String email, int displayInfoId,
-		String reservationDate) {
+	public int insertReservation(ReservationParam reservationParam) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("name", name);
-		params.addValue("telephone", telephone);
-		params.addValue("email", email);
-		params.addValue("displayInfoId", displayInfoId);
-		params.addValue("reservationDate", reservationDate);
+		params.addValue("name", reservationParam.getReservationName());
+		params.addValue("telephone", reservationParam.getReservationTelephone());
+		params.addValue("email", reservationParam.getReservationEmail());
+		params.addValue("displayInfoId", reservationParam.getDisplayInfoId());
+		params.addValue("reservationDate", reservationParam.getReservationYearMonthDay());
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_RESERVE, params, keyHolder, new String[] {"ID"});
