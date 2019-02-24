@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
+import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -86,5 +87,19 @@ public class ReserveApiController {
 		}
 
 		return Collections.singletonMap("result", result);
+	}
+	
+	/**
+	 * Comment 등록
+	 * @param reservationInfoId
+	 */
+	@PostMapping("/{reservationInfoId}/comments")
+	public Map<String, Object> registerComment(@PathVariable Integer reservationInfoId,
+		ReviewWriteRequest reviewWriteRequest) {
+		System.out.println("호출 성공 " + reviewWriteRequest);
+		
+		
+		
+		return Collections.emptyMap();
 	}
 }
