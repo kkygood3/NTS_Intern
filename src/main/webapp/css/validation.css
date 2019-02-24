@@ -5,3 +5,8 @@
 .warning {
 	background-color: mistyrose;
 }
+
+.invalid_email {
+	color: #F00;
+	display: none;
+}
