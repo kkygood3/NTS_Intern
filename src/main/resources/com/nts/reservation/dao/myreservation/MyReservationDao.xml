@@ -86,7 +86,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<update id="updateMyReservationCancelById">
+	<update id="updateMyReservationCancel">
 		UPDATE 
 			reservation_info AS r 
 		SET 

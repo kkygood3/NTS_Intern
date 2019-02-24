@@ -20,7 +20,7 @@ public interface MainProductDao {
 	 * @param start - 한 페이지에 출력할 item 개수
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<MainProduct> selectPagingProducts(
+	public List<MainProduct> selectProducts(
 		@Param("categoryId") int categoryId,
 		@Param("start") int start,
 		@Param("pagingLimit") int pagingLimit);

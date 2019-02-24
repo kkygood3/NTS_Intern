@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Param;
 
 import com.nts.reservation.dto.myreservation.MyReservationInfo;
 
+/**
+ * myreservation 페이지에서 이용
+ */
 public interface MyReservationDao {
 	public List<MyReservationInfo> selectMyReservation(
 		@Param("email") String email,
@@ -21,7 +24,7 @@ public interface MyReservationDao {
 		@Param("email") String email,
 		@Param("type") String type);
 
-	public Integer updateMyReservationCancelById(
+	public Integer updateMyReservationCancel(
 		@Param("reservationInfoId") Integer reservationInfoId,
 		@Param("email") String email);
 }

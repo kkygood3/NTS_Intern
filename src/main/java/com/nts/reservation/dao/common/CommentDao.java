@@ -20,7 +20,7 @@ public interface CommentDao {
 	 * @param start - 다음 페이지 시작 index
 	 * @param pagingLimit - 한 페이지에 출력할 item 개수
 	 */
-	public List<Comment> selectCommentByDisplayInfoId(
+	public List<Comment> selectComment(
 		@Param("displayInfoId") int displayInfoId,
 		@Param("start") int start,
 		@Param("pagingLimit") int pagingLimit);
