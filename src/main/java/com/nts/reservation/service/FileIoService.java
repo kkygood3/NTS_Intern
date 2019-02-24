@@ -19,8 +19,6 @@ import com.nts.reservation.exception.CustomFileNotFoundException;
  */
 public interface FileIoService {
 
-	public void sendFile(String path, OutputStream outputStream) throws IOException, CustomFileNotFoundException;
-
 	public FileDto writeMultipartFile(String path, MultipartFile file) throws IOException;
 
 	public void removeFilesForRollback(List<FileDto> files);

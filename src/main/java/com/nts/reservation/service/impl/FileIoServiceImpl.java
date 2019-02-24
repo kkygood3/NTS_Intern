@@ -60,24 +60,6 @@ public class FileIoServiceImpl implements FileIoService {
 	}
 
 	@Override
-	public void sendFile(String path, OutputStream outputStream) throws IOException, CustomFileNotFoundException {
-		File file = new File(fileDir + path);
-		if (!file.exists()) {
-			throw new CustomFileNotFoundException(fileDir + path + " 파일은 존재하지 않습니다.");
-		}
-
-		long fileSize = file.length();
-
-		FileInputStream fileInputStream = new FileInputStream(file);
-
-		int readCount = 0;
-		byte[] buffer = new byte[BUFFER_SIZE];
-		while ((readCount = fileInputStream.read(buffer)) != -1) {
-			outputStream.write(buffer, 0, readCount);
-		}
-	}
-
-	@Override
 	public void removeFilesForRollback(List<FileDto> files) {
 		for (FileDto file : files) {
 			File target = new File(fileDir + "/" + file.getSaveFileName());
