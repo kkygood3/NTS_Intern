@@ -189,9 +189,13 @@
 				AND	reservation_email = #{reservationEmail}
 	</update>
 	
-	 <insert id = "insertReservationInfoPrice" parameterType="ReservationInfoPrice">
-		INSERT INTO reservation_info_price (	id,		reservation_info_id,	product_price_id,	count)
-										VALUES(	#{id},	#{reservationInfoId},	#{productPriceId},	#{count})
+	 <insert id = "insertReservationInfoPrice" parameterType="Map">
+		INSERT INTO	reservation_info_price
+					(reservation_info_id,	product_price_id,						count)
+					VALUES
+		<foreach collection="reservationInfoPriceList" item="reservationInfoPrice" separator=", ">
+					(#{reservationInfoId},	#{reservationInfoPrice.productPriceId},	#{reservationInfoPrice.count})
+		</foreach>
 	</insert>
 	
 	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 

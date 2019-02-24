@@ -1,6 +1,7 @@
 package com.nts.reservation.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -61,7 +62,7 @@ public interface ReservationInfoMapper {
 	 * @param price 가격정보
 	 * @return 예약 가격 id
 	 */
-	long insertReservationInfoPrice(ReservationInfoPrice price);
+	long insertReservationInfoPrice(Map<String, Object> reservationInfoPrice);
 	
 	/**
 	 * 특정 사용자 항목별로 예약 카운트 가저온다
