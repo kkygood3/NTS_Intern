@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.reserve.controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -12,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -30,54 +31,41 @@ public class ReservationApiController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationApiController.class);
 
-	private static final int NOT_UPDATED = 0;
-
 	@Autowired
 	private ReservationService reservationService;
 
 	/**
 	 * 입력 받은 정보를 등록한 후, 등록된 예약 정보를 반환
 	 * @param reservationParam 각 양식에 맞는 예약 정보
-	 * @return
+	 * @return ReservationResponse 등록된 예약 상품에 대한 정보
 	 */
 	@PostMapping(path = "/reservations")
-	public ReservationResponse reserve(@RequestBody @Valid ReservationParam reservationParam, BindingResult bindingResult,
-		HttpServletResponse response) {
+	public ResponseEntity<ReservationResponse> reserve(@RequestBody @Valid ReservationParam reservationParam,
+		BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			LOGGER.debug("{} / field : {} / code : {}", bindingResult.getFieldError().getDefaultMessage(),
 				bindingResult.getFieldError().getField(), bindingResult.getFieldError().getCode());
-			response.setStatus(HttpStatus.BAD_REQUEST.value());
-			return ReservationResponse.builder().build();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		String appliedStandardPhoneForm = addHyphenToPhone(reservationParam.getReservationTel());
-		reservationParam.setReservationTel(appliedStandardPhoneForm);
-		
-		int reservationInfoId = reservationService.insertReservation(reservationParam); 
-		return reservationService.getReservationResponse(reservationInfoId);
+		String reservationTel = reservationParam.getReservationTel();
+		reservationParam.setReservationTel(addHyphenToPhone(reservationTel));
+		return new ResponseEntity<>(reservationService.saveReservation(reservationParam), HttpStatus.OK);
 	}
 
-	@PutMapping(path = "/reservations/{reservationId}")
-	public ReservationResponse cancelReservation(@PathVariable(name = "reservationId") int reservationId,
-		HttpSession session, HttpServletResponse response) {
+	/**
+	 * session의 email과 reservation email을 대조 후, 일치한다면 해당 reservation을 삭제 (cancelYn = true로 변경)
+	 * @param reservationInfoId 취소할 상품의 id
+	 * @return ReservationResponse 예약을 취소한 상품에 대한 정보
+	 * @throws HttpSessionRequiredException
+	 */
+	@PutMapping(path = "/reservations/{reservationInfoId}")
+	public ReservationResponse cancelReservation(
+		@PathVariable(name = "reservationInfoId") int reservationInfoId,
+		HttpSession session) throws HttpSessionRequiredException {
 
-		String reservationEmail = reservationService.getReservationResponse(reservationId).getReservationEmail();
-		String email = (String)session.getAttribute("email");
-
-		if (!reservationEmail.equals(email)) {
-			LOGGER.warn("Does not Same email!! / session Email : {} / reservation Email : {}", email, reservationEmail);
-			response.setStatus(HttpStatus.FORBIDDEN.value());
-			return ReservationResponse.builder().build();
-		}
-
-		int updateResult = reservationService.cancelReservation(reservationId);
-		if (updateResult == NOT_UPDATED) {
-			IllegalArgumentException e = new IllegalArgumentException("Does not exist reservationId!!");
-			LOGGER.warn("Bad Request! Parameter / reservationId : {}",  reservationId, e);
-			throw e;
-		}
-
-		return reservationService.getReservationResponse(reservationId);
+		String sessionEmail = (String)session.getAttribute("email");
+		return reservationService.cancelReservation(reservationInfoId, sessionEmail);
 	}
 
 	/**
