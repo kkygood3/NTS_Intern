@@ -48,7 +48,7 @@ public class MyReservationContorller {
 	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session) {
 
 		if (!ReservationValidatior.validateEmail(email)) {
-			return "error";
+			throw new RuntimeException("Email 형식 오류");
 		}
 
 		session.setAttribute("email", email);
