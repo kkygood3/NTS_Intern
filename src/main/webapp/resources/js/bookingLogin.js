@@ -26,7 +26,7 @@ var bookingLoginPage = {
                 userEmail: self.elements.emailInput.value
             }
         }
-        httpUtil.sendGet( "/reservation-service/api/login", options, function(response) {
+        httpUtil.sendGet( "/api/login", options, function(response) {
             self.requestLoginCallback(response);
         });
     },

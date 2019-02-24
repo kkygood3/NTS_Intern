@@ -28,11 +28,15 @@ import com.nts.reservation.service.ReservationService;
 @RequestMapping(path = "/api/download")
 public class FileApiController {
 
-	@Autowired
-	private FileIoService fileIoService;
+	private final FileIoService fileIoService;
+
+	private final ReservationService reservationService;
 
 	@Autowired
-	private ReservationService reservationService;
+	public FileApiController(FileIoService fileIoService, ReservationService reservationService) {
+		this.fileIoService = fileIoService;
+		this.reservationService = reservationService;
+	}
 
 	@GetMapping("/img")
 	public void getDownloadFile(@RequestParam(required = true) String imageName, HttpServletResponse response)

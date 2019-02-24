@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+.slideIn {
+    animation-name: slideIn;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+    z-index: 20;
+}
+
+.slideCurrent {
+    transform:translateX(0);
+
+}
+.slideOut {
+    animation-name: slideOut;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+    z-index: 10;
+}
+
+.slideReady {
+    transform:translateX(100%);
+}
+
+@keyframes slideOut {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
+}
+.slideRightIn {
+    animation-name: slideRightIn;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+}
+@keyframes slideRightIn {
+    to {
+        transform: translateX(0);
+    }
+    from {
+        transform: translateX(-100%);
+    }
+}
+.slideRightOut {
+    animation-name: slideRightOut;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+}
+@keyframes slideRightOut {
+    to {
+        transform: translateX(100%);
+    }
+    from {
+        transform: translateX(0);
+    }
+}
+.slideLeftIn {
+    animation-name: slideLeftIn;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+}
+@keyframes slideLeftIn {
+    to {
+        transform: translateX(0);
+    }
+    from {
+        transform: translateX(100%);
+    }
+}
+.slideLeftOut {
+    animation-name: slideLeftOut;
+    animation-duration: 1s; 
+    animation-fill-mode: forwards;
+}
+@keyframes slideLeftOut {
+    to {
+        transform: translateX(-100%);
+    }
+    from {
+        transform: translateX(0%);
+    }
+}

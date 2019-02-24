@@ -20,6 +20,7 @@ import com.nts.reservation.http.RequestHtmlFileHttp;
 @ComponentScan(basePackages = {"com.nts.reservation.dao", "com.nts.reservation.service"})
 @Import({DBConfig.class})
 public class ApplicationConfig {
+
 	@Bean
 	public RequestHtmlFileHttp requestHtmlFileHttp() {
 		return new RequestHtmlFileHttp();

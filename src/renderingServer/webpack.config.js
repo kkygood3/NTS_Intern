@@ -3,10 +3,12 @@ const path = require('path')
 
 const clientConfig = {
     entry: {
-        myReservationPage: "./src/client/myReservationPage"
+        myReservationPage: "./src/client/myReservationPage",
+        mainPage: "./src/client/mainPage",
+        detailPage: "./src/client/detailPage"
     },
     output: {
-        path: path.join(__dirname + "/../main/webapp/resources/js"),
+        path: path.join(__dirname + "/../main/webapp/resources/js/react"),
         filename: "[name].js"
     },
     module: {

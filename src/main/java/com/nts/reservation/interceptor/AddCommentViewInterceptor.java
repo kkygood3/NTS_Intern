@@ -21,10 +21,11 @@ import com.nts.reservation.service.ReservationService;
  * @author 육성렬
  */
 public class AddCommentViewInterceptor extends HandlerInterceptorAdapter {
-	@Autowired
-	ReservationService reservationService;
 
-	private Pattern reservationIdPattern = Pattern.compile("(?<=\\/addComment\\/)\\d*");
+	@Autowired
+	private ReservationService reservationService;
+
+	private final Pattern reservationIdPattern = Pattern.compile("(?<=\\/addComment\\/)\\d*");
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

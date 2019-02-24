@@ -18,7 +18,12 @@ import com.nts.reservation.service.DisplayInfoService;
 public class ReservationPageController {
 
 	@Autowired
-	private DisplayInfoService displayService;
+	private final DisplayInfoService displayService;
+
+	@Autowired
+	public ReservationPageController(DisplayInfoService displayService) {
+		this.displayService = displayService;
+	}
 
 	/**
 	 * 예매하기에 해당하는 페이지 반환

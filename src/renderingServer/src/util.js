@@ -31,5 +31,39 @@ module.exports = {
         request.open("PUT", path + "/" + variable);
         request.setRequestHeader("Content-Type", "charset=UTF-8");
         request.send();
+    },
+    /**
+     * @function sendGet 서버에 Get 메서드 요청 함수.
+     * @param {String}
+     *            path 요청 URL
+     * @param {JSON}
+     *            options 해당 부분에 params값과 header 값을 넣으면됨
+     *  참고로 params의 value 값에 Array 형태 넣지말것.
+     * @param {Function}
+     *            onCallback 콜백 함수.
+     */
+    sendGet: function(path, options, onCallback) {
+        var data = "";
+        if (options.params) {
+            data = Object.keys(options.params)
+                .map(function(key) {
+                    return key + "=" + encodeURI(options.params[key]);
+                })
+                .join("&");
+        }
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", function(event) {
+            onCallback(event.target);
+        });
+    
+        var url = path + (data.length == 0 ? "" : "?") + data;
+        request.open("GET", url);
+        request.setRequestHeader("Content-type", "charset=utf-8");
+        if (options.headers) {
+            Object.keys(options.headers).map(function(key) {
+                request.setRequestHeader(key, options.headers[key]);
+            });
+        }
+        request.send();
     }
 }

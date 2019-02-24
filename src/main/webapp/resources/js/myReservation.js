@@ -10,7 +10,7 @@ var myReservationPage = {
 		userEmail : document.querySelector("#container").dataset.userEmail,
 		filteredData : {},
 		subjectList : [],
-		path : "/reservation-service/api/reservations",
+		path : "/api/reservations",
 		reservationSize : 0
 	},
 
@@ -224,7 +224,7 @@ var myReservationPage = {
 			this.requestCancelMyReservation(reservationId);
 		} else if (target.container.classList.contains("used")) {
 			var reservaionId = target.clickedReservationId;
-			window.location.href = "/reservation-service/addComment/"
+			window.location.href = "/addComment/"
 					+ reservaionId;
 		}
 	}

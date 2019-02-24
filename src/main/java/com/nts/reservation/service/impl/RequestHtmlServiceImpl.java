@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.nts.reservation.dto.request.MyReservationPageRequestDto;
 import com.nts.reservation.http.RequestHtmlFileHttp;
 import com.nts.reservation.service.RequestHtmlService;
 
@@ -21,11 +20,15 @@ import com.nts.reservation.service.RequestHtmlService;
 @Service
 public class RequestHtmlServiceImpl implements RequestHtmlService {
 
+	private final RequestHtmlFileHttp requestHtmlFileHttp;
+
 	@Autowired
-	private RequestHtmlFileHttp requestHtmlFileHttp;
+	public RequestHtmlServiceImpl(RequestHtmlFileHttp requestHtmlFileHttp) {
+		this.requestHtmlFileHttp = requestHtmlFileHttp;
+	}
 
 	@Override
-	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)
+	public <T> String requestToReactHtml(String path, T requestDto)
 		throws HttpClientErrorException, ConnectException {
 
 		return requestHtmlFileHttp.requestHtmlPost(path, requestDto);
