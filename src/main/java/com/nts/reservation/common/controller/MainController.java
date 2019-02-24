@@ -35,11 +35,10 @@ public class MainController {
 	@PostMapping(path = "/login")
 	public ModelAndView login(
 		@RequestParam(name = "reservation_email") String email, HttpSession session, ModelAndView modelAndView) {
-		
-		modelAndView.setViewName("redirect:/myreservation");
 
 		String sessionEmail = (String)session.getAttribute("email");
 		if (sessionEmail != null) {
+			modelAndView.setViewName("redirect:/myreservation");
 			return modelAndView;
 		}
 
@@ -49,6 +48,7 @@ public class MainController {
 			return modelAndView;
 		}
 
+		modelAndView.setViewName("redirect:/myreservation");
 		session.setAttribute("email", email);
 		return modelAndView;
 	}
@@ -57,11 +57,6 @@ public class MainController {
 	public String logoutTest(HttpSession session) {
 		session.removeAttribute("email");
 		return "redirect:/";
-	}
-	
-	@GetMapping(path ="/write")
-	public String goWriteForm() {
-		return "reviewWrite";
 	}
 
 	@GetMapping(path = "/error")
