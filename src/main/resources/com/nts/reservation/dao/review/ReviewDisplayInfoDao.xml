@@ -3,16 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.dao.review.ReviewDisplayInfoDao">
-	<select id="selectReviewWrite" resultType="ReviewWriteResponse">
-		SELECT
-			r.id AS reservation_info_id,
-		    r.product_id,
-		    p.description AS product_description
+	<select id="selectDetailDisplayInfo" resultType="ReviewDisplayInfo">
+		SELECT 
+			d.id AS display_info_id, 
+			p.description AS product_description, 
+			IFNULL(ROUND(AVG(rc.score),1),0) AS average_score, 
+			COUNT(rc.id) as comment_count 
 		FROM
-			reservation_info AS r
+			display_info AS d 
 		INNER JOIN
-			product AS p ON r.product_id = p.id
+			product AS p ON d.product_id = p.id 
+		INNER JOIN
+			reservation_user_comment AS rc ON p.id = rc.product_id 
 		WHERE
-			r.id = #{reservationInfoId}
+			d.id = #{displayInfoId}
 	</select>
 </mapper>

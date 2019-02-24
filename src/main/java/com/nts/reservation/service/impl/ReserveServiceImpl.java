@@ -32,7 +32,7 @@ public class ReserveServiceImpl implements ReserveService {
 
 	@Override
 	public ReserveResponse getReserveResponse(int displayInfoId) {
-		ReserveDisplayInfo reserveDisplayInfo = reserveDisplayInfoDao.selectReviewDisplayInfoByDisplayInfoId(displayInfoId);
+		ReserveDisplayInfo reserveDisplayInfo = reserveDisplayInfoDao.selectReviewDisplayInfo(displayInfoId);
 		
 		//priceTypeName을 출력에 사용하는 형식으로 변환
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);

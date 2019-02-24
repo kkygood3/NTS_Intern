@@ -35,7 +35,7 @@ public class MainServiceImpl implements MainService {
 		List<MainProduct> productList = new ArrayList<>();
 		
 		if(count > 0) {
-			 productList = mainProductDao.selectPagingProducts(categoryId, start, pagingLimit);
+			 productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
 		}
 		return new MainProductResponse(productList, count);
 	}

@@ -23,8 +23,8 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewResponse getReviewResponse(int displayInfoId, int start, int pagingLimit) {
 		ReviewResponse reviewResponse = new ReviewResponse();
 
-		reviewResponse.setReviewComment(commentDao.selectCommentByDisplayInfoId(displayInfoId, start, pagingLimit));
-		reviewResponse.setReviewDisplayInfo(reviewDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
+		reviewResponse.setReviewComment(commentDao.selectComment(displayInfoId, start, pagingLimit));
+		reviewResponse.setReviewDisplayInfo(reviewDisplayInfoDao.selectDetailDisplayInfo(displayInfoId));
 		return reviewResponse;
 	}
 }
