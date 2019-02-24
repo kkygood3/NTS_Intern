@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.commons.validator.loginEmailValidator;
 import com.nts.reservation.reservation.dto.ReservationInfoResponse;
 import com.nts.reservation.reservation.dto.ReservationParam;
 import com.nts.reservation.reservation.dto.ReservationUpdateParam;
@@ -46,7 +47,7 @@ public class ReservationApiController {
 		
 		String loginEmail = session.getAttribute("email").toString();
 		// 본인 여부 및 이메일 검증
-		if (isInValidEmail(reservationEmail, loginEmail)) {
+		if (loginEmailValidator.isInValidEmail(reservationEmail, loginEmail)) {
 			LOG.warning("올바른 Email이 아닙니다. Email : " + reservationEmail );
 			return new ReservationInfoResponse();
 		}
@@ -85,14 +86,14 @@ public class ReservationApiController {
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Map<String, Object> update(
-		@RequestBody ReservationUpdateParam updateParam,
-		HttpSession session) {
+		@RequestBody @Valid ReservationUpdateParam updateParam,
+		BindingResult result, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		String loginEmail = session.getAttribute("email").toString();
 
 		// Param 검증, update 검증, 본인 여부 및 이메일 검증
-		if (updateParam.isValid(updateParam) && reservationServiceImpl.updateReserve(updateParam.getReservationInfoId(),
-			updateParam.getReservationEmail()) && isValidEmail(updateParam.getReservationEmail(), loginEmail)) {
+		if (reservationServiceImpl.updateReserve(updateParam.getReservationInfoId(), updateParam.getReservationEmail())
+			&& !result.hasErrors() && loginEmailValidator.isValidEmail(updateParam.getReservationEmail(), loginEmail)) {
 			map.put("result", "OK");
 		} else {
 			LOG.warning("올바른 RequestBody가 아닙니다. RequestBody : " + updateParam);
@@ -102,27 +103,5 @@ public class ReservationApiController {
 		return map;
 	}
 	
-	/**
-	 * 요청 Email의 정규식을 검증하고 login된 Email과 일치 여부를 검증 
-	 * @param reservationEmail
-	 * @param loginEmail
-	 */
-	private boolean isValidEmail(String reservationEmail, String loginEmail) {
-		String emailReg = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-
-		// 정규식을 활용하여 이메일값을 검증하고, session에 들어있는 이메일값과 비교한다. 유효하지 않으면 false 반환
-		if (loginEmail == null || !reservationEmail.matches(emailReg)) {
-			LOG.warning("email이 null이거나 형식에 맞지않습니다 email : " + reservationEmail);
-			return false;
-		}
-
-		if (!reservationEmail.equals(loginEmail.toString())) {
-			return false;
-		}
-		return true;
-	}
-
-	private boolean isInValidEmail(String reservationEmail, String loginEmail) {
-		return !isValidEmail(reservationEmail, loginEmail);
-	}
+	
 }

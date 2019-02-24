@@ -5,28 +5,20 @@
 
 package com.nts.reservation.reservation.dto;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
+@Getter @Setter @ToString
 public class ReservationUpdateParam {
+	private final String emailReg = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+	
+	@Min(0)
 	private int reservationInfoId;
+	@NotNull @Pattern(regexp=emailReg)
 	private String reservationEmail;
-
-	/**
-	 * POST 방식으로 들어온 값의 Id와 Email부분을 검증하는 메소드
-	 * @param reservationParam
-	 */
-	public boolean isValid(ReservationUpdateParam updateParam) {
-		String emailReg = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-
-		if (updateParam.getReservationInfoId() <= 0 || updateParam.getReservationEmail() == null
-			|| !updateParam.getReservationEmail().matches(emailReg)) {
-			return false;
-		}
-		return true;
-	}
 }

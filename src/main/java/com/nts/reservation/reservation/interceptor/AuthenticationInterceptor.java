@@ -10,6 +10,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * 로그인이  필요한 Controller에 접근하기 전에 로그인 여부를 확인
+	 * Mapping Url : /api/reservations, /list, /api/update
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
