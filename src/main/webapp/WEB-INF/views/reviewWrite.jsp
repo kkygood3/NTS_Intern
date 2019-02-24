@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -107,8 +107,14 @@
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 
+<!-- 	<form method="post" action="upload" enctype="multipart/form-data">
+		file :    <input type="file" name="file"><br>
+		<input type="submit">
+	</form> -->    
+
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/reviewWrite/ratingObject.js" ></script>
 	<script type= "text/javascript" src= "/js/reviewWrite/event.js" ></script>
 	<script type= "text/javascript" src= "/js/reviewWrite/reviewWrite.js" ></script>
 </body>
