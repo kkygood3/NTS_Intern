@@ -7,7 +7,6 @@ package com.nts.reservation.controller.api;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
