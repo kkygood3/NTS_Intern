@@ -57,7 +57,6 @@ public class ReservationDaoTest {
 	@Rollback
 	@Ignore
 	public void insertResrvationInfo() {
-		// XXX auto increment issue 해결방법?
 		LOGGER.debug("return id : {}", reservationDao.insertReservationInfo(reservationParam));
 	}
 
@@ -71,7 +70,6 @@ public class ReservationDaoTest {
 
 	@Test
 	public void selectReservationInfos() {
-		// TODO 출력값이 객체일 경우 성공/실패 확인?
 		LOGGER.debug("selectReservationInfos : {}", reservationDao.selectReservationInfos("aewrl@naver.com"));
 	}
 
