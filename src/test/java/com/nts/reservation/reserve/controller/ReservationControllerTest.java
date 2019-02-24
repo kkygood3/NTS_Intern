@@ -1,20 +1,15 @@
 package com.nts.reservation.reserve.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -51,7 +46,6 @@ public class ReservationControllerTest {
 	private ReservationParam reservationParam;
 	private MockHttpSession session;
 
-	// XXX Before는 하나고 상황은 여러 개인데 1개의 class에서 모두 해결?
 	@Before
 	public void setUp() {
 		LOGGER.debug("======================== Before ===========================");
@@ -59,7 +53,7 @@ public class ReservationControllerTest {
 		objectMapper = new ObjectMapper();
 
 		session = new MockHttpSession();
-		session.setAttribute("email", "kimjinsu@connect.co.kr");
+		session.setAttribute("email", "qweqwee@naver.com");
 
 		List<ReservationPrice> prices = new ArrayList<>();
 		prices.add(ReservationPrice.builder().productPriceId(1).count(2).build());
@@ -77,31 +71,24 @@ public class ReservationControllerTest {
 
 	@Test
 	@Transactional
-	@Ignore
 	public void getProducts() throws Exception {
 		RequestBuilder requestBuilder = post("/api/reservations")
 			.contentType(MediaType.APPLICATION_JSON_UTF8)
 			.content(objectMapper.writeValueAsString(reservationParam));
 
-		mock.perform(requestBuilder).andDo(print());
+		mock.perform(requestBuilder).andExpect(status().isOk());
 	}
 
-	@Test
-	@Ignore
-	public void validationCheck() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<ReservationParam>> constraintViolations = validator.validate(reservationParam);
-		constraintViolations.forEach(a -> {
-			LOGGER.debug("MESSAGE : ", a.getMessage());
-		});
-
-	}
-	
 	@Test
 	public void cancelReservation() throws Exception {
-		RequestBuilder requestBuilder = put("/api/reservations/1").session(session);
-		mock.perform(requestBuilder).andDo(print());
+		RequestBuilder requestBuilder = put("/api/reservations/16").session(session);
+		mock.perform(requestBuilder).andExpect(status().isOk());
+	}
+
+	@Test
+	public void myreservation() throws Exception {
+		RequestBuilder requestBuilder = get("/myreservation");
+		mock.perform(requestBuilder).andExpect(status().isOk());
 	}
 
 	@After
