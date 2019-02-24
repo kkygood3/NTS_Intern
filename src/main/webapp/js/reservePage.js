@@ -287,7 +287,7 @@ function initBookingBtn(displayInfoData) {
 
             let reserveRequest = JSON.stringify(new ReserveRequest(displayInfoId, reservePrices, productId, name, tel, email));
 
-            requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
+            requestPostAjax(postResponseHandler, 'api/reserve', reserveRequest);
         }
     });
 }

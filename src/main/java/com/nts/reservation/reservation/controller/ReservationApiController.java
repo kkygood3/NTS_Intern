@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,9 +43,10 @@ public class ReservationApiController {
 	public ReservationInfoResponse displayInfos(
 		@RequestParam(name = "reservationEmail", required = true) String reservationEmail,
 		HttpSession session) {
-
+		
+		String loginEmail = session.getAttribute("email").toString();
 		// 본인 여부 및 이메일 검증
-		if (isInValidEmail(reservationEmail, session)) {
+		if (isInValidEmail(reservationEmail, loginEmail)) {
 			LOG.warning("올바른 Email이 아닙니다. Email : " + reservationEmail );
 			return new ReservationInfoResponse();
 		}
@@ -57,18 +60,18 @@ public class ReservationApiController {
 	 * @param session
 	 * @return 올바른 요청 및 DB 적용 성공 시 result : OK , 실패 시 result : FAIL
 	 */
-	@RequestMapping(value = "/reservations", method = RequestMethod.POST)
+	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public Map<String, Object> reserve(
-		@RequestBody ReservationParam reserveRequest,
-		HttpSession session) {
+		@RequestBody @Valid ReservationParam reserveRequest,
+		BindingResult result, HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 
 		// Param 검증, update 검증
-		if (reserveRequest.isValid(reserveRequest) && reservationServiceImpl.postReserve(reserveRequest)) {
+		if (!result.hasErrors() && reservationServiceImpl.postReserve(reserveRequest)) {
 			map.put("result", "OK");
 		} else {
 			LOG.warning("올바른 RequestBody가 아닙니다. RequestBody : " + reserveRequest);
-			map.put("result", "FAIL");
+			throw new IllegalArgumentException();
 		}
 
 		return map;
@@ -85,35 +88,41 @@ public class ReservationApiController {
 		@RequestBody ReservationUpdateParam updateParam,
 		HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
+		String loginEmail = session.getAttribute("email").toString();
 
 		// Param 검증, update 검증, 본인 여부 및 이메일 검증
 		if (updateParam.isValid(updateParam) && reservationServiceImpl.updateReserve(updateParam.getReservationInfoId(),
-			updateParam.getReservationEmail()) && isValidEmail(updateParam.getReservationEmail(), session)) {
+			updateParam.getReservationEmail()) && isValidEmail(updateParam.getReservationEmail(), loginEmail)) {
 			map.put("result", "OK");
 		} else {
 			LOG.warning("올바른 RequestBody가 아닙니다. RequestBody : " + updateParam);
-			map.put("result", "FAIL");
+			throw new IllegalArgumentException();
 		}
 
 		return map;
 	}
-
-	private boolean isValidEmail(String reservationEmail, HttpSession session) {
+	
+	/**
+	 * 요청 Email의 정규식을 검증하고 login된 Email과 일치 여부를 검증 
+	 * @param reservationEmail
+	 * @param loginEmail
+	 */
+	private boolean isValidEmail(String reservationEmail, String loginEmail) {
 		String emailReg = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
 
 		// 정규식을 활용하여 이메일값을 검증하고, session에 들어있는 이메일값과 비교한다. 유효하지 않으면 false 반환
-		if (reservationEmail == null || !reservationEmail.matches(emailReg)) {
+		if (loginEmail == null || !reservationEmail.matches(emailReg)) {
 			LOG.warning("email이 null이거나 형식에 맞지않습니다 email : " + reservationEmail);
 			return false;
 		}
 
-		if (!reservationEmail.equals(session.getAttribute("email").toString())) {
+		if (!reservationEmail.equals(loginEmail.toString())) {
 			return false;
 		}
 		return true;
 	}
 
-	private boolean isInValidEmail(String reservationEmail, HttpSession session) {
-		return !isValidEmail(reservationEmail, session);
+	private boolean isInValidEmail(String reservationEmail, String loginEmail) {
+		return !isValidEmail(reservationEmail, loginEmail);
 	}
 }
