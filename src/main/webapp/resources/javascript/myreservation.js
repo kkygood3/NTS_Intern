@@ -32,7 +32,6 @@ ReservationCancel.prototype = {
 		document.querySelectorAll('.cancel_btn').forEach(btn=>{
 			btn.addEventListener('click', event=>this.showPopup(event));
 		});
-		
 		document.querySelector('#cancel_accept').addEventListener('click', event=>{
 			ajax(this.moveToCancelBox.bind(this), 'PUT', '/api/reservations/' + myReservation.selectedId, 'Fail to Cancel Reservation!');
 		});
@@ -54,19 +53,19 @@ ReservationCancel.prototype = {
 		
 		let title = event.target.parentElement.parentElement.children[1].innerText;
 		let date = event.target.parentElement.parentElement.children[2].firstElementChild.children[1].innerText;
-		
+
 		document.querySelector('.pop_tit').firstElementChild.innerText = title;
 		document.querySelector('.sm').innerText = date;
 	},
 	hidePopup : function(){
 		myReservation.popup.style.display = 'none';
 	},
-	moveToCancelBox : function(reservationInfo){
+	moveToCancelBox : function(){
 		myReservation.counts[1].innerText--;
 		myReservation.counts[3].innerText++;
 
 		// element 이동
-		let elementToMove = document.querySelector('#reservation_' + reservationInfo.reservationInfoId);
+		let elementToMove = document.querySelector('#reservation_' + myReservation.selectedId);
 		myReservation.canceled.insertBefore(elementToMove, null);
 		
 		// 취소 버튼 삭제

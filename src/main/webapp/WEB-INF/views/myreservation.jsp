@@ -23,7 +23,7 @@
 					<ul class="summary_board">
 						<li class="item">
 							<!--[D] 선택 후 .on 추가 link_summary_board -->
-							<a href="#" class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure">${ totalCount }</span> </a>
+							<a class="link_summary_board on"> <i class="spr_book2 ico_book2"></i> <em class="tit">전체</em> <span class="figure">${ totalCount }</span> </a>
 						</li>
 						<li class="item">
 							<a href="#confirmed" class="link_summary_board"> <i class="spr_book2 ico_book_ss"></i> <em class="tit">예약확정</em> <span class="figure">${ fn:length(reservationGroupByStatus.confirmed) }</span> </a>
@@ -57,13 +57,15 @@
 							</div>
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.confirmed }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
+									<div class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
 												<div class="card_detail">
 													<em class="booking_number">No.${ reservation.reservationInfoId }</em>
-													<h4 class="tit">${ reservation.displayInfo.productDescription }</h4>
+													<h4 class="tit">
+														<a href="/display/detail/${ reservation.displayInfo.displayInfoId }">${ reservation.displayInfo.productDescription }</a>
+													</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
@@ -111,8 +113,8 @@
 											<div class="middle"></div>
 											<div class="right"></div>
 										</div>
-									</a>
-									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+									</div>
+									<a class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 								</article>
 							</c:forEach>
 							</li>
@@ -133,13 +135,15 @@
 								
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.used }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
+									<div class="link_booking_details">
 										<div class="card_body">
 											<div class="middle">
 											<div class="left"></div>
 												<div class="card_detail">
 													<em class="booking_number">No.${ reservation.reservationInfoId }</em>
-													<h4 class="tit">${ reservation.displayInfo.productDescription }</h4>
+													<h4 class="tit">
+														<a href="/display/detail/${ reservation.displayInfo.displayInfoId }">${ reservation.displayInfo.productDescription }</a>
+													</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
@@ -187,8 +191,8 @@
 											<div class="middle"></div>
 											<div class="right"></div>
 										</div>
-									</a>
-									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+									</div>
+									<a class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 								</article>
 							</c:forEach>
 							</li>
@@ -209,13 +213,15 @@
 								</div>
 								<c:forEach var="reservation" items="${ reservationGroupByStatus.canceled }">
 								<article class="card_item" id="reservation_${ reservation.reservationInfoId }">
-									<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="link_booking_details">
+									<div class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
 												<div class="card_detail">
 													<em class="booking_number">No.${ reservation.reservationInfoId }</em>
-													<h4 class="tit">${ reservation.displayInfo.productDescription }</h4>
+													<h4 class="tit">
+														<a href="/display/detail/${ reservation.displayInfo.displayInfoId }">${ reservation.displayInfo.productDescription }</a>
+													</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
@@ -259,8 +265,8 @@
 											<div class="middle"></div>
 											<div class="right"></div>
 										</div>
-									</a>
-									<a href="#" class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
+									</div>
+									<a class="fn fn-share1 naver-splugin btn_goto_share" title="공유하기"></a>
 								</article>
 							</c:forEach>
 							</li>
@@ -274,7 +280,7 @@
 		</div>
 		<footer>
 			<div class="gototop">
-				<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
+				<a class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
 			</div>
 			<div id="footer" class="footer">
 				<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
@@ -296,14 +302,14 @@
 				</div>
 				<div class="pop_bottom_btnarea">
 					<div class="btn_gray">
-						<a href="#" class="btn_bottom"><span>아니오</span></a>
+						<a class="btn_bottom"><span>아니오</span></a>
 					</div>
 					<div class="btn_green">
-						<a href="#" class="btn_bottom" id="cancel_accept"><span>예</span></a>
+						<a class="btn_bottom" id="cancel_accept"><span>예</span></a>
 					</div>
 				</div>
 				<!-- 닫기 -->
-				<a href="#" class="popup_btn_close" title="close">
+				<a class="popup_btn_close" title="close">
 					<i class="spr_book2 ico_cls"></i>
 				</a>
 				<!--// 닫기 -->
