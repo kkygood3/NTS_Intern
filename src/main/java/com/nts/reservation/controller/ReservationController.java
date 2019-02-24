@@ -22,6 +22,10 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
+	/**
+	 * 예약 확인페이지 url 맵핑
+	 * @return
+	 */
 	@GetMapping
 	public String getReservation() {
 		return "myreservation";
