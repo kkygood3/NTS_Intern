@@ -27,7 +27,6 @@ function addSubmitButtonChangeEventListener() {
 function addInputChangeEventListener() {
 	var input = document.querySelector("form input");
 	var submitButton = document.querySelector("button.login_btn.confirm");
-	submitButton.style.cursor = "default";
 	input.addEventListener("change", function(event){
 		var email = input.value;
 		if (email == "") {
