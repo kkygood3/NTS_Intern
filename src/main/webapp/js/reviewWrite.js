@@ -81,6 +81,7 @@ function initWriteBtnClickEvent(){
 	var starsNumArea = document.querySelector('.star_rank');
 	var imageInput = document.querySelector('.hidden_input');
 	var productId = document.querySelector('#productIdInput').value;
+	var reservationInfoId = document.querySelector('#reservationInfoIdInput').value;
 	
 	writeReviewBtn.addEventListener('click', function(evt){
 		evt.preventDefault();
@@ -97,7 +98,7 @@ function initWriteBtnClickEvent(){
 				writeForm.append('imageFile', imageInput.files[0]);
 			}
 			
-			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm,'multipart/form-data; charset=UTF-8');
+			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm);
 		}
 	});
 }
