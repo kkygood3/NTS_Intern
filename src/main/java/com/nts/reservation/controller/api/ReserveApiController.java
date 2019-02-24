@@ -48,7 +48,11 @@ public class ReserveApiController {
 		@RequestParam(name = "start", required = true) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		HttpSession session){
-
+		
+		if (start < 0) {
+			start = 0;
+		}
+		
 		return Collections.singletonMap("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 	}
 

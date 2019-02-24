@@ -31,10 +31,6 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public MainProductResponse getProducts(int categoryId, int start, int pagingLimit) {
-		//조회 시작점이 음수일때 맨 처음부터 조회
-		if (start < 0) {
-			start = 0;
-		}
 		int count = mainProductDao.selectCount(categoryId);
 		List<MainProduct> productList = new ArrayList<>();
 		
