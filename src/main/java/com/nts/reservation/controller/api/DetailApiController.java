@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.controller.api;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +38,7 @@ public class DetailApiController {
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("detailResponse", detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
-
-		return map;
+		return Collections.singletonMap("detailResponse", detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
 	}
 
 	/**
@@ -51,10 +49,7 @@ public class DetailApiController {
 	@GetMapping("/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("extraImageResponse", detailDisplayService.getExtraImage(displayInfoId));
-
-		return map;
+		return Collections.singletonMap("extraImageResponse", detailDisplayService.getExtraImage(displayInfoId));
 	}
 
 	/**
@@ -68,8 +63,6 @@ public class DetailApiController {
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("reviewResponse", reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
-		return map;
+		return Collections.singletonMap("reviewResponse", reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
 	}
 }

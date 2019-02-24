@@ -6,6 +6,7 @@ package com.nts.reservation.controller.api;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,11 +48,8 @@ public class ReserveApiController {
 		@RequestParam(name = "start", required = true) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		HttpSession session){
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 
-		return map;
+		return Collections.singletonMap("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 	}
 
 	/**
@@ -62,15 +60,13 @@ public class ReserveApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
-		Map<String, Object> map = new HashMap<>();
 		
+		String result = "FAIL";
 		if (reserveRequest.isValid() && reserveResponseService.registerReserve(reserveRequest)) {
-			map.put("result", "OK");
-		} else {
-			map.put("result", "FAIL");
+			result = "OK";
 		}
 
-		return map;
+		return Collections.singletonMap("result", result);
 	}
 
 	/**
@@ -79,14 +75,12 @@ public class ReserveApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public Map<String, Object> cancelReservation(@PathVariable Integer reservationInfoId, HttpSession session) {
-		Map<String, Object> map = new HashMap<>();
 		
+		String result = "FAIL";
 		if (myReservationService.cancelMyReservation(reservationInfoId, (String)session.getAttribute("email"))) {
-			map.put("result", "OK");
-		} else {
-			map.put("result", "FAIL");
+			result = "OK";
 		}
 
-		return map;
+		return Collections.singletonMap("result", result);
 	}
 }
