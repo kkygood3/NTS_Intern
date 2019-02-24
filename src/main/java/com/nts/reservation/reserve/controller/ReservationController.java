@@ -1,5 +1,6 @@
 package com.nts.reservation.reserve.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -33,52 +34,55 @@ public class ReservationController {
 	private DisplayService displayService;
 	@Autowired
 	private ReservationService reservationService;
-	
-	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
 
-	// XXX 0값을 2개 이상 써야될 때도 전부 변수 선언을 하여 사용?
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd. (E)");
 	private static final int NONE = 0;
 
 	/**
 	 * Display 별 예약화면으로 이동
+	 * @throws SQLException 
 	 */
 	@GetMapping(path = "/reserve/{displayInfoId}")
-	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView modelAndView) {
+	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId, ModelAndView mav)
+		throws SQLException {
 
-		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE);
-		if (displayResponse.getDisplayInfo().getProductId() == NONE) {
-			IllegalArgumentException e = new IllegalArgumentException("There is no displayInfo!!! (displayInfoId)");
+		if (displayInfoId < 0) {
+			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!");
 			LOGGER.warn("Bad Request! Parameter / displayInfoId : {}", displayInfoId, e);
 			throw e;
 		}
 
-		int minPrice = calculateMinPrice(displayResponse.getProductPrices());
+		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, NONE);
 
-		modelAndView.setViewName("reserve");
-		modelAndView.addObject("minPrice", minPrice);
-		modelAndView.addObject("dates", computeRandomPeriod());
-		modelAndView.addObject("displayResponse", displayResponse);
-		return modelAndView;
+		List<ProductPrice> prices = displayResponse.getProductPrices();
+		int minPrice = calculateMinPrice(prices);
+		if (minPrice == 0) {
+			SQLException e = new SQLException();
+			LOGGER.error("Does not Exist product price!! / displayInfoId : {}", displayInfoId, e);
+			throw e;
+		}
+
+		mav.setViewName("reserve");
+		mav.addObject("minPrice", minPrice);
+		mav.addObject("dates", computeRandomPeriod());
+		mav.addObject("displayResponse", displayResponse);
+		return mav;
 	}
 
 	/**
 	 * session에 email이 저장되어 있다면, email로 저장되어 있는 {@code List<Reservation>}를 반환
 	 */
 	@GetMapping(path = "/myreservation")
-	public ModelAndView goMyReserve(HttpSession session, ModelAndView modelAndView) {
+	public ModelAndView goMyReserve(HttpSession session, ModelAndView mav) {
 		String email = (String)session.getAttribute("email");
 
-		if (email == null) {
-			modelAndView.setViewName("redirect:/login");
-			return modelAndView;
-		}
 		List<ReservationInfo> reservationInfos = reservationService.getReservationInfoResponse(email);
 
 		Map<String, List<ReservationInfo>> reservationInfoResponse = groupingByReservationStatus(reservationInfos);
-		modelAndView.addObject("reservationGroupByStatus", reservationInfoResponse);
-		modelAndView.addObject("totalCount", reservationInfos.size());
-		modelAndView.setViewName("myreservation");
-		return modelAndView;
+		mav.addObject("reservationGroupByStatus", reservationInfoResponse);
+		mav.addObject("totalCount", reservationInfos.size());
+		mav.setViewName("myreservation");
+		return mav;
 	}
 
 	/**
@@ -87,30 +91,31 @@ public class ReservationController {
 	 * @return groupedReservation 3가지로 그룹화된 reservation (취소완료, 예약 후 관람 전/후)
 	 */
 	private Map<String, List<ReservationInfo>> groupingByReservationStatus(List<ReservationInfo> reservationInfos) {
-		Map<Boolean, List<ReservationInfo>> groupByCancelYn = reservationInfos.stream()
-			.collect(Collectors.partitioningBy(ReservationInfo::isCancelYn));
-		Map<Boolean, List<ReservationInfo>> groupByDate = groupByCancelYn.get(false).stream()
-			.collect(Collectors.partitioningBy(
-				reservationInfo -> reservationInfo.getReservationDate().compareTo(LocalDate.now().toString()) >= 0));
-
-		Map<String, List<ReservationInfo>> groupedReservation = new HashMap<>();
-		groupedReservation.put("canceled", groupByCancelYn.get(true));
-		groupedReservation.put("confirmed", groupByDate.get(true));
-		groupedReservation.put("used", groupByDate.get(false));
-		return groupedReservation;
+		return reservationInfos.stream()
+			.collect(Collectors.groupingBy(reservationInfo -> {
+				if (reservationInfo.isCancelYn()) {
+					return "canceled";
+				}
+				if (reservationInfo.getReservationDate().compareTo(LocalDate.now().toString()) >= 0) {
+					return "confirmed";
+				} else {
+					return "used";
+				}
+			}));
 	}
 
 	/**
-	 * List<ProductPrice>의 할인된 가격 중 가장 작은 값을 반환
+	 * List<ProductPrice>의 할인된 가격 중 가장 낮은 가격을 반환
 	 * @param prices
-	 * @return discounted min Price
+	 * @return minPrice 해당 display중 가장 낮은 가격
 	 */
 	private int calculateMinPrice(List<ProductPrice> prices) {
-		// XXX exception? -> price가 0이면 data 오류이기 때문
+		if (prices == null || prices.size() == 0) {
+			return 0;
+		}
 		ProductPrice minPrice = prices.stream().reduce((prev, next) -> {
 			return (calculateDiscountPrice(prev) < calculateDiscountPrice(next)) ? prev : next;
-		}).orElseThrow(IllegalArgumentException::new);
-
+		}).get();
 		return calculateDiscountPrice(minPrice);
 	}
 
@@ -119,7 +124,7 @@ public class ReservationController {
 	 * @param productPrice 
 	 */
 	private int calculateDiscountPrice(ProductPrice productPrice) {
-		return (int)(productPrice.getPrice() * (1 - productPrice.getDiscountRate() / 100));
+		return (int)(productPrice.getPrice() * (1 - (productPrice.getDiscountRate() / 100)));
 	}
 
 	/**
