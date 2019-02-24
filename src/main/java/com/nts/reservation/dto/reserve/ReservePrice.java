@@ -9,10 +9,36 @@ package com.nts.reservation.dto.reserve;
  */
 public class ReservePrice {
 	private Integer price;
-	private ReservePriceType priceTypeName;
 	private String priceTypeLabel;
 	private Integer discountRate;
 	private Integer priceInfoId;
+	private ReservePriceType priceTypeName;
+	private Integer count;
+	private Integer reservationInfoId;
+	
+	public ReservePriceType getPriceTypeName() {
+		return priceTypeName;
+	}
+
+	public void setPriceTypeName(ReservePriceType priceTypeName) {
+		this.priceTypeName = priceTypeName;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public Integer getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(Integer reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
 
 	public Integer getPriceInfoId() {
 		return priceInfoId;
@@ -36,14 +62,6 @@ public class ReservePrice {
 
 	public void setPrice(Integer price) {
 		this.price = price;
-	}
-
-	public ReservePriceType getPriceTypeName() {
-		return priceTypeName;
-	}
-
-	public void setPriceTypeName(ReservePriceType priceTypeName) {
-		this.priceTypeName = priceTypeName;
 	}
 
 	public Integer getDiscountRate() {

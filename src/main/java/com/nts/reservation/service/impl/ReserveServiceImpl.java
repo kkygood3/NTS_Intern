@@ -17,7 +17,6 @@ import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
 import com.nts.reservation.dto.reserve.ReserveDisplayInfo;
 import com.nts.reservation.dto.reserve.ReservePrice;
-import com.nts.reservation.dto.reserve.ReservePriceInfo;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
@@ -39,7 +38,8 @@ public class ReserveServiceImpl implements ReserveService {
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
 		for (int i = 0; i < reservePrice.size(); i++) {
 			ReservePrice targetPrice = reservePrice.get(i);
-			targetPrice.setPriceTypeLabel(targetPrice.getPriceTypeName().getTypeLabel());
+			String typeLabel = targetPrice.getPriceTypeName().getTypeLabel();
+			targetPrice.setPriceTypeLabel(typeLabel);
 		}
 		
 		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
@@ -57,10 +57,10 @@ public class ReserveServiceImpl implements ReserveService {
 		reserveDao.insertReservation(reserveRequest);
 		int reservationInfoId = reserveRequest.getId();
 		
-		List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
+		List<ReservePrice> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
 
 		for (int i = 0; i < reservePriceInfoList.size(); i++) {
-			ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
+			ReservePrice targetPriceInfo = reservePriceInfoList.get(i);
 			targetPriceInfo.setReservationInfoId(reservationInfoId);
 
 			if (reserveDao.insertReservationPrice(targetPriceInfo) < 1) {
