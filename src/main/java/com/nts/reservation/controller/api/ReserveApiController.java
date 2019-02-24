@@ -66,7 +66,8 @@ public class ReserveApiController {
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
 		
 		String result = "FAIL";
-		if (reserveRequest.isValid() && reserveResponseService.registerReserve(reserveRequest)) {
+		if (reserveRequest.isValid()) {
+			reserveResponseService.registerReserve(reserveRequest);
 			result = "OK";
 		}
 

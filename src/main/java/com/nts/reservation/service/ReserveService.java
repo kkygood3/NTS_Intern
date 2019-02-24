@@ -20,5 +20,5 @@ public interface ReserveService {
 	 * @param reserveRequest
 	 * @return 등록 성공 시 TRUE
 	 */
-	boolean registerReserve(ReserveRequest reserveRequest);
+	void registerReserve(ReserveRequest reserveRequest);
 }
