@@ -8,11 +8,12 @@ import org.apache.ibatis.annotations.Param;
 
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
 
-/**
- * reviewWrite 페이지에서 이용
- */
-public interface ReviewWrtieDao {
 
+public interface ReviewWrtieDao {
+	/**
+	 * reviewWrite 페이지 로드 reponse에 사용
+	 * @param reservationInfoId
+	 */
 	public ReviewWriteResponse selectReviewWrite(
 		@Param("reservationInfoId") int reservationInfoId);
 }

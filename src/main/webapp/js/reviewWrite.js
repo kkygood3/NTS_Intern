@@ -1,14 +1,18 @@
 const MAX_COMMENT_LENGTH = 400;
 
 document.addEventListener('DOMContentLoaded', function() {
-	/**
-	 * 별점 클릭 이벤트 등록
-	 */
+	initRationChangeEvent();
+	initCommentChangeEvent();
+	initImageChangeEvent();
+	initWriteBtnClickEvent();
+});
+
+
+function initRationChangeEvent(){
 	var starsArea = document.querySelectorAll('.rating input');
 	var starsNumArea = document.querySelector('.star_rank');
 	
 	document.querySelector('.rating').addEventListener('click',function(evt){
-		
 		var clickedBtn = evt.target;
 		
 		if(clickedBtn.tagName == 'INPUT'){
@@ -23,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 	});
-	/////////////////////////////////////////////////////////////
-	
+}
+
+function initCommentChangeEvent(){
 	var textArea = document.querySelector('textarea');
 	var textCountArea = document.querySelector('.guide_review span');
 	var textGuideArea = document.querySelector('.review_write_info');
@@ -51,8 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		},10);
 	}
-	
-	//////////////////////////////////////////////////////////////////
+}
+
+function initImageChangeEvent(){
 	var imageInput = document.querySelector('.hidden_input');
 	var thumnailWrap = document.querySelector('.lst_thumb .item');
 	var imageArea = thumnailWrap.querySelector('img');
@@ -66,24 +72,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	var deleteImageBtn = document.querySelector('.ico_del');
 	deleteImageBtn.addEventListener('click', ()=>{thumnailWrap.style.display = 'none'; imageInput.value = '';});
-	
-	
-	/////////////////////////////////////////////////////////////////
-	
-	/**
-	 * 글, 사진, 별점, productId / 이메일은 세션에서
-	 * 1. FormData에 데이터 입력
-	 */
-	
+}
+
+function initWriteBtnClickEvent(){
 	var writeReviewBtn = document.querySelector('.bk_btn');
 	
 	var textArea = document.querySelector('textarea');
 	var starsNumArea = document.querySelector('.star_rank');
 	var imageInput = document.querySelector('.hidden_input');
-	// TODO: 임시로 3사용
-	var productId = 3;
-	// TODO: 임시로 3사용
-	var reservationInfoId = 3;
+	var productId = document.querySelector('#productIdInput').value;
 	
 	writeReviewBtn.addEventListener('click', function(evt){
 		evt.preventDefault();
@@ -95,20 +92,22 @@ document.addEventListener('DOMContentLoaded', function() {
 			writeForm.append('comment', textArea.value.substr(0, MAX_COMMENT_LENGTH));
 			writeForm.append('score', parseInt(starsNumArea.innerText));
 			writeForm.append('productId', productId);
-			writeForm.append('imageFile', imageInput.files[0]);
+			
+			if(imageInput.files.length > 0){
+				writeForm.append('imageFile', imageInput.files[0]);
+			}
 			
 			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm,'multipart/form-data; charset=UTF-8');
 		}
 	});
-	
-	//////////////////////////////////////////////////////
-	function writeResponseHandler(response){
-		if(!response || response.result != 'OK'){
-			document.querySelector('.bk_btn').style.display = '';
-			alert('리뷰 등록에 실패했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
-		} else {
-			alert('등록 되었습니다.');
-			location.href = '/myreservation';
-		}
+}
+
+function writeResponseHandler(response){
+	if(!response || response.result != 'OK'){
+		document.querySelector('.bk_btn').style.display = '';
+		alert('리뷰 등록에 실패했습니다.\r\n잠시 후에 다시 시도해주시기 바랍니다.');
+	} else {
+		alert('등록 되었습니다.');
+		location.href = '/myreservation';
 	}
-});
+}

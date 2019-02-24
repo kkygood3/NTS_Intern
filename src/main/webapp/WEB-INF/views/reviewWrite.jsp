@@ -26,7 +26,7 @@
 			<div class="ct_wrap">
 				<div class="top_title review_header">
 					<a href="./myreservation.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">클림트 인사이드</span></h2>
+					<h2><span class="title">${reviewWriteResponse.productDescription}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
@@ -117,6 +117,10 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
+	<input type="hidden" id="productIdInput" value="${reviewWriteResponse.productId}">
+	<input type="hidden" id="reservationInfoIdInput" value="${reviewWriteResponse.reservationInfoId}">
+	
 	
 	<script src="js/common.js"></script>
 	<script src="js/reviewWrite.js"></script>
