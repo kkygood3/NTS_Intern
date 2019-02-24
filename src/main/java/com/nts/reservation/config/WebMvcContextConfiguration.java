@@ -75,9 +75,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new PreventPathAttackInterceptor()).addPathPatterns("/api/download/**");
 
 		registry.addInterceptor(new AuthInterceptor()).addPathPatterns(new String[] {
-			"/myReservation", "/addComment/{reservationInfoId}"
+			"/myReservation", "/comment/{reservationInfoId}"
 		});
-		registry.addInterceptor(addCommentViewInterceptor()).addPathPatterns("/addComment/{reservationInfoId}");
 	}
 
 	@Bean

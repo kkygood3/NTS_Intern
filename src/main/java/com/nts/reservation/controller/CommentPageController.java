@@ -18,19 +18,19 @@ import com.nts.reservation.service.ReservationService;
  * @author 육성렬
  */
 @Controller
-public class AddCommentPageController {
+public class CommentPageController {
 
 	private final ReservationService reservationService;
 
 	@Autowired
-	public AddCommentPageController(ReservationService reservationService) {
+	public CommentPageController(ReservationService reservationService) {
 		this.reservationService = reservationService;
 	}
 
-	@GetMapping("/addComment/{reservationInfoId}")
+	@GetMapping("/comment/{reservationInfoId}")
 	public String getAddCommentPage(@PathVariable Long reservationInfoId, ModelMap map) {
 		ReservationInfoDto reservation = reservationService.getReservation(reservationInfoId);
 		map.addAttribute("reservation", reservation);
-		return "addCommentPage";
+		return "commentPage";
 	}
 }

@@ -124,7 +124,7 @@
 	
 	<script src="../js/lib/handlebars.min-v4.0.13.js"></script>
     <script src="../js/util.js"></script>
-    <script src="../js/addComment.js"></script>
+    <script src="../js/comment.js"></script>
     <script type="rv-template" id="commentImageItem">
 		<li class="item" data-file-name="{{fileName}}">
 			<a class="anchor">

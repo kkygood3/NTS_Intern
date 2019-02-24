@@ -3,10 +3,10 @@
  */
 
 document.addEventListener("DOMContentLoaded", function() {
-	addCommentPage.init();
+	commentPage.init();
 });
 
-var addCommentPage = {
+var commentPage = {
 	elements : {
 		addCommentBtn : document.querySelector(".bk_btn")
 	},

@@ -224,7 +224,7 @@ var myReservationPage = {
 			this.requestCancelMyReservation(reservationId);
 		} else if (target.container.classList.contains("used")) {
 			var reservaionId = target.clickedReservationId;
-			window.location.href = "/addComment/"
+			window.location.href = "/comment/"
 					+ reservaionId;
 		}
 	}
