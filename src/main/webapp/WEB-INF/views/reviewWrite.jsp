@@ -70,7 +70,7 @@
 							<i class="fn fn-image1" aria-hidden="true"></i>
 							<span class="text_add_photo">사진 추가</span>
 						</label>
-						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" multiple>
+						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" name="file" multiple>
 						<div class="guide_review">
 							<span>0</span>/400
 							<span>(최소5자이상)</span>
@@ -85,7 +85,7 @@
 									<a href="#" class="anchor">
 										<span class="spr_book ico_del">삭제</span>
 									</a>
-									<img src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" width="130" alt="" class="item_thumb">
+									<img src="" width="130" alt="" class="item_thumb">
 									<span class="img_border"></span>
 								</li>
 							</ul>
@@ -107,10 +107,8 @@
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 
-<!-- 	<form method="post" action="upload" enctype="multipart/form-data">
-		file :    <input type="file" name="file"><br>
-		<input type="submit">
-	</form> -->    
+ 	<form method="post" action="./comment" enctype="multipart/form-data" style="display:none;">
+	</form>
 
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>

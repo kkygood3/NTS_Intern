@@ -27,3 +27,34 @@ function addRatingClickEvent() {
 		rating.setScore(event.target.value);
 	});
 }
+
+function addFileInputChangeEvent() {
+	var fileInput = document.querySelector("#reviewImageFileOpenInput");
+	fileInput.addEventListener("change", (event) => {
+		const image = event.target.files[0];
+		if(!validImageType(image)) { 
+			console.warn("invalide image file type");
+			return;
+		}
+        const elImage = document.querySelector(".item_preview_thumbs .item_thumb");
+        const li = document.querySelector(".item_preview_thumbs .item");
+        elImage.src = window.URL.createObjectURL(image);
+        li.style.display = "";
+	});
+}
+
+function validImageType(image) {
+	return ([ "image/jpeg",
+			  "image/png",
+			  "image/jpg" ].indexOf(image.type) > -1);
+}
+
+function addFileDeleteButtonClickEvent() {
+	var fileInput = document.querySelector("#reviewImageFileOpenInput");
+	const fileDeleteButton = document.querySelector(".spr_book.ico_del");
+	fileDeleteButton.addEventListener("click", (event) => {
+        const li = document.querySelector(".item_preview_thumbs .item");
+        li.style.display = "none";
+        fileInput.value = "";
+	});
+}

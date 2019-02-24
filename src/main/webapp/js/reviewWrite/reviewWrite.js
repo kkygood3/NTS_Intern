@@ -8,4 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	addReviewWriteInfoClickEvent();
 	addRatingClickEvent();
 	addReviewTextareaBlurEvent();
+	addFileInputChangeEvent();
+	addFileDeleteButtonClickEvent();
 });
