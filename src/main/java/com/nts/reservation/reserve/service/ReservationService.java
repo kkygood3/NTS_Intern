@@ -6,6 +6,8 @@ package com.nts.reservation.reserve.service;
 
 import java.util.List;
 
+import org.springframework.web.HttpSessionRequiredException;
+
 import com.nts.reservation.reserve.dto.ReservationInfo;
 import com.nts.reservation.reserve.dto.ReservationParam;
 import com.nts.reservation.reserve.dto.ReservationResponse;
@@ -14,10 +16,10 @@ public interface ReservationService {
 
 	ReservationResponse getReservationResponse(int reservationInfoId);
 
+	ReservationResponse saveReservation(ReservationParam reservationParam);
+
 	List<ReservationInfo> getReservationInfoResponse(String reservationEmail);
 
-	int cancelReservation(int reservationInfoId);
-
-	int insertReservation(ReservationParam reservationParam);
+	ReservationResponse cancelReservation(int reservationInfoId, String sessionEmail) throws HttpSessionRequiredException;
 
 }
