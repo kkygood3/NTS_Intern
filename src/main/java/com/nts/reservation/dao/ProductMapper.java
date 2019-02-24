@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ReviewWritePageInfo;
 
 /**
  * 상품 테이블 접근하는 클래스
@@ -55,5 +56,5 @@ public interface ProductMapper {
 	 * @param productId 상품 아이디
 	 * @return 상품 이름
 	 */
-	String selectProductDescriptionByProductId(long productId);
+	ReviewWritePageInfo selectProductInfoByReservationInfoId(long reservationInfoId);
 }

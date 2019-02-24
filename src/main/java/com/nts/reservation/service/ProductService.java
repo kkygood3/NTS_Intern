@@ -5,6 +5,7 @@ import java.util.List;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ReviewWritePageInfo;
 
 /**
  * 상품 관련 서비스 로직 수행하는 클래스
@@ -55,5 +56,5 @@ public interface ProductService {
 	 * @param productId 조회할 상품
 	 * @return 상품명
 	 */
-	String getProductDescriptionByProductId(long productId);
+	ReviewWritePageInfo getProductInfoByReservationInfoId(long reservationInfoId);
 }

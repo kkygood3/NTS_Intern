@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class ReservationDisplayItem {
 	private long productId;
-	private long reservationId;
+	private long reservationInfoId;
 	private String description;
 	private Date reservationDate;
 	private String reservationDateFormat;
@@ -23,12 +23,12 @@ public class ReservationDisplayItem {
 		this.productId = productId;
 	}
 
-	public long getReservationId() {
-		return reservationId;
+	public long getReservationInfoId() {
+		return reservationInfoId;
 	}
 
-	public void setReservationId(long reservationId) {
-		this.reservationId = reservationId;
+	public void setReservationInfoId(long reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
 	}
 
 	public String getDescription() {
@@ -90,8 +90,8 @@ public class ReservationDisplayItem {
 
 	@Override
 	public String toString() {
-		return "ReservationDisplayItem [productId=" + productId + ", reservationId=" + reservationId + ", description="
-				+ description + ", reservationDate=" + reservationDate + ", reservationDateFormat="
+		return "ReservationDisplayItem [productId=" + productId + ", reservationInfoId=" + reservationInfoId
+				+ ", description=" + description + ", reservationDate=" + reservationDate + ", reservationDateFormat="
 				+ reservationDateFormat + ", canceled=" + canceled + ", placeName=" + placeName + ", price=" + price
 				+ ", modifyDate=" + modifyDate + "]";
 	}

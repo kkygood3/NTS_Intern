@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nts.reservation.dto.CommentPageInfo;
@@ -74,19 +75,5 @@ public class ProductController {
 		ReservationPageInfo reservationPageInfo = reservationService.getReservationPageInfoByDisplayInfoId(displayInfoId);
 		model.addAttribute("pageInfo", reservationPageInfo);
 		return "reservation";
-	}
-	
-	/**
-	 * 리뷰작성 페이지에 필요한 정보 담아서 url 맵핑한다
-	 * @param productId 리뷰쓸 상품
-	 * @param model 표시할 정보
-	 * @return 뷰이름 리턴
-	 */
-	@GetMapping("/{productId}/comment")
-	public String getComment(ModelMap model, 
-			@PathVariable(name = "productId", required = true) long productId) {
-		model.addAttribute("productId", productId);
-		model.addAttribute("description", productService.getProductDescriptionByProductId(productId));
-		return "reviewWrite";
 	}
 }

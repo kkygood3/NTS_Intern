@@ -100,11 +100,14 @@
 		LIMIT	#{start}, #{limit}
 	</select>
 	
-	<select id="selectProductDescriptionByProductId" resultType="String">
-		SELECT	p.description
+	<select id="selectProductInfoByReservationInfoId" resultType="ReviewWritePageInfo">
+		SELECT	p.id AS product_id,
+				p.description
 
 		FROM	product AS p
+				INNER JOIN	reservation_info AS r
+							ON r.product_id = p.id
 
-		WHERE	p.id = #{productId}
+		WHERE	r.id = #{reservationInfoId}
 	</select>
 </mapper>
