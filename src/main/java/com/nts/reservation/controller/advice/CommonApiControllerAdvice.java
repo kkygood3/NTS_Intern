@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.nts.reservation.dto.ErrorMessageDto;
 import com.nts.reservation.exception.CustomFileNotFoundException;
 import com.nts.reservation.exception.InvalidParamException;
-import com.nts.reservation.util.LogUtil;
 
 /**
  * @author 육성렬
@@ -38,42 +37,42 @@ public class CommonApiControllerAdvice {
 	@ExceptionHandler(IOException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleIoException(IOException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 
 	@ExceptionHandler(SQLException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleSqlException(SQLException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 
 	@ExceptionHandler(BindException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessageDto handleBindException(BindException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
 	@ExceptionHandler(InvalidParamException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessageDto handleInvalidParamException(InvalidParamException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
 	@ExceptionHandler(FileNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorMessageDto handleFileNotFoundException(FileNotFoundException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(NOT_FOUND_REQUEST);
 	}
 
 	@ExceptionHandler(CustomFileNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorMessageDto handleCustomFileNotFoundException(CustomFileNotFoundException exception) {
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(NOT_FOUND_REQUEST);
 
 	}
@@ -81,7 +80,7 @@ public class CommonApiControllerAdvice {
 	@ExceptionHandler(Exception.class)
 	public ErrorMessageDto handleCommonException(Exception exception) {
 
-		logger.error("error msg : {} \n {}", exception.getMessage(), LogUtil.convertStackTraceToString(exception));
+		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(COMMON_ERROR_MSG);
 	}
 }
