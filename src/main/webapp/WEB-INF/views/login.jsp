@@ -22,7 +22,7 @@
 			<div class="_view_content" ui-view="content" id="container" >
 				<booked-confirm>
 					<div class="booking_login">
-						<h1 class="login_header"> <a href="./mainpage.html"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
+						<h1 class="login_header"> <a href="/"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
 						<!---->
 						<div >
 							<form name="confirm_form" class="ng-pristine ng-valid" id="form1" method="post" action="/login">
