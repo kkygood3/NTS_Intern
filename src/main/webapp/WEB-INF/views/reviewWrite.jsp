@@ -106,5 +106,10 @@
 	<footer>
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
+
+	<script type= "text/javascript" src= "/js/common/error.js" ></script>
+	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
+	<script type= "text/javascript" src= "/js/reviewWrite/event.js" ></script>
+	<script type= "text/javascript" src= "/js/reviewWrite/reviewWrite.js" ></script>
 </body>
 </html>
