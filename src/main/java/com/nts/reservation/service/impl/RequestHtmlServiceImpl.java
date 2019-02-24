@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.nts.reservation.http.RequestHtmlFileHttp;
+import com.nts.reservation.requester.HtmlFileRequester;
 import com.nts.reservation.service.RequestHtmlService;
 
 /**
@@ -20,10 +20,10 @@ import com.nts.reservation.service.RequestHtmlService;
 @Service
 public class RequestHtmlServiceImpl implements RequestHtmlService {
 
-	private final RequestHtmlFileHttp requestHtmlFileHttp;
+	private final HtmlFileRequester requestHtmlFileHttp;
 
 	@Autowired
-	public RequestHtmlServiceImpl(RequestHtmlFileHttp requestHtmlFileHttp) {
+	public RequestHtmlServiceImpl(HtmlFileRequester requestHtmlFileHttp) {
 		this.requestHtmlFileHttp = requestHtmlFileHttp;
 	}
 

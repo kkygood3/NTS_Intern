@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
 
-import com.nts.reservation.http.RequestHtmlFileHttp;
+import com.nts.reservation.requester.HtmlFileRequester;
 
 /**
  * @author 육성렬
@@ -22,8 +22,8 @@ import com.nts.reservation.http.RequestHtmlFileHttp;
 public class ApplicationConfig {
 
 	@Bean
-	public RequestHtmlFileHttp requestHtmlFileHttp() {
-		return new RequestHtmlFileHttp();
+	public HtmlFileRequester requestHtmlFileHttp() {
+		return new HtmlFileRequester();
 	}
 
 	@Bean
