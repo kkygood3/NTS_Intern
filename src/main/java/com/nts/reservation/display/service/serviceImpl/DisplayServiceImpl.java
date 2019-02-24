@@ -23,6 +23,7 @@ import com.nts.reservation.product.dto.ProductPrice;
 public class DisplayServiceImpl implements DisplayService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DisplayServiceImpl.class);
+	private static final int NONE = 0;
 
 	@Autowired
 	private CommentService commentService;
@@ -35,9 +36,9 @@ public class DisplayServiceImpl implements DisplayService {
 	public DisplayResponse getDisplayInfo(int displayInfoId, int limit) {
 		DisplayInfo displayInfo = displayDao.selectDisplayInfo(displayInfoId);
 
-		if (displayInfo == null) {
+		if (displayInfo.getDisplayInfoId() == NONE) {
 			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (displayInfo)");
-			LOGGER.warn("Does not exist displayInfo /  displayInfoId : {}", displayInfo, e);
+			LOGGER.warn("Does not exist displayInfo /  displayInfoId : {}", displayInfoId, e);
 			throw e;
 		}
 
