@@ -6,6 +6,8 @@ import static com.nts.reservation.config.ProjectInfo.CACHE_PERIOD;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -17,12 +19,13 @@ import com.nts.reservation.interceptor.UserAuthorizationInterceptor;
 
 /**
  * url 맵핑
+ * 
  * @author 시윤
  *
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {BASE_PACKEGE + ".controller"})
+@ComponentScan(basePackages = { BASE_PACKEGE + ".controller" })
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -41,7 +44,6 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("main");
 		registry.addViewController("error").setViewName("error");
-		registry.addViewController("reservation").setViewName("myreservation");
 	}
 
 	@Bean
@@ -54,8 +56,14 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new UserAuthorizationInterceptor())
-				.addPathPatterns("/reservation")
+		registry.addInterceptor(new UserAuthorizationInterceptor()).addPathPatterns("/reservation")
 				.addPathPatterns("/detail/*/comment");
+	}
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+		return multipartResolver;
 	}
 }
