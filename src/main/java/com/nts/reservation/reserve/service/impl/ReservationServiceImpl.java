@@ -2,9 +2,12 @@ package com.nts.reservation.reserve.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.HttpSessionRequiredException;
 
 import com.nts.reservation.display.dao.DisplayDao;
 import com.nts.reservation.reserve.dao.ReservationDao;
@@ -22,25 +25,8 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private DisplayDao displayDao;
 
-	/**
-	 * 입력받은 정보로 새로운 reservation을 등록
-	 * @param reservationParam
-	 * @return auto increment로 생성된 reservationInfoId
-	 */
-	// XXX update시 반환되는 0, 1값
-	@Override
-	@Transactional
-	public int insertReservation(ReservationParam reservationParam) {
-		int reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
-		reservationParam.getPrice().stream()
-			.filter(price -> price.getCount() > 0)
-			.forEach(price -> {
-				price.setReservationInfoId(reservationInfoId);
-				reservationDao.insertReservationPrice(price);
-			});
-		
-		return reservationInfoId;
-	}
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
+	private static final int NOT_UPDATED = 0;
 
 	/**
 	 * reservationInfoId로 price를 포함한 reservation을 조회 후 반환
@@ -49,19 +35,9 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationResponse getReservationResponse(int reservationInfoId) {
 		List<ReservationPrice> ReservationPrices = reservationDao.selectReservationPrices(reservationInfoId);
 		ReservationInfo reservationInfo = reservationDao.selectReservationInfo(reservationInfoId);
-		// XXX 효율적으로 넣는 법?
 		return ReservationResponse.builder()
-			.cancelYn(reservationInfo.isCancelYn())
-			.createDate(reservationInfo.getCreateDate())
-			.displayInfoId(reservationInfo.getDisplayInfoId())
-			.modifyDate(reservationInfo.getModifyDate())
+			.reservationInfo(reservationInfo)
 			.price(ReservationPrices)
-			.productId(reservationInfo.getProductId())
-			.reservationDate(reservationInfo.getReservationDate())
-			.reservationEmail(reservationInfo.getReservationEmail())
-			.reservationInfoId(reservationInfo.getReservationInfoId())
-			.reservationName(reservationInfo.getReservationName())
-			.reservationTel(reservationInfo.getReservationTel())
 			.build();
 	}
 
@@ -79,12 +55,45 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservations;
 	}
 
+	@Override
+	public ReservationResponse cancelReservation(int reservationInfoId, String sessionEmail)
+		throws HttpSessionRequiredException {
+		ReservationResponse reservationResponse = getReservationResponse(reservationInfoId);
+		String reservationEmail = reservationResponse.getReservationInfo().getReservationEmail();
+		if (!reservationEmail.equals(sessionEmail)) {
+			HttpSessionRequiredException e = new HttpSessionRequiredException("비정상적 접근 시도!");
+			LOGGER.debug("Does not Same email!! / session Email : {} / reservation Email : {}", sessionEmail,
+				reservationEmail, e);
+			throw e;
+		}
+
+		int cancelResult = reservationDao.cancelReservation(reservationInfoId);
+		if (cancelResult == NOT_UPDATED) {
+			IllegalArgumentException e = new IllegalArgumentException("Does not exist reservationId!!");
+			LOGGER.warn("Bad Request! Parameter / reservationId : {}", reservationInfoId, e);
+			throw e;
+		}
+		reservationResponse.getReservationInfo().setCancelYn(true);
+		return reservationResponse;
+	}
+
 	/**
-	 * reservation을 취소
+	 * 입력받은 정보로 새로운 reservation을 등록 후 해당 정보를 반환
+	 * @param reservationParam 사용자가 입력한 예약 정보
+	 * @return ReservationResponse 완료된 해당 예약 정보
 	 */
 	@Override
-	public int cancelReservation(int reservationInfoId) {
-		return reservationDao.cancelReservation(reservationInfoId);
+	@Transactional
+	public ReservationResponse saveReservation(ReservationParam reservationParam) {
+		int reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
+		reservationParam.getPrice().stream()
+			.filter(price -> price.getCount() > 0)
+			.forEach(price -> {
+				price.setReservationInfoId(reservationInfoId);
+				reservationDao.insertReservationPrice(price);
+			});
+
+		return getReservationResponse(reservationInfoId);
 	}
 
 }

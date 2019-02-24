@@ -11,15 +11,6 @@ import lombok.ToString;
 @Builder
 public class ReservationResponse {
 
-	private boolean cancelYn;
-	private String createDate;
-	private int displayInfoId;
-	private String modifyDate;
+	private ReservationInfo reservationInfo;
 	private List<ReservationPrice> price;
-	private int productId;
-	private String reservationDate;
-	private String reservationEmail;
-	private int reservationInfoId;
-	private String reservationName;
-	private String reservationTel;
 }

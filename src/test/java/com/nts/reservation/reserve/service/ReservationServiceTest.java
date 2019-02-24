@@ -71,17 +71,8 @@ public class ReservationServiceTest {
 		int reservationInfoId = 1;
 		ReservationInfo reservationInfo = reservationDao.selectReservationInfo(reservationInfoId);
 		ReservationResponse reservationResponse = ReservationResponse.builder()
-			.cancelYn(reservationInfo.isCancelYn())
-			.createDate(reservationInfo.getCreateDate())
-			.displayInfoId(reservationInfo.getDisplayInfoId())
-			.modifyDate(reservationInfo.getModifyDate())
+			.reservationInfo(reservationInfo)
 			.price(reservationDao.selectReservationPrices(reservationInfoId))
-			.productId(reservationInfo.getProductId())
-			.reservationDate(reservationInfo.getReservationDate())
-			.reservationEmail(reservationInfo.getReservationEmail())
-			.reservationInfoId(reservationInfo.getReservationInfoId())
-			.reservationName(reservationInfo.getReservationName())
-			.reservationTel(reservationInfo.getReservationTel())
 			.build();
 		LOGGER.debug("reservationResponse: {}", reservationResponse);
 	}
