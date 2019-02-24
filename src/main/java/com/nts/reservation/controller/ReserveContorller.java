@@ -4,16 +4,12 @@
  */
 package com.nts.reservation.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
 
 @Controller
@@ -27,15 +23,7 @@ public class ReserveContorller {
 	 */
 	@GetMapping("/reserve")
 	public String requestReserve(@RequestParam(name = "id", required = true) Integer id, ModelMap map) {
-		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, (int)((Math.random() * 5)) + 1);
-
-		ReserveResponse reserveResponse = reserveResponseService.getReserveResponse(id);
-		map.addAttribute("reserveDisplayInfo", reserveResponse.getReserveDisplayInfo());
-		map.addAttribute("reservePrice", reserveResponse.getReservePrice());
-		map.addAttribute("reservationDate", dateFormat.format(calendar.getTime()));
+		map.addAttribute("reserveResponse", reserveResponseService.getReserveResponse(id));
 		return "reserve";
 	}
 }
