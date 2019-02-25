@@ -16,6 +16,21 @@
 		             #{contentType}, 
 		             #{deleteFlag}, 
 		             Now(), 
-		             Now()); 
+		             Now())
 	</insert>
+
+	<select id="selectFileByReservationId" resultType="FileInfoDto">
+		SELECT 
+		    f.id,
+		    f.file_name AS fileName,
+		    f.save_file_name AS saveFileName,
+		    f.content_type AS contentTyle,
+		    f.delete_flag AS deleteFlag
+		FROM
+		    reservation_user_comment_image ci
+		        INNER JOIN
+		    file_info f ON ci.file_id = f.id
+		WHERE
+		    ci.id = #{id} AND f.delete_flag = FALSE
+	</select>
 </mapper>

@@ -18,4 +18,9 @@ public interface FileMapper {
 	 * 파일등록
 	 */
 	void insertFile(FileInfoDto fileInfo);
+
+	/**
+	 * 상품평 파일 정보 가져오기
+	 */
+	FileInfoDto selectFileByReservationId(int id);
 }
