@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,16 +33,10 @@ import com.nts.reservation.service.CommentService;
 public class CommentApiController {
 	@Autowired
 	private CommentService commentService;
-	@Autowired
-	private ServletContext servletContext;
 
 	@PostMapping(path = "/comment")
 	public void postComment(@ModelAttribute CommentParam commentParam) {
-		try {
-			commentService.postComments(commentParam);
-		} catch (Exception e) {
-			throw new RuntimeException("comment Post error");
-		}
+		commentService.postComments(commentParam);
 	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")

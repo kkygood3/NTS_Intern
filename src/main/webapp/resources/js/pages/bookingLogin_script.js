@@ -22,13 +22,15 @@ function init() {
             alert("Wrong email type");
             return;
         }
-        console.log(email);
+        
         let formData = new FormData();
         formData.append("email", email)
         
         let request = new XhrRequest("POST", "/reservation/api/login");
         request.setCallback(() => {
             window.location.href = "/reservation/myreservation"
+        }, () => {
+        	alert("FAILED")
         });
         request.setIsAsync(false);
         request.multipartSend(formData);

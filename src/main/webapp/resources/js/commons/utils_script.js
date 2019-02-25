@@ -280,11 +280,16 @@ function XhrRequest(_method, _url) {
     this.isAsync = true;
 }
 
-XhrRequest.prototype.setCallback = function (_callback){
+XhrRequest.prototype.setCallback = function (_callback, _error){
 	this.xhr.onreadystatechange = function (aEvt) {
         if (this.readyState === XMLHttpRequest.DONE) {
             if (this.status >= 200 && this.status<300) {
                 _callback(this.responseText);
+            }
+            else{
+            	if(_error){
+            		_error(this.responseText);
+            	}
             }
         }
     };

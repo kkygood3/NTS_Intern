@@ -76,6 +76,8 @@ function sendReservation(priceDataArr, params) {
     request.setCallback(() => {
         alert("SUCCESS");
         window.location.href = "/reservation";
+    }, () => {
+    	alert("FAILED")
     });
     request.setIsAsync(false);
     request.send(JSON.stringify(dataToSend))

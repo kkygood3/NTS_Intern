@@ -57,9 +57,11 @@ class MakeReviewBtn{
             })
 
             let xhr = new XhrRequest("POST", "/reservation/api/comment");
-            xhr.setCallback(()=>{
+            xhr.setCallback(() => {
                 alert("done");
                 window.location.href = "/reservation/myreservation"
+            }, () => {
+                alert("error");
             });
             xhr.setIsAsync(false);
             xhr.multipartSend(formData);

@@ -39,6 +39,8 @@ var MakeReviewBtn = /** @class */ (function () {
             xhr.setCallback(function () {
                 alert("done");
                 window.location.href = "/reservation/myreservation";
+            }, function () {
+                alert("error");
             });
             xhr.setIsAsync(false);
             xhr.multipartSend(formData);

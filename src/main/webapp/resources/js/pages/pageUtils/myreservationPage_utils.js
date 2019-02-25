@@ -75,6 +75,8 @@ ReservationCard.prototype.cancelReservation= function () {
         popup.removeEventListener("click", event);
         sectionCanceled.appendChild(this.reservation);
         this.cancelButtonWrapper.style.display = "none";
+    }, () => {
+    	alert("FAILED")
     });
     request.send();
     

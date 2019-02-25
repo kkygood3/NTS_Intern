@@ -37,25 +37,14 @@ public class ReservationApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/reservations")
-	public boolean postReservation(@RequestBody ReservationParam reservationParam) {
-		try {
-			reservationService.addReservations(reservationParam);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
+	public void postReservation(@RequestBody ReservationParam reservationParam) {
+		reservationService.addReservations(reservationParam);
 	}
 
 	@PutMapping(path = "/reservations/{reservationId}")
-	public boolean cancelReservation(
+	public void cancelReservation(
 		@PathVariable(name = "reservationId", required = true) Long reservationId) {
-		try {
-			reservationService.cancelReservation(reservationId);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+		reservationService.cancelReservation(reservationId);
 	}
 
 	@GetMapping("/reservations")
