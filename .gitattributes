@@ -1,0 +1,2 @@
+resources/img/*.png -diff
+resources/img_map/*.png -diff
