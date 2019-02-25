@@ -63,7 +63,7 @@
 						</span>
 						<span class="left_space">(단, 리뷰 포인트는 ID 당 1일 최대 5건까지 지급됩니다.)</span>
 					</a>
-					<textarea cols="30" rows="10" class="review_textarea"></textarea>
+					<textarea cols="30" rows="10" maxlength="400" class="review_textarea"></textarea>
 				</div>
 				<!-- //리뷰 입력 -->
 
@@ -152,11 +152,32 @@
 		var ratingBody = document.querySelector(".rating");
 		var starRating = new StarRating(ratingBody);
 
-		// 텍스트 영역 클릭시 	설명문 숨김 및 텍스트영역 포커스
-		document.querySelector(".review_write_info").addEventListener("click", function(evt) {
-			this.style.display = "none";
-			document.querySelector(".review_textarea").focus();
-		});
+
+		function CommentTextArea(body) {
+			this.body = body;
+			this.text = "";
+			this.registerEvents();
+		}
+
+		CommentTextArea.prototype = {
+			registerEvents: function () {
+				// 텍스트 영역 클릭시 	설명문 숨김 및 텍스트영역 포커스
+				document.querySelector(".review_write_info").addEventListener("click", function(evt) {
+					document.querySelector(".review_write_info").style.display = "none";
+					this.body.focus();
+				}.bind(this));
+				// 입력된 글자 text필드변수에 저장 및 글자수 표시
+				this.body.addEventListener("input", function(evt) {
+					this.text = this.body.value;
+					document.querySelector(".guide_review span").innerText = this.text.length;
+				}.bind(this));
+			}
+		}
+
+		var commentBody = document.querySelector(".review_textarea");
+		var commentTextArea = new CommentTextArea(commentBody);
+
+		document.querySelector(".review_textarea");
 
 		// 이미지 input 이벤트리스너 등록
 		const elImage = document.querySelector("#reviewImageFileOpenInput");
@@ -188,6 +209,19 @@
 			// 이미지 input value 초기화
 			document.querySelector("#reviewImageFileOpenInput").value = "";
 		})
+
+		// 리뷰 등록
+		document.querySelector(".bk_btn").addEventListener("click", function(evt) {
+			if (!starRating.value) {
+				alert("별점을 선택해주세요");
+				return;
+			}
+			if (commentTextArea.text.length < 5 || commentTextArea.text.length > 400) {
+				alert("상품평이 너무 길거나 짧습니다.");
+				return;
+			}
+		});
+
 	</script>
 </body>
 </html>
