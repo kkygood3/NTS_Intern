@@ -67,8 +67,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 		for (ReservationInfoPriceDto reservationInfoPrice : reservationParam.getPrices()) {
 			reservationInfoPrice.setReservationInfoId(reservationInfo.getId());
-			reservationMapper.insertReservationInfoPrice(reservationInfoPrice);
 		}
+
+		reservationMapper.insertReservationInfoPrices(reservationParam.getPrices());
 	}
 
 	/**

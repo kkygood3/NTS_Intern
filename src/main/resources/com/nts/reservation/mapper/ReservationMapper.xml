@@ -111,17 +111,21 @@
 		             #{reservationDate}, 
 		             #{cancelFlag}, 
 		             now(), 
-		             now()); 
+		             now())
 	</insert>
 
-	<insert id="insertReservationInfoPrice" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertReservationInfoPrices" useGeneratedKeys="true" keyProperty="id"
+			parameterType="java.util.List">
 		INSERT INTO reservation_info_price 
 		           (reservation_info_id, 
 		            product_price_id, 
 		            count) 
-		VALUES      (#{reservationInfoId}, 
-		            #{productPriceId}, 
-		            #{count}); 
+		VALUES      
+		<foreach collection="list" item="item" separator=" , " >
+		           (#{item.reservationInfoId}, 
+		            #{item.productPriceId}, 
+		            #{item.count})
+		</foreach>
 	</insert>
 
 	<update id="updateReservationToCancel">
@@ -130,6 +134,6 @@
 		    cancel_flag = true,
 		    modify_date = now()
 		WHERE
-		    id = #{reservationId};
+		    id = #{reservationId}
 	</update>
 </mapper>

@@ -35,7 +35,7 @@ public interface ReservationMapper {
 
 	int insertReservationInfo(ReservationInfoDto reservationInfo);
 
-	int insertReservationInfoPrice(ReservationInfoPriceDto reservationInfoPrice);
+	int insertReservationInfoPrices(List<ReservationInfoPriceDto> reservationInfoPrice);
 
 	/**
 	 * 예약 취소
