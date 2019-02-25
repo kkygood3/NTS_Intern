@@ -51,8 +51,8 @@ ReservationCancel.prototype = {
 		myReservation.popup.style.display = 'block';
 		myReservation.selectedId = event.target.dataset.id;
 		
-		let title = event.target.parentElement.parentElement.children[1].innerText;
-		let date = event.target.parentElement.parentElement.children[2].firstElementChild.children[1].innerText;
+		let title = document.querySelectorAll('.item_' + event.target.dataset.id)[0].innerText;;
+		let date = document.querySelectorAll('.item_' + event.target.dataset.id)[1].innerText;;
 
 		document.querySelector('.pop_tit').firstElementChild.innerText = title;
 		document.querySelector('.sm').innerText = date;
