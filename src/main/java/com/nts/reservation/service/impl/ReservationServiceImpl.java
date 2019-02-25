@@ -44,7 +44,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @desc 예약 정보 입력.
 	 * @param reservation
 	 */
-	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
+	@Transactional(readOnly = false)
 	@Override
 	public void addReservation(ReservationRequestDto reservation) {
 		long reservationInfoId = reservationDao.insertReservation(reservation);
@@ -98,7 +98,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param fileList
 	 * @param reservaionInfoId
 	 */
-	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
+	@Transactional(readOnly = false)
 	@Override
 	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> fileList,
 		Long reservationInfoId) throws SQLException {
