@@ -49,7 +49,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		return reservationInfoResponse;
 	}
-	
+
 	private ReservationInfo fetchReservationInfo (ReservationInfo reservation, String Email) {
 		int displayInfoId = reservation.getDisplayInfoId();
 		int reservationInfoId = reservation.getReservationInfoId();
@@ -60,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		reservation.setDisplayInfo(displayInfo);
 		reservation.setTotalPrice(reservationTotalPrice);
-		
+
 		return reservation;
 	}
 
@@ -90,7 +90,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 
 		reservationParam.getPrices().forEach(price -> {
-			Integer reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
+			int reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
 					reservationInfoId, price.getCount());
 
 			if (NegativeValueValidator.isNegativeValue(reservationInfoPriceId)) {
