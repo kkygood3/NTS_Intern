@@ -230,7 +230,9 @@
 			var formData = new FormData();
 			formData.append("score", starRating.value);
 			formData.append("comment", commentTextArea.text);
-			formData.append("image", elImage.files[0]);
+			if (elImage.files[0]) {
+				formData.append("image", elImage.files[0]);
+			}
 
 			var url = "/api/reservations/" + reservationId + "/comments?productId=" + productId;
 			ajaxFile(ajaxSuccess, url, formData);
