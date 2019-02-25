@@ -89,7 +89,7 @@ function setSlideBtn(productDisplayImgList, productDisplayImgUrlItems){
 }
 
 function printLocationDetail(productDisplay){
-	document.querySelector("#location_display_img").src = "/resources/" +productDisplay.displayInfoImageUrl;
+	document.querySelector("#location_display_img").src = "/file/" +productDisplay.displayInfoImageUrl;
 	document.querySelector("#location_product_description").textContent = productDisplay.productDescription;
 	document.querySelector("#location_place_street").textContent = productDisplay.placeStreet;
 	document.querySelector("#location_place_lot").textContent = productDisplay.placeLot;

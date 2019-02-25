@@ -61,11 +61,11 @@
 	    <script type="text/template" id="comment_template" class="template" data-parse-name="Comment">
 			<li class="list_item">
 				<div>
-					<div class="review_area{{#unless commentImageUrlList}} no_img{{/unless}}">
-						{{#if commentImageUrlList}}
+					<div class="review_area{{#unless commentImageIdList}} no_img{{/unless}}">
+						{{#if commentImageIdList}}
 						<div class="thumb_area">
 							<a class="thumb" title="이미지 크게 보기">
-								<img width="90" height="90" class="img_vertical_top" src="/resources/{{commentImageUrlList.[0]}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/comment/img/{{commentImageIdList.[0]}}" alt="리뷰이미지">
 							</a>
 							<span class="img_count" style="display:none;">1</span>
 						</div>

@@ -58,7 +58,7 @@ function printProductPrice(responseObj){
 }
 
 function printProductDisplay(productDisplay, productReservationDate){
-	document.querySelector("#productDisplayImg").src = "/resources/" + productDisplay.productDisplayImageUrlList[0];
+	document.querySelector("#productDisplayImg").src = "/file/" + productDisplay.productDisplayImageUrlList[0];
 	document.querySelector("#productDescription").innerText = productDisplay.productDescription;
 	document.querySelector("#productId").value = productDisplay.productId;
 	document.querySelector("#displayInfoId").value = productDisplay.displayInfoId;
