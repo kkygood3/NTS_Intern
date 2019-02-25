@@ -8,8 +8,8 @@ public enum ReservationStatus {
 	private ReservationStatus(String status) {
 		this.status = status;
 	}
-
-	public String getStatus() {
-		return status;
+	
+	public boolean equals(String status) {
+		return this.status.equals(status);
 	}
 }

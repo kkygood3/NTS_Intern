@@ -1,8 +1,8 @@
 package com.nts.reservation.dto;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class ReservationInfo {
@@ -12,19 +12,19 @@ public class ReservationInfo {
 	private String reservationName;
 	private String reservationTel;
 	private String reservationEmail;
-	private Date reservationDate;
+	private LocalDateTime reservationDate;
 	private boolean cancelFlag;
-	private Date createDate;
-	private Date modifyDate;
+	private LocalDateTime createDate;
+	private LocalDateTime modifyDate;
 
 	public ReservationInfo(UserReservationInput input) throws ParseException {
 		this.productId = input.getProductId();
 		this.reservationName = input.getName();
 		this.reservationTel = input.getTelephone();
 		this.reservationEmail = input.getEmail();
-		this.reservationDate = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
-				.parse(input.getReservationDate());
+		this.reservationDate = LocalDateTime.parse(input.getReservationDate(), DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH));
 		this.cancelFlag = false;
+		this.createDate = LocalDateTime.now();
 	}
 
 	public long getId() {
@@ -75,11 +75,11 @@ public class ReservationInfo {
 		this.reservationEmail = reservationEmail;
 	}
 
-	public Date getReservationDate() {
+	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
@@ -91,19 +91,19 @@ public class ReservationInfo {
 		this.cancelFlag = cancelFlag;
 	}
 
-	public Date getCreateDate() {
+	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getModifyDate() {
+	public LocalDateTime getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(Date modifyDate) {
+	public void setModifyDate(LocalDateTime modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 

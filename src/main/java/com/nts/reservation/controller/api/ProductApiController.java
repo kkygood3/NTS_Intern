@@ -140,7 +140,6 @@ public class ProductApiController {
 		if (reservationInfo == INVALID_INPUT) {
 			return false;
 		}
-
 		reservationService.addReservation(reservationInfo, userReservationInput.getPrice(), displayInfoId).getId();
 
 		return true;
@@ -159,21 +158,24 @@ public class ProductApiController {
 		} catch (ParseException e) {
 			return INVALID_INPUT;
 		}
-		List<ReservationInfoPrice> priceInputList = userReservationInput.getPrice();
+		List<ReservationInfoPrice> priceInputList = removeInvalidPriceInfos(userReservationInput.getPrice());
+		if (!isValidUserInput(userReservationInput, priceInputList)) {
+			return INVALID_INPUT;
+		}
+		return reservationInfo;
+	}
+
+	private List<ReservationInfoPrice> removeInvalidPriceInfos(List<ReservationInfoPrice> priceInputList) {
 		for (int i = priceInputList.size() - 1; i >= 0; i--) {
 			if (priceInputList.get(i).getCount() == 0) {
 				priceInputList.remove(i);
 			}
 		}
-		if (!existPriceInfo(priceInputList)) {
-			return INVALID_INPUT;
-		}
-		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(),
-				userReservationInput.getTelephone(), userReservationInput.getEmail())) {
-			return INVALID_INPUT;
-		}
+		return priceInputList;
+	}
 
-		return reservationInfo;
+	private boolean isValidUserInput(UserReservationInput input, List<ReservationInfoPrice> priceInputList) {
+		return ReservationInputValidator.isValidReservationInfo(input.getName(), input.getTelephone(), input.getEmail()) & existPriceInfo(priceInputList);
 	}
 
 	private boolean existPriceInfo(List<ReservationInfoPrice> priceInfo) {
