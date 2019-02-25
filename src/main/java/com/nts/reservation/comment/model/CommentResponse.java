@@ -7,6 +7,7 @@ package com.nts.reservation.comment.model;
 import com.nts.reservation.common.model.Response;
 
 public class CommentResponse extends Response {
+
 	private CommentListInfo commentListInfo;
 
 	public CommentResponse() {}

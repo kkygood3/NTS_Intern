@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.productdisplay.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
@@ -63,8 +63,8 @@ public class ProductDisplayApiController {
 
 	private String makeReservationDate() {
 		final String yyyyMMdd = "yyyy-MM-dd";
-		LocalDateTime nowDateTime = LocalDateTime.now();
-		int days = new Random().nextInt(5);
-		return nowDateTime.plusDays(days).format(DateTimeFormatter.ofPattern(yyyyMMdd));
+		LocalDate nowDate = LocalDate.now();
+		int days = new Random().nextInt(5) + 1;
+		return nowDate.plusDays(days).format(DateTimeFormatter.ofPattern(yyyyMMdd));
 	}
 }

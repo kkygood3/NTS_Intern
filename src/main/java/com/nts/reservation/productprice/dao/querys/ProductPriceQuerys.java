@@ -5,6 +5,7 @@
 package com.nts.reservation.productprice.dao.querys;
 
 public class ProductPriceQuerys {
+
 	public static final String SELECT_PRODUCT_PRICE_LIST = "select pp.id as product_price_id"
 		+ ", pp.price_type_name as price_type"
 		+ ", pp.price as price"

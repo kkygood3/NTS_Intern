@@ -9,5 +9,7 @@ import java.util.List;
 import com.nts.reservation.productprice.model.ProductPrice;
 
 public interface ProductPriceService {
+
 	List<ProductPrice> getProductPriceListByDisplayInfoId(int displayInfoId);
+
 }

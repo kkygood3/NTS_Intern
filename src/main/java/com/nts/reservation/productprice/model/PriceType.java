@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
 @JsonFormat(shape = Shape.OBJECT)
 public enum PriceType {
+
 	A("성인"),
 	Y("청소년"),
 	B("유아"),

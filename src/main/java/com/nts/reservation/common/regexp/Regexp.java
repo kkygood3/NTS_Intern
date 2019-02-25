@@ -5,6 +5,7 @@
 package com.nts.reservation.common.regexp;
 
 public class Regexp {
+
 	public static final String EMAIL = "[.\\-\\w]+@\\w+[.]?[\\-\\w]+[.]?[\\w]+";
 
 	public static final String Tel = "01[01789]-\\d{3,4}-\\d{4}";
