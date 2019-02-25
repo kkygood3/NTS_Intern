@@ -4,16 +4,19 @@
  */
 package com.nts.reservation.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,21 +44,17 @@ public class FileController {
 	}
 
 	@GetMapping("/reservation/showImage/{fileId}")
-	public void showImage(HttpServletResponse response, @PathVariable("fileId") Integer fileId)
+	public ResponseEntity<byte[]> showImage(@PathVariable("fileId") Integer fileId)
 		throws FileNotFoundException, IOException {
 		FileInfo fileInfo = fileIoService.getFileInfo(fileId);
 
-		String fileName = fileInfo.getFileName();
 		String saveFileName = fileDir + fileInfo.getSaveFileName();
-		String contentType = fileInfo.getContentType();
 
-		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
-		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Content-Type", contentType);
-		response.setHeader("Pragma", "no-cache;");
-		response.setHeader("Expires", "-1;");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 
-		Files.copy(Paths.get(saveFileName), response.getOutputStream());
-		response.flushBuffer();
+		File file = new File(saveFileName);
+		byte[] media = IOUtils.toByteArray(new FileInputStream(file));
+		return new ResponseEntity<>(media, headers, HttpStatus.OK);
 	}
 }

@@ -59,7 +59,7 @@ public class FileIoServiceImpl implements FileIoService {
 	}
 
 	@Override
-	public FileInfo downloadFile(MultipartFile file) throws IOException {
+	public FileInfo createFileInfo(MultipartFile file) throws IOException {
 		String fileName = createRandomFileName() + file.getContentType().replaceAll("image/", ".");
 		String saveFileName = "userCommentImage/" + fileName;
 

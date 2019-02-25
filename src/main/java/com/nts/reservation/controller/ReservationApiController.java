@@ -79,7 +79,7 @@ public class ReservationApiController {
 
 		if (files != null) {
 			for (MultipartFile file : files) {
-				FileInfo fileInfo = fileIoService.downloadFile(file);
+				FileInfo fileInfo = fileIoService.createFileInfo(file);
 
 				int fileInfoId = fileIoService.setFileInfo(fileInfo);
 

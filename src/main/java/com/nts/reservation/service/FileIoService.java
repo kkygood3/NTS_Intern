@@ -20,5 +20,5 @@ public interface FileIoService {
 
 	public int setFileInfo(FileInfo fileInfo);
 
-	public FileInfo downloadFile(MultipartFile file) throws IOException;
+	public FileInfo createFileInfo(MultipartFile file) throws IOException;
 }
