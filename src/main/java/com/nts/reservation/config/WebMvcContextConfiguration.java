@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.nts.reservation.argumentresolver.ReviewWriteRequestArgumentResolver;
+import com.nts.reservation.interceptor.LogInterceptor;
 import com.nts.reservation.interceptor.SessionInterceptor;
 
 /**
@@ -67,6 +68,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new SessionInterceptor());
+		registry.addInterceptor(new LogInterceptor());
 	}
 	
     @Bean
