@@ -44,13 +44,13 @@ public interface ReservationInfoMapper {
 	 * @param end              끝 (현재로부터 end개월 후)
 	 * @return 예약정보
 	 */
-	List<ReservationDisplayItem> selectConfirmedReservationInfoByReservationEmail(
+	List<ReservationDisplayItem> selectConfirmedReservationInfoByEmail(
 			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 
-	List<ReservationDisplayItem> selectUsedReservationInfoByReservationEmail(
+	List<ReservationDisplayItem> selectUsedReservationInfoByEmail(
 			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 
-	List<ReservationDisplayItem> selectCancelReservationInfoByReservationEmail(
+	List<ReservationDisplayItem> selectCancelReservationInfoByEmail(
 			@Param("reservationEmail") String reservationEmail, @Param("start") int start, @Param("limit") int limit);
 
 	/**
@@ -78,5 +78,5 @@ public interface ReservationInfoMapper {
 	 * @param reservationEmail
 	 * @return 예약 카운트
 	 */
-	List<ReservationSummary> selectReservationInfoCountByReservationEmail(String reservationEmail);
+	List<ReservationSummary> selectReservationInfoCountByEmail(String reservationEmail);
 }

@@ -9,7 +9,7 @@ public enum ReservationStatus {
 		this.status = status;
 	}
 
-	public String getReservationStatus() {
+	public String getStatus() {
 		return status;
 	}
 }

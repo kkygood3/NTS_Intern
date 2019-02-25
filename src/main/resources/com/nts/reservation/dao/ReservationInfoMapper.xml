@@ -37,7 +37,7 @@
 	    </selectKey>  
 	</insert>
 	
- 	<select id="selectCancelReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+ 	<select id="selectCancelReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
 				p.description,
@@ -66,7 +66,7 @@
 		
 		LIMIT #{start}, #{limit}
 	</select>
-		<select id="selectUsedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+		<select id="selectUsedReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 	<![CDATA[
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
@@ -99,7 +99,7 @@
 	]]>
 	</select>
 	
-	<select id="selectConfirmedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+	<select id="selectConfirmedReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 	<![CDATA[
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
@@ -200,7 +200,7 @@
 		</foreach>
 	</insert>
 	
-	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 
+	<select id="selectReservationInfoCountByEmail" resultType="ReservationSummary"> 
 	<![CDATA[
 		SELECT	(CASE
 					WHEN	r.cancel_flag = true			THEN "cancel"
