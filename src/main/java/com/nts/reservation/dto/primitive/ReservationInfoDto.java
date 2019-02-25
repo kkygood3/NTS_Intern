@@ -2,10 +2,10 @@
  * Copyright 2015 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.dto;
+package com.nts.reservation.dto.primitive;
 
 /**
- * 예약 dto
+ * ReservationInfo TABLE
  * @author jinwoo.bae
  */
 public class ReservationInfoDto {
@@ -17,6 +17,8 @@ public class ReservationInfoDto {
 	private String reservationEmail;
 	private String reservationDate;
 	private Boolean cancelFlag;
+	private String createDate;
+	private String modifyDate;
 
 	public int getId() {
 		return id;
@@ -82,10 +84,20 @@ public class ReservationInfoDto {
 		this.cancelFlag = cancelFlag;
 	}
 
-	@Override
-	public String toString() {
-		return "ReservationInfoDto [id=" + id + ", productId=" + productId + ", displayInfoId=" + displayInfoId
-			+ ", reservationName=" + reservationName + ", reservationTel=" + reservationTel + ", reservationEmail="
-			+ reservationEmail + ", reservationDate=" + reservationDate + ", cancelFlag=" + cancelFlag + "]";
+	public String getCreateDate() {
+		return createDate;
 	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mapper.PromotionMapper">
+	<select id="selectPromotions" resultType="PromotionDto">
+		SELECT 
+		    p.id AS id,
+		    p.product_id AS productId,
+		    di.id AS displayInfoId,
+		    fi.save_file_name AS productImageUrl,
+		    di.place_Street AS placeStreet
+		FROM
+		    promotion p
+		        INNER JOIN
+		    product_image pi ON p.product_id = pi.product_id
+		        INNER JOIN
+		    file_info fi ON pi.file_id = fi.id
+		        INNER JOIN
+		    display_info di ON p.product_id = di.product_id
+		WHERE
+		    pi.type = #{type.code}
+		ORDER BY p.id ASC
+		LIMIT #{page.limit}
+	</select>
+</mapper>

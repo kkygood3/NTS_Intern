@@ -8,11 +8,12 @@ import java.util.List;
 
 import com.nts.reservation.constant.ImageType;
 import com.nts.reservation.dto.PromotionDto;
+import com.nts.reservation.dto.param.PageDto;
 
 /**
  * 프로모션에 대한 서비스 인터페이스
  * @author jinwoo.bae
  */
 public interface PromotionService {
-	List<PromotionDto> getPromotions(int limit, ImageType type);
+	List<PromotionDto> getPromotions(ImageType type, PageDto page);
 }

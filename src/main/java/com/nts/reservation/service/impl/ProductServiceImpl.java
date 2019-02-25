@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.service.impl;
 
-import static com.nts.reservation.constant.ParameterDefaultValue.*;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -14,19 +12,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ImageType;
-import com.nts.reservation.dao.CommentDao;
-import com.nts.reservation.dao.DisplayInfoDao;
-import com.nts.reservation.dao.ProductDao;
-import com.nts.reservation.dao.ProductImageDao;
 import com.nts.reservation.dto.CommentDto;
 import com.nts.reservation.dto.DisplayInfoDto;
 import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.ProductPriceDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
 import com.nts.reservation.dto.response.DetailResponseDto;
 import com.nts.reservation.dto.response.ProductResponseDto;
 import com.nts.reservation.dto.response.ReserveResponseDto;
+import com.nts.reservation.mapper.CommentMapper;
+import com.nts.reservation.mapper.DisplayInfoMapper;
+import com.nts.reservation.mapper.ProductMapper;
 import com.nts.reservation.service.ProductService;
 
 /**
@@ -37,74 +35,70 @@ import com.nts.reservation.service.ProductService;
 @Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 	@Autowired
-	private ProductDao productDao;
+	private ProductMapper productMapper;
 	@Autowired
-	private ProductImageDao productImageDao;
+	private DisplayInfoMapper displayInfoMapper;
 	@Autowired
-	private DisplayInfoDao displayInfoDao;
-	@Autowired
-	private CommentDao commentDao;
+	private CommentMapper commentMapper;
 
+	/**
+	 * 상품정보들과 상품총개수를 조합해 가져옵니다.
+	 */
 	@Override
-	public ProductResponseDto getProductResponse(int categoryId, int start, int limit) {
-		int count;
-		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			count = productDao.selectCount();
-		} else {
-			count = productDao.selectCountByCategoryId(categoryId);
-		}
+	public ProductResponseDto getProductResponse(int categoryId, PageDto page) {
+		int count = productMapper.selectProductCount(categoryId);
+
 		if (count == 0) {
 			return new ProductResponseDto(Collections.<ProductDto>emptyList(), count);
 		}
 
-		List<ProductDto> products;
-		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			products = productDao.selectProducts(start, limit);
-		} else {
-			products = productDao.selectProductsByCategoryId(categoryId, start, limit);
-		}
+		List<ProductDto> products = productMapper.selectProducts(categoryId, page);
 
 		return new ProductResponseDto(products, count);
 	}
 
+	/**
+	 * 타입에 해당하는 상품이미지를 가져옵니다.
+	 */
 	@Override
 	public ProductImageDto getProductImage(int productId, ImageType type) {
-		return productImageDao.selectProductImage(productId, type);
+		return productMapper.selectProductImage(productId, type);
 	}
 
 	/**
-	 * detail Page
+	 * 전시상품정보와 상품이미지, response용 상품평들을 조합해 가져옵니다. 
 	 */
 	@Override
-	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, int commentLimit) {
-		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
-		CommentResponseDto commentResponse = getCommentResponse(productId, 0, commentLimit);
-		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
+	public DetailResponseDto getDetailResponse(int productId, int displayInfoId, ImageType type, PageDto commnetPage) {
+		DisplayInfoDto displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
+		CommentResponseDto commentResponse = getCommentResponse(productId, commnetPage);
+		String productImageUrl = productMapper.selectProductImage(productId, type).getSaveFileName();
 		return new DetailResponseDto(displayInfo, commentResponse, productImageUrl);
 	}
 
 	/**
-	 * comment
+	 * 상품평들과 상품평들 개수, 평균점수를 조합해 가져옵니다.
 	 */
 	@Override
-	public CommentResponseDto getCommentResponse(int productId, int start, int limit) {
-		int count = commentDao.selectCommentCount(productId);
+	public CommentResponseDto getCommentResponse(int productId, PageDto page) {
+		int count = commentMapper.selectCommentCount(productId);
 		if (count == 0) {
 			return new CommentResponseDto(Collections.<CommentDto>emptyList(), count, 0);
 		}
-		List<CommentDto> comments = commentDao.selectComments(productId, start, limit);
-		double averageScore = commentDao.selectCommentAvgScore(productId);
+		List<CommentDto> comments = commentMapper.selectComments(productId, page);
+		double averageScore = commentMapper.selectCommentAvgScore(productId);
 		return new CommentResponseDto(comments, count, averageScore);
 	}
 
 	/**
-	 * reserver Page
+	 * 예약하기 페이지 response용으로
+	 * 전시상품정보와 상품가격들, 상품이미지, 상품최저가격, 예매일을 조합해 가져옵니다.
 	 */
 	@Override
 	public ReserveResponseDto getReserveResponse(int productId, int displayInfoId, ImageType type) {
-		DisplayInfoDto displayInfo = displayInfoDao.selectDisplayInfo(displayInfoId);
-		List<ProductPriceDto> productPrices = productDao.selectProductPrices(productId);
-		String productImageUrl = productImageDao.selectProductImage(productId, type).getSaveFileName();
+		DisplayInfoDto displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
+		List<ProductPriceDto> productPrices = productMapper.selectProductPrices(productId);
+		String productImageUrl = productMapper.selectProductImage(productId, type).getSaveFileName();
 		return new ReserveResponseDto(displayInfo, productPrices, productImageUrl);
 	}
 }

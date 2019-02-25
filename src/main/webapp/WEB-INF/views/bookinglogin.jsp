@@ -79,7 +79,7 @@
 							<div class="login_form">
 								<label class="label_form" for="resrv_id" translate="CM-BOOKING_NUMBER">예약자 이메일 입력</label>
 								<input type="text" class="login_input ng-pristine ng-untouched ng-valid ng-empty" id="resrv_id"
-									name="resrv_email" aria-invalid="false" placeholder="crong@naver.com" title="예매자이메일">
+									name="resrv_email" aria-invalid="false" placeholder="crong@naver.com" title="예매자이메일" maxlength="50">
 							</div>
 							<button type="submit" form="form1" class="login_btn confirm">
 								<span translate="CM-MY_BOOKING_CHECK">내 예약 확인</span>
@@ -143,19 +143,35 @@
 			</div>
 		</translater-modal>
 	</app>
+	<script type="text/javascript" src="/js/constant/regularExpression.js"></script>
 	<script type="text/javascript">
 		var form = document.querySelector("#form1");
 		form.addEventListener("submit", function (evt) {
 			evt.preventDefault();
 			var email = form.querySelector("input[id='resrv_id']").value;
-			var isValid = (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/).test(email);
+			var isValid = EMAIL_REGEXP.test(email);
 			if (!isValid) {
-				alert("이메일 형식이 틀렸거나 너무 짧습니다.");
+				alert("이메일 형식이 틀렸습니다.");
 				return;
 			}
-			var url = "/myreservation?reservationEmail=" + email;
+			var url = "/doLogin?reservationEmail=" + email;
+			if (redirectUrl) {
+				url += "&redirectUrl=" + redirectUrl;
+			}
 			location.href = url;
 		})
+
+		/**
+		 * 인증에러로 이페이지로 이동한것이라면 에러메시지를 alert
+		 * 로그인후 redirectUrl 페이지로 이동합니다.
+		*/
+		var isError = '${isError}';
+		var message = '${errorMsg}'; 
+		var redirectUrl = '${redirectUrl}'; 
+
+		if (isError) {
+			alert(message);
+		}
 	</script>
 </body>
 </html>

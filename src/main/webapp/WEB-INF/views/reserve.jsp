@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -38,7 +39,7 @@
 								<span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit">${displayInfo.productDescription}</h2>
-									<em class="preview_txt_dsc">₩${minPrice} ~ </em>
+									<em class="preview_txt_dsc">₩<fmt:parseNumber integerOnly="true" value="${minPrice}"/> ~ </em>
 									<em class="preview_txt_dsc">${displayInfo.openingHours}</em>
 								</div>
 							</li>
@@ -62,6 +63,9 @@
 							</c:forEach>
 							<!-- 성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원 -->
 						</p>
+						<p class="dsc">
+							티켓 유형별 최대 10매 구매가능합니다.
+						</p>
 					</div>
 				</div>
 				<div class="section_booking_ticket">
@@ -77,16 +81,22 @@
 										<input type="tel" class="count_control_input disabled" value="0" readonly title="수량">
 										<a class="btn_plus_minus spr_book2 ico_plus3" title="더하기"></a>
 									</div>
+									<div class="warning_msg">최대 수량입니다.</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
 									<div class="individual_price">
 										<span class="total_price">0</span><span class="price_type">원</span>
 									</div>
 								</div>
 								<div class="qty_info_icon">
-									<strong class="product_amount"><span>${productPrice.type}</span></strong>
-									<strong class="product_price"><span class="price">${productPrice.price * (100-productPrice.discountRate) / 100} </span><span class="price_type">원</span></strong>
+									<strong class="product_amount"><span>${productPrice.typeDescription}</span></strong>
+									<strong class="product_price">
+										<span class="price">${productPrice.price}</span>
+										<span class="price_type"> 원</span>
+									</strong>
 									<em class="product_dsc">
-										${productPrice.price}원
+										<fmt:parseNumber integerOnly="true" 
+													value="${productPrice.price * (100-productPrice.discountRate) / 100}"/>
+										 원
 										<c:if test="${productPrice.discountRate > 0}">
 											(${productPrice.discountRate}% 할인가)
 										</c:if>
@@ -116,7 +126,7 @@
 										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송" maxlength="13">
 										<div class="warning_msg">000-000(0)-0000 형식만 가능합니다.</div>
 									</div>
 								</div>
@@ -126,7 +136,7 @@
 									</label>
 									<div class="inline_control">
 										<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
-										<div class="warning_msg">이메일 형식이 틀렸거나 너무 짧아요</div>
+										<div class="warning_msg">이메일 형식이 틀렸습니다.</div>
 									</div>
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
@@ -196,6 +206,7 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type="text/javascript" src="/js/constant/regularExpression.js"></script>
 	<script type="text/javascript" src="/js/util.js"></script>
 	<script type="text/javascript">
 		var productId = parseInt(window.location.pathname.split("/")[2]);
@@ -244,11 +255,17 @@
 				var totalPriceElement = wrapper.querySelector('.total_price');
 				var price = wrapper.getAttribute("data-price");
 				var type = wrapper.getAttribute("data-type");
+				var warningElement = wrapper.querySelector(".count_control .warning_msg");
 
 				if (this.tickets[type].count === 0) {
 					countControlInput.classList.remove("disabled");
 					totalPriceElement.parentElement.classList.add("on_color");
 					wrapper.querySelector('.ico_minus3').classList.remove("disabled");
+				}
+
+				if (this.tickets[type].count === 10) {
+					wrapper.querySelector('.ico_plus3').classList.remove("disabled");
+					hideWarningMsg(warningElement);
 				}
 
 				this.tickets[type].count += value;
@@ -261,6 +278,12 @@
 					totalPriceElement.parentElement.classList.remove("on_color");
 					wrapper.querySelector('.ico_minus3').classList.add("disabled");
 				}
+
+				if (this.tickets[type].count === 10) {
+					wrapper.querySelector('.ico_plus3').classList.add("disabled");
+					showWarningMsg(warningElement);
+				}
+
 				document.querySelector("#total_count").innerText = this.totalCount;
 			}
 		}
@@ -297,20 +320,20 @@
 					var isValid = false;
 
 					if (name === "name") {
-						isValid = this.validText(/^[가-힣|a-z|A-Z]+$/, text);
+						isValid = this.validText(NAME_REGEXP, text);
 					} else if (name === "tel") {
-						isValid = this.validText(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/, text);
+						isValid = this.validText(PHONE_REGEXP, text);
 					} else if (name === "email") {
-						isValid = this.validText(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/, text);
+						isValid = this.validText(EMAIL_REGEXP, text);
 					} else {
 						return;
 					}
 					this.isValids[name] = isValid;
 					this.inputValues[name] = text;
 					if (isValid) {
-						this.hideWarningMsg(warningElement);
+						hideWarningMsg(warningElement);
 					} else {
-						this.showWarningMsg(warningElement);
+						showWarningMsg(warningElement);
 					}
 				}.bind(this));
 
@@ -328,16 +351,6 @@
 			},
 			validText: function (regExp, text) {
 				return regExp.test(text);
-			},
-			// 경고메시지 출력
-			showWarningMsg: function (warningElement) {
-				warningElement.style.visibility = "visible";
-				warningElement.style.position = "relative";
-			},
-			// 경고메시지 숨김
-			hideWarningMsg: function (warningElement) {
-				warningElement.style.visibility = "hidden";
-				warningElement.style.position = "absolute";
 			},
 			// 약관내용 보기/닫기
 			toggleAgreementContent: function (container) {
@@ -395,7 +408,7 @@
 					return;
 				}
 				if (confirm("예약 성공! 나의예약페이지로 이동하시겠습니까?")) {
-					location.href="/myreservation?reservationEmail=" + this.form.inputValues["email"];
+					location.href="/doLogin?reservationEmail=" + this.form.inputValues["email"];
 				}
 			},
 			
@@ -423,6 +436,17 @@
 					this.submitWrap.classList.remove("disable");
 				}
 			}
+		}
+
+		// 경고메시지 출력
+		function showWarningMsg(warningElement) {
+			warningElement.style.visibility = "visible";
+			warningElement.style.position = "relative";
+		}
+		// 경고메시지 숨김
+		function hideWarningMsg(warningElement) {
+			warningElement.style.visibility = "hidden";
+			warningElement.style.position = "absolute";
 		}
 
 		var ticketBody = document.querySelector(".ticket_body");

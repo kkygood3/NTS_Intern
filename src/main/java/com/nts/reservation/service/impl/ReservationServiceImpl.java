@@ -4,19 +4,24 @@
  */
 package com.nts.reservation.service.impl;
 
+import static com.nts.reservation.constant.ReservationStatusType.*;
+
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.ReservationInfoDao;
-import com.nts.reservation.dao.ReservationInfoPriceDao;
-import com.nts.reservation.dto.MyReservationDto;
-import com.nts.reservation.dto.ReservationInfoDto;
-import com.nts.reservation.dto.ReservationInfoPriceDto;
+import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.ReservationDisplayInfoDto;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.primitive.ReservationInfoDto;
+import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
+import com.nts.reservation.dto.response.ReservationResponseDto;
+import com.nts.reservation.mapper.ReservationMapper;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -26,10 +31,27 @@ import com.nts.reservation.service.ReservationService;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
-	private ReservationInfoDao reservationInfoDao;
-	@Autowired
-	private ReservationInfoPriceDao reservationInfoPriceDao;
+	private ReservationMapper reservationMapper;
 
+	/**
+	 * 나의예약 페이지용
+	 * 예정,완료,취소 예약들과 총개수들을 조합해 가져옵니다.
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public MyReservationResponseDto getMyReservationResponse(String reservationEmail, PageDto page) {
+
+		ReservationResponseDto todoReservationResponse = getReservationResponse(reservationEmail, TODO, page);
+		ReservationResponseDto doneReservationResponse = getReservationResponse(reservationEmail, DONE, page);
+		ReservationResponseDto cancelReservationResponse = getReservationResponse(reservationEmail, CANCEL, page);
+
+		return new MyReservationResponseDto(todoReservationResponse, doneReservationResponse,
+			cancelReservationResponse);
+	}
+
+	/**
+	 * 예약하기
+	 */
 	@Override
 	@Transactional
 	public void makeReservation(ReservationParamDto reservationParam) {
@@ -41,24 +63,38 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationInfo.setReservationEmail(reservationParam.getReservationEmail());
 		reservationInfo.setReservationDate(reservationParam.getReservationDate());
 		reservationInfo.setCancelFlag(false);
-		int reservationInfoId = reservationInfoDao.insert(reservationInfo);
+		reservationMapper.insertReservationInfo(reservationInfo);
 
 		for (ReservationInfoPriceDto reservationInfoPrice : reservationParam.getPrices()) {
-			reservationInfoPrice.setReservationInfoId(reservationInfoId);
-			reservationInfoPriceDao.insert(reservationInfoPrice);
+			reservationInfoPrice.setReservationInfoId(reservationInfo.getId());
 		}
+
+		reservationMapper.insertReservationInfoPrices(reservationParam.getPrices());
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public MyReservationResponseDto getMyReservations(String reservationEmail) {
-		List<MyReservationDto> myReservations = reservationInfoDao.selectMyReservations(reservationEmail);
-		return new MyReservationResponseDto(myReservations);
-	}
-
+	/**
+	 * 예약 취소
+	 */
 	@Override
 	@Transactional
-	public void cancleReservation(int reservationId) {
-		reservationInfoDao.updateReservationToCancel(reservationId);
+	public void cancelReservation(int reservationId) {
+		reservationMapper.updateReservationToCancel(reservationId);
+	}
+
+	/**
+	 * 예약상태값(예정,완료,취소)에 따라 에약리스트들과 총개수를 가져옵니다. 
+	 */
+	@Override
+	@Transactional
+	public ReservationResponseDto getReservationResponse(String reservationEmail,
+		ReservationStatusType status, PageDto page) {
+		int count = reservationMapper.selectReservationCountByStatus(reservationEmail, status);
+		if (count <= page.getStart()) {
+			return new ReservationResponseDto(Collections.<ReservationDisplayInfoDto>emptyList(), count);
+		}
+		List<ReservationDisplayInfoDto> reservationDisplayInfos = reservationMapper
+			.selectReservationDisplayInfos(reservationEmail, status, page);
+
+		return new ReservationResponseDto(reservationDisplayInfos, count);
 	}
 }

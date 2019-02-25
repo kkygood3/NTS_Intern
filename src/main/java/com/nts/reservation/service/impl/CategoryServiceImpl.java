@@ -10,8 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.CategoryDao;
 import com.nts.reservation.dto.CategoryDto;
+import com.nts.reservation.dto.param.PageDto;
+import com.nts.reservation.mapper.CategoryMapper;
 import com.nts.reservation.service.CategoryService;
 
 /**
@@ -22,10 +23,13 @@ import com.nts.reservation.service.CategoryService;
 @Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
 	@Autowired
-	private CategoryDao categoryDao;
+	private CategoryMapper categoryMapper;
 
+	/**
+	 * 카테고리 정보들을 가져옵니다.
+	 */
 	@Override
-	public List<CategoryDto> getCategoriesWithProductsOnDisplayCount(int limit) {
-		return categoryDao.selectCategoriesWithProductsOnDisplayCount(limit);
+	public List<CategoryDto> getCategories(PageDto page) {
+		return categoryMapper.selectCategories(page);
 	}
 }

@@ -4,10 +4,15 @@
  */
 package com.nts.reservation.controller.api;
 
+import static com.nts.reservation.constant.ParameterDefaultValue.*;
+
 import java.util.Collections;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.annotation.PageDefault;
+import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.response.ReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -28,6 +37,9 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
+	/**
+	 * 예약하기
+	 */
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
 		if (reservationParam.isValid()) {
@@ -37,9 +49,25 @@ public class ReservationApiController {
 		return Collections.singletonMap("isSuccess", false);
 	}
 
+	/**
+	 * 예약 취소하기
+	 */
 	@PutMapping("/{reservationId}")
-	Map<String, Object> putReservation(@PathVariable int reservationId) {
-		reservationService.cancleReservation(reservationId);
+	public Map<String, Object> cancelReservation(@PathVariable int reservationId) {
+		reservationService.cancelReservation(reservationId);
 		return Collections.singletonMap("isSuccess", true);
+	}
+
+	/**
+	 * 예약상태(예정,완료,취소.)에 따라 예약리스트들을 가져옵니다.
+	 */
+	@GetMapping("/{status}")
+	public ReservationResponseDto getReservationsByStatus(
+		@PathVariable String status,
+		@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
+		HttpSession session) {
+		String reservationEmail = (String)session.getAttribute("reservationEmail");
+
+		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), page);
 	}
 }

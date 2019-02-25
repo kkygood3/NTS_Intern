@@ -4,14 +4,17 @@
  */
 package com.nts.reservation.controller;
 
+import static com.nts.reservation.constant.ParameterDefaultValue.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nts.reservation.annotation.PageDefault;
+import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.service.ReservationService;
 
@@ -23,12 +26,17 @@ import com.nts.reservation.service.ReservationService;
 public class MyReservationController {
 	@Autowired
 	private ReservationService reservationService;
-	
+
 	@GetMapping("/myreservation")
-	public String getMyReservationPage(@RequestParam String reservationEmail, HttpSession session, Model model) {
-		MyReservationResponseDto myReservationResponse = reservationService.getMyReservations(reservationEmail);
+	public String getMyReservationPage(@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
+		HttpSession session, Model model) {
+
+		String reservationEmail = (String)session.getAttribute("reservationEmail");
+
+		MyReservationResponseDto myReservationResponse = reservationService.getMyReservationResponse(reservationEmail,
+			page);
 		model.addAttribute("response", myReservationResponse);
-		session.setAttribute("reservationEmail", reservationEmail);
+
 		return "myreservation";
 	}
 }
