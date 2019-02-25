@@ -1,0 +1,14 @@
+{
+  "main.css": "/reservation/resources/demo/build/static/css/main.5abf98a3.chunk.css",
+  "main.js": "/reservation/resources/demo/build/static/js/main.bbe839f9.chunk.js",
+  "main.js.map": "/reservation/resources/demo/build/static/js/main.bbe839f9.chunk.js.map",
+  "runtime~main.js": "/reservation/resources/demo/build/static/js/runtime~main.ae433968.js",
+  "runtime~main.js.map": "/reservation/resources/demo/build/static/js/runtime~main.ae433968.js.map",
+  "static/js/2.31b52456.chunk.js": "/reservation/resources/demo/build/static/js/2.31b52456.chunk.js",
+  "static/js/2.31b52456.chunk.js.map": "/reservation/resources/demo/build/static/js/2.31b52456.chunk.js.map",
+  "index.html": "/reservation/resources/demo/build/index.html",
+  "precache-manifest.f47a357852bbc73e0f491f4b691e9094.js": "/reservation/resources/demo/build/precache-manifest.f47a357852bbc73e0f491f4b691e9094.js",
+  "service-worker.js": "/reservation/resources/demo/build/service-worker.js",
+  "static/css/main.5abf98a3.chunk.css.map": "/reservation/resources/demo/build/static/css/main.5abf98a3.chunk.css.map",
+  "static/media/App.css": "/reservation/resources/demo/build/static/media/Naver-Icons.a5a320be.woff"
+}

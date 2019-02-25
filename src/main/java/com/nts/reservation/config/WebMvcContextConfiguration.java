@@ -39,6 +39,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/img_uploaded/**")
 			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img_uploaded/")
 			.setCachePeriod(31556926);
+		registry.addResourceHandler("/demo/**").addResourceLocations("/resources/demo/")
+			.setCachePeriod(31556926);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addViewController("/bookinglogin").setViewName("bookinglogin");
 		registry.addViewController("/myreservation").setViewName("myreservation");
 		registry.addViewController("/myreservation/reviewWrite").setViewName("reviewWrite");
-
+		registry.addViewController("/test").setViewName("reactTest");
 	}
 
 	@Bean

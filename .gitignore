@@ -3,5 +3,6 @@ target
 .classpath
 .project
 .settings
+/react_version/*
 /resources/img_uploaded/*
 node_modules/
