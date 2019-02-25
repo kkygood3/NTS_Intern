@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,6 +32,8 @@ import com.nts.reservation.interceptor.AuthInterceptor;
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	// 1Year = 31556926 second
 	private final int CACHE_PERIOD = 31556926;
+	// 1024 * 1024 * 10
+	private final int MAX_UPLOAD_SIZE = 10485760;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -58,12 +62,23 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AuthInterceptor())
-				.addPathPatterns("/api/reservations/**", "/myreservation")
-				.excludePathPatterns("/api/reservations"); // 일정예약하기
+			.addPathPatterns("/api/reservations/**", "/myreservation")
+			.excludePathPatterns("/api/reservations"); // 일정예약하기
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(new PageDtoArgumentResolver());
 	}
+
+	/**
+	 * 멀티파트 요청 처리를 위한 리졸버 설정
+	 */
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
+		return multipartResolver;
+	}
+
 }
