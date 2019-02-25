@@ -86,7 +86,7 @@ function submit(){
 		if (this.readyState == 4 && this.status == 200) {
 			location.href = '/myreservation';
 		}else if(this.status == 400){
-			alert('Upload Fail!!')
+			alert('Upload Fail!!');
 		}
 	};
 	oReq.open('POST', '/api/reservations/' + reviewWrite.submitButton.dataset.reservationInfoId + '/comments');

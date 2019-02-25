@@ -28,7 +28,7 @@ public class ReservationDaoSqls {
 		"SELECT SUM(ROUND(product_price.price * (1 - product_price.discount_rate / 100) * reservation_info_price.count)) " + 
 		"FROM reservation_info_price " + 
 		"INNER JOIN product_price On product_price.id = reservation_info_price.product_price_id " + 
-		"WHERE reservation_info_id = :reservationInfoId;";
+		"WHERE reservation_info_id = :reservationInfoId";
 	
 	public static final String CANCEL_RESERVATION =
 		"UPDATE reservation_info SET cancel_flag = 1 WHERE id = :reservationInfoId";
