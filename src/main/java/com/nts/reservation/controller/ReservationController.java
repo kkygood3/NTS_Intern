@@ -75,7 +75,6 @@ public class ReservationController {
 		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		String path = PROJECT_ROOT + DIRECTORY + "/" + today;
 		File dir = new File(path);
-		System.out.println(path);
 		dir.isDirectory();
 		dir.mkdir();
 		return path;

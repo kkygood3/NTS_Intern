@@ -9,7 +9,7 @@ import com.nts.reservation.dao.ProductMapper;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
 import com.nts.reservation.dto.ProductDisplayItem;
-import com.nts.reservation.dto.ReviewWritePageInfo;
+import com.nts.reservation.dto.CommentWritePageInfo;
 import com.nts.reservation.service.ProductService;
 
 @Service
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ReviewWritePageInfo getProductInfoByReservationInfoId(long reservationInfoId) {
+	public CommentWritePageInfo getProductInfoByReservationInfoId(long reservationInfoId) {
 		return productDao.selectProductInfoByReservationInfoId(reservationInfoId);
 	}
 }

@@ -100,7 +100,7 @@
 		LIMIT	#{start}, #{limit}
 	</select>
 	
-	<select id="selectProductInfoByReservationInfoId" resultType="ReviewWritePageInfo">
+	<select id="selectProductInfoByReservationInfoId" resultType="CommentWritePageInfo">
 		SELECT	p.id AS product_id,
 				p.description
 

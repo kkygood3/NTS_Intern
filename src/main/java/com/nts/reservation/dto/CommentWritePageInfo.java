@@ -1,6 +1,6 @@
 package com.nts.reservation.dto;
 
-public class ReviewWritePageInfo {
+public class CommentWritePageInfo {
 	private int productId;
 	private String description;
 
