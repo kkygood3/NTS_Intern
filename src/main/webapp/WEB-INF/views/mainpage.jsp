@@ -70,6 +70,28 @@
 		</div>
 	</div>
 	<c:import url="common/footer.jsp" charEncoding="utf-8"/>
+	<script id="product_template" type="text/template">
+		<li class="item">
+			<a href="/display/detail/{id}" class="item_book">
+				<div class="item_preview">
+					<img alt="{description}" class="img_thumb" src="/resources/img/img/{productImageUrl}">
+					<span class="img_border"></span>
+				</div>
+				<div class="event_txt">
+					<h4 class="event_txt_tit"> <span>{description}</span> <small class="sm">{placeName}</small> </h4>
+					<p class="event_txt_dsc">{content}</p>
+				</div>
+			</a>
+		</li>
+	</script>
+	<script id="category_template" type="text/template">
+		<li class="item" data-category="{categoryId}">
+			<a class="anchor"><span>{categoryName}</span></a>
+		</li>
+	</script>
+	<script id="promotion_template" type="text/template">
+		<li><img src="/resources/img/img/{productImageUrl}"/></li>
+	</script>
 	<script src="/resources/javascript/mainpage.js"></script>
 </body>
 </html>
