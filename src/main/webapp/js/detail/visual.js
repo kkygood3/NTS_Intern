@@ -5,7 +5,7 @@
  */
 
 function sendGetEtcImageAjax() {
-	sendGetAjax("/product/" + displayInfo().productId + "/file_info/et", setVisualArea);
+	sendGetAjax("/api/product/" + displayInfo().productId + "/file_info/et", setVisualArea);
 }
 
 /**

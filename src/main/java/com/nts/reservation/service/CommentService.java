@@ -28,7 +28,7 @@ public interface CommentService {
 	 * @param displayInfoId 조회할 상품
 	 * @return 리뷰페이지 정보
 	 */
-	CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId);
+	CommentPageInfo getCommentPageInfoByProductId(long productId);
 
 	/**
 	 * 사용자 리뷰를 등록한다

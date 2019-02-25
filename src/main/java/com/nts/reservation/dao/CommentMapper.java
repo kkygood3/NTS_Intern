@@ -29,5 +29,5 @@ public interface CommentMapper {
 	 * @param displayInfoId 조회할 상품
 	 * @return 쿼리실행결과 리뷰페이지 정보
 	 */
-	public CommentPageInfo selectByDisplayInfoId(long displayInfoId);
+	public CommentPageInfo selectCommentPageInfoByProductId(long ProductId);
 }

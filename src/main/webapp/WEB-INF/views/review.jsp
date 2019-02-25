@@ -23,7 +23,7 @@
 			<div class="wrap_review_list">
 				<div class="review_header">
 					<div class="top_title gr">
-						<a href="/detail/${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
+						<a href="/product/${pageInfo.productId}/display/${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i></a>
 						<h2><a class="title" href="#">${pageInfo.description}</a></h2>
 					</div>
 				</div>

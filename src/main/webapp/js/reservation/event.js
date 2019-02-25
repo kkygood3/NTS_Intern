@@ -166,9 +166,9 @@ function addBookingButtonClickEvent() {
 		}
 		var reservationData = makeJsonReservationData();
 
-		sendPostAjax("/product/" + displayInfo().displayInfoId + "/reservation", reservationData, (data) => {
+		sendPostAjax("/api/product/" + displayInfo().productId + "/display/" + displayInfo().displayInfoId + "/reservation", reservationData, (data) => {
 			if (data) {
-				window.location.href = "/detail/" + displayInfo().displayInfoId;
+				window.location.href = "/product/" + displayInfo().productId + "/display/" + displayInfo().displayInfoId;
 			} else {
 				alert("잘못된 입력입니다.");
 			}

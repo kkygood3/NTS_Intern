@@ -48,7 +48,7 @@
 			<div class="left"></div>
 			<div class="middle">
 				<div class="card_detail" id="product_id_{{productId}}">
-					<em class="booking_number">No.{{reservationId}}</em>
+					<em class="booking_number">No.{{reservationInfoId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
 						<li class="item">
@@ -127,7 +127,7 @@
 			<div class="left"></div>
 			<div class="middle">
 				<div class="card_detail" id="product_id_{{productId}}">
-					<em class="booking_number">No.{{reservationId}}</em>
+					<em class="booking_number">No.{{reservationInfoId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
 						<li class="item">

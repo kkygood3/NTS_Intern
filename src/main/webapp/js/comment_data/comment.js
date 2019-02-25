@@ -5,7 +5,7 @@
  */
 
 function sendGetCommentsAjax(start = 0, limit = 3) {
-	sendGetAjax("/product/" + displayInfo().productId + "/comment?start=" + start + "&limit=" + limit, makeCommentList);
+	sendGetAjax("/api/product/" + displayInfo().productId + "/comment?start=" + start + "&limit=" + limit, makeCommentList);
 }
 
 /**

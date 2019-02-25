@@ -63,10 +63,15 @@ function addThumbnailClickEvent() {
 		if (!event.target.closest("li")) {
 			return;
 		}
-		window.location.href = "./detail/" + getDisplayInfo(event.target.closest("li"));
+		const thumbnail = event.target.closest("li");
+		window.location.href = "/product/" + getProductId(thumbnail) + "/display/" + getDisplayInfoId(thumbnail);
 	});
 }
 
-function getDisplayInfo(thumbnail) {
+function getDisplayInfoId(thumbnail) {
 	return thumbnail.id.split("_")[2];
+}
+
+function getProductId(thumbnail) {
+	return thumbnail.id.split("_")[1];
 }

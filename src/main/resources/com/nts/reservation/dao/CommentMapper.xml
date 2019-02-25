@@ -25,18 +25,16 @@
 		
 		LIMIT	#{start}, #{limit}
 	</select>
-	<select id="selectByDisplayInfoId" resultType="CommentPageInfo">
+	<select id="selectCommentPageInfoByProductId" resultType="CommentPageInfo">
 		SELECT	p.id AS product_id,
 				p.description,
 				ifnull(avg(uc.score), 0) AS average_score,
 				count(uc.score) AS commentCount
 				
 		FROM	product AS p
-				INNER JOIN	display_info AS d
-							ON	d.product_id = p.id
 				INNER JOIN	reservation_user_comment AS uc
-							ON	d.id = uc.product_id
+							ON	p.id = uc.product_id
 					
-		WHERE	d.id = #{displayInfoId}
+		WHERE	p.id = #{productId}
 	</select>
 </mapper>

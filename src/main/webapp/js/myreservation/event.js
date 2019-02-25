@@ -20,7 +20,7 @@ function addCancelButtonClickEvent() {
 				return;
 			}
 			if (event.target.innerText == "예") {
-				sendPutAjax("/reservation_info/" + reservationId, movoItemToCancelCard, cardItem);
+				sendPutAjax("/api/reservation/" + reservationId, movoItemToCancelCard, cardItem);
 			}
 			closePopup(popup);
 			this.removeEventListener("click", arguments.callee);
@@ -85,7 +85,7 @@ function addMoreButtonClickEvent() {
 		}
 		var li = moreButton.closest("li");
 		var start = li.childElementCount - 2;
-		sendGetAjax("reservation_info/" + li.id + "?start=" + start, addReservationCardItem);
+		sendGetAjax("/api/reservation/" + li.id + "?start=" + start, addReservationCardItem);
 	});
 }
 
@@ -130,6 +130,6 @@ function addReviewButtonClickEvent() {
 		}
 		var cardItem = cancelButton.closest(".card_detail");
 		var productId = cardItem.id.replace("product_id_", "");
-		window.location.href = "/detail/" + productId + "/comment";
+		window.location.href = "/product/" + productId + "/comment";
 	});
 }

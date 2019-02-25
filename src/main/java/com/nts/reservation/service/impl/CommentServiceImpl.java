@@ -25,8 +25,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId) {
-		return commentDao.selectByDisplayInfoId(displayInfoId);
+	public CommentPageInfo getCommentPageInfoByProductId(long productId) {
+		return commentDao.selectCommentPageInfoByProductId(productId);
 	}
 	
 	@Override

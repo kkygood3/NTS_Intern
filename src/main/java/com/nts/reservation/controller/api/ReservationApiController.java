@@ -20,7 +20,7 @@ import com.nts.reservation.service.ReservationService;
  *
  */
 @RestController
-@RequestMapping("/reservation_info")
+@RequestMapping("/api/reservation")
 public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;

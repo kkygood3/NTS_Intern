@@ -34,7 +34,7 @@ import com.nts.reservation.util.ReservationInputValidator;
  *
  */
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductApiController {
 	@Autowired
 	private ProductService productService;
@@ -127,7 +127,7 @@ public class ProductApiController {
 	 * @param model 에러정보
 	 * @return 뷰이름 리턴
 	 */
-	@PostMapping("/{displayInfoId}/reservation")
+	@PostMapping("/{productId}/display/{displayInfoId}/reservation")
 	public boolean postReservation(@RequestBody UserReservationInput userReservationInput,
 			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
 		ReservationInfo reservationInfo = convertUserReservationInputToReservationInfo(userReservationInput);
