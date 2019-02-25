@@ -32,14 +32,19 @@ import com.nts.reservation.reservation.service.ReservationService;
 @Controller
 public class CommentController {
 
-	@Autowired
-	private ReservationService reservationService;
+	private final ReservationService reservationService;
+
+	private final CommentService commentService;
+
+	private final FileService fileService;
 
 	@Autowired
-	private CommentService commentService;
-
-	@Autowired
-	private FileService fileService;
+	public CommentController(ReservationService reservationService, CommentService commentService,
+		FileService fileService) {
+		this.reservationService = reservationService;
+		this.commentService = commentService;
+		this.fileService = fileService;
+	}
 
 	/**
 	 * comment 작성 페이지 호출, 로그인정보와 reservationId로 유효한데이터인지 확인.

@@ -21,11 +21,15 @@ import com.nts.reservation.product.model.Product;
 @Repository
 public class ProductDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<Product> productMapper;
 
 	@Autowired
-	private RowMapper<Product> productMapper;
+	public ProductDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Product> productMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.productMapper = productMapper;
+	}
 
 	/**
 	 * product 전체목록을 조회하여  Product List 반환

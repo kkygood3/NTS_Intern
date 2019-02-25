@@ -14,8 +14,12 @@ import com.nts.reservation.promotion.service.PromotionService;
 @RestController
 public class PromotionApiController {
 
+	private final PromotionService promotionService;
+
 	@Autowired
-	private PromotionService promotionService;
+	public PromotionApiController(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
 
 	/**
 	 * promotion 목록을 Json으로 응답

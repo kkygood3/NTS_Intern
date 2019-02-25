@@ -16,8 +16,12 @@ import com.nts.reservation.productdisplay.service.ProductDisplayService;
 @Service
 public class ProductDisplayServiceLogic implements ProductDisplayService {
 
+	private final ProductDisplayDao productDisplayDao;
+
 	@Autowired
-	private ProductDisplayDao productDisplayDao;
+	public ProductDisplayServiceLogic(ProductDisplayDao productDisplayDao) {
+		this.productDisplayDao = productDisplayDao;
+	}
 
 	/**
 	 * 특정 displayInfo 정보와 관련 이미지 url 목록을 dao에서 받아 조합하여 반환 

@@ -29,11 +29,17 @@ import static com.nts.reservation.reservation.dao.querys.ReservationQuerys.*;
 @Repository
 public class ReservationDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<ReservationHistory> reservationHistoryMapper;
 
 	@Autowired
-	private RowMapper<ReservationHistory> reservationHistoryMapper;
+	public ReservationDao(NamedParameterJdbcTemplate jdbcTemplate,
+		RowMapper<ReservationHistory> reservationHistoryMapper) {
+		super();
+		this.jdbcTemplate = jdbcTemplate;
+		this.reservationHistoryMapper = reservationHistoryMapper;
+	}
 
 	/**
 	 * 예매 기본 정보 저장

@@ -18,8 +18,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 @Configuration
 public class JdbcConfig {
 
+	private final DataSource dataSource;
+
 	@Autowired
-	private DataSource dataSource;
+	public JdbcConfig(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	@Bean
 	public NamedParameterJdbcTemplate jdbcTemplate() {

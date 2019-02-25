@@ -18,11 +18,15 @@ import com.nts.reservation.category.model.Category;
 @Repository
 public class CategoryDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<Category> categoryMapper;
 
 	@Autowired
-	private RowMapper<Category> categoryMapper;
+	public CategoryDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Category> categoryMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.categoryMapper = categoryMapper;
+	}
 
 	/**
 	 * category 목록을 조회하여 List 객체로 반환

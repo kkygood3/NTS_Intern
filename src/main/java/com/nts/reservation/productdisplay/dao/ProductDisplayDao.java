@@ -22,11 +22,15 @@ import com.nts.reservation.productdisplay.model.ProductDisplay;
 @Repository
 public class ProductDisplayDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<ProductDisplay> productDisplayMapper;
 
 	@Autowired
-	private RowMapper<ProductDisplay> productDisplayMapper;
+	public ProductDisplayDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<ProductDisplay> productDisplayMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.productDisplayMapper = productDisplayMapper;
+	}
 
 	/**
 	 * 특정 display의 정보 반환

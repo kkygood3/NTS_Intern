@@ -35,17 +35,22 @@ import static com.nts.reservation.comment.dao.querys.CommentQuerys.*;
 @Repository
 public class CommentDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<Comment> commentMapper;
+
+	private final RowMapper<CommentListInfo> commentListInfoMapper;
+
+	private final RowMapper<FileInfo> fileInfoMapper;
 
 	@Autowired
-	private RowMapper<Comment> commentMapper;
-
-	@Autowired
-	private RowMapper<CommentListInfo> commentListInfoMapper;
-
-	@Autowired
-	private RowMapper<FileInfo> fileInfoMapper;
+	public CommentDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Comment> commentMapper,
+		RowMapper<CommentListInfo> commentListInfoMapper, RowMapper<FileInfo> fileInfoMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.commentMapper = commentMapper;
+		this.commentListInfoMapper = commentListInfoMapper;
+		this.fileInfoMapper = fileInfoMapper;
+	}
 
 	/**
 	 * 특정 display의 전체 comment 목록 반환

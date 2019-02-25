@@ -22,11 +22,15 @@ import com.nts.reservation.file.service.FileService;
 @Service
 public class CommentServiceLogic implements CommentService {
 
-	@Autowired
-	private CommentDao commentDao;
+	private final CommentDao commentDao;
+
+	private final FileService fileService;
 
 	@Autowired
-	private FileService fileService;
+	public CommentServiceLogic(CommentDao commentDao, FileService fileService) {
+		this.commentDao = commentDao;
+		this.fileService = fileService;
+	}
 
 	/**
 	 * comment 목록과 관련 정보를 조회한 객체들을 가지는 CommentListInfo 객체를 생성후 반환

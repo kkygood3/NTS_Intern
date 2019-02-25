@@ -24,8 +24,12 @@ import com.nts.reservation.reservation.service.ReservationService;
 @Service
 public class ReservationServiceLogic implements ReservationService {
 
+	private final ReservationDao reservationDao;
+
 	@Autowired
-	private ReservationDao reservationDao;
+	public ReservationServiceLogic(ReservationDao reservationDao) {
+		this.reservationDao = reservationDao;
+	}
 
 	/** 
 	 * 예매 정보 저장

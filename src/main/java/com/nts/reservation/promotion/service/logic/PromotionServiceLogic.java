@@ -17,8 +17,12 @@ import com.nts.reservation.promotion.service.PromotionService;
 @Service
 public class PromotionServiceLogic implements PromotionService {
 
+	private final PromotionDao promotionDao;
+
 	@Autowired
-	private PromotionDao promotionDao;
+	public PromotionServiceLogic(PromotionDao promotionDao) {
+		this.promotionDao = promotionDao;
+	}
 
 	/**
 	 * dao에서 promotion List 객체를 받아  PromotionResponse 객체로 생성 후 반환

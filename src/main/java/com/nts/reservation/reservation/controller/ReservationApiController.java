@@ -24,8 +24,12 @@ import com.nts.reservation.reservation.service.ReservationService;
 @RestController
 public class ReservationApiController {
 
+	private final ReservationService reservationService;
+
 	@Autowired
-	private ReservationService reservationService;
+	public ReservationApiController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
 	/**
 	 * 사용자의 예매내역 조회

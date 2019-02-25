@@ -17,8 +17,12 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceLogic implements ProductService {
 
+	private final ProductDao productDao;
+
 	@Autowired
-	private ProductDao productDao;
+	public ProductServiceLogic(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
 	/** 
 	 * 전체 혹은 특정 카테고리의 ProductList 반환

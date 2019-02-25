@@ -22,8 +22,12 @@ import static com.nts.reservation.file.dao.querys.FileQuerys.*;
 @Repository
 public class FileDao {
 
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
 	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	public FileDao(NamedParameterJdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	/**
 	 * fileinfo 저장

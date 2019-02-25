@@ -19,8 +19,12 @@ import com.nts.reservation.product.service.ProductService;
 @RestController
 public class ProductApiController {
 
+	private final ProductService productService;
+
 	@Autowired
-	private ProductService productService;
+	public ProductApiController(ProductService productService) {
+		this.productService = productService;
+	}
 
 	/**
 	 * categoryId, start parameter로 product list와 count를 Json으로 응답

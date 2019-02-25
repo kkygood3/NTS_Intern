@@ -26,14 +26,19 @@ import com.nts.reservation.productprice.service.ProductPriceService;
 @RestController
 public class ProductDisplayApiController {
 
-	@Autowired
-	private ProductDisplayService productDisplayService;
+	private final ProductDisplayService productDisplayService;
+
+	private final ProductPriceService productPriceService;
+
+	private final CommentService commentService;
 
 	@Autowired
-	private ProductPriceService productPriceService;
-
-	@Autowired
-	private CommentService commentService;
+	public ProductDisplayApiController(ProductDisplayService productDisplayService,
+		ProductPriceService productPriceService, CommentService commentService) {
+		this.productDisplayService = productDisplayService;
+		this.productPriceService = productPriceService;
+		this.commentService = commentService;
+	}
 
 	/**
 	 * 특정 diplayInfoId의 display정보, comment정보를 가진 객체를 응답

@@ -23,8 +23,12 @@ public class FileServiceLogic implements FileService {
 
 	private static final int BUFFER_SIZE = 1024;
 
+	private final FileDao fileDao;
+
 	@Autowired
-	private FileDao fileDao;
+	public FileServiceLogic(FileDao fileDao) {
+		this.fileDao = fileDao;
+	}
 
 	/**
 	 * local file system에 file 저장 및 관련 정보 db 저장

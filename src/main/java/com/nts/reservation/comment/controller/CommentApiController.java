@@ -22,8 +22,12 @@ import com.nts.reservation.common.model.Response;
 @RestController
 public class CommentApiController {
 
+	private final CommentService commentService;
+
 	@Autowired
-	private CommentService commentService;
+	public CommentApiController(CommentService commentService) {
+		this.commentService = commentService;
+	}
 
 	/**
 	 * 특정 displayInfoId의 comment 목록 응답 
