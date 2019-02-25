@@ -25,7 +25,7 @@ public class ExceptionLogAspect {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Before("execution(* com.nts.reservation.common.controlleradvice.ExceptionHandleControllerAdvice.*(..)) && args(e,..)")
+	@Before("execution(* com.nts.reservation.common.controlleradvice.ExceptionHandleControllerAdvice.*(..)) && args(e, ..)")
 	public void writeExceptionLog(JoinPoint joinPoint, Throwable e) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes())
 			.getRequest();
