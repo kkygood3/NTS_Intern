@@ -1,8 +1,6 @@
 package com.nts.reservation.service.impl;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
 import com.nts.reservation.mappers.CommentMapper;
 import com.nts.reservation.service.CommentService;
+import com.nts.reservation.utils.FolderFileIO;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -35,6 +34,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentMapper commentMapper;
+
+	private FolderFileIO folderFileIo;
 
 	@Override
 	public CommentImage getCommentImageById(Long commentImageId) {
@@ -57,50 +58,18 @@ public class CommentServiceImpl implements CommentService {
 	public void postComments(CommentParam commentParam) {
 		Long commentId = commentDao.insertComment(commentParam);
 		File baseFolder = new File(basePath + "img_uploaded/");
-		if (!baseFolder.exists()) {
-			try {
-				baseFolder.mkdir(); //폴더 생성합니다.
-				System.out.println("기본 폴더가 생성되었습니다.");
-			} catch (Exception e) {
-				throw new RuntimeException("folder create error");
-			}
-		}
-		File Folder = new File(basePath + "img_uploaded/" + commentId);
-		if (!Folder.exists()) {
-			try {
-				Folder.mkdir(); //폴더 생성합니다.
-				System.out.println("폴더가 생성되었습니다.");
-			} catch (Exception e) {
-				throw new RuntimeException("folder create error");
-			}
-		}
+		folderFileIo.createFolderIfNotExist(baseFolder);
+
+		File Targetfolder = new File(basePath + "img_uploaded/" + commentId);
+		folderFileIo.createFolderIfNotExist(Targetfolder);
+
 		if (commentParam.getImageFiles() != null) {
 			for (MultipartFile file : commentParam.getImageFiles()) {
 				Long file_id = commentDao.insertFileInfo(file, commentId, commentParam);
 				commentDao.insertCommentImageInfo(file_id, commentParam.getReservationInfoId(), commentId);
-				try (
-					FileOutputStream fos = new FileOutputStream(
-						basePath + "img_uploaded/" + commentId + "/"
-							+ file.getOriginalFilename());
-					InputStream is = file.getInputStream();) {
-					int readCount = 0;
-					byte[] buffer = new byte[1024];
-					while ((readCount = is.read(buffer)) != -1) {
-						fos.write(buffer, 0, readCount);
-					}
-					System.out.println("success saving" + file.getOriginalFilename());
-				} catch (Exception ex) {
-					if (Folder.exists()) {
-						try {
-							Folder.delete();
-							System.out.println("비정상 업로드 폴더가 삭제되었습니다.");
-						} catch (Exception e) {
-							throw new RuntimeException("folder delete Error");
-						}
-					}
-					throw new RuntimeException("file save error");
-				}
+				folderFileIo.saveFile(basePath, Targetfolder, commentId, file);
 			}
 		}
 	}
+
 }

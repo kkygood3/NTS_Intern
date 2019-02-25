@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ApplicationLoginApiController {
+public class LoginApiController {
 
 	@Autowired
 	private HttpSession session;

@@ -28,7 +28,8 @@
     </appender>
 
     <logger name="org.springframework" level="info"/>
-    <logger name="kr.or.connect" level="debug"/>
+    <logger name="com.nts.reservation.*" level="debug"/>
+    <logger name="org.springframework" level="debug"/>
 
     <root level="debug">
         <appender-ref ref="CONSOLE"/>

@@ -29,7 +29,7 @@ import com.nts.reservation.service.ReservationService;
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ApplicationReservationApiController {
+public class ReservationApiController {
 
 	@Autowired
 	private ReservationService reservationService;
@@ -38,15 +38,24 @@ public class ApplicationReservationApiController {
 
 	@PostMapping(path = "/reservations")
 	public boolean postReservation(@RequestBody ReservationParam reservationParam) {
-		reservationService.addReservations(reservationParam);
-		return true;
+		try {
+			reservationService.addReservations(reservationParam);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	@PutMapping(path = "/reservations/{reservationId}")
 	public boolean cancelReservation(
 		@PathVariable(name = "reservationId", required = true) Long reservationId) {
-		reservationService.cancelReservation(reservationId);
-		return true;
+		try {
+			reservationService.cancelReservation(reservationId);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@GetMapping("/reservations")

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,16 +30,14 @@ import com.nts.reservation.service.CommentService;
  */
 
 @RestController
-@ControllerAdvice
 @RequestMapping(path = "/api/")
-public class ApplicationCommentController {
+public class CommentApiController {
 	@Autowired
 	private CommentService commentService;
 
 	@PostMapping(path = "/comment")
-	public String postComment(@ModelAttribute CommentParam commentParam) {
+	public void postComment(@ModelAttribute CommentParam commentParam) {
 		commentService.postComments(commentParam);
-		return null;
 	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")
