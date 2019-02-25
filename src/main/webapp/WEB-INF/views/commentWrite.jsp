@@ -232,7 +232,7 @@
 			formData.append("comment", commentTextArea.text);
 			formData.append("image", elImage.files[0]);
 
-			var url = "/api/reservations/" + reservationId + "/comments?productId" + productId;
+			var url = "/api/reservations/" + reservationId + "/comments?productId=" + productId;
 			ajaxFile(ajaxSuccess, url, formData);
 
 		});
