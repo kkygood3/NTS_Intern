@@ -4,9 +4,8 @@
  **/
 package com.nts.util;
 
-import java.io.UnsupportedEncodingException;
+import java.rmi.ServerException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
@@ -20,15 +19,19 @@ public class UuidUtil {
 	/**
 	 * @desc uuid 가져오기
 	 * @return uuid
-	 * @throws NoSuchAlgorithmException
-	 * @throws UnsupportedEncodingException
+	 * @throws ServerException 
 	 */
-	public static String getUuid() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public static String getUuid() throws ServerException  {
 
-		MessageDigest salt = MessageDigest.getInstance(HASH_SHA_256);
-		salt.update(UUID.randomUUID().toString().getBytes(ENCODING_UTF_8));
-		String digest = byteArrayToHex(salt.digest());
-		return digest;
+		try {
+			MessageDigest salt = MessageDigest.getInstance(HASH_SHA_256);
+			salt.update(UUID.randomUUID().toString().getBytes(ENCODING_UTF_8));
+			String digest = byteArrayToHex(salt.digest());
+
+			return digest;
+		} catch (Exception e) {
+			throw new ServerException("Server Error !");
+		}
 
 	}
 

@@ -6,6 +6,7 @@ package com.nts.controller.api;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.dto.comment.Comments;
 import com.nts.dto.file.FileInfo;
-import com.nts.exception.FileNotFoundException;
 import com.nts.service.comment.CommentService;
 
 /**
@@ -26,8 +26,6 @@ import com.nts.service.comment.CommentService;
 @RequestMapping("/api/comments")
 public class CommentController {
 
-	private static final String FILE_PATH = "/Users/USER/git/2019_1st_intern6/src/main/webapp/";
-	
 	private final CommentService commentService;
 
 	public CommentController(CommentService commentService) {
@@ -55,18 +53,15 @@ public class CommentController {
 	public void getCommentImageByCommentId(@PathVariable int commentId, HttpServletResponse response) throws FileNotFoundException {
 		
 		FileInfo fileInfo = commentService.getFileInfoByCommentId(commentId);
-		
-		String fileName = fileInfo.getFileName();
-		String saveFileName = FILE_PATH + fileInfo.getSaveFileName(); // 맥일 경우 "/tmp/connect.png" 로 수정
-		String contentType = fileInfo.getContentType();
-		
-		File file = new File(saveFileName);
+
+		File file = new File(fileInfo.getSaveFileName());
         
-		try (FileInputStream fis = new FileInputStream(file); OutputStream out = response.getOutputStream();) {
+		try (FileInputStream fis = new FileInputStream(file);
+				OutputStream out = response.getOutputStream();) {
 			
-	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
+	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileInfo.getFileName() + "\";");
 	        response.setHeader("Content-Transfer-Encoding", "binary");
-	        response.setHeader("Content-Type", contentType);
+	        response.setHeader("Content-Type", fileInfo.getContentType());
 	        response.setHeader("Content-Length", "" + file.length());
 	        response.setHeader("Pragma", "no-cache;");
 	        response.setHeader("Expires", "-1;");

@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
+import java.rmi.ServerException;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
@@ -35,10 +35,10 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 		this.reservationCommentRepository = reservationCommentRepository;
 	}
 
-	@Transactional(readOnly = false, rollbackFor = {NoSuchAlgorithmException.class, FileNotFoundException.class, IOException.class, SQLException.class})
+	@Transactional(readOnly = false, rollbackFor = {ServerException.class, SQLException.class})
 	@Override
 	public int addComment(ReservationCommentParam reservationCommentParam)
-		throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+		throws ServerException {
 		
 		int reservationUserCommentId = reservationCommentRepository.insertIntoReservationUserComment(reservationCommentParam);
 
@@ -59,7 +59,7 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 		return 0;
 	}
 
-	private String addFile(MultipartFile imageFile) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+	private String addFile(MultipartFile imageFile) throws ServerException {
 		String fileName = UuidUtil.getUuid() + imageFile.getContentType().replaceAll("image/", ".");
 		try (
 			FileOutputStream outputStream = new FileOutputStream(FILE_PATH + fileName);
@@ -71,6 +71,10 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 			while ((readCount = inputStream.read(buffer)) != -1) {
 				outputStream.write(buffer, 0, readCount);
 			}
+		} catch (FileNotFoundException e) {
+			throw new ServerException("파일 요청을 하지않음");
+		} catch (IOException e) {
+			throw new ServerException("서버 파일 요청 에러");
 		}
 		return fileName;
 	}

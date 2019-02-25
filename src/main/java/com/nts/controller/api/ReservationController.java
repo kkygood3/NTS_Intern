@@ -4,10 +4,8 @@
  **/
 package com.nts.controller.api;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.rmi.ServerException;
 import java.security.InvalidParameterException;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
 import javax.naming.NoPermissionException;
@@ -88,8 +86,6 @@ public class ReservationController {
 				.append("reservationYearMonthDay : ").append(reservationParameter.getReservationYearMonthDay())
 				.append("reservationTelephone : ").append(reservationParameter.getReservationTelephone());
 
-			logger.info(strBuffer.toString());
-
 			throw new InvalidFormatException(strBuffer.toString());
 		}
 		return true;
@@ -116,10 +112,16 @@ public class ReservationController {
 		return true;
 	}
 
+	/**
+	 * @desc reservationComment 등록
+	 * @param reservationInfoId
+	 * @param reservationCommentParam
+	 * @throws ServerException
+	 */
 	@PostMapping("/{reservationInfoId}/comments")
-	public boolean addReservationComments(@PathVariable(required = true) int reservationInfoId,
+	public boolean addReservationComment(@PathVariable(required = true) int reservationInfoId,
 		ReservationCommentParam reservationCommentParam)
-		throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+		throws ServerException {
 
 		reservationCommentParam.setReservationInfoId(reservationInfoId);
 		reservationCommentService.addComment(reservationCommentParam);

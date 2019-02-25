@@ -6,8 +6,9 @@ package com.nts.controller.error;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.rmi.ServerException;
 import java.security.InvalidParameterException;
-import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 
 import javax.naming.NoPermissionException;
 
@@ -47,7 +48,7 @@ public class RestControllerExceptionAdvice {
 	 */
 	@ExceptionHandler(DisplayInfoNullException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage displayNotFound(DisplayInfoNullException e) {
+	public ErrorMessage displayNotFoundExceptionHandling(DisplayInfoNullException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 
@@ -58,7 +59,7 @@ public class RestControllerExceptionAdvice {
 	 */
 	@ExceptionHandler(InvalidFormatException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage invalidFormat(InvalidFormatException e) {
+	public ErrorMessage invalidFormatExceptionHandling(InvalidFormatException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 
@@ -69,7 +70,7 @@ public class RestControllerExceptionAdvice {
 	 */
 	@ExceptionHandler(InvalidParameterException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage invalidParameter(InvalidParameterException e) {
+	public ErrorMessage invalidParameterExceptionHandling(InvalidParameterException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 
@@ -80,7 +81,7 @@ public class RestControllerExceptionAdvice {
 	 */
 	@ExceptionHandler(NoPermissionException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-	public ErrorMessage noPermission(NoPermissionException e) {
+	public ErrorMessage noPermissionExceptionHandling(NoPermissionException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 
@@ -91,7 +92,7 @@ public class RestControllerExceptionAdvice {
 	 */
 	@ExceptionHandler(NoMatchReservationException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage noMatchReservationInformation(NoMatchReservationException e) {
+	public ErrorMessage noMatchReservationInformationExceptionHandling(NoMatchReservationException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 
@@ -117,14 +118,26 @@ public class RestControllerExceptionAdvice {
 		return new ErrorMessage(e.getMessage());
 	}
 	
+	
 	/**
-	 * @desc UUID 생성시에  없는 Hash알고리즘 사용시
+	 * @desc parsing 실패시 
 	 * @param e
 	 * @return
 	 */
-	@ExceptionHandler(NoSuchAlgorithmException.class)
+	@ExceptionHandler(ParseException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorMessage noSuchAlgorithmExceptionHandling(NoSuchAlgorithmException e) {
+	public ErrorMessage parseExceptionHandling(ParseException e) {
+		return new ErrorMessage(e.getMessage());
+	}
+	
+	/**
+	 * @desc server error 시
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(ServerException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorMessage serverExceptionHandling(ServerException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 }

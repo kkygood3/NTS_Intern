@@ -21,7 +21,7 @@ public class ErrorLogAspect {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@AfterThrowing(value = "execution (* *..*Controller.*(..))", throwing = "e")
-	public void printErrorLog(Exception e) {
+	public void printErrorLog(Throwable e) {
 
 		logger.info(ExceptionUtils.getStackTrace(e));
 	}

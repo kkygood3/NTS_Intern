@@ -6,10 +6,12 @@ package com.nts.dao.comment;
 
 import static com.nts.sqls.comment.CommentSqls.*;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.dto.comment.Comment;
 import com.nts.dto.comment.CommentImage;
-import com.nts.dto.file.FileInfo; 
+import com.nts.dto.file.FileInfo;
 
 /**
  * @author 전연빈
@@ -77,12 +79,16 @@ public class CommentRepository {
 	/**
 	 * @desc commentImage file정보 불러오기
 	 * @param commentId
-	 * @return
+	 * @return fileInfo
+	 * @throws FileNotFoundException 
 	 */
-	public FileInfo selectFileInfoByCommentId(int commentId) {
+	public FileInfo selectFileInfoByCommentId(int commentId) throws FileNotFoundException {
 		Map<String, Object> params = new HashMap<>();
 		params.put("commentId", commentId);
-
-		return namedParameterJdbcTemplate.queryForObject(SELECT_FILE_INFO_BY_COMMENT_ID, params, fileInfoRowMapper);
+		try {
+			return namedParameterJdbcTemplate.queryForObject(SELECT_FILE_INFO_BY_COMMENT_ID, params, fileInfoRowMapper);
+		} catch(EmptyResultDataAccessException e) {
+			throw new FileNotFoundException("파일을 찾을수 없습니다.");
+		}
 	}
 }

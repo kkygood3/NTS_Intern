@@ -4,12 +4,10 @@
  **/
 package com.nts.service.reservation;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
+import java.rmi.ServerException;
 
 import com.nts.dto.reservation.ReservationCommentParam;
 
 public interface ReservationCommentService {
-	int addComment(ReservationCommentParam reservationCommentParam) throws NoSuchAlgorithmException, FileNotFoundException, IOException;
+	int addComment(ReservationCommentParam reservationCommentParam) throws ServerException;
 }

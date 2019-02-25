@@ -4,6 +4,7 @@
  **/
 package com.nts.service.comment;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import com.nts.dto.comment.Comment;
@@ -20,5 +21,5 @@ public interface CommentService {
 
 	Comments getComments(int productId);
 	
-	FileInfo getFileInfoByCommentId(int commentId);
+	FileInfo getFileInfoByCommentId(int commentId) throws FileNotFoundException;
 }

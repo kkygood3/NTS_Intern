@@ -55,6 +55,7 @@ public class ProductController {
 	}
 	
 	/**
+	 * @desc productId 별 displayInfo 가져오기
 	 * @param displayInfoId
 	 * @return displayInfos ()
 	 * @throws DisplayInfoNullException
