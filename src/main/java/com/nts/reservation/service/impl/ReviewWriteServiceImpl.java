@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.common.FileUtils;
 import com.nts.reservation.dao.reviewwrite.ReviewWrtieDao;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
+import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.ReviewWriteService;
 
 @Service
@@ -34,27 +36,28 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 
 		MultipartFile imageFile = reviewWriteRequest.getImageFile();
 		if (imageFile != null) {
-			String fileName = imageFile.getOriginalFilename();
+			String fileName = FileUtils.addRandomSuffix(imageFile.getOriginalFilename());
+			String fileDir = CommonProperties.ROOT_DIR_COMMNET_IMAGE + fileName;
+			
+			try (FileOutputStream fileOut = new FileOutputStream(fileDir);
+				InputStream in = imageFile.getInputStream();) {
 
-			try (
-				FileOutputStream fos = new FileOutputStream("c:/tmp/img/" + imageFile.getOriginalFilename());
-				InputStream is = imageFile.getInputStream();) {
 				int readCount = 0;
 				byte[] buffer = new byte[1024];
-				while ((readCount = is.read(buffer)) != -1) {
-					fos.write(buffer, 0, readCount);
+
+				while ((readCount = in.read(buffer)) != -1) {
+					fileOut.write(buffer, 0, readCount);
 				}
 			} catch (Exception ex) {
 				throw new RuntimeException("file Save Error");
 			}
 
 			reviewWriteRequest.setFileName(fileName);
-			reviewWriteRequest.setSaveFileName("img/" + fileName);
-			reviewWriteRequest.setContentType("image/" + fileName.substring(fileName.lastIndexOf(".") + 1));
+			reviewWriteRequest.setSaveFileName("img_comment/" + fileName);
+			reviewWriteRequest.setContentType(imageFile.getContentType());
 
 			reviewWriteDao.insertFileInfo(reviewWriteRequest);
 			reviewWriteDao.insertCommentImage(reviewWriteRequest);
 		}
-
 	}
 }

@@ -27,6 +27,7 @@ import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
+import com.nts.reservation.service.ReviewWriteService;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -35,7 +36,9 @@ public class ReserveApiController {
 	ReserveService reserveResponseService;
 	@Autowired
 	MyReservationService myReservationService;
-
+	@Autowired
+	ReviewWriteService reviewWriteService;
+	
 	/**
 	 * Reservation 정보 조회
 	 * @param myReservationRequest
@@ -96,10 +99,9 @@ public class ReserveApiController {
 	@PostMapping("/{reservationInfoId}/comments")
 	public Map<String, Object> registerComment(@PathVariable Integer reservationInfoId,
 		ReviewWriteRequest reviewWriteRequest) {
-		System.out.println("호출 성공 " + reviewWriteRequest);
+		reviewWriteRequest.setReservationInfoId(reservationInfoId);
+		reviewWriteService.writeReview(reviewWriteRequest);
 		
-		
-		
-		return Collections.emptyMap();
+		return Collections.singletonMap("result", "OK");
 	}
 }

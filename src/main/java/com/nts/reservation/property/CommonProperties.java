@@ -40,11 +40,16 @@ public class CommonProperties {
 	public static final int MAX_COMMENT_LENGTH = 400;
 	public static final int MIN_COMMENT_LENGTH = 5;
 
-	public static final int MAX_FILE_LENGTH = 1116303;
 	
+	/**
+	 * 이미지 파일 업로드/다운로드에 사용.
+	 * 
+	 */	
 	public static final String[] ALLOW_FILE_EXTENSION = {"image/jpeg", "image/png", "image/jpg"};
 	
-	public static final String ROOT_DIR_IMAGE = "c:/tmp/img/";
-	public static final String ROOT_DIR_IMAGE_MAP = "c:/tmp/img_map/";
+	public static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_comment/";
+	
+	public static final int RANDOM_SUFFIX_LENGTH = 10;
+	
 
 }

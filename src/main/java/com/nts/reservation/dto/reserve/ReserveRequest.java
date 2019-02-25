@@ -17,7 +17,7 @@ public class ReserveRequest {
 	private Integer displayInfoId;
 	private String reservationDate;
 	private List<ReservePrice> reservePriceInfoList;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -106,7 +106,9 @@ public class ReserveRequest {
 			return false;
 		}
 
-		return ReservationValidatior.validateName(this.name) && ReservationValidatior.validateTelephone(this.telephone) && ReservationValidatior.validateEmail(this.email);
+		return ReservationValidatior.validateName(this.name)
+			&& ReservationValidatior.validateTelephone(this.telephone)
+			&& ReservationValidatior.validateEmail(this.email);
 	}
 
 }

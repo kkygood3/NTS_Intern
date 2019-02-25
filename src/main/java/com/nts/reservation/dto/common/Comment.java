@@ -14,6 +14,15 @@ public class Comment {
 	private String reservationName;
 	private String reservationDate;
 	private Integer score;
+	private Integer reservationUserCommentImageId;
+
+	public Integer getReservationUserCommentImageId() {
+		return reservationUserCommentImageId;
+	}
+
+	public void setReservationUserCommentImageId(Integer reservationUserCommentImageId) {
+		this.reservationUserCommentImageId = reservationUserCommentImageId;
+	}
 
 	public Integer getDisplayInfoId() {
 		return displayInfoId;

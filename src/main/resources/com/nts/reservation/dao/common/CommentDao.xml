@@ -10,7 +10,8 @@
 			rc.comment,  
 			rc.score,  
 			r.reservation_name,  
-			f.save_file_name as comment_image  
+			f.save_file_name AS comment_image,
+			rci.id AS reservation_user_comment_image_id
 		 FROM
 		 	reservation_info AS r    
 		 INNER JOIN

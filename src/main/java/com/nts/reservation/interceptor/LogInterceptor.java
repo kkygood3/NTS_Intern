@@ -13,7 +13,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		logger.debug("{} 를 호출했습니다.", handler.toString());
+		logger.debug("{} 를 호출했습니다. - {}", handler.toString(), request.getRemoteAddr());
 		return true;
 	}
 }

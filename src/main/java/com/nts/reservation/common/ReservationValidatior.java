@@ -16,7 +16,8 @@ import com.nts.reservation.property.CommonProperties;
  */
 public class ReservationValidatior {
 	public static boolean validateEmail(String email) {
-		return (email != null && email.length() > 0
+		return (email != null
+			&& email.length() > 0
 			&& email.length() <= CommonProperties.MAX_EMAIL_LENGTH
 			&& Pattern.matches(CommonProperties.REG_EMAIL, email.trim()));
 	}
@@ -31,24 +32,26 @@ public class ReservationValidatior {
 		return (name != null && name.length() > 0
 			&& name.length() <= CommonProperties.MAX_NAME_LENGTH);
 	}
-	
+
 	public static boolean validateComment(String comment) {
 		int commentLength = comment.length();
-		return (CommonProperties.MIN_COMMENT_LENGTH <= commentLength && commentLength <= CommonProperties.MAX_COMMENT_LENGTH);
+		return (CommonProperties.MIN_COMMENT_LENGTH <= commentLength
+			&& commentLength <= CommonProperties.MAX_COMMENT_LENGTH);
 	}
-	
+
 	public static boolean validateScore(int score) {
-		return (CommonProperties.MIN_REVIEW_SCORE <= score && score <= CommonProperties.MAX_REVIEW_SCORE);
+		return (CommonProperties.MIN_REVIEW_SCORE <= score
+			&& score <= CommonProperties.MAX_REVIEW_SCORE);
 	}
 
 	public static boolean validateImage(MultipartFile imageFile) {
 		String extName = imageFile.getContentType();
-		for(final String allowName : CommonProperties.ALLOW_FILE_EXTENSION) {
-			if(extName.equalsIgnoreCase(allowName)) {
+		for (final String allowName : CommonProperties.ALLOW_FILE_EXTENSION) {
+			if (extName.equalsIgnoreCase(allowName)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }

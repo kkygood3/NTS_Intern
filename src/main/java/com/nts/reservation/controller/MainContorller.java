@@ -9,12 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainContorller {
-	/**
-	 * /detail 요청을 받아 detail view로 넘겨주는 역할.
-	 * @param id - displayInfo 테이블의 id 
-	 */
 	@GetMapping("/")
-	public String requestDetail() {
+	public String requestMain() {
 		return "main";
 	}
 }
