@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author 전연빈
  */
 @Controller
+@RequestMapping("/detail")
 public class DetailController {
 
 	/**
@@ -21,7 +22,7 @@ public class DetailController {
 	 * @param modelAndView
 	 * @return modelAndView ( viewName : detail , object: displayInfoId)
 	 */
-	@RequestMapping("/detail/{displayInfoId}")
+	@RequestMapping("/{displayInfoId}")
 	public ModelAndView getDetailPage(@PathVariable int displayInfoId, ModelAndView modelAndView) {
 
 		modelAndView.addObject("displayInfoId", displayInfoId);

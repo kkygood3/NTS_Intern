@@ -6,7 +6,6 @@ package com.nts.dao.category;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,10 +21,13 @@ import static com.nts.sqls.category.CategorySqls.*;
 @Repository
 public class CategoryRepository {
 
-	@Autowired
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
 	private RowMapper<Category> rowMapper = BeanPropertyRowMapper.newInstance(Category.class);
-
+	
+	public CategoryRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
 	/**
 	 * @desc 카테고리들 가져오기
 	 * @return categories

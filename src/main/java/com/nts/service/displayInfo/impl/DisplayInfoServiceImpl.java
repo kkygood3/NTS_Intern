@@ -5,7 +5,6 @@
 package com.nts.service.displayInfo.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.displayinfo.DisplayInfoRepository;
@@ -22,14 +21,17 @@ import com.nts.service.displayInfo.DisplayInfoService;
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
+	private final DisplayInfoRepository displayInfoRepository;
+	private final ProductRepository productRepository;
+	private final CommentService commentService;
+	
 	@Autowired
-	private DisplayInfoRepository displayInfoRepository;
-
-	@Autowired
-	private ProductRepository productRepository;
-
-	@Autowired
-	private CommentService commentService;
+	public DisplayInfoServiceImpl(DisplayInfoRepository displayInfoRepository, ProductRepository productRepository,
+			CommentService commentService) {
+		this.displayInfoRepository = displayInfoRepository;
+		this.productRepository = productRepository;
+		this.commentService = commentService;
+	}
 
 	/**
 	 * @desc 상품 상세 정보 가져오기

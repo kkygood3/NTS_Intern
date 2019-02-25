@@ -4,7 +4,6 @@
  **/
 package com.nts.service.promotion.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.promotion.PromotionRepository;
@@ -17,8 +16,11 @@ import com.nts.service.promotion.PromotionService;
 @Service
 public class PromotionServiceImpl implements PromotionService {
 
-	@Autowired
-	private PromotionRepository promotionRepository;
+	private final PromotionRepository promotionRepository;
+
+	public PromotionServiceImpl(PromotionRepository promotionRepository) {
+		this.promotionRepository = promotionRepository;
+	}
 
 	/**
 	 * @desc 프로모션 전체 불러오기

@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+import javax.naming.NoPermissionException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,15 +31,19 @@ import com.nts.service.reservation.ReservationService;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-	@Autowired
-	private ReservationRepository reservationRepository;
-
-	@Autowired
-	private DisplayInfoService displayInfoService;
-
 	private static final DateFormat DATE_FORMAT_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
 	private static final int CANCEL = 1;
 	private static final int FAIL = 0;
+
+	private final ReservationRepository reservationRepository;
+	private final DisplayInfoService displayInfoService;
+	
+	@Autowired
+	public ReservationServiceImpl(ReservationRepository reservationRepository, DisplayInfoService displayInfoService) {
+		this.reservationRepository = reservationRepository;
+		this.displayInfoService = displayInfoService;
+	}
+
 
 	/**
 	 * @desc reservationEmail 별 reservationInfo 가져오기
@@ -51,8 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
 			.selectReservationInfoByReservationEmail(reservationEmail);
 
 		for (Reservation reservation : reservationInfoList) {
-			reservation
-				.setDisplayInfo(displayInfoService.getDisplayInfoByDisplayInfoId(reservation.getDisplayInfoId()));
+			reservation.setDisplayInfo(displayInfoService.getDisplayInfoByDisplayInfoId(reservation.getDisplayInfoId()));
 		}
 
 		ReservationInfos reservationInfos = new ReservationInfos();
@@ -111,5 +116,15 @@ public class ReservationServiceImpl implements ReservationService {
 		cal.add(Calendar.DATE, new Random().nextInt(5));
 
 		return DATE_FORMAT_YYYY_MM_DD.format(cal.getTime());
+	}
+
+	/**
+	 * @desc 예약한 사람만 reservation 데이터 넘겨줌
+	 * @param reservationEmail
+	 * @param reservationInfoId
+	 */
+	@Override
+	public Reservation getReservedInfo(String reservationEmail, int reservationInfoId) throws NoPermissionException {
+		return reservationRepository.selectReserved(reservationEmail, reservationInfoId);
 	}
 }
