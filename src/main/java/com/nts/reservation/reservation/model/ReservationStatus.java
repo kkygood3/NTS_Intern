@@ -5,6 +5,7 @@
 package com.nts.reservation.reservation.model;
 
 public enum ReservationStatus {
+
 	RESERVED(0), CANCELED(1), USED(2);
 
 	private int statusCode;

@@ -62,6 +62,11 @@ public class ReservationServiceLogic implements ReservationService {
 		}
 	}
 
+	@Override
+	public String getReservedProductDescription(String reservationEmail, int reservationId) {
+		return reservationDao.selectReservedProductDescription(reservationEmail, reservationId);
+	}
+
 	private boolean isUpdateZero(int updateCount) {
 		return updateCount == 0;
 	}

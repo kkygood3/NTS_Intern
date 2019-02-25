@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,6 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistory;
 import com.nts.reservation.reservation.model.ReservationPrice;
@@ -62,6 +64,18 @@ public class ReservationDao {
 		param.put("reservationId", reservationId);
 		param.put("statusCode", statusCode);
 		return jdbcTemplate.update(UPDATE_RESERVATION_CANCEL_FLAG_STRING, param);
+	}
+
+	public String selectReservedProductDescription(String reservationEmail, int reservationId) {
+		try {
+			Map<String, Object> param = new HashMap<>();
+			param.put("reservationEmail", reservationEmail);
+			param.put("reservationId", reservationId);
+
+			return jdbcTemplate.queryForObject(SELECT_RESERVED_PRODUCT_DESCRIPTION, param, String.class);
+		} catch (EmptyResultDataAccessException e) {
+			throw new NotFoundDataException("not found reserved data");
+		}
 	}
 
 }

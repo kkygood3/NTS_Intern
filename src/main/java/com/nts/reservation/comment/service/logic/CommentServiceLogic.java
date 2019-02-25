@@ -8,17 +8,24 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.file.service.FileService;
 
 @Service
 public class CommentServiceLogic implements CommentService {
 
 	@Autowired
 	private CommentDao commentDao;
+
+	@Autowired
+	private FileService fileService;
 
 	/**
 	 * comment 목록과 관련 정보를 조회한 객체들을 가지는 CommentListInfo 객체를 생성후 반환
@@ -47,5 +54,30 @@ public class CommentServiceLogic implements CommentService {
 
 	private boolean isLimit(int limitCount) {
 		return limitCount > 0;
+	}
+
+	@Override
+	@Transactional
+	public int addComment(WritedComment writedComment, MultipartFile[] images) {
+		String commentImageDirectory = "img/";
+
+		int reservationUserCommentId = commentDao.insertComment(writedComment);
+
+		if (images == null) {
+			return reservationUserCommentId;
+		}
+
+		for (MultipartFile image : images) {
+			int fileId = fileService.storeMultipartFile(image, commentImageDirectory);
+			commentDao.insertReservationUserCommentImageInfo(writedComment.getReservationId(), reservationUserCommentId,
+				fileId);
+		}
+
+		return reservationUserCommentId;
+	}
+
+	@Override
+	public String getCommentImageSaveFileName(int commentImageId) {
+		return commentDao.selectCommentImageSaveFilename(commentImageId);
 	}
 }

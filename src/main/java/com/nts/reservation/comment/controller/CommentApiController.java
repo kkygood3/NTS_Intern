@@ -4,13 +4,20 @@
  */
 package com.nts.reservation.comment.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.comment.model.CommentResponse;
+import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.model.Response;
 
 @RestController
 public class CommentApiController {
@@ -26,4 +33,12 @@ public class CommentApiController {
 		return new CommentResponse(commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_NOT_LIMITED));
 	}
 
+	@MustLogin
+	@PostMapping(value = {"/api/comment"})
+	public Response addComment(WritedComment writedComment, MultipartFile[] images, HttpSession httpSession) {
+		String email = (String)httpSession.getAttribute("email");
+		writedComment.setReservationEmail(email);
+		commentService.addComment(writedComment, images);
+		return new Response();
+	}
 }

@@ -6,8 +6,11 @@ package com.nts.reservation.comment.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.comment.model.WritedComment;
 
 public interface CommentService {
 
@@ -17,4 +20,8 @@ public interface CommentService {
 	CommentListInfo getCommentListInfo(int displayInfoId, int limitCount);
 
 	List<Comment> getCommentList(int displayInfoId, int limitCount);
+
+	int addComment(WritedComment writedComment, MultipartFile[] images);
+
+	String getCommentImageSaveFileName(int commentImageId);
 }

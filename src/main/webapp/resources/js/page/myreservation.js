@@ -3,21 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setting();
 	template.setUseDateFormat(0, 10);
 	
-	template.addNewFunction("isReserved", (reservationStatus, options) =>{
+	template.addNewFunction("isReserved", function(reservationStatus, options){
 		if(reservationStatus === "RESERVED"){
 			return options.fn(this);
 		}
 		else{
-			return options.inverse(this);
+			return options.inverse();
 		}
 	});
 	
-	template.addNewFunction("isUsed", (reservationStatus, options) =>{
+	template.addNewFunction("isUsed", function(reservationStatus, options){
 		if(reservationStatus === "USED"){
 			return options.fn(this);
 		}
 		else{
-			return options.inverse(this);
+			return options.inverse();
 		}
 	});
 	
