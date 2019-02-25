@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CommentController {
-
-	@RequestMapping(value = "/review", method=RequestMethod.GET)
+	@RequestMapping(value = "/review", method = RequestMethod.GET)
 	public String mapReviewPage(
 		@RequestParam(name = "displayInfoId", required = false, defaultValue = "0") int displayInfoId) {
-
 		return "review";
 	}
 }

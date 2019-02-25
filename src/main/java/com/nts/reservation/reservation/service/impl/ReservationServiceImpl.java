@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.commons.validator.NegativeValueValidator;
 import com.nts.reservation.displayinfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayinfo.dto.DisplayInfo;
 import com.nts.reservation.reservation.dao.ReservationDao;
@@ -96,14 +95,12 @@ public class ReservationServiceImpl implements ReservationService {
 			return false;
 		}
 
-		reservationParam.getPrices().forEach(price -> {
-			int reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
-				reservationInfoId, price.getCount());
-
-			if (NegativeValueValidator.isNegativeValue(reservationInfoPriceId)) {
-				throw new IllegalArgumentException("insertReservationPrice Failed");
+		for (ReservationPrice price : reservationParam.getPrices()) {
+			if (reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
+				reservationInfoId, price.getCount()) < 0) {
+				return false;
 			}
-		});
+		}
 
 		return true;
 	}

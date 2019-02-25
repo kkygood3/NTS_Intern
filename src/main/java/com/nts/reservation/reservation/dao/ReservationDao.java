@@ -25,7 +25,7 @@ public interface ReservationDao {
 
 	int insertReservation(ReservationParam reservationParam);
 
-	Integer insertReservationPrice(int productPriceId, int reservationInfoId, int count);
+	int insertReservationPrice(int productPriceId, int reservationInfoId, int count);
 
 	int updateReservation(int reservationInfoId, String reservationEmail);
 }

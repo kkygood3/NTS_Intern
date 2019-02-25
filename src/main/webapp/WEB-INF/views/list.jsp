@@ -250,7 +250,7 @@
 								</em>
 							</div>
 							<div class="booking_cancel">
-								<a href="./reviewWrite.html"><button class="btn">
+								<a href="/writePage?productId={{productId}}"><button class="btn">
 										<span>예매자 리뷰 남기기</span>
 									</button></a>
 							</div>
