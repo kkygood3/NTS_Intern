@@ -76,4 +76,9 @@ public class ExceptionHandleControllerAdvice {
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler(Exception.class)
+	public ExceptionResponse handleRuntimeException(Exception e) {
+		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, "server error");
+	}
+
 }
