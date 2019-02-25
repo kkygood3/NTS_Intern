@@ -10,6 +10,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import com.nts.reservation.common.exception.NotFoundDataException;
 
@@ -21,7 +22,7 @@ public class IsEmptyAnntationAspect {
 	public void isEmpty(JoinPoint joinPoint, Object object) {
 		if (object instanceof Collection<?>) {
 			Collection<?> collection = (Collection<?>)object;
-			if (collection.isEmpty()) {
+			if (ObjectUtils.isEmpty(collection)) {
 				throw new NotFoundDataException();
 			}
 		}
