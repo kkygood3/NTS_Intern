@@ -4,6 +4,7 @@
  */
 package com.nts.reservation.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.main.MainCategoryDao;
 import com.nts.reservation.dao.main.MainProductDao;
 import com.nts.reservation.dao.main.MainPromotionDao;
-import com.nts.reservation.dto.main.MainCategory;
+import com.nts.reservation.dto.main.MainCategoryResponse;
 import com.nts.reservation.dto.main.MainProduct;
+import com.nts.reservation.dto.main.MainProductResponse;
 import com.nts.reservation.dto.main.MainPromotion;
+import com.nts.reservation.dto.main.MainPromotionResponse;
 import com.nts.reservation.service.MainService;
 
 @Service
@@ -27,31 +30,29 @@ public class MainServiceImpl implements MainService {
 	private MainPromotionDao mainPromotionDao;
 
 	@Override
-	public List<MainProduct> getProducts(int categoryId, int start, int pagingLimit) {
-		//조회 시작점이 음수일때 맨 처음부터 조회
-		if (start < 0) {
-			start = 0;
+	public MainProductResponse getProducts(int categoryId, int start, int pagingLimit) {
+		int count = mainProductDao.selectCount(categoryId);
+		List<MainProduct> productList = new ArrayList<>();
+		
+		if(count > 0) {
+			 productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
 		}
-		return mainProductDao.selectPagingProducts(categoryId, start, pagingLimit);
-	}
-	
-	@Override
-	public int getProductCount(int categoryId) {
-		return mainProductDao.selectCount(categoryId);
+		return new MainProductResponse(productList, count);
 	}
 
 	@Override
-	public List<MainCategory> getCategories(int pagingLimit) {
-		return mainCategoryDao.selectCategories(pagingLimit);
+	public MainCategoryResponse getCategories(int pagingLimit) {
+		return new MainCategoryResponse(mainCategoryDao.selectCategories(pagingLimit));
 	}
 
 	@Override
-	public List<MainPromotion> getPromotions(int pagingLimit) {
-		return mainPromotionDao.selectPromotions(pagingLimit);
-	}
-
-	@Override
-	public int getPromotionCount() {
-		return mainPromotionDao.selectCount();
+	public MainPromotionResponse getPromotions(int pagingLimit) {
+		int count = mainPromotionDao.selectCount();
+		List<MainPromotion> promotionList = new ArrayList<>();
+		
+		if(count > 0) {
+			 promotionList = mainPromotionDao.selectPromotions(pagingLimit);
+		}
+		return new MainPromotionResponse(promotionList, count);
 	}
 }

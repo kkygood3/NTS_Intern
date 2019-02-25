@@ -27,14 +27,14 @@ public class DetailServiceImpl implements DetailService {
 	public DetailResponse getDetailResponse(int displayInfoId, int start, int pagingLimit) {
 		DetailResponse detailResponse = new DetailResponse();
 
-		detailResponse.setDetailComment(detailCommentDao.selectCommentByDisplayInfoId(displayInfoId, start, pagingLimit));
-		detailResponse.setDetailDisplayInfo(detailDisplayInfoDao.selectDetailDisplayInfoByDisplayInfoId(displayInfoId));
+		detailResponse.setDetailComment(detailCommentDao.selectComment(displayInfoId, start, pagingLimit));
+		detailResponse.setDetailDisplayInfo(detailDisplayInfoDao.selectDetailDisplayInfo(displayInfoId));
 
 		return detailResponse;
 	}
 
 	@Override
 	public DetailExtraImage getExtraImage(int displayInfoId) {
-		return detailExtraImageDao.selectDetailExtraImageById(displayInfoId);
+		return detailExtraImageDao.selectDetailExtraImage(displayInfoId);
 	}
 }

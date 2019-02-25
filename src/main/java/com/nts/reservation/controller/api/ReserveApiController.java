@@ -6,7 +6,7 @@ package com.nts.reservation.controller.api;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
+import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
@@ -48,10 +49,11 @@ public class ReserveApiController {
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		HttpSession session){
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
-
-		return map;
+		if (start < 0) {
+			start = 0;
+		}
+		
+		return Collections.singletonMap("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 	}
 
 	/**
@@ -62,15 +64,14 @@ public class ReserveApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
-		Map<String, Object> map = new HashMap<>();
 		
-		if (reserveRequest.isValid() && reserveResponseService.registerReserve(reserveRequest)) {
-			map.put("result", "OK");
-		} else {
-			map.put("result", "FAIL");
+		String result = "FAIL";
+		if (reserveRequest.isValid()) {
+			reserveResponseService.registerReserve(reserveRequest);
+			result = "OK";
 		}
 
-		return map;
+		return Collections.singletonMap("result", result);
 	}
 
 	/**
@@ -79,14 +80,26 @@ public class ReserveApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public Map<String, Object> cancelReservation(@PathVariable Integer reservationInfoId, HttpSession session) {
-		Map<String, Object> map = new HashMap<>();
 		
+		String result = "FAIL";
 		if (myReservationService.cancelMyReservation(reservationInfoId, (String)session.getAttribute("email"))) {
-			map.put("result", "OK");
-		} else {
-			map.put("result", "FAIL");
+			result = "OK";
 		}
 
-		return map;
+		return Collections.singletonMap("result", result);
+	}
+	
+	/**
+	 * Comment 등록
+	 * @param reservationInfoId
+	 */
+	@PostMapping("/{reservationInfoId}/comments")
+	public Map<String, Object> registerComment(@PathVariable Integer reservationInfoId,
+		ReviewWriteRequest reviewWriteRequest) {
+		System.out.println("호출 성공 " + reviewWriteRequest);
+		
+		
+		
+		return Collections.emptyMap();
 	}
 }

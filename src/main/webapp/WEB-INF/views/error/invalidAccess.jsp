@@ -9,7 +9,7 @@
 <body>
 </body>
 <script>
-	alert('잘못된 접근입니다.\r\n메인 페이지로 돌아갑니다.');
+	alert('서비스에 문제가 발생했습니다.\r\n메인 페이지로 돌아갑니다.\r\ncause : ${cause}');
 	window.location.href = "/";
 </script>
 </html>

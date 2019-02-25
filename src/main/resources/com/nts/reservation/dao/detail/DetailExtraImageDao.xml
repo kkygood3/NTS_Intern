@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.dao.detail.DetailExtraImageDao">
-	<select id="selectDetailExtraImageById" resultType="DetailExtraImage">
+	<select id="selectDetailExtraImage" resultType="DetailExtraImage">
 		SELECT  
 			d.id,  
 			f.save_file_name AS product_image,  

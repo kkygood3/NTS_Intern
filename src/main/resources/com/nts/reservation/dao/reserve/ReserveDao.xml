@@ -41,8 +41,10 @@
 				product_price_id,
 				count)
 			VALUES
-				(#{reservationInfoId},
-				#{priceInfoId},
-				#{count});
+			<foreach collection="list" item="item" separator=",">
+				(#{item.reservationInfoId},
+				#{item.priceInfoId},
+				#{item.count})
+			</foreach>
 	</insert>
 </mapper>

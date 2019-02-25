@@ -4,9 +4,7 @@
  */
 package com.nts.reservation.controller.api;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.main.MainProduct;
-import com.nts.reservation.dto.main.MainPromotion;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.property.ProductProperties;
 import com.nts.reservation.service.MainService;
@@ -36,10 +32,7 @@ public class MainApiController {
 	public Map<String, Object> categories(
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("categoryList", mainResponseService.getCategories(pagingLimit));
-
-		return map;
+		return Collections.singletonMap("mainCategoryReseponse", mainResponseService.getCategories(pagingLimit));
 	}
 
 	/**
@@ -54,19 +47,12 @@ public class MainApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-
-		List<MainProduct> productList = new ArrayList<>();
-		int totalCount = mainResponseService.getProductCount(categoryId);
-
-		if (totalCount > 0) {
-			productList = mainResponseService.getProducts(categoryId, start, pagingLimit);
+		
+		if (start < 0) {
+			start = 0;
 		}
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("productList", productList);
-		map.put("totalCount", totalCount);
-
-		return map;
+		
+		return Collections.singletonMap("mainProductReseponse", mainResponseService.getProducts(categoryId, start, pagingLimit));
 	}
 
 	/**
@@ -78,17 +64,6 @@ public class MainApiController {
 	public Map<String, Object> promotions(
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
-		List<MainPromotion> promotionList = new ArrayList<>();
-		int totalCount = mainResponseService.getPromotionCount();
-
-		if (totalCount > 0) {
-			promotionList = mainResponseService.getPromotions(pagingLimit);
-		}
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("promotionList", promotionList);
-		map.put("totalCount", totalCount);
-
-		return map;
+		return Collections.singletonMap("mainPromotionReseponse", mainResponseService.getPromotions(pagingLimit));
 	}
 }

@@ -9,22 +9,19 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.common.CommentDao;
 import com.nts.reservation.dao.review.ReviewDisplayInfoDao;
+import com.nts.reservation.dao.reviewwrite.ReviewWrtieDao;
 import com.nts.reservation.dto.review.ReviewResponse;
+import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
 import com.nts.reservation.service.ReviewService;
+import com.nts.reservation.service.ReviewWriteService;
 
 @Service
-public class ReviewServiceImpl implements ReviewService {
+public class ReviewWriteServiceImpl implements ReviewWriteService {
 	@Autowired
-	CommentDao commentDao;
-	@Autowired
-	ReviewDisplayInfoDao reviewDisplayInfoDao;
+	ReviewWrtieDao reviewWrtieDao;
 
 	@Override
-	public ReviewResponse getReviewResponse(int displayInfoId, int start, int pagingLimit) {
-		ReviewResponse reviewResponse = new ReviewResponse();
-
-		reviewResponse.setReviewComment(commentDao.selectComment(displayInfoId, start, pagingLimit));
-		reviewResponse.setReviewDisplayInfo(reviewDisplayInfoDao.selectDetailDisplayInfo(displayInfoId));
-		return reviewResponse;
+	public ReviewWriteResponse getReviewWriteResponse(int reservationInfoId) {
+		return reviewWrtieDao.selectReviewWrite(reservationInfoId);
 	}
 }

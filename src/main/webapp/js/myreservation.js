@@ -126,7 +126,7 @@ function cancelResultCallback(response){
 /**
  * 티켓 아이템중 예약 확정 카테고리의 버튼 이벤트 처리 취소 버튼을 누르면 팝업창을 띄우고 팝업 이벤트를 등록한다.
  */ 
-function initTicketCancelEvents(ticketContainers){
+function initTicketCancelEvents(){
 	var cancelPopup = document.querySelector('.popup_booking_wrapper');
 	var cancelTitleArea = cancelPopup.querySelector('.pop_tit>span');
 	var cancelDate = cancelPopup.querySelector('.pop_tit>.sm');
@@ -146,6 +146,16 @@ function initTicketCancelEvents(ticketContainers){
 			cancelPopup.style.display = '';
 			cancelPopup.setAttribute('reservationInfoId',clickedBtn.getAttribute('reservationInfoId'));
 			currentSelect = clickedBtn;
+		}
+	});
+}
+
+function initTicketReviewEvents(){
+	ticketContainers[2].addEventListener('click',function(evt){
+		var clickedBtn = evt.target;
+		
+		if (clickedBtn.classList.contains('btn')){
+			location.href = '/reviewWrite?id='+clickedBtn.getAttribute('reservationinfoid');
 		}
 	});
 }
@@ -227,11 +237,16 @@ function loadReservationInfoCallback(response){
 	asyncCount++
 	if(!isInitialize && asyncCount >= RESERVATION_TYPE.length) {
 		isInitialize = true; 
-		initTicketCancelEvents(ticketContainers);
-		initTicketCancelPopupEvent();
-		initBtnLayouts();
-		initMoreBtnClickEvent();
+		inititalizeAfterPageLoad();
 	}
 	
 	checkTicketCount();
+}
+
+function inititalizeAfterPageLoad(){
+	initTicketCancelEvents(ticketContainers);
+	initTicketCancelPopupEvent();
+	initBtnLayouts();
+	initMoreBtnClickEvent();
+	initTicketReviewEvents();
 }

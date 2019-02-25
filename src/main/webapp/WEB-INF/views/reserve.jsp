@@ -30,16 +30,16 @@
             <div class="ct_wrap">
                 <div class="top_title">
                     <a href="" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                    <h2><span class="title">${reserveDisplayInfo.productDescription}</span></h2>
+                    <h2><span class="title">${reserveResponse.reserveDisplayInfo.productDescription}</span></h2>
                 </div>
                 <div class="group_visual">
                     <div class="container_visual" style="width: 414px;">
                         <ul class="visual_img">
-                            <li class="item" style="width: 414px; cursor: default;"> <img alt="" class="img_thumb" src="${reserveDisplayInfo.productImage}"> <span class="img_bg"></span>
+                            <li class="item" style="width: 414px; cursor: default;"> <img alt="" class="img_thumb" src="${reserveResponse.reserveDisplayInfo.productImage}"> <span class="img_bg"></span>
                                 <div class="preview_txt">
                                     <h2 class="preview_txt_tit"></h2> <em class="preview_txt_dsc">₩
-                                    <c:set var="minValue" scope="page" value="${reservePrice[0].price}"/>
-									<c:forEach items="${reservePrice}" var="item">
+                                    <c:set var="minValue" scope="page" value="${reserveResponse.reservePrice[0].price}"/>
+									<c:forEach items="${reserveResponse.reservePrice}" var="item">
 										<c:if test="${minValue > item.price}">
 											<c:set var="minValue" scope="page" value="${item.price}"/>
 										</c:if>
@@ -54,11 +54,11 @@
                     <div class="store_details">
                         <h3 class="in_tit"></h3>
                         <p class="dsc">
-                            장소 : ${reserveDisplayInfo.placeName}<br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
+                            장소 : ${reserveResponse.reserveDisplayInfo.placeName}<br> 기간 : 2017.2.17.(금)~2017.4.18.(화)
                         </p>
                         <h3 class="in_tit">관람시간</h3>
                         <p class="dsc">
-                            ${reserveDisplayInfo.openingHours}
+                            ${reserveResponse.reserveDisplayInfo.openingHours}
                         </p>
                         <h3 class="in_tit">요금</h3>
                         <p class="dsc">
@@ -69,7 +69,7 @@
                 </div>
                 <div class="section_booking_ticket">
                     <div class="ticket_body">
-                       	<c:forEach items="${reservePrice}" var="item">
+                       	<c:forEach items="${reserveResponse.reservePrice}" var="item">
                        		<c:set var="cost" scope="page" value="${fn:substringBefore(item.price * (100-item.discountRate) / 100,'.')}"/>
 	                    	<div class="qty" cost="${cost}">
 	                            <div class="count_control">
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
-                                        <p class="inline_txt selected">${reservationDate}, 총 <span id="totalCount">0</span>매</p>
+                                        <p class="inline_txt selected">${reserveResponse.reservationDate}, 총 <span id="totalCount">0</span>매</p>
                                     </div>
                                 </div>
                             </form>
@@ -159,7 +159,7 @@
         </div>
     </div>
     
-    <input type="hidden" name="reservationDate" value="${reservationDate}" id="reservationDateInput">
+    <input type="hidden" name="reservationDate" value="${reserveResponse.reservationDate}" id="reservationDateInput">
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
@@ -181,8 +181,8 @@
 			var priceDescriptionArea = document.querySelector('.store_details :nth-child(6)');
 			
 			var priceList = new Array();
-			<c:forEach var="i" begin="0" end="${fn:length(reservePrice)-1}">
-				priceList[${i}] = new ReservePrice('${reservePrice[i].price}','${reservePrice[i].priceTypeLabel}');
+			<c:forEach var="i" begin="0" end="${fn:length(reserveResponse.reservePrice)-1}">
+				priceList[${i}] = new ReservePrice('${reserveResponse.reservePrice[i].price}','${reserveResponse.reservePrice[i].priceTypeLabel}');
 			</c:forEach> 
 			
 			var resultText = '';
@@ -201,8 +201,8 @@
 		 * JSTL을 포함하므로 js파일로 이동 불가
 		 */
 		function initDisplayTerm(){
-			var startDate = new Date('${reservationDate}');
-			var endDate = new Date('${reservationDate}');
+			var startDate = new Date('${reserveResponse.reservationDate}');
+			var endDate = new Date('${reserveResponse.reservationDate}');
 			endDate.setDate(endDate.getDate()+5);
 			
 			var thumnailDateArea = document.querySelector('.date_area');

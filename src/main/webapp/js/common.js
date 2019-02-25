@@ -10,7 +10,7 @@ const DAY_LABEL = ['일','월','화','수','목','금','토'];
  * @param method(GET, POST, PUT, DELETE)
  * @param param
  */
-function requestAjax(callback, url, method, param) {
+function requestAjax(callback, url, method, param, json) {
 	if (!method) {
 		method = 'GET';
 	}
@@ -20,8 +20,12 @@ function requestAjax(callback, url, method, param) {
 		this.callback(evt.target.response);
 	});
 	ajaxReq.open(method, url);
-	ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 	ajaxReq.responseType = 'json';
+	
+	if (!json){
+		ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	}
+	
 	ajaxReq.send(param)
 }
 

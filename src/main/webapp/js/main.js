@@ -10,7 +10,7 @@ var currentCategory = 0;
  *            JSON response
  */
 function loadCategoriesCallback(response){
-	var categoryList = response.categoryList;
+	var categoryList = response.mainCategoryReseponse.categoryList;
 	var categoryContainer = document.querySelector('ul.event_tab_lst');
 	
 	var template = document.querySelector('script#categoryItem').innerHTML;
@@ -91,8 +91,8 @@ function setPromotionMove() {
  *            JSON response
  */
 function loadPromotionsCallback(response) {
-	var itemCount = response.totalCount;
-	var promotionList = response.promotionList;
+	var itemCount = response.mainPromotionReseponse.count;
+	var promotionList = response.mainPromotionReseponse.promotionList;
 	var promotionContainer = document.querySelector('ul.visual_img');
 	
 	var template = document.querySelector('script#promotionItem').innerHTML;
@@ -128,9 +128,9 @@ function loadPromotionsCallback(response) {
 function loadProductsCallback(response) {
 	// 한 페이지에 출력할 상품 개수
 	const PAGING_LIMIT = 4;
-
-	var itemCount = response.totalCount;
-	var productList = response.productList;
+	
+	var itemCount = response.mainProductReseponse.count;
+	var productList = response.mainProductReseponse.productList;
 	var productContainer = document.querySelectorAll('.lst_event_box');
 	
 	var productCountTextArea = document.querySelector('.event_lst_txt>span');

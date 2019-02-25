@@ -57,6 +57,7 @@
 				r.reservation_date DESC
 			</otherwise>
 		</choose>
+		, r.id ASC
 		LIMIT
 			#{start}, #{pagingLimit}
 	</select>
@@ -85,7 +86,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<update id="updateMyReservationCancelById">
+	<update id="updateMyReservationCancel">
 		UPDATE 
 			reservation_info AS r 
 		SET 

@@ -16,7 +16,7 @@ public class ReserveRequest {
 	private String email;
 	private Integer displayInfoId;
 	private String reservationDate;
-	private List<ReservePriceInfo> reservePriceInfoList;
+	private List<ReservePrice> reservePriceInfoList;
 	
 	public Integer getId() {
 		return id;
@@ -66,11 +66,11 @@ public class ReserveRequest {
 		this.reservationDate = reservationDate;
 	}
 
-	public List<ReservePriceInfo> getReservePriceInfoList() {
+	public List<ReservePrice> getReservePriceInfoList() {
 		return reservePriceInfoList;
 	}
 
-	public void setReservePriceInfoList(List<ReservePriceInfo> reservePriceInfoList) {
+	public void setReservePriceInfoList(List<ReservePrice> reservePriceInfoList) {
 		this.reservePriceInfoList = reservePriceInfoList;
 	}
 
@@ -94,7 +94,7 @@ public class ReserveRequest {
 		}
 
 		//티켓 count가 0인 item이 존재한다.
-		for (ReservePriceInfo item : reservePriceInfoList) {
+		for (ReservePrice item : reservePriceInfoList) {
 			if (item.getCount() < 1) {
 				return false;
 			}
