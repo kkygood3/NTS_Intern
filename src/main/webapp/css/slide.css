@@ -1,0 +1,12 @@
+.transition {
+	transition: left 1s;
+}
+
+.visual_img li {
+	display: inline-block;
+}
+
+.visual_img {
+	top: 0;
+	list-style: none;
+}

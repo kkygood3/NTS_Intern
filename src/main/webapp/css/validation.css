@@ -1,0 +1,12 @@
+#name, #tel, #email, #resrv_id {
+	transition: all 1s;
+}
+
+.warning {
+	background-color: mistyrose;
+}
+
+.invalid_email {
+	color: #F00;
+	display: none;
+}
