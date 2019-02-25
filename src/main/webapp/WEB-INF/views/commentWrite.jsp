@@ -74,7 +74,7 @@
 							<i class="fn fn-image1" aria-hidden="true"></i>
 							<span class="text_add_photo">사진 추가</span>
 						</label>
-						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" multiple>
+						<input type="file" class="hidden_input" id="reviewImageFileOpenInput">
 						<div class="guide_review">
 							<span>0</span>/400
 							<span>(최소5자이상)</span>
@@ -156,6 +156,24 @@
 			this.style.display = "none";
 			document.querySelector(".review_textarea").focus();
 		});
+
+		// 이미지 input 이벤트리스너 등록
+		const elImage = document.querySelector("#reviewImageFileOpenInput");
+		elImage.addEventListener("change", (evt) => {
+			const image = evt.target.files[0];
+			if(!validImageType(image)) {
+				alert("지원하지 않는 이미지 타입 확장자입니다.")
+				return;
+			}
+		})
+
+		// 이미지 확장자 검사
+		function validImageType(image) {
+			const result = ([ 'image/jpeg',
+							  'image/png',
+							  'image/jpg' ].indexOf(image.type) > -1);
+			return result;
+		}
 	</script>
 </body>
 </html>
