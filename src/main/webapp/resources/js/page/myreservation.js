@@ -136,6 +136,7 @@ var cancelPopup = new function(){
 	this.btnYes.addEventListener("click", () =>{
 		var ajax = new Ajax();
 		ajax.put("/api/reservation/" + this.reservationId + "/cancel", () =>{
+			alert("취소 완료");
 			window.location.reload();
 		});
 	});

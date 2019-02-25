@@ -185,6 +185,7 @@ function addEventClickSubmit(){
 		}
 		var ajax = new Ajax();
 		ajax.postWithJson("/api/reservation", JSON.stringify(requestData), () =>{
+			alert("예약 완료.")
 			location.href="/main";
 		});
 	});
