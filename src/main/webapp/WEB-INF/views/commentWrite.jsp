@@ -118,7 +118,11 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script>
+		var reservationId = parseInt(window.location.pathname.split("/")[2]);
+		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
+
 		// 별점매기기 기능
 		function StarRating(body) {
 			this.body = body;
@@ -208,7 +212,7 @@
 			document.querySelector(".lst_thumb .item").style.display = "none";
 			document.querySelector(".item_thumb").src = "";
 			// 이미지 input value 초기화
-			document.querySelector("#reviewImageFileOpenInput").value = "";
+			elImage.value = "";
 		})
 
 		// 리뷰 등록
@@ -226,8 +230,36 @@
 			var formData = new FormData();
 			formData.append("score", starRating.value);
 			formData.append("comment", commentTextArea.text);
-			formData.append("");
+			formData.append("image", elImage.files[0]);
+
+			var url = "/api/reservations/" + reservationId + "/comments?productId" + productId;
+			ajaxFile(ajaxSuccess, url, formData);
+
 		});
+
+		function ajaxFile(callback, url, data) {
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: url,
+				data: data,
+				processData: false,
+				contentType: false,
+				cache: false,
+				timeout: 600000,
+				success: function (data) {
+					callback();
+				},
+				error: function (e) {
+					alert("등록 실패!");
+					console.log("ERROR : ", e);
+				}
+			});
+		}
+
+		function ajaxSuccess() {
+			alert.log("등록 성공...");
+		}
 
 	</script>
 </body>
