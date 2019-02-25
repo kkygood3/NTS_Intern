@@ -6,10 +6,6 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-interface reservationDataJSON {
-    reservationInfoId : number;
-    productId :number;
-}
 
 class ReviewWritePage {
     private starController : Object;
