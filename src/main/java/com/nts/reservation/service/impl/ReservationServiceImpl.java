@@ -6,6 +6,8 @@ package com.nts.reservation.service.impl;
 
 import static com.nts.reservation.constant.ReservationStatusType.*;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -114,9 +116,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationMapper.insertComment(commentParam);
 		if (commentParam.getImage() != null) {
 			MultipartFile image = commentParam.getImage();
+			String fileName = "comment_" + commentParam.getId() + "." + image.getContentType().split("/")[1];
+
 			FileInfoDto fileInfo = new FileInfoDto();
-			fileInfo.setFileName(image.getOriginalFilename());
-			fileInfo.setSaveFileName("img/" + image.getOriginalFilename());
+			fileInfo.setFileName(fileName);
+			fileInfo.setSaveFileName("img/" + fileName);
 			fileInfo.setContentType(image.getContentType());
 			fileInfo.setDeleteFlag(false);
 			fileMapper.insertFile(fileInfo);
@@ -126,6 +130,18 @@ public class ReservationServiceImpl implements ReservationService {
 			commentImage.setReservationUserCommentId(commentParam.getId());
 			commentImage.setFileId(fileInfo.getId());
 			reservationMapper.insertCommentImage(commentImage);
+
+			try (
+				FileOutputStream fos = new FileOutputStream("c:/tmp/img/" + fileName);
+				InputStream is = image.getInputStream();) {
+				int readCount = 0;
+				byte[] buffer = new byte[1024];
+				while ((readCount = is.read(buffer)) != -1) {
+					fos.write(buffer, 0, readCount);
+				}
+			} catch (Exception ex) {
+				throw new RuntimeException("file Save Error");
+			}
 		}
 	}
 }
