@@ -63,7 +63,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AuthInterceptor())
-			.addPathPatterns("/api/reservations/**", "/myreservation")
+			.addPathPatterns("/api/reservations/**", "/myreservation/**")
 			.excludePathPatterns("/api/reservations"); // 일정예약하기
 		registry.addInterceptor(new LogInterceptor());
 	}
