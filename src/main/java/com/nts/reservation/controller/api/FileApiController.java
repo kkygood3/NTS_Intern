@@ -48,8 +48,9 @@ public class FileApiController {
 	}
 
 	@GetMapping("/img")
-	public ResponseEntity<byte[]> getDownloadFile(@RequestParam(required = true) String imageName, HttpServletResponse response)
-			throws IOException {
+	public ResponseEntity<byte[]> getDownloadFile(@RequestParam(required = true) String imageName,
+		HttpServletResponse response)
+		throws IOException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		return getImageAsResponseEntity("/" + imageName, headers);
@@ -58,12 +59,12 @@ public class FileApiController {
 
 	@GetMapping("/comment/image/{commentImageId}")
 	public ResponseEntity<byte[]> getCommentImageFile(@PathVariable Long commentImageId, HttpServletResponse response)
-			throws IOException, CustomFileNotFoundException {
+		throws IOException, CustomFileNotFoundException {
 		FileDto file = reservationService.getFileByCommentImageId(commentImageId);
 		if (file == null) {
 			throw new CustomFileNotFoundException("CommentImageId", commentImageId);
 		}
-		
+
 		String imagePath = "/" + file.getSaveFileName();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
@@ -71,8 +72,8 @@ public class FileApiController {
 	}
 
 	private ResponseEntity<byte[]> getImageAsResponseEntity(String filePath, HttpHeaders headers)
-			throws  IOException {
-		File file = new File(fileDir + filePath);	
+		throws IOException {
+		File file = new File(fileDir + filePath);
 		byte[] media = IOUtils.toByteArray(new FileInputStream(file));
 		return new ResponseEntity<>(media, headers, HttpStatus.OK);
 	}

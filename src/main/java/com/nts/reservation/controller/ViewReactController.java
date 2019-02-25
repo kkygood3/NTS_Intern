@@ -57,11 +57,11 @@ public class ViewReactController {
 	private final RequestHtmlService requestHtmlService;
 
 	private final ReservationService reservationService;
-	
+
 	@Autowired
 	public ViewReactController(CategoryService categoryService, ProductService productService,
-			DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService,
-			ReservationService reservationService) {
+		DisplayInfoService displayInfoService, RequestHtmlService requestHtmlService,
+		ReservationService reservationService) {
 
 		this.categoryService = categoryService;
 		this.productService = productService;
@@ -80,9 +80,9 @@ public class ViewReactController {
 	 */
 	@GetMapping(produces = "text/html; charset=utf8")
 	public @ResponseBody String mainPage(HttpSession session, HttpServletRequest request)
-			throws ConnectException, HttpClientErrorException {
+		throws ConnectException, HttpClientErrorException {
 
-		String userEmail = (String) session.getAttribute("userEmail");
+		String userEmail = (String)session.getAttribute("userEmail");
 
 		List<ProductDto> products = productService.getProductList(0);
 		int productCount = productService.getCount();
@@ -95,15 +95,15 @@ public class ViewReactController {
 		CategoryResponseDto categoryResponse = new CategoryResponseDto(categories);
 
 		MainPageRequestDto requestDto = new MainPageRequestDto(userEmail, productResponse, promotionResponse,
-				categoryResponse);
+			categoryResponse);
 		String html = "";
 		try {
 			html = requestHtmlService.requestToReactHtml("/main", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
 			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException) exception;
+				throw (HttpClientErrorException)exception;
 			} else {
-				throw (ConnectException) exception;
+				throw (ConnectException)exception;
 			}
 		}
 		return html;
@@ -111,8 +111,8 @@ public class ViewReactController {
 
 	@GetMapping(path = "/displayInfo/{displayInfoId}", produces = "text/html; charset=utf8")
 	public @ResponseBody String detailPage(@PathVariable Long displayInfoId, HttpSession session,
-			HttpServletRequest request) throws ConnectException, HttpClientErrorException {
-		String userEmail = (String) session.getAttribute("userEmail");
+		HttpServletRequest request) throws ConnectException, HttpClientErrorException {
+		String userEmail = (String)session.getAttribute("userEmail");
 
 		DisplayInfoDto displayInfo = displayInfoService.getDisplayInfo(displayInfoId);
 		DisplayInfoImageDto displayInfoImage = displayInfoService.getDisplayInfoImage(displayInfoId);
@@ -122,20 +122,20 @@ public class ViewReactController {
 		float averageScore = displayInfoService.getCommentAvgScore(displayInfoId);
 
 		DetailPageRequestDto requestDto = new DetailPageRequestDto(userEmail, averageScore, comments, displayInfo,
-				displayInfoImage, productImages, productPrices);
+			displayInfoImage, productImages, productPrices);
 		String html = "";
 		try {
 			html = requestHtmlService.requestToReactHtml("/detail", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
 			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException) exception;
+				throw (HttpClientErrorException)exception;
 			} else {
-				throw (ConnectException) exception;
+				throw (ConnectException)exception;
 			}
 		}
 		return html;
 	}
-	
+
 	@GetMapping(path = "/myReservation", produces = "text/html; charset=utf8")
 	public @ResponseBody String myReservationPageTest(
 		HttpSession session, HttpServletRequest request)

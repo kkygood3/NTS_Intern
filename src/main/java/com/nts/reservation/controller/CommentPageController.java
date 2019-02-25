@@ -33,9 +33,9 @@ public class CommentPageController {
 
 	@GetMapping("/comment/{reservationInfoId}")
 	public String getAddCommentPage(@PathVariable Long reservationInfoId, HttpServletRequest request,
-			HttpSession session, ModelMap map) throws PageNotFoundException {
+		HttpSession session, ModelMap map) throws PageNotFoundException {
 
-		String userEmail = (String) session.getAttribute("userEmail");
+		String userEmail = (String)session.getAttribute("userEmail");
 		if (!reservationService.findFinishReservation(reservationInfoId, userEmail)) {
 			String url = request.getRemoteAddr() + request.getRequestURI();
 			throw new PageNotFoundException(url);
