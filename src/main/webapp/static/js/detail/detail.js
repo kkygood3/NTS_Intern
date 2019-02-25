@@ -57,6 +57,8 @@ function afterGetDisplayInfoData(displayInfoResponse){
 	handlebarsFunction.setHandlebarRegistHelper();
 	setComments({comments : displayInfoResponse.comments.slice(start, end)}, displayInfoResponse.comments.length, displayInfoResponse.averageScore, displayInfoResponse.displayInfo.productId);
 	setProductDetail(displayInfoResponse.displayInfo, displayInfoResponse.displayInfoImage.saveFileName);
+
+	addReserveButtonEvent(getDisplayInfoId());
 }
 
 /**
@@ -236,8 +238,6 @@ function setComments(comments,commentsLength,commentAverageScore,productId){
 	}
 }
 
-
-
 /**
  * @desc product event setting
  * @returns
@@ -329,4 +329,14 @@ function changeDetailHide(liTarget) {
 		document.querySelector('.detail_area_wrap').classList.add('hide');
 		document.querySelector('.detail_location').classList.remove('hide');
 	}
+}
+
+/**
+ * @desc reserve button event 추가
+ * @param displayInfoId
+ */
+function addReserveButtonEvent(displayInfoId){
+	document.querySelector('.reserve_button').addEventListener('click', function(){
+		window.location.href = '/reserve/'+displayInfoId;
+	});
 }

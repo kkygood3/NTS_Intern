@@ -4,6 +4,7 @@
  **/
 package com.nts.service.displayInfo;
 
+import com.nts.dto.displayinfo.DisplayInfo;
 import com.nts.dto.displayinfo.DisplayInfos;
 import com.nts.exception.DisplayInfoNullException;
 
@@ -12,4 +13,5 @@ import com.nts.exception.DisplayInfoNullException;
  */
 public interface DisplayInfoService {
 	public DisplayInfos getDisplayInfosByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException;
+	public DisplayInfo  getDisplayInfoByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException;
 }

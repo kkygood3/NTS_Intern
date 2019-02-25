@@ -10,8 +10,13 @@ function sendAjax(sendHeader, sendData, callback, failCallback) {
 
 	xhr.open(sendHeader.method, sendHeader.uri, false);
 
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	if(sendHeader.method === 'GET'){
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	} else {
+		xhr.setRequestHeader("Content-type","application/json");
+	}
 	
+
 	xhr.onreadystatechange = function() {
 		
 		if (xhr.readyState === xhr.DONE && xhr.status === 200) {
