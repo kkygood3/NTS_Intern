@@ -1,9 +1,14 @@
 package com.nts.reservation.config;
 
+import static com.nts.reservation.config.ProjectInfo.BASE_PACKEGE;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -20,6 +25,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = {"classpath:application.properties"})
+@MapperScan(BASE_PACKEGE + ".dao")
 public class DBConfig implements TransactionManagementConfigurer {
 	@Value("${spring.datasource.driver-class-name}")
 	private String DRIVER_CLASS_NAME;
@@ -48,5 +54,14 @@ public class DBConfig implements TransactionManagementConfigurer {
 	@Bean
 	public PlatformTransactionManager transactionManger() {
 		return new DataSourceTransactionManager(dataSource());
+	}
+	
+	@Bean
+	public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
+		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+		sqlSessionFactoryBean.setDataSource(dataSource);
+		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
+		sqlSessionFactoryBean.setTypeAliasesPackage(BASE_PACKEGE + ".dto");
+		return sqlSessionFactoryBean;
 	}
 }

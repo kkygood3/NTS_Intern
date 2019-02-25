@@ -33,44 +33,60 @@ function hasClass(element, classNameToFind) {
 function addPlusMiusButtonClickEvent() {
 	var ticketBody = document.getElementsByClassName("ticket_body")[0];
 	ticketBody.addEventListener("click", function(event){
-		var button = event.target;
-		if (button.tagName != "A") {
+		var target = event.target;
+		if (target.tagName != "A") {
 			return;
 		}
 		
 		var buttonHolder = event.target.closest(".qty");
-		var minusButton = buttonHolder.getElementsByClassName("btn_plus_minus")[0];
-		var count = buttonHolder.getElementsByClassName("count_control_input")[0];
-		var totalCount = document.getElementById("totalCount");
+		var elements = {
+			"buttons": buttonHolder.getElementsByClassName("btn_plus_minus"),
+			"count": buttonHolder.getElementsByClassName("count_control_input")[0],
+			"countText": buttonHolder.getElementsByClassName("individual_price")[0],
+			"totalCount": document.getElementById("totalCount"),
+			"maxCount": 10
+		}
 		
-		if (button.getAttribute("title") == "더하기") {
-			increaseCount(minusButton, count, totalCount);
-		} else if (button.getAttribute("title") == "빼기") {
-			if (decreaseCount(minusButton, count, totalCount)) {
+		if (target.getAttribute("title") == "더하기") {
+			increaseCount(elements);
+		} else if (target.getAttribute("title") == "빼기") {
+			if (decreaseCount(elements)) {
 				return;
 			}
 		}
 		setBookingButtonDisable();
-		setTotalPrice(buttonHolder, count.value);
+		setTotalPrice(buttonHolder, elements.count.value);
 	});
 }
 
-function increaseCount(minusButton, count, totalCount) {
-	minusButton.classList.remove("disabled");
-	count.value = count.value * 1 + 1;
-	totalCount.innerText = totalCount.innerText * 1 + 1;
-	
-}
-
-function decreaseCount(minusButton, count, totalCount) {
-	if (count.value == 0) {
+function increaseCount(elements) {
+	if (elements.count.value == elements.maxCount) {
 		return false;
 	}
-	count.value = count.value * 1 - 1;
-	if (count.value == 0) {
-		minusButton.classList.add("disabled");
+	
+	elements.count.value++;
+	elements.totalCount.innerText++;
+	
+	if (elements.count.value == 1) {
+		elements.buttons[0].classList.remove("disabled");
+		elements.countText.style.color = "#000";
+	} else if (elements.count.value == elements.maxCount) {
+		elements.buttons[1].classList.add("disabled");
 	}
-	totalCount.innerText = totalCount.innerText * 1 - 1;
+}
+
+function decreaseCount(elements) {
+	if (elements.count.value == 0) {
+		return false;
+	}
+	if (elements.count.value == 1) {
+		elements.buttons[0].classList.add("disabled");
+		elements.countText.style.color = "#bbb";
+	} else if (elements.count.value == elements.maxCount) {
+		elements.buttons[1].classList.remove("disabled");
+	}
+	elements.count.value--;
+	elements.totalCount.innerText--;
 }
 
 function setBookingButtonDisable() {
@@ -144,15 +160,19 @@ function agreed() {
  */
 function addBookingButtonClickEvent() {
 	var bookingButton = document.getElementsByClassName("bk_btn")[0];
-	bookingButton.style.cursor = "default";
 	bookingButton.addEventListener("click", function(event){
 		if (!isValidAllReservationInputs()) {
 			return;
 		}
-		var reservationForm = document.querySelector("form.form_horizontal");
 		var reservationData = makeJsonReservationData();
-		
-		submitJsonUsingForm("/detail/" + displayInfo().displayInfoId +"/reservation", "user_reservation_input", reservationData);
+
+		sendPostAjax("/product/" + displayInfo().displayInfoId + "/reservation", reservationData, (data) => {
+			if (data) {
+				window.location.href = "/detail/" + displayInfo().displayInfoId;
+			} else {
+				alert("잘못된 입력입니다.");
+			}
+	    });
 	});
 }
 
@@ -160,19 +180,11 @@ function makeJsonReservationData() {
 	var reservationData = {};
 	reservationData.productId = displayInfo().productId;
 	reservationData.name = document.getElementById("name").value;
-	reservationData.tel = document.getElementById("tel").value;
+	reservationData.telephone = document.getElementById("tel").value;
 	reservationData.email = document.getElementById("email").value;
+	reservationData.reservationDate = displayInfo().reservationDate;
 	reservationData.price = makePriceData();
 	return reservationData;
-}
-
-function submitJsonUsingForm(url, dataName, data) {
-	var form = document.getElementById("json_form");
-	form.setAttribute("action", url);
-	var input = form.querySelector("input");
-	input.value = JSON.stringify(data);
-	input.setAttribute("name", dataName);
-	form.submit();
 }
 
 function makePriceData() {

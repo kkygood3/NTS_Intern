@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.Promotion;
 import com.nts.reservation.service.PromotionService;
 
 /**
@@ -18,7 +17,7 @@ import com.nts.reservation.service.PromotionService;
  *
  */
 @RestController
-@RequestMapping(path = "/promotion")
+@RequestMapping("/promotion")
 public class PromotionApiController {
 	@Autowired
 	private PromotionService promotionService;
@@ -29,8 +28,7 @@ public class PromotionApiController {
 	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Promotion> getPromotions() {
-		List<Promotion> promotionImages = promotionService.getPromotions();
-		return promotionImages;
+	public List<String> getPromotions() {
+		return promotionService.getPromotions();
 	}
 }

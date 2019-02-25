@@ -15,18 +15,14 @@
 	<div id="container">
 		<div class="header fade">
 			<header class="header_tit">
-				<h1 class="logo">
-					<a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
-				</h1>
-				  <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+			<%@ include file="/WEB-INF/views/header.jsp"%>
 			</header>
 		</div>
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title review_header">
-					<a href="./myreservation.html" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">클림트 인사이드</span></h2>
+					<a href="/reservation" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<h2><span class="title">${description}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
@@ -96,7 +92,6 @@
 						</div>
 					</div>
 					<!-- //리뷰 포토 -->
-
 				</div>
 				<!-- //리뷰 작성 푸터 -->
 
@@ -109,13 +104,7 @@
 		</div>
 	</div>
 	<footer>
-		<div class="gototop">
-			<a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
-		</div>
-		<div id="footer" class="footer">
-			<p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
-			<span class="copyright">© NAVER Corp.</span>
-		</div>
+	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 </body>
 </html>

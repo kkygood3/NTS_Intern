@@ -17,20 +17,53 @@ function makeReservationCardItemHtml(cardItemListMap) {
 	makeUsedCard(cardItemListMap.used);
 	makeCancelCard(cardItemListMap.cancel);
 	
-	makeSummaryBoard(cardItemListMap);
+	makeMoreButton(cardItemListMap);
+	
+	makeSummaryBoard(cardItemListMap.count);
 }
 
-function makeSummaryBoard(data) {
+function makeMoreButton(cardItemListMap) {
+	var countList = cardItemListMap.count;
+
+	countList.forEach((count) => {
+		if (count.status == "confirmed") {
+			if (count.count && cardItemListMap.confirmed && count.count > cardItemListMap.confirmed.length) {
+				addMoreButton("confirmed");
+			}
+		} else if (count.status == "used") {
+			if (count.count && cardItemListMap.used && count.count > cardItemListMap.used.length) {
+				addMoreButton("used");
+			}
+		} else if (count.status == "cancel") {
+			if (count.count && cardItemListMap.cancel && count.count > cardItemListMap.cancel.length) {
+				addMoreButton("cancel");
+			}
+		}
+	});
+}
+
+function addMoreButton(elementClassName) {
+	var ul = document.getElementsByClassName(elementClassName)[0];
+	var moreButton = document.getElementById("more_botton").innerHTML;
+	ul.innerHTML += moreButton;
+}
+
+function makeSummaryBoard(countList) {
 	var counts = document.querySelectorAll("span.figure");
-	counts[1].innerText = data.confirmed.length;
-	counts[2].innerText = data.used.length;
-	counts[3].innerText = data.cancel.length;
+	countList.forEach((count) => {
+		if (count.status == "confirmed")	{
+			counts[1].innerText = count.count
+		} else if (count.status == "used")	{
+			counts[2].innerText = count.count
+		} if (count.status == "cancel")	{
+			counts[3].innerText = count.count
+		}
+	});
 	counts[0].innerText = counts[1].innerText*1 + counts[2].innerText*1 + counts[3].innerText*1;
 }
 
 
 function makeConfirmedCard(confirmedList) {
-	confirmedList.confirmed = "confirmed";
 	var innerHtml;
 	if (confirmedList.length) {
 		var bindTemplate = getBindTemplate("card_item_confirmed");
@@ -44,6 +77,7 @@ function makeConfirmedCard(confirmedList) {
 }
 
 function makeUsedCard(usedList) {
+	var innerHtml;
 	if (usedList.length) {
 		var bindTemplate = getBindTemplate("card_item_used");
 		innerHtml = makeHtmlFromListData(usedList, bindTemplate);
@@ -56,7 +90,6 @@ function makeUsedCard(usedList) {
 }
 
 function makeCancelCard(cancelList) {
-	cancelList.cancel = "cancel";
 	var innerHtml;
 	if (cancelList.length) {
 		var bindTemplate = getBindTemplate("card_item_cancel");

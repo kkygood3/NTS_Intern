@@ -22,12 +22,25 @@ function sendGetAjax(url, action) {
 	httpRequest.send();
 }
 
+function sendPostAjax(sendUrl, data, action) {
+	$.ajax({
+		method: "POST",
+		url: sendUrl,
+		data: JSON.stringify(data),
+		dataType: "json",
+		contentType : "application/json",
+		success: function(response){
+			action(response);
+	    }
+	});
+}
+
 function sendPutAjax(sendUrl, action, params) {
 	$.ajax({
 		method: "PUT",
 		url: sendUrl,
-		success: function(data){
-			action(data, params);
+		success: function(response){
+			action(response, params);
         }
 	});
 }

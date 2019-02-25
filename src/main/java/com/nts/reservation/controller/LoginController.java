@@ -5,9 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.service.validation.Validator;
+import com.nts.reservation.util.ReservationInputValidator;
 
 /**
  * 로그인 관련 컨트롤러 클래스
@@ -15,12 +16,13 @@ import com.nts.reservation.service.validation.Validator;
  *
  */
 @Controller
+@RequestMapping("/login")
 public class LoginController {
 	/**
 	 * 로그인 화면으로 연결
 	 * @return
 	 */
-	@GetMapping(path = "/login")
+	@GetMapping
 	public String getLogin() {
 		return "login";
 	}
@@ -31,10 +33,9 @@ public class LoginController {
 	 * @param session http session
 	 * @return
 	 */
-	@PostMapping(path = "/login")
-	public String postLogin(@RequestParam(name = "email", required = true) String email,
-		HttpSession session) {
-		if (!Validator.validateEmail(email)) {
+	@PostMapping
+	public String postLogin(HttpSession session, @RequestParam(name = "email", required = true) String email) {
+		if (!ReservationInputValidator.isValidEmail(email)) {
 			return "redirect:/error";
 		}
 		session.setAttribute("email", email);

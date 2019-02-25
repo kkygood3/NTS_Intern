@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import com.nts.reservation.service.CategoryService;
  *
  */
 @RestController
-@RequestMapping(path = "/category")
+@RequestMapping("/category")
 public class CategoryApiController {
 	@Autowired
 	private CategoryService categoryService;
@@ -30,7 +30,6 @@ public class CategoryApiController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Category> getCategoris() {
-		List<Category> CategoryList = categoryService.getCategoris();
-		return CategoryList;
+		return categoryService.getCategoris();
 	}
 }

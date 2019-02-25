@@ -18,12 +18,34 @@ function makePriceInfoHTML(priceInfos) {
 	}
 	
 	var bindTemplate = getBindTemplate("ticket_item");
+	
+	Handlebars.registerHelper("orgPrice", function(price, discountRate) {
+	      return Math.ceil(price / (100-discountRate) * 100); 
+	});
+	
 	var innerHtml = makeHtmlFromListData(priceInfos, bindTemplate);
 
 	var ul = document.getElementsByClassName("ticket_body")[0];
 	ul.innerHTML += innerHtml;
 	
 	makePriceDescription(priceInfos);
+	setPricePreviewText(priceInfos);
+}
+
+function setPricePreviewText(priceInfos) {
+	var minPrice = getMinPrice(priceInfos);
+	var preview = document.querySelectorAll(".preview_txt .preview_txt_dsc");
+	preview[0].innerText = "₩" + minPrice + "~";
+}
+
+function getMinPrice(priceInfos) {
+	var minPrice = priceInfos[0].price;
+	priceInfos.forEach((price) => {
+		if (price.price < minPrice) {
+			minPrice = price.price;
+		}
+	});
+	return minPrice;
 }
 
 function makePriceDescription(priceInfos) {

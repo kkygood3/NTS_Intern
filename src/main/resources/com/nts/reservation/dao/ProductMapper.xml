@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- DTD 선언 -->
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.nts.reservation.dao.ProductMapper">
+	<select id="selectProductCount" resultType="int">
+		SELECT	count(product.id)
+		
+		FROM	product JOIN display_info
+		
+		WHERE	product.id = display_info.product_id
+		<if test="categoryId != 0">
+				AND category_id = #{categoryId}
+    	</if>
+	</select>
+	
+	<select id="selectByDisplayInfoIdAndType" resultType="String">
+		SELECT	file_info.save_file_name
+		
+		FROM	product
+				INNER JOIN	product_image
+							ON product.id = product_image.product_id
+				INNER JOIN	file_info
+							ON product_image.file_id = file_info.id
+							
+		WHERE	product_image.type = #{type}
+				AND product.id = #{productId}
+	</select>
+	
+	<select id="selectDetailPageInfo" resultType="ProductPageInfo">
+		SELECT	p.id AS product_id,
+				p.description,
+				p.content,
+				d.place_name,
+				d.place_street,
+				d.place_lot,
+				d.tel,
+				pf.save_file_name AS main_image_file,
+				count(uc.score) AS comment_count,
+				ifnull(avg(uc.score), 0) AS average_score,
+				df.save_file_name AS map_file
+				
+		FROM	display_info AS d
+				INNER JOIN	product AS p
+							ON	d.product_id = p.id
+				INNER JOIN	display_info_image AS di
+							ON	di.display_info_id = d.id
+				INNER JOIN	file_info AS df
+							ON	di.file_id = df.id
+				LEFT JOIN	reservation_user_comment AS uc
+							ON	uc.product_id = p.id
+				INNER JOIN	product_image AS pi
+							ON	pi.product_id = p.id
+				INNER JOIN	file_info AS pf
+							ON	pf.id = pi.file_id
+				
+		WHERE	d.id = #{displayInfoId}
+				AND pi.type="ma"
+	</select>
+	
+	<select id="selectPriceInfoByProductId" resultType="PriceInfo">
+		SELECT	pp.id AS product_price_id,
+				pp.price_type_name,
+				pp.price,
+				pp.discount_rate
+				
+		FROM	product AS p
+				INNER JOIN	product_price AS pp
+							ON	p.id = pp.product_id
+		
+		WHERE	p.id = #{productId}
+	</select>
+	
+	
+	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductThumbnail">
+		SELECT	d.product_id,
+				d.id AS display_info_id,
+				p.description,
+				p.content,
+				d.place_name,
+				pf.save_file_name
+		
+		FROM	product AS p
+				INNER JOIN	category AS c
+							ON	c.id = p.category_id
+				INNER JOIN	product_image AS pi
+							ON	pi.product_id = p.id
+				INNER JOIN	file_info AS pf
+							ON	pf.id = pi.file_id
+				INNER JOIN	display_info AS d
+							ON	d.product_id = p.id
+					
+		WHERE	pi.type = "th"
+		<if test="categoryId != 0">
+				AND	c.id = #{categoryId}
+    	</if>
+		LIMIT	#{start}, #{limit}
+	</select>
+	
+	<select id="selectProductDescriptionByProductId" resultType="String">
+		SELECT	p.description
+
+		FROM	product AS p
+
+		WHERE	p.id = #{productId}
+	</select>
+</mapper>

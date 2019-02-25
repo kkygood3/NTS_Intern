@@ -1,6 +1,6 @@
 package com.nts.reservation.service.impl;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,22 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.dao.ReservationInfoDao;
-import com.nts.reservation.dao.ReservationInfoPriceDao;
+import com.nts.reservation.dao.ReservationInfoMapper;
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
-import com.nts.reservation.dto.UserReservationInput;
+import com.nts.reservation.property.ReservationStatus;
 import com.nts.reservation.service.ReservationService;
-import com.nts.reservation.service.validation.Validator;
+import com.nts.reservation.util.Utils;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
-	private ReservationInfoDao reservationInfoDao;
-	@Autowired
-	private ReservationInfoPriceDao reservationInfoPriceDao;
+	private ReservationInfoMapper reservationInfoDao;
 
 	@Override
 	@Transactional
@@ -35,56 +32,51 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public ReservationInfo addReservation(UserReservationInput userInput, Long displayInfoId) {
-		if (!Validator.validateReservationInfo(userInput.getName(), userInput.getTel(), userInput.getEmail())) {
-			return null;
-		}
-
-		ReservationInfo reservationInfo = new ReservationInfo(userInput);
+	public ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> reservationInfoPriceList,  Long displayInfoId) {
 		reservationInfo.setDisplayInfoId(displayInfoId);
-		reservationInfo.setReservationDate(new Date());
 		reservationInfo.setCreateDate(new Date());
+		reservationInfoDao.insertReservationInfo(reservationInfo);
+		Long reservationInfoId = reservationInfo.getId();
+
+		Map<String, Object> reservationInfoPrice = new HashMap<String, Object>();
+		reservationInfoPrice.put("reservationInfoId", reservationInfoId);
+		reservationInfoPrice.put("reservationInfoPriceList", reservationInfoPriceList);
 		
-		Long reservationInfoId = reservationInfoDao.insertReservationInfo(reservationInfo);
-		reservationInfo.setId(reservationInfoId);
-		
-		for (ReservationInfoPrice reservationInfoPrice : userInput.getPrice()) {
-			reservationInfoPrice.setReservationInfoId(reservationInfoId);
-			reservationInfoPriceDao.insertReservationInfoPrice(reservationInfoPrice);
-		}
-		
+		reservationInfoDao.insertReservationInfoPrice(reservationInfoPrice);
 		return reservationInfo;
 	}
 
 	@Override
 	@Transactional
-	public Map<String, List<ReservationDisplayItem>> getReservationDisplayItemsByReservationEmail(
+	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(
 		String reservationEmail, int start, int limit) {
-		List<ReservationDisplayItem> reservationDisplayItemList = reservationInfoDao
-			.selectReservationInfoByReservationEmail(reservationEmail, start, start + limit);
-
-		Map<String, List<ReservationDisplayItem>> ReservationDisplayItemListMap = new HashMap<String, List<ReservationDisplayItem>>();
-		List<ReservationDisplayItem> confirmed = new ArrayList<ReservationDisplayItem>();
-		List<ReservationDisplayItem> used = new ArrayList<ReservationDisplayItem>();
-		List<ReservationDisplayItem> cancel = new ArrayList<ReservationDisplayItem>();
-
-		for (ReservationDisplayItem reservationDisplayItem : reservationDisplayItemList) {
-			if (reservationDisplayItem.isCanceled()) {
-				cancel.add(reservationDisplayItem);
-			} else if (new Date().compareTo(reservationDisplayItem.getReservationDate()) > 0) {
-				used.add(reservationDisplayItem);
-			} else {
-				confirmed.add(reservationDisplayItem);
-			}
-		}
-		ReservationDisplayItemListMap.put("confirmed", confirmed);
-		ReservationDisplayItemListMap.put("used", used);
-		ReservationDisplayItemListMap.put("cancel", cancel);
+		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
+		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
+		
+		ReservationDisplayItemListMap.put("count", reservationInfoDao.selectReservationInfoCountByReservationEmail(reservationEmail));
+	
 		return ReservationDisplayItemListMap;
 	}
-
+	
 	@Override
-	@Transactional(readOnly = false)
+	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(
+		String reservationEmail, int start, int limit, String status) {
+		if (Utils.isEmpty(status)) {
+			return Collections.EMPTY_LIST;
+		}
+		if (status.equals(ReservationStatus.CONFIRMED.toString())) {
+			return reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit);
+		} else if (status.equals(ReservationStatus.USED.getReservationStatus())) {
+			return reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit);
+		} else if (status.equals(ReservationStatus.CANCEL.getReservationStatus())) {
+			return reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit);
+		}
+		return Collections.EMPTY_LIST;
+	}
+	
+	@Override
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);
 	}
