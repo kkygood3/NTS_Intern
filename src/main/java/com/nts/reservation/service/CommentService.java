@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
+import com.nts.reservation.dto.FileInfo;
+import com.nts.reservation.dto.ReservationUserComment;
+import com.nts.reservation.dto.ReservationUserCommentImage;
 
 /**
  * 코멘트 화면 정보 관련 서비스 로직 수행하는 클래스
@@ -26,4 +29,13 @@ public interface CommentService {
 	 * @return 리뷰페이지 정보
 	 */
 	CommentPageInfo getCommentPageInfoByDisplayInfoId(long displayInfoId);
+
+	/**
+	 * 사용자 리뷰를 등록한다
+	 * @param reservationUserComment 사용자 리뷰
+	 * @param reservationUserCommentImage 리뷰 이미지 정보
+	 * @param fileInfo 리뷰이미지 파일정보
+	 * @return 사용자 리뷰 id
+	 */
+	ReservationUserComment addReservationUserComment(ReservationUserComment comment, FileInfo image);
 }

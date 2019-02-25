@@ -15,6 +15,13 @@ public class ReservationUserComment {
 		createDate = LocalDateTime.now();
 	}
 	
+	public ReservationUserComment(long reservationInfoId, String comment, double score) {
+		this.reservationInfoId = reservationInfoId;
+		this.comment = comment;
+		this.score = score;
+		createDate = LocalDateTime.now();
+	}
+	
 	public long getId() {
 		return id;
 	}

@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.dto.FileInfo;
+import com.nts.reservation.dto.ReservationUserComment;
+import com.nts.reservation.dto.ReservationUserCommentImage;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
+import com.nts.reservation.util.Utils;
 
 @Controller
 @RequestMapping("/reservation")
@@ -57,18 +61,37 @@ public class ReservationController {
 	 * 
 	 * @return
 	 */
-	@PostMapping("/{productId}/comment")
-	public String postComment(@PathVariable(name = "productId", required = true) long productId,
-			@RequestParam("file") MultipartFile file) {
-		String fileName = getFileName(productId, file.getContentType());
-		String saveFileName = getDirectory() + "/" + fileName;
+	@PostMapping("/{reservationInfoId}/comment")
+	public String postComment(@PathVariable(name = "productId", required = true) long reservationInfoId,
+			@RequestParam("content") String comment,
+			@RequestParam("score") double score,
+			@RequestParam("file") MultipartFile image) {
+		ReservationUserComment reservationUserComment = new ReservationUserComment(reservationInfoId, comment, score);
+		FileInfo fileInfo = new FileInfo();
+		
+		if (Utils.isNull(image)) {
+			fileInfo.setFileName(getFileName(reservationInfoId, image.getContentType()));
+			fileInfo.setSaveFileName(getDirectory() + "/" + fileInfo.getFileName());
+		}
+
+		reservationUserComment = commentService.addReservationUserComment(reservationUserComment, fileInfo);
+		
+		if (existsFilesToSave(image, reservationUserComment)) {
+			saveFile(image, fileInfo);
+		}
+//		return "redirect:detail/{displayInfoId}/review";
+		return "redirect:/";
+	}
+	
+	private boolean existsFilesToSave(MultipartFile image, ReservationUserComment reservationUserComment) {
+		return !Utils.isNull(image) & (reservationUserComment.getId() > 0);
+	}
+	private void saveFile(MultipartFile image, FileInfo fileInfo) {
 		try {
-			file.transferTo(new File(saveFileName));
+			image.transferTo(new File(fileInfo.getSaveFileName()));
 		} catch (IllegalStateException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
-//		return "redirect:detail/{displayInfoId}/review";
-		return "main";
 	}
 	
 	private String getDirectory() {
@@ -80,7 +103,7 @@ public class ReservationController {
 		return path;
 	}
 	
-	private String getFileName(long productId, String type) {
-		return productId + "_" + new Date().getTime() + "." + type.split("/")[1];
+	private String getFileName(long reservationInfoId, String type) {
+		return reservationInfoId + "_" + new Date().getTime() + "." + type.split("/")[1];
 	}
 }

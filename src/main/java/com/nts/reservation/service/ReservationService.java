@@ -3,10 +3,13 @@ package com.nts.reservation.service;
 import java.util.List;
 import java.util.Map;
 
+import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
+import com.nts.reservation.dto.ReservationUserComment;
+import com.nts.reservation.dto.ReservationUserCommentImage;
 
 /**
  * 예약관련 서비스 로직 수행하는 클래스
