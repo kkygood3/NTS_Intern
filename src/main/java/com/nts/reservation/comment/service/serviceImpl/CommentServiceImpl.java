@@ -81,7 +81,9 @@ public class CommentServiceImpl implements CommentService {
 	 * @return
 	 */
 	private String makeBlindEmail(String email) {
-		// TODO 1글자일 때, email 최대값 설정
+		if(email.length() <= 4 && email.length() > 255) {
+			// TODO Exception
+		}
 		String splicedEmail = email.split("@")[0];
 		int blindPoint = splicedEmail.length() / 2;
 		String blindEmail = splicedEmail.substring(0, blindPoint)
