@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
 		for (Comment comment : comments) {
 			comment.setReservationEmail(makeBlindEmail(comment.getReservationEmail()));
 			comment.setReservationDate(formattingDate(comment.getReservationDate()));
-			if (comment.getImageCount() < 0) {
+			if (comment.getImageCount() == 0) {
 				continue;
 			}
 			List<CommentImage> commentImages = commentDao.selectCommentImage(comment.getCommentId());
@@ -81,6 +81,7 @@ public class CommentServiceImpl implements CommentService {
 	 * @return
 	 */
 	private String makeBlindEmail(String email) {
+		// TODO 1글자일 때, email 최대값 설정
 		String splicedEmail = email.split("@")[0];
 		int blindPoint = splicedEmail.length() / 2;
 		String blindEmail = splicedEmail.substring(0, blindPoint)
