@@ -75,7 +75,7 @@
 	</select>
 	
 	
-	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductThumbnail">
+	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductDisplayItem">
 		SELECT	d.product_id,
 				d.id AS display_info_id,
 				p.description,

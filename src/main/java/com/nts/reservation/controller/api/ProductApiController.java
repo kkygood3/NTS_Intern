@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.PriceInfo;
-import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ProductDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.UserReservationInput;
@@ -63,7 +63,7 @@ public class ProductApiController {
 			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
-		List<ProductThumbnail> thumbnailInfoList = Collections.EMPTY_LIST;
+		List<ProductDisplayItem> thumbnailInfoList = Collections.EMPTY_LIST;
 
 		if (existProduct(productCount)) {
 			thumbnailInfoList = productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
@@ -102,7 +102,7 @@ public class ProductApiController {
 	 */
 	@GetMapping("/{productId}/comment")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(
+	public List<CommentDisplayItem> getProductCountAndThumbnailInfos(
 			@PathVariable(name = "productId", required = true) long productId,
 			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 			@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
-import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ProductDisplayItem;
 import com.nts.reservation.dto.ReviewWritePageInfo;
 
 /**
@@ -27,7 +27,7 @@ public interface ProductService {
 	 * @param limit 페이징 사이즈
 	 * @return 썸네일정보 리스트
 	 */
-	List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit);
+	List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit);
 
 	/**
 	 * 상품에 맞는 상세페이지 정보 가져온다

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
-import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ProductDisplayItem;
 import com.nts.reservation.dto.ReviewWritePageInfo;
 
 /**
@@ -49,7 +49,7 @@ public interface ProductMapper {
 	 * @param limit 셀렉트할 갯수
 	 * @return 해당 카테고리의 썸네일 정보
 	 */
-	List<ProductThumbnail> selectProductThumbnailByCategoryIdWithPaging(@Param("categoryId")int categoryId, @Param("start")int start, @Param("limit")int limit);
+	List<ProductDisplayItem> selectProductThumbnailByCategoryIdWithPaging(@Param("categoryId")int categoryId, @Param("start")int start, @Param("limit")int limit);
 	
 	/**
 	 * description을 가져온다
