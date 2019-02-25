@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.annotation.PageDefault;
+import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
+import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -28,6 +30,8 @@ import com.nts.reservation.service.ReservationService;
 public class MyReservationController {
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/myreservation")
 	public String getMyReservationPage(@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
@@ -49,7 +53,8 @@ public class MyReservationController {
 	public String getCommentWritePage(@PathVariable int reservationId,
 		@RequestParam int productId, Model model) {
 
-		model.addAttribute("");
+		ProductDto product = productService.getProduct(productId);
+		model.addAttribute("productDescription", product.getProductDescription());
 
 		return "commentWrite";
 	}

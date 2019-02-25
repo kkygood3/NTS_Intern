@@ -41,6 +41,14 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private CommentMapper commentMapper;
 
+	/* 
+	 * 상품 정보 가져오기
+	 */
+	@Override
+	public ProductDto getProduct(int productId) {
+		return productMapper.selectProduct(productId);
+	}
+
 	/**
 	 * 상품정보들과 상품총개수를 조합해 가져옵니다.
 	 */
