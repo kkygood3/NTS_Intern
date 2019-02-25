@@ -34,7 +34,7 @@ public class ReservationValidatior {
 	
 	public static boolean validateComment(String comment) {
 		int commentLength = comment.length();
-		return (0 < commentLength && commentLength < CommonProperties.MAX_COMMENT_LENGTH);
+		return (CommonProperties.MIN_COMMENT_LENGTH <= commentLength && commentLength <= CommonProperties.MAX_COMMENT_LENGTH);
 	}
 	
 	public static boolean validateScore(int score) {

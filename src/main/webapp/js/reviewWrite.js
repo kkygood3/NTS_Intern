@@ -86,7 +86,7 @@ function initWriteBtnClickEvent(){
 	writeReviewBtn.addEventListener('click', function(evt){
 		evt.preventDefault();
 		// 글자수만 넘기면 POST 조건 충족
-		if(textArea.value.length > 0){
+		if(textArea.value.length >= 5){
 			document.querySelector('.bk_btn').style.display = 'none';
 			
 			var writeForm = new FormData();
@@ -99,6 +99,8 @@ function initWriteBtnClickEvent(){
 			}
 			
 			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm, 'mul');
+		} else {
+			alert('코멘트가 너무 짧아요');
 		}
 	});
 }

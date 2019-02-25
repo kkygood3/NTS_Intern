@@ -36,7 +36,10 @@ public class CommonProperties {
 
 	public static final int MAX_REVIEW_SCORE = 5;
 	public static final int MIN_REVIEW_SCORE = 1;
+	
 	public static final int MAX_COMMENT_LENGTH = 400;
+	public static final int MIN_COMMENT_LENGTH = 5;
+
 
 	public static final String[] ALLOW_FILE_EXTENSION = {"image/jpeg", "image/png", "image/jpg"};
 
