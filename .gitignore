@@ -1,4 +1,7 @@
-/.classpath
-/.project
-/target/
-/.settings/
+target
+.classpath
+.project
+.settings
+
+# Atom Editor
+.atom-live-server.json
