@@ -87,7 +87,7 @@
 						<div class="item_preview_thumbs">
 							<ul class="lst_thumb">
 								<li class="item" style="display: none;">
-									<a href="#" class="anchor">
+									<a class="anchor">
 										<span class="spr_book ico_del">삭제</span>
 									</a>
 									<img src="" width="100" alt="" class="item_thumb">
@@ -160,7 +160,7 @@
 
 		// 이미지 input 이벤트리스너 등록
 		const elImage = document.querySelector("#reviewImageFileOpenInput");
-		elImage.addEventListener("change", (evt) => {
+		elImage.addEventListener("change", function(evt) {
 			const image = evt.target.files[0];
 			if(!validImageType(image)) {
 				alert("지원하지 않는 이미지 타입 확장자입니다.")
@@ -179,6 +179,15 @@
 							  'image/jpg' ].indexOf(image.type) > -1);
 			return result;
 		}
+
+		// 이미지 선택 취소
+		document.querySelector(".spr_book.ico_del").addEventListener("click", function(evt) {
+			// 썸네일 구역 숨김
+			document.querySelector(".lst_thumb .item").style.display = "none";
+			document.querySelector(".item_thumb").src = "";
+			// 이미지 input value 초기화
+			document.querySelector("#reviewImageFileOpenInput").value = "";
+		})
 	</script>
 </body>
 </html>
