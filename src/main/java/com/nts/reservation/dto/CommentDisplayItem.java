@@ -1,13 +1,13 @@
 package com.nts.reservation.dto;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CommentDisplayItem {
 	private String comment;
 	private double score;
 	private String reservationEmail;
-	private Timestamp reservationDate;
+	private LocalDateTime reservationDate;
 	private String saveFileName;
 
 	public String getComment() {
@@ -35,10 +35,10 @@ public class CommentDisplayItem {
 	}
 
 	public String getReservationDate() {
-		return new SimpleDateFormat("yyyy.M.d.").format(reservationDate);
+		return reservationDate.format(DateTimeFormatter.ofPattern("yyyy.M.d."));
 	}
 
-	public void setReservationDate(Timestamp reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

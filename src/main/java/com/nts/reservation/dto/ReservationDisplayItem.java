@@ -1,5 +1,6 @@
 package com.nts.reservation.dto;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
