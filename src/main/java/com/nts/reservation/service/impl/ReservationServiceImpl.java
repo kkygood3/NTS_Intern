@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String Email, int start,int limit) {
+	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String Email, int start, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, start, limit));
 		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByEmail(Email, start, limit));
@@ -57,8 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(String Email,
-			int start, int limit, String status) {
+	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(String Email, int start, int limit, String status) {
 		if (Utils.isEmpty(status)) {
 			return Collections.EMPTY_LIST;
 		}
