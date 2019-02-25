@@ -19,7 +19,7 @@ Ajax.prototype = {
 				callback(responseObj);
 			}
 			else{
-				console.error("data load fail cause : " + responseObj.httpStatusCode);
+				this._printError(responseObj);
 			}
 		});
 		
@@ -36,7 +36,7 @@ Ajax.prototype = {
 				callback(responseObj);
 			}
 			else{
-				console.error("data load fail cause : " + responseObj.httpStatusCode);
+				this._printError(responseObj);
 			}
 		});
 		
@@ -53,7 +53,7 @@ Ajax.prototype = {
 				callback(responseObj);
 			}
 			else{
-				console.error("data load fail cause : " + responseObj.httpStatusCode);
+				this._printError(responseObj);
 			}
 		});
 		
@@ -70,7 +70,7 @@ Ajax.prototype = {
 				callback(responseObj);
 			}
 			else{
-				console.error("data load fail cause : " + responseObj.httpStatusCode + "HTTP ERROR");
+				this._printError(responseObj);
 			}
 		});
 		
@@ -78,5 +78,11 @@ Ajax.prototype = {
 		xmlHttpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xmlHttpRequest.send(data);
 	},
+	_printError : function(responseObj){
+		console.error("data load fail cause : [http_status : %s, code : %s, message : %s]", 
+				responseObj.httpStatus,
+				responseObj.httpStatusCode,
+				responseObj.message);
+	}
 }
 
