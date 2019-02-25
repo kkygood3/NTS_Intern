@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.service;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.nts.reservation.config.ApplicationConfig;
-import com.nts.reservation.model.CommentListInfo;
+import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.common.config.ApplicationConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ApplicationConfig.class})
