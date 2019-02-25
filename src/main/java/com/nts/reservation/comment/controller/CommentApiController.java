@@ -33,6 +33,9 @@ public class CommentApiController {
 		return new CommentResponse(commentService.getCommentListInfo(displayInfoId, CommentService.COUNT_NOT_LIMITED));
 	}
 
+	/**
+	 * 새로운 comment를 저장 
+	 */
 	@MustLogin
 	@PostMapping(value = {"/api/comment"})
 	public Response addComment(WritedComment writedComment, MultipartFile[] images, HttpSession httpSession) {

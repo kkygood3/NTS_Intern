@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 @Configuration
@@ -15,6 +16,9 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 @Import({DatasourceConfig.class, JdbcConfig.class, TransactionConfig.class, MapperConfig.class, AspectJConfig.class})
 public class ApplicationConfig {
 
+	/**
+	 * Validated annotation bean 생성
+	 */
 	@Bean
 	public MethodValidationPostProcessor methodValidationPostProcessor() {
 		return new MethodValidationPostProcessor();

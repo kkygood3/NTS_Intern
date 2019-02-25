@@ -15,6 +15,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.nts.reservation.common.annotation.MustLogin;
 import com.nts.reservation.common.exception.UnauthenticateException;
 
+/**
+ * login 확인 interceptor, use with MustLogin annotation 
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override

@@ -15,6 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * exception 발생시 로그 작성
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Aspect
 @Component
 public class ExceptionLogAspect {

@@ -72,6 +72,9 @@ public class CommentDao {
 		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfo);
 	}
 
+	/**
+	 * comment 저장, 예약없이 댓글 작성시 UnauthenticateException 발생
+	 */
 	public int insertComment(WritedComment writedComment) {
 
 		SqlParameterSource param = new MapSqlParameterSource()
@@ -83,11 +86,14 @@ public class CommentDao {
 		try {
 			return keyHolder.getKey().intValue();
 		} catch (NullPointerException e) {
-			throw new UnauthenticateException("this comment write, no permisson");
+			throw new UnauthenticateException("can not write this comment, because no permission");
 		}
 
 	}
 
+	/**
+	 * comment 작성시 첨부한 image 파일정보 저장
+	 */
 	public int insertReservationUserCommentImageInfo(int reservationId, int reservationUserCommentId, int fileId) {
 
 		SqlParameterSource param = new MapSqlParameterSource()

@@ -25,6 +25,9 @@ public class FileDao {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
+	/**
+	 * fileinfo 저장
+	 */
 	public int insertFileInfo(FileInfo fileInfo) {
 		SqlParameterSource param = new MapSqlParameterSource()
 			.addValues(new ObjectMapper().convertValue(fileInfo, Map.class));

@@ -26,6 +26,9 @@ public class FileServiceLogic implements FileService {
 	@Autowired
 	private FileDao fileDao;
 
+	/**
+	 * local file system에 file 저장 및 관련 정보 db 저장
+	 */
 	@Override
 	public int storeMultipartFile(MultipartFile multipartFile, String directory) {
 		String savePath = FILE_ROOT_DIRECTORY + directory;
@@ -52,6 +55,9 @@ public class FileServiceLogic implements FileService {
 		return fileDao.insertFileInfo(fileInfo);
 	}
 
+	/**
+	 * local file system에서 file 객체 생성
+	 */
 	@Override
 	public File getFile(String filePath) {
 		return new File(FILE_ROOT_DIRECTORY + filePath);

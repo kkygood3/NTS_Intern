@@ -14,6 +14,10 @@ import org.springframework.util.ObjectUtils;
 
 import com.nts.reservation.common.exception.NotFoundDataException;
 
+/**
+ * IsEmpty annotation의 기능 구현
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Aspect
 @Component
 public class IsEmptyAnntationAspect {

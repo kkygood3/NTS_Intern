@@ -26,6 +26,9 @@ public class ProductPriceDao {
 	@Autowired
 	private RowMapper<ProductPrice> productPriceMapper;
 
+	/**
+	 * 상품의 가격정보 조회
+	 */
 	public List<ProductPrice> selectProductPriceListByDisplayInfoId(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.query(SELECT_PRODUCT_PRICE_LIST, param, productPriceMapper);

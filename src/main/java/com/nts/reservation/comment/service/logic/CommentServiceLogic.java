@@ -56,6 +56,9 @@ public class CommentServiceLogic implements CommentService {
 		return limitCount > 0;
 	}
 
+	/**
+	 * comment, image file 저장
+	 */
 	@Override
 	@Transactional
 	public int addComment(WritedComment writedComment, MultipartFile[] images) {
@@ -76,6 +79,9 @@ public class CommentServiceLogic implements CommentService {
 		return reservationUserCommentId;
 	}
 
+	/**
+	 * 저장된 commentImage fileName 조회, 반환 
+	 */
 	@Override
 	public String getCommentImageSaveFileName(int commentImageId) {
 		return commentDao.selectCommentImageSaveFilename(commentImageId);

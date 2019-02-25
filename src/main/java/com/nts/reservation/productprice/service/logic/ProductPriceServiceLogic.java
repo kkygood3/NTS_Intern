@@ -20,6 +20,9 @@ public class ProductPriceServiceLogic implements ProductPriceService {
 	@Autowired
 	private ProductPriceDao productPriceDao;
 
+	/**
+	 * 상품의 가격정보 조회
+	 */
 	@Override
 	@IsEmpty
 	public List<ProductPrice> getProductPriceListByDisplayInfoId(int displayInfoId) {

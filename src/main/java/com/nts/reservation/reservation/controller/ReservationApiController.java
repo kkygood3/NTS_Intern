@@ -27,6 +27,9 @@ public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 
+	/**
+	 * 사용자의 예매내역 조회
+	 */
 	@MustLogin
 	@GetMapping(value = {"/api/reservation-histories"})
 	public ReservationHistoryResponse getReservationHistoryResponse(HttpSession httpSession) {
@@ -36,12 +39,18 @@ public class ReservationApiController {
 		return new ReservationHistoryResponse(reservationService.getReservationHistoryList(reservationEmail));
 	}
 
+	/**
+	 * 상품 예매 정보 저장
+	 */
 	@PostMapping(value = {"/api/reservation"})
 	public Response addReservation(@RequestBody @Validated Reservation reservation) {
 		reservationService.addReservation(reservation);
 		return new Response();
 	}
 
+	/**
+	 * 상품 예매 취소
+	 */
 	@MustLogin
 	@PutMapping(value = {"/api/reservation/{reservationId}/cancel"})
 	public Response modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {

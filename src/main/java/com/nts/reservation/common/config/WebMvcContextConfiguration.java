@@ -65,6 +65,9 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		return resolver;
 	}
 
+	/**
+	 * multipart resolver 설정
+	 */
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -72,9 +75,12 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		return multipartResolver;
 	}
 
+	/**
+	 * interceptor 설정
+	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LoginInterceptor());
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
 		registry.addInterceptor(new RequestLoggingInterceptor()).addPathPatterns("/**");
 	}
 

@@ -41,6 +41,9 @@ public class CommentController {
 	@Autowired
 	private FileService fileService;
 
+	/**
+	 * comment 작성 페이지 호출, 로그인정보와 reservationId로 유효한데이터인지 확인.
+	 */
 	@MustLogin
 	@GetMapping(value = {"/my-reservation/comment/write"})
 	public ModelAndView writeComment(ModelAndView mv, @RequestParam(required = true) int reservationId,
@@ -58,6 +61,9 @@ public class CommentController {
 		return mv;
 	}
 
+	/**
+	 * comment image 파일 응답
+	 */
 	@GetMapping(value = {"/comment/img/{commentImageId}"})
 	public void getCommentImage(@PathVariable int commentImageId, HttpServletResponse response) {
 		String saveFileName = commentService.getCommentImageSaveFileName(commentImageId);

@@ -21,6 +21,10 @@ import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.common.model.ExceptionResponse;
 
+/**
+ * service 내에서 발생하는 exception 핸들링, Exception 발생시 ExceptionResponse 객체 반환.
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandleControllerAdvice {

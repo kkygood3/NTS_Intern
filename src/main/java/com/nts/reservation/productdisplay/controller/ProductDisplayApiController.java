@@ -49,6 +49,9 @@ public class ProductDisplayApiController {
 		return new ProductDisplayResponse(productDisplay, commentListInfo);
 	}
 
+	/**
+	 * product display, price 정보 반환
+	 */
 	@GetMapping(value = {"/api/product-display-prices/{displayInfoId}"})
 	public ProductDisplayPriceResponse getProductDisplayPriceResponse(@PathVariable int displayInfoId) {
 
@@ -61,6 +64,9 @@ public class ProductDisplayApiController {
 		return productDisplayPriceResponse;
 	}
 
+	/**
+	 * 오늘 기준 1~5일(random) 이후 날짜 생성
+	 */
 	private String makeReservationDate() {
 		final String yyyyMMdd = "yyyy-MM-dd";
 		LocalDate nowDate = LocalDate.now();
