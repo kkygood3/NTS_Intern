@@ -17,8 +17,6 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceLogic implements ProductService {
 
-	private static final int ALL_CATEGORY = 0;
-
 	@Autowired
 	private ProductDao productDao;
 

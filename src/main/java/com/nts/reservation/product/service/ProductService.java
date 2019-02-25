@@ -9,8 +9,10 @@ import java.util.List;
 import com.nts.reservation.product.model.Product;
 
 public interface ProductService {
+	static final int ALL_CATEGORY = 0;
 
 	List<Product> getProductList(int categoryId, int start);
 
 	int getProductCount(int categoryId);
+
 }
