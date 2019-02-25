@@ -7,6 +7,7 @@ package com.nts.reservation.common.model;
 import org.springframework.http.HttpStatus;
 
 public class Response {
+
 	private HttpStatus httpStatus;
 	private int httpStatusCode;
 

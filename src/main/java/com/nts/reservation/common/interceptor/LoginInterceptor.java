@@ -16,6 +16,7 @@ import com.nts.reservation.common.annotation.MustLogin;
 import com.nts.reservation.common.exception.UnauthenticateException;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
