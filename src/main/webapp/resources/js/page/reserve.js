@@ -154,14 +154,14 @@ function addEventAgreementContentFoldExpand(){
 
 function addEventClickAgreementFoldExpand(content, button){
 	button.addEventListener("click", () =>{
-		const OPEN_CLASS = " open ";
+		const OPEN_CLASS = "open";
 		if(content.className.includes(OPEN_CLASS)){
-			content.className = content.className.replace(OPEN_CLASS, "");
+			content.classList.remove(OPEN_CLASS);
 			button.querySelector("span").innerText = "보기";
 			button.querySelector("i").className = "fn fn-down2";
 		}
 		else{
-			content.className += OPEN_CLASS;
+			content.classList.add(OPEN_CLASS);
 			button.querySelector("span").innerText = "접기";
 			button.querySelector("i").className = "fn fn-up2";
 		}
@@ -231,10 +231,10 @@ ProductPrice.prototype = {
 	canUsedMinusButton : function(){
 		const BUTTON_DISABLE_AND_NO_EVENT =" disabled no_event";
 		if(this.count < 1){
-			this.btnMinusElement.className += BUTTON_DISABLE_AND_NO_EVENT;
+			this.btnMinusElement.classList.add(BUTTON_DISABLE_AND_NO_EVENT);
 		}
 		else{
-			this.btnMinusElement.className = this.btnMinusElement.className.replace(BUTTON_DISABLE_AND_NO_EVENT, "");
+			this.btnMinusElement.classList.remove(BUTTON_DISABLE_AND_NO_EVENT);
 		}
 	},
 	updateTotalCount : function(){
@@ -282,14 +282,14 @@ DataVaildObserver.prototype = {
 	isVaild : function(){
 		var invaild = this.targetList.some((target) =>{
 			if((target.dataset.validFlag === "false")){
-				this.disabledTarget.className = this.disabledTargetOriginalClass;
+				this.disabledTarget.classList.add("disable");
 				this.disabledTargetBtn.disabled = true;
 				return true;
 			}
 			return false;
 		});
 		if(!invaild){
-			this.disabledTarget.className = this.disabledTarget.className.replace("disable", "");
+			this.disabledTarget.classList.remove("disable");
 			this.disabledTargetBtn.disabled = false;
 		}
 	},

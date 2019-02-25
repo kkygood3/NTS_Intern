@@ -11,7 +11,7 @@ function Slide(view, items){
 	this.view.innerHTML = this.items[this.index].outerHTML;
 	
 	this.view.addEventListener("transitionend", () =>{
-		this.view.className = originalClass;
+		this.view.classList.remove("slide");
 		this.view.style.transform = "translateX(0%)";
 		this.view.innerHTML = this.items[this.index].outerHTML;
 	});
@@ -33,7 +33,7 @@ Slide.prototype= {
 		this.index = nextIndex;
 		
 		setTimeout(()=>{
-			view.className += " slide";
+			view.classList.add("slide");
 			view.style.transform = "translateX(0%)";
 		}, 0);
 	},
@@ -45,7 +45,7 @@ Slide.prototype= {
 		view.innerHTML = view.innerHTML + items[nextIndex].outerHTML;
 		this.index = nextIndex;
 		
-		view.className += " slide";
+		view.classList.add("slide");
 		view.style.transform = "translateX(-100%)";
 	},
 	

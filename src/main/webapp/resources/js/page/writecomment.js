@@ -17,7 +17,7 @@ function Review(){
 	this.imageList = new ImageList(reviewImageOpenElement, reviewImageListElement);
 	
 	reviewWriteInfoElement.addEventListener("focus", () =>{
-		reviewWriteInfoElement.className += " hide";
+		reviewWriteInfoElement.classList.add("hide");
 		reviewWriteElement.focus();
 	});
 	

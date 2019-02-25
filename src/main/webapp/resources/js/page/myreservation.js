@@ -76,10 +76,10 @@ AllReservationHistoryList.prototype = {
 	isHistoryEmpty : function(){
 		var historyEmpty = document.querySelector("#history_empty"); 
 		if(this.count > 0){
-			historyEmpty.className += " hide";
+			historyEmpty.classList.add("hide");
 		}
 		else{
-			historyEmpty.className = historyEmpty.className.replace(" hide" ,"");
+			historyEmpty.classList.remove("hide");
 		}
 	}
 }
@@ -101,7 +101,7 @@ ClassifiedReservationHistoryList.prototype = {
 		var listElement = document.querySelector("#" + this.reservationStatus.toLowerCase() + "_reservation_history_list");
 		
 		if(this.list.length > 0){
-			listElement.className = listElement.className.replace(" hide", "");;
+			listElement.classList.remove("hide");
 		}
 		
 		this.list.forEach((reservationHistory) => {
