@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.dto.request;
+package com.nts.reservation.dto.request.react;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import java.net.ConnectException;
 
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.nts.reservation.dto.request.MyReservationPageRequestDto;
+import com.nts.reservation.dto.request.react.MyReservationPageRequestDto;
 
 /**
  * @author 육성렬

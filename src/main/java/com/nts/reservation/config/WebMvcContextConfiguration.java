@@ -30,6 +30,7 @@ import com.nts.reservation.interceptor.RequestLogInterceptor;
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	static final int CACHE_PERIOD = 31556926;
+	static final int MAX_UPLOAD_SIZE = 10485760;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -64,7 +65,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+		multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
 		return multipartResolver;
 	}
 
