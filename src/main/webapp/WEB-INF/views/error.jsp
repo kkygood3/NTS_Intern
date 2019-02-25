@@ -28,7 +28,14 @@
          <div class="_view_content" ui-view="content" id="container" >
 	         <div class="booking_login">
 	            <h1 class="login_header"> <a href="/"  class="nbooking_logo spr_bi txt_logo" > <span translate="CM-NBOOKING">네이버 예약</span> </a> </h1>
-	            <p class="warning_msg" >${errorMsg}</p>
+	            <c:choose>
+		            <c:when test="${errorMsg == null}">
+		            	<p class="warning_msg" >요청한 페이지를 찾을 수 없습니다.</p>
+		            </c:when>
+		            <c:otherwise>
+		            	<p class="warning_msg" >${errorMsg}</p>
+		            </c:otherwise>
+	            </c:choose>
 	            <div class="link_container"><a href="/" class="link_to_main"><span>메인으로</span></a></div>
 	         </div>
          </div>

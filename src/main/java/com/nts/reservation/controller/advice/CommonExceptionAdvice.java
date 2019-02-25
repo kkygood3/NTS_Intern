@@ -21,8 +21,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nts.reservation.exception.ResourceNotFoundException;
-
 /**
 * @author  : 이승수
 */
@@ -68,11 +66,5 @@ public class CommonExceptionAdvice {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView handleHttpServerErrorException(HttpServerErrorException exception, HttpServletRequest request) {
 		return showErrorPage(exception, request, "서버 내부 오류가 발생했습니다.");
-	}
-
-	@ExceptionHandler(ResourceNotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ModelAndView handlePageNotFoundException(ResourceNotFoundException exception, HttpServletRequest request) {
-		return showErrorPage(exception, request, "요청한 페이지를 찾을 수 없습니다.");
 	}
 }
