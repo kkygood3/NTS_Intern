@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
@@ -69,5 +70,17 @@ public class ReservationApiController {
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
 
 		return reservationService.getReservationResponse(reservationEmail, ReservationStatusType.valueOf(status), page);
+	}
+
+	/**
+	 * 상품평 등록
+	 */
+	@PostMapping("/{reservationId}/comments")
+	public Map<String, Object> postComment(CommentParamDto commentParam) {
+		System.out.println(commentParam.toString());
+		System.out.println(commentParam.getImage() == null);
+		reservationService.makeComment(commentParam);
+		
+		return Collections.singletonMap("isSuccess", false);
 	}
 }

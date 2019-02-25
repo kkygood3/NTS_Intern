@@ -5,6 +5,7 @@
 package com.nts.reservation.service;
 
 import com.nts.reservation.constant.ReservationStatusType;
+import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
@@ -23,5 +24,7 @@ public interface ReservationService {
 
 	ReservationResponseDto getReservationResponse(String reservationEmail, ReservationStatusType valueOf,
 		PageDto page);
+
+	void makeComment(CommentParamDto commentParam);
 
 }

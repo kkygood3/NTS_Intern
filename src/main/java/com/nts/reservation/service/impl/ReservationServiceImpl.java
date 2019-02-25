@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.ReservationDisplayInfoDto;
+import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.primitive.ReservationInfoDto;
@@ -96,5 +97,18 @@ public class ReservationServiceImpl implements ReservationService {
 			.selectReservationDisplayInfos(reservationEmail, status, page);
 
 		return new ReservationResponseDto(reservationDisplayInfos, count);
+	}
+
+	/* 
+	 * 상품평 등록
+	 */
+	@Override
+	@Transactional
+	public void makeComment(CommentParamDto commentParam) {
+		reservationMapper.insertComment(commentParam);
+		if (commentParam.getImage() != null) {
+			// TODO: 이미지 추가
+			//reservationMapper.insertCommentImage(commentParam);
+		}
 	}
 }

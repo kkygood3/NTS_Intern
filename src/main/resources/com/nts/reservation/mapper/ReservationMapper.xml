@@ -136,4 +136,20 @@
 		WHERE
 		    id = #{reservationId}
 	</update>
+
+	<insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reservation_user_comment 
+		            (product_id, 
+		             reservation_info_id, 
+		             score, 
+		             comment, 
+		             create_date, 
+		             modify_date) 
+		VALUES      ( #{productId}, 
+		              #{reservationId}, 
+		              #{score}, 
+		              #{comment}, 
+		              Now(), 
+		              Now() );
+	</insert>
 </mapper>
