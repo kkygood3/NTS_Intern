@@ -53,7 +53,7 @@ class MyReservation extends React.Component {
     return filteredReservations;
   }
 
-  onClickCancelReservationBtn (event, title) {
+  onClickCancelReservationBtn (reservationId, title) {
     if (!event.target.classList.contains("btn") && !event.target.parentNode.classList.contains("btn")) {
       return;
     }
@@ -65,7 +65,9 @@ class MyReservation extends React.Component {
       isHidePopup: false
     });
   }
-
+  onClickCommentReservationBtn ( reservationId, title) {
+    window.location.href = "/comment/" + reservationId;
+  }
   onClickPopupCloseBtn (event) {
     this.setState({
       isHidePopup: true
@@ -128,7 +130,8 @@ class MyReservation extends React.Component {
                     okReservations={this.state.okReservations}
                     finishReservations={this.state.finishReservations}
                     cancelReservations={this.state.cancelReservations}
-                    onClickCancelReservationBtn= {this.onClickCancelReservationBtn}  
+                    onClickCancelReservationBtn= {this.onClickCancelReservationBtn}
+                    onClickCommentReservationBtn= {this.onClickCommentReservationBtn}
                   />
                   <EmptyReservation totalCount={this.state.size}/>
                 </div>

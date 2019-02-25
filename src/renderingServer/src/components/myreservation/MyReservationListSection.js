@@ -17,7 +17,7 @@ class MyReservationListSection extends React.Component {
     
     render() {
         return (
-            <li class={`card ${this.containerClassNames()}`}>
+            this.props.reservations.length > 0 ? (<li class={`card ${this.containerClassNames()}`}>
                 <div class="link_booking_details">
                     <div class="card_header">
                         <div class="left"></div>
@@ -36,7 +36,7 @@ class MyReservationListSection extends React.Component {
                                     onClickReservationBtn = {this.props.onClickReservationBtn}
                                 />
                 }.bind(this))}
-            </li>
+            </li>) : ""
         );
     }
 }
