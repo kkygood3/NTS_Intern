@@ -1,4 +1,6 @@
-/.classpath
-/.project
-/target/
-/.settings/
+/src/main/resources/application.properties
+target
+bin
+.classpath
+.project
+.settings
