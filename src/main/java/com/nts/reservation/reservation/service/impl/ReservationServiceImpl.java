@@ -32,12 +32,16 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private DisplayInfoDao displayInfoDaoImpl;
 
+	/**
+	 * 예약 Email을 받아서 ReservationInfo의 정보를 가져와서 예약 정보를 반환
+	 * @param reservationEmail
+	 */
 	@Override
 	public ReservationInfoResponse getReservationInfoResponse(String reservationEmail) {
 		List<ReservationInfo> reservations = reservationDaoImpl.getReservationInfos(reservationEmail);
 
 		// ReservationInfo의 displayInfo와 TotalPrice을 설정하는 반복문
-		for(ReservationInfo reservation : reservations) {
+		for (ReservationInfo reservation : reservations) {
 			fetchReservationInfo(reservation, reservationEmail);
 		}
 
@@ -50,7 +54,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationInfoResponse;
 	}
 
-	private ReservationInfo fetchReservationInfo (ReservationInfo reservation, String Email) {
+	private ReservationInfo fetchReservationInfo(ReservationInfo reservation, String Email) {
 		int displayInfoId = reservation.getDisplayInfoId();
 		int reservationInfoId = reservation.getReservationInfoId();
 		int productId = reservation.getProductId();
@@ -64,16 +68,19 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservation;
 	}
 
+	/**
+	 * 예약 파라미터들을 입력 받아 예약 정보와 가격 정보를 추가하여 반환
+	 * @param reservationParam
+	 */
 	@Override
 	public ReservationResponse getReservationResponse(ReservationParam reservationParam) {
-		ReservationResponse reservationResponse = new ReservationResponse();
-
 		int productId = reservationParam.getProductId();
 
 		ReservationResponseData reservationResponseData = reservationDaoImpl
-				.getReservationResponseData(reservationParam);
+			.getReservationResponseData(reservationParam);
 		List<ReservationPrice> reservationPrices = reservationDaoImpl.getReservationPrices(productId);
 
+		ReservationResponse reservationResponse = new ReservationResponse();
 		reservationResponse.setReservationResponseData(reservationResponseData);
 		reservationResponse.setPrices(reservationPrices);
 
@@ -91,7 +98,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		reservationParam.getPrices().forEach(price -> {
 			int reservationInfoPriceId = reservationDaoImpl.insertReservationPrice(price.getProductPriceId(),
-					reservationInfoId, price.getCount());
+				reservationInfoId, price.getCount());
 
 			if (NegativeValueValidator.isNegativeValue(reservationInfoPriceId)) {
 				throw new IllegalArgumentException("insertReservationPrice Failed");
