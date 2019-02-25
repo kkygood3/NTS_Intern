@@ -77,8 +77,6 @@ public class ReservationApiController {
 	 */
 	@PostMapping("/{reservationId}/comments")
 	public Map<String, Object> postComment(CommentParamDto commentParam) {
-		System.out.println(commentParam.toString());
-		System.out.println(commentParam.getImage() == null);
 		reservationService.makeComment(commentParam);
 		
 		return Collections.singletonMap("isSuccess", false);
