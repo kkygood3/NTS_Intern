@@ -235,11 +235,11 @@
 			}
 
 			var url = "/api/reservations/" + reservationId + "/comments?productId=" + productId;
-			ajaxFile(ajaxSuccess, url, formData);
+			ajaxFile(url, formData);
 
 		});
 
-		function ajaxFile(callback, url, data) {
+		function ajaxFile(url, data) {
 			$.ajax({
 				type: "POST",
 				enctype: 'multipart/form-data',
@@ -250,7 +250,9 @@
 				cache: false,
 				timeout: 600000,
 				success: function (data) {
-					callback();
+					if (confirm("등록 성공! 나의예약페이지로 이동하시겠습니까?")) {
+						location.href="/myreservation";
+					}
 				},
 				error: function (e) {
 					alert("등록 실패!");
@@ -258,11 +260,6 @@
 				}
 			});
 		}
-
-		function ajaxSuccess() {
-			alert.log("등록 성공...");
-		}
-
 	</script>
 </body>
 </html>
