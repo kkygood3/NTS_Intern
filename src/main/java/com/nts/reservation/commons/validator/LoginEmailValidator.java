@@ -2,11 +2,11 @@ package com.nts.reservation.commons.validator;
 
 import java.util.logging.Logger;
 
-public class loginEmailValidator {
+public class LoginEmailValidator {
 	private final static Logger LOG = Logger.getGlobal();
-	
+
 	/**
-	 * 요청 Email의 정규식을 검증하고 login된 Email과 일치 여부를 검증 
+	 * 요청 Email의 정규식을 검증하고 login된 Email과 일치 여부를 검증
 	 * @param reservationEmail
 	 * @param loginEmail
 	 */

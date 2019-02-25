@@ -27,8 +27,8 @@ public class ReservationLoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(@RequestParam(name = "reservationEmail", required = true) String reservationEmail,
 		HttpSession session, ModelMap model) {
-		
-		if(reservationEmail == null) {
+
+		if (reservationEmail == null) {
 			LOG.warning("잘못된 Email입니다. Email : " + reservationEmail);
 			throw new IllegalArgumentException();
 		}

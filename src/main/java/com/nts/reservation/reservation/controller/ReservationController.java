@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ReservationController {
 
-	@RequestMapping(value = "/reserve", method=RequestMethod.GET)
-	public String moveListPage() {
+	@RequestMapping(value = "/reserve", method = RequestMethod.GET)
+	public String moveReservePage() {
 		return "reserve";
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String moveListPage() {
+		return "list";
 	}
 }
