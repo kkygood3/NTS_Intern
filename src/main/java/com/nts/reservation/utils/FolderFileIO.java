@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  *
  */
-
+@Component
 public class FolderFileIO {
 	public void createFolderIfNotExist(File folder) {
 		System.out.println("folder Exists : " + folder.exists());

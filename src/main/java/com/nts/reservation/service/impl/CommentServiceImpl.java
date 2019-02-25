@@ -35,7 +35,8 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private CommentMapper commentMapper;
 
-	private FolderFileIO folderFileIo = new FolderFileIO();
+	@Autowired
+	private FolderFileIO folderFileIo;
 
 	@Override
 	public CommentImage getCommentImageById(Long commentImageId) {

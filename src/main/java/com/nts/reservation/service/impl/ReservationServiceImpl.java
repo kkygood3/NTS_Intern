@@ -58,7 +58,6 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public ReservationInfo getReservationByEmailAndRsvId(String email, Long reservationId) {
 		return reservationDao.selectReservationByEmailAndRsvId(email, reservationId);
 	}
