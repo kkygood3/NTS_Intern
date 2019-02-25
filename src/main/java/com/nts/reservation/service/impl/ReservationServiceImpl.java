@@ -107,7 +107,7 @@ public class ReservationServiceImpl implements ReservationService {
 		String comment = requestDto.getComment();
 		Long reservationUserCommentId = reservationDao.insertUserComment(productId, reservationInfoId, score, comment);
 
-		List<Long> fileIds = new ArrayList();
+		List<Long> fileIds = new ArrayList<>();
 
 		for (FileDto file : fileList) {
 			fileIds.add(reservationDao.insertFileInfo(file));

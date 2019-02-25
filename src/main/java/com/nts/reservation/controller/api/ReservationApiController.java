@@ -154,7 +154,7 @@ public class ReservationApiController {
 		}
 
 		List<MultipartFile> images = requestDto.getAttachedImages();
-		List<FileDto> files = new ArrayList();
+		List<FileDto> files = new ArrayList<>();
 		try {
 			if (images != null) {
 
@@ -170,14 +170,7 @@ public class ReservationApiController {
 			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);
 		} catch (InvalidParamException | IOException | SQLException exception) {
 			fileIoService.removeFilesForRollback(files);
-
-			if (exception instanceof InvalidParamException) {
-				throw (InvalidParamException)exception;
-			} else if (exception instanceof IOException) {
-				throw (IOException)exception;
-			} else {
-				throw (SQLException)exception;
-			}
+			throw exception;
 		}
 
 		URI redirectUri = uriBuilder.path("/")

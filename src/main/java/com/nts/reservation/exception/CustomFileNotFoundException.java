@@ -10,6 +10,8 @@ package com.nts.reservation.exception;
  */
 public class CustomFileNotFoundException extends Exception {
 
+	private static final long serialVersionUID = -2302380933212995714L;
+
 	public CustomFileNotFoundException(String url) {
 		super("존재하지 않는 파일입니다. [Url] : " + url);
 	}

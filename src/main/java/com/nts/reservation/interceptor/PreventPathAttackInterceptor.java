@@ -37,7 +37,7 @@ public class PreventPathAttackInterceptor extends HandlerInterceptorAdapter {
 		query = query.replaceAll("%5C", "/");
 
 		if (query.contains("../") || query.contains("./")) {
-			response.sendError(response.SC_BAD_REQUEST, BAD_REQUEST_ERROR_MSG);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, BAD_REQUEST_ERROR_MSG);
 			logger.error("파일 경로를 통한 공격 감지. [공격자 ip] : {}, [공격 패턴] : {}", request.getRemoteAddr(),
 				request.getQueryString());
 			return false;

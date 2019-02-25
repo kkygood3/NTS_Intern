@@ -75,7 +75,7 @@ public class ReservationDao {
 	 * @return
 	 */
 	public int insertReservationPrice(long reservationInfoId, long productPriceId, int count) {
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("reservationInfoId", reservationInfoId);
 		map.put("productPriceId", productPriceId);
 		map.put("count", count);
@@ -127,7 +127,7 @@ public class ReservationDao {
 	 * @return
 	 */
 	public int countFinishReservationsByEmailAndId(Long reservationInfoId, String email) {
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("email", email);
 		map.put("id", reservationInfoId);
 		return jdbc.queryForObject(SELECT_COUNT_FINISH_RESERVATION_BY_EMAIL_AND_ID, map, Integer.class);

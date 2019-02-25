@@ -17,7 +17,6 @@ import com.nts.reservation.service.DisplayInfoService;
 @Controller
 public class ReservationPageController {
 
-	@Autowired
 	private final DisplayInfoService displayService;
 
 	@Autowired

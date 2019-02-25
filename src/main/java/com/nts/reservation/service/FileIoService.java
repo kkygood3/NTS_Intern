@@ -6,13 +6,11 @@
 package com.nts.reservation.service;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.FileDto;
-import com.nts.reservation.exception.CustomFileNotFoundException;
 
 /**
  * @author 육성렬
