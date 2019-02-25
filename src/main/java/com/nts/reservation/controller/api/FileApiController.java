@@ -89,7 +89,7 @@ public class FileApiController {
 	private ResponseEntity<byte[]> getImageAsResponseEntity(String filePath, HttpHeaders headers)
 		throws IOException {
 		File file = new File(fileDir + filePath);
-		byte[] media = IOUtils.toByteArray(new FileInputStream(file));
-		return new ResponseEntity<>(media, headers, HttpStatus.OK);
+		byte[] image = IOUtils.toByteArray(new FileInputStream(file));
+		return new ResponseEntity<>(image, headers, HttpStatus.OK);
 	}
 }
