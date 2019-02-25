@@ -36,6 +36,10 @@ public class ReviewWriteRequestArgumentResolver implements HandlerMethodArgument
 		reviewWriteRequest.setProductId(new Integer(multipartRequest.getParameter("productId")));
 		reviewWriteRequest.setScore(new Integer(multipartRequest.getParameter("score")));
 		
+		if(!reviewWriteRequest.isVaild()) {
+			throw new RuntimeException("Comment 형식 이상");
+		}
+		
 		return reviewWriteRequest;
 	}
 
