@@ -54,7 +54,7 @@
 				<!-- 리뷰 입력 -->
 				<div class="review_contents write">
 					<!-- [D] review_write_info 클릭 시 자신을 숨기고 review_textarea 에 focus를 보낸다. -->
-					<a href="#" class="review_write_info">
+					<a class="review_write_info">
 						<span class="middot">
 							실 사용자의 리뷰는 상품명의 더 나은 서비스 제공과 다른 사용자들의 선택에 큰 도움이 됩니다.
 						</span><br>
@@ -118,38 +118,42 @@
 		</div>
 	</footer>
 	<script>
-	function StarRating(body) {
-		this.body = body;
-		this.value = 0;
-		this.registerEvents();
-	}
-
-	StarRating.prototype = {
-		registerEvents: function () {
-			this.body.addEventListener("click", function(evt) {
-				if (evt.target.tagName !== "INPUT") {
-					return;
-				}
-				this.value = evt.target.value;
-				this.showRating();
-			}.bind(this));
-		},
-		showRating: function () {
-			this.body.querySelectorAll("input").forEach(function (element) {
-				if (this.value >= element.value) {
-					element.classList.add("checked");
-				} else {
-					element.classList.remove("checked");
-				}
-			}.bind(this));
-			document.querySelector(".star_rank").innerText = this.value;
-			document.querySelector(".star_rank").classList.remove("gray_star");
+		function StarRating(body) {
+			this.body = body;
+			this.value = 0;
+			this.registerEvents();
 		}
-	}
 
-	var ratingBody = document.querySelector(".rating");
-	var starRating = new StarRating(ratingBody);
+		StarRating.prototype = {
+			registerEvents: function () {
+				this.body.addEventListener("click", function(evt) {
+					if (evt.target.tagName !== "INPUT") {
+						return;
+					}
+					this.value = evt.target.value;
+					this.showRating();
+				}.bind(this));
+			},
+			showRating: function () {
+				this.body.querySelectorAll("input").forEach(function (element) {
+					if (this.value >= element.value) {
+						element.classList.add("checked");
+					} else {
+						element.classList.remove("checked");
+					}
+				}.bind(this));
+				document.querySelector(".star_rank").innerText = this.value;
+				document.querySelector(".star_rank").classList.remove("gray_star");
+			}
+		}
 
+		var ratingBody = document.querySelector(".rating");
+		var starRating = new StarRating(ratingBody);
+
+		document.querySelector(".review_write_info").addEventListener("click", function(evt) {
+			this.style.display = "none";
+			document.querySelector(".review_textarea").focus();
+		});
 	</script>
 </body>
 </html>
