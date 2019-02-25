@@ -4,10 +4,12 @@
  */
 package com.nts.reservation.comment.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,11 +61,13 @@ public class CommentController {
 	@GetMapping(value = {"/comment/img/{commentImageId}"})
 	public void getCommentImage(@PathVariable int commentImageId, HttpServletResponse response) {
 		String saveFileName = commentService.getCommentImageSaveFileName(commentImageId);
+		File saveFile = fileService.getFile(saveFileName);
 
-		try (FileInputStream fileInputStream = new FileInputStream(
-			fileService.getFile(saveFileName));
+		try (
+			FileInputStream fileInputStream = new FileInputStream(saveFile);
 			OutputStream outputStream = response.getOutputStream()) {
 
+			setHeaderImageFile(saveFile, response);
 			byte[] buffer = new byte[1024];
 			while (fileInputStream.read(buffer) > 0) {
 				outputStream.write(buffer);
@@ -75,5 +79,14 @@ public class CommentController {
 			throw new InternalServerErrorException("file io fail!!");
 		}
 
+	}
+
+	private void setHeaderImageFile(File file, HttpServletResponse response) throws IOException {
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\";");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Content-Type", Files.probeContentType(file.toPath()));
+		response.setHeader("Content-Length", "" + file.length());
+		response.setHeader("Pragma", "no-cache;");
+		response.setHeader("Expires", "-1;");
 	}
 }
