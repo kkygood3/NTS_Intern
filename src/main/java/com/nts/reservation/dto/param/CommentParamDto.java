@@ -11,11 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
  * @author jinwoo.bae
  */
 public class CommentParamDto {
+	private int id;
 	private int productId;
 	private int reservationId;
 	private int score;
 	private String comment;
 	private MultipartFile image;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getProductId() {
 		return productId;
