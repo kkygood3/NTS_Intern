@@ -4,7 +4,6 @@
  **/
 package com.nts.controller.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,6 @@ public class PromotionController {
 
 	private final PromotionService promotionService;
 
-	@Autowired
 	public PromotionController(PromotionService promotionService) {
 		this.promotionService = promotionService;
 	}

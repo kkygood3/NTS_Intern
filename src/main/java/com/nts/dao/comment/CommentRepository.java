@@ -16,7 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.nts.dto.comment.Comment;
-import com.nts.dto.comment.CommentImage; 
+import com.nts.dto.comment.CommentImage;
+import com.nts.dto.file.FileInfo; 
 
 /**
  * @author 전연빈
@@ -28,6 +29,7 @@ public class CommentRepository {
 	
 	private RowMapper<Comment> commentRowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
 	private RowMapper<CommentImage> commentImageRowMapper = BeanPropertyRowMapper.newInstance(CommentImage.class);
+	private RowMapper<FileInfo> fileInfoRowMapper = BeanPropertyRowMapper.newInstance(FileInfo.class);
 	
 	public CommentRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -70,5 +72,17 @@ public class CommentRepository {
 		params.put("productId", productId);
 		
 		return namedParameterJdbcTemplate.queryForObject(SELECT_COMMENTS_AVERAGE_BY_PRODUCT_ID, params, Double.class);
+	}
+	
+	/**
+	 * @desc commentImage file정보 불러오기
+	 * @param commentId
+	 * @return
+	 */
+	public FileInfo selectFileInfoByCommentId(int commentId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("commentId", commentId);
+
+		return namedParameterJdbcTemplate.queryForObject(SELECT_FILE_INFO_BY_COMMENT_ID, params, fileInfoRowMapper);
 	}
 }

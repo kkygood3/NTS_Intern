@@ -15,7 +15,7 @@ public class CommentSqls {
 	"LEFT OUTER JOIN reservation_user_comment_image r_c_i " + 
 	"ON r_c.id = r_c_i.reservation_user_comment_id " + 
 	"WHERE  r_c.product_id = :productId " + 
-	"ORDER BY r_c.product_id DESC";
+	"ORDER BY r_c.create_date ASC";
 	
 	public static final String SELECT_COMMENT_IMAGES_BY_RESERVATION_USER_COMMENT_ID =
 	"SELECT f.id AS image_id, r_c.reservation_info_id AS reservation_info_id,r_c.id AS reservation_user_comment_id, f.id AS file_id, f.file_name AS file_name, f.save_file_name AS save_file_name, f.content_type AS content_type, IF(f.delete_flag,'true','false') AS delete_flag, f.create_date AS create_date, f.modify_date AS modify_date " + 
@@ -27,5 +27,11 @@ public class CommentSqls {
 	"SELECT IFNULL(AVG(score),0) AS average_score " + 
 	"FROM reservation_user_comment " + 
 	"WHERE product_id = :productId";
+	
+	public static final String SELECT_FILE_INFO_BY_COMMENT_ID =
+	"SELECT f_i.file_name, f_i.save_file_name, f_i.content_type " + 
+	"FROM reservation_user_comment_image r_u_c_i INNER JOIN file_info f_i " + 
+	"ON r_u_c_i.file_id = f_i.id " + 
+	"WHERE r_u_c_i.reservation_user_comment_id = :commentId";
 }
  

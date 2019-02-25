@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.nts.dao.comment.CommentRepository;
 import com.nts.dto.comment.Comment;
 import com.nts.dto.comment.Comments;
+import com.nts.dto.file.FileInfo;
 import com.nts.service.comment.CommentService;
 
 /**
@@ -67,6 +68,15 @@ public class CommentServiceImpl implements CommentService {
 		comments.setComments(getCommentListByProductId(productId));
 
 		return comments;
+	}
+
+	@Override
+	public FileInfo getFileInfoByCommentId(int commentId) {
+		
+		FileInfo fileInfo = commentRepository.selectFileInfoByCommentId(commentId);
+		
+		fileInfo.setSaveFileName(fileInfo.getSaveFileName());
+		return fileInfo;
 	}
 
 }
