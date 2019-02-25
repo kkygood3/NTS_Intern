@@ -34,15 +34,15 @@
 					<div class="review_rating rating_point">
 						<div class="rating">
 							<!-- [D] 해당 별점이 선택될 때 그 점수 이하의 input엘리먼트에 checked 클래스 추가 -->
-							<input type="checkbox" name="rating2" value="1" class="rating_rdo" title="1점">
+							<input name="rating2" value="1" class="rating_rdo" title="1점">
 							<span class="span"></span>
-							<input type="checkbox" name="rating3" value="2" class="rating_rdo" title="2점">
+							<input name="rating3" value="2" class="rating_rdo" title="2점">
 							<span class="span"></span>
-							<input type="checkbox" name="rating4" value="3" class="rating_rdo" title="3점" >
+							<input name="rating4" value="3" class="rating_rdo" title="3점" >
 							<span class="span"></span>
-							<input type="checkbox" name="rating5" value="4" class="rating_rdo" title="4점">
+							<input name="rating5" value="4" class="rating_rdo" title="4점">
 							<span class="span"></span>
-							<input type="checkbox" name="rating6" value="5" class="rating_rdo" title="5점">
+							<input name="rating6" value="5" class="rating_rdo" title="5점">
 							<span class="span"></span>
 							<!-- [D] 0점일 때 gray_star 추기 -->
 							<span class="star_rank gray_star">0</span>
@@ -117,5 +117,39 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script>
+	function StarRating(body) {
+		this.body = body;
+		this.value = 0;
+		this.registerEvents();
+	}
+
+	StarRating.prototype = {
+		registerEvents: function () {
+			this.body.addEventListener("click", function(evt) {
+				if (evt.target.tagName !== "INPUT") {
+					return;
+				}
+				this.value = evt.target.value;
+				this.showRating();
+			}.bind(this));
+		},
+		showRating: function () {
+			this.body.querySelectorAll("input").forEach(function (element) {
+				if (this.value >= element.value) {
+					element.classList.add("checked");
+				} else {
+					element.classList.remove("checked");
+				}
+			}.bind(this));
+			document.querySelector(".star_rank").innerText = this.value;
+			document.querySelector(".star_rank").classList.remove("gray_star");
+		}
+	}
+
+	var ratingBody = document.querySelector(".rating");
+	var starRating = new StarRating(ratingBody);
+
+	</script>
 </body>
 </html>
