@@ -6,6 +6,8 @@ package com.nts.reservation.common;
 
 import java.util.regex.Pattern;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nts.reservation.property.CommonProperties;
 
 /**
@@ -36,6 +38,17 @@ public class ReservationValidatior {
 	}
 	
 	public static boolean validateScore(int score) {
-		return (CommonProperties.MIN_REVIEW_SCORE < score && score < CommonProperties.MAX_REVIEW_SCORE);
+		return (CommonProperties.MIN_REVIEW_SCORE <= score && score <= CommonProperties.MAX_REVIEW_SCORE);
+	}
+
+	public static boolean validateImage(MultipartFile imageFile) {
+		String extName = imageFile.getContentType();
+		for(final String allowName : CommonProperties.ALLOW_FILE_EXTENSION) {
+			if(extName.equalsIgnoreCase(allowName)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

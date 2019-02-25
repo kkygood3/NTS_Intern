@@ -98,7 +98,7 @@ function initWriteBtnClickEvent(){
 				writeForm.append('imageFile', imageInput.files[0]);
 			}
 			
-			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm);
+			requestAjax(writeResponseHandler, '/api/reservations/'+reservationInfoId+'/comments', 'post', writeForm, 'mul');
 		}
 	});
 }

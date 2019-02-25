@@ -3,7 +3,6 @@ package com.nts.reservation.dto.reviewwrite;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.common.ReservationValidatior;
-import com.nts.reservation.property.CommonProperties;
 
 public class ReviewWriteRequest {
 	private Integer id;
@@ -59,9 +58,11 @@ public class ReviewWriteRequest {
 	}
 
 	public boolean isVaild() {
-		return ReservationValidatior.validateComment(this.comment)
-			&& ReservationValidatior.validateScore(this.score);
+		boolean result = ReservationValidatior.validateComment(this.comment)
+						&& ReservationValidatior.validateScore(this.score);
+		if(imageFile != null) {
+			result = result && ReservationValidatior.validateImage(this.imageFile);
+		}
+		return result;
 	}
-	
-	
 }
