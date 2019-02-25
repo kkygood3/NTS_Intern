@@ -90,7 +90,9 @@ public class CommentQuerys {
 		+ ", :fileId"
 		+ ")";
 
-	public static final String SELECT_COMMENT_SAVE_FILE_NAME = "select fi.save_file_name as save_file_name "
+	public static final String SELECT_COMMENT_SAVE_FILE_NAME = "select fi.file_name as file_name"
+		+ ", fi.save_file_name as save_file_name"
+		+ ", fi.content_type as content_type "
 		+ "from reservation_user_comment_image ci "
 		+ "inner join file_info fi "
 		+ "on ci.file_id = fi.id "

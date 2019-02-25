@@ -28,6 +28,7 @@ import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.common.exception.UnauthenticateException;
+import com.nts.reservation.file.model.FileInfo;
 
 import static com.nts.reservation.comment.dao.querys.CommentQuerys.*;
 
@@ -41,7 +42,10 @@ public class CommentDao {
 	private RowMapper<Comment> commentMapper;
 
 	@Autowired
-	private RowMapper<CommentListInfo> commentListInfo;
+	private RowMapper<CommentListInfo> commentListInfoMapper;
+
+	@Autowired
+	private RowMapper<FileInfo> fileInfoMapper;
 
 	/**
 	 * 특정 display의 전체 comment 목록 반환
@@ -69,7 +73,7 @@ public class CommentDao {
 	 */
 	public CommentListInfo selectCommentListInfo(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfo);
+		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfoMapper);
 	}
 
 	/**
@@ -107,9 +111,12 @@ public class CommentDao {
 		return keyHolder.getKey().intValue();
 	}
 
-	public String selectCommentImageSaveFilename(int commentImageId) {
+	/**
+	 * 저장된 fileinfo 조회
+	 */
+	public FileInfo selectCommentImageSaveFileInfo(int commentImageId) {
 		Map<String, Integer> param = Collections.singletonMap("commentImageId", commentImageId);
-		return jdbcTemplate.queryForObject(SELECT_COMMENT_SAVE_FILE_NAME, param, String.class);
+		return jdbcTemplate.queryForObject(SELECT_COMMENT_SAVE_FILE_NAME, param, fileInfoMapper);
 	}
 
 	/**

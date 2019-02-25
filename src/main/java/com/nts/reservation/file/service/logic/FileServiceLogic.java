@@ -32,7 +32,7 @@ public class FileServiceLogic implements FileService {
 	@Override
 	public int storeMultipartFile(MultipartFile multipartFile, String directory) {
 		String savePath = FILE_ROOT_DIRECTORY + directory;
-		String fileName = multipartFile.getOriginalFilename();
+		String fileName = System.currentTimeMillis() + multipartFile.getOriginalFilename();
 		String newFilePath = savePath + fileName;
 
 		File file = new File(newFilePath);
@@ -50,7 +50,7 @@ public class FileServiceLogic implements FileService {
 			throw new InternalServerErrorException("file save fail");
 		}
 
-		FileInfo fileInfo = new FileInfo(multipartFile, directory);
+		FileInfo fileInfo = new FileInfo(multipartFile, directory, fileName);
 
 		return fileDao.insertFileInfo(fileInfo);
 	}

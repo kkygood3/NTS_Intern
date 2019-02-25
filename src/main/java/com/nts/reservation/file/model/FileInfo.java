@@ -14,9 +14,9 @@ public class FileInfo {
 
 	public FileInfo() {}
 
-	public FileInfo(MultipartFile multipartFile, String directory) {
+	public FileInfo(MultipartFile multipartFile, String directory, String saveFileName) {
 		this.fileName = multipartFile.getOriginalFilename();
-		this.saveFileName = directory + this.fileName;
+		this.saveFileName = directory + saveFileName;
 		this.contentType = multipartFile.getContentType();
 	}
 

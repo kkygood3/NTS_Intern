@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,6 +25,7 @@ import com.nts.reservation.common.annotation.MustLogin;
 import com.nts.reservation.common.exception.InternalServerErrorException;
 import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.common.exception.UnauthenticateException;
+import com.nts.reservation.file.model.FileInfo;
 import com.nts.reservation.file.service.FileService;
 import com.nts.reservation.reservation.service.ReservationService;
 
@@ -66,14 +66,14 @@ public class CommentController {
 	 */
 	@GetMapping(value = {"/comment/img/{commentImageId}"})
 	public void getCommentImage(@PathVariable int commentImageId, HttpServletResponse response) {
-		String saveFileName = commentService.getCommentImageSaveFileName(commentImageId);
-		File saveFile = fileService.getFile(saveFileName);
+		FileInfo saveFileInfo = commentService.getCommentImageSaveFileInfo(commentImageId);
+		File saveFile = fileService.getFile(saveFileInfo.getSaveFileName());
 
 		try (
 			FileInputStream fileInputStream = new FileInputStream(saveFile);
 			OutputStream outputStream = response.getOutputStream()) {
 
-			setHeaderFile(saveFile, response);
+			setHeaderFile(saveFileInfo, saveFile, response);
 			byte[] buffer = new byte[1024];
 			while (fileInputStream.read(buffer) > 0) {
 				outputStream.write(buffer);
@@ -87,10 +87,10 @@ public class CommentController {
 
 	}
 
-	private void setHeaderFile(File file, HttpServletResponse response) throws IOException {
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\";");
+	private void setHeaderFile(FileInfo fileInfo, File file, HttpServletResponse response) throws IOException {
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileInfo.getFileName() + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Content-Type", Files.probeContentType(file.toPath()));
+		response.setHeader("Content-Type", fileInfo.getContentType());
 		response.setHeader("Content-Length", "" + file.length());
 		response.setHeader("Pragma", "no-cache;");
 		response.setHeader("Expires", "-1;");

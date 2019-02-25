@@ -34,7 +34,7 @@ public class CommentApiController {
 	}
 
 	/**
-	 * 새로운 comment를 저장 
+	 * 새로운 comment를 저장
 	 */
 	@MustLogin
 	@PostMapping(value = {"/api/comment"})

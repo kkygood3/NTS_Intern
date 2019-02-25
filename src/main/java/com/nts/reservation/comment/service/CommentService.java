@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.model.WritedComment;
+import com.nts.reservation.file.model.FileInfo;
 
 public interface CommentService {
 
@@ -23,5 +24,5 @@ public interface CommentService {
 
 	int addComment(WritedComment writedComment, MultipartFile[] images);
 
-	String getCommentImageSaveFileName(int commentImageId);
+	FileInfo getCommentImageSaveFileInfo(int commentImageId);
 }

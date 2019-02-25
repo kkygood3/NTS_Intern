@@ -16,6 +16,7 @@ import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.file.model.FileInfo;
 import com.nts.reservation.file.service.FileService;
 
 @Service
@@ -83,7 +84,7 @@ public class CommentServiceLogic implements CommentService {
 	 * 저장된 commentImage fileName 조회, 반환 
 	 */
 	@Override
-	public String getCommentImageSaveFileName(int commentImageId) {
-		return commentDao.selectCommentImageSaveFilename(commentImageId);
+	public FileInfo getCommentImageSaveFileInfo(int commentImageId) {
+		return commentDao.selectCommentImageSaveFileInfo(commentImageId);
 	}
 }
