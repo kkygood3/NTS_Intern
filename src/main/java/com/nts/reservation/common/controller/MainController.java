@@ -19,6 +19,7 @@ import com.nts.reservation.common.utils.RegexPattern;
 @Controller
 public class MainController {
 
+	// TODO ViewControllerRegistry!
 	@GetMapping(path = "/main")
 	public String goMain() {
 		return "mainpage";

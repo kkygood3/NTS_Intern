@@ -30,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductResponse getProducts(int categoryId, int start, int limit) {
 
+		// TODO exception 수정
 		List<Product> products = productDao.selectProducts(categoryId, start, limit);
 		if (products.size() == 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (categoryId)");
