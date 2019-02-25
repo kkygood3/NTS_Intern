@@ -36,15 +36,15 @@ public class FileController {
 	@Value("${fileDir}")
 	private String fileDir;
 
-	@GetMapping("/reservation/showImage/productId/{productId}")
-	public String showImageByProductId(@PathVariable("productId") Integer productId) {
+	@GetMapping("/reservation/showImage/productId/{id}")
+	public String showImageByProductId(@PathVariable("id") int productId) {
 		int fileId = fileIoService.getFileIdByProductId(productId);
 
 		return "redirect:/reservation/showImage/" + fileId;
 	}
 
 	@GetMapping("/reservation/showImage/{fileId}")
-	public ResponseEntity<byte[]> showImage(@PathVariable("fileId") Integer fileId)
+	public ResponseEntity<byte[]> showImage(@PathVariable("fileId") int fileId)
 		throws FileNotFoundException, IOException {
 		FileInfo fileInfo = fileIoService.getFileInfo(fileId);
 
