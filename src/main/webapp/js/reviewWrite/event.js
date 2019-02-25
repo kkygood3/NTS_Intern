@@ -65,7 +65,7 @@ function addSubmitButtonClickEvent() {
         const score = document.querySelector(".rating .star_rank").innerText;
         const comment = document.querySelector(".review_contents .review_textarea");
         
-        if (isValidComment(score, content.value)) {
+        if (isValidComment(score, comment.value)) {
         	var form = document.querySelector("form");
         	var image = document.querySelector("#reviewImageFileOpenInput");
         	var scoreInput = document.querySelector(".score_form_input");
@@ -91,8 +91,8 @@ function isValidScore(score) {
 	return false;
 }
 
-function isValidContent(content) {
-	return !(/^\s*$/.test(content));
+function isValidContent(comment) {
+	return !(/^\s*$/.test(comment)) && comment.length >= 5;
 }
 
 function addContentKeyupEvent() {
