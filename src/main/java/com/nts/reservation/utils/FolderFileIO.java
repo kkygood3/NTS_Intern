@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FolderFileIO {
 	public void createFolderIfNotExist(File folder) {
+		System.out.println("folder Exists : " + folder.exists());
 		if (!folder.exists()) {
 			try {
 				folder.mkdir();
