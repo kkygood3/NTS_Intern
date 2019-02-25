@@ -3,10 +3,12 @@ package com.nts.reservation.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.nts.reservation.dto.user.UserParam;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -26,8 +28,9 @@ public class LoginApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/login")
-	public void loginProcess(@RequestBody String resrv_email) {
-		session.setAttribute("email", resrv_email);
+	public void loginProcess(@ModelAttribute UserParam userParam) {
+		System.out.println("WHERE IS IT : " + userParam.toString());
+		session.setAttribute("email", userParam.getEmail());
 	}
 
 	@PostMapping(path = "/logout")

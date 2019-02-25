@@ -43,7 +43,6 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
             return;
         }
 
-
         sendReservation(priceDataArr,
             {
                 name: rsvname.value
@@ -72,7 +71,6 @@ function sendReservation(priceDataArr, params) {
         ,
         reservationYearMonthDay: d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + (d.getDate() + Math.floor(Math.random() * 5))
     }
-    debugger;
 
     let request = new XhrRequest("POST", "/reservation/api/reservations");
     request.setCallback(() => {

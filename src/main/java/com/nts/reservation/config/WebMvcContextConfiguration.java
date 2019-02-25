@@ -92,6 +92,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(byteArrayHttpMessageConverter());
 		converters.add(new MappingJackson2HttpMessageConverter());
+		super.configureMessageConverters(converters);
 	}
 
 	@Bean

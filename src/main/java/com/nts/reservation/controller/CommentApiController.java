@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +40,16 @@ public class CommentApiController {
 
 	@PostMapping(path = "/comment")
 	public void postComment(@ModelAttribute CommentParam commentParam) {
-		commentService.postComments(commentParam);
+		try {
+			commentService.postComments(commentParam);
+		} catch (Exception e) {
+			throw new RuntimeException("comment Post error");
+		}
 	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")
-	public byte[] getCommentImageById(HttpServletResponse response,
-		@PathVariable(name = "commentImageId", required = true) Long commentImageId) throws IOException {
+	public byte[] getCommentImageById(@PathVariable(name = "commentImageId", required = true) Long commentImageId)
+		throws IOException {
 		CommentImage image = commentService.getCommentImageById(commentImageId);
 
 		if (image.isDeleteFlag()) {

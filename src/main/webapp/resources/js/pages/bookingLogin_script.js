@@ -22,13 +22,15 @@ function init() {
             alert("Wrong email type");
             return;
         }
-
-        let data = {resrv_email: new FormData(document.querySelector("#form1")).get("resrv_email")}
-
+        console.log(email);
+        let formData = new FormData();
+        formData.append("email", email)
+        
         let request = new XhrRequest("POST", "/reservation/api/login");
         request.setCallback(() => {
             window.location.href = "/reservation/myreservation"
         });
-        request.send(new FormData(document.querySelector("#form1")).get("resrv_email"));
+        request.setIsAsync(false);
+        request.multipartSend(formData);
     });
 }
