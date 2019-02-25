@@ -2,7 +2,7 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
-import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
 
 /**
@@ -18,7 +18,7 @@ public interface CommentService {
 	 * @param limit 페이징 사이즈
 	 * @return 코멘트정보 리스트
 	 */
-	List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit);
+	List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int start, int limit);
 
 	/**
 	 * 상품에 맞는 리뷰페이지 정보를 가져온다

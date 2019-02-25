@@ -3,7 +3,7 @@ package com.nts.reservation.dto;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public class CommentDisplayInfo {
+public class CommentDisplayItem {
 	private String comment;
 	private double score;
 	private String reservationEmail;

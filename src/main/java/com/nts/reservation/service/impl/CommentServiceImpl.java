@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.CommentMapper;
-import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
 import com.nts.reservation.service.CommentService;
 
@@ -16,7 +16,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentDao;
 
 	@Override
-	public List<CommentDisplayInfo> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
+	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
 		return commentDao.selectFromTheProductWithPageing(productId, start, limit);
 	}
 

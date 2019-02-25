@@ -6,7 +6,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.nts.reservation.dao.CommentMapper">
-	<select id="selectFromTheProductWithPageing" resultType="CommentDisplayInfo">
+	<select id="selectFromTheProductWithPageing" resultType="CommentDisplayItem">
 		SELECT	uc.comment,
 				uc.score,
 				concat(left(ri.reservation_email, 4), "****") AS reservation_email,

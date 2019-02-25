@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
 
 /**
@@ -22,7 +22,7 @@ public interface CommentMapper {
 	 * @param limit 페이징 사이즈
 	 * @return 쿼리 실행 결과 코멘트 리스트
 	 */
-	List<CommentDisplayInfo> selectFromTheProductWithPageing(@Param("productId")long productId, @Param("start") int start, @Param("limit") int limit);
+	List<CommentDisplayItem> selectFromTheProductWithPageing(@Param("productId")long productId, @Param("start") int start, @Param("limit") int limit);
 	
 	/**
 	 * 상품에 따라 리뷰페이지 정보를 셀렉트한다
