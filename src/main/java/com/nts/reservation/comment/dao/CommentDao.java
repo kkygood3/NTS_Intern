@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.CommentParam;
 
 public interface CommentDao {
 	List<Comment> selectComments(int displayInfoId, int limit);
@@ -15,4 +16,10 @@ public interface CommentDao {
 	List<CommentImage> selectCommentImage(int commentId);
 
 	double selectCommentAvgScore(int displayInfoId);
+
+	int insertComment(CommentParam commentParam);
+
+	int insertFileInfo(CommentParam commentParam);
+
+	int insertCommentImage(int reservationInfoId, int commentId, int fileId);
 }

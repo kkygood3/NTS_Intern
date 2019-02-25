@@ -12,13 +12,18 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dao.sqls.CommentDaoSqls;
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.CommentParam;
 
 @Repository
 public class CommentDaoImpl implements CommentDao {
@@ -52,5 +57,39 @@ public class CommentDaoImpl implements CommentDao {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(CommentDaoSqls.GET_COMMENT_AVG_SCORE, param, Double.class);
+	}
+	
+	@Override
+	public int insertComment(CommentParam commentParam) {
+		SqlParameterSource param = new MapSqlParameterSource()
+			.addValue("reservationInfoId", commentParam.getReservationInfoId())
+			.addValue("productId", commentParam.getProductId())
+			.addValue("score", commentParam.getScore())
+			.addValue("comment", commentParam.getComment())
+			.addValue("fileName", commentParam.getFile().getOriginalFilename())
+			.addValue("contentType", commentParam.getFile().getContentType());
+		KeyHolder keyHolder = new GeneratedKeyHolder(); 
+		jdbc.update(CommentDaoSqls.INSERT_COMMENT, param, keyHolder);
+		return keyHolder.getKey().intValue();
+	}
+	
+	@Override
+	public int insertFileInfo(CommentParam commentParam) {
+		SqlParameterSource param = new MapSqlParameterSource()
+			.addValue("fileName", commentParam.getFileName())
+			.addValue("saveFileName", "comment/" + commentParam.getFileName())
+			.addValue("contentType", commentParam.getContentType());
+		KeyHolder keyHolder = new GeneratedKeyHolder(); 
+		jdbc.update(CommentDaoSqls.INSERT_FILE_INFO, param, keyHolder);
+		return keyHolder.getKey().intValue();
+	}
+	
+	@Override
+	public int insertCommentImage(int reservationInfoId, int commentId, int fileId) {
+		SqlParameterSource param = new MapSqlParameterSource()
+			.addValue("reservationInfoId", reservationInfoId)
+			.addValue("commentId", commentId)
+			.addValue("fileId", fileId);
+		return jdbc.update(CommentDaoSqls.INSERT_COMMENT_IMAGE, param);
 	}
 }
