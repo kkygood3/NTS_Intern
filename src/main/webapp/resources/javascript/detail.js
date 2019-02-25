@@ -25,16 +25,16 @@ function basicSettings(){
 }
 
 function loadDisplayData(data){
-	templatingProductInformation(data);
-	templatingInformation(data.displayInfo);
-	templatingContent(data.displayInfo);
-	templatingDetailContent(data.displayInfo);
-	templatingPlaceInformation(data);
+	templatingHandlebar(detailContent.productInformation, document.querySelector('#product_information_template'), data);
+	templatingHandlebar(detailContent.infomation, document.querySelector('#information_template'), data.displayInfo);
+	templatingHandlebar(detailContent.content, document.querySelector('#content_template'), data.displayInfo);
+	templatingHandlebar(detailContent.detailContent, document.querySelector('#detail_content_template'), data.displayInfo);
+	templatingHandlebar(detailContent.placeInformation, document.querySelector('#place_information_template'), data);
+	
 	templatingDiscount(data.productPrices);
 	templatingComments(data.commentResponse.comments);
 	templatingScore(data);
 }
-
 
 function templatingHandlebar(parent, template, data){
 	let templateText = template.innerText;
@@ -43,31 +43,6 @@ function templatingHandlebar(parent, template, data){
 	parent.innerHTML = parent.innerHTML + resultHtml;
 }
 
-
-function templatingProductInformation(data){
-	let productInformationTemplate = document.querySelector('#product_information_template');
-	templatingHandlebar(detailContent.productInformation, productInformationTemplate, data);
-}
-
-function templatingInformation(displayInfo){
-	let informationTemplate = document.querySelector('#information_template');
-	templatingHandlebar(detailContent.infomation, informationTemplate, displayInfo);
-}
-
-function templatingContent(displayInfo){
-	let contentTemplate = document.querySelector('#content_template');
-	templatingHandlebar(detailContent.content, contentTemplate, displayInfo);
-}
-
-function templatingDetailContent(displayInfo){
-	let detailContentTemplate = document.querySelector('#detail_content_template');
-	templatingHandlebar(detailContent.detailContent, detailContentTemplate, displayInfo);
-}
-
-function templatingPlaceInformation(data){
-	let placeInformationTemplate = document.querySelector('#place_information_template');
-	templatingHandlebar(detailContent.placeInformation, placeInformationTemplate, data);
-}
 
 function templatingComments(comments){
 	if(comments.length === 0) {
