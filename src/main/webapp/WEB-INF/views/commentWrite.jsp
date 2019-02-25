@@ -153,6 +153,7 @@
 		var starRating = new StarRating(ratingBody);
 
 
+		// 상품평 글자수 표시 및 가이드라인 숨김 이벤트 기능
 		function CommentTextArea(body) {
 			this.body = body;
 			this.text = "";
@@ -161,7 +162,7 @@
 
 		CommentTextArea.prototype = {
 			registerEvents: function () {
-				// 텍스트 영역 클릭시 	설명문 숨김 및 텍스트영역 포커스
+				// 텍스트 영역 클릭시 설명문 숨김 및 텍스트영역 포커스
 				document.querySelector(".review_write_info").addEventListener("click", function(evt) {
 					document.querySelector(".review_write_info").style.display = "none";
 					this.body.focus();
@@ -220,6 +221,12 @@
 				alert("상품평이 너무 길거나 짧습니다.");
 				return;
 			}
+
+			// 폼 전송 데이터 준비
+			var formData = new FormData();
+			formData.append("score", starRating.value);
+			formData.append("comment", commentTextArea.text);
+			formData.append("");
 		});
 
 	</script>
