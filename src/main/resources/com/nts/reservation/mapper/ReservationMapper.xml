@@ -150,6 +150,16 @@
 		              #{score}, 
 		              #{comment}, 
 		              Now(), 
-		              Now() );
+		              Now() )
+	</insert>
+
+	<insert id="insertCommentImage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user5.reservation_user_comment_image 
+		            (reservation_info_id, 
+		             reservation_user_comment_id, 
+		             file_id) 
+		VALUES      (#{reservationInfoId}, 
+		             #{reservationUserCommentId}, 
+		             #{fileId}) 
 	</insert>
 </mapper>

@@ -12,16 +12,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.ReservationDisplayInfoDto;
 import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
+import com.nts.reservation.dto.primitive.FileInfoDto;
 import com.nts.reservation.dto.primitive.ReservationInfoDto;
 import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
+import com.nts.reservation.dto.primitive.ReservationUserCommentImage;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
+import com.nts.reservation.mapper.FileMapper;
 import com.nts.reservation.mapper.ReservationMapper;
 import com.nts.reservation.service.ReservationService;
 
@@ -33,6 +37,8 @@ import com.nts.reservation.service.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationMapper reservationMapper;
+	@Autowired
+	private FileMapper fileMapper;
 
 	/**
 	 * 나의예약 페이지용
@@ -107,8 +113,19 @@ public class ReservationServiceImpl implements ReservationService {
 	public void makeComment(CommentParamDto commentParam) {
 		reservationMapper.insertComment(commentParam);
 		if (commentParam.getImage() != null) {
-			// TODO: 이미지 추가
-			//reservationMapper.insertCommentImage(commentParam);
+			MultipartFile image = commentParam.getImage();
+			FileInfoDto fileInfo = new FileInfoDto();
+			fileInfo.setFileName(image.getOriginalFilename());
+			fileInfo.setSaveFileName("img/" + image.getOriginalFilename());
+			fileInfo.setContentType(image.getContentType());
+			fileInfo.setDeleteFlag(false);
+			fileMapper.insertFile(fileInfo);
+
+			ReservationUserCommentImage commentImage = new ReservationUserCommentImage();
+			commentImage.setReservationInfoId(commentParam.getReservationId());
+			commentImage.setReservationUserCommentId(commentParam.getId());
+			commentImage.setFileId(fileInfo.getId());
+			reservationMapper.insertCommentImage(commentImage);
 		}
 	}
 }

@@ -15,6 +15,7 @@ import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.primitive.ReservationInfoDto;
 import com.nts.reservation.dto.primitive.ReservationInfoPriceDto;
+import com.nts.reservation.dto.primitive.ReservationUserCommentImage;
 
 /**
  * 예약 Mapper
@@ -47,4 +48,9 @@ public interface ReservationMapper {
 	 * 상품평 등록
 	 */
 	void insertComment(CommentParamDto commentParam);
+
+	/**
+	 * 상품평 이미지 정보 등록
+	 */
+	void insertCommentImage(ReservationUserCommentImage commentParam);
 }
