@@ -109,7 +109,6 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateReserve(int reservationInfoId, String reservationEmail) {
 		return (reservationDaoImpl.updateReservation(reservationInfoId, reservationEmail) > 0);
 	}
