@@ -1,2 +1,2 @@
-resources/img/*.png -diff
-resources/img_map/*.png -diff
+/resources/img/*.png -diff
+/resources/img_map/*.png -diff
