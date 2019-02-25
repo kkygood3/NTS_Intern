@@ -118,6 +118,7 @@
 		</div>
 	</footer>
 	<script>
+		// 별점매기기 기능
 		function StarRating(body) {
 			this.body = body;
 			this.value = 0;
@@ -150,6 +151,7 @@
 		var ratingBody = document.querySelector(".rating");
 		var starRating = new StarRating(ratingBody);
 
+		// 텍스트 영역 클릭시 	설명문 숨김 및 텍스트영역 포커스
 		document.querySelector(".review_write_info").addEventListener("click", function(evt) {
 			this.style.display = "none";
 			document.querySelector(".review_textarea").focus();
