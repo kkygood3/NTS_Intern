@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> reservationInfoPriceList,  Long displayInfoId) {
+	public ReservationInfo addReservation(ReservationInfo reservationInfo, List<ReservationInfoPrice> reservationInfoPriceList, Long displayInfoId) {
 		reservationInfo.setDisplayInfoId(displayInfoId);
 		reservationInfo.setCreateDate(new Date());
 		reservationInfoDao.insertReservationInfo(reservationInfo);
@@ -41,28 +41,32 @@ public class ReservationServiceImpl implements ReservationService {
 		Map<String, Object> reservationInfoPrice = new HashMap<String, Object>();
 		reservationInfoPrice.put("reservationInfoId", reservationInfoId);
 		reservationInfoPrice.put("reservationInfoPriceList", reservationInfoPriceList);
-		
+
 		reservationInfoDao.insertReservationInfoPrice(reservationInfoPrice);
 		return reservationInfo;
 	}
 
 	@Override
 	@Transactional
-	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(
-		String reservationEmail, int start, int limit) {
+	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String reservationEmail,
+			int start, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
-		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
-		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
-		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
-		
-		ReservationDisplayItemListMap.put("count", reservationInfoDao.selectReservationInfoCountByReservationEmail(reservationEmail));
-	
+		ReservationDisplayItemListMap.put("confirmed",
+				reservationInfoDao.selectConfirmedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("used",
+				reservationInfoDao.selectUsedReservationInfoByReservationEmail(reservationEmail, start, limit));
+		ReservationDisplayItemListMap.put("cancel",
+				reservationInfoDao.selectCancelReservationInfoByReservationEmail(reservationEmail, start, limit));
+
+		ReservationDisplayItemListMap.put("count",
+				reservationInfoDao.selectReservationInfoCountByReservationEmail(reservationEmail));
+
 		return ReservationDisplayItemListMap;
 	}
-	
+
 	@Override
 	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(
-		String reservationEmail, int start, int limit, String status) {
+			String reservationEmail, int start, int limit, String status) {
 		if (Utils.isEmpty(status)) {
 			return Collections.EMPTY_LIST;
 		}
@@ -75,7 +79,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		return Collections.EMPTY_LIST;
 	}
-	
+
 	@Override
 	public int updateCancelFlagToFalseByReservationInfoId(long reservationInfoId, String reservationEmail) {
 		return reservationInfoDao.updateCancelFlagToFalseByReservationInfoId(reservationInfoId, reservationEmail);

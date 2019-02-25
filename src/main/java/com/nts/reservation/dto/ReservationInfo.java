@@ -22,7 +22,8 @@ public class ReservationInfo {
 		this.reservationName = input.getName();
 		this.reservationTel = input.getTelephone();
 		this.reservationEmail = input.getEmail();
-		this.reservationDate = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH).parse(input.getReservationDate());
+		this.reservationDate = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
+				.parse(input.getReservationDate());
 		this.cancelFlag = false;
 	}
 
@@ -109,8 +110,8 @@ public class ReservationInfo {
 	@Override
 	public String toString() {
 		return "ReservationInfo [id=" + id + ", productId=" + productId + ", displayInfoId=" + displayInfoId
-			+ ", reservationName=" + reservationName + ", reservationTel=" + reservationTel + ", reservationEmail="
-			+ reservationEmail + ", reservationDate=" + reservationDate + ", cancelFlag=" + cancelFlag + ", createDate="
-			+ createDate + ", modifyDate=" + modifyDate + "]";
+				+ ", reservationName=" + reservationName + ", reservationTel=" + reservationTel + ", reservationEmail="
+				+ reservationEmail + ", reservationDate=" + reservationDate + ", cancelFlag=" + cancelFlag
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 }

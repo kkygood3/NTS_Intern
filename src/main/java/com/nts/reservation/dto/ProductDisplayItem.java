@@ -59,6 +59,6 @@ public class ProductDisplayItem {
 	@Override
 	public String toString() {
 		return "ThumbnailInfo [productId=" + displayInfoId + ", description=" + description + ", content=" + content
-			+ ", placeName=" + placeName + ", saveFileName=" + saveFileName + "]";
+				+ ", placeName=" + placeName + ", saveFileName=" + saveFileName + "]";
 	}
 }

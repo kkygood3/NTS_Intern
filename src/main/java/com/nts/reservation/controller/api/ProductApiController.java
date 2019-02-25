@@ -30,7 +30,8 @@ import com.nts.reservation.util.ReservationInputValidator;
 
 /**
  * 상품 관련 API 클래스
- * @author USER
+ * 
+ * @author si yoon
  *
  */
 @RestController
@@ -42,17 +43,18 @@ public class ProductApiController {
 	private CommentService commentService;
 	@Autowired
 	private ReservationService reservationService;
-	
-	private static final ReservationInfo INVALID_INPUT = null; 
-	private static final String COMMENT_DEFAULT_PAGING_SIZE ="3";
+
+	private static final ReservationInfo INVALID_INPUT = null;
+	private static final String COMMENT_DEFAULT_PAGING_SIZE = "3";
 	private static final String DEFAULT_SATRT = "0";
 	private static final String SELECT_ALL = "0";
 	private static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
+
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
-	 * @param start 시작 인덱스, 지정하지않으면 0
-	 * @param limit SELECT할 썸네일 갯수, 지정하지않으면 4
+	 * @param start      시작 인덱스, 지정하지않으면 0
+	 * @param limit      SELECT할 썸네일 갯수, 지정하지않으면 4
 	 * @param categoryId SELECT할 카테고리, 지정하지않으면 전체 카테고리
 	 * @return 해당카테고리의 전체 상품 갯수와 limit개의 썸네일 정보
 	 */
@@ -74,15 +76,16 @@ public class ProductApiController {
 		map.put("thumbnailInfoList", thumbnailInfoList);
 		return map;
 	}
-	
+
 	private boolean existProduct(int productCount) {
 		return productCount > 0 ? true : false;
 	}
 
 	/**
 	 * 상품명이랑 타입에 맞는 이미지 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
-	 * @param type 조회할 타입 ma(main), et(etc), th(thumbnail)
+	 * @param type      조회할 타입 ma(main), et(etc), th(thumbnail)
 	 * @return 해당 파일 이름들
 	 */
 	@GetMapping("/{productId}/file_info/{type}")
@@ -95,9 +98,10 @@ public class ProductApiController {
 
 	/**
 	 * productId에 해당하는 리뷰를 페이징해서 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
-	 * @param start 페이징 시작 인덱스
-	 * @param limit 페이징 사이즈
+	 * @param start     페이징 시작 인덱스
+	 * @param limit     페이징 사이즈
 	 * @return 코멘트 리스트
 	 */
 	@GetMapping("/{productId}/comment")
@@ -111,6 +115,7 @@ public class ProductApiController {
 
 	/**
 	 * productId에 해당하는 가격을 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
 	 * @return
 	 */
@@ -122,9 +127,10 @@ public class ProductApiController {
 
 	/**
 	 * 예약정보 받아서 서버로 넘긴다
-	 * @param displayInfoId 예약할 상품 id
-	 * @param userReservationInputString 예약정보 
-	 * @param model 에러정보
+	 * 
+	 * @param displayInfoId              예약할 상품 id
+	 * @param userReservationInputString 예약정보
+	 * @param model                      에러정보
 	 * @return 뷰이름 리턴
 	 */
 	@PostMapping("/{productId}/display/{displayInfoId}/reservation")
@@ -139,9 +145,10 @@ public class ProductApiController {
 
 		return true;
 	}
-	
+
 	/**
 	 * 예약 유저 입력정보를 예약정보로 변환한다.
+	 * 
 	 * @param userReservationInput 사용자가 입력한 예약정보
 	 * @return 변환된 예약정보 객체. 실패시 null 리턴
 	 */
@@ -161,13 +168,14 @@ public class ProductApiController {
 		if (!existPriceInfo(priceInputList)) {
 			return INVALID_INPUT;
 		}
-		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTelephone(), userReservationInput.getEmail())) {
+		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(),
+				userReservationInput.getTelephone(), userReservationInput.getEmail())) {
 			return INVALID_INPUT;
 		}
 
 		return reservationInfo;
 	}
-	
+
 	private boolean existPriceInfo(List<ReservationInfoPrice> priceInfo) {
 		return priceInfo.size() > 0 ? true : false;
 	}

@@ -53,7 +53,6 @@ public class CommentDisplayItem {
 	@Override
 	public String toString() {
 		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail="
-			+ reservationEmail
-			+ ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
+				+ reservationEmail + ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
 	}
 }

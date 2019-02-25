@@ -13,7 +13,8 @@ import com.nts.reservation.service.PromotionService;
 
 /**
  * 프로모션 관련 API 클래스
- * @author 시윤
+ * 
+ * @author si yoon
  *
  */
 @RestController
@@ -24,6 +25,7 @@ public class PromotionApiController {
 
 	/**
 	 * 전체 프로모션 이미지의 파일 이름을 리턴하는 메소드
+	 * 
 	 * @return 전체 프로모션 이미지 파일이름 리스트
 	 */
 	@GetMapping

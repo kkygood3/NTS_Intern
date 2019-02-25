@@ -14,6 +14,12 @@ import com.nts.reservation.dto.ReservationUserComment;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 
+/**
+ * 예약 관련 API 클래스
+ * 
+ * @author si yoon
+ *
+ */
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
@@ -21,10 +27,11 @@ public class ReservationController {
 	private ProductService productService;
 	@Autowired
 	private CommentService commentService;
+
 	/**
 	 * 예약 확인페이지 url 맵핑
 	 * 
-	 * @return
+	 * @return 뷰이름
 	 */
 	@GetMapping
 	public String getReservation() {
@@ -48,15 +55,14 @@ public class ReservationController {
 	/**
 	 * 리뷰 등록한다
 	 * 
-	 * @return
+	 * @return 등록한 리뷰 보기
 	 */
 	@PostMapping("/{reservationInfoId}/comment")
 	public String postComment(@PathVariable(name = "reservationInfoId", required = true) long reservationInfoId,
-			@RequestParam(name = "product_id", required = true) long productId,
-			@RequestParam("comment") String comment,
-			@RequestParam("score") double score,
-			@RequestParam("file") MultipartFile image) {
-		commentService.addReservationUserComment(new ReservationUserComment(productId, reservationInfoId, comment, score), image);
+			@RequestParam(name = "product_id", required = true) long productId, @RequestParam("comment") String comment,
+			@RequestParam("score") double score, @RequestParam("file") MultipartFile image) {
+		commentService.addReservationUserComment(
+				new ReservationUserComment(productId, reservationInfoId, comment, score), image);
 		return "redirect:/product/" + productId + "/comment";
 	}
 }

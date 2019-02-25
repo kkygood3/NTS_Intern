@@ -11,7 +11,7 @@ public class ReservationUserCommentImage {
 		this.reservationUserCommentId = comment.getId();
 		this.fileId = image.getId();
 	}
-	
+
 	public long getId() {
 		return id;
 	}

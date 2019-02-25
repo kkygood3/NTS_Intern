@@ -1,7 +1,5 @@
 package com.nts.reservation.service.impl;
 
-import static com.nts.reservation.util.FileHandler.getDirectory;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +26,9 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentDao;
 	@Autowired
 	private FileInfoMapper fileInfoDao;
-	
+
 	private static final String COMMENT_IMAGE_SAVE_DIRECTORY = "img/comment/";
-	
+
 	@Override
 	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
 		return commentDao.selectFromTheProductWithPageing(productId, start, limit);
@@ -40,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 	public CommentPageInfo getCommentPageInfoByProductId(long productId) {
 		return commentDao.selectCommentPageInfoByProductId(productId);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public ReservationUserComment addReservationUserComment(ReservationUserComment comment, MultipartFile image) {
@@ -53,21 +51,24 @@ public class CommentServiceImpl implements CommentService {
 		}
 		return comment;
 	}
-	
-	
+
 	private String getFileName(long reservationInfoId, String type) {
 		return reservationInfoId + "_" + new Date().getTime() + "." + type.split("/")[1];
 	}
-	
+
 	private boolean existsImage(MultipartFile image) {
 		return !Utils.isEmpty(image.getOriginalFilename());
 	}
-	
+
 	private FileInfo createFileInfo(long reservationInfoId, MultipartFile file) {
 		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		FileInfo fileInfo = new FileInfo();
+		String path = COMMENT_IMAGE_SAVE_DIRECTORY + today;
+		if (!FileHandler.createDirectoryIfNotExist(path)) {
+			throw new RuntimeException("Check Permission.");
+		}
 		fileInfo.setFileName(getFileName(reservationInfoId, file.getContentType()));
-		fileInfo.setSaveFileName(getDirectory(COMMENT_IMAGE_SAVE_DIRECTORY + today) + "/" + fileInfo.getFileName());
+		fileInfo.setSaveFileName(path + "/" + fileInfo.getFileName());
 		fileInfo.setContentType(file.getContentType());
 		return fileInfo;
 	}

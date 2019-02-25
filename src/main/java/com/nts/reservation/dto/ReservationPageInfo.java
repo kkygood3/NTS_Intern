@@ -70,7 +70,7 @@ public class ReservationPageInfo {
 	@Override
 	public String toString() {
 		return "ReservationPageInfo [productId=" + productId + ", displayInfoId=" + displayInfoId + ", description="
-			+ description + ", placeName=" + placeName + ", openingHours=" + openingHours + ", mainImageName="
-			+ mainImageName + ", reservationDate=" + reservationDate + "]";
+				+ description + ", placeName=" + placeName + ", openingHours=" + openingHours + ", mainImageName="
+				+ mainImageName + ", reservationDate=" + reservationDate + "]";
 	}
 }
