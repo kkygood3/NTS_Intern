@@ -15,13 +15,16 @@ import org.springframework.util.ObjectUtils;
 import com.nts.reservation.common.exception.NotFoundDataException;
 
 /**
- * IsEmpty annotation의 기능 구현
+ * annotation의 기능 구현
  * @author 임상현, life4lord93@nts-corp.com
  */
 @Aspect
 @Component
-public class IsEmptyAnntationAspect {
+public class AnnotationAspect {
 
+	/**
+	 * IsEmpty annotation 기능
+	 */
 	@AfterReturning(pointcut = "@annotation(com.nts.reservation.common.annotation.IsEmpty) && execution(* *(..))", returning = "object")
 	public void isEmpty(JoinPoint joinPoint, Object object) {
 		if (object instanceof Collection<?>) {

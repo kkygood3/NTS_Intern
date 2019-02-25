@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 
 /**
  * 로그인 검사
+ * com.nts.reservation.common.interceptor.LoginInterceptor 에서 기능 구현
  * @author 임상현, life4lord93@nts-corp.com
  */
 @Target(value = {ElementType.METHOD})
