@@ -58,15 +58,12 @@ public class ReserveServiceImpl implements ReserveService {
 		int reservationInfoId = reserveRequest.getId();
 		
 		List<ReservePrice> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
-
-		for (int i = 0; i < reservePriceInfoList.size(); i++) {
-			ReservePrice targetPriceInfo = reservePriceInfoList.get(i);
-			targetPriceInfo.setReservationInfoId(reservationInfoId);
-
-			if (reserveDao.insertReservationPrice(targetPriceInfo) < 1) {
-				throw new RuntimeException("DB 갱신 오류");
-			}
+		reservePriceInfoList.forEach(item->item.setReservationInfoId(reservationInfoId));
+		
+		if (reserveDao.insertReservationPrice(reservePriceInfoList) != reservePriceInfoList.size()) {
+			throw new RuntimeException("DB 갱신 오류");
 		}
+		
 	}
 
 }
