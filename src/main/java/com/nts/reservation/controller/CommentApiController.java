@@ -45,7 +45,7 @@ public class CommentApiController {
 		CommentImage image = commentService.getCommentImageById(commentImageId);
 
 		if (image.isDeleteFlag()) {
-			return null;
+			throw new RuntimeException("its deleted");
 		}
 
 		String saveFileName = commentService.basePath + image.getSaveFileName();
