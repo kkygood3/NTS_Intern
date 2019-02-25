@@ -70,7 +70,7 @@ public class ReservationServiceLogic implements ReservationService {
 		int updateCount = reservationDao.updateReservationCancelFlag(reservationEmail, reservationId,
 			ReservationStatus.CANCELED.getStatusCode());
 
-		if (isUpdateZero(updateCount)) {
+		if (isNotUpdate(updateCount)) {
 			throw new UnauthenticateException();
 		}
 	}
@@ -83,7 +83,7 @@ public class ReservationServiceLogic implements ReservationService {
 		return reservationDao.selectReservedProductDescription(reservationEmail, reservationId);
 	}
 
-	private boolean isUpdateZero(int updateCount) {
+	private boolean isNotUpdate(int updateCount) {
 		return updateCount == 0;
 	}
 
