@@ -2,11 +2,13 @@ package com.nts.reservation.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.OutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +36,8 @@ import com.nts.reservation.service.CommentService;
 public class CommentApiController {
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private ServletContext servletContext;
 
 	@PostMapping(path = "/comment")
 	public void postComment(@ModelAttribute CommentParam commentParam) {
@@ -41,36 +45,16 @@ public class CommentApiController {
 	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")
-	public String getCommentImageById(HttpServletResponse response,
-		@PathVariable(name = "commentImageId", required = true) Long commentImageId) {
+	public byte[] getCommentImageById(HttpServletResponse response,
+		@PathVariable(name = "commentImageId", required = true) Long commentImageId) throws IOException {
 		CommentImage image = commentService.getCommentImageById(commentImageId);
 
 		if (image.isDeleteFlag()) {
-			return "redirect:index";
+			return null;
 		}
-		String fileName = image.getFileName();
+
 		String saveFileName = commentService.basePath + image.getSaveFileName();
-		String contentType = "image/" + FilenameUtils.getExtension(saveFileName);
-		Long fileLength = new File(saveFileName).length();
-
-		response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\";");
-		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Content-Type", contentType);
-		response.setHeader("Content-Length", "" + fileLength);
-		response.setHeader("Pragma", "no-cache;");
-		response.setHeader("Expires", "-1;");
-
-		try (
-			FileInputStream fis = new FileInputStream(saveFileName);
-			OutputStream out = response.getOutputStream();) {
-			int readCount = 0;
-			byte[] buffer = new byte[1024];
-			while ((readCount = fis.read(buffer)) != -1) {
-				out.write(buffer, 0, readCount);
-			}
-			return "";
-		} catch (Exception ex) {
-			throw new RuntimeException("file Save Error");
-		}
+		InputStream in = new FileInputStream(new File(saveFileName));
+		return IOUtils.toByteArray(in);
 	}
 }

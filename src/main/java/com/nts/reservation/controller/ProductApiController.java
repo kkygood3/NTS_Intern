@@ -56,14 +56,13 @@ public class ProductApiController {
 	@GetMapping("/products/{displayInfoId}")
 	public DisplayInfoResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		DisplayInfoResponse result = new DisplayInfoResponse.Builder()
-			.displayInfo(detailService.getDisplayInfo(displayInfoId))
-			.productImages(detailService.getProductImages(displayInfoId))
-			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
-			.averageScore(detailService.getAverageScore(displayInfoId))
-			.productPrices(detailService.getProductPrices(displayInfoId))
-			.comments(commentService.getComments(displayInfoId))
-			.build();
+		DisplayInfoResponse result = new DisplayInfoResponse();
+		result.setDisplayInfo(detailService.getDisplayInfo(displayInfoId));
+		result.setProductImages(detailService.getProductImages(displayInfoId));
+		result.setDisplayInfoImage(detailService.getDisplayInfoImage(displayInfoId));
+		result.setAverageScore(detailService.getAverageScore(displayInfoId));
+		result.setProductPrices(detailService.getProductPrices(displayInfoId));
+		result.setComments(commentService.getComments(displayInfoId));
 		return result;
 	}
 
