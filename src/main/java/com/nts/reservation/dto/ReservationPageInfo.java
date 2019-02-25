@@ -1,7 +1,6 @@
 package com.nts.reservation.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class ReservationPageInfo {
 	private long productId;

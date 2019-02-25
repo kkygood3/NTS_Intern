@@ -1,6 +1,5 @@
 package com.nts.reservation.dto;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -43,10 +42,6 @@ public class ReservationDisplayItem {
 
 	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
-	}
-
-	public String getReservationDateFormat() {
-		return reservationDate.format(DateTimeFormatter.ofPattern("yyyy.M.dd.(E)", Locale.KOREAN));
 	}
 
 	public String getPlaceName() {
