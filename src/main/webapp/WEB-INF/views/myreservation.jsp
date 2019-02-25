@@ -172,13 +172,15 @@
 								</article>
 							</c:forEach>
 						</li>
-						<c:if test="${response.todoReservationResponse.totalCount > 3}">
-							<!-- [D] 더보기 -->
-							<a class="btn_reservation_more TODO" onclick="moreReservations('TODO');">
-								<span>더보기</span>
-								<i class="fn fn-down2"></i>
-							</a>
-						</c:if>
+						<!-- [D] 더보기 -->
+						<a class="btn_reservation_more TODO" onclick="moreReservations('TODO');"
+							<c:if test="${response.todoReservationResponse.totalCount <= 3}">
+								style="display: none;"
+							</c:if>
+						>
+							<span>더보기</span>
+							<i class="fn fn-down2"></i>
+						</a>
 						<li class="card used" data-status="DONE">
 							<div class="link_booking_details">
 								<div class="card_header">
@@ -239,13 +241,15 @@
 							</c:forEach>
 							
 						</li>
-						<c:if test="${response.doneReservationResponse.totalCount > 3}">
-							<!-- [D] 더보기 -->
-							<a class="btn_reservation_more DONE" onclick="moreReservations('DONE');">
-								<span>더보기</span>
-								<i class="fn fn-down2"></i>
-							</a>
-						</c:if>
+						<!-- [D] 더보기 -->
+						<a class="btn_reservation_more DONE" onclick="moreReservations('DONE');"
+							<c:if test="${response.doneReservationResponse.totalCount <= 3}">
+								style="display: none;"
+							</c:if>
+						>
+							<span>더보기</span>
+							<i class="fn fn-down2"></i>
+						</a>
 						<li class="card used cancel" data-status="CANCEL">
 							<div class="link_booking_details">
 								<div class="card_header">
@@ -301,13 +305,15 @@
 							</c:forEach>
 							</div>
 						</li>
-						<c:if test="${response.cancelReservationResponse.totalCount > 3}">
-							<!-- [D] 더보기 -->
-							<a class="btn_reservation_more CANCEL" onclick="moreReservations('CANCEL');">
-								<span>더보기</span>
-								<i class="fn fn-down2"></i>
-							</a>
-						</c:if>
+						<!-- [D] 더보기 -->
+						<a class="btn_reservation_more CANCEL" onclick="moreReservations('CANCEL');"
+							<c:if test="${response.cancelReservationResponse.totalCount <= 3}">
+								style="display: none;"
+							</c:if>
+						>
+							<span>더보기</span>
+							<i class="fn fn-down2"></i>
+						</a>
 					</ul>
 				</div>
 				<!--// 내 예약 리스트 -->
@@ -457,7 +463,6 @@
 			var categoryName = wrapper.dataset.categoryName;
 			var productDescription = wrapper.dataset.productDescription;
 			var reservationDate = wrapper.dataset.reservationDate;
-			console.log(productDescription);
 			popupWrapper.querySelector("span").innerText = categoryName + "/" + productDescription;
 			popupWrapper.querySelector("small").innerText = reservationDate;
 			popupWrapper.style.display = "block";
@@ -475,20 +480,28 @@
 		function callbackRefreshCancelReservations(element, targetContainer) {
 			return function() {
 				var originalContainer = element.closest(".card");
-				targetContainer.appendChild(element);
+
+				var targetFirstElement = targetContainer.querySelector(".card_item");
+				if (targetFirstElement) {
+					targetFirstElement.parentNode.insertBefore(element, targetFirstElement);
+				} else {
+					targetContainer.appendChild(element);
+				}
+				element.querySelector(".btn").style.display = "none";
 
 				// 옮긴후 컨테이너에 예약이 없을경우 예약없음 엘리멘트 표시
-				if (originalContainer.querySelectorAll(".card_item").length === 0) {
+				var status = originalContainer.dataset.status;
+				if (originalContainer.querySelectorAll(".card_item").length === 0 &&
+						document.querySelector(".btn_reservation_more." + status).style.display === "none") {
 					originalContainer.querySelector(".err").style.display = "block";
 				}
 				targetContainer.querySelector(".err").style.display = "none";
 
-				var cancleCount = targetContainer.querySelectorAll(".card_item").length * 1 - 1;
-
-				targetContainer.querySelectorAll(".card_item").forEach(e => e.parentNode.removeChild(e));
-
-				moreReservations("TODO", 1);
-				moreReservations("CANCEL", cancleCount);
+				var targetStatus = targetContainer.dataset.status;
+				document.querySelector(".figure." + status).innerText = 
+						document.querySelector(".figure." + status).innerText * 1 - 1;
+				document.querySelector(".figure." + targetStatus).innerText = 
+						document.querySelector(".figure." + targetStatus).innerText * 1 + 1;
 			}
 		}
 
