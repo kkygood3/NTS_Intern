@@ -125,7 +125,7 @@ public class CommentDao {
 	}
 
 	/**
-	 * db에서 얻어온 comment image url을 comment 객체 img url list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
+	 * db에서 얻어온 comment image id를 comment 객체 img id list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
 	 */
 	private ResultSetExtractor<List<Comment>> selectCommentListResultSetExtractor() {
 		return new ResultSetExtractor<List<Comment>>() {
