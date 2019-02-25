@@ -36,7 +36,7 @@ public class FileController {
 	@Value("${fileDir}")
 	private String fileDir;
 
-	@GetMapping("/reservation/showImage/productId/{id}")
+	@GetMapping("/reservation/showImage/products/{id}")
 	public String showImageByProductId(@PathVariable("id") int productId) {
 		int fileId = fileIoService.getFileIdByProductId(productId);
 
