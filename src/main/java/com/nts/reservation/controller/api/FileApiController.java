@@ -4,11 +4,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.primitive.FileInfoDto;
@@ -19,7 +22,8 @@ import com.nts.reservation.service.FileService;
  * 
  * @author jinwoo.bae
  */
-@RestController("/api")
+@RestController
+@RequestMapping("/api")
 public class FileApiController {
 	@Autowired
 	FileService fileService;
@@ -27,7 +31,7 @@ public class FileApiController {
 	/**
 	 * 상품평 이미지 다운로드
 	 */
-	@GetMapping(path = "/img/comments/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@GetMapping(path = "/img/comments/{id}", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
 	public byte[] getCommentImage(@PathVariable int id) throws IOException {
 		FileInfoDto fileInfo = fileService.getCommentImage(id);
 
@@ -37,4 +41,17 @@ public class FileApiController {
 			return IOUtils.toByteArray(in);
 		}
 	}
+
+	/**
+	 * 이미지 다운로드
+	 */
+	@GetMapping("/img/**")
+	public byte[] getImage(HttpServletRequest request) throws IOException {
+		String saveFileName = "c:/tmp" + request.getRequestURI().substring(4);
+
+		try (InputStream in = new FileInputStream(saveFileName);) {
+			return IOUtils.toByteArray(in);
+		}
+	}
+
 }
