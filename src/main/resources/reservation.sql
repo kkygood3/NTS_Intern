@@ -1314,10 +1314,10 @@ insert into reservation_user_comment(id, product_id, reservation_info_id, score,
 values (3, 1, 3, 5, '또 가보고 싶어요.', now(), now());
 
 insert into reservation_user_comment(id, product_id, reservation_info_id, score, comment, create_date, modify_date)
-values (4, 1, 4, 2, '가격대비 약간은 실망이었어요.', now(), now());
+values (4, 2, 4, 2, '가격대비 약간은 실망이었어요.', now(), now());
 
 insert into reservation_user_comment(id, product_id, reservation_info_id, score, comment, create_date, modify_date)
-values (5, 1, 5, 3, '지루했어요..', now(), now());
+values (5, 2, 5, 3, '지루했어요..', now(), now());
 
 insert into reservation_user_comment(id, product_id, reservation_info_id, score, comment, create_date, modify_date)
 values (6, 1, 6, 4, '오 재미남!!', now(), now());
@@ -1425,7 +1425,7 @@ FROM display_info
 INNER JOIN product ON display_info.product_id = product.id 
 INNER JOIN category ON product.category_id = category.id 
 LEFT JOIN reservation_user_comment ON reservation_user_comment.product_id = product.id
-WHERE display_info.id = 3;
+WHERE display_info.id = 1;
 
 -- PRODUCT IMAGES (only 'ma') => etc는 따로 AJAX 처리?
 SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileInfoId', file_info.file_name 'fileName', file_info.modify_date 'modifyDate', product.id 'productId', product_image.id 'productImageId', file_info.save_file_name 'saveFileName', product_image.type 'type', product.description 'description'
@@ -1465,15 +1465,12 @@ GROUP BY reservation_user_comment.id
 ORDER BY reservation_user_comment.id DESC;
 
 
-
 -- COMMENT IMAGES (LIST)
-SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileId', file_info.file_name 'fileName', reservation_user_comment_image.id 'imageId', file_info.modify_date 'modifyDate',  file_info.save_file_name 'saveFileName'
+SELECT file_info.content_type 'contentType', file_info.create_date 'createDate', file_info.delete_flag 'deleteFlag', file_info.id 'fileId', file_info.file_name 'fileName', reservation_user_comment_image.id 'imageId', file_info.modify_date 'modifyDate',  file_info.save_file_name 'saveFileName' 
 FROM reservation_user_comment
 INNER JOIN reservation_user_comment_image ON reservation_user_comment_image.reservation_user_comment_id = reservation_user_comment.id
-INNER JOIN file_info ON file_info.id = reservation_user_comment_image.file_id
-INNER JOIN display_info_image ON display_info_image.file_id = file_info.id
-WHERE display_info_image.display_info_id = 1
-AND reservation_user_comment.id = 1;
+INNER JOIN file_info ON file_info.id = reservation_user_comment_image.file_id 
+WHERE reservation_user_comment.id = 16;
 
 -- COMMENT AVG(score)
 SELECT score, display_info.id -- ROUND(AVG(score), 1) as 'averageScore'
@@ -1504,3 +1501,13 @@ VALUES (1, 1, '홍길동', '010-0000-0009', 'hong@connect.co.kr', now(), now(), 
 -- INSERT LIST로 반복
 INSERT INTO reservation_info_price(id, reservation_info_id, product_price_id, count) VALUES('자동증가', '다른 곳에서 참조', 'product_price에서 참조', count);
 --------------------------------------------------------------
+select * from reservation_user_comment;
+select * from file_info;
+select * from reservation_user_comment_image;
+
+
+INSERT INTO reservation_user_comment(id, product_id, reservation_info_id, score, comment, create_date, modify_date) 
+VALUES('자동증가', '받아서', '받아서', '받아서', '받아서', NOW(), NOW());
+INSERT INTO file_info(id, file_name, save_file_name, content_type, delete_flag, create_date, modify_date) VALUES('자동증가', '받아서', '??', '받아서', 0, now(), now());
+INSERT INTO reservation_user_comment_image(id, reservation_info_id, reservation_user_comment_id, file_id) VALUES('자동증가', '받아서', '먼저 만들어진거 참조', '먼저 만들어진거 참조');
+
