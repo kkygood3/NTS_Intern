@@ -26,4 +26,10 @@ public class ReservationSqls {
 	public static final String UPDATE_RESERVATION_INFO_CANCEL = 
 	"UPDATE reservation_info SET cancel_flag = :cancelFlag " +
 	"WHERE id = :reservationId AND reservation_email = :reservationEmail";
+	
+	public static final String SELECT_RESERVATION_INFO_RESERVED =
+	"SELECT r_i.product_id, p.description, r_i.id as reservation_info_id " + 
+	"FROM reservation_info r_i INNER JOIN product p " + 
+	"ON r_i.product_id = p.id " + 
+	"WHERE r_i.reservation_email = :reservationEmail AND r_i.id = :reservationInfoId";
 }

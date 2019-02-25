@@ -19,8 +19,11 @@ import com.nts.service.comment.CommentService;
 @RequestMapping("/api/comments")
 public class CommentController {
 
-	@Autowired
-	private CommentService commentService;
+	private final CommentService commentService;
+
+	public CommentController(CommentService commentService) {
+		this.commentService = commentService;
+	}
 
 	/**
 	 * @desc productId 별 comments 불러오기

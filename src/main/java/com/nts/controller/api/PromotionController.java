@@ -19,8 +19,12 @@ import com.nts.service.promotion.PromotionService;
 @RequestMapping("/api/promotions")
 public class PromotionController {
 
+	private final PromotionService promotionService;
+
 	@Autowired
-	private PromotionService promotionService;
+	public PromotionController(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
 
 	/**
 	 * @desc 프로모션 전체 불러오기

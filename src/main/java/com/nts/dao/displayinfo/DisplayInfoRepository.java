@@ -9,7 +9,6 @@ import static com.nts.sqls.displayinfo.DisplayInfoSqls.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -26,12 +25,14 @@ import com.nts.exception.DisplayInfoNullException;
 @Repository
 public class DisplayInfoRepository {
 
-	@Autowired
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private RowMapper<DisplayInfo> displayInfoRowMapper = BeanPropertyRowMapper.newInstance(DisplayInfo.class);
 	private RowMapper<DisplayInfoImage> displayInfoImageRowMapper = BeanPropertyRowMapper.newInstance(DisplayInfoImage.class);
 
+	public DisplayInfoRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
 	/**
 	 * @desc 전시 Id로 전시 조회
 	 * @param displayInfoId
@@ -43,12 +44,9 @@ public class DisplayInfoRepository {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("displayInfoId", displayInfoId);
 
-
 		try {
-
 			return namedParameterJdbcTemplate.queryForObject(SELECT_DISPLAY_INFO, params, displayInfoRowMapper);
 		} catch(EmptyResultDataAccessException e) {
-			e.printStackTrace();
 			throw new DisplayInfoNullException("displayInfoId = "+displayInfoId);
 		}
 

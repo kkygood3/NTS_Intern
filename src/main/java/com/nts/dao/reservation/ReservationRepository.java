@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.naming.NoPermissionException;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -25,14 +27,20 @@ import com.nts.dto.reservation.ReservationPrice;
 
 import static com.nts.sqls.reservation.ReservationSqls.*;
 
+/**
+ * @author 전연빈
+ */
 @Repository
 public class ReservationRepository {
 
-	@Autowired
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	private RowMapper<Reservation> reservationInfoRowMapper = BeanPropertyRowMapper.newInstance(Reservation.class);
+	private RowMapper<Reservation> reservationRowMapper = BeanPropertyRowMapper.newInstance(Reservation.class);
 
+	public ReservationRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
+	
 	/**
 	 * @desc reservationEmail 별 reservationInfo 가져오기
 	 * @param reservationEmail
@@ -42,10 +50,9 @@ public class ReservationRepository {
 
 		Map<String, Object> params = Collections.singletonMap("reservationEmail", reservationEmail);
 
-		return namedParameterJdbcTemplate.query(SELECT_RESERVATION_INFO_BY_RESERVATION_EMAIL, params,
-				reservationInfoRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_RESERVATION_INFO_BY_RESERVATION_EMAIL, params,reservationRowMapper);
 	}
-	
+
 	/**
 	 * @desc reservation 삽입
 	 * @param reservationParameter
@@ -81,9 +88,32 @@ public class ReservationRepository {
 	public int updateReservationCancelFlag(long reservationId, int cancelFlag, String reservationEmail) {
 
 		Map<String, Object> params = new HashMap<>();
+
 		params.put("reservationId", reservationId);
 		params.put("cancelFlag", cancelFlag);
 		params.put("reservationEmail", reservationEmail);
+
 		return namedParameterJdbcTemplate.update(UPDATE_RESERVATION_INFO_CANCEL, params);
+	}
+
+	/**
+	 * @desc 예약된 정보들 가져오기 
+	 * @param reservationEmail
+	 * @param reservationInfoId
+	 * @return reservation
+	 * @throws NoPermissionException 
+	 */
+	public Reservation selectReserved(String reservationEmail, int reservationInfoId) throws NoPermissionException {
+
+		Map<String, Object> params = new HashMap<>();
+
+		params.put("reservationEmail", reservationEmail);
+		params.put("reservationInfoId", reservationInfoId);
+		
+		try {
+			return namedParameterJdbcTemplate.queryForObject(SELECT_RESERVATION_INFO_RESERVED, params, reservationRowMapper);
+		} catch (EmptyResultDataAccessException e) {
+			throw new NoPermissionException("권한이 없는 사용자 입니다.");
+		}
 	}
 }

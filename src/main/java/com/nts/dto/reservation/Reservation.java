@@ -22,6 +22,15 @@ public class Reservation {
 	private String reservationName;				// 예약자 이름
 	private String reservationTelephone;		// 예약자 전화번호
 	private int totalPrice;						// 예약한 상품 총가격
+	private String description;					// 예약한 상품 이름
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public boolean getCancelYn() {
 		return cancelYn;

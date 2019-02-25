@@ -6,7 +6,6 @@ package com.nts.service.product.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.product.ProductRepository;
@@ -22,10 +21,14 @@ import com.nts.service.product.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	private ProductRepository productRepository;
-
 	private static final int SELECT_PRODUCTS_ALL = 0;
+	
+	private final ProductRepository productRepository;
+	
+	public ProductServiceImpl(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
+
 
 	/**
 	 * @desc 카테고리 별 product 가져오기

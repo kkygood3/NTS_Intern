@@ -26,11 +26,14 @@ import com.nts.service.product.ProductService;
 @RequestMapping("/api/products")
 public class ProductController {
 
+	private final ProductService productService;
+	private final DisplayInfoService displayInfoService;
+
 	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private DisplayInfoService displayInfoService;
+	public ProductController(ProductService productService,DisplayInfoService displayInfoService) {
+		this.productService = productService;
+		this.displayInfoService = displayInfoService;
+	}
 
 	/**
 	 * @desc 카테고리별 Product 가져오기

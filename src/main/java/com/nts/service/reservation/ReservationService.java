@@ -8,6 +8,9 @@ import com.nts.dto.reservation.ReservationParameter;
 
 import java.text.ParseException;
 
+import javax.naming.NoPermissionException;
+
+import com.nts.dto.reservation.Reservation;
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.exception.DisplayInfoNullException;
 
@@ -17,4 +20,6 @@ public interface ReservationService {
 	int addReservation(ReservationParameter reservationParameter) throws ParseException;
 
 	int cancelReservation(long reservationId, String reservationEmail);
+
+	Reservation getReservedInfo(String reservationEmail, int reservationInfoId) throws NoPermissionException;
 }

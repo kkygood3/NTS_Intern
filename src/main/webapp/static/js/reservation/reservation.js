@@ -93,6 +93,7 @@ Reservation.prototype = {
             } else {
                 
                 if(reservation.reservationDate < dateUtil.getTodayYYYYMMDD()){
+                    console.log(reservation);
                     usedDiv.innerHTML += handlebarsFunction.getHandlebarTemplateFromHtml("#reservation_used_template",{reservation: reservation});
                     usedCount++;
                 } else {
