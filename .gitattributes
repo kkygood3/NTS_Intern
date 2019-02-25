@@ -1,1 +1,1 @@
-*.png -diff
+./resources/ -diff
