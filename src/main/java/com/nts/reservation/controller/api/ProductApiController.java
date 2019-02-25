@@ -65,15 +65,12 @@ public class ProductApiController {
 			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
 			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
-		List<ProductDisplayItem> thumbnailInfoList = Collections.EMPTY_LIST;
-
-		if (existProduct(productCount)) {
-			thumbnailInfoList = productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
-		}
+		List<ProductDisplayItem> thumbnailList = existProduct(productCount)	?
+				productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit) : Collections.EMPTY_LIST;
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productCount", productCount);
-		map.put("thumbnailInfoList", thumbnailInfoList);
+		map.put("thumbnailInfoList", thumbnailList);
 		return map;
 	}
 
@@ -159,10 +156,7 @@ public class ProductApiController {
 			return INVALID_INPUT;
 		}
 		List<ReservationInfoPrice> priceInputList = removeInvalidPriceInfos(userReservationInput.getPrice());
-		if (!isValidUserInput(userReservationInput, priceInputList)) {
-			return INVALID_INPUT;
-		}
-		return reservationInfo;
+		return isValidUserInput(userReservationInput, priceInputList) ? reservationInfo : INVALID_INPUT;
 	}
 
 	private List<ReservationInfoPrice> removeInvalidPriceInfos(List<ReservationInfoPrice> priceInputList) {
@@ -175,7 +169,8 @@ public class ProductApiController {
 	}
 
 	private boolean isValidUserInput(UserReservationInput input, List<ReservationInfoPrice> priceInputList) {
-		return ReservationInputValidator.isValidReservationInfo(input.getName(), input.getTelephone(), input.getEmail()) & existPriceInfo(priceInputList);
+		return ReservationInputValidator.isValidReservationInfo(input.getName(), input.getTelephone(), input.getEmail())
+				& existPriceInfo(priceInputList);
 	}
 
 	private boolean existPriceInfo(List<ReservationInfoPrice> priceInfo) {

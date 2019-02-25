@@ -47,12 +47,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional
 	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String Email, int start,int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
-		ReservationDisplayItemListMap.put("confirmed",
-				reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, start, limit));
-		ReservationDisplayItemListMap.put("used",
-				reservationInfoDao.selectUsedReservationInfoByEmail(Email, start, limit));
-		ReservationDisplayItemListMap.put("cancel",
-				reservationInfoDao.selectCancelReservationInfoByEmail(Email, start, limit));
+		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, start, limit));
+		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByEmail(Email, start, limit));
+		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByEmail(Email, start, limit));
 
 		ReservationDisplayItemListMap.put("count", reservationInfoDao.selectReservationInfoCountByEmail(Email));
 
