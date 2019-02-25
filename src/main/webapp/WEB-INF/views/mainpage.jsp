@@ -137,7 +137,7 @@
     <li class="item">
        <a href="/displayInfo/detail/{{displayInfoId}}" class="item_book">
             <div class="item_preview">
-                <img alt="{{description}}" class="img_thumb" src="/reservation/showImage/productId/{{this.productId}}">
+                <img alt="{{description}}" class="img_thumb" src="/reservation/showImage/products/{{this.productId}}">
                 <span class="img_border"></span>
             </div>
             <div class="event_txt">
