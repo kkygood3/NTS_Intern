@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.nts.reservation.argumentresolver.PageDtoArgumentResolver;
 import com.nts.reservation.interceptor.AuthInterceptor;
+import com.nts.reservation.interceptor.LogInterceptor;
 
 /**
  * Spring WebMVC 설정 클래스
@@ -64,6 +65,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new AuthInterceptor())
 			.addPathPatterns("/api/reservations/**", "/myreservation")
 			.excludePathPatterns("/api/reservations"); // 일정예약하기
+		registry.addInterceptor(new LogInterceptor());
 	}
 
 	@Override
