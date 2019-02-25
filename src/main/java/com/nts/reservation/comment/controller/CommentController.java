@@ -73,7 +73,7 @@ public class CommentController {
 			FileInputStream fileInputStream = new FileInputStream(saveFile);
 			OutputStream outputStream = response.getOutputStream()) {
 
-			setHeaderImageFile(saveFile, response);
+			setHeaderFile(saveFile, response);
 			byte[] buffer = new byte[1024];
 			while (fileInputStream.read(buffer) > 0) {
 				outputStream.write(buffer);
@@ -87,7 +87,7 @@ public class CommentController {
 
 	}
 
-	private void setHeaderImageFile(File file, HttpServletResponse response) throws IOException {
+	private void setHeaderFile(File file, HttpServletResponse response) throws IOException {
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", Files.probeContentType(file.toPath()));
