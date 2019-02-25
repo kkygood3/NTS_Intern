@@ -42,10 +42,8 @@
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
@@ -72,10 +70,8 @@
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
@@ -105,10 +101,8 @@
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p

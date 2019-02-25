@@ -1,5 +1,6 @@
 package com.nts.reservation.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ReservationPageInfo {
@@ -9,7 +10,7 @@ public class ReservationPageInfo {
 	private String placeName;
 	private String openingHours;
 	private String mainImageName;
-	private Date reservationDate;
+	private LocalDateTime reservationDate;
 
 	public long getProductId() {
 		return productId;
@@ -59,11 +60,11 @@ public class ReservationPageInfo {
 		this.mainImageName = mainImageName;
 	}
 
-	public Date getReservationDate() {
+	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
