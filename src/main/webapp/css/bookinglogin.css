@@ -14823,3 +14823,26 @@ body.en .subscribe_banner .subscribe_strapline {
   color: red;
   text-align: center;
 }
+
+.link_container{
+	width: 100%;
+}
+
+.link_to_main {
+	position: relative;
+	display: block;
+	vertical-align: middle;
+	width: 200px;
+	height: 40px;
+	border: 1px solid #0aba16;
+    background-color: #fff;
+    color: #0aba16;
+    margin: 30px auto 0 auto;
+}
+
+.link_to_main > span {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
