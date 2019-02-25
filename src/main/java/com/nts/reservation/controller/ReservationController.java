@@ -22,6 +22,8 @@ import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 import com.nts.reservation.util.Utils;
 
+import static com.nts.reservation.util.FileHandler.*;
+
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
@@ -29,9 +31,6 @@ public class ReservationController {
 	private ProductService productService;
 	@Autowired
 	private CommentService commentService;
-
-	private static final String PROJECT_ROOT = "C:/Users/USER/git/pjt05";
-	private static final String DIRECTORY = "/src/main/webapp/img/comment";
 	/**
 	 * 예약 확인페이지 url 맵핑
 	 * 
@@ -62,48 +61,12 @@ public class ReservationController {
 	 * @return
 	 */
 	@PostMapping("/{reservationInfoId}/comment")
-	public String postComment(@PathVariable(name = "productId", required = true) long reservationInfoId,
-			@RequestParam("content") String comment,
+	public String postComment(@PathVariable(name = "reservationInfoId", required = true) long reservationInfoId,
+			@RequestParam(name = "product_id", required = true) long productId,
+			@RequestParam("comment") String comment,
 			@RequestParam("score") double score,
 			@RequestParam("file") MultipartFile image) {
-		ReservationUserComment reservationUserComment = new ReservationUserComment(reservationInfoId, comment, score);
-		FileInfo fileInfo = new FileInfo();
-		
-		if (Utils.isNull(image)) {
-			fileInfo.setFileName(getFileName(reservationInfoId, image.getContentType()));
-			fileInfo.setSaveFileName(getDirectory() + "/" + fileInfo.getFileName());
-		}
-
-		reservationUserComment = commentService.addReservationUserComment(reservationUserComment, fileInfo);
-		
-		if (existsFilesToSave(image, reservationUserComment)) {
-			saveFile(image, fileInfo);
-		}
-//		return "redirect:detail/{displayInfoId}/review";
-		return "redirect:/";
-	}
-	
-	private boolean existsFilesToSave(MultipartFile image, ReservationUserComment reservationUserComment) {
-		return !Utils.isNull(image) & (reservationUserComment.getId() > 0);
-	}
-	private void saveFile(MultipartFile image, FileInfo fileInfo) {
-		try {
-			image.transferTo(new File(fileInfo.getSaveFileName()));
-		} catch (IllegalStateException | IOException e) {
-			throw new RuntimeException(e.getMessage());
-		}
-	}
-	
-	private String getDirectory() {
-		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-		String path = PROJECT_ROOT + DIRECTORY + "/" + today;
-		File dir = new File(path);
-		dir.isDirectory();
-		dir.mkdir();
-		return path;
-	}
-	
-	private String getFileName(long reservationInfoId, String type) {
-		return reservationInfoId + "_" + new Date().getTime() + "." + type.split("/")[1];
+		commentService.addReservationUserComment(new ReservationUserComment(productId, reservationInfoId, comment, score), image);
+		return "redirect:/product/" + productId + "/comment";
 	}
 }

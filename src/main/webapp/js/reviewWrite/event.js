@@ -85,7 +85,7 @@ function isValidComment(score, content) {
 
 function isValidScore(score) {
 	score *= 1;
-	if (score == parseInt(score) && score > 1 && score <= 5) {
+	if (score == parseInt(score) && score > 0 && score <= 5) {
 		return true;
 	}
 	return false;

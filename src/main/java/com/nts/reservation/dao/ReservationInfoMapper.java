@@ -32,7 +32,7 @@ public interface ReservationInfoMapper {
 	 * @param reservationInfo 사용자가 입력한 예약정보
 	 * @return 예약id
 	 */
-	long insertReservationInfo(ReservationInfo reservationInfo);
+	int insertReservationInfo(ReservationInfo reservationInfo);
 
 	/**
 	 * 해당 email로 예약한 내역 월단위로 페이징해서 셀렉트

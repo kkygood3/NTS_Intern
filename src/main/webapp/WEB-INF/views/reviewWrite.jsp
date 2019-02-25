@@ -107,7 +107,7 @@
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 
- 	<form method="post" action="./comment" enctype="multipart/form-data" style="display:none;">
+ 	<form method="post" action="./comment?product_id=${productInfo.productId}" enctype="multipart/form-data" style="display:none;">
  		<input class="score_form_input" name="score" type="number"/>
 	</form>
 

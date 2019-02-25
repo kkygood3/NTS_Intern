@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
+import com.nts.reservation.dto.ReservationUserComment;
+import com.nts.reservation.dto.ReservationUserCommentImage;
 
 /**
  * 코멘드 화면 관련정보 처리하는 클래스
@@ -30,4 +32,18 @@ public interface CommentMapper {
 	 * @return 쿼리실행결과 리뷰페이지 정보
 	 */
 	public CommentPageInfo selectCommentPageInfoByProductId(long ProductId);
+	
+	/**
+	 * 리뷰 등록
+	 * @param reservationUserComment 리뷰 내용
+	 * @return 리뷰id
+	 */
+	int insertReservationUserComment(ReservationUserComment reservationUserComment);
+	
+	/**
+	 * 리뷰이미지정보 등록
+	 * @param reservationUserCommentImage 리뷰이미지 정보
+	 * @return 리뷰이미지 id
+	 */
+	int insertReservationUserCommentImage(ReservationUserCommentImage reservationUserCommentImage);
 }

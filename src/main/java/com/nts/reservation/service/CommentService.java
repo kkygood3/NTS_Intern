@@ -2,11 +2,11 @@ package com.nts.reservation.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.CommentPageInfo;
-import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.dto.ReservationUserComment;
-import com.nts.reservation.dto.ReservationUserCommentImage;
 
 /**
  * 코멘트 화면 정보 관련 서비스 로직 수행하는 클래스
@@ -37,5 +37,5 @@ public interface CommentService {
 	 * @param fileInfo 리뷰이미지 파일정보
 	 * @return 사용자 리뷰 id
 	 */
-	ReservationUserComment addReservationUserComment(ReservationUserComment comment, FileInfo image);
+	ReservationUserComment addReservationUserComment(ReservationUserComment comment, MultipartFile image);
 }

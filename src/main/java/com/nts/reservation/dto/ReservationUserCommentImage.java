@@ -6,6 +6,12 @@ public class ReservationUserCommentImage {
 	private long reservationUserCommentId;
 	private long fileId;
 
+	public ReservationUserCommentImage(ReservationUserComment comment, FileInfo image) {
+		this.reservationInfoId = comment.getReservationInfoId();
+		this.reservationUserCommentId = comment.getId();
+		this.fileId = image.getId();
+	}
+	
 	public long getId() {
 		return id;
 	}

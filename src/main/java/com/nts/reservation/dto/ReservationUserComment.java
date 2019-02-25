@@ -15,7 +15,8 @@ public class ReservationUserComment {
 		createDate = LocalDateTime.now();
 	}
 	
-	public ReservationUserComment(long reservationInfoId, String comment, double score) {
+	public ReservationUserComment(long productId, long reservationInfoId, String comment, double score) {
+		this.productId = productId;
 		this.reservationInfoId = reservationInfoId;
 		this.comment = comment;
 		this.score = score;
