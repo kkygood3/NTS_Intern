@@ -29,22 +29,12 @@ public interface ProductMapper {
 	/**
 	 * 상품들을 가져온다 
 	 */
-	List<ProductDto> selectProducts(@Param("page") PageDto page);
-
-	/**
-	 * 특정 카테고리의 상품들을 가져온다.
-	 */
-	List<ProductDto> selectProductsByCategoryId(@Param("categoryId") int categoryId, @Param("page") PageDto page);
+	List<ProductDto> selectProducts(@Param("categoryId") int categoryId, @Param("page") PageDto page);
 
 	/**
 	 * 상품들의 총 개수를 가져온다 
 	 */
-	int selectProductCount();
-
-	/**
-	 * 특정 카테고리의 총 개수를 가져온다.
-	 */
-	int selectProductCountByCategoryId(int categoryId);
+	int selectProductCount(@Param("categoryId") int categoryId);
 
 	/**
 	 * 특정 id, type에 해당하는 프로덕트 이미지를 가져온다.

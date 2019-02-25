@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.service.impl;
 
-import static com.nts.reservation.constant.ParameterDefaultValue.*;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -48,22 +46,13 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	public ProductResponseDto getProductResponse(int categoryId, PageDto page) {
-		int count;
-		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			count = productMapper.selectProductCount();
-		} else {
-			count = productMapper.selectProductCountByCategoryId(categoryId);
-		}
+		int count = productMapper.selectProductCount(categoryId);
+
 		if (count == 0) {
 			return new ProductResponseDto(Collections.<ProductDto>emptyList(), count);
 		}
 
-		List<ProductDto> products;
-		if (categoryId == Integer.parseInt(CATEGORY_TYPE_ALL)) {
-			products = productMapper.selectProducts(page);
-		} else {
-			products = productMapper.selectProductsByCategoryId(categoryId, page);
-		}
+		List<ProductDto> products = productMapper.selectProducts(categoryId, page);
 
 		return new ProductResponseDto(products, count);
 	}

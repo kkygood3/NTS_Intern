@@ -34,31 +34,9 @@
 		    file_info fi ON fi.id = pi.file_id
 		WHERE
 		    pi.type = 'th'
-		ORDER BY di.id ASC
-		LIMIT #{page.start} , #{page.limit}
-	</select>
-
-	<select id="selectProductsByCategoryId" resultType="ProductDto">
-		SELECT 
-		    di.id AS displayInfoId,
-		    p.id AS productId,
-		    p.description AS productDescription,
-		    di.place_name AS placeName,
-		    p.content AS productContent,
-		    fi.save_file_name AS productImageUrl
-		FROM
-		    product p
-		        INNER JOIN
-		    product_image pi ON p.id = pi.product_id
-		        INNER JOIN
-		    display_info di ON p.id = di.product_id
-		        INNER JOIN
-		    display_info_image dii ON di.id = dii.display_info_id
-		        INNER JOIN
-		    file_info fi ON fi.id = pi.file_id
-		WHERE
-		    pi.type = 'th'
+			<if test="categoryId > 0">
 		        AND p.category_id = #{categoryId}
+		    </if>
 		ORDER BY di.id ASC
 		LIMIT #{page.start} , #{page.limit}
 	</select>
@@ -70,17 +48,10 @@
 		    product p
 		        INNER JOIN
 		    display_info di ON p.id = di.product_id
-	</select>
-
-	<select id="selectProductCountByCategoryId" resultType="int">
-		SELECT 
-		    COUNT(p.id) AS count
-		FROM
-		    product p
-		        INNER JOIN
-		    display_info di ON p.id = di.product_id
-		WHERE
-		    p.category_id = #{categoryId}
+		<if test="categoryId > 0">
+			WHERE
+			    p.category_id = #{categoryId}
+		</if>
 	</select>
 
 	<select id="selectProductImage" resultType="ProductImageDto">
