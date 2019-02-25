@@ -409,7 +409,6 @@
 	<script type="text/javascript">
 		var reservationsContainer = document.querySelector(".card.confirmed");
 		var popupWrapper = document.querySelector(".popup_booking_wrapper");
-		var reservationEmail = new URL(window.location.href).searchParams.get("reservationEmail");
 		var reservationElement;
 		
 		const DEFAULT_LIMIT = 3;
@@ -502,8 +501,7 @@
 			var status = container.dataset.status;
 			var count = container.querySelectorAll(".card_item").length;
 
-			var url = "/api/reservations?reservationEmail=" + reservationEmail
-					+ "&status=" + status + "&start=" + count + "&limit=" + limit;
+			var url = "/api/reservations/" + status + "?start=" + count + "&limit=" + limit;
 
 			ajax(callbackAddReservationElements(container), url);
 		}

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.annotation.PageDefault;
@@ -62,9 +61,9 @@ public class ReservationApiController {
 	/**
 	 * 예약상태(예정,완료,취소.)에 따라 예약리스트들을 가져옵니다.
 	 */
-	@GetMapping
+	@GetMapping("/{status}")
 	public ReservationResponseDto getReservationsByStatus(
-		@RequestParam String status,
+		@PathVariable String status,
 		@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
 		HttpSession session) {
 		String reservationEmail = (String)session.getAttribute("reservationEmail");
