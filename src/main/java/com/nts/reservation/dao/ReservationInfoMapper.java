@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.ReservationDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
-import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.ReservationPageInfo;
 import com.nts.reservation.dto.ReservationSummary;
 

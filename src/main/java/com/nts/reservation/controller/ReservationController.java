@@ -1,10 +1,5 @@
 package com.nts.reservation.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,14 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.dto.ReservationUserComment;
-import com.nts.reservation.dto.ReservationUserCommentImage;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
-import com.nts.reservation.util.Utils;
-
-import static com.nts.reservation.util.FileHandler.*;
 
 @Controller
 @RequestMapping("/reservation")
