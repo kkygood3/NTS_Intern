@@ -3842,7 +3842,7 @@ button {
 .review_photos_write .item_preview_thumbs .lst_thumb .item .anchor {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 83px;
   width: 17px;
   height: 17px;
 }
@@ -3852,7 +3852,7 @@ button {
   right: 0;
 }
 .review_photos_write .item_preview_thumbs .lst_thumb .item .item_thumb {
-  width: auto;
+  width: 100px;
   height: 80px;
 }
 
