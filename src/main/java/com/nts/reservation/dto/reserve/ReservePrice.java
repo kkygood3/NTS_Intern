@@ -4,16 +4,23 @@
  */
 package com.nts.reservation.dto.reserve;
 
-import com.nts.reservation.common.PriceType;
-
 /**
  * reserve 페이지 로드시 필요한 가격 정보 DTO
  */
 public class ReservePrice {
 	private Integer price;
-	private PriceType priceTypeName;
+	private ReservePriceType priceTypeName;
 	private String priceTypeLabel;
 	private Integer discountRate;
+	private Integer priceInfoId;
+
+	public Integer getPriceInfoId() {
+		return priceInfoId;
+	}
+
+	public void setPriceInfoId(Integer priceInfoId) {
+		this.priceInfoId = priceInfoId;
+	}
 
 	public String getPriceTypeLabel() {
 		return priceTypeLabel;
@@ -30,12 +37,12 @@ public class ReservePrice {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
-	public PriceType getPriceTypeName() {
+
+	public ReservePriceType getPriceTypeName() {
 		return priceTypeName;
 	}
 
-	public void setPriceTypeName(PriceType priceTypeName) {
+	public void setPriceTypeName(ReservePriceType priceTypeName) {
 		this.priceTypeName = priceTypeName;
 	}
 

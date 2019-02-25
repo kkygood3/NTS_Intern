@@ -2,12 +2,13 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.common;
+package com.nts.reservation.dto.reserve;
+
 /**
  * 상품마다 가지는 타입과 타입에 해당하는 이름을 정의.
  * ex)PriceType.A(Adult)-> 성인
  */
-public enum PriceType {
+public enum ReservePriceType {
 	A("성인"),
 	B("유아"),
 	C("지역주민"),
@@ -20,7 +21,7 @@ public enum PriceType {
 
 	private String typeLabel;
 
-	private PriceType(String typeLabel) {
+	private ReservePriceType(String typeLabel) {
 		this.typeLabel = typeLabel;
 	}
 

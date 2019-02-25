@@ -1,67 +1,60 @@
+var loginEmail;
+var ticketContainers = document.querySelectorAll('li.card');
+var countAreas = document.querySelectorAll('.link_summary_board>.figure');
+var moreBtns = document.querySelectorAll('.more>.btn');
+var nextStart = [0, 0, 0];
+var asyncCount = 0;
+var isInitialize = false;
+
+const RESERVATION_TYPE = ['CONFIRM','COMPLETE','CANCEL'];
+const PAGING_LIMIT = 3;
+
 /**
- * ajax response를 패러미터로 받는다.
- * myreservation 페이지 로드시 필요한 정보를 화면에 출력한다. 
+ * 전역변수를 Idx로 일괄적으로 관리하기 위해 사용 
+ * @param type
+ * @returns CONFIRM 0, COMPLETE 1, CANCEL 2
  */
-function loadReservationInfoCallback(response){
-	var reservationList = response.myReservationResponse;
-	
-	if(reservationList.length > 0){
-		// 예약정보 Template
-		var reservationTemplate = document.querySelector('#reservationTemplate').innerText;
-		var bindCommentTemplate = Handlebars.compile(reservationTemplate);
-		
-		var ticketContainers = document.querySelectorAll('li.card');
-		var confirmContainer = ticketContainers[1];
-		var completeContainer = ticketContainers[2];
-		var cancelContainer = ticketContainers[3];
-		
-		for(var i = 0 ; i < reservationList.length; i++){
-			var targetReservation = reservationList[i];
-			targetReservation.reservationDate = targetReservation.reservationDate.split(' ')[0].replace(/-/g,'.');
-			targetReservation.price = targetReservation.price.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-			targetReservation.index = i+1;
-			
-			var reservationItem = bindCommentTemplate(targetReservation);
-			
-			/**
-			 * 1) 0 보다 크면 cancel으로 이동.
-			 * 2) 0 보다 작거나 같다면 ->
-			 *  - 날짜가 오늘 이전이라면 conplete으로
-			 *  - 날짜가 오늘 이후라면 confirm으로
-			 */
-			if(targetReservation.cancelFlag > 0){
-				cancelContainer.innerHTML += reservationItem;
-			} else {
-				var today = new Date();
-				var targetDate = new Date(targetReservation.displayDate)
-				
-				// 오늘보다 이전이라면
-				if(targetDate < today) {
-					completeContainer.innerHTML += reservationItem;
-				} else {
-					confirmContainer.innerHTML += reservationItem;
-				}
-			}
-		}
-		
-		checkTicketCount();
-		initTicketBtnClickEvents();
-		initUnclickableBtn();
+function getTypeIdx(type){
+	var targetIdx;
+	if(type === 'CONFIRM'){
+		targetIdx = 0;
+	} else if(type === 'COMPLETE') {
+		targetIdx = 1;
 	} else {
-		/**
-		 * 해당 Email의 예약 정보가 하나도 없을 때
-		 * 예약 정보가 없다는 메세지 출력
-		 */
-		var listWrap = document.querySelector('.wrap_mylist');
-		var emptyMsgWrap = document.querySelector('.err');
-		listWrap.remove();
-		emptyMsgWrap.style.display = '';
+		targetIdx = 2;
 	}
+	return targetIdx;
 }
+
 /**
- * 클릭 이벤트가 없는 영역의 마우스 커서를 Default로 고정
+ * 버튼 이벤트로 실행할 ajax request의 패러미터를 반환하고
+ * Paging처리에 사용하는 nextStart를 조정
+ * @param type
  */
-function initUnclickableBtn(){
+function getBtnRequestParam(type){
+	var targetIdx = getTypeIdx(type);
+	var param = 'reservationType=' + type + '&start=' + nextStart[targetIdx] + '&pagingLimit=' + PAGING_LIMIT;
+	nextStart[targetIdx] += 3;
+	return param;
+}
+
+/**
+ * MyReservation 아이템의 속성을 페이지의 출력 형태로 변환
+ * @param reservationList
+ * @returns
+ */
+function convertPrintType(reservationList){
+	reservationList.forEach(item =>{
+		item.reservationDate = item.reservationDate.split(' ')[0].replace(/-/g,'.');
+		item.price = item.price.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	});
+}
+
+function loadReservationItem(type){
+	requestAjax(loadReservationInfoCallback, 'api/reservations?'+getBtnRequestParam(type),'GET');
+}
+
+function initBtnLayouts(){
 	// 상단 네비게이션 a tag
 	document.querySelectorAll('a.link_summary_board').forEach(item=>item.style.cursor='default');
 	
@@ -70,59 +63,68 @@ function initUnclickableBtn(){
 		item.style.cursor='default';
 		item.addEventListener('click',(evt)=>evt.preventDefault());
 	});
-	
 }
 
 /**
- * 호출 시점의 Ticket정보를 확인하여
- * 상단 네비게이션, 티켓 Category 타이틀에 반영하는 함수
+ * 호출 시점에 티켓수가
+ * 0개 라면 예약 목록이 없다고 알려주며
+ * 더보기 버튼으로 가져올 게 없을 때 숨김
  */
 function checkTicketCount(){
-	var ticketContainers = document.querySelectorAll('li.card');
-	var reservationCountAreas = document.querySelectorAll('.link_summary_board>.figure');
 	var sumOfCount = 0;
-	
-	for(var i = 1 ; i < 4; i++){
-		var countOfChild = (ticketContainers[i].querySelectorAll('.card_item').length);
-		reservationCountAreas[i].innerText = countOfChild;
-		sumOfCount += countOfChild;
+	for(var i = 0 ; i < RESERVATION_TYPE.length; i++){
+		var emptyMsgArea = ticketContainers[i + 1].querySelector('.err');
+		var itemCount = parseInt(countAreas[i + 1].innerText);
+		sumOfCount += itemCount;
 		
-		if(countOfChild > 0){
-			ticketContainers[i].style.display = '';
+		if(itemCount > 0){
+			emptyMsgArea.style.display = 'none';
 		} else {
-			ticketContainers[i].style.display = 'none';
+			emptyMsgArea.style.display = '';
+		}
+		
+		if(itemCount <= nextStart[i]){
+			moreBtns[i].style.display = 'none';
+		} else {
+			moreBtns[i].style.display = '';
 		}
 	}
-	reservationCountAreas[0].innerText = sumOfCount;
+	
+	countAreas[0].innerText = sumOfCount;
+}
+
+/**
+ * 더보기 버튼을 눌렀을 때의 클릭 이벤트를 등록
+ */
+function initMoreBtnClickEvent(){
+	for(var i = 0 ; i < RESERVATION_TYPE.length; i++){
+		moreBtns[i].addEventListener('click',function(evt){
+			var idx = parseInt(evt.target.getAttribute('idx'));
+			loadReservationItem(RESERVATION_TYPE[idx]);
+		});
+	}
 }
 
 /**
  * 취소요청이 서버에 반영되었는지 확인.
- * @param response - 취소 요청의 응답. 서버에서 OK나 FAIL로 응답한다.
+ * @param response -
+ *            취소 요청의 응답. 서버에서 OK나 FAIL로 응답한다.
  */
 function cancelResultCallback(response){
 	if(!response || response.result != 'OK'){
 		alert('예약을 취소할 수 없습니다.');
 		location.reload();
+	} else {
+		// 응답 OK일때 상단 Count변경
+		countAreas[1].innerText = parseInt(countAreas[1].innerText)-1;
+		countAreas[3].innerText = parseInt(countAreas[3].innerText)+1;
+		nextStart[2]++;
+		checkTicketCount();
 	}
 }
 
 /**
- * 티켓 아이템 클릭 이벤트 처리.
- * 취소, 취소 팝업 버튼, 코멘트 클릭 이벤트를 처리한다.
- */
-function initTicketBtnClickEvents(){
-	var ticketContainers = document.querySelectorAll('li.card');
-	
-	initTicketCancelEvents(ticketContainers);
-	ticketContainers[2].querySelectorAll('.btn').forEach(item => item.innerText = '예매자 리뷰 남기기');	
-	ticketContainers[3].querySelectorAll('.booking_cancel').forEach(item => item.remove());
-	checkTicketCount();
-}
-
-/**
- * 티켓 아이템중 예약 확정 카테고리의 버튼 이벤트 처리
- * 취소 버튼을 누르면 팝업창을 띄우고 팝업 이벤트를 등록한다.
+ * 티켓 아이템중 예약 확정 카테고리의 버튼 이벤트 처리 취소 버튼을 누르면 팝업창을 띄우고 팝업 이벤트를 등록한다.
  */ 
 function initTicketCancelEvents(ticketContainers){
 	var cancelPopup = document.querySelector('.popup_booking_wrapper');
@@ -137,44 +139,99 @@ function initTicketCancelEvents(ticketContainers){
 			clickedBtn = clickedBtn.parentElement;
 		}
 		
-		var isBtnClicked = (clickedBtn.classList.contains('btn'));
-		
-		if (isBtnClicked){
+		if (clickedBtn.classList.contains('btn')){
 			var descriptionAreas = clickedBtn.offsetParent.querySelectorAll('ul.detail .item_dsc');
 			cancelDate.innerText = descriptionAreas[0].innerText;
 			cancelTitleArea.innerText = descriptionAreas[1].innerText;
 			cancelPopup.style.display = '';
-			
-			cancelPopup.removeEventListener('click',popupClickEvent);
-			cancelPopup.addEventListener('click',popupClickEvent);
-			
-			function popupClickEvent(evt){
-				evt.preventDefault();
-				var clickedPopupBtn = evt.target;
-				if(clickedPopupBtn.tagName == 'SPAN'){
-					clickedPopupBtn = clickedPopupBtn.parentElement;
-				}
-				
-				var isAcceptClicked = (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '예')
-				/**
-				 * '예' 버튼을 눌렀다면 예약 확정 카테고리에서 예약 취소 카테고리로 옮기고
-				 * 서버에 ajax로 취소 요청을 보낸다.
-				 */
-				if(isAcceptClicked) {
-					ticketContainers[3].appendChild(clickedBtn.offsetParent);
-					clickedBtn.parentElement.remove();
-					requestAjax(cancelResultCallback, 'api/reservations/'+clickedBtn.getAttribute('reservationInfoId'),'PUT');
-				}
-				
-				var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') 
-						|| (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
-				
-				if(isAcceptClicked||isCloseClicked){
-					cancelPopup.style.display = 'none';
-				}
-			}
+			cancelPopup.setAttribute('reservationInfoId',clickedBtn.getAttribute('reservationInfoId'));
+			currentSelect = clickedBtn;
 		}
-			
-		checkTicketCount();
 	});
+}
+
+function initTicketCancelPopupEvent(){
+	var cancelPopup = document.querySelector('.popup_booking_wrapper');
+	var cancelContainer = document.querySelectorAll('li.card')[3]; 
+	
+	cancelPopup.addEventListener('click',popupClickEvent);
+	
+	function popupClickEvent(evt){
+		evt.preventDefault();
+		var clickedPopupBtn = evt.target;
+		if(clickedPopupBtn.tagName == 'SPAN'){
+			clickedPopupBtn = clickedPopupBtn.parentElement;
+		}
+		
+		var isAcceptClicked = (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '예')
+		
+		/**
+		 * '예' 버튼을 눌렀다면 예약 확정 카테고리에서 예약 취소 카테고리로 옮기고 서버에 ajax로 취소 요청
+		 */
+		if(isAcceptClicked) {
+			cancelContainer.appendChild(currentSelect.offsetParent);
+			currentSelect.parentElement.remove();			
+			requestAjax(cancelResultCallback, 'api/reservations/'+cancelPopup.getAttribute('reservationInfoId'),'PUT');
+		}
+		
+		var isCloseClicked = (clickedPopupBtn.classList.contains('ico_cls') || (clickedPopupBtn.classList.contains('btn_bottom') && clickedPopupBtn.innerText === '아니오'));
+		
+		if(isAcceptClicked||isCloseClicked){
+			cancelPopup.style.display = 'none';
+		}
+		checkTicketCount();
+	}
+}
+
+function initReservationInfo(){
+	RESERVATION_TYPE.forEach(type=>loadReservationItem(type));
+}
+/**
+ * reservation 응답으로 container에 아이템을 넣음
+ * @param reservationList
+ * @param reservationType
+ */
+function templateReservation(reservationList, reservationType){
+	convertPrintType(reservationList);
+	
+	var reservationTemplate = document.querySelector('#reservationTemplate').innerText;
+	var bindCommentTemplate = Handlebars.compile(reservationTemplate);
+	
+	var targetIdx = getTypeIdx(reservationType);
+	reservationList.forEach(reservation=>{
+		ticketContainers[targetIdx + 1].innerHTML += bindCommentTemplate(reservation);
+		var cancelBtn = ticketContainers[targetIdx + 1].lastElementChild.querySelector('.btn');
+		if(targetIdx == 1){
+			cancelBtn.innerText = '예매자 리뷰 남기기';
+		} else if(targetIdx == 2){
+			cancelBtn.parentElement.remove();
+		}
+	});
+}
+
+/**
+ * ajax response를 패러미터로 받는다. myreservation 페이지 로드시 필요한 정보를 화면에 출력한다.
+ */
+function loadReservationInfoCallback(response){
+	var reservationList = response.myReservationResponse.reservationList;
+	var reservationType = response.myReservationResponse.reservationType;
+	var count = response.myReservationResponse.count;
+	if(count > 0){
+		countAreas[getTypeIdx(reservationType) + 1].innerText = count;
+		templateReservation(reservationList, reservationType);
+	}
+	
+	/**
+	 * 아이템이 모두 Load 되었을 때 기준으로 initailize
+	 */
+	asyncCount++
+	if(!isInitialize && asyncCount >= RESERVATION_TYPE.length) {
+		isInitialize = true; 
+		initTicketCancelEvents(ticketContainers);
+		initTicketCancelPopupEvent();
+		initBtnLayouts();
+		initMoreBtnClickEvent();
+	}
+	
+	checkTicketCount();
 }

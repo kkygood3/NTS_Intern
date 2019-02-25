@@ -1323,8 +1323,7 @@ button {
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	-ms-backface-visibility: hidden;
-	backface-visibility: hidden
-	cursor: default;
+	backface-visibility: hidden cursor: default;
 }
 
 .group_visual {
@@ -1410,8 +1409,8 @@ button {
 }
 
 .visual_txt_inn {
-    float: left;
-    margin-top: 45%;
+	float: left;
+	margin-top: 45%;
 }
 
 .bottom_common_path {
@@ -4160,8 +4159,6 @@ button {
 }
 /* 여기까지 처음에 제공받은 CSS */
 
-
-
 /* Image의 애니메이션을 처리하기위해 transaction-duration과 left속성 정의 */
 .visual_img>.item {
 	transition-duration: 1s;
@@ -4180,4 +4177,12 @@ button {
 .detail_swipe>li.item>img {
 	width: 414px;
 	height: 414px;
+}
+
+/* 나의 예약의 이메일 길이 말줄임 처리 */ 
+a.btn_my {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 70%;
 }

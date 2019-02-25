@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.dao.main.MainCategoryDao">
+	<select id="selectCategories" resultType="MainCategory">
+		SELECT 
+			c.id, 
+			c.name, 
+			COUNT(d.id) AS count 
+		FROM
+			category AS c 
+		INNER JOIN
+			product AS p ON c.id = p.category_id 
+		INNER JOIN
+			display_info AS d ON p.id = d.product_id 
+		GROUP BY
+			c.id 
+		LIMIT
+			#{pagingLimit}
+	</select>
+</mapper>

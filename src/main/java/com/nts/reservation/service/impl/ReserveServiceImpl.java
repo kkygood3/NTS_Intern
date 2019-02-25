@@ -4,23 +4,18 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.nts.reservation.common.ReservationValidatior;
 import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
-import com.nts.reservation.dto.reserve.PriceInfo;
 import com.nts.reservation.dto.reserve.ReservePrice;
+import com.nts.reservation.dto.reserve.ReservePriceInfo;
+import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
 
@@ -36,10 +31,11 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveResponse reserveResponse = new ReserveResponse();
+
 		reserveResponse.setReserveDisplayInfo(reserveDisplayInfoDao.selectReviewDisplayInfoByDisplayInfoId(displayInfoId));
-		
+
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
-		for(int i = 0 ; i < reservePrice.size(); i++) {
+		for (int i = 0; i < reservePrice.size(); i++) {
 			ReservePrice targetPrice = reservePrice.get(i);
 			targetPrice.setPriceTypeLabel(targetPrice.getPriceTypeName().getTypeLabel());
 		}
@@ -48,32 +44,22 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	@Override
-	@Transactional(readOnly=false)
-	public boolean postReserve(String name, String telephone, String email, int displayInfoId, String priceInfo, String reservationDate)
-		throws JsonParseException, JsonMappingException, IOException {
-		boolean isInsertComplete = true;
+	@Transactional(readOnly = false)
+	public boolean registerReserve(ReserveRequest reserveRequest) {
+		reserveDao.insertReservation(reserveRequest);
+		int reservationInfoId = reserveRequest.getId();
+		List<ReservePriceInfo> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
 
-		isInsertComplete = (isInsertComplete && ReservationValidatior.validateName(name));
-		isInsertComplete = (isInsertComplete && ReservationValidatior.validateTelephone(telephone));
-		isInsertComplete = (isInsertComplete && ReservationValidatior.validateEmail(email));
-		isInsertComplete = (isInsertComplete && (displayInfoId > 0));
+		for (int i = 0; i < reservePriceInfoList.size(); i++) {
+			ReservePriceInfo targetPriceInfo = reservePriceInfoList.get(i);
+			targetPriceInfo.setReservationInfoId(reservationInfoId);
+			Integer resultRow = reserveDao.insertReservationPrice(targetPriceInfo);
 
-		if (isInsertComplete) {
-			Integer insertRow;
-
-			ObjectMapper objectMapper = new ObjectMapper();
-			TypeFactory typeFactory = objectMapper.getTypeFactory();
-			List<PriceInfo> priceInfoList = objectMapper.readValue(priceInfo,
-				typeFactory.constructCollectionType(List.class, PriceInfo.class));
-
-			int reservationInfoId = reserveDao.insertReservation(name, telephone, email, displayInfoId, reservationDate);
-			for (int i = 0; i < priceInfoList.size(); i++) {
-				PriceInfo targetPriceInfo = priceInfoList.get(i);
-				insertRow = reserveDao.insertReservationPrice(targetPriceInfo.getType(), targetPriceInfo.getCount(), displayInfoId, reservationInfoId);
-				isInsertComplete = (isInsertComplete && (insertRow != null && insertRow != 0));
+			if (resultRow == null || resultRow == 0) {
+				return false;
 			}
 		}
-		return isInsertComplete;
+		return true;
 	}
 
 }

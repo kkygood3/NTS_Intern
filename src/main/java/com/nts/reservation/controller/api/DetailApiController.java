@@ -4,22 +4,16 @@
  */
 package com.nts.reservation.controller.api;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.detail.DetailExtraImage;
-import com.nts.reservation.dto.detail.DetailResponse;
-import com.nts.reservation.dto.review.ReviewResponse;
 import com.nts.reservation.property.CommonProperties;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ReviewService;
@@ -42,11 +36,9 @@ public class DetailApiController {
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-		
-		DetailResponse detailResponse = detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit);
-		
+
 		Map<String, Object> map = new HashMap<>();
-		map.put("detailResponse", detailResponse);
+		map.put("detailResponse", detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
 
 		return map;
 	}
@@ -58,11 +50,9 @@ public class DetailApiController {
 	 */
 	@GetMapping("/extra")
 	public Map<String, Object> getExtraImage(@PathVariable Integer displayInfoId) {
-		
-		DetailExtraImage extraImageResponse = detailDisplayService.getExtraImage(displayInfoId);
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("extraImageResponse", extraImageResponse);
+		map.put("extraImageResponse", detailDisplayService.getExtraImage(displayInfoId));
 
 		return map;
 	}
@@ -77,20 +67,9 @@ public class DetailApiController {
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-		
-		ReviewResponse reviewResponse = reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("reviewResponse", reviewResponse);
-		return map;
-	}
 
-	/**
-	 * queryForObject 요청의 결과값이 없을때 발생하는 예외 처리
-	 * @return emptyMap
-	 */
-	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public Map<String, Object> handleEmptyResult() {
-		return Collections.emptyMap();
+		Map<String, Object> map = new HashMap<>();
+		map.put("reviewResponse", reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
+		return map;
 	}
 }

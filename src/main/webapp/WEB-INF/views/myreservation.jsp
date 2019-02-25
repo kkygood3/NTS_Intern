@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,7 +21,9 @@
 					<a href="/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
 					<a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
 				</h1>
-				<a href="#" class="btn_my"> <span title="내예약" class="viewReservation"></span> </a>
+				<a href="myreservation" class="btn_my"> 
+				<span class="viewReservation" title="예약확인">${email}</span> 
+				</a>
 			</header>
 		</div>
 		<hr>
@@ -63,6 +66,7 @@
 								</div>
 							</div>
 						</li>
+						
 						<li class="card confirmed">
 							<div class="link_booking_details" style="margin-top: 5px;">
 								<div class="card_header">
@@ -75,42 +79,53 @@
 									<div class="right"></div>
 								</div>
 							</div>
-							</li>
-							<li class="card used">
-								<div class="link_booking_details" style="margin-top: 5px;">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_check2"></i>
-											<span class="tit">이용 완료</span>
-										</div>
-										<div class="right"></div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
+						<div class="more">
+							<button class="btn btn_confirm" style="display: initial;" idx="0"><span>더보기</span></button>
+						</div>
+						<li class="card used">
+							<div class="link_booking_details" style="margin-top: 5px;">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_check2"></i>
+										<span class="tit">이용 완료</span>
 									</div>
+									<div class="right"></div>
 								</div>
-							</li>
-							<li class="card used cancel">
-								<div class="link_booking_details" style="margin-top: 5px;">
-									<div class="card_header">
-										<div class="left"></div>
-										<div class="middle">
-											<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
-											<i class="spr_book2 ico_cancel"></i>
-											<span class="tit">취소된 예약</span>
-										</div>
-										<div class="right"></div>
+							</div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
+						<div class="more">
+							<button class="btn btn_complete" style="display: initial;" idx="1"><span>더보기</span></button>
+						</div>
+						<li class="card used cancel">
+							<div class="link_booking_details" style="margin-top: 5px;">
+								<div class="card_header">
+									<div class="left"></div>
+									<div class="middle">
+										<!--[D] 예약 신청중: .ico_clock, 예약확정&이용완료: .ico_check2, 취소된 예약: .ico_cancel 추가 spr_book -->
+										<i class="spr_book2 ico_cancel"></i>
+										<span class="tit">취소된 예약</span>
 									</div>
+									<div class="right"></div>
 								</div>
-							</li>
+							</div>
+							<div class="err" style="display: none;"> <i class="spr_book ico_info_nolist"></i>
+								<h1 class="tit">예약 리스트가 없습니다</h1>
+							</div>
+						</li>
+						<div class="more">
+							<button class="btn btn_cancel" style="display: initial;" idx="2"><span>더보기</span></button>
+						</div>
 						</ul>
 					</div>
-					<!--// 내 예약 리스트 -->
-
-					<!-- 예약 리스트 없음 -->
-					<div class="err" style="display:none;"> <i class="spr_book ico_info_nolist"></i>
-						<h1 class="tit">예약 리스트가 없습니다</h1>
-					</div>
-					<!--// 예약 리스트 없음 -->
 				</div>
 			</div>
 			<hr>
@@ -162,7 +177,7 @@
 						<div class="left"></div>
 						<div class="middle">
 							<div class="card_detail">
-								<em class="booking_number">No.{{index}}</em>
+								<em class="booking_number">No.{{reservationInfoId}}</em>
 								<h4 class="tit">{{productDescription}}</h4>
 								<ul class="detail">
 									<li class="item">
@@ -219,9 +234,9 @@
 		</script>
 		<script src="js/myreservation.js"></script>
 		<script>
+			loginEmail = '${email}';
 			document.addEventListener('DOMContentLoaded', function() {
-				// api/reservations get으로 예약정보를 가져오기
-				requestAjax(loadReservationInfoCallback, 'api/reservations?email=${email}');
+				initReservationInfo();
 			});
 		</script>
 			

@@ -75,7 +75,7 @@
 	                            <div class="count_control">
 	                                <!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 	                                <div class="clearfix">
-	                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" priceType="${item.priceTypeName}" readonly title="수량">
+	                                    <a href="#" class="btn_plus_minus spr_book2 ico_minus3 disabled" title="빼기"> </a> <input type="tel" class="count_control_input disabled" value="0" priceType="${item.priceTypeName}" priceInfoId="${item.priceInfoId}" readonly title="수량">
 	                                    <a href="#" class="btn_plus_minus spr_book2 ico_plus3" title="더하기">
 	                                    </a>
 	                                </div>
@@ -99,27 +99,27 @@
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
                                     <div class="inline_control tel_wrap"> 
-                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17">
-	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div> 
+                                        <input type="text" name="name" id="name" class="text" placeholder="네이버" maxlength="17" idx="0">
+	                                    <div class="warning_msg" style="height: 30px; padding-top:1px;">이름을 입력해 주세요</div> 
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
                                     <div class="inline_control tel_wrap">
-                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
-                                        <div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
+                                        <input type="tel" name="tel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송" idx="1">
+                                        <div class="warning_msg" style="height: 30px; padding-top:1px;">휴대폰 번호 10~11자리를 입력해주세요</div>
                                     </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span class="spr_book ico_nessasary">필수</span>  <span>이메일</span> </label>
                                     <div class="inline_control tel_wrap">
 	                                    <c:choose>
 	                                    		<c:when test="${empty email}">
-	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+	                                    			<input type="email" name="email" id="email" class="email" value="" placeholder="crong@codesquad.kr" idx="2" maxlength="50">
 	                                    	    </c:when>
 	                                    		<c:otherwise>
-	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" maxlength="50" readonly>
+	                                    			<input type="email" name="email" id="email" class="email" value="${email}" placeholder="crong@codesquad.kr" idx="2" maxlength="50" readonly>
 	                                    		</c:otherwise>
 	                                    </c:choose>
-                                    	<div class="warning_msg" style="height: 30px; padding-top:1px;">형식이 틀렸거나 너무 짧아요</div>
+                                    	<div class="warning_msg" style="height: 30px; padding-top:1px;">이메일이 아니거나 너무 짧아요</div>
                                     </div>
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
@@ -153,21 +153,13 @@
                 </div>
                 <div class="box_bk_btn">
                     <!-- [D] 약관 전체 동의가 되면 disable 제거 -->
-                    <div class="bk_btn_wrap disable"> <button type="button" class="bk_btn"> <i class="spr_book ico_naver_s"></i>  <span>예약하기</span> </button> </div>
+                    <div class="bk_btn_wrap disable"> <button type="button" class="bk_btn" style="cursor: not-allowed;"> <i class="spr_book ico_naver_s"></i>  <span>예약하기</span> </button> </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <form class="reserve_form" action="api/reservations" method="post">
-    	<input type="hidden" name="name" value="">
-    	<input type="hidden" name="telephone" value="">
-    	<input type="hidden" name="email" value="">
-    	<input type="hidden" name="displayInfoId" value="">
-    	<input type="hidden" name="priceInfo" value="">
-    	<input type="hidden" name="reservationDate" value="${reservationDate}">
-    </form>
-    
+    <input type="hidden" name="reservationDate" value="${reservationDate}" id="reservationDateInput">
     <footer>
         <div class="gototop">
             <a href="#" class="lnk_top"> <span class="lnk_top_text">TOP</span> </a>
