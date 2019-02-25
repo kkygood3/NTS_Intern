@@ -100,21 +100,15 @@ class FileUploader{
     attachProcess(imageList){
         this.imageFileInput.addEventListener("change", (evt) => {
             var images = (<HTMLInputElement> evt.target).files;
-            for (let i = 0; i < images.length; i++) {
-                if(!this.validImageType(images[i])) { 
-                    console.warn("invalid image file type");
-                    return;
-                }
-            }
             
             for (let i = 0; i < images.length; i++) {
                 if(!this.validImageType(images[i])) { 
-                    console.warn("invalid image file type");
+                    alert("invalid image file type");
                     return;
                 }
                 imageList.push(images[i]);
             }
-            console.log(imageList)
+            
             while(this.imageFilePreviewWrapper.firstChild){
                 this.imageFilePreviewWrapper.removeChild(this.imageFilePreviewWrapper.firstChild);
             }
@@ -145,9 +139,7 @@ class ImageItem {
         });
     }
     removeProcess(imageList){
-        console.log(imageList)
         imageList.splice(this.fileIndex,1);
-        console.log(imageList);
         this.imageItem.parentNode.removeChild(this.imageItem);
         
     }
@@ -191,7 +183,6 @@ class StarController{
     }
     
     getStarValue(){
-        console.log(Number(this.starValue.innerText))
         return Number(this.starValue.innerText) as number;
     }
 }

@@ -76,18 +76,11 @@ var FileUploader = /** @class */ (function () {
             var images = evt.target.files;
             for (var i = 0; i < images.length; i++) {
                 if (!_this.validImageType(images[i])) {
-                    console.warn("invalid image file type");
-                    return;
-                }
-            }
-            for (var i = 0; i < images.length; i++) {
-                if (!_this.validImageType(images[i])) {
-                    console.warn("invalid image file type");
+                    alert("invalid image file type");
                     return;
                 }
                 imageList.push(images[i]);
             }
-            console.log(imageList);
             while (_this.imageFilePreviewWrapper.firstChild) {
                 _this.imageFilePreviewWrapper.removeChild(_this.imageFilePreviewWrapper.firstChild);
             }
@@ -115,9 +108,7 @@ var ImageItem = /** @class */ (function () {
         });
     }
     ImageItem.prototype.removeProcess = function (imageList) {
-        console.log(imageList);
         imageList.splice(this.fileIndex, 1);
-        console.log(imageList);
         this.imageItem.parentNode.removeChild(this.imageItem);
     };
     return ImageItem;
@@ -155,7 +146,6 @@ var StarController = /** @class */ (function () {
         this.starValue.innerHTML = String(value);
     };
     StarController.prototype.getStarValue = function () {
-        console.log(Number(this.starValue.innerText));
         return Number(this.starValue.innerText);
     };
     return StarController;
