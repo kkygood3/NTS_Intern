@@ -22,21 +22,22 @@ import com.nts.reservation.product.service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	@Autowired
 	private ProductDao productDao;
 
 	@Override
-	public ProductResponse getProductsByCategory(int categoryId, int start, int limit) {
+	public ProductResponse getProducts(int categoryId, int start, int limit) {
 
-		List<Product> products = productDao.selectProductsByCategory(categoryId, start, limit);
+		List<Product> products = productDao.selectProducts(categoryId, start, limit);
 		if (products.size() == 0) {
-			logger.warn("Does not exist categoryId / {} - displayInfoId : {}", this.getClass(), categoryId);
-			throw new IllegalArgumentException("Bad Request! Parameter (categoryId)");
+			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (categoryId)");
+			LOGGER.warn("Does not exist categoryId / displayInfoId : {}", categoryId, e);
+			throw e;
 		}
 
-		int productCount = productDao.selectProductCountByCategory(categoryId);
+		int productCount = productDao.selectProductCount(categoryId);
 		return ProductResponse.builder()
 			.items(products)
 			.totalCount(productCount)

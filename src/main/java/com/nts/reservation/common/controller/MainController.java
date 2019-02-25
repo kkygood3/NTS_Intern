@@ -4,55 +4,76 @@
  */
 package com.nts.reservation.common.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nts.reservation.display.dto.DisplayResponse;
-import com.nts.reservation.display.service.DisplayService;
+import com.nts.reservation.common.utils.RegexPattern;
 
 @Controller
 public class MainController {
-
-	@Autowired
-	DisplayService displayService;
 
 	@GetMapping(path = "/main")
 	public String goMain() {
 		return "mainpage";
 	}
 
-	@GetMapping(path = "/review/{displayInfoId}")
-	public ModelAndView goReview(@PathVariable(name = "displayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("review");
-		modelAndView.addObject("displayInfoId", displayInfoId);
+	@GetMapping(path = "/login")
+	public String goLogin(HttpSession session) {
+		if (session.getAttribute("email") != null) {
+			return "redirect:/myreservation";
+		}
+		return "bookinglogin";
+	}
+
+	@PostMapping(path = "/login")
+	public ModelAndView login(
+		@RequestParam(name = "reservation_email") String email, HttpSession session, ModelAndView modelAndView) {
+
+		String sessionEmail = (String)session.getAttribute("email");
+		if (sessionEmail != null) {
+			modelAndView.setViewName("redirect:/myreservation");
+			return modelAndView;
+		}
+
+		if (checkValidation(email) == false) {
+			modelAndView.setViewName("redirect:/login");
+			modelAndView.addObject("errorMessage", "email 형식이 올바르지 않습니다.");
+			return modelAndView;
+		}
+
+		modelAndView.setViewName("redirect:/myreservation");
+		session.setAttribute("email", email);
 		return modelAndView;
 	}
 
-	@GetMapping(path = "/display/detail/{displayInfoId}")
-	public ModelAndView goDetail(@PathVariable(name = "displayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("detail");
-		modelAndView.addObject("displayInfoId", displayInfoId);
-		return modelAndView;
-	}
-
-	@GetMapping(path = "/reserve/{displayInfoId}")
-	public ModelAndView goReserve(@PathVariable(name = "displayInfoId") int displayInfoId) {
-		ModelAndView modelAndView = new ModelAndView("reserve");
-		DisplayResponse displayResponse = displayService.getDisplayInfo(displayInfoId, 0);
-		modelAndView.addObject("displayResponse", displayResponse);
-		return modelAndView;
-	}
-
-	@GetMapping(path = "/myReserve")
-	public String goMyReserve() {
-		return "myreservation";
+	@GetMapping(path = "/logout")
+	public String logoutTest(HttpSession session) {
+		session.removeAttribute("email");
+		return "redirect:/";
 	}
 
 	@GetMapping(path = "/error")
 	public String goError() {
 		return "common/error";
+	}
+
+	private boolean checkValidation(String email) {
+		if (email == null) {
+			return false;
+		}
+		if (email.length() == 0) {
+			return false;
+		}
+		if (!Pattern.matches(RegexPattern.EMAIL_REGEX, email)) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -21,7 +21,7 @@
 						<i class="fn fn-backward1"></i>
 					</a>
 					<h2>
-						<span class="title"></span>
+						<span class="title">${ displayResponse.displayInfo.productDescription }</span>
 					</h2>
 				</div>
 				<div class="group_visual">
@@ -32,7 +32,7 @@
 								<span class="img_bg"></span>
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit">${ displayResponse.displayInfo.productDescription }</h2>
-									<em class="preview_txt_dsc">₩12,000 ~ </em><em class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓 2769매</em>
+									<em class="preview_txt_dsc">₩<fmt:formatNumber value="${ minPrice }" pattern="#,###"/> ~ </em><em class="preview_txt_dsc">${ dates.now }~${ dates.maxDate }, 잔여티켓 2769매</em>
 								</div>
 							</li>
 						</ul>
@@ -43,7 +43,7 @@
 						<h3 class="in_tit"></h3>
 						<p class="dsc">
 							장소 : ${ displayResponse.displayInfo.placeName }
-							<br> 기간 : 2017.2.17.(금)~2017.4.18.(화)?
+							<br> 기간 : ${ dates.now }~${ dates.maxDate }
 							
 						</p>
 						<h3 class="in_tit">관람시간</h3>
@@ -51,15 +51,7 @@
 							${displayResponse.displayInfo.openingHours}
 						</p>
 						<h3 class="in_tit">요금</h3>
-						<p class="dsc">
-							성인(만 19~64세) 5,000원 / 청소년(만 13~18세) 4,000원<br> 어린이(만 4~12세) 3,000원 / 20인 이상 단체 20% 할인<br> 국가유공자, 장애인, 65세 이상 4,000원
-							
-							
-							<br>
-							<c:forEach var="price" items="${ displayResponse.productPrices }">
-								<fmt:formatNumber var="calculatedPrice" value="${ price.price / (price.discountRate / 100) }" type="number" pattern="0"/>
-								${ price.priceTypeName } : ${ price.price }원<br>
-							</c:forEach>
+						<p id="charge" class="dsc">
 						</p>
 					</div>
 				</div>
@@ -82,7 +74,7 @@
 								<div class="qty_info_icon">
 									<strong class="product_amount"> <span>${ price.priceTypeName }</span></strong>
 									<strong class="product_price"> <span class="price">${ calculatedPrice }</span> <span class="price_type">원</span></strong>
-									<em class="product_dsc">${ calculatedPrice }원 (<fmt:formatNumber value="${ price.discountRate }" type="number" pattern="0"/>% 할인가)</em>
+									<em class="product_dsc"><fmt:formatNumber value="${ price.price }" pattern="#,###"/>원 (<fmt:formatNumber value="${ price.discountRate }" type="number" pattern="0"/>% 할인가)</em>
 								</div>
 							</div>
 						</c:forEach>
@@ -112,7 +104,7 @@
 										<span class="spr_book ico_nessasary">필수</span> <span>연락처</span>
 									</label>
 									<div class="inline_control tel_wrap">
-										<input type="tel" name="reservationTel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송">
+										<input type="tel" name="reservationTel" id="tel" class="tel" value="" placeholder="휴대폰 입력 시 예매내역 문자발송(숫자만 입력)">
 									</div>
 								</div>
 								<div class="inline_form">
@@ -120,17 +112,23 @@
 										<span class="spr_book ico_nessasary">필수</span> <span>이메일</span>
 									</label>
 									<div class="inline_control">
+									<c:if test="${ email ne null }">
+										<input type="email" name="reservationEmail" id="email" class="email" value="${ email }" placeholder="crong@codesquad.kr" maxlength="50">
+									</c:if>
+									<c:if test="${ email eq null }">
 										<input type="email" name="reservationEmail" id="email" class="email" value="" placeholder="crong@codesquad.kr" maxlength="50">
+									</c:if>
 									</div>
 								</div>
 								<div class="inline_form last">
 									<label class="label" for="message">예매내용</label>
 									<div class="inline_control">
 										<p class="inline_txt selected">
-											 <span id="today"></span> 총 <span id="totalCount">0</span>매
+											 ${ dates.randomDate } 총 <span id="totalCount">0</span>매
 										</p>
 									</div>
 								</div>
+								<input type="hidden" value="${ dates.randomDate }" id="reservation_date">
 							</form>
 							
 							
@@ -190,7 +188,7 @@
 				
 					<!-- [D] 약관 전체 동의가 되면 disable 제거 -->
 					<div class="bk_btn_wrap disable">
-						<button type="button" class="bk_btn" data-id="${ displayResponse.displayInfo.displayInfoId }" data-productId="${ displayResponse.displayInfo.productId }">
+						<button type="button" class="bk_btn" data-id="${ displayResponse.displayInfo.displayInfoId }" data-product-id="${ displayResponse.displayInfo.productId }">
 							<i class="spr_book ico_naver_s"></i> <span>예약하기</span>
 						</button>
 					</div>

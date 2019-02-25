@@ -22,29 +22,31 @@ import com.nts.reservation.product.dto.ProductPrice;
 @Service
 public class DisplayServiceImpl implements DisplayService {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(DisplayServiceImpl.class);
+	private static final int NONE = 0;
 
 	@Autowired
-	CommentService commentService;
+	private CommentService commentService;
 	@Autowired
-	DisplayDao displayDao;
+	private DisplayDao displayDao;
 	@Autowired
-	ProductDao productDao;
+	private ProductDao productDao;
 
 	@Override
 	public DisplayResponse getDisplayInfo(int displayInfoId, int limit) {
 		DisplayInfo displayInfo = displayDao.selectDisplayInfo(displayInfoId);
 
-		if (displayInfo == null) {
-			logger.warn("{} - displayInfoId : {} / Does not exist displayInfo", this.getClass(), displayInfo);
-			throw new IllegalArgumentException("Bad Request! Parameter (displayInfo)");
+		if (displayInfo.getDisplayInfoId() == NONE) {
+			IllegalArgumentException e = new IllegalArgumentException("Bad Request! Parameter (displayInfo)");
+			LOGGER.warn("Does not exist displayInfo /  displayInfoId : {}", displayInfoId, e);
+			throw e;
 		}
 
 		DisplayInfoImage displayInfoImage = displayDao.selectDisplayInfoImage(displayInfoId);
-		List<ProductImage> productImages = productDao.selectProductImages(displayInfoId, ImageType.ma);
+		List<ProductImage> productImages = productDao.selectProductImages(displayInfoId, ImageType.MA);
 		List<ProductPrice> productPrices = productDao.selectProductPrices(displayInfoId);
 		CommentResponse comments = commentService.getComments(displayInfoId, limit);
-		
+
 		return DisplayResponse.builder()
 			.displayInfo(displayInfo)
 			.commentResponse(comments)

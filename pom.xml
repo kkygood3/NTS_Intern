@@ -139,9 +139,25 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- HIBERNATE VALIDATOR -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.14.Final</version>
+		</dependency>
 
+		<!-- EL (VALIDATOR DEPENDENCY?) -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 	</dependencies>
-
 
 	<!-- FOR JAVA 1.8 -->
 	<build>

@@ -126,7 +126,7 @@
 }
 @font-face {
     font-family: "Naver Icons";
-    //src: url('/../img/fonts/Naver-Icons.woff?456918077') format('woff');
+    //src: url('/resources/font/Naver-Icons.woff?456918077') format('woff');
     font-weight: 400;
     font-style: normal
 }
@@ -827,13 +827,13 @@
     font-family: NanumGothicWebR;
     font-style: normal;
     font-weight: 400;
-    src: url('/../img/fonts/NanumGothicRegular.woff?1703172120') format('woff')
+    src: url('/resources/font/NanumGothicRegular.woff?1703172120') format('woff')
 }
 @font-face {
     font-family: NanumGothicWebB;
     font-style: normal;
     font-weight: 400;
-    src: url('/../img/fonts/NanumGothicBold.woff?1703172120') format('woff')
+    src: url('/resources/font/NanumGothicBold.woff?1703172120') format('woff')
 }
 @charset "utf-8";
 body,
@@ -1855,7 +1855,7 @@ hr {
     background-position: 0 -184px
 }
 .spr_bi {
-    background-image: url('../img/spr_bi.c753b938cfe0481b000adab9b84a1f8c.png');
+    background-image: url('/resources/img/base/spr_bi.c753b938cfe0481b000adab9b84a1f8c.png');
     background-size: 130px 154px;
     font-size: 0
 }
