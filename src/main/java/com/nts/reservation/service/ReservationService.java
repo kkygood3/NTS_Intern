@@ -30,7 +30,7 @@ public interface ReservationService {
 
 	public boolean findFinishReservation(Long reservationInfoId, String email);
 
-	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> files,
+	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> fileList,
 		Long reservationInfoId) throws SQLException;
 
 	public FileDto getFileByCommentImageId(Long commentImageId);

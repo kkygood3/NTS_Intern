@@ -27,6 +27,11 @@ public class RequestHtmlServiceImpl implements RequestHtmlService {
 		this.requestHtmlFileHttp = requestHtmlFileHttp;
 	}
 
+	/**
+	 * @desc React에 HTML 파일 요청.
+	 * @param path
+	 * @param requestDto
+	 */
 	@Override
 	public <T> String requestToReactHtml(String path, T requestDto)
 		throws HttpClientErrorException, ConnectException {

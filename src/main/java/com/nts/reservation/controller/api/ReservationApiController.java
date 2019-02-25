@@ -131,8 +131,20 @@ public class ReservationApiController {
 		return reservationId;
 	}
 
+	/**
+	 * @desc 전시물에 대한 댓글 추가. 
+	 * @param reservationInfoId
+	 * @param requestDto
+	 * @param bindingResult
+	 * @param uriBuilder
+	 * @return
+	 * @throws BindException
+	 * @throws InvalidParamException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
 	@PostMapping(path = "/{reservationInfoId}/comments")
-	public ResponseEntity<Map<String, String>> postAddComment(@PathVariable Long reservationInfoId,
+	public ResponseEntity<Map<String, String>> postComment(@PathVariable Long reservationInfoId,
 		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto,
 		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
 		throws BindException, InvalidParamException, IOException, SQLException {

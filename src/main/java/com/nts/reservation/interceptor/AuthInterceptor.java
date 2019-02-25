@@ -16,6 +16,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * @author 육성렬
  */
 public class AuthInterceptor extends HandlerInterceptorAdapter {
+
+	/**
+	 * @desc 인증 페이지에 접근 시 인증되지 않은 자는 인증 하는 페이지로 리다이렉트
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws IOException {

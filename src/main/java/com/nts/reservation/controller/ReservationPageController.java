@@ -26,7 +26,7 @@ public class ReservationPageController {
 	}
 
 	/**
-	 * 예매하기에 해당하는 페이지 반환
+	 * @desc 예매하기에 해당하는 페이지 반환
 	 * @param displayInfoId
 	 * @param map 페이지에 보낼 데이터 맵
 	 * @return

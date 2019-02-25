@@ -92,9 +92,15 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationDao.updateCancelReservation(reservationId);
 	}
 
+	/**
+	 * @desc 댓글 작성 등록
+	 * @param requestDto
+	 * @param fileList
+	 * @param reservaionInfoId
+	 */
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
 	@Override
-	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> files,
+	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> fileList,
 		Long reservationInfoId) throws SQLException {
 		Long productId = requestDto.getProductId();
 		Integer score = requestDto.getScore();
@@ -103,7 +109,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 		List<Long> fileIds = new ArrayList();
 
-		for (FileDto file : files) {
+		for (FileDto file : fileList) {
 			fileIds.add(reservationDao.insertFileInfo(file));
 		}
 
@@ -112,6 +118,10 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	/**
+	 * @desc 예약 정보 조회
+	 * @param reservationInfoId
+	 */
 	@Override
 	public ReservationInfoDto getReservation(Long reservationInfoId) {
 		ReservationInfoDto reservation = reservationDao.selectReservation(reservationInfoId);
@@ -121,11 +131,20 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservation;
 	}
 
+	/**
+	 * @desc 관람 완료된 예약 정보인지 확인.
+	 * @param reservationInfoId
+	 * @param email
+	 */
 	@Override
 	public boolean findFinishReservation(Long reservationInfoId, String email) {
 		return 0 < reservationDao.countFinishReservationsByEmailAndId(reservationInfoId, email);
 	}
 
+	/**
+	 * @desc 코멘트 이미지 아이디에 대한 파일 정보 요청
+	 * @param commentImageId
+	 */
 	@Override
 	public FileDto getFileByCommentImageId(Long commentImageId) {
 		return reservationDao.selectFileByCommentImageId(commentImageId);

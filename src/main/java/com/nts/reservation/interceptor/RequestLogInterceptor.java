@@ -19,6 +19,9 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	/**
+	 * @desc 요청에 대한 로그 남김.
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {

@@ -6,11 +6,9 @@
 package com.nts.reservation.service.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.FileDto;
 import com.nts.reservation.dto.request.regex.RegexPattern;
-import com.nts.reservation.exception.CustomFileNotFoundException;
 import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.util.FileUtil;
 
@@ -36,6 +33,9 @@ public class FileIoServiceImpl implements FileIoService {
 	@Value("${fileDir}")
 	private String fileDir;
 
+	/**
+	 * @desc 업로드된 파일 저장.
+	 */
 	@Override
 	public FileDto writeMultipartFile(String path, MultipartFile file) throws IOException {
 		String randomFileName = FileUtil.createRandomFilename();
@@ -59,6 +59,9 @@ public class FileIoServiceImpl implements FileIoService {
 		return new FileDto(file.getContentType(), fileName, saveFileName.substring(1, saveFileName.length()));
 	}
 
+	/**
+	 * @desc 파일 처리 실패시 앞선 파일들 롤백처리.
+	 */
 	@Override
 	public void removeFilesForRollback(List<FileDto> files) {
 		for (FileDto file : files) {

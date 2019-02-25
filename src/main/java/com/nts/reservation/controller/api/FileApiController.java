@@ -47,6 +47,13 @@ public class FileApiController {
 		this.reservationService = reservationService;
 	}
 
+	/**
+	 * @desc 이미지 파일 요청
+	 * @param imageName
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@GetMapping("/img")
 	public ResponseEntity<byte[]> getDownloadFile(@RequestParam(required = true) String imageName,
 		HttpServletResponse response)
@@ -57,6 +64,14 @@ public class FileApiController {
 
 	}
 
+	/**
+	 * @desc 댓글 아이딩로 댓글 이미지 요청
+	 * @param commentImageId
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws CustomFileNotFoundException
+	 */
 	@GetMapping("/comment/image/{commentImageId}")
 	public ResponseEntity<byte[]> getCommentImageFile(@PathVariable Long commentImageId, HttpServletResponse response)
 		throws IOException, CustomFileNotFoundException {

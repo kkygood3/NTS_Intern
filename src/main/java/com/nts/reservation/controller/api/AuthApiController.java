@@ -33,6 +33,14 @@ public class AuthApiController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
+	/**
+	 * @desc 비회원 로그인(이메일로 로그인)에 대한 처리
+	 * @param userEmail
+	 * @param session
+	 * @param uriBuilder
+	 * @return
+	 * @throws InvalidParamException
+	 */
 	@GetMapping("/login")
 	public ResponseEntity<Map<String, String>> loginWithEmail(@RequestParam String userEmail,
 		HttpSession session, UriComponentsBuilder uriBuilder) throws InvalidParamException {

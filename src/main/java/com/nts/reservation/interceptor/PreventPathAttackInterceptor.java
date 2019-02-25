@@ -21,6 +21,9 @@ public class PreventPathAttackInterceptor extends HandlerInterceptorAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	/**
+	 * @desc 파일 다운로드할 때 이미지 경로에 대한 공격 방어.
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {

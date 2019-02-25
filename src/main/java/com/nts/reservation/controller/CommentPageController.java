@@ -31,8 +31,17 @@ public class CommentPageController {
 		this.reservationService = reservationService;
 	}
 
+	/**
+	 * @desc 코멘트 추가하는 페이지 요청에 대한 처리 및 반환
+	 * @param reservationInfoId
+	 * @param request
+	 * @param session
+	 * @param map
+	 * @return
+	 * @throws PageNotFoundException
+	 */
 	@GetMapping("/comment/{reservationInfoId}")
-	public String getAddCommentPage(@PathVariable Long reservationInfoId, HttpServletRequest request,
+	public String getCommentPage(@PathVariable Long reservationInfoId, HttpServletRequest request,
 		HttpSession session, ModelMap map) throws PageNotFoundException {
 
 		String userEmail = (String)session.getAttribute("userEmail");

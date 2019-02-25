@@ -71,7 +71,7 @@ public class ViewReactController {
 	}
 
 	/**
-	 * React 서버에 접속하여 서버사이드렌더링된 html 을 받아와서 클라이언트에 그려줌.
+	 * @desc 메인 페이지에 대한 클라이언트 요청에 대해 React 서버에 서버사이드렌더 요청 및 반환
 	 * 
 	 * @param userEmail
 	 * @param session
@@ -109,6 +109,15 @@ public class ViewReactController {
 		return html;
 	}
 
+	/**
+	 * @desc 상세 페이지에 대한 클라이언트 요청에 대해 React 서버에 서버사이드렌더 요청 및 반환
+	 * @param displayInfoId
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws ConnectException
+	 * @throws HttpClientErrorException
+	 */
 	@GetMapping(path = "/displayInfo/{displayInfoId}", produces = "text/html; charset=utf8")
 	public @ResponseBody String detailPage(@PathVariable Long displayInfoId, HttpSession session,
 		HttpServletRequest request) throws ConnectException, HttpClientErrorException {
@@ -136,6 +145,15 @@ public class ViewReactController {
 		return html;
 	}
 
+	/**
+	 * @desc 나의 예약 목록 페이지에 대한 클라이언트 요청에 대해 React 서버에 서버사이드렌더 요청 및 반환
+	 * @param displayInfoId
+	 * @param session
+	 * @param request
+	 * @return
+	 * @throws ConnectException
+	 * @throws HttpClientErrorException
+	 */
 	@GetMapping(path = "/myReservation", produces = "text/html; charset=utf8")
 	public @ResponseBody String myReservationPageTest(
 		HttpSession session, HttpServletRequest request)

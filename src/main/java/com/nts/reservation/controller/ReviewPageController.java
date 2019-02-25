@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ReviewPageController {
 
+	/**
+	 * @desc 해당 전시물의 리뷰 목록 페이지 반환
+	 * @param displayInfoId
+	 * @param map
+	 * @return
+	 */
 	@GetMapping("/displayInfo/{displayInfoId}/review")
 	public String getReviewPage(@PathVariable Long displayInfoId, ModelMap map) {
 
