@@ -5,18 +5,63 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.reservation.common.ReservationValidatior;
 
 public class ReviewWriteRequest {
-	private Integer id;
+	private Integer reservationUserCommentId;
 	private String comment;
 	private Integer score;
 	private Integer productId;
 	private MultipartFile imageFile;
+	private Integer reservationInfoId;
+	private Integer fileInfoId;
+	private String fileName;
+	private String saveFileName;
+	private String contentType;
 
-	public Integer getId() {
-		return id;
+	public Integer getReservationUserCommentId() {
+		return reservationUserCommentId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setReservationUserCommentId(Integer reservationUserCommentId) {
+		this.reservationUserCommentId = reservationUserCommentId;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getSaveFileName() {
+		return saveFileName;
+	}
+
+	public void setSaveFileName(String saveFileName) {
+		this.saveFileName = saveFileName;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public Integer getReservationInfoId() {
+		return reservationInfoId;
+	}
+
+	public void setReservationInfoId(Integer reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
+
+	public Integer getFileInfoId() {
+		return fileInfoId;
+	}
+
+	public void setFileInfoId(Integer fileInfoId) {
+		this.fileInfoId = fileInfoId;
 	}
 
 	public String getComment() {
@@ -51,16 +96,10 @@ public class ReviewWriteRequest {
 		this.imageFile = imageFile;
 	}
 
-	@Override
-	public String toString() {
-		return "ReviewWriteRequest [id=" + id + ", comment=" + comment + ", score=" + score + ", productId=" + productId
-			+ ", imageFile=" + imageFile + "]";
-	}
-
 	public boolean isVaild() {
 		boolean result = ReservationValidatior.validateComment(this.comment)
-						&& ReservationValidatior.validateScore(this.score);
-		if(imageFile != null) {
+			&& ReservationValidatior.validateScore(this.score);
+		if (imageFile != null) {
 			result = result && ReservationValidatior.validateImage(this.imageFile);
 		}
 		return result;

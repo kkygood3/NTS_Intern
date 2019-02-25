@@ -6,6 +6,7 @@ package com.nts.reservation.dao.reviewwrite;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
 
 
@@ -16,4 +17,8 @@ public interface ReviewWrtieDao {
 	 */
 	public ReviewWriteResponse selectReviewWrite(
 		@Param("reservationInfoId") int reservationInfoId);
+
+	public int insertComment(ReviewWriteRequest reviewWriteRequest);
+	public int insertFileInfo(ReviewWriteRequest reviewWriteRequest);
+	public int insertCommentImage(ReviewWriteRequest reviewWriteRequest);
 }
