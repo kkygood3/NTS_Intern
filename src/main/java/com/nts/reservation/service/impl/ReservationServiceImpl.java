@@ -123,19 +123,21 @@ public class ReservationServiceImpl implements ReservationService {
 		List<FileDto> fileList = new ArrayList<>();
 		Long reservationUserCommentId = reservationDao.insertUserComment(productId, reservationInfoId, score,
 			comment);
-		try {
-			for (MultipartFile image : requestDto.getAttachedImages()) {
-				FileDto file = fileIo.writeMultipartFile(imageDefaultPath, image);
-				fileList.add(file);
-				Long fileId = reservationDao.insertFileInfo(file);
-				reservationDao.insertUserCommentImage(reservationInfoId, reservationUserCommentId, fileId);
+
+		if (requestDto.getAttachedImages() != null) {
+			try {
+				for (MultipartFile image : requestDto.getAttachedImages()) {
+					FileDto file = fileIo.writeMultipartFile(imageDefaultPath, image);
+					fileList.add(file);
+					Long fileId = reservationDao.insertFileInfo(file);
+					reservationDao.insertUserCommentImage(reservationInfoId, reservationUserCommentId, fileId);
+				}
+
+			} catch (IOException exception) {
+				fileIo.removeFilesForRollback(fileList);
+				throw exception;
 			}
-
-		} catch (IOException exception) {
-			fileIo.removeFilesForRollback(fileList);
-			throw exception;
 		}
-
 	}
 
 	/**
