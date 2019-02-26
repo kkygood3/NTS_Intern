@@ -17,15 +17,15 @@ import com.nts.reservation.dto.ProductPrice;
 * @author  : 이승수
 */
 public interface DetailProductService {
-	public BigDecimal getAverageScore(Integer displayInfoId);
+	public BigDecimal getAverageScore(int displayInfoId);
 
-	public List<Comment> getComments(Integer displayInfoId);
+	public List<Comment> getComments(int displayInfoId);
 
-	public DisplayInfo getDisplayInfo(Integer displayInfoId);
+	public DisplayInfo getDisplayInfo(int displayInfoId);
 
-	public DisplayInfoImage getDisplayInfoImage(Integer displayInfoId);
+	public DisplayInfoImage getDisplayInfoImage(int displayInfoId);
 
-	public List<ProductImage> getProductImages(Integer displayInfoId);
+	public List<ProductImage> getProductImages(int displayInfoId);
 
-	public List<ProductPrice> getProductPrices(Integer displayInfoId);
+	public List<ProductPrice> getProductPrices(int displayInfoId);
 }

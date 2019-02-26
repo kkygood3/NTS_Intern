@@ -17,9 +17,9 @@ public interface ReservationService {
 
 	public List<ReservedItem> getReservedItems(String userEmail);
 
-	public void cancelReservation(Integer reservationInfoId);
+	public void cancelReservation(int reservationInfoId);
 
-	public boolean isExistReservationInfo(Integer reservationInfoId, String userEmail);
+	public boolean isExistReservationInfo(int reservationInfoId, String userEmail);
 
-	public Integer getDisplayInfoId(Integer reservationInfoId);
+	public int getDisplayInfoId(int reservationInfoId);
 }

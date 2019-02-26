@@ -54,7 +54,7 @@ public class ProductApiController {
 	}
 
 	@GetMapping(path = "/products/{displayInfoId}")
-	public Map<String, Object> getDetail(@PathVariable("displayInfoId") Integer displayInfoId) {
+	public Map<String, Object> getDetail(@PathVariable("displayInfoId") int displayInfoId) {
 		BigDecimal averageScore = detailProductService.getAverageScore(displayInfoId);
 		List<Comment> comments = detailProductService.getComments(displayInfoId);
 		DisplayInfo displayInfo = detailProductService.getDisplayInfo(displayInfoId);

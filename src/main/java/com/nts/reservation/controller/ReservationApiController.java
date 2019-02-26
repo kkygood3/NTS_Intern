@@ -60,7 +60,7 @@ public class ReservationApiController {
 	}
 
 	@PutMapping(path = "/{reservaionInfoId}")
-	public boolean cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
+	public boolean cancelReservation(@PathVariable("reservaionInfoId") int reservationInfoId) {
 		reservationService.cancelReservation(reservationInfoId);
 
 		return true;

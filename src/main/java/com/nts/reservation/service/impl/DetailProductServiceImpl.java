@@ -28,7 +28,7 @@ public class DetailProductServiceImpl implements DetailProductService {
 	private DetailProductDao detailProductDao;
 
 	@Override
-	public BigDecimal getAverageScore(Integer displayInfoId) {
+	public BigDecimal getAverageScore(int displayInfoId) {
 		BigDecimal avgScore = BigDecimal.valueOf(0);
 		if (detailProductDao.selectAverageScore(displayInfoId) != null) {
 			avgScore = detailProductDao.selectAverageScore(displayInfoId)
@@ -38,7 +38,7 @@ public class DetailProductServiceImpl implements DetailProductService {
 	}
 
 	@Override
-	public List<Comment> getComments(Integer displayInfoId) {
+	public List<Comment> getComments(int displayInfoId) {
 		List<Comment> comments = detailProductDao.selectComments(displayInfoId);
 		for (Comment c : comments) {
 			int commentId = c.getCommentId();
@@ -49,22 +49,22 @@ public class DetailProductServiceImpl implements DetailProductService {
 	}
 
 	@Override
-	public DisplayInfo getDisplayInfo(Integer displayInfoId) {
+	public DisplayInfo getDisplayInfo(int displayInfoId) {
 		return detailProductDao.selectDisplayInfo(displayInfoId);
 	}
 
 	@Override
-	public DisplayInfoImage getDisplayInfoImage(Integer displayInfoId) {
+	public DisplayInfoImage getDisplayInfoImage(int displayInfoId) {
 		return detailProductDao.selectDisplayInfoImage(displayInfoId);
 	}
 
 	@Override
-	public List<ProductImage> getProductImages(Integer displayInfoId) {
+	public List<ProductImage> getProductImages(int displayInfoId) {
 		return detailProductDao.getProductImages(displayInfoId);
 	}
 
 	@Override
-	public List<ProductPrice> getProductPrices(Integer displayInfoId) {
+	public List<ProductPrice> getProductPrices(int displayInfoId) {
 		return detailProductDao.selectProductPrices(displayInfoId);
 	}
 }

@@ -52,7 +52,7 @@ public class ReservationViewController {
 	}
 
 	@GetMapping("/reservation/reviewWrite/{reservationInfoId}")
-	public String getReviewWritePage(@PathVariable("reservationInfoId") Integer reservationInfoId, HttpSession session,
+	public String getReviewWritePage(@PathVariable("reservationInfoId") int reservationInfoId, HttpSession session,
 		ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
 		if (!reservationService.isExistReservationInfo(reservationInfoId, userEmail)) {
