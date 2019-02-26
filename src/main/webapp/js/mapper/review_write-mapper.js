@@ -132,11 +132,18 @@ function ReviewSubmitButton(urlSearchParams){
 		this.bindEvents();
 	}
 	this.bindEvents = function(){
-		document.querySelector("#submit_button").addEventListener("click", ()=>{
+		document.querySelector("#submit_button").addEventListener("click", (event)=>{
 
-			var attachImageForm = document.querySelector("#attach_image_form");
-			var productId = urlSearchParams.get("productId");
+			event.preventDefault();
 			var comment = document.querySelector("#review_comment").value;
+			
+			if(comment.length < 5){
+				alert("5자 이상 입력해주세요");
+				return;
+			}
+			
+			var attachImageForm = document.querySelector("#reviewImageFileOpenInput");
+			var productId = urlSearchParams.get("productId");
 			var score = 0;
 			
 			document.querySelectorAll(".rating_rdo").forEach((v)=>{
@@ -144,14 +151,32 @@ function ReviewSubmitButton(urlSearchParams){
 			    score++;
 			});
 			
+		    var formData = new FormData();
+		    formData.append("productId", productId);
+		    formData.append("score", score);
+		    formData.append("comment", comment);
+		    
+		    Array.from(attachImageForm.files).forEach((v)=>{
+		    	formData.append("reservationImage", v);
+		    });
+		    
+		    
+		    
 			attachImageForm.action = "/api/reservations/"
 									+ urlSearchParams.get("reservationInfoId")
-									+ "/comments?"
-									+ "productId=" + productId
-									+ "&comment=" + comment
-									+ "&score=" + score;
+									+ "/comments"
 			
-			attachImageForm.submit();
+			var request = {
+					method:"POST",
+					data:formData
+			}
+			var requestUri = "/api/reservations/" + urlSearchParams.get("reservationInfoId") + "/comments";
+			sendRequest(request, requestUri, redirect);
+			
 		});
 	}
+}
+
+function redirect(){
+	location="/";
 }
