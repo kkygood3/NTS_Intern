@@ -77,7 +77,7 @@ public class ExceptionHandleControllerAdvice {
 			sb.append(fieldError.getDefaultMessage());
 			sb.append("]");
 		}
-		return new ExceptionResponse(HttpStatus.BAD_REQUEST);
+		return new ExceptionResponse(HttpStatus.BAD_REQUEST, sb.toString());
 	}
 
 	@ExceptionHandler(Exception.class)
