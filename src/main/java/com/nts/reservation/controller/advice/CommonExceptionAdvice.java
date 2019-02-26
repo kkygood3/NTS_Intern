@@ -29,7 +29,7 @@ public class CommonExceptionAdvice {
 	private static final Logger logger = LoggerFactory.getLogger(CommonExceptionAdvice.class);
 
 	private ModelAndView showErrorPage(Exception e, HttpServletRequest request, String msg) {
-		logger.error(e.toString());
+		logger.error("Exception : ", e);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/error");
