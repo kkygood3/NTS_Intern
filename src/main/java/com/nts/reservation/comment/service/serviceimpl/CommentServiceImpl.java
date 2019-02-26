@@ -2,10 +2,14 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.comment.service.serviceImpl;
+package com.nts.reservation.comment.service.serviceimpl;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentDao commentDao;
+	
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSS");
+	private static final String DIRECTORY = "c:/tmp/comment/";
 
 	@Override
 	public CommentResponse getComments(int displayInfoId, int limit) {
@@ -54,34 +61,45 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional
 	public int insertComment(CommentParam commentParam) {
 		int commentId = commentDao.insertComment(commentParam);
-		int fileId = commentDao.insertFileInfo(commentParam);
-		saveFile(commentParam.getFile());
-		
-		return commentDao.insertCommentImage(commentParam.getReservationInfoId(), commentId, fileId);
+		MultipartFile file = commentParam.getFile();
+		if (file != null) {
+			LocalDateTime now = LocalDateTime.now();
+			String saveFileName = now.format(DATE_TIME_FORMATTER) + "_" + file.getOriginalFilename();
+			
+			int fileId = commentDao.insertFileInfo(commentParam, saveFileName);
+			saveFile(commentParam.getFile(), saveFileName);
+			commentDao.insertCommentImage(commentParam.getReservationInfoId(), commentId, fileId);
+		}
+		return commentId;
 	}
 	
-	// TODO 임시 처리
-	private void saveFile(MultipartFile file) {
+	// TODO 임시 처리, 날짜/시간 추가
+	private void saveFile(MultipartFile file, String saveFileName) {
 		try (
-			FileOutputStream fileOutputStream = new FileOutputStream("c:/tmp/" + file.getOriginalFilename());
+			FileOutputStream fileOutputStream = new FileOutputStream(DIRECTORY + saveFileName);
+			
 			InputStream inputStream = file.getInputStream();) {
 			int readCount = 0;
 			byte[] buffer = new byte[1024];
 			while ((readCount = inputStream.read(buffer)) != -1) {
 				fileOutputStream.write(buffer, 0, readCount);
 			}
-		} catch (Exception ex) {
-			throw new RuntimeException("file Save Error");
+		}catch(FileNotFoundException e) {
+			// TODO 무슨 exception?
+			e.printStackTrace();
+		}catch(IOException e1) {
+			e1.printStackTrace();
 		}
+		
 	}
-	
+
 	/**
 	 * 이메일의 아이디 부분을 split한 후 뒷글자를 블라인드 처리
 	 * @param email 
 	 * @return
 	 */
 	private String makeBlindEmail(String email) {
-		if(email.length() <= 4 && email.length() > 255) {
+		if (email.length() <= 4 && email.length() > 255) {
 			// TODO Exception
 		}
 		String splicedEmail = email.split("@")[0];
