@@ -21,6 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ *
+ * @description : 요청된 URL에 대한 Image를 전송하는 API
+ * @package : com.nts.controller.api.file
+ * @filename : DownloadApiController.java
+ * @author : 최석현
+ * @method :ResponseEntity<byte[]> getImageAsResponseEntity(String productImageUrl)
+ */
 @RestController
 @RequestMapping(path = "/api/download")
 @PropertySource({"classpath:application.properties"})
@@ -35,10 +44,10 @@ public class DownloadApiController {
 			throws IOException {
 
 		HttpHeaders headers = new HttpHeaders();
-		File file = new File(imagePath + productImageUrl);
-		
-		byte[] media = IOUtils.toByteArray(new FileInputStream(file));
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+		
+		File file = new File(imagePath + productImageUrl);
+		byte[] media = IOUtils.toByteArray(new FileInputStream(file));
 
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
