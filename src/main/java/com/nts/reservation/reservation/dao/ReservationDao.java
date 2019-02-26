@@ -8,7 +8,6 @@ import java.util.List;
 
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
-import com.nts.reservation.reservation.dto.ReservationPrice;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -17,10 +16,6 @@ public interface ReservationDao {
 	int insertReservationInfo(String reservationName, String reservationTel, String reservationEmail,
 		int displayInfoId,
 		String reservationDate);
-
-	int insertReservationPrice(int reservationInfoId, String typeName, int count, int displayInfoId);
-
-	List<ReservationPrice> selectReservationPrice(int displayInfoId);
 
 	ReservationDisplayInfo selectReservationDisplayInfo(int displayInfoId);
 

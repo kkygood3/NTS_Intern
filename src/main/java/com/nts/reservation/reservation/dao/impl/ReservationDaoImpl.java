@@ -23,7 +23,6 @@ import org.springframework.stereotype.Repository;
 import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
-import com.nts.reservation.reservation.dto.ReservationPrice;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -31,8 +30,6 @@ import com.nts.reservation.reservation.dto.ReservationPrice;
 @Repository
 public class ReservationDaoImpl implements ReservationDao {
 	private NamedParameterJdbcTemplate jdbc;
-	private RowMapper<ReservationPrice> reservationPriceRowMapper = BeanPropertyRowMapper
-		.newInstance(ReservationPrice.class);
 	private RowMapper<ReservationDisplayInfo> reservationDisplayInfoRowMapper = BeanPropertyRowMapper
 		.newInstance(ReservationDisplayInfo.class);
 	private RowMapper<ReservationInfo> reservationInfoRowMapper = BeanPropertyRowMapper
@@ -55,23 +52,6 @@ public class ReservationDaoImpl implements ReservationDao {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_RESERVATION_INFO, params, keyHolder, new String[] {"ID"});
 		return keyHolder.getKey().intValue();
-	}
-
-	@Override
-	public int insertReservationPrice(int reservationInfoId, String typeName, int count, int displayInfoId) {
-		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("reservationInfoId", reservationInfoId);
-		params.addValue("type", typeName);
-		params.addValue("count", count);
-		params.addValue("displayInfoId", displayInfoId);
-		return jdbc.update(INSERT_RESERVATION_PRICE, params);
-	}
-
-	@Override
-	public List<ReservationPrice> selectReservationPrice(int displayInfoId) {
-		Map<String, Integer> param = new HashMap<>();
-		param.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_RESERVATION_PRICE, param, reservationPriceRowMapper);
 	}
 
 	@Override

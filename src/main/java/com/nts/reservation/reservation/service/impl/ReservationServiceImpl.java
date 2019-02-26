@@ -17,6 +17,7 @@ import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.displayInfo.dao.DisplayInfoDao;
 import com.nts.reservation.displayInfo.dto.DisplayInfo;
 import com.nts.reservation.reservation.dao.ReservationDao;
+import com.nts.reservation.reservation.dao.ReservationPriceDao;
 import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationInfoResponse;
 import com.nts.reservation.reservation.dto.ReservationInfoType;
@@ -36,10 +37,14 @@ public class ReservationServiceImpl implements ReservationService {
 	ReservationDao reservationDaoImpl;
 
 	@Autowired
+	ReservationPriceDao reservationPriceDaoImpl;
+
+	@Autowired
 	DisplayInfoDao displayInfoDaoImpl;
 
 	// 예약 조회하기
 	@Override
+	@Transactional
 	public ReservationResponse getReservationResponse(int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
@@ -47,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
 		ReservationResponse reservationResponse = new ReservationResponse();
 		reservationResponse.setReservationDisplayInfo(reservationDaoImpl.selectReservationDisplayInfo(displayInfoId));
 
-		List<ReservationPrice> priceList = reservationDaoImpl.selectReservationPrice(displayInfoId);
+		List<ReservationPrice> priceList = reservationPriceDaoImpl.selectReservationPrice(displayInfoId);
 		if (priceList != null) {
 			for (ReservationPrice price : priceList) {
 				String typeName = price.getPriceTypeName();
@@ -117,7 +122,7 @@ public class ReservationServiceImpl implements ReservationService {
 			int count = priceInfo.getCount();
 			int displayInfoId = reserveRequest.getDisplayInfoId();
 
-			insertCompletePrice = reservationDaoImpl.insertReservationPrice(reservationInfoId, typeName, count,
+			insertCompletePrice = reservationPriceDaoImpl.insertReservationPrice(reservationInfoId, typeName, count,
 				displayInfoId);
 			if (insertCompletePrice == 0) {
 				DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
