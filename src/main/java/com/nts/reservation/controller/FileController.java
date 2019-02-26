@@ -1,9 +1,9 @@
 package com.nts.reservation.controller;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
@@ -24,7 +24,9 @@ import com.nts.reservation.service.FileService;
 @RestController
 public class FileController {
 	@Autowired
-	FileService fileService;
+	private FileService fileService;
+	@Autowired
+	private ServletContext servletContext;
 
 	/**
 	 * 상품평 이미지 다운로드
@@ -35,7 +37,7 @@ public class FileController {
 
 		String saveFileName = FilePath.STATIC_PATH + "/" + fileInfo.getSaveFileName();
 
-		try (InputStream in = new FileInputStream(saveFileName);) {
+		try (InputStream in = servletContext.getResourceAsStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
 		}
 	}
@@ -43,11 +45,12 @@ public class FileController {
 	/**
 	 * 이미지 다운로드
 	 */
-	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE})
+	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE,
+		MediaType.IMAGE_GIF_VALUE})
 	public byte[] getImage(HttpServletRequest request) throws IOException {
 		String saveFileName = FilePath.STATIC_PATH + request.getRequestURI();
 
-		try (InputStream in = new FileInputStream(saveFileName);) {
+		try (InputStream in = servletContext.getResourceAsStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
 		}
 	}

@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,8 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationMapper reservationMapper;
 	@Autowired
 	private FileMapper fileMapper;
+	@Autowired
+	private ServletContext servletContext;
 
 	/**
 	 * 나의예약 페이지용
@@ -133,7 +137,8 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationMapper.insertCommentImage(commentImage);
 
 			try (
-				FileOutputStream fos = new FileOutputStream(FilePath.IMG_PATH + "/" + fileName);
+				// c:/Users/USER/git/project6/src/main/webapp/WEB-INF/resources/img
+				FileOutputStream fos = new FileOutputStream(servletContext.getRealPath(FilePath.IMG_PATH) + "/" + fileName);
 				InputStream is = image.getInputStream();) {
 				int readCount = 0;
 				byte[] buffer = new byte[1024];
