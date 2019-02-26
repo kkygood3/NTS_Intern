@@ -27,7 +27,7 @@ public class CommonPageControllerAdvice {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public ModelAndView getErrorPage(ErrorMessageDto errorDto) {
+	private ModelAndView getErrorPage(ErrorMessageDto errorDto) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("errorDto", errorDto);
 		modelAndView.setViewName("errorPage");
