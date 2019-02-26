@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.nts.reservation.service.ReservationService;
 
 /**
- * 예약확인 관련 컨트롤러 클래스
+ * 예약관련 api 클래스
  * 
  * @author si yoon
  *

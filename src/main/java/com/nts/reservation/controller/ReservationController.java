@@ -15,7 +15,7 @@ import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 
 /**
- * 예약 관련 API 클래스
+ * 예약상품관련 페이지 url 맵핑
  * 
  * @author si yoon
  *
