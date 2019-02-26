@@ -77,8 +77,10 @@ public class ReservationApiController {
 	 */
 	@PostMapping("/{reservationId}/comments")
 	public Map<String, Object> postComment(CommentParamDto commentParam) {
+		if (!commentParam.isValid()) {
+			throw new RuntimeException("입력값이 올바르지 않습니다.");
+		}
 		reservationService.makeComment(commentParam);
-		
-		return Collections.singletonMap("isSuccess", false);
+		return Collections.singletonMap("isSuccess", true);
 	}
 }

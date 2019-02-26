@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.dto.param;
 
+import java.util.Arrays;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -70,6 +72,20 @@ public class CommentParamDto {
 	public String toString() {
 		return "CommentParamDto [productId=" + productId + ", reservationId=" + reservationId + ", score=" + score
 			+ ", comment=" + comment + ", image=" + image + "]";
+	}
+
+	public boolean isValid() {
+		if (score <= 0) {
+			return false;
+		}
+		if (comment.length() < 5 || comment.length() > 400) {
+			return false;
+		}
+		String[] AllowedImageTypes = {"image/png", "image/jpeg"};
+		if (image != null && !Arrays.stream(AllowedImageTypes).anyMatch(image.getContentType()::equals)) {
+			return false;
+		}
+		return true;
 	}
 
 }
