@@ -124,8 +124,7 @@ public class ReservationController {
 	 * @param productPrice 
 	 */
 	private int calculateDiscountPrice(ProductPrice productPrice) {
-		// TODO 소수점 반올림 고려
-		return (int)(productPrice.getPrice() * (1 - (productPrice.getDiscountRate() / 100)));
+		return (int)Math.round(productPrice.getPrice() * (1 - (productPrice.getDiscountRate() / 100)));
 	}
 
 	/**
