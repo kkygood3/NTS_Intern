@@ -109,10 +109,11 @@ public class ReservationServiceImpl implements ReservationService {
 		for (ReservationPriceInfo priceInfo : priceInfoList) {
 
 			ReservationPriceType type = priceInfo.getType();
+			String typeName = type.getLabel();
 			int count = priceInfo.getCount();
 			int displayInfoId = reserveRequest.getDisplayInfoId();
 
-			insertCompletePrice = reservationDaoImpl.insertReservationPrice(reservationInfoId, type, count,
+			insertCompletePrice = reservationDaoImpl.insertReservationPrice(reservationInfoId, typeName, count,
 				displayInfoId);
 			if (insertCompletePrice == 0) {
 				DebugPrinter.print(Thread.currentThread().getStackTrace()[1],

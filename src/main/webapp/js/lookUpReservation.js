@@ -114,7 +114,7 @@ function initMoreBtnClickEvent(){
 }
 
 function cancelResultCallback(response){
-	if(response.result === 'cancelSuccess'){
+	if(response === true){
 		// 취소가 성공한 후 상단 예매 수 변경
 		countAreas[1].innerText = parseInt(countAreas[1].innerText)-1;
 		countAreas[3].innerText = parseInt(countAreas[3].innerText)+1;

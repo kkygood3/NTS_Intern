@@ -220,7 +220,7 @@ function postReservation() {
 	requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
 }
 function postResponseHandler(response){
-	if(response.result === 'reserveSuccess'){
+	if(response === true){
 		alert('예약 완료');
 		location.href = '/detailProduct?displayInfoId='+getUrlParameter('displayInfoId');
 	} else {

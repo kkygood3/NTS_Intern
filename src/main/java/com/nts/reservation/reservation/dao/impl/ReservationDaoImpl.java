@@ -24,7 +24,6 @@ import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationPrice;
-import com.nts.reservation.reservation.dto.ReservationPriceType;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -43,6 +42,7 @@ public class ReservationDaoImpl implements ReservationDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
+	@Override
 	public int insertReservationInfo(String reservationName, String reservationTel, String reservationEmail,
 		int displayInfoId,
 		String reservationDate) {
@@ -57,33 +57,38 @@ public class ReservationDaoImpl implements ReservationDao {
 		return keyHolder.getKey().intValue();
 	}
 
-	public int insertReservationPrice(int reservationInfoId, ReservationPriceType type, int count, int displayInfoId) {
+	@Override
+	public int insertReservationPrice(int reservationInfoId, String typeName, int count, int displayInfoId) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("reservationInfoId", reservationInfoId);
-		params.addValue("type", type.name());
+		params.addValue("type", typeName);
 		params.addValue("count", count);
 		params.addValue("displayInfoId", displayInfoId);
 		return jdbc.update(INSERT_RESERVATION_PRICE, params);
 	}
 
+	@Override
 	public List<ReservationPrice> selectReservationPrice(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_RESERVATION_PRICE, param, reservationPriceRowMapper);
 	}
 
+	@Override
 	public ReservationDisplayInfo selectReservationDisplayInfo(int displayInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_RESERVATION_DISPLAY_INFO, param, reservationDisplayInfoRowMapper);
 	}
 
+	@Override
 	public int cancelReservation(int reservationInfoId) {
 		Map<String, Integer> param = new HashMap<>();
 		param.put("reservationInfoId", reservationInfoId);
 		return jdbc.update(CANCEL_RESERVATION, param);
 	}
 
+	@Override
 	public List<ReservationInfo> selectConfirmReservationInfo(String reservationEmail, int start, int limit) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
@@ -92,6 +97,7 @@ public class ReservationDaoImpl implements ReservationDao {
 		return jdbc.query(SELECT_CONFIRM_RESERVATION_INFO, params, reservationInfoRowMapper);
 	}
 
+	@Override
 	public List<ReservationInfo> selectCompleteReservationInfo(String reservationEmail, int start, int limit) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
@@ -100,6 +106,7 @@ public class ReservationDaoImpl implements ReservationDao {
 		return jdbc.query(SELECT_COMPLETE_RESERVATION_INFO, params, reservationInfoRowMapper);
 	}
 
+	@Override
 	public List<ReservationInfo> selectCancelReservationInfo(String reservationEmail, int start, int limit) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
@@ -108,18 +115,21 @@ public class ReservationDaoImpl implements ReservationDao {
 		return jdbc.query(SELECT_CANCEL_RESERVATION_INFO, params, reservationInfoRowMapper);
 	}
 
+	@Override
 	public int selectConfirmReservationInfoCount(String reservationEmail) {
 		Map<String, String> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
 		return jdbc.queryForObject(SELECT_CONFIRM_RESERVATION_INFO_COUNT, params, Integer.class);
 	}
 
+	@Override
 	public int selectCompleteReservationInfoCount(String reservationEmail) {
 		Map<String, String> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);
 		return jdbc.queryForObject(SELECT_COMPLETE_RESERVATION_INFO_COUNT, params, Integer.class);
 	}
 
+	@Override
 	public int selectCancelReservationInfoCount(String reservationEmail) {
 		Map<String, String> params = new HashMap<>();
 		params.put("reservationEmail", reservationEmail);

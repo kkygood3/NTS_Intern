@@ -4,9 +4,7 @@
  */
 package com.nts.reservation.reservation.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.commons.debugPrinter.DebugPrinter;
 import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.reservation.dto.ReservationInfoResponse;
 import com.nts.reservation.reservation.dto.ReservationInfoType;
@@ -49,23 +46,11 @@ public class ReservationApiController {
 
 	// 예약 하기
 	@PostMapping("/reservations")
-	public Map<String, Object> reserveProduct(
+	public boolean reserveProduct(
 		@RequestBody ReserveRequest reserveRequest) {
 		checkReserveRequest(reserveRequest);
 
-		Map<String, Object> map = new HashMap<>();
-		boolean isInsertComplete = reservationServiceImpl.insertReservationInfo(reserveRequest);
-
-		if (isInsertComplete) {
-			DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
-				"예약 하기 성공\n" + "isInsertComplete : " + isInsertComplete);
-			map.put("result", "reserveSuccess");
-			return map;
-		}
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
-			"예약 하기 실패\n" + "isInsertComplete : " + isInsertComplete);
-		map.put("result", "reserveFailure");
-		return map;
+		return reservationServiceImpl.insertReservationInfo(reserveRequest);
 	}
 
 	// 나의 예약 조회하기
@@ -82,20 +67,8 @@ public class ReservationApiController {
 
 	// 나의 예약 취소하기
 	@PutMapping("/cancelReservation/{reservationInfoId}")
-	public Map<String, Object> cancelReservation(@PathVariable int reservationInfoId) {
-		Map<String, Object> map = new HashMap<>();
-		boolean isUpdateComplete = reservationServiceImpl.cancelReservation(reservationInfoId);
-
-		if (isUpdateComplete) {
-			DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
-				"예약 취소 성공\n" + "isUpdateComplete : " + isUpdateComplete);
-			map.put("result", "cancelSuccess");
-			return map;
-		}
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
-			"예약 취소 실패\n" + "isUpdateComplete : " + isUpdateComplete);
-		map.put("result", "cancelFailure");
-		return map;
+	public boolean cancelReservation(@PathVariable int reservationInfoId) {
+		return reservationServiceImpl.cancelReservation(reservationInfoId);
 	}
 
 	private static final String REGULAR_KOREAN_NAME = "^[가-힣]{2,10}$";

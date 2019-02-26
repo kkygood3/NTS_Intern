@@ -9,7 +9,6 @@ import java.util.List;
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationPrice;
-import com.nts.reservation.reservation.dto.ReservationPriceType;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -19,7 +18,7 @@ public interface ReservationDao {
 		int displayInfoId,
 		String reservationDate);
 
-	int insertReservationPrice(int reservationInfoId, ReservationPriceType type, int count, int displayInfoId);
+	int insertReservationPrice(int reservationInfoId, String typeName, int count, int displayInfoId);
 
 	List<ReservationPrice> selectReservationPrice(int displayInfoId);
 
