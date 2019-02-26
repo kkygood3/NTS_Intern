@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.constant.FilePath;
 import com.nts.reservation.dto.primitive.FileInfoDto;
+import com.nts.reservation.exception.NoImageFoundException;
 import com.nts.reservation.service.FileService;
 
 /**
@@ -39,6 +40,8 @@ public class FileController {
 
 		try (InputStream in = servletContext.getResourceAsStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
+		} catch (NullPointerException ex) {
+			throw new NoImageFoundException(saveFileName);
 		}
 	}
 
@@ -52,6 +55,8 @@ public class FileController {
 
 		try (InputStream in = servletContext.getResourceAsStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
+		} catch (NullPointerException ex) {
+			throw new NoImageFoundException(saveFileName);
 		}
 	}
 

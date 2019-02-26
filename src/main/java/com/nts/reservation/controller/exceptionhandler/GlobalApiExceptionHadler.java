@@ -4,6 +4,13 @@
  */
 package com.nts.reservation.controller.exceptionhandler;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +21,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import com.nts.reservation.dto.response.ErrorResponseDto;
 import com.nts.reservation.exception.InValidationException;
+import com.nts.reservation.exception.NoImageFoundException;
 
 /**
  * Rest API용 예외처리 클래스 
@@ -22,6 +30,19 @@ import com.nts.reservation.exception.InValidationException;
  */
 @RestControllerAdvice(annotations = RestController.class)
 public class GlobalApiExceptionHadler {
+
+	/**
+	 * 이미지 파일 없음 엑박대신 사진없음 이미지로 대체
+	 */
+	@ExceptionHandler(NoImageFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public byte[] handleNotFoundImage(NoImageFoundException ex, HttpServletRequest request) throws IOException {
+		ServletContext servletContext = request.getServletContext();
+		try (InputStream in = servletContext.getResourceAsStream(ex.getNoImageFilePath());) {
+			return IOUtils.toByteArray(in);
+		}
+	}
+
 	/**
 	 *  validation 익셉션 처리
 	 */
