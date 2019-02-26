@@ -43,7 +43,7 @@ public class FileController {
 	/**
 	 * 이미지 다운로드
 	 */
-	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE})
 	public byte[] getImage(HttpServletRequest request) throws IOException {
 		String saveFileName = FilePath.STATIC_PATH + request.getRequestURI();
 
