@@ -36,8 +36,10 @@ public class ExceptionLogAspect {
 			request.getRemoteAddr(),
 			request.getRequestURL()));
 
-		log.append("Parameters : \n");
 		Enumeration<String> enumeration = request.getParameterNames();
+		if (enumeration.hasMoreElements()) {
+			log.append("Parameters : \n");
+		}
 		while (enumeration.hasMoreElements()) {
 			String parameterName = enumeration.nextElement();
 			String parameterValue = request.getParameter(parameterName);

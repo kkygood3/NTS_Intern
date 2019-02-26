@@ -24,8 +24,6 @@ public class WritedComment {
 	@Max(value = 5, message = "score is must between 1 and 5")
 	private int score;
 
-	@NotNull(message = "email is must not empty")
-	@Pattern(regexp = Regexp.EMAIL, message = "email is not valid")
 	private String reservationEmail;
 
 	@Override
