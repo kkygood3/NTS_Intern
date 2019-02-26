@@ -43,7 +43,6 @@ public class CommentServiceImpl implements CommentService {
 
 	private static final String IMAGE_URL_SUFFIX = "img/";
 
-
 	/**
 	 * @description : displayInfoId 값을 검증 후 Dao로부터 AverageScore를 받음
 	 * @throws : InvalidParameterException
@@ -112,6 +111,7 @@ public class CommentServiceImpl implements CommentService {
 	@Transactional(readOnly = false, rollbackFor = SQLException.class)
 	public void addComment(Comment comment, MultipartFile reservationImage, String imagePath)
 			throws FileNotFoundException, IOException {
+		
 		int reservationUserCommentId = commentDao.insertComment(comment);
 
 		if (!reservationImage.isEmpty()) {
@@ -134,9 +134,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	@Transactional(readOnly = false, rollbackFor = SQLException.class)
 	public void addCommentImage(CommentImage commentImage, MultipartFile reservationImage) {
+		
 		int fileInfoId = commentDao.insertFileInfo(commentImage);
 
-		commentDao.insertCommentImage(commentImage.getReservationInfoId(), commentImage.getReservationUserCommentId(),
+		commentDao.insertCommentImage(
+				commentImage.getReservationInfoId(),
+				commentImage.getReservationUserCommentId(),
 				fileInfoId);
 	}
 }
