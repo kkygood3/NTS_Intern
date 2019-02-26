@@ -75,7 +75,7 @@ public class CommentParamDto {
 	}
 
 	public boolean isValid() {
-		if (score <= 0) {
+		if (score <= 0 || score > 5) {
 			return false;
 		}
 		if (comment.length() < 5 || comment.length() > 400) {
