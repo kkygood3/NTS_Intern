@@ -133,7 +133,7 @@ var detailPage = {
 		});
 		
 		this.container.commentsContainer.innerHTML = bindComments(jsonResponse);
-		if(this.container.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
+		if(this.container.commentsContainer.querySelectorAll("li").length <= this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
 			this.elements.btnMoreReview.style.display = "none";
 		} else {
 			this.elements.btnMoreReview.href = this.displayInfoId + "/reviews";
