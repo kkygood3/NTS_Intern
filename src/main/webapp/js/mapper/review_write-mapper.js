@@ -159,12 +159,6 @@ function ReviewSubmitButton(urlSearchParams){
 		    Array.from(attachImageForm.files).forEach((v)=>{
 		    	formData.append("reservationImage", v);
 		    });
-		    
-		    
-		    
-			attachImageForm.action = "/api/reservations/"
-									+ urlSearchParams.get("reservationInfoId")
-									+ "/comments"
 			
 			var request = {
 					method:"POST",
