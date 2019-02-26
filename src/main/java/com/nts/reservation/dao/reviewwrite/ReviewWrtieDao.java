@@ -15,8 +15,7 @@ public interface ReviewWrtieDao {
 	 * reviewWrite 페이지 로드 reponse에 사용
 	 * @param reservationInfoId
 	 */
-	public ReviewWriteResponse selectReviewWrite(
-		@Param("reservationInfoId") int reservationInfoId);
+	public ReviewWriteResponse selectReviewWrite(int reservationInfoId);
 
 	public int insertComment(ReviewWriteRequest reviewWriteRequest);
 	public int insertFileInfo(ReviewWriteRequest reviewWriteRequest);

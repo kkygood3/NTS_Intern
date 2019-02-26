@@ -24,7 +24,7 @@ public class MyReservationContorller {
 	public String requestMyReservation(
 		@RequestParam(name = "email", required = false) String email,
 		HttpSession session) {
-		
+
 		if (session.getAttribute("email") != null) {
 			return "myreservation";
 		} else {

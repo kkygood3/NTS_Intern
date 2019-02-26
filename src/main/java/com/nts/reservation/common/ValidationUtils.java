@@ -11,8 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.reservation.property.CommonProperties;
 
 /**
- * Reservation 프로젝트에서 사용하는 특정 형식 String이 유효한지 검증하는 Class
- * static method를 사용함
+ * Reservation 프로젝트에서 사용하는 특정 형식 요청이 유효한지 검증하는 static method 클래스
  */
 public class ValidationUtils {
 	public static boolean validateEmail(String email) {

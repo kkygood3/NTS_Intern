@@ -39,7 +39,7 @@ public class ReserveApiController {
 	MyReservationService myReservationService;
 	@Autowired
 	ReviewWriteService reviewWriteService;
-	
+
 	/**
 	 * Reservation 정보 조회
 	 * @param myReservationRequest
@@ -48,16 +48,17 @@ public class ReserveApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
-		@RequestParam(name = "reservationType", required = true) ReservationType reservationType,
-		@RequestParam(name = "start", required = true) Integer start,
+		@RequestParam("reservationType") ReservationType reservationType,
+		@RequestParam("start") Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
-		HttpSession session){
-		
+		HttpSession session) {
+
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
+
+		return Collections.singletonMap("myReservationResponse", myReservationService
+			.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class ReserveApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
-		
+
 		String result = "FAIL";
 		if (RequestValidator.validateReserveRequest(reserveRequest)) {
 			reserveResponseService.registerReserve(reserveRequest);
@@ -84,7 +85,7 @@ public class ReserveApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public Map<String, Object> cancelReservation(@PathVariable Integer reservationInfoId, HttpSession session) {
-		
+
 		String result = "FAIL";
 		if (myReservationService.cancelMyReservation(reservationInfoId, (String)session.getAttribute("email"))) {
 			result = "OK";
@@ -92,7 +93,7 @@ public class ReserveApiController {
 
 		return Collections.singletonMap("result", result);
 	}
-	
+
 	/**
 	 * Comment 등록
 	 * @param reservationInfoId
@@ -102,7 +103,7 @@ public class ReserveApiController {
 		ReviewWriteRequest reviewWriteRequest) {
 		reviewWriteRequest.setReservationInfoId(reservationInfoId);
 		reviewWriteService.writeReview(reviewWriteRequest);
-		
+
 		return Collections.singletonMap("result", "OK");
 	}
 }

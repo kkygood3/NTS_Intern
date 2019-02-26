@@ -19,7 +19,7 @@ import com.nts.reservation.property.CommonProperties;
  */
 public class RequestValidator {
 	/**
-	 * 예약 등록 정보 검증
+	 * 예약 등록 요청 검증
 	 * @return 티켓 수와 사용자 정보가 올바르다면 TRUE
 	 */
 	public static boolean validateReserveRequest(ReserveRequest reserveRequest) {
@@ -50,6 +50,10 @@ public class RequestValidator {
 			&& ValidationUtils.validateEmail(reserveRequest.getEmail());
 	}
 
+	/**
+	 * 리뷰 등록 요청 검증 
+	 * @return Comment 길이, 별점 수치, 이미지 파일 확장자를 검사 
+	 */
 	public static boolean validateReviewWriteRequest(ReviewWriteRequest reviewWriteRequest) {
 		MultipartFile imageFile = reviewWriteRequest.getImageFile();
 		

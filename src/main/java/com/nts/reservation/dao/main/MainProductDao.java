@@ -29,6 +29,5 @@ public interface MainProductDao {
 	 * main 페이지를 로드할 때 필요한 product 갯수 조회
 	 * @param categoryId - 해당 카테고리에 속하는 product로 한정
 	 */
-	public int selectCount(
-		@Param("categoryId") int categoryId);
+	public int selectCount(int categoryId);
 }

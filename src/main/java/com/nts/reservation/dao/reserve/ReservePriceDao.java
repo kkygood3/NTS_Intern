@@ -18,6 +18,5 @@ public interface ReservePriceDao {
 	 * reserve 페이지를 로드할 때 상품의 가격 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public List<ReservePrice> selectReservePrice(
-		@Param("displayInfoId") int displayInfoId);
+	public List<ReservePrice> selectReservePrice(int displayInfoId);
 }

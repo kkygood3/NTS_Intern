@@ -31,12 +31,6 @@ public class ExceptionAdvice {
 		return errorView;
 	}
 	
-	//나머지 에러 console 출력
-	@ExceptionHandler(Exception.class)
-	public void otherErros(Exception exception) {
-		exception.printStackTrace();
-	}
-	
 	@ExceptionHandler(RuntimeException.class)
 	public String handleRuntimeException(RuntimeException exception, HttpServletRequest request) throws UnsupportedEncodingException {
 		if(exception.getCause() instanceof NumberFormatException) {
@@ -49,5 +43,11 @@ public class ExceptionAdvice {
 			exception.printStackTrace();
 		}
 		return errorView;
+	}
+	
+	//나머지 에러 console 출력
+	@ExceptionHandler(Throwable.class)
+	public void otherErros(Exception exception) {
+		exception.printStackTrace();
 	}
 }

@@ -18,6 +18,5 @@ public interface ReserveDisplayInfoDao {
 	 * reserve 페이지를 로드할 때 DisplayInfo 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public ReserveDisplayInfo selectReviewDisplayInfo(
-		@Param("displayInfoId") int displayInfoId);
+	public ReserveDisplayInfo selectReviewDisplayInfo(int displayInfoId);
 }
