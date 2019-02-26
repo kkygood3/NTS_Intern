@@ -84,7 +84,7 @@ public class CommentServiceLogic implements CommentService {
 	}
 
 	/**
-	 * 저장된 commentImage fileName 조회, 반환 
+	 * 저장된 commentImage fileInfo 조회, 반환 
 	 */
 	@Override
 	public FileInfo getCommentImageSaveFileInfo(int commentImageId) {
