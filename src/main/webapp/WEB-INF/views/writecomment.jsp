@@ -45,7 +45,7 @@
 							<input type="checkbox" name="rating6" value="5" class="rating_rdo" title="5점">
 							<span class="span"></span>
 							<!-- [D] 0점일 때 gray_star 추기 -->
-							<span id="score" class="star_rank gray_star">0</span>
+							<span id="score" class="star_rank">0</span>
 						</div>
 					</div>
 				</div>
@@ -124,5 +124,6 @@
 	<script type="text/javascript" src="/resources/js/template_maker.js"></script>
 	<script type="text/javascript" src="/resources/js/ajax.js"></script>
 	<script type="text/javascript" src="/resources/js/page/writecomment.js"></script>
+	<script type="text/javascript" src="/resources/js/rating.js"></script>
 </body>
 </html>
