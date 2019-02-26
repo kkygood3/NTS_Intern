@@ -8,12 +8,14 @@ package com.nts.reservation.dao.sqls;
 * @author  : 이승수
 */
 public class DetailProductSqls {
-	public static final String SELECT_AVERAGE_SCORE = "SELECT AVG(score) "
+	public static final String SELECT_AVERAGE_SCORE = "SELECT "
+		+ "AVG(score) "
 		+ "FROM "
 		+ "reservation_user_comment AS c "
 		+ "INNER JOIN reservation_info AS ri "
 		+ "ON ri.id = c.reservation_info_id "
-		+ "WHERE ri.display_info_id = :displayInfoId";
+		+ "WHERE "
+		+ "ri.display_info_id = :displayInfoId";
 
 	public static final String SELECT_COMMENTS = "SELECT "
 		+ "c.comment"
@@ -31,8 +33,10 @@ public class DetailProductSqls {
 		+ "reservation_user_comment AS c "
 		+ "INNER JOIN reservation_info AS ri "
 		+ "ON ri.id = c.reservation_info_id "
-		+ "WHERE ri.display_info_id = :displayInfoId ";
-	public static final String SELECT_COMMENT_IMAGES = "SELECT f.content_type"
+		+ "WHERE "
+		+ "ri.display_info_id = :displayInfoId ";
+	public static final String SELECT_COMMENT_IMAGES = "SELECT "
+		+ "f.content_type"
 		+ ", c.create_date"
 		+ ", f.delete_flag"
 		+ ", ci.file_id"
@@ -42,12 +46,14 @@ public class DetailProductSqls {
 		+ ", c.reservation_info_id"
 		+ ", c.id AS reservation_user_comment_id"
 		+ ", f.save_file_name "
-		+ "FROM reservation_user_comment AS c "
+		+ "FROM "
+		+ "reservation_user_comment AS c "
 		+ "INNER JOIN reservation_user_comment_image as ci "
 		+ "ON c.id = ci.reservation_user_comment_id "
 		+ "INNER JOIN file_info AS f "
 		+ "ON ci.file_id = f.id "
-		+ "WHERE reservation_user_comment_id = :commentId";
+		+ "WHERE "
+		+ "reservation_user_comment_id = :commentId";
 
 	public static final String SELECT_DISPLAY_INFO = "SELECT "
 		+ "c.id AS category_id"
@@ -72,7 +78,8 @@ public class DetailProductSqls {
 		+ "ON d.product_id = p.id "
 		+ "INNER JOIN category AS c "
 		+ "ON p.category_id = c.id "
-		+ "WHERE d.id = :displayInfoId ";
+		+ "WHERE "
+		+ "d.id = :displayInfoId ";
 	public static final String SELECT_DISPLAY_INFO_IMAGE = "SELECT "
 		+ "f.content_type"
 		+ ", d.create_date"
@@ -88,7 +95,8 @@ public class DetailProductSqls {
 		+ "ON di.display_info_id = d.id "
 		+ "INNER JOIN file_info AS f "
 		+ "ON di.file_id = f.id "
-		+ "WHERE d.id = :displayInfoId ";
+		+ "WHERE "
+		+ "d.id = :displayInfoId ";
 
 	public static final String SELECT_PRODUCT_IMAGES = "SELECT "
 		+ "f.content_type"
@@ -107,7 +115,8 @@ public class DetailProductSqls {
 		+ "ON pi.file_id = f.id "
 		+ "INNER JOIN display_info AS d "
 		+ "ON pi.product_id = d.product_id "
-		+ "WHERE pi.type != 'th'"
+		+ "WHERE "
+		+ "pi.type != 'th'"
 		+ "AND d.id = :displayInfoId ";
 	public static final String SELECT_PRODUCT_PRICES = "SELECT "
 		+ "pp.create_date"
@@ -121,5 +130,6 @@ public class DetailProductSqls {
 		+ "product_price AS pp "
 		+ "INNER JOIN display_info as d "
 		+ "ON pp.product_id = d.product_id "
-		+ "WHERE d.id = :displayInfoId ";
+		+ "WHERE "
+		+ "d.id = :displayInfoId ";
 }

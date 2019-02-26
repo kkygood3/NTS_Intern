@@ -10,27 +10,35 @@ package com.nts.reservation.dao.sqls;
 public class CommentSqls {
 	public static final String INSERT_COMMENT = "INSERT INTO "
 		+ "reservation_user_comment"
-		+ "(product_id"
+		+ "("
+		+ "product_id"
 		+ ", reservation_info_id"
 		+ ", score"
 		+ ", comment"
 		+ ", create_date"
-		+ ", modify_date) "
+		+ ", modify_date"
+		+ ") "
 		+ "VALUES"
-		+ "(:productId"
+		+ "("
+		+ ":productId"
 		+ ", :reservationInfoId"
 		+ ", :score"
 		+ ", :comment"
 		+ ", NOW()"
-		+ ", NOW())";
+		+ ", NOW()"
+		+ ")";
 
 	public static final String INSERT_COMMENT_IMAGE = "INSERT INTO "
 		+ "reservation_user_comment_image"
-		+ "(reservation_info_id"
+		+ "("
+		+ "reservation_info_id"
 		+ ", reservation_user_comment_id"
-		+ ", file_id) "
+		+ ", file_id"
+		+ ") "
 		+ "VALUES"
-		+ "(:reservationInfoId"
+		+ "("
+		+ ":reservationInfoId"
 		+ ", :reservationUserCommentId"
-		+ ", :fileId)";
+		+ ", :fileId"
+		+ ")";
 }
