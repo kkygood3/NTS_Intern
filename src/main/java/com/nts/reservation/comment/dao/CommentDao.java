@@ -19,7 +19,8 @@ public interface CommentDao {
 
 	int insertComment(CommentParam commentParam);
 
-	int insertFileInfo(CommentParam commentParam);
+	int insertFileInfo(CommentParam commentParam, String saveFileName);
 
 	int insertCommentImage(int reservationInfoId, int commentId, int fileId);
+
 }
