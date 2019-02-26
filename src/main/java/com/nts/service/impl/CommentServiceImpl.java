@@ -111,7 +111,7 @@ public class CommentServiceImpl implements CommentService {
 			throws FileNotFoundException, IOException {
 		
 		int reservationUserCommentId = commentDao.insertComment(comment);
-		System.out.println(reservationImage);
+		
 		if (reservationImage != null && !reservationImage.isEmpty()) {
 			String fileName = reservationImage.getOriginalFilename();
 			File file = new File(imagePath + IMAGE_URL_SUFFIX, fileName);

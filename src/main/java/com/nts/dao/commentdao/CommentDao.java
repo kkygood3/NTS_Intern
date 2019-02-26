@@ -10,24 +10,28 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.dto.commentdto.Comment;
 import com.nts.dto.commentdto.CommentImage;
 
 import static com.nts.dao.commentdao.CommentDaoSqls.*;
+import static com.nts.dao.reservationdao.ReservationDaoSqls.INSERT_RESERVATION;
 
 /**
-*
-* @description : CommentDao
-* @package : com.nts.dao.commentdao
-* @filename : CommentDao.java
-* @author : 최석현
-* @method : List<Comment> selectCommentsByDisplayInfoId(int displayInfoId)
-* @method : List<CommentImage> selectCommentImagesByDisplayInfoId(int displayInfoId)
-* @method : double selectAverageScoreByDisplayInfoId(int displayInfoId)
-* 
-*/
+ *
+ * @description : CommentDao
+ * @package : com.nts.dao.commentdao
+ * @filename : CommentDao.java
+ * @author : 최석현
+ * @method : List<Comment> selectCommentsByDisplayInfoId(int displayInfoId)
+ * @method : List<CommentImage> selectCommentImagesByDisplayInfoId(int
+ *         displayInfoId)
+ * @method : double selectAverageScoreByDisplayInfoId(int displayInfoId)
+ * 
+ */
 @Repository
 public class CommentDao {
 
@@ -41,43 +45,48 @@ public class CommentDao {
 		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.query(SELECT_COMMENTS_BY_DISPLAY_INFO_ID, param, commentRowMapper);
 	}
-	
+
 	public CommentImage selectCommentImageByReservationUserCommentId(int reservationUserCommentId) {
 		Map<String, ?> param = Collections.singletonMap("reservationUserCommentId", reservationUserCommentId);
-		return jdbc.queryForObject(SELECT_COMMENT_IMAGES_BY_DISPLAY_INFO_ID, param, commentImageRowMapper);
+		return jdbc.queryForObject(SELECT_COMMENT_IMAGES_BY_RESERVATION_USER_INFO_ID, param, commentImageRowMapper);
 	}
 
 	public double selectAverageScoreByDisplayInfoId(int displayInfoId) {
 		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbc.queryForObject(SELECT_AVERAGE_SCORE_BY_DISPLAY_INFO_ID, param, Double.class);
 	}
-	
+
 	public int insertComment(Comment comment) {
-		SqlParameterSource source = new MapSqlParameterSource()
-				.addValue("productId", comment.getProductId())
-				.addValue("reservationInfoId", comment.getReservationInfoId())
-				.addValue("score", comment.getScore())
+		
+		KeyHolder generatedKey = new GeneratedKeyHolder();
+		
+		SqlParameterSource source = new MapSqlParameterSource().addValue("productId", comment.getProductId())
+				.addValue("reservationInfoId", comment.getReservationInfoId()).addValue("score", comment.getScore())
 				.addValue("comment", comment.getComment());
 		
-		return jdbc.update(INSERT_COMMENT, source);
+		jdbc.update(INSERT_COMMENT, source, generatedKey);
+		
+		return generatedKey.getKey().intValue();
 	}
-	
+
 	public int insertFileInfo(CommentImage commentImage) {
-		SqlParameterSource source = new MapSqlParameterSource()
-				.addValue("fileName", commentImage.getFileName())
+		
+		KeyHolder generatedKey = new GeneratedKeyHolder();
+		
+		SqlParameterSource source = new MapSqlParameterSource().addValue("fileName", commentImage.getFileName())
 				.addValue("saveFileName", commentImage.getProductImageUrl())
 				.addValue("contentType", commentImage.getContentType())
 				.addValue("deleteFlag", commentImage.isDeleteFlag());
+
+		jdbc.update(INSERT_FILE_INFO, source, generatedKey);
 		
-		return jdbc.update(INSERT_FILE_INFO, source);
+		return generatedKey.getKey().intValue();
 	}
-	
+
 	public int insertCommentImage(int reservationInfoId, int reservationUserCommentId, int fileId) {
-		SqlParameterSource source = new MapSqlParameterSource()
-				.addValue("reservationInfoId", reservationInfoId)
-				.addValue("reservationUserCommentId", reservationUserCommentId)
-				.addValue("fileId", fileId);
-		
+		SqlParameterSource source = new MapSqlParameterSource().addValue("reservationInfoId", reservationInfoId)
+				.addValue("reservationUserCommentId", reservationUserCommentId).addValue("fileId", fileId);
+
 		return jdbc.update(INSERT_COMMENT_IMAGE, source);
 	}
 }
