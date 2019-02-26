@@ -65,7 +65,7 @@ public class ProductApiController {
 			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
-		List<ProductDisplayItem> thumbnailList = existProduct(productCount)	?
+		List<ProductDisplayItem> thumbnailList = existProduct(productCount, startRow) ?
 				productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, startRow, limit) : Collections.EMPTY_LIST;
 
 		Map<String, Object> map = new HashMap<>();
@@ -74,8 +74,8 @@ public class ProductApiController {
 		return map;
 	}
 
-	private boolean existProduct(int productCount) {
-		return productCount > 0 ? true : false;
+	private boolean existProduct(int productCount, int startRow) {
+		return productCount > startRow ? true : false;
 	}
 
 	/**
