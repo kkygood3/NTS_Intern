@@ -20,7 +20,6 @@ function requestPostAjax(callback, url, param) {
         this.callback(evt.target.response);
     });
     ajaxReq.open('POST', url);
-    ajaxReq.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
     ajaxReq.responseType = 'json';
     ajaxReq.send(param);
 }
@@ -32,6 +31,7 @@ function getUrlParameter(name) {
         let paramSplited = params[i].split('=');
         let paramName = paramSplited[0];
         let paramValue = paramSplited[1];
+        paramValue = paramValue.split('#')[0];
 
         if (paramName === name) {
             return paramValue;
@@ -47,9 +47,10 @@ let targetObj = {
     imageInput: document.querySelector("#reviewImageFileOpenInput"),
     imageOutput: document.querySelector(".item_thumb"),
     imageBox: document.querySelector('.item'),
+    imageBorder: document.querySelector('.img_border'),
     imageCancelBtn: document.querySelector('.spr_book'),
     submitBtn: document.querySelector('.bk_btn'),
-    score : document.querySelector('.star_rank');
+    score: document.querySelector('.star_rank')
 }
 
 function RatingObj(score) {
@@ -90,7 +91,7 @@ function initRatingBox() {
             let index = target.value - 1;
             ratingList[index].fillStar();
         }
-
+        initSubmitDisplay();
     });
 }
 
@@ -107,6 +108,7 @@ function initCommentFocus() {
             targetObj.text.value = targetObj.text.value.substr(0, MAX_COMMENT_LENGTH);
             targetObj.textLength.firstElementChild.innerText = MAX_COMMENT_LENGTH;
         }
+        initSubmitDisplay();
     });
 
     targetObj.text.addEventListener('blur', () => {
@@ -133,11 +135,15 @@ function initImageBox() {
         //이렇게 넣으면 이미지 정보가 화면에 노출됩니다.
         targetObj.imageBox.style.display = "block";
         targetObj.imageOutput.src = window.URL.createObjectURL(image);
+        setTimeout(() => {
+            targetObj.imageBox.style.width = targetObj.imageOutput.width + 'px';
+        }, 50);
     })
 
     targetObj.imageCancelBtn.addEventListener('click', () => {
         targetObj.imageInput.value = '';
         targetObj.imageBox.style.display = "none";
+        initSubmitDisplay();
     })
 }
 
@@ -151,11 +157,38 @@ function postResponseHandler(response) {
     }
 }
 
-function initSubmitBtn() {
-    if(score.innerText != 0 && targetObj.text.value.length >= 5) {
+function checkWriteForm() {
+    if (targetObj.score.innerText != 0 && targetObj.text.value.length >= 5) {
+        return true;
+    }
+    return false;
+}
+
+function initSubmitDisplay() {
+    if (checkWriteForm()) {
         targetObj.submitBtn.style.display = 'block';
+    } else {
+        targetObj.submitBtn.style.display = 'none'
     }
 }
+
+function initSubmitBtn() {
+    targetObj.submitBtn.addEventListener('click', function (evt) {
+
+        let writeForm = new FormData();
+        writeForm.append('comment', targetObj.text.value.substr(0, MAX_COMMENT_LENGTH));
+        writeForm.append('score', parseInt(targetObj.score.innerText));
+        writeForm.append('productId', getUrlParameter('productId'));
+        writeForm.append('reservationInfoId', getUrlParameter('reservationInfoId'));
+
+        if (targetObj.imageInput.files.length > 0) {
+            writeForm.append('imageFile', targetObj.imageInput.files[0]);
+        }
+
+        requestPostAjax(postResponseHandler, '/api/commentWrite', writeForm);
+    });
+}
+
 
 // DOMContentLoaded 초기 설정
 document.addEventListener('DOMContentLoaded', function () {
@@ -167,5 +200,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     initImageBox();
 
-    targetObj.submitBtn.style.display = 'none';
+    initSubmitBtn();
 });

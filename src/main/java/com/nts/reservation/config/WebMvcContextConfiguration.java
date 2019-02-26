@@ -59,16 +59,18 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new AuthenticationInterceptor())
-				.addPathPatterns("/api/reservations")
-				.addPathPatterns("/list")
-				.addPathPatterns("/api/update");
+			.addPathPatterns("/api/reservations")
+			.addPathPatterns("/list")
+			.addPathPatterns("/api/update")
+			.addPathPatterns("/api/commentWrite")
+			.addPathPatterns("/writePage");
 	}
 
 	@Bean
-    public MultipartResolver multipartResolver() {
-        org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
-        return multipartResolver;
-    }
+	public MultipartResolver multipartResolver() {
+		org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+		return multipartResolver;
+	}
 
 }

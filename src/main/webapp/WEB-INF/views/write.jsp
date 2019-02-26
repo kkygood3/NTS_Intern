@@ -93,7 +93,7 @@
 								<li class="item" style="display: none;"><a href="#"
 									class="anchor"> <span class="spr_book ico_del">삭제</span>
 								</a> <img
-									src=""
+									src=''
 									width="130" alt="" class="item_thumb"> <span
 									class="img_border"></span></li>
 							</ul>
@@ -106,7 +106,7 @@
 
 				<!-- 리뷰 등록 -->
 				<div class="box_bk_btn">
-					<button class="bk_btn">
+					<button class="bk_btn" style='display:none'>
 						<span class="btn_txt">리뷰 등록</span>
 					</button>
 				</div>

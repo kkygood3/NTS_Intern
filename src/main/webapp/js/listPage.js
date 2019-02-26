@@ -67,7 +67,7 @@ function initDisplayInfo(response) {
     let reservationData = response["reservations"];
     let titles = document.querySelectorAll('.figure');
     let currentDate = (new Date()).toMysqlFormat();
-
+    
     // 0 : 전체, 1 : 이용예정, 2 : 이용완료, 3 : 취소 및 환불
     let size = response.size;
     let todo = 0;
