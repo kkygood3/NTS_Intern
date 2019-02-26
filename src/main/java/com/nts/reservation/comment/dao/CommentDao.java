@@ -132,11 +132,14 @@ public class CommentDao {
 			@Override
 			public List<Comment> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				Map<Integer, Comment> commentMap = new HashMap<>();
+				List<Comment> commentList = new ArrayList<>();
 				while (rs.next()) {
 					int commentId = rs.getInt("comment_id");
 
+					Comment comment = commentMapper.mapRow(rs, rs.getRow());
 					if (!commentMap.containsKey(commentId)) {
-						commentMap.put(commentId, commentMapper.mapRow(rs, rs.getRow()));
+						commentMap.put(commentId, comment);
+						commentList.add(comment);
 					}
 
 					String commentImageId = rs.getString("comment_image_id");
@@ -145,7 +148,7 @@ public class CommentDao {
 					}
 
 				}
-				return new ArrayList<>(commentMap.values());
+				return commentList;
 			}
 		};
 	}
