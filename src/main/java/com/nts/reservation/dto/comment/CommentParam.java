@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 public class CommentParam implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Integer score;
 	private String comment;
 	private Long productId;

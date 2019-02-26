@@ -43,12 +43,12 @@ public class FileIO {
 			throw new RuntimeException("file save error");
 		}
 	}
-	
+
 	public void deleteFile(File targetDir) {
 		try {
 			targetDir.delete();
 		} catch (Exception ex) {
-			throw new RuntimeException("folder delete Error");
+			throw new RuntimeException("delete Error");
 		}
 	}
 }

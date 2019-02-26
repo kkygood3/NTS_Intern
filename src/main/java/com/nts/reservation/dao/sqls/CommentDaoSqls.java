@@ -22,11 +22,11 @@ public class CommentDaoSqls {
 			+ ", fi.create_date as createDate"
 			+ ", fi.modify_date as modifyDate"
 		+ " FROM "
-		+ "		file_info fi "
+			+ "	file_info fi "
 		+ " INNER JOIN "
-		+ "		reservation_user_comment_image ruci ON ruci.file_id = fi.id"
+			+ "	reservation_user_comment_image ruci ON ruci.file_id = fi.id"
 		+ " AND "
-		+ "		ruci.id = :commentImageId";
+			+ "	ruci.id = :commentImageId";
 
 	public static final String SELECT_DETAIL_COMMENTS = "SELECT "
 			+ "	ruc.id AS commentId "

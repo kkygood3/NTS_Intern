@@ -14,9 +14,7 @@ import java.sql.Date;
  */
 
 public class CommentImage implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private Long imageId;
 	private Long reservationInfoId;

@@ -1,16 +1,13 @@
 package com.nts.reservation.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,9 +48,6 @@ public class CommentApiController {
 		}
 
 		String saveFileName = commentService.basePath + image.getSaveFileName();
-		System.out.println("wdf "+saveFileName);
-//		BufferedReader br = new BufferedReader(new InputStreamReader(
-//				new FileInputStream(new File(saveFileName)), "UTF-8"));
 		InputStream in = new FileInputStream(new File(saveFileName));
 		return IOUtils.toByteArray(in);
 	}
