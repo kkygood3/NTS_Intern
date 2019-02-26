@@ -28,8 +28,6 @@ import com.nts.reservation.util.FileUtil;
 @PropertySource("classpath:application.properties")
 public class FileIoServiceImpl implements FileIoService {
 
-	private final int BUFFER_SIZE = 1024;
-
 	@Value("${fileDir}")
 	private String fileDir;
 
@@ -46,15 +44,7 @@ public class FileIoServiceImpl implements FileIoService {
 		File newFile = new File(fileDir + saveFileName);
 		newFile.getParentFile().mkdirs();
 		newFile.createNewFile();
-
-		FileOutputStream fileOutputStream = new FileOutputStream(newFile);
-		InputStream inputStream = file.getInputStream();
-
-		int readCount = 0;
-		byte[] readBuffer = new byte[BUFFER_SIZE];
-		while ((readCount = inputStream.read(readBuffer)) != -1) {
-			fileOutputStream.write(readBuffer, 0, readCount);
-		}
+		file.transferTo(newFile);
 
 		return new FileDto(file.getContentType(), fileName, saveFileName.substring(1, saveFileName.length()));
 	}
