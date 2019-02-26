@@ -33,7 +33,7 @@ function getUrlParameter(name) {
 
 function loadAllComments(responseData){
 	let commentCount = responseData.commentCount;
-	if (commentCount === 0) {
+	if (commentCount == 0) {
 		// 더보기 버튼 가리기
 		document.querySelector('div.more').style.display = 'none';
 		return;
@@ -41,7 +41,7 @@ function loadAllComments(responseData){
 	
 	let reviewResponse = responseData.detailCommentList;
 	let displayInfomation = reviewResponse[0];
-	
+
 	let averageScore = responseData.averageScore.toFixed(1);
 
 	// 코멘트 템플릿
@@ -70,6 +70,11 @@ function loadAllComments(responseData){
 	}
 	
 	commentStart += PAGING_LIMIT;
+	
+	if (commentCount < PAGING_LIMIT) {
+		// 더보기 버튼 가리기
+		document.querySelector('div.more').style.display = 'none';
+	}
 }
 
 function initMoreCommentBtn() {
