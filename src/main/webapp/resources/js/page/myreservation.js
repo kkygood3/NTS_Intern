@@ -74,7 +74,7 @@ AllReservationHistoryList.prototype = {
 	},
 	
 	isHistoryEmpty : function(){
-		var historyEmpty = document.querySelector("#history_empty"); 
+		var historyEmpty = document.querySelector("#history_empty");
 		if(this.count > 0){
 			historyEmpty.classList.add("hide");
 		}

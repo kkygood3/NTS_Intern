@@ -185,7 +185,7 @@ function addEventClickSubmit(){
 		}
 		var ajax = new Ajax();
 		ajax.postWithJson("/api/reservation", JSON.stringify(requestData), () =>{
-			alert("예약 완료.")
+			alert("예약 완료.");
 			location.href="/main";
 		});
 	});
@@ -197,7 +197,7 @@ function ProductPrice(productPriceItem){
 	this.totalPrice = 0;
 	this.price = productPriceItem.price;
 	this.element = template.parseProductPriceToElement(productPriceItem);
-	this.countElement = this.element.querySelector("[data-name=count]")
+	this.countElement = this.element.querySelector("[data-name=count]");
 	this.btnPlusElement = this.element.querySelector("[data-name=plus]");
 	this.btnMinusElement = this.element.querySelector("[data-name=minus]");
 	this.totalPriceElement = this.element.querySelector("[data-name=total_price]");

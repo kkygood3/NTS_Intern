@@ -40,7 +40,7 @@ function Review(){
 		
 		var ajax = new Ajax();
 		ajax.post("/api/comment", formData, () =>{
-			alert("작성 완료.")
+			alert("작성 완료.");
 			location.href="/my-reservation";
 		});
 	});
