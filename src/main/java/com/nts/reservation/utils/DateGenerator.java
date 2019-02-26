@@ -1,4 +1,4 @@
-package com.nts.reservation.common;
+package com.nts.reservation.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

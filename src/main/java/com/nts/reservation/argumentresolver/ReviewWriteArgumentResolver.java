@@ -11,8 +11,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.nts.reservation.common.RequestValidator;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
+import com.nts.reservation.utils.RequestValidator;
 
 /**
  * Multipart-form data request인 ReviewWriteRequest 요청에 사용

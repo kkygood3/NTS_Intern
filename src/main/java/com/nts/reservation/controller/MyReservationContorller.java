@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.common.ValidationUtils;
+import com.nts.reservation.utils.ValidationUtils;
 
 @Controller
 public class MyReservationContorller {

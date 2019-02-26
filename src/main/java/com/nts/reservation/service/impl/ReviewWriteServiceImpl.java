@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nts.reservation.common.FileUtils;
 import com.nts.reservation.dao.reviewwrite.ReviewWrtieDao;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
 import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.ReviewWriteService;
+import com.nts.reservation.utils.FileUtils;
 
 @Service
 public class ReviewWriteServiceImpl implements ReviewWriteService {

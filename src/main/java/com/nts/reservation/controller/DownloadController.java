@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nts.reservation.common.FileUtils;
 import com.nts.reservation.dto.download.DownloadInfo;
 import com.nts.reservation.service.DownloadService;
+import com.nts.reservation.utils.FileUtils;
 
 /**
  * 파일 다운로드 요청 Controller

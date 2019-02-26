@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.common.RequestValidator;
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
@@ -29,6 +28,7 @@ import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
 import com.nts.reservation.service.ReviewWriteService;
+import com.nts.reservation.utils.RequestValidator;
 
 @RestController
 @RequestMapping("/api/reservations")

@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.common;
+package com.nts.reservation.utils;
 
 import java.util.regex.Pattern;
 
@@ -15,28 +15,23 @@ import com.nts.reservation.property.Properties;
  */
 public class ValidationUtils {
 	public static boolean validateEmail(String email) {
-		return (email != null
-			&& Pattern.matches(Properties.REG_EMAIL, email.trim()));
+		return (email != null && Pattern.matches(Properties.REG_EMAIL, email.trim()));
 	}
 
 	public static boolean validateTelephone(String telephone) {
-		return (telephone != null
-			&& Pattern.matches(Properties.REG_TELEPHONE, telephone.trim()));
+		return (telephone != null && Pattern.matches(Properties.REG_TELEPHONE, telephone.trim()));
 	}
 
 	public static boolean validateName(String name) {
-		return (name != null
-			&& Pattern.matches(Properties.REG_NAME, name));
+		return (name != null && Pattern.matches(Properties.REG_NAME, name));
 	}
 
 	public static boolean validateComment(String comment) {
-		return (comment != null
-			&& Pattern.matches(Properties.REG_COMMENT, comment));
+		return (comment != null && Pattern.matches(Properties.REG_COMMENT, comment));
 	}
 
 	public static boolean validateScore(int score) {
-		return (score >= Properties.MIN_REVIEW_SCORE
-			&& score <= Properties.MAX_REVIEW_SCORE);
+		return (score >= Properties.MIN_REVIEW_SCORE && score <= Properties.MAX_REVIEW_SCORE);
 	}
 
 	public static boolean validateImage(MultipartFile imageFile) {

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nts.reservation.common.DateGenerator;
 import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
@@ -19,6 +18,7 @@ import com.nts.reservation.dto.reserve.ReservePrice;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
+import com.nts.reservation.utils.DateGenerator;
 
 @Service
 public class ReserveServiceImpl implements ReserveService {
