@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.common.exception;
 
-public class NotFoundDataException extends RuntimeException {
+public class NotFoundDataException extends ReservationException {
 
 	private static final long serialVersionUID = 1L;
 
