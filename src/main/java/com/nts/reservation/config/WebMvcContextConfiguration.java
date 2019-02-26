@@ -16,6 +16,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -35,14 +36,19 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	 * @value 31556926
 	 */
 	private static final int DEFAULT_PERIOD = 31556926;
-	
+
 	@Bean
 	public DispatcherServlet dispatcherServlet() {
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();
 		dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
 		return dispatcherServlet;
 	}
-	
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("main");
+	}
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(DEFAULT_PERIOD);
@@ -59,19 +65,19 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(new ReviewWriteRequestArgumentResolver());
 	}
-	
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new SessionInterceptor());
 		registry.addInterceptor(new LogInterceptor());
 	}
-	
-    @Bean
+
+	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setMaxUploadSize(10485760);
