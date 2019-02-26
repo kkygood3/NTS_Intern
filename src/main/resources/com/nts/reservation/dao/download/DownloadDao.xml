@@ -5,7 +5,7 @@
 <mapper namespace="com.nts.reservation.dao.download.DownloadDao">
 	<select id="selectDownloadInfo" resultType="DownloadInfo">
 		SELECT
-			f.file_name, f.save_file_name, f.content_type
+			f.file_name, f.content_type
 		FROM
 			reservation_user_comment_image AS rci
 		INNER JOIN

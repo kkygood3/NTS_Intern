@@ -1,8 +1,14 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
 package com.nts.reservation.dto.download;
 
+/**
+ * /download요청시 
+ */
 public class DownloadInfo {
 	private String fileName;
-	private String saveFileName;
 	private String contentType;
 
 	public String getFileName() {
@@ -12,15 +18,7 @@ public class DownloadInfo {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-
-	public String getSaveFileName() {
-		return saveFileName;
-	}
-
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
-	}
-
+	
 	public String getContentType() {
 		return contentType;
 	}
