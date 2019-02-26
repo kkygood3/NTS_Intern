@@ -1,0 +1,19 @@
+/**
+ * Copyright 2019 Naver Corp. All rights Reserved.
+ * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ */
+package com.nts.reservation.displayInfo.dao;
+
+import com.nts.reservation.displayInfo.dto.DisplayInfo;
+import com.nts.reservation.displayInfo.dto.DisplayInfoImage;
+
+/**
+ * @Author Duik Park, duik.park@nts-corp.com
+ */
+public interface DisplayInfoDao {
+	DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId);
+
+	DisplayInfo selectDisplayInfoByReservationInfoId(int reservationInfoId);
+
+	DisplayInfoImage selectDisplayInfoImage(int displayInfoId);
+}
