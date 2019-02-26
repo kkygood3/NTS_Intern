@@ -100,11 +100,7 @@ public class ViewReactController {
 		try {
 			html = requestHtmlService.requestToReactHtml("/main", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
-			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException)exception;
-			} else {
-				throw (ConnectException)exception;
-			}
+			throw exception;
 		}
 		return html;
 	}
@@ -136,11 +132,7 @@ public class ViewReactController {
 		try {
 			html = requestHtmlService.requestToReactHtml("/detail", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
-			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException)exception;
-			} else {
-				throw (ConnectException)exception;
-			}
+			throw exception;
 		}
 		return html;
 	}
@@ -173,11 +165,7 @@ public class ViewReactController {
 		try {
 			html = requestHtmlService.requestToReactHtml("/myReservation", requestDto);
 		} catch (HttpClientErrorException | ConnectException exception) {
-			if (exception instanceof HttpClientErrorException) {
-				throw (HttpClientErrorException)exception;
-			} else {
-				throw (ConnectException)exception;
-			}
+			throw exception;
 		}
 		return html;
 	}
