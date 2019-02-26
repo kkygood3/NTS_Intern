@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.dao.reservation.ReservationCommentRepository;
 import com.nts.dto.file.FileInfo;
 import com.nts.dto.reservation.ReservationCommentParam;
+import com.nts.service.file.FileService;
 import com.nts.service.reservation.ReservationCommentService;
 import com.nts.util.FileSizeUtil;
 import com.nts.util.UuidUtil;
@@ -61,7 +62,7 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 
 	private void addFile(MultipartFile imageFile, String fileName) throws ServerException {
 		try (
-			FileOutputStream outputStream = new FileOutputStream(FILE_PATH + fileName);
+			FileOutputStream outputStream = new FileOutputStream(FileService.FILE_PATH + IMAGE_FILE_FOLDER_PATH + fileName);
 			InputStream inputStream = imageFile.getInputStream()) {
 
 			int readCount = 0;
