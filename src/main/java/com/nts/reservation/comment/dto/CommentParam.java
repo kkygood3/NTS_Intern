@@ -1,6 +1,7 @@
 package com.nts.reservation.comment.dto;
 
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,7 @@ public class CommentParam {
 	private int productId;
 	@Positive
 	private double score;
-	// TODO annotation 추가 
+	@Size(min = 5, max = 400)
 	private String comment;
 	private String fileName;
 	private String contentType;
