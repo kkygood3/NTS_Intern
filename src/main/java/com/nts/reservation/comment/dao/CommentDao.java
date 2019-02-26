@@ -9,10 +9,13 @@ import java.util.List;
 
 import com.nts.reservation.comment.dto.Comment;
 import com.nts.reservation.comment.dto.CommentImage;
+import com.nts.reservation.comment.dto.CommentImageDownload;
 
 public interface CommentDao {
 	List<CommentImage> selectCommentImages(int commentId);
 
 	List<Comment> selectCommentByLimit(int displayInfoId, int limit);
 	List<Comment> selectComment(int displayInfoId);
+
+	CommentImageDownload selectCommentImageInfo(int reservationInfoImageId);
 }

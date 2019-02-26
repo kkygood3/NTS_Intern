@@ -5,8 +5,12 @@
 
 package com.nts.reservation.commentwrite.dao;
 
-import com.nts.reservation.commentwrite.dto.ReviewWriteRequest;
+import com.nts.reservation.commentwrite.dto.CommentWriteRequest;
 
 public interface CommentWriteDao {
-	int insertComment(ReviewWriteRequest reviewWriteRequest);
+	int insertComment(CommentWriteRequest commentWriteRequest);
+
+	int insertFileInfo(CommentWriteRequest commentWriteRequest);
+
+	int insertCommentImage(CommentWriteRequest commentWriteRequest);
 }

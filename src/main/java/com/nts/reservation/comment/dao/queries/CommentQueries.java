@@ -30,7 +30,7 @@ public class CommentQueries {
 		"	reservation_user_comment_image.reservation_user_comment_id = :commentId;";
 
 	public static final String SELECT_COMMENT =
-		"SELECT  " +
+		"SELECT " +
 		"	reservation_user_comment.comment AS comment, " +
 		"	reservation_user_comment.id AS comment_id, " +
 		"	reservation_user_comment.create_date AS create_date, " +
@@ -40,15 +40,18 @@ public class CommentQueries {
 		"			'%Y.%m.%d') AS reservation_date, " +
 		"	reservation_info.reservation_email AS reservation_email, " +
 		"	reservation_info.id AS reservation_info_id, " +
+		"	image.id AS reservation_user_comment_image_id, " +
 		"	reservation_info.reservation_name AS reservation_name, " +
 		"	reservation_info.reservation_tel AS reservation_telephone, " +
-		"	reservation_user_comment.score AS score " +
+		"	reservation_user_comment.score AS score  " +
 		"FROM " +
-		"	reservation_user_comment " +
-		"		INNER JOIN " +
+		"	reservation_user_comment  " +
+		"		INNER JOIN  " +
 		"	reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id " +
+		"		LEFT JOIN  " +
+		"	reservation_user_comment_image AS image ON reservation_info.id = image.reservation_info_id " +
 		"WHERE " +
-		"	reservation_info.display_info_id = :displayInfoId " +
+		"	reservation_info.display_info_id = :displayInfoId  " +
 		"ORDER BY comment_id DESC;";
 
 	public static final String SELECT_COMMENT_BY_LIMIT =
@@ -62,6 +65,7 @@ public class CommentQueries {
 		"			'%Y.%m.%d') AS reservation_date, " +
 		"	reservation_info.reservation_email AS reservation_email, " +
 		"	reservation_info.id AS reservation_info_id, " +
+		"   image.id AS reservation_user_comment_image_id, " +
 		"	reservation_info.reservation_name AS reservation_name, " +
 		"	reservation_info.reservation_tel AS reservation_telephone, " +
 		"	reservation_user_comment.score AS score " +
@@ -69,8 +73,22 @@ public class CommentQueries {
 		"	reservation_user_comment " +
 		"		INNER JOIN " +
 		"	reservation_info ON reservation_info.id = reservation_user_comment.reservation_info_id " +
+		"		LEFT JOIN  " +
+		"	reservation_user_comment_image AS image ON reservation_info.id = image.reservation_info_id " +
 		"WHERE " +
 		"	reservation_info.display_info_id = :displayInfoId " +
 		"ORDER BY comment_id DESC " +
 		"LIMIT :limit;";
+
+	public static final String SELECT_COMMENT_IMAGE_INFO =
+		"SELECT " +
+		"	f.file_name AS file_name, " +
+		"	f.content_type AS content_type " +
+		"FROM " +
+		"	reservation_user_comment_image AS r " +
+		"		INNER JOIN " +
+		"	file_info AS f ON f.id = r.file_id " +
+		"WHERE " +
+		"	r.id = :reservationInfoImageId;";
+
 }

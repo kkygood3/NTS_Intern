@@ -48,11 +48,6 @@ function loadCommentInfoCallback(commentsData) {
     document.querySelector('span.join_count>em.green').innerText = commentCount+'건';
     
     commentsData.forEach((comment) => {
-        // commentIamge가 있을 경우 saveFileName 추가
-        if(comment.commentImages.length != 0) {
-            comment.saveFileName = comment['commentImages'][0].saveFileName;
-        }
-        
         comment.productDescription = productDescription;
 
         let commentTemplate = document.querySelector('#commentList').innerText;

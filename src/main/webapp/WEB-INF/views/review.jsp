@@ -81,10 +81,10 @@
 	<script type="rv-template" id="commentList">
         	<li class="list_item">
                 <div>
-					{{#if commentImages}}
+					{{#if reservationUserCommentImageId}}
                     <div class="review_area">
                         <div class="thumb_area">
-                        	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src={{saveFileName}} alt="리뷰이미지"> </a> <span class="img_count">1</span>
+                        	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src=/api/comments/download/{{reservationUserCommentImageId}} alt="리뷰이미지"> </a> <span class="img_count">1</span>
 						</div>
 					{{/if}}
 					<div class="review_area no_img">

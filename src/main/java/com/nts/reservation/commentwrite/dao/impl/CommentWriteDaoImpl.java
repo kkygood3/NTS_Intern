@@ -11,10 +11,12 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.commentwrite.dao.CommentWriteDao;
-import com.nts.reservation.commentwrite.dto.ReviewWriteRequest;
+import com.nts.reservation.commentwrite.dto.CommentWriteRequest;
 
 @Repository
 public class CommentWriteDaoImpl implements CommentWriteDao {
@@ -25,13 +27,36 @@ public class CommentWriteDaoImpl implements CommentWriteDao {
 	}
 
 	@Override
-	public int insertComment(ReviewWriteRequest reviewWriteRequest) {
+	public int insertComment(CommentWriteRequest commentWriteRequest) {
 		MapSqlParameterSource params = new MapSqlParameterSource();
-		params.addValue("productId", reviewWriteRequest.getProductId());
-		params.addValue("reservationInfoId", reviewWriteRequest.getReservationInfoId());
-		params.addValue("comment", reviewWriteRequest.getComment());
-		params.addValue("score", reviewWriteRequest.getScore());
-		return jdbc.update(INSERT_COMMENT, params);
+		params.addValue("productId", commentWriteRequest.getProductId());
+		params.addValue("reservationInfoId", commentWriteRequest.getReservationInfoId());
+		params.addValue("comment", commentWriteRequest.getComment());
+		params.addValue("score", commentWriteRequest.getScore());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(INSERT_COMMENT, params, keyHolder, new String[] {"ID"});
+		return keyHolder.getKey().intValue();
 	}
+
+	@Override
+	public int insertFileInfo(CommentWriteRequest commentWriteRequest) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("fileName", commentWriteRequest.getFileName());
+		params.addValue("saveFileName", commentWriteRequest.getSaveFileName());
+		params.addValue("contentType", commentWriteRequest.getContentType());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbc.update(INSERT_FILE_INFO, params, keyHolder, new String[] {"ID"});
+		return keyHolder.getKey().intValue();
+	}
+
+	@Override
+	public int insertCommentImage(CommentWriteRequest commentWriteRequest) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("reservationInfoId", commentWriteRequest.getReservationInfoId());
+		params.addValue("reservationUserCommentId", commentWriteRequest.getReservationUserCommentId());
+		params.addValue("fileId", commentWriteRequest.getFileInfoId());
+		return jdbc.update(INSERT_COMMENT_IMAGE, params);
+	}
+
 
 }

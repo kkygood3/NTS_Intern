@@ -22,6 +22,7 @@ public class Comment {
 	private String reservationDate;
 	private String reservationEmail;
 	private Integer reservationInfoId;
+	private Integer reservationUserCommentImageId;
 	private String reservationName;
 	private String reservationTelephone;
 	private double score;

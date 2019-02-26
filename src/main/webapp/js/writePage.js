@@ -50,7 +50,8 @@ let targetObj = {
     imageBorder: document.querySelector('.img_border'),
     imageCancelBtn: document.querySelector('.spr_book'),
     submitBtn: document.querySelector('.bk_btn'),
-    score: document.querySelector('.star_rank')
+    score: document.querySelector('.star_rank'),
+    title: document.querySelector('.title')
 }
 
 function RatingObj(score) {
@@ -67,15 +68,15 @@ RatingObj.prototype.fillStar = function () {
         }
     }
 
-    document.querySelector('.star_rank').classList.remove('gray_star');
-    document.querySelector('.star_rank').innerText = this.score + 1;
+    targetObj.score.classList.remove('gray_star');
+    targetObj.score.innerText = this.score + 1;
 }
 
 function initDisplay(productInfo) {
     let displayInfo = productInfo['displayInfo'];
     let title = displayInfo.productDescription;
 
-    document.querySelector('.title').innerText = title;
+    targetObj.title.innerText = title;
 }
 
 function initRatingBox() {

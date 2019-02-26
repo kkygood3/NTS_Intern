@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class ReviewWriteRequest {
+public class CommentWriteRequest {
 	private Integer reservationUserCommentId;
 	private String comment;
 	private Integer score;

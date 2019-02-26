@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.dto.Comment;
+import com.nts.reservation.comment.dto.CommentImageDownload;
 import com.nts.reservation.comment.service.CommentService;
 
 @Service
@@ -42,6 +43,11 @@ public class CommentServiceImpl implements CommentService {
 		comment.forEach(commentItem -> {
 			commentItem.setCommentImages(commentDaoImpl.selectCommentImages(commentItem.getCommentId()));
 		});
+	}
+
+	@Override
+	public CommentImageDownload getCommentImage(int reservationInfoImageId) {
+		return commentDaoImpl.selectCommentImageInfo(reservationInfoImageId);
 	}
 
 }
