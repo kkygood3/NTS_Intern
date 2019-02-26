@@ -31,17 +31,17 @@ public class ExceptionHandleControllerAdvice {
 
 	@ExceptionHandler(NotFoundDataException.class)
 	public ExceptionResponse handleNotFoundDataException(NotFoundDataException e) {
-		return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(InternalServerErrorException.class)
 	public ExceptionResponse handleInternalServerErrorException(InternalServerErrorException e) {
-		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(UnauthenticateException.class)
 	public ExceptionResponse handleUnauthenticateException(UnauthenticateException e) {
-		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
+		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)

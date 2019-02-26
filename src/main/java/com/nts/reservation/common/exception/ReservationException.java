@@ -8,6 +8,8 @@ public class ReservationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
+	private String responseMessage;
+
 	public ReservationException() {
 		super();
 	}
@@ -18,21 +20,16 @@ public class ReservationException extends RuntimeException {
 
 	public ReservationException(String message) {
 		super(message);
+		this.responseMessage = message;
 	}
 
 	public ReservationException(String message, Throwable e) {
-		super(message, e);
+		super(message + "; " + e, e);
+		this.responseMessage = message;
 	}
 
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(super.toString() + "; ");
-
-		if (getCause() != null) {
-			sb.append("nested exception is " + getCause());
-		}
-
-		return sb.toString();
+	public String getResponseMessage() {
+		return responseMessage;
 	}
+
 }

@@ -23,7 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class ExceptionLogAspect {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionLogAspect.class);
 
 	@Before("execution(* com.nts.reservation.common.controlleradvice.ExceptionHandleControllerAdvice.*(..)) && args(e, ..)")
 	public void writeExceptionLog(JoinPoint joinPoint, Throwable e) {
@@ -47,9 +47,9 @@ public class ExceptionLogAspect {
 		}
 
 		log.append("Exception : \n");
-		log.append(e);
+		log.append(e.getMessage());
 
 		log.append("\n\n");
-		logger.error(log.toString());
+		LOGGER.error(log.toString());
 	}
 }
