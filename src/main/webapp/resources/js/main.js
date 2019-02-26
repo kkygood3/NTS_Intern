@@ -46,7 +46,7 @@ var mainPage = {
         var self = this;
         moreBtn.addEventListener( "click", function() {
             var tabContainer = self.elements.tabContainer;
-            this.requestProducts(
+            self.requestProducts(
                 tabContainer.dataset.currentCount,
                 tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex
             );
