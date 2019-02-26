@@ -16,7 +16,6 @@ import com.nts.reservation.property.Properties;
 public class ValidationUtils {
 	public static boolean validateEmail(String email) {
 		return (email != null
-			&& email.length() <= Properties.MAX_EMAIL_LENGTH
 			&& Pattern.matches(Properties.REG_EMAIL, email.trim()));
 	}
 
@@ -27,14 +26,12 @@ public class ValidationUtils {
 
 	public static boolean validateName(String name) {
 		return (name != null
-			&& name.length() > 0
-			&& name.length() <= Properties.MAX_NAME_LENGTH);
+			&& Pattern.matches(Properties.REG_NAME, name));
 	}
 
 	public static boolean validateComment(String comment) {
-		int commentLength = comment.length();
-		return (commentLength >= Properties.MIN_COMMENT_LENGTH
-			&& commentLength <= Properties.MAX_COMMENT_LENGTH);
+		return (comment != null
+			&& Pattern.matches(Properties.REG_COMMENT, comment));
 	}
 
 	public static boolean validateScore(int score) {

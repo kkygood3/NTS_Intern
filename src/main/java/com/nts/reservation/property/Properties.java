@@ -34,21 +34,19 @@ public class Properties {
 	 * 정규표현 검사식
 	 */
 	public static final String REG_TELEPHONE = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
-	public static final String REG_EMAIL = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-
+	public static final String REG_EMAIL = "^(?=.{1,50}$)[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+	public static final String REG_NAME  = "^(?=.{1,17}$).+$";
+	public static final String REG_COMMENT  = "^(?=.{5,400}$).+$";
+	
+	
 	/**
 	 * 프로젝트 내에서 사용하는 특정 형식의 최대 크기를 정의
 	 * 이름, 이메일, 티켓 구매 수
 	 */
-	public static final int MAX_NAME_LENGTH = 17;
-	public static final int MAX_EMAIL_LENGTH = 50;
 	public static final int MAX_TICKET_COUNT = 10;
 
 	public static final int MAX_REVIEW_SCORE = 5;
 	public static final int MIN_REVIEW_SCORE = 1;
-
-	public static final int MAX_COMMENT_LENGTH = 400;
-	public static final int MIN_COMMENT_LENGTH = 5;
 
 	/**
 	 * 이미지 파일 업로드/다운로드에 사용.
