@@ -1,3 +1,6 @@
+const COMMENT_MIN_LEN = 5;
+const COMMENT_MAX_LEN = 400;
+
 function addReviewWriteInfoClickEvent() {
 	var reviewWriteInfo = document.querySelector(".review_contents.write > .review_write_info");
 	var reviewTextarea = document.querySelector(".review_contents.write > .review_textarea");
@@ -92,13 +95,23 @@ function isValidScore(score) {
 }
 
 function isValidContent(comment) {
-	return !(/^\s*$/.test(comment)) && comment.length >= 5;
+	return !(/^\s*$/.test(comment)) && comment.length >= COMMENT_MIN_LEN && comment.length <= COMMENT_MAX_LEN;
 }
 
-function addContentKeyupEvent() {
+function addContentKeyupAndKeydownEvent() {
     const content = document.querySelector(".review_contents .review_textarea");
     const contentLen = document.querySelector(".guide_review span");
     content.addEventListener("keyup", (event) => {
-    	contentLen.innerText = content.value.length;
+    	adjustCommentLength(content, contentLen);
+	});
+    content.addEventListener("keydown", (event) => {
+    	adjustCommentLength(content, contentLen);
 	});	
+}
+
+function adjustCommentLength(content, contentLen) {
+	if (content.value.length > COMMENT_MAX_LEN) {
+		content.value = content.value.substring(0, COMMENT_MAX_LEN);
+	}
+	contentLen.innerText = content.value.length;
 }
