@@ -10,5 +10,5 @@ package com.nts.reservation.constant;
  */
 public class FilePath {
 	public static final String STATIC_PATH = "c:/Users/USER/git/project6/src/main/webapp/WEB-INF/resources";
-	public static final String IMG_PATH = "c:/tmp/img";
+	public static final String IMG_PATH = "c:/Users/USER/git/project6/src/main/webapp/WEB-INF/resources/img";
 }
