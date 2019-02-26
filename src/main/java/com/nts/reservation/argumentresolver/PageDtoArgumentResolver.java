@@ -16,7 +16,7 @@ import com.nts.reservation.annotation.PageDefault;
 import com.nts.reservation.dto.param.PageDto;
 
 /**
- * 
+ * PageDto용 ArgumentResolver
  * @author jinwoo.bae
  */
 public class PageDtoArgumentResolver implements HandlerMethodArgumentResolver {
