@@ -40,7 +40,7 @@
 				d.tel,
 				pf.save_file_name AS main_image_file,
 				count(uc.score) AS comment_count,
-				ifnull(avg(uc.score), 0) AS average_score,
+				avg(ifnull(uc.score, 0)) AS average_score,
 				df.save_file_name AS map_file
 				
 		FROM	display_info AS d
