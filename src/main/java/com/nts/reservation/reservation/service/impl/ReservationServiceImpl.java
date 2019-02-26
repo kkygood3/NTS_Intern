@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.commons.debugPrinter.DebugPrinter;
 import com.nts.reservation.commons.validator.ArgumentValidator;
@@ -89,6 +90,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	// 예약 하기
 	@Override
+	@Transactional
 	public boolean insertReservationInfo(ReserveRequest reserveRequest) {
 		checkReserveRequest(reserveRequest);
 
