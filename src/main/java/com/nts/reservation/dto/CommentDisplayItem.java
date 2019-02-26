@@ -8,7 +8,7 @@ public class CommentDisplayItem {
 	private double score;
 	private String reservationEmail;
 	private LocalDateTime reservationDate;
-	private String saveFileName;
+	private long commentImageId;
 
 	public String getComment() {
 		return comment;
@@ -42,17 +42,17 @@ public class CommentDisplayItem {
 		this.reservationDate = reservationDate;
 	}
 
-	public String getSaveFileName() {
-		return saveFileName;
+	public long getCommentImageId() {
+		return commentImageId;
 	}
 
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
+	public void setCommentImageId(long commentImageId) {
+		this.commentImageId = commentImageId;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail="
-				+ reservationEmail + ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
+		return "CommentDisplayItem [comment=" + comment + ", score=" + score + ", reservationEmail=" + reservationEmail
+			+ ", reservationDate=" + reservationDate + ", commentImageId=" + commentImageId + "]";
 	}
 }

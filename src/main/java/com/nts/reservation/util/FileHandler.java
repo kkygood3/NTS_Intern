@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 public class FileHandler {
-	public static final String PROJECT_ROOT = "C:/Users/USER/git/pjt06/src/main/webapp/";
+	private static final String BASE_PATH = "C:/tmp/";
 
 	/**
 	 * 멀티파트파일 저장
@@ -22,7 +22,7 @@ public class FileHandler {
 	 */
 	public static void saveFile(MultipartFile file, String saveFileName) {
 		try {
-			file.transferTo(new File(PROJECT_ROOT + saveFileName));
+			file.transferTo(new File(BASE_PATH + saveFileName));
 		} catch (IllegalStateException | IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
@@ -35,7 +35,11 @@ public class FileHandler {
 	 * @return 디렉토리 존재여부
 	 */
 	public static boolean createDirectoryIfNotExist(String path) {
-		File dir = new File(PROJECT_ROOT + path);
+		File dir = new File(BASE_PATH + path);
 		return dir.exists() | dir.mkdirs();
+	}
+	
+	public static String getFullPath(String saveFileName) {
+		return BASE_PATH + saveFileName;
 	}
 }

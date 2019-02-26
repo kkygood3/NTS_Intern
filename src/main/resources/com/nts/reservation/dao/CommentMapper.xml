@@ -10,15 +10,13 @@
 				uc.score,
 				concat(left(ri.reservation_email, 4), "****") AS reservation_email,
 				ri.reservation_date,
-				ifnull(fi.save_file_name, "") AS save_file_name
+				ifnull(uci.id, "") AS comment_image_id
 				
 		FROM	reservation_info AS ri
 				INNER JOIN	reservation_user_comment AS uc
 							ON	ri.id = uc.reservation_info_id
 				LEFT JOIN	reservation_user_comment_image AS uci
 							ON	uci.reservation_user_comment_id = uc.id
-				LEFT JOIN	file_info AS fi
-							ON	fi.id = uci.file_id
 					
 		WHERE	ri.product_id = #{productId}
 		

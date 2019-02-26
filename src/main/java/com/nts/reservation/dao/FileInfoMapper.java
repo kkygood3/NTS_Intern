@@ -16,4 +16,12 @@ public interface FileInfoMapper {
 	 * @return 파일id
 	 */
 	int insertFileInfo(FileInfo fileInfo);
+
+	/**
+	 * 파일정보 가져옴
+	 * 
+	 * @param reservationUserCommentImageId 리뷰이미지 아이디
+	 * @return 파일정보
+	 */
+	FileInfo selectFileInfoByReservationUserCommentImageId(long reservationUserCommentImageId);
 }

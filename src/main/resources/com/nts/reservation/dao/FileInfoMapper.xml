@@ -15,4 +15,16 @@
 	        SELECT LAST_INSERT_ID()
 	    </selectKey>  
 	</insert>
+	
+	<select id="selectFileInfoByReservationUserCommentImageId" resultType="fileInfo">
+		SELECT	fi.file_name,
+				fi.save_file_name,
+				fi.content_type
+		
+		FROM	file_info AS fi
+				INNER JOIN	reservation_user_comment_image AS ci
+							ON	ci.file_id = fi.id
+							
+		WHERE	ci.id = #{reservationUserCommentImageId}
+	</select>
 </mapper>
