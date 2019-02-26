@@ -19,11 +19,11 @@ public interface CommentService {
 	 * 코멘트 화면정 보 상품에따라서 페이징해서 가져온다
 	 * 
 	 * @param productId 조회할 상품정보
-	 * @param start     시작인덱스
+	 * @param startRow     시작인덱스
 	 * @param limit     페이징 사이즈
 	 * @return 코멘트정보 리스트
 	 */
-	List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int start, int limit);
+	List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int startRow, int limit);
 
 	/**
 	 * 상품에 맞는 리뷰페이지 정보를 가져온다

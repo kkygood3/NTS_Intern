@@ -45,11 +45,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String Email, int start, int limit) {
+	public Map<String, Object> getReservationDisplayItemsByReservationEmailWithPaging(String Email, int startRow, int limit) {
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
-		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, start, limit));
-		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByEmail(Email, start, limit));
-		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByEmail(Email, start, limit));
+		ReservationDisplayItemListMap.put("confirmed", reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, startRow, limit));
+		ReservationDisplayItemListMap.put("used", reservationInfoDao.selectUsedReservationInfoByEmail(Email, startRow, limit));
+		ReservationDisplayItemListMap.put("cancel", reservationInfoDao.selectCancelReservationInfoByEmail(Email, startRow, limit));
 
 		ReservationDisplayItemListMap.put("count", reservationInfoDao.selectReservationInfoCountByEmail(Email));
 
@@ -57,16 +57,16 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(String Email, int start, int limit, String status) {
+	public List<ReservationDisplayItem> getReservationDisplayItemsByReservationEmailByTypeWithPaging(String Email, int startRow, int limit, String status) {
 		if (Utils.isEmpty(status)) {
 			return Collections.EMPTY_LIST;
 		}
 		if (ReservationStatus.CONFIRMED.equals(status)) {
-			return reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, start, limit);
+			return reservationInfoDao.selectConfirmedReservationInfoByEmail(Email, startRow, limit);
 		} else if (ReservationStatus.USED.equals(status)) {
-			return reservationInfoDao.selectUsedReservationInfoByEmail(Email, start, limit);
+			return reservationInfoDao.selectUsedReservationInfoByEmail(Email, startRow, limit);
 		} else if (ReservationStatus.CANCEL.equals(status)) {
-			return reservationInfoDao.selectCancelReservationInfoByEmail(Email, start, limit);
+			return reservationInfoDao.selectCancelReservationInfoByEmail(Email, startRow, limit);
 		}
 		return Collections.EMPTY_LIST;
 	}

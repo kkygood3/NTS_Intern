@@ -26,11 +26,11 @@ public interface ProductService {
 	 * 썸네일 정보를 가져온다
 	 * 
 	 * @param categoryId 조회할 카테고리. 0이면 전체카테고리
-	 * @param start      시작 인덱스
+	 * @param startRow      시작 인덱스
 	 * @param limit      페이징 사이즈
 	 * @return 썸네일정보 리스트
 	 */
-	List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit);
+	List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int startRow, int limit);
 
 	/**
 	 * 상품에 맞는 상세페이지 정보 가져온다

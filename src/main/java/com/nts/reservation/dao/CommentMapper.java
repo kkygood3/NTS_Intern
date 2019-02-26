@@ -27,7 +27,7 @@ public interface CommentMapper {
 	 * @return 쿼리 실행 결과 코멘트 리스트
 	 */
 	List<CommentDisplayItem> selectFromTheProductWithPageing(@Param("productId") long productId,
-			@Param("start") int start, @Param("limit") int limit);
+			@Param("startRow") int startRow, @Param("limit") int limit);
 
 	/**
 	 * 상품에 따라 리뷰페이지 정보를 셀렉트한다

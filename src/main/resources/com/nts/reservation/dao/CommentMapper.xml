@@ -22,7 +22,7 @@
 		
 		ORDER BY uc.create_date DESC
 		
-		LIMIT	#{start}, #{limit}
+		LIMIT	#{startRow}, #{limit}
 	</select>
 	<select id="selectCommentPageInfoByProductId" resultType="CommentPageInfo">
 		SELECT	p.id AS product_id,

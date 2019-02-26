@@ -97,7 +97,7 @@
 		<if test="categoryId != 0">
 				AND	c.id = #{categoryId}
     	</if>
-		LIMIT	#{start}, #{limit}
+		LIMIT	#{startRow}, #{limit}
 	</select>
 	
 	<select id="selectProductInfoByReservationInfoId" resultType="CommentWritePageInfo">

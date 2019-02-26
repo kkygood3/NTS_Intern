@@ -23,8 +23,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit) {
-		return productDao.selectProductThumbnailByCategoryIdWithPaging(categoryId, start, limit);
+	public List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int startRow, int limit) {
+		return productDao.selectProductThumbnailByCategoryIdWithPaging(categoryId, startRow, limit);
 	}
 
 	@Override

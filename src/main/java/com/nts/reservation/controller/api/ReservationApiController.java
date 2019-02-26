@@ -33,22 +33,22 @@ public class ReservationApiController {
 	 * 예약정보 확정, 사용, 취소로 나눠서 페이징해서 가져온다
 	 * 
 	 * @param session
-	 * @param start   시작인덱스
+	 * @param startRow   시작인덱스
 	 * @param limit   페이징 사이즈
 	 * @return 예약정보
 	 */
 	@GetMapping
 	public Map<String, Object> getMyReservation(@SessionAttribute(name = "email") String email,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
-		return reservationService.getReservationDisplayItemsByReservationEmailWithPaging(email, start, limit);
+		return reservationService.getReservationDisplayItemsByReservationEmailWithPaging(email, startRow, limit);
 	}
 
 	/**
 	 * 특정 타입 예약정보 start개월전부터 limit개월 가져온다. (default : 1년)
 	 * 
 	 * @param email
-	 * @param start 시작인덱스
+	 * @param startRow 시작인덱스
 	 * @param limit 페이징 사이즈
 	 * @param type  { "confirmed", "used", "cancel" }
 	 * @return 예약정보
@@ -56,13 +56,13 @@ public class ReservationApiController {
 	@GetMapping("/{status}")
 	public Map<String, Object> getMyReservationByType(@SessionAttribute(name = "email") String email,
 			@PathVariable(name = "status", required = true) String status,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = RESERVATION_DEFAULT_PAGING_SIZE) int limit) {
 
 		Map<String, Object> ReservationDisplayItemListMap = new HashMap<String, Object>();
 		ReservationDisplayItemListMap.put("status", status);
 		ReservationDisplayItemListMap.put("reservationItems", reservationService
-				.getReservationDisplayItemsByReservationEmailByTypeWithPaging(email, start, limit, status));
+				.getReservationDisplayItemsByReservationEmailByTypeWithPaging(email, startRow, limit, status));
 		return ReservationDisplayItemListMap;
 	}
 

@@ -53,7 +53,7 @@ public class ProductApiController {
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
-	 * @param start      시작 인덱스, 지정하지않으면 0
+	 * @param startRow      시작 인덱스, 지정하지않으면 0
 	 * @param limit      SELECT할 썸네일 갯수, 지정하지않으면 4
 	 * @param categoryId SELECT할 카테고리, 지정하지않으면 전체 카테고리
 	 * @return 해당카테고리의 전체 상품 갯수와 limit개의 썸네일 정보
@@ -62,11 +62,11 @@ public class ProductApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> getProductCountAndThumbnails(
 			@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
 		List<ProductDisplayItem> thumbnailList = existProduct(productCount)	?
-				productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit) : Collections.EMPTY_LIST;
+				productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, startRow, limit) : Collections.EMPTY_LIST;
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productCount", productCount);
@@ -97,7 +97,7 @@ public class ProductApiController {
 	 * productId에 해당하는 리뷰를 페이징해서 가져온다
 	 * 
 	 * @param productId 조회할 상품 id
-	 * @param start     페이징 시작 인덱스
+	 * @param startRow     페이징 시작 인덱스
 	 * @param limit     페이징 사이즈
 	 * @return 코멘트 리스트
 	 */
@@ -105,9 +105,9 @@ public class ProductApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<CommentDisplayItem> getProductCountAndThumbnailInfos(
 			@PathVariable(name = "productId", required = true) long productId,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
-		return commentService.getCommentsByProductIdWithPaging(productId, start, limit);
+		return commentService.getCommentsByProductIdWithPaging(productId, startRow, limit);
 	}
 
 	/**

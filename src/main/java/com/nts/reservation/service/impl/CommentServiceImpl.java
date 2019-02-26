@@ -30,8 +30,8 @@ public class CommentServiceImpl implements CommentService {
 	private static final String COMMENT_IMAGE_SAVE_DIRECTORY = "img/comment/";
 
 	@Override
-	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int start, int limit) {
-		return commentDao.selectFromTheProductWithPageing(productId, start, limit);
+	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int startRow, int limit) {
+		return commentDao.selectFromTheProductWithPageing(productId, startRow, limit);
 	}
 
 	@Override

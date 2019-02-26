@@ -55,7 +55,7 @@ public interface ProductMapper {
 	 * @return 해당 카테고리의 썸네일 정보
 	 */
 	List<ProductDisplayItem> selectProductThumbnailByCategoryIdWithPaging(@Param("categoryId") int categoryId,
-			@Param("start") int start, @Param("limit") int limit);
+			@Param("startRow") int startRow, @Param("limit") int limit);
 
 	/**
 	 * description을 가져온다
