@@ -21,7 +21,7 @@ public interface MyReservationDao {
 	 * @param start
 	 * @param pagingLimit
 	 */
-	public List<MyReservationInfo> selectMyReservation(
+	List<MyReservationInfo> selectMyReservation(
 		@Param("email") String email,
 		@Param("type") String type,
 		@Param("start") int start,
@@ -32,7 +32,7 @@ public interface MyReservationDao {
 	 * @param email
 	 * @param type
 	 */
-	public Integer selectMyReservationCount(
+	Integer selectMyReservationCount(
 		@Param("email") String email,
 		@Param("type") String type);
 
@@ -41,7 +41,7 @@ public interface MyReservationDao {
 	 * @param reservationInfoId
 	 * @param email
 	 */
-	public Integer updateMyReservationCancel(
+	Integer updateMyReservationCancel(
 		@Param("reservationInfoId") Integer reservationInfoId,
 		@Param("email") String email);
 }

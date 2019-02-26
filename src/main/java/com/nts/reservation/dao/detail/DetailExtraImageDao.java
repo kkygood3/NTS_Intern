@@ -14,5 +14,5 @@ public interface DetailExtraImageDao {
 	 * detail의 swipeImage 영역에 추가할수 있는 item을 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public DetailExtraImage selectDetailExtraImage(int displayInfoId);
+	DetailExtraImage selectDetailExtraImage(int displayInfoId);
 }

@@ -14,11 +14,11 @@ public interface ReserveDao {
 	 * api/reservation post로 새로운 예약 정보 등록
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public int insertReservation(ReserveRequest reserveRequest);
+	int insertReservation(ReserveRequest reserveRequest);
 
 	/**
 	 * api/reservation post로 새로운 예약의 가격 정보 등록
 	 * @param reservePriceInfo
 	 */
-	public int insertReservationPrice(ReserveRequest reserveRequest);
+	int insertReservationPrice(ReserveRequest reserveRequest);
 }

@@ -14,5 +14,5 @@ public interface ReviewDisplayInfoDao {
 	 * review 페이지를 로드할 때 DisplayInfo 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public ReviewDisplayInfo selectDetailDisplayInfo(int displayInfoId);
+	ReviewDisplayInfo selectDetailDisplayInfo(int displayInfoId);
 }

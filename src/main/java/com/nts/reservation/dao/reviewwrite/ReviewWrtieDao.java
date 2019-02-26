@@ -12,11 +12,11 @@ public interface ReviewWrtieDao {
 	 * reviewWrite 페이지 로드 reponse에 사용
 	 * @param reservationInfoId
 	 */
-	public ReviewWriteResponse selectReviewWrite(int reservationInfoId);
+	ReviewWriteResponse selectReviewWrite(int reservationInfoId);
 
-	public int insertComment(ReviewWriteRequest reviewWriteRequest);
+	int insertComment(ReviewWriteRequest reviewWriteRequest);
 
-	public int insertFileInfo(ReviewWriteRequest reviewWriteRequest);
+	int insertFileInfo(ReviewWriteRequest reviewWriteRequest);
 
-	public int insertCommentImage(ReviewWriteRequest reviewWriteRequest);
+	int insertCommentImage(ReviewWriteRequest reviewWriteRequest);
 }
