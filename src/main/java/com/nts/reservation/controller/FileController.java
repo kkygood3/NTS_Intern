@@ -33,7 +33,7 @@ public class FileController {
 	public byte[] getCommentImage(@PathVariable int id) throws IOException {
 		FileInfoDto fileInfo = fileService.getCommentImage(id);
 
-		String saveFileName = FilePath.ROOT_PATH + "/" + fileInfo.getSaveFileName();
+		String saveFileName = FilePath.STATIC_PATH + "/" + fileInfo.getSaveFileName();
 
 		try (InputStream in = new FileInputStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
@@ -45,7 +45,7 @@ public class FileController {
 	 */
 	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getImage(HttpServletRequest request) throws IOException {
-		String saveFileName = FilePath.ROOT_PATH + request.getRequestURI();
+		String saveFileName = FilePath.STATIC_PATH + request.getRequestURI();
 
 		try (InputStream in = new FileInputStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
