@@ -54,24 +54,17 @@ import com.nts.reservation.service.ReservationService;
 
 @RestController
 @RequestMapping(path = "/api/reservations")
-@PropertySource("classpath:application.properties")
 public class ReservationApiController {
 
 	private final ReservationService reservationService;
-
-	private final FileIoService fileIoService;
-
-	@Value("${imageDefaultPath}")
-	private String imageDefaultPath;
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
 	private final Pattern imageContentTypePattern = Pattern.compile(IMAGE_CONTENT_TYPE);
 
 	@Autowired
-	public ReservationApiController(ReservationService reservationService, FileIoService fileIoService) {
+	public ReservationApiController(ReservationService reservationService) {
 		this.reservationService = reservationService;
-		this.fileIoService = fileIoService;
 	}
 
 	/**
@@ -84,20 +77,17 @@ public class ReservationApiController {
 	 */
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Map<String, String>> postReservation(@Valid @RequestBody ReservationRequestDto requestParams,
-		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
-		throws BindException {
+			BindingResult bindingResult, UriComponentsBuilder uriBuilder) throws BindException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
 		}
 
-		URI redirectUri = uriBuilder.path("/")
-			.build()
-			.toUri();
+		URI redirectUri = uriBuilder.path("/").build().toUri();
 
 		reservationService.addReservation(requestParams);
 		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
-			HttpStatus.OK);
+				HttpStatus.OK);
 	}
 
 	/**
@@ -107,8 +97,8 @@ public class ReservationApiController {
 	 * @throws InValidPatternException
 	 */
 	@GetMapping
-	public MyReservationResponseDto getReservationResponse(
-		@RequestParam String reservationEmail) throws InvalidParamException {
+	public MyReservationResponseDto getReservationResponse(@RequestParam String reservationEmail)
+			throws InvalidParamException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
 			throw new InvalidParamException("reservaionEmail", reservationEmail);
@@ -132,7 +122,7 @@ public class ReservationApiController {
 	}
 
 	/**
-	 * @desc 전시물에 대한 댓글 추가. 
+	 * @desc 전시물에 대한 댓글 추가.
 	 * @param reservationInfoId
 	 * @param requestDto
 	 * @param bindingResult
@@ -145,38 +135,32 @@ public class ReservationApiController {
 	 */
 	@PostMapping(path = "/{reservationInfoId}/comments")
 	public ResponseEntity<Map<String, String>> postComment(@PathVariable Long reservationInfoId,
-		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto,
-		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
-		throws BindException, InvalidParamException, IOException, SQLException {
+			@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto, BindingResult bindingResult,
+			UriComponentsBuilder uriBuilder) throws BindException, InvalidParamException, IOException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
 		}
 
 		List<MultipartFile> images = requestDto.getAttachedImages();
-		List<FileDto> files = new ArrayList<>();
 		try {
 			if (images != null) {
-
-				for (MultipartFile image : requestDto.getAttachedImages()) {
-
+				for (MultipartFile image : images) {
 					Matcher matcher = imageContentTypePattern.matcher(image.getContentType());
+
 					if (!matcher.find()) {
 						throw new InvalidParamException("Content-Type", image.getContentType());
 					}
-					files.add(fileIoService.writeMultipartFile(imageDefaultPath, image));
 				}
 			}
-			reservationService.addReservationUserComment(requestDto, files, reservationInfoId);
-		} catch (InvalidParamException | IOException | SQLException exception) {
-			fileIoService.removeFilesForRollback(files);
+			reservationService.addReservationUserComment(requestDto, reservationInfoId);
+
+		} catch (InvalidParamException | IOException exception) {
 			throw exception;
 		}
 
-		URI redirectUri = uriBuilder.path("/")
-			.build()
-			.toUri();
+		URI redirectUri = uriBuilder.path("/").build().toUri();
 		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
-			HttpStatus.OK);
+				HttpStatus.OK);
 	}
 }

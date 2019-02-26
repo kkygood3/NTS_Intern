@@ -65,7 +65,7 @@ public class FileApiController {
 	}
 
 	/**
-	 * @desc 댓글 아이딩로 댓글 이미지 요청
+	 * @desc 댓글 아이디로 댓글 이미지 요청
 	 * @param commentImageId
 	 * @param response
 	 * @return

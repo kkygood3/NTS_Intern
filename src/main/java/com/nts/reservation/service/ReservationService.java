@@ -5,6 +5,7 @@
 
 package com.nts.reservation.service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public interface ReservationService {
 
 	public boolean findFinishReservation(Long reservationInfoId, String email);
 
-	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, List<FileDto> fileList,
-		Long reservationInfoId) throws SQLException;
+	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, Long reservationInfoId)
+			throws IOException;
 
 	public FileDto getFileByCommentImageId(Long commentImageId);
 }
