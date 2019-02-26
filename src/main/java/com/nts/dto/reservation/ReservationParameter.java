@@ -70,4 +70,12 @@ public class ReservationParameter {
 		this.reservationYearMonthDay = reservationYearMonthDay;
 	}
 
+	@Override
+	public String toString() {
+		return "ReservationParameter [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId="
+			+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
+			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
+			+ "]";
+	}
+
 }

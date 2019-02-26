@@ -9,6 +9,20 @@ const reservationConfig = {
     path: path.resolve(__dirname, 'webapp/static/js/reservation'),
     filename: '[name].js',
     publicPath: '/static/js/reservation/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   }
 };
 
@@ -21,6 +35,21 @@ const reserveConfig = {
     path: path.resolve(__dirname, 'webapp/static/js/reserve'),
     filename: '[name].js',
     publicPath: '/static/js/reserve/',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   }
 };
 
@@ -33,6 +62,20 @@ const loginConfig = {
     path: path.resolve(__dirname, 'webapp/static/js/login'),
     filename: '[name].js',
     publicPath: '/static/js/login/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   }
 };
 
@@ -45,6 +88,20 @@ const detailConfig = {
     path: path.resolve(__dirname, 'webapp/static/js/detail'),
     filename: '[name].js',
     publicPath: '/static/js/detail/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   }
 };
 
@@ -57,7 +114,47 @@ const reviewWriteConfig = {
     path: path.resolve(__dirname, 'webapp/static/js/review/write'),
     filename: '[name].js',
     publicPath: '/static/js/review/write/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   }
 };
 
-module.exports = [reservationConfig, reserveConfig, loginConfig, detailConfig, reviewWriteConfig];
+const mainConfig = {
+  context: path.resolve(__dirname, 'webapp/static/js'),
+  entry: {
+	  home: './main.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'webapp/static/js'),
+    filename: '[name].js',
+    publicPath: '/static/js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
+  }
+}
+
+module.exports = [reservationConfig, reserveConfig, loginConfig, detailConfig, reviewWriteConfig, mainConfig];

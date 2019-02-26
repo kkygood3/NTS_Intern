@@ -80,13 +80,7 @@ public class ReservationController {
 
 		} else {
 
-			StringBuffer strBuffer = new StringBuffer();
-
-			strBuffer.append("reservationEmail : ").append(reservationParameter.getReservationEmail())
-				.append("reservationYearMonthDay : ").append(reservationParameter.getReservationYearMonthDay())
-				.append("reservationTelephone : ").append(reservationParameter.getReservationTelephone());
-
-			throw new InvalidFormatException(strBuffer.toString());
+			throw new InvalidFormatException(reservationParameter.toString());
 		}
 		return true;
 	}

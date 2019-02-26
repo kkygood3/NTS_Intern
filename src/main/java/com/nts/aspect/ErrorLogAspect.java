@@ -4,7 +4,6 @@
  **/
 package com.nts.aspect;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -23,6 +22,6 @@ public class ErrorLogAspect {
 	@AfterThrowing(value = "execution (* *..*Controller.*(..))", throwing = "e")
 	public void printErrorLog(Throwable e) {
 
-		logger.info(ExceptionUtils.getStackTrace(e));
+		logger.info("{}",e);
 	}
 }

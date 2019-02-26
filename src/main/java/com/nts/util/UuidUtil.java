@@ -30,7 +30,7 @@ public class UuidUtil {
 
 			return digest;
 		} catch (Exception e) {
-			throw new ServerException("Server Error !");
+			throw new ServerException("Server Error !", e);
 		}
 
 	}
