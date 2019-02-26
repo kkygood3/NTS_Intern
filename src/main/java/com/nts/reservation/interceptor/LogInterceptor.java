@@ -1,5 +1,7 @@
 package com.nts.reservation.interceptor;
 
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,15 +14,10 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		logger.debug("{} 가종료되었습니다. {} 를 view로 사용합니다.", handler.toString(), modelAndView.getViewName());
-	}
-
-	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.debug("{} 를 호출했습니다.", handler.toString());
+		
+		logger.debug("\r\n=== MY LOG ===\r\nURL : {}\r\nTime : {}\r\nClient IP : {}\r\n\r\n", request.getRequestURL(), LocalDateTime.now() ,request.getRemoteAddr());
 		return true;
 	}
 
