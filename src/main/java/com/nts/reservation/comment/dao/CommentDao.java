@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
 import com.nts.reservation.comment.model.WritedComment;
+import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.file.model.FileInfo;
 
@@ -120,8 +122,13 @@ public class CommentDao {
 	 * 저장된 fileinfo 조회
 	 */
 	public FileInfo selectCommentImageSaveFileInfo(int commentImageId) {
+		try {
 		Map<String, Integer> param = Collections.singletonMap("commentImageId", commentImageId);
 		return jdbcTemplate.queryForObject(SELECT_COMMENT_SAVE_FILE_NAME, param, fileInfoMapper);
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new NotFoundDataException("not found file", e);
+		}
 	}
 
 	/**

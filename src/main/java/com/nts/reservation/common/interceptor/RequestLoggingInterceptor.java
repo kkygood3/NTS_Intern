@@ -20,12 +20,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class RequestLoggingInterceptor extends HandlerInterceptorAdapter {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOGGER = LoggerFactory.getLogger(RequestLoggingInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		logger.debug(String.format("DATE : %-25s, IP : %-16s, URL : %-60s, METHOD : %s",
+		LOGGER.debug(String.format("DATE : %-25s, IP : %-16s, URL : %-60s, METHOD : %s",
 			LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
 			request.getRemoteAddr(),
 			request.getRequestURL(),
