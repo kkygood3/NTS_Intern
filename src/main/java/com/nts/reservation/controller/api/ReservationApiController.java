@@ -44,7 +44,7 @@ public class ReservationApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
-		if (reservationParam.isValid()) {
+		if (!reservationParam.isValid()) {
 			throw new InValidationException("입력값이 올바르지 않습니다.");
 		}
 		reservationService.makeReservation(reservationParam);
