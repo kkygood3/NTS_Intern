@@ -1,6 +1,7 @@
 package com.nts.reservation.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ReservationPageInfo {
 	private long productId;
@@ -59,8 +60,8 @@ public class ReservationPageInfo {
 		this.mainImageName = mainImageName;
 	}
 
-	public LocalDateTime getReservationDate() {
-		return reservationDate;
+	public String getReservationDate() {
+		return reservationDate.format(DateTimeFormatter.ofPattern("yyyy.M.d."));
 	}
 
 	public void setReservationDate(LocalDateTime reservationDate) {

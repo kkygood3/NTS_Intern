@@ -3,7 +3,6 @@ package com.nts.reservation.dto;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class ReservationInfo {
 	private long id;
@@ -22,7 +21,7 @@ public class ReservationInfo {
 		this.reservationName = input.getName();
 		this.reservationTel = input.getTelephone();
 		this.reservationEmail = input.getEmail();
-		this.reservationDate = LocalDateTime.parse(input.getReservationDate(), DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH));
+		this.reservationDate = LocalDateTime.parse(input.getReservationDate() + " 00:00:00", DateTimeFormatter.ofPattern("yyyy.M.d. HH:mm:ss"));
 		this.cancelFlag = false;
 		this.createDate = LocalDateTime.now();
 	}
