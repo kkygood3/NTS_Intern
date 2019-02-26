@@ -72,9 +72,9 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 				outputStream.write(buffer, 0, readCount);
 			}
 		} catch (FileNotFoundException e) {
-			throw new ServerException("파일 요청을 하지않음");
+			throw new ServerException("파일 요청을 하지않음" , e);
 		} catch (IOException e) {
-			throw new ServerException("서버 파일 요청 에러");
+			throw new ServerException("서버 파일 요청 에러" , e);
 		}
 		return fileName;
 	}
