@@ -73,7 +73,6 @@
 						<label class="btn_upload" for="reviewImageFileOpenInput">
 							<i class="fn fn-image1" aria-hidden="true"></i>
 							<span class="text_add_photo">사진 추가</span>
-							<img
 						</label>
 						<input type="file" class="hidden_input" id="reviewImageFileOpenInput">
 						<div class="guide_review">
@@ -122,6 +121,7 @@
 	<script>
 		var reservationId = parseInt(window.location.pathname.split("/")[2]);
 		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
 
 		// 별점매기기 기능
 		function StarRating(body) {
@@ -249,8 +249,10 @@
 				contentType: false,
 				cache: false,
 				timeout: 600000,
-				success: function (data) {
-					if (confirm("등록 성공! 나의예약페이지로 이동하시겠습니까?")) {
+				success: function (resp) {
+					if (confirm("등록 성공! 리뷰를 확인하러 이동하시겠습니까?")) {
+						location.href="/products/" + productId + "/comment?displayInfoId=" + displayInfoId;
+					} else {
 						location.href="/myreservation";
 					}
 				},

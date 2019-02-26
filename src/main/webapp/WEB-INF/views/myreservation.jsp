@@ -225,7 +225,8 @@
 														</em>
 													</div>
 													<div class="booking_cancel">
-														<a href="/myreservation/${reservationDisplayInfo.id}/comment/write?productId=${reservationDisplayInfo.productId}"> 
+														<a href="/myreservation/${reservationDisplayInfo.id}/comment/write?productId=${reservationDisplayInfo.productId}
+														&displayInfoId=${reservationDisplayInfo.displayInfoId}"> 
 															<button class="btn"> <span>예매자 리뷰 남기기</span> </button>
 														</a>
 													</div>
@@ -396,7 +397,9 @@
 									</div>
 								{{else}}
 									<div class="booking_cancel">
-										<a> <button class="btn"> <span>예매자 리뷰 남기기</span> </button></a>
+										<a href="/myreservation/{{id}}/comment/write?productId={{productId}}&displayInfoId={{displayInfoId}}">
+											<button class="btn"> <span>예매자 리뷰 남기기</span> </button>
+										</a>
 									</div>
 								{{/isAfterToday}}
 							{{/if}}
