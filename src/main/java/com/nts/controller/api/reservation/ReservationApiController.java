@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,7 @@ import com.nts.util.Validator;
  */
 @RestController
 @RequestMapping(path = "/api/reservations")
+@PropertySource({"classpath:application.properties"})
 public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
@@ -66,7 +69,8 @@ public class ReservationApiController {
 	@Autowired
 	private ProductService productService;
 
-	private static final String IMAGE_PATH = "img/";
+	@Value("${imagepath}")
+	private String imagePath;
 
 	private static final int MAX_SESSION_INACTIVE_INTERVAL_30MINS = 1800;
 
@@ -145,20 +149,20 @@ public class ReservationApiController {
 		if (!reservationImage.isEmpty()) {
 
 			String fileName = reservationImage.getOriginalFilename();
-			File file = new File(IMAGE_PATH, fileName);
+			File file = new File(imagePath + "img/", fileName);
 			IOUtils.copy(reservationImage.getInputStream(), new FileOutputStream(file));
 			
 			CommentImage commentImage = new CommentImage();
 			commentImage.setReservationInfoId(reservationInfoId);
 			commentImage.setReservationUserCommentId(reservationUserCommentId);
 			commentImage.setFileName(fileName);
-			commentImage.setProductImageUrl(IMAGE_PATH + fileName);
+			commentImage.setProductImageUrl(imagePath + "img/" + fileName);
 			commentImage.setContentType(reservationImage.getContentType());
 			commentImage.setDeleteFlag(false);
 			
 		}
 
-		ModelAndView mav = new ModelAndView("mainpage");
+		ModelAndView mav = new ModelAndView("redirect:/");
 		mav.addObject("reservationUserCommentId", reservationUserCommentId);
 
 		return mav;
