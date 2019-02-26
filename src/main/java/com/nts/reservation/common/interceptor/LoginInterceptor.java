@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.exception.UnauthenticateException;
 
 /**
@@ -30,7 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
-		MustLogin mustLogin = handlerMethod.getMethodAnnotation(MustLogin.class);
+		IsLogin mustLogin = handlerMethod.getMethodAnnotation(IsLogin.class);
 
 		if (isNull(mustLogin)) {
 			return true;

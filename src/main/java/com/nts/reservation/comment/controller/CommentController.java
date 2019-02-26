@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.exception.InternalServerErrorException;
 import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.common.exception.UnauthenticateException;
@@ -49,7 +49,7 @@ public class CommentController {
 	/**
 	 * comment 작성 페이지 호출, 로그인정보와 reservationId로 유효한데이터인지 확인.
 	 */
-	@MustLogin
+	@IsLogin
 	@GetMapping(value = {"/my-reservation/comment/write"})
 	public ModelAndView writeComment(ModelAndView mv, @RequestParam(required = true) int reservationId,
 		HttpSession httpSession) {

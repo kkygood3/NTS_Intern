@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.reservation.comment.model.CommentResponse;
 import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.comment.service.CommentService;
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.model.Response;
 
 @RestController
@@ -41,7 +41,7 @@ public class CommentApiController {
 	/**
 	 * 새로운 comment를 저장
 	 */
-	@MustLogin
+	@IsLogin
 	@PostMapping(value = {"/api/comment"})
 	public Response addComment(@Validated WritedComment writedComment, MultipartFile[] images,
 		HttpSession httpSession) {

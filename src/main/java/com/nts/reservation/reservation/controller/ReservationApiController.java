@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.model.Response;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistoryResponse;
@@ -34,7 +34,7 @@ public class ReservationApiController {
 	/**
 	 * 사용자의 예매내역 조회
 	 */
-	@MustLogin
+	@IsLogin
 	@GetMapping(value = {"/api/reservation-histories"})
 	public ReservationHistoryResponse getReservationHistoryResponse(HttpSession httpSession) {
 
@@ -55,7 +55,7 @@ public class ReservationApiController {
 	/**
 	 * 상품 예매 취소
 	 */
-	@MustLogin
+	@IsLogin
 	@PutMapping(value = {"/api/reservation/{reservationId}/cancel"})
 	public Response modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {
 
