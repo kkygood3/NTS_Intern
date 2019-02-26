@@ -55,15 +55,7 @@ public class ReserveServiceImpl implements ReserveService {
 	@Transactional(readOnly = false)
 	public void registerReserve(ReserveRequest reserveRequest) {
 		reserveDao.insertReservation(reserveRequest);
-		int reservationInfoId = reserveRequest.getId();
-		
-		List<ReservePrice> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
-		reservePriceInfoList.forEach(item->item.setReservationInfoId(reservationInfoId));
-		
-		if (reserveDao.insertReservationPrice(reservePriceInfoList) != reservePriceInfoList.size()) {
-			throw new RuntimeException("DB 갱신 오류");
-		}
-		
+		reserveDao.insertReservationPrice(reserveRequest);
 	}
 
 }
