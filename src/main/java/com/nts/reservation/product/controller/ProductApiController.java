@@ -61,7 +61,7 @@ public class ProductApiController {
 
 		if (displayInfoId < 0) {
 			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!"); 
-			LOGGER.warn("Bad Request! Parameter / displayInfoId : {}", e.getMessage(), displayInfoId, e);
+			LOGGER.warn("Bad Request! Parameter / displayInfoId : {}", displayInfoId, e);
 			throw e;
 		}
 

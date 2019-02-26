@@ -1,4 +1,8 @@
-
+let template = {
+	product : document.querySelector('#product_template'),
+	category : document.querySelector('#category_template'),
+	promotion : document.querySelector('#promotion_template')
+}
 document.addEventListener('DOMContentLoaded', function(){
 	
 	basicSettings();
@@ -71,7 +75,7 @@ function addProductTemplate(data){
 	let products = data.items;
 	products.forEach((product, index)=>{
 
-		let resultHtml = productTemplate.replace('{id}', product.displayInfoId)
+		let resultHtml = template.product.innerText.replace('{id}', product.displayInfoId)
 					.replace('{placeName}', product.placeName)
 					.replace('{content}', product.productContent)
 					.replace(/{description}/g, product.productDescription)
@@ -110,7 +114,7 @@ function showCategories(data){
 	items.forEach(function(category){
 		let categoryId = category.id;
 		let categoryName = category.name;
-		let script = categoryTemplate.replace('{categoryId}', categoryId)
+		let script = template.category.innerText.replace('{categoryId}', categoryId)
 									.replace('{categoryName}', categoryName);
 		document.getElementById('category').innerHTML += script;
 	});
@@ -165,7 +169,7 @@ function getPromotions(data){
 	let promotionsHtml = "";
 	let promotions = data.items;
 	promotions.forEach(promotion=>{
-		promotionsHtml += promotionTemplate.replace('{productImageUrl}', promotion.productImageUrl);
+		promotionsHtml += template.promotion.innerText.replace('{productImageUrl}', promotion.productImageUrl);
 	});
 	document.getElementById('main_slide').innerHTML += promotionsHtml;
 	

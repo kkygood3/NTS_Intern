@@ -35,6 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationResponse getReservationResponse(int reservationInfoId) {
 		List<ReservationPrice> ReservationPrices = reservationDao.selectReservationPrices(reservationInfoId);
 		ReservationInfo reservationInfo = reservationDao.selectReservationInfo(reservationInfoId);
+		reservationInfo.setDisplayInfo(displayDao.selectDisplayInfo(reservationInfo.getDisplayInfoId()));
 		return ReservationResponse.builder()
 			.reservationInfo(reservationInfo)
 			.price(ReservationPrices)
@@ -55,6 +56,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservations;
 	}
 
+	/**
+	 * 예약 정보의 email과 sesion의 email을 대조 후,
+	 * 예약 상태를 취소(cancelYn = true)로 변경(update)
+	 */
 	@Override
 	public ReservationResponse cancelReservation(int reservationInfoId, String sessionEmail)
 		throws HttpSessionRequiredException {
@@ -85,6 +90,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public ReservationResponse saveReservation(ReservationParam reservationParam) {
+		String reservationTel = reservationParam.getReservationTel();
+		reservationParam.setReservationTel(addHyphenToPhone(reservationTel));
+
 		int reservationInfoId = reservationDao.insertReservationInfo(reservationParam);
 		reservationParam.getPrice().stream()
 			.filter(price -> price.getCount() > 0)
@@ -96,4 +104,13 @@ public class ReservationServiceImpl implements ReservationService {
 		return getReservationResponse(reservationInfoId);
 	}
 
+	/**
+	 * 입력받은 전화번호를 양식에 맞게 적용
+	 */
+	private String addHyphenToPhone(String phone) {
+		if (phone.length() == 10) {
+			return phone.substring(0, 3) + "-" + phone.substring(3, 6) + "-" + phone.substring(6);
+		}
+		return phone.substring(0, 3) + "-" + phone.substring(3, 7) + "-" + phone.substring(7);
+	}
 }

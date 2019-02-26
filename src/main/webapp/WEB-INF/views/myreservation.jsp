@@ -64,14 +64,14 @@
 												<div class="card_detail">
 													<em class="booking_number">No.${ reservation.reservationInfoId }</em>
 													<h4 class="tit">
-														<a href="/display/detail/${ reservation.displayInfo.displayInfoId }">${ reservation.displayInfo.productDescription }</a>
+														<a href="/display/detail/${ reservation.displayInfo.displayInfoId }" class="item_${ reservation.reservationInfoId }">${ reservation.displayInfo.productDescription }</a>
 													</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
 															<em class="item_dsc">
 															<fmt:parseDate var="dateString" value="${reservation.reservationDate}" pattern="yyyy-MM-dd HH:mm:ss" />
-															<fmt:formatDate value="${dateString}" pattern="yyyy.MM.dd." />
+															<span class="item_${ reservation.reservationInfoId }"><fmt:formatDate value="${dateString}" pattern="yyyy.MM.dd." /></span>
 														</em>
 														</li>
 														<li class="item">
@@ -180,7 +180,7 @@
 													</div>
 													<!-- [D] 예약 신청중, 예약 확정 만 취소가능, 취소 버튼 클릭 시 취소 팝업 활성화 -->
 													<div class="booking_cancel">
-														<a href="./reviewWrite.html"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+														<a href="/reservations/${ reservation.reservationInfoId }/comments"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
 													</div>
 												</div>
 											</div>

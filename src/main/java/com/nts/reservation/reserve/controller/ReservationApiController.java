@@ -48,8 +48,7 @@ public class ReservationApiController {
 				bindingResult.getFieldError().getField(), bindingResult.getFieldError().getCode());
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		String reservationTel = reservationParam.getReservationTel();
-		reservationParam.setReservationTel(addHyphenToPhone(reservationTel));
+
 		return new ResponseEntity<>(reservationService.saveReservation(reservationParam), HttpStatus.OK);
 	}
 
@@ -64,17 +63,13 @@ public class ReservationApiController {
 		@PathVariable(name = "reservationInfoId") int reservationInfoId,
 		HttpSession session) throws HttpSessionRequiredException {
 
+		if (reservationInfoId < 0) {
+			IllegalArgumentException e = new IllegalArgumentException("Can't use Navgative Value!!!");
+			LOGGER.warn("Bad Request! Parameter / reservationInfoId : {}", reservationInfoId, e);
+			throw e;
+		}
+
 		String sessionEmail = (String)session.getAttribute("email");
 		return reservationService.cancelReservation(reservationInfoId, sessionEmail);
-	}
-
-	/**
-	 * 입력받은 전화번호를 양식에 맞게 적용
-	 */
-	private String addHyphenToPhone(String phone) {
-		if (phone.length() == 10) {
-			return phone.substring(0, 3) + "-" + phone.substring(3, 6) + "-" + phone.substring(6);
-		}
-		return phone.substring(0, 3) + "-" + phone.substring(3, 7) + "-" + phone.substring(7);
 	}
 }

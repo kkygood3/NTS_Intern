@@ -62,7 +62,7 @@
 				<div class="thumb_area">
 					{{#each commentImages}}
 						<a href="#" class="thumb" title="이미지 크게 보기"> 
-							<img width="90" height="90" class="img_vertical_top" src="/resources/img/{{saveFileName}}" alt="리뷰이미지">
+							<img width="90" height="90" class="img_vertical_top" src="/download/img/{{fileId}}" alt="리뷰이미지">
 						</a> 
 						<span class="img_count">{{commentImages.length}}</span> 
 					{{/each}}
