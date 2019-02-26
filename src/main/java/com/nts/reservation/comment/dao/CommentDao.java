@@ -20,5 +20,5 @@ public interface CommentDao {
 
 	List<CommentImage> selectCommentImage(int commentId);
 
-	List<DetailComment> selectDetailComment(int displayInfoId);
+	List<DetailComment> selectDetailComment(int displayInfoId, int start, int limit);
 }

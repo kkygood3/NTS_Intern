@@ -11,13 +11,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class DetailComment {
-	private Integer displayInfoId;
+	private int displayInfoId;
 	private String comment;
 	private String commentImage;
 	private String reservationName;
 	private String reservationDate;
 	private String reservationEmail;
-	private Integer score;
+	private int score;
 	private String productDescription;
 
 	public Integer getDisplayInfoId() {

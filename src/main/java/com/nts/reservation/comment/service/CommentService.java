@@ -21,7 +21,7 @@ public interface CommentService {
 
 	List<CommentImage> getCommentImage(int commentId);
 
-	List<DetailComment> getDetailComment(int displayInfoId);
+	List<DetailComment> getDetailComment(int displayInfoId, int start, int limit);
 
-	DetailCommentResponse getDetailCommentResponse(int displayInfoId);
+	DetailCommentResponse getDetailCommentResponse(int displayInfoId, int start, int limit);
 }

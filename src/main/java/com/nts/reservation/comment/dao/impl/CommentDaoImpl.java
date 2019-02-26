@@ -60,9 +60,11 @@ public class CommentDaoImpl implements CommentDao {
 	}
 
 	@Override
-	public List<DetailComment> selectDetailComment(int displayInfoId) {
+	public List<DetailComment> selectDetailComment(int displayInfoId, int start, int limit) {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("displayInfoId", displayInfoId);
+		params.put("start", start);
+		params.put("limit", limit);
 		return jdbc.query(SELECT_DETAIL_COMMENT, params, detailCommentRowMapper);
 	}
 }

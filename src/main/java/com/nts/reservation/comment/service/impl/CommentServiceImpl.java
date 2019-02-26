@@ -51,19 +51,19 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<DetailComment> getDetailComment(int displayInfoId) {
+	public List<DetailComment> getDetailComment(int displayInfoId, int start, int limit) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
-		return commentDaoImpl.selectDetailComment(displayInfoId);
+		return commentDaoImpl.selectDetailComment(displayInfoId, start, limit);
 	}
 
 	@Override
-	public DetailCommentResponse getDetailCommentResponse(int displayInfoId) {
+	public DetailCommentResponse getDetailCommentResponse(int displayInfoId, int start, int limit) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		DetailCommentResponse detailCommentResponse = new DetailCommentResponse();
 
-		List<DetailComment> commentList = commentDaoImpl.selectDetailComment(displayInfoId);
+		List<DetailComment> commentList = commentDaoImpl.selectDetailComment(displayInfoId, start, limit);
 		detailCommentResponse.setDetailCommentList(commentList);
 
 		int commentListSize = commentList.size();

@@ -39,5 +39,6 @@ public class CommentDaoQuerys {
 		+ " INNER JOIN reservation_info ON reservation_user_comment.reservation_info_id = reservation_info.id"
 		+ " LEFT JOIN reservation_user_comment_image ON reservation_user_comment_image.id = reservation_user_comment.reservation_info_id"
 		+ " LEFT JOIN file_info ON reservation_user_comment_image.file_id = file_info.id"
-		+ " WHERE reservation_info.product_id = :displayInfoId";
+		+ " WHERE reservation_info.product_id = :displayInfoId"
+		+ " LIMIT :start, :limit";
 }

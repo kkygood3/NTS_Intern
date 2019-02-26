@@ -27,9 +27,9 @@ public class DetailCommentApiController {
 	@GetMapping("/{displayInfoId}/detailComment")
 	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
-		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
+		@RequestParam(name = "limit", required = false, defaultValue = "5") int limit) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
-		return commentServiceImpl.getDetailCommentResponse(displayInfoId);
+		return commentServiceImpl.getDetailCommentResponse(displayInfoId, start, limit);
 	}
 }
