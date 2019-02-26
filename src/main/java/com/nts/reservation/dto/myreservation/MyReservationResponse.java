@@ -14,6 +14,11 @@ public class MyReservationResponse {
 	ReservationType reservationType;
 	Integer count;
 
+	public MyReservationResponse(ReservationType reservationType, int count) {
+		this.reservationType = reservationType;
+		this.count = count;
+	}
+
 	public Integer getCount() {
 		return count;
 	}

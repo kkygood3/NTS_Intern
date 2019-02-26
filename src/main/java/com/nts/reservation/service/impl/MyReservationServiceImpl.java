@@ -4,13 +4,10 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.reservation.dao.myreservation.MyReservationDao;
-import com.nts.reservation.dto.myreservation.MyReservationInfo;
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.service.MyReservationService;
@@ -19,22 +16,16 @@ import com.nts.reservation.service.MyReservationService;
 public class MyReservationServiceImpl implements MyReservationService {
 	@Autowired
 	MyReservationDao myReservationDao;
-	@Autowired
-	MyReservationDao myReservationMapper;
 
 	@Override
 	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start,
 		Integer pagingLimit) {
 
-		int count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
-		MyReservationResponse myReservationResponse = new MyReservationResponse();
+		int count = myReservationDao.selectMyReservationCount(email, reservationType.name());
+		MyReservationResponse myReservationResponse = new MyReservationResponse(reservationType, count);
 		if (count > start) {
-			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email,
-				reservationType.name(), start, pagingLimit);
-
-			myReservationResponse.setReservationList(myReservationList);
-			myReservationResponse.setReservationType(reservationType);
-			myReservationResponse.setCount(count);
+			myReservationResponse.setReservationList(myReservationDao.selectMyReservation(email,
+				reservationType.name(), start, pagingLimit));
 		}
 		return myReservationResponse;
 	}

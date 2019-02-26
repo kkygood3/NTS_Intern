@@ -4,14 +4,13 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nts.reservation.common.DateGenerator;
 import com.nts.reservation.dao.reserve.ReserveDao;
 import com.nts.reservation.dao.reserve.ReserveDisplayInfoDao;
 import com.nts.reservation.dao.reserve.ReservePriceDao;
@@ -41,14 +40,8 @@ public class ReserveServiceImpl implements ReserveService {
 			String typeLabel = targetPrice.getPriceTypeName().getTypeLabel();
 			targetPrice.setPriceTypeLabel(typeLabel);
 		}
-
-		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, (int)((Math.random() * 5)) + 1);
-		String reservationDate = dateFormat.format(calendar.getTime());
-
-		return new ReserveResponse(reserveDisplayInfo, reservePrice, reservationDate);
+		
+		return new ReserveResponse(reserveDisplayInfo, reservePrice, DateGenerator.getRandomDate());
 	}
 
 	@Override
