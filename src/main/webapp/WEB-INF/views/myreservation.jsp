@@ -135,7 +135,7 @@
 															data-category-name=${reservationDisplayInfo.categoryName}
 															data-product-description='${reservationDisplayInfo.productDescription}'
 															data-reservation-date=${reservationDisplayInfo.reservationDate}>
-									<a class="link_booking_details">
+									<a href="/products/${reservationDisplayInfo.productId}/detail?displayInfoId=${reservationDisplayInfo.displayInfoId}" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
@@ -207,7 +207,7 @@
 
 							<c:forEach var="reservationDisplayInfo" items="${response.doneReservationResponse.reservationDisplayInfos}">
 								<article class="card_item">
-									<a class="link_booking_details">
+									<a href="/products/${reservationDisplayInfo.productId}/detail?displayInfoId=${reservationDisplayInfo.displayInfoId}" class="link_booking_details">
 										<div class="card_body">
 											<div class="left"></div>
 											<div class="middle">
@@ -276,7 +276,7 @@
 							<div >	
 							<c:forEach var="reservationDisplayInfo" items="${response.cancelReservationResponse.reservationDisplayInfos}">
 							<article class="card_item">
-								<a class="link_booking_details">
+								<a href="/products/${reservationDisplayInfo.productId}/detail?displayInfoId=${reservationDisplayInfo.displayInfoId}" class="link_booking_details">
 									<div class="card_body">
 										<div class="left"></div>
 										<div class="middle">
@@ -440,6 +440,7 @@
 				if (target.className !== "btn") {
 					return;
 				}
+				evt.preventDefault();
 				reservationElement = target;
 				showCancleConfirmPopup();
 			});
