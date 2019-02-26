@@ -9,7 +9,6 @@ import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +23,6 @@ import com.nts.reservation.product.service.ProductService;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
-@RequestMapping("/api/products")
 public class ProductApiController {
 	@Autowired
 	private ProductService productServiceImpl;
@@ -34,7 +32,7 @@ public class ProductApiController {
 
 	private static final String All_CATEGORIES = "0";
 
-	@GetMapping
+	@GetMapping("/api/products")
 	public ProductResponse getProductResponse(
 		@RequestParam(name = "categoryId", required = false, defaultValue = All_CATEGORIES) int categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
@@ -51,7 +49,7 @@ public class ProductApiController {
 		return productServiceImpl.getProductResponse(categoryId, start, limit, totalCount);
 	}
 
-	@GetMapping("/{displayInfoId}")
+	@GetMapping("/api/products/{displayInfoId}")
 	public DisplayInfoResponse getDisplayInfoResponse(@PathVariable int displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
 		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
@@ -62,7 +60,7 @@ public class ProductApiController {
 		return displayInfoServiceImpl.getDisplayInfoResponse(displayInfoId, start, limit);
 	}
 
-	@GetMapping("/{displayInfoId}/extraImage")
+	@GetMapping("/api/products/{displayInfoId}/extraImage")
 	public ProductExtraImage getProductExtraImage(@PathVariable int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 

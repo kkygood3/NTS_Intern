@@ -25,7 +25,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 		<meta name="format-detection" content="telephone=no, address=no, email=no">
 		<title translate="CM-NBOOKING">네이버 예약</title>
-		<link rel="stylesheet" href="css/bookinglogin.css">
+		<link rel="stylesheet" href="/css/bookinglogin.css">
 	</head>
 	<body class="biz  ko" >
 		<app>
@@ -89,6 +89,6 @@
 			</translater-modal>
 		</app>
 		
-		<script src="js/bookingLogin.js"></script>
+		<script src="/js/bookingLogin.js"></script>
 	</body>
 </html>

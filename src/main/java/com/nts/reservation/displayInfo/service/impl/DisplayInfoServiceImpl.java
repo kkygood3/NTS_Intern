@@ -39,7 +39,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	public DisplayInfo getDisplayInfo(int displayInfoId) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
-		return displayInfoDaoImpl.selectDisplayInfo(displayInfoId);
+		return displayInfoDaoImpl.selectDisplayInfoByDisplayInfoId(displayInfoId);
 	}
 
 	@Override
@@ -85,5 +85,12 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 		displayInfoResponse.setAverageScore(averageScore);
 
 		return displayInfoResponse;
+	}
+
+	@Override
+	public DisplayInfo getDisplayInfoByReservationInfoId(int reservationInfoId) {
+		ArgumentValidator.checkReservationInfoId(reservationInfoId);
+
+		return displayInfoDaoImpl.selectDisplayInfoByReservationInfoId(reservationInfoId);
 	}
 }

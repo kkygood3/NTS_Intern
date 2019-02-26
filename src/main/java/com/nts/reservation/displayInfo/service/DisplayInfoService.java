@@ -17,4 +17,6 @@ public interface DisplayInfoService {
 	DisplayInfoImage getDisplayInfoImage(int displayInfoId);
 
 	DisplayInfoResponse getDisplayInfoResponse(int displayInfoId, int start, int limit);
+
+	DisplayInfo getDisplayInfoByReservationInfoId(int reservationInfoId);
 }

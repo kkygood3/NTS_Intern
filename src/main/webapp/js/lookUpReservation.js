@@ -25,6 +25,7 @@ function loadReservationInfoCallback(response){
 		initTicketCancelPopupEvent();
 		initBtnLayouts();
 		initMoreBtnClickEvent();
+		initTicketReviewEvents();
 	}
 	
 	checkTicketCount();
@@ -146,6 +147,16 @@ function initTicketCancelEvents(ticketContainers){
 			cancelPopup.style.display = '';
 			cancelPopup.setAttribute('reservationInfoId',clickedBtn.getAttribute('reservationInfoId'));
 			currentSelect = clickedBtn;
+		}
+	});
+}
+
+function initTicketReviewEvents(){
+	ticketContainers[2].addEventListener('click',function(evt){
+		var clickedBtn = evt.target;
+		
+		if (clickedBtn.classList.contains('btn')){
+			location.href = '/reviewWrite/'+clickedBtn.getAttribute('reservationinfoid');
 		}
 	});
 }

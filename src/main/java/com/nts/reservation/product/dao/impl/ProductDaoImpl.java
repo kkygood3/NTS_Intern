@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.displayInfo.dto.DisplayInfo;
 import com.nts.reservation.product.dao.ProductDao;
 import com.nts.reservation.product.dto.Product;
 import com.nts.reservation.product.dto.ProductExtraImage;
@@ -36,6 +37,8 @@ public class ProductDaoImpl implements ProductDao {
 	private RowMapper<ProductPrice> productPriceRowMapper = BeanPropertyRowMapper.newInstance(ProductPrice.class);
 	private RowMapper<ProductExtraImage> productExtraImageRowMapper = BeanPropertyRowMapper
 		.newInstance(ProductExtraImage.class);
+	private RowMapper<DisplayInfo> displayInfoRowMapper = BeanPropertyRowMapper
+		.newInstance(DisplayInfo.class);
 
 	public ProductDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -65,29 +68,29 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int selectProductsCountByCategoryId(int categoryId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("categoryId", categoryId);
-		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, params, Integer.class);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("categoryId", categoryId);
+		return jdbc.queryForObject(SELECT_PRODUCT_COUNT_BY_CATEGORY, param, Integer.class);
 	}
 
 	@Override
 	public List<ProductImage> selectProductImage(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_PRODUCT_IMAGE, params, productImageRowMapper);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_PRODUCT_IMAGE, param, productImageRowMapper);
 	}
 
 	@Override
 	public List<ProductPrice> selectProductPrice(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.query(SELECT_PRODUCT_PRICE, params, productPriceRowMapper);
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return jdbc.query(SELECT_PRODUCT_PRICE, param, productPriceRowMapper);
 	}
 
 	@Override
 	public ProductExtraImage selectProductExtraImage(int displayInfoId) {
-		Map<String, Integer> params = new HashMap<>();
-		params.put("displayInfoId", displayInfoId);
-		return DataAccessUtils.singleResult(jdbc.query(SELECT_PRODUCT_EXTRA_IMAGE, params, productExtraImageRowMapper));
+		Map<String, Integer> param = new HashMap<>();
+		param.put("displayInfoId", displayInfoId);
+		return DataAccessUtils.singleResult(jdbc.query(SELECT_PRODUCT_EXTRA_IMAGE, param, productExtraImageRowMapper));
 	}
 }

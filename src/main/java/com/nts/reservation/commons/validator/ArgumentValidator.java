@@ -36,4 +36,13 @@ public class ArgumentValidator {
 		}
 		return true;
 	}
+
+	public static boolean checkReservationInfoId(int reservationInfoId) {
+		if (reservationInfoId < 0) {
+			String msg = "올바르지 않은 reservationInfoId : " + reservationInfoId;
+			System.out.println(msg);
+			throw new IllegalArgumentException(msg);
+		}
+		return true;
+	}
 }
