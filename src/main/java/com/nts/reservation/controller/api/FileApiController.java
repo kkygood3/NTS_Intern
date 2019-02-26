@@ -75,7 +75,7 @@ public class FileApiController {
 	@GetMapping("/comment/image/{commentImageId}")
 	public ResponseEntity<byte[]> getCommentImageFile(@PathVariable Long commentImageId, HttpServletResponse response)
 		throws IOException, CustomFileNotFoundException {
-		FileDto file = reservationService.getFileByCommentImageId(commentImageId);
+		FileDto file = reservationService.getCommentImage(commentImageId);
 		if (file == null) {
 			throw new CustomFileNotFoundException("CommentImageId", commentImageId);
 		}
