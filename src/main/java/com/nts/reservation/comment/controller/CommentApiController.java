@@ -7,6 +7,7 @@ package com.nts.reservation.comment.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,8 @@ public class CommentApiController {
 	 */
 	@MustLogin
 	@PostMapping(value = {"/api/comment"})
-	public Response addComment(WritedComment writedComment, MultipartFile[] images, HttpSession httpSession) {
+	public Response addComment(@Validated WritedComment writedComment, MultipartFile[] images,
+		HttpSession httpSession) {
 		String email = (String)httpSession.getAttribute("email");
 		writedComment.setReservationEmail(email);
 		commentService.addComment(writedComment, images);

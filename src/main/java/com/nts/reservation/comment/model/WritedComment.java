@@ -4,11 +4,28 @@
  */
 package com.nts.reservation.comment.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.nts.reservation.common.regexp.Regexp;
+
 public class WritedComment {
 
 	private int reservationId;
+
+	@NotNull(message = "comment is must not empty")
+	@Size(min = 5, max = 400, message = "comment length is must between 5 and 400")
 	private String comment;
+
+	@Min(value = 1, message = "score is must between 1 and 5")
+	@Max(value = 5, message = "score is must between 1 and 5")
 	private int score;
+
+	@NotNull(message = "email is must not empty")
+	@Pattern(regexp = Regexp.EMAIL, message = "email is not valid")
 	private String reservationEmail;
 
 	@Override
