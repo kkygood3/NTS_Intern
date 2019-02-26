@@ -6,6 +6,9 @@ package com.nts.reservation.dto.myreservation;
 
 import java.util.List;
 
+/**
+ * api/reservations에서 MyReservation 조회에 singletonMap으로 전달할 객체 
+ */
 public class MyReservationResponse {
 	List<MyReservationInfo> reservationList;
 	ReservationType reservationType;
