@@ -24,7 +24,6 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationInfoMapper reservationInfoDao;
 
 	@Override
-	@Transactional
 	public ReservationPageInfo getReservationPageInfoByDisplayInfoId(long displayInfoId) {
 		return reservationInfoDao.selectReservationPageInfoByDisplayInfoId(displayInfoId);
 	}
