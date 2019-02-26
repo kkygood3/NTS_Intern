@@ -25,7 +25,7 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="/detail/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<a href="/product/${pageInfo.productId}/display/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
 					<h2><span class="title">${pageInfo.description}</span></h2>
 				</div>
 				<div class="group_visual">
