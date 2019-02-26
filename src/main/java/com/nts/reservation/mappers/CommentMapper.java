@@ -15,6 +15,7 @@ import com.nts.reservation.dto.comment.CommentImage;
  *
  */
 
+//Comment mapping for sophisticated query in SQL.
 public interface CommentMapper {
 	public List<Comment> getCommentsWithImages(Long displayInfoId);
 

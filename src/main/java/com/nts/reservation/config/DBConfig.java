@@ -65,6 +65,7 @@ public class DBConfig implements TransactionManagementConfigurer {
 		return new DataSourceTransactionManager(dataSource());
 	}
 
+	//For MyBatis Usage
 	@Bean
 	public SqlSessionFactoryBean sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
