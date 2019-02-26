@@ -4,7 +4,6 @@
  **/
 package com.nts.controller.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +18,11 @@ import com.nts.service.comment.CommentService;
 @RequestMapping("/api/comments")
 public class CommentController {
 
-	@Autowired
-	private CommentService commentService;
+	private final CommentService commentService;
+
+	public CommentController(CommentService commentService) {
+		this.commentService = commentService;
+	}
 
 	/**
 	 * @desc productId 별 comments 불러오기

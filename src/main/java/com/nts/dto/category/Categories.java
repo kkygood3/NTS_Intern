@@ -6,6 +6,9 @@ package com.nts.dto.category;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -22,6 +25,11 @@ public class Categories {
 
 	public void setItems(List<Category> items) {
 		this.items = items;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

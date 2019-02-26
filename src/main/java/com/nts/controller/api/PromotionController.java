@@ -4,7 +4,6 @@
  **/
 package com.nts.controller.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +18,11 @@ import com.nts.service.promotion.PromotionService;
 @RequestMapping("/api/promotions")
 public class PromotionController {
 
-	@Autowired
-	private PromotionService promotionService;
+	private final PromotionService promotionService;
+
+	public PromotionController(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
 
 	/**
 	 * @desc 프로모션 전체 불러오기

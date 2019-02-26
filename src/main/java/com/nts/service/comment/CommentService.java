@@ -18,4 +18,5 @@ public interface CommentService {
 	double getAverageScoreByProductId(int productId);
 
 	Comments getComments(int productId);
+	
 }

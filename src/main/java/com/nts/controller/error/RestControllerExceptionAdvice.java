@@ -4,6 +4,9 @@
  **/
 package com.nts.controller.error;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.rmi.ServerException;
 import java.security.InvalidParameterException;
 
 import javax.naming.NoPermissionException;
@@ -15,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.nts.dto.error.ErrorMessage;
-import com.nts.exception.DisplayInfoNullException;
 import com.nts.exception.InvalidFormatException;
-import com.nts.exception.NoMatchReservationException;
+import com.nts.exception.NotFoundException;
 
 /**
  * @author 전연빈
@@ -25,38 +27,81 @@ import com.nts.exception.NoMatchReservationException;
 @RestControllerAdvice(annotations = RestController.class)
 public class RestControllerExceptionAdvice {
 	
-	@ExceptionHandler(DisplayInfoNullException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage displayNotFound(DisplayInfoNullException e) {
-		e.printStackTrace();
-		return new ErrorMessage(e.getMessage());
-	}
-	
+	/**
+	 * @desc 잘못된 format을 요청시
+	 * @param e
+	 * @return errorMessage
+	 */
 	@ExceptionHandler(InvalidFormatException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage invalidFormat(InvalidFormatException e) {
-		e.printStackTrace();
+	public ErrorMessage invalidFormatExceptionHandling(InvalidFormatException e) {
 		return new ErrorMessage(e.getMessage());
 	}
-	
+
+	/**
+	 * @desc 유효하지않은 파라미터 요청시
+	 * @param e
+	 * @return errorMessage
+	 */
 	@ExceptionHandler(InvalidParameterException.class)
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage invalidParameter(InvalidParameterException e) {
-		e.printStackTrace();
+	public ErrorMessage invalidParameterExceptionHandling(InvalidParameterException e) {
 		return new ErrorMessage(e.getMessage());
 	}
-	
+
+	/**
+	 * @desc 권한이 없는 사용자가 요청시
+	 * @param e
+	 * @return errorMessage
+	 */
 	@ExceptionHandler(NoPermissionException.class)
 	@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-	public ErrorMessage noPermission(NoPermissionException e) {
-		e.printStackTrace();
+	public ErrorMessage noPermissionExceptionHandling(NoPermissionException e) {
+		return new ErrorMessage(e.getMessage());
+	}
+
+	/**
+	 * @desc 파일 IO Exception 발생시
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(IOException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorMessage ioExceptionHandling(IOException e) {
+		return new ErrorMessage(e.getMessage());
+	}
+
+	/**
+	 * @desc file을 찾을수 없을시
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(FileNotFoundException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorMessage fileNotFoundExceptionHandling(FileNotFoundException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 	
-	@ExceptionHandler(NoMatchReservationException.class)
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage noMatchReservationInformation(NoMatchReservationException e) {
-		e.printStackTrace();
+	
+	/**
+	 * @desc server error 시
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(ServerException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ErrorMessage serverExceptionHandling(ServerException e) {
+		return new ErrorMessage(e.getMessage());
+	}
+	
+	/**
+	 * @desc data를 못찾았을때
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(NotFoundException.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public ErrorMessage notFoundExceptionHandling(NotFoundException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 }

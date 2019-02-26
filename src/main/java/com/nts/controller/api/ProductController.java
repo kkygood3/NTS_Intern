@@ -4,6 +4,8 @@
  **/
 package com.nts.controller.api;
 
+import java.security.InvalidParameterException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.dto.displayinfo.DisplayInfos;
 import com.nts.dto.product.Products;
-import com.nts.exception.DisplayInfoNullException;
-import com.nts.exception.ProductParamException;
+import com.nts.exception.NotFoundException;
 import com.nts.util.CheckProductParameter;
 import com.nts.service.displayInfo.DisplayInfoService;
 import com.nts.service.product.ProductService;
@@ -26,11 +27,14 @@ import com.nts.service.product.ProductService;
 @RequestMapping("/api/products")
 public class ProductController {
 
+	private final ProductService productService;
+	private final DisplayInfoService displayInfoService;
+
 	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private DisplayInfoService displayInfoService;
+	public ProductController(ProductService productService,DisplayInfoService displayInfoService) {
+		this.productService = productService;
+		this.displayInfoService = displayInfoService;
+	}
 
 	/**
 	 * @desc 카테고리별 Product 가져오기
@@ -42,22 +46,23 @@ public class ProductController {
 	@GetMapping
 	public Products getProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = true) int start) throws ProductParamException {
+		@RequestParam(name = "start", required = true) int start) throws InvalidParameterException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
-			throw new ProductParamException("start = " + start);
+			throw new InvalidParameterException("start = " + start);
 		}
 
 		return productService.getProducts(categoryId, start);
 	}
 	
 	/**
+	 * @desc productId 별 displayInfo 가져오기
 	 * @param displayInfoId
 	 * @return displayInfos ()
 	 * @throws DisplayInfoNullException
 	 */
 	@GetMapping("/{displayInfoId}")
-	public DisplayInfos getDisplayInfoByProductId(@PathVariable int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfos getDisplayInfoByProductId(@PathVariable int displayInfoId) throws NotFoundException {
 		
 		return displayInfoService.getDisplayInfosByDisplayInfoId(displayInfoId);
 	}

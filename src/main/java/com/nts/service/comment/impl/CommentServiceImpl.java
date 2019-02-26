@@ -6,7 +6,6 @@ package com.nts.service.comment.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nts.dao.comment.CommentRepository;
@@ -20,8 +19,13 @@ import com.nts.service.comment.CommentService;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-	@Autowired
-	private CommentRepository commentRepository;
+	
+	
+	private final CommentRepository commentRepository;
+	
+	public CommentServiceImpl(CommentRepository commentRepository) {
+		this.commentRepository = commentRepository;
+	}
 
 	/**
 	 * @desc product Id 별 comment list 불러오기

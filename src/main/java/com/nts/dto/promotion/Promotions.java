@@ -6,6 +6,9 @@ package com.nts.dto.promotion;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -24,4 +27,9 @@ public class Promotions {
 		this.items = items;
 	}
 
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
 }

@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.reservation;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.dto.displayinfo.DisplayInfo;
 
 /**
@@ -22,6 +25,15 @@ public class Reservation {
 	private String reservationName;				// 예약자 이름
 	private String reservationTelephone;		// 예약자 전화번호
 	private int totalPrice;						// 예약한 상품 총가격
+	private String description;					// 예약한 상품 이름
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public boolean getCancelYn() {
 		return cancelYn;
@@ -118,4 +130,10 @@ public class Reservation {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
 }

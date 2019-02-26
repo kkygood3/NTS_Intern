@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.displayinfo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -91,4 +94,8 @@ public class DisplayInfoImage {
 		this.saveFileName = saveFileName;
 	}
 
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 }

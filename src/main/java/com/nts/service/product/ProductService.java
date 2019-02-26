@@ -4,12 +4,13 @@
  **/
 package com.nts.service.product;
 
+import java.security.InvalidParameterException;
+
 import com.nts.dto.product.Products;
-import com.nts.exception.ProductParamException;
 
 /**
  * @author 전연빈
  */
 public interface ProductService {
-	Products getProducts(int categoryId, int start) throws ProductParamException;
+	Products getProducts(int categoryId, int start) throws InvalidParameterException;
 }

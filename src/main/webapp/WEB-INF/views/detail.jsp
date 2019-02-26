@@ -21,8 +21,8 @@
         <div class="header fade">
             <header class="header_tit">
                 <h1 class="logo">
-                    <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/main" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                    <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
             </header>
@@ -32,10 +32,10 @@
                 <div class="section_visual">
                     <header>
                         <h1 class="logo">
-                            <a href="./mainpage.html" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                            <a href="./mainpage.html" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                            <a href="/main" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+                            <a href="/main" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="./myreservation.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a href="/reservations" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
@@ -136,7 +136,7 @@
 											{{#if commentImage}}
                                         	<div class="review_area">
                                             	<div class="thumb_area">
-                                                	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="/static/{{commentImage.saveFileName}}" alt="리뷰이미지"> </a> <span class="img_count" style="display:none;">1</span>                                                </div>
+                                                	<a href="#" class="thumb" title="이미지 크게 보기"> <img width="90" height="90" class="img_vertical_top" src="/api/images/{{commentId}}/commentId" alt="리뷰이미지"> </a> <span class="img_count" style="display:none;">1</span>                                                </div>
                                             		<h4 class="resoc_name"></h4>
                                             		<p class="review">{{comment}}</p>
                                         		</div>

@@ -5,16 +5,19 @@
 package com.nts.service.reservation;
 
 import com.nts.dto.reservation.ReservationParameter;
+import com.nts.exception.NotFoundException;
 
-import java.text.ParseException;
+import javax.naming.NoPermissionException;
 
+import com.nts.dto.reservation.Reservation;
 import com.nts.dto.reservation.ReservationInfos;
-import com.nts.exception.DisplayInfoNullException;
 
 public interface ReservationService {
-	ReservationInfos getReservationInfoByReservationEmail(String reservationEmail) throws DisplayInfoNullException;
+	ReservationInfos getReservationInfoByReservationEmail(String reservationEmail) throws NotFoundException;
 
-	int addReservation(ReservationParameter reservationParameter) throws ParseException;
+	int addReservation(ReservationParameter reservationParameter);
 
-	int cancelReservation(long reservationId, String reservationEmail);
+	int cancelReservation(long reservationId, String reservationEmail) throws NoPermissionException;
+
+	Reservation getReservedInfo(String reservationEmail, int reservationInfoId) throws NoPermissionException;
 }

@@ -156,7 +156,7 @@
 											<div class="middle">
 												<div class="card_detail">
 													<em class="booking_number">No.{{reservation.reservationInfoId}}</em>
-													<h4 class="tit">서비스명/상품명</h4>
+													<h4 class="tit">{{reservation.displayInfo.productDescription}}</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
@@ -191,7 +191,7 @@
 														</em>
 													</div>
 													<div class="booking_cancel">
-														<a href="/reservationReview"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+														<a href="/reviewWrite/{{reservation.reservationInfoId}}"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
 													</div>
 												</div>
 											</div>
@@ -227,7 +227,7 @@
 											<div class="middle">
 												<div class="card_detail">
 													<em class="booking_number">No.{{reservation.reservationInfoId}}</em>
-													<h4 class="tit">서비스명/상품명</h4>
+													<h4 class="tit">{{reservation.displayInfo.productDescription}}</h4>
 													<ul class="detail">
 														<li class="item">
 															<span class="item_tit">일정</span>
