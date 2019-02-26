@@ -45,10 +45,10 @@ public class ReservationApiController {
 	@PostMapping
 	public Map<String, Object> postReservation(@RequestBody ReservationParamDto reservationParam) {
 		if (reservationParam.isValid()) {
-			reservationService.makeReservation(reservationParam);
-			return Collections.singletonMap("isSuccess", true);
+			throw new InValidationException("입력값이 올바르지 않습니다.");
 		}
-		return Collections.singletonMap("isSuccess", false);
+		reservationService.makeReservation(reservationParam);
+		return Collections.singletonMap("isSuccess", true);
 	}
 
 	/**
@@ -80,7 +80,6 @@ public class ReservationApiController {
 	public Map<String, Object> postComment(CommentParamDto commentParam) {
 		if (!commentParam.isValid()) {
 			throw new InValidationException("입력값이 올바르지 않습니다.");
-			
 		}
 		reservationService.makeComment(commentParam);
 		return Collections.singletonMap("isSuccess", true);
