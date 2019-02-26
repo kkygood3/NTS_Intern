@@ -7,7 +7,6 @@ package com.nts.util;
 import java.util.regex.Pattern;
 
 import com.nts.dto.reservationdto.Reservation;
-import com.nts.dto.reservationdto.ReservationParam;
 
 public class Validator {
 
