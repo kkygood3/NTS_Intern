@@ -48,15 +48,17 @@ public class ReservationServiceImpl implements ReservationService {
 		reservationResponse.setReservationDisplayInfo(reservationDaoImpl.selectReservationDisplayInfo(displayInfoId));
 
 		List<ReservationPrice> priceList = reservationDaoImpl.selectReservationPrice(displayInfoId);
-		for (ReservationPrice price : priceList) {
-			String typeName = price.getPriceTypeName();
-			price.setPriceTypeName(typeName);
+		if (priceList != null) {
+			for (ReservationPrice price : priceList) {
+				String typeName = price.getPriceTypeName();
+				price.setPriceTypeName(typeName);
 
-			ReservationPriceType typeLabel = iterationFindLabelByName(typeName);
-			price.setPriceTypeLabel(typeLabel);
+				ReservationPriceType typeLabel = iterationFindLabelByName(typeName);
+				price.setPriceTypeLabel(typeLabel);
+			}
+			// ReservationResponse의 필드 List<ReservationPrice>에 해당
+			reservationResponse.setPrices(priceList);
 		}
-		// ReservationResponse의 필드 List<ReservationPrice>에 해당
-		reservationResponse.setPrices(priceList);
 
 		return reservationResponse;
 	}
@@ -123,9 +125,6 @@ public class ReservationServiceImpl implements ReservationService {
 				return false;
 			}
 		}
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
-			"예약 하기 성공\n" + "reservationInfoId : " + reservationInfoId + "\n" + "insertCompletePrice : "
-				+ insertCompletePrice);
 
 		return true;
 	}
