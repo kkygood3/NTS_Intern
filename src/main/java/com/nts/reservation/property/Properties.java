@@ -55,7 +55,7 @@ public class Properties {
 	 */
 	public static final String[] ALLOW_FILE_EXTENSION = {"image/jpeg", "image/png", "image/jpg"};
 
-	public static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_comment/";
+	public static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_map/";
 
 	public static final int RANDOM_SUFFIX_LENGTH = 10;
 

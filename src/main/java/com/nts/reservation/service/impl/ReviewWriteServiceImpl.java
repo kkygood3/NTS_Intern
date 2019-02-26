@@ -54,7 +54,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 
 			//무작위 문자열을 포함한 파일명을 저장
 			reviewWriteRequest.setFileName(fileName);
-			reviewWriteRequest.setSaveFileName("img_comment/" + fileName);
+			reviewWriteRequest.setSaveFileName("img_map/" + fileName);
 			reviewWriteRequest.setContentType(imageFile.getContentType());
 
 			reviewWriteDao.insertFileInfo(reviewWriteRequest);
