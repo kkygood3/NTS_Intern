@@ -175,7 +175,7 @@ public class ReservationDao {
 		return holder.getKey().longValue();
 	}
 
-	public FileDto selectFileByCommentImageId(Long commentImageId) {
+	public FileDto selectCommentImageById(Long commentImageId) {
 		Map<String, Object> map = Collections.singletonMap("imageId", commentImageId);
 		return jdbc.queryForObject(SELECT_FILE_INFO_BY_COMMENT_IMAGE_ID, map, fileRowMapper);
 	}

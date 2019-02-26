@@ -167,6 +167,6 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	@Override
 	public FileDto getCommentImage(Long commentImageId) {
-		return reservationDao.selectFileByCommentImageId(commentImageId);
+		return reservationDao.selectCommentImageById(commentImageId);
 	}
 }
