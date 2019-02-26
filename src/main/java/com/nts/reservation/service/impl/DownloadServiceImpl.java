@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.download.DownloadDao;
 import com.nts.reservation.dto.download.DownloadInfo;
@@ -17,6 +18,7 @@ public class DownloadServiceImpl implements DownloadService {
 	DownloadDao downloadDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public DownloadInfo downloadImageFile(int reservationInfoImageId) {
 		return downloadDao.selectDownloadInfo(reservationInfoImageId);
 	}

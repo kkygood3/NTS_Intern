@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.myreservation.MyReservationDao;
 import com.nts.reservation.dto.myreservation.MyReservationResponse;
@@ -18,6 +19,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 	MyReservationDao myReservationDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start,
 		Integer pagingLimit) {
 
@@ -31,6 +33,7 @@ public class MyReservationServiceImpl implements MyReservationService {
 	}
 
 	@Override
+	@Transactional
 	public boolean cancelMyReservation(Integer reservationInfoId, String email) {
 		return (myReservationDao.updateMyReservationCancel(reservationInfoId, email) > 0);
 	}

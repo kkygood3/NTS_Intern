@@ -25,12 +25,13 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 	ReviewWrtieDao reviewWriteDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public ReviewWriteResponse getReviewWriteResponse(int reservationInfoId) {
 		return reviewWriteDao.selectReviewWrite(reservationInfoId);
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional
 	public void writeReview(ReviewWriteRequest reviewWriteRequest) {
 		reviewWriteDao.insertComment(reviewWriteRequest);
 

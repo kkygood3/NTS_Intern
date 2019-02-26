@@ -30,6 +30,7 @@ public class ReserveServiceImpl implements ReserveService {
 	ReserveDao reserveDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveDisplayInfo reserveDisplayInfo = reserveDisplayInfoDao.selectReviewDisplayInfo(displayInfoId);
 
@@ -45,7 +46,7 @@ public class ReserveServiceImpl implements ReserveService {
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional
 	public void registerReserve(ReserveRequest reserveRequest) {
 		reserveDao.insertReservation(reserveRequest);
 		reserveDao.insertReservationPrice(reserveRequest);
