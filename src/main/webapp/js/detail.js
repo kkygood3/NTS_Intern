@@ -86,6 +86,7 @@ function initComment(displayInfo, displayComment){
 	var commentContainer = document.querySelector('ul.list_short_review');
 	
 	for(var i = 0 ; i < 3 && i < commentCount; i++){
+		displayComment[i].productDescription = displayInfo.productDescription;
 		commentContainer.innerHTML += bindCommentTemplate(displayComment[i]);	
 	}
 	
