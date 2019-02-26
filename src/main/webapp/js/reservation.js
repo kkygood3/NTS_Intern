@@ -53,9 +53,6 @@ function getUrlParameter(name) {
 
 
 function loadProductDescription(response) {
-	//
-	console.log(response);
-	
 	let reservationResponse = response;
 	let reservationDisplayInfo = response.reservationDisplayInfo;
 	let reservationPriceList = response.prices;
