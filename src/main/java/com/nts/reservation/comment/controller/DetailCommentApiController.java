@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.comment.dto.DetailCommentResponse;
@@ -24,7 +25,9 @@ public class DetailCommentApiController {
 	private CommentService commentServiceImpl;
 
 	@GetMapping("/{displayInfoId}/detailComment")
-	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId) {
+	public DetailCommentResponse getDetailCommentResponse(@PathVariable int displayInfoId,
+		@RequestParam(name = "start", required = false, defaultValue = "0") int start,
+		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit) {
 		ArgumentValidator.checkDisplayInfoId(displayInfoId);
 
 		return commentServiceImpl.getDetailCommentResponse(displayInfoId);

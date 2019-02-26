@@ -4,6 +4,13 @@
  */
 package com.nts.reservation.reservation.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,21 +24,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.commons.debugPrinter.DebugPrinter;
 import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.reservation.dto.ReservationInfoResponse;
+import com.nts.reservation.reservation.dto.ReservationInfoType;
+import com.nts.reservation.reservation.dto.ReservationPriceInfo;
 import com.nts.reservation.reservation.dto.ReservationResponse;
 import com.nts.reservation.reservation.dto.ReserveRequest;
-import com.nts.reservation.reservation.service.impl.ReservationServiceImpl;
+import com.nts.reservation.reservation.service.ReservationService;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api")
 public class ReservationApiController {
 	@Autowired
-	ReservationServiceImpl reservationServiceImpl;
+	ReservationService reservationServiceImpl;
 
 	// 예약 조회하기
-	@GetMapping
+	@GetMapping("/reservations")
 	public ReservationResponse getReservationResponse(
 		@RequestParam(name = "displayInfoId", required = true) int displayInfoId) {
 
@@ -39,42 +48,140 @@ public class ReservationApiController {
 	}
 
 	// 예약 하기
-	@PostMapping
-	public boolean reserve(
+	@PostMapping("/reservations")
+	public Map<String, Object> reserveProduct(
 		@RequestBody ReserveRequest reserveRequest) {
-		ArgumentValidator.checkReserveRequest(reserveRequest);
+		checkReserveRequest(reserveRequest);
 
+		Map<String, Object> map = new HashMap<>();
 		boolean isInsertComplete = reservationServiceImpl.insertReservationInfo(reserveRequest);
-		if (!isInsertComplete) {
-			DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 실패");
-		}
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 하기 성공");
 
 		if (isInsertComplete) {
-			return true;
+			DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
+				"예약 하기 성공\n" + "isInsertComplete : " + isInsertComplete);
+			map.put("result", "reserveSuccess");
+			return map;
 		}
-		return false;
+		DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
+			"예약 하기 실패\n" + "isInsertComplete : " + isInsertComplete);
+		map.put("result", "reserveFailure");
+		return map;
 	}
 
 	// 나의 예약 조회하기
-	@GetMapping("/my")
+	@GetMapping("/lookUpReservation")
 	public ReservationInfoResponse getReservationInfoResponse(
-		@RequestParam(name = "email", required = true) String reservationEmail) {
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "email : " + reservationEmail);
+		@RequestParam(name = "reservationInfoType", required = true) ReservationInfoType reservationInfoType,
+		@RequestParam(name = "start", required = true) int start,
+		@RequestParam(name = "limit", required = false, defaultValue = "3") int limit,
+		HttpSession session) {
 
-		return reservationServiceImpl.getReservationInfoResponse(reservationEmail);
+		return reservationServiceImpl.getReservationInfoResponse((String)session.getAttribute("email"),
+			reservationInfoType, start, limit);
 	}
 
 	// 나의 예약 취소하기
-	@PutMapping("/my/{reservationInfoId}")
-	public boolean cancelReservation(@PathVariable int reservationInfoId) {
+	@PutMapping("/cancelReservation/{reservationInfoId}")
+	public Map<String, Object> cancelReservation(@PathVariable int reservationInfoId) {
+		Map<String, Object> map = new HashMap<>();
 		boolean isUpdateComplete = reservationServiceImpl.cancelReservation(reservationInfoId);
 
-		if (!isUpdateComplete) {
-			DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 취소 실패");
+		if (isUpdateComplete) {
+			DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
+				"예약 취소 성공\n" + "isUpdateComplete : " + isUpdateComplete);
+			map.put("result", "cancelSuccess");
+			return map;
 		}
-		DebugPrinter.print(Thread.currentThread().getStackTrace()[1], "예약 취소 성공");
+		DebugPrinter.print(Thread.currentThread().getStackTrace()[1],
+			"예약 취소 실패\n" + "isUpdateComplete : " + isUpdateComplete);
+		map.put("result", "cancelFailure");
+		return map;
+	}
 
+	private static final String REGULAR_KOREAN_NAME = "^[가-힣]{2,10}$";
+	private static final String REGULAR_TELEPHONE = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
+	private static final String REGULAR_EMAIL = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+
+	private static final int MAX_NAME_LENGTH = 10;
+	private static final int MAX_TELEPHONE_LENGTH = 13;
+	private static final int MAX_EMAIL_LENGTH = 50;
+
+	private static final int MAX_TICKET_COUNT = 10;
+
+	private static boolean checkReserveRequest(ReserveRequest reserveRequest) {
+		String reservationName = reserveRequest.getReservationName();
+		String reservationTel = reserveRequest.getReservationTel();
+		String reservationEmail = reserveRequest.getReservationEmail();
+		if (!checkPersonInfo(reservationName, reservationTel, reservationEmail)) {
+			return false;
+		}
+
+		int displayInfoId = reserveRequest.getDisplayInfoId();
+		if (!ArgumentValidator.checkDisplayInfoId(displayInfoId)) {
+			return false;
+		}
+
+		int ticketCount = 0;
+		List<ReservationPriceInfo> priceInfoList = reserveRequest.getReservationPriceInfoList();
+		for (ReservationPriceInfo priceInfo : priceInfoList) {
+			ticketCount = ticketCount + priceInfo.getCount();
+		}
+		if (ticketCount > MAX_TICKET_COUNT) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private static boolean checkPersonInfo(String reservationName, String reservationTel, String reservationEmail) {
+		if (!checkName(reservationName)) {
+			return false;
+		}
+		if (!checkTelephone(reservationTel)) {
+			return false;
+		}
+		if (!checkEmail(reservationEmail)) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean checkName(String reservationName) {
+		if (reservationName == null) {
+			return false;
+		}
+		if (reservationName.length() > MAX_NAME_LENGTH) {
+			return false;
+		}
+		if (!Pattern.matches(REGULAR_KOREAN_NAME, reservationName.trim())) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean checkTelephone(String reservationTel) {
+		if (reservationTel == null) {
+			return false;
+		}
+		if (reservationTel.length() > MAX_TELEPHONE_LENGTH) {
+			return false;
+		}
+		if (!Pattern.matches(REGULAR_TELEPHONE, reservationTel.trim())) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean checkEmail(String reservationEmail) {
+		if (reservationEmail == null) {
+			return false;
+		}
+		if (reservationEmail.length() > MAX_EMAIL_LENGTH) {
+			return false;
+		}
+		if (!Pattern.matches(REGULAR_EMAIL, reservationEmail.trim())) {
+			return false;
+		}
 		return true;
 	}
 }

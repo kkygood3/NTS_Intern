@@ -6,6 +6,7 @@ package com.nts.reservation.reservation.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nts.reservation.commons.validator.ArgumentValidator;
 import com.nts.reservation.reservation.dto.ReservationResponse;
-import com.nts.reservation.reservation.service.impl.ReservationServiceImpl;
+import com.nts.reservation.reservation.service.ReservationService;
 
 /**
  * @Author Duik Park, duik.park@nts-corp.com
@@ -26,7 +27,7 @@ import com.nts.reservation.reservation.service.impl.ReservationServiceImpl;
 @Controller
 public class ReservationController {
 	@Autowired
-	ReservationServiceImpl reservationServiceImpl;
+	ReservationService reservationServiceImpl;
 
 	@GetMapping("/reservation")
 	public ModelAndView requestProductDetail(
@@ -53,26 +54,41 @@ public class ReservationController {
 		return "bookingLogin";
 	}
 
-	@PostMapping("/myReservation")
+	@PostMapping("/lookUpReservation")
 	public String loginReservation(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
 
-		if (!ArgumentValidator.checkEmail(email)) {
+		if (!checkEmail(email)) {
 			return "error";
 		}
-
 		session.setAttribute("email", email);
-		return "myReservation";
+
+		return "lookUpReservation";
 	}
 
-	@GetMapping("/myReservation")
-	public String requestMyReservation(@RequestParam(name = "email", required = false) String email,
+	@GetMapping("/lookUpReservation")
+	public String requestReservationList(@RequestParam(name = "email", required = true) String email,
 		HttpSession session) {
-		String sessionEmail = (String)session.getAttribute("email");
-		if (sessionEmail != null) {
-			return "myReservation";
-		} else {
+		if (email == null || !checkEmail(email)) {
 			return "redirect:bookingLogin";
+		} else {
+			return "lookUpReservation";
 		}
+	}
+
+	private static final String REGULAR_EMAIL = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$";
+	private static final int MAX_EMAIL_LENGTH = 50;
+
+	public static boolean checkEmail(String reservationEmail) {
+		if (reservationEmail == null) {
+			return false;
+		}
+		if (reservationEmail.length() > MAX_EMAIL_LENGTH) {
+			return false;
+		}
+		if (!Pattern.matches(REGULAR_EMAIL, reservationEmail.trim())) {
+			return false;
+		}
+		return true;
 	}
 }

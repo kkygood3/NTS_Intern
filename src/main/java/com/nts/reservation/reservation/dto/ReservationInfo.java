@@ -13,89 +13,32 @@ import com.nts.reservation.displayInfo.dto.DisplayInfo;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public class ReservationInfo {
-	private boolean cancelFlag;
-	private String createDate;
-	private DisplayInfo displayInfo;
-	private int displayInfoId;
-	private String modifyDate;
-	private int productId;
-	private String reservationDate;
-	private String reservationEmail;
 	private int reservationInfoId;
+	private int reservationInfoPriceId;
 	private String reservationName;
-	private String reservationTel;
-	private int totalPrice;
+	private int displayInfoId;
+	private DisplayInfo displayInfo;
+	private String productDescription;
+	private String placeName;
+	private String openingHours;
+	private int price;
+	private int cancelFlag;
+	private String reservationDate;
 
-	public boolean isCancelYn() {
-		return cancelFlag;
-	}
-
-	public void setCancelYn(boolean cancelFlag) {
-		this.cancelFlag = cancelFlag;
-	}
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-	public DisplayInfo getDisplayInfo() {
-		return displayInfo;
-	}
-
-	public void setDisplayInfo(DisplayInfo displayInfo) {
-		this.displayInfo = displayInfo;
-	}
-
-	public int getDisplayInfoId() {
-		return displayInfoId;
-	}
-
-	public void setDisplayInfoId(int displayInfoId) {
-		this.displayInfoId = displayInfoId;
-	}
-
-	public String getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(String modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getReservationDate() {
-		return reservationDate;
-	}
-
-	public void setReservationDate(String reservationDate) {
-		this.reservationDate = reservationDate;
-	}
-
-	public String getReservationEmail() {
-		return reservationEmail;
-	}
-
-	public void setReservationEmail(String reservationEmail) {
-		this.reservationEmail = reservationEmail;
-	}
-
-	public int getReservationInfoId() {
+	public Integer getReservationInfoId() {
 		return reservationInfoId;
 	}
 
-	public void setReservationInfoId(int reservationInfoId) {
+	public void setReservationInfoId(Integer reservationInfoId) {
 		this.reservationInfoId = reservationInfoId;
+	}
+
+	public Integer getReservationInfoPriceId() {
+		return reservationInfoPriceId;
+	}
+
+	public void setReservationInfoPriceId(Integer reservationInfoPriceId) {
+		this.reservationInfoPriceId = reservationInfoPriceId;
 	}
 
 	public String getReservationName() {
@@ -106,20 +49,84 @@ public class ReservationInfo {
 		this.reservationName = reservationName;
 	}
 
-	public String getReservationTelephone() {
-		return reservationTel;
+	public Integer getDisplayInfoId() {
+		return displayInfoId;
 	}
 
-	public void setReservationTelephone(String reservationTel) {
-		this.reservationTel = reservationTel;
+	public void setDisplayInfoId(Integer displayInfoId) {
+		this.displayInfoId = displayInfoId;
 	}
 
-	public int getTotalPrice() {
-		return totalPrice;
+	public DisplayInfo getDisplayInfo() {
+		return displayInfo;
 	}
 
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setDisplayInfo(DisplayInfo displayInfo) {
+		this.displayInfo = displayInfo;
+	}
+
+	public void setReservationInfoId(int reservationInfoId) {
+		this.reservationInfoId = reservationInfoId;
+	}
+
+	public void setReservationInfoPriceId(int reservationInfoPriceId) {
+		this.reservationInfoPriceId = reservationInfoPriceId;
+	}
+
+	public void setDisplayInfoId(int displayInfoId) {
+		this.displayInfoId = displayInfoId;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public void setCancelFlag(int cancelFlag) {
+		this.cancelFlag = cancelFlag;
+	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getOpeningHours() {
+		return openingHours;
+	}
+
+	public void setOpeningHours(String openingHours) {
+		this.openingHours = openingHours;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public Integer getCancelFlag() {
+		return cancelFlag;
+	}
+
+	public void setCancelFlag(Integer cancelFlag) {
+		this.cancelFlag = cancelFlag;
+	}
+
+	public String getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
 	}
 
 	@Override

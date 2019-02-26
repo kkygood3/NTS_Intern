@@ -125,7 +125,7 @@ function initPriceDescription(reservationPriceList) {
 		if(i != 0 ){
 			resultText += '\r\n';
 		}
-		resultText += priceList[i].label + ' ' + priceList[i].price+'원';
+		resultText += priceList[i].label + ' ' + priceList[i].price + '원';
 	}
 	
 	priceDescriptionArea.innerText = resultText;
@@ -217,13 +217,12 @@ function postReservation() {
 	requestPostAjax(postResponseHandler, 'api/reservations', reserveRequest);
 }
 function postResponseHandler(response){
-	console.log(response);
-	console.log(typeof response);
-	if(response === false){
-		alert('예약에 문제가 발생했습니다.');
-	} else {
+	if(response.result === 'reserveSuccess'){
 		alert('예약 완료');
 		location.href = '/detailProduct?displayInfoId='+getUrlParameter('displayInfoId');
+	} else {
+		alert('예약에 문제가 발생했습니다.');
+		location.reload();
 	}
 }
 function setReservationInfo(name, telephone, email, displayInfoId, reservationDate, priceInfoList){

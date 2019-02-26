@@ -20,6 +20,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.nts.reservation.reservation.dao.ReservationDao;
 import com.nts.reservation.reservation.dto.ReservationDisplayInfo;
 import com.nts.reservation.reservation.dto.ReservationInfo;
 import com.nts.reservation.reservation.dto.ReservationPrice;
@@ -29,7 +30,7 @@ import com.nts.reservation.reservation.dto.ReservationPriceType;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 @Repository
-public class ReservationDaoImpl {
+public class ReservationDaoImpl implements ReservationDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private RowMapper<ReservationPrice> reservationPriceRowMapper = BeanPropertyRowMapper
 		.newInstance(ReservationPrice.class);
@@ -77,23 +78,51 @@ public class ReservationDaoImpl {
 		return jdbc.queryForObject(SELECT_RESERVATION_DISPLAY_INFO, param, reservationDisplayInfoRowMapper);
 	}
 
-	public List<ReservationInfo> selectReservationInfo(String reservationEmail) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("reservationEmail", reservationEmail);
-		return jdbc.query(SELECT_RESERVATION_INFO, params, reservationInfoRowMapper);
-	}
-
-	public int selectTotalPrice(String reservationEmail, int displayInfoId) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("reservationEmail", reservationEmail);
-		params.put("displayInfoId", displayInfoId);
-		return jdbc.queryForObject(SELECT_TOTAL_PRICE, params, Integer.class);
-	}
-
 	public int cancelReservation(int reservationInfoId) {
-		System.out.println("[ReservationDaoImpl] reservationInfoId : " + reservationInfoId);
 		Map<String, Integer> param = new HashMap<>();
 		param.put("reservationInfoId", reservationInfoId);
 		return jdbc.update(CANCEL_RESERVATION, param);
+	}
+
+	public List<ReservationInfo> selectConfirmReservationInfo(String reservationEmail, int start, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_CONFIRM_RESERVATION_INFO, params, reservationInfoRowMapper);
+	}
+
+	public List<ReservationInfo> selectCompleteReservationInfo(String reservationEmail, int start, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_COMPLETE_RESERVATION_INFO, params, reservationInfoRowMapper);
+	}
+
+	public List<ReservationInfo> selectCancelReservationInfo(String reservationEmail, int start, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		params.put("start", start);
+		params.put("limit", limit);
+		return jdbc.query(SELECT_CANCEL_RESERVATION_INFO, params, reservationInfoRowMapper);
+	}
+
+	public int selectConfirmReservationInfoCount(String reservationEmail) {
+		Map<String, String> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		return jdbc.queryForObject(SELECT_CONFIRM_RESERVATION_INFO_COUNT, params, Integer.class);
+	}
+
+	public int selectCompleteReservationInfoCount(String reservationEmail) {
+		Map<String, String> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		return jdbc.queryForObject(SELECT_COMPLETE_RESERVATION_INFO_COUNT, params, Integer.class);
+	}
+
+	public int selectCancelReservationInfoCount(String reservationEmail) {
+		Map<String, String> params = new HashMap<>();
+		params.put("reservationEmail", reservationEmail);
+		return jdbc.queryForObject(SELECT_CANCEL_RESERVATION_INFO_COUNT, params, Integer.class);
 	}
 }

@@ -85,31 +85,97 @@ public class ReservationDaoQuerys {
 		" INNER JOIN file_info ON file_info.id = product_image.file_id" +
 		" WHERE display_info.id = :displayInfoId";
 
-	public static final String SELECT_RESERVATION_INFO = " SELECT" +
-		" reservation_info.cancel_flag 'cancelFlag'," +
-		" reservation_info.create_date 'createDate'," +
-		" reservation_info.display_info_id 'displayInfoId'," +
-		" reservation_info.modify_date 'modifyDate'," +
-		" reservation_info.product_id 'productId'," +
-		" reservation_info.reservation_date 'reservationDate'," +
-		" reservation_info.reservation_email 'reservationEmail'," +
-		" reservation_info.id 'reservationInfoId'," +
-		" reservation_info.reservation_name 'reservationName'," +
-		" reservation_info.reservation_tel 'reservationTel'" +
-		" FROM reservation_info" +
-		" WHERE reservation_info.reservation_email = :reservationEmail";
-
-	public static final String SELECT_TOTAL_PRICE = " SELECT" +
-		" SUM( ROUND( product_price.price * ( ( 100 - product_price.discount_rate ) / 100 ) ) ) " +
-		" FROM reservation_info" +
-		" INNER JOIN reservation_info_price ON reservation_info_price.reservation_info_id = reservation_info.id" +
-		" INNER JOIN product_price ON product_price.id = reservation_info_price.product_price_id" +
-		" WHERE reservation_info.reservation_email = :reservationEmail" +
-		" AND reservation_info.display_info_id = :displayInfoId";
-
 	public static final String CANCEL_RESERVATION = " UPDATE" +
 		" reservation_info" +
 		" SET" +
 		" cancel_flag = 1" +
 		" WHERE reservation_info.id = :reservationInfoId";
+
+	public static final String SELECT_CONFIRM_RESERVATION_INFO = " SELECT" +
+		" reservation_info.id 'reservationInfoId'," +
+		" reservation_info_price.id 'reservationInfoPriceId'," +
+		" reservation_info.reservation_name 'reservationName'," +
+		" reservation_info.display_info_id 'displayInfoId'," +
+		" reservation_info.reservation_date 'reservationDate'," +
+		" product.description 'productDescription'," +
+		" display_info.place_name 'placeName'," +
+		" display_info.opening_hours 'openingHours'," +
+		" SUM(ROUND(product_price.price * (100-product_price.discount_rate) * reservation_info_price.count/100,0)) 'price',"
+		+
+		" reservation_info.cancel_flag 'cancelFlag'" +
+		" FROM reservation_info" +
+		" INNER JOIN display_info ON reservation_info.display_info_id = display_info.id" +
+		" INNER JOIN product ON reservation_info.product_id = product.id" +
+		" INNER JOIN reservation_info_price ON reservation_info.id = reservation_info_price.reservation_info_id" +
+		" INNER JOIN product_price ON reservation_info_price.product_price_id = product_price.id" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 0" +
+		" AND NOW() < reservation_info.reservation_date" +
+		" GROUP BY reservation_info.id" +
+		" LIMIT :start, :limit";
+
+	public static final String SELECT_COMPLETE_RESERVATION_INFO = " SELECT" +
+		" reservation_info.id 'reservationInfoId'," +
+		" reservation_info_price.id 'reservationInfoPriceId'," +
+		" reservation_info.reservation_name 'reservationName'," +
+		" reservation_info.display_info_id 'displayInfoId'," +
+		" reservation_info.reservation_date 'reservationDate'," +
+		" product.description 'productDescription'," +
+		" display_info.place_name 'placeName'," +
+		" display_info.opening_hours 'openingHours'," +
+		" SUM(ROUND(product_price.price * (100-product_price.discount_rate) * reservation_info_price.count/100,0)) 'price',"
+		+
+		" reservation_info.cancel_flag 'cancelFlag'" +
+		" FROM reservation_info" +
+		" INNER JOIN display_info ON reservation_info.display_info_id = display_info.id" +
+		" INNER JOIN product ON reservation_info.product_id = product.id" +
+		" INNER JOIN reservation_info_price ON reservation_info.id = reservation_info_price.reservation_info_id" +
+		" INNER JOIN product_price ON reservation_info_price.product_price_id = product_price.id" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 0" +
+		" AND NOW() >= reservation_info.reservation_date" +
+		" GROUP BY reservation_info.id" +
+		" LIMIT :start, :limit";
+
+	public static final String SELECT_CANCEL_RESERVATION_INFO = " SELECT" +
+		" reservation_info.id 'reservationInfoId'," +
+		" reservation_info_price.id 'reservationInfoPriceId'," +
+		" reservation_info.reservation_name 'reservationName'," +
+		" reservation_info.display_info_id 'displayInfoId'," +
+		" reservation_info.reservation_date 'reservationDate'," +
+		" product.description 'productDescription'," +
+		" display_info.place_name 'placeName'," +
+		" display_info.opening_hours 'openingHours'," +
+		" SUM(ROUND(product_price.price * (100-product_price.discount_rate) * reservation_info_price.count/100,0)) 'price',"
+		+
+		" reservation_info.cancel_flag 'cancelFlag'" +
+		" FROM reservation_info" +
+		" INNER JOIN display_info ON reservation_info.display_info_id = display_info.id" +
+		" INNER JOIN product ON reservation_info.product_id = product.id" +
+		" INNER JOIN reservation_info_price ON reservation_info.id = reservation_info_price.reservation_info_id" +
+		" INNER JOIN product_price ON reservation_info_price.product_price_id = product_price.id" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 1" +
+		" GROUP BY reservation_info.id" +
+		" LIMIT :start, :limit";
+
+	public static final String SELECT_CONFIRM_RESERVATION_INFO_COUNT = " SELECT" +
+		" COUNT(reservation_info.id) 'count'" +
+		" FROM reservation_info" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 0" +
+		" AND NOW() < reservation_info.reservation_date";
+
+	public static final String SELECT_COMPLETE_RESERVATION_INFO_COUNT = " SELECT" +
+		" COUNT(reservation_info.id) 'count'" +
+		" FROM reservation_info" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 0" +
+		" AND NOW() >= reservation_info.reservation_date";
+
+	public static final String SELECT_CANCEL_RESERVATION_INFO_COUNT = " SELECT" +
+		" COUNT(reservation_info.id) 'count'" +
+		" FROM reservation_info" +
+		" WHERE reservation_info.reservation_email = :reservationEmail" +
+		" AND reservation_info.cancel_flag = 1";
 }

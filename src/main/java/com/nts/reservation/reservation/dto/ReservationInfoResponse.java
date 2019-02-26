@@ -14,7 +14,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ReservationInfoResponse {
 	private List<ReservationInfo> reservations;
-	private int size;
+	private ReservationInfoType reservationInfoType;
+	private int count;
 
 	public List<ReservationInfo> getReservations() {
 		return reservations;
@@ -24,12 +25,20 @@ public class ReservationInfoResponse {
 		this.reservations = reservations;
 	}
 
-	public int getSize() {
-		return size;
+	public ReservationInfoType getReservationInfoType() {
+		return reservationInfoType;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public void setReservationInfoType(ReservationInfoType reservationInfoType) {
+		this.reservationInfoType = reservationInfoType;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	@Override
