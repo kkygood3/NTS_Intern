@@ -146,6 +146,8 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script type = "text/javascript" src="/js/common/utils.js" charset="utf-8"></script>
+	<script type = "text/javascript" src="/js/mapper/review_write-mapper.js" charset="utf-8"></script>
 	<script type = "text/javascript" src="/js/review_write/review_write.js" charset="utf-8"></script>
 </body>
 </html>
