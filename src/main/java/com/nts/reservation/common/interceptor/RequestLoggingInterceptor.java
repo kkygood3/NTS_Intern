@@ -25,9 +25,11 @@ public class RequestLoggingInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-		logger.debug("DATE : {}, IP : {}, URL : {}", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+		logger.debug(String.format("DATE : %-25s, IP : %-16s, URL : %-60s, METHOD : %s",
+			LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
 			request.getRemoteAddr(),
-			request.getRequestURL());
+			request.getRequestURL(),
+			handler.toString()));
 		return true;
 	}
 }
