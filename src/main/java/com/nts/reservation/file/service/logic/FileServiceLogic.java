@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,6 @@ import com.nts.reservation.file.service.FileService;
 
 @Service
 public class FileServiceLogic implements FileService {
-
-	private static final int BUFFER_SIZE = 1024;
 
 	private final FileDao fileDao;
 
@@ -36,7 +35,7 @@ public class FileServiceLogic implements FileService {
 	@Override
 	public int storeMultipartFile(MultipartFile multipartFile, String directory) {
 		String savePath = FILE_ROOT_DIRECTORY + directory;
-		String fileName = System.currentTimeMillis() + multipartFile.getOriginalFilename();
+		String fileName = UUID.randomUUID() + multipartFile.getOriginalFilename();
 		String newFilePath = savePath + fileName;
 
 		File file = new File(newFilePath);

@@ -79,7 +79,7 @@ public class CommentController {
 			OutputStream outputStream = response.getOutputStream()) {
 
 			setHeaderFile(saveFileInfo, saveFile, response);
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[FileService.BUFFER_SIZE];
 			while (fileInputStream.read(buffer) > 0) {
 				outputStream.write(buffer);
 			}

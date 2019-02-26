@@ -67,7 +67,6 @@ public class CommentServiceLogic implements CommentService {
 	@Override
 	@Transactional
 	public int addComment(WritedComment writedComment, MultipartFile[] images) {
-		String commentImageDirectory = "img/";
 
 		int reservationUserCommentId = commentDao.insertComment(writedComment);
 
@@ -76,7 +75,7 @@ public class CommentServiceLogic implements CommentService {
 		}
 
 		for (MultipartFile image : images) {
-			int fileId = fileService.storeMultipartFile(image, commentImageDirectory);
+			int fileId = fileService.storeMultipartFile(image, FileService.FILE_IMAGE_DIRECTORY);
 			commentDao.insertReservationUserCommentImageInfo(writedComment.getReservationId(), reservationUserCommentId,
 				fileId);
 		}
