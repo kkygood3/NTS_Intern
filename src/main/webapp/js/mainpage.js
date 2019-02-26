@@ -198,7 +198,7 @@ var mainPage = {
 				this.mainPage.elements.btnShowMore.hidden = false;
 				
 				if(this.mainPage.variables.selectedCategoryId === null || this.mainPage.variables.selectedCategoryId === undefined){
-					this.mainPage.ajaxSender.sendGet("/api/products?start=" + this.mainPage.variables.start + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
+					this.mainPage.ajaxSender.sendGet("/api/products?start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				} else {
 					this.mainPage.ajaxSender.sendGet("/api/products?categoryId="+this.mainPage.variables.selectedCategoryId+"&start=" + this.mainPage.variables.start, this.mainPage.ajaxOptions.getOptionsForProducts());
 				}

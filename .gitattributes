@@ -1,4 +1,0 @@
-/resources/img/*.png -diff
-/resources/img_map/*.png -diff
-/src/main/webapp/img/*.png -diff
-/src/main/webapp/img_map/*.png -diff
