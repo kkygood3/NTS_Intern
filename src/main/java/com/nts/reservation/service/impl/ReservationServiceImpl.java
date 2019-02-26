@@ -99,7 +99,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * 예약상태값(예정,완료,취소)에 따라 에약리스트들과 총개수를 가져옵니다. 
 	 */
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ReservationResponseDto getReservationResponse(String reservationEmail,
 		ReservationStatusType status, PageDto page) {
 		int count = reservationMapper.selectReservationCountByStatus(reservationEmail, status);
