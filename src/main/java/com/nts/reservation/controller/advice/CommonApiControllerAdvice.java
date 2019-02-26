@@ -34,50 +34,29 @@ import com.nts.reservation.exception.InvalidParamException;
 public class CommonApiControllerAdvice {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@ExceptionHandler(IOException.class)
+	@ExceptionHandler({IOException.class, SQLException.class})
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorMessageDto handleIoException(IOException exception) {
+	public ErrorMessageDto handleIoException(Exception exception) {
 		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 
-	@ExceptionHandler(SQLException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorMessageDto handleSqlException(SQLException exception) {
-		logger.error("error message, {}", exception);
-		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
-	}
-
-	@ExceptionHandler(BindException.class)
+	@ExceptionHandler({BindException.class, InvalidParamException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessageDto handleBindException(BindException exception) {
+	public ErrorMessageDto handleBindException(Exception exception) {
 		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
-	@ExceptionHandler(InvalidParamException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ErrorMessageDto handleInvalidParamException(InvalidParamException exception) {
-		logger.error("error message, {}", exception);
-		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
-	}
-
-	@ExceptionHandler(FileNotFoundException.class)
+	@ExceptionHandler({FileNotFoundException.class, CustomFileNotFoundException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ErrorMessageDto handleFileNotFoundException(FileNotFoundException exception) {
+	public ErrorMessageDto handleFileNotFoundException(Exception exception) {
 		logger.error("error message, {}", exception);
 		return new ErrorMessageDto(NOT_FOUND_REQUEST);
-	}
-
-	@ExceptionHandler(CustomFileNotFoundException.class)
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ErrorMessageDto handleCustomFileNotFoundException(CustomFileNotFoundException exception) {
-		logger.error("error message, {}", exception);
-		return new ErrorMessageDto(NOT_FOUND_REQUEST);
-
 	}
 
 	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleCommonException(Exception exception) {
 
 		logger.error("error message, {}", exception);

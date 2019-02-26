@@ -35,29 +35,15 @@ public class CommonPageControllerAdvice {
 	}
 
 	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ModelAndView handleCommonException(Exception exception) {
 		logger.error("error message, {}", exception);
 		return getErrorPage(new ErrorMessageDto(COMMON_ERROR_MSG));
 	}
 
-	@ExceptionHandler(HttpClientErrorException.class)
+	@ExceptionHandler({HttpClientErrorException.class, ConnectException.class, HttpServerErrorException.class})
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleHttpClientErrorException(HttpClientErrorException exception) {
-		logger.error("error message, {}", exception);
-		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
-	}
-
-	@ExceptionHandler(ConnectException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleConnectException(ConnectException exception) {
-		logger.error("error message, {}", exception);
-		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
-	}
-
-	@ExceptionHandler(HttpServerErrorException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleHttpServerErrorException(HttpServerErrorException exception) {
+	public ModelAndView handleHttpClientErrorException(Exception exception) {
 		logger.error("error message, {}", exception);
 		return getErrorPage(new ErrorMessageDto(INTERNAL_ERROR_MSG));
 	}
