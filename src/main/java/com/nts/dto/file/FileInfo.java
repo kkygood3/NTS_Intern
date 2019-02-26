@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.file;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class FileInfo {
 	private String fileName;
 	private String saveFileName;
@@ -31,6 +34,11 @@ public class FileInfo {
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

@@ -4,7 +4,6 @@
  **/
 package com.nts.service.comment.impl;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.nts.dao.comment.CommentRepository;
 import com.nts.dto.comment.Comment;
 import com.nts.dto.comment.Comments;
-import com.nts.dto.file.FileInfo;
 import com.nts.service.comment.CommentService;
 
 /**
@@ -21,7 +19,7 @@ import com.nts.service.comment.CommentService;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-	private static final String FILE_PATH = "/Users/USER/git/2019_1st_intern6/src/main/webapp/";
+	
 	
 	private final CommentRepository commentRepository;
 	
@@ -71,15 +69,6 @@ public class CommentServiceImpl implements CommentService {
 		comments.setComments(getCommentListByProductId(productId));
 
 		return comments;
-	}
-
-	@Override
-	public FileInfo getFileInfoByCommentId(int commentId) throws FileNotFoundException {
-		
-		FileInfo fileInfo = commentRepository.selectFileInfoByCommentId(commentId);
-		
-		fileInfo.setSaveFileName(FILE_PATH + fileInfo.getSaveFileName());
-		return fileInfo;
 	}
 
 }

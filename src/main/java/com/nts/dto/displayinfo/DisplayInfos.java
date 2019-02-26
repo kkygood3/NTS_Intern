@@ -6,6 +6,9 @@ package com.nts.dto.displayinfo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.dto.comment.Comment;
 import com.nts.dto.product.ProductImage;
 import com.nts.dto.product.ProductPrice;
@@ -67,5 +70,10 @@ public class DisplayInfos {
 
 	public void setProductPrices(List<ProductPrice> productPrices) {
 		this.productPrices = productPrices;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

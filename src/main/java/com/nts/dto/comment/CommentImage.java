@@ -1,5 +1,8 @@
 package com.nts.dto.comment;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -93,5 +96,10 @@ public class CommentImage {
 
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

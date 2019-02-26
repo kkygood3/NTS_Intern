@@ -4,6 +4,8 @@
  **/
 package com.nts.dto.reservation;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ReservationCommentParam {
@@ -52,6 +54,11 @@ public class ReservationCommentParam {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

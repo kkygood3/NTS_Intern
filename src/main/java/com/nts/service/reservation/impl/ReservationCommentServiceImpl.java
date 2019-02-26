@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.rmi.ServerException;
-import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +18,7 @@ import com.nts.dao.reservation.ReservationCommentRepository;
 import com.nts.dto.file.FileInfo;
 import com.nts.dto.reservation.ReservationCommentParam;
 import com.nts.service.reservation.ReservationCommentService;
+import com.nts.util.FileSizeUtil;
 import com.nts.util.UuidUtil;
 
 /**
@@ -27,15 +27,13 @@ import com.nts.util.UuidUtil;
 @Service
 public class ReservationCommentServiceImpl implements ReservationCommentService {
 
-	private static final String FILE_PATH = "C:\\Users\\USER\\eclipse-workspace\\2019_1st_intern6_test\\2019_1st_intern6_test\\src\\main\\webapp\\img\\";
-
 	private final ReservationCommentRepository reservationCommentRepository;
 
 	public ReservationCommentServiceImpl(ReservationCommentRepository reservationCommentRepository) {
 		this.reservationCommentRepository = reservationCommentRepository;
 	}
 
-	@Transactional(readOnly = false, rollbackFor = {ServerException.class, SQLException.class})
+	@Transactional(readOnly = false, rollbackFor = {ServerException.class, RuntimeException.class})
 	@Override
 	public int addComment(ReservationCommentParam reservationCommentParam)
 		throws ServerException {
@@ -43,12 +41,14 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 		int reservationUserCommentId = reservationCommentRepository.insertIntoReservationUserComment(reservationCommentParam);
 
 		if (reservationCommentParam.getAttachedImage() != null) {
-			String fileName = addFile(reservationCommentParam.getAttachedImage());
+			
+			String fileName = getImageFileName(reservationCommentParam.getAttachedImage().getContentType());
+			addFile(reservationCommentParam.getAttachedImage(), fileName);
 			
 			FileInfo fileInfo = new FileInfo();
 			
 			fileInfo.setContentType(reservationCommentParam.getAttachedImage().getContentType());
-			fileInfo.setSaveFileName("img/" +fileName);
+			fileInfo.setSaveFileName(IMAGE_FILE_FOLDER_PATH +fileName);
 			fileInfo.setFileName(fileName);
 			
 			int fileId = reservationCommentRepository.insertIntoFileInfo(fileInfo);
@@ -59,14 +59,13 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 		return 0;
 	}
 
-	private String addFile(MultipartFile imageFile) throws ServerException {
-		String fileName = UuidUtil.getUuid() + imageFile.getContentType().replaceAll("image/", ".");
+	private void addFile(MultipartFile imageFile, String fileName) throws ServerException {
 		try (
 			FileOutputStream outputStream = new FileOutputStream(FILE_PATH + fileName);
 			InputStream inputStream = imageFile.getInputStream()) {
 
 			int readCount = 0;
-			byte[] buffer = new byte[1024];
+			byte[] buffer = new byte[FileSizeUtil.KILLO_BYTE];
 
 			while ((readCount = inputStream.read(buffer)) != -1) {
 				outputStream.write(buffer, 0, readCount);
@@ -76,6 +75,9 @@ public class ReservationCommentServiceImpl implements ReservationCommentService 
 		} catch (IOException e) {
 			throw new ServerException("서버 파일 요청 에러" , e);
 		}
-		return fileName;
+	}
+	
+	private String getImageFileName(String contentType) throws ServerException {
+		return UuidUtil.getUuid() + contentType.replaceAll("image/", ".");
 	}
 }

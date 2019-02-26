@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LogFilter implements Filter{
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -44,9 +44,8 @@ public class LogFilter implements Filter{
 		long proceedTime = endTime - beginTime;
 		
 		String clientIp = request.getRemoteAddr();
-		clientIp = String.format("%-20s", clientIp);
 		
-		logger.info("ClientIP : {} , URL	 : {},  Method : {}, ProceedTime : {}ms",clientIp, String.format("%-30s", requestUri),String.format("%-6s", httpRequest.getMethod()), proceedTime);
+		logger.info(String.format("ClientIP : %-20s , URL	 : %-30s,  Method : %-7s, ProceedTime : %6d ms",clientIp, requestUri,httpRequest.getMethod(), proceedTime) );
 	}
 
 	@Override

@@ -2,6 +2,9 @@ package com.nts.dto.reservation;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -72,10 +75,6 @@ public class ReservationParameter {
 
 	@Override
 	public String toString() {
-		return "ReservationParameter [displayInfoId=" + displayInfoId + ", prices=" + prices + ", productId="
-			+ productId + ", reservationEmail=" + reservationEmail + ", reservationName=" + reservationName
-			+ ", reservationTelephone=" + reservationTelephone + ", reservationYearMonthDay=" + reservationYearMonthDay
-			+ "]";
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
-
 }

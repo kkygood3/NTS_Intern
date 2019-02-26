@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.reservation;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -43,6 +46,11 @@ public class ReservationPrice {
 
 	public void setReservationInfoPriceId(int reservationInfoPriceId) {
 		this.reservationInfoPriceId = reservationInfoPriceId;
+	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 }

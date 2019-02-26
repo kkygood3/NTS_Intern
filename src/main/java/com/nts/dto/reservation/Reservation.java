@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.reservation;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.dto.displayinfo.DisplayInfo;
 
 /**
@@ -127,4 +130,10 @@ public class Reservation {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+	
 }

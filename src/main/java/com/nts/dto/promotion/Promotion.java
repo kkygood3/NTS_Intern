@@ -4,6 +4,9 @@
  **/
 package com.nts.dto.promotion;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author 전연빈
  */
@@ -38,6 +41,6 @@ public class Promotion {
 
 	@Override
 	public String toString() {
-		return "PromotionDto [id=" + id + ", productId=" + productId + ", productImageUrl=" + productImageUrl + "]";
+		return ReflectionToStringBuilder.reflectionToString(this,ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }
