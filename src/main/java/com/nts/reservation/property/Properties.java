@@ -56,5 +56,17 @@ public class Properties {
 	public static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_map/";
 
 	public static final int RANDOM_SUFFIX_LENGTH = 10;
+	
+	/**
+	 * 시스템 이용중에 문제가 있었을 때 출력할 view
+	 */
+	public static final String ERROR_VIEW = "error/invalidAccess";
+	
+	/**
+	 * 캐시 period
+	 * 31556926 seconds = 1 year
+	 * @value 31556926
+	 */
+	public static final int DEFAULT_CACHE_PERIOD = 31556926;
 
 }

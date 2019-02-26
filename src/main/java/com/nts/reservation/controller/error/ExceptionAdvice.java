@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.nts.reservation.property.Properties;
+
 
 @ControllerAdvice
 public class ExceptionAdvice {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	public static final String errorView = "error/invalidAccess";
 
 	//404 오류
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public String handlePageNotFound(NoHandlerFoundException ex, HttpServletRequest request) {
 		request.setAttribute("cause", "알수없는 URL 요청");
-		return errorView;
+		return Properties.ERROR_VIEW;
 	}
 
 	//RuntimeExceiption 처리
@@ -39,8 +40,9 @@ public class ExceptionAdvice {
 			String message = exception.getMessage().replaceAll("'", "\"");
 			request.setAttribute("cause", message);
 			exception.printStackTrace();
+			
 		}
-		return errorView;
+		return Properties.ERROR_VIEW;
 	}
 
 	//나머지 파악하지 못한 Exception 로그 출력

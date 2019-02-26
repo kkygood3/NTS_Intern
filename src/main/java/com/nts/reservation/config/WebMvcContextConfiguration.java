@@ -23,6 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.nts.reservation.argumentresolver.ReviewWriteArgumentResolver;
 import com.nts.reservation.interceptor.LogInterceptor;
 import com.nts.reservation.interceptor.SessionInterceptor;
+import com.nts.reservation.property.Properties;
 
 /**
  * MVC에서 Controller단을 관리.
@@ -31,12 +32,6 @@ import com.nts.reservation.interceptor.SessionInterceptor;
 @EnableWebMvc
 @ComponentScan("com.nts.reservation.controller")
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
-	/**
-	 * 31556926 seconds = 1 year
-	 * @value 31556926
-	 */
-	private static final int DEFAULT_PERIOD = 31556926;
-
 	@Bean
 	public DispatcherServlet dispatcherServlet() {
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();
@@ -51,11 +46,11 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(DEFAULT_PERIOD);
-		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(DEFAULT_PERIOD);
-		registry.addResourceHandler("/img_map/**").addResourceLocations("/img_map/").setCachePeriod(DEFAULT_PERIOD);
-		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(DEFAULT_PERIOD);
-		registry.addResourceHandler("/font/**").addResourceLocations("/font/").setCachePeriod(DEFAULT_PERIOD);
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(Properties.DEFAULT_CACHE_PERIOD);
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(Properties.DEFAULT_CACHE_PERIOD);
+		registry.addResourceHandler("/img_map/**").addResourceLocations("/img_map/").setCachePeriod(Properties.DEFAULT_CACHE_PERIOD);
+		registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(Properties.DEFAULT_CACHE_PERIOD);
+		registry.addResourceHandler("/font/**").addResourceLocations("/font/").setCachePeriod(Properties.DEFAULT_CACHE_PERIOD);
 	}
 
 	@Bean
