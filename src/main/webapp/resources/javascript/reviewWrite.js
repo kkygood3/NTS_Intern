@@ -106,6 +106,9 @@ function combineCommentData(){
 	formData.append('comment', reviewWrite.reviewField.value);
 	formData.append('fileName', reviewWrite.fileName);
 	formData.append('contentType', reviewWrite.contentType);
-	formData.append('file', reviewWrite.file);
+	
+	if(reviewWrite.file != ''){
+		formData.append('file', reviewWrite.file);
+	}
 	return formData;
 }
