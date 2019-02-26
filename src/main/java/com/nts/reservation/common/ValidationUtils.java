@@ -16,30 +16,29 @@ import com.nts.reservation.property.Properties;
 public class ValidationUtils {
 	public static boolean validateEmail(String email) {
 		return (email != null
-			&& email.length() > 0
 			&& email.length() <= Properties.MAX_EMAIL_LENGTH
 			&& Pattern.matches(Properties.REG_EMAIL, email.trim()));
 	}
 
 	public static boolean validateTelephone(String telephone) {
 		return (telephone != null
-			&& telephone.length() > 0
 			&& Pattern.matches(Properties.REG_TELEPHONE, telephone.trim()));
 	}
 
 	public static boolean validateName(String name) {
-		return (name != null && name.length() > 0
+		return (name != null 
+			&& name.length() > 0
 			&& name.length() <= Properties.MAX_NAME_LENGTH);
 	}
 
 	public static boolean validateComment(String comment) {
 		int commentLength = comment.length();
-		return (Properties.MIN_COMMENT_LENGTH <= commentLength
+		return (commentLength >= Properties.MIN_COMMENT_LENGTH 
 			&& commentLength <= Properties.MAX_COMMENT_LENGTH);
 	}
 
 	public static boolean validateScore(int score) {
-		return (Properties.MIN_REVIEW_SCORE <= score
+		return (score >= Properties.MIN_REVIEW_SCORE 
 			&& score <= Properties.MAX_REVIEW_SCORE);
 	}
 
