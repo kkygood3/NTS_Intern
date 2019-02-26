@@ -24,12 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.dto.Comment;
-import com.nts.reservation.dto.CommentImage;
-import com.nts.reservation.dto.FileInfo;
 import com.nts.reservation.dto.Reservation;
 import com.nts.reservation.dto.ReservedItem;
 import com.nts.reservation.service.CommentService;
-import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -42,8 +39,6 @@ public class ReservationApiController {
 	private ReservationService reservationService;
 	@Autowired
 	private CommentService commentService;
-	@Autowired
-	private FileIoService fileIoService;
 
 	@GetMapping(path = "/reservations")
 	public Map<String, Object> getReservations(@RequestParam String reservationEmail) {
@@ -74,23 +69,7 @@ public class ReservationApiController {
 	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
 	public String writeComment(@ModelAttribute Comment comment,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
-		int reservationInfoId = comment.getReservationInfoId();
-		int reservationUserCommentId = commentService.setComment(comment);
-
-		if (files != null) {
-			for (MultipartFile file : files) {
-				FileInfo fileInfo = fileIoService.createFileInfo(file);
-
-				int fileInfoId = fileIoService.setFileInfo(fileInfo);
-
-				CommentImage commentImage = new CommentImage();
-				commentImage.setReservationInfoId(reservationInfoId);
-				commentImage.setReservationUserCommentId(reservationUserCommentId);
-				commentImage.setFileId(fileInfoId);
-
-				commentService.setCommentImage(commentImage);
-			}
-		}
+		commentService.addComment(comment, files);
 
 		return "/reservation/history";
 	}
