@@ -8,7 +8,7 @@
 	<meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<title>네이버 예약</title>
-	<link href="css/style.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -16,17 +16,17 @@
 		<div class="header fade">
 			<header class="header_tit">
 				<h1 class="logo">
-					<a href="./mainpage.jsp" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-					<a href="./mainpage.jsp" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+					<a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
+					<a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
 				</h1>
-				  <a href="#" class="btn_my"> <span title="예약확인">예약확인</span> </a>
+				  <a href="/reservation/history" class="btn_my"> <span title="예약확인">예약확인</span> </a>
 			</header>
 		</div>
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title review_header">
-					<a href="./myreservation.jsp" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">클림트 인사이드</span></h2>
+					<a href="/reservation/history" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<h2><span class="title" data-product-id="${productId}" data-reservation-info-id="${reservationInfoId}">${productDescription}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
@@ -76,7 +76,7 @@
 						</label>
 						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" multiple>
 						<div class="guide_review">
-							<span>0</span>/400
+							<span id="review_length">0</span>/400
 							<span>(최소5자이상)</span>
 						</div>
 					</div>
@@ -85,13 +85,13 @@
 					<div class="review_photos review_photos_write">
 						<div class="item_preview_thumbs">
 							<ul class="lst_thumb">
-								<li class="item" style="display: none;">
+								<!-- li class="item" style="display: none;">
 									<a href="#" class="anchor">
 										<span class="spr_book ico_del">삭제</span>
 									</a>
 									<img src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" width="130" alt="" class="item_thumb">
 									<span class="img_border"></span>
-								</li>
+								</li -->
 							</ul>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 
 				<!-- 리뷰 등록 -->
 				<div class="box_bk_btn">
-					<button class="bk_btn"><span class="btn_txt">리뷰 등록</span></button>
+					<button class="bk_btn" disabled><span class="btn_txt">리뷰 등록</span></button>
 				</div>
 				<!-- //리뷰 등록 -->
 			</div>
@@ -117,5 +117,21 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	
+	<script type="rv-template" id="thumbnailList">
+	{{#each @root}}
+	<li class="item">
+		<a href="#" class="anchor">
+			<span class="spr_book ico_del">삭제</span>
+		</a>
+		<img src="{{#getSrc this}}{{/getSrc}}" width="130" alt="thumbnail" class="item_thumb">
+		<span class="img_border"></span>
+	</li>
+	{{/each}}
+	</script>
+
+ 	<script src="/js/handlebars.min.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/reviewWrite.js"></script>
 </body>
 </html>

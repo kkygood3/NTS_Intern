@@ -60,7 +60,17 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void cancelReservation(Integer reservationInfoId) {
+	public void cancelReservation(int reservationInfoId) {
 		reservationDao.updateReservationCancelFlag(reservationInfoId);
+	}
+
+	@Override
+	public boolean isExistReservationInfo(int reservationInfoId, String userEmail) {
+		return reservationDao.selectReservationInfoExistFlag(reservationInfoId, userEmail);
+	}
+
+	@Override
+	public int getDisplayInfoId(int reservationInfoId) {
+		return reservationDao.selectDisplayInfoId(reservationInfoId);
 	}
 }

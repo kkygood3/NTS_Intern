@@ -3,6 +3,7 @@ package com.nts.reservation.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,7 +12,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.interceptor.LogInInterceptor;
+import com.nts.reservation.interceptor.LoggingInterceptor;
+import com.nts.reservation.interceptor.LoginInterceptor;
 
 /**
 * @author  : 이승수
@@ -35,8 +37,8 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(final ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("mainpage");
-		registry.addViewController("/detail/{displayInfoId}").setViewName("detail");
-		registry.addViewController("/detail/{displayInfoId}/reviews").setViewName("review");
+		registry.addViewController("/displayInfo/detail/{displayInfoId}").setViewName("detail");
+		registry.addViewController("/displayInfo/detail/{displayInfoId}/reviews").setViewName("review");
 		registry.addViewController("/login").setViewName("bookinglogin");
 	}
 
@@ -50,6 +52,14 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LogInInterceptor()).addPathPatterns("/history");
+		registry.addInterceptor(new LoggingInterceptor());
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reservation/history");
+		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/reservation/reviewWrite/{reservationInfoId}");
+	}
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
+		return multipartResolver;
 	}
 }

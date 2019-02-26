@@ -3,16 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 var reservePage = {
 	getReservPage: function(displayInfoId){
-		var inputTagValidator = new InputTagValidator();
+		var inputTagValidator = new InputValueValidator();
 		
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.convertTypeName();
 		
-		inputTagValidator.validateInputTag(this.elements.bkName, inputTagValidator.nameRegex);
-		inputTagValidator.validateInputTag(this.elements.bkTel, inputTagValidator.telRegex);
-		inputTagValidator.validateInputTag(this.elements.bkEmail, inputTagValidator.emailRegex);
+		inputTagValidator.validateInputText(this.elements.bkName, inputTagValidator.nameRegex);
+		inputTagValidator.validateInputText(this.elements.bkTel, inputTagValidator.telRegex);
+		inputTagValidator.validateInputText(this.elements.bkEmail, inputTagValidator.emailRegex);
 		
-		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
+		this.ajaxSender.sendGet("/api/products/" + displayInfoId, this.ajaxOptions.getOptionsForDisplayContents());
 		
 		this.setEvent.setEventToUserInfoContainer(inputTagValidator);
 		this.setEvent.setEventToTicketInfoContainer();
@@ -30,7 +30,7 @@ var reservePage = {
 		getOptionsForDisplayContents : function(){
 			var options = {
 				contentType : "charset=utf-8",
-				callBack : this.reservePage.displayContents
+				callback : this.reservePage.displayContents
 			}
 			
 			return options;
@@ -40,8 +40,8 @@ var reservePage = {
 			var options = {
 				contentType : "application/json",
 				data : JSON.stringify(this.reservePage.reservationInfo.getReservationData()),
-				callBack : function(){
-					window.location = "/reservation";
+				callback : function(){
+					window.location = "/";
 				}
 			}
 			
@@ -124,16 +124,20 @@ var reservePage = {
 		}
 	},
 
-	displayExhibitionInfo : function(jsonResponse){
+	displayExhibitionInfo : function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindDisplayInfo = this.compileHendlebars.bindTemplate(this.template.displayInfoTemplate);
 		
 		this.elements.title.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.title.dataset.productId = jsonResponse["displayInfo"].productId;
-		this.elements.mainImage.src = "/reservation/" + jsonResponse["productImages"][0].saveFileName;
+		this.elements.mainImage.src = "/reservation/showImage/" + jsonResponse["productImages"][0].fileInfoId;
 		this.container.displayInfoContainer.innerHTML = bindDisplayInfo(jsonResponse);
 	},
 
-	displayTicketInfo : function(jsonResponse){
+	displayTicketInfo : function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
 		var bindTicketInfo = this.compileHendlebars.bindTemplate(this.template.ticketInfoTemplate);
 		
 		this.container.ticketInfoContainer.innerHTML = bindTicketInfo(jsonResponse);
@@ -305,8 +309,8 @@ var reservePage = {
 
 		setEventToBtnReserve : function(){
 			this.reservePage.elements.bkBtn.addEventListener("click", function(event){
-				if(!event.target.parentNode.classList.contains("disable")){
-					this.reservePage.ajaxSender.sendPost("/reservation/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
+				if(!this.reservePage.elements.bkBtn.classList.contains("disable")){
+					this.reservePage.ajaxSender.sendPost("/api/reservations", this.reservePage.ajaxOptions.getOptionsForMakeReservation());
 				}
 			}.bind(this));
 		}.bind(this),

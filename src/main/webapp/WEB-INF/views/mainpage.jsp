@@ -9,7 +9,7 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
-    <link href="/reservation/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -18,14 +18,14 @@
             <header class="header_tit">
                 <h1 class="logo">
                     <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="/reservation" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
                 <c:choose>
                     <c:when test="${sessionScope.userEmail == null}">
-                        <a href="history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                        <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
                     </c:when>
                     <c:otherwise>
-                        <a href="history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
+                        <a href="/reservation/history" class="btn_my"> <span class="viewReservation" title="예약확인">${sessionScope.userEmail}</span> </a>
                     </c:otherwise>
                 </c:choose>
             </header>
@@ -120,7 +120,7 @@
 
     <script type="rv-template" id="promotionItem">
 	{{#each items}}
-    <li class="item" style="background-image: url({{productImageUrl}});">
+    <li class="item" style="background-image: url(/reservation/showImage/products/{{this.productId}});">
         <a> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
             <div class="event_txt">
                 <h4 class="event_txt_tit">{{productDescription}}</h4>
@@ -135,13 +135,13 @@
     <script type="rv-template" id="itemList">
 	{{#each items}}
     <li class="item">
-       <a href="detail/{{displayInfoId}}" class="item_book">
+       <a href="/displayInfo/detail/{{displayInfoId}}" class="item_book">
             <div class="item_preview">
-                <img alt="{{description}}" class="img_thumb" src="{{productImageUrl}}">
+                <img alt="{{description}}" class="img_thumb" src="/reservation/showImage/products/{{this.productId}}">
                 <span class="img_border"></span>
             </div>
             <div class="event_txt">
-                <h4 class="event_txt_tit"> <span>{{description}}</span> <small class="sm">{{placeName}}</small> </h4>
+                <h4 class="event_txt_tit"> <span>{{productDescription}}</span> <small class="sm">{{placeName}}</small> </h4>
                 <p class="event_txt_dsc">{{productContent}}</p>
             </div>
         </a>
@@ -149,8 +149,8 @@
 	{{/each}}
     </script>
 
-	<script src="/reservation/js/handlebars.min.js"></script>
-	<script src="/reservation/js/util.js"></script>
-	<script src="/reservation/js/mainpage.js"></script>
+	<script src="/js/handlebars.min.js"></script>
+	<script src="/js/util.js"></script>
+	<script src="/js/mainpage.js"></script>
 </body>
 </html>

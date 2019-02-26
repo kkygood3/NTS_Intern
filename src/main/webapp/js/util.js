@@ -9,17 +9,16 @@ AjaxSender.prototype.send = function(url, options){
 			var jsonResponse;
 			
 			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-				if(typeof(options.callBack) === "function" && options.callBack !== null && options.callBack !== undefined){
-					jsonResponse = JSON.parse(httpRequest.responseText);
-					
-					options.callBack(jsonResponse);
-					
+				if(typeof(options.callback) === "function" && options.callback !== null && options.callback !== undefined){
+					options.callback(httpRequest);
 				}
 			}
 		};
 		
 		httpRequest.open(this.method, url);
-		httpRequest.setRequestHeader("Content-type", options.contentType);
+		if(!(options.contentType === undefined || options.contentType === null)){
+			httpRequest.setRequestHeader("Content-type", options.contentType);
+		}
 		if(options.data === undefined || options.data === null){
 			httpRequest.send();
 		} else {
@@ -40,13 +39,13 @@ AjaxSender.prototype.sendPut = function(url, options){
 	this.send(url, options);
 }
 
-function InputTagValidator(){
+function InputValueValidator(){
 	this.isValid = false;
 	this.nameRegex = /(^[가-힣]{2,}$|^[a-zA-Z]{3,}$)/;
 	this.telRegex = /^([0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}|[0-9]{4}-[0-9]{4})$/
 	this.emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.(com|net|co\.kr)$/;
 }
-InputTagValidator.prototype.validateInputTag = function(inputTag, regularExpression){
+InputValueValidator.prototype.validateInputText = function(inputTag, regularExpression){
 	inputTag.addEventListener("input", function(event){
 		if(regularExpression === this.telRegex) {
 			event.target.value = this.setTelNumberformat(event.target.value);
@@ -59,7 +58,7 @@ InputTagValidator.prototype.validateInputTag = function(inputTag, regularExpress
 		}
 	}.bind(this));
 }
-InputTagValidator.prototype.setTelNumberformat = function(telNumber){
+InputValueValidator.prototype.setTelNumberformat = function(telNumber){
 	var formattedTelNumber;
 	telNumber = telNumber.replace(/[^0-9]/g, "");
 	
@@ -78,6 +77,40 @@ InputTagValidator.prototype.setTelNumberformat = function(telNumber){
 	}
 	
 	return formattedTelNumber;
+}
+
+InputValueValidator.prototype.setAcceptTypeRegex = function(acceptTypeList){
+	this.acceptTypeRegex = new RegExp("(" + acceptTypeList.join("|") + ")");
+}
+InputValueValidator.prototype.validateInputFile = function(fileInputTag){
+	var files = fileInputTag.files;
+	
+	for (var i = 0; i < files.length; i++) {
+		if(this.acceptTypeRegex.test(files[i].type)){
+			this.isValid = true;
+		} else {
+			this.isValid = false;
+			return;
+		}
+	}
+}
+
+InputValueValidator.prototype.setLength = function(minLength, maxLength){
+	if(!(minLength === undefined || minLength === null)){
+		this.minLength = minLength;
+	}
+	if(!(maxLength === undefined || maxLength === null)){
+		this.maxLength = maxLength;
+	}
+	
+	this.textAreaRegex = new RegExp(".{" + this.minLength + "," + this.maxLength + "}");
+}
+InputValueValidator.prototype.validateTextLength = function(textArea){
+	if(this.textAreaRegex.test(textArea.value)){
+		this.isValid = true;
+	} else {
+		this.isValid = false;
+	}
 }
 
 var addScrollTopEvent = function(btnElement){

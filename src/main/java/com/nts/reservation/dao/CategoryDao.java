@@ -32,5 +32,4 @@ public class CategoryDao {
 	public List<Category> selectCategories() {
 		return jdbc.query(SELECT_CATEGORIES, rowMapper);
 	}
-
 }

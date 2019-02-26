@@ -7,7 +7,7 @@ var detailPage = {
 		this.compileHendlebars.compareDiscountRateToZero();
 		this.compileHendlebars.noticeDiscountRate();
 		
-		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		this.ajaxSender.sendGet("/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setEvent.bkBtnEvent();
 		
@@ -19,17 +19,19 @@ var detailPage = {
 	ajaxOption : function(){
 		var options = {
 				contentType : "charset=utf-8",
-				callBack : this.displayContents
+				callback : this.displayContents
 		}
 		
 		return options;
 	},
 	
-	displayContents: function(data){
-		this.detailPage.displayMainInfo(data);
-		this.detailPage.displayDiscountInfo(data);
-		this.detailPage.displayComments(data);
-		this.detailPage.displayDetailInfo(data);
+	displayContents: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
+		this.detailPage.displayMainInfo(jsonResponse);
+		this.detailPage.displayDiscountInfo(jsonResponse);
+		this.detailPage.displayComments(jsonResponse);
+		this.detailPage.displayDetailInfo(jsonResponse);
 	}.bind(this),
 		
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],
@@ -131,7 +133,7 @@ var detailPage = {
 		});
 		
 		this.container.commentsContainer.innerHTML = bindComments(jsonResponse);
-		if(this.container.commentsContainer.querySelectorAll("li").length < this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
+		if(this.container.commentsContainer.querySelectorAll("li").length <= this.constants.CNT_COMMENTS_AT_MAIN_PAGE){
 			this.elements.btnMoreReview.style.display = "none";
 		} else {
 			this.elements.btnMoreReview.href = this.displayInfoId + "/reviews";
@@ -141,7 +143,7 @@ var detailPage = {
 	displayDetailInfo: function(jsonResponse){
 		this.elements.introduce.innerHTML = jsonResponse["displayInfo"].productContent;
 		
-		this.elements.storeMap.src = "/reservation/" + jsonResponse["displayInfoImage"].saveFileName;
+		this.elements.storeMap.src = "/reservation/showImage/" + jsonResponse["displayInfoImage"].fileId;
 		this.elements.storeName.innerHTML = jsonResponse["displayInfo"].productDescription;
 		this.elements.addrStreet.innerHTML = jsonResponse["displayInfo"].placeStreet;
 		this.elements.addrOld.innerHTML = jsonResponse["displayInfo"].placeLot;

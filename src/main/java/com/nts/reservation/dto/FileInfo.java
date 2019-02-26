@@ -14,14 +14,14 @@ import lombok.Data;
 * @author  : 이승수
 */
 @Data
-public class ProductPrice {
+public class FileInfo {
+	private int id;
+	private String fileName;
+	private String saveFileName;
+	private String contentType;
+	private boolean deleteFlag;
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private Date createDate;
-	private int discountRate;
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private Date modifyDate;
-	private int price;
-	private String priceTypeName;
-	private int productId;
-	private int productPriceId;
 }

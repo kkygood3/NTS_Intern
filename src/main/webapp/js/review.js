@@ -4,34 +4,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var reviewPage = {
 	getReviews: function(displayInfoId){
-		this.ajaxSender.sendGet("/reservation/api/products/" + displayInfoId, this.ajaxOption());
+		this.ajaxSender.sendGet("/api/products/" + displayInfoId, this.ajaxOption());
 		
 		this.setPrevPageLink();
 
 		addScrollTopEvent(this.elements.btnTop);
 	},
 	
-	displayContents: function(data){
-		this.detailPage.displayMainInfo(data);
-		this.detailPage.displayDiscountInfo(data);
-		this.detailPage.displayComments(data);
-		this.detailPage.displayDetailInfo(data);
-	}.bind(this),
-	
 	ajaxSender : new AjaxSender(),
 	
 	ajaxOption : function(){
 		var options = {
 			contentType : "charset=utf-8",
-			callBack : this.displayContents
+			callback : this.displayContents
 		}
 		
 		return options;
 	},
 	
-	displayContents: function(data){
-		this.reviewPage.elements.displayTitle.innerHTML = data["displayInfo"].productDescription;
-		this.reviewPage.displayComments(data);
+	displayContents: function(httpRequest){
+		var jsonResponse = JSON.parse(httpRequest.responseText);
+		
+		this.reviewPage.elements.displayTitle.innerHTML = jsonResponse["displayInfo"].productDescription;
+		this.reviewPage.displayComments(jsonResponse);
 	}.bind(this),
 	
 	displayInfoId : window.location.href.match(/detail\/\d+/)[0].split("/")[1],

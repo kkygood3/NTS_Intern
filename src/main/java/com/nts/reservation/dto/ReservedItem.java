@@ -4,26 +4,13 @@
  */
 package com.nts.reservation.dto;
 
+import lombok.Data;
+
 /**
 * @author  : 이승수
 */
+@Data
 public class ReservedItem {
 	private Reservation reservation;
 	private DisplayInfo displayInfo;
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-
-	public DisplayInfo getDisplayInfo() {
-		return displayInfo;
-	}
-
-	public void setDisplayInfo(DisplayInfo displayInfo) {
-		this.displayInfo = displayInfo;
-	}
 }

@@ -17,6 +17,7 @@ var myReservationPage = {
 
 		this.setEvent.preventLink();
 		this.setEvent.setReservationCancelEvent();
+		this.setEvent.setReviewWritePageLink();
 
 		addScrollTopEvent(this.elements.btnTop);
 	},
@@ -47,7 +48,7 @@ var myReservationPage = {
 	ajaxOption : function(){
 		var options = {
 			contentType : "application/json",
-			callBack : function(){
+			callback : function(){
 				var reservationInfoId = document.querySelector(".popup_booking_wrapper").dataset.reservationInfoId;
 
 				availableCnt.innerHTML = Number(availableCnt.innerHTML) - 1;
@@ -64,7 +65,7 @@ var myReservationPage = {
 	cancelReservation: function(){
 		var reservationInfoId = this.myReservationPage.elements.popupElement.dataset.reservationInfoId;
 		
-		this.myReservationPage.ajaxSender.sendPut("/reservation/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
+		this.myReservationPage.ajaxSender.sendPut("/api/reservations/" + reservationInfoId, this.myReservationPage.ajaxOption());
 	}.bind(this),
 	
 	reservationCancelPopup: {
@@ -107,6 +108,24 @@ var myReservationPage = {
 		
 		setReservationCancelEvent : function(){
 			this.myReservationPage.elements.btnCancel.addEventListener("click", this.myReservationPage.cancelReservation);
+		}.bind(this),
+
+ 		setReviewWritePageLink : function(){
+			this.myReservationPage.reservationList.usedList.addEventListener("click", function(event){
+				var btnReviewWrite;
+				
+				event.preventDefault();
+				
+				if(event.target.classList.contains("btn_review_write")){
+					btnReviewWrite = event.target;
+				} else if(event.target.parentNode.classList.contains("btn_review_write")) {
+					btnReviewWrite = event.target.parentNode;
+				} else {
+					return;
+				}
+				
+				window.location = "reviewWrite/" + btnReviewWrite.dataset.reservationInfoId;
+			});
 		}.bind(this)
 	}
 }
