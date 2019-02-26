@@ -1,12 +1,20 @@
 package com.nts.service.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.dao.commentdao.CommentDao;
 import com.nts.dto.commentdto.Comment;
@@ -24,13 +32,17 @@ import com.nts.service.CommentService;
  * @author : 최석현
  * @method :double getAverageScoreByDisplayInfoId(int displayInfoId)
  * @method :List<Comment> getCommentsByDisplayInfoId(int displayInfoId)
- * @method :CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId)
+ * @method :CommentImage getCommentImageByReservationUserCommentId(int
+ *         reservationUserCommentId)
  */
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentDao commentDao;
+
+	private static final String IMAGE_URL_SUFFIX = "img/";
+
 
 	/**
 	 * @description : displayInfoId 값을 검증 후 Dao로부터 AverageScore를 받음
@@ -98,18 +110,33 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	@Transactional(readOnly = false, rollbackFor = SQLException.class)
-	public int addComment(Comment comment) {
-		return commentDao.insertComment(comment);
+	public void addComment(Comment comment, MultipartFile reservationImage, String imagePath)
+			throws FileNotFoundException, IOException {
+		int reservationUserCommentId = commentDao.insertComment(comment);
+
+		if (!reservationImage.isEmpty()) {
+			String fileName = reservationImage.getOriginalFilename();
+			File file = new File(imagePath + IMAGE_URL_SUFFIX, fileName);
+			IOUtils.copy(reservationImage.getInputStream(), new FileOutputStream(file));
+
+			CommentImage commentImage = new CommentImage();
+			commentImage.setReservationInfoId(comment.getReservationInfoId());
+			commentImage.setReservationUserCommentId(reservationUserCommentId);
+			commentImage.setFileName(fileName);
+			commentImage.setProductImageUrl(IMAGE_URL_SUFFIX + fileName);
+			commentImage.setContentType(reservationImage.getContentType());
+			commentImage.setDeleteFlag(false);
+
+			addCommentImage(commentImage, reservationImage);
+		}
 	}
 
 	@Override
 	@Transactional(readOnly = false, rollbackFor = SQLException.class)
-	public int addCommentImage(CommentImage commentImage) {
+	public void addCommentImage(CommentImage commentImage, MultipartFile reservationImage) {
 		int fileInfoId = commentDao.insertFileInfo(commentImage);
-		
-		return commentDao.insertCommentImage(
-				commentImage.getReservationInfoId(),
-				commentImage.getReservationUserCommentId(),
+
+		commentDao.insertCommentImage(commentImage.getReservationInfoId(), commentImage.getReservationUserCommentId(),
 				fileInfoId);
 	}
 }

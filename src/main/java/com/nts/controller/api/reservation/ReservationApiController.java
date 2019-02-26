@@ -57,7 +57,7 @@ import com.nts.util.Validator;
  */
 @RestController
 @RequestMapping(path = "/api/reservations")
-@PropertySource({"classpath:application.properties"})
+@PropertySource({ "classpath:application.properties" })
 public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
@@ -136,36 +136,13 @@ public class ReservationApiController {
 
 	@PostMapping("/{reservationInfoId}/comments")
 	public void registerComment(
-			@PathVariable(name = "reservationInfoId") int reservationInfoId,
-			@RequestParam(name = "productId") int productId, @RequestParam(name = "comment") String comment,
-			@RequestParam(name = "score") double score,
-			@RequestParam(name = "reservationImage") MultipartFile reservationImage)
+			@PathVariable(name = "reservationInfoId") int reservationInfoId
+			, Comment comment
+			, MultipartFile reservationImage)
 			throws FileNotFoundException, IOException {
 
-		Comment commentObject = new Comment();
-		commentObject.setReservationInfoId(reservationInfoId);
-		commentObject.setProductId(productId);
-		commentObject.setComment(comment);
-		commentObject.setScore(score);
-
-		int reservationUserCommentId = commentService.addComment(commentObject);
-
-		if (!reservationImage.isEmpty()) {
-
-			String fileName = reservationImage.getOriginalFilename();
-			File file = new File(imagePath + "img/", fileName);
-			IOUtils.copy(reservationImage.getInputStream(), new FileOutputStream(file));
-			
-			CommentImage commentImage = new CommentImage();
-			commentImage.setReservationInfoId(reservationInfoId);
-			commentImage.setReservationUserCommentId(reservationUserCommentId);
-			commentImage.setFileName(fileName);
-			commentImage.setProductImageUrl(imagePath + "img/" + fileName);
-			commentImage.setContentType(reservationImage.getContentType());
-			commentImage.setDeleteFlag(false);
-			
-		}
-
+		comment.setReservationInfoId(reservationInfoId);
+		commentService.addComment(comment, reservationImage, imagePath);
 		
 	}
 

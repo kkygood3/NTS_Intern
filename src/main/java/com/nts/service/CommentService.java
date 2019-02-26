@@ -5,7 +5,11 @@
 
 package com.nts.service;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.dto.commentdto.Comment;
 import com.nts.dto.commentdto.CommentImage;
@@ -29,7 +33,7 @@ public interface CommentService {
 	
 	CommentImage getCommentImageByReservationUserCommentId(int reservationUserCommentId);
 	
-	int addComment(Comment comment);
+	void addComment(Comment comment, MultipartFile reservationImage, String imagePath) throws FileNotFoundException, IOException;
 	
-	int addCommentImage(CommentImage commentImage);
+	void addCommentImage(CommentImage commentImage, MultipartFile reservationImage);
 }
