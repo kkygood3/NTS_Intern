@@ -36,13 +36,13 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
 		registry.addResourceHandler("/img/**")
-			.addResourceLocations("C:/Users/USER/eclipse-workspace/reservation/resources/img/")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img/")
 			.setCachePeriod(31556926);
 		registry.addResourceHandler("/img_map/**")
-			.addResourceLocations("C:/Users/USER/eclipse-workspace/reservation/resources/img_map/")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img_map/")
 			.setCachePeriod(31556926);
 		registry.addResourceHandler("/img_uploaded/**")
-			.addResourceLocations("C:/Users/USER/eclipse-workspace/reservation/resources/img_uploaded/")
+			.addResourceLocations("file:///C:/Users/USER/eclipse-workspace/reservation/resources/img_uploaded/")
 			.setCachePeriod(31556926);
 	}
 
