@@ -2489,6 +2489,10 @@ button {
     margin: 0 0 8px 14px
 }
 
+.section_review_list .short_review_area .thumb_area img {
+    border: 1px solid rgba(0,0,0,.1);
+}
+
 .section_review_list .short_review_area .thumb_area .thumb {
     display: block;
     position: relative
