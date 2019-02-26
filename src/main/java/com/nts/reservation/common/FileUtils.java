@@ -23,16 +23,12 @@ public class FileUtils {
 	 * @param HttpServletResponse
 	 */
 	public static void setDownloadResponse(DownloadInfo donwloadInfo, HttpServletResponse response) {
-		int fileLength = 0;
 		String fileName = donwloadInfo.getFileName();
+		String fileDir = Properties.ROOT_DIR_COMMNET_IMAGE + fileName;
 
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", donwloadInfo.getContentType());
-		response.setHeader("Pragma", "no-cache;");
-		response.setHeader("Expires", "-1;");
-
-		String fileDir = Properties.ROOT_DIR_COMMNET_IMAGE + fileName;
 
 		try (FileInputStream fis = new FileInputStream(fileDir);
 			OutputStream out = response.getOutputStream();) {
@@ -40,9 +36,7 @@ public class FileUtils {
 			byte[] buffer = new byte[1024];
 			while ((readCount = fis.read(buffer)) != -1) {
 				out.write(buffer, 0, readCount);
-				fileLength += readCount;
 			}
-			response.setHeader("Content-Length", "" + fileLength);
 		} catch (Exception ex) {
 			throw new RuntimeException("file Load Error");
 		}
@@ -56,16 +50,14 @@ public class FileUtils {
 	 */
 	public static String addRandomSuffix(String fileName) {
 		Random rng = new Random();
-		String[] splitedStr = fileName.split("\\.");
+		int lastDotPos = fileName.lastIndexOf('.');
 
-		StringBuilder builder = new StringBuilder(splitedStr[0]);
+		StringBuilder builder = new StringBuilder(fileName.substring(0, lastDotPos));
 		builder.append('_');
 		for (int i = 0; i < Properties.RANDOM_SUFFIX_LENGTH; i++) {
 			builder.append((char)((int)(rng.nextInt(26)) + 97));
 		}
-		builder.append('.');
-		builder.append(splitedStr[1]);
-
+		builder.append(fileName.substring(lastDotPos, fileName.length()));
 		return builder.toString();
 	}
 }
