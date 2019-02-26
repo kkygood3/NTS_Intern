@@ -368,7 +368,7 @@
 								data-category-name={{categoryName}}
 								data-product-description='{{productDescription}}'
 								data-reservation-date={{reservationDate}}>
-			<a class="link_booking_details">
+			<a href="/products/{{productId}}/detail?displayInfoId={{displayInfoId}}" class="link_booking_details">
 				<div class="card_body">
 					<div class="left"></div>
 					<div class="middle">
