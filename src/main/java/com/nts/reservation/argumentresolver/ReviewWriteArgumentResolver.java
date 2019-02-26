@@ -18,7 +18,7 @@ import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
  * Multipart-form data request인 ReviewWriteRequest 요청에 사용
  * @return ReviewWriteRequest
  */
-public class ReviewWriteRequestArgumentResolver implements HandlerMethodArgumentResolver {
+public class ReviewWriteArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {

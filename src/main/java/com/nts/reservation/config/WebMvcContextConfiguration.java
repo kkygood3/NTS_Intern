@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.nts.reservation.argumentresolver.ReviewWriteRequestArgumentResolver;
+import com.nts.reservation.argumentresolver.ReviewWriteArgumentResolver;
 import com.nts.reservation.interceptor.LogInterceptor;
 import com.nts.reservation.interceptor.SessionInterceptor;
 
@@ -68,7 +68,7 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		argumentResolvers.add(new ReviewWriteRequestArgumentResolver());
+		argumentResolvers.add(new ReviewWriteArgumentResolver());
 	}
 
 	@Override
