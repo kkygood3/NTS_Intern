@@ -134,6 +134,9 @@ public class ReservationApiController {
 
 	}
 
+	/**
+	 * @description : Multipart로 수신한 이미지 파일과 예약 정보를 접근된 경로에 따라 삽입
+	 */
 	@PostMapping("/{reservationInfoId}/comments")
 	public void registerComment(
 			@PathVariable(name = "reservationInfoId") int reservationInfoId
@@ -141,9 +144,12 @@ public class ReservationApiController {
 			, MultipartFile reservationImage)
 			throws FileNotFoundException, IOException {
 
+		if (reservationInfoId <= 0) {
+			throw new InvalidParameterException("reservationInfoId", new ExceptionValue<Integer>(reservationInfoId));
+		}
+		
 		comment.setReservationInfoId(reservationInfoId);
 		commentService.addComment(comment, reservationImage, imagePath);
-		
 	}
 
 	/**
@@ -163,6 +169,9 @@ public class ReservationApiController {
 		return reservationService.addReservation(reservationParam);
 	}
 
+	/**
+	 * @description : 접근된 URL의 reservationInfoId에 대한 CancelFlag값 true(Canceled)로 변경.
+	 */
 	@PutMapping("/{reservationInfoId}")
 	public void reservationCancel(@PathVariable(name = "reservationInfoId") int reservationInfoId) {
 
