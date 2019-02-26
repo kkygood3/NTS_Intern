@@ -21,6 +21,12 @@ function Review(){
 		reviewWriteElement.focus();
 	});
 	
+	reviewWriteElement.addEventListener("focusout", ()=>{
+		if(reviewWriteElement.value.length === 0){
+			reviewWriteInfoElement.classList.remove("hide");
+		}
+	})
+	
 	btnSubmit.addEventListener("click", () =>{
 		
 		if(this.reviewWrite.isNotValid()){
