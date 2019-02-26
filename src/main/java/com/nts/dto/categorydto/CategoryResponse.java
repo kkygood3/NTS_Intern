@@ -14,6 +14,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CategoryResponse {
 	private List<Category> items;
 
+	public CategoryResponse() {
+		
+	}
+	
 	public CategoryResponse(List<Category> items) {
 		this.items = items;
 	}

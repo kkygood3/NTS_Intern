@@ -18,6 +18,10 @@ public class CommentResponse {
 	private int reservationInfoId;
 	private int score;
 
+	public CommentResponse() {
+
+	}
+
 	public String getComment() {
 		return comment;
 	}

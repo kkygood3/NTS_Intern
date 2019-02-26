@@ -66,7 +66,7 @@ public class ReservationApiController {
 	@Autowired
 	private ProductService productService;
 
-	private static final String IMAGE_PATH = "c:/tmp/";
+	private static final String IMAGE_PATH = "img/";
 
 	private static final int MAX_SESSION_INACTIVE_INTERVAL_30MINS = 1800;
 

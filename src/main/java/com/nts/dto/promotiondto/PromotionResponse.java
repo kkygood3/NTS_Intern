@@ -12,6 +12,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class PromotionResponse {
 	private List<Promotion> items;
 
+	public PromotionResponse() {
+		
+	}
+	
 	public PromotionResponse(List<Promotion> items) {
 		this.items = items;
 	}

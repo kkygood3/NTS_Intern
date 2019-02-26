@@ -13,6 +13,10 @@ public class ProductResponse {
 	private List<Product> items;
 	private int totalCount;
 
+	public ProductResponse() {
+
+	}
+
 	public ProductResponse(List<Product> items, int totalCount) {
 		this.items = items;
 		this.totalCount = totalCount;
