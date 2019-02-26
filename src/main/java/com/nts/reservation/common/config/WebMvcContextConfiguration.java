@@ -6,7 +6,9 @@ package com.nts.reservation.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -26,7 +28,9 @@ import com.nts.reservation.common.interceptor.RequestLoggingInterceptor;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.nts.reservation"})
+@ComponentScan(includeFilters = @Filter(value = {
+	Controller.class}), useDefaultFilters = false, basePackages = "com.nts.reservation")
+
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 
 	private static final int YEAR_SECONDS = 31536000;
