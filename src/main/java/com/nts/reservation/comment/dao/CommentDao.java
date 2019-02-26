@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.comment.dao;
 
-import static com.nts.reservation.comment.dao.querys.CommentQuerys.*;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,25 +14,45 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.comment.model.WritedComment;
+import com.nts.reservation.common.exception.NotFoundDataException;
+import com.nts.reservation.common.exception.UnauthenticateException;
+import com.nts.reservation.file.model.FileInfo;
+
+import static com.nts.reservation.comment.dao.querys.CommentQuerys.*;
 
 @Repository
 public class CommentDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<Comment> commentMapper;
+
+	private final RowMapper<CommentListInfo> commentListInfoMapper;
+
+	private final RowMapper<FileInfo> fileInfoMapper;
 
 	@Autowired
-	private RowMapper<Comment> commentMapper;
-
-	@Autowired
-	private RowMapper<CommentListInfo> commentListInfo;
+	public CommentDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Comment> commentMapper,
+		RowMapper<CommentListInfo> commentListInfoMapper, RowMapper<FileInfo> fileInfoMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.commentMapper = commentMapper;
+		this.commentListInfoMapper = commentListInfoMapper;
+		this.fileInfoMapper = fileInfoMapper;
+	}
 
 	/**
 	 * 특정 display의 전체 comment 목록 반환
@@ -62,31 +80,82 @@ public class CommentDao {
 	 */
 	public CommentListInfo selectCommentListInfo(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfo);
+		return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY_COMMENT_LIST_INFO, param, commentListInfoMapper);
 	}
 
 	/**
-	 * db에서 얻어온 comment image url을 comment 객체 img url list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
+	 * comment 저장, 예약없이 댓글 작성시 UnauthenticateException 발생
+	 */
+	public int insertComment(WritedComment writedComment) {
+
+		SqlParameterSource param = new MapSqlParameterSource()
+			.addValues(new ObjectMapper().convertValue(writedComment, Map.class));
+
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		jdbcTemplate.update(INSERT_RESERVATION_USER_COMMENT, param, keyHolder);
+		try {
+			return keyHolder.getKey().intValue();
+		} catch (NullPointerException e) {
+			throw new UnauthenticateException("can not write this comment, because no permission", e);
+		}
+
+	}
+
+	/**
+	 * comment 작성시 첨부한 image 파일정보 저장
+	 */
+	public int insertReservationUserCommentImageInfo(int reservationId, int reservationUserCommentId, int fileId) {
+
+		SqlParameterSource param = new MapSqlParameterSource()
+			.addValue("reservationId", reservationId)
+			.addValue("reservationUserCommentId", reservationUserCommentId)
+			.addValue("fileId", fileId);
+
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(INSERT_RESERVATION_USER_COMMENT_IMAGE_INFO, param, keyHolder);
+
+		return keyHolder.getKey().intValue();
+	}
+
+	/**
+	 * 저장된 fileinfo 조회
+	 */
+	public FileInfo selectCommentImageSaveFileInfo(int commentImageId) {
+		try {
+		Map<String, Integer> param = Collections.singletonMap("commentImageId", commentImageId);
+		return jdbcTemplate.queryForObject(SELECT_COMMENT_SAVE_FILE_NAME, param, fileInfoMapper);
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new NotFoundDataException("not found file", e);
+		}
+	}
+
+	/**
+	 * db에서 얻어온 comment image id를 comment 객체 img id list에 저장, 그리고 comment들을  list로 반환하게 하는 ResultSetExtractor 객체를 생성
 	 */
 	private ResultSetExtractor<List<Comment>> selectCommentListResultSetExtractor() {
 		return new ResultSetExtractor<List<Comment>>() {
 			@Override
 			public List<Comment> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				Map<Integer, Comment> commentMap = new HashMap<>();
+				List<Comment> commentList = new ArrayList<>();
 				while (rs.next()) {
 					int commentId = rs.getInt("comment_id");
 
+					Comment comment = commentMapper.mapRow(rs, rs.getRow());
 					if (!commentMap.containsKey(commentId)) {
-						commentMap.put(commentId, commentMapper.mapRow(rs, rs.getRow()));
+						commentMap.put(commentId, comment);
+						commentList.add(comment);
 					}
 
-					String commentImageUrl = rs.getString("comment_image_url");
-					if (commentImageUrl != null) {
-						commentMap.get(commentId).getCommentImageUrlList().add(commentImageUrl);
+					String commentImageId = rs.getString("comment_image_id");
+					if (commentImageId != null) {
+						commentMap.get(commentId).getCommentImageIdList().add(commentImageId);
 					}
 
 				}
-				return new ArrayList<>(commentMap.values());
+				return commentList;
 			}
 		};
 	}

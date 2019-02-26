@@ -58,7 +58,7 @@ function printProductPrice(responseObj){
 }
 
 function printProductDisplay(productDisplay, productReservationDate){
-	document.querySelector("#productDisplayImg").src = "/resources/" + productDisplay.productDisplayImageUrlList[0];
+	document.querySelector("#productDisplayImg").src = "/file/" + productDisplay.productDisplayImageUrlList[0];
 	document.querySelector("#productDescription").innerText = productDisplay.productDescription;
 	document.querySelector("#productId").value = productDisplay.productId;
 	document.querySelector("#displayInfoId").value = productDisplay.displayInfoId;
@@ -154,14 +154,14 @@ function addEventAgreementContentFoldExpand(){
 
 function addEventClickAgreementFoldExpand(content, button){
 	button.addEventListener("click", () =>{
-		const OPEN_CLASS = " open ";
+		const OPEN_CLASS = "open";
 		if(content.className.includes(OPEN_CLASS)){
-			content.className = content.className.replace(OPEN_CLASS, "");
+			content.classList.remove(OPEN_CLASS);
 			button.querySelector("span").innerText = "보기";
 			button.querySelector("i").className = "fn fn-down2";
 		}
 		else{
-			content.className += OPEN_CLASS;
+			content.classList.add(OPEN_CLASS);
 			button.querySelector("span").innerText = "접기";
 			button.querySelector("i").className = "fn fn-up2";
 		}
@@ -185,6 +185,7 @@ function addEventClickSubmit(){
 		}
 		var ajax = new Ajax();
 		ajax.postWithJson("/api/reservation", JSON.stringify(requestData), () =>{
+			alert("예약 완료.");
 			location.href="/main";
 		});
 	});
@@ -196,7 +197,7 @@ function ProductPrice(productPriceItem){
 	this.totalPrice = 0;
 	this.price = productPriceItem.price;
 	this.element = template.parseProductPriceToElement(productPriceItem);
-	this.countElement = this.element.querySelector("[data-name=count]")
+	this.countElement = this.element.querySelector("[data-name=count]");
 	this.btnPlusElement = this.element.querySelector("[data-name=plus]");
 	this.btnMinusElement = this.element.querySelector("[data-name=minus]");
 	this.totalPriceElement = this.element.querySelector("[data-name=total_price]");
@@ -230,10 +231,10 @@ ProductPrice.prototype = {
 	canUsedMinusButton : function(){
 		const BUTTON_DISABLE_AND_NO_EVENT =" disabled no_event";
 		if(this.count < 1){
-			this.btnMinusElement.className += BUTTON_DISABLE_AND_NO_EVENT;
+			this.btnMinusElement.classList.add(BUTTON_DISABLE_AND_NO_EVENT);
 		}
 		else{
-			this.btnMinusElement.className = this.btnMinusElement.className.replace(BUTTON_DISABLE_AND_NO_EVENT, "");
+			this.btnMinusElement.classList.remove(BUTTON_DISABLE_AND_NO_EVENT);
 		}
 	},
 	updateTotalCount : function(){
@@ -281,14 +282,14 @@ DataVaildObserver.prototype = {
 	isVaild : function(){
 		var invaild = this.targetList.some((target) =>{
 			if((target.dataset.validFlag === "false")){
-				this.disabledTarget.className = this.disabledTargetOriginalClass;
+				this.disabledTarget.classList.add("disable");
 				this.disabledTargetBtn.disabled = true;
 				return true;
 			}
 			return false;
 		});
 		if(!invaild){
-			this.disabledTarget.className = this.disabledTarget.className.replace("disable", "");
+			this.disabledTarget.classList.remove("disable");
 			this.disabledTargetBtn.disabled = false;
 		}
 	},

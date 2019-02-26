@@ -4,18 +4,16 @@
  */
 package com.nts.reservation.common.config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-import com.nts.reservation.common.aspect.IsEmptyAnntationAspect;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@ComponentScan(basePackages = {
+	"com.nts.reservation"}, useDefaultFilters = false, includeFilters = @Filter(type = FilterType.ASPECTJ, pattern = "com.nts.reservation..aspect.*"))
+@EnableAspectJAutoProxy
 public class AspectJConfig {
 
-	@Bean
-	public IsEmptyAnntationAspect isEmptyAnntationAspect() {
-		return new IsEmptyAnntationAspect();
-	}
 }

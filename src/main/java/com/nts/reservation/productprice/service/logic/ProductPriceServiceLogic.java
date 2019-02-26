@@ -17,9 +17,16 @@ import com.nts.reservation.productprice.service.ProductPriceService;
 @Service
 public class ProductPriceServiceLogic implements ProductPriceService {
 
-	@Autowired
-	private ProductPriceDao productPriceDao;
+	private final ProductPriceDao productPriceDao;
 
+	@Autowired
+	public ProductPriceServiceLogic(ProductPriceDao productPriceDao) {
+		this.productPriceDao = productPriceDao;
+	}
+
+	/**
+	 * 상품의 가격정보 조회
+	 */
 	@Override
 	@IsEmpty
 	public List<ProductPrice> getProductPriceListByDisplayInfoId(int displayInfoId) {

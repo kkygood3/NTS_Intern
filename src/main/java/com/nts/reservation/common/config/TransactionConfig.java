@@ -21,8 +21,12 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @EnableTransactionManagement
 public class TransactionConfig implements TransactionManagementConfigurer {
 
+	private final DataSource dataSource;
+
 	@Autowired
-	private DataSource dataSource;
+	public TransactionConfig(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 
 	@Override
 	public PlatformTransactionManager annotationDrivenTransactionManager() {

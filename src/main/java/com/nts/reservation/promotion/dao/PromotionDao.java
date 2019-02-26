@@ -18,11 +18,15 @@ import com.nts.reservation.promotion.model.Promotion;
 @Repository
 public class PromotionDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<Promotion> promotionMapper;
 
 	@Autowired
-	private RowMapper<Promotion> promotionMapper;
+	public PromotionDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<Promotion> promotionMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.promotionMapper = promotionMapper;
+	}
 
 	/**
 	 * promotion 목록을 조회하여 List 객체로 반환

@@ -3,21 +3,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	template.setting();
 	template.setUseDateFormat(0, 10);
 	
-	template.addNewFunction("isReserved", (reservationStatus, options) =>{
+	template.addNewFunction("isReserved", function(reservationStatus, options){
 		if(reservationStatus === "RESERVED"){
 			return options.fn(this);
 		}
 		else{
-			return options.inverse(this);
+			return options.inverse();
 		}
 	});
 	
-	template.addNewFunction("isUsed", (reservationStatus, options) =>{
+	template.addNewFunction("isUsed", function(reservationStatus, options){
 		if(reservationStatus === "USED"){
 			return options.fn(this);
 		}
 		else{
-			return options.inverse(this);
+			return options.inverse();
 		}
 	});
 	
@@ -74,12 +74,12 @@ AllReservationHistoryList.prototype = {
 	},
 	
 	isHistoryEmpty : function(){
-		var historyEmpty = document.querySelector("#history_empty"); 
+		var historyEmpty = document.querySelector("#history_empty");
 		if(this.count > 0){
-			historyEmpty.className += " hide";
+			historyEmpty.classList.add("hide");
 		}
 		else{
-			historyEmpty.className = historyEmpty.className.replace(" hide" ,"");
+			historyEmpty.classList.remove("hide");
 		}
 	}
 }
@@ -101,7 +101,7 @@ ClassifiedReservationHistoryList.prototype = {
 		var listElement = document.querySelector("#" + this.reservationStatus.toLowerCase() + "_reservation_history_list");
 		
 		if(this.list.length > 0){
-			listElement.className = listElement.className.replace(" hide", "");;
+			listElement.classList.remove("hide");
 		}
 		
 		this.list.forEach((reservationHistory) => {
@@ -136,6 +136,7 @@ var cancelPopup = new function(){
 	this.btnYes.addEventListener("click", () =>{
 		var ajax = new Ajax();
 		ajax.put("/api/reservation/" + this.reservationId + "/cancel", () =>{
+			alert("취소 완료");
 			window.location.reload();
 		});
 	});

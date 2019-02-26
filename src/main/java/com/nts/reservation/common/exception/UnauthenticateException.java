@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.common.exception;
 
-public class UnauthenticateException extends RuntimeException {
+public class UnauthenticateException extends ReservationException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,5 +18,9 @@ public class UnauthenticateException extends RuntimeException {
 
 	public UnauthenticateException(String message) {
 		super(message);
+	}
+
+	public UnauthenticateException(String message, Throwable e) {
+		super(message, e);
 	}
 }

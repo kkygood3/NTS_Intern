@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.nts.reservation.category.model.Category;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.file.model.FileInfo;
 import com.nts.reservation.product.model.Product;
 import com.nts.reservation.productdisplay.model.ProductDisplay;
 import com.nts.reservation.productprice.model.ProductPrice;
@@ -63,6 +64,11 @@ public class MapperConfig {
 	@Bean
 	public RowMapper<ReservationHistory> reservationHistoryMapper() {
 		return BeanPropertyRowMapper.newInstance(ReservationHistory.class);
+	}
+
+	@Bean
+	public RowMapper<FileInfo> fileInfoMapper() {
+		return BeanPropertyRowMapper.newInstance(FileInfo.class);
 	}
 
 }

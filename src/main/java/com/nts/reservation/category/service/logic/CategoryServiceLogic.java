@@ -17,8 +17,12 @@ import com.nts.reservation.common.annotation.IsEmpty;
 @Service
 public class CategoryServiceLogic implements CategoryService {
 
+	private final CategoryDao categoryDao;
+
 	@Autowired
-	private CategoryDao categoryDao;
+	public CategoryServiceLogic(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
 
 	/**
 	 * dao에서 category List 객체를 받아 CategoryResponse 객체로 생성 후 반환

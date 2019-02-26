@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.product.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Product {
 
 	private int productId;
@@ -15,9 +18,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", displayInfoId=" + displayInfoId + ", productDescription="
-			+ productDescription + ", productContent=" + productContent + ", placeName=" + placeName
-			+ ", productImageUrl=" + productImageUrl + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getProductId() {

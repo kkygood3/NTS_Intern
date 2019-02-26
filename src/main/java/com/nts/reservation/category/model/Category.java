@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.category.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Category {
 
 	private int count;
@@ -12,7 +15,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [count=" + count + ", id=" + id + ", name=" + name + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getCount() {

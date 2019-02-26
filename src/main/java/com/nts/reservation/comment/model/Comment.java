@@ -7,6 +7,9 @@ package com.nts.reservation.comment.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Comment {
 
 	private String productDescription;
@@ -14,17 +17,15 @@ public class Comment {
 	private String reservationEmail;
 	private String comment;
 	private int score;
-	private List<String> commentImageUrlList;
+	private List<String> commentImageIdList;
 
 	public Comment() {
-		commentImageUrlList = new ArrayList<>();
+		commentImageIdList = new ArrayList<>();
 	}
 
 	@Override
 	public String toString() {
-		return "Comment [productDescription=" + productDescription + ", reservationDate=" + reservationDate
-			+ ", reservationEmail=" + reservationEmail + ", comment=" + comment + ", score=" + score
-			+ ", commentImageUrlList=" + commentImageUrlList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public String getProductDescription() {
@@ -67,11 +68,11 @@ public class Comment {
 		this.score = score;
 	}
 
-	public List<String> getCommentImageUrlList() {
-		return commentImageUrlList;
+	public List<String> getCommentImageIdList() {
+		return commentImageIdList;
 	}
 
-	public void setCommentImageUrlList(List<String> commentImageUrlList) {
-		this.commentImageUrlList = commentImageUrlList;
+	public void setCommentImageIdList(List<String> commentImageIdList) {
+		this.commentImageIdList = commentImageIdList;
 	}
 }

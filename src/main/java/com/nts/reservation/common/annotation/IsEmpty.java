@@ -9,6 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * collections 객체의 size값이 0인지 검사
+ * com.nts.reservation.common.aspect.AnnotationAspect에서 기능 구현함.
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @Target(value = {ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IsEmpty{

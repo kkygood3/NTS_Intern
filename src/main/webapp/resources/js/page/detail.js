@@ -66,9 +66,9 @@ function setSlideBtn(productDisplayImgList, productDisplayImgUrlItems){
 	var displayImgPage = document.querySelector("#display_img_page");
 	
 	if(productDisplayImgUrlItems.length === 1){
-		btnLeftSlide.className += " hide";
-		btnRightSlide.className += " hide";
-		displayImgPage.className += " hide";
+		btnLeftSlide.classList.add("hide");
+		btnRightSlide.classList.add("hide");
+		displayImgPage.classList.add("hide");
 		return;
 	}
 	
@@ -89,7 +89,7 @@ function setSlideBtn(productDisplayImgList, productDisplayImgUrlItems){
 }
 
 function printLocationDetail(productDisplay){
-	document.querySelector("#location_display_img").src = "/resources/" +productDisplay.displayInfoImageUrl;
+	document.querySelector("#location_display_img").src = "/file/" +productDisplay.displayInfoImageUrl;
 	document.querySelector("#location_product_description").textContent = productDisplay.productDescription;
 	document.querySelector("#location_place_street").textContent = productDisplay.placeStreet;
 	document.querySelector("#location_place_lot").textContent = productDisplay.placeLot;
@@ -129,7 +129,7 @@ function addEventClickInfoTabList(){
 	            path.className = "anchor active";
 				
 	            var areaId = path.dataset.areaId;
-	            document.querySelector("#"+areaId).className += " show";
+	            document.querySelector("#"+areaId).classList.add("show");
 	            
 	            return true;
 	        	}

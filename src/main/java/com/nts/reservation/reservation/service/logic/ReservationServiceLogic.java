@@ -24,9 +24,16 @@ import com.nts.reservation.reservation.service.ReservationService;
 @Service
 public class ReservationServiceLogic implements ReservationService {
 
-	@Autowired
-	private ReservationDao reservationDao;
+	private final ReservationDao reservationDao;
 
+	@Autowired
+	public ReservationServiceLogic(ReservationDao reservationDao) {
+		this.reservationDao = reservationDao;
+	}
+
+	/** 
+	 * 예매 정보 저장
+	 */
 	@Override
 	@Transactional
 	public int addReservation(Reservation reservation) {
@@ -42,27 +49,41 @@ public class ReservationServiceLogic implements ReservationService {
 			}
 			return reservationInfoId;
 		} catch (DataIntegrityViolationException e) {
-			throw new InternalServerErrorException("reservation data integrity violation");
+			throw new InternalServerErrorException("reservation data integrity violation", e);
 		}
 	}
 
+	/**
+	 * 예매 기록 조회
+	 */
 	@Override
 	@IsEmpty
 	public List<ReservationHistory> getReservationHistoryList(String reservationEmail) {
 		return reservationDao.selectReservationHistoryList(reservationEmail);
 	}
 
+	/**
+	 * 예매 취소, 사용자가 예매한 정보가아닌 예약상품 취소시 권한없음 exception 발생
+	 */
 	@Override
 	public void modifyReservationToCancel(String reservationEmail, int reservationId) {
 		int updateCount = reservationDao.updateReservationCancelFlag(reservationEmail, reservationId,
 			ReservationStatus.CANCELED.getStatusCode());
 
-		if (isUpdateZero(updateCount)) {
+		if (isNotUpdate(updateCount)) {
 			throw new UnauthenticateException();
 		}
 	}
 
-	private boolean isUpdateZero(int updateCount) {
+	/**
+	 * 사용자가 예매했는지 조회 및 예매한 상품 이름 조회
+	 */
+	@Override
+	public String getReservedProductDescription(String reservationEmail, int reservationId) {
+		return reservationDao.selectReservedProductDescription(reservationEmail, reservationId);
+	}
+
+	private boolean isNotUpdate(int updateCount) {
 		return updateCount == 0;
 	}
 

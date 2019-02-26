@@ -8,18 +8,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 
 @Controller
 public class ReservationController {
 
+	/**
+	 * 예매하기 페이지 호출
+	 */
 	@GetMapping(value = {"/reserve"})
 	public ModelAndView reserve(ModelAndView mv, int displayInfoId) {
 		mv.addObject("displayInfoId", displayInfoId);
 		return mv;
 	}
 
-	@MustLogin
+	/**
+	 * 예매내역 페이지 호출
+	 */
+	@IsLogin
 	@GetMapping(value = {"/my-reservation"})
 	public String myreservation() {
 		return "myreservation";

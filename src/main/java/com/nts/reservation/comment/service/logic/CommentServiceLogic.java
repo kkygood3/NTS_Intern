@@ -8,17 +8,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nts.reservation.comment.dao.CommentDao;
 import com.nts.reservation.comment.model.Comment;
 import com.nts.reservation.comment.model.CommentListInfo;
+import com.nts.reservation.comment.model.WritedComment;
 import com.nts.reservation.comment.service.CommentService;
+import com.nts.reservation.file.model.FileInfo;
+import com.nts.reservation.file.service.FileService;
 
 @Service
 public class CommentServiceLogic implements CommentService {
 
+	private final CommentDao commentDao;
+
+	private final FileService fileService;
+
 	@Autowired
-	private CommentDao commentDao;
+	public CommentServiceLogic(CommentDao commentDao, FileService fileService) {
+		this.commentDao = commentDao;
+		this.fileService = fileService;
+	}
 
 	/**
 	 * comment 목록과 관련 정보를 조회한 객체들을 가지는 CommentListInfo 객체를 생성후 반환
@@ -47,5 +59,35 @@ public class CommentServiceLogic implements CommentService {
 
 	private boolean isLimit(int limitCount) {
 		return limitCount > 0;
+	}
+
+	/**
+	 * comment, image file 저장
+	 */
+	@Override
+	@Transactional
+	public int addComment(WritedComment writedComment, MultipartFile[] images) {
+
+		int reservationUserCommentId = commentDao.insertComment(writedComment);
+
+		if (images == null) {
+			return reservationUserCommentId;
+		}
+
+		for (MultipartFile image : images) {
+			int fileId = fileService.storeMultipartFile(image, FileService.FILE_IMAGE_DIRECTORY);
+			commentDao.insertReservationUserCommentImageInfo(writedComment.getReservationId(), reservationUserCommentId,
+				fileId);
+		}
+
+		return reservationUserCommentId;
+	}
+
+	/**
+	 * 저장된 commentImage fileInfo 조회, 반환 
+	 */
+	@Override
+	public FileInfo getCommentImageSaveFileInfo(int commentImageId) {
+		return commentDao.selectCommentImageSaveFileInfo(commentImageId);
 	}
 }

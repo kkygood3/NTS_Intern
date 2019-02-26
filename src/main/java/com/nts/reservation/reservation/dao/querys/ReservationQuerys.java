@@ -5,6 +5,7 @@
 package com.nts.reservation.reservation.dao.querys;
 
 public class ReservationQuerys {
+
 	public static final String INSERT_RESERVATION_INFO = "insert into "
 		+ "reservation_info values("
 		+ "default"
@@ -60,4 +61,10 @@ public class ReservationQuerys {
 		+ "where id = :reservationId "
 		+ "and reservation_email = :reservationEmail";
 
+	public static final String SELECT_RESERVED_PRODUCT_DESCRIPTION = "select p.description as productDescription "
+		+ "from product p "
+		+ "inner join reservation_info ri "
+		+ "on p.id = ri.product_id "
+		+ "where ri.id = :reservationId "
+		+ "and ri.reservation_email = :reservationEmail";
 }

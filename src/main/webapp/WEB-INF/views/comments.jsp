@@ -27,7 +27,7 @@
                 <div class="review_header">
                     <div class="top_title gr">
                         <a href="/product-display?displayInfoId=${displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-                        <h2><a class="title" href="#">오디컴퍼니 주식회사</a></h2>
+                        <h2><a class="title" href="#"></a></h2>
                     </div>
                 </div>
                 <div class="section_review_list">
@@ -61,11 +61,11 @@
 	    <script type="text/template" id="comment_template" class="template" data-parse-name="Comment">
 			<li class="list_item">
 				<div>
-					<div class="review_area{{#unless commentImageUrlList}} no_img{{/unless}}">
-						{{#if commentImageUrlList}}
+					<div class="review_area{{#unless commentImageIdList}} no_img{{/unless}}">
+						{{#if commentImageIdList}}
 						<div class="thumb_area">
 							<a class="thumb" title="이미지 크게 보기">
-								<img width="90" height="90" class="img_vertical_top" src="/resources/{{commentImageUrlList.[0]}}" alt="리뷰이미지">
+								<img width="90" height="90" class="img_vertical_top" src="/comment/img/{{commentImageIdList.[0]}}" alt="리뷰이미지">
 							</a>
 							<span class="img_count" style="display:none;">1</span>
 						</div>

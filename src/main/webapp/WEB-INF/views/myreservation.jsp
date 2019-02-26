@@ -179,7 +179,9 @@
 							{{/isReserved}}
 							{{#isUsed reservationStatus}}
 							<div class="booking_cancel">
-								<a href="./reviewWrite.html"><button class="btn"><span>예매자 리뷰 남기기</span></button></a>
+								<a href="/my-reservation/comment/write?reservationId={{reservationId}}">
+									<button class="btn"><span>예매자 리뷰 남기기</span></button>
+								</a>
 							</div>
 							{{/isUsed}}
 						</div>

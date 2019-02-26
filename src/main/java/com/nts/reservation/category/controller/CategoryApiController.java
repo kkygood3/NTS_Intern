@@ -14,8 +14,12 @@ import com.nts.reservation.category.service.CategoryService;
 @RestController
 public class CategoryApiController {
 
+	private final CategoryService categoryService;
+
 	@Autowired
-	private CategoryService categoryService;
+	public CategoryApiController(CategoryService categoryService) {
+		this.categoryService = categoryService;
+	}
 
 	/**
 	 * category 목록을 Json으로 응답

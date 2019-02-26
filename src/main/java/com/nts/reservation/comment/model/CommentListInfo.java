@@ -6,6 +6,9 @@ package com.nts.reservation.comment.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class CommentListInfo {
 
 	private double averageScore;
@@ -14,8 +17,7 @@ public class CommentListInfo {
 
 	@Override
 	public String toString() {
-		return "CommentListInfo [averageScore=" + averageScore + ", totalCount=" + totalCount + ", commentList="
-			+ commentList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public double getAverageScore() {

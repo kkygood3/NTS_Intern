@@ -20,12 +20,19 @@ import com.nts.reservation.productprice.model.ProductPrice;
 @Repository
 public class ProductPriceDao {
 
-	@Autowired
-	private NamedParameterJdbcTemplate jdbcTemplate;
+	private final NamedParameterJdbcTemplate jdbcTemplate;
+
+	private final RowMapper<ProductPrice> productPriceMapper;
 
 	@Autowired
-	private RowMapper<ProductPrice> productPriceMapper;
+	public ProductPriceDao(NamedParameterJdbcTemplate jdbcTemplate, RowMapper<ProductPrice> productPriceMapper) {
+		this.jdbcTemplate = jdbcTemplate;
+		this.productPriceMapper = productPriceMapper;
+	}
 
+	/**
+	 * 상품의 가격정보 조회
+	 */
 	public List<ProductPrice> selectProductPriceListByDisplayInfoId(int displayInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return jdbcTemplate.query(SELECT_PRODUCT_PRICE_LIST, param, productPriceMapper);

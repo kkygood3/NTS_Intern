@@ -7,9 +7,12 @@ package com.nts.reservation.reservation.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.nts.reservation.common.regexp.Regexp;
 
@@ -19,19 +22,19 @@ public class Reservation {
 
 	private int displayInfoId;
 
-	@NotNull(message = "name is must not null")
-	@NotBlank(message = "name is must not blank")
+	@NotNull(message = "name is must not empty")
+	@Size(min = 1, message = "name is must not empty")
 	private String reservationName;
 
-	@NotNull(message = "email is must not null")
+	@NotNull(message = "email is must not empty")
 	@Pattern(regexp = Regexp.EMAIL, message = "email is not vaild")
 	private String reservationEmail;
 
-	@NotNull(message = "tel is must not null")
+	@NotNull(message = "tel is must not empty")
 	@Pattern(regexp = Regexp.Tel, message = "tel is not vaild")
 	private String reservationTel;
 
-	@NotNull(message = "date is must not null")
+	@NotNull(message = "date is must not empty")
 	@Pattern(regexp = Regexp.DATE, message = "date is not valid")
 	private String reservationDate;
 
@@ -43,9 +46,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [productId=" + productId + ", displayInfoId=" + displayInfoId + ", reservationName="
-			+ reservationName + ", reservationEmail=" + reservationEmail + ", reservationTel=" + reservationTel
-			+ ", reservationDate=" + reservationDate + ", reservationPriceList=" + reservationPriceList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getProductId() {

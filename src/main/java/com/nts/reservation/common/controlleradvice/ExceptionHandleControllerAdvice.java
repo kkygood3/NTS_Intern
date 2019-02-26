@@ -21,23 +21,27 @@ import com.nts.reservation.common.exception.NotFoundDataException;
 import com.nts.reservation.common.exception.UnauthenticateException;
 import com.nts.reservation.common.model.ExceptionResponse;
 
+/**
+ * service 내에서 발생하는 exception 핸들링, Exception 발생시 ExceptionResponse 객체 반환.
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ExceptionHandleControllerAdvice {
 
 	@ExceptionHandler(NotFoundDataException.class)
 	public ExceptionResponse handleNotFoundDataException(NotFoundDataException e) {
-		return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getMessage());
+		return new ExceptionResponse(HttpStatus.NOT_FOUND, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(InternalServerErrorException.class)
 	public ExceptionResponse handleInternalServerErrorException(InternalServerErrorException e) {
-		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(UnauthenticateException.class)
 	public ExceptionResponse handleUnauthenticateException(UnauthenticateException e) {
-		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getMessage());
+		return new ExceptionResponse(HttpStatus.UNAUTHORIZED, e.getResponseMessage());
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
@@ -73,7 +77,12 @@ public class ExceptionHandleControllerAdvice {
 			sb.append(fieldError.getDefaultMessage());
 			sb.append("]");
 		}
-		return new ExceptionResponse(HttpStatus.BAD_REQUEST);
+		return new ExceptionResponse(HttpStatus.BAD_REQUEST, sb.toString());
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ExceptionResponse handleRuntimeException(Exception e) {
+		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, "server error");
 	}
 
 }

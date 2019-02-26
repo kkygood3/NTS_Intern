@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.productdisplay.controller;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
@@ -26,14 +26,19 @@ import com.nts.reservation.productprice.service.ProductPriceService;
 @RestController
 public class ProductDisplayApiController {
 
-	@Autowired
-	private ProductDisplayService productDisplayService;
+	private final ProductDisplayService productDisplayService;
+
+	private final ProductPriceService productPriceService;
+
+	private final CommentService commentService;
 
 	@Autowired
-	private ProductPriceService productPriceService;
-
-	@Autowired
-	private CommentService commentService;
+	public ProductDisplayApiController(ProductDisplayService productDisplayService,
+		ProductPriceService productPriceService, CommentService commentService) {
+		this.productDisplayService = productDisplayService;
+		this.productPriceService = productPriceService;
+		this.commentService = commentService;
+	}
 
 	/**
 	 * 특정 diplayInfoId의 display정보, comment정보를 가진 객체를 응답
@@ -49,6 +54,9 @@ public class ProductDisplayApiController {
 		return new ProductDisplayResponse(productDisplay, commentListInfo);
 	}
 
+	/**
+	 * product display, price 정보 반환
+	 */
 	@GetMapping(value = {"/api/product-display-prices/{displayInfoId}"})
 	public ProductDisplayPriceResponse getProductDisplayPriceResponse(@PathVariable int displayInfoId) {
 
@@ -61,10 +69,13 @@ public class ProductDisplayApiController {
 		return productDisplayPriceResponse;
 	}
 
+	/**
+	 * 오늘 기준 1~5일(random) 이후 날짜 생성
+	 */
 	private String makeReservationDate() {
 		final String yyyyMMdd = "yyyy-MM-dd";
-		LocalDateTime nowDateTime = LocalDateTime.now();
-		int days = new Random().nextInt(5);
-		return nowDateTime.plusDays(days).format(DateTimeFormatter.ofPattern(yyyyMMdd));
+		LocalDate nowDate = LocalDate.now();
+		int days = new Random().nextInt(5) + 1;
+		return nowDate.plusDays(days).format(DateTimeFormatter.ofPattern(yyyyMMdd));
 	}
 }

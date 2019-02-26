@@ -12,10 +12,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.exception.UnauthenticateException;
 
+/**
+ * login 확인 interceptor, use with MustLogin annotation 
+ * @author 임상현, life4lord93@nts-corp.com
+ */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
@@ -25,7 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		HandlerMethod handlerMethod = (HandlerMethod)handler;
-		MustLogin mustLogin = handlerMethod.getMethodAnnotation(MustLogin.class);
+		IsLogin mustLogin = handlerMethod.getMethodAnnotation(IsLogin.class);
 
 		if (isNull(mustLogin)) {
 			return true;

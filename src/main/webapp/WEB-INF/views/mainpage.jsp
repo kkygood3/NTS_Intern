@@ -90,7 +90,7 @@
     </footer>
     
     <script type="text/template" id="promotion_template" class="template" data-parse-name="Promotion">
-		<li class="item" style="background-image: url(/resources/{{productImageUrl}});">
+		<li class="item" style="background-image: url(/file/{{productImageUrl}});">
         	<a href="#"> 
 				<span class="img_btm_border"></span> 
 				<span class="img_right_border"></span>
@@ -114,7 +114,7 @@
 		<li class="item">
         	<a href="/product-display?displayInfoId={{displayInfoId}}" class="item_book">
             <div class="item_preview">
-                <img alt="{{productDescription}}" class="img_thumb" src="/resources/{{productImageUrl}}">
+                <img alt="{{productDescription}}" class="img_thumb" src="/file/{{productImageUrl}}">
                 <span class="img_border"></span>
             </div>
             <div class="event_txt">

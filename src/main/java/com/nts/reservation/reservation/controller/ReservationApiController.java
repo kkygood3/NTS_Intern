@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.common.annotation.MustLogin;
+import com.nts.reservation.common.annotation.IsLogin;
 import com.nts.reservation.common.model.Response;
 import com.nts.reservation.reservation.model.Reservation;
 import com.nts.reservation.reservation.model.ReservationHistoryResponse;
@@ -24,10 +24,17 @@ import com.nts.reservation.reservation.service.ReservationService;
 @RestController
 public class ReservationApiController {
 
-	@Autowired
-	private ReservationService reservationService;
+	private final ReservationService reservationService;
 
-	@MustLogin
+	@Autowired
+	public ReservationApiController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
+
+	/**
+	 * 사용자의 예매내역 조회
+	 */
+	@IsLogin
 	@GetMapping(value = {"/api/reservation-histories"})
 	public ReservationHistoryResponse getReservationHistoryResponse(HttpSession httpSession) {
 
@@ -36,13 +43,19 @@ public class ReservationApiController {
 		return new ReservationHistoryResponse(reservationService.getReservationHistoryList(reservationEmail));
 	}
 
+	/**
+	 * 상품 예매 정보 저장
+	 */
 	@PostMapping(value = {"/api/reservation"})
 	public Response addReservation(@RequestBody @Validated Reservation reservation) {
 		reservationService.addReservation(reservation);
 		return new Response();
 	}
 
-	@MustLogin
+	/**
+	 * 상품 예매 취소
+	 */
+	@IsLogin
 	@PutMapping(value = {"/api/reservation/{reservationId}/cancel"})
 	public Response modifyReservationToCancel(HttpSession httpSession, @PathVariable int reservationId) {
 

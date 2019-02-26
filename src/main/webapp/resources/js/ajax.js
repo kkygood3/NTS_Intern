@@ -18,6 +18,9 @@ Ajax.prototype = {
 			if(responseObj.httpStatusCode === this._HTTP_STATUS._OK){
 				callback(responseObj);
 			}
+			else{
+				this._printError(responseObj);
+			}
 		});
 		
 		xmlHttpRequest.open("GET", url);
@@ -32,10 +35,30 @@ Ajax.prototype = {
 			if(responseObj.httpStatusCode === this._HTTP_STATUS._OK){
 				callback(responseObj);
 			}
+			else{
+				this._printError(responseObj);
+			}
 		});
 		
 		xmlHttpRequest.open("PUT", url);
 		xmlHttpRequest.send();
+	},
+	post : function(url, data, callback){
+		var xmlHttpRequest = new XMLHttpRequest();
+		
+		xmlHttpRequest.addEventListener("load", (evt) =>{
+			var response = evt.currentTarget;
+			var responseObj = JSON.parse(response.responseText);
+			if(responseObj.httpStatusCode === this._HTTP_STATUS._OK){
+				callback(responseObj);
+			}
+			else{
+				this._printError(responseObj);
+			}
+		});
+		
+		xmlHttpRequest.open("POST", url);
+		xmlHttpRequest.send(data);
 	},
 	postWithJson : function(url, data, callback){
 		var xmlHttpRequest = new XMLHttpRequest();
@@ -46,11 +69,20 @@ Ajax.prototype = {
 			if(responseObj.httpStatusCode === this._HTTP_STATUS._OK){
 				callback(responseObj);
 			}
+			else{
+				this._printError(responseObj);
+			}
 		});
 		
 		xmlHttpRequest.open("POST", url);
 		xmlHttpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xmlHttpRequest.send(data);
 	},
+	_printError : function(responseObj){
+		console.error("data load fail cause : [http_status : %s, code : %s, message : %s]", 
+				responseObj.httpStatus,
+				responseObj.httpStatusCode,
+				responseObj.message);
+	}
 }
 
