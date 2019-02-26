@@ -2,7 +2,7 @@
  * Copyright 2019 Naver Corp. All rights Reserved.
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.nts.reservation.comment.dao.daoImpl;
+package com.nts.reservation.comment.dao.daoimpl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,8 @@ import com.nts.reservation.comment.dto.CommentParam;
 public class CommentDaoImpl implements CommentDao {
 
 	private NamedParameterJdbcTemplate jdbc;
+	
+	private static final String DIRECTORY = "c:/tmp/comment/";
 
 	public CommentDaoImpl(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -65,19 +67,17 @@ public class CommentDaoImpl implements CommentDao {
 			.addValue("reservationInfoId", commentParam.getReservationInfoId())
 			.addValue("productId", commentParam.getProductId())
 			.addValue("score", commentParam.getScore())
-			.addValue("comment", commentParam.getComment())
-			.addValue("fileName", commentParam.getFile().getOriginalFilename())
-			.addValue("contentType", commentParam.getFile().getContentType());
+			.addValue("comment", commentParam.getComment());
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 
 		jdbc.update(CommentDaoSqls.INSERT_COMMENT, param, keyHolder);
 		return keyHolder.getKey().intValue();
 	}
 	
 	@Override
-	public int insertFileInfo(CommentParam commentParam) {
+	public int insertFileInfo(CommentParam commentParam, String saveFileName) {
 		SqlParameterSource param = new MapSqlParameterSource()
 			.addValue("fileName", commentParam.getFileName())
-			.addValue("saveFileName", "comment/" + commentParam.getFileName())
+			.addValue("saveFileName", DIRECTORY + saveFileName)
 			.addValue("contentType", commentParam.getContentType());
 		KeyHolder keyHolder = new GeneratedKeyHolder(); 
 		jdbc.update(CommentDaoSqls.INSERT_FILE_INFO, param, keyHolder);
