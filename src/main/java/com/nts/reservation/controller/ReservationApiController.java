@@ -33,14 +33,14 @@ import com.nts.reservation.service.ReservationService;
 * @author  : 이승수
 */
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/api/reservations")
 public class ReservationApiController {
 	@Autowired
 	private ReservationService reservationService;
 	@Autowired
 	private CommentService commentService;
 
-	@GetMapping(path = "/reservations")
+	@GetMapping
 	public Map<String, Object> getReservations(@RequestParam String reservationEmail) {
 		List<ReservedItem> reservedItems = reservationService.getReservedItems(reservationEmail);
 
@@ -50,7 +50,7 @@ public class ReservationApiController {
 		return map;
 	}
 
-	@PostMapping(path = "/reservations")
+	@PostMapping
 	public boolean makeReservation(HttpSession session, @RequestBody Reservation reservationInfo) {
 		session.setAttribute("userEmail", reservationInfo.getReservationEmail());
 
@@ -59,14 +59,14 @@ public class ReservationApiController {
 		return true;
 	}
 
-	@PutMapping(path = "/reservations/{reservaionInfoId}")
+	@PutMapping(path = "/{reservaionInfoId}")
 	public boolean cancelReservation(@PathVariable("reservaionInfoId") Integer reservationInfoId) {
 		reservationService.cancelReservation(reservationInfoId);
 
 		return true;
 	}
 
-	@PostMapping(path = "/reservations/{reservaionInfoId}/comments")
+	@PostMapping(path = "/{reservaionInfoId}/comments")
 	public String writeComment(@ModelAttribute Comment comment,
 		@RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
 		commentService.addComment(comment, files);
