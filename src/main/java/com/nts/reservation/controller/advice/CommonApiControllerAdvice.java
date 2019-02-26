@@ -37,29 +37,28 @@ public class CommonApiControllerAdvice {
 	@ExceptionHandler({IOException.class, SQLException.class})
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleIoException(Exception exception) {
-		logger.error("error message, {}", exception);
+		logger.error("error message : ", exception);
 		return new ErrorMessageDto(INTERNAL_ERROR_MSG);
 	}
 
 	@ExceptionHandler({BindException.class, InvalidParamException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorMessageDto handleBindException(Exception exception) {
-		logger.error("error message, {}", exception);
+		logger.error("error message : ", exception);
 		return new ErrorMessageDto(BAD_REQUEST_ERROR_MSG);
 	}
 
 	@ExceptionHandler({FileNotFoundException.class, CustomFileNotFoundException.class})
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorMessageDto handleFileNotFoundException(Exception exception) {
-		logger.error("error message, {}", exception);
+		logger.error("error message : ", exception);
 		return new ErrorMessageDto(NOT_FOUND_REQUEST);
 	}
 
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessageDto handleCommonException(Exception exception) {
-
-		logger.error("error message, {}", exception);
+		logger.error("error message : ", exception);
 		return new ErrorMessageDto(COMMON_ERROR_MSG);
 	}
 }
