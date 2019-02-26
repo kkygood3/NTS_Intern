@@ -4,11 +4,6 @@
  */
 package com.nts.reservation.controller.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.nts.reservation.dto.response.ErrorResponseDto;
 import com.nts.reservation.exception.InValidationException;
 
 /**
@@ -31,11 +27,8 @@ public class GlobalApiExceptionHadler {
 	 */
 	@ExceptionHandler(InValidationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleApiInValidationException(InValidationException ex) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isError", true);
-		map.put("errorMsg", ex.getMessage());
-		return map;
+	public ErrorResponseDto handleApiInValidationException(InValidationException ex) {
+		return new ErrorResponseDto(true, ex.getMessage());
 	}
 
 	/**
@@ -47,11 +40,8 @@ public class GlobalApiExceptionHadler {
 	@ExceptionHandler({MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class,
 		NumberFormatException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, Object> handleApiParamException() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isError", true);
-		map.put("errorMsg", "wrong input");
-		return map;
+	public ErrorResponseDto handleApiParamException() {
+		return new ErrorResponseDto(true, "wrong input");
 	}
 
 	/**
@@ -59,11 +49,7 @@ public class GlobalApiExceptionHadler {
 	 */
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public Map<String, Object> handleApiOtherExceptions(Exception ex, HttpServletRequest req) {
-		ex.printStackTrace();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("isEmpty", true);
-		map.put("isError", true);
-		return map;
+	public ErrorResponseDto handleApiOtherExceptions(Exception ex) {
+		return new ErrorResponseDto(true, ex.getMessage());
 	}
 }
