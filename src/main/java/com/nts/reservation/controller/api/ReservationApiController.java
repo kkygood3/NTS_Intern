@@ -26,6 +26,7 @@ import com.nts.reservation.dto.param.CommentParamDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.param.ReservationParamDto;
 import com.nts.reservation.dto.response.ReservationResponseDto;
+import com.nts.reservation.exception.InValidationException;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -78,7 +79,8 @@ public class ReservationApiController {
 	@PostMapping("/{reservationId}/comments")
 	public Map<String, Object> postComment(CommentParamDto commentParam) {
 		if (!commentParam.isValid()) {
-			throw new RuntimeException("입력값이 올바르지 않습니다.");
+			throw new InValidationException("입력값이 올바르지 않습니다.");
+			
 		}
 		reservationService.makeComment(commentParam);
 		return Collections.singletonMap("isSuccess", true);

@@ -255,8 +255,7 @@
 					}
 				},
 				error: function (e) {
-					alert("등록 실패!");
-					console.log("ERROR : ", e);
+					alert("등록 실패! : " + e.errorMsg);
 				}
 			});
 		}
