@@ -31,7 +31,7 @@ public class FileApiController {
 	/**
 	 * 상품평 이미지 다운로드
 	 */
-	@GetMapping(path = "/img/comments/{id}", produces = { MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE })
+	@GetMapping(path = "/img/comments/{id}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getCommentImage(@PathVariable int id) throws IOException {
 		FileInfoDto fileInfo = fileService.getCommentImage(id);
 
@@ -45,9 +45,9 @@ public class FileApiController {
 	/**
 	 * 이미지 다운로드
 	 */
-	@GetMapping("/img/**")
+	@GetMapping(path = "/img/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
 	public byte[] getImage(HttpServletRequest request) throws IOException {
-		String saveFileName = "c:/tmp" + request.getRequestURI().substring(4);
+		String saveFileName = "c:/tmp" + request.getRequestURI().substring(4); // [/api/img/~] -> [/img/~]
 
 		try (InputStream in = new FileInputStream(saveFileName);) {
 			return IOUtils.toByteArray(in);
