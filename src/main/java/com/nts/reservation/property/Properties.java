@@ -16,6 +16,16 @@ public class CommonProperties {
 	public static final String MY_RESERVATION_DEFAULT_PAGING_LIMIT = "3";
 	
 	/**
+	 * /api/products 요청시 categoryId를 명시하지 않는다면, 카테고리 구별없이 모두 출력하는 기본 값(0)
+	 */
+	public static final String PRODUCT_DEFAULT_CATEGORY_ID = "0";
+
+	/**
+	 * /api/products 요청시 시작 위치(start)를 명시하지 않는다면, 처음부터 조회하는 기본 값(0) 
+	 */
+	public static final String PRODUCT_DEFAULT_START = "0";
+	
+	/**
 	 * detail, review 페이지에서 comment 조회 시작 위치(start)를 명시하지 않는다면, 처음부터 조회하는 기본 값(0) 
 	 */
 	public static final String COMMENT_DEFAULT_START = "0";
@@ -43,7 +53,6 @@ public class CommonProperties {
 	
 	/**
 	 * 이미지 파일 업로드/다운로드에 사용.
-	 * 
 	 */	
 	public static final String[] ALLOW_FILE_EXTENSION = {"image/jpeg", "image/png", "image/jpg"};
 	
