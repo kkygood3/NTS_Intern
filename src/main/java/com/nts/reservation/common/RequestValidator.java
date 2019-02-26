@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nts.reservation.dto.reserve.ReservePrice;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 
 /**
  * Reservation 프로젝트에서 사용하는 특정 형식 String이 유효한지 검증하는 Class
@@ -41,7 +41,7 @@ public class RequestValidator {
 		}
 
 		//티켓 count의 합이 MAX_TICKET_COUNT를 초과한다.
-		if (sumOfCount > CommonProperties.MAX_TICKET_COUNT) {
+		if (sumOfCount > Properties.MAX_TICKET_COUNT) {
 			return false;
 		}
 

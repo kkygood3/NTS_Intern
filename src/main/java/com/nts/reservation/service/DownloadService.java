@@ -8,9 +8,10 @@ import com.nts.reservation.dto.download.DownloadInfo;
 
 public interface DownloadService {
 	/**
-	 * 파일 
+	 * /download/{reservationInfoImageId}요청에 대응
+	 * 다운로드하려는 이미지 파일 정보를 조회  
 	 * @param reservationInfoImageId
-	 * @return
+	 * @return DownloadInfo
 	 */
 	DownloadInfo downloadImageFile(int reservationInfoImageId);
 }

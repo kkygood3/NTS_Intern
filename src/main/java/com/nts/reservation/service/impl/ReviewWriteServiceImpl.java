@@ -16,7 +16,7 @@ import com.nts.reservation.common.FileUtils;
 import com.nts.reservation.dao.reviewwrite.ReviewWrtieDao;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.ReviewWriteService;
 
 @Service
@@ -37,7 +37,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 		MultipartFile imageFile = reviewWriteRequest.getImageFile();
 		if (imageFile != null) {
 			String fileName = FileUtils.addRandomSuffix(imageFile.getOriginalFilename());
-			String fileDir = CommonProperties.ROOT_DIR_COMMNET_IMAGE + fileName;
+			String fileDir = Properties.ROOT_DIR_COMMNET_IMAGE + fileName;
 			
 			try (FileOutputStream fileOut = new FileOutputStream(fileDir);
 				InputStream in = imageFile.getInputStream();) {
@@ -51,7 +51,8 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 			} catch (Exception ex) {
 				throw new RuntimeException("file Save Error");
 			}
-
+			
+			//MultipartFile 정보를 String으로 저장
 			reviewWriteRequest.setFileName(fileName);
 			reviewWriteRequest.setSaveFileName("img_comment/" + fileName);
 			reviewWriteRequest.setContentType(imageFile.getContentType());

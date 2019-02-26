@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.download;
 
 /**
- * /download요청시 
+ * /download요청시 파일 이름과 형식을 조회하여 전달
  */
 public class DownloadInfo {
 	private String fileName;

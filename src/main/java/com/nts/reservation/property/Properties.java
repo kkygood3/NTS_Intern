@@ -4,7 +4,7 @@
  */
 package com.nts.reservation.property;
 
-public class CommonProperties {
+public class Properties {
 	/**
 	 * 클라이언트가 페이지에 접속할 때, 한 페이지의 크기를 명시하지 않았다면 출력할 기본 item 개수  
 	 */

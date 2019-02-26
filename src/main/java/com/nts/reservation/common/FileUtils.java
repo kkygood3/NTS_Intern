@@ -11,7 +11,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nts.reservation.dto.download.DownloadInfo;
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 
 /**
  * 파일 업로드, 다운로드에 사용할 static method 클래스
@@ -32,7 +32,7 @@ public class FileUtils {
 		response.setHeader("Pragma", "no-cache;");
 		response.setHeader("Expires", "-1;");
 
-		String fileDir = CommonProperties.ROOT_DIR_COMMNET_IMAGE + fileName;
+		String fileDir = Properties.ROOT_DIR_COMMNET_IMAGE + fileName;
 
 		try (FileInputStream fis = new FileInputStream(fileDir);
 			OutputStream out = response.getOutputStream();) {
@@ -60,7 +60,7 @@ public class FileUtils {
 
 		StringBuilder builder = new StringBuilder(splitedStr[0]);
 		builder.append('_');
-		for (int i = 0; i < CommonProperties.RANDOM_SUFFIX_LENGTH; i++) {
+		for (int i = 0; i < Properties.RANDOM_SUFFIX_LENGTH; i++) {
 			builder.append((char)((int)(rng.nextInt(26)) + 97));
 		}
 		builder.append('.');

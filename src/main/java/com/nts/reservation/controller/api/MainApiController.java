@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.property.CommonProperties;
-import com.nts.reservation.property.ProductProperties;
+import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.MainService;
 
 @RestController
@@ -30,7 +29,7 @@ public class MainApiController {
 	 */
 	@GetMapping("/categories")
 	public Map<String, Object> categories(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.CATEGORY_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		return Collections.singletonMap("mainCategoryReseponse", mainResponseService.getCategories(pagingLimit));
 	}
@@ -44,9 +43,9 @@ public class MainApiController {
 	 */
 	@GetMapping("/products")
 	public Map<String, Object> products(
-		@RequestParam(name = "categoryId", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
-		@RequestParam(name = "start", required = false, defaultValue = ProductProperties.PRODUCT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "categoryId", required = false, defaultValue = Properties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
+		@RequestParam(name = "start", required = false, defaultValue = Properties.PRODUCT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 		
 		if (start < 0) {
 			start = 0;
@@ -62,7 +61,7 @@ public class MainApiController {
 	 */
 	@GetMapping("/promotions")
 	public Map<String, Object> promotions(
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.PROMOTION_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		return Collections.singletonMap("mainPromotionReseponse", mainResponseService.getPromotions(pagingLimit));
 	}

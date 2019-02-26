@@ -25,7 +25,7 @@ import com.nts.reservation.common.RequestValidator;
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
 import com.nts.reservation.service.ReviewWriteService;
@@ -50,7 +50,7 @@ public class ReserveApiController {
 	public Map<String, Object> getReservations(
 		@RequestParam("reservationType") ReservationType reservationType,
 		@RequestParam("start") Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
 		HttpSession session) {
 
 		if (start < 0) {
