@@ -11,7 +11,6 @@ import static com.nts.reservation.dto.request.regex.RegexPattern.IMAGE_CONTENT_T
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,6 @@ import java.util.regex.Pattern;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -39,13 +36,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.nts.reservation.dto.FileDto;
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.ReservationRequestDto;
 import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
 import com.nts.reservation.exception.InvalidParamException;
-import com.nts.reservation.service.FileIoService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -77,7 +72,7 @@ public class ReservationApiController {
 	 */
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Map<String, String>> postReservation(@Valid @RequestBody ReservationRequestDto requestParams,
-			BindingResult bindingResult, UriComponentsBuilder uriBuilder) throws BindException {
+		BindingResult bindingResult, UriComponentsBuilder uriBuilder) throws BindException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
@@ -87,7 +82,7 @@ public class ReservationApiController {
 
 		reservationService.addReservation(requestParams);
 		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
-				HttpStatus.OK);
+			HttpStatus.OK);
 	}
 
 	/**
@@ -98,7 +93,7 @@ public class ReservationApiController {
 	 */
 	@GetMapping
 	public MyReservationResponseDto getReservationResponse(@RequestParam String reservationEmail)
-			throws InvalidParamException {
+		throws InvalidParamException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
 			throw new InvalidParamException("reservaionEmail", reservationEmail);
@@ -135,8 +130,8 @@ public class ReservationApiController {
 	 */
 	@PostMapping(path = "/{reservationInfoId}/comments")
 	public ResponseEntity<Map<String, String>> postComment(@PathVariable Long reservationInfoId,
-			@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto, BindingResult bindingResult,
-			UriComponentsBuilder uriBuilder) throws BindException, InvalidParamException, IOException {
+		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto, BindingResult bindingResult,
+		UriComponentsBuilder uriBuilder) throws BindException, InvalidParamException, IOException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
@@ -161,6 +156,6 @@ public class ReservationApiController {
 
 		URI redirectUri = uriBuilder.path("/").build().toUri();
 		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
-				HttpStatus.OK);
+			HttpStatus.OK);
 	}
 }

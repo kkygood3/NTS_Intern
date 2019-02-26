@@ -115,14 +115,14 @@ public class ReservationServiceImpl implements ReservationService {
 	@Transactional(readOnly = false)
 	@Override
 	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, Long reservationInfoId)
-			throws IOException {
+		throws IOException {
 		Long productId = requestDto.getProductId();
 		Integer score = requestDto.getScore();
 		String comment = requestDto.getComment();
 
 		List<FileDto> fileList = new ArrayList<>();
 		Long reservationUserCommentId = reservationDao.insertUserComment(productId, reservationInfoId, score,
-				comment);
+			comment);
 		try {
 			for (MultipartFile image : requestDto.getAttachedImages()) {
 				FileDto file = fileIo.writeMultipartFile(imageDefaultPath, image);
@@ -166,7 +166,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param commentImageId
 	 */
 	@Override
-	public FileDto getFileByCommentImageId(Long commentImageId) {
+	public FileDto getCommentImage(Long commentImageId) {
 		return reservationDao.selectFileByCommentImageId(commentImageId);
 	}
 }
