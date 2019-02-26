@@ -7,6 +7,9 @@ package com.nts.reservation.productdisplay.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ProductDisplay {
 
 	private int productId;
@@ -26,10 +29,7 @@ public class ProductDisplay {
 
 	@Override
 	public String toString() {
-		return "ProductDisplay [productId=" + productId + ", displayInfoId=" + displayInfoId + ", productDescription="
-			+ productDescription + ", productContent=" + productContent + ", productDisplayImageUrlList="
-			+ productDisplayImageUrlList + ", placeName=" + placeName + ", placeLot=" + placeLot + ", placeStreet="
-			+ placeStreet + ", telephone=" + telephone + ", displayInfoImageUrl=" + displayInfoImageUrl + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getProductId() {

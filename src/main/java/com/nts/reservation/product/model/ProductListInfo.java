@@ -7,6 +7,9 @@ package com.nts.reservation.product.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ProductListInfo {
 
 	private List<Product> productList;
@@ -19,6 +22,11 @@ public class ProductListInfo {
 	public ProductListInfo(List<Product> productList, int totalCount) {
 		this.productList = productList;
 		this.totalCount = totalCount;
+	}
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public List<Product> getProductList() {

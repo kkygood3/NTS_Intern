@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.comment.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.model.Response;
 
 public class CommentResponse extends Response {
@@ -18,7 +21,7 @@ public class CommentResponse extends Response {
 
 	@Override
 	public String toString() {
-		return "CommentResponse [commentListInfo=" + commentListInfo + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public CommentListInfo getCommentListInfo() {

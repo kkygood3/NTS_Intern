@@ -6,6 +6,9 @@ package com.nts.reservation.product.model;
 
 import javax.validation.constraints.Min;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ProductRequest {
 
 	private int categoryId;
@@ -15,7 +18,7 @@ public class ProductRequest {
 
 	@Override
 	public String toString() {
-		return "ProductRequest [categoryId=" + categoryId + ", start=" + start + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getCategoryId() {

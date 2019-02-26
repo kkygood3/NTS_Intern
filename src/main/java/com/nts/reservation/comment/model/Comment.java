@@ -7,6 +7,9 @@ package com.nts.reservation.comment.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Comment {
 
 	private String productDescription;
@@ -22,9 +25,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [productDescription=" + productDescription + ", reservationDate=" + reservationDate
-			+ ", reservationEmail=" + reservationEmail + ", comment=" + comment + ", score=" + score
-			+ ", commentImageIdList=" + commentImageIdList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public String getProductDescription() {

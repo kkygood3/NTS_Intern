@@ -4,6 +4,8 @@
  */
 package com.nts.reservation.file.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileInfo {
@@ -22,8 +24,7 @@ public class FileInfo {
 
 	@Override
 	public String toString() {
-		return "FileInfo [fileName=" + fileName + ", saveFileName=" + saveFileName + ", contentType=" + contentType
-			+ "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public String getFileName() {

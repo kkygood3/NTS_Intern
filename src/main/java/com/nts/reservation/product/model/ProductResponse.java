@@ -7,6 +7,9 @@ package com.nts.reservation.product.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.model.Response;
 
 public class ProductResponse extends Response {
@@ -25,7 +28,7 @@ public class ProductResponse extends Response {
 
 	@Override
 	public String toString() {
-		return "ProductResponse [productList=" + productList + ", totalCount=" + totalCount + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public List<Product> getProductList() {

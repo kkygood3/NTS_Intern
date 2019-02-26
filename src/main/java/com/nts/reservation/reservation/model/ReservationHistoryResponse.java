@@ -6,6 +6,9 @@ package com.nts.reservation.reservation.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.model.Response;
 
 public class ReservationHistoryResponse extends Response {
@@ -18,7 +21,7 @@ public class ReservationHistoryResponse extends Response {
 
 	@Override
 	public String toString() {
-		return "ReservationHistoryResponse [reservationHistoryList=" + reservationHistoryList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public List<ReservationHistory> getReservationHistoryList() {

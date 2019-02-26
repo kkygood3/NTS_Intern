@@ -11,6 +11,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.regexp.Regexp;
 
 public class Reservation {
@@ -43,9 +46,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [productId=" + productId + ", displayInfoId=" + displayInfoId + ", reservationName="
-			+ reservationName + ", reservationEmail=" + reservationEmail + ", reservationTel=" + reservationTel
-			+ ", reservationDate=" + reservationDate + ", reservationPriceList=" + reservationPriceList + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getProductId() {

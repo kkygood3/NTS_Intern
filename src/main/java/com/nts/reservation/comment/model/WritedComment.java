@@ -9,6 +9,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class WritedComment {
 
 	private int reservationId;
@@ -25,8 +28,7 @@ public class WritedComment {
 
 	@Override
 	public String toString() {
-		return "WritedComment [reservationId=" + reservationId + ", comment=" + comment + ", score=" + score
-			+ ", reservationEmail=" + reservationEmail + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getReservationId() {

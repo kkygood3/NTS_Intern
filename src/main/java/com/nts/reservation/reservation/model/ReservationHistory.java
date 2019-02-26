@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.reservation.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ReservationHistory {
 
 	private int reservationId;
@@ -17,10 +20,7 @@ public class ReservationHistory {
 
 	@Override
 	public String toString() {
-		return "ReservationHistory [reservationId=" + reservationId + ", productDescription=" + productDescription
-			+ ", placeName=" + placeName + ", placeLot=" + placeLot + ", placeStreet=" + placeStreet
-			+ ", reservationDate=" + reservationDate + ", reservationStatus=" + reservationStatus + ", totalPrice="
-			+ totalPrice + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getReservationId() {

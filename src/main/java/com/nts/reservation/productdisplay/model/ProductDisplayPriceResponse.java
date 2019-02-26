@@ -6,6 +6,9 @@ package com.nts.reservation.productdisplay.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.model.Response;
 import com.nts.reservation.productprice.model.ProductPrice;
 
@@ -24,8 +27,7 @@ public class ProductDisplayPriceResponse extends Response {
 
 	@Override
 	public String toString() {
-		return "ProductPriceResponse [productDisplay=" + productDisplay + ", productPriceList=" + productPriceList
-			+ ", reservationDate=" + reservationDate + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public ProductDisplay getProductDisplay() {

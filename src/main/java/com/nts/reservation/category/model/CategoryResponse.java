@@ -7,6 +7,9 @@ package com.nts.reservation.category.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.nts.reservation.common.model.Response;
 
 public class CategoryResponse extends Response {
@@ -19,6 +22,11 @@ public class CategoryResponse extends Response {
 
 	public CategoryResponse(List<Category> categoryList) {
 		this.categoryList = categoryList;
+	}
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public List<Category> getCategoryList() {

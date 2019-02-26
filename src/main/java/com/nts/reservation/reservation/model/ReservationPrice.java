@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.reservation.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class ReservationPrice {
 
 	private int productPriceId;
@@ -11,7 +14,7 @@ public class ReservationPrice {
 
 	@Override
 	public String toString() {
-		return "ReservationPrice [productPriceId=" + productPriceId + ", count=" + count + "]";
+		return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
 	public int getProductPriceId() {
