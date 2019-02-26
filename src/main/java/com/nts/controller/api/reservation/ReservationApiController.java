@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -72,6 +74,8 @@ public class ReservationApiController {
 	@Value("${imagepath}")
 	private String imagePath;
 
+	private static final DateTimeFormatter YYYYMMDDHHMMSS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	
 	private static final int MAX_SESSION_INACTIVE_INTERVAL_30MINS = 1800;
 
 	/**
@@ -131,7 +135,7 @@ public class ReservationApiController {
 	}
 
 	@PostMapping("/{reservationInfoId}/comments")
-	public ModelAndView registerComment(
+	public void registerComment(
 			@PathVariable(name = "reservationInfoId") int reservationInfoId,
 			@RequestParam(name = "productId") int productId, @RequestParam(name = "comment") String comment,
 			@RequestParam(name = "score") double score,
@@ -162,10 +166,7 @@ public class ReservationApiController {
 			
 		}
 
-		ModelAndView mav = new ModelAndView("redirect:/");
-		mav.addObject("reservationUserCommentId", reservationUserCommentId);
-
-		return mav;
+		
 	}
 
 	/**
@@ -178,6 +179,9 @@ public class ReservationApiController {
 			throw new InvalidParameterException("email",
 					new ExceptionValue<String>(reservationParam.getReservation().toString()));
 		}
+		
+		reservationParam.getReservation().setReservationDate(LocalDateTime.now()
+														.plusDays((long) (Math.random()*5)).format(YYYYMMDDHHMMSS));
 
 		return reservationService.addReservation(reservationParam);
 	}

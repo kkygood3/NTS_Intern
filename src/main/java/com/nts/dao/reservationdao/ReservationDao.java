@@ -57,8 +57,6 @@ public class ReservationDao {
 		KeyHolder generatedKey= new GeneratedKeyHolder();
 		SqlParameterSource source = new MapSqlParameterSource()
 										.addValue("displayInfoId", reservation.getDisplayInfoId())
-										.addValue("createDate", reservation.getCreateDate())
-										.addValue("modifyDate", reservation.getModifyDate())
 										.addValue("productId", reservation.getProductId())
 										.addValue("cancelFlag", reservation.getCancelFlag())
 										.addValue("reservationDate", reservation.getReservationDate())
