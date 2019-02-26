@@ -6,8 +6,6 @@ package com.nts.reservation.dto.reviewwrite;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nts.reservation.common.ValidationUtils;
-
 /**
  * reviewWrite에서 리뷰 요청과 파일 등록 정보를 담는 객체
  */

@@ -4,7 +4,6 @@
  */
 package com.nts.reservation.dao.reserve;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nts.reservation.dto.reserve.ReserveDisplayInfo;

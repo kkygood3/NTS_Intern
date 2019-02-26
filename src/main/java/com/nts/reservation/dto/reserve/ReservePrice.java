@@ -15,7 +15,7 @@ public class ReservePrice {
 	private ReservePriceType priceTypeName;
 	private Integer count;
 	private Integer reservationInfoId;
-	
+
 	public ReservePriceType getPriceTypeName() {
 		return priceTypeName;
 	}

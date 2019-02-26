@@ -6,9 +6,6 @@ package com.nts.reservation.dto.reserve;
 
 import java.util.List;
 
-import com.nts.reservation.common.ValidationUtils;
-import com.nts.reservation.property.Properties;
-
 public class ReserveRequest {
 	private Integer id;
 	private String name;

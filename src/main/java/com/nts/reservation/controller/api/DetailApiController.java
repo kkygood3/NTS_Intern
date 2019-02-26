@@ -40,8 +40,9 @@ public class DetailApiController {
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("detailResponse", detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
+
+		return Collections.singletonMap("detailResponse",
+			detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
 	}
 
 	/**
@@ -65,11 +66,12 @@ public class DetailApiController {
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
 		@RequestParam(name = "start", required = false, defaultValue = Properties.COMMENT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-		
+
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("reviewResponse", reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
+
+		return Collections.singletonMap("reviewResponse",
+			reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
 	}
 }

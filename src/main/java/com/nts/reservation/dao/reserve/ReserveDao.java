@@ -4,9 +4,6 @@
  */
 package com.nts.reservation.dao.reserve;
 
-import java.util.List;
-
-import com.nts.reservation.dto.reserve.ReservePrice;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 
 /**

@@ -26,19 +26,19 @@ public class ValidationUtils {
 	}
 
 	public static boolean validateName(String name) {
-		return (name != null 
+		return (name != null
 			&& name.length() > 0
 			&& name.length() <= Properties.MAX_NAME_LENGTH);
 	}
 
 	public static boolean validateComment(String comment) {
 		int commentLength = comment.length();
-		return (commentLength >= Properties.MIN_COMMENT_LENGTH 
+		return (commentLength >= Properties.MIN_COMMENT_LENGTH
 			&& commentLength <= Properties.MAX_COMMENT_LENGTH);
 	}
 
 	public static boolean validateScore(int score) {
-		return (score >= Properties.MIN_REVIEW_SCORE 
+		return (score >= Properties.MIN_REVIEW_SCORE
 			&& score <= Properties.MAX_REVIEW_SCORE);
 	}
 

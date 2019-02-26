@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dao.review;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.nts.reservation.dto.review.ReviewDisplayInfo;
 
 /**

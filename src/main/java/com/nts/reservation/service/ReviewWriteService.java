@@ -13,7 +13,7 @@ public interface ReviewWriteService {
 	 * @param reservationInfoId
 	 */
 	ReviewWriteResponse getReviewWriteResponse(int reservationInfoId);
-	
+
 	/**
 	 * 새로운 리뷰 등록 요청
 	 * @param reviewWriteRequest

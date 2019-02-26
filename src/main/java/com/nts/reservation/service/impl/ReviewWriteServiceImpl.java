@@ -38,7 +38,7 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 		if (imageFile != null) {
 			String fileName = FileUtils.addRandomSuffix(imageFile.getOriginalFilename());
 			String fileDir = Properties.ROOT_DIR_COMMNET_IMAGE + fileName;
-			
+
 			try (FileOutputStream fileOut = new FileOutputStream(fileDir);
 				InputStream in = imageFile.getInputStream();) {
 
@@ -51,8 +51,8 @@ public class ReviewWriteServiceImpl implements ReviewWriteService {
 			} catch (Exception ex) {
 				throw new RuntimeException("file Save Error");
 			}
-			
-			//MultipartFile 정보를 String으로 저장
+
+			//무작위 문자열을 포함한 파일명을 저장
 			reviewWriteRequest.setFileName(fileName);
 			reviewWriteRequest.setSaveFileName("img_comment/" + fileName);
 			reviewWriteRequest.setContentType(imageFile.getContentType());

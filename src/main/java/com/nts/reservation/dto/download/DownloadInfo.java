@@ -18,7 +18,7 @@ public class DownloadInfo {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
+
 	public String getContentType() {
 		return contentType;
 	}

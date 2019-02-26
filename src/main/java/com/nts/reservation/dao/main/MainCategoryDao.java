@@ -6,8 +6,6 @@ package com.nts.reservation.dao.main;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.nts.reservation.dto.main.MainCategory;
 
 /**

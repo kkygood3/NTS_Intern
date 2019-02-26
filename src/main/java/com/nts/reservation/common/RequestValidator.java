@@ -56,14 +56,14 @@ public class RequestValidator {
 	 */
 	public static boolean validateReviewWriteRequest(ReviewWriteRequest reviewWriteRequest) {
 		MultipartFile imageFile = reviewWriteRequest.getImageFile();
-		
+
 		boolean result = ValidationUtils.validateComment(reviewWriteRequest.getComment())
 			&& ValidationUtils.validateScore(reviewWriteRequest.getScore());
-		
+
 		if (imageFile != null) {
 			result = result && ValidationUtils.validateImage(imageFile);
 		}
-		
+
 		return result;
 	}
 }

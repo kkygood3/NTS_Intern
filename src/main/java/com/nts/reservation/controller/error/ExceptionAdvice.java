@@ -13,13 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.util.NestedServletException;
 
-/**
- * ERROR
- * @author USER
- *
- */
+
 @ControllerAdvice
 public class ExceptionAdvice {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -46,12 +46,13 @@ public class MainApiController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = Properties.PRODUCT_DEFAULT_CATEGORY_ID) Integer categoryId,
 		@RequestParam(name = "start", required = false, defaultValue = Properties.PRODUCT_DEFAULT_START) Integer start,
 		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.PRODUCT_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-		
+
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("mainProductReseponse", mainResponseService.getProducts(categoryId, start, pagingLimit));
+
+		return Collections.singletonMap("mainProductReseponse",
+			mainResponseService.getProducts(categoryId, start, pagingLimit));
 	}
 
 	/**

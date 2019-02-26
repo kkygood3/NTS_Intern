@@ -14,7 +14,7 @@ public class Properties {
 	public static final String PROMOTION_DEFAULT_PAGING_LIMIT = "20";
 	public static final String REVIEW_DEFAULT_PAGING_LIMIT = "10";
 	public static final String MY_RESERVATION_DEFAULT_PAGING_LIMIT = "3";
-	
+
 	/**
 	 * /api/products 요청시 categoryId를 명시하지 않는다면, 카테고리 구별없이 모두 출력하는 기본 값(0)
 	 */
@@ -24,12 +24,12 @@ public class Properties {
 	 * /api/products 요청시 시작 위치(start)를 명시하지 않는다면, 처음부터 조회하는 기본 값(0) 
 	 */
 	public static final String PRODUCT_DEFAULT_START = "0";
-	
+
 	/**
 	 * detail, review 페이지에서 comment 조회 시작 위치(start)를 명시하지 않는다면, 처음부터 조회하는 기본 값(0) 
 	 */
 	public static final String COMMENT_DEFAULT_START = "0";
-	
+
 	/**
 	 * 정규표현 검사식
 	 */
@@ -46,19 +46,17 @@ public class Properties {
 
 	public static final int MAX_REVIEW_SCORE = 5;
 	public static final int MIN_REVIEW_SCORE = 1;
-	
+
 	public static final int MAX_COMMENT_LENGTH = 400;
 	public static final int MIN_COMMENT_LENGTH = 5;
 
-	
 	/**
 	 * 이미지 파일 업로드/다운로드에 사용.
-	 */	
+	 */
 	public static final String[] ALLOW_FILE_EXTENSION = {"image/jpeg", "image/png", "image/jpg"};
-	
+
 	public static final String ROOT_DIR_COMMNET_IMAGE = "c:/tmp/img_comment/";
-	
+
 	public static final int RANDOM_SUFFIX_LENGTH = 10;
-	
 
 }

@@ -33,9 +33,9 @@ public class MainServiceImpl implements MainService {
 	public MainProductResponse getProducts(int categoryId, int start, int pagingLimit) {
 		int count = mainProductDao.selectCount(categoryId);
 		List<MainProduct> productList = new ArrayList<>();
-		
-		if(count > 0) {
-			 productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
+
+		if (count > 0) {
+			productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
 		}
 		return new MainProductResponse(productList, count);
 	}
@@ -49,9 +49,9 @@ public class MainServiceImpl implements MainService {
 	public MainPromotionResponse getPromotions(int pagingLimit) {
 		int count = mainPromotionDao.selectCount();
 		List<MainPromotion> promotionList = new ArrayList<>();
-		
-		if(count > 0) {
-			 promotionList = mainPromotionDao.selectPromotions(pagingLimit);
+
+		if (count > 0) {
+			promotionList = mainPromotionDao.selectPromotions(pagingLimit);
 		}
 		return new MainPromotionResponse(promotionList, count);
 	}

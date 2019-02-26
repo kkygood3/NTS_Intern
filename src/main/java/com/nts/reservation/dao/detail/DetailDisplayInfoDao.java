@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dao.detail;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.nts.reservation.dto.detail.DetailDisplayInfo;
 
 /**

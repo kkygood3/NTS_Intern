@@ -23,12 +23,14 @@ public class MyReservationServiceImpl implements MyReservationService {
 	MyReservationDao myReservationMapper;
 
 	@Override
-	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit) {
+	public MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start,
+		Integer pagingLimit) {
 
- 		int count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
+		int count = myReservationMapper.selectMyReservationCount(email, reservationType.name());
 		MyReservationResponse myReservationResponse = new MyReservationResponse();
 		if (count > start) {
-			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email, reservationType.name(), start, pagingLimit);
+			List<MyReservationInfo> myReservationList = myReservationMapper.selectMyReservation(email,
+				reservationType.name(), start, pagingLimit);
 
 			myReservationResponse.setReservationList(myReservationList);
 			myReservationResponse.setReservationType(reservationType);

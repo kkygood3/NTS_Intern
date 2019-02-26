@@ -25,7 +25,7 @@ import com.nts.reservation.service.DownloadService;
 public class DownloadController {
 	@Autowired
 	DownloadService downloadService;
-	
+
 	/**
 	 * Comment Image ID로 다운로드 요청
 	 * @param reservationInfoImageId

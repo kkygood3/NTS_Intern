@@ -33,7 +33,7 @@ public class ReserveServiceImpl implements ReserveService {
 	@Override
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveDisplayInfo reserveDisplayInfo = reserveDisplayInfoDao.selectReviewDisplayInfo(displayInfoId);
-		
+
 		//priceTypeName을 출력에 사용하는 형식으로 변환
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
 		for (int i = 0; i < reservePrice.size(); i++) {
@@ -41,13 +41,13 @@ public class ReserveServiceImpl implements ReserveService {
 			String typeLabel = targetPrice.getPriceTypeName().getTypeLabel();
 			targetPrice.setPriceTypeLabel(typeLabel);
 		}
-		
+
 		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, (int)((Math.random() * 5)) + 1);
 		String reservationDate = dateFormat.format(calendar.getTime());
-		
+
 		return new ReserveResponse(reserveDisplayInfo, reservePrice, reservationDate);
 	}
 
