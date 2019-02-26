@@ -28,7 +28,7 @@ public class LoginApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/login")
-	public void loginProcess(@ModelAttribute UserParam userParam) {
+	public void loginProcess(UserParam userParam) {
 		session.setAttribute("email", userParam.getEmail());
 	}
 

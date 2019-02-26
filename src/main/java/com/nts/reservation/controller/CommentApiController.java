@@ -1,9 +1,11 @@
 package com.nts.reservation.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,8 @@ public class CommentApiController {
 	private CommentService commentService;
 
 	@PostMapping(path = "/comment")
-	public void postComment(@ModelAttribute CommentParam commentParam) {
-		commentService.postComments(commentParam);
+	public void postComment(CommentParam commentParam) {
+		commentService.postComment(commentParam);
 	}
 
 	@GetMapping(path = "/commentimage/{commentImageId}")
@@ -49,6 +51,9 @@ public class CommentApiController {
 		}
 
 		String saveFileName = commentService.basePath + image.getSaveFileName();
+		System.out.println("wdf "+saveFileName);
+//		BufferedReader br = new BufferedReader(new InputStreamReader(
+//				new FileInputStream(new File(saveFileName)), "UTF-8"));
 		InputStream in = new FileInputStream(new File(saveFileName));
 		return IOUtils.toByteArray(in);
 	}

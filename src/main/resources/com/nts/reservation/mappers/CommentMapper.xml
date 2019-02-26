@@ -7,7 +7,7 @@
 <!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nts.reservation.mappers.CommentMapper">
-	<resultMap id="getCompleteComment" type="com.nts.reservation.dto.comment.Comment">
+	<resultMap id="selectCompleteComment" type="com.nts.reservation.dto.comment.Comment">
 		<result property="commentId" column="commentId" />
 		<result property="productId" column="productId" />
 		<result property="reservationInfoId" column="reservationInfoId" />
@@ -49,41 +49,50 @@
 		<result property="modifyDate" column="modifyDate" />
 	</resultMap>
 	
-	<select id="getCommentsWithImages" parameterType="Long" resultMap="getCompleteComment">
-		SELECT ruc.id AS commentId
-		, di.product_id AS productId
-		, ri.id AS reservationInfoId
-		, IFNULL(CONVERT( ruc.score, DECIMAL(2,1)), 0 ) AS score
-		, ruc.comment AS comment
-		, ri.reservation_name AS reservationName
-		, SUBSTR(reservation_email , 1,4) AS reservationEmail
-		, ri.reservation_date AS reservationDate
-		, ri.create_date AS createDate
-		, ri.modify_date AS modifyDate
-		, ri.reservation_tel AS reservationTelephone
-		FROM reservation_user_comment ruc
-		INNER JOIN display_info di ON di.product_id = ruc.product_id AND di.id =
-		#{displayInfoId}
-		INNER JOIN reservation_info ri ON ri.id = ruc.reservation_info_id
-		ORDER BY commentId DESC;
+	<select id="selectCommentsWithImages" parameterType="Long" resultMap="selectCompleteComment">
+		SELECT 
+            ruc.id AS commentId
+            , di.product_id AS productId
+            , ri.id AS reservationInfoId
+            , IFNULL(CONVERT( ruc.score, DECIMAL(2, 1)), 0 ) AS score
+            , ruc.comment AS comment
+            , ri.reservation_name AS reservationName
+            , SUBSTR(reservation_email, 1, 4) AS reservationEmail
+            , ri.reservation_date AS reservationDate
+            , ri.create_date AS createDate
+            , ri.modify_date AS modifyDate
+            , ri.reservation_tel AS reservationTelephone
+		FROM 
+            reservation_user_comment ruc
+		INNER JOIN 
+            display_info di ON di.product_id = ruc.product_id AND di.id = #{displayInfoId}
+		INNER JOIN 
+            reservation_info ri ON ri.id = ruc.reservation_info_id
+		ORDER BY 
+            commentId DESC
 	</select>
 	
-	<select id ="getCommentImagesByCommentId"
+	<select id = "getCommentImagesByCommentId"
 	parameterType = "Long" 
-	resultType="com.nts.reservation.dto.comment.CommentImage">
-		SELECT ruci.id as imageId
-		, ruc.reservation_info_id as reservationInfoId
-		, fi.id as fileId
-		, fi.file_name as fileName
-		, fi.save_file_name as saveFileName
-		, fi.content_type as contentType
-		, fi.delete_flag as deleteFlag
-		, fi.create_date as createDate
-		, fi.modify_date as modifyDate
-		FROM reservation_user_comment ruc
-		INNER JOIN display_info di ON di.product_id = ruc.product_id AND ruc.id = #{commentId}
-		INNER JOIN reservation_user_comment_image ruci ON ruc.id =
-		ruci.reservation_user_comment_id
-		INNER JOIN file_info fi ON ruci.file_id = fi.id
+	resultType = "com.nts.reservation.dto.comment.CommentImage">
+		SELECT 
+            ruci.id as imageId
+            , ruc.reservation_info_id as reservationInfoId
+            , fi.id as fileId
+            , fi.file_name as fileName
+            , fi.save_file_name as saveFileName
+            , fi.content_type as contentType
+            , fi.delete_flag as deleteFlag
+            , fi.create_date as createDate
+            , fi.modify_date as modifyDate
+		FROM 
+            reservation_user_comment ruc
+		INNER JOIN 
+            display_info di ON di.product_id = ruc.product_id AND ruc.id = #{commentId}
+		INNER JOIN 
+            reservation_user_comment_image ruci ON ruc.id =
+		    ruci.reservation_user_comment_id
+		INNER JOIN 
+            file_info fi ON ruci.file_id = fi.id
 	</select>
 </mapper>

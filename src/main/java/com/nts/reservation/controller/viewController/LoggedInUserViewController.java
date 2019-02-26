@@ -42,7 +42,7 @@ public class LoggedInUserViewController {
 		String email = (String)session.getAttribute("email");
 		if (email == null) {
 			return "reviewWrite";
-		} else if (commentService.checkExistingComment(reservationId) > 0) {
+		} else if (commentService.countExistingComments(reservationId) > 0) {
 			model.addAttribute("msg", "이미 글을 남기셨습니다.");
 			model.addAttribute("url", "/reservation/myreservation");
 			return "error/redirect";

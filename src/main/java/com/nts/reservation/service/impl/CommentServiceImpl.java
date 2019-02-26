@@ -14,7 +14,7 @@ import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
 import com.nts.reservation.mappers.CommentMapper;
 import com.nts.reservation.service.CommentService;
-import com.nts.reservation.utils.FolderFileIO;
+import com.nts.reservation.utils.FileIO;
 
 /**
  * Copyright 2019 NAVER Corp.
@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentMapper;
 
 	@Autowired
-	private FolderFileIO folderFileIo;
+	private FileIO fileIo;
 
 	@Override
 	public CommentImage getCommentImageById(Long commentImageId) {
@@ -45,30 +45,36 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
-		List<Comment> comments = commentMapper.getCommentsWithImages(displayInfoId);
+		List<Comment> comments = commentMapper.selectCommentsWithImages(displayInfoId);
 		return comments;
 	}
 
 	@Override
-	public Long checkExistingComment(Long reservationId) {
-		return commentDao.CountCommentByReservationId(reservationId);
+	public Long countExistingComments(Long reservationId) {
+		return commentDao.selectCommentsCountByReservationId(reservationId);
 	}
 
 	@Override
 	@Transactional(readOnly = false)
-	public void postComments(CommentParam commentParam) {
+	public void postComment(CommentParam commentParam) {
 		Long commentId = commentDao.insertComment(commentParam);
 		File baseFolder = new File(basePath + "img_uploaded/");
-		folderFileIo.createFolderIfNotExist(baseFolder);
+		fileIo.createDirIfNotExist(baseFolder);
 
-		File Targetfolder = new File(basePath + "img_uploaded/" + commentId);
-		folderFileIo.createFolderIfNotExist(Targetfolder);
+		File targetDir = new File(basePath + "img_uploaded/" + commentId);
+		fileIo.createDirIfNotExist(targetDir);
 
 		if (commentParam.getImageFiles() != null) {
 			for (MultipartFile file : commentParam.getImageFiles()) {
 				Long file_id = commentDao.insertFileInfo(file, commentId, commentParam);
 				commentDao.insertCommentImageInfo(file_id, commentParam.getReservationInfoId(), commentId);
-				folderFileIo.saveFile(basePath, Targetfolder, commentId, file);
+				try {
+					fileIo.saveFile(basePath, commentId, file);
+				} catch(Exception e) {
+					if (targetDir.exists()) {
+						fileIo.deleteFile(targetDir);
+					}
+				}
 			}
 		}
 	}

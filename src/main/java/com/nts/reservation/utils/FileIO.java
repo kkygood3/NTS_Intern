@@ -17,19 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 @Component
-public class FolderFileIO {
-	public void createFolderIfNotExist(File folder) {
-		System.out.println("folder Exists : " + folder.exists());
-		if (!folder.exists()) {
+public class FileIO {
+	public void createDirIfNotExist(File dir) {
+		if (!dir.exists()) {
 			try {
-				folder.mkdir();
+				dir.mkdir();
 			} catch (Exception e) {
 				throw new RuntimeException("folder create error");
 			}
 		}
 	}
 
-	public void saveFile(String basePath, File folder, Long commentId, MultipartFile file) {
+	public void saveFile(String basePath, Long commentId, MultipartFile file) {
 		try (
 			FileOutputStream fos = new FileOutputStream(
 				basePath + "img_uploaded/" + commentId + "/"
@@ -41,14 +40,15 @@ public class FolderFileIO {
 				fos.write(buffer, 0, readCount);
 			}
 		} catch (Exception ex) {
-			if (folder.exists()) {
-				try {
-					folder.delete();
-				} catch (Exception e) {
-					throw new RuntimeException("folder delete Error");
-				}
-			}
 			throw new RuntimeException("file save error");
+		}
+	}
+	
+	public void deleteFile(File targetDir) {
+		try {
+			targetDir.delete();
+		} catch (Exception ex) {
+			throw new RuntimeException("folder delete Error");
 		}
 	}
 }

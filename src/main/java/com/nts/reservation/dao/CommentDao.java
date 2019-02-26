@@ -60,7 +60,7 @@ public class CommentDao {
 			BeanPropertyRowMapper.newInstance(CommentImage.class));
 	}
 
-	public Long CountCommentByReservationId(Long reservationId) {
+	public Long selectCommentsCountByReservationId(Long reservationId) {
 		Map<String, Long> params = new HashMap<>();
 		params.put("reservationId", reservationId);
 		Long i = jdbc.queryForObject(SELECT_COMMENT_COUNT_BY_RESERVATION_ID, params, Long.class);

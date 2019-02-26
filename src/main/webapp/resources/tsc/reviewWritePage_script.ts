@@ -10,7 +10,6 @@ class ReviewWritePage {
     private starController : Object;
     private reviewPlaceHolder : HTMLElement;
     private reviewTextArea : HTMLElement;
-    private imageFileInput : HTMLElement;
     private imageFilePreviewWrapper : HTMLElement;
     private imagePreviewTemplate : String;
     private imageList : Object[];
@@ -18,6 +17,7 @@ class ReviewWritePage {
 
     constructor(){
         this.reviewPlaceHolder = <HTMLElement> document.querySelector(".review_write_info");
+
         this.reviewTextArea = <HTMLElement> document.querySelector(".review_textarea");
         
         this.imageList = [];
@@ -67,7 +67,7 @@ class MakeReviewBtn{
 class ReviewTextArea{
     constructor(reviewPlaceHolder, reviewTextArea){        
         reviewTextArea.addEventListener("focusout", () => { 
-            if(reviewTextArea.value.trim().length==0){
+            if(reviewTextArea.value.trim().length == 0){
                 reviewTextArea.value = "";
                 reviewPlaceHolder.style.display = "";
             }
@@ -168,9 +168,9 @@ class StarController{
         }
         this.starList.forEach((item) => {
             if(item.value > value){
-                item.checked=false;
+                item.checked = false;
             } else {
-                item.checked=true;
+                item.checked = true;
             }
         });
         this.starValue.innerHTML = String(value);

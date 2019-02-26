@@ -24,8 +24,8 @@ public interface CommentService {
 
 	List<Comment> getComments(Long displayInfoId);
 
-	void postComments(CommentParam commentParam);
+	Long countExistingComments(Long reservationId);
 
-	Long checkExistingComment(Long reservationId);
+	void postComment(CommentParam commentParam);
 
 }
