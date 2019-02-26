@@ -63,7 +63,7 @@ public class ReservationDao {
 		jdbc.update(UPDATE_RESERVATION_CANCEL_FLAG, param);
 	}
 
-	public boolean seletReservationInfoExistFlag(Integer reservationInfoId, String userEmail) {
+	public boolean selectReservationInfoExistFlag(Integer reservationInfoId, String userEmail) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("reservationInfoId", reservationInfoId);
 		params.put("userEmail", userEmail);
@@ -71,7 +71,7 @@ public class ReservationDao {
 		return jdbc.queryForObject(SELECT_FLAG_FOR_EXISTENCE_OF_RESERVATION, params, Boolean.class);
 	}
 
-	public Integer seletDisplayInfoIdByReservationInfoId(Integer reservationInfoId) {
+	public Integer selectDisplayInfoId(Integer reservationInfoId) {
 		Map<String, Integer> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
 		return jdbc.queryForObject(SELECT_DISPLAY_INFO_ID_BY_RESERVATION_INFO_ID, param, Integer.class);
 	}

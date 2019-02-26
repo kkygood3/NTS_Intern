@@ -65,12 +65,12 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public boolean getReservationInfoExistFlag(Integer reservationInfoId, String userEmail) {
-		return reservationDao.seletReservationInfoExistFlag(reservationInfoId, userEmail);
+	public boolean isExistReservationInfo(Integer reservationInfoId, String userEmail) {
+		return reservationDao.selectReservationInfoExistFlag(reservationInfoId, userEmail);
 	}
 
 	@Override
 	public Integer getDisplayInfoId(Integer reservationInfoId) {
-		return reservationDao.seletDisplayInfoIdByReservationInfoId(reservationInfoId);
+		return reservationDao.selectDisplayInfoId(reservationInfoId);
 	}
 }

@@ -44,7 +44,7 @@ public class FileIoServiceImpl implements FileIoService {
 	@Transactional(readOnly = true)
 	@Override
 	public int getFileIdByProductId(Integer productId) {
-		return fileDao.selectFileIdByProductId(productId);
+		return fileDao.selectFileId(productId);
 	}
 
 	@Override

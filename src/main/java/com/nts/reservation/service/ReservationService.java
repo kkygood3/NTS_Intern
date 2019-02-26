@@ -19,7 +19,7 @@ public interface ReservationService {
 
 	public void cancelReservation(Integer reservationInfoId);
 
-	public boolean getReservationInfoExistFlag(Integer reservationInfoId, String userEmail);
+	public boolean isExistReservationInfo(Integer reservationInfoId, String userEmail);
 
 	public Integer getDisplayInfoId(Integer reservationInfoId);
 }

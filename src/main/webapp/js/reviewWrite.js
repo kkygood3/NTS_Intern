@@ -22,7 +22,7 @@ var reviewWritePage = {
 		
 		formDataValidator.setLength(this.constants.MIN_LENGTH, this.constants.MAX_LENGTH);
 		this.setEvent.addEventToReviewTextarea();
-		this.setEvent.addSubmitReviewToBtnWrite(formDataValidator);
+		this.setEvent.addEventToBtnReviewWrite(formDataValidator);
 	},
 	
 	constants: {
@@ -191,7 +191,7 @@ var reviewWritePage = {
 			}.bind(this));
 		}.bind(this),
 		
-		addSubmitReviewToBtnWrite : function(formDataValidator){
+		addEventToBtnReviewWrite : function(formDataValidator){
 			this.reviewWritePage.elements.btnWrite.addEventListener("click", function(){
 				var url = "/api/reservations/" + this.reviewWritePage.constants.RESERVATION_INFO_ID + "/comments";
 				

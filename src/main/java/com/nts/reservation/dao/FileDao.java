@@ -40,7 +40,7 @@ public class FileDao {
 		return jdbc.queryForObject(SELECT_FILE_BY_ID, param, rowMapper);
 	}
 
-	public int selectFileIdByProductId(Integer productId) {
+	public int selectFileId(Integer productId) {
 		Map<String, Integer> param = Collections.singletonMap("productId", productId);
 		return jdbc.queryForObject(SELECT_FILE_ID_BY_PRODUCT_ID, param, Integer.class);
 	}

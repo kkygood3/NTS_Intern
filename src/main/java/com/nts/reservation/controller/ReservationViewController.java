@@ -55,7 +55,7 @@ public class ReservationViewController {
 	public String getReviewWritePage(@PathVariable("reservationInfoId") Integer reservationInfoId, HttpSession session,
 		ModelMap model) {
 		String userEmail = String.valueOf(session.getAttribute("userEmail"));
-		if (!reservationService.getReservationInfoExistFlag(reservationInfoId, userEmail)) {
+		if (!reservationService.isExistReservationInfo(reservationInfoId, userEmail)) {
 			return "redirect:/reservation/history";
 		}
 
