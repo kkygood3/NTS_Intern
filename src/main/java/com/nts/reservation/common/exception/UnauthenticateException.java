@@ -19,4 +19,8 @@ public class UnauthenticateException extends RuntimeException {
 	public UnauthenticateException(String message) {
 		super(message);
 	}
+
+	public UnauthenticateException(String message, Throwable e) {
+		super(message, e);
+	}
 }

@@ -40,7 +40,7 @@ public class ProductDisplayDao {
 		try {
 			return jdbcTemplate.queryForObject(SELECT_PRODUCT_DISPLAY, param, productDisplayMapper);
 		} catch (EmptyResultDataAccessException e) {
-			throw new NotFoundDataException();
+			throw new NotFoundDataException(e);
 		}
 	}
 

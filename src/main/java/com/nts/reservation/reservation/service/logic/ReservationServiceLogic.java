@@ -49,7 +49,7 @@ public class ReservationServiceLogic implements ReservationService {
 			}
 			return reservationInfoId;
 		} catch (DataIntegrityViolationException e) {
-			throw new InternalServerErrorException("reservation data integrity violation");
+			throw new InternalServerErrorException("reservation data integrity violation", e);
 		}
 	}
 

@@ -95,7 +95,7 @@ public class CommentDao {
 		try {
 			return keyHolder.getKey().intValue();
 		} catch (NullPointerException e) {
-			throw new UnauthenticateException("can not write this comment, because no permission");
+			throw new UnauthenticateException("can not write this comment, because no permission", e);
 		}
 
 	}

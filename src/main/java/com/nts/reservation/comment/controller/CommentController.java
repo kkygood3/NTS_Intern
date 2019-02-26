@@ -59,7 +59,7 @@ public class CommentController {
 			String productDescription = reservationService.getReservedProductDescription(email, reservationId);
 			mv.addObject("productDescription", productDescription);
 		} catch (NotFoundDataException e) {
-			throw new UnauthenticateException("not found data on your request");
+			throw new UnauthenticateException("not found data on your request", e);
 		}
 		mv.setViewName("writecomment");
 		mv.addObject("reservationId", reservationId);
@@ -85,9 +85,9 @@ public class CommentController {
 			}
 
 		} catch (FileNotFoundException e) {
-			throw new NotFoundDataException("file is not found");
+			throw new NotFoundDataException("file is not found", e);
 		} catch (IOException e) {
-			throw new InternalServerErrorException("file io fail!!");
+			throw new InternalServerErrorException("file io fail!!", e);
 		}
 
 	}

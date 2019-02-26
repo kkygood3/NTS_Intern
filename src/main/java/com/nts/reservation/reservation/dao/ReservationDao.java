@@ -95,7 +95,7 @@ public class ReservationDao {
 
 			return jdbcTemplate.queryForObject(SELECT_RESERVED_PRODUCT_DESCRIPTION, param, String.class);
 		} catch (EmptyResultDataAccessException e) {
-			throw new NotFoundDataException("not found reserved data");
+			throw new NotFoundDataException("not found reserved data", e);
 		}
 	}
 

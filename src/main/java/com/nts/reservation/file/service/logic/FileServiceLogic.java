@@ -51,7 +51,7 @@ public class FileServiceLogic implements FileService {
 			}
 
 		} catch (IOException e) {
-			throw new InternalServerErrorException("file save fail");
+			throw new InternalServerErrorException("file save fail", e);
 		}
 
 		FileInfo fileInfo = new FileInfo(multipartFile, directory, fileName);
