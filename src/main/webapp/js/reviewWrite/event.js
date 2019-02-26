@@ -17,6 +17,11 @@ function addReviewTextareaBlurEvent() {
 		if (reviewTextarea.value == "") {
 			reviewWriteInfo.style.display = "block";
 		}
+		if (isValidComment()) {
+			enableSubmitButton();
+		} else {
+			disableSubmitButton();
+		}
 	});
 }
 
@@ -28,6 +33,11 @@ function addRatingClickEvent() {
 			return;
 		}
 		rating.setScore(event.target.value);
+		if (isValidComment()) {
+			enableSubmitButton();
+		} else {
+			disableSubmitButton();
+		}
 	});
 }
 
@@ -68,7 +78,7 @@ function addSubmitButtonClickEvent() {
         const score = document.querySelector(".rating .star_rank").innerText;
         const comment = document.querySelector(".review_contents .review_textarea");
         
-        if (isValidComment(score, comment.value)) {
+        if (isValidComment()) {
         	var form = document.querySelector("form");
         	var image = document.querySelector("#reviewImageFileOpenInput");
         	var scoreInput = document.querySelector(".score_form_input");
@@ -82,8 +92,20 @@ function addSubmitButtonClickEvent() {
 	});	
 }
 
-function isValidComment(score, content) {
-	return isValidScore(score) & isValidContent(content);
+function isValidComment() {
+    const score = document.querySelector(".rating .star_rank").innerText;
+    const comment = document.querySelector(".review_contents .review_textarea").value;
+	return isValidScore(score) & isValidContent(comment);
+}
+
+function disableSubmitButton() {
+	var submitButton = document.querySelector("div.box_bk_btn");
+	submitButton.classList.add("disable");
+}
+
+function enableSubmitButton() {
+	var submitButton = document.querySelector("div.box_bk_btn");
+	submitButton.classList.remove("disable");
 }
 
 function isValidScore(score) {
@@ -114,4 +136,9 @@ function adjustCommentLength(content, contentLen) {
 		content.value = content.value.substring(0, COMMENT_MAX_LEN);
 	}
 	contentLen.innerText = content.value.length;
+	if (isValidComment()) {
+		enableSubmitButton();
+	} else {
+		disableSubmitButton();
+	}
 }

@@ -96,7 +96,7 @@
 				<!-- //리뷰 작성 푸터 -->
 
 				<!-- 리뷰 등록 -->
-				<div class="box_bk_btn">
+				<div class="box_bk_btn bk_btn_wrap disable">
 					<button class="bk_btn"><span class="btn_txt">리뷰 등록</span></button>
 				</div>
 				<!-- //리뷰 등록 -->
@@ -110,7 +110,7 @@
  	<form method="post" action="./comment?product_id=${productInfo.productId}" enctype="multipart/form-data" style="display:none;">
  		<input class="score_form_input" name="score" type="number"/>
 	</form>
-
+	
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "/js/reviewWrite/ratingObject.js" ></script>
