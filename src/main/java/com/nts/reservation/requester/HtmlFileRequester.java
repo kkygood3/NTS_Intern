@@ -3,7 +3,7 @@
  * Naver PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package com.nts.reservation.util;
+package com.nts.reservation.requester;
 
 import java.net.ConnectException;
 
@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
  */
 
 @PropertySource("classpath:application.properties")
-public class RequestHtmlFileHttpUtil {
+public class HtmlFileRequester {
 
 	@Value("${render.server.url}")
 	private String renderServerUrl;

@@ -13,4 +13,7 @@ public class RegexPattern {
 		+ "|^[a-zA-Z0-9]{1,20}@[a-zA-Z0-9]{1,20}\\.[a-zA-Z]{1,6}$";
 	public static final String RESERVER_NAME_REGEX = "^[가-힣A-Za-z0-9]{1,17}$";
 	public static final String PHONE_NUMBER_REGEX = "01\\d\\-\\d{3,4}\\-\\d{4}$";
+	public static final String FILE_SUFFIX_REGEX = "\\.([a-z]){1,4}$";
+	public static final String IMAGE_CONTENT_TYPE = "image/";
+	public static final String WORD_MAX_400_REGEX = "^(.|\\n){5,400}$";
 }

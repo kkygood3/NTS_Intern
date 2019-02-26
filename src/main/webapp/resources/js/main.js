@@ -46,7 +46,7 @@ var mainPage = {
         var self = this;
         moreBtn.addEventListener( "click", function() {
             var tabContainer = self.elements.tabContainer;
-            this.requestProducts(
+            self.requestProducts(
                 tabContainer.dataset.currentCount,
                 tabContainer.dataset.selectedTabIndex == 0 ? null : tabContainer.dataset.selectedTabIndex
             );
@@ -74,7 +74,7 @@ var mainPage = {
         }
 
         var self = this;
-        httpUtil.sendGet( "/reservation-service/api/products", options, function(response) {
+        httpUtil.sendGet( "/api/products", options, function(response) {
             self.requestProductsCallback(response);
         });
     },
@@ -85,7 +85,7 @@ var mainPage = {
     requestCategories: function() {
 
         var self = this;
-        httpUtil.sendGet( "/reservation-service/api/categories", {}, function(response) {
+        httpUtil.sendGet( "/api/categories", {}, function(response) {
             self.requestCategoriesCallback(response);
         });
     },
@@ -96,7 +96,7 @@ var mainPage = {
     requestPromotions: function() {
 
         var self = this;
-        httpUtil.sendGet( "/reservation-service/api/promotions", {}, function(response) {
+        httpUtil.sendGet( "/api/promotions", {}, function(response) {
             self.requestPromotionsCallback(response);
         });
     },
@@ -167,7 +167,7 @@ var mainPage = {
             var params = {
                 id: product.displayInfoId,
                 description: product.productDescription,
-                image_url: "./" + product.productImageUrl,
+                image_url: "/api/download/img?imageName=" + product.productImageUrl,
                 placeName: product.placeName,
                 content: product.productContent,
                 description2: product.productDescription
@@ -234,7 +234,7 @@ var mainPage = {
         promotions.forEach( function(promotion, index) {
 
             var params = {
-                image_url: "./" + promotion.productImageUrl,
+                image_url: "/api/download/img?imageName=" + promotion.productImageUrl,
                 index: index,
                 place: promotion.placeName,
                 description: promotion.productDescription

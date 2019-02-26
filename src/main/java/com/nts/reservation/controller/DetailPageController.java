@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class DetailPageController {
 
+	/**
+	 * @desc 상세 페이지 요청에 대한 반환
+	 * @param displayInfoId
+	 * @param map
+	 * @return
+	 */
 	@GetMapping("/displayInfo/{displayInfoId}")
 	public String getDisplayInfoPage(@PathVariable Long displayInfoId, ModelMap map) {
-
 		map.addAttribute("displayInfoId", displayInfoId);
 		return "detailPage";
 	}

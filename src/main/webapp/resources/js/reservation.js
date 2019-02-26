@@ -476,7 +476,7 @@ var ReservationBtn = (function() {
         }
 
         var params = reservationPage.getReservationData();
-        httpUtil.sendPostWithJson("/reservation-service/api/reservations", params, this.onRequestReservationPostCallback);
+        httpUtil.sendPostWithJson("/api/reservations", params, this.onRequestReservationPostCallback);
     };
 
     ReservationBtn.prototype.onRequestReservationPostCallback = function(response) {

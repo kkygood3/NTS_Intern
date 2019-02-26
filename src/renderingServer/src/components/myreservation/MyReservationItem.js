@@ -3,15 +3,15 @@ var Util = require("../../util")
 
 class MyReservationItem extends React.Component {
     constructor(props){
-        super(props);
+		super(props);
     }
     
     render() {
         return (
 			<article class="card_item" data-reservation-id={this.props.reservation.reservationInfoId}
 				 onClick={this.props.onClickReservationBtn != undefined
-					 ? function(event) { 
-						 this.props.onClickReservationBtn(event, this.props.reservation.displayInfo.productDescription)
+					 ? function() { 
+						 this.props.onClickReservationBtn(this.props.reservation.reservationInfoId, this.props.reservation.displayInfo.productDescription)
 						}.bind(this)
 					: function() {
 						return;

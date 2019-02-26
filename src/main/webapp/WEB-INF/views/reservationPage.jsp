@@ -44,7 +44,7 @@
                 <div class="group_visual">
                     <div class="container_visual" style="width: 414px;">
                         <ul class="visual_img">
-                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=${"../../".concat(reservationResponseDto.productImage.saveFileName) }> <span class="img_bg"></span>
+                            <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=${"/api/download/img?imageName=".concat(reservationResponseDto.productImage.saveFileName) }> <span class="img_bg"></span>
                                 <div class="preview_txt">
                                     <h2 class="preview_txt_tit">${reservationResponseDto.displayInfo.productDescription }</h2> <em class="preview_txt_dsc">${reservationResponseDto.displayInfo.productContent }</em><em class="preview_txt_dsc"></em> </div>
                             </li>

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
 
-import com.nts.reservation.util.RequestHtmlFileHttpUtil;
+import com.nts.reservation.requester.HtmlFileRequester;
 
 /**
  * @author 육성렬
@@ -20,9 +20,10 @@ import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 @ComponentScan(basePackages = {"com.nts.reservation.dao", "com.nts.reservation.service"})
 @Import({DBConfig.class})
 public class ApplicationConfig {
+
 	@Bean
-	public RequestHtmlFileHttpUtil requestHtmlFileHttp() {
-		return new RequestHtmlFileHttpUtil();
+	public HtmlFileRequester requestHtmlFileHttp() {
+		return new HtmlFileRequester();
 	}
 
 	@Bean

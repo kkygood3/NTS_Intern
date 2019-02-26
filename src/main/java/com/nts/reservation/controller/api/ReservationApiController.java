@@ -6,11 +6,15 @@
 package com.nts.reservation.controller.api;
 
 import static com.nts.reservation.dto.request.regex.RegexPattern.EMAIL_REGEX;
+import static com.nts.reservation.dto.request.regex.RegexPattern.IMAGE_CONTENT_TYPE;
 
+import java.io.IOException;
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.validation.Valid;
@@ -21,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -28,12 +33,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.ReservationRequestDto;
+import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
-import com.nts.reservation.exception.BadRequestException;
+import com.nts.reservation.exception.InvalidParamException;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -43,10 +50,17 @@ import com.nts.reservation.service.ReservationService;
 @RestController
 @RequestMapping(path = "/api/reservations")
 public class ReservationApiController {
-	@Autowired
-	private ReservationService reservationService;
+
+	private final ReservationService reservationService;
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
+
+	private final Pattern imageContentTypePattern = Pattern.compile(IMAGE_CONTENT_TYPE);
+
+	@Autowired
+	public ReservationApiController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
 	/**
 	 * @desc 예약 추가.
@@ -58,16 +72,13 @@ public class ReservationApiController {
 	 */
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<Map<String, String>> postReservation(@Valid @RequestBody ReservationRequestDto requestParams,
-		BindingResult bindingResult, UriComponentsBuilder uriBuilder)
-		throws BindException {
+		BindingResult bindingResult, UriComponentsBuilder uriBuilder) throws BindException {
 
 		if (bindingResult.hasErrors()) {
 			throw new BindException(bindingResult);
 		}
 
-		URI redirectUri = uriBuilder.path("/")
-			.build()
-			.toUri();
+		URI redirectUri = uriBuilder.path("/").build().toUri();
 
 		reservationService.addReservation(requestParams);
 		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
@@ -78,14 +89,14 @@ public class ReservationApiController {
 	 * @desc 이메일에 해당하는 예약 정보 조회
 	 * @param reservationEmail
 	 * @return
-	 * @throws BadRequestException
+	 * @throws InValidPatternException
 	 */
 	@GetMapping
-	public MyReservationResponseDto getReservationResponse(
-		@RequestParam String reservationEmail) throws BadRequestException {
+	public MyReservationResponseDto getReservationResponse(@RequestParam String reservationEmail)
+		throws InvalidParamException {
 
 		if (!emailPattern.matcher(reservationEmail).find()) {
-			throw new BadRequestException();
+			throw new InvalidParamException("reservaionEmail", reservationEmail);
 		}
 
 		List<ReservationInfoDto> list = reservationService.getReservationList(reservationEmail);
@@ -97,14 +108,54 @@ public class ReservationApiController {
 	 * @desc 예약 취소.
 	 * @param reservationId
 	 * @return
-	 * @throws BadRequestException
 	 */
 	@PutMapping(path = "/{reservationId}")
-	public Long putCancelReservation(@PathVariable Long reservationId) throws BadRequestException {
+	public Long putCancelReservation(@PathVariable Long reservationId) {
 
-		if (!reservationService.cancelReservation(reservationId)) {
-			throw new BadRequestException();
-		}
+		reservationService.cancelReservation(reservationId);
 		return reservationId;
+	}
+
+	/**
+	 * @desc 전시물에 대한 댓글 추가.
+	 * @param reservationInfoId
+	 * @param requestDto
+	 * @param bindingResult
+	 * @param uriBuilder
+	 * @return
+	 * @throws BindException
+	 * @throws InvalidParamException
+	 * @throws IOException
+	 * @throws SQLException
+	 */
+	@PostMapping(path = "/{reservationInfoId}/comments")
+	public ResponseEntity<Map<String, String>> postComment(@PathVariable Long reservationInfoId,
+		@Valid @ModelAttribute ReservationUserCommentRequestDto requestDto, BindingResult bindingResult,
+		UriComponentsBuilder uriBuilder) throws BindException, InvalidParamException, IOException {
+
+		if (bindingResult.hasErrors()) {
+			throw new BindException(bindingResult);
+		}
+
+		List<MultipartFile> images = requestDto.getAttachedImages();
+		try {
+			if (images != null) {
+				for (MultipartFile image : images) {
+					Matcher matcher = imageContentTypePattern.matcher(image.getContentType());
+
+					if (!matcher.find()) {
+						throw new InvalidParamException("Content-Type", image.getContentType());
+					}
+				}
+			}
+			reservationService.addReservationUserComment(requestDto, reservationInfoId);
+
+		} catch (InvalidParamException | IOException exception) {
+			throw exception;
+		}
+
+		URI redirectUri = uriBuilder.path("/").build().toUri();
+		return new ResponseEntity<Map<String, String>>(Collections.singletonMap("redirectUri", redirectUri.toString()),
+			HttpStatus.OK);
 	}
 }

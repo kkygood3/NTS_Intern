@@ -11,9 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.nts.reservation.dto.request.MyReservationPageRequestDto;
+import com.nts.reservation.requester.HtmlFileRequester;
 import com.nts.reservation.service.RequestHtmlService;
-import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 
 /**
  * @author 육성렬
@@ -21,11 +20,20 @@ import com.nts.reservation.util.RequestHtmlFileHttpUtil;
 @Service
 public class RequestHtmlServiceImpl implements RequestHtmlService {
 
-	@Autowired
-	private RequestHtmlFileHttpUtil requestHtmlFileHttp;
+	private final HtmlFileRequester requestHtmlFileHttp;
 
+	@Autowired
+	public RequestHtmlServiceImpl(HtmlFileRequester requestHtmlFileHttp) {
+		this.requestHtmlFileHttp = requestHtmlFileHttp;
+	}
+
+	/**
+	 * @desc React에 HTML 파일 요청.
+	 * @param path
+	 * @param requestDto
+	 */
 	@Override
-	public String requestMyReservationHtml(String path, MyReservationPageRequestDto requestDto)
+	public <T> String requestToReactHtml(String path, T requestDto)
 		throws HttpClientErrorException, ConnectException {
 
 		return requestHtmlFileHttp.requestHtmlPost(path, requestDto);

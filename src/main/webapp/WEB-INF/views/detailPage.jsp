@@ -35,16 +35,18 @@
                             <a href="../" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                             <a href="../" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <c:choose>
-							<c:when test="${sessionScope.userEmail == null }">
-								<a href="../bookingLogin" class="btn_my"> <span
-									class="viewReservation" title="예약확인"> 예약 확인</span>
-								</a>
-							</c:when>
-							<c:otherwise>
-								<a href="../myReservation?userEmail=${sessionScope.userEmail }" class="btn_my"> <span title="내예약" class="viewReservation">${sessionScope.userEmail }</span> </a>
-							</c:otherwise>
-						</c:choose>
+                        <a href="/myReservation" class="btn_my"> 
+							<span class="viewReservation" title="예약확인">
+							<c:choose>
+								<c:when test="${sessionScope.userEmail == null }">
+										 예약 확인
+								</c:when>
+								<c:otherwise>
+											${sessionScope.userEmail }
+								</c:otherwise>
+							</c:choose>
+							</span>
+						</a>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>

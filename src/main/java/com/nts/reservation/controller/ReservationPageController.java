@@ -17,11 +17,15 @@ import com.nts.reservation.service.DisplayInfoService;
 @Controller
 public class ReservationPageController {
 
+	private final DisplayInfoService displayService;
+
 	@Autowired
-	private DisplayInfoService displayService;
+	public ReservationPageController(DisplayInfoService displayService) {
+		this.displayService = displayService;
+	}
 
 	/**
-	 * 예매하기에 해당하는 페이지 반환
+	 * @desc 예매하기에 해당하는 페이지 반환
 	 * @param displayInfoId
 	 * @param map 페이지에 보낼 데이터 맵
 	 * @return

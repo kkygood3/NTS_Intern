@@ -15,7 +15,7 @@ class MyReservationList extends React.Component {
                         headerText={"예약 확정"} reservations={this.props.okReservations} btnMsg={"취소"} onClickReservationBtn= {this.props.onClickCancelReservationBtn}/>
                     <MyReservationListSection containerClassList={["used"]}
                     headerIconClass={"ico_check2"}
-                    headerText={"이용 완료"}  reservations={this.props.finishReservations} btnMsg={"예매자 리뷰 남기기"}/>
+                    headerText={"이용 완료"}  reservations={this.props.finishReservations} btnMsg={"예매자 리뷰 남기기"} onClickReservationBtn= {this.props.onClickCommentReservationBtn}/>
                     <MyReservationListSection containerClassList={["used", "cancel"]}
                     headerIconClass={"ico_cancel"}
                     headerText={"취소된 예약"}  reservations={this.props.cancelReservations}/>

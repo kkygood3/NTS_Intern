@@ -8,12 +8,19 @@ package com.nts.reservation.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.nts.reservation.interceptor.AuthInterceptor;
+import com.nts.reservation.interceptor.PreventPathAttackInterceptor;
+import com.nts.reservation.interceptor.RequestLogInterceptor;
 
 /**
  * @author 육성렬
@@ -23,6 +30,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"com.nts.reservation.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	static final int CACHE_PERIOD = 31556926;
+	static final int MAX_UPLOAD_SIZE = 10485760;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -52,5 +60,22 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 		return resolver;
+	}
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
+		return multipartResolver;
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new RequestLogInterceptor());
+		registry.addInterceptor(new PreventPathAttackInterceptor()).addPathPatterns("/api/download/**");
+
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns(new String[] {
+			"/myReservation", "/comment/{reservationInfoId}"
+		});
 	}
 }

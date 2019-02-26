@@ -5,10 +5,13 @@
 
 package com.nts.reservation.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.nts.reservation.dto.FileDto;
 import com.nts.reservation.dto.ReservationInfoDto;
 import com.nts.reservation.dto.request.ReservationRequestDto;
+import com.nts.reservation.dto.request.ReservationUserCommentRequestDto;
 
 /**
  * @author 육성렬
@@ -21,5 +24,14 @@ public interface ReservationService {
 
 	public Integer getReservationCount(String email);
 
-	public Boolean cancelReservation(Long reservationId);
+	public void cancelReservation(Long reservationId);
+
+	public ReservationInfoDto getReservation(Long reservationInfoId);
+
+	public boolean findFinishReservation(Long reservationInfoId, String email);
+
+	public void addReservationUserComment(ReservationUserCommentRequestDto requestDto, Long reservationInfoId)
+		throws IOException;
+
+	public FileDto getCommentImage(Long commentImageId);
 }

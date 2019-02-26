@@ -43,7 +43,7 @@ var detailPage = {
         var id = this.values.id;
 
         var self = this;
-        httpUtil.sendGet( "/reservation-service/api/products/" + id, {}, function(response) {
+        httpUtil.sendGet( "/api/products/" + id, {}, function(response) {
             self.requestDisplayInfoCallback(response);
         });
     },
@@ -79,7 +79,7 @@ var detailPage = {
         var bindTemplate = getTargetTemplate("#imageItem");
         var convertImages = images.reduce(function(prevValue, image) {
             var data = {
-                imageUrl: "../" + image.saveFileName,
+                imageUrl: "/api/download/img?imageName=" + image.saveFileName,
                 description: description
             };
             return prevValue + bindTemplate(data).trim();
@@ -300,7 +300,7 @@ var detailPage = {
         }
         var bindTemplate = getTargetTemplate("#commentImageItem");
         var data = {
-            imageUrl: "../" + commentImages[0].saveFileName
+            imageUrl: "/api/download/comment/image/" + commentImages[0].imageId
         };
         return bindTemplate(data).trim();
     },
@@ -329,7 +329,7 @@ var detailPage = {
         var contentTextUi = detailContainer.querySelector(".in_dsc");
         contentTextUi.innerHTML = displayInfo.productContent;
         var mapImg = contactContainer.querySelector(".store_map");
-        mapImg.setAttribute("src", "../" + displayInfoImage.saveFileName);
+        mapImg.setAttribute("src", "/api/download/img?imageName="  + displayInfoImage.saveFileName);
         var streetAddress = contactContainer.querySelector(".store_addr_bold");
         streetAddress.innerHTML = displayInfo.placeStreet;
         var oldAddress = contactContainer.querySelector(".addr_old_detail");

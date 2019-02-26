@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.nts.reservation.exception.BadRequestException;
+import com.nts.reservation.exception.InvalidParamException;
 
 /**
  * @author 육성렬
@@ -33,12 +33,20 @@ public class AuthApiController {
 
 	private final Pattern emailPattern = Pattern.compile(EMAIL_REGEX);
 
+	/**
+	 * @desc 비회원 로그인(이메일로 로그인)에 대한 처리
+	 * @param userEmail
+	 * @param session
+	 * @param uriBuilder
+	 * @return
+	 * @throws InvalidParamException
+	 */
 	@GetMapping("/login")
 	public ResponseEntity<Map<String, String>> loginWithEmail(@RequestParam String userEmail,
-		HttpSession session, UriComponentsBuilder uriBuilder) throws BadRequestException {
+		HttpSession session, UriComponentsBuilder uriBuilder) throws InvalidParamException {
 
 		if (!emailPattern.matcher(userEmail).find()) {
-			throw new BadRequestException();
+			throw new InvalidParamException("userEmail", userEmail);
 		}
 
 		session.removeAttribute("userEmail");
