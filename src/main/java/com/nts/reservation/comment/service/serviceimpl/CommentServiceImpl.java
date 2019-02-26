@@ -73,7 +73,6 @@ public class CommentServiceImpl implements CommentService {
 		return commentId;
 	}
 	
-	// TODO 임시 처리, 날짜/시간 추가
 	private void saveFile(MultipartFile file, String saveFileName) {
 		try (
 			FileOutputStream fileOutputStream = new FileOutputStream(DIRECTORY + saveFileName);
@@ -100,7 +99,8 @@ public class CommentServiceImpl implements CommentService {
 	 */
 	private String makeBlindEmail(String email) {
 		if (email.length() <= 4 && email.length() > 255) {
-			// TODO Exception
+			// TODO Exception?
+			return "비정상적인 아이디 입니다. 관리자에게 문의하세요.";
 		}
 		String splicedEmail = email.split("@")[0];
 		int blindPoint = splicedEmail.length() / 2;
