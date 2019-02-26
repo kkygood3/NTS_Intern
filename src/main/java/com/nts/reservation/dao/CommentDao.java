@@ -29,7 +29,7 @@ public class CommentDao {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public int insertComment(Comment comment) {
+	public int getIdAfterInsertComment(Comment comment) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbc.update(INSERT_COMMENT, new BeanPropertySqlParameterSource(comment), keyHolder);
 		return keyHolder.getKey().intValue();

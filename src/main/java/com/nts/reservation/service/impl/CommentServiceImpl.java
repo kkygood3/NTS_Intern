@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void addComment(Comment comment, List<MultipartFile> files) throws IOException {
 		int reservationInfoId = comment.getReservationInfoId();
-		int reservationUserCommentId = commentDao.insertComment(comment);
+		int reservationUserCommentId = commentDao.getIdAfterInsertComment(comment);
 
 		if (files != null) {
 			for (MultipartFile file : files) {
