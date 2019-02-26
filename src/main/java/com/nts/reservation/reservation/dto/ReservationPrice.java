@@ -16,8 +16,8 @@ public class ReservationPrice {
 	private int reservationInfoId;
 	private int reservationInfoPriceId;
 	private int discountRate;
-	private ReservationPriceType priceTypeName;
-	private String priceTypeLabel;
+	private String priceTypeName;
+	private ReservationPriceType priceTypeLabel;
 	private int price;
 
 	public int getCount() {
@@ -60,19 +60,19 @@ public class ReservationPrice {
 		this.discountRate = discountRate;
 	}
 
-	public ReservationPriceType getPriceTypeName() {
+	public String getPriceTypeName() {
 		return priceTypeName;
 	}
 
-	public void setPriceTypeName(ReservationPriceType priceTypeName) {
+	public void setPriceTypeName(String priceTypeName) {
 		this.priceTypeName = priceTypeName;
 	}
 
-	public String getPriceTypeLabel() {
+	public ReservationPriceType getPriceTypeLabel() {
 		return priceTypeLabel;
 	}
 
-	public void setPriceTypeLabel(String priceTypeLabel) {
+	public void setPriceTypeLabel(ReservationPriceType priceTypeLabel) {
 		this.priceTypeLabel = priceTypeLabel;
 	}
 

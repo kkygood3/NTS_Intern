@@ -53,6 +53,9 @@ function getUrlParameter(name) {
 
 
 function loadProductDescription(response) {
+	//
+	console.log(response);
+	
 	let reservationResponse = response;
 	let reservationDisplayInfo = response.reservationDisplayInfo;
 	let reservationPriceList = response.prices;
@@ -372,7 +375,7 @@ function initReserveClickEvents() {
 					isAvailableBtn = false;
 				}
 			}
-			// 예약자 정보가  칸인지 확인
+			// 예약자 정보가 빈칸인지 확인
 			for (let i = 0; i < bookerInputs.length; i++) {
 				let targetInput = bookerInputs[i];
 				if (targetInput.value.length == 0) {

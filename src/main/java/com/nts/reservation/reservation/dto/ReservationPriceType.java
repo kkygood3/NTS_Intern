@@ -8,15 +8,15 @@ package com.nts.reservation.reservation.dto;
  * @Author Duik Park, duik.park@nts-corp.com
  */
 public enum ReservationPriceType {
-	A("성인"),
-	B("유아"),
-	C("지역주민"),
-	D("장애인"),
-	E("얼리버드"),
-	R("R석"),
-	S("셋트"),
-	V("VIP"),
-	Y("청소년");
+	성인("A"),
+	유아("B"),
+	지역주민("C"),
+	장애인("D"),
+	얼리버드("E"),
+	R석("R"),
+	셋트("S"),
+	VIP("V"),
+	청소년("Y");
 
 	private String typeLabel;
 

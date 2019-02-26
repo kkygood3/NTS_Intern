@@ -48,8 +48,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 		List<ReservationPrice> priceList = reservationDaoImpl.selectReservationPrice(displayInfoId);
 		for (ReservationPrice price : priceList) {
-			ReservationPriceType typeName = price.getPriceTypeName();
-			String typeLabel = typeName.getLabel();
+			String typeName = price.getPriceTypeName();
+			price.setPriceTypeName(typeName);
+
+			ReservationPriceType typeLabel = iterationFindLabelByName(typeName);
 			price.setPriceTypeLabel(typeLabel);
 		}
 		// ReservationResponse의 필드 List<ReservationPrice>에 해당
@@ -263,5 +265,14 @@ public class ReservationServiceImpl implements ReservationService {
 			return false;
 		}
 		return true;
+	}
+
+	private ReservationPriceType iterationFindLabelByName(String typeName) {
+		for (ReservationPriceType priceType : ReservationPriceType.values()) {
+			if (typeName.equals(priceType.getLabel())) {
+				return priceType;
+			}
+		}
+		return null;
 	}
 }
