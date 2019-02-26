@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.ServerException;
 import java.security.InvalidParameterException;
-import java.text.ParseException;
 
 import javax.naming.NoPermissionException;
 
@@ -19,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.nts.dto.error.ErrorMessage;
-import com.nts.exception.DisplayInfoNullException;
 import com.nts.exception.InvalidFormatException;
-import com.nts.exception.NoMatchReservationException;
-import com.nts.exception.ProductParamException;
+import com.nts.exception.NotFoundException;
 
 /**
  * @author 전연빈
@@ -30,28 +27,6 @@ import com.nts.exception.ProductParamException;
 @RestControllerAdvice(annotations = RestController.class)
 public class RestControllerExceptionAdvice {
 	
-	/**
-	 * @desc Product Parameter가 정상값이 아닐경우
-	 * @param e
-	 * @return errorMessage
-	 */
-	@ExceptionHandler(ProductParamException.class)
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage productParamExceptionHandling(ProductParamException e) {
-		return new ErrorMessage(e.getMessage());
-	}
-
-	/**
-	 * @desc display정보가 없을때 에러 전송
-	 * @param e
-	 * @return errorMessage
-	 */
-	@ExceptionHandler(DisplayInfoNullException.class)
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage displayNotFoundExceptionHandling(DisplayInfoNullException e) {
-		return new ErrorMessage(e.getMessage());
-	}
-
 	/**
 	 * @desc 잘못된 format을 요청시
 	 * @param e
@@ -86,17 +61,6 @@ public class RestControllerExceptionAdvice {
 	}
 
 	/**
-	 * @desc reservation 정보가 맞지 않을 경우
-	 * @param e
-	 * @return	errorMessage
-	 */
-	@ExceptionHandler(NoMatchReservationException.class)
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-	public ErrorMessage noMatchReservationInformationExceptionHandling(NoMatchReservationException e) {
-		return new ErrorMessage(e.getMessage());
-	}
-
-	/**
 	 * @desc 파일 IO Exception 발생시
 	 * @param e
 	 * @return errorMessage
@@ -120,17 +84,6 @@ public class RestControllerExceptionAdvice {
 	
 	
 	/**
-	 * @desc parsing 실패시 
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(ParseException.class)
-	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorMessage parseExceptionHandling(ParseException e) {
-		return new ErrorMessage(e.getMessage());
-	}
-	
-	/**
 	 * @desc server error 시
 	 * @param e
 	 * @return errorMessage
@@ -138,6 +91,17 @@ public class RestControllerExceptionAdvice {
 	@ExceptionHandler(ServerException.class)
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorMessage serverExceptionHandling(ServerException e) {
+		return new ErrorMessage(e.getMessage());
+	}
+	
+	/**
+	 * @desc data를 못찾았을때
+	 * @param e
+	 * @return errorMessage
+	 */
+	@ExceptionHandler(NotFoundException.class)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public ErrorMessage notFoundExceptionHandling(NotFoundException e) {
 		return new ErrorMessage(e.getMessage());
 	}
 }

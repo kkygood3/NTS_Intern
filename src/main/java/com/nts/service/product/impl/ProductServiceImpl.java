@@ -4,6 +4,7 @@
  **/
 package com.nts.service.product.impl;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.nts.dao.product.ProductRepository;
 import com.nts.dto.product.Product;
 import com.nts.dto.product.Products;
-import com.nts.exception.ProductParamException;
 import com.nts.util.CheckProductParameter;
 import com.nts.service.product.ProductService;
 
@@ -38,16 +38,16 @@ public class ProductServiceImpl implements ProductService {
 	 * @throws ProductParamException 
 	 */
 	@Override
-	public Products getProducts(int categoryId, int start) throws ProductParamException {
+	public Products getProducts(int categoryId, int start) throws InvalidParameterException {
 
 		Products products = new Products();
 
-		if (categoryId != SELECT_PRODUCTS_ALL) {
-			products.setItems(getProductsByCategory(categoryId, start));
-			products.setTotalCount(getProductsCountByCategory(categoryId));
-		} else {
+		if (categoryId == SELECT_PRODUCTS_ALL) {
 			products.setItems(getProductsAll(start));
 			products.setTotalCount(getProductsAllCount());
+		} else {
+			products.setItems(getProductsByCategory(categoryId, start));
+			products.setTotalCount(getProductsCountByCategory(categoryId));
 		}
 		return products;
 	}
@@ -57,10 +57,10 @@ public class ProductServiceImpl implements ProductService {
 	 * @param start
 	 * @return product list
 	 */
-	private List<Product> getProductsAll(int start) throws ProductParamException {
+	private List<Product> getProductsAll(int start) throws InvalidParameterException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
-			throw new ProductParamException("start = " + start);
+			throw new InvalidParameterException("start = " + start);
 		}
 
 		return productRepository.selectProducts(start);
@@ -81,10 +81,10 @@ public class ProductServiceImpl implements ProductService {
 	 * @param start
 	 * @return product list
 	 */
-	private List<Product> getProductsByCategory(int categoryId, int start) throws ProductParamException {
+	private List<Product> getProductsByCategory(int categoryId, int start) throws InvalidParameterException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
-			throw new ProductParamException("start = " + start);
+			throw new InvalidParameterException("start = " + start);
 		}
 
 		return productRepository.selectProductsByCategory(categoryId, start);

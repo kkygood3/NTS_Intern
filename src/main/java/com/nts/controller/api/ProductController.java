@@ -4,6 +4,8 @@
  **/
 package com.nts.controller.api;
 
+import java.security.InvalidParameterException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.dto.displayinfo.DisplayInfos;
 import com.nts.dto.product.Products;
-import com.nts.exception.DisplayInfoNullException;
-import com.nts.exception.ProductParamException;
+import com.nts.exception.NotFoundException;
 import com.nts.util.CheckProductParameter;
 import com.nts.service.displayInfo.DisplayInfoService;
 import com.nts.service.product.ProductService;
@@ -45,10 +46,10 @@ public class ProductController {
 	@GetMapping
 	public Products getProductsByCategory(
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") int categoryId,
-		@RequestParam(name = "start", required = true) int start) throws ProductParamException {
+		@RequestParam(name = "start", required = true) int start) throws InvalidParameterException {
 
 		if (CheckProductParameter.isInvalidStart(start)) {
-			throw new ProductParamException("start = " + start);
+			throw new InvalidParameterException("start = " + start);
 		}
 
 		return productService.getProducts(categoryId, start);
@@ -61,7 +62,7 @@ public class ProductController {
 	 * @throws DisplayInfoNullException
 	 */
 	@GetMapping("/{displayInfoId}")
-	public DisplayInfos getDisplayInfoByProductId(@PathVariable int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfos getDisplayInfoByProductId(@PathVariable int displayInfoId) throws NotFoundException {
 		
 		return displayInfoService.getDisplayInfosByDisplayInfoId(displayInfoId);
 	}

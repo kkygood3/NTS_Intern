@@ -5,10 +5,8 @@
 package com.nts.service.reservation.impl;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
 
@@ -23,15 +21,13 @@ import com.nts.dto.reservation.ReservationParameter;
 import com.nts.dto.reservation.Reservation;
 import com.nts.dto.reservation.ReservationInfos;
 import com.nts.dto.reservation.ReservationPrice;
-import com.nts.exception.DisplayInfoNullException;
-import com.nts.exception.NoMatchReservationException;
+import com.nts.exception.NotFoundException;
 import com.nts.service.displayInfo.DisplayInfoService;
 import com.nts.service.reservation.ReservationService;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-	private static final DateFormat DATE_FORMAT_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
 	private static final int CANCEL = 1;
 	private static final int FAIL = 0;
 
@@ -51,7 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	@Override
 	public ReservationInfos getReservationInfoByReservationEmail(String reservationEmail)
-		throws DisplayInfoNullException {
+		throws NotFoundException {
 
 		List<Reservation> reservationInfoList = reservationRepository
 			.selectReservationInfoByReservationEmail(reservationEmail);
@@ -75,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	@Override
 	@Transactional(readOnly = false, rollbackFor = {SQLException.class})
-	public int addReservation(ReservationParameter reservationParameter) throws ParseException {
+	public int addReservation(ReservationParameter reservationParameter){
 
 		reservationParameter.setReservationYearMonthDay(makeReservationDate(reservationParameter.getReservationYearMonthDay()));
 		long reservationInfoId = reservationRepository.insertReservation(reservationParameter);
@@ -91,13 +87,14 @@ public class ReservationServiceImpl implements ReservationService {
 	/**
 	 * @desc 취소 하기 
 	 * @param reservationId
+	 * @throws NoPermissionException 
 	 */
 	@Override
-	public int cancelReservation(long reservationId, String reservationEmail) {
+	public int cancelReservation(long reservationId, String reservationEmail) throws NoPermissionException {
 		int result = reservationRepository.updateReservationCancelFlag(reservationId, CANCEL, reservationEmail);
 		
 		if(result == FAIL) {
-			throw new NoMatchReservationException("사용자 정보와 예약자 이메일 정보가 맞지않거나, 없는 예약 정보 입니다.");
+			throw new NoPermissionException("사용자 정보와 예약자 이메일 정보가 맞지않거나, 없는 예약 정보 입니다.");
 		}
 		return result;
 	}
@@ -108,14 +105,9 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @return reservationDate
 	 * @throws ParseException
 	 */
-	private String makeReservationDate(String reservationYearMonthDay) throws ParseException {
+	private String makeReservationDate(String reservationYearMonthDay) {
 
-		Calendar cal = Calendar.getInstance();
-
-		cal.setTime(DATE_FORMAT_YYYY_MM_DD.parse(reservationYearMonthDay));
-		cal.add(Calendar.DATE, new Random().nextInt(5));
-
-		return DATE_FORMAT_YYYY_MM_DD.format(cal.getTime());
+		return LocalDate.parse(reservationYearMonthDay).plusDays(new Random(5).nextInt()).toString();
 	}
 
 	/**

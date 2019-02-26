@@ -4,12 +4,13 @@
  **/
 package com.nts.exception;
 
-public class NoMatchReservationException extends RuntimeException {
+/**
+ * @author 전연빈
+ */
+public class NotFoundException extends Exception{
 
 	private static final long serialVersionUID = 1L;
-
-	public NoMatchReservationException(String message) {
+	public NotFoundException(String message) {
 		super(message);
 	}
-
 }

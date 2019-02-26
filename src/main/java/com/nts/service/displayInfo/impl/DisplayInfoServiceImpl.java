@@ -11,7 +11,7 @@ import com.nts.dao.displayinfo.DisplayInfoRepository;
 import com.nts.dao.product.ProductRepository;
 import com.nts.dto.displayinfo.DisplayInfo;
 import com.nts.dto.displayinfo.DisplayInfos;
-import com.nts.exception.DisplayInfoNullException;
+import com.nts.exception.NotFoundException;
 import com.nts.service.comment.CommentService;
 import com.nts.service.displayInfo.DisplayInfoService;
 
@@ -40,7 +40,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	 * @return displayInfos
 	 */
 	@Override
-	public DisplayInfos getDisplayInfosByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfos getDisplayInfosByDisplayInfoId(int displayInfoId) throws NotFoundException {
 
 		DisplayInfos displayInfos = new DisplayInfos();
 
@@ -59,7 +59,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 	}
 
 	@Override
-	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfo getDisplayInfoByDisplayInfoId(int displayInfoId) throws NotFoundException {
 
 		return displayInfoRepository.selectDisplayInfoByDisplayInfoId(displayInfoId);
 	}

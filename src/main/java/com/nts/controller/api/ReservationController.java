@@ -27,8 +27,8 @@ import com.nts.dto.reservation.ReservationParameter;
 import com.mysql.jdbc.StringUtils;
 import com.nts.dto.reservation.ReservationCommentParam;
 import com.nts.dto.reservation.ReservationInfos;
-import com.nts.exception.DisplayInfoNullException;
 import com.nts.exception.InvalidFormatException;
+import com.nts.exception.NotFoundException;
 import com.nts.service.reservation.ReservationCommentService;
 import com.nts.service.reservation.ReservationService;
 import com.nts.util.CheckFormat;
@@ -52,7 +52,7 @@ public class ReservationController {
 
 	@GetMapping
 	public ReservationInfos getReservationsByReservationEmail(@RequestParam(required = true) String reservationEmail)
-		throws DisplayInfoNullException, InvalidFormatException {
+		throws NotFoundException, InvalidFormatException {
 
 		if (CheckFormat.validateEmailFormat(reservationEmail)) {
 			return reservationService.getReservationInfoByReservationEmail(reservationEmail);

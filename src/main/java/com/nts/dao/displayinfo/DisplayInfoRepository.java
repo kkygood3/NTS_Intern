@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nts.dto.displayinfo.DisplayInfo;
 import com.nts.dto.displayinfo.DisplayInfoImage;
-import com.nts.exception.DisplayInfoNullException;
+import com.nts.exception.NotFoundException;
 
 /**
  * @author 전연빈
@@ -39,7 +39,7 @@ public class DisplayInfoRepository {
 	 * @return displayInfo
 	 * @throws DisplayInfoNullException 
 	 */
-	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) throws DisplayInfoNullException {
+	public DisplayInfo selectDisplayInfoByDisplayInfoId(int displayInfoId) throws NotFoundException {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("displayInfoId", displayInfoId);
@@ -47,7 +47,7 @@ public class DisplayInfoRepository {
 		try {
 			return namedParameterJdbcTemplate.queryForObject(SELECT_DISPLAY_INFO, params, displayInfoRowMapper);
 		} catch(EmptyResultDataAccessException e) {
-			throw new DisplayInfoNullException("displayInfoId = "+displayInfoId);
+			throw new NotFoundException("displayInfoId = "+displayInfoId);
 		}
 
 	}
