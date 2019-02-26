@@ -2,7 +2,7 @@ package com.nts.reservation.dto.reviewwrite;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nts.reservation.common.ReservationValidatior;
+import com.nts.reservation.common.ValidationUtils;
 
 public class ReviewWriteRequest {
 	private Integer reservationUserCommentId;
@@ -94,14 +94,5 @@ public class ReviewWriteRequest {
 
 	public void setImageFile(MultipartFile imageFile) {
 		this.imageFile = imageFile;
-	}
-
-	public boolean isVaild() {
-		boolean result = ReservationValidatior.validateComment(this.comment)
-			&& ReservationValidatior.validateScore(this.score);
-		if (imageFile != null) {
-			result = result && ReservationValidatior.validateImage(this.imageFile);
-		}
-		return result;
 	}
 }

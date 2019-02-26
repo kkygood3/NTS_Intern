@@ -11,6 +11,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.nts.reservation.common.RequestValidator;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 
 /**
@@ -36,7 +37,7 @@ public class ReviewWriteRequestArgumentResolver implements HandlerMethodArgument
 		reviewWriteRequest.setProductId(new Integer(multipartRequest.getParameter("productId")));
 		reviewWriteRequest.setScore(new Integer(multipartRequest.getParameter("score")));
 
-		if (!reviewWriteRequest.isVaild()) {
+		if (!RequestValidator.validateReviewWriteRequest(reviewWriteRequest)) {
 			throw new RuntimeException("Comment 형식 이상");
 		}
 

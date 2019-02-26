@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nts.reservation.common.RequestValidator;
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
@@ -69,7 +70,7 @@ public class ReserveApiController {
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
 		
 		String result = "FAIL";
-		if (reserveRequest.isValid()) {
+		if (RequestValidator.validateReserveRequest(reserveRequest)) {
 			reserveResponseService.registerReserve(reserveRequest);
 			result = "OK";
 		}

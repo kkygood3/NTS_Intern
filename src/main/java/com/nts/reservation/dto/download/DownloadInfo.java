@@ -1,9 +1,5 @@
 package com.nts.reservation.dto.download;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import com.nts.reservation.common.ReservationValidatior;
-
 public class DownloadInfo {
 	private String fileName;
 	private String saveFileName;

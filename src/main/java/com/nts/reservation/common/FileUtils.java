@@ -13,15 +13,15 @@ public class FileUtils {
 	public static void setDownloadResponse(DownloadInfo donwloadInfo, HttpServletResponse response) {
 		int fileLength = 0;
 		String fileName = donwloadInfo.getFileName();
-		
+
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Type", donwloadInfo.getContentType());
 		response.setHeader("Pragma", "no-cache;");
 		response.setHeader("Expires", "-1;");
-		
+
 		String fileDir = CommonProperties.ROOT_DIR_COMMNET_IMAGE + fileName;
-		
+
 		try (FileInputStream fis = new FileInputStream(fileDir);
 			OutputStream out = response.getOutputStream();) {
 			int readCount = 0;

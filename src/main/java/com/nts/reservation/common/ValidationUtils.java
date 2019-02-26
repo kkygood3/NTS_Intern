@@ -14,7 +14,7 @@ import com.nts.reservation.property.CommonProperties;
  * Reservation 프로젝트에서 사용하는 특정 형식 String이 유효한지 검증하는 Class
  * static method를 사용함
  */
-public class ReservationValidatior {
+public class ValidationUtils {
 	public static boolean validateEmail(String email) {
 		return (email != null
 			&& email.length() > 0
