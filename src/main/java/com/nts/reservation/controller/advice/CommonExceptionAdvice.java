@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CommonExceptionAdvice {
 	private static final Logger logger = LoggerFactory.getLogger(CommonExceptionAdvice.class);
 
-	public ModelAndView showErrorPage(Exception e, HttpServletRequest request, String msg) {
+	private ModelAndView showErrorPage(Exception e, HttpServletRequest request, String msg) {
 		logger.error(e.toString());
 
 		ModelAndView mav = new ModelAndView();
@@ -50,21 +50,9 @@ public class CommonExceptionAdvice {
 		return showErrorPage(exception, request, "서버 내부 오류가 발생했습니다.");
 	}
 
-	@ExceptionHandler(HttpClientErrorException.class)
+	@ExceptionHandler({HttpClientErrorException.class, ConnectException.class, HttpServerErrorException.class})
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleHttpClientErrorException(HttpClientErrorException exception, HttpServletRequest request) {
-		return showErrorPage(exception, request, "서버 내부 오류가 발생했습니다.");
-	}
-
-	@ExceptionHandler(ConnectException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleConnectException(ConnectException exception, HttpServletRequest request) {
-		return showErrorPage(exception, request, "서버 내부 오류가 발생했습니다.");
-	}
-
-	@ExceptionHandler(HttpServerErrorException.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ModelAndView handleHttpServerErrorException(HttpServerErrorException exception, HttpServletRequest request) {
+	public ModelAndView handleHttpErrorException(Exception exception, HttpServletRequest request) {
 		return showErrorPage(exception, request, "서버 내부 오류가 발생했습니다.");
 	}
 }
