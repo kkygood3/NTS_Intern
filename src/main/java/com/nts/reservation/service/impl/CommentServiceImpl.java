@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +28,13 @@ public class CommentServiceImpl implements CommentService {
 	@Autowired
 	private FileInfoMapper fileInfoDao;
 
-	private static final String COMMENT_IMAGE_SAVE_DIRECTORY = "img/comment/";
+	@Value("${spring.datasource.comment-image-save-directory}")
+	private String commentImageSaveDirectory;
+	FileHandler fileHandler;
+	
+	public CommentServiceImpl() {
+		fileHandler = new FileHandler();
+	}
 
 	@Override
 	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int startRow, int limit) {
@@ -47,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
 			FileInfo fileInfo = createFileInfo(comment.getReservationInfoId(), image);
 			fileInfoDao.insertFileInfo(fileInfo);
 			commentDao.insertReservationUserCommentImage(new ReservationUserCommentImage(comment, fileInfo));
-			FileHandler.saveFile(image, fileInfo.getSaveFileName());
+			fileHandler.saveFile(image, fileInfo.getSaveFileName());
 		}
 		return comment;
 	}
@@ -63,9 +70,10 @@ public class CommentServiceImpl implements CommentService {
 	private FileInfo createFileInfo(long reservationInfoId, MultipartFile file) {
 		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		FileInfo fileInfo = new FileInfo();
-		String path = COMMENT_IMAGE_SAVE_DIRECTORY + today;
-		if (!FileHandler.createDirectoryIfNotExist(path)) {
-			throw new RuntimeException("Check Permission.");
+		String path = commentImageSaveDirectory + today;
+		
+		if (!fileHandler.createDirectoryIfNotExist(path)) {
+			throw new RuntimeException("Check Permission." + path);
 		}
 		fileInfo.setFileName(getFileName(reservationInfoId, file.getContentType()));
 		fileInfo.setSaveFileName(path + "/" + fileInfo.getFileName());
