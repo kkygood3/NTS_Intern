@@ -34,15 +34,15 @@
 					<div class="review_rating rating_point">
 						<div class="rating">
 							<!-- [D] 해당 별점이 선택될 때 그 점수 이하의 input엘리먼트에 checked 클래스 추가 -->
-							<input name="rating2" value="1" class="rating_rdo" title="1점">
+							<input name="rating2" value="1" class="rating_rdo" title="1점" readonly>
 							<span class="span"></span>
-							<input name="rating3" value="2" class="rating_rdo" title="2점">
+							<input name="rating3" value="2" class="rating_rdo" title="2점" readonly>
 							<span class="span"></span>
-							<input name="rating4" value="3" class="rating_rdo" title="3점" >
+							<input name="rating4" value="3" class="rating_rdo" title="3점" readonly>
 							<span class="span"></span>
-							<input name="rating5" value="4" class="rating_rdo" title="4점">
+							<input name="rating5" value="4" class="rating_rdo" title="4점" readonly>
 							<span class="span"></span>
-							<input name="rating6" value="5" class="rating_rdo" title="5점">
+							<input name="rating6" value="5" class="rating_rdo" title="5점" readonly>
 							<span class="span"></span>
 							<!-- [D] 0점일 때 gray_star 추기 -->
 							<span class="star_rank gray_star">0</span>
