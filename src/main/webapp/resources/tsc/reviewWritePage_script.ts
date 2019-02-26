@@ -6,7 +6,6 @@
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
-
 class ReviewWritePage {
     private starController : Object;
     private reviewPlaceHolder : HTMLElement;
@@ -36,7 +35,7 @@ class ReviewWritePage {
 class MakeReviewBtn{
     private button : HTMLElement;
 
-    constructor(button, starController,reviewTextArea ,imageList){
+    constructor(button, starController, reviewTextArea ,imageList){
         this.button = button;
         this.button.addEventListener("click", (e) => {
             if(!(/^[ㄱ-ㅎ가-힣a-zA-Z0-9_-]{5,400}$/).test(reviewTextArea.value)){
@@ -124,7 +123,7 @@ class ImageItem {
     private imageItem : HTMLElement;
     private fileIndex : number; 
 
-    constructor(imageItem, imageList,fileIndex){
+    constructor(imageItem, imageList, fileIndex){
         this.imageItem = imageItem;
         this.fileIndex = fileIndex;
         this.imageItem.addEventListener("click", (e) => {
@@ -137,7 +136,6 @@ class ImageItem {
     removeProcess(imageList){
         imageList.splice(this.fileIndex,1);
         this.imageItem.parentNode.removeChild(this.imageItem);
-        
     }
 }
 
