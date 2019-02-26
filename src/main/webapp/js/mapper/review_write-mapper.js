@@ -156,21 +156,37 @@ function ReviewSubmitButton(urlSearchParams){
 		    formData.append("score", score);
 		    formData.append("comment", comment);
 		    
-		    Array.from(attachImageForm.files).forEach((v)=>{
-		    	formData.append("reservationImage", v);
-		    });
-			
-			var request = {
-					method:"POST",
-					data:formData
-			}
-			var requestUri = "/api/reservations/" + urlSearchParams.get("reservationInfoId") + "/comments";
-			sendRequest(request, requestUri, redirect);
+		    if(attachImageForm){
+		    	
+			    Array.from(attachImageForm.files).forEach((v)=>{
+			    	formData.append("reservationImage", v);
+			    });
+			    
+		    } else{
+		    	
+		    	formData.append("reservationImage", "");
+		    	
+		    }
+		    
+		    reviewWriteSubmitRequest(redirectToHome, urlSearchParams.get("reservationInfoId"), formData);
 			
 		});
 	}
 }
 
-function redirect(){
+function reviewWriteSubmitRequest(callBack, reservationInfoId, formData){
+	
+	var request = {
+			method:"POST",
+			data:formData
+	}
+	
+	var requestUri = "/api/reservations/" + reservationInfoId + "/comments";
+	sendRequest(request, requestUri, callBack);
+}
+
+
+function redirectToHome(){
+	alert("리뷰 작성이 완료되었습니다.");
 	location="/";
 }
