@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.constant.FilePath;
 import com.nts.reservation.constant.ReservationStatusType;
 import com.nts.reservation.dto.ReservationDisplayInfoDto;
 import com.nts.reservation.dto.param.CommentParamDto;
@@ -132,7 +133,7 @@ public class ReservationServiceImpl implements ReservationService {
 			reservationMapper.insertCommentImage(commentImage);
 
 			try (
-				FileOutputStream fos = new FileOutputStream("c:/tmp/img/" + fileName);
+				FileOutputStream fos = new FileOutputStream(FilePath.IMG_PATH + "/" + fileName);
 				InputStream is = image.getInputStream();) {
 				int readCount = 0;
 				byte[] buffer = new byte[1024];
