@@ -11,7 +11,7 @@
 		    ri.reservation_name AS reservationName,
 		    ri.reservation_date AS reservationDate,
 		    ri.modify_date AS modifyDate,
-		    fi.save_file_name AS saveFileName
+		    CONCAT("img/comments/", ruci.id) AS saveFileName
 		FROM
 		    reservation_info ri
 		        INNER JOIN

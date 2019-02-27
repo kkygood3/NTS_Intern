@@ -12,10 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nts.reservation.annotation.PageDefault;
+import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.MyReservationResponseDto;
+import com.nts.reservation.service.ProductService;
 import com.nts.reservation.service.ReservationService;
 
 /**
@@ -26,6 +30,8 @@ import com.nts.reservation.service.ReservationService;
 public class MyReservationController {
 	@Autowired
 	private ReservationService reservationService;
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/myreservation")
 	public String getMyReservationPage(@PageDefault(limit = RESERVATIONS_LIMIT) PageDto page,
@@ -38,5 +44,18 @@ public class MyReservationController {
 		model.addAttribute("response", myReservationResponse);
 
 		return "myreservation";
+	}
+
+	/**
+	 * 상품평 달기 페이지
+	 */
+	@GetMapping("/myreservation/{reservationId}/comment/write")
+	public String getCommentWritePage(@PathVariable int reservationId,
+		@RequestParam int productId, Model model) {
+
+		ProductDto product = productService.getProduct(productId);
+		model.addAttribute("productDescription", product.getProductDescription());
+
+		return "commentWrite";
 	}
 }

@@ -26,7 +26,7 @@
 			<div class="ct_wrap">
 				<div class="top_title review_header">
 					<a href="/myreservation" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
-					<h2><span class="title">클림트 인사이드</span></h2>
+					<h2><span class="title">${productDescription}</span></h2>
 				</div>
 				<!-- 리뷰 별점 -->
 				<div class="write_act">
@@ -34,15 +34,15 @@
 					<div class="review_rating rating_point">
 						<div class="rating">
 							<!-- [D] 해당 별점이 선택될 때 그 점수 이하의 input엘리먼트에 checked 클래스 추가 -->
-							<input type="checkbox" name="rating2" value="1" class="rating_rdo" title="1점">
+							<input name="rating2" value="1" class="rating_rdo" title="1점" readonly>
 							<span class="span"></span>
-							<input type="checkbox" name="rating3" value="2" class="rating_rdo" title="2점">
+							<input name="rating3" value="2" class="rating_rdo" title="2점" readonly>
 							<span class="span"></span>
-							<input type="checkbox" name="rating4" value="3" class="rating_rdo" title="3점" >
+							<input name="rating4" value="3" class="rating_rdo" title="3점" readonly>
 							<span class="span"></span>
-							<input type="checkbox" name="rating5" value="4" class="rating_rdo" title="4점">
+							<input name="rating5" value="4" class="rating_rdo" title="4점" readonly>
 							<span class="span"></span>
-							<input type="checkbox" name="rating6" value="5" class="rating_rdo" title="5점">
+							<input name="rating6" value="5" class="rating_rdo" title="5점" readonly>
 							<span class="span"></span>
 							<!-- [D] 0점일 때 gray_star 추기 -->
 							<span class="star_rank gray_star">0</span>
@@ -54,7 +54,7 @@
 				<!-- 리뷰 입력 -->
 				<div class="review_contents write">
 					<!-- [D] review_write_info 클릭 시 자신을 숨기고 review_textarea 에 focus를 보낸다. -->
-					<a href="#" class="review_write_info">
+					<a class="review_write_info">
 						<span class="middot">
 							실 사용자의 리뷰는 상품명의 더 나은 서비스 제공과 다른 사용자들의 선택에 큰 도움이 됩니다.
 						</span><br>
@@ -63,7 +63,7 @@
 						</span>
 						<span class="left_space">(단, 리뷰 포인트는 ID 당 1일 최대 5건까지 지급됩니다.)</span>
 					</a>
-					<textarea cols="30" rows="10" class="review_textarea"></textarea>
+					<textarea cols="30" rows="10" maxlength="400" class="review_textarea"></textarea>
 				</div>
 				<!-- //리뷰 입력 -->
 
@@ -74,7 +74,7 @@
 							<i class="fn fn-image1" aria-hidden="true"></i>
 							<span class="text_add_photo">사진 추가</span>
 						</label>
-						<input type="file" class="hidden_input" id="reviewImageFileOpenInput" accept="image/*" multiple>
+						<input type="file" class="hidden_input" id="reviewImageFileOpenInput">
 						<div class="guide_review">
 							<span>0</span>/400
 							<span>(최소5자이상)</span>
@@ -86,11 +86,11 @@
 						<div class="item_preview_thumbs">
 							<ul class="lst_thumb">
 								<li class="item" style="display: none;">
-									<a href="#" class="anchor">
+									<a class="anchor">
 										<span class="spr_book ico_del">삭제</span>
 									</a>
-									<img src="http://naverbooking.phinf.naver.net/20170306_3/1488772023601A4195_JPEG/image.jpg?type=f300_300" width="130" alt="" class="item_thumb">
-									<span class="img_border"></span>
+									<img src="" width="100" alt="" class="item_thumb">
+									<!-- <span class="img_border"></span> -->
 								</li>
 							</ul>
 						</div>
@@ -117,5 +117,150 @@
 			<span class="copyright">© NAVER Corp.</span>
 		</div>
 	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script>
+		var reservationId = parseInt(window.location.pathname.split("/")[2]);
+		var productId = parseInt(new URL(window.location.href).searchParams.get("productId"));
+		var displayInfoId = parseInt(new URL(window.location.href).searchParams.get("displayInfoId"));
+
+		// 별점매기기 기능
+		function StarRating(body) {
+			this.body = body;
+			this.value = 0;
+			this.registerEvents();
+		}
+
+		StarRating.prototype = {
+			registerEvents: function () {
+				this.body.addEventListener("click", function(evt) {
+					if (evt.target.tagName !== "INPUT") {
+						return;
+					}
+					this.value = evt.target.value;
+					this.showRating();
+				}.bind(this));
+			},
+			showRating: function () {
+				this.body.querySelectorAll("input").forEach(function (element) {
+					if (this.value >= element.value) {
+						element.classList.add("checked");
+					} else {
+						element.classList.remove("checked");
+					}
+				}.bind(this));
+				document.querySelector(".star_rank").innerText = this.value;
+				document.querySelector(".star_rank").classList.remove("gray_star");
+			}
+		}
+
+		var ratingBody = document.querySelector(".rating");
+		var starRating = new StarRating(ratingBody);
+
+
+		// 상품평 글자수 표시 및 가이드라인 숨김 이벤트 기능
+		function CommentTextArea(body) {
+			this.body = body;
+			this.text = "";
+			this.registerEvents();
+		}
+
+		CommentTextArea.prototype = {
+			registerEvents: function () {
+				// 텍스트 영역 클릭시 설명문 숨김 및 텍스트영역 포커스
+				document.querySelector(".review_write_info").addEventListener("click", function(evt) {
+					document.querySelector(".review_write_info").style.display = "none";
+					this.body.focus();
+				}.bind(this));
+				// 입력된 글자 text필드변수에 저장 및 글자수 표시
+				this.body.addEventListener("input", function(evt) {
+					this.text = this.body.value;
+					document.querySelector(".guide_review span").innerText = this.text.length;
+				}.bind(this));
+			}
+		}
+
+		var commentBody = document.querySelector(".review_textarea");
+		var commentTextArea = new CommentTextArea(commentBody);
+
+		document.querySelector(".review_textarea");
+
+		// 이미지 input 이벤트리스너 등록
+		const elImage = document.querySelector("#reviewImageFileOpenInput");
+		elImage.addEventListener("change", function(evt) {
+			const image = evt.target.files[0];
+			if(!validImageType(image)) {
+				alert("지원하지 않는 이미지 타입 확장자입니다.")
+				return;
+			}
+			// 썸네일 노출
+			document.querySelector(".lst_thumb .item").style.display = "block";
+			const elThumbImage = document.querySelector(".item_thumb");
+			elThumbImage.src = window.URL.createObjectURL(image);
+		})
+
+		// 이미지 확장자 검사
+		function validImageType(image) {
+			const result = ([ 'image/jpeg',
+							  'image/png',
+							  'image/jpg' ].indexOf(image.type) > -1);
+			return result;
+		}
+
+		// 이미지 선택 취소
+		document.querySelector(".spr_book.ico_del").addEventListener("click", function(evt) {
+			// 썸네일 구역 숨김
+			document.querySelector(".lst_thumb .item").style.display = "none";
+			document.querySelector(".item_thumb").src = "";
+			// 이미지 input value 초기화
+			elImage.value = "";
+		})
+
+		// 리뷰 등록
+		document.querySelector(".bk_btn").addEventListener("click", function(evt) {
+			if (!starRating.value) {
+				alert("별점을 선택해주세요");
+				return;
+			}
+			if (commentTextArea.text.length < 5 || commentTextArea.text.length > 400) {
+				alert("상품평이 너무 길거나 짧습니다.");
+				return;
+			}
+
+			// 폼 전송 데이터 준비
+			var formData = new FormData();
+			formData.append("score", starRating.value);
+			formData.append("comment", commentTextArea.text);
+			if (elImage.files[0]) {
+				formData.append("image", elImage.files[0]);
+			}
+
+			var url = "/api/reservations/" + reservationId + "/comments?productId=" + productId;
+			ajaxFile(url, formData);
+
+		});
+
+		function ajaxFile(url, data) {
+			$.ajax({
+				type: "POST",
+				enctype: 'multipart/form-data',
+				url: url,
+				data: data,
+				processData: false,
+				contentType: false,
+				cache: false,
+				timeout: 600000,
+				success: function (resp) {
+					if (confirm("등록 성공! 리뷰를 확인하러 이동하시겠습니까?")) {
+						location.href="/products/" + productId + "/comment?displayInfoId=" + displayInfoId;
+					} else {
+						location.href="/myreservation";
+					}
+				},
+				error: function (e) {
+					alert("등록 실패! : " + e.errorMsg);
+				}
+			});
+		}
+	</script>
 </body>
 </html>

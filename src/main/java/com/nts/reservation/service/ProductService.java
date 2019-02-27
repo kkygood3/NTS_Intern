@@ -5,6 +5,7 @@
 package com.nts.reservation.service;
 
 import com.nts.reservation.constant.ImageType;
+import com.nts.reservation.dto.ProductDto;
 import com.nts.reservation.dto.ProductImageDto;
 import com.nts.reservation.dto.param.PageDto;
 import com.nts.reservation.dto.response.CommentResponseDto;
@@ -17,6 +18,8 @@ import com.nts.reservation.dto.response.ReserveResponseDto;
  * @author jinwoo.bae
  */
 public interface ProductService {
+	ProductDto getProduct(int productId);
+
 	ProductResponseDto getProductResponse(int categoryId, PageDto page);
 
 	ProductImageDto getProductImage(int productId, ImageType type);

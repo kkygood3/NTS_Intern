@@ -2489,6 +2489,10 @@ button {
     margin: 0 0 8px 14px
 }
 
+.section_review_list .short_review_area .thumb_area img {
+    border: 1px solid rgba(0,0,0,.1);
+}
+
 .section_review_list .short_review_area .thumb_area .thumb {
     display: block;
     position: relative
@@ -3842,7 +3846,7 @@ button {
 .review_photos_write .item_preview_thumbs .lst_thumb .item .anchor {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 83px;
   width: 17px;
   height: 17px;
 }
@@ -3852,7 +3856,7 @@ button {
   right: 0;
 }
 .review_photos_write .item_preview_thumbs .lst_thumb .item .item_thumb {
-  width: auto;
+  width: 100px;
   height: 80px;
 }
 
