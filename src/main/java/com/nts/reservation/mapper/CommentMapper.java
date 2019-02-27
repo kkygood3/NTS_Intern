@@ -1,4 +1,4 @@
-package com.nts.reservation.mappers;
+package com.nts.reservation.mapper;
 
 import java.util.List;
 

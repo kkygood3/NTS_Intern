@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import javax.servlet.http.HttpSession;
 

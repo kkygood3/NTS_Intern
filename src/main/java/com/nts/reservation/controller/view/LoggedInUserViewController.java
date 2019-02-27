@@ -1,4 +1,4 @@
-package com.nts.reservation.controller.viewController;
+package com.nts.reservation.controller.view;
 
 import javax.servlet.http.HttpSession;
 

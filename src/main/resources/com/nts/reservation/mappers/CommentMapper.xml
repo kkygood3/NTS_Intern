@@ -40,7 +40,7 @@
 			ruc.id AS commentId 
 			, di.product_id AS productId
 			, ri.id AS reservationInfoId
-			, IFNULL(CONVERT( ruc.score, DECIMAL(2,1)), 0 ) AS score
+			, CONVERT(IFNULL(ruc.score, 0), DECIMAL(2,1)), AS score
 			, comment AS comment 
 			, ri.reservation_name AS reservationName
 			, SUBSTR(reservation_email , 1,4) AS reservationEmail
@@ -66,7 +66,9 @@
 		LEFT JOIN 
 			reservation_user_comment_image ruci ON ruc.id = ruci.reservation_user_comment_id
 		LEFT JOIN 
-			file_info fi ON ruci.file_id = fi.id GROUP BY ruc.id		
+			file_info fi ON ruci.file_id = fi.id
+		GROUP BY 
+			ruc.id		
 		ORDER BY commentId DESC
 	</select>
 </mapper>

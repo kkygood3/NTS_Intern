@@ -1,4 +1,4 @@
-package com.nts.reservation.controller;
+package com.nts.reservation.controller.api;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,12 +44,7 @@ public class ProductApiController {
 		@RequestParam(name = "start", required = false, defaultValue = "0") Integer start) {
 		Map<String, Object> result = new HashMap<>();
 		result.put("items", productService.getProductsByCategory(categoryId, start));
-		if (categoryId == 0) {
-			result.put("totalCount", productService.getProductsCount());
-		} else {
-			result.put("totalCount", productService.getProductsCountByCategory(categoryId));
-		}
-
+		result.put("totalCount", productService.getProductsCountByCategory(categoryId));
 		return result;
 	}
 

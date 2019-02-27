@@ -22,8 +22,6 @@ public interface ProductService {
 
 	List<Promotion> getPromotions();
 
-	Long getProductsCount();
-
 	Long getProductsCountByCategory(Integer categoryId);
 
 }

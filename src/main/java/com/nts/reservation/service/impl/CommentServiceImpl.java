@@ -12,7 +12,7 @@ import com.nts.reservation.dao.CommentDao;
 import com.nts.reservation.dto.comment.Comment;
 import com.nts.reservation.dto.comment.CommentImage;
 import com.nts.reservation.dto.comment.CommentParam;
-import com.nts.reservation.mappers.CommentMapper;
+import com.nts.reservation.mapper.CommentMapper;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.utils.FileIO;
 
