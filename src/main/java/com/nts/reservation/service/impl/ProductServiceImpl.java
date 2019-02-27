@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.nts.reservation.dao.ProductMapper;
 import com.nts.reservation.dto.PriceInfo;
 import com.nts.reservation.dto.ProductPageInfo;
-import com.nts.reservation.dto.ProductThumbnail;
-import com.nts.reservation.dto.ReviewWritePageInfo;
+import com.nts.reservation.dto.ProductDisplayItem;
+import com.nts.reservation.dto.CommentWritePageInfo;
 import com.nts.reservation.service.ProductService;
 
 @Service
@@ -23,8 +23,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductThumbnail> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int start, int limit) {
-		return productDao.selectProductThumbnailByCategoryIdWithPaging(categoryId, start, limit);
+	public List<ProductDisplayItem> getProductThumbnailsByCategoryIdWithPaging(int categoryId, int startRow, int limit) {
+		return productDao.selectProductThumbnailByCategoryIdWithPaging(categoryId, startRow, limit);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ReviewWritePageInfo getProductInfoByReservationInfoId(long reservationInfoId) {
+	public CommentWritePageInfo getProductInfoByReservationInfoId(long reservationInfoId) {
 		return productDao.selectProductInfoByReservationInfoId(reservationInfoId);
 	}
 }

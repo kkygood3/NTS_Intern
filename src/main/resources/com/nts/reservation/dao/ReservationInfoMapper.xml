@@ -28,22 +28,22 @@
 	</select>
 	
  	<insert id = "insertReservationInfo" parameterType="ReservationInfo">
-		INSERT INTO reservation_info (	product_id,		display_info_id,	reservation_name,	reservation_tel,	reservation_email,		reservation_date,	cancel_flag,	create_date)
-								VALUES(	#{productId},	#{displayInfoId},	#{reservationName},	#{reservationTel},	#{reservationEmail},	#{reservationDate},	#{cancelFlag},	#{createDate})
+		INSERT INTO reservation_info 
+						(product_id,	display_info_id,	reservation_name,	reservation_tel,	reservation_email,		reservation_date,	create_date)
+					VALUES
+						(#{productId},	#{displayInfoId},	#{reservationName},	#{reservationTel},	#{reservationEmail},	#{reservationDate},	#{createDate})
 		<selectKey resultType="long" keyProperty="id" order="AFTER">
 	        SELECT LAST_INSERT_ID()
 	    </selectKey>  
 	</insert>
 	
- 	<select id="selectCancelReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+ 	<select id="selectCancelReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
@@ -62,18 +62,16 @@
 		
 		ORDER BY r.modify_date DESC
 		
-		LIMIT #{start}, #{limit}
+		LIMIT #{startRow}, #{limit}
 	</select>
-		<select id="selectUsedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+		<select id="selectUsedReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 	<![CDATA[
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
@@ -93,20 +91,18 @@
 
 		ORDER BY datediff(now(), r.reservation_date)
 		
-		LIMIT #{start}, #{limit}
+		LIMIT #{startRow}, #{limit}
 	]]>
 	</select>
 	
-	<select id="selectConfirmedReservationInfoByReservationEmail" resultType="ReservationDisplayItem"> 
+	<select id="selectConfirmedReservationInfoByEmail" resultType="ReservationDisplayItem"> 
 	<![CDATA[
 		SELECT	p.id AS product_id,
 				r.id AS reservation_info_id,
 				p.description,
 				r.reservation_date,
-				r.cancel_flag AS cancel,
 				d.place_name,
-				sum(pp.price * rp.count) AS price,
-				r.modify_date
+				sum(pp.price * rp.count) AS price
 				
 		FROM	reservation_info AS r
 				INNER JOIN	product AS p
@@ -126,7 +122,7 @@
 		
 		ORDER BY datediff(r.reservation_date, now())
 		
-		LIMIT #{start}, #{limit}
+		LIMIT #{startRow}, #{limit}
 	]]>
 	</select>
 	
@@ -175,7 +171,7 @@
 		
 	</choose>
 		
-		LIMIT #{start}, #{limit}
+		LIMIT #{startRow}, #{limit}
 	]]>
 	</select>
 	 -->
@@ -191,14 +187,14 @@
 	
 	 <insert id = "insertReservationInfoPrice" parameterType="Map">
 		INSERT INTO	reservation_info_price
-					(reservation_info_id,	product_price_id,						count)
+						(reservation_info_id,	product_price_id,		count)
 					VALUES
-		<foreach collection="reservationInfoPriceList" item="reservationInfoPrice" separator=", ">
-					(#{reservationInfoId},	#{reservationInfoPrice.productPriceId},	#{reservationInfoPrice.count})
+		<foreach collection="reservationInfoPriceList" item="pl" separator=", ">
+						(#{reservationInfoId},	#{pl.productPriceId},	#{pl.count})
 		</foreach>
 	</insert>
 	
-	<select id="selectReservationInfoCountByReservationEmail" resultType="ReservationSummary"> 
+	<select id="selectReservationInfoCountByEmail" resultType="ReservationSummary"> 
 	<![CDATA[
 		SELECT	(CASE
 					WHEN	r.cancel_flag = true			THEN "cancel"

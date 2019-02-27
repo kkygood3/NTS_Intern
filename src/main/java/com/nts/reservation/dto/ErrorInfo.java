@@ -2,6 +2,7 @@ package com.nts.reservation.dto;
 
 /**
  * 에러정보를 담는 클래스
+ * 
  * @author si yoon
  *
  */

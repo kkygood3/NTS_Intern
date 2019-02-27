@@ -1,19 +1,16 @@
 package com.nts.reservation.dto;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class ReservationDisplayItem {
 	private long productId;
 	private long reservationInfoId;
 	private String description;
-	private Date reservationDate;
-	private String reservationDateFormat;
-	private boolean canceled;
+	private LocalDateTime reservationDate;
 	private String placeName;
 	private long price;
-	private Date modifyDate;
 
 	public long getProductId() {
 		return productId;
@@ -39,29 +36,12 @@ public class ReservationDisplayItem {
 		this.description = description;
 	}
 
-	public Date getReservationDate() {
-		return reservationDate;
+	public String getReservationDate() {
+		return reservationDate.format(DateTimeFormatter.ofPattern("yyyy.M.dd.(E)", Locale.KOREAN));
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
-	}
-
-	public String getReservationDateFormat() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.M.dd.(E)", Locale.KOREAN);
-		return format.format(reservationDate);
-	}
-
-	public void setReservationDateFormat(String reservationDateFormat) {
-		this.reservationDateFormat = reservationDateFormat;
-	}
-
-	public boolean isCanceled() {
-		return canceled;
-	}
-
-	public void setCanceled(boolean canceled) {
-		this.canceled = canceled;
 	}
 
 	public String getPlaceName() {
@@ -80,19 +60,10 @@ public class ReservationDisplayItem {
 		this.price = price;
 	}
 
-	public Date getModifyDate() {
-		return modifyDate;
-	}
-
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
-
 	@Override
 	public String toString() {
 		return "ReservationDisplayItem [productId=" + productId + ", reservationInfoId=" + reservationInfoId
-				+ ", description=" + description + ", reservationDate=" + reservationDate + ", reservationDateFormat="
-				+ reservationDateFormat + ", canceled=" + canceled + ", placeName=" + placeName + ", price=" + price
-				+ ", modifyDate=" + modifyDate + "]";
+				+ ", description=" + description + ", reservationDate=" + reservationDate + ", placeName=" + placeName
+				+ ", price=" + price + "]";
 	}
 }

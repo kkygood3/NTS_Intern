@@ -25,7 +25,7 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="/detail/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
+					<a href="/product/${pageInfo.productId}/display/${pageInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i class="fn fn-backward1"></i> </a>
 					<h2><span class="title">${pageInfo.description}</span></h2>
 				</div>
 				<div class="group_visual">
@@ -81,7 +81,7 @@
 								</div>
 								<div class="inline_form last"> <label class="label" for="message">예매내용</label>
 									<div class="inline_control">
-										<p class="inline_txt selected"><fmt:formatDate pattern = "yyyy.M.dd" value = "${pageInfo.reservationDate}" /> 총 <span id="totalCount">0</span>매</p>
+										<p class="inline_txt selected">${pageInfo.reservationDate} 총 <span id="totalCount">0</span>매</p>
 									</div>
 								</div>
 							</form>

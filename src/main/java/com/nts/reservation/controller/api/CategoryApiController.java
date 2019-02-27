@@ -14,17 +14,19 @@ import com.nts.reservation.service.CategoryService;
 
 /**
  * 카테고리 관련 API 클래스
- * @author 시윤
+ * 
+ * @author si yoon
  *
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api/category")
 public class CategoryApiController {
 	@Autowired
 	private CategoryService categoryService;
 
 	/**
 	 * 전체 카테고리를 리턴하는 메소드
+	 * 
 	 * @return 전체 카테고리 목록
 	 */
 	@GetMapping

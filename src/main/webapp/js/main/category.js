@@ -5,7 +5,7 @@
  */
 
 function sendGetCategorissAjax() {
-	sendGetAjax("./category", makeCategoryBar);
+	sendGetAjax("/api/category", makeCategoryBar);
 }
 
 /**

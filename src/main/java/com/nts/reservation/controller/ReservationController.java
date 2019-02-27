@@ -1,10 +1,5 @@
 package com.nts.reservation.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,9 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nts.reservation.dto.ReservationUserComment;
 import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.ProductService;
 
+/**
+ * 예약상품관련 페이지 url 맵핑
+ * 
+ * @author si yoon
+ *
+ */
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
@@ -26,12 +28,10 @@ public class ReservationController {
 	@Autowired
 	private CommentService commentService;
 
-	private static final String PROJECT_ROOT = "C:/Users/USER/git/pjt05";
-	private static final String DIRECTORY = "/src/main/webapp/img/comment";
 	/**
 	 * 예약 확인페이지 url 맵핑
 	 * 
-	 * @return
+	 * @return 뷰이름
 	 */
 	@GetMapping
 	public String getReservation() {
@@ -55,33 +55,14 @@ public class ReservationController {
 	/**
 	 * 리뷰 등록한다
 	 * 
-	 * @return
+	 * @return 등록한 리뷰 보기
 	 */
-	@PostMapping("/{productId}/comment")
-	public String postComment(@PathVariable(name = "productId", required = true) long productId,
-			@RequestParam("file") MultipartFile file) {
-		String fileName = getFileName(productId, file.getContentType());
-		String saveFileName = getDirectory() + "/" + fileName;
-		try {
-			file.transferTo(new File(saveFileName));
-		} catch (IllegalStateException | IOException e) {
-			throw new RuntimeException(e.getMessage());
-		}
-//		return "redirect:detail/{displayInfoId}/review";
-		return "main";
-	}
-	
-	private String getDirectory() {
-		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-		String path = PROJECT_ROOT + DIRECTORY + "/" + today;
-		File dir = new File(path);
-		System.out.println(path);
-		dir.isDirectory();
-		dir.mkdir();
-		return path;
-	}
-	
-	private String getFileName(long productId, String type) {
-		return productId + "_" + new Date().getTime() + "." + type.split("/")[1];
+	@PostMapping("/{reservationInfoId}/comment")
+	public String postComment(@PathVariable(name = "reservationInfoId", required = true) long reservationInfoId,
+			@RequestParam(name = "product_id", required = true) long productId, @RequestParam("comment") String comment,
+			@RequestParam("score") double score, @RequestParam("file") MultipartFile image) {
+		commentService.addReservationUserComment(
+				new ReservationUserComment(productId, reservationInfoId, comment, score), image);
+		return "redirect:/product/" + productId + "/comment";
 	}
 }

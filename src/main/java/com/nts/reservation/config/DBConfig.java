@@ -28,21 +28,21 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @MapperScan(BASE_PACKEGE + ".dao")
 public class DBConfig implements TransactionManagementConfigurer {
 	@Value("${spring.datasource.driver-class-name}")
-	private String DRIVER_CLASS_NAME;
+	private String driverClassName;
 	@Value("${spring.datasource.url}")
-	private String DB_URL;
+	private String dbUrl;
 	@Value("${spring.datasource.username}")
-	private String DB_USERNAME;
+	private String dbUsername;
 	@Value("${spring.datasource.password}")
-	private String DB_PASSWORD;
+	private String dbPassword;
 
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(DRIVER_CLASS_NAME);
-		dataSource.setUrl(DB_URL);
-		dataSource.setUsername(DB_USERNAME);
-		dataSource.setPassword(DB_PASSWORD);
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(dbUrl);
+		dataSource.setUsername(dbUsername);
+		dataSource.setPassword(dbPassword);
 		return dataSource;
 	}
 

@@ -5,7 +5,7 @@
  */
 
 function sendGetPriceAjax() {
-	sendGetAjax("/product/" + displayInfo().productId + "/price", makePriceInfoHTML);
+	sendGetAjax("/api/product/" + displayInfo().productId + "/price", makePriceInfoHTML);
 }
 
 /**

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.dto.CommentDisplayInfo;
+import com.nts.reservation.dto.CommentDisplayItem;
 import com.nts.reservation.dto.PriceInfo;
-import com.nts.reservation.dto.ProductThumbnail;
+import com.nts.reservation.dto.ProductDisplayItem;
 import com.nts.reservation.dto.ReservationInfo;
 import com.nts.reservation.dto.ReservationInfoPrice;
 import com.nts.reservation.dto.UserReservationInput;
@@ -30,11 +30,12 @@ import com.nts.reservation.util.ReservationInputValidator;
 
 /**
  * 상품 관련 API 클래스
- * @author USER
+ * 
+ * @author si yoon
  *
  */
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductApiController {
 	@Autowired
 	private ProductService productService;
@@ -42,17 +43,18 @@ public class ProductApiController {
 	private CommentService commentService;
 	@Autowired
 	private ReservationService reservationService;
-	
-	private static final ReservationInfo INVALID_INPUT = null; 
-	private static final String COMMENT_DEFAULT_PAGING_SIZE ="3";
+
+	private static final ReservationInfo INVALID_INPUT = null;
+	private static final String COMMENT_DEFAULT_PAGING_SIZE = "3";
 	private static final String DEFAULT_SATRT = "0";
 	private static final String SELECT_ALL = "0";
 	private static final String THUMBNAIL_DEFAULT_PAGING_SIZE = "4";
+
 	/**
 	 * 썸네일 정보 start부터 limit개 리턴
 	 * 
-	 * @param start 시작 인덱스, 지정하지않으면 0
-	 * @param limit SELECT할 썸네일 갯수, 지정하지않으면 4
+	 * @param startRow      시작 인덱스, 지정하지않으면 0
+	 * @param limit      SELECT할 썸네일 갯수, 지정하지않으면 4
 	 * @param categoryId SELECT할 카테고리, 지정하지않으면 전체 카테고리
 	 * @return 해당카테고리의 전체 상품 갯수와 limit개의 썸네일 정보
 	 */
@@ -60,29 +62,27 @@ public class ProductApiController {
 	@ResponseStatus(HttpStatus.OK)
 	public Map<String, Object> getProductCountAndThumbnails(
 			@RequestParam(name = "category_id", required = false, defaultValue = SELECT_ALL) int categoryId,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = THUMBNAIL_DEFAULT_PAGING_SIZE) int limit) {
 		int productCount = productService.getProductCountByCategoryId(categoryId);
-		List<ProductThumbnail> thumbnailInfoList = Collections.EMPTY_LIST;
-
-		if (existProduct(productCount)) {
-			thumbnailInfoList = productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, start, limit);
-		}
+		List<ProductDisplayItem> thumbnailList = existProduct(productCount, startRow) ?
+				productService.getProductThumbnailsByCategoryIdWithPaging(categoryId, startRow, limit) : Collections.EMPTY_LIST;
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productCount", productCount);
-		map.put("thumbnailInfoList", thumbnailInfoList);
+		map.put("thumbnailInfoList", thumbnailList);
 		return map;
 	}
-	
-	private boolean existProduct(int productCount) {
-		return productCount > 0 ? true : false;
+
+	private boolean existProduct(int productCount, int startRow) {
+		return productCount > startRow ? true : false;
 	}
 
 	/**
 	 * 상품명이랑 타입에 맞는 이미지 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
-	 * @param type 조회할 타입 ma(main), et(etc), th(thumbnail)
+	 * @param type      조회할 타입 ma(main), et(etc), th(thumbnail)
 	 * @return 해당 파일 이름들
 	 */
 	@GetMapping("/{productId}/file_info/{type}")
@@ -95,22 +95,24 @@ public class ProductApiController {
 
 	/**
 	 * productId에 해당하는 리뷰를 페이징해서 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
-	 * @param start 페이징 시작 인덱스
-	 * @param limit 페이징 사이즈
+	 * @param startRow     페이징 시작 인덱스
+	 * @param limit     페이징 사이즈
 	 * @return 코멘트 리스트
 	 */
 	@GetMapping("/{productId}/comment")
 	@ResponseStatus(HttpStatus.OK)
-	public List<CommentDisplayInfo> getProductCountAndThumbnailInfos(
+	public List<CommentDisplayItem> getProductCountAndThumbnailInfos(
 			@PathVariable(name = "productId", required = true) long productId,
-			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int start,
+			@RequestParam(name = "start", required = false, defaultValue = DEFAULT_SATRT) int startRow,
 			@RequestParam(name = "limit", required = false, defaultValue = COMMENT_DEFAULT_PAGING_SIZE) int limit) {
-		return commentService.getCommentsByProductIdWithPaging(productId, start, limit);
+		return commentService.getCommentsByProductIdWithPaging(productId, startRow, limit);
 	}
 
 	/**
 	 * productId에 해당하는 가격을 가져온다
+	 * 
 	 * @param productId 조회할 상품 id
 	 * @return
 	 */
@@ -122,26 +124,27 @@ public class ProductApiController {
 
 	/**
 	 * 예약정보 받아서 서버로 넘긴다
-	 * @param displayInfoId 예약할 상품 id
-	 * @param userReservationInputString 예약정보 
-	 * @param model 에러정보
+	 * 
+	 * @param displayInfoId              예약할 상품 id
+	 * @param userReservationInputString 예약정보
+	 * @param model                      에러정보
 	 * @return 뷰이름 리턴
 	 */
-	@PostMapping("/{displayInfoId}/reservation")
+	@PostMapping("/{productId}/display/{displayInfoId}/reservation")
 	public boolean postReservation(@RequestBody UserReservationInput userReservationInput,
 			@PathVariable(name = "displayInfoId", required = true) long displayInfoId) {
 		ReservationInfo reservationInfo = convertUserReservationInputToReservationInfo(userReservationInput);
 		if (reservationInfo == INVALID_INPUT) {
 			return false;
 		}
-
 		reservationService.addReservation(reservationInfo, userReservationInput.getPrice(), displayInfoId).getId();
 
 		return true;
 	}
-	
+
 	/**
 	 * 예약 유저 입력정보를 예약정보로 변환한다.
+	 * 
 	 * @param userReservationInput 사용자가 입력한 예약정보
 	 * @return 변환된 예약정보 객체. 실패시 null 리턴
 	 */
@@ -152,22 +155,24 @@ public class ProductApiController {
 		} catch (ParseException e) {
 			return INVALID_INPUT;
 		}
-		List<ReservationInfoPrice> priceInputList = userReservationInput.getPrice();
+		List<ReservationInfoPrice> priceInputList = removeInvalidPriceInfos(userReservationInput.getPrice());
+		return isValidUserInput(userReservationInput, priceInputList) ? reservationInfo : INVALID_INPUT;
+	}
+
+	private List<ReservationInfoPrice> removeInvalidPriceInfos(List<ReservationInfoPrice> priceInputList) {
 		for (int i = priceInputList.size() - 1; i >= 0; i--) {
 			if (priceInputList.get(i).getCount() == 0) {
 				priceInputList.remove(i);
 			}
 		}
-		if (!existPriceInfo(priceInputList)) {
-			return INVALID_INPUT;
-		}
-		if (!ReservationInputValidator.isValidReservationInfo(userReservationInput.getName(), userReservationInput.getTelephone(), userReservationInput.getEmail())) {
-			return INVALID_INPUT;
-		}
-
-		return reservationInfo;
+		return priceInputList;
 	}
-	
+
+	private boolean isValidUserInput(UserReservationInput input, List<ReservationInfoPrice> priceInputList) {
+		return ReservationInputValidator.isValidReservationInfo(input.getName(), input.getTelephone(), input.getEmail())
+				& existPriceInfo(priceInputList);
+	}
+
 	private boolean existPriceInfo(List<ReservationInfoPrice> priceInfo) {
 		return priceInfo.size() > 0 ? true : false;
 	}

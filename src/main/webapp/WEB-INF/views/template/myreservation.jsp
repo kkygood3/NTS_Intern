@@ -48,12 +48,12 @@
 			<div class="left"></div>
 			<div class="middle">
 				<div class="card_detail" id="product_id_{{productId}}">
-					<em class="booking_number">No.{{reservationId}}</em>
+					<em class="booking_number">No.{{reservationInfoId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDateFormat}}</em>
+							<em class="item_dsc">{{reservationDate}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
@@ -92,7 +92,7 @@
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDateFormat}}</em>
+							<em class="item_dsc">{{reservationDate}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>
@@ -127,12 +127,12 @@
 			<div class="left"></div>
 			<div class="middle">
 				<div class="card_detail" id="product_id_{{productId}}">
-					<em class="booking_number">No.{{reservationId}}</em>
+					<em class="booking_number">No.{{reservationInfoId}}</em>
 					<h4 class="tit">{{description}}</h4>
 					<ul class="detail">
 						<li class="item">
 							<span class="item_tit">일정</span>
-							<em class="item_dsc">{{reservationDateFormat}}</em>
+							<em class="item_dsc">{{reservationDate}}</em>
 						</li>
 						<li class="item">
 							<span class="item_tit">장소</span>

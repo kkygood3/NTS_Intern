@@ -59,7 +59,7 @@
 						</span>
 						<span class="left_space">(단, 리뷰 포인트는 ID 당 1일 최대 5건까지 지급됩니다.)</span>
 					</a>
-					<textarea cols="30" rows="10" class="review_textarea"></textarea>
+					<textarea cols="30" rows="10" class="review_textarea" name="comment"></textarea>
 				</div>
 				<!-- //리뷰 입력 -->
 
@@ -96,7 +96,7 @@
 				<!-- //리뷰 작성 푸터 -->
 
 				<!-- 리뷰 등록 -->
-				<div class="box_bk_btn">
+				<div class="box_bk_btn bk_btn_wrap disable">
 					<button class="bk_btn"><span class="btn_txt">리뷰 등록</span></button>
 				</div>
 				<!-- //리뷰 등록 -->
@@ -107,9 +107,10 @@
 	<%@ include file="/WEB-INF/views/footer.jsp"%>
 	</footer>
 
- 	<form method="post" action="./comment" enctype="multipart/form-data" style="display:none;">
+ 	<form method="post" action="./comment?product_id=${productInfo.productId}" enctype="multipart/form-data" style="display:none;">
+ 		<input class="score_form_input" name="score" type="number"/>
 	</form>
-
+	
 	<script type= "text/javascript" src= "/js/common/error.js" ></script>
 	<script type= "text/javascript" src= "/js/common/sendAjax.js" ></script>
 	<script type= "text/javascript" src= "/js/reviewWrite/ratingObject.js" ></script>

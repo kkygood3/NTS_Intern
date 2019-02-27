@@ -4,8 +4,8 @@
 <li class="list_item">
 	<div class="review_area">
 		<div class="thumb_area img_vertical_top">
-			{{#if saveFileName}}
-			<img width="90" height="90" class="img_vertical_top" src="/{{saveFileName}}" alt="리뷰이미지">
+			{{#if commentImageId}}
+			<img width="90" height="90" class="img_vertical_top" src="/file/comment/{{commentImageId}}" alt="리뷰이미지">
 			{{/if}}
 		</div>
 		<h4 class="resoc_name">${pageInfo.description}</h4>

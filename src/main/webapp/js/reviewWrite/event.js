@@ -1,3 +1,6 @@
+const COMMENT_MIN_LEN = 5;
+const COMMENT_MAX_LEN = 400;
+
 function addReviewWriteInfoClickEvent() {
 	var reviewWriteInfo = document.querySelector(".review_contents.write > .review_write_info");
 	var reviewTextarea = document.querySelector(".review_contents.write > .review_textarea");
@@ -14,6 +17,11 @@ function addReviewTextareaBlurEvent() {
 		if (reviewTextarea.value == "") {
 			reviewWriteInfo.style.display = "block";
 		}
+		if (isValidComment()) {
+			enableSubmitButton();
+		} else {
+			disableSubmitButton();
+		}
 	});
 }
 
@@ -25,6 +33,11 @@ function addRatingClickEvent() {
 			return;
 		}
 		rating.setScore(event.target.value);
+		if (isValidComment()) {
+			enableSubmitButton();
+		} else {
+			disableSubmitButton();
+		}
 	});
 }
 
@@ -57,4 +70,75 @@ function addFileDeleteButtonClickEvent() {
         li.style.display = "none";
         fileInput.value = "";
 	});
+}
+
+function addSubmitButtonClickEvent() {
+	const submitButton = document.querySelector(".box_bk_btn .bk_btn");
+	submitButton.addEventListener("click", (event) => {
+        const score = document.querySelector(".rating .star_rank").innerText;
+        const comment = document.querySelector(".review_contents .review_textarea");
+        
+        if (isValidComment()) {
+        	var form = document.querySelector("form");
+        	var image = document.querySelector("#reviewImageFileOpenInput");
+        	var scoreInput = document.querySelector(".score_form_input");
+        	
+        	scoreInput.value = score;
+        	form.append(comment);
+        	form.append(image);
+        	
+        	form.submit();
+        }
+	});	
+}
+
+function isValidComment() {
+    const score = document.querySelector(".rating .star_rank").innerText;
+    const comment = document.querySelector(".review_contents .review_textarea").value;
+	return isValidScore(score) & isValidContent(comment);
+}
+
+function disableSubmitButton() {
+	var submitButton = document.querySelector("div.box_bk_btn");
+	submitButton.classList.add("disable");
+}
+
+function enableSubmitButton() {
+	var submitButton = document.querySelector("div.box_bk_btn");
+	submitButton.classList.remove("disable");
+}
+
+function isValidScore(score) {
+	score *= 1;
+	if (score == parseInt(score) && score > 0 && score <= 5) {
+		return true;
+	}
+	return false;
+}
+
+function isValidContent(comment) {
+	return !(/^\s*$/.test(comment)) && comment.length >= COMMENT_MIN_LEN && comment.length <= COMMENT_MAX_LEN;
+}
+
+function addContentKeyupAndKeydownEvent() {
+    const content = document.querySelector(".review_contents .review_textarea");
+    const contentLen = document.querySelector(".guide_review span");
+    content.addEventListener("keyup", (event) => {
+    	adjustCommentLength(content, contentLen);
+	});
+    content.addEventListener("keydown", (event) => {
+    	adjustCommentLength(content, contentLen);
+	});	
+}
+
+function adjustCommentLength(content, contentLen) {
+	if (content.value.length > COMMENT_MAX_LEN) {
+		content.value = content.value.substring(0, COMMENT_MAX_LEN);
+	}
+	contentLen.innerText = content.value.length;
+	if (isValidComment()) {
+		enableSubmitButton();
+	} else {
+		disableSubmitButton();
+	}
 }

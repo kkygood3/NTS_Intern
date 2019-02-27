@@ -104,8 +104,8 @@ public class ProductPageInfo {
 	@Override
 	public String toString() {
 		return "DatailPageInfo [productId=" + productId + ", description=" + description + ", content=" + content
-			+ ", placeName=" + placeName + ", placeStreet=" + placeStreet + ", placeLot=" + placeLot + ", tel=" + tel
-			+ ", mainImageFile=" + mainImageFile + ", averageScore=" + averageScore + ", commentCount=" + commentCount
-			+ ", mapFile=" + mapFile + "]";
+				+ ", placeName=" + placeName + ", placeStreet=" + placeStreet + ", placeLot=" + placeLot + ", tel="
+				+ tel + ", mainImageFile=" + mainImageFile + ", averageScore=" + averageScore + ", commentCount="
+				+ commentCount + ", mapFile=" + mapFile + "]";
 	}
 }

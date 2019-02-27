@@ -60,7 +60,7 @@ public class UserReservationInput {
 
 	@Override
 	public String toString() {
-		String pre = "UserReservationInput [name=" + name + ", telephone=" + telephone + ", email=" + email + ", price=\n\t";
+		String pre = "UserReservationInput [name=" + name + ", telephone=" + telephone + ", email=" + email	+ ", price=\n\t";
 		String post = "\n]";
 		String mid = "";
 		for (ReservationInfoPrice p : price) {

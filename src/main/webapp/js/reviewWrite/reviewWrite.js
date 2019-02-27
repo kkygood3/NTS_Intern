@@ -10,4 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	addReviewTextareaBlurEvent();
 	addFileInputChangeEvent();
 	addFileDeleteButtonClickEvent();
+	addContentKeyupAndKeydownEvent();
+	addSubmitButtonClickEvent();
 });

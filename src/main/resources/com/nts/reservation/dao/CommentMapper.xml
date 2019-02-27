@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- DTD 선언 -->
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.nts.reservation.dao.CommentMapper">
-	<select id="selectFromTheProductWithPageing" resultType="CommentDisplayInfo">
+	<select id="selectFromTheProductWithPageing" resultType="CommentDisplayItem">
 		SELECT	uc.comment,
 				uc.score,
 				concat(left(ri.reservation_email, 4), "****") AS reservation_email,
 				ri.reservation_date,
-				ifnull(fi.save_file_name, "") AS save_file_name
+				ifnull(uci.id, "") AS comment_image_id
 				
 		FROM	reservation_info AS ri
 				INNER JOIN	reservation_user_comment AS uc
 							ON	ri.id = uc.reservation_info_id
 				LEFT JOIN	reservation_user_comment_image AS uci
 							ON	uci.reservation_user_comment_id = uc.id
-				LEFT JOIN	file_info AS fi
-							ON	fi.id = uci.file_id
 					
 		WHERE	ri.product_id = #{productId}
 		
-		LIMIT	#{start}, #{limit}
+		ORDER BY uc.create_date DESC
+		
+		LIMIT	#{startRow}, #{limit}
 	</select>
-	<select id="selectByDisplayInfoId" resultType="CommentPageInfo">
+	<select id="selectCommentPageInfoByProductId" resultType="CommentPageInfo">
 		SELECT	p.id AS product_id,
 				p.description,
 				ifnull(avg(uc.score), 0) AS average_score,
 				count(uc.score) AS commentCount
 				
 		FROM	product AS p
-				INNER JOIN	display_info AS d
-							ON	d.product_id = p.id
 				INNER JOIN	reservation_user_comment AS uc
-							ON	d.id = uc.product_id
+							ON	p.id = uc.product_id
 					
-		WHERE	d.id = #{displayInfoId}
+		WHERE	p.id = #{productId}
 	</select>
+	
+	<insert id = "insertReservationUserComment" parameterType="reservationUserComment">
+		INSERT INTO	reservation_user_comment
+						(product_id,	reservation_info_id,	score,		comment,	create_date)
+					VALUES
+						(#{productId},	#{reservationInfoId},	#{score},	#{comment},	#{createDate})
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>  
+	</insert>
+	
+	<insert id = "insertReservationUserCommentImage" parameterType="reservationUserCommentImage">
+		INSERT INTO reservation_user_comment_image
+						(reservation_info_id,	reservation_user_comment_id,	file_id)
+					VALUES
+						(#{reservationInfoId},	#{reservationUserCommentId},	#{fileId})
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>  
+	</insert>
 </mapper>

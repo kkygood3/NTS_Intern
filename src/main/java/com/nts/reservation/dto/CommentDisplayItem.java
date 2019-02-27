@@ -1,14 +1,14 @@
 package com.nts.reservation.dto;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class CommentDisplayInfo {
+public class CommentDisplayItem {
 	private String comment;
 	private double score;
 	private String reservationEmail;
-	private Timestamp reservationDate;
-	private String saveFileName;
+	private LocalDateTime reservationDate;
+	private long commentImageId;
 
 	public String getComment() {
 		return comment;
@@ -35,25 +35,24 @@ public class CommentDisplayInfo {
 	}
 
 	public String getReservationDate() {
-		return new SimpleDateFormat("yyyy.M.d.").format(reservationDate);
+		return reservationDate.format(DateTimeFormatter.ofPattern("yyyy.M.d."));
 	}
 
-	public void setReservationDate(Timestamp reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
-	public String getSaveFileName() {
-		return saveFileName;
+	public long getCommentImageId() {
+		return commentImageId;
 	}
 
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
+	public void setCommentImageId(long commentImageId) {
+		this.commentImageId = commentImageId;
 	}
 
 	@Override
 	public String toString() {
-		return "ReservationUserCommentDisplay [comment=" + comment + ", score=" + score + ", reservationEmail="
-			+ reservationEmail
-			+ ", reservationDate=" + reservationDate + ", saveFileName=" + saveFileName + "]";
+		return "CommentDisplayItem [comment=" + comment + ", score=" + score + ", reservationEmail=" + reservationEmail
+			+ ", reservationDate=" + reservationDate + ", commentImageId=" + commentImageId + "]";
 	}
 }

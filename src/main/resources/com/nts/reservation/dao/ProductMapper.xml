@@ -40,7 +40,7 @@
 				d.tel,
 				pf.save_file_name AS main_image_file,
 				count(uc.score) AS comment_count,
-				ifnull(avg(uc.score), 0) AS average_score,
+				avg(ifnull(uc.score, 0)) AS average_score,
 				df.save_file_name AS map_file
 				
 		FROM	display_info AS d
@@ -75,7 +75,7 @@
 	</select>
 	
 	
-	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductThumbnail">
+	<select id="selectProductThumbnailByCategoryIdWithPaging" resultType="ProductDisplayItem">
 		SELECT	d.product_id,
 				d.id AS display_info_id,
 				p.description,
@@ -97,10 +97,10 @@
 		<if test="categoryId != 0">
 				AND	c.id = #{categoryId}
     	</if>
-		LIMIT	#{start}, #{limit}
+		LIMIT	#{startRow}, #{limit}
 	</select>
 	
-	<select id="selectProductInfoByReservationInfoId" resultType="ReviewWritePageInfo">
+	<select id="selectProductInfoByReservationInfoId" resultType="CommentWritePageInfo">
 		SELECT	p.id AS product_id,
 				p.description
 

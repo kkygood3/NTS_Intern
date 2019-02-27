@@ -12,10 +12,10 @@ public class UserAuthorizationInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-		throws Exception {
+			throws Exception {
 		HttpSession session = request.getSession();
 
-		String email = (String)session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		if (!ReservationInputValidator.isValidEmail(email)) {
 			response.sendRedirect("/login");
 			return false;

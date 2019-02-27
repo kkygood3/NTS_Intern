@@ -5,7 +5,7 @@
  */
 
 function sendGetPromotionsAjax() {
-	sendGetAjax("./promotion", makePromotionSlideHTML);
+	sendGetAjax("/api/promotion", makePromotionSlideHTML);
 }
 
 /**

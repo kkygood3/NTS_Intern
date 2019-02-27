@@ -13,8 +13,9 @@ public class FileInfo {
 
 	public FileInfo() {
 		createDate = LocalDateTime.now();
+		deleted = false;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

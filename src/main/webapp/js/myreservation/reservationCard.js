@@ -9,7 +9,7 @@ function makeReservationCardHtml() {
 }
 
 function sendGetCardItemsAjax() {
-	sendGetAjax("reservation_info", makeReservationCardItemHtml);
+	sendGetAjax("/api/reservation", makeReservationCardItemHtml);
 }
 
 function makeReservationCardItemHtml(cardItemListMap) {
