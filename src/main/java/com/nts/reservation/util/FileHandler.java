@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 public class FileHandler {
-	private static final String BASE_PATH = "C:/tmp/";
+	public static String BASE_PATH = "C:/tmp/";
 
 	/**
 	 * 멀티파트파일 저장

@@ -27,15 +27,10 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentDao;
 	@Autowired
 	private FileInfoMapper fileInfoDao;
-
+	
 	@Value("${spring.datasource.comment-image-save-directory}")
 	private String commentImageSaveDirectory;
-	FileHandler fileHandler;
 	
-	public CommentServiceImpl() {
-		fileHandler = new FileHandler();
-	}
-
 	@Override
 	public List<CommentDisplayItem> getCommentsByProductIdWithPaging(long productId, int startRow, int limit) {
 		return commentDao.selectFromTheProductWithPageing(productId, startRow, limit);
@@ -54,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
 			FileInfo fileInfo = createFileInfo(comment.getReservationInfoId(), image);
 			fileInfoDao.insertFileInfo(fileInfo);
 			commentDao.insertReservationUserCommentImage(new ReservationUserCommentImage(comment, fileInfo));
-			fileHandler.saveFile(image, fileInfo.getSaveFileName());
+			FileHandler.saveFile(image, fileInfo.getSaveFileName());
 		}
 		return comment;
 	}
@@ -72,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
 		FileInfo fileInfo = new FileInfo();
 		String path = commentImageSaveDirectory + today;
 		
-		if (!fileHandler.createDirectoryIfNotExist(path)) {
+		if (!FileHandler.createDirectoryIfNotExist(path)) {
 			throw new RuntimeException("Check Permission." + path);
 		}
 		fileInfo.setFileName(getFileName(reservationInfoId, file.getContentType()));
