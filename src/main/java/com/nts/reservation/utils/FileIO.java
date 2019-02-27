@@ -28,11 +28,9 @@ public class FileIO {
 		}
 	}
 
-	public void saveFile(String basePath, Long commentId, MultipartFile file) {
+	public void saveFile(String path, MultipartFile file) {
 		try (
-			FileOutputStream fos = new FileOutputStream(
-				basePath + "img_uploaded/" + commentId + "/"
-					+ file.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(path + file.getOriginalFilename());
 			InputStream is = file.getInputStream();) {
 			int readCount = 0;
 			byte[] buffer = new byte[1024];

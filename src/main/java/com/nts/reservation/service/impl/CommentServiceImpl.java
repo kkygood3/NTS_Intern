@@ -70,7 +70,7 @@ public class CommentServiceImpl implements CommentService {
 				Long file_id = commentDao.insertFileInfo(file, commentId, commentParam);
 				commentDao.insertCommentImageInfo(file_id, commentParam.getReservationInfoId(), commentId);
 				try {
-					fileIo.saveFile(basePath, commentId, file);
+					fileIo.saveFile(basePath + "img_uploaded/" + commentId + "/", file);
 				} catch (Exception e) {
 					if (targetDir.exists()) {
 						fileIo.deleteFile(targetDir);
