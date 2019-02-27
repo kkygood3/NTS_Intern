@@ -2,9 +2,7 @@
  * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
  * internal use for NAVER, unauthorized use of redistribution of this software
  * are strongly prohibited.
- */
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
@@ -63,6 +61,7 @@ var myReservation = {
             new ReservationCard(item, this.state.reservation_data.reservations, this.domElements.cancelPopup);
         });
     },
+    
     initDomWatcher : function () {
     	let mObserver = new MutationObserver(() => {
 			let yet = this.domElements.sectionConfirmed.querySelectorAll("article").length;

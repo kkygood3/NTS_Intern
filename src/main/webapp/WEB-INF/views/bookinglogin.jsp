@@ -62,9 +62,8 @@ ng\:form {
 	content="telephone=no, address=no, email=no">
 <title translate="CM-NBOOKING">네이버 예약</title>
 
-<link href="resources/css/bookinglogin.css" rel="stylesheet">
-<link rel="shortcut icon" href="resources/img/favicon.ico">
-
+	<link href="/reservation/resources/css/bookinglogin.css" rel="stylesheet">
+	<link rel="shortcut icon" href="/reservation/resources/img/favicon.ico">
 </head>
 <!-- saved from url=(0042)https://m.booking.naver.com/booked/confirm -->
 
@@ -75,7 +74,7 @@ ng\:form {
 		<i class="fn fn-info1" aria-hidden="true"></i> <span
 			class="_toast_alert_text"></span>
 	</p>
-	<a href="./mainpage.html" class="top_info_close" data-tst_alt_close="0">
+	<a href="/reservation/mainpage.html" class="top_info_close" data-tst_alt_close="0">
 		<i class="fn fn-close" aria-hidden="true"></i> <span class="sr_only"
 		translate="CM-CLOSE">닫기</span>
 	</a> </toast-alert> <!---->
@@ -83,14 +82,14 @@ ng\:form {
 		<booked-confirm>
 		<div class="booking_login">
 			<h1 class="login_header">
-				<a href="./mainpage.html" class="nbooking_logo spr_bi txt_logo">
+				<a href="/reservation/mainpage.html" class="nbooking_logo spr_bi txt_logo">
 					<span translate="CM-NBOOKING">네이버 예약</span>
 				</a>
 			</h1>
 			<!---->
 			<div>
 				<form name="confirm_form" class="ng-pristine ng-valid" id="form1"
-					action="./api/loginForm" enctype="multipart/form-data">
+					action="/reservation/api/loginForm" enctype="multipart/form-data">
 					<h2 class="login_header_sub border_bottom">
 						<span translate="CM-NON_MEMBER_BK_CONFIRMATION">비회원 예약확인</span>
 					</h2>
@@ -193,14 +192,13 @@ ng\:form {
 				</a></li>
 				<li class="item"><a href="https://m.booking.naver.com/#"
 					class="anchor"> <span>English</span>
-				</a></li>
 			</ul>
 		</div>
 	</div>
 	</translater-modal> </app>
 	
-	<script type="text/javascript" src="resources/js/commons/utils_script.js"></script>
-	<script type="text/javascript" src="resources/js/pages/bookingLogin_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/commons/utils_script.js"></script>
+	<script type="text/javascript" src="/reservation/resources/js/pages/bookingLogin_script.js"></script>
 
 </body>
 </html>

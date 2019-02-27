@@ -2,9 +2,7 @@
  * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
  * internal use for NAVER, unauthorized use of redistribution of this software
  * are strongly prohibited.
- */
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
@@ -282,11 +280,16 @@ function XhrRequest(_method, _url) {
     this.isAsync = true;
 }
 
-XhrRequest.prototype.setCallback = function (_callback){
+XhrRequest.prototype.setCallback = function (_callback, _error){
 	this.xhr.onreadystatechange = function (aEvt) {
         if (this.readyState === XMLHttpRequest.DONE) {
-            if (this.status === 200) {
+            if (this.status >= 200 && this.status<300) {
                 _callback(this.responseText);
+            }
+            else{
+            	if(_error){
+            		_error(this.responseText);
+            	}
             }
         }
     };
@@ -295,9 +298,15 @@ XhrRequest.prototype.setCallback = function (_callback){
 XhrRequest.prototype.setIsAsync = function(_isAsync){
 	isAsync = _isAsync;
 }
+
 XhrRequest.prototype.send = function(data){
 	this.xhr.open(this.method, this.url, this.isAsync);
     this.xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	this.xhr.send(data);
+}
+
+XhrRequest.prototype.multipartSend = function (data){
+	this.xhr.open(this.method, this.url, this.isAsync);
 	this.xhr.send(data);
 }
 
@@ -309,17 +318,18 @@ XhrRequest.prototype.send = function(data){
  * 
  * @item : html template in string type
  */
-function arrayToElementRenderer(data, target, item, opt) {
+function arrayToElementRenderer(data, target, item, opt, prototype) {
     if (!data.length) {
         return;
     }
-
+    
     let bindTemplate = Handlebars.compile(item);
     let list = data;
+    
     if(opt){
-    	if(opt.productName){
-    		Handlebars.registerHelper("productName", () => {
-    	        return opt.productName;
+    	for(let key in opt){
+    		Handlebars.registerHelper(key, () => {
+    	        return opt[key];
     	    });
     	}
     }
@@ -344,12 +354,22 @@ function arrayToElementRenderer(data, target, item, opt) {
         item = item + '';
         return item.length >= width ? n : new Array(width - item.length + 1).join('0') + item;
     });
+    Handlebars.registerHelper("fileToBlob", (item) => {
+    	return window.URL.createObjectURL(item);
+    });
+    Handlebars.registerHelper("commentImageId", (item)=>{
+    	return item.commentImages[0].imageId;
+    });
+    
     let parser = new DOMParser();
     let parsedItems = parser.parseFromString(bindTemplate({data: list}), "text/html");
     let elementClassName = parsedItems.querySelector("body").firstElementChild.className;
     let newCommentItems = parsedItems.querySelectorAll("." + elementClassName);
-    newCommentItems.forEach((item) => {
+    newCommentItems.forEach((item,i) => {
         target.append(item);
+        if(prototype){
+        	prototype(item,i);
+        }
     });
 }
 

@@ -1,21 +1,20 @@
 package com.nts.reservation.service;
+
+import java.util.List;
+
+import com.nts.reservation.dto.detail.DisplayInfo;
+import com.nts.reservation.dto.detail.DisplayInfoImage;
+import com.nts.reservation.dto.product.ProductImage;
+import com.nts.reservation.dto.product.ProductPrice;
+
 /**
  * Copyright 2019 NAVER Corp.
  * All rights reserved.
  * Except in the case of internal use for NAVER,
  * unauthorized use of redistribution of this software are strongly prohibited. 
- */
-
-import java.util.List;
-
-import com.nts.reservation.dto.common.DisplayInfo;
-import com.nts.reservation.dto.detail.Comment;
-import com.nts.reservation.dto.detail.DisplayInfoImage;
-import com.nts.reservation.dto.detail.ProductImage;
-import com.nts.reservation.dto.detail.ProductPrice;
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
  */
 
 public interface DetailService {
@@ -24,8 +23,6 @@ public interface DetailService {
 	List<ProductImage> getProductImages(Long displayInfoId);
 
 	DisplayInfoImage getDisplayInfoImage(Long displayInfoId);
-
-	List<Comment> getComments(Long displayInfoId);
 
 	Double getAverageScore(Long displayInfoId);
 

@@ -56,4 +56,9 @@ public class ReservationServiceImpl implements ReservationService {
 	public void cancelReservation(Long reservationId) {
 		reservationDao.updateResevationCancelFlag(reservationId);
 	}
+
+	@Override
+	public ReservationInfo getReservationByEmailAndRsvId(String email, Long reservationId) {
+		return reservationDao.selectReservationByEmailAndRsvId(email, reservationId);
+	}
 }

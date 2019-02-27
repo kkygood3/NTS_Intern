@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 NAVER Corp. -->
+<!-- All rights reserved. -->
+<!-- Except in the case of internal use for NAVER, -->
+<!-- unauthorized use of redistribution of this software are strongly prohibited.  -->
+
+<!-- Author: Jaewon Lee, lee.jaewon@nts-corp.com -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nts.reservation.mappers.CommentMapper">
+	<resultMap id="selectCompleteComment" type="com.nts.reservation.dto.comment.Comment">
+		<result property="commentId" column="commentId" />
+		<result property="comment" column="comment" />
+		<result property="productId" column="productId" />
+		<result property="reservationInfoId" column="reservationInfoId" />
+		<result property="score" column="score" />
+		<result property="reservationName" column="reservationName" />
+		<result property="reservationEmail" column="reservationEmail" />
+		<result property="reservationDate" column="reservationDate" />
+		<result property="createDate" column="createDate" />
+		<result property="modifyDate" column="modifyDate" />
+		<result property="reservationTelephone"
+			column="reservationTelephone" />
+		<collection property="commentImages" ofType="com.nts.reservation.dto.comment.CommentImage" resultMap="selectCommentImages" columnPrefix="post_"/>
+	</resultMap>
+	
+	<resultMap id="selectCommentImages" type="com.nts.reservation.dto.comment.CommentImage">
+		<result property="imageId" column="imageId" />
+		<result property="reservationInfoId" column="reservationInfoId" />
+		<result property="fileId" column="fileId" />
+		<result property="fileName" column="fileName" />
+		<result property="saveFileName" column="saveFileName" />
+		<result property="contentType" column="contentType" />
+		<result property="deleteFlag" column="deleteFlag" />
+		<result property="createDate" column="createDate" />
+		<result property="modifyDate" column="modifyDate" />
+	</resultMap>
+	
+	<select id="selectCommentsWithImages" parameterType="Long" resultMap="selectCompleteComment">
+		SELECT 
+			ruc.id AS commentId 
+			, di.product_id AS productId
+			, ri.id AS reservationInfoId
+			, IFNULL(CONVERT( ruc.score, DECIMAL(2,1)), 0 ) AS score
+			, comment AS comment 
+			, ri.reservation_name AS reservationName
+			, SUBSTR(reservation_email , 1,4) AS reservationEmail
+			, ri.reservation_email
+			, ri.reservation_date AS reservationDate
+			, ri.create_date AS createDate
+			, ri.modify_date AS modifyDate
+			, ruci.id as post_imageId
+			, fi.id as post_fileId
+			, fi.file_name as post_fileName
+			, fi.save_file_name as post_saveFileName
+			, fi.content_type as post_contentType
+			, fi.delete_flag as post_deleteFlag
+			, fi.create_date as post_createDate
+			, fi.modify_date as post_modifyDate
+			, ruc.id as commentId
+	    FROM
+			reservation_user_comment ruc
+		INNER JOIN 
+			display_info di ON di.product_id = ruc.product_id AND di.id = 1
+		INNER JOIN 
+			reservation_info ri ON ri.id = ruc.reservation_info_id
+		LEFT JOIN 
+			reservation_user_comment_image ruci ON ruc.id = ruci.reservation_user_comment_id
+		LEFT JOIN 
+			file_info fi ON ruci.file_id = fi.id GROUP BY ruc.id		
+		ORDER BY commentId DESC
+	</select>
+</mapper>

@@ -2,9 +2,7 @@
  * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
  * internal use for NAVER, unauthorized use of redistribution of this software
  * are strongly prohibited.
- */
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
 
@@ -45,7 +43,6 @@ function SubmitButtonWithValidation(item, errorHandler, state) {
             return;
         }
 
-
         sendReservation(priceDataArr,
             {
                 name: rsvname.value
@@ -79,6 +76,8 @@ function sendReservation(priceDataArr, params) {
     request.setCallback(() => {
         alert("SUCCESS");
         window.location.href = "/reservation";
+    }, () => {
+    	alert("FAILED")
     });
     request.setIsAsync(false);
     request.send(JSON.stringify(dataToSend))

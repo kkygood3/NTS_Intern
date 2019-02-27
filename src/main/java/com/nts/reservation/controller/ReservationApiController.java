@@ -1,10 +1,4 @@
 package com.nts.reservation.controller;
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,12 +18,18 @@ import com.nts.reservation.dto.reservation.ReservationParam;
 import com.nts.reservation.service.ReservationService;
 
 /**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
  */
 
 @RestController
 @RequestMapping(path = "/api/")
-public class ApplicationReservationApiController {
+public class ReservationApiController {
 
 	@Autowired
 	private ReservationService reservationService;
@@ -37,16 +37,14 @@ public class ApplicationReservationApiController {
 	private HttpSession session;
 
 	@PostMapping(path = "/reservations")
-	public boolean postReservation(@RequestBody ReservationParam reservationParam) {
+	public void postReservation(@RequestBody ReservationParam reservationParam) {
 		reservationService.addReservations(reservationParam);
-		return true;
 	}
 
 	@PutMapping(path = "/reservations/{reservationId}")
-	public boolean cancelReservation(
+	public void cancelReservation(
 		@PathVariable(name = "reservationId", required = true) Long reservationId) {
 		reservationService.cancelReservation(reservationId);
-		return true;
 	}
 
 	@GetMapping("/reservations")

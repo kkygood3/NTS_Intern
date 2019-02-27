@@ -2,12 +2,9 @@
  * Copyright 2019 NAVER Corp. All rights reserved. Except in the case of
  * internal use for NAVER, unauthorized use of redistribution of this software
  * are strongly prohibited.
- */
-
-/**
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
  */
-
 function ReservationCard(_reservation, reservationData, _popup) {
     this.reservation = _reservation
     this.cancelButton = _reservation.querySelector(".btn");
@@ -32,7 +29,7 @@ function ReservationCard(_reservation, reservationData, _popup) {
         sectionUsed.appendChild(this.reservation);
     	this.cancelButton.innerText = "한줄평 남기기"
     	this.cancelButton.addEventListener("click", () => {
-            alert("will be added");
+            window.location.href = "/reservation/myreservation/reviewWrite/"+this.ReservationId;
         });
     } else if (this.reservation.dataset.cancelFlag == "true") {
         sectionCanceled.appendChild(this.reservation);
@@ -78,6 +75,8 @@ ReservationCard.prototype.cancelReservation= function () {
         popup.removeEventListener("click", event);
         sectionCanceled.appendChild(this.reservation);
         this.cancelButtonWrapper.style.display = "none";
+    }, () => {
+    	alert("FAILED")
     });
     request.send();
     

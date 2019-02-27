@@ -1,10 +1,4 @@
 package com.nts.reservation.controller;
-/**
- * Copyright 2019 NAVER Corp.
- * All rights reserved.
- * Except in the case of internal use for NAVER,
- * unauthorized use of redistribution of this software are strongly prohibited. 
- */
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,28 +7,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nts.reservation.dto.detail.DisplayInfoResponse;
 import com.nts.reservation.service.CategoryService;
+import com.nts.reservation.service.CommentService;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ProductService;
 
 /**
+ * Copyright 2019 NAVER Corp.
+ * All rights reserved.
+ * Except in the case of internal use for NAVER,
+ * unauthorized use of redistribution of this software are strongly prohibited. 
+ * 
  * Author: Jaewon Lee, lee.jaewon@nts-corp.com
+ *
  */
 
 @RestController
-@RequestMapping(path = "/api/", method = {RequestMethod.GET})
-public class ApplicationProductApiController {
+@RequestMapping(path = "/api/")
+public class ProductApiController {
 	@Autowired
 	private ProductService productService;
 	@Autowired
 	private DetailService detailService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private CommentService commentService;
 
 	@GetMapping("/products")
 	public Map<String, Object> getProductsByCategory(
@@ -54,14 +56,13 @@ public class ApplicationProductApiController {
 	@GetMapping("/products/{displayInfoId}")
 	public DisplayInfoResponse getProductDetailByDisplayInfoId(
 		@PathVariable(name = "displayInfoId", required = false) Long displayInfoId) {
-		DisplayInfoResponse result = new DisplayInfoResponse.Builder()
-			.displayInfo(detailService.getDisplayInfo(displayInfoId))
-			.productImages(detailService.getProductImages(displayInfoId))
-			.displayInfoImage(detailService.getDisplayInfoImage(displayInfoId))
-			.averageScore(detailService.getAverageScore(displayInfoId))
-			.productPrices(detailService.getProductPrices(displayInfoId))
-			.comments(detailService.getComments(displayInfoId))
-			.build();
+		DisplayInfoResponse result = new DisplayInfoResponse();
+		result.setDisplayInfo(detailService.getDisplayInfo(displayInfoId));
+		result.setProductImages(detailService.getProductImages(displayInfoId));
+		result.setDisplayInfoImage(detailService.getDisplayInfoImage(displayInfoId));
+		result.setAverageScore(detailService.getAverageScore(displayInfoId));
+		result.setProductPrices(detailService.getProductPrices(displayInfoId));
+		result.setComments(commentService.getComments(displayInfoId));
 		return result;
 	}
 
