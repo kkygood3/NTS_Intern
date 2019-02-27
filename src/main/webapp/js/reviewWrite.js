@@ -43,7 +43,7 @@ function initCommentChangeEvent(){
 			textGuideArea.style.display = '';
 		}
 	});
-	textArea.addEventListener('keypress',textChangeHandler);
+	textArea.addEventListener('keyup',textChangeHandler);
 	textArea.addEventListener('paste',textChangeHandler);
 	function textChangeHandler(){
 		setTimeout(function(){

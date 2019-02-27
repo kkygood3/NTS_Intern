@@ -6,8 +6,6 @@ package com.nts.reservation.dao.reserve;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.nts.reservation.dto.reserve.ReservePrice;
 
 /**
@@ -18,6 +16,5 @@ public interface ReservePriceDao {
 	 * reserve 페이지를 로드할 때 상품의 가격 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public List<ReservePrice> selectReservePrice(
-		@Param("displayInfoId") int displayInfoId);
+	List<ReservePrice> selectReservePrice(int displayInfoId);
 }

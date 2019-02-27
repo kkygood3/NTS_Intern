@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.DetailService;
 import com.nts.reservation.service.ReviewService;
 
@@ -34,14 +34,15 @@ public class DetailApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+		@RequestParam(name = "start", required = false, defaultValue = Properties.COMMENT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.DETAIL_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
 
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("detailResponse", detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
+
+		return Collections.singletonMap("detailResponse",
+			detailDisplayService.getDetailResponse(displayInfoId, start, pagingLimit));
 	}
 
 	/**
@@ -63,13 +64,14 @@ public class DetailApiController {
 	 */
 	@GetMapping("/review")
 	public Map<String, Object> reviewComments(@PathVariable Integer displayInfoId,
-		@RequestParam(name = "start", required = false, defaultValue = CommonProperties.COMMENT_DEFAULT_START) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
-		
+		@RequestParam(name = "start", required = false, defaultValue = Properties.COMMENT_DEFAULT_START) Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.REVIEW_DEFAULT_PAGING_LIMIT) Integer pagingLimit) {
+
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("reviewResponse", reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
+
+		return Collections.singletonMap("reviewResponse",
+			reviewResponseService.getReviewResponse(displayInfoId, start, pagingLimit));
 	}
 }

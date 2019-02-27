@@ -15,7 +15,8 @@ public interface MyReservationService {
 	 * @param start
 	 * @param pagingLimit
 	 */
-	MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start, Integer pagingLimit);
+	MyReservationResponse getMyReservationResponse(String email, ReservationType reservationType, Integer start,
+		Integer pagingLimit);
 
 	/**
 	 * 예약 목록에서 선택한 항목을 cancel 처리

@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.dto.myreservation;
 
+/**
+ * api/reservations에서 MyReservation 요청에 예약 정보를 담는 객체 
+ */
 public class MyReservationInfo {
 	private Integer reservationInfoId;
 	private Integer reservationInfoPriceId;

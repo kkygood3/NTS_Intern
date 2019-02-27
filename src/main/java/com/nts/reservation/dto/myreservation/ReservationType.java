@@ -4,6 +4,9 @@
  */
 package com.nts.reservation.dto.myreservation;
 
+/**
+ * 프로젝트에서 사용하는 reservation의 상태
+ */
 public enum ReservationType {
 	CONFIRM,
 	COMPLETE,

@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nts.reservation.dto.myreservation.ReservationType;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
-import com.nts.reservation.property.CommonProperties;
+import com.nts.reservation.property.Properties;
 import com.nts.reservation.service.MyReservationService;
 import com.nts.reservation.service.ReserveService;
+import com.nts.reservation.service.ReviewWriteService;
+import com.nts.reservation.utils.RequestValidator;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -35,6 +37,8 @@ public class ReserveApiController {
 	ReserveService reserveResponseService;
 	@Autowired
 	MyReservationService myReservationService;
+	@Autowired
+	ReviewWriteService reviewWriteService;
 
 	/**
 	 * Reservation 정보 조회
@@ -44,16 +48,17 @@ public class ReserveApiController {
 	 */
 	@GetMapping
 	public Map<String, Object> getReservations(
-		@RequestParam(name = "reservationType", required = true) ReservationType reservationType,
-		@RequestParam(name = "start", required = true) Integer start,
-		@RequestParam(name = "pagingLimit", required = false, defaultValue = CommonProperties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
-		HttpSession session){
-		
+		@RequestParam("reservationType") ReservationType reservationType,
+		@RequestParam("start") Integer start,
+		@RequestParam(name = "pagingLimit", required = false, defaultValue = Properties.MY_RESERVATION_DEFAULT_PAGING_LIMIT) Integer pagingLimit,
+		HttpSession session) {
+
 		if (start < 0) {
 			start = 0;
 		}
-		
-		return Collections.singletonMap("myReservationResponse", myReservationService.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
+
+		return Collections.singletonMap("myReservationResponse", myReservationService
+			.getMyReservationResponse((String)session.getAttribute("email"), reservationType, start, pagingLimit));
 	}
 
 	/**
@@ -64,9 +69,9 @@ public class ReserveApiController {
 	 */
 	@PostMapping
 	public Map<String, Object> reserve(@RequestBody ReserveRequest reserveRequest) {
-		
+
 		String result = "FAIL";
-		if (reserveRequest.isValid()) {
+		if (RequestValidator.validateReserveRequest(reserveRequest)) {
 			reserveResponseService.registerReserve(reserveRequest);
 			result = "OK";
 		}
@@ -80,7 +85,7 @@ public class ReserveApiController {
 	 */
 	@PutMapping("/{reservationInfoId}")
 	public Map<String, Object> cancelReservation(@PathVariable Integer reservationInfoId, HttpSession session) {
-		
+
 		String result = "FAIL";
 		if (myReservationService.cancelMyReservation(reservationInfoId, (String)session.getAttribute("email"))) {
 			result = "OK";
@@ -88,7 +93,7 @@ public class ReserveApiController {
 
 		return Collections.singletonMap("result", result);
 	}
-	
+
 	/**
 	 * Comment 등록
 	 * @param reservationInfoId
@@ -96,10 +101,9 @@ public class ReserveApiController {
 	@PostMapping("/{reservationInfoId}/comments")
 	public Map<String, Object> registerComment(@PathVariable Integer reservationInfoId,
 		ReviewWriteRequest reviewWriteRequest) {
-		System.out.println("호출 성공 " + reviewWriteRequest);
-		
-		
-		
-		return Collections.emptyMap();
+		reviewWriteRequest.setReservationInfoId(reservationInfoId);
+		reviewWriteService.writeReview(reviewWriteRequest);
+
+		return Collections.singletonMap("result", "OK");
 	}
 }

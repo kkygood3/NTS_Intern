@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.dao.review;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.nts.reservation.dto.review.ReviewDisplayInfo;
 
 /**
@@ -16,6 +14,5 @@ public interface ReviewDisplayInfoDao {
 	 * review 페이지를 로드할 때 DisplayInfo 정보를 조회
 	 * @param displayInfoId - 조회할 displayInfo table의 ID
 	 */
-	public ReviewDisplayInfo selectDetailDisplayInfo(
-		@Param("displayInfoId") int displayInfoId);
+	ReviewDisplayInfo selectDetailDisplayInfo(int displayInfoId);
 }

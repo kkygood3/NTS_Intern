@@ -4,8 +4,6 @@
  */
 package com.nts.reservation.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ import com.nts.reservation.dto.reserve.ReservePrice;
 import com.nts.reservation.dto.reserve.ReserveRequest;
 import com.nts.reservation.dto.reserve.ReserveResponse;
 import com.nts.reservation.service.ReserveService;
+import com.nts.reservation.utils.DateGenerator;
 
 @Service
 public class ReserveServiceImpl implements ReserveService {
@@ -31,9 +30,10 @@ public class ReserveServiceImpl implements ReserveService {
 	ReserveDao reserveDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public ReserveResponse getReserveResponse(int displayInfoId) {
 		ReserveDisplayInfo reserveDisplayInfo = reserveDisplayInfoDao.selectReviewDisplayInfo(displayInfoId);
-		
+
 		//priceTypeName을 출력에 사용하는 형식으로 변환
 		List<ReservePrice> reservePrice = reservePriceDao.selectReservePrice(displayInfoId);
 		for (int i = 0; i < reservePrice.size(); i++) {
@@ -42,28 +42,14 @@ public class ReserveServiceImpl implements ReserveService {
 			targetPrice.setPriceTypeLabel(typeLabel);
 		}
 		
-		//공연 정보 날짜를 오늘부터 1~5일후의 날짜로 무작위 생성.
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, (int)((Math.random() * 5)) + 1);
-		String reservationDate = dateFormat.format(calendar.getTime());
-		
-		return new ReserveResponse(reserveDisplayInfo, reservePrice, reservationDate);
+		return new ReserveResponse(reserveDisplayInfo, reservePrice, DateGenerator.getRandomDate());
 	}
 
 	@Override
-	@Transactional(readOnly = false)
+	@Transactional
 	public void registerReserve(ReserveRequest reserveRequest) {
 		reserveDao.insertReservation(reserveRequest);
-		int reservationInfoId = reserveRequest.getId();
-		
-		List<ReservePrice> reservePriceInfoList = reserveRequest.getReservePriceInfoList();
-		reservePriceInfoList.forEach(item->item.setReservationInfoId(reservationInfoId));
-		
-		if (reserveDao.insertReservationPrice(reservePriceInfoList) != reservePriceInfoList.size()) {
-			throw new RuntimeException("DB 갱신 오류");
-		}
-		
+		reserveDao.insertReservationPrice(reserveRequest);
 	}
 
 }

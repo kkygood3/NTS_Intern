@@ -12,12 +12,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
+import com.nts.reservation.utils.RequestValidator;
 
 /**
  * Multipart-form data request인 ReviewWriteRequest 요청에 사용
  * @return ReviewWriteRequest
  */
-public class ReviewWriteRequestArgumentResolver implements HandlerMethodArgumentResolver{
+public class ReviewWriteArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
@@ -28,18 +29,18 @@ public class ReviewWriteRequestArgumentResolver implements HandlerMethodArgument
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 		NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		ReviewWriteRequest reviewWriteRequest = new ReviewWriteRequest();
-		
+
 		MultipartHttpServletRequest multipartRequest = webRequest.getNativeRequest(MultipartHttpServletRequest.class);
-		
+
 		reviewWriteRequest.setImageFile(multipartRequest.getFile("imageFile"));
 		reviewWriteRequest.setComment(multipartRequest.getParameter("comment"));
 		reviewWriteRequest.setProductId(new Integer(multipartRequest.getParameter("productId")));
 		reviewWriteRequest.setScore(new Integer(multipartRequest.getParameter("score")));
-		
-		if(!reviewWriteRequest.isVaild()) {
+
+		if (!RequestValidator.validateReviewWriteRequest(reviewWriteRequest)) {
 			throw new RuntimeException("Comment 형식 이상");
 		}
-		
+
 		return reviewWriteRequest;
 	}
 

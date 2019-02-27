@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.common.CommentDao;
 import com.nts.reservation.dao.detail.DetailDisplayInfoDao;
@@ -24,6 +25,7 @@ public class DetailServiceImpl implements DetailService {
 	DetailExtraImageDao detailExtraImageDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public DetailResponse getDetailResponse(int displayInfoId, int start, int pagingLimit) {
 		DetailResponse detailResponse = new DetailResponse();
 
@@ -34,6 +36,7 @@ public class DetailServiceImpl implements DetailService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public DetailExtraImage getExtraImage(int displayInfoId) {
 		return detailExtraImageDao.selectDetailExtraImage(displayInfoId);
 	}

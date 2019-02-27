@@ -5,7 +5,7 @@
 package com.nts.reservation.dto.reviewwrite;
 
 /**
- * reviewWrite 페이지 로드 시 응답 객체
+ * reviewWrite 페이지 로드시 사용하는 응답 객체
  */
 public class ReviewWriteResponse {
 	private Integer reservationInfoId;

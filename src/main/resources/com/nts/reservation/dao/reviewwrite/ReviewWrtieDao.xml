@@ -15,4 +15,54 @@
 		WHERE
 			r.id = #{reservationInfoId}
 	</select>
+	
+	<insert id="insertComment" useGeneratedKeys="true" keyProperty="reservationUserCommentId">
+		INSERT
+			INTO reservation_user_comment(
+				product_id,
+				reservation_info_id,
+				score,
+				comment,
+				create_date,
+				modify_date)
+			VALUES
+				(#{productId},
+				#{reservationInfoId},
+				#{score},
+				#{comment},
+				NOW(),
+				NOW())
+	</insert>
+	<insert id="insertFileInfo" useGeneratedKeys="true" keyProperty="fileInfoId">
+		INSERT
+			INTO file_info(
+				file_name,
+				save_file_name,
+				content_type,
+				delete_flag,
+				create_date,
+				modify_date
+			)
+			VALUES(
+				#{fileName},
+				#{saveFileName},
+				#{contentType},
+				0,
+				NOW(),
+				NOW()
+			)
+	</insert>
+	<insert id="insertCommentImage">
+		INSERT
+			INTO reservation_user_comment_image(
+				reservation_info_id,
+				reservation_user_comment_id,
+				file_id
+			)
+			VALUES(
+				#{reservationInfoId},
+				#{reservationUserCommentId},
+				#{fileInfoId}
+			)
+	</insert>
 </mapper>

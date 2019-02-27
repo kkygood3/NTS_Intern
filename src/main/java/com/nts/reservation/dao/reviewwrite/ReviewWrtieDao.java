@@ -4,16 +4,19 @@
  */
 package com.nts.reservation.dao.reviewwrite;
 
-import org.apache.ibatis.annotations.Param;
-
+import com.nts.reservation.dto.reviewwrite.ReviewWriteRequest;
 import com.nts.reservation.dto.reviewwrite.ReviewWriteResponse;
-
 
 public interface ReviewWrtieDao {
 	/**
 	 * reviewWrite 페이지 로드 reponse에 사용
 	 * @param reservationInfoId
 	 */
-	public ReviewWriteResponse selectReviewWrite(
-		@Param("reservationInfoId") int reservationInfoId);
+	ReviewWriteResponse selectReviewWrite(int reservationInfoId);
+
+	int insertComment(ReviewWriteRequest reviewWriteRequest);
+
+	int insertFileInfo(ReviewWriteRequest reviewWriteRequest);
+
+	int insertCommentImage(ReviewWriteRequest reviewWriteRequest);
 }

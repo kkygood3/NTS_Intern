@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nts.reservation.common.ReservationValidatior;
+import com.nts.reservation.utils.ValidationUtils;
 
 @Controller
 public class MyReservationContorller {
@@ -24,7 +24,7 @@ public class MyReservationContorller {
 	public String requestMyReservation(
 		@RequestParam(name = "email", required = false) String email,
 		HttpSession session) {
-		
+
 		if (session.getAttribute("email") != null) {
 			return "myreservation";
 		} else {
@@ -47,7 +47,7 @@ public class MyReservationContorller {
 	@PostMapping("/myreservation")
 	public String loginReservation(@RequestParam(name = "email", required = true) String email, HttpSession session) {
 
-		if (!ReservationValidatior.validateEmail(email)) {
+		if (!ValidationUtils.validateEmail(email)) {
 			throw new RuntimeException("Email 형식 오류");
 		}
 

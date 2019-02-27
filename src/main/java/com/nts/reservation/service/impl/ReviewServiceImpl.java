@@ -6,6 +6,7 @@ package com.nts.reservation.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.common.CommentDao;
 import com.nts.reservation.dao.review.ReviewDisplayInfoDao;
@@ -20,6 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewDisplayInfoDao reviewDisplayInfoDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public ReviewResponse getReviewResponse(int displayInfoId, int start, int pagingLimit) {
 		ReviewResponse reviewResponse = new ReviewResponse();
 

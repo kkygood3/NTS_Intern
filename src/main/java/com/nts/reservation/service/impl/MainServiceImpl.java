@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nts.reservation.dao.main.MainCategoryDao;
 import com.nts.reservation.dao.main.MainProductDao;
@@ -30,28 +31,31 @@ public class MainServiceImpl implements MainService {
 	private MainPromotionDao mainPromotionDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public MainProductResponse getProducts(int categoryId, int start, int pagingLimit) {
 		int count = mainProductDao.selectCount(categoryId);
 		List<MainProduct> productList = new ArrayList<>();
-		
-		if(count > 0) {
-			 productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
+
+		if (count > 0) {
+			productList = mainProductDao.selectProducts(categoryId, start, pagingLimit);
 		}
 		return new MainProductResponse(productList, count);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public MainCategoryResponse getCategories(int pagingLimit) {
 		return new MainCategoryResponse(mainCategoryDao.selectCategories(pagingLimit));
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public MainPromotionResponse getPromotions(int pagingLimit) {
 		int count = mainPromotionDao.selectCount();
 		List<MainPromotion> promotionList = new ArrayList<>();
-		
-		if(count > 0) {
-			 promotionList = mainPromotionDao.selectPromotions(pagingLimit);
+
+		if (count > 0) {
+			promotionList = mainPromotionDao.selectPromotions(pagingLimit);
 		}
 		return new MainPromotionResponse(promotionList, count);
 	}
