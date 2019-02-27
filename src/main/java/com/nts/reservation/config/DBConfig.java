@@ -71,9 +71,9 @@ public class DBConfig implements TransactionManagementConfigurer {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setTypeAliasesPackage("com.nts.reservation.dto.*");
-		sessionFactory.getObject()
-			.getConfiguration()
-			.setReturnInstanceForEmptyRow(true);
+		//		sessionFactory.getObject()
+		//			.getConfiguration()
+		//			.setReturnInstanceForEmptyRow(true);
 		return sessionFactory;
 	}
 

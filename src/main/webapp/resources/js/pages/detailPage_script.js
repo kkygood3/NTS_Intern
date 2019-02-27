@@ -96,7 +96,7 @@ var detailPage = {
         let request = new XhrRequest("GET", this.urls.DETAIL + this.constants.DISPLAY_INFO_ID);
         request.setCallback((respText) => {
         	this.state.detail_data = JSON.parse(respText);
-
+        	console.log(this.state.detail_data.comments)
             this.renderDescription();
 
             this.renderBottomData();

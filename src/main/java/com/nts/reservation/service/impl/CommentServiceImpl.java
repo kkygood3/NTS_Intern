@@ -46,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Comment> getComments(Long displayInfoId) {
 		List<Comment> comments = commentMapper.selectCommentsWithImages(displayInfoId);
+		System.out.println(comments.toString());
 		return comments;
 	}
 
@@ -70,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
 				commentDao.insertCommentImageInfo(file_id, commentParam.getReservationInfoId(), commentId);
 				try {
 					fileIo.saveFile(basePath, commentId, file);
-				} catch(Exception e) {
+				} catch (Exception e) {
 					if (targetDir.exists()) {
 						fileIo.deleteFile(targetDir);
 					}
